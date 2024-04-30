@@ -2,7 +2,7 @@
 
 ## Users
 
-Types:
+Types Exposed:
 
 ```python
 from structify.types.admin import UserNode, UserListResponse
