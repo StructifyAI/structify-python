@@ -5,10 +5,10 @@ from __future__ import annotations
 from typing import Union, Optional
 from typing_extensions import Required, Annotated, TypedDict
 
-from ..._utils import PropertyInfo
+from .._utils import PropertyInfo
 
 __all__ = [
-    "RunCreateParams",
+    "StructureRunAsyncParams",
     "Variant0",
     "Variant0Text",
     "Variant1",
@@ -74,4 +74,4 @@ class Variant3SecFiling(TypedDict, total=False):
     year: Optional[int]
 
 
-RunCreateParams = Union[Variant0, Variant1, Variant2, Variant3]
+StructureRunAsyncParams = Union[Variant0, Variant1, Variant2, Variant3]
