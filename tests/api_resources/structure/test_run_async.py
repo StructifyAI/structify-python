@@ -30,7 +30,7 @@ class TestRunAsync:
             dataset_name="string",
             text={"text_content": "string"},
             custom_instruction="string",
-            llm={},
+            llm="Gpt4V",
         )
         assert_matches_type(object, run_async, path=["response"])
 
@@ -74,7 +74,7 @@ class TestRunAsync:
             dataset_name="string",
             document={"path": "string"},
             custom_instruction="string",
-            llm={},
+            llm="Gpt4V",
         )
         assert_matches_type(object, run_async, path=["response"])
 
@@ -121,7 +121,7 @@ class TestRunAsync:
                 "starting_website": "string",
             },
             custom_instruction="string",
-            llm={},
+            llm="Gpt4V",
         )
         assert_matches_type(object, run_async, path=["response"])
 
@@ -169,7 +169,7 @@ class TestRunAsync:
                 "year": 0,
             },
             custom_instruction="string",
-            llm={},
+            llm="Gpt4V",
         )
         assert_matches_type(object, run_async, path=["response"])
 
@@ -217,7 +217,7 @@ class TestAsyncRunAsync:
             dataset_name="string",
             text={"text_content": "string"},
             custom_instruction="string",
-            llm={},
+            llm="Gpt4V",
         )
         assert_matches_type(object, run_async, path=["response"])
 
@@ -261,7 +261,7 @@ class TestAsyncRunAsync:
             dataset_name="string",
             document={"path": "string"},
             custom_instruction="string",
-            llm={},
+            llm="Gpt4V",
         )
         assert_matches_type(object, run_async, path=["response"])
 
@@ -308,7 +308,7 @@ class TestAsyncRunAsync:
                 "starting_website": "string",
             },
             custom_instruction="string",
-            llm={},
+            llm="Gpt4V",
         )
         assert_matches_type(object, run_async, path=["response"])
 
@@ -356,7 +356,7 @@ class TestAsyncRunAsync:
                 "year": 0,
             },
             custom_instruction="string",
-            llm={},
+            llm="Gpt4V",
         )
         assert_matches_type(object, run_async, path=["response"])
 
