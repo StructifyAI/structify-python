@@ -2,4 +2,4 @@
 
 from __future__ import annotations
 
-from .get_job_info_create_params import GetJobInfoCreateParams as GetJobInfoCreateParams
+from .server_information import ServerInformation as ServerInformation
