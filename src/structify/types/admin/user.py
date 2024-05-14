@@ -5,10 +5,10 @@ from typing_extensions import Literal
 
 from ..._models import BaseModel
 
-__all__ = ["UserNode"]
+__all__ = ["User"]
 
 
-class UserNode(BaseModel):
+class User(BaseModel):
     email: str
 
     user_type: Optional[Literal["Admin", "Public", "EndUser"]] = None

@@ -2,5 +2,5 @@
 
 from __future__ import annotations
 
-from .user_node import UserNode as UserNode
+from .user import User as User
 from .user_list_response import UserListResponse as UserListResponse

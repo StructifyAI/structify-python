@@ -18,7 +18,7 @@ Methods:
 Types:
 
 ```python
-from structify.types.admin import UserNode, UserListResponse
+from structify.types.admin import User, UserListResponse
 ```
 
 Methods:
@@ -31,8 +31,8 @@ Types:
 
 ```python
 from structify.types import (
+    Dataset,
     DatasetDescriptor,
-    DatasetNode,
     KgEntity,
     DatasetListResponse,
     DatasetViewResponse,
