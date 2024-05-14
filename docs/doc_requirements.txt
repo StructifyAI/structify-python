@@ -1,2 +1,3 @@
 sphinx-autoapi
 sphinxawesome-theme
+sphinxcontrib-details-directive
