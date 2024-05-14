@@ -18,7 +18,7 @@ Methods:
 Types:
 
 ```python
-from structify.types.admin import UserNode, UserListResponse
+from structify.types.admin import User, UserListResponse
 ```
 
 Methods:
@@ -100,53 +100,17 @@ Methods:
 
 # Structure
 
-## IsComplete
-
 Types:
 
 ```python
-from structify.types.structure import IsComplete
+from structify.types import IsComplete, StructureJobStatusResponse, StructureRunAsyncResponse
 ```
 
 Methods:
 
-- <code title="post /structure/is_complete">client.structure.is_complete.<a href="./src/structify/resources/structure/is_complete.py">create</a>(\*\*<a href="src/structify/types/structure/is_complete_create_params.py">params</a>) -> <a href="./src/structify/types/structure/is_complete.py">IsComplete</a></code>
-
-## JobStatus
-
-Types:
-
-```python
-from structify.types.structure import JobStatusCreateResponse
-```
-
-Methods:
-
-- <code title="post /structure/job_status">client.structure.job_status.<a href="./src/structify/resources/structure/job_status.py">create</a>(\*\*<a href="src/structify/types/structure/job_status_create_params.py">params</a>) -> <a href="./src/structify/types/structure/job_status_create_response.py">object</a></code>
-
-## Run
-
-Types:
-
-```python
-from structify.types.structure import RunCreateResponse
-```
-
-Methods:
-
-- <code title="post /structure/run">client.structure.run.<a href="./src/structify/resources/structure/run.py">create</a>(\*\*<a href="src/structify/types/structure/run_create_params.py">params</a>) -> <a href="./src/structify/types/structure/run_create_response.py">object</a></code>
-
-## RunAsync
-
-Types:
-
-```python
-from structify.types.structure import RunAsyncCreateResponse
-```
-
-Methods:
-
-- <code title="post /structure/run_async">client.structure.run_async.<a href="./src/structify/resources/structure/run_async.py">create</a>(\*\*<a href="src/structify/types/structure/run_async_create_params.py">params</a>) -> <a href="./src/structify/types/structure/run_async_create_response.py">object</a></code>
+- <code title="post /structure/is_complete">client.structure.<a href="./src/structify/resources/structure.py">is_complete</a>(\*\*<a href="src/structify/types/structure_is_complete_params.py">params</a>) -> <a href="./src/structify/types/is_complete.py">IsComplete</a></code>
+- <code title="post /structure/job_status">client.structure.<a href="./src/structify/resources/structure.py">job_status</a>(\*\*<a href="src/structify/types/structure_job_status_params.py">params</a>) -> <a href="./src/structify/types/structure_job_status_response.py">object</a></code>
+- <code title="post /structure/run_async">client.structure.<a href="./src/structify/resources/structure.py">run_async</a>(\*\*<a href="src/structify/types/structure_run_async_params.py">params</a>) -> <a href="./src/structify/types/structure_run_async_response.py">object</a></code>
 
 # Usage
 

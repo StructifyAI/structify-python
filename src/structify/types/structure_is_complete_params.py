@@ -5,8 +5,8 @@ from __future__ import annotations
 from typing import List
 from typing_extensions import Required, TypedDict
 
-__all__ = ["JobStatusCreateParams"]
+__all__ = ["StructureIsCompleteParams"]
 
 
-class JobStatusCreateParams(TypedDict, total=False):
+class StructureIsCompleteParams(TypedDict, total=False):
     body: Required[List[str]]
