@@ -260,6 +260,7 @@ class TestAsyncDocuments:
                 "",
             )
 
+    @pytest.mark.skip(reason="stainless doesn't support this yet.")
     @parametrize
     async def test_method_upload(self, async_client: AsyncStructify) -> None:
         document = await async_client.documents.upload(
@@ -269,6 +270,7 @@ class TestAsyncDocuments:
         )
         assert document is None
 
+    @pytest.mark.skip(reason="stainless doesn't support yet.")
     @parametrize
     async def test_raw_response_upload(self, async_client: AsyncStructify) -> None:
         response = await async_client.documents.with_raw_response.upload(
