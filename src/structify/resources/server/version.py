@@ -4,33 +4,33 @@ from __future__ import annotations
 
 import httpx
 
-from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
-from .._compat import cached_property
-from .._resource import SyncAPIResource, AsyncAPIResource
-from .._response import (
+from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from ..._compat import cached_property
+from ..._resource import SyncAPIResource, AsyncAPIResource
+from ..._response import (
     to_raw_response_wrapper,
     to_streamed_response_wrapper,
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from .._base_client import (
+from ..._base_client import (
     make_request_options,
 )
-from ..types.server_information import ServerInformation
+from ...types.server.server_information import ServerInformation
 
-__all__ = ["ServerResource", "AsyncServerResource"]
+__all__ = ["VersionResource", "AsyncVersionResource"]
 
 
-class ServerResource(SyncAPIResource):
+class VersionResource(SyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> ServerResourceWithRawResponse:
-        return ServerResourceWithRawResponse(self)
+    def with_raw_response(self) -> VersionResourceWithRawResponse:
+        return VersionResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> ServerResourceWithStreamingResponse:
-        return ServerResourceWithStreamingResponse(self)
+    def with_streaming_response(self) -> VersionResourceWithStreamingResponse:
+        return VersionResourceWithStreamingResponse(self)
 
-    def version(
+    def retrieve(
         self,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -50,16 +50,16 @@ class ServerResource(SyncAPIResource):
         )
 
 
-class AsyncServerResource(AsyncAPIResource):
+class AsyncVersionResource(AsyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> AsyncServerResourceWithRawResponse:
-        return AsyncServerResourceWithRawResponse(self)
+    def with_raw_response(self) -> AsyncVersionResourceWithRawResponse:
+        return AsyncVersionResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> AsyncServerResourceWithStreamingResponse:
-        return AsyncServerResourceWithStreamingResponse(self)
+    def with_streaming_response(self) -> AsyncVersionResourceWithStreamingResponse:
+        return AsyncVersionResourceWithStreamingResponse(self)
 
-    async def version(
+    async def retrieve(
         self,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -79,37 +79,37 @@ class AsyncServerResource(AsyncAPIResource):
         )
 
 
-class ServerResourceWithRawResponse:
-    def __init__(self, server: ServerResource) -> None:
-        self._server = server
+class VersionResourceWithRawResponse:
+    def __init__(self, version: VersionResource) -> None:
+        self._version = version
 
-        self.version = to_raw_response_wrapper(
-            server.version,
+        self.retrieve = to_raw_response_wrapper(
+            version.retrieve,
         )
 
 
-class AsyncServerResourceWithRawResponse:
-    def __init__(self, server: AsyncServerResource) -> None:
-        self._server = server
+class AsyncVersionResourceWithRawResponse:
+    def __init__(self, version: AsyncVersionResource) -> None:
+        self._version = version
 
-        self.version = async_to_raw_response_wrapper(
-            server.version,
+        self.retrieve = async_to_raw_response_wrapper(
+            version.retrieve,
         )
 
 
-class ServerResourceWithStreamingResponse:
-    def __init__(self, server: ServerResource) -> None:
-        self._server = server
+class VersionResourceWithStreamingResponse:
+    def __init__(self, version: VersionResource) -> None:
+        self._version = version
 
-        self.version = to_streamed_response_wrapper(
-            server.version,
+        self.retrieve = to_streamed_response_wrapper(
+            version.retrieve,
         )
 
 
-class AsyncServerResourceWithStreamingResponse:
-    def __init__(self, server: AsyncServerResource) -> None:
-        self._server = server
+class AsyncVersionResourceWithStreamingResponse:
+    def __init__(self, version: AsyncVersionResource) -> None:
+        self._version = version
 
-        self.version = async_to_streamed_response_wrapper(
-            server.version,
+        self.retrieve = async_to_streamed_response_wrapper(
+            version.retrieve,
         )

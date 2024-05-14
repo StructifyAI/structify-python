@@ -76,15 +76,17 @@ Methods:
 
 # Server
 
+## Version
+
 Types:
 
 ```python
-from structify.types import ServerInformation
+from structify.types.server import ServerInformation
 ```
 
 Methods:
 
-- <code title="get /server/version">client.server.<a href="./src/structify/resources/server.py">version</a>() -> <a href="./src/structify/types/server_information.py">ServerInformation</a></code>
+- <code title="get /server/version">client.server.version.<a href="./src/structify/resources/server/version.py">retrieve</a>() -> <a href="./src/structify/types/server/server_information.py">ServerInformation</a></code>
 
 # Sources
 
@@ -112,16 +114,28 @@ Methods:
 - <code title="post /structure/job_status">client.structure.<a href="./src/structify/resources/structure.py">job_status</a>(\*\*<a href="src/structify/types/structure_job_status_params.py">params</a>) -> <a href="./src/structify/types/structure_job_status_response.py">object</a></code>
 - <code title="post /structure/run_async">client.structure.<a href="./src/structify/resources/structure.py">run_async</a>(\*\*<a href="src/structify/types/structure_run_async_params.py">params</a>) -> <a href="./src/structify/types/structure_run_async_response.py">object</a></code>
 
-# Usage
-
-## GetJobInfo
+# Label
 
 Types:
 
 ```python
-from structify.types.usage import GetJobInfoCreateResponse
+from structify.types import LabelGetMessagesResponse, LabelSubmitResponse
 ```
 
 Methods:
 
-- <code title="post /usage/get_job_info">client.usage.get_job_info.<a href="./src/structify/resources/usage/get_job_info.py">create</a>(\*\*<a href="src/structify/types/usage/get_job_info_create_params.py">params</a>) -> <a href="./src/structify/types/usage/get_job_info_create_response.py">object</a></code>
+- <code title="get /label/refresh">client.label.<a href="./src/structify/resources/label.py">get_messages</a>() -> <a href="./src/structify/types/label_get_messages_response.py">Optional</a></code>
+- <code title="post /label/run_async">client.label.<a href="./src/structify/resources/label.py">run</a>(\*\*<a href="src/structify/types/label_run_params.py">params</a>) -> None</code>
+- <code title="post /label/submit">client.label.<a href="./src/structify/resources/label.py">submit</a>(\*\*<a href="src/structify/types/label_submit_params.py">params</a>) -> str</code>
+
+# Usage
+
+Types:
+
+```python
+from structify.types import UsageGetJobInfoResponse
+```
+
+Methods:
+
+- <code title="post /usage/get_job_info">client.usage.<a href="./src/structify/resources/usage.py">get_job_info</a>(\*\*<a href="src/structify/types/usage_get_job_info_params.py">params</a>) -> <a href="./src/structify/types/usage_get_job_info_response.py">object</a></code>
