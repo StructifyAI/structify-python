@@ -2,8 +2,8 @@
 
 from typing import List
 
-from .dataset_node import DatasetNode
+from .dataset import Dataset
 
 __all__ = ["DatasetListResponse"]
 
-DatasetListResponse = List[DatasetNode]
+DatasetListResponse = List[Dataset]

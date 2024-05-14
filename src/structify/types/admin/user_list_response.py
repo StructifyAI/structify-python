@@ -2,8 +2,8 @@
 
 from typing import List
 
-from .user_node import UserNode
+from .user import User
 
 __all__ = ["UserListResponse"]
 
-UserListResponse = List[UserNode]
+UserListResponse = List[User]
