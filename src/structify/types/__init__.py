@@ -2,16 +2,15 @@
 
 from __future__ import annotations
 
-from .entity import Entity as Entity
 from .source import Source as Source
 from .dataset import Dataset as Dataset
+from .kg_entity import KgEntity as KgEntity
 from .new_token import NewToken as NewToken
 from .user_info import UserInfo as UserInfo
 from .is_complete import IsComplete as IsComplete
 from .label_run_params import LabelRunParams as LabelRunParams
 from .run_list_response import RunListResponse as RunListResponse
 from .dataset_descriptor import DatasetDescriptor as DatasetDescriptor
-from .dataset_get_params import DatasetGetParams as DatasetGetParams
 from .source_list_params import SourceListParams as SourceListParams
 from .dataset_view_params import DatasetViewParams as DatasetViewParams
 from .label_submit_params import LabelSubmitParams as LabelSubmitParams
@@ -22,6 +21,7 @@ from .dataset_view_response import DatasetViewResponse as DatasetViewResponse
 from .label_submit_response import LabelSubmitResponse as LabelSubmitResponse
 from .document_list_response import DocumentListResponse as DocumentListResponse
 from .document_upload_params import DocumentUploadParams as DocumentUploadParams
+from .dataset_retrieve_params import DatasetRetrieveParams as DatasetRetrieveParams
 from .usage_get_job_info_params import UsageGetJobInfoParams as UsageGetJobInfoParams
 from .document_download_response import DocumentDownloadResponse as DocumentDownloadResponse
 from .structure_run_async_params import StructureRunAsyncParams as StructureRunAsyncParams

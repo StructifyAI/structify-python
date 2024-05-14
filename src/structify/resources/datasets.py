@@ -6,7 +6,12 @@ from typing import Iterable, Optional
 
 import httpx
 
-from ..types import dataset_get_params, dataset_view_params, dataset_create_params, dataset_delete_params
+from ..types import (
+    dataset_view_params,
+    dataset_create_params,
+    dataset_delete_params,
+    dataset_retrieve_params,
+)
 from .._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
 from .._utils import (
     maybe_transform,
@@ -81,6 +86,43 @@ class DatasetsResource(SyncAPIResource):
             cast_to=NoneType,
         )
 
+    def retrieve(
+        self,
+        *,
+        name: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> Optional[DatasetDescriptor]:
+        """
+        Grab a dataset by its name.
+
+        Args:
+          name: Information about the dataset
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._get(
+            "/dataset/info",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"name": name}, dataset_retrieve_params.DatasetRetrieveParams),
+            ),
+            cast_to=DatasetDescriptor,
+        )
+
     def list(
         self,
         *,
@@ -136,43 +178,6 @@ class DatasetsResource(SyncAPIResource):
                 query=maybe_transform({"name": name}, dataset_delete_params.DatasetDeleteParams),
             ),
             cast_to=NoneType,
-        )
-
-    def get(
-        self,
-        *,
-        name: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Optional[DatasetDescriptor]:
-        """
-        Grab a dataset by its name.
-
-        Args:
-          name: Information about the dataset
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return self._get(
-            "/dataset/info",
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform({"name": name}, dataset_get_params.DatasetGetParams),
-            ),
-            cast_to=DatasetDescriptor,
         )
 
     def view(
@@ -273,6 +278,43 @@ class AsyncDatasetsResource(AsyncAPIResource):
             cast_to=NoneType,
         )
 
+    async def retrieve(
+        self,
+        *,
+        name: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> Optional[DatasetDescriptor]:
+        """
+        Grab a dataset by its name.
+
+        Args:
+          name: Information about the dataset
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._get(
+            "/dataset/info",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform({"name": name}, dataset_retrieve_params.DatasetRetrieveParams),
+            ),
+            cast_to=DatasetDescriptor,
+        )
+
     async def list(
         self,
         *,
@@ -330,43 +372,6 @@ class AsyncDatasetsResource(AsyncAPIResource):
             cast_to=NoneType,
         )
 
-    async def get(
-        self,
-        *,
-        name: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Optional[DatasetDescriptor]:
-        """
-        Grab a dataset by its name.
-
-        Args:
-          name: Information about the dataset
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return await self._get(
-            "/dataset/info",
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform({"name": name}, dataset_get_params.DatasetGetParams),
-            ),
-            cast_to=DatasetDescriptor,
-        )
-
     async def view(
         self,
         *,
@@ -421,14 +426,14 @@ class DatasetsResourceWithRawResponse:
         self.create = to_raw_response_wrapper(
             datasets.create,
         )
+        self.retrieve = to_raw_response_wrapper(
+            datasets.retrieve,
+        )
         self.list = to_raw_response_wrapper(
             datasets.list,
         )
         self.delete = to_raw_response_wrapper(
             datasets.delete,
-        )
-        self.get = to_raw_response_wrapper(
-            datasets.get,
         )
         self.view = to_raw_response_wrapper(
             datasets.view,
@@ -442,14 +447,14 @@ class AsyncDatasetsResourceWithRawResponse:
         self.create = async_to_raw_response_wrapper(
             datasets.create,
         )
+        self.retrieve = async_to_raw_response_wrapper(
+            datasets.retrieve,
+        )
         self.list = async_to_raw_response_wrapper(
             datasets.list,
         )
         self.delete = async_to_raw_response_wrapper(
             datasets.delete,
-        )
-        self.get = async_to_raw_response_wrapper(
-            datasets.get,
         )
         self.view = async_to_raw_response_wrapper(
             datasets.view,
@@ -463,14 +468,14 @@ class DatasetsResourceWithStreamingResponse:
         self.create = to_streamed_response_wrapper(
             datasets.create,
         )
+        self.retrieve = to_streamed_response_wrapper(
+            datasets.retrieve,
+        )
         self.list = to_streamed_response_wrapper(
             datasets.list,
         )
         self.delete = to_streamed_response_wrapper(
             datasets.delete,
-        )
-        self.get = to_streamed_response_wrapper(
-            datasets.get,
         )
         self.view = to_streamed_response_wrapper(
             datasets.view,
@@ -484,14 +489,14 @@ class AsyncDatasetsResourceWithStreamingResponse:
         self.create = async_to_streamed_response_wrapper(
             datasets.create,
         )
+        self.retrieve = async_to_streamed_response_wrapper(
+            datasets.retrieve,
+        )
         self.list = async_to_streamed_response_wrapper(
             datasets.list,
         )
         self.delete = async_to_streamed_response_wrapper(
             datasets.delete,
-        )
-        self.get = async_to_streamed_response_wrapper(
-            datasets.get,
         )
         self.view = async_to_streamed_response_wrapper(
             datasets.view,

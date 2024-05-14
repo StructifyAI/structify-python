@@ -4,10 +4,10 @@ from typing import Dict, Union, Optional
 
 from .._models import BaseModel
 
-__all__ = ["Entity"]
+__all__ = ["KgEntity"]
 
 
-class Entity(BaseModel):
+class KgEntity(BaseModel):
     id: int
 
     label: str

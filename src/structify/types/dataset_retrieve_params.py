@@ -4,9 +4,9 @@ from __future__ import annotations
 
 from typing_extensions import Required, TypedDict
 
-__all__ = ["DatasetGetParams"]
+__all__ = ["DatasetRetrieveParams"]
 
 
-class DatasetGetParams(TypedDict, total=False):
+class DatasetRetrieveParams(TypedDict, total=False):
     name: Required[str]
     """Information about the dataset"""
