@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.1.0-alpha.3 (2024-05-14)
+
+Full Changelog: [v0.1.0-alpha.2...v0.1.0-alpha.3](https://github.com/StructifyAI/structify-python/compare/v0.1.0-alpha.2...v0.1.0-alpha.3)
+
+### Features
+
+* adding skip tests ([af3bc48](https://github.com/StructifyAI/structify-python/commit/af3bc4824d42772781053b67dd1d2b016668a63f))
+* fixing ci ([8099165](https://github.com/StructifyAI/structify-python/commit/80991655ef7d5837b3ee774ca0ba98df398289b5))
+* fixing tests ([a1afa67](https://github.com/StructifyAI/structify-python/commit/a1afa67ca30973c6477066b9fe0a63d9df274c92))
+
 ## 0.1.0-alpha.2 (2024-05-14)
 
 Full Changelog: [v0.1.0-alpha.1...v0.1.0-alpha.2](https://github.com/StructifyAI/structify-python/compare/v0.1.0-alpha.1...v0.1.0-alpha.2)
