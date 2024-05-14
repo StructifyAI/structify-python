@@ -131,7 +131,7 @@ Methods:
 Types:
 
 ```python
-from structify.types.structure import RunCreateResponse
+from structify.types.structure import Llm, RunCreateResponse
 ```
 
 Methods:
@@ -143,7 +143,7 @@ Methods:
 Types:
 
 ```python
-from structify.types.structure import RunAsyncCreateResponse
+from structify.types.structure import Llm, RunAsyncCreateResponse
 ```
 
 Methods:

@@ -23,7 +23,8 @@ from ..._response import (
 from ..._base_client import (
     make_request_options,
 )
-from ...types.structure import run_create_params
+from ...types.structure import Llm, run_create_params
+from ...types.structure.llm import Llm
 
 __all__ = ["RunResource", "AsyncRunResource"]
 
@@ -42,9 +43,9 @@ class RunResource(SyncAPIResource):
         self,
         *,
         dataset_name: str,
+        llm: Llm,
         text: run_create_params.Variant0Text,
         custom_instruction: Optional[str] | NotGiven = NOT_GIVEN,
-        llm: Optional[object] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -75,9 +76,9 @@ class RunResource(SyncAPIResource):
         self,
         *,
         dataset_name: str,
+        llm: Llm,
         document: run_create_params.Variant1Document,
         custom_instruction: Optional[str] | NotGiven = NOT_GIVEN,
-        llm: Optional[object] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -108,9 +109,9 @@ class RunResource(SyncAPIResource):
         self,
         *,
         dataset_name: str,
+        llm: Llm,
         web: run_create_params.Variant2Web,
         custom_instruction: Optional[str] | NotGiven = NOT_GIVEN,
-        llm: Optional[object] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -141,9 +142,9 @@ class RunResource(SyncAPIResource):
         self,
         *,
         dataset_name: str,
+        llm: Llm,
         sec_filing: run_create_params.Variant3SecFiling,
         custom_instruction: Optional[str] | NotGiven = NOT_GIVEN,
-        llm: Optional[object] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -170,15 +171,18 @@ class RunResource(SyncAPIResource):
         ...
 
     @required_args(
-        ["dataset_name", "text"], ["dataset_name", "document"], ["dataset_name", "web"], ["dataset_name", "sec_filing"]
+        ["dataset_name", "llm", "text"],
+        ["dataset_name", "llm", "document"],
+        ["dataset_name", "llm", "web"],
+        ["dataset_name", "llm", "sec_filing"],
     )
     def create(
         self,
         *,
         dataset_name: str,
+        llm: Llm,
         text: run_create_params.Variant0Text | NotGiven = NOT_GIVEN,
         custom_instruction: Optional[str] | NotGiven = NOT_GIVEN,
-        llm: Optional[object] | NotGiven = NOT_GIVEN,
         document: run_create_params.Variant1Document | NotGiven = NOT_GIVEN,
         web: run_create_params.Variant2Web | NotGiven = NOT_GIVEN,
         sec_filing: run_create_params.Variant3SecFiling | NotGiven = NOT_GIVEN,
@@ -208,8 +212,8 @@ class RunResource(SyncAPIResource):
                 query=maybe_transform(
                     {
                         "dataset_name": dataset_name,
-                        "custom_instruction": custom_instruction,
                         "llm": llm,
+                        "custom_instruction": custom_instruction,
                     },
                     run_create_params.RunCreateParams,
                 ),
@@ -232,9 +236,9 @@ class AsyncRunResource(AsyncAPIResource):
         self,
         *,
         dataset_name: str,
+        llm: Llm,
         text: run_create_params.Variant0Text,
         custom_instruction: Optional[str] | NotGiven = NOT_GIVEN,
-        llm: Optional[object] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -265,9 +269,9 @@ class AsyncRunResource(AsyncAPIResource):
         self,
         *,
         dataset_name: str,
+        llm: Llm,
         document: run_create_params.Variant1Document,
         custom_instruction: Optional[str] | NotGiven = NOT_GIVEN,
-        llm: Optional[object] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -298,9 +302,9 @@ class AsyncRunResource(AsyncAPIResource):
         self,
         *,
         dataset_name: str,
+        llm: Llm,
         web: run_create_params.Variant2Web,
         custom_instruction: Optional[str] | NotGiven = NOT_GIVEN,
-        llm: Optional[object] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -331,9 +335,9 @@ class AsyncRunResource(AsyncAPIResource):
         self,
         *,
         dataset_name: str,
+        llm: Llm,
         sec_filing: run_create_params.Variant3SecFiling,
         custom_instruction: Optional[str] | NotGiven = NOT_GIVEN,
-        llm: Optional[object] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -360,15 +364,18 @@ class AsyncRunResource(AsyncAPIResource):
         ...
 
     @required_args(
-        ["dataset_name", "text"], ["dataset_name", "document"], ["dataset_name", "web"], ["dataset_name", "sec_filing"]
+        ["dataset_name", "llm", "text"],
+        ["dataset_name", "llm", "document"],
+        ["dataset_name", "llm", "web"],
+        ["dataset_name", "llm", "sec_filing"],
     )
     async def create(
         self,
         *,
         dataset_name: str,
+        llm: Llm,
         text: run_create_params.Variant0Text | NotGiven = NOT_GIVEN,
         custom_instruction: Optional[str] | NotGiven = NOT_GIVEN,
-        llm: Optional[object] | NotGiven = NOT_GIVEN,
         document: run_create_params.Variant1Document | NotGiven = NOT_GIVEN,
         web: run_create_params.Variant2Web | NotGiven = NOT_GIVEN,
         sec_filing: run_create_params.Variant3SecFiling | NotGiven = NOT_GIVEN,
@@ -398,8 +405,8 @@ class AsyncRunResource(AsyncAPIResource):
                 query=await async_maybe_transform(
                     {
                         "dataset_name": dataset_name,
-                        "custom_instruction": custom_instruction,
                         "llm": llm,
+                        "custom_instruction": custom_instruction,
                     },
                     run_create_params.RunCreateParams,
                 ),
