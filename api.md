@@ -1,0 +1,165 @@
+# User
+
+Types:
+
+```python
+from structify.types import NewToken, UserInfo
+```
+
+Methods:
+
+- <code title="post /user/create_test_token">client.user.<a href="./src/structify/resources/user.py">create_test_token</a>() -> <a href="./src/structify/types/new_token.py">NewToken</a></code>
+- <code title="get /user/info">client.user.<a href="./src/structify/resources/user.py">info</a>() -> <a href="./src/structify/types/user_info.py">UserInfo</a></code>
+
+# Admin
+
+## Users
+
+Types:
+
+```python
+from structify.types.admin import UserNode, UserListResponse
+```
+
+Methods:
+
+- <code title="get /admin/users/list">client.admin.users.<a href="./src/structify/resources/admin/users.py">list</a>() -> <a href="./src/structify/types/admin/user_list_response.py">UserListResponse</a></code>
+
+# Datasets
+
+Types:
+
+```python
+from structify.types import (
+    DatasetDescriptor,
+    DatasetNode,
+    KgEntity,
+    DatasetListResponse,
+    DatasetViewResponse,
+)
+```
+
+Methods:
+
+- <code title="post /dataset/create">client.datasets.<a href="./src/structify/resources/datasets.py">create</a>(\*\*<a href="src/structify/types/dataset_create_params.py">params</a>) -> None</code>
+- <code title="get /dataset/info">client.datasets.<a href="./src/structify/resources/datasets.py">retrieve</a>(\*\*<a href="src/structify/types/dataset_retrieve_params.py">params</a>) -> <a href="./src/structify/types/dataset_descriptor.py">Optional</a></code>
+- <code title="get /dataset/list">client.datasets.<a href="./src/structify/resources/datasets.py">list</a>() -> <a href="./src/structify/types/dataset_list_response.py">DatasetListResponse</a></code>
+- <code title="delete /dataset/delete">client.datasets.<a href="./src/structify/resources/datasets.py">delete</a>(\*\*<a href="src/structify/types/dataset_delete_params.py">params</a>) -> None</code>
+- <code title="get /dataset/view">client.datasets.<a href="./src/structify/resources/datasets.py">view</a>(\*\*<a href="src/structify/types/dataset_view_params.py">params</a>) -> <a href="./src/structify/types/dataset_view_response.py">DatasetViewResponse</a></code>
+
+# Documents
+
+Types:
+
+```python
+from structify.types import DocumentListResponse, DocumentDownloadResponse
+```
+
+Methods:
+
+- <code title="get /documents/list">client.documents.<a href="./src/structify/resources/documents.py">list</a>() -> <a href="./src/structify/types/document_list_response.py">DocumentListResponse</a></code>
+- <code title="delete /documents/delete/{path}">client.documents.<a href="./src/structify/resources/documents.py">delete</a>(path) -> None</code>
+- <code title="get /documents/download/{id}">client.documents.<a href="./src/structify/resources/documents.py">download</a>(id) -> str</code>
+- <code title="post /documents/upload">client.documents.<a href="./src/structify/resources/documents.py">upload</a>(\*\*<a href="src/structify/types/document_upload_params.py">params</a>) -> None</code>
+
+# Runs
+
+Types:
+
+```python
+from structify.types import RunListResponse
+```
+
+Methods:
+
+- <code title="get /runs/list">client.runs.<a href="./src/structify/resources/runs.py">list</a>() -> <a href="./src/structify/types/run_list_response.py">RunListResponse</a></code>
+
+# Server
+
+## Version
+
+Types:
+
+```python
+from structify.types.server import ServerInformation
+```
+
+Methods:
+
+- <code title="get /server/version">client.server.version.<a href="./src/structify/resources/server/version.py">retrieve</a>() -> <a href="./src/structify/types/server/server_information.py">ServerInformation</a></code>
+
+# Sources
+
+Types:
+
+```python
+from structify.types import Source
+```
+
+Methods:
+
+- <code title="get /source/get_sources">client.sources.<a href="./src/structify/resources/sources.py">list</a>(\*\*<a href="src/structify/types/source_list_params.py">params</a>) -> <a href="./src/structify/types/source.py">Source</a></code>
+
+# Structure
+
+## IsComplete
+
+Types:
+
+```python
+from structify.types.structure import IsComplete
+```
+
+Methods:
+
+- <code title="post /structure/is_complete">client.structure.is_complete.<a href="./src/structify/resources/structure/is_complete.py">create</a>(\*\*<a href="src/structify/types/structure/is_complete_create_params.py">params</a>) -> <a href="./src/structify/types/structure/is_complete.py">IsComplete</a></code>
+
+## JobStatus
+
+Types:
+
+```python
+from structify.types.structure import JobStatusCreateResponse
+```
+
+Methods:
+
+- <code title="post /structure/job_status">client.structure.job_status.<a href="./src/structify/resources/structure/job_status.py">create</a>(\*\*<a href="src/structify/types/structure/job_status_create_params.py">params</a>) -> <a href="./src/structify/types/structure/job_status_create_response.py">object</a></code>
+
+## Run
+
+Types:
+
+```python
+from structify.types.structure import RunCreateResponse
+```
+
+Methods:
+
+- <code title="post /structure/run">client.structure.run.<a href="./src/structify/resources/structure/run.py">create</a>(\*\*<a href="src/structify/types/structure/run_create_params.py">params</a>) -> <a href="./src/structify/types/structure/run_create_response.py">object</a></code>
+
+## RunAsync
+
+Types:
+
+```python
+from structify.types.structure import RunAsyncCreateResponse
+```
+
+Methods:
+
+- <code title="post /structure/run_async">client.structure.run_async.<a href="./src/structify/resources/structure/run_async.py">create</a>(\*\*<a href="src/structify/types/structure/run_async_create_params.py">params</a>) -> <a href="./src/structify/types/structure/run_async_create_response.py">object</a></code>
+
+# Usage
+
+## GetJobInfo
+
+Types:
+
+```python
+from structify.types.usage import GetJobInfoCreateResponse
+```
+
+Methods:
+
+- <code title="post /usage/get_job_info">client.usage.get_job_info.<a href="./src/structify/resources/usage/get_job_info.py">create</a>(\*\*<a href="src/structify/types/usage/get_job_info_create_params.py">params</a>) -> <a href="./src/structify/types/usage/get_job_info_create_response.py">object</a></code>
