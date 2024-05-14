@@ -2,47 +2,112 @@
 
 from __future__ import annotations
 
-from typing import Optional, overload
+from typing import List, Optional, overload
 
 import httpx
 
-from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven
-from ..._utils import (
+from ..types import structure_run_async_params, structure_job_status_params, structure_is_complete_params
+from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from .._utils import (
     required_args,
     maybe_transform,
     async_maybe_transform,
 )
-from ..._compat import cached_property
-from ..._resource import SyncAPIResource, AsyncAPIResource
-from ..._response import (
+from .._compat import cached_property
+from .._resource import SyncAPIResource, AsyncAPIResource
+from .._response import (
     to_raw_response_wrapper,
     to_streamed_response_wrapper,
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ..._base_client import (
+from .._base_client import (
     make_request_options,
 )
-from ...types.structure import run_create_params
+from ..types.is_complete import IsComplete
 
-__all__ = ["RunResource", "AsyncRunResource"]
+__all__ = ["StructureResource", "AsyncStructureResource"]
 
 
-class RunResource(SyncAPIResource):
+class StructureResource(SyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> RunResourceWithRawResponse:
-        return RunResourceWithRawResponse(self)
+    def with_raw_response(self) -> StructureResourceWithRawResponse:
+        return StructureResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> RunResourceWithStreamingResponse:
-        return RunResourceWithStreamingResponse(self)
+    def with_streaming_response(self) -> StructureResourceWithStreamingResponse:
+        return StructureResourceWithStreamingResponse(self)
+
+    def is_complete(
+        self,
+        *,
+        body: List[str],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> IsComplete:
+        """
+        Wait for all specified async tasks to be completed.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/structure/is_complete",
+            body=maybe_transform(body, structure_is_complete_params.StructureIsCompleteParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=IsComplete,
+        )
+
+    def job_status(
+        self,
+        *,
+        body: List[str],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> object:
+        """
+        Wait for all specified async tasks to be completed.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/structure/job_status",
+            body=maybe_transform(body, structure_job_status_params.StructureJobStatusParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=object,
+        )
 
     @overload
-    def create(
+    def run_async(
         self,
         *,
         dataset_name: str,
-        text: run_create_params.Variant0Text,
+        text: structure_run_async_params.Variant0Text,
         custom_instruction: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -51,11 +116,8 @@ class RunResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> object:
-        """There's a couple of different types of sources.
-
-        Right now, you can either add a
-        file path or the internet as a whole. In the future, we'll allow you to pare
-        down the internet to a specific domain or criterium.
+        """
+        Returns a token that can be waited on until the request is finished.
 
         Args:
           extra_headers: Send extra headers
@@ -69,11 +131,11 @@ class RunResource(SyncAPIResource):
         ...
 
     @overload
-    def create(
+    def run_async(
         self,
         *,
         dataset_name: str,
-        document: run_create_params.Variant1Document,
+        document: structure_run_async_params.Variant1Document,
         custom_instruction: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -82,11 +144,8 @@ class RunResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> object:
-        """There's a couple of different types of sources.
-
-        Right now, you can either add a
-        file path or the internet as a whole. In the future, we'll allow you to pare
-        down the internet to a specific domain or criterium.
+        """
+        Returns a token that can be waited on until the request is finished.
 
         Args:
           extra_headers: Send extra headers
@@ -100,11 +159,11 @@ class RunResource(SyncAPIResource):
         ...
 
     @overload
-    def create(
+    def run_async(
         self,
         *,
         dataset_name: str,
-        web: run_create_params.Variant2Web,
+        web: structure_run_async_params.Variant2Web,
         custom_instruction: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -113,11 +172,8 @@ class RunResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> object:
-        """There's a couple of different types of sources.
-
-        Right now, you can either add a
-        file path or the internet as a whole. In the future, we'll allow you to pare
-        down the internet to a specific domain or criterium.
+        """
+        Returns a token that can be waited on until the request is finished.
 
         Args:
           extra_headers: Send extra headers
@@ -131,11 +187,11 @@ class RunResource(SyncAPIResource):
         ...
 
     @overload
-    def create(
+    def run_async(
         self,
         *,
         dataset_name: str,
-        sec_filing: run_create_params.Variant3SecFiling,
+        sec_filing: structure_run_async_params.Variant3SecFiling,
         custom_instruction: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -144,11 +200,8 @@ class RunResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> object:
-        """There's a couple of different types of sources.
-
-        Right now, you can either add a
-        file path or the internet as a whole. In the future, we'll allow you to pare
-        down the internet to a specific domain or criterium.
+        """
+        Returns a token that can be waited on until the request is finished.
 
         Args:
           extra_headers: Send extra headers
@@ -164,15 +217,15 @@ class RunResource(SyncAPIResource):
     @required_args(
         ["dataset_name", "text"], ["dataset_name", "document"], ["dataset_name", "web"], ["dataset_name", "sec_filing"]
     )
-    def create(
+    def run_async(
         self,
         *,
         dataset_name: str,
-        text: run_create_params.Variant0Text | NotGiven = NOT_GIVEN,
+        text: structure_run_async_params.Variant0Text | NotGiven = NOT_GIVEN,
         custom_instruction: Optional[str] | NotGiven = NOT_GIVEN,
-        document: run_create_params.Variant1Document | NotGiven = NOT_GIVEN,
-        web: run_create_params.Variant2Web | NotGiven = NOT_GIVEN,
-        sec_filing: run_create_params.Variant3SecFiling | NotGiven = NOT_GIVEN,
+        document: structure_run_async_params.Variant1Document | NotGiven = NOT_GIVEN,
+        web: structure_run_async_params.Variant2Web | NotGiven = NOT_GIVEN,
+        sec_filing: structure_run_async_params.Variant3SecFiling | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -181,7 +234,7 @@ class RunResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> object:
         return self._post(
-            "/structure/run",
+            "/structure/run_async",
             body=maybe_transform(
                 {
                     "text": text,
@@ -189,7 +242,7 @@ class RunResource(SyncAPIResource):
                     "web": web,
                     "sec_filing": sec_filing,
                 },
-                run_create_params.RunCreateParams,
+                structure_run_async_params.StructureRunAsyncParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -201,28 +254,92 @@ class RunResource(SyncAPIResource):
                         "dataset_name": dataset_name,
                         "custom_instruction": custom_instruction,
                     },
-                    run_create_params.RunCreateParams,
+                    structure_run_async_params.StructureRunAsyncParams,
                 ),
             ),
             cast_to=object,
         )
 
 
-class AsyncRunResource(AsyncAPIResource):
+class AsyncStructureResource(AsyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> AsyncRunResourceWithRawResponse:
-        return AsyncRunResourceWithRawResponse(self)
+    def with_raw_response(self) -> AsyncStructureResourceWithRawResponse:
+        return AsyncStructureResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> AsyncRunResourceWithStreamingResponse:
-        return AsyncRunResourceWithStreamingResponse(self)
+    def with_streaming_response(self) -> AsyncStructureResourceWithStreamingResponse:
+        return AsyncStructureResourceWithStreamingResponse(self)
+
+    async def is_complete(
+        self,
+        *,
+        body: List[str],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> IsComplete:
+        """
+        Wait for all specified async tasks to be completed.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/structure/is_complete",
+            body=await async_maybe_transform(body, structure_is_complete_params.StructureIsCompleteParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=IsComplete,
+        )
+
+    async def job_status(
+        self,
+        *,
+        body: List[str],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> object:
+        """
+        Wait for all specified async tasks to be completed.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/structure/job_status",
+            body=await async_maybe_transform(body, structure_job_status_params.StructureJobStatusParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=object,
+        )
 
     @overload
-    async def create(
+    async def run_async(
         self,
         *,
         dataset_name: str,
-        text: run_create_params.Variant0Text,
+        text: structure_run_async_params.Variant0Text,
         custom_instruction: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -231,11 +348,8 @@ class AsyncRunResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> object:
-        """There's a couple of different types of sources.
-
-        Right now, you can either add a
-        file path or the internet as a whole. In the future, we'll allow you to pare
-        down the internet to a specific domain or criterium.
+        """
+        Returns a token that can be waited on until the request is finished.
 
         Args:
           extra_headers: Send extra headers
@@ -249,11 +363,11 @@ class AsyncRunResource(AsyncAPIResource):
         ...
 
     @overload
-    async def create(
+    async def run_async(
         self,
         *,
         dataset_name: str,
-        document: run_create_params.Variant1Document,
+        document: structure_run_async_params.Variant1Document,
         custom_instruction: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -262,11 +376,8 @@ class AsyncRunResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> object:
-        """There's a couple of different types of sources.
-
-        Right now, you can either add a
-        file path or the internet as a whole. In the future, we'll allow you to pare
-        down the internet to a specific domain or criterium.
+        """
+        Returns a token that can be waited on until the request is finished.
 
         Args:
           extra_headers: Send extra headers
@@ -280,11 +391,11 @@ class AsyncRunResource(AsyncAPIResource):
         ...
 
     @overload
-    async def create(
+    async def run_async(
         self,
         *,
         dataset_name: str,
-        web: run_create_params.Variant2Web,
+        web: structure_run_async_params.Variant2Web,
         custom_instruction: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -293,11 +404,8 @@ class AsyncRunResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> object:
-        """There's a couple of different types of sources.
-
-        Right now, you can either add a
-        file path or the internet as a whole. In the future, we'll allow you to pare
-        down the internet to a specific domain or criterium.
+        """
+        Returns a token that can be waited on until the request is finished.
 
         Args:
           extra_headers: Send extra headers
@@ -311,11 +419,11 @@ class AsyncRunResource(AsyncAPIResource):
         ...
 
     @overload
-    async def create(
+    async def run_async(
         self,
         *,
         dataset_name: str,
-        sec_filing: run_create_params.Variant3SecFiling,
+        sec_filing: structure_run_async_params.Variant3SecFiling,
         custom_instruction: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -324,11 +432,8 @@ class AsyncRunResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> object:
-        """There's a couple of different types of sources.
-
-        Right now, you can either add a
-        file path or the internet as a whole. In the future, we'll allow you to pare
-        down the internet to a specific domain or criterium.
+        """
+        Returns a token that can be waited on until the request is finished.
 
         Args:
           extra_headers: Send extra headers
@@ -344,15 +449,15 @@ class AsyncRunResource(AsyncAPIResource):
     @required_args(
         ["dataset_name", "text"], ["dataset_name", "document"], ["dataset_name", "web"], ["dataset_name", "sec_filing"]
     )
-    async def create(
+    async def run_async(
         self,
         *,
         dataset_name: str,
-        text: run_create_params.Variant0Text | NotGiven = NOT_GIVEN,
+        text: structure_run_async_params.Variant0Text | NotGiven = NOT_GIVEN,
         custom_instruction: Optional[str] | NotGiven = NOT_GIVEN,
-        document: run_create_params.Variant1Document | NotGiven = NOT_GIVEN,
-        web: run_create_params.Variant2Web | NotGiven = NOT_GIVEN,
-        sec_filing: run_create_params.Variant3SecFiling | NotGiven = NOT_GIVEN,
+        document: structure_run_async_params.Variant1Document | NotGiven = NOT_GIVEN,
+        web: structure_run_async_params.Variant2Web | NotGiven = NOT_GIVEN,
+        sec_filing: structure_run_async_params.Variant3SecFiling | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -361,7 +466,7 @@ class AsyncRunResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> object:
         return await self._post(
-            "/structure/run",
+            "/structure/run_async",
             body=await async_maybe_transform(
                 {
                     "text": text,
@@ -369,7 +474,7 @@ class AsyncRunResource(AsyncAPIResource):
                     "web": web,
                     "sec_filing": sec_filing,
                 },
-                run_create_params.RunCreateParams,
+                structure_run_async_params.StructureRunAsyncParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -381,44 +486,68 @@ class AsyncRunResource(AsyncAPIResource):
                         "dataset_name": dataset_name,
                         "custom_instruction": custom_instruction,
                     },
-                    run_create_params.RunCreateParams,
+                    structure_run_async_params.StructureRunAsyncParams,
                 ),
             ),
             cast_to=object,
         )
 
 
-class RunResourceWithRawResponse:
-    def __init__(self, run: RunResource) -> None:
-        self._run = run
+class StructureResourceWithRawResponse:
+    def __init__(self, structure: StructureResource) -> None:
+        self._structure = structure
 
-        self.create = to_raw_response_wrapper(
-            run.create,
+        self.is_complete = to_raw_response_wrapper(
+            structure.is_complete,
+        )
+        self.job_status = to_raw_response_wrapper(
+            structure.job_status,
+        )
+        self.run_async = to_raw_response_wrapper(
+            structure.run_async,
         )
 
 
-class AsyncRunResourceWithRawResponse:
-    def __init__(self, run: AsyncRunResource) -> None:
-        self._run = run
+class AsyncStructureResourceWithRawResponse:
+    def __init__(self, structure: AsyncStructureResource) -> None:
+        self._structure = structure
 
-        self.create = async_to_raw_response_wrapper(
-            run.create,
+        self.is_complete = async_to_raw_response_wrapper(
+            structure.is_complete,
+        )
+        self.job_status = async_to_raw_response_wrapper(
+            structure.job_status,
+        )
+        self.run_async = async_to_raw_response_wrapper(
+            structure.run_async,
         )
 
 
-class RunResourceWithStreamingResponse:
-    def __init__(self, run: RunResource) -> None:
-        self._run = run
+class StructureResourceWithStreamingResponse:
+    def __init__(self, structure: StructureResource) -> None:
+        self._structure = structure
 
-        self.create = to_streamed_response_wrapper(
-            run.create,
+        self.is_complete = to_streamed_response_wrapper(
+            structure.is_complete,
+        )
+        self.job_status = to_streamed_response_wrapper(
+            structure.job_status,
+        )
+        self.run_async = to_streamed_response_wrapper(
+            structure.run_async,
         )
 
 
-class AsyncRunResourceWithStreamingResponse:
-    def __init__(self, run: AsyncRunResource) -> None:
-        self._run = run
+class AsyncStructureResourceWithStreamingResponse:
+    def __init__(self, structure: AsyncStructureResource) -> None:
+        self._structure = structure
 
-        self.create = async_to_streamed_response_wrapper(
-            run.create,
+        self.is_complete = async_to_streamed_response_wrapper(
+            structure.is_complete,
+        )
+        self.job_status = async_to_streamed_response_wrapper(
+            structure.job_status,
+        )
+        self.run_async = async_to_streamed_response_wrapper(
+            structure.run_async,
         )
