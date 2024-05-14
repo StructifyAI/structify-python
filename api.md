@@ -31,8 +31,8 @@ Types:
 
 ```python
 from structify.types import (
+    Dataset,
     DatasetDescriptor,
-    DatasetNode,
     KgEntity,
     DatasetListResponse,
     DatasetViewResponse,
