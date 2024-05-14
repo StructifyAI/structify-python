@@ -4,37 +4,37 @@ from __future__ import annotations
 
 import httpx
 
-from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven
-from ..._utils import (
+from ..types import usage_get_job_info_params
+from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from .._utils import (
     maybe_transform,
     async_maybe_transform,
 )
-from ..._compat import cached_property
-from ..._resource import SyncAPIResource, AsyncAPIResource
-from ..._response import (
+from .._compat import cached_property
+from .._resource import SyncAPIResource, AsyncAPIResource
+from .._response import (
     to_raw_response_wrapper,
     to_streamed_response_wrapper,
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ...types.usage import get_job_info_create_params
-from ..._base_client import (
+from .._base_client import (
     make_request_options,
 )
 
-__all__ = ["GetJobInfoResource", "AsyncGetJobInfoResource"]
+__all__ = ["UsageResource", "AsyncUsageResource"]
 
 
-class GetJobInfoResource(SyncAPIResource):
+class UsageResource(SyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> GetJobInfoResourceWithRawResponse:
-        return GetJobInfoResourceWithRawResponse(self)
+    def with_raw_response(self) -> UsageResourceWithRawResponse:
+        return UsageResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> GetJobInfoResourceWithStreamingResponse:
-        return GetJobInfoResourceWithStreamingResponse(self)
+    def with_streaming_response(self) -> UsageResourceWithStreamingResponse:
+        return UsageResourceWithStreamingResponse(self)
 
-    def create(
+    def get_job_info(
         self,
         *,
         job_id: str,
@@ -64,22 +64,22 @@ class GetJobInfoResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform({"job_id": job_id}, get_job_info_create_params.GetJobInfoCreateParams),
+                query=maybe_transform({"job_id": job_id}, usage_get_job_info_params.UsageGetJobInfoParams),
             ),
             cast_to=object,
         )
 
 
-class AsyncGetJobInfoResource(AsyncAPIResource):
+class AsyncUsageResource(AsyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> AsyncGetJobInfoResourceWithRawResponse:
-        return AsyncGetJobInfoResourceWithRawResponse(self)
+    def with_raw_response(self) -> AsyncUsageResourceWithRawResponse:
+        return AsyncUsageResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> AsyncGetJobInfoResourceWithStreamingResponse:
-        return AsyncGetJobInfoResourceWithStreamingResponse(self)
+    def with_streaming_response(self) -> AsyncUsageResourceWithStreamingResponse:
+        return AsyncUsageResourceWithStreamingResponse(self)
 
-    async def create(
+    async def get_job_info(
         self,
         *,
         job_id: str,
@@ -109,45 +109,43 @@ class AsyncGetJobInfoResource(AsyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform(
-                    {"job_id": job_id}, get_job_info_create_params.GetJobInfoCreateParams
-                ),
+                query=await async_maybe_transform({"job_id": job_id}, usage_get_job_info_params.UsageGetJobInfoParams),
             ),
             cast_to=object,
         )
 
 
-class GetJobInfoResourceWithRawResponse:
-    def __init__(self, get_job_info: GetJobInfoResource) -> None:
-        self._get_job_info = get_job_info
+class UsageResourceWithRawResponse:
+    def __init__(self, usage: UsageResource) -> None:
+        self._usage = usage
 
-        self.create = to_raw_response_wrapper(
-            get_job_info.create,
+        self.get_job_info = to_raw_response_wrapper(
+            usage.get_job_info,
         )
 
 
-class AsyncGetJobInfoResourceWithRawResponse:
-    def __init__(self, get_job_info: AsyncGetJobInfoResource) -> None:
-        self._get_job_info = get_job_info
+class AsyncUsageResourceWithRawResponse:
+    def __init__(self, usage: AsyncUsageResource) -> None:
+        self._usage = usage
 
-        self.create = async_to_raw_response_wrapper(
-            get_job_info.create,
+        self.get_job_info = async_to_raw_response_wrapper(
+            usage.get_job_info,
         )
 
 
-class GetJobInfoResourceWithStreamingResponse:
-    def __init__(self, get_job_info: GetJobInfoResource) -> None:
-        self._get_job_info = get_job_info
+class UsageResourceWithStreamingResponse:
+    def __init__(self, usage: UsageResource) -> None:
+        self._usage = usage
 
-        self.create = to_streamed_response_wrapper(
-            get_job_info.create,
+        self.get_job_info = to_streamed_response_wrapper(
+            usage.get_job_info,
         )
 
 
-class AsyncGetJobInfoResourceWithStreamingResponse:
-    def __init__(self, get_job_info: AsyncGetJobInfoResource) -> None:
-        self._get_job_info = get_job_info
+class AsyncUsageResourceWithStreamingResponse:
+    def __init__(self, usage: AsyncUsageResource) -> None:
+        self._usage = usage
 
-        self.create = async_to_streamed_response_wrapper(
-            get_job_info.create,
+        self.get_job_info = async_to_streamed_response_wrapper(
+            usage.get_job_info,
         )
