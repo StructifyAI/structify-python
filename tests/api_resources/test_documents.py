@@ -119,6 +119,7 @@ class TestDocuments:
             )
 
     @parametrize
+    @pytest.mark.skip(reason="stainless doesn't support this yet.")
     def test_method_upload(self, client: Structify) -> None:
         document = client.documents.upload(
             doctype="Text",
@@ -128,6 +129,7 @@ class TestDocuments:
         assert document is None
 
     @parametrize
+    @pytest.mark.skip(reason="stainless doesn't support this yet.")
     def test_raw_response_upload(self, client: Structify) -> None:
         response = client.documents.with_raw_response.upload(
             doctype="Text",
@@ -141,6 +143,7 @@ class TestDocuments:
         assert document is None
 
     @parametrize
+    @pytest.mark.skip(reason="stainless doesn't support this yet.")
     def test_streaming_response_upload(self, client: Structify) -> None:
         with client.documents.with_streaming_response.upload(
             doctype="Text",
@@ -260,6 +263,7 @@ class TestAsyncDocuments:
                 "",
             )
 
+    @pytest.mark.skip(reason="stainless doesn't support this yet.")
     @parametrize
     async def test_method_upload(self, async_client: AsyncStructify) -> None:
         document = await async_client.documents.upload(
@@ -269,6 +273,7 @@ class TestAsyncDocuments:
         )
         assert document is None
 
+    @pytest.mark.skip(reason="stainless doesn't support yet.")
     @parametrize
     async def test_raw_response_upload(self, async_client: AsyncStructify) -> None:
         response = await async_client.documents.with_raw_response.upload(
@@ -283,6 +288,7 @@ class TestAsyncDocuments:
         assert document is None
 
     @parametrize
+    @pytest.mark.skip(reason="stainless doesn't support yet.")
     async def test_streaming_response_upload(self, async_client: AsyncStructify) -> None:
         async with async_client.documents.with_streaming_response.upload(
             doctype="Text",
