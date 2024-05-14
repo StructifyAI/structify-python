@@ -33,7 +33,7 @@ Types:
 from structify.types import (
     Dataset,
     DatasetDescriptor,
-    Entity,
+    KgEntity,
     DatasetListResponse,
     DatasetViewResponse,
 )
@@ -42,9 +42,9 @@ from structify.types import (
 Methods:
 
 - <code title="post /dataset/create">client.datasets.<a href="./src/structify/resources/datasets.py">create</a>(\*\*<a href="src/structify/types/dataset_create_params.py">params</a>) -> None</code>
+- <code title="get /dataset/info">client.datasets.<a href="./src/structify/resources/datasets.py">retrieve</a>(\*\*<a href="src/structify/types/dataset_retrieve_params.py">params</a>) -> <a href="./src/structify/types/dataset_descriptor.py">Optional</a></code>
 - <code title="get /dataset/list">client.datasets.<a href="./src/structify/resources/datasets.py">list</a>() -> <a href="./src/structify/types/dataset_list_response.py">DatasetListResponse</a></code>
 - <code title="delete /dataset/delete">client.datasets.<a href="./src/structify/resources/datasets.py">delete</a>(\*\*<a href="src/structify/types/dataset_delete_params.py">params</a>) -> None</code>
-- <code title="get /dataset/info">client.datasets.<a href="./src/structify/resources/datasets.py">get</a>(\*\*<a href="src/structify/types/dataset_get_params.py">params</a>) -> <a href="./src/structify/types/dataset_descriptor.py">Optional</a></code>
 - <code title="get /dataset/view">client.datasets.<a href="./src/structify/resources/datasets.py">view</a>(\*\*<a href="src/structify/types/dataset_view_params.py">params</a>) -> <a href="./src/structify/types/dataset_view_response.py">DatasetViewResponse</a></code>
 
 # Documents
