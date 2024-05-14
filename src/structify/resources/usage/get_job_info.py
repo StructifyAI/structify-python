@@ -46,9 +46,6 @@ class GetJobInfoResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> object:
         """
-        Structure an unstructured data source into the given dataset in an async
-        fashion.
-
         Returns a token that can be waited on until the request is finished.
 
         Args:
@@ -94,9 +91,6 @@ class AsyncGetJobInfoResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> object:
         """
-        Structure an unstructured data source into the given dataset in an async
-        fashion.
-
         Returns a token that can be waited on until the request is finished.
 
         Args:
