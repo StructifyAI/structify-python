@@ -288,6 +288,7 @@ class TestAsyncDocuments:
         assert document is None
 
     @parametrize
+    @pytest.mark.skip(reason="stainless doesn't support yet.")
     async def test_streaming_response_upload(self, async_client: AsyncStructify) -> None:
         async with async_client.documents.with_streaming_response.upload(
             doctype="Text",
