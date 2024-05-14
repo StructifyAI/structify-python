@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from typing import Union, Optional
-from typing_extensions import Required, Annotated, TypedDict
+from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from ..._utils import PropertyInfo
 
@@ -27,7 +27,7 @@ class Variant0(TypedDict, total=False):
 
     custom_instruction: Optional[str]
 
-    llm: Optional[object]
+    llm: Optional[Literal["Gpt4V", "Structify", "Human"]]
 
 
 class Variant0Text(TypedDict, total=False):
@@ -41,7 +41,7 @@ class Variant1(TypedDict, total=False):
 
     custom_instruction: Optional[str]
 
-    llm: Optional[object]
+    llm: Optional[Literal["Gpt4V", "Structify", "Human"]]
 
 
 class Variant1Document(TypedDict, total=False):
@@ -55,7 +55,7 @@ class Variant2(TypedDict, total=False):
 
     custom_instruction: Optional[str]
 
-    llm: Optional[object]
+    llm: Optional[Literal["Gpt4V", "Structify", "Human"]]
 
 
 class Variant2Web(TypedDict, total=False):
@@ -71,7 +71,7 @@ class Variant3(TypedDict, total=False):
 
     custom_instruction: Optional[str]
 
-    llm: Optional[object]
+    llm: Optional[Literal["Gpt4V", "Structify", "Human"]]
 
 
 class Variant3SecFiling(TypedDict, total=False):
