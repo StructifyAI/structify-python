@@ -4,10 +4,10 @@
 
 from .._models import BaseModel
 
-__all__ = ["Dataset"]
+__all__ = ["DatasetNode"]
 
 
-class Dataset(BaseModel):
+class DatasetNode(BaseModel):
     description: str
 
     name: str

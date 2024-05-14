@@ -40,11 +40,7 @@ class UsersResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> UserListResponse:
-        """
-        Gets all the users.
-
-        Lists all the users in the system.
-        """
+        """Lists all the users in the system."""
         return self._get(
             "/admin/users/list",
             options=make_request_options(
@@ -73,11 +69,7 @@ class AsyncUsersResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> UserListResponse:
-        """
-        Gets all the users.
-
-        Lists all the users in the system.
-        """
+        """Lists all the users in the system."""
         return await self._get(
             "/admin/users/list",
             options=make_request_options(
