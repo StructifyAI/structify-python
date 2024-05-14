@@ -41,7 +41,7 @@ class UserResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> NewToken:
-        """TODO: Move to admin. Creates a test token."""
+        """Creates a test token."""
         return self._post(
             "/user/create_test_token",
             options=make_request_options(
@@ -89,7 +89,7 @@ class AsyncUserResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> NewToken:
-        """TODO: Move to admin. Creates a test token."""
+        """Creates a test token."""
         return await self._post(
             "/user/create_test_token",
             options=make_request_options(
