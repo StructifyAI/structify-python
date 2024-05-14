@@ -4,8 +4,10 @@ from __future__ import annotations
 
 from typing_extensions import Required, TypedDict
 
-__all__ = ["GetJobInfoCreateParams"]
+__all__ = ["LabelSubmitParams"]
 
 
-class GetJobInfoCreateParams(TypedDict, total=False):
-    job_id: Required[str]
+class LabelSubmitParams(TypedDict, total=False):
+    _text: Required[str]
+
+    uuid: Required[str]
