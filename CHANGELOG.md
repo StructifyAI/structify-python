@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.1.0-alpha.5 (2024-05-14)
+
+Full Changelog: [v0.1.0-alpha.4...v0.1.0-alpha.5](https://github.com/StructifyAI/structify-python/compare/v0.1.0-alpha.4...v0.1.0-alpha.5)
+
+### Features
+
+* fixed ([764eec5](https://github.com/StructifyAI/structify-python/commit/764eec57b0a597f685cfcc1eef8c53f5e0104a48))
+* fixed ([6257b60](https://github.com/StructifyAI/structify-python/commit/6257b601d4ca703666f3ab6f7a50ad8a3672a3a2))
+* fixed ([7611ca3](https://github.com/StructifyAI/structify-python/commit/7611ca38e7857c6bd011d294ec939a166eca2b3d))
+* fixing readthedocs ([9792946](https://github.com/StructifyAI/structify-python/commit/979294623d0c5ebc5232b6247ee87da729f4df45))
+* test ([eb07705](https://github.com/StructifyAI/structify-python/commit/eb07705b52ef1fa7edc0a5920068cdd5c24ebd65))
+* test ([11f84dc](https://github.com/StructifyAI/structify-python/commit/11f84dcc748f8c9f4d5189e7d46dd9e5c3a9cc54))
+* test ([02661d0](https://github.com/StructifyAI/structify-python/commit/02661d0a5394607edcd11628d3ec4233702b504a))
+* test ([bf71195](https://github.com/StructifyAI/structify-python/commit/bf71195cd5434a6a9be8fed999ec3d086767ef5e))
+* working ([7532c08](https://github.com/StructifyAI/structify-python/commit/7532c083bc21b52a28da83de2e17680bd11012bc))
+
 ## 0.1.0-alpha.4 (2024-05-14)
 
 Full Changelog: [v0.1.0-alpha.3...v0.1.0-alpha.4](https://github.com/StructifyAI/structify-python/compare/v0.1.0-alpha.3...v0.1.0-alpha.4)
