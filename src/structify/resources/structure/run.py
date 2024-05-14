@@ -23,8 +23,7 @@ from ..._response import (
 from ..._base_client import (
     make_request_options,
 )
-from ...types.structure import Llm, run_create_params
-from ...types.structure.llm import Llm
+from ...types.structure import run_create_params
 
 __all__ = ["RunResource", "AsyncRunResource"]
 
@@ -43,7 +42,6 @@ class RunResource(SyncAPIResource):
         self,
         *,
         dataset_name: str,
-        llm: Llm,
         text: run_create_params.Variant0Text,
         custom_instruction: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -53,10 +51,9 @@ class RunResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> object:
-        """
-        Structure an unstructured data source into the given dataset.
+        """There's a couple of different types of sources.
 
-        There's a couple of different types of sources. Right now, you can either add a
+        Right now, you can either add a
         file path or the internet as a whole. In the future, we'll allow you to pare
         down the internet to a specific domain or criterium.
 
@@ -76,7 +73,6 @@ class RunResource(SyncAPIResource):
         self,
         *,
         dataset_name: str,
-        llm: Llm,
         document: run_create_params.Variant1Document,
         custom_instruction: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -86,10 +82,9 @@ class RunResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> object:
-        """
-        Structure an unstructured data source into the given dataset.
+        """There's a couple of different types of sources.
 
-        There's a couple of different types of sources. Right now, you can either add a
+        Right now, you can either add a
         file path or the internet as a whole. In the future, we'll allow you to pare
         down the internet to a specific domain or criterium.
 
@@ -109,7 +104,6 @@ class RunResource(SyncAPIResource):
         self,
         *,
         dataset_name: str,
-        llm: Llm,
         web: run_create_params.Variant2Web,
         custom_instruction: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -119,10 +113,9 @@ class RunResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> object:
-        """
-        Structure an unstructured data source into the given dataset.
+        """There's a couple of different types of sources.
 
-        There's a couple of different types of sources. Right now, you can either add a
+        Right now, you can either add a
         file path or the internet as a whole. In the future, we'll allow you to pare
         down the internet to a specific domain or criterium.
 
@@ -142,7 +135,6 @@ class RunResource(SyncAPIResource):
         self,
         *,
         dataset_name: str,
-        llm: Llm,
         sec_filing: run_create_params.Variant3SecFiling,
         custom_instruction: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -152,10 +144,9 @@ class RunResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> object:
-        """
-        Structure an unstructured data source into the given dataset.
+        """There's a couple of different types of sources.
 
-        There's a couple of different types of sources. Right now, you can either add a
+        Right now, you can either add a
         file path or the internet as a whole. In the future, we'll allow you to pare
         down the internet to a specific domain or criterium.
 
@@ -171,16 +162,12 @@ class RunResource(SyncAPIResource):
         ...
 
     @required_args(
-        ["dataset_name", "llm", "text"],
-        ["dataset_name", "llm", "document"],
-        ["dataset_name", "llm", "web"],
-        ["dataset_name", "llm", "sec_filing"],
+        ["dataset_name", "text"], ["dataset_name", "document"], ["dataset_name", "web"], ["dataset_name", "sec_filing"]
     )
     def create(
         self,
         *,
         dataset_name: str,
-        llm: Llm,
         text: run_create_params.Variant0Text | NotGiven = NOT_GIVEN,
         custom_instruction: Optional[str] | NotGiven = NOT_GIVEN,
         document: run_create_params.Variant1Document | NotGiven = NOT_GIVEN,
@@ -212,7 +199,6 @@ class RunResource(SyncAPIResource):
                 query=maybe_transform(
                     {
                         "dataset_name": dataset_name,
-                        "llm": llm,
                         "custom_instruction": custom_instruction,
                     },
                     run_create_params.RunCreateParams,
@@ -236,7 +222,6 @@ class AsyncRunResource(AsyncAPIResource):
         self,
         *,
         dataset_name: str,
-        llm: Llm,
         text: run_create_params.Variant0Text,
         custom_instruction: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -246,10 +231,9 @@ class AsyncRunResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> object:
-        """
-        Structure an unstructured data source into the given dataset.
+        """There's a couple of different types of sources.
 
-        There's a couple of different types of sources. Right now, you can either add a
+        Right now, you can either add a
         file path or the internet as a whole. In the future, we'll allow you to pare
         down the internet to a specific domain or criterium.
 
@@ -269,7 +253,6 @@ class AsyncRunResource(AsyncAPIResource):
         self,
         *,
         dataset_name: str,
-        llm: Llm,
         document: run_create_params.Variant1Document,
         custom_instruction: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -279,10 +262,9 @@ class AsyncRunResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> object:
-        """
-        Structure an unstructured data source into the given dataset.
+        """There's a couple of different types of sources.
 
-        There's a couple of different types of sources. Right now, you can either add a
+        Right now, you can either add a
         file path or the internet as a whole. In the future, we'll allow you to pare
         down the internet to a specific domain or criterium.
 
@@ -302,7 +284,6 @@ class AsyncRunResource(AsyncAPIResource):
         self,
         *,
         dataset_name: str,
-        llm: Llm,
         web: run_create_params.Variant2Web,
         custom_instruction: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -312,10 +293,9 @@ class AsyncRunResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> object:
-        """
-        Structure an unstructured data source into the given dataset.
+        """There's a couple of different types of sources.
 
-        There's a couple of different types of sources. Right now, you can either add a
+        Right now, you can either add a
         file path or the internet as a whole. In the future, we'll allow you to pare
         down the internet to a specific domain or criterium.
 
@@ -335,7 +315,6 @@ class AsyncRunResource(AsyncAPIResource):
         self,
         *,
         dataset_name: str,
-        llm: Llm,
         sec_filing: run_create_params.Variant3SecFiling,
         custom_instruction: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -345,10 +324,9 @@ class AsyncRunResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> object:
-        """
-        Structure an unstructured data source into the given dataset.
+        """There's a couple of different types of sources.
 
-        There's a couple of different types of sources. Right now, you can either add a
+        Right now, you can either add a
         file path or the internet as a whole. In the future, we'll allow you to pare
         down the internet to a specific domain or criterium.
 
@@ -364,16 +342,12 @@ class AsyncRunResource(AsyncAPIResource):
         ...
 
     @required_args(
-        ["dataset_name", "llm", "text"],
-        ["dataset_name", "llm", "document"],
-        ["dataset_name", "llm", "web"],
-        ["dataset_name", "llm", "sec_filing"],
+        ["dataset_name", "text"], ["dataset_name", "document"], ["dataset_name", "web"], ["dataset_name", "sec_filing"]
     )
     async def create(
         self,
         *,
         dataset_name: str,
-        llm: Llm,
         text: run_create_params.Variant0Text | NotGiven = NOT_GIVEN,
         custom_instruction: Optional[str] | NotGiven = NOT_GIVEN,
         document: run_create_params.Variant1Document | NotGiven = NOT_GIVEN,
@@ -405,7 +379,6 @@ class AsyncRunResource(AsyncAPIResource):
                 query=await async_maybe_transform(
                     {
                         "dataset_name": dataset_name,
-                        "llm": llm,
                         "custom_instruction": custom_instruction,
                     },
                     run_create_params.RunCreateParams,

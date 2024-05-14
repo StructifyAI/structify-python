@@ -58,8 +58,6 @@ class DatasetsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> None:
         """
-        Create a Dataset
-
         Creates a dataset.
 
         Args:
@@ -135,11 +133,7 @@ class DatasetsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> DatasetListResponse:
-        """
-        List datasets
-
-        Gets all datasets owned by the current user
-        """
+        """Gets all datasets owned by the current user"""
         return self._get(
             "/dataset/list",
             options=make_request_options(
@@ -256,8 +250,6 @@ class AsyncDatasetsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> None:
         """
-        Create a Dataset
-
         Creates a dataset.
 
         Args:
@@ -333,11 +325,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> DatasetListResponse:
-        """
-        List datasets
-
-        Gets all datasets owned by the current user
-        """
+        """Gets all datasets owned by the current user"""
         return await self._get(
             "/dataset/list",
             options=make_request_options(

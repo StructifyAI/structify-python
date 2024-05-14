@@ -18,7 +18,7 @@ Methods:
 Types:
 
 ```python
-from structify.types.admin import User, UserListResponse
+from structify.types.admin import UserNode, UserListResponse
 ```
 
 Methods:
@@ -31,8 +31,8 @@ Types:
 
 ```python
 from structify.types import (
-    Dataset,
     DatasetDescriptor,
+    DatasetNode,
     KgEntity,
     DatasetListResponse,
     DatasetViewResponse,
@@ -76,17 +76,15 @@ Methods:
 
 # Server
 
-## Version
-
 Types:
 
 ```python
-from structify.types.server import ServerInformation
+from structify.types import ServerInformation
 ```
 
 Methods:
 
-- <code title="get /server/version">client.server.version.<a href="./src/structify/resources/server/version.py">retrieve</a>() -> <a href="./src/structify/types/server/server_information.py">ServerInformation</a></code>
+- <code title="get /server/version">client.server.<a href="./src/structify/resources/server.py">version</a>() -> <a href="./src/structify/types/server_information.py">ServerInformation</a></code>
 
 # Sources
 
@@ -131,7 +129,7 @@ Methods:
 Types:
 
 ```python
-from structify.types.structure import Llm, RunCreateResponse
+from structify.types.structure import RunCreateResponse
 ```
 
 Methods:
@@ -143,7 +141,7 @@ Methods:
 Types:
 
 ```python
-from structify.types.structure import Llm, RunAsyncCreateResponse
+from structify.types.structure import RunAsyncCreateResponse
 ```
 
 Methods:
