@@ -5,6 +5,7 @@ from __future__ import annotations
 from typing import Union, Optional
 from typing_extensions import Required, Annotated, TypedDict
 
+from .llm import Llm
 from ..._utils import PropertyInfo
 
 __all__ = [
@@ -23,11 +24,11 @@ __all__ = [
 class Variant0(TypedDict, total=False):
     dataset_name: Required[str]
 
+    llm: Required[Llm]
+
     text: Required[Annotated[Variant0Text, PropertyInfo(alias="Text")]]
 
     custom_instruction: Optional[str]
-
-    llm: Optional[object]
 
 
 class Variant0Text(TypedDict, total=False):
@@ -37,11 +38,11 @@ class Variant0Text(TypedDict, total=False):
 class Variant1(TypedDict, total=False):
     dataset_name: Required[str]
 
+    llm: Required[Llm]
+
     document: Required[Annotated[Variant1Document, PropertyInfo(alias="Document")]]
 
     custom_instruction: Optional[str]
-
-    llm: Optional[object]
 
 
 class Variant1Document(TypedDict, total=False):
@@ -51,11 +52,11 @@ class Variant1Document(TypedDict, total=False):
 class Variant2(TypedDict, total=False):
     dataset_name: Required[str]
 
+    llm: Required[Llm]
+
     web: Required[Annotated[Variant2Web, PropertyInfo(alias="Web")]]
 
     custom_instruction: Optional[str]
-
-    llm: Optional[object]
 
 
 class Variant2Web(TypedDict, total=False):
@@ -67,11 +68,11 @@ class Variant2Web(TypedDict, total=False):
 class Variant3(TypedDict, total=False):
     dataset_name: Required[str]
 
+    llm: Required[Llm]
+
     sec_filing: Required[Annotated[Variant3SecFiling, PropertyInfo(alias="SECFiling")]]
 
     custom_instruction: Optional[str]
-
-    llm: Optional[object]
 
 
 class Variant3SecFiling(TypedDict, total=False):
