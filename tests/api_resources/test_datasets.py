@@ -350,37 +350,6 @@ class TestDatasets:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_method_retrieve(self, client: Structify) -> None:
-        dataset = client.datasets.retrieve(
-            name="string",
-        )
-        assert_matches_type(Optional[DatasetDescriptor], dataset, path=["response"])
-
-    @parametrize
-    def test_raw_response_retrieve(self, client: Structify) -> None:
-        response = client.datasets.with_raw_response.retrieve(
-            name="string",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        dataset = response.parse()
-        assert_matches_type(Optional[DatasetDescriptor], dataset, path=["response"])
-
-    @parametrize
-    def test_streaming_response_retrieve(self, client: Structify) -> None:
-        with client.datasets.with_streaming_response.retrieve(
-            name="string",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            dataset = response.parse()
-            assert_matches_type(Optional[DatasetDescriptor], dataset, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
     def test_method_list(self, client: Structify) -> None:
         dataset = client.datasets.list()
         assert_matches_type(DatasetListResponse, dataset, path=["response"])
@@ -433,6 +402,37 @@ class TestDatasets:
 
             dataset = response.parse()
             assert dataset is None
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_method_get(self, client: Structify) -> None:
+        dataset = client.datasets.get(
+            name="string",
+        )
+        assert_matches_type(Optional[DatasetDescriptor], dataset, path=["response"])
+
+    @parametrize
+    def test_raw_response_get(self, client: Structify) -> None:
+        response = client.datasets.with_raw_response.get(
+            name="string",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        dataset = response.parse()
+        assert_matches_type(Optional[DatasetDescriptor], dataset, path=["response"])
+
+    @parametrize
+    def test_streaming_response_get(self, client: Structify) -> None:
+        with client.datasets.with_streaming_response.get(
+            name="string",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            dataset = response.parse()
+            assert_matches_type(Optional[DatasetDescriptor], dataset, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -813,37 +813,6 @@ class TestAsyncDatasets:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_method_retrieve(self, async_client: AsyncStructify) -> None:
-        dataset = await async_client.datasets.retrieve(
-            name="string",
-        )
-        assert_matches_type(Optional[DatasetDescriptor], dataset, path=["response"])
-
-    @parametrize
-    async def test_raw_response_retrieve(self, async_client: AsyncStructify) -> None:
-        response = await async_client.datasets.with_raw_response.retrieve(
-            name="string",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        dataset = await response.parse()
-        assert_matches_type(Optional[DatasetDescriptor], dataset, path=["response"])
-
-    @parametrize
-    async def test_streaming_response_retrieve(self, async_client: AsyncStructify) -> None:
-        async with async_client.datasets.with_streaming_response.retrieve(
-            name="string",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            dataset = await response.parse()
-            assert_matches_type(Optional[DatasetDescriptor], dataset, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
     async def test_method_list(self, async_client: AsyncStructify) -> None:
         dataset = await async_client.datasets.list()
         assert_matches_type(DatasetListResponse, dataset, path=["response"])
@@ -896,6 +865,37 @@ class TestAsyncDatasets:
 
             dataset = await response.parse()
             assert dataset is None
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_method_get(self, async_client: AsyncStructify) -> None:
+        dataset = await async_client.datasets.get(
+            name="string",
+        )
+        assert_matches_type(Optional[DatasetDescriptor], dataset, path=["response"])
+
+    @parametrize
+    async def test_raw_response_get(self, async_client: AsyncStructify) -> None:
+        response = await async_client.datasets.with_raw_response.get(
+            name="string",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        dataset = await response.parse()
+        assert_matches_type(Optional[DatasetDescriptor], dataset, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_get(self, async_client: AsyncStructify) -> None:
+        async with async_client.datasets.with_streaming_response.get(
+            name="string",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            dataset = await response.parse()
+            assert_matches_type(Optional[DatasetDescriptor], dataset, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

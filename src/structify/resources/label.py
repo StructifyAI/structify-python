@@ -6,7 +6,7 @@ from typing import Optional, overload
 
 import httpx
 
-from ..types import label_run_params, label_get_messages_params
+from ..types import label_run_params, label_submit_params, label_get_messages_params
 from .._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
 from .._utils import (
     required_args,
@@ -232,6 +232,42 @@ class LabelResource(SyncAPIResource):
             cast_to=NoneType,
         )
 
+    def submit(
+        self,
+        uuid: str,
+        *,
+        body: object,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> str:
+        """
+        Submit a label as part of the human LLM.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not uuid:
+            raise ValueError(f"Expected a non-empty value for `uuid` but received {uuid!r}")
+        extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
+        return self._post(
+            f"/label/submit/{uuid}",
+            body=maybe_transform(body, label_submit_params.LabelSubmitParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=str,
+        )
+
 
 class AsyncLabelResource(AsyncAPIResource):
     @cached_property
@@ -436,6 +472,42 @@ class AsyncLabelResource(AsyncAPIResource):
             cast_to=NoneType,
         )
 
+    async def submit(
+        self,
+        uuid: str,
+        *,
+        body: object,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> str:
+        """
+        Submit a label as part of the human LLM.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not uuid:
+            raise ValueError(f"Expected a non-empty value for `uuid` but received {uuid!r}")
+        extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
+        return await self._post(
+            f"/label/submit/{uuid}",
+            body=await async_maybe_transform(body, label_submit_params.LabelSubmitParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=str,
+        )
+
 
 class LabelResourceWithRawResponse:
     def __init__(self, label: LabelResource) -> None:
@@ -446,6 +518,9 @@ class LabelResourceWithRawResponse:
         )
         self.run = to_raw_response_wrapper(
             label.run,
+        )
+        self.submit = to_raw_response_wrapper(
+            label.submit,
         )
 
 
@@ -459,6 +534,9 @@ class AsyncLabelResourceWithRawResponse:
         self.run = async_to_raw_response_wrapper(
             label.run,
         )
+        self.submit = async_to_raw_response_wrapper(
+            label.submit,
+        )
 
 
 class LabelResourceWithStreamingResponse:
@@ -471,6 +549,9 @@ class LabelResourceWithStreamingResponse:
         self.run = to_streamed_response_wrapper(
             label.run,
         )
+        self.submit = to_streamed_response_wrapper(
+            label.submit,
+        )
 
 
 class AsyncLabelResourceWithStreamingResponse:
@@ -482,4 +563,7 @@ class AsyncLabelResourceWithStreamingResponse:
         )
         self.run = async_to_streamed_response_wrapper(
             label.run,
+        )
+        self.submit = async_to_streamed_response_wrapper(
+            label.submit,
         )
