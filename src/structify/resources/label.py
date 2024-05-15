@@ -6,7 +6,7 @@ from typing import Optional, overload
 
 import httpx
 
-from ..types import label_run_params, label_submit_params
+from ..types import label_run_params, label_get_messages_params
 from .._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
 from .._utils import (
     required_args,
@@ -41,6 +41,7 @@ class LabelResource(SyncAPIResource):
     def get_messages(
         self,
         *,
+        uuid: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -48,11 +49,26 @@ class LabelResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> Optional[LabelGetMessagesResponse]:
-        """web requests that would be cancelled by cloudflare in prod."""
+        """
+        web requests that would be cancelled by cloudflare in prod.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
         return self._get(
             "/label/refresh",
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"uuid": uuid}, label_get_messages_params.LabelGetMessagesParams),
             ),
             cast_to=LabelGetMessagesResponse,
         )
@@ -216,46 +232,6 @@ class LabelResource(SyncAPIResource):
             cast_to=NoneType,
         )
 
-    def submit(
-        self,
-        *,
-        _text: str,
-        uuid: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> str:
-        """
-        Submit a label as part of the human LLM.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
-        return self._post(
-            "/label/submit",
-            body=maybe_transform(
-                {
-                    "_text": _text,
-                    "uuid": uuid,
-                },
-                label_submit_params.LabelSubmitParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=str,
-        )
-
 
 class AsyncLabelResource(AsyncAPIResource):
     @cached_property
@@ -269,6 +245,7 @@ class AsyncLabelResource(AsyncAPIResource):
     async def get_messages(
         self,
         *,
+        uuid: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -276,11 +253,26 @@ class AsyncLabelResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> Optional[LabelGetMessagesResponse]:
-        """web requests that would be cancelled by cloudflare in prod."""
+        """
+        web requests that would be cancelled by cloudflare in prod.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
         return await self._get(
             "/label/refresh",
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform({"uuid": uuid}, label_get_messages_params.LabelGetMessagesParams),
             ),
             cast_to=LabelGetMessagesResponse,
         )
@@ -444,46 +436,6 @@ class AsyncLabelResource(AsyncAPIResource):
             cast_to=NoneType,
         )
 
-    async def submit(
-        self,
-        *,
-        _text: str,
-        uuid: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> str:
-        """
-        Submit a label as part of the human LLM.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
-        return await self._post(
-            "/label/submit",
-            body=await async_maybe_transform(
-                {
-                    "_text": _text,
-                    "uuid": uuid,
-                },
-                label_submit_params.LabelSubmitParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=str,
-        )
-
 
 class LabelResourceWithRawResponse:
     def __init__(self, label: LabelResource) -> None:
@@ -494,9 +446,6 @@ class LabelResourceWithRawResponse:
         )
         self.run = to_raw_response_wrapper(
             label.run,
-        )
-        self.submit = to_raw_response_wrapper(
-            label.submit,
         )
 
 
@@ -510,9 +459,6 @@ class AsyncLabelResourceWithRawResponse:
         self.run = async_to_raw_response_wrapper(
             label.run,
         )
-        self.submit = async_to_raw_response_wrapper(
-            label.submit,
-        )
 
 
 class LabelResourceWithStreamingResponse:
@@ -525,9 +471,6 @@ class LabelResourceWithStreamingResponse:
         self.run = to_streamed_response_wrapper(
             label.run,
         )
-        self.submit = to_streamed_response_wrapper(
-            label.submit,
-        )
 
 
 class AsyncLabelResourceWithStreamingResponse:
@@ -539,7 +482,4 @@ class AsyncLabelResourceWithStreamingResponse:
         )
         self.run = async_to_streamed_response_wrapper(
             label.run,
-        )
-        self.submit = async_to_streamed_response_wrapper(
-            label.submit,
         )
