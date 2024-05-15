@@ -67,12 +67,13 @@ Methods:
 Types:
 
 ```python
-from structify.types import RunListResponse
+from structify.types import RunListResponse, RunCancelResponse
 ```
 
 Methods:
 
 - <code title="get /runs/list">client.runs.<a href="./src/structify/resources/runs.py">list</a>() -> <a href="./src/structify/types/run_list_response.py">RunListResponse</a></code>
+- <code title="post /runs/cancel/{uuid}">client.runs.<a href="./src/structify/resources/runs.py">cancel</a>(uuid) -> <a href="./src/structify/types/run_cancel_response.py">RunCancelResponse</a></code>
 
 # Server
 
