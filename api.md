@@ -33,7 +33,7 @@ Types:
 from structify.types import (
     Dataset,
     DatasetDescriptor,
-    KgEntity,
+    Entity,
     DatasetListResponse,
     DatasetViewResponse,
 )
