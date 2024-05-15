@@ -42,9 +42,9 @@ from structify.types import (
 Methods:
 
 - <code title="post /dataset/create">client.datasets.<a href="./src/structify/resources/datasets.py">create</a>(\*\*<a href="src/structify/types/dataset_create_params.py">params</a>) -> None</code>
-- <code title="get /dataset/info">client.datasets.<a href="./src/structify/resources/datasets.py">retrieve</a>(\*\*<a href="src/structify/types/dataset_retrieve_params.py">params</a>) -> <a href="./src/structify/types/dataset_descriptor.py">Optional</a></code>
 - <code title="get /dataset/list">client.datasets.<a href="./src/structify/resources/datasets.py">list</a>() -> <a href="./src/structify/types/dataset_list_response.py">DatasetListResponse</a></code>
 - <code title="delete /dataset/delete">client.datasets.<a href="./src/structify/resources/datasets.py">delete</a>(\*\*<a href="src/structify/types/dataset_delete_params.py">params</a>) -> None</code>
+- <code title="get /dataset/info">client.datasets.<a href="./src/structify/resources/datasets.py">get</a>(\*\*<a href="src/structify/types/dataset_get_params.py">params</a>) -> <a href="./src/structify/types/dataset_descriptor.py">Optional</a></code>
 - <code title="get /dataset/view">client.datasets.<a href="./src/structify/resources/datasets.py">view</a>(\*\*<a href="src/structify/types/dataset_view_params.py">params</a>) -> <a href="./src/structify/types/dataset_view_response.py">DatasetViewResponse</a></code>
 
 # Documents
@@ -76,17 +76,15 @@ Methods:
 
 # Server
 
-## Version
-
 Types:
 
 ```python
-from structify.types.server import ServerInformation
+from structify.types import ServerInformation
 ```
 
 Methods:
 
-- <code title="get /server/version">client.server.version.<a href="./src/structify/resources/server/version.py">retrieve</a>() -> <a href="./src/structify/types/server/server_information.py">ServerInformation</a></code>
+- <code title="get /server/version">client.server.<a href="./src/structify/resources/server.py">version</a>() -> <a href="./src/structify/types/server_information.py">ServerInformation</a></code>
 
 # Sources
 
@@ -119,13 +117,14 @@ Methods:
 Types:
 
 ```python
-from structify.types import LabelGetMessagesResponse
+from structify.types import LabelGetMessagesResponse, LabelSubmitResponse
 ```
 
 Methods:
 
 - <code title="get /label/refresh">client.label.<a href="./src/structify/resources/label.py">get_messages</a>(\*\*<a href="src/structify/types/label_get_messages_params.py">params</a>) -> <a href="./src/structify/types/label_get_messages_response.py">Optional</a></code>
 - <code title="post /label/run_async">client.label.<a href="./src/structify/resources/label.py">run</a>(\*\*<a href="src/structify/types/label_run_params.py">params</a>) -> None</code>
+- <code title="post /label/submit/{uuid}">client.label.<a href="./src/structify/resources/label.py">submit</a>(uuid, \*\*<a href="src/structify/types/label_submit_params.py">params</a>) -> str</code>
 
 # Usage
 
