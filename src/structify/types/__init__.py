@@ -2,9 +2,9 @@
 
 from __future__ import annotations
 
+from .entity import Entity as Entity
 from .source import Source as Source
 from .dataset import Dataset as Dataset
-from .kg_entity import KgEntity as KgEntity
 from .new_token import NewToken as NewToken
 from .user_info import UserInfo as UserInfo
 from .is_complete import IsComplete as IsComplete
