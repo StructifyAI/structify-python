@@ -234,7 +234,7 @@ class TestLabel:
     def test_method_submit(self, client: Structify) -> None:
         label = client.label.submit(
             "string",
-            body={},
+            body=[{"save": {}}, {"save": {}}, {"save": {}}],
         )
         assert_matches_type(str, label, path=["response"])
 
@@ -242,7 +242,7 @@ class TestLabel:
     def test_raw_response_submit(self, client: Structify) -> None:
         response = client.label.with_raw_response.submit(
             "string",
-            body={},
+            body=[{"save": {}}, {"save": {}}, {"save": {}}],
         )
 
         assert response.is_closed is True
@@ -254,7 +254,7 @@ class TestLabel:
     def test_streaming_response_submit(self, client: Structify) -> None:
         with client.label.with_streaming_response.submit(
             "string",
-            body={},
+            body=[{"save": {}}, {"save": {}}, {"save": {}}],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -269,7 +269,7 @@ class TestLabel:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `uuid` but received ''"):
             client.label.with_raw_response.submit(
                 "",
-                body={},
+                body=[{"save": {}}, {"save": {}}, {"save": {}}],
             )
 
 
@@ -491,7 +491,7 @@ class TestAsyncLabel:
     async def test_method_submit(self, async_client: AsyncStructify) -> None:
         label = await async_client.label.submit(
             "string",
-            body={},
+            body=[{"save": {}}, {"save": {}}, {"save": {}}],
         )
         assert_matches_type(str, label, path=["response"])
 
@@ -499,7 +499,7 @@ class TestAsyncLabel:
     async def test_raw_response_submit(self, async_client: AsyncStructify) -> None:
         response = await async_client.label.with_raw_response.submit(
             "string",
-            body={},
+            body=[{"save": {}}, {"save": {}}, {"save": {}}],
         )
 
         assert response.is_closed is True
@@ -511,7 +511,7 @@ class TestAsyncLabel:
     async def test_streaming_response_submit(self, async_client: AsyncStructify) -> None:
         async with async_client.label.with_streaming_response.submit(
             "string",
-            body={},
+            body=[{"save": {}}, {"save": {}}, {"save": {}}],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -526,5 +526,5 @@ class TestAsyncLabel:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `uuid` but received ''"):
             await async_client.label.with_raw_response.submit(
                 "",
-                body={},
+                body=[{"save": {}}, {"save": {}}, {"save": {}}],
             )
