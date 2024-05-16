@@ -259,6 +259,45 @@ class StructureResource(SyncAPIResource):
             ),
             cast_to=object,
         )
+    
+    def run(
+        self,
+        *,
+        dataset_name: str,
+        text: structure_run_async_params.Variant0Text,
+        custom_instruction: Optional[str] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> object:
+        # This is a manually added function. Its goal is to simulate a synchronous run of the async function.
+        # by calling it and then waiting
+        token = self.run_async(
+            dataset_name=dataset_name,
+            text=text,
+            custom_instruction=custom_instruction,
+            extra_headers=extra_headers,
+            extra_query=extra_query,
+            extra_body=extra_body,
+            timeout=timeout,
+        )
+
+        while True:
+            status = self.job_status(
+                body=[token],
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+            )
+
+            if status["status"] == "completed":
+                break
+
+        return status["result"]
 
 
 class AsyncStructureResource(AsyncAPIResource):
