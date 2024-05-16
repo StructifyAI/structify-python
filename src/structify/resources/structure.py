@@ -264,8 +264,8 @@ class StructureResource(SyncAPIResource):
 
     def run(  # type: ignore
         self,
-        *args,  # type: ignore
         table_name: str,
+        *args,  # type: ignore
         timeout: Optional[int] = None,
         **kwargs,  # type: ignore
     ) -> DatasetViewResponse:
@@ -276,11 +276,18 @@ class StructureResource(SyncAPIResource):
         token: str = self.run_async(*args, **kwargs)  # type: ignore
         start_time = time.time() if timeout is not None else None
 
+        # Job isn't created immediately
+        for _ in range(100):
+            try:
+                status = self.job_status(body=[token])
+                break
+            except Exception:
+                pass
         while True:
             status = self.job_status(body=[token])
 
-            if status.body["status"] == "completed":  # type: ignore
-                return self._client.datasets.view(dataset_name=kwargs["dataset_name"], table_name=table_name) # type: ignore
+            if status[0] == "Completed":  # type: ignore
+                return self._client.datasets.view(dataset_name=kwargs["dataset_name"], table_name=table_name)  # type: ignore
 
             if timeout is not None and start_time is not None:
                 elapsed_time = time.time() - start_time
