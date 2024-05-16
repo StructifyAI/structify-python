@@ -278,11 +278,18 @@ class StructureResource(SyncAPIResource):
 
         # Job isn't created immediately
         for _ in range(100):
+            if timeout is not None and start_time is not None:
+                elapsed_time = time.time() - start_time
+                if elapsed_time > timeout:
+                    raise TimeoutError(f"Job creation exceeded timeout of {timeout} seconds.")
+
             try:
                 status = self.job_status(body=[token])
                 break
             except Exception:
                 pass
+            time.sleep(1)
+
         while True:
             status = self.job_status(body=[token])
 
