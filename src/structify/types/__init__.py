@@ -25,6 +25,7 @@ from .label_submit_response import LabelSubmitResponse as LabelSubmitResponse
 from .document_list_response import DocumentListResponse as DocumentListResponse
 from .document_upload_params import DocumentUploadParams as DocumentUploadParams
 from .label_get_messages_params import LabelGetMessagesParams as LabelGetMessagesParams
+from .label_llm_assist_response import LabelLlmAssistResponse as LabelLlmAssistResponse
 from .usage_get_job_info_params import UsageGetJobInfoParams as UsageGetJobInfoParams
 from .document_download_response import DocumentDownloadResponse as DocumentDownloadResponse
 from .structure_run_async_params import StructureRunAsyncParams as StructureRunAsyncParams
