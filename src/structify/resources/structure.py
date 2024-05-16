@@ -14,7 +14,6 @@ from .._utils import (
     maybe_transform,
     async_maybe_transform,
 )
-from ..types.dataset_view_response import DatasetViewResponse
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -27,6 +26,7 @@ from .._base_client import (
     make_request_options,
 )
 from ..types.is_complete import IsComplete
+from ..types.dataset_view_response import DatasetViewResponse
 
 __all__ = ["StructureResource", "AsyncStructureResource"]
 
