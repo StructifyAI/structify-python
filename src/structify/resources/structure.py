@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import time
 from typing import List, Optional, overload
 
 import httpx
@@ -263,21 +264,30 @@ class StructureResource(SyncAPIResource):
     def run(
         self,
         *args,
+        timeout: int = None,
         **kwargs,
     ) -> object:
         """
-        This is a manually added function. Its goal is to simulate a synchronous run of the async function.
-        by calling it and then waiting
+        This function simulates a synchronous run of the async function by calling it and then waiting.
+        If the timeout is reached, it attempts to cancel the job.
         """
         token = self.run_async(*args, **kwargs)
+        start_time = time.time() if timeout is not None else None
 
         while True:
             status = self.job_status(body=[token])
 
             if status["status"] == "completed":
-                break
+                return status["result"]
 
-        return status["result"]
+            if timeout is not None:
+                elapsed_time = time.time() - start_time
+                if elapsed_time > timeout:
+                    # TODO: Cancel hasn't been merged yet.
+                    # self._client.runs.cancel(token)
+                    raise TimeoutError(f"Job exceeded timeout of {timeout} seconds and was cancelled.")
+
+            time.sleep(1)
 
 
 class AsyncStructureResource(AsyncAPIResource):
