@@ -262,26 +262,27 @@ class StructureResource(SyncAPIResource):
             cast_to=object,
         )
 
-    def run(
+    def run(  # type: ignore
         self,
-        *args,
-        timeout: int = None,
-        **kwargs,
+        *args,  # type: ignore
+        table_name: str,
+        timeout: Optional[int] = None,
+        **kwargs,  # type: ignore
     ) -> DatasetViewResponse:
         """
         This function simulates a synchronous run of the async function by calling it and then waiting.
         If the timeout is reached, it attempts to cancel the job.
         """
-        token = self.run_async(*args, **kwargs)
+        token: str = self.run_async(*args, **kwargs)  # type: ignore
         start_time = time.time() if timeout is not None else None
 
         while True:
             status = self.job_status(body=[token])
 
-            if status["status"] == "completed":
-                return self._client.datasets.view(name=kwargs["dataset_name"])
+            if status.body["status"] == "completed":  # type: ignore
+                return self._client.datasets.view(dataset_name=kwargs["dataset_name"], table_name=table_name)
 
-            if timeout is not None:
+            if timeout is not None and start_time is not None:
                 elapsed_time = time.time() - start_time
                 if elapsed_time > timeout:
                     # TODO: Cancel hasn't been merged yet.
