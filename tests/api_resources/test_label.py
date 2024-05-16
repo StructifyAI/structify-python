@@ -10,6 +10,7 @@ import pytest
 from structify import Structify, AsyncStructify
 from tests.utils import assert_matches_type
 from structify.types import (
+    LabelLlmAssistResponse,
     LabelGetMessagesResponse,
 )
 
@@ -48,6 +49,358 @@ class TestLabel:
 
             label = response.parse()
             assert_matches_type(Optional[LabelGetMessagesResponse], label, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_method_llm_assist(self, client: Structify) -> None:
+        label = client.label.llm_assist(
+            decoding_params={"parameters": [{"max_tokens": 0}, {"max_tokens": 0}, {"max_tokens": 0}]},
+            messages=[
+                {
+                    "content": [{"text": "string"}, {"text": "string"}, {"text": "string"}],
+                    "role": "user",
+                },
+                {
+                    "content": [{"text": "string"}, {"text": "string"}, {"text": "string"}],
+                    "role": "user",
+                },
+                {
+                    "content": [{"text": "string"}, {"text": "string"}, {"text": "string"}],
+                    "role": "user",
+                },
+            ],
+        )
+        assert_matches_type(Optional[LabelLlmAssistResponse], label, path=["response"])
+
+    @parametrize
+    def test_method_llm_assist_with_all_params(self, client: Structify) -> None:
+        label = client.label.llm_assist(
+            decoding_params={"parameters": [{"max_tokens": 0}, {"max_tokens": 0}, {"max_tokens": 0}]},
+            messages=[
+                {
+                    "content": [{"text": "string"}, {"text": "string"}, {"text": "string"}],
+                    "role": "user",
+                },
+                {
+                    "content": [{"text": "string"}, {"text": "string"}, {"text": "string"}],
+                    "role": "user",
+                },
+                {
+                    "content": [{"text": "string"}, {"text": "string"}, {"text": "string"}],
+                    "role": "user",
+                },
+            ],
+            metadata={
+                "conditioning_prompt": "string",
+                "dataset_descriptor": {
+                    "description": "string",
+                    "name": "string",
+                    "tables": [
+                        {
+                            "description": "string",
+                            "name": "string",
+                            "properties": [
+                                {
+                                    "description": "string",
+                                    "name": "string",
+                                },
+                                {
+                                    "description": "string",
+                                    "name": "string",
+                                },
+                                {
+                                    "description": "string",
+                                    "name": "string",
+                                },
+                            ],
+                            "relationships": [
+                                {
+                                    "description": "string",
+                                    "name": "string",
+                                },
+                                {
+                                    "description": "string",
+                                    "name": "string",
+                                },
+                                {
+                                    "description": "string",
+                                    "name": "string",
+                                },
+                            ],
+                        },
+                        {
+                            "description": "string",
+                            "name": "string",
+                            "properties": [
+                                {
+                                    "description": "string",
+                                    "name": "string",
+                                },
+                                {
+                                    "description": "string",
+                                    "name": "string",
+                                },
+                                {
+                                    "description": "string",
+                                    "name": "string",
+                                },
+                            ],
+                            "relationships": [
+                                {
+                                    "description": "string",
+                                    "name": "string",
+                                },
+                                {
+                                    "description": "string",
+                                    "name": "string",
+                                },
+                                {
+                                    "description": "string",
+                                    "name": "string",
+                                },
+                            ],
+                        },
+                        {
+                            "description": "string",
+                            "name": "string",
+                            "properties": [
+                                {
+                                    "description": "string",
+                                    "name": "string",
+                                },
+                                {
+                                    "description": "string",
+                                    "name": "string",
+                                },
+                                {
+                                    "description": "string",
+                                    "name": "string",
+                                },
+                            ],
+                            "relationships": [
+                                {
+                                    "description": "string",
+                                    "name": "string",
+                                },
+                                {
+                                    "description": "string",
+                                    "name": "string",
+                                },
+                                {
+                                    "description": "string",
+                                    "name": "string",
+                                },
+                            ],
+                        },
+                    ],
+                },
+                "extracted_entities": [
+                    {
+                        "entities": [
+                            {
+                                "id": 0,
+                                "properties": {"foo": "string"},
+                                "type": "string",
+                            },
+                            {
+                                "id": 0,
+                                "properties": {"foo": "string"},
+                                "type": "string",
+                            },
+                            {
+                                "id": 0,
+                                "properties": {"foo": "string"},
+                                "type": "string",
+                            },
+                        ],
+                        "relationships": [
+                            {
+                                "source": 0,
+                                "target": 0,
+                                "type": "string",
+                            },
+                            {
+                                "source": 0,
+                                "target": 0,
+                                "type": "string",
+                            },
+                            {
+                                "source": 0,
+                                "target": 0,
+                                "type": "string",
+                            },
+                        ],
+                    },
+                    {
+                        "entities": [
+                            {
+                                "id": 0,
+                                "properties": {"foo": "string"},
+                                "type": "string",
+                            },
+                            {
+                                "id": 0,
+                                "properties": {"foo": "string"},
+                                "type": "string",
+                            },
+                            {
+                                "id": 0,
+                                "properties": {"foo": "string"},
+                                "type": "string",
+                            },
+                        ],
+                        "relationships": [
+                            {
+                                "source": 0,
+                                "target": 0,
+                                "type": "string",
+                            },
+                            {
+                                "source": 0,
+                                "target": 0,
+                                "type": "string",
+                            },
+                            {
+                                "source": 0,
+                                "target": 0,
+                                "type": "string",
+                            },
+                        ],
+                    },
+                    {
+                        "entities": [
+                            {
+                                "id": 0,
+                                "properties": {"foo": "string"},
+                                "type": "string",
+                            },
+                            {
+                                "id": 0,
+                                "properties": {"foo": "string"},
+                                "type": "string",
+                            },
+                            {
+                                "id": 0,
+                                "properties": {"foo": "string"},
+                                "type": "string",
+                            },
+                        ],
+                        "relationships": [
+                            {
+                                "source": 0,
+                                "target": 0,
+                                "type": "string",
+                            },
+                            {
+                                "source": 0,
+                                "target": 0,
+                                "type": "string",
+                            },
+                            {
+                                "source": 0,
+                                "target": 0,
+                                "type": "string",
+                            },
+                        ],
+                    },
+                ],
+                "tool_metadata": [
+                    {
+                        "description": "string",
+                        "name": "Save",
+                        "regex_validator": "string",
+                        "tool_validator": {},
+                    },
+                    {
+                        "description": "string",
+                        "name": "Save",
+                        "regex_validator": "string",
+                        "tool_validator": {},
+                    },
+                    {
+                        "description": "string",
+                        "name": "Save",
+                        "regex_validator": "string",
+                        "tool_validator": {},
+                    },
+                ],
+                "web_flags": [
+                    {
+                        "aria_label": "string",
+                        "text": "string",
+                        "type": "string",
+                        "x": 0,
+                        "y": 0,
+                    },
+                    {
+                        "aria_label": "string",
+                        "text": "string",
+                        "type": "string",
+                        "x": 0,
+                        "y": 0,
+                    },
+                    {
+                        "aria_label": "string",
+                        "text": "string",
+                        "type": "string",
+                        "x": 0,
+                        "y": 0,
+                    },
+                ],
+            },
+        )
+        assert_matches_type(Optional[LabelLlmAssistResponse], label, path=["response"])
+
+    @parametrize
+    def test_raw_response_llm_assist(self, client: Structify) -> None:
+        response = client.label.with_raw_response.llm_assist(
+            decoding_params={"parameters": [{"max_tokens": 0}, {"max_tokens": 0}, {"max_tokens": 0}]},
+            messages=[
+                {
+                    "content": [{"text": "string"}, {"text": "string"}, {"text": "string"}],
+                    "role": "user",
+                },
+                {
+                    "content": [{"text": "string"}, {"text": "string"}, {"text": "string"}],
+                    "role": "user",
+                },
+                {
+                    "content": [{"text": "string"}, {"text": "string"}, {"text": "string"}],
+                    "role": "user",
+                },
+            ],
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        label = response.parse()
+        assert_matches_type(Optional[LabelLlmAssistResponse], label, path=["response"])
+
+    @parametrize
+    def test_streaming_response_llm_assist(self, client: Structify) -> None:
+        with client.label.with_streaming_response.llm_assist(
+            decoding_params={"parameters": [{"max_tokens": 0}, {"max_tokens": 0}, {"max_tokens": 0}]},
+            messages=[
+                {
+                    "content": [{"text": "string"}, {"text": "string"}, {"text": "string"}],
+                    "role": "user",
+                },
+                {
+                    "content": [{"text": "string"}, {"text": "string"}, {"text": "string"}],
+                    "role": "user",
+                },
+                {
+                    "content": [{"text": "string"}, {"text": "string"}, {"text": "string"}],
+                    "role": "user",
+                },
+            ],
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            label = response.parse()
+            assert_matches_type(Optional[LabelLlmAssistResponse], label, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -309,6 +662,358 @@ class TestAsyncLabel:
 
             label = await response.parse()
             assert_matches_type(Optional[LabelGetMessagesResponse], label, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_method_llm_assist(self, async_client: AsyncStructify) -> None:
+        label = await async_client.label.llm_assist(
+            decoding_params={"parameters": [{"max_tokens": 0}, {"max_tokens": 0}, {"max_tokens": 0}]},
+            messages=[
+                {
+                    "content": [{"text": "string"}, {"text": "string"}, {"text": "string"}],
+                    "role": "user",
+                },
+                {
+                    "content": [{"text": "string"}, {"text": "string"}, {"text": "string"}],
+                    "role": "user",
+                },
+                {
+                    "content": [{"text": "string"}, {"text": "string"}, {"text": "string"}],
+                    "role": "user",
+                },
+            ],
+        )
+        assert_matches_type(Optional[LabelLlmAssistResponse], label, path=["response"])
+
+    @parametrize
+    async def test_method_llm_assist_with_all_params(self, async_client: AsyncStructify) -> None:
+        label = await async_client.label.llm_assist(
+            decoding_params={"parameters": [{"max_tokens": 0}, {"max_tokens": 0}, {"max_tokens": 0}]},
+            messages=[
+                {
+                    "content": [{"text": "string"}, {"text": "string"}, {"text": "string"}],
+                    "role": "user",
+                },
+                {
+                    "content": [{"text": "string"}, {"text": "string"}, {"text": "string"}],
+                    "role": "user",
+                },
+                {
+                    "content": [{"text": "string"}, {"text": "string"}, {"text": "string"}],
+                    "role": "user",
+                },
+            ],
+            metadata={
+                "conditioning_prompt": "string",
+                "dataset_descriptor": {
+                    "description": "string",
+                    "name": "string",
+                    "tables": [
+                        {
+                            "description": "string",
+                            "name": "string",
+                            "properties": [
+                                {
+                                    "description": "string",
+                                    "name": "string",
+                                },
+                                {
+                                    "description": "string",
+                                    "name": "string",
+                                },
+                                {
+                                    "description": "string",
+                                    "name": "string",
+                                },
+                            ],
+                            "relationships": [
+                                {
+                                    "description": "string",
+                                    "name": "string",
+                                },
+                                {
+                                    "description": "string",
+                                    "name": "string",
+                                },
+                                {
+                                    "description": "string",
+                                    "name": "string",
+                                },
+                            ],
+                        },
+                        {
+                            "description": "string",
+                            "name": "string",
+                            "properties": [
+                                {
+                                    "description": "string",
+                                    "name": "string",
+                                },
+                                {
+                                    "description": "string",
+                                    "name": "string",
+                                },
+                                {
+                                    "description": "string",
+                                    "name": "string",
+                                },
+                            ],
+                            "relationships": [
+                                {
+                                    "description": "string",
+                                    "name": "string",
+                                },
+                                {
+                                    "description": "string",
+                                    "name": "string",
+                                },
+                                {
+                                    "description": "string",
+                                    "name": "string",
+                                },
+                            ],
+                        },
+                        {
+                            "description": "string",
+                            "name": "string",
+                            "properties": [
+                                {
+                                    "description": "string",
+                                    "name": "string",
+                                },
+                                {
+                                    "description": "string",
+                                    "name": "string",
+                                },
+                                {
+                                    "description": "string",
+                                    "name": "string",
+                                },
+                            ],
+                            "relationships": [
+                                {
+                                    "description": "string",
+                                    "name": "string",
+                                },
+                                {
+                                    "description": "string",
+                                    "name": "string",
+                                },
+                                {
+                                    "description": "string",
+                                    "name": "string",
+                                },
+                            ],
+                        },
+                    ],
+                },
+                "extracted_entities": [
+                    {
+                        "entities": [
+                            {
+                                "id": 0,
+                                "properties": {"foo": "string"},
+                                "type": "string",
+                            },
+                            {
+                                "id": 0,
+                                "properties": {"foo": "string"},
+                                "type": "string",
+                            },
+                            {
+                                "id": 0,
+                                "properties": {"foo": "string"},
+                                "type": "string",
+                            },
+                        ],
+                        "relationships": [
+                            {
+                                "source": 0,
+                                "target": 0,
+                                "type": "string",
+                            },
+                            {
+                                "source": 0,
+                                "target": 0,
+                                "type": "string",
+                            },
+                            {
+                                "source": 0,
+                                "target": 0,
+                                "type": "string",
+                            },
+                        ],
+                    },
+                    {
+                        "entities": [
+                            {
+                                "id": 0,
+                                "properties": {"foo": "string"},
+                                "type": "string",
+                            },
+                            {
+                                "id": 0,
+                                "properties": {"foo": "string"},
+                                "type": "string",
+                            },
+                            {
+                                "id": 0,
+                                "properties": {"foo": "string"},
+                                "type": "string",
+                            },
+                        ],
+                        "relationships": [
+                            {
+                                "source": 0,
+                                "target": 0,
+                                "type": "string",
+                            },
+                            {
+                                "source": 0,
+                                "target": 0,
+                                "type": "string",
+                            },
+                            {
+                                "source": 0,
+                                "target": 0,
+                                "type": "string",
+                            },
+                        ],
+                    },
+                    {
+                        "entities": [
+                            {
+                                "id": 0,
+                                "properties": {"foo": "string"},
+                                "type": "string",
+                            },
+                            {
+                                "id": 0,
+                                "properties": {"foo": "string"},
+                                "type": "string",
+                            },
+                            {
+                                "id": 0,
+                                "properties": {"foo": "string"},
+                                "type": "string",
+                            },
+                        ],
+                        "relationships": [
+                            {
+                                "source": 0,
+                                "target": 0,
+                                "type": "string",
+                            },
+                            {
+                                "source": 0,
+                                "target": 0,
+                                "type": "string",
+                            },
+                            {
+                                "source": 0,
+                                "target": 0,
+                                "type": "string",
+                            },
+                        ],
+                    },
+                ],
+                "tool_metadata": [
+                    {
+                        "description": "string",
+                        "name": "Save",
+                        "regex_validator": "string",
+                        "tool_validator": {},
+                    },
+                    {
+                        "description": "string",
+                        "name": "Save",
+                        "regex_validator": "string",
+                        "tool_validator": {},
+                    },
+                    {
+                        "description": "string",
+                        "name": "Save",
+                        "regex_validator": "string",
+                        "tool_validator": {},
+                    },
+                ],
+                "web_flags": [
+                    {
+                        "aria_label": "string",
+                        "text": "string",
+                        "type": "string",
+                        "x": 0,
+                        "y": 0,
+                    },
+                    {
+                        "aria_label": "string",
+                        "text": "string",
+                        "type": "string",
+                        "x": 0,
+                        "y": 0,
+                    },
+                    {
+                        "aria_label": "string",
+                        "text": "string",
+                        "type": "string",
+                        "x": 0,
+                        "y": 0,
+                    },
+                ],
+            },
+        )
+        assert_matches_type(Optional[LabelLlmAssistResponse], label, path=["response"])
+
+    @parametrize
+    async def test_raw_response_llm_assist(self, async_client: AsyncStructify) -> None:
+        response = await async_client.label.with_raw_response.llm_assist(
+            decoding_params={"parameters": [{"max_tokens": 0}, {"max_tokens": 0}, {"max_tokens": 0}]},
+            messages=[
+                {
+                    "content": [{"text": "string"}, {"text": "string"}, {"text": "string"}],
+                    "role": "user",
+                },
+                {
+                    "content": [{"text": "string"}, {"text": "string"}, {"text": "string"}],
+                    "role": "user",
+                },
+                {
+                    "content": [{"text": "string"}, {"text": "string"}, {"text": "string"}],
+                    "role": "user",
+                },
+            ],
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        label = await response.parse()
+        assert_matches_type(Optional[LabelLlmAssistResponse], label, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_llm_assist(self, async_client: AsyncStructify) -> None:
+        async with async_client.label.with_streaming_response.llm_assist(
+            decoding_params={"parameters": [{"max_tokens": 0}, {"max_tokens": 0}, {"max_tokens": 0}]},
+            messages=[
+                {
+                    "content": [{"text": "string"}, {"text": "string"}, {"text": "string"}],
+                    "role": "user",
+                },
+                {
+                    "content": [{"text": "string"}, {"text": "string"}, {"text": "string"}],
+                    "role": "user",
+                },
+                {
+                    "content": [{"text": "string"}, {"text": "string"}, {"text": "string"}],
+                    "role": "user",
+                },
+            ],
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            label = await response.parse()
+            assert_matches_type(Optional[LabelLlmAssistResponse], label, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
