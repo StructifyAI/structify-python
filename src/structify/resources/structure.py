@@ -280,7 +280,7 @@ class StructureResource(SyncAPIResource):
             status = self.job_status(body=[token])
 
             if status.body["status"] == "completed":  # type: ignore
-                return self._client.datasets.view(dataset_name=kwargs["dataset_name"], table_name=table_name)
+                return self._client.datasets.view(dataset_name=kwargs["dataset_name"], table_name=table_name) # type: ignore
 
             if timeout is not None and start_time is not None:
                 elapsed_time = time.time() - start_time
