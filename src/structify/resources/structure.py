@@ -259,14 +259,16 @@ class StructureResource(SyncAPIResource):
             ),
             cast_to=object,
         )
-    
+
     def run(
         self,
         *args,
         **kwargs,
     ) -> object:
-        # This is a manually added function. Its goal is to simulate a synchronous run of the async function.
-        # by calling it and then waiting
+        """
+        This is a manually added function. Its goal is to simulate a synchronous run of the async function.
+        by calling it and then waiting
+        """
         token = self.run_async(*args, **kwargs)
 
         while True:
