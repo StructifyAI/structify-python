@@ -1,16 +1,25 @@
 # Changelog
 
-## 0.1.0-alpha.12 (2024-05-15)
+## 0.1.0-alpha.12 (2024-05-16)
 
 Full Changelog: [v0.1.0-alpha.11...v0.1.0-alpha.12](https://github.com/StructifyAI/structify-python/compare/v0.1.0-alpha.11...v0.1.0-alpha.12)
 
 ### Features
 
+* Adding run ([1bb588a](https://github.com/StructifyAI/structify-python/commit/1bb588a22da9082f5108bd8657fe98a6741c0e8e))
+* Adding sync run ([1f637d4](https://github.com/StructifyAI/structify-python/commit/1f637d42d67c8202832bf56bec1bdd3f1e628b80))
 * **api:** OpenAPI spec update via Stainless API ([#35](https://github.com/StructifyAI/structify-python/issues/35)) ([6ee40dd](https://github.com/StructifyAI/structify-python/commit/6ee40dd16958975b44aa1ef10c7806c68ffb9603))
 * **api:** OpenAPI spec update via Stainless API ([#37](https://github.com/StructifyAI/structify-python/issues/37)) ([0432595](https://github.com/StructifyAI/structify-python/commit/04325951deaa9d132dff89bee145e4d641e86ed4))
 * **api:** OpenAPI spec update via Stainless API ([#38](https://github.com/StructifyAI/structify-python/issues/38)) ([9b3bd80](https://github.com/StructifyAI/structify-python/commit/9b3bd80b92779b908a5e49cab074c30f372c1d3d))
 * **api:** OpenAPI spec update via Stainless API ([#39](https://github.com/StructifyAI/structify-python/issues/39)) ([b677446](https://github.com/StructifyAI/structify-python/commit/b677446033be0e9aad9d3253d71c7a51e3de1127))
 * **api:** OpenAPI spec update via Stainless API ([#40](https://github.com/StructifyAI/structify-python/issues/40)) ([849d860](https://github.com/StructifyAI/structify-python/commit/849d8603f1ffcb16952d0d40f782822738ec1373))
+* **api:** OpenAPI spec update via Stainless API ([#41](https://github.com/StructifyAI/structify-python/issues/41)) ([16fa15c](https://github.com/StructifyAI/structify-python/commit/16fa15c995348e76b50bc83939c4ce3333884372))
+* fixed ([de47192](https://github.com/StructifyAI/structify-python/commit/de47192d9642fdec02c97e49452f57cfd84c9c49))
+* fixed ([63f3161](https://github.com/StructifyAI/structify-python/commit/63f31617ad96c2e91742dc7a2f7461500c1483c7))
+* fixed ([c344052](https://github.com/StructifyAI/structify-python/commit/c34405284e6546262f1a9478076a98f96c233e3e))
+* fixed ([ddfbc24](https://github.com/StructifyAI/structify-python/commit/ddfbc24770be10d7e6a8a0389ee3df86b1f00eb7))
+* fixed lint ([4a8379e](https://github.com/StructifyAI/structify-python/commit/4a8379e71248836cf8dd56b09dc6cf5089481e9b))
+* fixing lint ([31fffdb](https://github.com/StructifyAI/structify-python/commit/31fffdba365ea90a612368b4a27fe3418e9e7b7c))
 
 ## 0.1.0-alpha.11 (2024-05-15)
 
