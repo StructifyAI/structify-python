@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.1.0-alpha.13 (2024-05-16)
+
+Full Changelog: [v0.1.0-alpha.12...v0.1.0-alpha.13](https://github.com/StructifyAI/structify-python/compare/v0.1.0-alpha.12...v0.1.0-alpha.13)
+
+### Features
+
+* Changed loop ([e5967f1](https://github.com/StructifyAI/structify-python/commit/e5967f1ec14c6e7c59ea8503b8d25319f29a718f))
+* Changed loop ([b889962](https://github.com/StructifyAI/structify-python/commit/b889962d01ae71b0536d8acead2af47e9027eb8b))
+* fix ([e5b4683](https://github.com/StructifyAI/structify-python/commit/e5b46832f846c2b7e3baf99dd8438507d5fc30e7))
+* fixed ([e02bf53](https://github.com/StructifyAI/structify-python/commit/e02bf53d4188d9fa4cdd473f79f41ce451e89553))
+* linted ([796f360](https://github.com/StructifyAI/structify-python/commit/796f3607f926539c58f5dc5fa8dab4f6a486168c))
+* tmp ([c9940a7](https://github.com/StructifyAI/structify-python/commit/c9940a78e889ae610f56780eed9323276772818a))
+
 ## 0.1.0-alpha.12 (2024-05-16)
 
 Full Changelog: [v0.1.0-alpha.11...v0.1.0-alpha.12](https://github.com/StructifyAI/structify-python/compare/v0.1.0-alpha.11...v0.1.0-alpha.12)
