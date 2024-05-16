@@ -276,14 +276,19 @@ class StructureResource(SyncAPIResource):
         token: str = self.run_async(*args, **kwargs)  # type: ignore
         start_time = time.time() if timeout is not None else None
 
+        successfully_started_job = False
         while True:
             if timeout is not None and start_time is not None:
                 elapsed_time = time.time() - start_time
                 if elapsed_time > timeout:
-                    raise TimeoutError(f"Job creation or execution exceeded timeout of {timeout} seconds.")
+                    if successfully_started_job:
+                        raise TimeoutError(f"Job execution exceeded timeout of {timeout} seconds.")
+                    else:
+                        raise TimeoutError(f"Job creation exceeded timeout of {timeout} seconds.")
 
             try:
                 status = self.job_status(body=[token])  # type: ignore
+                successfully_started_job = True
                 if status[0] == "Completed":  # type: ignore
                     return self._client.datasets.view(dataset_name=kwargs["dataset_name"], table_name=table_name)  # type: ignore
             except Exception:
