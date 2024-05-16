@@ -283,7 +283,7 @@ class StructureResource(SyncAPIResource):
                     raise TimeoutError(f"Job creation or execution exceeded timeout of {timeout} seconds.")
 
             try:
-                status = self.job_status(body=[token]) # type: ignore
+                status = self.job_status(body=[token])  # type: ignore
                 if status[0] == "Completed":  # type: ignore
                     return self._client.datasets.view(dataset_name=kwargs["dataset_name"], table_name=table_name)  # type: ignore
             except Exception:
