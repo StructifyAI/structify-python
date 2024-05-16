@@ -14,6 +14,7 @@ from .._utils import (
     maybe_transform,
     async_maybe_transform,
 )
+from ..types.dataset_view_response import DatasetViewResponse
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -266,7 +267,7 @@ class StructureResource(SyncAPIResource):
         *args,
         timeout: int = None,
         **kwargs,
-    ) -> object:
+    ) -> DatasetViewResponse:
         """
         This function simulates a synchronous run of the async function by calling it and then waiting.
         If the timeout is reached, it attempts to cancel the job.
@@ -278,7 +279,7 @@ class StructureResource(SyncAPIResource):
             status = self.job_status(body=[token])
 
             if status["status"] == "completed":
-                return status["result"]
+                return self._client.datasets.view(name=kwargs["dataset_name"])
 
             if timeout is not None:
                 elapsed_time = time.time() - start_time
