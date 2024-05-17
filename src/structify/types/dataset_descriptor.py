@@ -4,16 +4,20 @@ from typing import List
 
 from .._models import BaseModel
 
-__all__ = ["DatasetDescriptor", "Table", "TableProperty", "TableRelationship"]
+__all__ = ["DatasetDescriptor", "Relationship", "Table", "TableProperty"]
 
 
-class TableProperty(BaseModel):
+class Relationship(BaseModel):
     description: str
 
     name: str
 
+    source_table: str
 
-class TableRelationship(BaseModel):
+    target_table: str
+
+
+class TableProperty(BaseModel):
     description: str
 
     name: str
@@ -28,12 +32,12 @@ class Table(BaseModel):
     properties: List[TableProperty]
     """Organized in a name, description format."""
 
-    relationships: List[TableRelationship]
-
 
 class DatasetDescriptor(BaseModel):
     description: str
 
     name: str
+
+    relationships: List[Relationship]
 
     tables: List[Table]

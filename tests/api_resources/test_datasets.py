@@ -26,6 +26,26 @@ class TestDatasets:
         dataset = client.datasets.create(
             description="string",
             name="string",
+            relationships=[
+                {
+                    "description": "string",
+                    "name": "string",
+                    "source_table": "string",
+                    "target_table": "string",
+                },
+                {
+                    "description": "string",
+                    "name": "string",
+                    "source_table": "string",
+                    "target_table": "string",
+                },
+                {
+                    "description": "string",
+                    "name": "string",
+                    "source_table": "string",
+                    "target_table": "string",
+                },
+            ],
             tables=[
                 {
                     "description": "string",
@@ -44,20 +64,6 @@ class TestDatasets:
                             "name": "string",
                         },
                     ],
-                    "relationships": [
-                        {
-                            "description": "string",
-                            "name": "string",
-                        },
-                        {
-                            "description": "string",
-                            "name": "string",
-                        },
-                        {
-                            "description": "string",
-                            "name": "string",
-                        },
-                    ],
                 },
                 {
                     "description": "string",
@@ -76,39 +82,11 @@ class TestDatasets:
                             "name": "string",
                         },
                     ],
-                    "relationships": [
-                        {
-                            "description": "string",
-                            "name": "string",
-                        },
-                        {
-                            "description": "string",
-                            "name": "string",
-                        },
-                        {
-                            "description": "string",
-                            "name": "string",
-                        },
-                    ],
                 },
                 {
                     "description": "string",
                     "name": "string",
                     "properties": [
-                        {
-                            "description": "string",
-                            "name": "string",
-                        },
-                        {
-                            "description": "string",
-                            "name": "string",
-                        },
-                        {
-                            "description": "string",
-                            "name": "string",
-                        },
-                    ],
-                    "relationships": [
                         {
                             "description": "string",
                             "name": "string",
@@ -132,6 +110,26 @@ class TestDatasets:
         response = client.datasets.with_raw_response.create(
             description="string",
             name="string",
+            relationships=[
+                {
+                    "description": "string",
+                    "name": "string",
+                    "source_table": "string",
+                    "target_table": "string",
+                },
+                {
+                    "description": "string",
+                    "name": "string",
+                    "source_table": "string",
+                    "target_table": "string",
+                },
+                {
+                    "description": "string",
+                    "name": "string",
+                    "source_table": "string",
+                    "target_table": "string",
+                },
+            ],
             tables=[
                 {
                     "description": "string",
@@ -150,20 +148,6 @@ class TestDatasets:
                             "name": "string",
                         },
                     ],
-                    "relationships": [
-                        {
-                            "description": "string",
-                            "name": "string",
-                        },
-                        {
-                            "description": "string",
-                            "name": "string",
-                        },
-                        {
-                            "description": "string",
-                            "name": "string",
-                        },
-                    ],
                 },
                 {
                     "description": "string",
@@ -182,39 +166,11 @@ class TestDatasets:
                             "name": "string",
                         },
                     ],
-                    "relationships": [
-                        {
-                            "description": "string",
-                            "name": "string",
-                        },
-                        {
-                            "description": "string",
-                            "name": "string",
-                        },
-                        {
-                            "description": "string",
-                            "name": "string",
-                        },
-                    ],
                 },
                 {
                     "description": "string",
                     "name": "string",
                     "properties": [
-                        {
-                            "description": "string",
-                            "name": "string",
-                        },
-                        {
-                            "description": "string",
-                            "name": "string",
-                        },
-                        {
-                            "description": "string",
-                            "name": "string",
-                        },
-                    ],
-                    "relationships": [
                         {
                             "description": "string",
                             "name": "string",
@@ -242,6 +198,26 @@ class TestDatasets:
         with client.datasets.with_streaming_response.create(
             description="string",
             name="string",
+            relationships=[
+                {
+                    "description": "string",
+                    "name": "string",
+                    "source_table": "string",
+                    "target_table": "string",
+                },
+                {
+                    "description": "string",
+                    "name": "string",
+                    "source_table": "string",
+                    "target_table": "string",
+                },
+                {
+                    "description": "string",
+                    "name": "string",
+                    "source_table": "string",
+                    "target_table": "string",
+                },
+            ],
             tables=[
                 {
                     "description": "string",
@@ -260,20 +236,6 @@ class TestDatasets:
                             "name": "string",
                         },
                     ],
-                    "relationships": [
-                        {
-                            "description": "string",
-                            "name": "string",
-                        },
-                        {
-                            "description": "string",
-                            "name": "string",
-                        },
-                        {
-                            "description": "string",
-                            "name": "string",
-                        },
-                    ],
                 },
                 {
                     "description": "string",
@@ -292,39 +254,11 @@ class TestDatasets:
                             "name": "string",
                         },
                     ],
-                    "relationships": [
-                        {
-                            "description": "string",
-                            "name": "string",
-                        },
-                        {
-                            "description": "string",
-                            "name": "string",
-                        },
-                        {
-                            "description": "string",
-                            "name": "string",
-                        },
-                    ],
                 },
                 {
                     "description": "string",
                     "name": "string",
                     "properties": [
-                        {
-                            "description": "string",
-                            "name": "string",
-                        },
-                        {
-                            "description": "string",
-                            "name": "string",
-                        },
-                        {
-                            "description": "string",
-                            "name": "string",
-                        },
-                    ],
-                    "relationships": [
                         {
                             "description": "string",
                             "name": "string",
@@ -489,6 +423,26 @@ class TestAsyncDatasets:
         dataset = await async_client.datasets.create(
             description="string",
             name="string",
+            relationships=[
+                {
+                    "description": "string",
+                    "name": "string",
+                    "source_table": "string",
+                    "target_table": "string",
+                },
+                {
+                    "description": "string",
+                    "name": "string",
+                    "source_table": "string",
+                    "target_table": "string",
+                },
+                {
+                    "description": "string",
+                    "name": "string",
+                    "source_table": "string",
+                    "target_table": "string",
+                },
+            ],
             tables=[
                 {
                     "description": "string",
@@ -507,20 +461,6 @@ class TestAsyncDatasets:
                             "name": "string",
                         },
                     ],
-                    "relationships": [
-                        {
-                            "description": "string",
-                            "name": "string",
-                        },
-                        {
-                            "description": "string",
-                            "name": "string",
-                        },
-                        {
-                            "description": "string",
-                            "name": "string",
-                        },
-                    ],
                 },
                 {
                     "description": "string",
@@ -539,39 +479,11 @@ class TestAsyncDatasets:
                             "name": "string",
                         },
                     ],
-                    "relationships": [
-                        {
-                            "description": "string",
-                            "name": "string",
-                        },
-                        {
-                            "description": "string",
-                            "name": "string",
-                        },
-                        {
-                            "description": "string",
-                            "name": "string",
-                        },
-                    ],
                 },
                 {
                     "description": "string",
                     "name": "string",
                     "properties": [
-                        {
-                            "description": "string",
-                            "name": "string",
-                        },
-                        {
-                            "description": "string",
-                            "name": "string",
-                        },
-                        {
-                            "description": "string",
-                            "name": "string",
-                        },
-                    ],
-                    "relationships": [
                         {
                             "description": "string",
                             "name": "string",
@@ -595,6 +507,26 @@ class TestAsyncDatasets:
         response = await async_client.datasets.with_raw_response.create(
             description="string",
             name="string",
+            relationships=[
+                {
+                    "description": "string",
+                    "name": "string",
+                    "source_table": "string",
+                    "target_table": "string",
+                },
+                {
+                    "description": "string",
+                    "name": "string",
+                    "source_table": "string",
+                    "target_table": "string",
+                },
+                {
+                    "description": "string",
+                    "name": "string",
+                    "source_table": "string",
+                    "target_table": "string",
+                },
+            ],
             tables=[
                 {
                     "description": "string",
@@ -613,20 +545,6 @@ class TestAsyncDatasets:
                             "name": "string",
                         },
                     ],
-                    "relationships": [
-                        {
-                            "description": "string",
-                            "name": "string",
-                        },
-                        {
-                            "description": "string",
-                            "name": "string",
-                        },
-                        {
-                            "description": "string",
-                            "name": "string",
-                        },
-                    ],
                 },
                 {
                     "description": "string",
@@ -645,39 +563,11 @@ class TestAsyncDatasets:
                             "name": "string",
                         },
                     ],
-                    "relationships": [
-                        {
-                            "description": "string",
-                            "name": "string",
-                        },
-                        {
-                            "description": "string",
-                            "name": "string",
-                        },
-                        {
-                            "description": "string",
-                            "name": "string",
-                        },
-                    ],
                 },
                 {
                     "description": "string",
                     "name": "string",
                     "properties": [
-                        {
-                            "description": "string",
-                            "name": "string",
-                        },
-                        {
-                            "description": "string",
-                            "name": "string",
-                        },
-                        {
-                            "description": "string",
-                            "name": "string",
-                        },
-                    ],
-                    "relationships": [
                         {
                             "description": "string",
                             "name": "string",
@@ -705,6 +595,26 @@ class TestAsyncDatasets:
         async with async_client.datasets.with_streaming_response.create(
             description="string",
             name="string",
+            relationships=[
+                {
+                    "description": "string",
+                    "name": "string",
+                    "source_table": "string",
+                    "target_table": "string",
+                },
+                {
+                    "description": "string",
+                    "name": "string",
+                    "source_table": "string",
+                    "target_table": "string",
+                },
+                {
+                    "description": "string",
+                    "name": "string",
+                    "source_table": "string",
+                    "target_table": "string",
+                },
+            ],
             tables=[
                 {
                     "description": "string",
@@ -723,20 +633,6 @@ class TestAsyncDatasets:
                             "name": "string",
                         },
                     ],
-                    "relationships": [
-                        {
-                            "description": "string",
-                            "name": "string",
-                        },
-                        {
-                            "description": "string",
-                            "name": "string",
-                        },
-                        {
-                            "description": "string",
-                            "name": "string",
-                        },
-                    ],
                 },
                 {
                     "description": "string",
@@ -755,39 +651,11 @@ class TestAsyncDatasets:
                             "name": "string",
                         },
                     ],
-                    "relationships": [
-                        {
-                            "description": "string",
-                            "name": "string",
-                        },
-                        {
-                            "description": "string",
-                            "name": "string",
-                        },
-                        {
-                            "description": "string",
-                            "name": "string",
-                        },
-                    ],
                 },
                 {
                     "description": "string",
                     "name": "string",
                     "properties": [
-                        {
-                            "description": "string",
-                            "name": "string",
-                        },
-                        {
-                            "description": "string",
-                            "name": "string",
-                        },
-                        {
-                            "description": "string",
-                            "name": "string",
-                        },
-                    ],
-                    "relationships": [
                         {
                             "description": "string",
                             "name": "string",
