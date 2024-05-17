@@ -45,14 +45,14 @@ class TestRuns:
     @parametrize
     def test_method_cancel(self, client: Structify) -> None:
         run = client.runs.cancel(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            "string",
         )
         assert_matches_type(RunCancelResponse, run, path=["response"])
 
     @parametrize
     def test_raw_response_cancel(self, client: Structify) -> None:
         response = client.runs.with_raw_response.cancel(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            "string",
         )
 
         assert response.is_closed is True
@@ -63,7 +63,7 @@ class TestRuns:
     @parametrize
     def test_streaming_response_cancel(self, client: Structify) -> None:
         with client.runs.with_streaming_response.cancel(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            "string",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -112,14 +112,14 @@ class TestAsyncRuns:
     @parametrize
     async def test_method_cancel(self, async_client: AsyncStructify) -> None:
         run = await async_client.runs.cancel(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            "string",
         )
         assert_matches_type(RunCancelResponse, run, path=["response"])
 
     @parametrize
     async def test_raw_response_cancel(self, async_client: AsyncStructify) -> None:
         response = await async_client.runs.with_raw_response.cancel(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            "string",
         )
 
         assert response.is_closed is True
@@ -130,7 +130,7 @@ class TestAsyncRuns:
     @parametrize
     async def test_streaming_response_cancel(self, async_client: AsyncStructify) -> None:
         async with async_client.runs.with_streaming_response.cancel(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            "string",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
