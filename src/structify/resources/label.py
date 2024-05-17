@@ -24,6 +24,7 @@ from .._response import (
 from .._base_client import (
     make_request_options,
 )
+from ..types.label_llm_assist_response import LabelLlmAssistResponse
 from ..types.label_get_messages_response import LabelGetMessagesResponse
 
 __all__ = ["LabelResource", "AsyncLabelResource"]
@@ -71,6 +72,39 @@ class LabelResource(SyncAPIResource):
                 query=maybe_transform({"uuid": uuid}, label_get_messages_params.LabelGetMessagesParams),
             ),
             cast_to=LabelGetMessagesResponse,
+        )
+
+    def llm_assist(
+        self,
+        uuid: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> LabelLlmAssistResponse:
+        """
+        web requests that would be cancelled by cloudflare in prod.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not uuid:
+            raise ValueError(f"Expected a non-empty value for `uuid` but received {uuid!r}")
+        return self._get(
+            f"/label/llm_assist/{uuid}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=LabelLlmAssistResponse,
         )
 
     @overload
@@ -313,6 +347,39 @@ class AsyncLabelResource(AsyncAPIResource):
             cast_to=LabelGetMessagesResponse,
         )
 
+    async def llm_assist(
+        self,
+        uuid: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> LabelLlmAssistResponse:
+        """
+        web requests that would be cancelled by cloudflare in prod.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not uuid:
+            raise ValueError(f"Expected a non-empty value for `uuid` but received {uuid!r}")
+        return await self._get(
+            f"/label/llm_assist/{uuid}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=LabelLlmAssistResponse,
+        )
+
     @overload
     async def run(
         self,
@@ -516,6 +583,9 @@ class LabelResourceWithRawResponse:
         self.get_messages = to_raw_response_wrapper(
             label.get_messages,
         )
+        self.llm_assist = to_raw_response_wrapper(
+            label.llm_assist,
+        )
         self.run = to_raw_response_wrapper(
             label.run,
         )
@@ -530,6 +600,9 @@ class AsyncLabelResourceWithRawResponse:
 
         self.get_messages = async_to_raw_response_wrapper(
             label.get_messages,
+        )
+        self.llm_assist = async_to_raw_response_wrapper(
+            label.llm_assist,
         )
         self.run = async_to_raw_response_wrapper(
             label.run,
@@ -546,6 +619,9 @@ class LabelResourceWithStreamingResponse:
         self.get_messages = to_streamed_response_wrapper(
             label.get_messages,
         )
+        self.llm_assist = to_streamed_response_wrapper(
+            label.llm_assist,
+        )
         self.run = to_streamed_response_wrapper(
             label.run,
         )
@@ -560,6 +636,9 @@ class AsyncLabelResourceWithStreamingResponse:
 
         self.get_messages = async_to_streamed_response_wrapper(
             label.get_messages,
+        )
+        self.llm_assist = async_to_streamed_response_wrapper(
+            label.llm_assist,
         )
         self.run = async_to_streamed_response_wrapper(
             label.run,
