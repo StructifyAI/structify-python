@@ -190,6 +190,8 @@ class Chat(BaseModel):
 
     messages: List[ChatMessage]
 
+    user_email: str
+
     metadata: Optional[ChatMetadata] = None
 
 
