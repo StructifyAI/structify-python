@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import Dict, List, Union, Optional
+from datetime import datetime
 from typing_extensions import Literal
 
 from pydantic import Field as FieldInfo
@@ -394,7 +395,7 @@ class Step(BaseModel):
 
 
 class RunGetResponse(BaseModel):
-    date: object
+    date: datetime
 
     steps: List[Step]
 
