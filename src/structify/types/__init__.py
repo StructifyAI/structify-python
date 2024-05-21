@@ -9,6 +9,7 @@ from .new_token import NewToken as NewToken
 from .user_info import UserInfo as UserInfo
 from .is_complete import IsComplete as IsComplete
 from .label_run_params import LabelRunParams as LabelRunParams
+from .run_get_response import RunGetResponse as RunGetResponse
 from .run_list_response import RunListResponse as RunListResponse
 from .dataset_descriptor import DatasetDescriptor as DatasetDescriptor
 from .dataset_get_params import DatasetGetParams as DatasetGetParams
