@@ -96,7 +96,7 @@ class RunsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> RunGetResponse:
         """
-        You successfully got a run.
+        Retrieve a run from structify.
 
         Args:
           extra_headers: Send extra headers
@@ -191,7 +191,7 @@ class AsyncRunsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> RunGetResponse:
         """
-        You successfully got a run.
+        Retrieve a run from structify.
 
         Args:
           extra_headers: Send extra headers
