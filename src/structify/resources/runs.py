@@ -42,7 +42,7 @@ class RunsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> RunListResponse:
-        """List all the active runs"""
+        """List all the executions"""
         return self._get(
             "/runs/list",
             options=make_request_options(
@@ -171,7 +171,7 @@ class AsyncRunsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> RunListResponse:
-        """List all the active runs"""
+        """List all the executions"""
         return await self._get(
             "/runs/list",
             options=make_request_options(
