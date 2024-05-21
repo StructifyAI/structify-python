@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, Union, Iterable
+from typing import Dict, Union, Iterable, Optional
 from typing_extensions import Required, Annotated, TypedDict
 
 from .._utils import PropertyInfo
@@ -34,7 +34,7 @@ __all__ = [
 
 
 class LabelSubmitParams(TypedDict, total=False):
-    body: Required[Iterable[Body]]
+    body: Required[Optional[Iterable[Body]]]
 
 
 class BodySaveSaveEntity(TypedDict, total=False):
