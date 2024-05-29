@@ -182,6 +182,8 @@ class ChatMetadata(BaseModel):
 
     tool_metadata: List[ChatMetadataToolMetadata]
 
+    url: Optional[str] = None
+
     web_flags: Optional[List[ChatMetadataWebFlag]] = None
 
 
