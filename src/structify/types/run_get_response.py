@@ -220,6 +220,8 @@ class StepPrompt(BaseModel):
 
     messages: List[StepPromptMessage]
 
+    run_id: str
+
     user_email: str
 
     metadata: Optional[StepPromptMetadata] = None
