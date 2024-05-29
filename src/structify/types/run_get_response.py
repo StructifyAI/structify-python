@@ -212,6 +212,8 @@ class StepPromptMetadata(BaseModel):
 
     tool_metadata: List[StepPromptMetadataToolMetadata]
 
+    url: Optional[str] = None
+
     web_flags: Optional[List[StepPromptMetadataWebFlag]] = None
 
 
