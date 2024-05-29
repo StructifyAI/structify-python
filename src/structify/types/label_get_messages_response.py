@@ -190,14 +190,16 @@ class Chat(BaseModel):
 
     messages: List[ChatMessage]
 
-    run_id: str
-
     user_email: str
 
     metadata: Optional[ChatMetadata] = None
 
+    run_id: Optional[str] = None
+
 
 class LabelGetMessagesResponse(BaseModel):
     chat: Chat
+
+    run_id: str
 
     uuid: str
