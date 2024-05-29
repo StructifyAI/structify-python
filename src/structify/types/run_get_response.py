@@ -220,11 +220,11 @@ class StepPrompt(BaseModel):
 
     messages: List[StepPromptMessage]
 
-    run_id: str
-
     user_email: str
 
     metadata: Optional[StepPromptMetadata] = None
+
+    run_id: Optional[str] = None
 
 
 class StepResponseToolCallInputSaveSaveEntity(BaseModel):
