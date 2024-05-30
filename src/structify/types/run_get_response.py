@@ -30,6 +30,7 @@ __all__ = [
     "StepPromptMessageContent",
     "StepPromptMessageContentText",
     "StepPromptMessageContentImage",
+    "StepPromptHumanLlmMetadata",
     "StepPromptMetadata",
     "StepPromptMetadataExtractedEntity",
     "StepPromptMetadataExtractedEntityEntity",
@@ -154,6 +155,19 @@ class StepPromptMessage(BaseModel):
     role: Literal["user", "system", "assistant"]
 
 
+class StepPromptHumanLlmMetadata(BaseModel):
+    descriptor: DatasetDescriptor
+    """A dataset is where you put multiple referential schemas.
+
+    A dataset is a complete namespace where all references between schemas are held
+    within the dataset.
+    """
+
+    run_id: str
+
+    user_email: str
+
+
 class StepPromptMetadataExtractedEntityEntity(BaseModel):
     id: int
 
@@ -222,11 +236,9 @@ class StepPrompt(BaseModel):
 
     messages: List[StepPromptMessage]
 
-    user_email: str
+    human_llm_metadata: Optional[StepPromptHumanLlmMetadata] = None
 
     metadata: Optional[StepPromptMetadata] = None
-
-    run_id: Optional[str] = None
 
 
 class StepResponseToolCallInputSaveSaveEntity(BaseModel):
