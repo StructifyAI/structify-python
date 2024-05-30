@@ -28,6 +28,7 @@ __all__ = [
     "ChatMessageContent",
     "ChatMessageContentText",
     "ChatMessageContentImage",
+    "ChatHumanLlmMetadata",
     "ChatMetadata",
     "ChatMetadataExtractedEntity",
     "ChatMetadataExtractedEntityEntity",
@@ -124,6 +125,19 @@ class ChatMessage(BaseModel):
     role: Literal["user", "system", "assistant"]
 
 
+class ChatHumanLlmMetadata(BaseModel):
+    descriptor: DatasetDescriptor
+    """A dataset is where you put multiple referential schemas.
+
+    A dataset is a complete namespace where all references between schemas are held
+    within the dataset.
+    """
+
+    run_id: str
+
+    user_email: str
+
+
 class ChatMetadataExtractedEntityEntity(BaseModel):
     id: int
 
@@ -192,11 +206,9 @@ class Chat(BaseModel):
 
     messages: List[ChatMessage]
 
-    user_email: str
+    human_llm_metadata: Optional[ChatHumanLlmMetadata] = None
 
     metadata: Optional[ChatMetadata] = None
-
-    run_id: Optional[str] = None
 
 
 class LabelGetMessagesResponse(BaseModel):
