@@ -132,7 +132,7 @@ class DocumentsResource(SyncAPIResource):
         *,
         file_type: Literal["Text", "Pdf", "SEC", "ExecutionHistory"],
         path: str,
-        file_name: FileTypes,
+        contents: FileTypes,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -157,8 +157,8 @@ class DocumentsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
-        body = deepcopy_minimal({"file_name": file_name})
-        files = extract_files(cast(Mapping[str, object], body), paths=[["file_name"]])
+        body = deepcopy_minimal({"contents": contents})
+        files = extract_files(cast(Mapping[str, object], body), paths=[["contents"]])
         if files:
             # It should be noted that the actual Content-Type header that will be
             # sent to the server will contain a `boundary` parameter, e.g.
@@ -286,7 +286,7 @@ class AsyncDocumentsResource(AsyncAPIResource):
         *,
         file_type: Literal["Text", "Pdf", "SEC", "ExecutionHistory"],
         path: str,
-        file_name: FileTypes,
+        contents: FileTypes,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -311,8 +311,8 @@ class AsyncDocumentsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
-        body = deepcopy_minimal({"file_name": file_name})
-        files = extract_files(cast(Mapping[str, object], body), paths=[["file_name"]])
+        body = deepcopy_minimal({"contents": contents})
+        files = extract_files(cast(Mapping[str, object], body), paths=[["contents"]])
         if files:
             # It should be noted that the actual Content-Type header that will be
             # sent to the server will contain a `boundary` parameter, e.g.

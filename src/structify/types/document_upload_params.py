@@ -16,4 +16,4 @@ class DocumentUploadParams(TypedDict, total=False):
     path: Required[str]
     """The path to store the document"""
 
-    file_name: Required[FileTypes]
+    contents: Required[FileTypes]
