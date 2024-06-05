@@ -81,6 +81,44 @@ class TestDocuments:
             )
 
     @parametrize
+    def test_method_download(self, client: Structify) -> None:
+        document = client.documents.download(
+            "string",
+        )
+        assert_matches_type(str, document, path=["response"])
+
+    @parametrize
+    def test_raw_response_download(self, client: Structify) -> None:
+        response = client.documents.with_raw_response.download(
+            "string",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        document = response.parse()
+        assert_matches_type(str, document, path=["response"])
+
+    @parametrize
+    def test_streaming_response_download(self, client: Structify) -> None:
+        with client.documents.with_streaming_response.download(
+            "string",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            document = response.parse()
+            assert_matches_type(str, document, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_path_params_download(self, client: Structify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            client.documents.with_raw_response.download(
+                "",
+            )
+
+    @parametrize
     def test_method_upload(self, client: Structify) -> None:
         document = client.documents.upload(
             content=b"raw file contents",
@@ -181,6 +219,44 @@ class TestAsyncDocuments:
     async def test_path_params_delete(self, async_client: AsyncStructify) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `path` but received ''"):
             await async_client.documents.with_raw_response.delete(
+                "",
+            )
+
+    @parametrize
+    async def test_method_download(self, async_client: AsyncStructify) -> None:
+        document = await async_client.documents.download(
+            "string",
+        )
+        assert_matches_type(str, document, path=["response"])
+
+    @parametrize
+    async def test_raw_response_download(self, async_client: AsyncStructify) -> None:
+        response = await async_client.documents.with_raw_response.download(
+            "string",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        document = await response.parse()
+        assert_matches_type(str, document, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_download(self, async_client: AsyncStructify) -> None:
+        async with async_client.documents.with_streaming_response.download(
+            "string",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            document = await response.parse()
+            assert_matches_type(str, document, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_download(self, async_client: AsyncStructify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            await async_client.documents.with_raw_response.download(
                 "",
             )
 

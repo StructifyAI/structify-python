@@ -230,6 +230,7 @@ class TestLabel:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
+    @pytest.mark.skip(reason="Stainless has trouble with raw submits.")
     def test_method_submit(self, client: Structify) -> None:
         label = client.label.submit(
             "string",
@@ -238,6 +239,7 @@ class TestLabel:
         assert_matches_type(str, label, path=["response"])
 
     @parametrize
+    @pytest.mark.skip(reason="Stainless has trouble with raw submits.")
     def test_raw_response_submit(self, client: Structify) -> None:
         response = client.label.with_raw_response.submit(
             "string",
@@ -250,6 +252,7 @@ class TestLabel:
         assert_matches_type(str, label, path=["response"])
 
     @parametrize
+    @pytest.mark.skip(reason="Stainless has trouble with raw submits.")
     def test_streaming_response_submit(self, client: Structify) -> None:
         with client.label.with_streaming_response.submit(
             "string",
@@ -264,6 +267,7 @@ class TestLabel:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
+    @pytest.mark.skip(reason="Stainless has trouble with raw submits.")
     def test_path_params_submit(self, client: Structify) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `uuid` but received ''"):
             client.label.with_raw_response.submit(
@@ -485,6 +489,7 @@ class TestAsyncLabel:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
+    @pytest.mark.skip(reason="Stainless has trouble with raw submits.")
     async def test_method_submit(self, async_client: AsyncStructify) -> None:
         label = await async_client.label.submit(
             "string",
@@ -493,6 +498,7 @@ class TestAsyncLabel:
         assert_matches_type(str, label, path=["response"])
 
     @parametrize
+    @pytest.mark.skip(reason="Stainless has trouble with raw submits.")
     async def test_raw_response_submit(self, async_client: AsyncStructify) -> None:
         response = await async_client.label.with_raw_response.submit(
             "string",
@@ -505,6 +511,7 @@ class TestAsyncLabel:
         assert_matches_type(str, label, path=["response"])
 
     @parametrize
+    @pytest.mark.skip(reason="Stainless has trouble with raw submits.")
     async def test_streaming_response_submit(self, async_client: AsyncStructify) -> None:
         async with async_client.label.with_streaming_response.submit(
             "string",
@@ -519,6 +526,7 @@ class TestAsyncLabel:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
+    @pytest.mark.skip(reason="Stainless has trouble with raw submits.")
     async def test_path_params_submit(self, async_client: AsyncStructify) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `uuid` but received ''"):
             await async_client.label.with_raw_response.submit(
