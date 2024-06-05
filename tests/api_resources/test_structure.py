@@ -85,7 +85,7 @@ class TestStructure:
     def test_method_run_async_overload_1(self, client: Structify) -> None:
         structure = client.structure.run_async(
             dataset_name="string",
-            sec_ingestor={},
+            text={"text_content": "string"},
         )
         assert_matches_type(object, structure, path=["response"])
 
@@ -93,11 +93,7 @@ class TestStructure:
     def test_method_run_async_with_all_params_overload_1(self, client: Structify) -> None:
         structure = client.structure.run_async(
             dataset_name="string",
-            sec_ingestor={
-                "accession_number": "string",
-                "quarter": 0,
-                "year": 0,
-            },
+            text={"text_content": "string"},
             custom_instruction="string",
         )
         assert_matches_type(object, structure, path=["response"])
@@ -106,7 +102,7 @@ class TestStructure:
     def test_raw_response_run_async_overload_1(self, client: Structify) -> None:
         response = client.structure.with_raw_response.run_async(
             dataset_name="string",
-            sec_ingestor={},
+            text={"text_content": "string"},
         )
 
         assert response.is_closed is True
@@ -118,7 +114,7 @@ class TestStructure:
     def test_streaming_response_run_async_overload_1(self, client: Structify) -> None:
         with client.structure.with_streaming_response.run_async(
             dataset_name="string",
-            sec_ingestor={},
+            text={"text_content": "string"},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -132,7 +128,7 @@ class TestStructure:
     def test_method_run_async_overload_2(self, client: Structify) -> None:
         structure = client.structure.run_async(
             dataset_name="string",
-            pdf_ingestor="string",
+            document={"path": "string"},
         )
         assert_matches_type(object, structure, path=["response"])
 
@@ -140,7 +136,7 @@ class TestStructure:
     def test_method_run_async_with_all_params_overload_2(self, client: Structify) -> None:
         structure = client.structure.run_async(
             dataset_name="string",
-            pdf_ingestor="string",
+            document={"path": "string"},
             custom_instruction="string",
         )
         assert_matches_type(object, structure, path=["response"])
@@ -149,7 +145,7 @@ class TestStructure:
     def test_raw_response_run_async_overload_2(self, client: Structify) -> None:
         response = client.structure.with_raw_response.run_async(
             dataset_name="string",
-            pdf_ingestor="string",
+            document={"path": "string"},
         )
 
         assert response.is_closed is True
@@ -161,7 +157,7 @@ class TestStructure:
     def test_streaming_response_run_async_overload_2(self, client: Structify) -> None:
         with client.structure.with_streaming_response.run_async(
             dataset_name="string",
-            pdf_ingestor="string",
+            document={"path": "string"},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -175,7 +171,7 @@ class TestStructure:
     def test_method_run_async_overload_3(self, client: Structify) -> None:
         structure = client.structure.run_async(
             dataset_name="string",
-            basic={"text_document": {}},
+            web={"phrase": "string"},
         )
         assert_matches_type(object, structure, path=["response"])
 
@@ -183,12 +179,9 @@ class TestStructure:
     def test_method_run_async_with_all_params_overload_3(self, client: Structify) -> None:
         structure = client.structure.run_async(
             dataset_name="string",
-            basic={
-                "text_document": {
-                    "content": "string",
-                    "document_name": "string",
-                    "save": True,
-                }
+            web={
+                "phrase": "string",
+                "starting_website": "string",
             },
             custom_instruction="string",
         )
@@ -198,7 +191,7 @@ class TestStructure:
     def test_raw_response_run_async_overload_3(self, client: Structify) -> None:
         response = client.structure.with_raw_response.run_async(
             dataset_name="string",
-            basic={"text_document": {}},
+            web={"phrase": "string"},
         )
 
         assert response.is_closed is True
@@ -210,7 +203,54 @@ class TestStructure:
     def test_streaming_response_run_async_overload_3(self, client: Structify) -> None:
         with client.structure.with_streaming_response.run_async(
             dataset_name="string",
-            basic={"text_document": {}},
+            web={"phrase": "string"},
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            structure = response.parse()
+            assert_matches_type(object, structure, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_method_run_async_overload_4(self, client: Structify) -> None:
+        structure = client.structure.run_async(
+            dataset_name="string",
+            sec_filing={},
+        )
+        assert_matches_type(object, structure, path=["response"])
+
+    @parametrize
+    def test_method_run_async_with_all_params_overload_4(self, client: Structify) -> None:
+        structure = client.structure.run_async(
+            dataset_name="string",
+            sec_filing={
+                "accession_number": "string",
+                "quarter": 0,
+                "year": 0,
+            },
+            custom_instruction="string",
+        )
+        assert_matches_type(object, structure, path=["response"])
+
+    @parametrize
+    def test_raw_response_run_async_overload_4(self, client: Structify) -> None:
+        response = client.structure.with_raw_response.run_async(
+            dataset_name="string",
+            sec_filing={},
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        structure = response.parse()
+        assert_matches_type(object, structure, path=["response"])
+
+    @parametrize
+    def test_streaming_response_run_async_overload_4(self, client: Structify) -> None:
+        with client.structure.with_streaming_response.run_async(
+            dataset_name="string",
+            sec_filing={},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -290,7 +330,7 @@ class TestAsyncStructure:
     async def test_method_run_async_overload_1(self, async_client: AsyncStructify) -> None:
         structure = await async_client.structure.run_async(
             dataset_name="string",
-            sec_ingestor={},
+            text={"text_content": "string"},
         )
         assert_matches_type(object, structure, path=["response"])
 
@@ -298,11 +338,7 @@ class TestAsyncStructure:
     async def test_method_run_async_with_all_params_overload_1(self, async_client: AsyncStructify) -> None:
         structure = await async_client.structure.run_async(
             dataset_name="string",
-            sec_ingestor={
-                "accession_number": "string",
-                "quarter": 0,
-                "year": 0,
-            },
+            text={"text_content": "string"},
             custom_instruction="string",
         )
         assert_matches_type(object, structure, path=["response"])
@@ -311,7 +347,7 @@ class TestAsyncStructure:
     async def test_raw_response_run_async_overload_1(self, async_client: AsyncStructify) -> None:
         response = await async_client.structure.with_raw_response.run_async(
             dataset_name="string",
-            sec_ingestor={},
+            text={"text_content": "string"},
         )
 
         assert response.is_closed is True
@@ -323,7 +359,7 @@ class TestAsyncStructure:
     async def test_streaming_response_run_async_overload_1(self, async_client: AsyncStructify) -> None:
         async with async_client.structure.with_streaming_response.run_async(
             dataset_name="string",
-            sec_ingestor={},
+            text={"text_content": "string"},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -337,7 +373,7 @@ class TestAsyncStructure:
     async def test_method_run_async_overload_2(self, async_client: AsyncStructify) -> None:
         structure = await async_client.structure.run_async(
             dataset_name="string",
-            pdf_ingestor="string",
+            document={"path": "string"},
         )
         assert_matches_type(object, structure, path=["response"])
 
@@ -345,7 +381,7 @@ class TestAsyncStructure:
     async def test_method_run_async_with_all_params_overload_2(self, async_client: AsyncStructify) -> None:
         structure = await async_client.structure.run_async(
             dataset_name="string",
-            pdf_ingestor="string",
+            document={"path": "string"},
             custom_instruction="string",
         )
         assert_matches_type(object, structure, path=["response"])
@@ -354,7 +390,7 @@ class TestAsyncStructure:
     async def test_raw_response_run_async_overload_2(self, async_client: AsyncStructify) -> None:
         response = await async_client.structure.with_raw_response.run_async(
             dataset_name="string",
-            pdf_ingestor="string",
+            document={"path": "string"},
         )
 
         assert response.is_closed is True
@@ -366,7 +402,7 @@ class TestAsyncStructure:
     async def test_streaming_response_run_async_overload_2(self, async_client: AsyncStructify) -> None:
         async with async_client.structure.with_streaming_response.run_async(
             dataset_name="string",
-            pdf_ingestor="string",
+            document={"path": "string"},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -380,7 +416,7 @@ class TestAsyncStructure:
     async def test_method_run_async_overload_3(self, async_client: AsyncStructify) -> None:
         structure = await async_client.structure.run_async(
             dataset_name="string",
-            basic={"text_document": {}},
+            web={"phrase": "string"},
         )
         assert_matches_type(object, structure, path=["response"])
 
@@ -388,12 +424,9 @@ class TestAsyncStructure:
     async def test_method_run_async_with_all_params_overload_3(self, async_client: AsyncStructify) -> None:
         structure = await async_client.structure.run_async(
             dataset_name="string",
-            basic={
-                "text_document": {
-                    "content": "string",
-                    "document_name": "string",
-                    "save": True,
-                }
+            web={
+                "phrase": "string",
+                "starting_website": "string",
             },
             custom_instruction="string",
         )
@@ -403,7 +436,7 @@ class TestAsyncStructure:
     async def test_raw_response_run_async_overload_3(self, async_client: AsyncStructify) -> None:
         response = await async_client.structure.with_raw_response.run_async(
             dataset_name="string",
-            basic={"text_document": {}},
+            web={"phrase": "string"},
         )
 
         assert response.is_closed is True
@@ -415,7 +448,54 @@ class TestAsyncStructure:
     async def test_streaming_response_run_async_overload_3(self, async_client: AsyncStructify) -> None:
         async with async_client.structure.with_streaming_response.run_async(
             dataset_name="string",
-            basic={"text_document": {}},
+            web={"phrase": "string"},
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            structure = await response.parse()
+            assert_matches_type(object, structure, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_method_run_async_overload_4(self, async_client: AsyncStructify) -> None:
+        structure = await async_client.structure.run_async(
+            dataset_name="string",
+            sec_filing={},
+        )
+        assert_matches_type(object, structure, path=["response"])
+
+    @parametrize
+    async def test_method_run_async_with_all_params_overload_4(self, async_client: AsyncStructify) -> None:
+        structure = await async_client.structure.run_async(
+            dataset_name="string",
+            sec_filing={
+                "accession_number": "string",
+                "quarter": 0,
+                "year": 0,
+            },
+            custom_instruction="string",
+        )
+        assert_matches_type(object, structure, path=["response"])
+
+    @parametrize
+    async def test_raw_response_run_async_overload_4(self, async_client: AsyncStructify) -> None:
+        response = await async_client.structure.with_raw_response.run_async(
+            dataset_name="string",
+            sec_filing={},
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        structure = await response.parse()
+        assert_matches_type(object, structure, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_run_async_overload_4(self, async_client: AsyncStructify) -> None:
+        async with async_client.structure.with_streaming_response.run_async(
+            dataset_name="string",
+            sec_filing={},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
