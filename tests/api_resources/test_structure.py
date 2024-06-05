@@ -186,7 +186,7 @@ class TestStructure:
             basic={
                 "text_document": {
                     "content": "string",
-                    "fp": "string",
+                    "filepath": "string",
                     "save": True,
                 }
             },
@@ -391,7 +391,7 @@ class TestAsyncStructure:
             basic={
                 "text_document": {
                     "content": "string",
-                    "fp": "string",
+                    "filepath": "string",
                     "save": True,
                 }
             },

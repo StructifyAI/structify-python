@@ -72,7 +72,7 @@ class Variant2(TypedDict, total=False):
 class Variant2BasicTextDocumentTextDocument(TypedDict, total=False):
     content: Optional[str]
 
-    fp: Optional[str]
+    filepath: Optional[str]
 
     save: bool
 

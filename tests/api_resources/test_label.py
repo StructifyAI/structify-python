@@ -195,7 +195,7 @@ class TestLabel:
             basic={
                 "text_document": {
                     "content": "string",
-                    "fp": "string",
+                    "filepath": "string",
                     "save": True,
                 }
             },
@@ -450,7 +450,7 @@ class TestAsyncLabel:
             basic={
                 "text_document": {
                     "content": "string",
-                    "fp": "string",
+                    "filepath": "string",
                     "save": True,
                 }
             },
