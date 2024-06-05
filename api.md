@@ -94,12 +94,12 @@ Methods:
 Types:
 
 ```python
-from structify.types import SourceListResponse
+from structify.types import Source
 ```
 
 Methods:
 
-- <code title="get /source/get_sources">client.sources.<a href="./src/structify/resources/sources.py">list</a>(\*\*<a href="src/structify/types/source_list_params.py">params</a>) -> <a href="./src/structify/types/source_list_response.py">SourceListResponse</a></code>
+- <code title="get /source/get_sources">client.sources.<a href="./src/structify/resources/sources.py">list</a>(\*\*<a href="src/structify/types/source_list_params.py">params</a>) -> <a href="./src/structify/types/source.py">Source</a></code>
 
 # Structure
 

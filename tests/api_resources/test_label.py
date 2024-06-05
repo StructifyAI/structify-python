@@ -94,7 +94,7 @@ class TestLabel:
     def test_method_run_overload_1(self, client: Structify) -> None:
         label = client.label.run(
             dataset_name="string",
-            sec_ingestor={},
+            text={"text_content": "string"},
         )
         assert label is None
 
@@ -102,11 +102,7 @@ class TestLabel:
     def test_method_run_with_all_params_overload_1(self, client: Structify) -> None:
         label = client.label.run(
             dataset_name="string",
-            sec_ingestor={
-                "accession_number": "string",
-                "quarter": 0,
-                "year": 0,
-            },
+            text={"text_content": "string"},
             custom_instruction="string",
         )
         assert label is None
@@ -115,7 +111,7 @@ class TestLabel:
     def test_raw_response_run_overload_1(self, client: Structify) -> None:
         response = client.label.with_raw_response.run(
             dataset_name="string",
-            sec_ingestor={},
+            text={"text_content": "string"},
         )
 
         assert response.is_closed is True
@@ -127,7 +123,7 @@ class TestLabel:
     def test_streaming_response_run_overload_1(self, client: Structify) -> None:
         with client.label.with_streaming_response.run(
             dataset_name="string",
-            sec_ingestor={},
+            text={"text_content": "string"},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -141,7 +137,7 @@ class TestLabel:
     def test_method_run_overload_2(self, client: Structify) -> None:
         label = client.label.run(
             dataset_name="string",
-            pdf_ingestor="string",
+            document={"path": "string"},
         )
         assert label is None
 
@@ -149,7 +145,7 @@ class TestLabel:
     def test_method_run_with_all_params_overload_2(self, client: Structify) -> None:
         label = client.label.run(
             dataset_name="string",
-            pdf_ingestor="string",
+            document={"path": "string"},
             custom_instruction="string",
         )
         assert label is None
@@ -158,7 +154,7 @@ class TestLabel:
     def test_raw_response_run_overload_2(self, client: Structify) -> None:
         response = client.label.with_raw_response.run(
             dataset_name="string",
-            pdf_ingestor="string",
+            document={"path": "string"},
         )
 
         assert response.is_closed is True
@@ -170,7 +166,7 @@ class TestLabel:
     def test_streaming_response_run_overload_2(self, client: Structify) -> None:
         with client.label.with_streaming_response.run(
             dataset_name="string",
-            pdf_ingestor="string",
+            document={"path": "string"},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -184,7 +180,7 @@ class TestLabel:
     def test_method_run_overload_3(self, client: Structify) -> None:
         label = client.label.run(
             dataset_name="string",
-            basic={"text_document": {}},
+            web={"phrase": "string"},
         )
         assert label is None
 
@@ -192,12 +188,9 @@ class TestLabel:
     def test_method_run_with_all_params_overload_3(self, client: Structify) -> None:
         label = client.label.run(
             dataset_name="string",
-            basic={
-                "text_document": {
-                    "content": "string",
-                    "document_name": "string",
-                    "save": True,
-                }
+            web={
+                "phrase": "string",
+                "starting_website": "string",
             },
             custom_instruction="string",
         )
@@ -207,7 +200,7 @@ class TestLabel:
     def test_raw_response_run_overload_3(self, client: Structify) -> None:
         response = client.label.with_raw_response.run(
             dataset_name="string",
-            basic={"text_document": {}},
+            web={"phrase": "string"},
         )
 
         assert response.is_closed is True
@@ -219,7 +212,54 @@ class TestLabel:
     def test_streaming_response_run_overload_3(self, client: Structify) -> None:
         with client.label.with_streaming_response.run(
             dataset_name="string",
-            basic={"text_document": {}},
+            web={"phrase": "string"},
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            label = response.parse()
+            assert label is None
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_method_run_overload_4(self, client: Structify) -> None:
+        label = client.label.run(
+            dataset_name="string",
+            sec_filing={},
+        )
+        assert label is None
+
+    @parametrize
+    def test_method_run_with_all_params_overload_4(self, client: Structify) -> None:
+        label = client.label.run(
+            dataset_name="string",
+            sec_filing={
+                "accession_number": "string",
+                "quarter": 0,
+                "year": 0,
+            },
+            custom_instruction="string",
+        )
+        assert label is None
+
+    @parametrize
+    def test_raw_response_run_overload_4(self, client: Structify) -> None:
+        response = client.label.with_raw_response.run(
+            dataset_name="string",
+            sec_filing={},
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        label = response.parse()
+        assert label is None
+
+    @parametrize
+    def test_streaming_response_run_overload_4(self, client: Structify) -> None:
+        with client.label.with_streaming_response.run(
+            dataset_name="string",
+            sec_filing={},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -349,7 +389,7 @@ class TestAsyncLabel:
     async def test_method_run_overload_1(self, async_client: AsyncStructify) -> None:
         label = await async_client.label.run(
             dataset_name="string",
-            sec_ingestor={},
+            text={"text_content": "string"},
         )
         assert label is None
 
@@ -357,11 +397,7 @@ class TestAsyncLabel:
     async def test_method_run_with_all_params_overload_1(self, async_client: AsyncStructify) -> None:
         label = await async_client.label.run(
             dataset_name="string",
-            sec_ingestor={
-                "accession_number": "string",
-                "quarter": 0,
-                "year": 0,
-            },
+            text={"text_content": "string"},
             custom_instruction="string",
         )
         assert label is None
@@ -370,7 +406,7 @@ class TestAsyncLabel:
     async def test_raw_response_run_overload_1(self, async_client: AsyncStructify) -> None:
         response = await async_client.label.with_raw_response.run(
             dataset_name="string",
-            sec_ingestor={},
+            text={"text_content": "string"},
         )
 
         assert response.is_closed is True
@@ -382,7 +418,7 @@ class TestAsyncLabel:
     async def test_streaming_response_run_overload_1(self, async_client: AsyncStructify) -> None:
         async with async_client.label.with_streaming_response.run(
             dataset_name="string",
-            sec_ingestor={},
+            text={"text_content": "string"},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -396,7 +432,7 @@ class TestAsyncLabel:
     async def test_method_run_overload_2(self, async_client: AsyncStructify) -> None:
         label = await async_client.label.run(
             dataset_name="string",
-            pdf_ingestor="string",
+            document={"path": "string"},
         )
         assert label is None
 
@@ -404,7 +440,7 @@ class TestAsyncLabel:
     async def test_method_run_with_all_params_overload_2(self, async_client: AsyncStructify) -> None:
         label = await async_client.label.run(
             dataset_name="string",
-            pdf_ingestor="string",
+            document={"path": "string"},
             custom_instruction="string",
         )
         assert label is None
@@ -413,7 +449,7 @@ class TestAsyncLabel:
     async def test_raw_response_run_overload_2(self, async_client: AsyncStructify) -> None:
         response = await async_client.label.with_raw_response.run(
             dataset_name="string",
-            pdf_ingestor="string",
+            document={"path": "string"},
         )
 
         assert response.is_closed is True
@@ -425,7 +461,7 @@ class TestAsyncLabel:
     async def test_streaming_response_run_overload_2(self, async_client: AsyncStructify) -> None:
         async with async_client.label.with_streaming_response.run(
             dataset_name="string",
-            pdf_ingestor="string",
+            document={"path": "string"},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -439,7 +475,7 @@ class TestAsyncLabel:
     async def test_method_run_overload_3(self, async_client: AsyncStructify) -> None:
         label = await async_client.label.run(
             dataset_name="string",
-            basic={"text_document": {}},
+            web={"phrase": "string"},
         )
         assert label is None
 
@@ -447,12 +483,9 @@ class TestAsyncLabel:
     async def test_method_run_with_all_params_overload_3(self, async_client: AsyncStructify) -> None:
         label = await async_client.label.run(
             dataset_name="string",
-            basic={
-                "text_document": {
-                    "content": "string",
-                    "document_name": "string",
-                    "save": True,
-                }
+            web={
+                "phrase": "string",
+                "starting_website": "string",
             },
             custom_instruction="string",
         )
@@ -462,7 +495,7 @@ class TestAsyncLabel:
     async def test_raw_response_run_overload_3(self, async_client: AsyncStructify) -> None:
         response = await async_client.label.with_raw_response.run(
             dataset_name="string",
-            basic={"text_document": {}},
+            web={"phrase": "string"},
         )
 
         assert response.is_closed is True
@@ -474,7 +507,54 @@ class TestAsyncLabel:
     async def test_streaming_response_run_overload_3(self, async_client: AsyncStructify) -> None:
         async with async_client.label.with_streaming_response.run(
             dataset_name="string",
-            basic={"text_document": {}},
+            web={"phrase": "string"},
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            label = await response.parse()
+            assert label is None
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_method_run_overload_4(self, async_client: AsyncStructify) -> None:
+        label = await async_client.label.run(
+            dataset_name="string",
+            sec_filing={},
+        )
+        assert label is None
+
+    @parametrize
+    async def test_method_run_with_all_params_overload_4(self, async_client: AsyncStructify) -> None:
+        label = await async_client.label.run(
+            dataset_name="string",
+            sec_filing={
+                "accession_number": "string",
+                "quarter": 0,
+                "year": 0,
+            },
+            custom_instruction="string",
+        )
+        assert label is None
+
+    @parametrize
+    async def test_raw_response_run_overload_4(self, async_client: AsyncStructify) -> None:
+        response = await async_client.label.with_raw_response.run(
+            dataset_name="string",
+            sec_filing={},
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        label = await response.parse()
+        assert label is None
+
+    @parametrize
+    async def test_streaming_response_run_overload_4(self, async_client: AsyncStructify) -> None:
+        async with async_client.label.with_streaming_response.run(
+            dataset_name="string",
+            sec_filing={},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
