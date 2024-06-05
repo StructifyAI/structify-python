@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from typing import Mapping, cast
+from typing_extensions import Literal
 
 import httpx
 
@@ -129,6 +130,8 @@ class DocumentsResource(SyncAPIResource):
     def upload(
         self,
         *,
+        file_type: Literal["Text", "Pdf", "SEC", "ExecutionHistory"],
+        path: str,
         file_name: FileTypes,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -141,6 +144,10 @@ class DocumentsResource(SyncAPIResource):
         Add a new file to the database
 
         Args:
+          file_type: "The type of file to store"
+
+          path: The path to store the document
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -162,7 +169,17 @@ class DocumentsResource(SyncAPIResource):
             body=maybe_transform(body, document_upload_params.DocumentUploadParams),
             files=files,
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "file_type": file_type,
+                        "path": path,
+                    },
+                    document_upload_params.DocumentUploadParams,
+                ),
             ),
             cast_to=NoneType,
         )
@@ -267,6 +284,8 @@ class AsyncDocumentsResource(AsyncAPIResource):
     async def upload(
         self,
         *,
+        file_type: Literal["Text", "Pdf", "SEC", "ExecutionHistory"],
+        path: str,
         file_name: FileTypes,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -279,6 +298,10 @@ class AsyncDocumentsResource(AsyncAPIResource):
         Add a new file to the database
 
         Args:
+          file_type: "The type of file to store"
+
+          path: The path to store the document
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -300,7 +323,17 @@ class AsyncDocumentsResource(AsyncAPIResource):
             body=await async_maybe_transform(body, document_upload_params.DocumentUploadParams),
             files=files,
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "file_type": file_type,
+                        "path": path,
+                    },
+                    document_upload_params.DocumentUploadParams,
+                ),
             ),
             cast_to=NoneType,
         )

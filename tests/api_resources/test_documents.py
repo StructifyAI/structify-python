@@ -121,6 +121,8 @@ class TestDocuments:
     @parametrize
     def test_method_upload(self, client: Structify) -> None:
         document = client.documents.upload(
+            file_type="Text",
+            path="string",
             file_name=b"raw file contents",
         )
         assert document is None
@@ -128,6 +130,8 @@ class TestDocuments:
     @parametrize
     def test_raw_response_upload(self, client: Structify) -> None:
         response = client.documents.with_raw_response.upload(
+            file_type="Text",
+            path="string",
             file_name=b"raw file contents",
         )
 
@@ -139,6 +143,8 @@ class TestDocuments:
     @parametrize
     def test_streaming_response_upload(self, client: Structify) -> None:
         with client.documents.with_streaming_response.upload(
+            file_type="Text",
+            path="string",
             file_name=b"raw file contents",
         ) as response:
             assert not response.is_closed
@@ -257,6 +263,8 @@ class TestAsyncDocuments:
     @parametrize
     async def test_method_upload(self, async_client: AsyncStructify) -> None:
         document = await async_client.documents.upload(
+            file_type="Text",
+            path="string",
             file_name=b"raw file contents",
         )
         assert document is None
@@ -264,6 +272,8 @@ class TestAsyncDocuments:
     @parametrize
     async def test_raw_response_upload(self, async_client: AsyncStructify) -> None:
         response = await async_client.documents.with_raw_response.upload(
+            file_type="Text",
+            path="string",
             file_name=b"raw file contents",
         )
 
@@ -275,6 +285,8 @@ class TestAsyncDocuments:
     @parametrize
     async def test_streaming_response_upload(self, async_client: AsyncStructify) -> None:
         async with async_client.documents.with_streaming_response.upload(
+            file_type="Text",
+            path="string",
             file_name=b"raw file contents",
         ) as response:
             assert not response.is_closed
