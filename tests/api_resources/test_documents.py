@@ -121,14 +121,18 @@ class TestDocuments:
     @parametrize
     def test_method_upload(self, client: Structify) -> None:
         document = client.documents.upload(
-            body={},
+            doctype=b"raw file contents",
+            file_content=b"raw file contents",
+            path=b"raw file contents",
         )
         assert document is None
 
     @parametrize
     def test_raw_response_upload(self, client: Structify) -> None:
         response = client.documents.with_raw_response.upload(
-            body={},
+            doctype=b"raw file contents",
+            file_content=b"raw file contents",
+            path=b"raw file contents",
         )
 
         assert response.is_closed is True
@@ -139,7 +143,9 @@ class TestDocuments:
     @parametrize
     def test_streaming_response_upload(self, client: Structify) -> None:
         with client.documents.with_streaming_response.upload(
-            body={},
+            doctype=b"raw file contents",
+            file_content=b"raw file contents",
+            path=b"raw file contents",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -257,14 +263,18 @@ class TestAsyncDocuments:
     @parametrize
     async def test_method_upload(self, async_client: AsyncStructify) -> None:
         document = await async_client.documents.upload(
-            body={},
+            doctype=b"raw file contents",
+            file_content=b"raw file contents",
+            path=b"raw file contents",
         )
         assert document is None
 
     @parametrize
     async def test_raw_response_upload(self, async_client: AsyncStructify) -> None:
         response = await async_client.documents.with_raw_response.upload(
-            body={},
+            doctype=b"raw file contents",
+            file_content=b"raw file contents",
+            path=b"raw file contents",
         )
 
         assert response.is_closed is True
@@ -275,7 +285,9 @@ class TestAsyncDocuments:
     @parametrize
     async def test_streaming_response_upload(self, async_client: AsyncStructify) -> None:
         async with async_client.documents.with_streaming_response.upload(
-            body={},
+            doctype=b"raw file contents",
+            file_content=b"raw file contents",
+            path=b"raw file contents",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
