@@ -135,7 +135,7 @@ class StructureResource(SyncAPIResource):
         self,
         *,
         dataset_name: str,
-        pdf_ingestor: str,
+        pdf_ingestor: structure_run_async_params.Variant1PdfIngestor,
         custom_instruction: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -199,7 +199,7 @@ class StructureResource(SyncAPIResource):
         dataset_name: str,
         sec_ingestor: structure_run_async_params.Variant0SecIngestor | NotGiven = NOT_GIVEN,
         custom_instruction: Optional[str] | NotGiven = NOT_GIVEN,
-        pdf_ingestor: str | NotGiven = NOT_GIVEN,
+        pdf_ingestor: structure_run_async_params.Variant1PdfIngestor | NotGiven = NOT_GIVEN,
         basic: structure_run_async_params.Variant2Basic | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -341,7 +341,7 @@ class AsyncStructureResource(AsyncAPIResource):
         self,
         *,
         dataset_name: str,
-        pdf_ingestor: str,
+        pdf_ingestor: structure_run_async_params.Variant1PdfIngestor,
         custom_instruction: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -405,7 +405,7 @@ class AsyncStructureResource(AsyncAPIResource):
         dataset_name: str,
         sec_ingestor: structure_run_async_params.Variant0SecIngestor | NotGiven = NOT_GIVEN,
         custom_instruction: Optional[str] | NotGiven = NOT_GIVEN,
-        pdf_ingestor: str | NotGiven = NOT_GIVEN,
+        pdf_ingestor: structure_run_async_params.Variant1PdfIngestor | NotGiven = NOT_GIVEN,
         basic: structure_run_async_params.Variant2Basic | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.

@@ -132,7 +132,7 @@ class TestStructure:
     def test_method_run_async_overload_2(self, client: Structify) -> None:
         structure = client.structure.run_async(
             dataset_name="string",
-            pdf_ingestor="string",
+            pdf_ingestor={"path": "string"},
         )
         assert_matches_type(object, structure, path=["response"])
 
@@ -140,7 +140,7 @@ class TestStructure:
     def test_method_run_async_with_all_params_overload_2(self, client: Structify) -> None:
         structure = client.structure.run_async(
             dataset_name="string",
-            pdf_ingestor="string",
+            pdf_ingestor={"path": "string"},
             custom_instruction="string",
         )
         assert_matches_type(object, structure, path=["response"])
@@ -149,7 +149,7 @@ class TestStructure:
     def test_raw_response_run_async_overload_2(self, client: Structify) -> None:
         response = client.structure.with_raw_response.run_async(
             dataset_name="string",
-            pdf_ingestor="string",
+            pdf_ingestor={"path": "string"},
         )
 
         assert response.is_closed is True
@@ -161,7 +161,7 @@ class TestStructure:
     def test_streaming_response_run_async_overload_2(self, client: Structify) -> None:
         with client.structure.with_streaming_response.run_async(
             dataset_name="string",
-            pdf_ingestor="string",
+            pdf_ingestor={"path": "string"},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -186,7 +186,7 @@ class TestStructure:
             basic={
                 "text_document": {
                     "content": "string",
-                    "document_name": "string",
+                    "fp": "string",
                     "save": True,
                 }
             },
@@ -337,7 +337,7 @@ class TestAsyncStructure:
     async def test_method_run_async_overload_2(self, async_client: AsyncStructify) -> None:
         structure = await async_client.structure.run_async(
             dataset_name="string",
-            pdf_ingestor="string",
+            pdf_ingestor={"path": "string"},
         )
         assert_matches_type(object, structure, path=["response"])
 
@@ -345,7 +345,7 @@ class TestAsyncStructure:
     async def test_method_run_async_with_all_params_overload_2(self, async_client: AsyncStructify) -> None:
         structure = await async_client.structure.run_async(
             dataset_name="string",
-            pdf_ingestor="string",
+            pdf_ingestor={"path": "string"},
             custom_instruction="string",
         )
         assert_matches_type(object, structure, path=["response"])
@@ -354,7 +354,7 @@ class TestAsyncStructure:
     async def test_raw_response_run_async_overload_2(self, async_client: AsyncStructify) -> None:
         response = await async_client.structure.with_raw_response.run_async(
             dataset_name="string",
-            pdf_ingestor="string",
+            pdf_ingestor={"path": "string"},
         )
 
         assert response.is_closed is True
@@ -366,7 +366,7 @@ class TestAsyncStructure:
     async def test_streaming_response_run_async_overload_2(self, async_client: AsyncStructify) -> None:
         async with async_client.structure.with_streaming_response.run_async(
             dataset_name="string",
-            pdf_ingestor="string",
+            pdf_ingestor={"path": "string"},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -391,7 +391,7 @@ class TestAsyncStructure:
             basic={
                 "text_document": {
                     "content": "string",
-                    "document_name": "string",
+                    "fp": "string",
                     "save": True,
                 }
             },
