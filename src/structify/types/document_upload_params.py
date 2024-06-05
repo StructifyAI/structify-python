@@ -4,8 +4,14 @@ from __future__ import annotations
 
 from typing_extensions import Required, TypedDict
 
+from .._types import FileTypes
+
 __all__ = ["DocumentUploadParams"]
 
 
 class DocumentUploadParams(TypedDict, total=False):
-    body: Required[object]
+    doctype: Required[FileTypes]
+
+    file_content: Required[FileTypes]
+
+    path: Required[FileTypes]
