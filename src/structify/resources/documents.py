@@ -2,17 +2,14 @@
 
 from __future__ import annotations
 
-from typing import Mapping, cast
 from typing_extensions import Literal
 
 import httpx
 
 from ..types import document_upload_params
-from .._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven, FileTypes
+from .._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
 from .._utils import (
-    extract_files,
     maybe_transform,
-    deepcopy_minimal,
     async_maybe_transform,
 )
 from .._compat import cached_property
@@ -130,9 +127,9 @@ class DocumentsResource(SyncAPIResource):
     def upload(
         self,
         *,
-        file_type: Literal["Text", "Pdf", "SEC", "ExecutionHistory"],
+        doctype: Literal["Text", "Pdf", "SEC", "ExecutionHistory"],
         path: str,
-        contents: FileTypes,
+        body: object,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -144,9 +141,7 @@ class DocumentsResource(SyncAPIResource):
         Add a new file to the database
 
         Args:
-          file_type: "The type of file to store"
-
-          path: The path to store the document
+          path: The path you want to upload the file to.
 
           extra_headers: Send extra headers
 
@@ -157,17 +152,9 @@ class DocumentsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
-        body = deepcopy_minimal({"contents": contents})
-        files = extract_files(cast(Mapping[str, object], body), paths=[["contents"]])
-        if files:
-            # It should be noted that the actual Content-Type header that will be
-            # sent to the server will contain a `boundary` parameter, e.g.
-            # multipart/form-data; boundary=---abc--
-            extra_headers["Content-Type"] = "multipart/form-data"
         return self._post(
             "/documents/upload",
             body=maybe_transform(body, document_upload_params.DocumentUploadParams),
-            files=files,
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -175,7 +162,7 @@ class DocumentsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "file_type": file_type,
+                        "doctype": doctype,
                         "path": path,
                     },
                     document_upload_params.DocumentUploadParams,
@@ -284,9 +271,9 @@ class AsyncDocumentsResource(AsyncAPIResource):
     async def upload(
         self,
         *,
-        file_type: Literal["Text", "Pdf", "SEC", "ExecutionHistory"],
+        doctype: Literal["Text", "Pdf", "SEC", "ExecutionHistory"],
         path: str,
-        contents: FileTypes,
+        body: object,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -298,9 +285,7 @@ class AsyncDocumentsResource(AsyncAPIResource):
         Add a new file to the database
 
         Args:
-          file_type: "The type of file to store"
-
-          path: The path to store the document
+          path: The path you want to upload the file to.
 
           extra_headers: Send extra headers
 
@@ -311,17 +296,9 @@ class AsyncDocumentsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
-        body = deepcopy_minimal({"contents": contents})
-        files = extract_files(cast(Mapping[str, object], body), paths=[["contents"]])
-        if files:
-            # It should be noted that the actual Content-Type header that will be
-            # sent to the server will contain a `boundary` parameter, e.g.
-            # multipart/form-data; boundary=---abc--
-            extra_headers["Content-Type"] = "multipart/form-data"
         return await self._post(
             "/documents/upload",
             body=await async_maybe_transform(body, document_upload_params.DocumentUploadParams),
-            files=files,
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -329,7 +306,7 @@ class AsyncDocumentsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=await async_maybe_transform(
                     {
-                        "file_type": file_type,
+                        "doctype": doctype,
                         "path": path,
                     },
                     document_upload_params.DocumentUploadParams,
