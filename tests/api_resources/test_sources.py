@@ -9,6 +9,7 @@ import pytest
 
 from structify import Structify, AsyncStructify
 from tests.utils import assert_matches_type
+from structify.types import SourceListResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -21,7 +22,7 @@ class TestSources:
         source = client.sources.list(
             id=0,
         )
-        assert_matches_type(object, source, path=["response"])
+        assert_matches_type(SourceListResponse, source, path=["response"])
 
     @parametrize
     def test_raw_response_list(self, client: Structify) -> None:
@@ -32,7 +33,7 @@ class TestSources:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         source = response.parse()
-        assert_matches_type(object, source, path=["response"])
+        assert_matches_type(SourceListResponse, source, path=["response"])
 
     @parametrize
     def test_streaming_response_list(self, client: Structify) -> None:
@@ -43,7 +44,7 @@ class TestSources:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             source = response.parse()
-            assert_matches_type(object, source, path=["response"])
+            assert_matches_type(SourceListResponse, source, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -56,7 +57,7 @@ class TestAsyncSources:
         source = await async_client.sources.list(
             id=0,
         )
-        assert_matches_type(object, source, path=["response"])
+        assert_matches_type(SourceListResponse, source, path=["response"])
 
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncStructify) -> None:
@@ -67,7 +68,7 @@ class TestAsyncSources:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         source = await response.parse()
-        assert_matches_type(object, source, path=["response"])
+        assert_matches_type(SourceListResponse, source, path=["response"])
 
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncStructify) -> None:
@@ -78,6 +79,6 @@ class TestAsyncSources:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             source = await response.parse()
-            assert_matches_type(object, source, path=["response"])
+            assert_matches_type(SourceListResponse, source, path=["response"])
 
         assert cast(Any, response.is_closed) is True
