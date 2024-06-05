@@ -37,9 +37,11 @@ class Variant0(TypedDict, total=False):
 
 
 class Variant0BasicTextDocumentTextDocument(TypedDict, total=False):
-    content: Required[str]
+    content: Optional[str]
 
-    document_name: Required[str]
+    document_name: Optional[str]
+
+    save: bool
 
 
 class Variant0BasicTextDocument(TypedDict, total=False):
