@@ -4,13 +4,16 @@ from __future__ import annotations
 
 from typing_extensions import Literal, Required, TypedDict
 
+from .._types import FileTypes
+
 __all__ = ["DocumentUploadParams"]
 
 
 class DocumentUploadParams(TypedDict, total=False):
-    doctype: Required[Literal["Text", "Pdf", "SEC", "ExecutionHistory"]]
+    file_type: Required[Literal["Text", "Pdf", "SEC", "ExecutionHistory"]]
+    """\"The type of file to store" """
 
     path: Required[str]
-    """The path you want to upload the file to."""
+    """The path to store the document"""
 
-    body: Required[object]
+    contents: Required[FileTypes]
