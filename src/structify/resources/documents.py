@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from typing import Mapping, cast
+from typing_extensions import Literal
 
 import httpx
 
@@ -130,7 +131,7 @@ class DocumentsResource(SyncAPIResource):
         self,
         *,
         content: FileTypes,
-        file_type: FileTypes,
+        file_type: Literal["Text", "Pdf", "SEC", "ExecutionHistory"],
         path: FileTypes,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -159,7 +160,7 @@ class DocumentsResource(SyncAPIResource):
                 "path": path,
             }
         )
-        files = extract_files(cast(Mapping[str, object], body), paths=[["content"], ["file_type"], ["path"]])
+        files = extract_files(cast(Mapping[str, object], body), paths=[["content"], ["path"]])
         if files:
             # It should be noted that the actual Content-Type header that will be
             # sent to the server will contain a `boundary` parameter, e.g.
@@ -276,7 +277,7 @@ class AsyncDocumentsResource(AsyncAPIResource):
         self,
         *,
         content: FileTypes,
-        file_type: FileTypes,
+        file_type: Literal["Text", "Pdf", "SEC", "ExecutionHistory"],
         path: FileTypes,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -305,7 +306,7 @@ class AsyncDocumentsResource(AsyncAPIResource):
                 "path": path,
             }
         )
-        files = extract_files(cast(Mapping[str, object], body), paths=[["content"], ["file_type"], ["path"]])
+        files = extract_files(cast(Mapping[str, object], body), paths=[["content"], ["path"]])
         if files:
             # It should be noted that the actual Content-Type header that will be
             # sent to the server will contain a `boundary` parameter, e.g.

@@ -122,7 +122,7 @@ class TestDocuments:
     def test_method_upload(self, client: Structify) -> None:
         document = client.documents.upload(
             content=b"raw file contents",
-            file_type=b"raw file contents",
+            file_type="Text",
             path=b"raw file contents",
         )
         assert document is None
@@ -131,7 +131,7 @@ class TestDocuments:
     def test_raw_response_upload(self, client: Structify) -> None:
         response = client.documents.with_raw_response.upload(
             content=b"raw file contents",
-            file_type=b"raw file contents",
+            file_type="Text",
             path=b"raw file contents",
         )
 
@@ -144,7 +144,7 @@ class TestDocuments:
     def test_streaming_response_upload(self, client: Structify) -> None:
         with client.documents.with_streaming_response.upload(
             content=b"raw file contents",
-            file_type=b"raw file contents",
+            file_type="Text",
             path=b"raw file contents",
         ) as response:
             assert not response.is_closed
@@ -264,7 +264,7 @@ class TestAsyncDocuments:
     async def test_method_upload(self, async_client: AsyncStructify) -> None:
         document = await async_client.documents.upload(
             content=b"raw file contents",
-            file_type=b"raw file contents",
+            file_type="Text",
             path=b"raw file contents",
         )
         assert document is None
@@ -273,7 +273,7 @@ class TestAsyncDocuments:
     async def test_raw_response_upload(self, async_client: AsyncStructify) -> None:
         response = await async_client.documents.with_raw_response.upload(
             content=b"raw file contents",
-            file_type=b"raw file contents",
+            file_type="Text",
             path=b"raw file contents",
         )
 
@@ -286,7 +286,7 @@ class TestAsyncDocuments:
     async def test_streaming_response_upload(self, async_client: AsyncStructify) -> None:
         async with async_client.documents.with_streaming_response.upload(
             content=b"raw file contents",
-            file_type=b"raw file contents",
+            file_type="Text",
             path=b"raw file contents",
         ) as response:
             assert not response.is_closed
