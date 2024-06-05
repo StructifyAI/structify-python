@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 from .entity import Entity as Entity
-from .source import Source as Source
 from .dataset import Dataset as Dataset
 from .new_token import NewToken as NewToken
 from .user_info import UserInfo as UserInfo
