@@ -141,7 +141,7 @@ class TestLabel:
     def test_method_run_overload_2(self, client: Structify) -> None:
         label = client.label.run(
             dataset_name="string",
-            pdf_ingestor="string",
+            pdf_ingestor={"path": "string"},
         )
         assert label is None
 
@@ -149,7 +149,7 @@ class TestLabel:
     def test_method_run_with_all_params_overload_2(self, client: Structify) -> None:
         label = client.label.run(
             dataset_name="string",
-            pdf_ingestor="string",
+            pdf_ingestor={"path": "string"},
             custom_instruction="string",
         )
         assert label is None
@@ -158,7 +158,7 @@ class TestLabel:
     def test_raw_response_run_overload_2(self, client: Structify) -> None:
         response = client.label.with_raw_response.run(
             dataset_name="string",
-            pdf_ingestor="string",
+            pdf_ingestor={"path": "string"},
         )
 
         assert response.is_closed is True
@@ -170,7 +170,7 @@ class TestLabel:
     def test_streaming_response_run_overload_2(self, client: Structify) -> None:
         with client.label.with_streaming_response.run(
             dataset_name="string",
-            pdf_ingestor="string",
+            pdf_ingestor={"path": "string"},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -195,7 +195,7 @@ class TestLabel:
             basic={
                 "text_document": {
                     "content": "string",
-                    "document_name": "string",
+                    "fp": "string",
                     "save": True,
                 }
             },
@@ -400,7 +400,7 @@ class TestAsyncLabel:
     async def test_method_run_overload_2(self, async_client: AsyncStructify) -> None:
         label = await async_client.label.run(
             dataset_name="string",
-            pdf_ingestor="string",
+            pdf_ingestor={"path": "string"},
         )
         assert label is None
 
@@ -408,7 +408,7 @@ class TestAsyncLabel:
     async def test_method_run_with_all_params_overload_2(self, async_client: AsyncStructify) -> None:
         label = await async_client.label.run(
             dataset_name="string",
-            pdf_ingestor="string",
+            pdf_ingestor={"path": "string"},
             custom_instruction="string",
         )
         assert label is None
@@ -417,7 +417,7 @@ class TestAsyncLabel:
     async def test_raw_response_run_overload_2(self, async_client: AsyncStructify) -> None:
         response = await async_client.label.with_raw_response.run(
             dataset_name="string",
-            pdf_ingestor="string",
+            pdf_ingestor={"path": "string"},
         )
 
         assert response.is_closed is True
@@ -429,7 +429,7 @@ class TestAsyncLabel:
     async def test_streaming_response_run_overload_2(self, async_client: AsyncStructify) -> None:
         async with async_client.label.with_streaming_response.run(
             dataset_name="string",
-            pdf_ingestor="string",
+            pdf_ingestor={"path": "string"},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -454,7 +454,7 @@ class TestAsyncLabel:
             basic={
                 "text_document": {
                     "content": "string",
-                    "document_name": "string",
+                    "fp": "string",
                     "save": True,
                 }
             },

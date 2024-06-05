@@ -13,6 +13,7 @@ __all__ = [
     "Variant0",
     "Variant0SecIngestor",
     "Variant1",
+    "Variant1PdfIngestor",
     "Variant2",
     "Variant2Basic",
     "Variant2BasicTextDocument",
@@ -43,13 +44,17 @@ class Variant0SecIngestor(TypedDict, total=False):
 class Variant1(TypedDict, total=False):
     dataset_name: Required[str]
 
-    pdf_ingestor: Required[Annotated[str, PropertyInfo(alias="PDFIngestor")]]
+    pdf_ingestor: Required[Annotated[Variant1PdfIngestor, PropertyInfo(alias="PDFIngestor")]]
     """This is currently a very simple ingestor.
 
     It converts everything to an image and processes them independently.
     """
 
     custom_instruction: Optional[str]
+
+
+class Variant1PdfIngestor(TypedDict, total=False):
+    path: Required[str]
 
 
 class Variant2(TypedDict, total=False):
@@ -67,7 +72,7 @@ class Variant2(TypedDict, total=False):
 class Variant2BasicTextDocumentTextDocument(TypedDict, total=False):
     content: Optional[str]
 
-    document_name: Optional[str]
+    fp: Optional[str]
 
     save: bool
 
