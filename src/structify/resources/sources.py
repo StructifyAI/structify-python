@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from typing import Any, cast
+
 import httpx
 
 from ..types import source_list_params
@@ -21,7 +23,7 @@ from .._response import (
 from .._base_client import (
     make_request_options,
 )
-from ..types.source_list_response import SourceListResponse
+from ..types.source import Source
 
 __all__ = ["SourcesResource", "AsyncSourcesResource"]
 
@@ -45,7 +47,7 @@ class SourcesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> SourceListResponse:
+    ) -> Source:
         """
         Get all sources for a given entity
 
@@ -60,16 +62,19 @@ class SourcesResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._get(
-            "/source/get_sources",
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform({"id": id}, source_list_params.SourceListParams),
+        return cast(
+            Source,
+            self._get(
+                "/source/get_sources",
+                options=make_request_options(
+                    extra_headers=extra_headers,
+                    extra_query=extra_query,
+                    extra_body=extra_body,
+                    timeout=timeout,
+                    query=maybe_transform({"id": id}, source_list_params.SourceListParams),
+                ),
+                cast_to=cast(Any, Source),  # Union types cannot be passed in as arguments in the type system
             ),
-            cast_to=SourceListResponse,
         )
 
 
@@ -92,7 +97,7 @@ class AsyncSourcesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> SourceListResponse:
+    ) -> Source:
         """
         Get all sources for a given entity
 
@@ -107,16 +112,19 @@ class AsyncSourcesResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return await self._get(
-            "/source/get_sources",
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform({"id": id}, source_list_params.SourceListParams),
+        return cast(
+            Source,
+            await self._get(
+                "/source/get_sources",
+                options=make_request_options(
+                    extra_headers=extra_headers,
+                    extra_query=extra_query,
+                    extra_body=extra_body,
+                    timeout=timeout,
+                    query=await async_maybe_transform({"id": id}, source_list_params.SourceListParams),
+                ),
+                cast_to=cast(Any, Source),  # Union types cannot be passed in as arguments in the type system
             ),
-            cast_to=SourceListResponse,
         )
 
 
