@@ -12,12 +12,9 @@ __all__ = [
     "StructureRunAsyncParams",
     "Variant0",
     "Variant0Basic",
-    "Variant0BasicTextDocument",
-    "Variant0BasicTextDocumentTextDocument",
-    "Variant0BasicWebSearch",
-    "Variant0BasicWebSearchWebSearch",
-    "Variant0BasicImageDocument",
-    "Variant0BasicImageDocumentImageDocument",
+    "Variant0BasicTextDataInput",
+    "Variant0BasicWebsiteData",
+    "Variant0BasicImageInputData",
     "Variant1",
     "Variant1SecIngestor",
     "Variant2",
@@ -36,7 +33,7 @@ class Variant0(TypedDict, total=False):
     custom_instruction: Optional[str]
 
 
-class Variant0BasicTextDocumentTextDocument(TypedDict, total=False):
+class Variant0BasicTextDataInput(TypedDict, total=False):
     content: Optional[str]
 
     document_name: Optional[str]
@@ -44,11 +41,7 @@ class Variant0BasicTextDocumentTextDocument(TypedDict, total=False):
     save: bool
 
 
-class Variant0BasicTextDocument(TypedDict, total=False):
-    text_document: Required[Annotated[Variant0BasicTextDocumentTextDocument, PropertyInfo(alias="TextDocument")]]
-
-
-class Variant0BasicWebSearchWebSearch(TypedDict, total=False):
+class Variant0BasicWebsiteData(TypedDict, total=False):
     conditioning_phrase: Required[str]
 
     use_local_browser: Required[bool]
@@ -56,21 +49,13 @@ class Variant0BasicWebSearchWebSearch(TypedDict, total=False):
     starting_website: Optional[str]
 
 
-class Variant0BasicWebSearch(TypedDict, total=False):
-    web_search: Required[Annotated[Variant0BasicWebSearchWebSearch, PropertyInfo(alias="WebSearch")]]
-
-
-class Variant0BasicImageDocumentImageDocument(TypedDict, total=False):
+class Variant0BasicImageInputData(TypedDict, total=False):
     content: Required[FileTypes]
 
     document_name: Required[str]
 
 
-class Variant0BasicImageDocument(TypedDict, total=False):
-    image_document: Required[Annotated[Variant0BasicImageDocumentImageDocument, PropertyInfo(alias="ImageDocument")]]
-
-
-Variant0Basic = Union[Variant0BasicTextDocument, Variant0BasicWebSearch, Variant0BasicImageDocument]
+Variant0Basic = Union[Variant0BasicTextDataInput, Variant0BasicWebsiteData, Variant0BasicImageInputData]
 
 
 class Variant1(TypedDict, total=False):
