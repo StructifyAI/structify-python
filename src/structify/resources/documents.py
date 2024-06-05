@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 from typing import Mapping, cast
-from typing_extensions import Literal
 
 import httpx
 
@@ -130,9 +129,9 @@ class DocumentsResource(SyncAPIResource):
     def upload(
         self,
         *,
-        file_type: Literal["Text", "Pdf", "SEC", "ExecutionHistory"],
-        path: str,
-        contents: FileTypes,
+        content: FileTypes,
+        file_type: FileTypes,
+        path: FileTypes,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -144,10 +143,6 @@ class DocumentsResource(SyncAPIResource):
         Add a new file to the database
 
         Args:
-          file_type: "The type of file to store"
-
-          path: The path to store the document
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -157,8 +152,14 @@ class DocumentsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
-        body = deepcopy_minimal({"contents": contents})
-        files = extract_files(cast(Mapping[str, object], body), paths=[["contents"]])
+        body = deepcopy_minimal(
+            {
+                "content": content,
+                "file_type": file_type,
+                "path": path,
+            }
+        )
+        files = extract_files(cast(Mapping[str, object], body), paths=[["content"], ["file_type"], ["path"]])
         if files:
             # It should be noted that the actual Content-Type header that will be
             # sent to the server will contain a `boundary` parameter, e.g.
@@ -169,17 +170,7 @@ class DocumentsResource(SyncAPIResource):
             body=maybe_transform(body, document_upload_params.DocumentUploadParams),
             files=files,
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "file_type": file_type,
-                        "path": path,
-                    },
-                    document_upload_params.DocumentUploadParams,
-                ),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=NoneType,
         )
@@ -284,9 +275,9 @@ class AsyncDocumentsResource(AsyncAPIResource):
     async def upload(
         self,
         *,
-        file_type: Literal["Text", "Pdf", "SEC", "ExecutionHistory"],
-        path: str,
-        contents: FileTypes,
+        content: FileTypes,
+        file_type: FileTypes,
+        path: FileTypes,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -298,10 +289,6 @@ class AsyncDocumentsResource(AsyncAPIResource):
         Add a new file to the database
 
         Args:
-          file_type: "The type of file to store"
-
-          path: The path to store the document
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -311,8 +298,14 @@ class AsyncDocumentsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
-        body = deepcopy_minimal({"contents": contents})
-        files = extract_files(cast(Mapping[str, object], body), paths=[["contents"]])
+        body = deepcopy_minimal(
+            {
+                "content": content,
+                "file_type": file_type,
+                "path": path,
+            }
+        )
+        files = extract_files(cast(Mapping[str, object], body), paths=[["content"], ["file_type"], ["path"]])
         if files:
             # It should be noted that the actual Content-Type header that will be
             # sent to the server will contain a `boundary` parameter, e.g.
@@ -323,17 +316,7 @@ class AsyncDocumentsResource(AsyncAPIResource):
             body=await async_maybe_transform(body, document_upload_params.DocumentUploadParams),
             files=files,
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform(
-                    {
-                        "file_type": file_type,
-                        "path": path,
-                    },
-                    document_upload_params.DocumentUploadParams,
-                ),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=NoneType,
         )
