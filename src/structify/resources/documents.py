@@ -93,40 +93,6 @@ class DocumentsResource(SyncAPIResource):
             cast_to=NoneType,
         )
 
-    def download(
-        self,
-        id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> str:
-        """
-        Download a file from the database
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
-        extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
-        return self._get(
-            f"/documents/download/{id}",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=str,
-        )
-
     def upload(
         self,
         *,
@@ -239,40 +205,6 @@ class AsyncDocumentsResource(AsyncAPIResource):
             cast_to=NoneType,
         )
 
-    async def download(
-        self,
-        id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> str:
-        """
-        Download a file from the database
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
-        extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
-        return await self._get(
-            f"/documents/download/{id}",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=str,
-        )
-
     async def upload(
         self,
         *,
@@ -333,9 +265,6 @@ class DocumentsResourceWithRawResponse:
         self.delete = to_raw_response_wrapper(
             documents.delete,
         )
-        self.download = to_raw_response_wrapper(
-            documents.download,
-        )
         self.upload = to_raw_response_wrapper(
             documents.upload,
         )
@@ -350,9 +279,6 @@ class AsyncDocumentsResourceWithRawResponse:
         )
         self.delete = async_to_raw_response_wrapper(
             documents.delete,
-        )
-        self.download = async_to_raw_response_wrapper(
-            documents.download,
         )
         self.upload = async_to_raw_response_wrapper(
             documents.upload,
@@ -369,9 +295,6 @@ class DocumentsResourceWithStreamingResponse:
         self.delete = to_streamed_response_wrapper(
             documents.delete,
         )
-        self.download = to_streamed_response_wrapper(
-            documents.download,
-        )
         self.upload = to_streamed_response_wrapper(
             documents.upload,
         )
@@ -386,9 +309,6 @@ class AsyncDocumentsResourceWithStreamingResponse:
         )
         self.delete = async_to_streamed_response_wrapper(
             documents.delete,
-        )
-        self.download = async_to_streamed_response_wrapper(
-            documents.download,
         )
         self.upload = async_to_streamed_response_wrapper(
             documents.upload,
