@@ -21,6 +21,7 @@ from .._response import (
 from .._base_client import (
     make_request_options,
 )
+from ..types.source_list_response import SourceListResponse
 
 __all__ = ["SourcesResource", "AsyncSourcesResource"]
 
@@ -44,7 +45,7 @@ class SourcesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> object:
+    ) -> SourceListResponse:
         """
         Get all sources for a given entity
 
@@ -68,7 +69,7 @@ class SourcesResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform({"id": id}, source_list_params.SourceListParams),
             ),
-            cast_to=object,
+            cast_to=SourceListResponse,
         )
 
 
@@ -91,7 +92,7 @@ class AsyncSourcesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> object:
+    ) -> SourceListResponse:
         """
         Get all sources for a given entity
 
@@ -115,7 +116,7 @@ class AsyncSourcesResource(AsyncAPIResource):
                 timeout=timeout,
                 query=await async_maybe_transform({"id": id}, source_list_params.SourceListParams),
             ),
-            cast_to=object,
+            cast_to=SourceListResponse,
         )
 
 
