@@ -112,7 +112,38 @@ class LabelResource(SyncAPIResource):
         self,
         *,
         dataset_name: str,
-        basic: object,
+        basic: label_run_params.Variant0Basic,
+        custom_instruction: Optional[str] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> None:
+        """
+        Returns a token that can be waited on until the request is finished.
+
+        Args:
+          basic: These are all the types for which we have an agent that is directly capable of
+              navigating. There should be a one to one mapping between them.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @overload
+    def run(
+        self,
+        *,
+        dataset_name: str,
+        sec_ingestor: label_run_params.Variant1SecIngestor,
         custom_instruction: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -140,7 +171,7 @@ class LabelResource(SyncAPIResource):
         self,
         *,
         dataset_name: str,
-        sec_ingestor: object,
+        pdf_ingestor: str,
         custom_instruction: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -153,34 +184,9 @@ class LabelResource(SyncAPIResource):
         Returns a token that can be waited on until the request is finished.
 
         Args:
-          extra_headers: Send extra headers
+          pdf_ingestor: This is currently a very simple ingestor. It converts everything to an image and
+              processes them independently.
 
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        ...
-
-    @overload
-    def run(
-        self,
-        *,
-        dataset_name: str,
-        pdf_ingestor: object,
-        custom_instruction: Optional[str] | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> None:
-        """
-        Returns a token that can be waited on until the request is finished.
-
-        Args:
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -196,10 +202,10 @@ class LabelResource(SyncAPIResource):
         self,
         *,
         dataset_name: str,
-        basic: object | NotGiven = NOT_GIVEN,
+        basic: label_run_params.Variant0Basic | NotGiven = NOT_GIVEN,
         custom_instruction: Optional[str] | NotGiven = NOT_GIVEN,
-        sec_ingestor: object | NotGiven = NOT_GIVEN,
-        pdf_ingestor: object | NotGiven = NOT_GIVEN,
+        sec_ingestor: label_run_params.Variant1SecIngestor | NotGiven = NOT_GIVEN,
+        pdf_ingestor: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -353,7 +359,38 @@ class AsyncLabelResource(AsyncAPIResource):
         self,
         *,
         dataset_name: str,
-        basic: object,
+        basic: label_run_params.Variant0Basic,
+        custom_instruction: Optional[str] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> None:
+        """
+        Returns a token that can be waited on until the request is finished.
+
+        Args:
+          basic: These are all the types for which we have an agent that is directly capable of
+              navigating. There should be a one to one mapping between them.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @overload
+    async def run(
+        self,
+        *,
+        dataset_name: str,
+        sec_ingestor: label_run_params.Variant1SecIngestor,
         custom_instruction: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -381,7 +418,7 @@ class AsyncLabelResource(AsyncAPIResource):
         self,
         *,
         dataset_name: str,
-        sec_ingestor: object,
+        pdf_ingestor: str,
         custom_instruction: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -394,34 +431,9 @@ class AsyncLabelResource(AsyncAPIResource):
         Returns a token that can be waited on until the request is finished.
 
         Args:
-          extra_headers: Send extra headers
+          pdf_ingestor: This is currently a very simple ingestor. It converts everything to an image and
+              processes them independently.
 
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        ...
-
-    @overload
-    async def run(
-        self,
-        *,
-        dataset_name: str,
-        pdf_ingestor: object,
-        custom_instruction: Optional[str] | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> None:
-        """
-        Returns a token that can be waited on until the request is finished.
-
-        Args:
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -437,10 +449,10 @@ class AsyncLabelResource(AsyncAPIResource):
         self,
         *,
         dataset_name: str,
-        basic: object | NotGiven = NOT_GIVEN,
+        basic: label_run_params.Variant0Basic | NotGiven = NOT_GIVEN,
         custom_instruction: Optional[str] | NotGiven = NOT_GIVEN,
-        sec_ingestor: object | NotGiven = NOT_GIVEN,
-        pdf_ingestor: object | NotGiven = NOT_GIVEN,
+        sec_ingestor: label_run_params.Variant1SecIngestor | NotGiven = NOT_GIVEN,
+        pdf_ingestor: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
