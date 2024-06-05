@@ -107,38 +107,7 @@ class StructureResource(SyncAPIResource):
         self,
         *,
         dataset_name: str,
-        basic: structure_run_async_params.Variant0Basic,
-        custom_instruction: Optional[str] | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> object:
-        """
-        Returns a token that can be waited on until the request is finished.
-
-        Args:
-          basic: These are all the types for which we have an agent that is directly capable of
-              navigating. There should be a one to one mapping between them.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        ...
-
-    @overload
-    def run_async(
-        self,
-        *,
-        dataset_name: str,
-        sec_ingestor: structure_run_async_params.Variant1SecIngestor,
+        sec_ingestor: structure_run_async_params.Variant0SecIngestor,
         custom_instruction: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -192,15 +161,46 @@ class StructureResource(SyncAPIResource):
         """
         ...
 
-    @required_args(["dataset_name", "basic"], ["dataset_name", "sec_ingestor"], ["dataset_name", "pdf_ingestor"])
+    @overload
     def run_async(
         self,
         *,
         dataset_name: str,
-        basic: structure_run_async_params.Variant0Basic | NotGiven = NOT_GIVEN,
+        basic: structure_run_async_params.Variant2Basic,
         custom_instruction: Optional[str] | NotGiven = NOT_GIVEN,
-        sec_ingestor: structure_run_async_params.Variant1SecIngestor | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> object:
+        """
+        Returns a token that can be waited on until the request is finished.
+
+        Args:
+          basic: These are all the types for which we have an agent that is directly capable of
+              navigating. There should be a one to one mapping between them.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @required_args(["dataset_name", "sec_ingestor"], ["dataset_name", "pdf_ingestor"], ["dataset_name", "basic"])
+    def run_async(
+        self,
+        *,
+        dataset_name: str,
+        sec_ingestor: structure_run_async_params.Variant0SecIngestor | NotGiven = NOT_GIVEN,
+        custom_instruction: Optional[str] | NotGiven = NOT_GIVEN,
         pdf_ingestor: str | NotGiven = NOT_GIVEN,
+        basic: structure_run_async_params.Variant2Basic | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -212,9 +212,9 @@ class StructureResource(SyncAPIResource):
             "/structure/run_async",
             body=maybe_transform(
                 {
-                    "basic": basic,
                     "sec_ingestor": sec_ingestor,
                     "pdf_ingestor": pdf_ingestor,
+                    "basic": basic,
                 },
                 structure_run_async_params.StructureRunAsyncParams,
             ),
@@ -313,38 +313,7 @@ class AsyncStructureResource(AsyncAPIResource):
         self,
         *,
         dataset_name: str,
-        basic: structure_run_async_params.Variant0Basic,
-        custom_instruction: Optional[str] | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> object:
-        """
-        Returns a token that can be waited on until the request is finished.
-
-        Args:
-          basic: These are all the types for which we have an agent that is directly capable of
-              navigating. There should be a one to one mapping between them.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        ...
-
-    @overload
-    async def run_async(
-        self,
-        *,
-        dataset_name: str,
-        sec_ingestor: structure_run_async_params.Variant1SecIngestor,
+        sec_ingestor: structure_run_async_params.Variant0SecIngestor,
         custom_instruction: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -398,15 +367,46 @@ class AsyncStructureResource(AsyncAPIResource):
         """
         ...
 
-    @required_args(["dataset_name", "basic"], ["dataset_name", "sec_ingestor"], ["dataset_name", "pdf_ingestor"])
+    @overload
     async def run_async(
         self,
         *,
         dataset_name: str,
-        basic: structure_run_async_params.Variant0Basic | NotGiven = NOT_GIVEN,
+        basic: structure_run_async_params.Variant2Basic,
         custom_instruction: Optional[str] | NotGiven = NOT_GIVEN,
-        sec_ingestor: structure_run_async_params.Variant1SecIngestor | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> object:
+        """
+        Returns a token that can be waited on until the request is finished.
+
+        Args:
+          basic: These are all the types for which we have an agent that is directly capable of
+              navigating. There should be a one to one mapping between them.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @required_args(["dataset_name", "sec_ingestor"], ["dataset_name", "pdf_ingestor"], ["dataset_name", "basic"])
+    async def run_async(
+        self,
+        *,
+        dataset_name: str,
+        sec_ingestor: structure_run_async_params.Variant0SecIngestor | NotGiven = NOT_GIVEN,
+        custom_instruction: Optional[str] | NotGiven = NOT_GIVEN,
         pdf_ingestor: str | NotGiven = NOT_GIVEN,
+        basic: structure_run_async_params.Variant2Basic | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -418,9 +418,9 @@ class AsyncStructureResource(AsyncAPIResource):
             "/structure/run_async",
             body=await async_maybe_transform(
                 {
-                    "basic": basic,
                     "sec_ingestor": sec_ingestor,
                     "pdf_ingestor": pdf_ingestor,
+                    "basic": basic,
                 },
                 structure_run_async_params.StructureRunAsyncParams,
             ),
