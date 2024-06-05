@@ -124,7 +124,7 @@ class TestDocuments:
         document = client.documents.upload(
             file_type="Text",
             path="string",
-            file_name=b"raw file contents",
+            contents=b"raw file contents",
         )
         assert document is None
 
@@ -134,7 +134,7 @@ class TestDocuments:
         response = client.documents.with_raw_response.upload(
             file_type="Text",
             path="string",
-            file_name=b"raw file contents",
+            contents=b"raw file contents",
         )
 
         assert response.is_closed is True
@@ -148,7 +148,7 @@ class TestDocuments:
         with client.documents.with_streaming_response.upload(
             file_type="Text",
             path="string",
-            file_name=b"raw file contents",
+            contents=b"raw file contents",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -269,7 +269,7 @@ class TestAsyncDocuments:
         document = await async_client.documents.upload(
             file_type="Text",
             path="string",
-            file_name=b"raw file contents",
+            contents=b"raw file contents",
         )
         assert document is None
 
@@ -279,7 +279,7 @@ class TestAsyncDocuments:
         response = await async_client.documents.with_raw_response.upload(
             file_type="Text",
             path="string",
-            file_name=b"raw file contents",
+            contents=b"raw file contents",
         )
 
         assert response.is_closed is True
@@ -293,7 +293,7 @@ class TestAsyncDocuments:
         async with async_client.documents.with_streaming_response.upload(
             file_type="Text",
             path="string",
-            file_name=b"raw file contents",
+            contents=b"raw file contents",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
