@@ -203,9 +203,13 @@ class StepPromptMetadataToolMetadata(BaseModel):
 class StepPromptMetadataWebFlag(BaseModel):
     aria_label: str = FieldInfo(alias="ariaLabel")
 
+    height: float
+
     text: str
 
     type: str
+
+    width: float
 
     x: float
 
@@ -225,6 +229,8 @@ class StepPromptMetadata(BaseModel):
     extracted_entities: List[StepPromptMetadataExtractedEntity]
 
     tool_metadata: List[StepPromptMetadataToolMetadata]
+
+    screenshot: Optional[object] = None
 
     url: Optional[str] = None
 
