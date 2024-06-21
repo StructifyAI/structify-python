@@ -173,9 +173,13 @@ class ChatMetadataToolMetadata(BaseModel):
 class ChatMetadataWebFlag(BaseModel):
     aria_label: str = FieldInfo(alias="ariaLabel")
 
+    height: float
+
     text: str
 
     type: str
+
+    width: float
 
     x: float
 
@@ -195,6 +199,8 @@ class ChatMetadata(BaseModel):
     extracted_entities: List[ChatMetadataExtractedEntity]
 
     tool_metadata: List[ChatMetadataToolMetadata]
+
+    screenshot: Optional[object] = None
 
     url: Optional[str] = None
 
