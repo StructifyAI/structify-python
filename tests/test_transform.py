@@ -8,15 +8,15 @@ from typing_extensions import Required, Annotated, TypedDict
 
 import pytest
 
-from structifyai._types import Base64FileInput
-from structifyai._utils import (
+from structify._types import Base64FileInput
+from structify._utils import (
     PropertyInfo,
     transform as _transform,
     parse_datetime,
     async_transform as _async_transform,
 )
-from structifyai._compat import PYDANTIC_V2
-from structifyai._models import BaseModel
+from structify._compat import PYDANTIC_V2
+from structify._models import BaseModel
 
 _T = TypeVar("_T")
 

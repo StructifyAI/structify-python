@@ -61,6 +61,6 @@
   ],
   "release-type": "python",
   "extra-files": [
-    "src/structifyai/_version.py"
+    "src/structify/_version.py"
   ]
 }
