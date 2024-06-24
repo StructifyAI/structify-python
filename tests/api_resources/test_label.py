@@ -7,9 +7,9 @@ from typing import Any, Optional, cast
 
 import pytest
 
-from structify import Structify, AsyncStructify
+from structifyai import Structify, AsyncStructify
 from tests.utils import assert_matches_type
-from structify.types import (
+from structifyai.types import (
     LabelLlmAssistResponse,
     LabelGetMessagesResponse,
 )
