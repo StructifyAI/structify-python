@@ -31,6 +31,7 @@ __all__ = [
     "StepPromptMessageContentText",
     "StepPromptMessageContentImage",
     "StepPromptHumanLlmMetadata",
+    "StepPromptHumanLlmMetadataHistory",
     "StepPromptMetadata",
     "StepPromptMetadataExtractedEntity",
     "StepPromptMetadataExtractedEntityEntity",
@@ -155,6 +156,15 @@ class StepPromptMessage(BaseModel):
     role: Literal["user", "system", "assistant"]
 
 
+class StepPromptHumanLlmMetadataHistory(BaseModel):
+    date: datetime
+
+    steps: List[object]
+
+    uuid: str
+    """Used to identify this history"""
+
+
 class StepPromptHumanLlmMetadata(BaseModel):
     descriptor: DatasetDescriptor
     """A dataset is where you put multiple referential schemas.
@@ -166,6 +176,8 @@ class StepPromptHumanLlmMetadata(BaseModel):
     run_id: str
 
     user_email: str
+
+    history: Optional[StepPromptHumanLlmMetadataHistory] = None
 
 
 class StepPromptMetadataExtractedEntityEntity(BaseModel):
@@ -414,6 +426,8 @@ class Step(BaseModel):
     prompt: StepPrompt
 
     response: StepResponse
+
+    uuid: str
 
 
 class RunGetResponse(BaseModel):

@@ -16,6 +16,7 @@ from .server_information import ServerInformation as ServerInformation
 from .source_list_params import SourceListParams as SourceListParams
 from .dataset_view_params import DatasetViewParams as DatasetViewParams
 from .label_submit_params import LabelSubmitParams as LabelSubmitParams
+from .label_update_params import LabelUpdateParams as LabelUpdateParams
 from .run_cancel_response import RunCancelResponse as RunCancelResponse
 from .run_delete_response import RunDeleteResponse as RunDeleteResponse
 from .source_list_response import SourceListResponse as SourceListResponse
@@ -24,6 +25,7 @@ from .dataset_delete_params import DatasetDeleteParams as DatasetDeleteParams
 from .dataset_list_response import DatasetListResponse as DatasetListResponse
 from .dataset_view_response import DatasetViewResponse as DatasetViewResponse
 from .label_submit_response import LabelSubmitResponse as LabelSubmitResponse
+from .label_update_response import LabelUpdateResponse as LabelUpdateResponse
 from .document_list_response import DocumentListResponse as DocumentListResponse
 from .document_upload_params import DocumentUploadParams as DocumentUploadParams
 from .label_get_messages_params import LabelGetMessagesParams as LabelGetMessagesParams
