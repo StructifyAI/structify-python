@@ -5,8 +5,8 @@ from typing import Iterator, AsyncIterator
 import httpx
 import pytest
 
-from structify import Structify, AsyncStructify
-from structify._streaming import Stream, AsyncStream, ServerSentEvent
+from structifyai import Structify, AsyncStructify
+from structifyai._streaming import Stream, AsyncStream, ServerSentEvent
 
 
 @pytest.mark.asyncio
