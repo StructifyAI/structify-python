@@ -7,9 +7,9 @@ from typing import Any, cast
 
 import pytest
 
-from structify import Structify, AsyncStructify
+from structifyai import Structify, AsyncStructify
 from tests.utils import assert_matches_type
-from structify.types import SourceListResponse
+from structifyai.types import SourceListResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 

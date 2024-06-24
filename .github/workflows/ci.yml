@@ -27,9 +27,6 @@ jobs:
       - name: Install dependencies
         run: rye sync --all-features
 
-      - name: Install Doc Linting
-        run: pip install sphinx-lint
-
       - name: Run lints
         run: ./scripts/lint
   test:
