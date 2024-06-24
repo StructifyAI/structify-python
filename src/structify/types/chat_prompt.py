@@ -10,6 +10,7 @@ from pydantic import Field as FieldInfo
 
 from .._compat import PYDANTIC_V2
 from .._models import BaseModel
+from .tool_metadata import ToolMetadata
 from .dataset_descriptor import DatasetDescriptor
 from .extraction_criteria import ExtractionCriteria
 
@@ -38,7 +39,6 @@ __all__ = [
     "MetadataExtractedEntity",
     "MetadataExtractedEntityEntity",
     "MetadataExtractedEntityRelationship",
-    "MetadataToolMetadata",
     "MetadataWebFlag",
 ]
 
@@ -176,16 +176,6 @@ class MetadataExtractedEntity(BaseModel):
     relationships: Optional[List[MetadataExtractedEntityRelationship]] = None
 
 
-class MetadataToolMetadata(BaseModel):
-    description: str
-
-    name: Literal["Save", "Scroll", "Exit", "Click", "Hover", "Wait", "Error", "Google", "Type"]
-
-    regex_validator: str
-
-    tool_validator: object
-
-
 class MetadataWebFlag(BaseModel):
     aria_label: str = FieldInfo(alias="ariaLabel")
 
@@ -214,7 +204,7 @@ class Metadata(BaseModel):
 
     extraction_criteria: List[ExtractionCriteria]
 
-    tool_metadata: List[MetadataToolMetadata]
+    tool_metadata: List[ToolMetadata]
 
     screenshot: Optional[object] = None
 
@@ -258,7 +248,6 @@ if PYDANTIC_V2:
     MetadataExtractedEntity.model_rebuild()
     MetadataExtractedEntityEntity.model_rebuild()
     MetadataExtractedEntityRelationship.model_rebuild()
-    MetadataToolMetadata.model_rebuild()
     MetadataWebFlag.model_rebuild()
 else:
     ChatPrompt.update_forward_refs()  # type: ignore
@@ -283,5 +272,4 @@ else:
     MetadataExtractedEntity.update_forward_refs()  # type: ignore
     MetadataExtractedEntityEntity.update_forward_refs()  # type: ignore
     MetadataExtractedEntityRelationship.update_forward_refs()  # type: ignore
-    MetadataToolMetadata.update_forward_refs()  # type: ignore
     MetadataWebFlag.update_forward_refs()  # type: ignore
