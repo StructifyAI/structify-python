@@ -3,10 +3,13 @@
 from __future__ import annotations
 
 from .entity import Entity as Entity
+from .source import Source as Source
 from .dataset import Dataset as Dataset
 from .new_token import NewToken as NewToken
 from .user_info import UserInfo as UserInfo
+from .chat_prompt import ChatPrompt as ChatPrompt
 from .is_complete import IsComplete as IsComplete
+from .execution_step import ExecutionStep as ExecutionStep
 from .label_run_params import LabelRunParams as LabelRunParams
 from .run_get_response import RunGetResponse as RunGetResponse
 from .run_list_response import RunListResponse as RunListResponse
@@ -15,6 +18,7 @@ from .dataset_get_params import DatasetGetParams as DatasetGetParams
 from .server_information import ServerInformation as ServerInformation
 from .source_list_params import SourceListParams as SourceListParams
 from .dataset_view_params import DatasetViewParams as DatasetViewParams
+from .extraction_criteria import ExtractionCriteria as ExtractionCriteria
 from .label_submit_params import LabelSubmitParams as LabelSubmitParams
 from .label_update_params import LabelUpdateParams as LabelUpdateParams
 from .run_cancel_response import RunCancelResponse as RunCancelResponse
@@ -28,6 +32,7 @@ from .label_submit_response import LabelSubmitResponse as LabelSubmitResponse
 from .label_update_response import LabelUpdateResponse as LabelUpdateResponse
 from .document_list_response import DocumentListResponse as DocumentListResponse
 from .document_upload_params import DocumentUploadParams as DocumentUploadParams
+from .extraction_criteria_param import ExtractionCriteriaParam as ExtractionCriteriaParam
 from .label_get_messages_params import LabelGetMessagesParams as LabelGetMessagesParams
 from .label_llm_assist_response import LabelLlmAssistResponse as LabelLlmAssistResponse
 from .usage_get_job_info_params import UsageGetJobInfoParams as UsageGetJobInfoParams

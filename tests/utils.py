@@ -8,8 +8,8 @@ from typing import Any, TypeVar, Iterator, cast
 from datetime import date, datetime
 from typing_extensions import Literal, get_args, get_origin, assert_type
 
-from structify._types import NoneType
-from structify._utils import (
+from structifyai._types import NoneType
+from structifyai._utils import (
     is_dict,
     is_list,
     is_list_type,
@@ -17,8 +17,8 @@ from structify._utils import (
     extract_type_arg,
     is_annotated_type,
 )
-from structify._compat import PYDANTIC_V2, field_outer_type, get_model_fields
-from structify._models import BaseModel
+from structifyai._compat import PYDANTIC_V2, field_outer_type, get_model_fields
+from structifyai._models import BaseModel
 
 BaseModelT = TypeVar("BaseModelT", bound=BaseModel)
 
