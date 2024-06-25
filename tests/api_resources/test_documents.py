@@ -11,7 +11,7 @@ from respx import MockRouter
 
 from structify import Structify, AsyncStructify
 from tests.utils import assert_matches_type
-from structify.types import SourceNode, DocumentListResponse
+from structify.types import DocumentListResponse
 from structify._response import (
     BinaryAPIResponse,
     AsyncBinaryAPIResponse,
@@ -137,37 +137,6 @@ class TestDocuments:
             client.documents.with_raw_response.download(
                 "",
             )
-
-    @parametrize
-    def test_method_get_sources(self, client: Structify) -> None:
-        document = client.documents.get_sources(
-            id=0,
-        )
-        assert_matches_type(SourceNode, document, path=["response"])
-
-    @parametrize
-    def test_raw_response_get_sources(self, client: Structify) -> None:
-        response = client.documents.with_raw_response.get_sources(
-            id=0,
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        document = response.parse()
-        assert_matches_type(SourceNode, document, path=["response"])
-
-    @parametrize
-    def test_streaming_response_get_sources(self, client: Structify) -> None:
-        with client.documents.with_streaming_response.get_sources(
-            id=0,
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            document = response.parse()
-            assert_matches_type(SourceNode, document, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
 
     @parametrize
     def test_method_upload(self, client: Structify) -> None:
@@ -322,37 +291,6 @@ class TestAsyncDocuments:
             await async_client.documents.with_raw_response.download(
                 "",
             )
-
-    @parametrize
-    async def test_method_get_sources(self, async_client: AsyncStructify) -> None:
-        document = await async_client.documents.get_sources(
-            id=0,
-        )
-        assert_matches_type(SourceNode, document, path=["response"])
-
-    @parametrize
-    async def test_raw_response_get_sources(self, async_client: AsyncStructify) -> None:
-        response = await async_client.documents.with_raw_response.get_sources(
-            id=0,
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        document = await response.parse()
-        assert_matches_type(SourceNode, document, path=["response"])
-
-    @parametrize
-    async def test_streaming_response_get_sources(self, async_client: AsyncStructify) -> None:
-        async with async_client.documents.with_streaming_response.get_sources(
-            id=0,
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            document = await response.parse()
-            assert_matches_type(SourceNode, document, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
 
     @parametrize
     async def test_method_upload(self, async_client: AsyncStructify) -> None:
