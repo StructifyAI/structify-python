@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+set -e
+
+cd "$(dirname "$0")/../docs" || exit 1
+
+make html
