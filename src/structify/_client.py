@@ -60,7 +60,6 @@ class Structify(SyncAPIClient):
     server: resources.ServerResource
     sources: resources.SourcesResource
     structure: resources.StructureResource
-    label: resources.LabelResource
     usage: resources.UsageResource
     with_raw_response: StructifyWithRawResponse
     with_streaming_response: StructifyWithStreamedResponse
@@ -151,7 +150,6 @@ class Structify(SyncAPIClient):
         self.server = resources.ServerResource(self)
         self.sources = resources.SourcesResource(self)
         self.structure = resources.StructureResource(self)
-        self.label = resources.LabelResource(self)
         self.usage = resources.UsageResource(self)
         self.with_raw_response = StructifyWithRawResponse(self)
         self.with_streaming_response = StructifyWithStreamedResponse(self)
@@ -272,7 +270,6 @@ class AsyncStructify(AsyncAPIClient):
     server: resources.AsyncServerResource
     sources: resources.AsyncSourcesResource
     structure: resources.AsyncStructureResource
-    label: resources.AsyncLabelResource
     usage: resources.AsyncUsageResource
     with_raw_response: AsyncStructifyWithRawResponse
     with_streaming_response: AsyncStructifyWithStreamedResponse
@@ -363,7 +360,6 @@ class AsyncStructify(AsyncAPIClient):
         self.server = resources.AsyncServerResource(self)
         self.sources = resources.AsyncSourcesResource(self)
         self.structure = resources.AsyncStructureResource(self)
-        self.label = resources.AsyncLabelResource(self)
         self.usage = resources.AsyncUsageResource(self)
         self.with_raw_response = AsyncStructifyWithRawResponse(self)
         self.with_streaming_response = AsyncStructifyWithStreamedResponse(self)
@@ -485,7 +481,6 @@ class StructifyWithRawResponse:
         self.server = resources.ServerResourceWithRawResponse(client.server)
         self.sources = resources.SourcesResourceWithRawResponse(client.sources)
         self.structure = resources.StructureResourceWithRawResponse(client.structure)
-        self.label = resources.LabelResourceWithRawResponse(client.label)
         self.usage = resources.UsageResourceWithRawResponse(client.usage)
 
 
@@ -499,7 +494,6 @@ class AsyncStructifyWithRawResponse:
         self.server = resources.AsyncServerResourceWithRawResponse(client.server)
         self.sources = resources.AsyncSourcesResourceWithRawResponse(client.sources)
         self.structure = resources.AsyncStructureResourceWithRawResponse(client.structure)
-        self.label = resources.AsyncLabelResourceWithRawResponse(client.label)
         self.usage = resources.AsyncUsageResourceWithRawResponse(client.usage)
 
 
@@ -513,7 +507,6 @@ class StructifyWithStreamedResponse:
         self.server = resources.ServerResourceWithStreamingResponse(client.server)
         self.sources = resources.SourcesResourceWithStreamingResponse(client.sources)
         self.structure = resources.StructureResourceWithStreamingResponse(client.structure)
-        self.label = resources.LabelResourceWithStreamingResponse(client.label)
         self.usage = resources.UsageResourceWithStreamingResponse(client.usage)
 
 
@@ -527,7 +520,6 @@ class AsyncStructifyWithStreamedResponse:
         self.server = resources.AsyncServerResourceWithStreamingResponse(client.server)
         self.sources = resources.AsyncSourcesResourceWithStreamingResponse(client.sources)
         self.structure = resources.AsyncStructureResourceWithStreamingResponse(client.structure)
-        self.label = resources.AsyncLabelResourceWithStreamingResponse(client.label)
         self.usage = resources.AsyncUsageResourceWithStreamingResponse(client.usage)
 
 
