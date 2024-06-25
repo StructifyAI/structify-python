@@ -24,6 +24,14 @@ from .usage import (
     UsageResourceWithStreamingResponse,
     AsyncUsageResourceWithStreamingResponse,
 )
+from .users import (
+    UsersResource,
+    AsyncUsersResource,
+    UsersResourceWithRawResponse,
+    AsyncUsersResourceWithRawResponse,
+    UsersResourceWithStreamingResponse,
+    AsyncUsersResourceWithStreamingResponse,
+)
 from .server import (
     ServerResource,
     AsyncServerResource,
@@ -64,22 +72,14 @@ from .structure import (
     StructureResourceWithStreamingResponse,
     AsyncStructureResourceWithStreamingResponse,
 )
-from .admin_users import (
-    AdminUsersResource,
-    AsyncAdminUsersResource,
-    AdminUsersResourceWithRawResponse,
-    AsyncAdminUsersResourceWithRawResponse,
-    AdminUsersResourceWithStreamingResponse,
-    AsyncAdminUsersResourceWithStreamingResponse,
-)
 
 __all__ = [
-    "AdminUsersResource",
-    "AsyncAdminUsersResource",
-    "AdminUsersResourceWithRawResponse",
-    "AsyncAdminUsersResourceWithRawResponse",
-    "AdminUsersResourceWithStreamingResponse",
-    "AsyncAdminUsersResourceWithStreamingResponse",
+    "UsersResource",
+    "AsyncUsersResource",
+    "UsersResourceWithRawResponse",
+    "AsyncUsersResourceWithRawResponse",
+    "UsersResourceWithStreamingResponse",
+    "AsyncUsersResourceWithStreamingResponse",
     "DatasetsResource",
     "AsyncDatasetsResource",
     "DatasetsResourceWithRawResponse",

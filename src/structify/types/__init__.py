@@ -14,6 +14,7 @@ from .run_list_response import RunListResponse as RunListResponse
 from .dataset_descriptor import DatasetDescriptor as DatasetDescriptor
 from .server_information import ServerInformation as ServerInformation
 from .user_info_response import UserInfoResponse as UserInfoResponse
+from .user_list_response import UserListResponse as UserListResponse
 from .dataset_view_params import DatasetViewParams as DatasetViewParams
 from .run_delete_response import RunDeleteResponse as RunDeleteResponse
 from .dataset_create_params import DatasetCreateParams as DatasetCreateParams
@@ -22,7 +23,6 @@ from .dataset_list_response import DatasetListResponse as DatasetListResponse
 from .dataset_view_response import DatasetViewResponse as DatasetViewResponse
 from .document_list_response import DocumentListResponse as DocumentListResponse
 from .document_upload_params import DocumentUploadParams as DocumentUploadParams
-from .admin_user_list_response import AdminUserListResponse as AdminUserListResponse
 from .usage_get_job_info_params import UsageGetJobInfoParams as UsageGetJobInfoParams
 from .structure_run_async_params import StructureRunAsyncParams as StructureRunAsyncParams
 from .document_get_sources_params import DocumentGetSourcesParams as DocumentGetSourcesParams
