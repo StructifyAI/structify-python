@@ -111,7 +111,6 @@ from structify.types import (
     ChatPrompt,
     ExecutionStep,
     ExtractionCriteria,
-    ToolMetadata,
     StructureIsCompleteResponse,
     StructureJobStatusResponse,
     StructureRunAsyncResponse,
