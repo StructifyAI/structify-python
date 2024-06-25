@@ -16,8 +16,8 @@ from .._response import (
 from .._base_client import (
     make_request_options,
 )
-from ..types.new_token import NewToken
 from ..types.user_info import UserInfo
+from ..types.user_create_test_token_response import UserCreateTestTokenResponse
 
 __all__ = ["UserResource", "AsyncUserResource"]
 
@@ -40,14 +40,14 @@ class UserResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> NewToken:
+    ) -> UserCreateTestTokenResponse:
         """Creates a test token."""
         return self._post(
             "/user/create_test_token",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=NewToken,
+            cast_to=UserCreateTestTokenResponse,
         )
 
     def info(
@@ -88,14 +88,14 @@ class AsyncUserResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> NewToken:
+    ) -> UserCreateTestTokenResponse:
         """Creates a test token."""
         return await self._post(
             "/user/create_test_token",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=NewToken,
+            cast_to=UserCreateTestTokenResponse,
         )
 
     async def info(
