@@ -1,14 +1,14 @@
-# AdminUsers
+# Users
 
 Types:
 
 ```python
-from structify.types import UserNode, AdminUserListResponse
+from structify.types import UserNode, UserListResponse
 ```
 
 Methods:
 
-- <code title="get /admin/users/list">client.admin_users.<a href="./src/structify/resources/admin_users.py">list</a>() -> <a href="./src/structify/types/admin_user_list_response.py">AdminUserListResponse</a></code>
+- <code title="get /admin/users/list">client.users.<a href="./src/structify/resources/users.py">list</a>() -> <a href="./src/structify/types/user_list_response.py">UserListResponse</a></code>
 
 # Datasets
 
