@@ -28,7 +28,7 @@ from structify import Structify
 
 client = Structify(
     # defaults to "production".
-    environment="environment_1",
+    environment="deployment",
 )
 
 user_info_response = client.account.info()
@@ -45,7 +45,7 @@ from structify import AsyncStructify
 
 client = AsyncStructify(
     # defaults to "production".
-    environment="environment_1",
+    environment="deployment",
 )
 
 
