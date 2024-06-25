@@ -68,11 +68,11 @@ class DecodingParamsParameterStopTokens(BaseModel):
 
 
 class DecodingParamsParameterFunctions(BaseModel):
-    functions: List[object] = FieldInfo(alias="Functions")
+    functions: List[Dict[str, object]] = FieldInfo(alias="Functions")
 
 
 class DecodingParamsParameterJsonValidator(BaseModel):
-    json_validator: object = FieldInfo(alias="JsonValidator")
+    json_validator: Dict[str, object] = FieldInfo(alias="JsonValidator")
 
 
 class DecodingParamsParameterRegexValidator(BaseModel):
