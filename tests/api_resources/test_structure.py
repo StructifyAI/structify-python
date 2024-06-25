@@ -101,7 +101,7 @@ class TestStructure:
                 }
             },
         )
-        assert_matches_type(object, structure, path=["response"])
+        assert_matches_type(str, structure, path=["response"])
 
     @parametrize
     def test_raw_response_run_async(self, client: Structify) -> None:
@@ -130,7 +130,7 @@ class TestStructure:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         structure = response.parse()
-        assert_matches_type(object, structure, path=["response"])
+        assert_matches_type(str, structure, path=["response"])
 
     @parametrize
     def test_streaming_response_run_async(self, client: Structify) -> None:
@@ -159,7 +159,7 @@ class TestStructure:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             structure = response.parse()
-            assert_matches_type(object, structure, path=["response"])
+            assert_matches_type(str, structure, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -252,7 +252,7 @@ class TestAsyncStructure:
                 }
             },
         )
-        assert_matches_type(object, structure, path=["response"])
+        assert_matches_type(str, structure, path=["response"])
 
     @parametrize
     async def test_raw_response_run_async(self, async_client: AsyncStructify) -> None:
@@ -281,7 +281,7 @@ class TestAsyncStructure:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         structure = await response.parse()
-        assert_matches_type(object, structure, path=["response"])
+        assert_matches_type(str, structure, path=["response"])
 
     @parametrize
     async def test_streaming_response_run_async(self, async_client: AsyncStructify) -> None:
@@ -310,6 +310,6 @@ class TestAsyncStructure:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             structure = await response.parse()
-            assert_matches_type(object, structure, path=["response"])
+            assert_matches_type(str, structure, path=["response"])
 
         assert cast(Any, response.is_closed) is True
