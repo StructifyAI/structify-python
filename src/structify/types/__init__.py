@@ -6,12 +6,17 @@ from .entity import Entity as Entity
 from .source import Source as Source
 from .dataset import Dataset as Dataset
 from .user_info import UserInfo as UserInfo
+from .chat_prompt import ChatPrompt as ChatPrompt
+from .tool_metadata import ToolMetadata as ToolMetadata
+from .execution_step import ExecutionStep as ExecutionStep
+from .run_get_response import RunGetResponse as RunGetResponse
 from .run_list_response import RunListResponse as RunListResponse
 from .dataset_descriptor import DatasetDescriptor as DatasetDescriptor
 from .dataset_get_params import DatasetGetParams as DatasetGetParams
 from .server_information import ServerInformation as ServerInformation
 from .source_list_params import SourceListParams as SourceListParams
 from .dataset_view_params import DatasetViewParams as DatasetViewParams
+from .extraction_criteria import ExtractionCriteria as ExtractionCriteria
 from .run_cancel_response import RunCancelResponse as RunCancelResponse
 from .run_delete_response import RunDeleteResponse as RunDeleteResponse
 from .source_list_response import SourceListResponse as SourceListResponse
