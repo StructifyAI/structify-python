@@ -156,4 +156,4 @@ from structify.types import UsageGetJobInfoResponse
 
 Methods:
 
-- <code title="post /usage/get_job_info">client.usage.<a href="./src/structify/resources/usage.py">get_job_info</a>(\*\*<a href="src/structify/types/usage_get_job_info_params.py">params</a>) -> <a href="./src/structify/types/usage_get_job_info_response.py">object</a></code>
+- <code title="post /usage/get_job_info">client.usage.<a href="./src/structify/resources/usage.py">get_job_info</a>(\*\*<a href="src/structify/types/usage_get_job_info_params.py">params</a>) -> <a href="./src/structify/types/usage_get_job_info_response.py">UsageGetJobInfoResponse</a></code>
