@@ -131,7 +131,6 @@ Types:
 ```python
 from structify.types import (
     LabelUpdateResponse,
-    LabelGetMessagesResponse,
     LabelLlmAssistResponse,
     LabelRunResponse,
     LabelSubmitResponse,
@@ -141,7 +140,6 @@ from structify.types import (
 Methods:
 
 - <code title="post /label/update/{run_uuid}/{run_idx}">client.label.<a href="./src/structify/resources/label.py">update</a>(run_idx, \*, run_uuid, \*\*<a href="src/structify/types/label_update_params.py">params</a>) -> str</code>
-- <code title="get /label/refresh">client.label.<a href="./src/structify/resources/label.py">get_messages</a>(\*\*<a href="src/structify/types/label_get_messages_params.py">params</a>) -> <a href="./src/structify/types/label_get_messages_response.py">Optional</a></code>
 - <code title="get /label/llm_assist/{uuid}">client.label.<a href="./src/structify/resources/label.py">llm_assist</a>(uuid) -> <a href="./src/structify/types/label_llm_assist_response.py">LabelLlmAssistResponse</a></code>
 - <code title="post /label/run_async">client.label.<a href="./src/structify/resources/label.py">run</a>(\*\*<a href="src/structify/types/label_run_params.py">params</a>) -> str</code>
 - <code title="post /label/submit/{uuid}">client.label.<a href="./src/structify/resources/label.py">submit</a>(uuid, \*\*<a href="src/structify/types/label_submit_params.py">params</a>) -> str</code>
