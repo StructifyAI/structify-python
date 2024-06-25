@@ -16,19 +16,19 @@ from .._response import (
 from .._base_client import (
     make_request_options,
 )
-from ..types.admin_user_list_response import AdminUserListResponse
+from ..types.user_list_response import UserListResponse
 
-__all__ = ["AdminUsersResource", "AsyncAdminUsersResource"]
+__all__ = ["UsersResource", "AsyncUsersResource"]
 
 
-class AdminUsersResource(SyncAPIResource):
+class UsersResource(SyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> AdminUsersResourceWithRawResponse:
-        return AdminUsersResourceWithRawResponse(self)
+    def with_raw_response(self) -> UsersResourceWithRawResponse:
+        return UsersResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> AdminUsersResourceWithStreamingResponse:
-        return AdminUsersResourceWithStreamingResponse(self)
+    def with_streaming_response(self) -> UsersResourceWithStreamingResponse:
+        return UsersResourceWithStreamingResponse(self)
 
     def list(
         self,
@@ -39,25 +39,25 @@ class AdminUsersResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> AdminUserListResponse:
+    ) -> UserListResponse:
         """Lists all the users in the system."""
         return self._get(
             "/admin/users/list",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=AdminUserListResponse,
+            cast_to=UserListResponse,
         )
 
 
-class AsyncAdminUsersResource(AsyncAPIResource):
+class AsyncUsersResource(AsyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> AsyncAdminUsersResourceWithRawResponse:
-        return AsyncAdminUsersResourceWithRawResponse(self)
+    def with_raw_response(self) -> AsyncUsersResourceWithRawResponse:
+        return AsyncUsersResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> AsyncAdminUsersResourceWithStreamingResponse:
-        return AsyncAdminUsersResourceWithStreamingResponse(self)
+    def with_streaming_response(self) -> AsyncUsersResourceWithStreamingResponse:
+        return AsyncUsersResourceWithStreamingResponse(self)
 
     async def list(
         self,
@@ -68,48 +68,48 @@ class AsyncAdminUsersResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> AdminUserListResponse:
+    ) -> UserListResponse:
         """Lists all the users in the system."""
         return await self._get(
             "/admin/users/list",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=AdminUserListResponse,
+            cast_to=UserListResponse,
         )
 
 
-class AdminUsersResourceWithRawResponse:
-    def __init__(self, admin_users: AdminUsersResource) -> None:
-        self._admin_users = admin_users
+class UsersResourceWithRawResponse:
+    def __init__(self, users: UsersResource) -> None:
+        self._users = users
 
         self.list = to_raw_response_wrapper(
-            admin_users.list,
+            users.list,
         )
 
 
-class AsyncAdminUsersResourceWithRawResponse:
-    def __init__(self, admin_users: AsyncAdminUsersResource) -> None:
-        self._admin_users = admin_users
+class AsyncUsersResourceWithRawResponse:
+    def __init__(self, users: AsyncUsersResource) -> None:
+        self._users = users
 
         self.list = async_to_raw_response_wrapper(
-            admin_users.list,
+            users.list,
         )
 
 
-class AdminUsersResourceWithStreamingResponse:
-    def __init__(self, admin_users: AdminUsersResource) -> None:
-        self._admin_users = admin_users
+class UsersResourceWithStreamingResponse:
+    def __init__(self, users: UsersResource) -> None:
+        self._users = users
 
         self.list = to_streamed_response_wrapper(
-            admin_users.list,
+            users.list,
         )
 
 
-class AsyncAdminUsersResourceWithStreamingResponse:
-    def __init__(self, admin_users: AsyncAdminUsersResource) -> None:
-        self._admin_users = admin_users
+class AsyncUsersResourceWithStreamingResponse:
+    def __init__(self, users: AsyncUsersResource) -> None:
+        self._users = users
 
         self.list = async_to_streamed_response_wrapper(
-            admin_users.list,
+            users.list,
         )

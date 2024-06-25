@@ -4,6 +4,6 @@ from typing import List
 
 from .user_node import UserNode
 
-__all__ = ["AdminUserListResponse"]
+__all__ = ["UserListResponse"]
 
-AdminUserListResponse = List[UserNode]
+UserListResponse = List[UserNode]
