@@ -2,11 +2,11 @@
 
 from __future__ import annotations
 
-from typing import List
 from typing_extensions import Required, TypedDict
 
-__all__ = ["StructureIsCompleteParams"]
+__all__ = ["SourceListParams"]
 
 
-class StructureIsCompleteParams(TypedDict, total=False):
-    job: Required[List[str]]
+class SourceListParams(TypedDict, total=False):
+    id: Required[int]
+    """Id of the entity to get sources for"""
