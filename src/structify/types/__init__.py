@@ -5,7 +5,6 @@ from __future__ import annotations
 from .entity import Entity as Entity
 from .source import Source as Source
 from .dataset import Dataset as Dataset
-from .new_token import NewToken as NewToken
 from .user_info import UserInfo as UserInfo
 from .chat_prompt import ChatPrompt as ChatPrompt
 from .tool_metadata import ToolMetadata as ToolMetadata
@@ -45,3 +44,4 @@ from .structure_is_complete_params import StructureIsCompleteParams as Structure
 from .structure_run_async_response import StructureRunAsyncResponse as StructureRunAsyncResponse
 from .structure_job_status_response import StructureJobStatusResponse as StructureJobStatusResponse
 from .structure_is_complete_response import StructureIsCompleteResponse as StructureIsCompleteResponse
+from .user_create_test_token_response import UserCreateTestTokenResponse as UserCreateTestTokenResponse
