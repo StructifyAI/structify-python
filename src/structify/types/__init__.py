@@ -7,7 +7,6 @@ from .source import Source as Source
 from .dataset import Dataset as Dataset
 from .user_info import UserInfo as UserInfo
 from .chat_prompt import ChatPrompt as ChatPrompt
-from .tool_metadata import ToolMetadata as ToolMetadata
 from .execution_step import ExecutionStep as ExecutionStep
 from .run_get_response import RunGetResponse as RunGetResponse
 from .run_list_response import RunListResponse as RunListResponse
