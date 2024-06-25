@@ -211,7 +211,7 @@ class TestLabel:
                 }
             },
         )
-        assert label is None
+        assert_matches_type(str, label, path=["response"])
 
     @parametrize
     def test_raw_response_run(self, client: Structify) -> None:
@@ -240,7 +240,7 @@ class TestLabel:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         label = response.parse()
-        assert label is None
+        assert_matches_type(str, label, path=["response"])
 
     @parametrize
     def test_streaming_response_run(self, client: Structify) -> None:
@@ -269,7 +269,7 @@ class TestLabel:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             label = response.parse()
-            assert label is None
+            assert_matches_type(str, label, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -510,7 +510,7 @@ class TestAsyncLabel:
                 }
             },
         )
-        assert label is None
+        assert_matches_type(str, label, path=["response"])
 
     @parametrize
     async def test_raw_response_run(self, async_client: AsyncStructify) -> None:
@@ -539,7 +539,7 @@ class TestAsyncLabel:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         label = await response.parse()
-        assert label is None
+        assert_matches_type(str, label, path=["response"])
 
     @parametrize
     async def test_streaming_response_run(self, async_client: AsyncStructify) -> None:
@@ -568,7 +568,7 @@ class TestAsyncLabel:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             label = await response.parse()
-            assert label is None
+            assert_matches_type(str, label, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

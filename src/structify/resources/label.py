@@ -7,7 +7,7 @@ from typing import Iterable, Optional
 import httpx
 
 from ..types import label_run_params, label_submit_params, label_update_params, label_get_messages_params
-from .._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
+from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from .._utils import (
     maybe_transform,
     async_maybe_transform,
@@ -154,7 +154,7 @@ class LabelResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> None:
+    ) -> str:
         """
         Returns a token that can be waited on until the request is finished.
 
@@ -169,7 +169,7 @@ class LabelResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
         return self._post(
             "/label/run_async",
             body=maybe_transform(
@@ -182,7 +182,7 @@ class LabelResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=NoneType,
+            cast_to=str,
         )
 
     def submit(
@@ -347,7 +347,7 @@ class AsyncLabelResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> None:
+    ) -> str:
         """
         Returns a token that can be waited on until the request is finished.
 
@@ -362,7 +362,7 @@ class AsyncLabelResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
         return await self._post(
             "/label/run_async",
             body=await async_maybe_transform(
@@ -375,7 +375,7 @@ class AsyncLabelResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=NoneType,
+            cast_to=str,
         )
 
     async def submit(
