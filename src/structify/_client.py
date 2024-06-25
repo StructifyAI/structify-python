@@ -25,7 +25,7 @@ from ._utils import (
 )
 from ._version import __version__
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
-from ._exceptions import APIStatusError, StructifyError
+from ._exceptions import APIStatusError
 from ._base_client import (
     DEFAULT_MAX_RETRIES,
     SyncAPIClient,
@@ -47,34 +47,31 @@ __all__ = [
 
 ENVIRONMENTS: Dict[str, str] = {
     "production": "https://api.structify.ai",
-    "deployment": "http://localhost:8080",
+    "environment_1": "http://localhost:8080",
 }
 
 
 class Structify(SyncAPIClient):
-    user: resources.UserResource
-    admin: resources.AdminResource
+    admin_users: resources.AdminUsersResource
     datasets: resources.DatasetsResource
     documents: resources.DocumentsResource
+    label: resources.LabelResource
     runs: resources.RunsResource
     server: resources.ServerResource
-    sources: resources.SourcesResource
     structure: resources.StructureResource
-    label: resources.LabelResource
     usage: resources.UsageResource
+    account: resources.AccountResource
     with_raw_response: StructifyWithRawResponse
     with_streaming_response: StructifyWithStreamedResponse
 
     # client options
-    api_key: str
 
-    _environment: Literal["production", "deployment"] | NotGiven
+    _environment: Literal["production", "environment_1"] | NotGiven
 
     def __init__(
         self,
         *,
-        api_key: str | None = None,
-        environment: Literal["production", "deployment"] | NotGiven = NOT_GIVEN,
+        environment: Literal["production", "environment_1"] | NotGiven = NOT_GIVEN,
         base_url: str | httpx.URL | None | NotGiven = NOT_GIVEN,
         timeout: Union[float, Timeout, None, NotGiven] = NOT_GIVEN,
         max_retries: int = DEFAULT_MAX_RETRIES,
@@ -94,18 +91,7 @@ class Structify(SyncAPIClient):
         # part of our public interface in the future.
         _strict_response_validation: bool = False,
     ) -> None:
-        """Construct a new synchronous structify client instance.
-
-        This automatically infers the `api_key` argument from the `STRUCTIFY_API_TOKEN` environment variable if it is not provided.
-        """
-        if api_key is None:
-            api_key = os.environ.get("STRUCTIFY_API_TOKEN")
-        if api_key is None:
-            raise StructifyError(
-                "The api_key client option must be set either by passing api_key to the client or by setting the STRUCTIFY_API_TOKEN environment variable"
-            )
-        self.api_key = api_key
-
+        """Construct a new synchronous structify client instance."""
         self._environment = environment
 
         base_url_env = os.environ.get("STRUCTIFY_BASE_URL")
@@ -143,16 +129,15 @@ class Structify(SyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.user = resources.UserResource(self)
-        self.admin = resources.AdminResource(self)
+        self.admin_users = resources.AdminUsersResource(self)
         self.datasets = resources.DatasetsResource(self)
         self.documents = resources.DocumentsResource(self)
+        self.label = resources.LabelResource(self)
         self.runs = resources.RunsResource(self)
         self.server = resources.ServerResource(self)
-        self.sources = resources.SourcesResource(self)
         self.structure = resources.StructureResource(self)
-        self.label = resources.LabelResource(self)
         self.usage = resources.UsageResource(self)
+        self.account = resources.AccountResource(self)
         self.with_raw_response = StructifyWithRawResponse(self)
         self.with_streaming_response = StructifyWithStreamedResponse(self)
 
@@ -160,12 +145,6 @@ class Structify(SyncAPIClient):
     @override
     def qs(self) -> Querystring:
         return Querystring(array_format="comma")
-
-    @property
-    @override
-    def auth_headers(self) -> dict[str, str]:
-        api_key = self.api_key
-        return {"api_key": api_key}
 
     @property
     @override
@@ -179,8 +158,7 @@ class Structify(SyncAPIClient):
     def copy(
         self,
         *,
-        api_key: str | None = None,
-        environment: Literal["production", "deployment"] | None = None,
+        environment: Literal["production", "environment_1"] | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: float | Timeout | None | NotGiven = NOT_GIVEN,
         http_client: httpx.Client | None = None,
@@ -214,7 +192,6 @@ class Structify(SyncAPIClient):
 
         http_client = http_client or self._client
         return self.__class__(
-            api_key=api_key or self.api_key,
             base_url=base_url or self.base_url,
             environment=environment or self._environment,
             timeout=self.timeout if isinstance(timeout, NotGiven) else timeout,
@@ -264,29 +241,26 @@ class Structify(SyncAPIClient):
 
 
 class AsyncStructify(AsyncAPIClient):
-    user: resources.AsyncUserResource
-    admin: resources.AsyncAdminResource
+    admin_users: resources.AsyncAdminUsersResource
     datasets: resources.AsyncDatasetsResource
     documents: resources.AsyncDocumentsResource
+    label: resources.AsyncLabelResource
     runs: resources.AsyncRunsResource
     server: resources.AsyncServerResource
-    sources: resources.AsyncSourcesResource
     structure: resources.AsyncStructureResource
-    label: resources.AsyncLabelResource
     usage: resources.AsyncUsageResource
+    account: resources.AsyncAccountResource
     with_raw_response: AsyncStructifyWithRawResponse
     with_streaming_response: AsyncStructifyWithStreamedResponse
 
     # client options
-    api_key: str
 
-    _environment: Literal["production", "deployment"] | NotGiven
+    _environment: Literal["production", "environment_1"] | NotGiven
 
     def __init__(
         self,
         *,
-        api_key: str | None = None,
-        environment: Literal["production", "deployment"] | NotGiven = NOT_GIVEN,
+        environment: Literal["production", "environment_1"] | NotGiven = NOT_GIVEN,
         base_url: str | httpx.URL | None | NotGiven = NOT_GIVEN,
         timeout: Union[float, Timeout, None, NotGiven] = NOT_GIVEN,
         max_retries: int = DEFAULT_MAX_RETRIES,
@@ -306,18 +280,7 @@ class AsyncStructify(AsyncAPIClient):
         # part of our public interface in the future.
         _strict_response_validation: bool = False,
     ) -> None:
-        """Construct a new async structify client instance.
-
-        This automatically infers the `api_key` argument from the `STRUCTIFY_API_TOKEN` environment variable if it is not provided.
-        """
-        if api_key is None:
-            api_key = os.environ.get("STRUCTIFY_API_TOKEN")
-        if api_key is None:
-            raise StructifyError(
-                "The api_key client option must be set either by passing api_key to the client or by setting the STRUCTIFY_API_TOKEN environment variable"
-            )
-        self.api_key = api_key
-
+        """Construct a new async structify client instance."""
         self._environment = environment
 
         base_url_env = os.environ.get("STRUCTIFY_BASE_URL")
@@ -355,16 +318,15 @@ class AsyncStructify(AsyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.user = resources.AsyncUserResource(self)
-        self.admin = resources.AsyncAdminResource(self)
+        self.admin_users = resources.AsyncAdminUsersResource(self)
         self.datasets = resources.AsyncDatasetsResource(self)
         self.documents = resources.AsyncDocumentsResource(self)
+        self.label = resources.AsyncLabelResource(self)
         self.runs = resources.AsyncRunsResource(self)
         self.server = resources.AsyncServerResource(self)
-        self.sources = resources.AsyncSourcesResource(self)
         self.structure = resources.AsyncStructureResource(self)
-        self.label = resources.AsyncLabelResource(self)
         self.usage = resources.AsyncUsageResource(self)
+        self.account = resources.AsyncAccountResource(self)
         self.with_raw_response = AsyncStructifyWithRawResponse(self)
         self.with_streaming_response = AsyncStructifyWithStreamedResponse(self)
 
@@ -372,12 +334,6 @@ class AsyncStructify(AsyncAPIClient):
     @override
     def qs(self) -> Querystring:
         return Querystring(array_format="comma")
-
-    @property
-    @override
-    def auth_headers(self) -> dict[str, str]:
-        api_key = self.api_key
-        return {"api_key": api_key}
 
     @property
     @override
@@ -391,8 +347,7 @@ class AsyncStructify(AsyncAPIClient):
     def copy(
         self,
         *,
-        api_key: str | None = None,
-        environment: Literal["production", "deployment"] | None = None,
+        environment: Literal["production", "environment_1"] | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: float | Timeout | None | NotGiven = NOT_GIVEN,
         http_client: httpx.AsyncClient | None = None,
@@ -426,7 +381,6 @@ class AsyncStructify(AsyncAPIClient):
 
         http_client = http_client or self._client
         return self.__class__(
-            api_key=api_key or self.api_key,
             base_url=base_url or self.base_url,
             environment=environment or self._environment,
             timeout=self.timeout if isinstance(timeout, NotGiven) else timeout,
@@ -477,58 +431,54 @@ class AsyncStructify(AsyncAPIClient):
 
 class StructifyWithRawResponse:
     def __init__(self, client: Structify) -> None:
-        self.user = resources.UserResourceWithRawResponse(client.user)
-        self.admin = resources.AdminResourceWithRawResponse(client.admin)
+        self.admin_users = resources.AdminUsersResourceWithRawResponse(client.admin_users)
         self.datasets = resources.DatasetsResourceWithRawResponse(client.datasets)
         self.documents = resources.DocumentsResourceWithRawResponse(client.documents)
+        self.label = resources.LabelResourceWithRawResponse(client.label)
         self.runs = resources.RunsResourceWithRawResponse(client.runs)
         self.server = resources.ServerResourceWithRawResponse(client.server)
-        self.sources = resources.SourcesResourceWithRawResponse(client.sources)
         self.structure = resources.StructureResourceWithRawResponse(client.structure)
-        self.label = resources.LabelResourceWithRawResponse(client.label)
         self.usage = resources.UsageResourceWithRawResponse(client.usage)
+        self.account = resources.AccountResourceWithRawResponse(client.account)
 
 
 class AsyncStructifyWithRawResponse:
     def __init__(self, client: AsyncStructify) -> None:
-        self.user = resources.AsyncUserResourceWithRawResponse(client.user)
-        self.admin = resources.AsyncAdminResourceWithRawResponse(client.admin)
+        self.admin_users = resources.AsyncAdminUsersResourceWithRawResponse(client.admin_users)
         self.datasets = resources.AsyncDatasetsResourceWithRawResponse(client.datasets)
         self.documents = resources.AsyncDocumentsResourceWithRawResponse(client.documents)
+        self.label = resources.AsyncLabelResourceWithRawResponse(client.label)
         self.runs = resources.AsyncRunsResourceWithRawResponse(client.runs)
         self.server = resources.AsyncServerResourceWithRawResponse(client.server)
-        self.sources = resources.AsyncSourcesResourceWithRawResponse(client.sources)
         self.structure = resources.AsyncStructureResourceWithRawResponse(client.structure)
-        self.label = resources.AsyncLabelResourceWithRawResponse(client.label)
         self.usage = resources.AsyncUsageResourceWithRawResponse(client.usage)
+        self.account = resources.AsyncAccountResourceWithRawResponse(client.account)
 
 
 class StructifyWithStreamedResponse:
     def __init__(self, client: Structify) -> None:
-        self.user = resources.UserResourceWithStreamingResponse(client.user)
-        self.admin = resources.AdminResourceWithStreamingResponse(client.admin)
+        self.admin_users = resources.AdminUsersResourceWithStreamingResponse(client.admin_users)
         self.datasets = resources.DatasetsResourceWithStreamingResponse(client.datasets)
         self.documents = resources.DocumentsResourceWithStreamingResponse(client.documents)
+        self.label = resources.LabelResourceWithStreamingResponse(client.label)
         self.runs = resources.RunsResourceWithStreamingResponse(client.runs)
         self.server = resources.ServerResourceWithStreamingResponse(client.server)
-        self.sources = resources.SourcesResourceWithStreamingResponse(client.sources)
         self.structure = resources.StructureResourceWithStreamingResponse(client.structure)
-        self.label = resources.LabelResourceWithStreamingResponse(client.label)
         self.usage = resources.UsageResourceWithStreamingResponse(client.usage)
+        self.account = resources.AccountResourceWithStreamingResponse(client.account)
 
 
 class AsyncStructifyWithStreamedResponse:
     def __init__(self, client: AsyncStructify) -> None:
-        self.user = resources.AsyncUserResourceWithStreamingResponse(client.user)
-        self.admin = resources.AsyncAdminResourceWithStreamingResponse(client.admin)
+        self.admin_users = resources.AsyncAdminUsersResourceWithStreamingResponse(client.admin_users)
         self.datasets = resources.AsyncDatasetsResourceWithStreamingResponse(client.datasets)
         self.documents = resources.AsyncDocumentsResourceWithStreamingResponse(client.documents)
+        self.label = resources.AsyncLabelResourceWithStreamingResponse(client.label)
         self.runs = resources.AsyncRunsResourceWithStreamingResponse(client.runs)
         self.server = resources.AsyncServerResourceWithStreamingResponse(client.server)
-        self.sources = resources.AsyncSourcesResourceWithStreamingResponse(client.sources)
         self.structure = resources.AsyncStructureResourceWithStreamingResponse(client.structure)
-        self.label = resources.AsyncLabelResourceWithStreamingResponse(client.label)
         self.usage = resources.AsyncUsageResourceWithStreamingResponse(client.usage)
+        self.account = resources.AsyncAccountResourceWithStreamingResponse(client.account)
 
 
 Client = Structify

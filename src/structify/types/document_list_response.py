@@ -1,19 +1,9 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Optional
-from typing_extensions import Literal
+from typing import List
 
-from .._models import BaseModel
+from .user_file import UserFile
 
-__all__ = ["DocumentListResponse", "DocumentListResponseItem"]
+__all__ = ["DocumentListResponse"]
 
-
-class DocumentListResponseItem(BaseModel):
-    document_type: Literal["Text", "Pdf", "SEC", "ExecutionHistory"]
-
-    name: str
-
-    content: Optional[object] = None
-
-
-DocumentListResponse = List[DocumentListResponseItem]
+DocumentListResponse = List[UserFile]
