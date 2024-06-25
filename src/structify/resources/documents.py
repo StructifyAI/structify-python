@@ -7,7 +7,7 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..types import document_upload_params
+from ..types import document_upload_params, document_get_sources_params
 from .._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven, FileTypes
 from .._utils import (
     extract_files,
@@ -34,6 +34,7 @@ from .._response import (
 from .._base_client import (
     make_request_options,
 )
+from ..types.source_node import SourceNode
 from ..types.document_list_response import DocumentListResponse
 
 __all__ = ["DocumentsResource", "AsyncDocumentsResource"]
@@ -133,6 +134,43 @@ class DocumentsResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=BinaryAPIResponse,
+        )
+
+    def get_sources(
+        self,
+        *,
+        id: int,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> SourceNode:
+        """
+        Get all sources for a given entity
+
+        Args:
+          id: Id of the entity to get sources for
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._get(
+            "/source/get_sources",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"id": id}, document_get_sources_params.DocumentGetSourcesParams),
+            ),
+            cast_to=SourceNode,
         )
 
     def upload(
@@ -281,6 +319,43 @@ class AsyncDocumentsResource(AsyncAPIResource):
             cast_to=AsyncBinaryAPIResponse,
         )
 
+    async def get_sources(
+        self,
+        *,
+        id: int,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> SourceNode:
+        """
+        Get all sources for a given entity
+
+        Args:
+          id: Id of the entity to get sources for
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._get(
+            "/source/get_sources",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform({"id": id}, document_get_sources_params.DocumentGetSourcesParams),
+            ),
+            cast_to=SourceNode,
+        )
+
     async def upload(
         self,
         *,
@@ -345,6 +420,9 @@ class DocumentsResourceWithRawResponse:
             documents.download,
             BinaryAPIResponse,
         )
+        self.get_sources = to_raw_response_wrapper(
+            documents.get_sources,
+        )
         self.upload = to_raw_response_wrapper(
             documents.upload,
         )
@@ -363,6 +441,9 @@ class AsyncDocumentsResourceWithRawResponse:
         self.download = async_to_custom_raw_response_wrapper(
             documents.download,
             AsyncBinaryAPIResponse,
+        )
+        self.get_sources = async_to_raw_response_wrapper(
+            documents.get_sources,
         )
         self.upload = async_to_raw_response_wrapper(
             documents.upload,
@@ -383,6 +464,9 @@ class DocumentsResourceWithStreamingResponse:
             documents.download,
             StreamedBinaryAPIResponse,
         )
+        self.get_sources = to_streamed_response_wrapper(
+            documents.get_sources,
+        )
         self.upload = to_streamed_response_wrapper(
             documents.upload,
         )
@@ -401,6 +485,9 @@ class AsyncDocumentsResourceWithStreamingResponse:
         self.download = async_to_custom_streamed_response_wrapper(
             documents.download,
             AsyncStreamedBinaryAPIResponse,
+        )
+        self.get_sources = async_to_streamed_response_wrapper(
+            documents.get_sources,
         )
         self.upload = async_to_streamed_response_wrapper(
             documents.upload,

@@ -9,4 +9,4 @@ __all__ = ["StructureIsCompleteParams"]
 
 
 class StructureIsCompleteParams(TypedDict, total=False):
-    job: Required[List[str]]
+    body: Required[List[str]]

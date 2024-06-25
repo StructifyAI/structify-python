@@ -6,7 +6,12 @@ from typing import Iterable, Optional
 
 import httpx
 
-from ..types import dataset_get_params, dataset_view_params, dataset_create_params, dataset_delete_params
+from ..types import (
+    dataset_view_params,
+    dataset_create_params,
+    dataset_delete_params,
+    dataset_retrieve_info_params,
+)
 from .._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
 from .._utils import (
     maybe_transform,
@@ -140,7 +145,7 @@ class DatasetsResource(SyncAPIResource):
             cast_to=NoneType,
         )
 
-    def get(
+    def retrieve_info(
         self,
         *,
         name: str,
@@ -172,7 +177,7 @@ class DatasetsResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform({"name": name}, dataset_get_params.DatasetGetParams),
+                query=maybe_transform({"name": name}, dataset_retrieve_info_params.DatasetRetrieveInfoParams),
             ),
             cast_to=DatasetDescriptor,
         )
@@ -334,7 +339,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
             cast_to=NoneType,
         )
 
-    async def get(
+    async def retrieve_info(
         self,
         *,
         name: str,
@@ -366,7 +371,9 @@ class AsyncDatasetsResource(AsyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform({"name": name}, dataset_get_params.DatasetGetParams),
+                query=await async_maybe_transform(
+                    {"name": name}, dataset_retrieve_info_params.DatasetRetrieveInfoParams
+                ),
             ),
             cast_to=DatasetDescriptor,
         )
@@ -431,8 +438,8 @@ class DatasetsResourceWithRawResponse:
         self.delete = to_raw_response_wrapper(
             datasets.delete,
         )
-        self.get = to_raw_response_wrapper(
-            datasets.get,
+        self.retrieve_info = to_raw_response_wrapper(
+            datasets.retrieve_info,
         )
         self.view = to_raw_response_wrapper(
             datasets.view,
@@ -452,8 +459,8 @@ class AsyncDatasetsResourceWithRawResponse:
         self.delete = async_to_raw_response_wrapper(
             datasets.delete,
         )
-        self.get = async_to_raw_response_wrapper(
-            datasets.get,
+        self.retrieve_info = async_to_raw_response_wrapper(
+            datasets.retrieve_info,
         )
         self.view = async_to_raw_response_wrapper(
             datasets.view,
@@ -473,8 +480,8 @@ class DatasetsResourceWithStreamingResponse:
         self.delete = to_streamed_response_wrapper(
             datasets.delete,
         )
-        self.get = to_streamed_response_wrapper(
-            datasets.get,
+        self.retrieve_info = to_streamed_response_wrapper(
+            datasets.retrieve_info,
         )
         self.view = to_streamed_response_wrapper(
             datasets.view,
@@ -494,8 +501,8 @@ class AsyncDatasetsResourceWithStreamingResponse:
         self.delete = async_to_streamed_response_wrapper(
             datasets.delete,
         )
-        self.get = async_to_streamed_response_wrapper(
-            datasets.get,
+        self.retrieve_info = async_to_streamed_response_wrapper(
+            datasets.retrieve_info,
         )
         self.view = async_to_streamed_response_wrapper(
             datasets.view,
