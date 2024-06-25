@@ -24,6 +24,7 @@ from .._response import (
 from .._base_client import (
     make_request_options,
 )
+from ..types.dataset_view_response import DatasetViewResponse
 from ..types.structure_job_status_response import StructureJobStatusResponse
 
 __all__ = ["StructureResource", "AsyncStructureResource"]
@@ -149,7 +150,7 @@ class StructureResource(SyncAPIResource):
         self,
         table_name: str,
         *args,  # type: ignore
-        timeout: Optional[int] = None,
+        timeout: Optional[int] = None,  # type: ignore
         **kwargs,  # type: ignore
     ) -> DatasetViewResponse:
         """
