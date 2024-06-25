@@ -14,54 +14,46 @@ The REST API documentation can be found on [ReadTheDocs](https://structify.readt
 ## Installation
 
 ```sh
-# install from PyPI
-pip install --pre structifyai
+# install from this staging repo
+pip install git+ssh://git@github.com/stainless-sdks/structify-python.git
 ```
+
+> [!NOTE]
+> Once this package is [published to PyPI](https://app.stainlessapi.com/docs/guides/publish), this will become: `pip install --pre structify`
 
 ## Usage
 
 The full API of this library can be found in [api.md](api.md).
 
 ```python
-import os
 from structify import Structify
 
 client = Structify(
-    # This is the default and can be omitted
-    api_key=os.environ.get("STRUCTIFY_API_TOKEN"),
     # defaults to "production".
-    environment="deployment",
+    environment="environment_1",
 )
 
-server_information = client.server.version()
-print(server_information.version)
+user_info_response = client.account.info()
+print(user_info_response.credits_remaining)
 ```
-
-While you can provide an `api_key` keyword argument,
-we recommend using [python-dotenv](https://pypi.org/project/python-dotenv/)
-to add `STRUCTIFY_API_TOKEN="My API Key"` to your `.env` file
-so that your API Key is not stored in source control.
 
 ## Async usage
 
 Simply import `AsyncStructify` instead of `Structify` and use `await` with each API call:
 
 ```python
-import os
 import asyncio
 from structify import AsyncStructify
 
 client = AsyncStructify(
-    # This is the default and can be omitted
-    api_key=os.environ.get("STRUCTIFY_API_TOKEN"),
     # defaults to "production".
-    environment="deployment",
+    environment="environment_1",
 )
 
 
 async def main() -> None:
-    server_information = await client.server.version()
-    print(server_information.version)
+    user_info_response = await client.account.info()
+    print(user_info_response.credits_remaining)
 
 
 asyncio.run(main())
@@ -94,7 +86,7 @@ from structify import Structify
 client = Structify()
 
 try:
-    client.server.version()
+    client.account.info()
 except structify.APIConnectionError as e:
     print("The server could not be reached")
     print(e.__cause__)  # an underlying Exception, likely raised within httpx.
@@ -137,7 +129,7 @@ client = Structify(
 )
 
 # Or, configure per-request:
-client.with_options(max_retries=5).server.version()
+client.with_options(max_retries=5).account.info()
 ```
 
 ### Timeouts
@@ -160,7 +152,7 @@ client = Structify(
 )
 
 # Override per-request:
-client.with_options(timeout=5.0).server.version()
+client.with_options(timeout=5.0).account.info()
 ```
 
 On timeout, an `APITimeoutError` is thrown.
@@ -199,16 +191,16 @@ The "raw" Response object can be accessed by prefixing `.with_raw_response.` to 
 from structify import Structify
 
 client = Structify()
-response = client.server.with_raw_response.version()
+response = client.account.with_raw_response.info()
 print(response.headers.get('X-My-Header'))
 
-server = response.parse()  # get the object that `server.version()` would have returned
-print(server.version)
+account = response.parse()  # get the object that `account.info()` would have returned
+print(account.credits_remaining)
 ```
 
-These methods return an [`APIResponse`](https://github.com/StructifyAI/structify-python/tree/main/src/structify/_response.py) object.
+These methods return an [`APIResponse`](https://github.com/stainless-sdks/structify-python/tree/main/src/structify/_response.py) object.
 
-The async client returns an [`AsyncAPIResponse`](https://github.com/StructifyAI/structify-python/tree/main/src/structify/_response.py) with the same structure, the only difference being `await`able methods for reading the response content.
+The async client returns an [`AsyncAPIResponse`](https://github.com/stainless-sdks/structify-python/tree/main/src/structify/_response.py) with the same structure, the only difference being `await`able methods for reading the response content.
 
 #### `.with_streaming_response`
 
@@ -217,7 +209,7 @@ The above interface eagerly reads the full response body when you make the reque
 To stream the response body, use `.with_streaming_response` instead, which requires a context manager and only reads the response body once you call `.read()`, `.text()`, `.json()`, `.iter_bytes()`, `.iter_text()`, `.iter_lines()` or `.parse()`. In the async client, these are async methods.
 
 ```python
-with client.server.with_streaming_response.version() as response:
+with client.account.with_streaming_response.info() as response:
     print(response.headers.get("X-My-Header"))
 
     for line in response.iter_lines():
@@ -296,7 +288,7 @@ This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) con
 
 We take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.
 
-We are keen for your feedback; please open an [issue](https://www.github.com/StructifyAI/structify-python/issues) with questions, bugs, or suggestions.
+We are keen for your feedback; please open an [issue](https://www.github.com/stainless-sdks/structify-python/issues) with questions, bugs, or suggestions.
 
 ## Requirements
 

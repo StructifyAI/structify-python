@@ -2,8 +2,8 @@
 
 from typing import List
 
-from .entity import Entity
+from .kg_entity import KgEntity
 
 __all__ = ["DatasetViewResponse"]
 
-DatasetViewResponse = List[Entity]
+DatasetViewResponse = List[KgEntity]

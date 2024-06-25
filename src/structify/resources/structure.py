@@ -39,7 +39,7 @@ class StructureResource(SyncAPIResource):
     def is_complete(
         self,
         *,
-        job: List[str],
+        body: List[str],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -62,7 +62,7 @@ class StructureResource(SyncAPIResource):
         extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
         return self._post(
             "/structure/is_complete",
-            body=maybe_transform(job, structure_is_complete_params.StructureIsCompleteParams),
+            body=maybe_transform(body, structure_is_complete_params.StructureIsCompleteParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -72,7 +72,7 @@ class StructureResource(SyncAPIResource):
     def job_status(
         self,
         *,
-        job: List[str],
+        body: List[str],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -94,7 +94,7 @@ class StructureResource(SyncAPIResource):
         """
         return self._post(
             "/structure/job_status",
-            body=maybe_transform(job, structure_job_status_params.StructureJobStatusParams),
+            body=maybe_transform(body, structure_job_status_params.StructureJobStatusParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -156,7 +156,7 @@ class AsyncStructureResource(AsyncAPIResource):
     async def is_complete(
         self,
         *,
-        job: List[str],
+        body: List[str],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -179,7 +179,7 @@ class AsyncStructureResource(AsyncAPIResource):
         extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
         return await self._post(
             "/structure/is_complete",
-            body=await async_maybe_transform(job, structure_is_complete_params.StructureIsCompleteParams),
+            body=await async_maybe_transform(body, structure_is_complete_params.StructureIsCompleteParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -189,7 +189,7 @@ class AsyncStructureResource(AsyncAPIResource):
     async def job_status(
         self,
         *,
-        job: List[str],
+        body: List[str],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -211,7 +211,7 @@ class AsyncStructureResource(AsyncAPIResource):
         """
         return await self._post(
             "/structure/job_status",
-            body=await async_maybe_transform(job, structure_job_status_params.StructureJobStatusParams),
+            body=await async_maybe_transform(body, structure_job_status_params.StructureJobStatusParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
