@@ -9,6 +9,7 @@ import pytest
 
 from structify import Structify, AsyncStructify
 from tests.utils import assert_matches_type
+from structify.types import UsageGetJobInfoResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -21,7 +22,7 @@ class TestUsage:
         usage = client.usage.get_job_info(
             job_id="string",
         )
-        assert_matches_type(object, usage, path=["response"])
+        assert_matches_type(UsageGetJobInfoResponse, usage, path=["response"])
 
     @parametrize
     def test_raw_response_get_job_info(self, client: Structify) -> None:
@@ -32,7 +33,7 @@ class TestUsage:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         usage = response.parse()
-        assert_matches_type(object, usage, path=["response"])
+        assert_matches_type(UsageGetJobInfoResponse, usage, path=["response"])
 
     @parametrize
     def test_streaming_response_get_job_info(self, client: Structify) -> None:
@@ -43,7 +44,7 @@ class TestUsage:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             usage = response.parse()
-            assert_matches_type(object, usage, path=["response"])
+            assert_matches_type(UsageGetJobInfoResponse, usage, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -56,7 +57,7 @@ class TestAsyncUsage:
         usage = await async_client.usage.get_job_info(
             job_id="string",
         )
-        assert_matches_type(object, usage, path=["response"])
+        assert_matches_type(UsageGetJobInfoResponse, usage, path=["response"])
 
     @parametrize
     async def test_raw_response_get_job_info(self, async_client: AsyncStructify) -> None:
@@ -67,7 +68,7 @@ class TestAsyncUsage:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         usage = await response.parse()
-        assert_matches_type(object, usage, path=["response"])
+        assert_matches_type(UsageGetJobInfoResponse, usage, path=["response"])
 
     @parametrize
     async def test_streaming_response_get_job_info(self, async_client: AsyncStructify) -> None:
@@ -78,6 +79,6 @@ class TestAsyncUsage:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             usage = await response.parse()
-            assert_matches_type(object, usage, path=["response"])
+            assert_matches_type(UsageGetJobInfoResponse, usage, path=["response"])
 
         assert cast(Any, response.is_closed) is True
