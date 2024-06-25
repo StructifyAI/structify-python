@@ -3,12 +3,12 @@
 Types:
 
 ```python
-from structify.types import UserInfo, UserCreateTestTokenResponse
+from structify.types import NewToken, UserInfo
 ```
 
 Methods:
 
-- <code title="post /user/create_test_token">client.user.<a href="./src/structify/resources/user.py">create_test_token</a>() -> <a href="./src/structify/types/user_create_test_token_response.py">UserCreateTestTokenResponse</a></code>
+- <code title="post /user/create_test_token">client.user.<a href="./src/structify/resources/user.py">create_test_token</a>() -> <a href="./src/structify/types/new_token.py">NewToken</a></code>
 - <code title="get /user/info">client.user.<a href="./src/structify/resources/user.py">info</a>() -> <a href="./src/structify/types/user_info.py">UserInfo</a></code>
 
 # Admin
@@ -108,9 +108,6 @@ Types:
 
 ```python
 from structify.types import (
-    ChatPrompt,
-    ExecutionStep,
-    ExtractionCriteria,
     StructureIsCompleteResponse,
     StructureJobStatusResponse,
     StructureRunAsyncResponse,
@@ -122,6 +119,28 @@ Methods:
 - <code title="post /structure/is_complete">client.structure.<a href="./src/structify/resources/structure.py">is_complete</a>(\*\*<a href="src/structify/types/structure_is_complete_params.py">params</a>) -> str</code>
 - <code title="post /structure/job_status">client.structure.<a href="./src/structify/resources/structure.py">job_status</a>(\*\*<a href="src/structify/types/structure_job_status_params.py">params</a>) -> <a href="./src/structify/types/structure_job_status_response.py">StructureJobStatusResponse</a></code>
 - <code title="post /structure/run_async">client.structure.<a href="./src/structify/resources/structure.py">run_async</a>(\*\*<a href="src/structify/types/structure_run_async_params.py">params</a>) -> str</code>
+
+# Label
+
+Types:
+
+```python
+from structify.types import (
+    LabelUpdateResponse,
+    LabelGetMessagesResponse,
+    LabelLlmAssistResponse,
+    LabelRunResponse,
+    LabelSubmitResponse,
+)
+```
+
+Methods:
+
+- <code title="post /label/update/{run_uuid}/{run_idx}">client.label.<a href="./src/structify/resources/label.py">update</a>(run_idx, \*, run_uuid, \*\*<a href="src/structify/types/label_update_params.py">params</a>) -> str</code>
+- <code title="get /label/refresh">client.label.<a href="./src/structify/resources/label.py">get_messages</a>(\*\*<a href="src/structify/types/label_get_messages_params.py">params</a>) -> <a href="./src/structify/types/label_get_messages_response.py">Optional</a></code>
+- <code title="get /label/llm_assist/{uuid}">client.label.<a href="./src/structify/resources/label.py">llm_assist</a>(uuid) -> <a href="./src/structify/types/label_llm_assist_response.py">LabelLlmAssistResponse</a></code>
+- <code title="post /label/run_async">client.label.<a href="./src/structify/resources/label.py">run</a>(\*\*<a href="src/structify/types/label_run_params.py">params</a>) -> str</code>
+- <code title="post /label/submit/{uuid}">client.label.<a href="./src/structify/resources/label.py">submit</a>(uuid, \*\*<a href="src/structify/types/label_submit_params.py">params</a>) -> str</code>
 
 # Usage
 

@@ -4,8 +4,8 @@
 
 from .._models import BaseModel
 
-__all__ = ["UserCreateTestTokenResponse"]
+__all__ = ["NewToken"]
 
 
-class UserCreateTestTokenResponse(BaseModel):
+class NewToken(BaseModel):
     token: str
