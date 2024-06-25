@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.1.0-alpha.35 (2024-06-25)
+
+Full Changelog: [v0.1.0-alpha.34...v0.1.0-alpha.35](https://github.com/StructifyAI/structify-python/compare/v0.1.0-alpha.34...v0.1.0-alpha.35)
+
+### Features
+
+* fixed ([18ad0b3](https://github.com/StructifyAI/structify-python/commit/18ad0b3f6da874e61ef7a40d5ee2694e739ff9c3))
+* fixed ([07b22e9](https://github.com/StructifyAI/structify-python/commit/07b22e978605e5212979575bcfce94d690a6a448))
+* fixed ([8c4d0c1](https://github.com/StructifyAI/structify-python/commit/8c4d0c1800d5f17a3aa5c0aab9cd0ee2687a693d))
+* fixed ([c3d604f](https://github.com/StructifyAI/structify-python/commit/c3d604f1255c852a974c0fdb4e59400193e6e938))
+
 ## 0.1.0-alpha.34 (2024-06-25)
 
 Full Changelog: [v0.1.0-alpha.33...v0.1.0-alpha.34](https://github.com/StructifyAI/structify-python/compare/v0.1.0-alpha.33...v0.1.0-alpha.34)
