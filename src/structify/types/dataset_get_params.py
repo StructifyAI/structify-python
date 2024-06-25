@@ -2,11 +2,11 @@
 
 from __future__ import annotations
 
-from typing import List
 from typing_extensions import Required, TypedDict
 
-__all__ = ["StructureIsCompleteParams"]
+__all__ = ["DatasetGetParams"]
 
 
-class StructureIsCompleteParams(TypedDict, total=False):
-    job: Required[List[str]]
+class DatasetGetParams(TypedDict, total=False):
+    name: Required[str]
+    """Information about the dataset"""

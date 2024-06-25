@@ -9,13 +9,13 @@ and offers both synchronous and asynchronous clients powered by [httpx](https://
 
 ## Documentation
 
-The REST API documentation can be found on [ReadTheDocs](https://structify.readthedocs.io/en/latest/). The full API of this library can be found in [api.md](api.md).
+The REST API documentation can be found [on api.structify.ai](https://api.structify.ai/). The full API of this library can be found in [api.md](api.md).
 
 ## Installation
 
 ```sh
 # install from PyPI
-pip install --pre structifyai
+pip install --pre structify
 ```
 
 ## Usage
@@ -23,34 +23,45 @@ pip install --pre structifyai
 The full API of this library can be found in [api.md](api.md).
 
 ```python
+import os
 from structify import Structify
 
 client = Structify(
+    # This is the default and can be omitted
+    api_key=os.environ.get("STRUCTIFY_API_TOKEN"),
     # defaults to "production".
     environment="deployment",
 )
 
-user_info_response = client.account.info()
-print(user_info_response.credits_remaining)
+server_information = client.server.version()
+print(server_information.version)
 ```
+
+While you can provide an `api_key` keyword argument,
+we recommend using [python-dotenv](https://pypi.org/project/python-dotenv/)
+to add `STRUCTIFY_API_TOKEN="My API Key"` to your `.env` file
+so that your API Key is not stored in source control.
 
 ## Async usage
 
 Simply import `AsyncStructify` instead of `Structify` and use `await` with each API call:
 
 ```python
+import os
 import asyncio
 from structify import AsyncStructify
 
 client = AsyncStructify(
+    # This is the default and can be omitted
+    api_key=os.environ.get("STRUCTIFY_API_TOKEN"),
     # defaults to "production".
     environment="deployment",
 )
 
 
 async def main() -> None:
-    user_info_response = await client.account.info()
-    print(user_info_response.credits_remaining)
+    server_information = await client.server.version()
+    print(server_information.version)
 
 
 asyncio.run(main())
@@ -83,7 +94,7 @@ from structify import Structify
 client = Structify()
 
 try:
-    client.account.info()
+    client.server.version()
 except structify.APIConnectionError as e:
     print("The server could not be reached")
     print(e.__cause__)  # an underlying Exception, likely raised within httpx.
@@ -126,7 +137,7 @@ client = Structify(
 )
 
 # Or, configure per-request:
-client.with_options(max_retries=5).account.info()
+client.with_options(max_retries=5).server.version()
 ```
 
 ### Timeouts
@@ -149,7 +160,7 @@ client = Structify(
 )
 
 # Override per-request:
-client.with_options(timeout=5.0).account.info()
+client.with_options(timeout=5.0).server.version()
 ```
 
 On timeout, an `APITimeoutError` is thrown.
@@ -188,11 +199,11 @@ The "raw" Response object can be accessed by prefixing `.with_raw_response.` to 
 from structify import Structify
 
 client = Structify()
-response = client.account.with_raw_response.info()
+response = client.server.with_raw_response.version()
 print(response.headers.get('X-My-Header'))
 
-account = response.parse()  # get the object that `account.info()` would have returned
-print(account.credits_remaining)
+server = response.parse()  # get the object that `server.version()` would have returned
+print(server.version)
 ```
 
 These methods return an [`APIResponse`](https://github.com/StructifyAI/structify-python/tree/main/src/structify/_response.py) object.
@@ -206,7 +217,7 @@ The above interface eagerly reads the full response body when you make the reque
 To stream the response body, use `.with_streaming_response` instead, which requires a context manager and only reads the response body once you call `.read()`, `.text()`, `.json()`, `.iter_bytes()`, `.iter_text()`, `.iter_lines()` or `.parse()`. In the async client, these are async methods.
 
 ```python
-with client.account.with_streaming_response.info() as response:
+with client.server.with_streaming_response.version() as response:
     print(response.headers.get("X-My-Header"))
 
     for line in response.iter_lines():

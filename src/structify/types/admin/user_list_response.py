@@ -2,8 +2,8 @@
 
 from typing import List
 
-from .entity import Entity
+from .user import User
 
-__all__ = ["DatasetViewResponse"]
+__all__ = ["UserListResponse"]
 
-DatasetViewResponse = List[Entity]
+UserListResponse = List[User]
