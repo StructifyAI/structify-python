@@ -2,6 +2,7 @@
 
 from typing import List
 from datetime import datetime
+from typing_extensions import Literal
 
 from .._models import BaseModel
 
@@ -13,7 +14,7 @@ class UsageGetJobInfoResponse(BaseModel):
 
     job_id: str
 
-    job_status: object
+    job_status: Literal["Running", "Completed", "Failed"]
 
     run_time: datetime
 
