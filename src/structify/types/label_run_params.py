@@ -20,8 +20,6 @@ __all__ = [
     "StructureInputBasic",
     "StructureInputBasicBasic",
     "StructureInputBasicBasicTextDocument",
-    "StructureInputBasicBasicTextDocumentTextDocument",
-    "StructureInputBasicBasicTextDocumentTextDocumentExtractionCriterion",
     "StructureInputBasicBasicWebSearch",
     "StructureInputBasicBasicWebSearchWebSearch",
     "StructureInputBasicBasicWebSearchWebSearchExtractionCriterion",
@@ -80,27 +78,8 @@ class StructureInputPdfIngestor(TypedDict, total=False):
     """
 
 
-class StructureInputBasicBasicTextDocumentTextDocumentExtractionCriterion(TypedDict, total=False):
-    property_names: Required[List[str]]
-
-    table_name: Required[str]
-    """Vec<ExtractionCriteria> = it has to meet every one."""
-
-
-class StructureInputBasicBasicTextDocumentTextDocument(TypedDict, total=False):
-    extraction_criteria: Required[Iterable[StructureInputBasicBasicTextDocumentTextDocumentExtractionCriterion]]
-
-    content: Optional[str]
-
-    filepath: Optional[str]
-
-    save: bool
-
-
 class StructureInputBasicBasicTextDocument(TypedDict, total=False):
-    text_document: Required[
-        Annotated[StructureInputBasicBasicTextDocumentTextDocument, PropertyInfo(alias="TextDocument")]
-    ]
+    text_document: Required[Annotated[object, PropertyInfo(alias="TextDocument")]]
 
 
 class StructureInputBasicBasicWebSearchWebSearchExtractionCriterion(TypedDict, total=False):
