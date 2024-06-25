@@ -3,12 +3,12 @@
 Types:
 
 ```python
-from structify.types import NewToken, UserInfo
+from structify.types import UserInfo, UserCreateTestTokenResponse
 ```
 
 Methods:
 
-- <code title="post /user/create_test_token">client.user.<a href="./src/structify/resources/user.py">create_test_token</a>() -> <a href="./src/structify/types/new_token.py">NewToken</a></code>
+- <code title="post /user/create_test_token">client.user.<a href="./src/structify/resources/user.py">create_test_token</a>() -> <a href="./src/structify/types/user_create_test_token_response.py">UserCreateTestTokenResponse</a></code>
 - <code title="get /user/info">client.user.<a href="./src/structify/resources/user.py">info</a>() -> <a href="./src/structify/types/user_info.py">UserInfo</a></code>
 
 # Admin
