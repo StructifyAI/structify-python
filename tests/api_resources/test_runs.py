@@ -156,6 +156,31 @@ class TestRuns:
                 "",
             )
 
+    @parametrize
+    def test_method_schedule(self, client: Structify) -> None:
+        run = client.runs.schedule()
+        assert run is None
+
+    @parametrize
+    def test_raw_response_schedule(self, client: Structify) -> None:
+        response = client.runs.with_raw_response.schedule()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        run = response.parse()
+        assert run is None
+
+    @parametrize
+    def test_streaming_response_schedule(self, client: Structify) -> None:
+        with client.runs.with_streaming_response.schedule() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            run = response.parse()
+            assert run is None
+
+        assert cast(Any, response.is_closed) is True
+
 
 class TestAsyncRuns:
     parametrize = pytest.mark.parametrize("async_client", [False, True], indirect=True, ids=["loose", "strict"])
@@ -298,3 +323,28 @@ class TestAsyncRuns:
             await async_client.runs.with_raw_response.get(
                 "",
             )
+
+    @parametrize
+    async def test_method_schedule(self, async_client: AsyncStructify) -> None:
+        run = await async_client.runs.schedule()
+        assert run is None
+
+    @parametrize
+    async def test_raw_response_schedule(self, async_client: AsyncStructify) -> None:
+        response = await async_client.runs.with_raw_response.schedule()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        run = await response.parse()
+        assert run is None
+
+    @parametrize
+    async def test_streaming_response_schedule(self, async_client: AsyncStructify) -> None:
+        async with async_client.runs.with_streaming_response.schedule() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            run = await response.parse()
+            assert run is None
+
+        assert cast(Any, response.is_closed) is True

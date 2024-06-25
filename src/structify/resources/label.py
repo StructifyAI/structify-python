@@ -2,14 +2,13 @@
 
 from __future__ import annotations
 
-from typing import Iterable, Optional, overload
+from typing import Iterable, Optional
 
 import httpx
 
-from ..types import label_run_params, label_submit_params, label_get_messages_params
-from .._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
+from ..types import label_run_params, label_submit_params, label_update_params, label_get_messages_params
+from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from .._utils import (
-    required_args,
     maybe_transform,
     async_maybe_transform,
 )
@@ -38,6 +37,43 @@ class LabelResource(SyncAPIResource):
     @cached_property
     def with_streaming_response(self) -> LabelResourceWithStreamingResponse:
         return LabelResourceWithStreamingResponse(self)
+
+    def update(
+        self,
+        run_idx: int,
+        *,
+        run_uuid: str,
+        step_update: Iterable[label_update_params.StepUpdate],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> str:
+        """
+        Submit a label as part of the human LLM.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not run_uuid:
+            raise ValueError(f"Expected a non-empty value for `run_uuid` but received {run_uuid!r}")
+        extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
+        return self._post(
+            f"/label/update/{run_uuid}/{run_idx}",
+            body=maybe_transform(step_update, label_update_params.LabelUpdateParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=str,
+        )
 
     def get_messages(
         self,
@@ -107,54 +143,23 @@ class LabelResource(SyncAPIResource):
             cast_to=LabelLlmAssistResponse,
         )
 
-    @overload
     def run(
         self,
         *,
         dataset_name: str,
-        sec_ingestor: label_run_params.Variant0SecIngestor,
-        custom_instruction: Optional[str] | NotGiven = NOT_GIVEN,
+        structure_input: label_run_params.StructureInput,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> None:
+    ) -> str:
         """
         Returns a token that can be waited on until the request is finished.
 
         Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        ...
-
-    @overload
-    def run(
-        self,
-        *,
-        dataset_name: str,
-        pdf_ingestor: label_run_params.Variant1PdfIngestor,
-        custom_instruction: Optional[str] | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> None:
-        """
-        Returns a token that can be waited on until the request is finished.
-
-        Args:
-          pdf_ingestor: This is currently a very simple ingestor. It converts everything to an image and
-              processes them independently.
+          structure_input: These are all the types that can be converted into a BasicInputType
 
           extra_headers: Send extra headers
 
@@ -164,87 +169,27 @@ class LabelResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        ...
-
-    @overload
-    def run(
-        self,
-        *,
-        dataset_name: str,
-        basic: label_run_params.Variant2Basic,
-        custom_instruction: Optional[str] | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> None:
-        """
-        Returns a token that can be waited on until the request is finished.
-
-        Args:
-          basic: These are all the types for which we have an agent that is directly capable of
-              navigating. There should be a one to one mapping between them.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        ...
-
-    @required_args(["dataset_name", "sec_ingestor"], ["dataset_name", "pdf_ingestor"], ["dataset_name", "basic"])
-    def run(
-        self,
-        *,
-        dataset_name: str,
-        sec_ingestor: label_run_params.Variant0SecIngestor | NotGiven = NOT_GIVEN,
-        custom_instruction: Optional[str] | NotGiven = NOT_GIVEN,
-        pdf_ingestor: label_run_params.Variant1PdfIngestor | NotGiven = NOT_GIVEN,
-        basic: label_run_params.Variant2Basic | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> None:
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
         return self._post(
             "/label/run_async",
             body=maybe_transform(
                 {
-                    "sec_ingestor": sec_ingestor,
-                    "pdf_ingestor": pdf_ingestor,
-                    "basic": basic,
+                    "dataset_name": dataset_name,
+                    "structure_input": structure_input,
                 },
                 label_run_params.LabelRunParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "dataset_name": dataset_name,
-                        "custom_instruction": custom_instruction,
-                    },
-                    label_run_params.LabelRunParams,
-                ),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=NoneType,
+            cast_to=str,
         )
 
     def submit(
         self,
         uuid: str,
         *,
-        body: Optional[Iterable[label_submit_params.Body]],
+        label: Optional[Iterable[label_submit_params.Label]],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -269,7 +214,7 @@ class LabelResource(SyncAPIResource):
         extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
         return self._post(
             f"/label/submit/{uuid}",
-            body=maybe_transform(body, label_submit_params.LabelSubmitParams),
+            body=maybe_transform(label, label_submit_params.LabelSubmitParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -285,6 +230,43 @@ class AsyncLabelResource(AsyncAPIResource):
     @cached_property
     def with_streaming_response(self) -> AsyncLabelResourceWithStreamingResponse:
         return AsyncLabelResourceWithStreamingResponse(self)
+
+    async def update(
+        self,
+        run_idx: int,
+        *,
+        run_uuid: str,
+        step_update: Iterable[label_update_params.StepUpdate],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> str:
+        """
+        Submit a label as part of the human LLM.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not run_uuid:
+            raise ValueError(f"Expected a non-empty value for `run_uuid` but received {run_uuid!r}")
+        extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
+        return await self._post(
+            f"/label/update/{run_uuid}/{run_idx}",
+            body=await async_maybe_transform(step_update, label_update_params.LabelUpdateParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=str,
+        )
 
     async def get_messages(
         self,
@@ -354,54 +336,23 @@ class AsyncLabelResource(AsyncAPIResource):
             cast_to=LabelLlmAssistResponse,
         )
 
-    @overload
     async def run(
         self,
         *,
         dataset_name: str,
-        sec_ingestor: label_run_params.Variant0SecIngestor,
-        custom_instruction: Optional[str] | NotGiven = NOT_GIVEN,
+        structure_input: label_run_params.StructureInput,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> None:
+    ) -> str:
         """
         Returns a token that can be waited on until the request is finished.
 
         Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        ...
-
-    @overload
-    async def run(
-        self,
-        *,
-        dataset_name: str,
-        pdf_ingestor: label_run_params.Variant1PdfIngestor,
-        custom_instruction: Optional[str] | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> None:
-        """
-        Returns a token that can be waited on until the request is finished.
-
-        Args:
-          pdf_ingestor: This is currently a very simple ingestor. It converts everything to an image and
-              processes them independently.
+          structure_input: These are all the types that can be converted into a BasicInputType
 
           extra_headers: Send extra headers
 
@@ -411,87 +362,27 @@ class AsyncLabelResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        ...
-
-    @overload
-    async def run(
-        self,
-        *,
-        dataset_name: str,
-        basic: label_run_params.Variant2Basic,
-        custom_instruction: Optional[str] | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> None:
-        """
-        Returns a token that can be waited on until the request is finished.
-
-        Args:
-          basic: These are all the types for which we have an agent that is directly capable of
-              navigating. There should be a one to one mapping between them.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        ...
-
-    @required_args(["dataset_name", "sec_ingestor"], ["dataset_name", "pdf_ingestor"], ["dataset_name", "basic"])
-    async def run(
-        self,
-        *,
-        dataset_name: str,
-        sec_ingestor: label_run_params.Variant0SecIngestor | NotGiven = NOT_GIVEN,
-        custom_instruction: Optional[str] | NotGiven = NOT_GIVEN,
-        pdf_ingestor: label_run_params.Variant1PdfIngestor | NotGiven = NOT_GIVEN,
-        basic: label_run_params.Variant2Basic | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> None:
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
         return await self._post(
             "/label/run_async",
             body=await async_maybe_transform(
                 {
-                    "sec_ingestor": sec_ingestor,
-                    "pdf_ingestor": pdf_ingestor,
-                    "basic": basic,
+                    "dataset_name": dataset_name,
+                    "structure_input": structure_input,
                 },
                 label_run_params.LabelRunParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform(
-                    {
-                        "dataset_name": dataset_name,
-                        "custom_instruction": custom_instruction,
-                    },
-                    label_run_params.LabelRunParams,
-                ),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=NoneType,
+            cast_to=str,
         )
 
     async def submit(
         self,
         uuid: str,
         *,
-        body: Optional[Iterable[label_submit_params.Body]],
+        label: Optional[Iterable[label_submit_params.Label]],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -516,7 +407,7 @@ class AsyncLabelResource(AsyncAPIResource):
         extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
         return await self._post(
             f"/label/submit/{uuid}",
-            body=await async_maybe_transform(body, label_submit_params.LabelSubmitParams),
+            body=await async_maybe_transform(label, label_submit_params.LabelSubmitParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -528,6 +419,9 @@ class LabelResourceWithRawResponse:
     def __init__(self, label: LabelResource) -> None:
         self._label = label
 
+        self.update = to_raw_response_wrapper(
+            label.update,
+        )
         self.get_messages = to_raw_response_wrapper(
             label.get_messages,
         )
@@ -546,6 +440,9 @@ class AsyncLabelResourceWithRawResponse:
     def __init__(self, label: AsyncLabelResource) -> None:
         self._label = label
 
+        self.update = async_to_raw_response_wrapper(
+            label.update,
+        )
         self.get_messages = async_to_raw_response_wrapper(
             label.get_messages,
         )
@@ -564,6 +461,9 @@ class LabelResourceWithStreamingResponse:
     def __init__(self, label: LabelResource) -> None:
         self._label = label
 
+        self.update = to_streamed_response_wrapper(
+            label.update,
+        )
         self.get_messages = to_streamed_response_wrapper(
             label.get_messages,
         )
@@ -582,6 +482,9 @@ class AsyncLabelResourceWithStreamingResponse:
     def __init__(self, label: AsyncLabelResource) -> None:
         self._label = label
 
+        self.update = async_to_streamed_response_wrapper(
+            label.update,
+        )
         self.get_messages = async_to_streamed_response_wrapper(
             label.get_messages,
         )
