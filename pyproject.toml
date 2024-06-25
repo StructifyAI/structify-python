@@ -1,5 +1,5 @@
 [project]
-name = "structifyai"
+name = "structify"
 version = "0.1.0-alpha.32"
 description = "The official Python library for the structify API"
 dynamic = ["readme"]
