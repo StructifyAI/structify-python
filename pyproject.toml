@@ -1,5 +1,5 @@
 [project]
-name = "structify"
+name = "structifyai"
 version = "0.1.0-alpha.32"
 description = "The official Python library for the structify API"
 dynamic = ["readme"]
@@ -39,8 +39,8 @@ classifiers = [
 
 
 [project.urls]
-Homepage = "https://github.com/stainless-sdks/structify-python"
-Repository = "https://github.com/stainless-sdks/structify-python"
+Homepage = "https://github.com/StructifyAI/structify-python"
+Repository = "https://github.com/StructifyAI/structify-python"
 
 
 
@@ -108,7 +108,7 @@ path = "README.md"
 [[tool.hatch.metadata.hooks.fancy-pypi-readme.substitutions]]
 # replace relative links with absolute links
 pattern = '\[(.+?)\]\(((?!https?://)\S+?)\)'
-replacement = '[\1](https://github.com/stainless-sdks/structify-python/tree/main/\g<2>)'
+replacement = '[\1](https://github.com/StructifyAI/structify-python/tree/main/\g<2>)'
 
 [tool.black]
 line-length = 120
