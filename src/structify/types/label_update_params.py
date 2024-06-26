@@ -9,43 +9,43 @@ from .._utils import PropertyInfo
 
 __all__ = [
     "LabelUpdateParams",
-    "Body",
-    "BodyInput",
-    "BodyInputSave",
-    "BodyInputSaveSave",
-    "BodyInputSaveSaveEntity",
-    "BodyInputSaveSaveRelationship",
-    "BodyInputScroll",
-    "BodyInputScrollScroll",
-    "BodyInputExit",
-    "BodyInputExitExit",
-    "BodyInputClick",
-    "BodyInputClickClick",
-    "BodyInputHover",
-    "BodyInputHoverHover",
-    "BodyInputWait",
-    "BodyInputWaitWait",
-    "BodyInputError",
-    "BodyInputErrorError",
-    "BodyInputGoogle",
-    "BodyInputGoogleGoogle",
-    "BodyInputType",
-    "BodyInputTypeType",
-    "BodyResult",
-    "BodyResultToolQueued",
-    "BodyResultToolFail",
-    "BodyResultInputParseFail",
-    "BodyResultSuccess",
+    "StepUpdate",
+    "StepUpdateInput",
+    "StepUpdateInputSave",
+    "StepUpdateInputSaveSave",
+    "StepUpdateInputSaveSaveEntity",
+    "StepUpdateInputSaveSaveRelationship",
+    "StepUpdateInputScroll",
+    "StepUpdateInputScrollScroll",
+    "StepUpdateInputExit",
+    "StepUpdateInputExitExit",
+    "StepUpdateInputClick",
+    "StepUpdateInputClickClick",
+    "StepUpdateInputHover",
+    "StepUpdateInputHoverHover",
+    "StepUpdateInputWait",
+    "StepUpdateInputWaitWait",
+    "StepUpdateInputError",
+    "StepUpdateInputErrorError",
+    "StepUpdateInputGoogle",
+    "StepUpdateInputGoogleGoogle",
+    "StepUpdateInputType",
+    "StepUpdateInputTypeType",
+    "StepUpdateResult",
+    "StepUpdateResultToolQueued",
+    "StepUpdateResultToolFail",
+    "StepUpdateResultInputParseFail",
+    "StepUpdateResultSuccess",
 ]
 
 
 class LabelUpdateParams(TypedDict, total=False):
     run_uuid: Required[str]
 
-    body: Required[Iterable[Body]]
+    step_update: Required[Iterable[StepUpdate]]
 
 
-class BodyInputSaveSaveEntity(TypedDict, total=False):
+class StepUpdateInputSaveSaveEntity(TypedDict, total=False):
     id: Required[int]
 
     properties: Required[Dict[str, str]]
@@ -53,7 +53,7 @@ class BodyInputSaveSaveEntity(TypedDict, total=False):
     type: Required[str]
 
 
-class BodyInputSaveSaveRelationship(TypedDict, total=False):
+class StepUpdateInputSaveSaveRelationship(TypedDict, total=False):
     source: Required[int]
 
     target: Required[int]
@@ -61,126 +61,128 @@ class BodyInputSaveSaveRelationship(TypedDict, total=False):
     type: Required[str]
 
 
-class BodyInputSaveSave(TypedDict, total=False):
-    entities: Iterable[BodyInputSaveSaveEntity]
+class StepUpdateInputSaveSave(TypedDict, total=False):
+    entities: Iterable[StepUpdateInputSaveSaveEntity]
 
-    relationships: Iterable[BodyInputSaveSaveRelationship]
+    relationships: Iterable[StepUpdateInputSaveSaveRelationship]
 
 
-class BodyInputSave(TypedDict, total=False):
-    save: Required[Annotated[BodyInputSaveSave, PropertyInfo(alias="Save")]]
+class StepUpdateInputSave(TypedDict, total=False):
+    save: Required[Annotated[StepUpdateInputSaveSave, PropertyInfo(alias="Save")]]
     """
     Knowledge graph info structured to deserialize and display in the same format
     that the LLM outputs.
     """
 
 
-class BodyInputScrollScroll(TypedDict, total=False):
+class StepUpdateInputScrollScroll(TypedDict, total=False):
     reason: Required[str]
     """OpenAI Requires an argument, so we put a dummy one here."""
 
 
-class BodyInputScroll(TypedDict, total=False):
-    scroll: Required[Annotated[BodyInputScrollScroll, PropertyInfo(alias="Scroll")]]
+class StepUpdateInputScroll(TypedDict, total=False):
+    scroll: Required[Annotated[StepUpdateInputScrollScroll, PropertyInfo(alias="Scroll")]]
     """For tools with no inputs."""
 
 
-class BodyInputExitExit(TypedDict, total=False):
+class StepUpdateInputExitExit(TypedDict, total=False):
     reason: Required[str]
     """OpenAI Requires an argument, so we put a dummy one here."""
 
 
-class BodyInputExit(TypedDict, total=False):
-    exit: Required[Annotated[BodyInputExitExit, PropertyInfo(alias="Exit")]]
+class StepUpdateInputExit(TypedDict, total=False):
+    exit: Required[Annotated[StepUpdateInputExitExit, PropertyInfo(alias="Exit")]]
     """For tools with no inputs."""
 
 
-class BodyInputClickClick(TypedDict, total=False):
+class StepUpdateInputClickClick(TypedDict, total=False):
     flag: Required[int]
 
 
-class BodyInputClick(TypedDict, total=False):
-    click: Required[Annotated[BodyInputClickClick, PropertyInfo(alias="Click")]]
+class StepUpdateInputClick(TypedDict, total=False):
+    click: Required[Annotated[StepUpdateInputClickClick, PropertyInfo(alias="Click")]]
 
 
-class BodyInputHoverHover(TypedDict, total=False):
+class StepUpdateInputHoverHover(TypedDict, total=False):
     flag: Required[int]
 
 
-class BodyInputHover(TypedDict, total=False):
-    hover: Required[Annotated[BodyInputHoverHover, PropertyInfo(alias="Hover")]]
+class StepUpdateInputHover(TypedDict, total=False):
+    hover: Required[Annotated[StepUpdateInputHoverHover, PropertyInfo(alias="Hover")]]
 
 
-class BodyInputWaitWait(TypedDict, total=False):
+class StepUpdateInputWaitWait(TypedDict, total=False):
     seconds: Required[int]
     """Time in seconds to wait"""
 
 
-class BodyInputWait(TypedDict, total=False):
-    wait: Required[Annotated[BodyInputWaitWait, PropertyInfo(alias="Wait")]]
+class StepUpdateInputWait(TypedDict, total=False):
+    wait: Required[Annotated[StepUpdateInputWaitWait, PropertyInfo(alias="Wait")]]
 
 
-class BodyInputErrorError(TypedDict, total=False):
+class StepUpdateInputErrorError(TypedDict, total=False):
     error: Required[str]
 
 
-class BodyInputError(TypedDict, total=False):
-    error: Required[Annotated[BodyInputErrorError, PropertyInfo(alias="Error")]]
+class StepUpdateInputError(TypedDict, total=False):
+    error: Required[Annotated[StepUpdateInputErrorError, PropertyInfo(alias="Error")]]
 
 
-class BodyInputGoogleGoogle(TypedDict, total=False):
+class StepUpdateInputGoogleGoogle(TypedDict, total=False):
     query: Required[str]
 
 
-class BodyInputGoogle(TypedDict, total=False):
-    google: Required[Annotated[BodyInputGoogleGoogle, PropertyInfo(alias="Google")]]
+class StepUpdateInputGoogle(TypedDict, total=False):
+    google: Required[Annotated[StepUpdateInputGoogleGoogle, PropertyInfo(alias="Google")]]
 
 
-class BodyInputTypeType(TypedDict, total=False):
+class StepUpdateInputTypeType(TypedDict, total=False):
     flag: Required[int]
 
     input: Required[str]
 
 
-class BodyInputType(TypedDict, total=False):
-    type: Required[Annotated[BodyInputTypeType, PropertyInfo(alias="Type")]]
+class StepUpdateInputType(TypedDict, total=False):
+    type: Required[Annotated[StepUpdateInputTypeType, PropertyInfo(alias="Type")]]
 
 
-BodyInput = Union[
-    BodyInputSave,
-    BodyInputScroll,
-    BodyInputExit,
-    BodyInputClick,
-    BodyInputHover,
-    BodyInputWait,
-    BodyInputError,
-    BodyInputGoogle,
-    BodyInputType,
+StepUpdateInput = Union[
+    StepUpdateInputSave,
+    StepUpdateInputScroll,
+    StepUpdateInputExit,
+    StepUpdateInputClick,
+    StepUpdateInputHover,
+    StepUpdateInputWait,
+    StepUpdateInputError,
+    StepUpdateInputGoogle,
+    StepUpdateInputType,
 ]
 
 
-class BodyResultToolQueued(TypedDict, total=False):
+class StepUpdateResultToolQueued(TypedDict, total=False):
     tool_queued: Required[Annotated[str, PropertyInfo(alias="ToolQueued")]]
 
 
-class BodyResultToolFail(TypedDict, total=False):
+class StepUpdateResultToolFail(TypedDict, total=False):
     tool_fail: Required[Annotated[str, PropertyInfo(alias="ToolFail")]]
 
 
-class BodyResultInputParseFail(TypedDict, total=False):
+class StepUpdateResultInputParseFail(TypedDict, total=False):
     input_parse_fail: Required[Annotated[str, PropertyInfo(alias="InputParseFail")]]
 
 
-class BodyResultSuccess(TypedDict, total=False):
+class StepUpdateResultSuccess(TypedDict, total=False):
     success: Required[Annotated[str, PropertyInfo(alias="Success")]]
 
 
-BodyResult = Union[BodyResultToolQueued, BodyResultToolFail, BodyResultInputParseFail, BodyResultSuccess]
+StepUpdateResult = Union[
+    StepUpdateResultToolQueued, StepUpdateResultToolFail, StepUpdateResultInputParseFail, StepUpdateResultSuccess
+]
 
 
-class Body(TypedDict, total=False):
-    input: Required[BodyInput]
+class StepUpdate(TypedDict, total=False):
+    input: Required[StepUpdateInput]
 
     name: Required[Literal["Save", "Scroll", "Exit", "Click", "Hover", "Wait", "Error", "Google", "Type"]]
 
-    result: Optional[BodyResult]
+    result: Optional[StepUpdateResult]

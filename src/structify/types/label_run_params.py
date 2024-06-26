@@ -2,38 +2,41 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
+from typing import Union, Iterable, Optional
 from typing_extensions import Required, Annotated, TypedDict
 
 from .._types import FileTypes
 from .._utils import PropertyInfo
+from .extraction_criteria_param import ExtractionCriteriaParam
 
 __all__ = [
     "LabelRunParams",
-    "Variant0",
-    "Variant0SecIngestor",
-    "Variant1",
-    "Variant1PdfIngestor",
-    "Variant2",
-    "Variant2Basic",
-    "Variant2BasicTextDocument",
-    "Variant2BasicTextDocumentTextDocument",
-    "Variant2BasicWebSearch",
-    "Variant2BasicWebSearchWebSearch",
-    "Variant2BasicImageDocument",
-    "Variant2BasicImageDocumentImageDocument",
+    "StructureInput",
+    "StructureInputSecIngestor",
+    "StructureInputSecIngestorSecIngestor",
+    "StructureInputPdfIngestor",
+    "StructureInputPdfIngestorPdfIngestor",
+    "StructureInputBasic",
+    "StructureInputBasicBasic",
+    "StructureInputBasicBasicTextDocument",
+    "StructureInputBasicBasicTextDocumentTextDocument",
+    "StructureInputBasicBasicWebSearch",
+    "StructureInputBasicBasicWebSearchWebSearch",
+    "StructureInputBasicBasicImageDocument",
+    "StructureInputBasicBasicImageDocumentImageDocument",
 ]
 
 
-class Variant0(TypedDict, total=False):
+class LabelRunParams(TypedDict, total=False):
     dataset_name: Required[str]
 
-    sec_ingestor: Required[Annotated[Variant0SecIngestor, PropertyInfo(alias="SECIngestor")]]
+    structure_input: Required[StructureInput]
+    """These are all the types that can be converted into a BasicInputType"""
 
-    custom_instruction: Optional[str]
 
+class StructureInputSecIngestorSecIngestor(TypedDict, total=False):
+    extraction_criteria: Required[Iterable[ExtractionCriteriaParam]]
 
-class Variant0SecIngestor(TypedDict, total=False):
     accession_number: Optional[str]
 
     quarter: Optional[int]
@@ -41,35 +44,27 @@ class Variant0SecIngestor(TypedDict, total=False):
     year: Optional[int]
 
 
-class Variant1(TypedDict, total=False):
-    dataset_name: Required[str]
+class StructureInputSecIngestor(TypedDict, total=False):
+    sec_ingestor: Required[Annotated[StructureInputSecIngestorSecIngestor, PropertyInfo(alias="SECIngestor")]]
 
-    pdf_ingestor: Required[Annotated[Variant1PdfIngestor, PropertyInfo(alias="PDFIngestor")]]
+
+class StructureInputPdfIngestorPdfIngestor(TypedDict, total=False):
+    extraction_criteria: Required[Iterable[ExtractionCriteriaParam]]
+
+    path: Required[str]
+
+
+class StructureInputPdfIngestor(TypedDict, total=False):
+    pdf_ingestor: Required[Annotated[StructureInputPdfIngestorPdfIngestor, PropertyInfo(alias="PDFIngestor")]]
     """This is currently a very simple ingestor.
 
     It converts everything to an image and processes them independently.
     """
 
-    custom_instruction: Optional[str]
 
+class StructureInputBasicBasicTextDocumentTextDocument(TypedDict, total=False):
+    extraction_criteria: Required[Iterable[ExtractionCriteriaParam]]
 
-class Variant1PdfIngestor(TypedDict, total=False):
-    path: Required[str]
-
-
-class Variant2(TypedDict, total=False):
-    dataset_name: Required[str]
-
-    basic: Required[Annotated[Variant2Basic, PropertyInfo(alias="Basic")]]
-    """
-    These are all the types for which we have an agent that is directly capable of
-    navigating. There should be a one to one mapping between them.
-    """
-
-    custom_instruction: Optional[str]
-
-
-class Variant2BasicTextDocumentTextDocument(TypedDict, total=False):
     content: Optional[str]
 
     filepath: Optional[str]
@@ -77,32 +72,49 @@ class Variant2BasicTextDocumentTextDocument(TypedDict, total=False):
     save: bool
 
 
-class Variant2BasicTextDocument(TypedDict, total=False):
-    text_document: Required[Annotated[Variant2BasicTextDocumentTextDocument, PropertyInfo(alias="TextDocument")]]
+class StructureInputBasicBasicTextDocument(TypedDict, total=False):
+    text_document: Required[
+        Annotated[StructureInputBasicBasicTextDocumentTextDocument, PropertyInfo(alias="TextDocument")]
+    ]
 
 
-class Variant2BasicWebSearchWebSearch(TypedDict, total=False):
-    conditioning_phrase: Required[str]
+class StructureInputBasicBasicWebSearchWebSearch(TypedDict, total=False):
+    extraction_criteria: Required[Iterable[ExtractionCriteriaParam]]
 
     use_local_browser: Required[bool]
 
     starting_website: Optional[str]
 
 
-class Variant2BasicWebSearch(TypedDict, total=False):
-    web_search: Required[Annotated[Variant2BasicWebSearchWebSearch, PropertyInfo(alias="WebSearch")]]
+class StructureInputBasicBasicWebSearch(TypedDict, total=False):
+    web_search: Required[Annotated[StructureInputBasicBasicWebSearchWebSearch, PropertyInfo(alias="WebSearch")]]
 
 
-class Variant2BasicImageDocumentImageDocument(TypedDict, total=False):
+class StructureInputBasicBasicImageDocumentImageDocument(TypedDict, total=False):
     content: Required[FileTypes]
 
     document_name: Required[str]
 
-
-class Variant2BasicImageDocument(TypedDict, total=False):
-    image_document: Required[Annotated[Variant2BasicImageDocumentImageDocument, PropertyInfo(alias="ImageDocument")]]
+    extraction_criteria: Required[Iterable[ExtractionCriteriaParam]]
 
 
-Variant2Basic = Union[Variant2BasicTextDocument, Variant2BasicWebSearch, Variant2BasicImageDocument]
+class StructureInputBasicBasicImageDocument(TypedDict, total=False):
+    image_document: Required[
+        Annotated[StructureInputBasicBasicImageDocumentImageDocument, PropertyInfo(alias="ImageDocument")]
+    ]
 
-LabelRunParams = Union[Variant0, Variant1, Variant2]
+
+StructureInputBasicBasic = Union[
+    StructureInputBasicBasicTextDocument, StructureInputBasicBasicWebSearch, StructureInputBasicBasicImageDocument
+]
+
+
+class StructureInputBasic(TypedDict, total=False):
+    basic: Required[Annotated[StructureInputBasicBasic, PropertyInfo(alias="Basic")]]
+    """
+    These are all the types for which we have an agent that is directly capable of
+    navigating. There should be a one to one mapping between them.
+    """
+
+
+StructureInput = Union[StructureInputSecIngestor, StructureInputPdfIngestor, StructureInputBasic]
