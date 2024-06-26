@@ -2,14 +2,13 @@
 
 from __future__ import annotations
 
-from typing import List, Optional, overload
+from typing import List
 
 import httpx
 
 from ..types import structure_run_async_params, structure_job_status_params, structure_is_complete_params
 from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from .._utils import (
-    required_args,
     maybe_transform,
     async_maybe_transform,
 )
@@ -24,7 +23,7 @@ from .._response import (
 from .._base_client import (
     make_request_options,
 )
-from ..types.is_complete import IsComplete
+from ..types.structure_job_status_response import StructureJobStatusResponse
 
 __all__ = ["StructureResource", "AsyncStructureResource"]
 
@@ -41,14 +40,14 @@ class StructureResource(SyncAPIResource):
     def is_complete(
         self,
         *,
-        body: List[str],
+        job: List[str],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> IsComplete:
+    ) -> str:
         """
         Wait for all specified async tasks to be completed.
 
@@ -61,26 +60,27 @@ class StructureResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
         return self._post(
             "/structure/is_complete",
-            body=maybe_transform(body, structure_is_complete_params.StructureIsCompleteParams),
+            body=maybe_transform(job, structure_is_complete_params.StructureIsCompleteParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=IsComplete,
+            cast_to=str,
         )
 
     def job_status(
         self,
         *,
-        body: List[str],
+        job: List[str],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> object:
+    ) -> StructureJobStatusResponse:
         """
         Wait for all specified async tasks to be completed.
 
@@ -95,61 +95,30 @@ class StructureResource(SyncAPIResource):
         """
         return self._post(
             "/structure/job_status",
-            body=maybe_transform(body, structure_job_status_params.StructureJobStatusParams),
+            body=maybe_transform(job, structure_job_status_params.StructureJobStatusParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=object,
+            cast_to=StructureJobStatusResponse,
         )
 
-    @overload
     def run_async(
         self,
         *,
         dataset_name: str,
-        sec_ingestor: structure_run_async_params.Variant0SecIngestor,
-        custom_instruction: Optional[str] | NotGiven = NOT_GIVEN,
+        structure_input: structure_run_async_params.StructureInput,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> object:
+    ) -> str:
         """
         Returns a token that can be waited on until the request is finished.
 
         Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        ...
-
-    @overload
-    def run_async(
-        self,
-        *,
-        dataset_name: str,
-        pdf_ingestor: structure_run_async_params.Variant1PdfIngestor,
-        custom_instruction: Optional[str] | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> object:
-        """
-        Returns a token that can be waited on until the request is finished.
-
-        Args:
-          pdf_ingestor: This is currently a very simple ingestor. It converts everything to an image and
-              processes them independently.
+          structure_input: These are all the types that can be converted into a BasicInputType
 
           extra_headers: Send extra headers
 
@@ -159,79 +128,20 @@ class StructureResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        ...
-
-    @overload
-    def run_async(
-        self,
-        *,
-        dataset_name: str,
-        basic: structure_run_async_params.Variant2Basic,
-        custom_instruction: Optional[str] | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> object:
-        """
-        Returns a token that can be waited on until the request is finished.
-
-        Args:
-          basic: These are all the types for which we have an agent that is directly capable of
-              navigating. There should be a one to one mapping between them.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        ...
-
-    @required_args(["dataset_name", "sec_ingestor"], ["dataset_name", "pdf_ingestor"], ["dataset_name", "basic"])
-    def run_async(
-        self,
-        *,
-        dataset_name: str,
-        sec_ingestor: structure_run_async_params.Variant0SecIngestor | NotGiven = NOT_GIVEN,
-        custom_instruction: Optional[str] | NotGiven = NOT_GIVEN,
-        pdf_ingestor: structure_run_async_params.Variant1PdfIngestor | NotGiven = NOT_GIVEN,
-        basic: structure_run_async_params.Variant2Basic | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> object:
+        extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
         return self._post(
             "/structure/run_async",
             body=maybe_transform(
                 {
-                    "sec_ingestor": sec_ingestor,
-                    "pdf_ingestor": pdf_ingestor,
-                    "basic": basic,
+                    "dataset_name": dataset_name,
+                    "structure_input": structure_input,
                 },
                 structure_run_async_params.StructureRunAsyncParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "dataset_name": dataset_name,
-                        "custom_instruction": custom_instruction,
-                    },
-                    structure_run_async_params.StructureRunAsyncParams,
-                ),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=object,
+            cast_to=str,
         )
 
 
@@ -247,14 +157,14 @@ class AsyncStructureResource(AsyncAPIResource):
     async def is_complete(
         self,
         *,
-        body: List[str],
+        job: List[str],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> IsComplete:
+    ) -> str:
         """
         Wait for all specified async tasks to be completed.
 
@@ -267,26 +177,27 @@ class AsyncStructureResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
         return await self._post(
             "/structure/is_complete",
-            body=await async_maybe_transform(body, structure_is_complete_params.StructureIsCompleteParams),
+            body=await async_maybe_transform(job, structure_is_complete_params.StructureIsCompleteParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=IsComplete,
+            cast_to=str,
         )
 
     async def job_status(
         self,
         *,
-        body: List[str],
+        job: List[str],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> object:
+    ) -> StructureJobStatusResponse:
         """
         Wait for all specified async tasks to be completed.
 
@@ -301,61 +212,30 @@ class AsyncStructureResource(AsyncAPIResource):
         """
         return await self._post(
             "/structure/job_status",
-            body=await async_maybe_transform(body, structure_job_status_params.StructureJobStatusParams),
+            body=await async_maybe_transform(job, structure_job_status_params.StructureJobStatusParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=object,
+            cast_to=StructureJobStatusResponse,
         )
 
-    @overload
     async def run_async(
         self,
         *,
         dataset_name: str,
-        sec_ingestor: structure_run_async_params.Variant0SecIngestor,
-        custom_instruction: Optional[str] | NotGiven = NOT_GIVEN,
+        structure_input: structure_run_async_params.StructureInput,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> object:
+    ) -> str:
         """
         Returns a token that can be waited on until the request is finished.
 
         Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        ...
-
-    @overload
-    async def run_async(
-        self,
-        *,
-        dataset_name: str,
-        pdf_ingestor: structure_run_async_params.Variant1PdfIngestor,
-        custom_instruction: Optional[str] | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> object:
-        """
-        Returns a token that can be waited on until the request is finished.
-
-        Args:
-          pdf_ingestor: This is currently a very simple ingestor. It converts everything to an image and
-              processes them independently.
+          structure_input: These are all the types that can be converted into a BasicInputType
 
           extra_headers: Send extra headers
 
@@ -365,79 +245,20 @@ class AsyncStructureResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        ...
-
-    @overload
-    async def run_async(
-        self,
-        *,
-        dataset_name: str,
-        basic: structure_run_async_params.Variant2Basic,
-        custom_instruction: Optional[str] | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> object:
-        """
-        Returns a token that can be waited on until the request is finished.
-
-        Args:
-          basic: These are all the types for which we have an agent that is directly capable of
-              navigating. There should be a one to one mapping between them.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        ...
-
-    @required_args(["dataset_name", "sec_ingestor"], ["dataset_name", "pdf_ingestor"], ["dataset_name", "basic"])
-    async def run_async(
-        self,
-        *,
-        dataset_name: str,
-        sec_ingestor: structure_run_async_params.Variant0SecIngestor | NotGiven = NOT_GIVEN,
-        custom_instruction: Optional[str] | NotGiven = NOT_GIVEN,
-        pdf_ingestor: structure_run_async_params.Variant1PdfIngestor | NotGiven = NOT_GIVEN,
-        basic: structure_run_async_params.Variant2Basic | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> object:
+        extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
         return await self._post(
             "/structure/run_async",
             body=await async_maybe_transform(
                 {
-                    "sec_ingestor": sec_ingestor,
-                    "pdf_ingestor": pdf_ingestor,
-                    "basic": basic,
+                    "dataset_name": dataset_name,
+                    "structure_input": structure_input,
                 },
                 structure_run_async_params.StructureRunAsyncParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform(
-                    {
-                        "dataset_name": dataset_name,
-                        "custom_instruction": custom_instruction,
-                    },
-                    structure_run_async_params.StructureRunAsyncParams,
-                ),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=object,
+            cast_to=str,
         )
 
 

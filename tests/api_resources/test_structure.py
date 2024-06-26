@@ -10,7 +10,7 @@ import pytest
 from structify import Structify, AsyncStructify
 from tests.utils import assert_matches_type
 from structify.types import (
-    IsComplete,
+    StructureJobStatusResponse,
 )
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
@@ -22,201 +22,120 @@ class TestStructure:
     @parametrize
     def test_method_is_complete(self, client: Structify) -> None:
         structure = client.structure.is_complete(
-            body=["string", "string", "string"],
+            job=["string", "string", "string"],
         )
-        assert_matches_type(IsComplete, structure, path=["response"])
+        assert_matches_type(str, structure, path=["response"])
 
     @parametrize
     def test_raw_response_is_complete(self, client: Structify) -> None:
         response = client.structure.with_raw_response.is_complete(
-            body=["string", "string", "string"],
+            job=["string", "string", "string"],
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         structure = response.parse()
-        assert_matches_type(IsComplete, structure, path=["response"])
+        assert_matches_type(str, structure, path=["response"])
 
     @parametrize
     def test_streaming_response_is_complete(self, client: Structify) -> None:
         with client.structure.with_streaming_response.is_complete(
-            body=["string", "string", "string"],
+            job=["string", "string", "string"],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             structure = response.parse()
-            assert_matches_type(IsComplete, structure, path=["response"])
+            assert_matches_type(str, structure, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @parametrize
     def test_method_job_status(self, client: Structify) -> None:
         structure = client.structure.job_status(
-            body=["string", "string", "string"],
+            job=["string", "string", "string"],
         )
-        assert_matches_type(object, structure, path=["response"])
+        assert_matches_type(StructureJobStatusResponse, structure, path=["response"])
 
     @parametrize
     def test_raw_response_job_status(self, client: Structify) -> None:
         response = client.structure.with_raw_response.job_status(
-            body=["string", "string", "string"],
+            job=["string", "string", "string"],
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         structure = response.parse()
-        assert_matches_type(object, structure, path=["response"])
+        assert_matches_type(StructureJobStatusResponse, structure, path=["response"])
 
     @parametrize
     def test_streaming_response_job_status(self, client: Structify) -> None:
         with client.structure.with_streaming_response.job_status(
-            body=["string", "string", "string"],
+            job=["string", "string", "string"],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             structure = response.parse()
-            assert_matches_type(object, structure, path=["response"])
+            assert_matches_type(StructureJobStatusResponse, structure, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_method_run_async_overload_1(self, client: Structify) -> None:
+    def test_method_run_async(self, client: Structify) -> None:
         structure = client.structure.run_async(
             dataset_name="string",
-            sec_ingestor={},
-        )
-        assert_matches_type(object, structure, path=["response"])
-
-    @parametrize
-    def test_method_run_async_with_all_params_overload_1(self, client: Structify) -> None:
-        structure = client.structure.run_async(
-            dataset_name="string",
-            sec_ingestor={
-                "accession_number": "string",
-                "quarter": 0,
-                "year": 0,
-            },
-            custom_instruction="string",
-        )
-        assert_matches_type(object, structure, path=["response"])
-
-    @parametrize
-    def test_raw_response_run_async_overload_1(self, client: Structify) -> None:
-        response = client.structure.with_raw_response.run_async(
-            dataset_name="string",
-            sec_ingestor={},
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        structure = response.parse()
-        assert_matches_type(object, structure, path=["response"])
-
-    @parametrize
-    def test_streaming_response_run_async_overload_1(self, client: Structify) -> None:
-        with client.structure.with_streaming_response.run_async(
-            dataset_name="string",
-            sec_ingestor={},
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            structure = response.parse()
-            assert_matches_type(object, structure, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    def test_method_run_async_overload_2(self, client: Structify) -> None:
-        structure = client.structure.run_async(
-            dataset_name="string",
-            pdf_ingestor={"path": "string"},
-        )
-        assert_matches_type(object, structure, path=["response"])
-
-    @parametrize
-    def test_method_run_async_with_all_params_overload_2(self, client: Structify) -> None:
-        structure = client.structure.run_async(
-            dataset_name="string",
-            pdf_ingestor={"path": "string"},
-            custom_instruction="string",
-        )
-        assert_matches_type(object, structure, path=["response"])
-
-    @parametrize
-    def test_raw_response_run_async_overload_2(self, client: Structify) -> None:
-        response = client.structure.with_raw_response.run_async(
-            dataset_name="string",
-            pdf_ingestor={"path": "string"},
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        structure = response.parse()
-        assert_matches_type(object, structure, path=["response"])
-
-    @parametrize
-    def test_streaming_response_run_async_overload_2(self, client: Structify) -> None:
-        with client.structure.with_streaming_response.run_async(
-            dataset_name="string",
-            pdf_ingestor={"path": "string"},
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            structure = response.parse()
-            assert_matches_type(object, structure, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    def test_method_run_async_overload_3(self, client: Structify) -> None:
-        structure = client.structure.run_async(
-            dataset_name="string",
-            basic={"text_document": {}},
-        )
-        assert_matches_type(object, structure, path=["response"])
-
-    @parametrize
-    def test_method_run_async_with_all_params_overload_3(self, client: Structify) -> None:
-        structure = client.structure.run_async(
-            dataset_name="string",
-            basic={
-                "text_document": {
-                    "content": "string",
-                    "filepath": "string",
-                    "save": True,
+            structure_input={
+                "sec_ingestor": {
+                    "extraction_criteria": [
+                        {"relationship_extraction": {"relationship_name": "string"}},
+                        {"relationship_extraction": {"relationship_name": "string"}},
+                        {"relationship_extraction": {"relationship_name": "string"}},
+                    ]
                 }
             },
-            custom_instruction="string",
         )
-        assert_matches_type(object, structure, path=["response"])
+        assert_matches_type(str, structure, path=["response"])
 
     @parametrize
-    def test_raw_response_run_async_overload_3(self, client: Structify) -> None:
+    def test_raw_response_run_async(self, client: Structify) -> None:
         response = client.structure.with_raw_response.run_async(
             dataset_name="string",
-            basic={"text_document": {}},
+            structure_input={
+                "sec_ingestor": {
+                    "extraction_criteria": [
+                        {"relationship_extraction": {"relationship_name": "string"}},
+                        {"relationship_extraction": {"relationship_name": "string"}},
+                        {"relationship_extraction": {"relationship_name": "string"}},
+                    ]
+                }
+            },
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         structure = response.parse()
-        assert_matches_type(object, structure, path=["response"])
+        assert_matches_type(str, structure, path=["response"])
 
     @parametrize
-    def test_streaming_response_run_async_overload_3(self, client: Structify) -> None:
+    def test_streaming_response_run_async(self, client: Structify) -> None:
         with client.structure.with_streaming_response.run_async(
             dataset_name="string",
-            basic={"text_document": {}},
+            structure_input={
+                "sec_ingestor": {
+                    "extraction_criteria": [
+                        {"relationship_extraction": {"relationship_name": "string"}},
+                        {"relationship_extraction": {"relationship_name": "string"}},
+                        {"relationship_extraction": {"relationship_name": "string"}},
+                    ]
+                }
+            },
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             structure = response.parse()
-            assert_matches_type(object, structure, path=["response"])
+            assert_matches_type(str, structure, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -227,200 +146,119 @@ class TestAsyncStructure:
     @parametrize
     async def test_method_is_complete(self, async_client: AsyncStructify) -> None:
         structure = await async_client.structure.is_complete(
-            body=["string", "string", "string"],
+            job=["string", "string", "string"],
         )
-        assert_matches_type(IsComplete, structure, path=["response"])
+        assert_matches_type(str, structure, path=["response"])
 
     @parametrize
     async def test_raw_response_is_complete(self, async_client: AsyncStructify) -> None:
         response = await async_client.structure.with_raw_response.is_complete(
-            body=["string", "string", "string"],
+            job=["string", "string", "string"],
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         structure = await response.parse()
-        assert_matches_type(IsComplete, structure, path=["response"])
+        assert_matches_type(str, structure, path=["response"])
 
     @parametrize
     async def test_streaming_response_is_complete(self, async_client: AsyncStructify) -> None:
         async with async_client.structure.with_streaming_response.is_complete(
-            body=["string", "string", "string"],
+            job=["string", "string", "string"],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             structure = await response.parse()
-            assert_matches_type(IsComplete, structure, path=["response"])
+            assert_matches_type(str, structure, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @parametrize
     async def test_method_job_status(self, async_client: AsyncStructify) -> None:
         structure = await async_client.structure.job_status(
-            body=["string", "string", "string"],
+            job=["string", "string", "string"],
         )
-        assert_matches_type(object, structure, path=["response"])
+        assert_matches_type(StructureJobStatusResponse, structure, path=["response"])
 
     @parametrize
     async def test_raw_response_job_status(self, async_client: AsyncStructify) -> None:
         response = await async_client.structure.with_raw_response.job_status(
-            body=["string", "string", "string"],
+            job=["string", "string", "string"],
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         structure = await response.parse()
-        assert_matches_type(object, structure, path=["response"])
+        assert_matches_type(StructureJobStatusResponse, structure, path=["response"])
 
     @parametrize
     async def test_streaming_response_job_status(self, async_client: AsyncStructify) -> None:
         async with async_client.structure.with_streaming_response.job_status(
-            body=["string", "string", "string"],
+            job=["string", "string", "string"],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             structure = await response.parse()
-            assert_matches_type(object, structure, path=["response"])
+            assert_matches_type(StructureJobStatusResponse, structure, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_method_run_async_overload_1(self, async_client: AsyncStructify) -> None:
+    async def test_method_run_async(self, async_client: AsyncStructify) -> None:
         structure = await async_client.structure.run_async(
             dataset_name="string",
-            sec_ingestor={},
-        )
-        assert_matches_type(object, structure, path=["response"])
-
-    @parametrize
-    async def test_method_run_async_with_all_params_overload_1(self, async_client: AsyncStructify) -> None:
-        structure = await async_client.structure.run_async(
-            dataset_name="string",
-            sec_ingestor={
-                "accession_number": "string",
-                "quarter": 0,
-                "year": 0,
-            },
-            custom_instruction="string",
-        )
-        assert_matches_type(object, structure, path=["response"])
-
-    @parametrize
-    async def test_raw_response_run_async_overload_1(self, async_client: AsyncStructify) -> None:
-        response = await async_client.structure.with_raw_response.run_async(
-            dataset_name="string",
-            sec_ingestor={},
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        structure = await response.parse()
-        assert_matches_type(object, structure, path=["response"])
-
-    @parametrize
-    async def test_streaming_response_run_async_overload_1(self, async_client: AsyncStructify) -> None:
-        async with async_client.structure.with_streaming_response.run_async(
-            dataset_name="string",
-            sec_ingestor={},
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            structure = await response.parse()
-            assert_matches_type(object, structure, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    async def test_method_run_async_overload_2(self, async_client: AsyncStructify) -> None:
-        structure = await async_client.structure.run_async(
-            dataset_name="string",
-            pdf_ingestor={"path": "string"},
-        )
-        assert_matches_type(object, structure, path=["response"])
-
-    @parametrize
-    async def test_method_run_async_with_all_params_overload_2(self, async_client: AsyncStructify) -> None:
-        structure = await async_client.structure.run_async(
-            dataset_name="string",
-            pdf_ingestor={"path": "string"},
-            custom_instruction="string",
-        )
-        assert_matches_type(object, structure, path=["response"])
-
-    @parametrize
-    async def test_raw_response_run_async_overload_2(self, async_client: AsyncStructify) -> None:
-        response = await async_client.structure.with_raw_response.run_async(
-            dataset_name="string",
-            pdf_ingestor={"path": "string"},
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        structure = await response.parse()
-        assert_matches_type(object, structure, path=["response"])
-
-    @parametrize
-    async def test_streaming_response_run_async_overload_2(self, async_client: AsyncStructify) -> None:
-        async with async_client.structure.with_streaming_response.run_async(
-            dataset_name="string",
-            pdf_ingestor={"path": "string"},
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            structure = await response.parse()
-            assert_matches_type(object, structure, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    async def test_method_run_async_overload_3(self, async_client: AsyncStructify) -> None:
-        structure = await async_client.structure.run_async(
-            dataset_name="string",
-            basic={"text_document": {}},
-        )
-        assert_matches_type(object, structure, path=["response"])
-
-    @parametrize
-    async def test_method_run_async_with_all_params_overload_3(self, async_client: AsyncStructify) -> None:
-        structure = await async_client.structure.run_async(
-            dataset_name="string",
-            basic={
-                "text_document": {
-                    "content": "string",
-                    "filepath": "string",
-                    "save": True,
+            structure_input={
+                "sec_ingestor": {
+                    "extraction_criteria": [
+                        {"relationship_extraction": {"relationship_name": "string"}},
+                        {"relationship_extraction": {"relationship_name": "string"}},
+                        {"relationship_extraction": {"relationship_name": "string"}},
+                    ]
                 }
             },
-            custom_instruction="string",
         )
-        assert_matches_type(object, structure, path=["response"])
+        assert_matches_type(str, structure, path=["response"])
 
     @parametrize
-    async def test_raw_response_run_async_overload_3(self, async_client: AsyncStructify) -> None:
+    async def test_raw_response_run_async(self, async_client: AsyncStructify) -> None:
         response = await async_client.structure.with_raw_response.run_async(
             dataset_name="string",
-            basic={"text_document": {}},
+            structure_input={
+                "sec_ingestor": {
+                    "extraction_criteria": [
+                        {"relationship_extraction": {"relationship_name": "string"}},
+                        {"relationship_extraction": {"relationship_name": "string"}},
+                        {"relationship_extraction": {"relationship_name": "string"}},
+                    ]
+                }
+            },
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         structure = await response.parse()
-        assert_matches_type(object, structure, path=["response"])
+        assert_matches_type(str, structure, path=["response"])
 
     @parametrize
-    async def test_streaming_response_run_async_overload_3(self, async_client: AsyncStructify) -> None:
+    async def test_streaming_response_run_async(self, async_client: AsyncStructify) -> None:
         async with async_client.structure.with_streaming_response.run_async(
             dataset_name="string",
-            basic={"text_document": {}},
+            structure_input={
+                "sec_ingestor": {
+                    "extraction_criteria": [
+                        {"relationship_extraction": {"relationship_name": "string"}},
+                        {"relationship_extraction": {"relationship_name": "string"}},
+                        {"relationship_extraction": {"relationship_name": "string"}},
+                    ]
+                }
+            },
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             structure = await response.parse()
-            assert_matches_type(object, structure, path=["response"])
+            assert_matches_type(str, structure, path=["response"])
 
         assert cast(Any, response.is_closed) is True

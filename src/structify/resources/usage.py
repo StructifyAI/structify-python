@@ -21,6 +21,7 @@ from .._response import (
 from .._base_client import (
     make_request_options,
 )
+from ..types.usage_get_job_info_response import UsageGetJobInfoResponse
 
 __all__ = ["UsageResource", "AsyncUsageResource"]
 
@@ -44,7 +45,7 @@ class UsageResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> object:
+    ) -> UsageGetJobInfoResponse:
         """
         Returns a token that can be waited on until the request is finished.
 
@@ -66,7 +67,7 @@ class UsageResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform({"job_id": job_id}, usage_get_job_info_params.UsageGetJobInfoParams),
             ),
-            cast_to=object,
+            cast_to=UsageGetJobInfoResponse,
         )
 
 
@@ -89,7 +90,7 @@ class AsyncUsageResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> object:
+    ) -> UsageGetJobInfoResponse:
         """
         Returns a token that can be waited on until the request is finished.
 
@@ -111,7 +112,7 @@ class AsyncUsageResource(AsyncAPIResource):
                 timeout=timeout,
                 query=await async_maybe_transform({"job_id": job_id}, usage_get_job_info_params.UsageGetJobInfoParams),
             ),
-            cast_to=object,
+            cast_to=UsageGetJobInfoResponse,
         )
 
 
