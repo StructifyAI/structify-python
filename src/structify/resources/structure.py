@@ -171,6 +171,7 @@ class StructureResource(SyncAPIResource):
         start_time = time.time() if timeout is not None else None
         true_token = "".join([c for c in token if c not in ["/", " ", '"']])
         successfully_started_job = False
+        latest_len = 1
 
         while True:
             if timeout is not None and start_time is not None:
@@ -183,7 +184,11 @@ class StructureResource(SyncAPIResource):
 
             try:
                 status, all_logs = self.job_status(job=[true_token])  # type: ignore
-                logger.info("\n\n\n\nCurrent job status: {}, Length of logs: {}, Latest log: {}".format(status, len(all_logs), all_logs[0])) # type: ignore
+
+                new_logs = reversed(all_logs[0:len(all_logs)-latest_len+1]) # type: ignore
+                for log in new_logs: # type: ignore 
+                    logger.info("\n\n\n\nLatest log: {}".format(log)) # type: ignore
+                latest_len = len(all_logs) # type: ignore
 
                 successfully_started_job = True
                 if status[0] == "Completed":  # type: ignore
