@@ -4,8 +4,8 @@ from typing import Sequence
 
 import pytest
 
-from structify._types import FileTypes
-from structify._utils import extract_files
+from structifyai._types import FileTypes
+from structifyai._utils import extract_files
 
 
 def test_removes_files_from_input() -> None:
