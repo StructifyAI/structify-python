@@ -187,7 +187,7 @@ class StructureResource(SyncAPIResource):
 
                 new_logs = reversed(all_logs[0:len(all_logs)-latest_len+1]) # type: ignore
                 for log in new_logs: # type: ignore 
-                    logger.info("\n\n\n\nLatest log: {}".format(log)) # type: ignore
+                    logger.info("\n\n\n\n{}".format(log)) # type: ignore
                 latest_len = len(all_logs) # type: ignore
 
                 successfully_started_job = True
