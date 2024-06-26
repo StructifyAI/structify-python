@@ -82,7 +82,7 @@ class StructureResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> StructureJobStatusResponse:
         """
-        Wait for all specified async tasks to be completed.
+        and any associated LogNodes that have been added to them
 
         Args:
           extra_headers: Send extra headers
@@ -199,7 +199,7 @@ class AsyncStructureResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> StructureJobStatusResponse:
         """
-        Wait for all specified async tasks to be completed.
+        and any associated LogNodes that have been added to them
 
         Args:
           extra_headers: Send extra headers
