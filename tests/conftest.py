@@ -7,14 +7,14 @@ from typing import TYPE_CHECKING, Iterator, AsyncIterator
 
 import pytest
 
-from structifyai import Structify, AsyncStructify
+from structify import Structify, AsyncStructify
 
 if TYPE_CHECKING:
     from _pytest.fixtures import FixtureRequest
 
 pytest.register_assert_rewrite("tests.utils")
 
-logging.getLogger("structifyai").setLevel(logging.DEBUG)
+logging.getLogger("structify").setLevel(logging.DEBUG)
 
 
 @pytest.fixture(scope="session")
