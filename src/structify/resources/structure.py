@@ -3,7 +3,8 @@
 from __future__ import annotations
 
 import time
-from typing import List
+import logging
+from typing import List, Tuple
 
 import httpx
 
@@ -24,11 +25,18 @@ from .._response import (
 from .._base_client import (
     make_request_options,
 )
+from ..types.logger import *
 from ..types.dataset_view_response import DatasetViewResponse
 from ..types.structure_job_status_response import StructureJobStatusResponse
 
 __all__ = ["StructureResource", "AsyncStructureResource"]
 
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+handler = logging.StreamHandler()
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+handler.setFormatter(formatter)
+logger.addHandler(handler)
 
 class StructureResource(SyncAPIResource):
     @cached_property
@@ -130,6 +138,7 @@ class StructureResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+
         extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
         return self._post(
             "/structure/run_async",
@@ -152,15 +161,18 @@ class StructureResource(SyncAPIResource):
         *args,  # type: ignore
         timeout: Optional[int] = None,  # type: ignore
         **kwargs,  # type: ignore
-    ) -> DatasetViewResponse:
+    ) -> Tuple[DatasetViewResponse, Log]:
+
         """
         This function simulates a synchronous run of the async function by calling it and then waiting.
         If the timeout is reached, it attempts to cancel the job.
         """
         token: str = self.run_async(*args, **kwargs)  # type: ignore
         start_time = time.time() if timeout is not None else None
-
+        true_token = "".join([c for c in token if c not in ["/", " ", '"']])
         successfully_started_job = False
+        latest_len = 1
+
         while True:
             if timeout is not None and start_time is not None:
                 elapsed_time = time.time() - start_time
@@ -171,13 +183,21 @@ class StructureResource(SyncAPIResource):
                         raise TimeoutError(f"Job creation exceeded timeout of {timeout} seconds.")
 
             try:
-                status = self.job_status(body=[token])  # type: ignore
+                status, all_logs = self.job_status(job=[true_token])  # type: ignore
+
+                new_logs = reversed(all_logs[0:len(all_logs)-latest_len+1]) # type: ignore
+                for log in new_logs: # type: ignore 
+                    logger.info("{}".format(log)) # type: ignore
+                latest_len = len(all_logs) # type: ignore
+
                 successfully_started_job = True
                 if status[0] == "Completed":  # type: ignore
-                    return self._client.datasets.view(dataset_name=kwargs["dataset_name"], table_name=table_name)  # type: ignore
+                    return (
+                        self._client.datasets.view(dataset_name=kwargs["dataset_name"], table_name=table_name), # type: ignore
+                        all_logs, # type: ignore
+                    )
             except Exception:
                 pass
-
             time.sleep(1)
 
 
