@@ -189,9 +189,9 @@ class StructureResource(SyncAPIResource):
                 if status[0] == "Completed":  # type: ignore
                     return (
                         self._client.datasets.view(dataset_name=kwargs["dataset_name"], table_name=table_name), # type: ignore
-                        all_logs,
+                        all_logs, # type: ignore
                     )
-            except Exception as e:
+            except Exception:
                 pass
             time.sleep(1)
 
