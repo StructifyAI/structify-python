@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import time
-from typing import List
+from typing import List, Union
 
 import httpx
 
@@ -26,8 +26,11 @@ from .._base_client import (
 )
 from ..types.dataset_view_response import DatasetViewResponse
 from ..types.structure_job_status_response import StructureJobStatusResponse
+from typing import Tuple
+from ..types.logger import *
 
 __all__ = ["StructureResource", "AsyncStructureResource"]
+
 
 
 class StructureResource(SyncAPIResource):
@@ -152,7 +155,7 @@ class StructureResource(SyncAPIResource):
         *args,  # type: ignore
         timeout: Optional[int] = None,  # type: ignore
         **kwargs,  # type: ignore
-    ) -> DatasetViewResponse:
+    ) -> Union[Log, Tuple[DatasetViewResponse, Log]]:
         """
         This function simulates a synchronous run of the async function by calling it and then waiting.
         If the timeout is reached, it attempts to cancel the job.
@@ -169,12 +172,12 @@ class StructureResource(SyncAPIResource):
                         raise TimeoutError(f"Job execution exceeded timeout of {timeout} seconds.")
                     else:
                         raise TimeoutError(f"Job creation exceeded timeout of {timeout} seconds.")
-
+                    
             try:
-                status = self.job_status(body=[token])  # type: ignore
+                status, all_logs = self.job_status(body=[token])  # type: ignore
                 successfully_started_job = True
                 if status[0] == "Completed":  # type: ignore
-                    return self._client.datasets.view(dataset_name=kwargs["dataset_name"], table_name=table_name)  # type: ignore
+                    return (self._client.datasets.view(dataset_name=kwargs["dataset_name"]), table_name=table_name, all_logs)  # type: ignore
             except Exception:
                 pass
 
