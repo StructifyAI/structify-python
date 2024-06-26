@@ -177,7 +177,7 @@ class StructureResource(SyncAPIResource):
                 status, all_logs = self.job_status(body=[token])  # type: ignore
                 successfully_started_job = True
                 if status[0] == "Completed":  # type: ignore
-                    return (self._client.datasets.view(dataset_name=kwargs["dataset_name"]), table_name=table_name, all_logs)  # type: ignore
+                    return (self._client.datasets.view(dataset_name=kwargs["dataset_name"], table_name=table_name), all_logs)  # type: ignore
             except Exception:
                 pass
 
