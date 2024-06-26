@@ -1,0 +1,1641 @@
+[2:14:17 PM] › [CLI] …  awaiting  Starting Prism…
+[2:14:18 PM] › [CLI] ℹ  info      GET        http://127.0.0.1:4010/admin/users/list
+[2:14:18 PM] › [CLI] ℹ  info      POST       http://127.0.0.1:4010/dataset/create
+[2:14:18 PM] › [CLI] ℹ  info      DELETE     http://127.0.0.1:4010/dataset/delete?name=ut
+[2:14:18 PM] › [CLI] ℹ  info      GET        http://127.0.0.1:4010/dataset/info?name=ex
+[2:14:18 PM] › [CLI] ℹ  info      GET        http://127.0.0.1:4010/dataset/list
+[2:14:18 PM] › [CLI] ℹ  info      GET        http://127.0.0.1:4010/dataset/view?dataset_name=eligendi&table_name=esse
+[2:14:18 PM] › [CLI] ℹ  info      DELETE     http://127.0.0.1:4010/documents/delete/velit
+[2:14:18 PM] › [CLI] ℹ  info      GET        http://127.0.0.1:4010/documents/download/ut
+[2:14:18 PM] › [CLI] ℹ  info      GET        http://127.0.0.1:4010/documents/list
+[2:14:18 PM] › [CLI] ℹ  info      POST       http://127.0.0.1:4010/documents/upload
+[2:14:18 PM] › [CLI] ℹ  info      GET        http://127.0.0.1:4010/label/llm_assist/70be271e-0a26-fa6c-3583-6b239b71d6c1
+[2:14:18 PM] › [CLI] ℹ  info      GET        http://127.0.0.1:4010/label/refresh
+[2:14:18 PM] › [CLI] ℹ  info      POST       http://127.0.0.1:4010/label/run_async
+[2:14:18 PM] › [CLI] ℹ  info      POST       http://127.0.0.1:4010/label/submit/enim
+[2:14:18 PM] › [CLI] ℹ  info      POST       http://127.0.0.1:4010/label/update/maxime/60
+[2:14:18 PM] › [CLI] ℹ  info      POST       http://127.0.0.1:4010/runs/cancel/dc53173c-519e-8330-abf6-2dbce92e5850
+[2:14:18 PM] › [CLI] ℹ  info      POST       http://127.0.0.1:4010/runs/delete/496380be-9d63-9e02-6a48-43076083d388
+[2:14:18 PM] › [CLI] ℹ  info      GET        http://127.0.0.1:4010/runs/get/fd205db8-3b6f-3b18-8691-519e8456d224
+[2:14:18 PM] › [CLI] ℹ  info      GET        http://127.0.0.1:4010/runs/list
+[2:14:18 PM] › [CLI] ℹ  info      POST       http://127.0.0.1:4010/runs/schedule
+[2:14:18 PM] › [CLI] ℹ  info      GET        http://127.0.0.1:4010/server/version
+[2:14:18 PM] › [CLI] ℹ  info      GET        http://127.0.0.1:4010/source/get_sources?id=727
+[2:14:18 PM] › [CLI] ℹ  info      POST       http://127.0.0.1:4010/structure/is_complete
+[2:14:18 PM] › [CLI] ℹ  info      POST       http://127.0.0.1:4010/structure/job_status
+[2:14:18 PM] › [CLI] ℹ  info      POST       http://127.0.0.1:4010/structure/run_async
+[2:14:18 PM] › [CLI] ℹ  info      POST       http://127.0.0.1:4010/usage/get_job_info?job_id=id
+[2:14:18 PM] › [CLI] ℹ  info      POST       http://127.0.0.1:4010/user/create_test_token
+[2:14:18 PM] › [CLI] ℹ  info      GET        http://127.0.0.1:4010/user/info
+[2:14:18 PM] › [CLI] ▶  start     Prism is listening on http://127.0.0.1:4010
+[2:14:18 PM] › [HTTP SERVER] get / ℹ  info      Request received
+[2:14:18 PM] › [HTTP SERVER] get / ✖  error     Request terminated with error: https://stoplight.io/prism/errors#NO_PATH_MATCHED_ERROR: Route not resolved, no path matched
+[2:14:21 PM] › [HTTP SERVER] post /dataset/create ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: */*
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ⚠  warning   Unable to find content for */*
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] post /dataset/create ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: */*
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ⚠  warning   Unable to find content for */*
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] post /dataset/create ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: */*
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ⚠  warning   Unable to find content for */*
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] get /dataset/list ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] get /dataset/list ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] get /dataset/list ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] delete /dataset/delete ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: */*
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ⚠  warning   Unable to find content for */*
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] delete /dataset/delete ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: */*
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ⚠  warning   Unable to find content for */*
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] delete /dataset/delete ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: */*
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ⚠  warning   Unable to find content for */*
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] get /dataset/info ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] get /dataset/info ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] get /dataset/info ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] get /dataset/view ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] get /dataset/view ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] get /dataset/view ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] get /dataset/view ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] get /documents/list ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] get /documents/list ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] get /documents/list ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] delete /documents/delete/string ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: */*
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ⚠  warning   Unable to find content for */*
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] delete /documents/delete/string ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: */*
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ⚠  warning   Unable to find content for */*
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] delete /documents/delete/string ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: */*
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ⚠  warning   Unable to find content for */*
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] post /documents/upload ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: */*
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ⚠  warning   Unable to find content for */*
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] post /documents/upload ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: */*
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ⚠  warning   Unable to find content for */*
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] post /documents/upload ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: */*
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ⚠  warning   Unable to find content for */*
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] get /runs/list ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] get /runs/list ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] get /runs/list ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] post /runs/delete/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: text/plain
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for text/plain
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] post /runs/delete/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: text/plain
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for text/plain
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] post /runs/delete/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: text/plain
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for text/plain
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] post /runs/cancel/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] post /runs/cancel/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] post /runs/cancel/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] get /runs/get/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] get /runs/get/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] get /runs/get/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] post /runs/schedule ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: */*
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ⚠  warning   Unable to find content for */*
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] post /runs/schedule ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: */*
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ⚠  warning   Unable to find content for */*
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] post /runs/schedule ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: */*
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ⚠  warning   Unable to find content for */*
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] get /server/version ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] get /server/version ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] get /server/version ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] get /source/get_sources ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] get /source/get_sources ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] get /source/get_sources ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] post /structure/is_complete ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: text/plain
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for text/plain
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] post /structure/is_complete ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: text/plain
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for text/plain
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] post /structure/is_complete ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: text/plain
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for text/plain
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] post /structure/job_status ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] post /structure/job_status ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] post /structure/job_status ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] post /structure/run_async ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: text/plain
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for text/plain
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] post /structure/run_async ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: text/plain
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for text/plain
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] post /structure/run_async ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: text/plain
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for text/plain
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] post /usage/get_job_info ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] post /usage/get_job_info ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] post /usage/get_job_info ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] post /user/create_test_token ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] post /user/create_test_token ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] post /user/create_test_token ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] get /user/info ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] get /user/info ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] get /user/info ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] get /admin/users/list ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] get /admin/users/list ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] get /admin/users/list ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] post /dataset/create ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: */*
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ⚠  warning   Unable to find content for */*
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] post /dataset/create ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: */*
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ⚠  warning   Unable to find content for */*
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] post /dataset/create ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: */*
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ⚠  warning   Unable to find content for */*
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] get /dataset/list ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] get /dataset/list ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] get /dataset/list ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] delete /dataset/delete ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: */*
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ⚠  warning   Unable to find content for */*
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] delete /dataset/delete ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: */*
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ⚠  warning   Unable to find content for */*
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] delete /dataset/delete ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: */*
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ⚠  warning   Unable to find content for */*
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] get /dataset/info ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] get /dataset/info ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] get /dataset/info ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] get /dataset/view ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] get /dataset/view ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] get /dataset/view ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] get /dataset/view ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] get /documents/list ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] get /documents/list ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] get /documents/list ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] delete /documents/delete/string ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: */*
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ⚠  warning   Unable to find content for */*
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] delete /documents/delete/string ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: */*
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ⚠  warning   Unable to find content for */*
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] delete /documents/delete/string ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: */*
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ⚠  warning   Unable to find content for */*
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] post /documents/upload ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: */*
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ⚠  warning   Unable to find content for */*
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] post /documents/upload ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: */*
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ⚠  warning   Unable to find content for */*
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] post /documents/upload ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: */*
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ⚠  warning   Unable to find content for */*
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] get /runs/list ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] get /runs/list ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] get /runs/list ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] post /runs/delete/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: text/plain
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for text/plain
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] post /runs/delete/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: text/plain
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for text/plain
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] post /runs/delete/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: text/plain
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for text/plain
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] post /runs/cancel/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] post /runs/cancel/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] post /runs/cancel/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] get /runs/get/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] get /runs/get/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] get /runs/get/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] post /runs/schedule ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: */*
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ⚠  warning   Unable to find content for */*
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] post /runs/schedule ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: */*
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ⚠  warning   Unable to find content for */*
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] post /runs/schedule ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: */*
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ⚠  warning   Unable to find content for */*
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] get /server/version ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] get /server/version ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] get /server/version ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] get /source/get_sources ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] get /source/get_sources ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] get /source/get_sources ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] post /structure/is_complete ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: text/plain
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for text/plain
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] post /structure/is_complete ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: text/plain
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for text/plain
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] post /structure/is_complete ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: text/plain
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for text/plain
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] post /structure/job_status ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] post /structure/job_status ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] post /structure/job_status ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] post /structure/run_async ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: text/plain
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for text/plain
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] post /structure/run_async ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: text/plain
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for text/plain
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] post /structure/run_async ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: text/plain
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for text/plain
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] post /usage/get_job_info ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] post /usage/get_job_info ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] post /usage/get_job_info ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] post /user/create_test_token ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] post /user/create_test_token ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] post /user/create_test_token ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] get /user/info ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] get /user/info ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] get /user/info ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] get /admin/users/list ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] get /admin/users/list ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] get /admin/users/list ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] post /dataset/create ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: */*
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ⚠  warning   Unable to find content for */*
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] post /dataset/create ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: */*
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ⚠  warning   Unable to find content for */*
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] post /dataset/create ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: */*
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ⚠  warning   Unable to find content for */*
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] get /dataset/list ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] get /dataset/list ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] get /dataset/list ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] delete /dataset/delete ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: */*
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ⚠  warning   Unable to find content for */*
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] delete /dataset/delete ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: */*
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ⚠  warning   Unable to find content for */*
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] delete /dataset/delete ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: */*
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ⚠  warning   Unable to find content for */*
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] get /dataset/info ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:22 PM] › [HTTP SERVER] get /dataset/info ℹ  info      Request received
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:22 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:22 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:22 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] get /dataset/info ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] get /dataset/view ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] get /dataset/view ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] get /dataset/view ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] get /dataset/view ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] get /documents/list ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] get /documents/list ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] get /documents/list ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] delete /documents/delete/string ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: */*
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ⚠  warning   Unable to find content for */*
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] delete /documents/delete/string ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: */*
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ⚠  warning   Unable to find content for */*
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] delete /documents/delete/string ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: */*
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ⚠  warning   Unable to find content for */*
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] post /documents/upload ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: */*
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ⚠  warning   Unable to find content for */*
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] post /documents/upload ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: */*
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ⚠  warning   Unable to find content for */*
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] post /documents/upload ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: */*
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ⚠  warning   Unable to find content for */*
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] get /runs/list ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] get /runs/list ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] get /runs/list ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] post /runs/delete/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: text/plain
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for text/plain
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] post /runs/delete/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: text/plain
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for text/plain
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] post /runs/delete/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: text/plain
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for text/plain
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] post /runs/cancel/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] post /runs/cancel/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] post /runs/cancel/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] get /runs/get/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] get /runs/get/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] get /runs/get/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] post /runs/schedule ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: */*
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ⚠  warning   Unable to find content for */*
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] post /runs/schedule ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: */*
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ⚠  warning   Unable to find content for */*
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] post /runs/schedule ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: */*
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ⚠  warning   Unable to find content for */*
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] get /server/version ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] get /server/version ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] get /server/version ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] get /source/get_sources ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] get /source/get_sources ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] get /source/get_sources ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] post /structure/is_complete ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: text/plain
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for text/plain
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] post /structure/is_complete ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: text/plain
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for text/plain
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] post /structure/is_complete ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: text/plain
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for text/plain
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] post /structure/job_status ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] post /structure/job_status ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] post /structure/job_status ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] post /structure/run_async ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: text/plain
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for text/plain
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] post /structure/run_async ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: text/plain
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for text/plain
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] post /structure/run_async ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: text/plain
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for text/plain
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] post /usage/get_job_info ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] post /usage/get_job_info ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] post /usage/get_job_info ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] post /user/create_test_token ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] post /user/create_test_token ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] post /user/create_test_token ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] get /user/info ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] get /user/info ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] get /user/info ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] get /admin/users/list ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] get /admin/users/list ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] get /admin/users/list ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] post /dataset/create ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: */*
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ⚠  warning   Unable to find content for */*
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] post /dataset/create ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: */*
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ⚠  warning   Unable to find content for */*
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] post /dataset/create ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: */*
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ⚠  warning   Unable to find content for */*
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] get /dataset/list ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] get /dataset/list ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] get /dataset/list ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] delete /dataset/delete ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: */*
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ⚠  warning   Unable to find content for */*
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] delete /dataset/delete ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: */*
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ⚠  warning   Unable to find content for */*
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] delete /dataset/delete ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: */*
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ⚠  warning   Unable to find content for */*
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] get /dataset/info ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] get /dataset/info ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] get /dataset/info ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] get /dataset/view ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] get /dataset/view ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] get /dataset/view ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] get /dataset/view ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] get /documents/list ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] get /documents/list ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] get /documents/list ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] delete /documents/delete/string ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: */*
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ⚠  warning   Unable to find content for */*
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] delete /documents/delete/string ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: */*
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ⚠  warning   Unable to find content for */*
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] delete /documents/delete/string ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: */*
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ⚠  warning   Unable to find content for */*
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] post /documents/upload ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: */*
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ⚠  warning   Unable to find content for */*
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] post /documents/upload ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: */*
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ⚠  warning   Unable to find content for */*
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] post /documents/upload ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: */*
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ⚠  warning   Unable to find content for */*
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] get /runs/list ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] get /runs/list ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] get /runs/list ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] post /runs/delete/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: text/plain
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for text/plain
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] post /runs/delete/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: text/plain
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for text/plain
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] post /runs/delete/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: text/plain
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for text/plain
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] post /runs/cancel/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] post /runs/cancel/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] post /runs/cancel/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] get /runs/get/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] get /runs/get/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] get /runs/get/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] post /runs/schedule ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: */*
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ⚠  warning   Unable to find content for */*
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] post /runs/schedule ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: */*
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ⚠  warning   Unable to find content for */*
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] post /runs/schedule ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: */*
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ⚠  warning   Unable to find content for */*
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] get /server/version ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] get /server/version ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] get /server/version ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] get /source/get_sources ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] get /source/get_sources ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] get /source/get_sources ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] post /structure/is_complete ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: text/plain
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for text/plain
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] post /structure/is_complete ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: text/plain
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for text/plain
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] post /structure/is_complete ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: text/plain
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for text/plain
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] post /structure/job_status ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] post /structure/job_status ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] post /structure/job_status ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] post /structure/run_async ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: text/plain
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for text/plain
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] post /structure/run_async ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: text/plain
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for text/plain
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] post /structure/run_async ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: text/plain
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for text/plain
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] post /usage/get_job_info ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] post /usage/get_job_info ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] post /usage/get_job_info ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] post /user/create_test_token ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] post /user/create_test_token ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] post /user/create_test_token ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] get /user/info ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] get /user/info ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] get /user/info ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] get /admin/users/list ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] get /admin/users/list ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+[2:14:23 PM] › [HTTP SERVER] get /admin/users/list ℹ  info      Request received
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      Request contains an accept header: application/json
+[2:14:23 PM] ›     [VALIDATOR] ✔  success   The request passed the validation rules. Looking for the best response
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Found a compatible content for application/json
+[2:14:23 PM] ›     [NEGOTIATOR] ✔  success   Responding with the requested status code 200
+[2:14:23 PM] ›     [NEGOTIATOR] ℹ  info      > Responding with "200"
+Terminated
