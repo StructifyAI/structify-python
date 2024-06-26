@@ -31,4 +31,3 @@ from .structure_is_complete_params import StructureIsCompleteParams as Structure
 from .structure_run_async_response import StructureRunAsyncResponse as StructureRunAsyncResponse
 from .structure_job_status_response import StructureJobStatusResponse as StructureJobStatusResponse
 from .structure_is_complete_response import StructureIsCompleteResponse as StructureIsCompleteResponse
-from .logger import Log
