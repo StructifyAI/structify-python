@@ -9,4 +9,4 @@ __all__ = ["StructureJobStatusParams"]
 
 
 class StructureJobStatusParams(TypedDict, total=False):
-    job: Required[List[str]]
+    body: Required[List[str]]
