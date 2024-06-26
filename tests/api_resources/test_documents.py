@@ -9,10 +9,10 @@ import httpx
 import pytest
 from respx import MockRouter
 
-from structifyai import Structify, AsyncStructify
+from structify import Structify, AsyncStructify
 from tests.utils import assert_matches_type
-from structifyai.types import DocumentListResponse
-from structifyai._response import (
+from structify.types import DocumentListResponse
+from structify._response import (
     BinaryAPIResponse,
     AsyncBinaryAPIResponse,
     StreamedBinaryAPIResponse,
