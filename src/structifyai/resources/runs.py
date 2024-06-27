@@ -2,9 +2,12 @@
 
 from __future__ import annotations
 
+import time
+from typing import List
+
 import httpx
 
-from .._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
+from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -19,6 +22,8 @@ from .._base_client import (
 from ..types.run_get_response import RunGetResponse
 from ..types.run_list_response import RunListResponse
 from ..types.run_cancel_response import RunCancelResponse
+from ..types.dataset_view_response import DatasetViewResponse
+from ..types.structure_job_status_response import StructureJobStatusResponse
 
 __all__ = ["RunsResource", "AsyncRunsResource"]
 
@@ -151,28 +156,39 @@ class RunsResource(SyncAPIResource):
             cast_to=RunGetResponse,
         )
 
-    def schedule(
+    def run(  # type: ignore
         self,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> None:
+        table_name: str,
+        *args,  # type: ignore
+        timeout: Optional[int] = None,  # type: ignore
+        **kwargs,  # type: ignore
+    ) -> DatasetViewResponse:
         """
-        One example use case is every single day check the news websites and pull them
-        into my dataset.
+        This function simulates a synchronous run of the async function by calling it and then waiting.
+        If the timeout is reached, it attempts to cancel the job.
         """
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
-        return self._post(
-            "/runs/schedule",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=NoneType,
-        )
+        token: str = self.run_async(*args, **kwargs)  # type: ignore
+        start_time = time.time() if timeout is not None else None
+
+        successfully_started_job = False
+        while True:
+            if timeout is not None and start_time is not None:
+                elapsed_time = time.time() - start_time
+                if elapsed_time > timeout:
+                    if successfully_started_job:
+                        raise TimeoutError(f"Job execution exceeded timeout of {timeout} seconds.")
+                    else:
+                        raise TimeoutError(f"Job creation exceeded timeout of {timeout} seconds.")
+
+            try:
+                status = self.job_status(body=[token])  # type: ignore
+                successfully_started_job = True
+                if status[0] == "Completed":  # type: ignore
+                    return self._client.datasets.view(dataset_name=kwargs["dataset_name"], table_name=table_name)  # type: ignore
+            except Exception:
+                pass
+
+            time.sleep(1)
 
 
 class AsyncRunsResource(AsyncAPIResource):
@@ -303,29 +319,6 @@ class AsyncRunsResource(AsyncAPIResource):
             cast_to=RunGetResponse,
         )
 
-    async def schedule(
-        self,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> None:
-        """
-        One example use case is every single day check the news websites and pull them
-        into my dataset.
-        """
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
-        return await self._post(
-            "/runs/schedule",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=NoneType,
-        )
-
 
 class RunsResourceWithRawResponse:
     def __init__(self, runs: RunsResource) -> None:
@@ -342,9 +335,6 @@ class RunsResourceWithRawResponse:
         )
         self.get = to_raw_response_wrapper(
             runs.get,
-        )
-        self.schedule = to_raw_response_wrapper(
-            runs.schedule,
         )
 
 
@@ -364,9 +354,6 @@ class AsyncRunsResourceWithRawResponse:
         self.get = async_to_raw_response_wrapper(
             runs.get,
         )
-        self.schedule = async_to_raw_response_wrapper(
-            runs.schedule,
-        )
 
 
 class RunsResourceWithStreamingResponse:
@@ -385,9 +372,6 @@ class RunsResourceWithStreamingResponse:
         self.get = to_streamed_response_wrapper(
             runs.get,
         )
-        self.schedule = to_streamed_response_wrapper(
-            runs.schedule,
-        )
 
 
 class AsyncRunsResourceWithStreamingResponse:
@@ -405,7 +389,4 @@ class AsyncRunsResourceWithStreamingResponse:
         )
         self.get = async_to_streamed_response_wrapper(
             runs.get,
-        )
-        self.schedule = async_to_streamed_response_wrapper(
-            runs.schedule,
         )

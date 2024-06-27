@@ -36,7 +36,6 @@ __all__ = [
     "StepPromptMetadataExtractedEntity",
     "StepPromptMetadataExtractedEntityEntity",
     "StepPromptMetadataExtractedEntityRelationship",
-    "StepPromptMetadataExtractionCriterion",
     "StepPromptMetadataToolMetadata",
     "StepPromptMetadataWebFlag",
     "StepResponse",
@@ -95,11 +94,11 @@ class StepPromptDecodingParamsParameterStopTokens(BaseModel):
 
 
 class StepPromptDecodingParamsParameterFunctions(BaseModel):
-    functions: List[Dict[str, object]] = FieldInfo(alias="Functions")
+    functions: List[object] = FieldInfo(alias="Functions")
 
 
 class StepPromptDecodingParamsParameterJsonValidator(BaseModel):
-    json_validator: Dict[str, object] = FieldInfo(alias="JsonValidator")
+    json_validator: object = FieldInfo(alias="JsonValidator")
 
 
 class StepPromptDecodingParamsParameterRegexValidator(BaseModel):
@@ -203,13 +202,6 @@ class StepPromptMetadataExtractedEntity(BaseModel):
     relationships: Optional[List[StepPromptMetadataExtractedEntityRelationship]] = None
 
 
-class StepPromptMetadataExtractionCriterion(BaseModel):
-    property_names: List[str]
-
-    table_name: str
-    """Vec<ExtractionCriteria> = it has to meet every one."""
-
-
 class StepPromptMetadataToolMetadata(BaseModel):
     description: str
 
@@ -217,7 +209,7 @@ class StepPromptMetadataToolMetadata(BaseModel):
 
     regex_validator: str
 
-    tool_validator: Dict[str, object]
+    tool_validator: object
 
 
 class StepPromptMetadataWebFlag(BaseModel):
@@ -237,6 +229,8 @@ class StepPromptMetadataWebFlag(BaseModel):
 
 
 class StepPromptMetadata(BaseModel):
+    conditioning_prompt: str
+
     dataset_descriptor: DatasetDescriptor
     """A dataset is where you put multiple referential schemas.
 
@@ -245,8 +239,6 @@ class StepPromptMetadata(BaseModel):
     """
 
     extracted_entities: List[StepPromptMetadataExtractedEntity]
-
-    extraction_criteria: List[StepPromptMetadataExtractionCriterion]
 
     tool_metadata: List[StepPromptMetadataToolMetadata]
 
@@ -434,6 +426,8 @@ class Step(BaseModel):
     prompt: StepPrompt
 
     response: StepResponse
+
+    uuid: str
 
 
 class RunGetResponse(BaseModel):

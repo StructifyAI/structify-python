@@ -7,9 +7,9 @@ import pytest
 import pydantic
 from pydantic import Field
 
-from structify._utils import PropertyInfo
-from structify._compat import PYDANTIC_V2, parse_obj, model_dump, model_json
-from structify._models import BaseModel, construct_type
+from structifyai._utils import PropertyInfo
+from structifyai._compat import PYDANTIC_V2, parse_obj, model_dump, model_json
+from structifyai._models import BaseModel, construct_type
 
 
 class BasicModel(BaseModel):
