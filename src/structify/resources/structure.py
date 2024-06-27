@@ -91,8 +91,7 @@ class StructureResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> 
-    :
+    ) -> StructureJobStatusResponse: 
         """
         Wait for all specified async tasks to be completed.
 
