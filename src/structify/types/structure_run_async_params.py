@@ -2,30 +2,28 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Iterable, Optional
+from typing import Union, Iterable, Optional
 from typing_extensions import Required, Annotated, TypedDict
 
 from .._types import FileTypes
 from .._utils import PropertyInfo
+from .extraction_criteria_param import ExtractionCriteriaParam
 
 __all__ = [
     "StructureRunAsyncParams",
     "StructureInput",
     "StructureInputSecIngestor",
     "StructureInputSecIngestorSecIngestor",
-    "StructureInputSecIngestorSecIngestorExtractionCriterion",
     "StructureInputPdfIngestor",
     "StructureInputPdfIngestorPdfIngestor",
-    "StructureInputPdfIngestorPdfIngestorExtractionCriterion",
     "StructureInputBasic",
     "StructureInputBasicBasic",
     "StructureInputBasicBasicTextDocument",
+    "StructureInputBasicBasicTextDocumentTextDocument",
     "StructureInputBasicBasicWebSearch",
     "StructureInputBasicBasicWebSearchWebSearch",
-    "StructureInputBasicBasicWebSearchWebSearchExtractionCriterion",
     "StructureInputBasicBasicImageDocument",
     "StructureInputBasicBasicImageDocumentImageDocument",
-    "StructureInputBasicBasicImageDocumentImageDocumentExtractionCriterion",
 ]
 
 
@@ -36,15 +34,8 @@ class StructureRunAsyncParams(TypedDict, total=False):
     """These are all the types that can be converted into a BasicInputType"""
 
 
-class StructureInputSecIngestorSecIngestorExtractionCriterion(TypedDict, total=False):
-    property_names: Required[List[str]]
-
-    table_name: Required[str]
-    """Vec<ExtractionCriteria> = it has to meet every one."""
-
-
 class StructureInputSecIngestorSecIngestor(TypedDict, total=False):
-    extraction_criteria: Required[Iterable[StructureInputSecIngestorSecIngestorExtractionCriterion]]
+    extraction_criteria: Required[Iterable[ExtractionCriteriaParam]]
 
     accession_number: Optional[str]
 
@@ -57,15 +48,8 @@ class StructureInputSecIngestor(TypedDict, total=False):
     sec_ingestor: Required[Annotated[StructureInputSecIngestorSecIngestor, PropertyInfo(alias="SECIngestor")]]
 
 
-class StructureInputPdfIngestorPdfIngestorExtractionCriterion(TypedDict, total=False):
-    property_names: Required[List[str]]
-
-    table_name: Required[str]
-    """Vec<ExtractionCriteria> = it has to meet every one."""
-
-
 class StructureInputPdfIngestorPdfIngestor(TypedDict, total=False):
-    extraction_criteria: Required[Iterable[StructureInputPdfIngestorPdfIngestorExtractionCriterion]]
+    extraction_criteria: Required[Iterable[ExtractionCriteriaParam]]
 
     path: Required[str]
 
@@ -78,19 +62,24 @@ class StructureInputPdfIngestor(TypedDict, total=False):
     """
 
 
+class StructureInputBasicBasicTextDocumentTextDocument(TypedDict, total=False):
+    extraction_criteria: Required[Iterable[ExtractionCriteriaParam]]
+
+    content: Optional[str]
+
+    filepath: Optional[str]
+
+    save: bool
+
+
 class StructureInputBasicBasicTextDocument(TypedDict, total=False):
-    text_document: Required[Annotated[object, PropertyInfo(alias="TextDocument")]]
-
-
-class StructureInputBasicBasicWebSearchWebSearchExtractionCriterion(TypedDict, total=False):
-    property_names: Required[List[str]]
-
-    table_name: Required[str]
-    """Vec<ExtractionCriteria> = it has to meet every one."""
+    text_document: Required[
+        Annotated[StructureInputBasicBasicTextDocumentTextDocument, PropertyInfo(alias="TextDocument")]
+    ]
 
 
 class StructureInputBasicBasicWebSearchWebSearch(TypedDict, total=False):
-    extraction_criteria: Required[Iterable[StructureInputBasicBasicWebSearchWebSearchExtractionCriterion]]
+    extraction_criteria: Required[Iterable[ExtractionCriteriaParam]]
 
     use_local_browser: Required[bool]
 
@@ -101,19 +90,12 @@ class StructureInputBasicBasicWebSearch(TypedDict, total=False):
     web_search: Required[Annotated[StructureInputBasicBasicWebSearchWebSearch, PropertyInfo(alias="WebSearch")]]
 
 
-class StructureInputBasicBasicImageDocumentImageDocumentExtractionCriterion(TypedDict, total=False):
-    property_names: Required[List[str]]
-
-    table_name: Required[str]
-    """Vec<ExtractionCriteria> = it has to meet every one."""
-
-
 class StructureInputBasicBasicImageDocumentImageDocument(TypedDict, total=False):
     content: Required[FileTypes]
 
     document_name: Required[str]
 
-    extraction_criteria: Required[Iterable[StructureInputBasicBasicImageDocumentImageDocumentExtractionCriterion]]
+    extraction_criteria: Required[Iterable[ExtractionCriteriaParam]]
 
 
 class StructureInputBasicBasicImageDocument(TypedDict, total=False):

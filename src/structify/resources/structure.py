@@ -25,6 +25,7 @@ from .._response import (
 from .._base_client import (
     make_request_options,
 )
+
 from ..types.logger import *
 from ..types.dataset_view_response import DatasetViewResponse
 from ..types.structure_job_status_response import StructureJobStatusResponse
@@ -90,7 +91,7 @@ class StructureResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> StructureJobStatusResponse:
+    ) -> StructureJobStatusResponse: 
         """
         Wait for all specified async tasks to be completed.
 
@@ -154,6 +155,7 @@ class StructureResource(SyncAPIResource):
             ),
             cast_to=str,
         )
+
 
     def run(  # type: ignore
         self,

@@ -88,18 +88,9 @@ class TestStructure:
             structure_input={
                 "sec_ingestor": {
                     "extraction_criteria": [
-                        {
-                            "property_names": ["string", "string", "string"],
-                            "table_name": "string",
-                        },
-                        {
-                            "property_names": ["string", "string", "string"],
-                            "table_name": "string",
-                        },
-                        {
-                            "property_names": ["string", "string", "string"],
-                            "table_name": "string",
-                        },
+                        {"relationship_extraction": {"relationship_name": "string"}},
+                        {"relationship_extraction": {"relationship_name": "string"}},
+                        {"relationship_extraction": {"relationship_name": "string"}},
                     ]
                 }
             },
@@ -113,18 +104,9 @@ class TestStructure:
             structure_input={
                 "sec_ingestor": {
                     "extraction_criteria": [
-                        {
-                            "property_names": ["string", "string", "string"],
-                            "table_name": "string",
-                        },
-                        {
-                            "property_names": ["string", "string", "string"],
-                            "table_name": "string",
-                        },
-                        {
-                            "property_names": ["string", "string", "string"],
-                            "table_name": "string",
-                        },
+                        {"relationship_extraction": {"relationship_name": "string"}},
+                        {"relationship_extraction": {"relationship_name": "string"}},
+                        {"relationship_extraction": {"relationship_name": "string"}},
                     ]
                 }
             },
@@ -142,18 +124,9 @@ class TestStructure:
             structure_input={
                 "sec_ingestor": {
                     "extraction_criteria": [
-                        {
-                            "property_names": ["string", "string", "string"],
-                            "table_name": "string",
-                        },
-                        {
-                            "property_names": ["string", "string", "string"],
-                            "table_name": "string",
-                        },
-                        {
-                            "property_names": ["string", "string", "string"],
-                            "table_name": "string",
-                        },
+                        {"relationship_extraction": {"relationship_name": "string"}},
+                        {"relationship_extraction": {"relationship_name": "string"}},
+                        {"relationship_extraction": {"relationship_name": "string"}},
                     ]
                 }
             },
@@ -239,18 +212,9 @@ class TestAsyncStructure:
             structure_input={
                 "sec_ingestor": {
                     "extraction_criteria": [
-                        {
-                            "property_names": ["string", "string", "string"],
-                            "table_name": "string",
-                        },
-                        {
-                            "property_names": ["string", "string", "string"],
-                            "table_name": "string",
-                        },
-                        {
-                            "property_names": ["string", "string", "string"],
-                            "table_name": "string",
-                        },
+                        {"relationship_extraction": {"relationship_name": "string"}},
+                        {"relationship_extraction": {"relationship_name": "string"}},
+                        {"relationship_extraction": {"relationship_name": "string"}},
                     ]
                 }
             },
@@ -264,18 +228,9 @@ class TestAsyncStructure:
             structure_input={
                 "sec_ingestor": {
                     "extraction_criteria": [
-                        {
-                            "property_names": ["string", "string", "string"],
-                            "table_name": "string",
-                        },
-                        {
-                            "property_names": ["string", "string", "string"],
-                            "table_name": "string",
-                        },
-                        {
-                            "property_names": ["string", "string", "string"],
-                            "table_name": "string",
-                        },
+                        {"relationship_extraction": {"relationship_name": "string"}},
+                        {"relationship_extraction": {"relationship_name": "string"}},
+                        {"relationship_extraction": {"relationship_name": "string"}},
                     ]
                 }
             },
@@ -293,18 +248,9 @@ class TestAsyncStructure:
             structure_input={
                 "sec_ingestor": {
                     "extraction_criteria": [
-                        {
-                            "property_names": ["string", "string", "string"],
-                            "table_name": "string",
-                        },
-                        {
-                            "property_names": ["string", "string", "string"],
-                            "table_name": "string",
-                        },
-                        {
-                            "property_names": ["string", "string", "string"],
-                            "table_name": "string",
-                        },
+                        {"relationship_extraction": {"relationship_name": "string"}},
+                        {"relationship_extraction": {"relationship_name": "string"}},
+                        {"relationship_extraction": {"relationship_name": "string"}},
                     ]
                 }
             },
