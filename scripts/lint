@@ -10,3 +10,4 @@ rye run lint
 echo "==> Making sure it imports"
 rye run python -c 'import structifyai'
 
+sphinx-lint docs/**/*.rst
