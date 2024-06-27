@@ -10,7 +10,7 @@ from .._utils import PropertyInfo
 from .extraction_criteria_param import ExtractionCriteriaParam
 
 __all__ = [
-    "StructureRunAsyncParams",
+    "LabelRunParams",
     "SeededEntity",
     "SeededEntityEntity",
     "SeededEntityRelationship",
@@ -30,7 +30,7 @@ __all__ = [
 ]
 
 
-class StructureRunAsyncParams(TypedDict, total=False):
+class LabelRunParams(TypedDict, total=False):
     dataset_name: Required[str]
 
     seeded_entities: Required[Iterable[SeededEntity]]

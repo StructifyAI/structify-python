@@ -2,9 +2,9 @@
 
 from __future__ import annotations
 
+from typing import List, Tuple, Iterable
 import time
 import logging
-from typing import List, Tuple
 
 import httpx
 
@@ -117,6 +117,7 @@ class StructureResource(SyncAPIResource):
         self,
         *,
         dataset_name: str,
+        seeded_entities: Iterable[structure_run_async_params.SeededEntity],
         structure_input: structure_run_async_params.StructureInput,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -146,6 +147,7 @@ class StructureResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "dataset_name": dataset_name,
+                    "seeded_entities": seeded_entities,
                     "structure_input": structure_input,
                 },
                 structure_run_async_params.StructureRunAsyncParams,
@@ -281,6 +283,7 @@ class AsyncStructureResource(AsyncAPIResource):
         self,
         *,
         dataset_name: str,
+        seeded_entities: Iterable[structure_run_async_params.SeededEntity],
         structure_input: structure_run_async_params.StructureInput,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -309,6 +312,7 @@ class AsyncStructureResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "dataset_name": dataset_name,
+                    "seeded_entities": seeded_entities,
                     "structure_input": structure_input,
                 },
                 structure_run_async_params.StructureRunAsyncParams,
