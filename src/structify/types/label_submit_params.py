@@ -9,35 +9,35 @@ from .._utils import PropertyInfo
 
 __all__ = [
     "LabelSubmitParams",
-    "Body",
-    "BodySave",
-    "BodySaveSave",
-    "BodySaveSaveEntity",
-    "BodySaveSaveRelationship",
-    "BodyScroll",
-    "BodyScrollScroll",
-    "BodyExit",
-    "BodyExitExit",
-    "BodyClick",
-    "BodyClickClick",
-    "BodyHover",
-    "BodyHoverHover",
-    "BodyWait",
-    "BodyWaitWait",
-    "BodyError",
-    "BodyErrorError",
-    "BodyGoogle",
-    "BodyGoogleGoogle",
-    "BodyType",
-    "BodyTypeType",
+    "Label",
+    "LabelSave",
+    "LabelSaveSave",
+    "LabelSaveSaveEntity",
+    "LabelSaveSaveRelationship",
+    "LabelScroll",
+    "LabelScrollScroll",
+    "LabelExit",
+    "LabelExitExit",
+    "LabelClick",
+    "LabelClickClick",
+    "LabelHover",
+    "LabelHoverHover",
+    "LabelWait",
+    "LabelWaitWait",
+    "LabelError",
+    "LabelErrorError",
+    "LabelGoogle",
+    "LabelGoogleGoogle",
+    "LabelType",
+    "LabelTypeType",
 ]
 
 
 class LabelSubmitParams(TypedDict, total=False):
-    body: Required[Optional[Iterable[Body]]]
+    label: Required[Optional[Iterable[Label]]]
 
 
-class BodySaveSaveEntity(TypedDict, total=False):
+class LabelSaveSaveEntity(TypedDict, total=False):
     id: Required[int]
 
     properties: Required[Dict[str, str]]
@@ -45,7 +45,7 @@ class BodySaveSaveEntity(TypedDict, total=False):
     type: Required[str]
 
 
-class BodySaveSaveRelationship(TypedDict, total=False):
+class LabelSaveSaveRelationship(TypedDict, total=False):
     source: Required[int]
 
     target: Required[int]
@@ -53,89 +53,89 @@ class BodySaveSaveRelationship(TypedDict, total=False):
     type: Required[str]
 
 
-class BodySaveSave(TypedDict, total=False):
-    entities: Iterable[BodySaveSaveEntity]
+class LabelSaveSave(TypedDict, total=False):
+    entities: Iterable[LabelSaveSaveEntity]
 
-    relationships: Iterable[BodySaveSaveRelationship]
+    relationships: Iterable[LabelSaveSaveRelationship]
 
 
-class BodySave(TypedDict, total=False):
-    save: Required[Annotated[BodySaveSave, PropertyInfo(alias="Save")]]
+class LabelSave(TypedDict, total=False):
+    save: Required[Annotated[LabelSaveSave, PropertyInfo(alias="Save")]]
     """
     Knowledge graph info structured to deserialize and display in the same format
     that the LLM outputs.
     """
 
 
-class BodyScrollScroll(TypedDict, total=False):
+class LabelScrollScroll(TypedDict, total=False):
     reason: Required[str]
     """OpenAI Requires an argument, so we put a dummy one here."""
 
 
-class BodyScroll(TypedDict, total=False):
-    scroll: Required[Annotated[BodyScrollScroll, PropertyInfo(alias="Scroll")]]
+class LabelScroll(TypedDict, total=False):
+    scroll: Required[Annotated[LabelScrollScroll, PropertyInfo(alias="Scroll")]]
     """For tools with no inputs."""
 
 
-class BodyExitExit(TypedDict, total=False):
+class LabelExitExit(TypedDict, total=False):
     reason: Required[str]
     """OpenAI Requires an argument, so we put a dummy one here."""
 
 
-class BodyExit(TypedDict, total=False):
-    exit: Required[Annotated[BodyExitExit, PropertyInfo(alias="Exit")]]
+class LabelExit(TypedDict, total=False):
+    exit: Required[Annotated[LabelExitExit, PropertyInfo(alias="Exit")]]
     """For tools with no inputs."""
 
 
-class BodyClickClick(TypedDict, total=False):
+class LabelClickClick(TypedDict, total=False):
     flag: Required[int]
 
 
-class BodyClick(TypedDict, total=False):
-    click: Required[Annotated[BodyClickClick, PropertyInfo(alias="Click")]]
+class LabelClick(TypedDict, total=False):
+    click: Required[Annotated[LabelClickClick, PropertyInfo(alias="Click")]]
 
 
-class BodyHoverHover(TypedDict, total=False):
+class LabelHoverHover(TypedDict, total=False):
     flag: Required[int]
 
 
-class BodyHover(TypedDict, total=False):
-    hover: Required[Annotated[BodyHoverHover, PropertyInfo(alias="Hover")]]
+class LabelHover(TypedDict, total=False):
+    hover: Required[Annotated[LabelHoverHover, PropertyInfo(alias="Hover")]]
 
 
-class BodyWaitWait(TypedDict, total=False):
+class LabelWaitWait(TypedDict, total=False):
     seconds: Required[int]
     """Time in seconds to wait"""
 
 
-class BodyWait(TypedDict, total=False):
-    wait: Required[Annotated[BodyWaitWait, PropertyInfo(alias="Wait")]]
+class LabelWait(TypedDict, total=False):
+    wait: Required[Annotated[LabelWaitWait, PropertyInfo(alias="Wait")]]
 
 
-class BodyErrorError(TypedDict, total=False):
+class LabelErrorError(TypedDict, total=False):
     error: Required[str]
 
 
-class BodyError(TypedDict, total=False):
-    error: Required[Annotated[BodyErrorError, PropertyInfo(alias="Error")]]
+class LabelError(TypedDict, total=False):
+    error: Required[Annotated[LabelErrorError, PropertyInfo(alias="Error")]]
 
 
-class BodyGoogleGoogle(TypedDict, total=False):
+class LabelGoogleGoogle(TypedDict, total=False):
     query: Required[str]
 
 
-class BodyGoogle(TypedDict, total=False):
-    google: Required[Annotated[BodyGoogleGoogle, PropertyInfo(alias="Google")]]
+class LabelGoogle(TypedDict, total=False):
+    google: Required[Annotated[LabelGoogleGoogle, PropertyInfo(alias="Google")]]
 
 
-class BodyTypeType(TypedDict, total=False):
+class LabelTypeType(TypedDict, total=False):
     flag: Required[int]
 
     input: Required[str]
 
 
-class BodyType(TypedDict, total=False):
-    type: Required[Annotated[BodyTypeType, PropertyInfo(alias="Type")]]
+class LabelType(TypedDict, total=False):
+    type: Required[Annotated[LabelTypeType, PropertyInfo(alias="Type")]]
 
 
-Body = Union[BodySave, BodyScroll, BodyExit, BodyClick, BodyHover, BodyWait, BodyError, BodyGoogle, BodyType]
+Label = Union[LabelSave, LabelScroll, LabelExit, LabelClick, LabelHover, LabelWait, LabelError, LabelGoogle, LabelType]

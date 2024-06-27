@@ -7,7 +7,7 @@ from typing import List
 
 import httpx
 
-from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from .._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -154,6 +154,29 @@ class RunsResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=RunGetResponse,
+        )
+
+    def schedule(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> None:
+        """
+        One example use case is every single day check the news websites and pull them
+        into my dataset.
+        """
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return self._post(
+            "/runs/schedule",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NoneType,
         )
 
     def run(  # type: ignore
@@ -319,6 +342,29 @@ class AsyncRunsResource(AsyncAPIResource):
             cast_to=RunGetResponse,
         )
 
+    async def schedule(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> None:
+        """
+        One example use case is every single day check the news websites and pull them
+        into my dataset.
+        """
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return await self._post(
+            "/runs/schedule",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NoneType,
+        )
+
 
 class RunsResourceWithRawResponse:
     def __init__(self, runs: RunsResource) -> None:
@@ -335,6 +381,9 @@ class RunsResourceWithRawResponse:
         )
         self.get = to_raw_response_wrapper(
             runs.get,
+        )
+        self.schedule = to_raw_response_wrapper(
+            runs.schedule,
         )
 
 
@@ -354,6 +403,9 @@ class AsyncRunsResourceWithRawResponse:
         self.get = async_to_raw_response_wrapper(
             runs.get,
         )
+        self.schedule = async_to_raw_response_wrapper(
+            runs.schedule,
+        )
 
 
 class RunsResourceWithStreamingResponse:
@@ -372,6 +424,9 @@ class RunsResourceWithStreamingResponse:
         self.get = to_streamed_response_wrapper(
             runs.get,
         )
+        self.schedule = to_streamed_response_wrapper(
+            runs.schedule,
+        )
 
 
 class AsyncRunsResourceWithStreamingResponse:
@@ -389,4 +444,7 @@ class AsyncRunsResourceWithStreamingResponse:
         )
         self.get = async_to_streamed_response_wrapper(
             runs.get,
+        )
+        self.schedule = async_to_streamed_response_wrapper(
+            runs.schedule,
         )
