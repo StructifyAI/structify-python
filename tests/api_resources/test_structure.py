@@ -85,7 +85,6 @@ class TestStructure:
     def test_method_run_async(self, client: Structify) -> None:
         structure = client.structure.run_async(
             dataset_name="string",
-            seeded_entities=[{}, {}, {}],
             structure_input={
                 "sec_ingestor": {
                     "extraction_criteria": [
@@ -102,7 +101,6 @@ class TestStructure:
     def test_raw_response_run_async(self, client: Structify) -> None:
         response = client.structure.with_raw_response.run_async(
             dataset_name="string",
-            seeded_entities=[{}, {}, {}],
             structure_input={
                 "sec_ingestor": {
                     "extraction_criteria": [
@@ -123,7 +121,6 @@ class TestStructure:
     def test_streaming_response_run_async(self, client: Structify) -> None:
         with client.structure.with_streaming_response.run_async(
             dataset_name="string",
-            seeded_entities=[{}, {}, {}],
             structure_input={
                 "sec_ingestor": {
                     "extraction_criteria": [
@@ -212,7 +209,6 @@ class TestAsyncStructure:
     async def test_method_run_async(self, async_client: AsyncStructify) -> None:
         structure = await async_client.structure.run_async(
             dataset_name="string",
-            seeded_entities=[{}, {}, {}],
             structure_input={
                 "sec_ingestor": {
                     "extraction_criteria": [
@@ -229,7 +225,6 @@ class TestAsyncStructure:
     async def test_raw_response_run_async(self, async_client: AsyncStructify) -> None:
         response = await async_client.structure.with_raw_response.run_async(
             dataset_name="string",
-            seeded_entities=[{}, {}, {}],
             structure_input={
                 "sec_ingestor": {
                     "extraction_criteria": [
@@ -250,7 +245,6 @@ class TestAsyncStructure:
     async def test_streaming_response_run_async(self, async_client: AsyncStructify) -> None:
         async with async_client.structure.with_streaming_response.run_async(
             dataset_name="string",
-            seeded_entities=[{}, {}, {}],
             structure_input={
                 "sec_ingestor": {
                     "extraction_criteria": [
