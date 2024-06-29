@@ -98,6 +98,135 @@ class TestStructure:
         assert_matches_type(str, structure, path=["response"])
 
     @parametrize
+    def test_method_run_async_with_all_params(self, client: Structify) -> None:
+        structure = client.structure.run_async(
+            dataset_name="string",
+            structure_input={
+                "sec_ingestor": {
+                    "accession_number": "string",
+                    "extraction_criteria": [
+                        {"relationship_extraction": {"relationship_name": "string"}},
+                        {"relationship_extraction": {"relationship_name": "string"}},
+                        {"relationship_extraction": {"relationship_name": "string"}},
+                    ],
+                    "quarter": 0,
+                    "year": 0,
+                }
+            },
+            seeded_entities=[
+                {
+                    "entities": [
+                        {
+                            "id": 0,
+                            "properties": {"foo": "string"},
+                            "type": "string",
+                        },
+                        {
+                            "id": 0,
+                            "properties": {"foo": "string"},
+                            "type": "string",
+                        },
+                        {
+                            "id": 0,
+                            "properties": {"foo": "string"},
+                            "type": "string",
+                        },
+                    ],
+                    "relationships": [
+                        {
+                            "source": 0,
+                            "target": 0,
+                            "type": "string",
+                        },
+                        {
+                            "source": 0,
+                            "target": 0,
+                            "type": "string",
+                        },
+                        {
+                            "source": 0,
+                            "target": 0,
+                            "type": "string",
+                        },
+                    ],
+                },
+                {
+                    "entities": [
+                        {
+                            "id": 0,
+                            "properties": {"foo": "string"},
+                            "type": "string",
+                        },
+                        {
+                            "id": 0,
+                            "properties": {"foo": "string"},
+                            "type": "string",
+                        },
+                        {
+                            "id": 0,
+                            "properties": {"foo": "string"},
+                            "type": "string",
+                        },
+                    ],
+                    "relationships": [
+                        {
+                            "source": 0,
+                            "target": 0,
+                            "type": "string",
+                        },
+                        {
+                            "source": 0,
+                            "target": 0,
+                            "type": "string",
+                        },
+                        {
+                            "source": 0,
+                            "target": 0,
+                            "type": "string",
+                        },
+                    ],
+                },
+                {
+                    "entities": [
+                        {
+                            "id": 0,
+                            "properties": {"foo": "string"},
+                            "type": "string",
+                        },
+                        {
+                            "id": 0,
+                            "properties": {"foo": "string"},
+                            "type": "string",
+                        },
+                        {
+                            "id": 0,
+                            "properties": {"foo": "string"},
+                            "type": "string",
+                        },
+                    ],
+                    "relationships": [
+                        {
+                            "source": 0,
+                            "target": 0,
+                            "type": "string",
+                        },
+                        {
+                            "source": 0,
+                            "target": 0,
+                            "type": "string",
+                        },
+                        {
+                            "source": 0,
+                            "target": 0,
+                            "type": "string",
+                        },
+                    ],
+                },
+            ],
+        )
+        assert_matches_type(str, structure, path=["response"])
+
+    @parametrize
     def test_raw_response_run_async(self, client: Structify) -> None:
         response = client.structure.with_raw_response.run_async(
             dataset_name="string",
@@ -218,6 +347,135 @@ class TestAsyncStructure:
                     ]
                 }
             },
+        )
+        assert_matches_type(str, structure, path=["response"])
+
+    @parametrize
+    async def test_method_run_async_with_all_params(self, async_client: AsyncStructify) -> None:
+        structure = await async_client.structure.run_async(
+            dataset_name="string",
+            structure_input={
+                "sec_ingestor": {
+                    "accession_number": "string",
+                    "extraction_criteria": [
+                        {"relationship_extraction": {"relationship_name": "string"}},
+                        {"relationship_extraction": {"relationship_name": "string"}},
+                        {"relationship_extraction": {"relationship_name": "string"}},
+                    ],
+                    "quarter": 0,
+                    "year": 0,
+                }
+            },
+            seeded_entities=[
+                {
+                    "entities": [
+                        {
+                            "id": 0,
+                            "properties": {"foo": "string"},
+                            "type": "string",
+                        },
+                        {
+                            "id": 0,
+                            "properties": {"foo": "string"},
+                            "type": "string",
+                        },
+                        {
+                            "id": 0,
+                            "properties": {"foo": "string"},
+                            "type": "string",
+                        },
+                    ],
+                    "relationships": [
+                        {
+                            "source": 0,
+                            "target": 0,
+                            "type": "string",
+                        },
+                        {
+                            "source": 0,
+                            "target": 0,
+                            "type": "string",
+                        },
+                        {
+                            "source": 0,
+                            "target": 0,
+                            "type": "string",
+                        },
+                    ],
+                },
+                {
+                    "entities": [
+                        {
+                            "id": 0,
+                            "properties": {"foo": "string"},
+                            "type": "string",
+                        },
+                        {
+                            "id": 0,
+                            "properties": {"foo": "string"},
+                            "type": "string",
+                        },
+                        {
+                            "id": 0,
+                            "properties": {"foo": "string"},
+                            "type": "string",
+                        },
+                    ],
+                    "relationships": [
+                        {
+                            "source": 0,
+                            "target": 0,
+                            "type": "string",
+                        },
+                        {
+                            "source": 0,
+                            "target": 0,
+                            "type": "string",
+                        },
+                        {
+                            "source": 0,
+                            "target": 0,
+                            "type": "string",
+                        },
+                    ],
+                },
+                {
+                    "entities": [
+                        {
+                            "id": 0,
+                            "properties": {"foo": "string"},
+                            "type": "string",
+                        },
+                        {
+                            "id": 0,
+                            "properties": {"foo": "string"},
+                            "type": "string",
+                        },
+                        {
+                            "id": 0,
+                            "properties": {"foo": "string"},
+                            "type": "string",
+                        },
+                    ],
+                    "relationships": [
+                        {
+                            "source": 0,
+                            "target": 0,
+                            "type": "string",
+                        },
+                        {
+                            "source": 0,
+                            "target": 0,
+                            "type": "string",
+                        },
+                        {
+                            "source": 0,
+                            "target": 0,
+                            "type": "string",
+                        },
+                    ],
+                },
+            ],
         )
         assert_matches_type(str, structure, path=["response"])
 
