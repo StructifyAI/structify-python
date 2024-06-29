@@ -10,7 +10,7 @@ from .._utils import PropertyInfo
 from .extraction_criteria_param import ExtractionCriteriaParam
 
 __all__ = [
-    "StructureRunAsyncParams",
+    "LabelRunParams",
     "StructureInput",
     "StructureInputSecIngestor",
     "StructureInputSecIngestorSecIngestor",
@@ -27,7 +27,7 @@ __all__ = [
 ]
 
 
-class StructureRunAsyncParams(TypedDict, total=False):
+class LabelRunParams(TypedDict, total=False):
     dataset_name: Required[str]
 
     structure_input: Required[StructureInput]
