@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+
 from typing import Dict, Union, Iterable, Optional
 from typing_extensions import Required, Annotated, TypedDict
 
@@ -37,6 +38,7 @@ class LabelRunParams(TypedDict, total=False):
 
     structure_input: Required[StructureInput]
     """These are all the types that can be converted into a BasicInputType"""
+
 
 
 class SeededEntityEntity(TypedDict, total=False):

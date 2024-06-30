@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, Union, Iterable, Optional
+from typing import Union, Iterable, Optional
 from typing_extensions import Required, Annotated, TypedDict
 
 from .._types import FileTypes
@@ -11,9 +11,6 @@ from .extraction_criteria_param import ExtractionCriteriaParam
 
 __all__ = [
     "StructureRunAsyncParams",
-    "SeededEntity",
-    "SeededEntityEntity",
-    "SeededEntityRelationship",
     "StructureInput",
     "StructureInputSecIngestor",
     "StructureInputSecIngestorSecIngestor",
@@ -33,32 +30,8 @@ __all__ = [
 class StructureRunAsyncParams(TypedDict, total=False):
     dataset_name: Required[str]
 
-    seeded_entities: Required[Iterable[SeededEntity]]
-
     structure_input: Required[StructureInput]
     """These are all the types that can be converted into a BasicInputType"""
-
-
-class SeededEntityEntity(TypedDict, total=False):
-    id: Required[int]
-
-    properties: Required[Dict[str, str]]
-
-    type: Required[str]
-
-
-class SeededEntityRelationship(TypedDict, total=False):
-    source: Required[int]
-
-    target: Required[int]
-
-    type: Required[str]
-
-
-class SeededEntity(TypedDict, total=False):
-    entities: Iterable[SeededEntityEntity]
-
-    relationships: Iterable[SeededEntityRelationship]
 
 
 class StructureInputSecIngestorSecIngestor(TypedDict, total=False):
