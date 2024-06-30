@@ -11,9 +11,6 @@ from .extraction_criteria_param import ExtractionCriteriaParam
 
 __all__ = [
     "StructureRunAsyncParams",
-    "SeededEntity",
-    "SeededEntityEntity",
-    "SeededEntityRelationship",
     "StructureInput",
     "StructureInputSecIngestor",
     "StructureInputSecIngestorSecIngestor",
@@ -27,38 +24,19 @@ __all__ = [
     "StructureInputBasicBasicWebSearchWebSearch",
     "StructureInputBasicBasicImageDocument",
     "StructureInputBasicBasicImageDocumentImageDocument",
+    "SeededEntity",
+    "SeededEntityEntity",
+    "SeededEntityRelationship",
 ]
 
 
 class StructureRunAsyncParams(TypedDict, total=False):
     dataset_name: Required[str]
 
-    seeded_entities: Required[Iterable[SeededEntity]]
-
     structure_input: Required[StructureInput]
     """These are all the types that can be converted into a BasicInputType"""
 
-
-class SeededEntityEntity(TypedDict, total=False):
-    id: Required[int]
-
-    properties: Required[Dict[str, str]]
-
-    type: Required[str]
-
-
-class SeededEntityRelationship(TypedDict, total=False):
-    source: Required[int]
-
-    target: Required[int]
-
-    type: Required[str]
-
-
-class SeededEntity(TypedDict, total=False):
-    entities: Iterable[SeededEntityEntity]
-
-    relationships: Iterable[SeededEntityRelationship]
+    seeded_entities: Iterable[SeededEntity]
 
 
 class StructureInputSecIngestorSecIngestor(TypedDict, total=False):
@@ -145,3 +123,25 @@ class StructureInputBasic(TypedDict, total=False):
 
 
 StructureInput = Union[StructureInputSecIngestor, StructureInputPdfIngestor, StructureInputBasic]
+
+
+class SeededEntityEntity(TypedDict, total=False):
+    id: Required[int]
+
+    properties: Required[Dict[str, str]]
+
+    type: Required[str]
+
+
+class SeededEntityRelationship(TypedDict, total=False):
+    source: Required[int]
+
+    target: Required[int]
+
+    type: Required[str]
+
+
+class SeededEntity(TypedDict, total=False):
+    entities: Iterable[SeededEntityEntity]
+
+    relationships: Iterable[SeededEntityRelationship]

@@ -1,6 +1,6 @@
 [project]
 name = "structifyai"
-version = "0.1.0-alpha.37"
+version = "0.1.0-alpha.38"
 description = "The official Python library for the structify API"
 dynamic = ["readme"]
 license = "Apache-2.0"
@@ -98,6 +98,21 @@ include = [
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/structify"]
+
+[tool.hatch.build.targets.sdist]
+# Basically everything except hidden files/directories (such as .github, .devcontainers, .python-version, etc)
+include = [
+  "/*.toml",
+  "/*.json",
+  "/*.lock",
+  "/*.md",
+  "/mypy.ini",
+  "/noxfile.py",
+  "bin/*",
+  "examples/*",
+  "src/*",
+  "tests/*",
+]
 
 [tool.hatch.metadata.hooks.fancy-pypi-readme]
 content-type = "text/markdown"

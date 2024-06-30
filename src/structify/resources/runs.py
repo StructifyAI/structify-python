@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import time
-from typing import List
 
 import httpx
 
@@ -23,7 +22,6 @@ from ..types.run_get_response import RunGetResponse
 from ..types.run_list_response import RunListResponse
 from ..types.run_cancel_response import RunCancelResponse
 from ..types.dataset_view_response import DatasetViewResponse
-from ..types.structure_job_status_response import StructureJobStatusResponse
 
 __all__ = ["RunsResource", "AsyncRunsResource"]
 
