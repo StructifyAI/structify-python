@@ -36,8 +36,6 @@ __all__ = [
 class LabelRunParams(TypedDict, total=False):
     dataset_name: Required[str]
 
-    seeded_entities: Required[Iterable[SeededEntity]]
-
     structure_input: Required[StructureInput]
     """These are all the types that can be converted into a BasicInputType"""
 
