@@ -43,28 +43,6 @@ class LabelRunParams(TypedDict, total=False):
 
 
 
-class SeededEntityEntity(TypedDict, total=False):
-    id: Required[int]
-
-    properties: Required[Dict[str, str]]
-
-    type: Required[str]
-
-
-class SeededEntityRelationship(TypedDict, total=False):
-    source: Required[int]
-
-    target: Required[int]
-
-    type: Required[str]
-
-
-class SeededEntity(TypedDict, total=False):
-    entities: Iterable[SeededEntityEntity]
-
-    relationships: Iterable[SeededEntityRelationship]
-
-
 class StructureInputSecIngestorSecIngestor(TypedDict, total=False):
     extraction_criteria: Required[Iterable[ExtractionCriteriaParam]]
 
