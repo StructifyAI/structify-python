@@ -191,8 +191,10 @@ class DatasetsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> DatasetViewResponse:
-        """
-        View entries from a table in a dataset
+        """TODO: Add pagination.
+
+        Entities are paginated, relationships are based on
+        entities.
 
         Args:
           extra_headers: Send extra headers
@@ -385,8 +387,10 @@ class AsyncDatasetsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> DatasetViewResponse:
-        """
-        View entries from a table in a dataset
+        """TODO: Add pagination.
+
+        Entities are paginated, relationships are based on
+        entities.
 
         Args:
           extra_headers: Send extra headers
