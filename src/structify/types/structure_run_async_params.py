@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union, Iterable, Optional
+from typing import Dict, Union, Iterable, Optional
 from typing_extensions import Required, Annotated, TypedDict
 
 from .._types import FileTypes
@@ -24,6 +24,9 @@ __all__ = [
     "StructureInputBasicBasicWebSearchWebSearch",
     "StructureInputBasicBasicImageDocument",
     "StructureInputBasicBasicImageDocumentImageDocument",
+    "SeededEntity",
+    "SeededEntityEntity",
+    "SeededEntityRelationship",
 ]
 
 
@@ -32,6 +35,8 @@ class StructureRunAsyncParams(TypedDict, total=False):
 
     structure_input: Required[StructureInput]
     """These are all the types that can be converted into a BasicInputType"""
+
+    seeded_entities: Iterable[SeededEntity]
 
 
 class StructureInputSecIngestorSecIngestor(TypedDict, total=False):
@@ -118,3 +123,25 @@ class StructureInputBasic(TypedDict, total=False):
 
 
 StructureInput = Union[StructureInputSecIngestor, StructureInputPdfIngestor, StructureInputBasic]
+
+
+class SeededEntityEntity(TypedDict, total=False):
+    id: Required[int]
+
+    properties: Required[Dict[str, str]]
+
+    type: Required[str]
+
+
+class SeededEntityRelationship(TypedDict, total=False):
+    source: Required[int]
+
+    target: Required[int]
+
+    type: Required[str]
+
+
+class SeededEntity(TypedDict, total=False):
+    entities: Iterable[SeededEntityEntity]
+
+    relationships: Iterable[SeededEntityRelationship]

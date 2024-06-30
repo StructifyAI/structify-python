@@ -149,6 +149,7 @@ class LabelResource(SyncAPIResource):
         dataset_name: str,
         seeded_entities: Iterable[label_run_params.SeededEntity],
         structure_input: label_run_params.StructureInput,
+        seeded_entities: Iterable[label_run_params.SeededEntity] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -178,6 +179,7 @@ class LabelResource(SyncAPIResource):
                     "dataset_name": dataset_name,
                     "seeded_entities": seeded_entities,
                     "structure_input": structure_input,
+                    "seeded_entities": seeded_entities,
                 },
                 label_run_params.LabelRunParams,
             ),
@@ -344,6 +346,7 @@ class AsyncLabelResource(AsyncAPIResource):
         dataset_name: str,
         seeded_entities: Iterable[label_run_params.SeededEntity],
         structure_input: label_run_params.StructureInput,
+        seeded_entities: Iterable[label_run_params.SeededEntity] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -373,6 +376,7 @@ class AsyncLabelResource(AsyncAPIResource):
                     "dataset_name": dataset_name,
                     "seeded_entities": seeded_entities,
                     "structure_input": structure_input,
+                    "seeded_entities": seeded_entities,
                 },
                 label_run_params.LabelRunParams,
             ),
