@@ -4,6 +4,15 @@ from typing import List
 
 from .entity import Entity
 
-__all__ = ["DatasetViewResponse"]
+__all__ = ["DatasetViewResponse", "DatasetViewResponseItem"]
 
-DatasetViewResponse = List[Entity]
+
+class DatasetViewResponseItem(Entity):
+    from_id: int
+
+    label: str
+
+    to_id: int
+
+
+DatasetViewResponse = List[List[DatasetViewResponseItem]]
