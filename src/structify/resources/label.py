@@ -147,7 +147,6 @@ class LabelResource(SyncAPIResource):
         self,
         *,
         dataset_name: str,
-        seeded_entities: Iterable[label_run_params.SeededEntity],
         structure_input: label_run_params.StructureInput,
         seeded_entities: Iterable[label_run_params.SeededEntity] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.

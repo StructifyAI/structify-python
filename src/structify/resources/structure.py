@@ -2,9 +2,9 @@
 
 from __future__ import annotations
 
-from typing import List, Tuple, Iterable
 import time
 import logging
+from typing import List, Tuple, Iterable
 
 import httpx
 
@@ -25,7 +25,6 @@ from .._response import (
 from .._base_client import (
     make_request_options,
 )
-
 from ..types.logger import *
 from ..types.dataset_view_response import DatasetViewResponse
 from ..types.structure_job_status_response import StructureJobStatusResponse
