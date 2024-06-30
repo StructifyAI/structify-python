@@ -1,14 +1,12 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from __future__ import annotations
-
 from typing import Dict, List, Union, Optional
 from typing_extensions import Literal
 
 from pydantic import Field as FieldInfo
 
-from .._compat import PYDANTIC_V2
 from .._models import BaseModel
+from .chat_prompt import ChatPrompt
 
 __all__ = [
     "ExecutionStep",
@@ -207,68 +205,8 @@ class Response(BaseModel):
 
 
 class ExecutionStep(BaseModel):
-    prompt: "ChatPrompt"
+    prompt: ChatPrompt
 
     response: Response
 
     uuid: str
-
-
-from .chat_prompt import ChatPrompt
-
-if PYDANTIC_V2:
-    ExecutionStep.model_rebuild()
-    Response.model_rebuild()
-    ResponseToolCall.model_rebuild()
-    ResponseToolCallInputSave.model_rebuild()
-    ResponseToolCallInputSaveSave.model_rebuild()
-    ResponseToolCallInputSaveSaveEntity.model_rebuild()
-    ResponseToolCallInputSaveSaveRelationship.model_rebuild()
-    ResponseToolCallInputScroll.model_rebuild()
-    ResponseToolCallInputScrollScroll.model_rebuild()
-    ResponseToolCallInputExit.model_rebuild()
-    ResponseToolCallInputExitExit.model_rebuild()
-    ResponseToolCallInputClick.model_rebuild()
-    ResponseToolCallInputClickClick.model_rebuild()
-    ResponseToolCallInputHover.model_rebuild()
-    ResponseToolCallInputHoverHover.model_rebuild()
-    ResponseToolCallInputWait.model_rebuild()
-    ResponseToolCallInputWaitWait.model_rebuild()
-    ResponseToolCallInputError.model_rebuild()
-    ResponseToolCallInputErrorError.model_rebuild()
-    ResponseToolCallInputGoogle.model_rebuild()
-    ResponseToolCallInputGoogleGoogle.model_rebuild()
-    ResponseToolCallInputType.model_rebuild()
-    ResponseToolCallInputTypeType.model_rebuild()
-    ResponseToolCallResultToolQueued.model_rebuild()
-    ResponseToolCallResultToolFail.model_rebuild()
-    ResponseToolCallResultInputParseFail.model_rebuild()
-    ResponseToolCallResultSuccess.model_rebuild()
-else:
-    ExecutionStep.update_forward_refs()  # type: ignore
-    Response.update_forward_refs()  # type: ignore
-    ResponseToolCall.update_forward_refs()  # type: ignore
-    ResponseToolCallInputSave.update_forward_refs()  # type: ignore
-    ResponseToolCallInputSaveSave.update_forward_refs()  # type: ignore
-    ResponseToolCallInputSaveSaveEntity.update_forward_refs()  # type: ignore
-    ResponseToolCallInputSaveSaveRelationship.update_forward_refs()  # type: ignore
-    ResponseToolCallInputScroll.update_forward_refs()  # type: ignore
-    ResponseToolCallInputScrollScroll.update_forward_refs()  # type: ignore
-    ResponseToolCallInputExit.update_forward_refs()  # type: ignore
-    ResponseToolCallInputExitExit.update_forward_refs()  # type: ignore
-    ResponseToolCallInputClick.update_forward_refs()  # type: ignore
-    ResponseToolCallInputClickClick.update_forward_refs()  # type: ignore
-    ResponseToolCallInputHover.update_forward_refs()  # type: ignore
-    ResponseToolCallInputHoverHover.update_forward_refs()  # type: ignore
-    ResponseToolCallInputWait.update_forward_refs()  # type: ignore
-    ResponseToolCallInputWaitWait.update_forward_refs()  # type: ignore
-    ResponseToolCallInputError.update_forward_refs()  # type: ignore
-    ResponseToolCallInputErrorError.update_forward_refs()  # type: ignore
-    ResponseToolCallInputGoogle.update_forward_refs()  # type: ignore
-    ResponseToolCallInputGoogleGoogle.update_forward_refs()  # type: ignore
-    ResponseToolCallInputType.update_forward_refs()  # type: ignore
-    ResponseToolCallInputTypeType.update_forward_refs()  # type: ignore
-    ResponseToolCallResultToolQueued.update_forward_refs()  # type: ignore
-    ResponseToolCallResultToolFail.update_forward_refs()  # type: ignore
-    ResponseToolCallResultInputParseFail.update_forward_refs()  # type: ignore
-    ResponseToolCallResultSuccess.update_forward_refs()  # type: ignore
