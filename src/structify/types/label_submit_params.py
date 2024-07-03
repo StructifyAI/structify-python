@@ -63,7 +63,8 @@ class LabelSave(TypedDict, total=False):
     save: Required[Annotated[LabelSaveSave, PropertyInfo(alias="Save")]]
     """
     Knowledge graph info structured to deserialize and display in the same format
-    that the LLM outputs.
+    that the LLM outputs. Also the first representation of an LLM output in the
+    pipeline from raw tool output to being merged into a Neo4j DB
     """
 
 
