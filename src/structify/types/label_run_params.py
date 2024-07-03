@@ -11,6 +11,9 @@ from .extraction_criteria_param import ExtractionCriteriaParam
 
 __all__ = [
     "LabelRunParams",
+    "SeededEntity",
+    "SeededEntityEntity",
+    "SeededEntityRelationship",
     "StructureInput",
     "StructureInputSecIngestor",
     "StructureInputSecIngestorSecIngestor",
@@ -37,6 +40,7 @@ class LabelRunParams(TypedDict, total=False):
     """These are all the types that can be converted into a BasicInputType"""
 
     seeded_entities: Iterable[SeededEntity]
+
 
 
 class StructureInputSecIngestorSecIngestor(TypedDict, total=False):
