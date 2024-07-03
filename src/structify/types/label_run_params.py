@@ -11,6 +11,9 @@ from .extraction_criteria_param import ExtractionCriteriaParam
 
 __all__ = [
     "LabelRunParams",
+    "SeededEntity",
+    "SeededEntityEntity",
+    "SeededEntityRelationship",
     "StructureInput",
     "StructureInputSecIngestor",
     "StructureInputSecIngestorSecIngestor",
@@ -42,6 +45,7 @@ class LabelRunParams(TypedDict, total=False):
     that the LLM outputs. Also the first representation of an LLM output in the
     pipeline from raw tool output to being merged into a Neo4j DB
     """
+
 
 
 class StructureInputSecIngestorSecIngestor(TypedDict, total=False):
