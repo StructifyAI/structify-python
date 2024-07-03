@@ -39,7 +39,12 @@ class LabelRunParams(TypedDict, total=False):
     structure_input: Required[StructureInput]
     """These are all the types that can be converted into a BasicInputType"""
 
-    seeded_entities: Iterable[SeededEntity]
+    seeded_entity: SeededEntity
+    """
+    Knowledge graph info structured to deserialize and display in the same format
+    that the LLM outputs. Also the first representation of an LLM output in the
+    pipeline from raw tool output to being merged into a Neo4j DB
+    """
 
 
 
