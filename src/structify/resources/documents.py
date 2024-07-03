@@ -169,11 +169,10 @@ class DocumentsResource(SyncAPIResource):
             }
         )
         files = extract_files(cast(Mapping[str, object], body), paths=[["content"], ["path"]])
-        if files:
-            # It should be noted that the actual Content-Type header that will be
-            # sent to the server will contain a `boundary` parameter, e.g.
-            # multipart/form-data; boundary=---abc--
-            extra_headers["Content-Type"] = "multipart/form-data"
+        # It should be noted that the actual Content-Type header that will be
+        # sent to the server will contain a `boundary` parameter, e.g.
+        # multipart/form-data; boundary=---abc--
+        extra_headers["Content-Type"] = "multipart/form-data"
         return self._post(
             "/documents/upload",
             body=maybe_transform(body, document_upload_params.DocumentUploadParams),
@@ -315,11 +314,10 @@ class AsyncDocumentsResource(AsyncAPIResource):
             }
         )
         files = extract_files(cast(Mapping[str, object], body), paths=[["content"], ["path"]])
-        if files:
-            # It should be noted that the actual Content-Type header that will be
-            # sent to the server will contain a `boundary` parameter, e.g.
-            # multipart/form-data; boundary=---abc--
-            extra_headers["Content-Type"] = "multipart/form-data"
+        # It should be noted that the actual Content-Type header that will be
+        # sent to the server will contain a `boundary` parameter, e.g.
+        # multipart/form-data; boundary=---abc--
+        extra_headers["Content-Type"] = "multipart/form-data"
         return await self._post(
             "/documents/upload",
             body=await async_maybe_transform(body, document_upload_params.DocumentUploadParams),
