@@ -10,4 +10,4 @@ __all__ = ["RunCancelResponse"]
 class RunCancelResponse(BaseModel):
     id: str
 
-    status: Literal["Running", "Completed", "Failed"]
+    status: Literal["Queued", "Running", "Completed", "Failed"]
