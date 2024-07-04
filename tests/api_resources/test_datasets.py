@@ -374,17 +374,6 @@ class TestDatasets:
     def test_method_view(self, client: Structify) -> None:
         dataset = client.datasets.view(
             dataset_name="string",
-            table_name="string",
-        )
-        assert_matches_type(DatasetViewResponse, dataset, path=["response"])
-
-    @parametrize
-    def test_method_view_with_all_params(self, client: Structify) -> None:
-        dataset = client.datasets.view(
-            dataset_name="string",
-            table_name="string",
-            limit=0,
-            skip=0,
         )
         assert_matches_type(DatasetViewResponse, dataset, path=["response"])
 
@@ -392,7 +381,6 @@ class TestDatasets:
     def test_raw_response_view(self, client: Structify) -> None:
         response = client.datasets.with_raw_response.view(
             dataset_name="string",
-            table_name="string",
         )
 
         assert response.is_closed is True
@@ -404,7 +392,6 @@ class TestDatasets:
     def test_streaming_response_view(self, client: Structify) -> None:
         with client.datasets.with_streaming_response.view(
             dataset_name="string",
-            table_name="string",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -771,17 +758,6 @@ class TestAsyncDatasets:
     async def test_method_view(self, async_client: AsyncStructify) -> None:
         dataset = await async_client.datasets.view(
             dataset_name="string",
-            table_name="string",
-        )
-        assert_matches_type(DatasetViewResponse, dataset, path=["response"])
-
-    @parametrize
-    async def test_method_view_with_all_params(self, async_client: AsyncStructify) -> None:
-        dataset = await async_client.datasets.view(
-            dataset_name="string",
-            table_name="string",
-            limit=0,
-            skip=0,
         )
         assert_matches_type(DatasetViewResponse, dataset, path=["response"])
 
@@ -789,7 +765,6 @@ class TestAsyncDatasets:
     async def test_raw_response_view(self, async_client: AsyncStructify) -> None:
         response = await async_client.datasets.with_raw_response.view(
             dataset_name="string",
-            table_name="string",
         )
 
         assert response.is_closed is True
@@ -801,7 +776,6 @@ class TestAsyncDatasets:
     async def test_streaming_response_view(self, async_client: AsyncStructify) -> None:
         async with async_client.datasets.with_streaming_response.view(
             dataset_name="string",
-            table_name="string",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
