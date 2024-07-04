@@ -181,9 +181,6 @@ class DatasetsResource(SyncAPIResource):
         self,
         *,
         dataset_name: str,
-        table_name: str,
-        limit: int | NotGiven = NOT_GIVEN,
-        skip: int | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -212,15 +209,7 @@ class DatasetsResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "dataset_name": dataset_name,
-                        "table_name": table_name,
-                        "limit": limit,
-                        "skip": skip,
-                    },
-                    dataset_view_params.DatasetViewParams,
-                ),
+                query=maybe_transform({"dataset_name": dataset_name}, dataset_view_params.DatasetViewParams),
             ),
             cast_to=DatasetViewResponse,
         )
@@ -377,9 +366,6 @@ class AsyncDatasetsResource(AsyncAPIResource):
         self,
         *,
         dataset_name: str,
-        table_name: str,
-        limit: int | NotGiven = NOT_GIVEN,
-        skip: int | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -409,13 +395,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
                 extra_body=extra_body,
                 timeout=timeout,
                 query=await async_maybe_transform(
-                    {
-                        "dataset_name": dataset_name,
-                        "table_name": table_name,
-                        "limit": limit,
-                        "skip": skip,
-                    },
-                    dataset_view_params.DatasetViewParams,
+                    {"dataset_name": dataset_name}, dataset_view_params.DatasetViewParams
                 ),
             ),
             cast_to=DatasetViewResponse,

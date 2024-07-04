@@ -9,9 +9,3 @@ __all__ = ["DatasetViewParams"]
 
 class DatasetViewParams(TypedDict, total=False):
     dataset_name: Required[str]
-
-    table_name: Required[str]
-
-    limit: int
-
-    skip: int
