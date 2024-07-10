@@ -10,6 +10,7 @@ from .chat_prompt import ChatPrompt
 
 __all__ = [
     "ExecutionStep",
+    "ID",
     "Response",
     "ResponseToolCall",
     "ResponseToolCallInput",
@@ -39,6 +40,12 @@ __all__ = [
     "ResponseToolCallResultInputParseFail",
     "ResponseToolCallResultSuccess",
 ]
+
+
+class ID(BaseModel):
+    id: str
+
+    id_type: Literal["Job", "Step", "Logger", "None"]
 
 
 class ResponseToolCallInputSaveSaveEntity(BaseModel):
@@ -206,8 +213,8 @@ class Response(BaseModel):
 
 
 class ExecutionStep(BaseModel):
+    id: ID
+
     prompt: ChatPrompt
 
     response: Response
-
-    uuid: str
