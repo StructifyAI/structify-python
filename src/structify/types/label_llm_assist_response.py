@@ -1,18 +1,16 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Union, Optional
+from typing import List, Union
 
 from pydantic import Field as FieldInfo
 
 from .._models import BaseModel
+from .knowledge_graph import KnowledgeGraph
 
 __all__ = [
     "LabelLlmAssistResponse",
     "LabelLlmAssistResponseItem",
     "LabelLlmAssistResponseItemSave",
-    "LabelLlmAssistResponseItemSaveSave",
-    "LabelLlmAssistResponseItemSaveSaveEntity",
-    "LabelLlmAssistResponseItemSaveSaveRelationship",
     "LabelLlmAssistResponseItemScroll",
     "LabelLlmAssistResponseItemScrollScroll",
     "LabelLlmAssistResponseItemExit",
@@ -32,30 +30,8 @@ __all__ = [
 ]
 
 
-class LabelLlmAssistResponseItemSaveSaveEntity(BaseModel):
-    id: int
-
-    properties: Dict[str, str]
-
-    type: str
-
-
-class LabelLlmAssistResponseItemSaveSaveRelationship(BaseModel):
-    source: int
-
-    target: int
-
-    type: str
-
-
-class LabelLlmAssistResponseItemSaveSave(BaseModel):
-    entities: Optional[List[LabelLlmAssistResponseItemSaveSaveEntity]] = None
-
-    relationships: Optional[List[LabelLlmAssistResponseItemSaveSaveRelationship]] = None
-
-
 class LabelLlmAssistResponseItemSave(BaseModel):
-    save: LabelLlmAssistResponseItemSaveSave = FieldInfo(alias="Save")
+    save: KnowledgeGraph = FieldInfo(alias="Save")
     """
     Knowledge graph info structured to deserialize and display in the same format
     that the LLM outputs. Also the first representation of an LLM output in the

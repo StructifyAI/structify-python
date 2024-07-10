@@ -2,19 +2,17 @@
 
 from __future__ import annotations
 
-from typing import Dict, Union, Iterable, Optional
+from typing import Union, Iterable, Optional
 from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from .._utils import PropertyInfo
+from .knowledge_graph_param import KnowledgeGraphParam
 
 __all__ = [
     "LabelUpdateParams",
     "StepUpdate",
     "StepUpdateInput",
     "StepUpdateInputSave",
-    "StepUpdateInputSaveSave",
-    "StepUpdateInputSaveSaveEntity",
-    "StepUpdateInputSaveSaveRelationship",
     "StepUpdateInputScroll",
     "StepUpdateInputScrollScroll",
     "StepUpdateInputExit",
@@ -45,30 +43,8 @@ class LabelUpdateParams(TypedDict, total=False):
     step_update: Required[Iterable[StepUpdate]]
 
 
-class StepUpdateInputSaveSaveEntity(TypedDict, total=False):
-    id: Required[int]
-
-    properties: Required[Dict[str, str]]
-
-    type: Required[str]
-
-
-class StepUpdateInputSaveSaveRelationship(TypedDict, total=False):
-    source: Required[int]
-
-    target: Required[int]
-
-    type: Required[str]
-
-
-class StepUpdateInputSaveSave(TypedDict, total=False):
-    entities: Iterable[StepUpdateInputSaveSaveEntity]
-
-    relationships: Iterable[StepUpdateInputSaveSaveRelationship]
-
-
 class StepUpdateInputSave(TypedDict, total=False):
-    save: Required[Annotated[StepUpdateInputSaveSave, PropertyInfo(alias="Save")]]
+    save: Required[Annotated[KnowledgeGraphParam, PropertyInfo(alias="Save")]]
     """
     Knowledge graph info structured to deserialize and display in the same format
     that the LLM outputs. Also the first representation of an LLM output in the
