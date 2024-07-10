@@ -30,13 +30,7 @@ Methods:
 Types:
 
 ```python
-from structify.types import (
-    Dataset,
-    DatasetDescriptor,
-    Entity,
-    DatasetListResponse,
-    DatasetViewResponse,
-)
+from structify.types import Dataset, DatasetDescriptor, DatasetListResponse, DatasetViewResponse
 ```
 
 Methods:
