@@ -192,6 +192,7 @@ class TestLabel:
     def test_method_run(self, client: Structify) -> None:
         label = client.label.run(
             dataset_name="string",
+            seeded_entities=[{}, {}, {}],
             structure_input={
                 "sec_ingestor": {
                     "extraction_criteria": [
@@ -263,6 +264,7 @@ class TestLabel:
     def test_raw_response_run(self, client: Structify) -> None:
         response = client.label.with_raw_response.run(
             dataset_name="string",
+            seeded_entities=[{}, {}, {}],
             structure_input={
                 "sec_ingestor": {
                     "extraction_criteria": [
@@ -283,6 +285,7 @@ class TestLabel:
     def test_streaming_response_run(self, client: Structify) -> None:
         with client.label.with_streaming_response.run(
             dataset_name="string",
+            seeded_entities=[{}, {}, {}],
             structure_input={
                 "sec_ingestor": {
                     "extraction_criteria": [
@@ -519,6 +522,7 @@ class TestAsyncLabel:
     async def test_method_run(self, async_client: AsyncStructify) -> None:
         label = await async_client.label.run(
             dataset_name="string",
+            seeded_entities=[{}, {}, {}],
             structure_input={
                 "sec_ingestor": {
                     "extraction_criteria": [
@@ -590,6 +594,7 @@ class TestAsyncLabel:
     async def test_raw_response_run(self, async_client: AsyncStructify) -> None:
         response = await async_client.label.with_raw_response.run(
             dataset_name="string",
+            seeded_entities=[{}, {}, {}],
             structure_input={
                 "sec_ingestor": {
                     "extraction_criteria": [
@@ -610,6 +615,7 @@ class TestAsyncLabel:
     async def test_streaming_response_run(self, async_client: AsyncStructify) -> None:
         async with async_client.label.with_streaming_response.run(
             dataset_name="string",
+            seeded_entities=[{}, {}, {}],
             structure_input={
                 "sec_ingestor": {
                     "extraction_criteria": [
