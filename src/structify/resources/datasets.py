@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from typing import Iterable, Optional
+from typing_extensions import Literal
 
 import httpx
 
@@ -181,6 +182,11 @@ class DatasetsResource(SyncAPIResource):
         self,
         *,
         dataset_name: str,
+        requested_type: Literal["Entities", "Relationships"],
+        limit: int | NotGiven = NOT_GIVEN,
+        offset: int | NotGiven = NOT_GIVEN,
+        relationship_name: Optional[str] | NotGiven = NOT_GIVEN,
+        table_name: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -188,10 +194,16 @@ class DatasetsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> DatasetViewResponse:
-        """TODO: Add pagination.
+        """You need to specify a dataset.
 
-        Entities are paginated, relationships are based on
-        entities.
+        If you don't specify a table_name, we assume all
+        tables.
+
+        If you want to view relationships, you can not specify a table_name since the
+        result of inter-table relationships is not well defined.
+
+        You can either return entities or relationships from this call, but not both. If
+        you want both, just make two calls.
 
         Args:
           extra_headers: Send extra headers
@@ -209,7 +221,17 @@ class DatasetsResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform({"dataset_name": dataset_name}, dataset_view_params.DatasetViewParams),
+                query=maybe_transform(
+                    {
+                        "dataset_name": dataset_name,
+                        "requested_type": requested_type,
+                        "limit": limit,
+                        "offset": offset,
+                        "relationship_name": relationship_name,
+                        "table_name": table_name,
+                    },
+                    dataset_view_params.DatasetViewParams,
+                ),
             ),
             cast_to=DatasetViewResponse,
         )
@@ -366,6 +388,11 @@ class AsyncDatasetsResource(AsyncAPIResource):
         self,
         *,
         dataset_name: str,
+        requested_type: Literal["Entities", "Relationships"],
+        limit: int | NotGiven = NOT_GIVEN,
+        offset: int | NotGiven = NOT_GIVEN,
+        relationship_name: Optional[str] | NotGiven = NOT_GIVEN,
+        table_name: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -373,10 +400,16 @@ class AsyncDatasetsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> DatasetViewResponse:
-        """TODO: Add pagination.
+        """You need to specify a dataset.
 
-        Entities are paginated, relationships are based on
-        entities.
+        If you don't specify a table_name, we assume all
+        tables.
+
+        If you want to view relationships, you can not specify a table_name since the
+        result of inter-table relationships is not well defined.
+
+        You can either return entities or relationships from this call, but not both. If
+        you want both, just make two calls.
 
         Args:
           extra_headers: Send extra headers
@@ -395,7 +428,15 @@ class AsyncDatasetsResource(AsyncAPIResource):
                 extra_body=extra_body,
                 timeout=timeout,
                 query=await async_maybe_transform(
-                    {"dataset_name": dataset_name}, dataset_view_params.DatasetViewParams
+                    {
+                        "dataset_name": dataset_name,
+                        "requested_type": requested_type,
+                        "limit": limit,
+                        "offset": offset,
+                        "relationship_name": relationship_name,
+                        "table_name": table_name,
+                    },
+                    dataset_view_params.DatasetViewParams,
                 ),
             ),
             cast_to=DatasetViewResponse,
