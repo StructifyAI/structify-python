@@ -32,7 +32,8 @@ class TableProperty(TypedDict, total=False):
     description: Required[str]
 
     name: Required[str]
-
+    
+    merge_strategy: str
 
 class Table(TypedDict, total=False):
     description: Required[str]
