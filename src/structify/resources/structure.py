@@ -8,7 +8,11 @@ from typing import List, Tuple, Iterable
 
 import httpx
 
-from ..types import structure_run_async_params, structure_job_status_params, structure_is_complete_params
+from ..types import (
+    structure_run_async_params,
+    structure_job_status_params,
+    structure_is_complete_params,
+)
 from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from .._utils import (
     maybe_transform,
@@ -25,6 +29,7 @@ from .._response import (
 from .._base_client import (
     make_request_options,
 )
+from ..types.knowledge_graph_param import KnowledgeGraphParam
 from ..types.logger import *
 from ..types.dataset_view_response import DatasetViewResponse
 from ..types.structure_job_status_response import StructureJobStatusResponse
@@ -117,7 +122,7 @@ class StructureResource(SyncAPIResource):
         *,
         dataset_name: str,
         structure_input: structure_run_async_params.StructureInput,
-        seeded_entity: structure_run_async_params.SeededEntity | NotGiven = NOT_GIVEN,
+        seeded_entity: KnowledgeGraphParam | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -287,7 +292,7 @@ class AsyncStructureResource(AsyncAPIResource):
         *,
         dataset_name: str,
         structure_input: structure_run_async_params.StructureInput,
-        seeded_entity: structure_run_async_params.SeededEntity | NotGiven = NOT_GIVEN,
+        seeded_entity: KnowledgeGraphParam | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,

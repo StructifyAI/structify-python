@@ -1,12 +1,13 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Union, Optional
+from typing import List, Union, Optional
 from typing_extensions import Literal
 
 from pydantic import Field as FieldInfo
 
 from .._models import BaseModel
 from .chat_prompt import ChatPrompt
+from .knowledge_graph import KnowledgeGraph
 
 __all__ = [
     "ExecutionStep",
@@ -15,9 +16,6 @@ __all__ = [
     "ResponseToolCall",
     "ResponseToolCallInput",
     "ResponseToolCallInputSave",
-    "ResponseToolCallInputSaveSave",
-    "ResponseToolCallInputSaveSaveEntity",
-    "ResponseToolCallInputSaveSaveRelationship",
     "ResponseToolCallInputScroll",
     "ResponseToolCallInputScrollScroll",
     "ResponseToolCallInputExit",
@@ -48,30 +46,8 @@ class ID(BaseModel):
     id_type: Literal["Job", "Step", "Logger", "None"]
 
 
-class ResponseToolCallInputSaveSaveEntity(BaseModel):
-    id: int
-
-    properties: Dict[str, str]
-
-    type: str
-
-
-class ResponseToolCallInputSaveSaveRelationship(BaseModel):
-    source: int
-
-    target: int
-
-    type: str
-
-
-class ResponseToolCallInputSaveSave(BaseModel):
-    entities: Optional[List[ResponseToolCallInputSaveSaveEntity]] = None
-
-    relationships: Optional[List[ResponseToolCallInputSaveSaveRelationship]] = None
-
-
 class ResponseToolCallInputSave(BaseModel):
-    save: ResponseToolCallInputSaveSave = FieldInfo(alias="Save")
+    save: KnowledgeGraph = FieldInfo(alias="Save")
     """
     Knowledge graph info structured to deserialize and display in the same format
     that the LLM outputs. Also the first representation of an LLM output in the

@@ -7,6 +7,7 @@ from pydantic import Field as FieldInfo
 
 from .._models import BaseModel
 from .tool_metadata import ToolMetadata
+from .knowledge_graph import KnowledgeGraph
 from .dataset_descriptor import DatasetDescriptor
 from .extraction_criteria import ExtractionCriteria
 
@@ -31,9 +32,6 @@ __all__ = [
     "MessageContentImage",
     "HumanLlmMetadata",
     "Metadata",
-    "MetadataExtractedEntity",
-    "MetadataExtractedEntityEntity",
-    "MetadataExtractedEntityRelationship",
     "MetadataWebFlag",
 ]
 
@@ -138,28 +136,6 @@ class HumanLlmMetadata(BaseModel):
     user_email: str
 
 
-class MetadataExtractedEntityEntity(BaseModel):
-    id: int
-
-    properties: Dict[str, str]
-
-    type: str
-
-
-class MetadataExtractedEntityRelationship(BaseModel):
-    source: int
-
-    target: int
-
-    type: str
-
-
-class MetadataExtractedEntity(BaseModel):
-    entities: Optional[List[MetadataExtractedEntityEntity]] = None
-
-    relationships: Optional[List[MetadataExtractedEntityRelationship]] = None
-
-
 class MetadataWebFlag(BaseModel):
     aria_label: str = FieldInfo(alias="ariaLabel")
 
@@ -188,7 +164,7 @@ class Metadata(BaseModel):
     within the dataset.
     """
 
-    extracted_entities: List[MetadataExtractedEntity]
+    extracted_entities: List[KnowledgeGraph]
 
     extraction_criteria: List[ExtractionCriteria]
 

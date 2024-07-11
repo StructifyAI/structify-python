@@ -2,18 +2,16 @@
 
 from __future__ import annotations
 
-from typing import Dict, Union, Iterable, Optional
+from typing import Union, Iterable, Optional
 from typing_extensions import Required, Annotated, TypedDict
 
 from .._utils import PropertyInfo
+from .knowledge_graph_param import KnowledgeGraphParam
 
 __all__ = [
     "LabelSubmitParams",
     "Label",
     "LabelSave",
-    "LabelSaveSave",
-    "LabelSaveSaveEntity",
-    "LabelSaveSaveRelationship",
     "LabelScroll",
     "LabelScrollScroll",
     "LabelExit",
@@ -37,30 +35,8 @@ class LabelSubmitParams(TypedDict, total=False):
     label: Required[Optional[Iterable[Label]]]
 
 
-class LabelSaveSaveEntity(TypedDict, total=False):
-    id: Required[int]
-
-    properties: Required[Dict[str, str]]
-
-    type: Required[str]
-
-
-class LabelSaveSaveRelationship(TypedDict, total=False):
-    source: Required[int]
-
-    target: Required[int]
-
-    type: Required[str]
-
-
-class LabelSaveSave(TypedDict, total=False):
-    entities: Iterable[LabelSaveSaveEntity]
-
-    relationships: Iterable[LabelSaveSaveRelationship]
-
-
 class LabelSave(TypedDict, total=False):
-    save: Required[Annotated[LabelSaveSave, PropertyInfo(alias="Save")]]
+    save: Required[Annotated[KnowledgeGraphParam, PropertyInfo(alias="Save")]]
     """
     Knowledge graph info structured to deserialize and display in the same format
     that the LLM outputs. Also the first representation of an LLM output in the

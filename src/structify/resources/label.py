@@ -6,7 +6,12 @@ from typing import Iterable, Optional
 
 import httpx
 
-from ..types import label_run_params, label_submit_params, label_update_params, label_get_messages_params
+from ..types import (
+    label_run_params,
+    label_submit_params,
+    label_update_params,
+    label_get_messages_params,
+)
 from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from .._utils import (
     maybe_transform,
@@ -23,6 +28,7 @@ from .._response import (
 from .._base_client import (
     make_request_options,
 )
+from ..types.knowledge_graph_param import KnowledgeGraphParam
 from ..types.label_llm_assist_response import LabelLlmAssistResponse
 from ..types.label_get_messages_response import LabelGetMessagesResponse
 
@@ -148,7 +154,7 @@ class LabelResource(SyncAPIResource):
         *,
         dataset_name: str,
         structure_input: label_run_params.StructureInput,
-        seeded_entity: label_run_params.SeededEntity | NotGiven = NOT_GIVEN,
+        seeded_entity: KnowledgeGraphParam | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -348,7 +354,7 @@ class AsyncLabelResource(AsyncAPIResource):
         *,
         dataset_name: str,
         structure_input: label_run_params.StructureInput,
-        seeded_entity: label_run_params.SeededEntity | NotGiven = NOT_GIVEN,
+        seeded_entity: KnowledgeGraphParam | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
