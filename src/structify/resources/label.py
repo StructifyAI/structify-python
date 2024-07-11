@@ -184,6 +184,7 @@ class LabelResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "dataset_name": dataset_name,
+                    "seeded_entities": seeded_entities,
                     "structure_input": structure_input,
                     "seeded_entity": seeded_entity,
                 },
@@ -383,6 +384,7 @@ class AsyncLabelResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "dataset_name": dataset_name,
+                    "seeded_entities": seeded_entities,
                     "structure_input": structure_input,
                     "seeded_entity": seeded_entity,
                 },
