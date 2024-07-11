@@ -1,9 +1,12 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
-from typing import List, Union
-from typing_extensions import Literal
 
-from ..types.logger import Log
+from typing import List
 
-__all__ = ["StructureJobStatusResponse"]
+__all__ = ["StructureJobStatusResponse", "StructureJobStatusResponseItem"]
 
-StructureJobStatusResponse = List[Union[Log, Literal["Running", "Completed", "Failed"]]]
+
+class StructureJobStatusResponseItem:
+    pass
+
+
+StructureJobStatusResponse = List[StructureJobStatusResponseItem]
