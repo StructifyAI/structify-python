@@ -2,7 +2,8 @@
 
 from __future__ import annotations
 
-from typing_extensions import Required, TypedDict
+from typing import Optional
+from typing_extensions import Literal, Required, TypedDict
 
 __all__ = ["DatasetViewParams"]
 
@@ -10,8 +11,12 @@ __all__ = ["DatasetViewParams"]
 class DatasetViewParams(TypedDict, total=False):
     dataset_name: Required[str]
 
-    table_name: Required[str]
+    requested_type: Required[Literal["Entities", "Relationships"]]
 
     limit: int
 
-    skip: int
+    offset: int
+
+    relationship_name: Optional[str]
+
+    table_name: Optional[str]

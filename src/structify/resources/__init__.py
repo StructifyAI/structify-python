@@ -24,6 +24,14 @@ from .admin import (
     AdminResourceWithStreamingResponse,
     AsyncAdminResourceWithStreamingResponse,
 )
+from .label import (
+    LabelResource,
+    AsyncLabelResource,
+    LabelResourceWithRawResponse,
+    AsyncLabelResourceWithRawResponse,
+    LabelResourceWithStreamingResponse,
+    AsyncLabelResourceWithStreamingResponse,
+)
 from .usage import (
     UsageResource,
     AsyncUsageResource,
@@ -122,6 +130,12 @@ __all__ = [
     "AsyncStructureResourceWithRawResponse",
     "StructureResourceWithStreamingResponse",
     "AsyncStructureResourceWithStreamingResponse",
+    "LabelResource",
+    "AsyncLabelResource",
+    "LabelResourceWithRawResponse",
+    "AsyncLabelResourceWithRawResponse",
+    "LabelResourceWithStreamingResponse",
+    "AsyncLabelResourceWithStreamingResponse",
     "UsageResource",
     "AsyncUsageResource",
     "UsageResourceWithRawResponse",

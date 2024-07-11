@@ -3,11 +3,12 @@
 from typing_extensions import Literal
 
 from .._models import BaseModel
+from .structify_id import StructifyID
 
 __all__ = ["RunCancelResponse"]
 
 
 class RunCancelResponse(BaseModel):
-    id: str
+    id: StructifyID
 
-    status: Literal["Running", "Completed", "Failed"]
+    status: Literal["Queued", "Running", "Completed", "Failed"]

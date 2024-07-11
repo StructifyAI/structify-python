@@ -4,8 +4,12 @@ from __future__ import annotations
 
 from typing_extensions import Required, TypedDict
 
-__all__ = ["UsageGetJobInfoParams"]
+__all__ = ["RelationshipParam"]
 
 
-class UsageGetJobInfoParams(TypedDict, total=False):
-    job_id: Required[str]
+class RelationshipParam(TypedDict, total=False):
+    source: Required[int]
+
+    target: Required[int]
+
+    type: Required[str]

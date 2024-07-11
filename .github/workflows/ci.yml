@@ -6,6 +6,7 @@ on:
   pull_request:
     branches:
       - main
+      - next
 
 jobs:
   lint:
@@ -21,14 +22,11 @@ jobs:
           curl -sSf https://rye.astral.sh/get | bash
           echo "$HOME/.rye/shims" >> $GITHUB_PATH
         env:
-          RYE_VERSION: 0.24.0
+          RYE_VERSION: '0.35.0'
           RYE_INSTALL_OPTION: '--yes'
 
       - name: Install dependencies
         run: rye sync --all-features
-
-      - name: Install Doc Linting
-        run: pip install sphinx-lint
 
       - name: Run lints
         run: ./scripts/lint
@@ -44,7 +42,7 @@ jobs:
           curl -sSf https://rye.astral.sh/get | bash
           echo "$HOME/.rye/shims" >> $GITHUB_PATH
         env:
-          RYE_VERSION: 0.24.0
+          RYE_VERSION: '0.35.0'
           RYE_INSTALL_OPTION: '--yes'
 
       - name: Bootstrap

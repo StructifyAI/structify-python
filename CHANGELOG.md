@@ -1,78 +1,43 @@
 # Changelog
 
-## 0.1.0-alpha.35 (2024-06-25)
+## 0.1.0-alpha.40 (2024-07-11)
 
-Full Changelog: [v0.1.0-alpha.34...v0.1.0-alpha.35](https://github.com/StructifyAI/structify-python/compare/v0.1.0-alpha.34...v0.1.0-alpha.35)
-
-### Features
-
-* fixed ([18ad0b3](https://github.com/StructifyAI/structify-python/commit/18ad0b3f6da874e61ef7a40d5ee2694e739ff9c3))
-* fixed ([07b22e9](https://github.com/StructifyAI/structify-python/commit/07b22e978605e5212979575bcfce94d690a6a448))
-* fixed ([8c4d0c1](https://github.com/StructifyAI/structify-python/commit/8c4d0c1800d5f17a3aa5c0aab9cd0ee2687a693d))
-* fixed ([c3d604f](https://github.com/StructifyAI/structify-python/commit/c3d604f1255c852a974c0fdb4e59400193e6e938))
-
-## 0.1.0-alpha.34 (2024-06-25)
-
-Full Changelog: [v0.1.0-alpha.33...v0.1.0-alpha.34](https://github.com/StructifyAI/structify-python/compare/v0.1.0-alpha.33...v0.1.0-alpha.34)
+Full Changelog: [v0.1.0-alpha.39...v0.1.0-alpha.40](https://github.com/StructifyAI/structify-python/compare/v0.1.0-alpha.39...v0.1.0-alpha.40)
 
 ### Features
 
-* **api:** update via SDK Studio ([#188](https://github.com/StructifyAI/structify-python/issues/188)) ([e4c4e03](https://github.com/StructifyAI/structify-python/commit/e4c4e034f4dc63b18280efdea8d732f5c44a00d1))
+* **api:** OpenAPI spec update via Stainless API ([#241](https://github.com/StructifyAI/structify-python/issues/241)) ([a532a0d](https://github.com/StructifyAI/structify-python/commit/a532a0d71b20f134d3674d1f03e3ad3b5922c65d))
+* **api:** OpenAPI spec update via Stainless API ([#243](https://github.com/StructifyAI/structify-python/issues/243)) ([bba69f8](https://github.com/StructifyAI/structify-python/commit/bba69f8e97832b86a6a9e95173e87267990776fe))
+* **api:** OpenAPI spec update via Stainless API ([#244](https://github.com/StructifyAI/structify-python/issues/244)) ([e2395b8](https://github.com/StructifyAI/structify-python/commit/e2395b8950bc3fec145f0cb9dae189943a906839))
 
-## 0.1.0-alpha.33 (2024-06-25)
+## 0.1.0-alpha.39 (2024-07-11)
 
-Full Changelog: [v0.1.0-alpha.32...v0.1.0-alpha.33](https://github.com/StructifyAI/structify-python/compare/v0.1.0-alpha.32...v0.1.0-alpha.33)
-
-### Features
-
-* **api:** update via SDK Studio ([b920f3e](https://github.com/StructifyAI/structify-python/commit/b920f3e1b8f425736b1cf7ccad771ab44799a98e))
-* **api:** update via SDK Studio ([#160](https://github.com/StructifyAI/structify-python/issues/160)) ([02e0c02](https://github.com/StructifyAI/structify-python/commit/02e0c02e2228384463a5f937543f258df05c7240))
-* **api:** update via SDK Studio ([#161](https://github.com/StructifyAI/structify-python/issues/161)) ([e80f492](https://github.com/StructifyAI/structify-python/commit/e80f49288d76cdad70bd71ae3a39956e3b91eeee))
-* **api:** update via SDK Studio ([#162](https://github.com/StructifyAI/structify-python/issues/162)) ([92a043e](https://github.com/StructifyAI/structify-python/commit/92a043e506cb813a549e84cec300be5842c8bbe9))
-* **api:** update via SDK Studio ([#166](https://github.com/StructifyAI/structify-python/issues/166)) ([f077681](https://github.com/StructifyAI/structify-python/commit/f077681e61c70b33a101801ad8fdee88776da916))
-* **api:** update via SDK Studio ([#167](https://github.com/StructifyAI/structify-python/issues/167)) ([ee5a153](https://github.com/StructifyAI/structify-python/commit/ee5a1534db267bd1b87f13ba21dc3ce8dc971238))
-* **api:** update via SDK Studio ([#168](https://github.com/StructifyAI/structify-python/issues/168)) ([adbee36](https://github.com/StructifyAI/structify-python/commit/adbee36cac4872afe2197b8d7644d5ce3121743f))
-* **api:** update via SDK Studio ([#169](https://github.com/StructifyAI/structify-python/issues/169)) ([7e38cf8](https://github.com/StructifyAI/structify-python/commit/7e38cf8a859a5729eddfeba93f3dbdb2f0ca99bb))
-* **api:** update via SDK Studio ([#170](https://github.com/StructifyAI/structify-python/issues/170)) ([b8ea43a](https://github.com/StructifyAI/structify-python/commit/b8ea43a504a6872dfc491725daf4388b2ff2ceed))
-* **api:** update via SDK Studio ([#171](https://github.com/StructifyAI/structify-python/issues/171)) ([8845c36](https://github.com/StructifyAI/structify-python/commit/8845c368caefec5a64345b929bf739cdf9ac9891))
-* **api:** update via SDK Studio ([#172](https://github.com/StructifyAI/structify-python/issues/172)) ([644af6a](https://github.com/StructifyAI/structify-python/commit/644af6aa5d69accc6a9078b131abfb2e4a6f6d34))
-* **api:** update via SDK Studio ([#173](https://github.com/StructifyAI/structify-python/issues/173)) ([8383f6f](https://github.com/StructifyAI/structify-python/commit/8383f6f515dd123e124d0468716d5332b1d02b95))
-* **api:** update via SDK Studio ([#174](https://github.com/StructifyAI/structify-python/issues/174)) ([4c8694b](https://github.com/StructifyAI/structify-python/commit/4c8694b54da3a17de0861013d48ec245ea8d6efc))
-* **api:** update via SDK Studio ([#175](https://github.com/StructifyAI/structify-python/issues/175)) ([964aefb](https://github.com/StructifyAI/structify-python/commit/964aefb86291c5ebd1cff300bbfbe83f7e0b66b4))
-* **api:** update via SDK Studio ([#176](https://github.com/StructifyAI/structify-python/issues/176)) ([bf79e30](https://github.com/StructifyAI/structify-python/commit/bf79e306e78e81efc79d25e0dea7fbc3bb15ecc5))
-* **api:** update via SDK Studio ([#177](https://github.com/StructifyAI/structify-python/issues/177)) ([ea01b4a](https://github.com/StructifyAI/structify-python/commit/ea01b4a3f2648c63cecd4cbb325048f71ffcea0f))
-* **api:** update via SDK Studio ([#179](https://github.com/StructifyAI/structify-python/issues/179)) ([c7775c5](https://github.com/StructifyAI/structify-python/commit/c7775c52b1fc8502eb002850790a9b7a5e617999))
-* **api:** update via SDK Studio ([#180](https://github.com/StructifyAI/structify-python/issues/180)) ([f024f38](https://github.com/StructifyAI/structify-python/commit/f024f386d30a10070592dd3991001a05caf43a66))
-* **api:** update via SDK Studio ([#181](https://github.com/StructifyAI/structify-python/issues/181)) ([d6f4984](https://github.com/StructifyAI/structify-python/commit/d6f4984215339d6113c7c65ad9b3608b2932f6ec))
-* **api:** update via SDK Studio ([#182](https://github.com/StructifyAI/structify-python/issues/182)) ([cfc6b51](https://github.com/StructifyAI/structify-python/commit/cfc6b513e0060990e1f10d5dadc8be829f236b1d))
-* **api:** update via SDK Studio ([#183](https://github.com/StructifyAI/structify-python/issues/183)) ([07eccaf](https://github.com/StructifyAI/structify-python/commit/07eccafd451e876da06f492a9487b7544b96f250))
-* **api:** update via SDK Studio ([#184](https://github.com/StructifyAI/structify-python/issues/184)) ([d551abf](https://github.com/StructifyAI/structify-python/commit/d551abf11ec3c08b99e58f64faf7b525e3b1b2a2))
-* **api:** update via SDK Studio ([#185](https://github.com/StructifyAI/structify-python/issues/185)) ([5b1881f](https://github.com/StructifyAI/structify-python/commit/5b1881f7998832d5a45d25708b7ed396e9e52eff))
-* **api:** update via SDK Studio ([#186](https://github.com/StructifyAI/structify-python/issues/186)) ([b1a2e9c](https://github.com/StructifyAI/structify-python/commit/b1a2e9c728d8785509a0f52a49ba743cf367c322))
-
-## 0.1.0-alpha.32 (2024-06-25)
-
-Full Changelog: [v0.1.0-alpha.31...v0.1.0-alpha.32](https://github.com/StructifyAI/structify-python/compare/v0.1.0-alpha.31...v0.1.0-alpha.32)
+Full Changelog: [v0.1.0-alpha.38...v0.1.0-alpha.39](https://github.com/StructifyAI/structify-python/compare/v0.1.0-alpha.38...v0.1.0-alpha.39)
 
 ### Features
 
-* **api:** update via SDK Studio ([#140](https://github.com/StructifyAI/structify-python/issues/140)) ([19e03af](https://github.com/StructifyAI/structify-python/commit/19e03af66c8dc27fa0a71c629f5a86ad6a7fd64c))
-* **api:** update via SDK Studio ([#142](https://github.com/StructifyAI/structify-python/issues/142)) ([064388e](https://github.com/StructifyAI/structify-python/commit/064388e212b96db0f7ab0fd1d8cb62dfbf511fef))
-* **api:** update via SDK Studio ([#143](https://github.com/StructifyAI/structify-python/issues/143)) ([c98c9c6](https://github.com/StructifyAI/structify-python/commit/c98c9c67e8983c27adb09df32ecc7fb72fab055d))
-* **api:** update via SDK Studio ([#144](https://github.com/StructifyAI/structify-python/issues/144)) ([61e7faf](https://github.com/StructifyAI/structify-python/commit/61e7faf0e083cb9da7cff6b02275df540cbdbbfb))
-* **api:** update via SDK Studio ([#145](https://github.com/StructifyAI/structify-python/issues/145)) ([05b450e](https://github.com/StructifyAI/structify-python/commit/05b450e3b8adf83f1516e8588e2c4a089c0d233f))
-* **api:** update via SDK Studio ([#146](https://github.com/StructifyAI/structify-python/issues/146)) ([16f8860](https://github.com/StructifyAI/structify-python/commit/16f8860b637abd1cfc4ae5652a389a8c0a7e913b))
-* **api:** update via SDK Studio ([#147](https://github.com/StructifyAI/structify-python/issues/147)) ([7b5c210](https://github.com/StructifyAI/structify-python/commit/7b5c210ed77aa158bee5540439f0f56a3c8c696d))
-* **api:** update via SDK Studio ([#148](https://github.com/StructifyAI/structify-python/issues/148)) ([bdd764d](https://github.com/StructifyAI/structify-python/commit/bdd764de4ddb736c2958a7e0dd23a729dcb0c4c8))
-* **api:** update via SDK Studio ([#149](https://github.com/StructifyAI/structify-python/issues/149)) ([10c4ce3](https://github.com/StructifyAI/structify-python/commit/10c4ce38bb0c53731f112c9a07e22ff08d5bb493))
-* **api:** update via SDK Studio ([#150](https://github.com/StructifyAI/structify-python/issues/150)) ([0588aff](https://github.com/StructifyAI/structify-python/commit/0588aff46f1ecdb28b77058e54c82632d3ca6298))
-* **api:** update via SDK Studio ([#151](https://github.com/StructifyAI/structify-python/issues/151)) ([13c254f](https://github.com/StructifyAI/structify-python/commit/13c254ffbbf1fc03008f0bcb9944286b2928974d))
-* **api:** update via SDK Studio ([#152](https://github.com/StructifyAI/structify-python/issues/152)) ([a533b97](https://github.com/StructifyAI/structify-python/commit/a533b97787d08931f02d63be862c95893c3c8c4f))
-* **api:** update via SDK Studio ([#153](https://github.com/StructifyAI/structify-python/issues/153)) ([35e4877](https://github.com/StructifyAI/structify-python/commit/35e48778f4a3ac26e8cf5e125ba5f5897c3053af))
-* **api:** update via SDK Studio ([#154](https://github.com/StructifyAI/structify-python/issues/154)) ([c46e762](https://github.com/StructifyAI/structify-python/commit/c46e762684854283d2ee04c2181789d64576d473))
-* **api:** update via SDK Studio ([#155](https://github.com/StructifyAI/structify-python/issues/155)) ([bd62834](https://github.com/StructifyAI/structify-python/commit/bd6283452d621753edacdd9f52ad3fc668555e82))
-* **api:** update via SDK Studio ([#156](https://github.com/StructifyAI/structify-python/issues/156)) ([0ab70db](https://github.com/StructifyAI/structify-python/commit/0ab70db1f731a03a9d193bcf60b87c3d242e4156))
-* **api:** update via SDK Studio ([#157](https://github.com/StructifyAI/structify-python/issues/157)) ([720fde0](https://github.com/StructifyAI/structify-python/commit/720fde0161864dc8d9be891795d67367e37178b8))
+* **api:** OpenAPI spec update via Stainless API ([#219](https://github.com/StructifyAI/structify-python/issues/219)) ([d14a506](https://github.com/StructifyAI/structify-python/commit/d14a506d04628d31cb13e6603586125f969d24cc))
+* **api:** OpenAPI spec update via Stainless API ([#221](https://github.com/StructifyAI/structify-python/issues/221)) ([0cf5b99](https://github.com/StructifyAI/structify-python/commit/0cf5b99931925498bdc3470e520ca0372d74581d))
+* **api:** OpenAPI spec update via Stainless API ([#223](https://github.com/StructifyAI/structify-python/issues/223)) ([044dc93](https://github.com/StructifyAI/structify-python/commit/044dc937525533d6049f118cf67c90404973b962))
+* **api:** OpenAPI spec update via Stainless API ([#224](https://github.com/StructifyAI/structify-python/issues/224)) ([0235030](https://github.com/StructifyAI/structify-python/commit/02350301a183a1c3051397e56d1ed976376feb89))
+* **api:** OpenAPI spec update via Stainless API ([#226](https://github.com/StructifyAI/structify-python/issues/226)) ([81aa1cd](https://github.com/StructifyAI/structify-python/commit/81aa1cd456dd6a6a8d0f511a829caaf842fefdd2))
+* **api:** OpenAPI spec update via Stainless API ([#229](https://github.com/StructifyAI/structify-python/issues/229)) ([5738187](https://github.com/StructifyAI/structify-python/commit/57381871b45a7e4254c0840c61f4171d95cfa71a))
+* **api:** OpenAPI spec update via Stainless API ([#231](https://github.com/StructifyAI/structify-python/issues/231)) ([03047c5](https://github.com/StructifyAI/structify-python/commit/03047c5aad885099396117695bc7d1a690752556))
+* **api:** OpenAPI spec update via Stainless API ([#232](https://github.com/StructifyAI/structify-python/issues/232)) ([1edf701](https://github.com/StructifyAI/structify-python/commit/1edf7019c59f88c4a55c5192ba86b7223e153436))
+* **api:** OpenAPI spec update via Stainless API ([#235](https://github.com/StructifyAI/structify-python/issues/235)) ([b02a485](https://github.com/StructifyAI/structify-python/commit/b02a485cce64aa17d55ff54391e4cfc7a18c6699))
+* **api:** OpenAPI spec update via Stainless API ([#236](https://github.com/StructifyAI/structify-python/issues/236)) ([1dff8a2](https://github.com/StructifyAI/structify-python/commit/1dff8a2280811a2dd3ae8455a2703139d7118028))
+* **api:** OpenAPI spec update via Stainless API ([#238](https://github.com/StructifyAI/structify-python/issues/238)) ([e93e506](https://github.com/StructifyAI/structify-python/commit/e93e506241c87b80575c58f38d383ea5a3a5294c))
+* **api:** OpenAPI spec update via Stainless API ([#239](https://github.com/StructifyAI/structify-python/issues/239)) ([0f97264](https://github.com/StructifyAI/structify-python/commit/0f9726489d50e768a44032851dae09f59dd1f205))
+* **api:** update via SDK Studio ([#225](https://github.com/StructifyAI/structify-python/issues/225)) ([83b1af0](https://github.com/StructifyAI/structify-python/commit/83b1af06dac54030e01a9b5eb2fe01cf1ea13bff))
+* **api:** update via SDK Studio ([#228](https://github.com/StructifyAI/structify-python/issues/228)) ([4cf5375](https://github.com/StructifyAI/structify-python/commit/4cf5375ccbc42acc8ab77c7623400ac2b76ab0f4))
+* **api:** update via SDK Studio ([#230](https://github.com/StructifyAI/structify-python/issues/230)) ([d16728f](https://github.com/StructifyAI/structify-python/commit/d16728f6a4feae23aeb1df043720d681173416b5))
+* **api:** update via SDK Studio ([#233](https://github.com/StructifyAI/structify-python/issues/233)) ([f4c8ef3](https://github.com/StructifyAI/structify-python/commit/f4c8ef34d1d022ce0f33454b3b60998b44f8d5f7))
+* **api:** update via SDK Studio ([#234](https://github.com/StructifyAI/structify-python/issues/234)) ([324f3b5](https://github.com/StructifyAI/structify-python/commit/324f3b57abe4848e579a3041e9e94e098dcf6e1e))
+
+
+### Chores
+
+* remove custom code ([37b0e08](https://github.com/StructifyAI/structify-python/commit/37b0e08534bc6ee07b698947d429cf7d63a94be4))
 
 ## 0.1.0-alpha.31 (2024-06-21)
 

@@ -2,12 +2,15 @@
 
 from __future__ import annotations
 
-import time
 from typing import List
 
 import httpx
 
-from ..types import structure_run_async_params, structure_job_status_params, structure_is_complete_params
+from ..types import (
+    structure_run_async_params,
+    structure_job_status_params,
+    structure_is_complete_params,
+)
 from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from .._utils import (
     maybe_transform,
@@ -21,10 +24,8 @@ from .._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from .._base_client import (
-    make_request_options,
-)
-from ..types.dataset_view_response import DatasetViewResponse
+from .._base_client import make_request_options
+from ..types.knowledge_graph_param import KnowledgeGraphParam
 from ..types.structure_job_status_response import StructureJobStatusResponse
 
 __all__ = ["StructureResource", "AsyncStructureResource"]
@@ -84,7 +85,7 @@ class StructureResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> StructureJobStatusResponse:
         """
-        Wait for all specified async tasks to be completed.
+        and any associated LogNodes that have been added to them
 
         Args:
           extra_headers: Send extra headers
@@ -109,6 +110,7 @@ class StructureResource(SyncAPIResource):
         *,
         dataset_name: str,
         structure_input: structure_run_async_params.StructureInput,
+        seeded_entity: KnowledgeGraphParam | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -121,6 +123,10 @@ class StructureResource(SyncAPIResource):
 
         Args:
           structure_input: These are all the types that can be converted into a BasicInputType
+
+          seeded_entity: Knowledge graph info structured to deserialize and display in the same format
+              that the LLM outputs. Also the first representation of an LLM output in the
+              pipeline from raw tool output to being merged into a Neo4j DB
 
           extra_headers: Send extra headers
 
@@ -137,6 +143,7 @@ class StructureResource(SyncAPIResource):
                 {
                     "dataset_name": dataset_name,
                     "structure_input": structure_input,
+                    "seeded_entity": seeded_entity,
                 },
                 structure_run_async_params.StructureRunAsyncParams,
             ),
@@ -145,40 +152,6 @@ class StructureResource(SyncAPIResource):
             ),
             cast_to=str,
         )
-
-    def run(  # type: ignore
-        self,
-        table_name: str,
-        *args,  # type: ignore
-        timeout: Optional[int] = None,  # type: ignore
-        **kwargs,  # type: ignore
-    ) -> DatasetViewResponse:
-        """
-        This function simulates a synchronous run of the async function by calling it and then waiting.
-        If the timeout is reached, it attempts to cancel the job.
-        """
-        token: str = self.run_async(*args, **kwargs)  # type: ignore
-        start_time = time.time() if timeout is not None else None
-
-        successfully_started_job = False
-        while True:
-            if timeout is not None and start_time is not None:
-                elapsed_time = time.time() - start_time
-                if elapsed_time > timeout:
-                    if successfully_started_job:
-                        raise TimeoutError(f"Job execution exceeded timeout of {timeout} seconds.")
-                    else:
-                        raise TimeoutError(f"Job creation exceeded timeout of {timeout} seconds.")
-
-            try:
-                status = self.job_status(body=[token])  # type: ignore
-                successfully_started_job = True
-                if status[0] == "Completed":  # type: ignore
-                    return self._client.datasets.view(dataset_name=kwargs["dataset_name"], table_name=table_name)  # type: ignore
-            except Exception:
-                pass
-
-            time.sleep(1)
 
 
 class AsyncStructureResource(AsyncAPIResource):
@@ -235,7 +208,7 @@ class AsyncStructureResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> StructureJobStatusResponse:
         """
-        Wait for all specified async tasks to be completed.
+        and any associated LogNodes that have been added to them
 
         Args:
           extra_headers: Send extra headers
@@ -260,6 +233,7 @@ class AsyncStructureResource(AsyncAPIResource):
         *,
         dataset_name: str,
         structure_input: structure_run_async_params.StructureInput,
+        seeded_entity: KnowledgeGraphParam | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -272,6 +246,10 @@ class AsyncStructureResource(AsyncAPIResource):
 
         Args:
           structure_input: These are all the types that can be converted into a BasicInputType
+
+          seeded_entity: Knowledge graph info structured to deserialize and display in the same format
+              that the LLM outputs. Also the first representation of an LLM output in the
+              pipeline from raw tool output to being merged into a Neo4j DB
 
           extra_headers: Send extra headers
 
@@ -288,6 +266,7 @@ class AsyncStructureResource(AsyncAPIResource):
                 {
                     "dataset_name": dataset_name,
                     "structure_input": structure_input,
+                    "seeded_entity": seeded_entity,
                 },
                 structure_run_async_params.StructureRunAsyncParams,
             ),

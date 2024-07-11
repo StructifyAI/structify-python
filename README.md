@@ -1,11 +1,12 @@
 # Structify Python API library
 
 [![PyPI version](https://img.shields.io/pypi/v/structifyai.svg)](https://pypi.org/project/structifyai/)
-[![Documentation Status](https://readthedocs.org/projects/structify/badge/?version=latest)](https://structify.readthedocs.io/en/latest/?badge=latest)
 
 The Structify Python library provides convenient access to the Structify REST API from any Python 3.7+
 application. The library includes type definitions for all request params and response fields,
 and offers both synchronous and asynchronous clients powered by [httpx](https://github.com/encode/httpx).
+
+It is generated with [Stainless](https://www.stainlessapi.com/).
 
 ## Documentation
 
@@ -267,7 +268,7 @@ You can directly override the [httpx client](https://www.python-httpx.org/api/#c
 
 - Support for proxies
 - Custom transports
-- Additional [advanced](https://www.python-httpx.org/advanced/#client-instances) functionality
+- Additional [advanced](https://www.python-httpx.org/advanced/clients/) functionality
 
 ```python
 from structify import Structify, DefaultHttpxClient
