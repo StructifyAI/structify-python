@@ -157,5 +157,5 @@ Methods:
 Types:
 
 ```python
-from structify.types import Entity, KnowledgeGraph, Relationship
+from structify.types import Entity, KnowledgeGraph, Relationship, StructifyID
 ```
