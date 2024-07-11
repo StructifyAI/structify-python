@@ -10,6 +10,7 @@ import pytest
 from structify import Structify, AsyncStructify
 from tests.utils import assert_matches_type
 from structify.types import RunGetResponse, RunListResponse, RunCancelResponse
+from structify.pagination import SyncRunsList, AsyncRunsList
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -19,35 +20,26 @@ class TestRuns:
 
     @parametrize
     def test_method_list(self, client: Structify) -> None:
-        run = client.runs.list(
-            limit=0,
-            offset=0,
-        )
-        assert_matches_type(RunListResponse, run, path=["response"])
+        run = client.runs.list()
+        assert_matches_type(SyncRunsList[RunListResponse], run, path=["response"])
 
     @parametrize
     def test_raw_response_list(self, client: Structify) -> None:
-        response = client.runs.with_raw_response.list(
-            limit=0,
-            offset=0,
-        )
+        response = client.runs.with_raw_response.list()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         run = response.parse()
-        assert_matches_type(RunListResponse, run, path=["response"])
+        assert_matches_type(SyncRunsList[RunListResponse], run, path=["response"])
 
     @parametrize
     def test_streaming_response_list(self, client: Structify) -> None:
-        with client.runs.with_streaming_response.list(
-            limit=0,
-            offset=0,
-        ) as response:
+        with client.runs.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             run = response.parse()
-            assert_matches_type(RunListResponse, run, path=["response"])
+            assert_matches_type(SyncRunsList[RunListResponse], run, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -196,35 +188,26 @@ class TestAsyncRuns:
 
     @parametrize
     async def test_method_list(self, async_client: AsyncStructify) -> None:
-        run = await async_client.runs.list(
-            limit=0,
-            offset=0,
-        )
-        assert_matches_type(RunListResponse, run, path=["response"])
+        run = await async_client.runs.list()
+        assert_matches_type(AsyncRunsList[RunListResponse], run, path=["response"])
 
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncStructify) -> None:
-        response = await async_client.runs.with_raw_response.list(
-            limit=0,
-            offset=0,
-        )
+        response = await async_client.runs.with_raw_response.list()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         run = await response.parse()
-        assert_matches_type(RunListResponse, run, path=["response"])
+        assert_matches_type(AsyncRunsList[RunListResponse], run, path=["response"])
 
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncStructify) -> None:
-        async with async_client.runs.with_streaming_response.list(
-            limit=0,
-            offset=0,
-        ) as response:
+        async with async_client.runs.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             run = await response.parse()
-            assert_matches_type(RunListResponse, run, path=["response"])
+            assert_matches_type(AsyncRunsList[RunListResponse], run, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
