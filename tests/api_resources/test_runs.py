@@ -20,12 +20,18 @@ class TestRuns:
 
     @parametrize
     def test_method_list(self, client: Structify) -> None:
-        run = client.runs.list()
+        run = client.runs.list(
+            limit=0,
+            offset=0,
+        )
         assert_matches_type(SyncRunsList[RunListResponse], run, path=["response"])
 
     @parametrize
     def test_raw_response_list(self, client: Structify) -> None:
-        response = client.runs.with_raw_response.list()
+        response = client.runs.with_raw_response.list(
+            limit=0,
+            offset=0,
+        )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -34,7 +40,10 @@ class TestRuns:
 
     @parametrize
     def test_streaming_response_list(self, client: Structify) -> None:
-        with client.runs.with_streaming_response.list() as response:
+        with client.runs.with_streaming_response.list(
+            limit=0,
+            offset=0,
+        ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -188,12 +197,18 @@ class TestAsyncRuns:
 
     @parametrize
     async def test_method_list(self, async_client: AsyncStructify) -> None:
-        run = await async_client.runs.list()
+        run = await async_client.runs.list(
+            limit=0,
+            offset=0,
+        )
         assert_matches_type(AsyncRunsList[RunListResponse], run, path=["response"])
 
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncStructify) -> None:
-        response = await async_client.runs.with_raw_response.list()
+        response = await async_client.runs.with_raw_response.list(
+            limit=0,
+            offset=0,
+        )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -202,7 +217,10 @@ class TestAsyncRuns:
 
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncStructify) -> None:
-        async with async_client.runs.with_streaming_response.list() as response:
+        async with async_client.runs.with_streaming_response.list(
+            limit=0,
+            offset=0,
+        ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
