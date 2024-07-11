@@ -10,6 +10,7 @@ from .user_info import UserInfo as UserInfo
 from .chat_prompt import ChatPrompt as ChatPrompt
 from .entity_param import EntityParam as EntityParam
 from .relationship import Relationship as Relationship
+from .structify_id import StructifyID as StructifyID
 from .tool_metadata import ToolMetadata as ToolMetadata
 from .execution_step import ExecutionStep as ExecutionStep
 from .knowledge_graph import KnowledgeGraph as KnowledgeGraph
@@ -42,7 +43,6 @@ from .document_upload_params import DocumentUploadParams as DocumentUploadParams
 from .extraction_criteria_param import ExtractionCriteriaParam as ExtractionCriteriaParam
 from .label_get_messages_params import LabelGetMessagesParams as LabelGetMessagesParams
 from .label_llm_assist_response import LabelLlmAssistResponse as LabelLlmAssistResponse
-from .usage_get_job_info_params import UsageGetJobInfoParams as UsageGetJobInfoParams
 from .structure_run_async_params import StructureRunAsyncParams as StructureRunAsyncParams
 from .label_get_messages_response import LabelGetMessagesResponse as LabelGetMessagesResponse
 from .structure_job_status_params import StructureJobStatusParams as StructureJobStatusParams

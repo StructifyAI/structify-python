@@ -2,12 +2,12 @@
 
 from __future__ import annotations
 
-from typing_extensions import Required, TypedDict
+from typing_extensions import TypedDict
 
 __all__ = ["RunListParams"]
 
 
 class RunListParams(TypedDict, total=False):
-    limit: Required[int]
+    limit: int
 
-    offset: Required[int]
+    offset: int
