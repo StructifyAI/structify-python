@@ -25,7 +25,6 @@ from ..pagination import SyncRunsList, AsyncRunsList
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.dataset_descriptor import DatasetDescriptor
 from ..types.dataset_list_response import DatasetListResponse
-from ..types.dataset_view_response import DatasetViewResponse
 
 __all__ = ["DatasetsResource", "AsyncDatasetsResource"]
 
@@ -192,7 +191,7 @@ class DatasetsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> SyncRunsList[DatasetViewResponse]:
+    ) -> SyncRunsList[object]:
         """You need to specify a dataset.
 
         If you don't specify a table_name, we assume all
@@ -215,7 +214,7 @@ class DatasetsResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/dataset/view",
-            page=SyncRunsList[DatasetViewResponse],
+            page=SyncRunsList[object],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -233,7 +232,7 @@ class DatasetsResource(SyncAPIResource):
                     dataset_view_params.DatasetViewParams,
                 ),
             ),
-            model=DatasetViewResponse,
+            model=object,
         )
 
 
@@ -399,7 +398,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> AsyncPaginator[DatasetViewResponse, AsyncRunsList[DatasetViewResponse]]:
+    ) -> AsyncPaginator[object, AsyncRunsList[object]]:
         """You need to specify a dataset.
 
         If you don't specify a table_name, we assume all
@@ -422,7 +421,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/dataset/view",
-            page=AsyncRunsList[DatasetViewResponse],
+            page=AsyncRunsList[object],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -440,7 +439,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
                     dataset_view_params.DatasetViewParams,
                 ),
             ),
-            model=DatasetViewResponse,
+            model=object,
         )
 
 
