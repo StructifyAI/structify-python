@@ -30,6 +30,12 @@ from ..types.structure_job_status_response import StructureJobStatusResponse
 
 __all__ = ["StructureResource", "AsyncStructureResource"]
 
+# ---------------- Stainless modification ----------------
+from typing import Tuple
+
+from ..types.dataset_view_response import DatasetViewResponse
+
+# --------------------------------------------------------
 
 class StructureResource(SyncAPIResource):
     @cached_property
@@ -157,9 +163,7 @@ class StructureResource(SyncAPIResource):
     # -------------------------------------------------------------------------
     # We put them down here to avoid messing with stainless imports and keep everything
     # centralized to one spot.
-    from typing import Tuple
 
-    from ..types.dataset_view_response import DatasetViewResponse
     def run(  # type: ignore
         self,
         table_name: str,
