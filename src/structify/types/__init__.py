@@ -10,6 +10,7 @@ from .user_info import UserInfo as UserInfo
 from .chat_prompt import ChatPrompt as ChatPrompt
 from .entity_param import EntityParam as EntityParam
 from .relationship import Relationship as Relationship
+from .structify_id import StructifyID as StructifyID
 from .tool_metadata import ToolMetadata as ToolMetadata
 from .execution_step import ExecutionStep as ExecutionStep
 from .knowledge_graph import KnowledgeGraph as KnowledgeGraph
