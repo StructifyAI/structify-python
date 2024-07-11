@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Iterable, Optional
+from typing import Any, Iterable, Optional, cast
 from typing_extensions import Literal
 
 import httpx
@@ -25,6 +25,7 @@ from ..pagination import SyncRunsList, AsyncRunsList
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.dataset_descriptor import DatasetDescriptor
 from ..types.dataset_list_response import DatasetListResponse
+from ..types.dataset_view_response import DatasetViewResponse
 
 __all__ = ["DatasetsResource", "AsyncDatasetsResource"]
 
@@ -191,7 +192,7 @@ class DatasetsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> SyncRunsList[object]:
+    ) -> SyncRunsList[DatasetViewResponse]:
         """You need to specify a dataset.
 
         If you don't specify a table_name, we assume all
@@ -214,7 +215,7 @@ class DatasetsResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/dataset/view",
-            page=SyncRunsList[object],
+            page=SyncRunsList[DatasetViewResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -232,7 +233,7 @@ class DatasetsResource(SyncAPIResource):
                     dataset_view_params.DatasetViewParams,
                 ),
             ),
-            model=object,
+            model=cast(Any, DatasetViewResponse),  # Union types cannot be passed in as arguments in the type system
         )
 
 
@@ -398,7 +399,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> AsyncPaginator[object, AsyncRunsList[object]]:
+    ) -> AsyncPaginator[DatasetViewResponse, AsyncRunsList[DatasetViewResponse]]:
         """You need to specify a dataset.
 
         If you don't specify a table_name, we assume all
@@ -421,7 +422,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/dataset/view",
-            page=AsyncRunsList[object],
+            page=AsyncRunsList[DatasetViewResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -439,7 +440,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
                     dataset_view_params.DatasetViewParams,
                 ),
             ),
-            model=object,
+            model=cast(Any, DatasetViewResponse),  # Union types cannot be passed in as arguments in the type system
         )
 
 
