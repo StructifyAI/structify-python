@@ -33,7 +33,6 @@ from .source_list_response import SourceListResponse as SourceListResponse
 from .dataset_create_params import DatasetCreateParams as DatasetCreateParams
 from .dataset_delete_params import DatasetDeleteParams as DatasetDeleteParams
 from .dataset_list_response import DatasetListResponse as DatasetListResponse
-from .dataset_view_response import DatasetViewResponse as DatasetViewResponse
 from .knowledge_graph_param import KnowledgeGraphParam as KnowledgeGraphParam
 from .label_submit_response import LabelSubmitResponse as LabelSubmitResponse
 from .label_update_response import LabelUpdateResponse as LabelUpdateResponse
