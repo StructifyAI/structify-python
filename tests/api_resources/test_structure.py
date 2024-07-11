@@ -84,13 +84,13 @@ class TestStructure:
     @parametrize
     def test_method_run_async(self, client: Structify) -> None:
         structure = client.structure.run_async(
-            dataset_name="string",
+            dataset_name="dataset_name",
             structure_input={
                 "sec_ingestor": {
                     "extraction_criteria": [
-                        {"relationship_extraction": {"relationship_name": "string"}},
-                        {"relationship_extraction": {"relationship_name": "string"}},
-                        {"relationship_extraction": {"relationship_name": "string"}},
+                        {"relationship_extraction": {"relationship_name": "relationship_name"}},
+                        {"relationship_extraction": {"relationship_name": "relationship_name"}},
+                        {"relationship_extraction": {"relationship_name": "relationship_name"}},
                     ]
                 }
             },
@@ -100,142 +100,68 @@ class TestStructure:
     @parametrize
     def test_method_run_async_with_all_params(self, client: Structify) -> None:
         structure = client.structure.run_async(
-            dataset_name="string",
+            dataset_name="dataset_name",
             structure_input={
                 "sec_ingestor": {
-                    "accession_number": "string",
+                    "accession_number": "accession_number",
                     "extraction_criteria": [
-                        {"relationship_extraction": {"relationship_name": "string"}},
-                        {"relationship_extraction": {"relationship_name": "string"}},
-                        {"relationship_extraction": {"relationship_name": "string"}},
+                        {"relationship_extraction": {"relationship_name": "relationship_name"}},
+                        {"relationship_extraction": {"relationship_name": "relationship_name"}},
+                        {"relationship_extraction": {"relationship_name": "relationship_name"}},
                     ],
                     "quarter": 0,
                     "year": 0,
                 }
             },
-            seeded_entities=[
-                {
-                    "entities": [
-                        {
-                            "id": 0,
-                            "properties": {"foo": "string"},
-                            "type": "string",
-                        },
-                        {
-                            "id": 0,
-                            "properties": {"foo": "string"},
-                            "type": "string",
-                        },
-                        {
-                            "id": 0,
-                            "properties": {"foo": "string"},
-                            "type": "string",
-                        },
-                    ],
-                    "relationships": [
-                        {
-                            "source": 0,
-                            "target": 0,
-                            "type": "string",
-                        },
-                        {
-                            "source": 0,
-                            "target": 0,
-                            "type": "string",
-                        },
-                        {
-                            "source": 0,
-                            "target": 0,
-                            "type": "string",
-                        },
-                    ],
-                },
-                {
-                    "entities": [
-                        {
-                            "id": 0,
-                            "properties": {"foo": "string"},
-                            "type": "string",
-                        },
-                        {
-                            "id": 0,
-                            "properties": {"foo": "string"},
-                            "type": "string",
-                        },
-                        {
-                            "id": 0,
-                            "properties": {"foo": "string"},
-                            "type": "string",
-                        },
-                    ],
-                    "relationships": [
-                        {
-                            "source": 0,
-                            "target": 0,
-                            "type": "string",
-                        },
-                        {
-                            "source": 0,
-                            "target": 0,
-                            "type": "string",
-                        },
-                        {
-                            "source": 0,
-                            "target": 0,
-                            "type": "string",
-                        },
-                    ],
-                },
-                {
-                    "entities": [
-                        {
-                            "id": 0,
-                            "properties": {"foo": "string"},
-                            "type": "string",
-                        },
-                        {
-                            "id": 0,
-                            "properties": {"foo": "string"},
-                            "type": "string",
-                        },
-                        {
-                            "id": 0,
-                            "properties": {"foo": "string"},
-                            "type": "string",
-                        },
-                    ],
-                    "relationships": [
-                        {
-                            "source": 0,
-                            "target": 0,
-                            "type": "string",
-                        },
-                        {
-                            "source": 0,
-                            "target": 0,
-                            "type": "string",
-                        },
-                        {
-                            "source": 0,
-                            "target": 0,
-                            "type": "string",
-                        },
-                    ],
-                },
-            ],
+            seeded_entity={
+                "entities": [
+                    {
+                        "id": 0,
+                        "properties": {"foo": "string"},
+                        "type": "type",
+                    },
+                    {
+                        "id": 0,
+                        "properties": {"foo": "string"},
+                        "type": "type",
+                    },
+                    {
+                        "id": 0,
+                        "properties": {"foo": "string"},
+                        "type": "type",
+                    },
+                ],
+                "relationships": [
+                    {
+                        "source": 0,
+                        "target": 0,
+                        "type": "type",
+                    },
+                    {
+                        "source": 0,
+                        "target": 0,
+                        "type": "type",
+                    },
+                    {
+                        "source": 0,
+                        "target": 0,
+                        "type": "type",
+                    },
+                ],
+            },
         )
         assert_matches_type(str, structure, path=["response"])
 
     @parametrize
     def test_raw_response_run_async(self, client: Structify) -> None:
         response = client.structure.with_raw_response.run_async(
-            dataset_name="string",
+            dataset_name="dataset_name",
             structure_input={
                 "sec_ingestor": {
                     "extraction_criteria": [
-                        {"relationship_extraction": {"relationship_name": "string"}},
-                        {"relationship_extraction": {"relationship_name": "string"}},
-                        {"relationship_extraction": {"relationship_name": "string"}},
+                        {"relationship_extraction": {"relationship_name": "relationship_name"}},
+                        {"relationship_extraction": {"relationship_name": "relationship_name"}},
+                        {"relationship_extraction": {"relationship_name": "relationship_name"}},
                     ]
                 }
             },
@@ -249,13 +175,13 @@ class TestStructure:
     @parametrize
     def test_streaming_response_run_async(self, client: Structify) -> None:
         with client.structure.with_streaming_response.run_async(
-            dataset_name="string",
+            dataset_name="dataset_name",
             structure_input={
                 "sec_ingestor": {
                     "extraction_criteria": [
-                        {"relationship_extraction": {"relationship_name": "string"}},
-                        {"relationship_extraction": {"relationship_name": "string"}},
-                        {"relationship_extraction": {"relationship_name": "string"}},
+                        {"relationship_extraction": {"relationship_name": "relationship_name"}},
+                        {"relationship_extraction": {"relationship_name": "relationship_name"}},
+                        {"relationship_extraction": {"relationship_name": "relationship_name"}},
                     ]
                 }
             },
@@ -337,13 +263,13 @@ class TestAsyncStructure:
     @parametrize
     async def test_method_run_async(self, async_client: AsyncStructify) -> None:
         structure = await async_client.structure.run_async(
-            dataset_name="string",
+            dataset_name="dataset_name",
             structure_input={
                 "sec_ingestor": {
                     "extraction_criteria": [
-                        {"relationship_extraction": {"relationship_name": "string"}},
-                        {"relationship_extraction": {"relationship_name": "string"}},
-                        {"relationship_extraction": {"relationship_name": "string"}},
+                        {"relationship_extraction": {"relationship_name": "relationship_name"}},
+                        {"relationship_extraction": {"relationship_name": "relationship_name"}},
+                        {"relationship_extraction": {"relationship_name": "relationship_name"}},
                     ]
                 }
             },
@@ -353,142 +279,68 @@ class TestAsyncStructure:
     @parametrize
     async def test_method_run_async_with_all_params(self, async_client: AsyncStructify) -> None:
         structure = await async_client.structure.run_async(
-            dataset_name="string",
+            dataset_name="dataset_name",
             structure_input={
                 "sec_ingestor": {
-                    "accession_number": "string",
+                    "accession_number": "accession_number",
                     "extraction_criteria": [
-                        {"relationship_extraction": {"relationship_name": "string"}},
-                        {"relationship_extraction": {"relationship_name": "string"}},
-                        {"relationship_extraction": {"relationship_name": "string"}},
+                        {"relationship_extraction": {"relationship_name": "relationship_name"}},
+                        {"relationship_extraction": {"relationship_name": "relationship_name"}},
+                        {"relationship_extraction": {"relationship_name": "relationship_name"}},
                     ],
                     "quarter": 0,
                     "year": 0,
                 }
             },
-            seeded_entities=[
-                {
-                    "entities": [
-                        {
-                            "id": 0,
-                            "properties": {"foo": "string"},
-                            "type": "string",
-                        },
-                        {
-                            "id": 0,
-                            "properties": {"foo": "string"},
-                            "type": "string",
-                        },
-                        {
-                            "id": 0,
-                            "properties": {"foo": "string"},
-                            "type": "string",
-                        },
-                    ],
-                    "relationships": [
-                        {
-                            "source": 0,
-                            "target": 0,
-                            "type": "string",
-                        },
-                        {
-                            "source": 0,
-                            "target": 0,
-                            "type": "string",
-                        },
-                        {
-                            "source": 0,
-                            "target": 0,
-                            "type": "string",
-                        },
-                    ],
-                },
-                {
-                    "entities": [
-                        {
-                            "id": 0,
-                            "properties": {"foo": "string"},
-                            "type": "string",
-                        },
-                        {
-                            "id": 0,
-                            "properties": {"foo": "string"},
-                            "type": "string",
-                        },
-                        {
-                            "id": 0,
-                            "properties": {"foo": "string"},
-                            "type": "string",
-                        },
-                    ],
-                    "relationships": [
-                        {
-                            "source": 0,
-                            "target": 0,
-                            "type": "string",
-                        },
-                        {
-                            "source": 0,
-                            "target": 0,
-                            "type": "string",
-                        },
-                        {
-                            "source": 0,
-                            "target": 0,
-                            "type": "string",
-                        },
-                    ],
-                },
-                {
-                    "entities": [
-                        {
-                            "id": 0,
-                            "properties": {"foo": "string"},
-                            "type": "string",
-                        },
-                        {
-                            "id": 0,
-                            "properties": {"foo": "string"},
-                            "type": "string",
-                        },
-                        {
-                            "id": 0,
-                            "properties": {"foo": "string"},
-                            "type": "string",
-                        },
-                    ],
-                    "relationships": [
-                        {
-                            "source": 0,
-                            "target": 0,
-                            "type": "string",
-                        },
-                        {
-                            "source": 0,
-                            "target": 0,
-                            "type": "string",
-                        },
-                        {
-                            "source": 0,
-                            "target": 0,
-                            "type": "string",
-                        },
-                    ],
-                },
-            ],
+            seeded_entity={
+                "entities": [
+                    {
+                        "id": 0,
+                        "properties": {"foo": "string"},
+                        "type": "type",
+                    },
+                    {
+                        "id": 0,
+                        "properties": {"foo": "string"},
+                        "type": "type",
+                    },
+                    {
+                        "id": 0,
+                        "properties": {"foo": "string"},
+                        "type": "type",
+                    },
+                ],
+                "relationships": [
+                    {
+                        "source": 0,
+                        "target": 0,
+                        "type": "type",
+                    },
+                    {
+                        "source": 0,
+                        "target": 0,
+                        "type": "type",
+                    },
+                    {
+                        "source": 0,
+                        "target": 0,
+                        "type": "type",
+                    },
+                ],
+            },
         )
         assert_matches_type(str, structure, path=["response"])
 
     @parametrize
     async def test_raw_response_run_async(self, async_client: AsyncStructify) -> None:
         response = await async_client.structure.with_raw_response.run_async(
-            dataset_name="string",
+            dataset_name="dataset_name",
             structure_input={
                 "sec_ingestor": {
                     "extraction_criteria": [
-                        {"relationship_extraction": {"relationship_name": "string"}},
-                        {"relationship_extraction": {"relationship_name": "string"}},
-                        {"relationship_extraction": {"relationship_name": "string"}},
+                        {"relationship_extraction": {"relationship_name": "relationship_name"}},
+                        {"relationship_extraction": {"relationship_name": "relationship_name"}},
+                        {"relationship_extraction": {"relationship_name": "relationship_name"}},
                     ]
                 }
             },
@@ -502,13 +354,13 @@ class TestAsyncStructure:
     @parametrize
     async def test_streaming_response_run_async(self, async_client: AsyncStructify) -> None:
         async with async_client.structure.with_streaming_response.run_async(
-            dataset_name="string",
+            dataset_name="dataset_name",
             structure_input={
                 "sec_ingestor": {
                     "extraction_criteria": [
-                        {"relationship_extraction": {"relationship_name": "string"}},
-                        {"relationship_extraction": {"relationship_name": "string"}},
-                        {"relationship_extraction": {"relationship_name": "string"}},
+                        {"relationship_extraction": {"relationship_name": "relationship_name"}},
+                        {"relationship_extraction": {"relationship_name": "relationship_name"}},
+                        {"relationship_extraction": {"relationship_name": "relationship_name"}},
                     ]
                 }
             },

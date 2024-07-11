@@ -8,14 +8,19 @@ from .dataset import Dataset as Dataset
 from .new_token import NewToken as NewToken
 from .user_info import UserInfo as UserInfo
 from .chat_prompt import ChatPrompt as ChatPrompt
+from .entity_param import EntityParam as EntityParam
+from .relationship import Relationship as Relationship
 from .tool_metadata import ToolMetadata as ToolMetadata
 from .execution_step import ExecutionStep as ExecutionStep
+from .knowledge_graph import KnowledgeGraph as KnowledgeGraph
+from .run_list_params import RunListParams as RunListParams
 from .label_run_params import LabelRunParams as LabelRunParams
 from .run_get_response import RunGetResponse as RunGetResponse
 from .run_list_response import RunListResponse as RunListResponse
 from .dataset_descriptor import DatasetDescriptor as DatasetDescriptor
 from .dataset_get_params import DatasetGetParams as DatasetGetParams
 from .label_run_response import LabelRunResponse as LabelRunResponse
+from .relationship_param import RelationshipParam as RelationshipParam
 from .server_information import ServerInformation as ServerInformation
 from .source_list_params import SourceListParams as SourceListParams
 from .dataset_view_params import DatasetViewParams as DatasetViewParams
@@ -29,6 +34,7 @@ from .dataset_create_params import DatasetCreateParams as DatasetCreateParams
 from .dataset_delete_params import DatasetDeleteParams as DatasetDeleteParams
 from .dataset_list_response import DatasetListResponse as DatasetListResponse
 from .dataset_view_response import DatasetViewResponse as DatasetViewResponse
+from .knowledge_graph_param import KnowledgeGraphParam as KnowledgeGraphParam
 from .label_submit_response import LabelSubmitResponse as LabelSubmitResponse
 from .label_update_response import LabelUpdateResponse as LabelUpdateResponse
 from .document_list_response import DocumentListResponse as DocumentListResponse

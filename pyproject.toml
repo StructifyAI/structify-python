@@ -1,6 +1,6 @@
 [project]
 name = "structifyai"
-version = "0.1.0-alpha.38"
+version = "0.1.0-alpha.39"
 description = "The official Python library for the structify API"
 dynamic = ["readme"]
 license = "Apache-2.0"
@@ -58,6 +58,7 @@ dev-dependencies = [
     "nox",
     "dirty-equals>=0.6.0",
     "importlib-metadata>=6.7.0",
+    "rich>=13.7.1",
 
 ]
 

@@ -1,16 +1,13 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from __future__ import annotations
-
 from typing import Dict, List, Union, Optional
-from datetime import datetime
 from typing_extensions import Literal
 
 from pydantic import Field as FieldInfo
 
-from .._compat import PYDANTIC_V2
 from .._models import BaseModel
 from .tool_metadata import ToolMetadata
+from .knowledge_graph import KnowledgeGraph
 from .dataset_descriptor import DatasetDescriptor
 from .extraction_criteria import ExtractionCriteria
 
@@ -34,11 +31,7 @@ __all__ = [
     "MessageContentText",
     "MessageContentImage",
     "HumanLlmMetadata",
-    "HumanLlmMetadataHistory",
     "Metadata",
-    "MetadataExtractedEntity",
-    "MetadataExtractedEntityEntity",
-    "MetadataExtractedEntityRelationship",
     "MetadataWebFlag",
 ]
 
@@ -130,15 +123,6 @@ class Message(BaseModel):
     role: Literal["user", "system", "assistant"]
 
 
-class HumanLlmMetadataHistory(BaseModel):
-    date: datetime
-
-    steps: List["ExecutionStep"]
-
-    uuid: str
-    """Used to identify this history"""
-
-
 class HumanLlmMetadata(BaseModel):
     descriptor: DatasetDescriptor
     """A dataset is where you put multiple referential schemas.
@@ -150,30 +134,6 @@ class HumanLlmMetadata(BaseModel):
     run_id: str
 
     user_email: str
-
-    history: Optional[HumanLlmMetadataHistory] = None
-
-
-class MetadataExtractedEntityEntity(BaseModel):
-    id: int
-
-    properties: Dict[str, str]
-
-    type: str
-
-
-class MetadataExtractedEntityRelationship(BaseModel):
-    source: int
-
-    target: int
-
-    type: str
-
-
-class MetadataExtractedEntity(BaseModel):
-    entities: Optional[List[MetadataExtractedEntityEntity]] = None
-
-    relationships: Optional[List[MetadataExtractedEntityRelationship]] = None
 
 
 class MetadataWebFlag(BaseModel):
@@ -204,7 +164,7 @@ class Metadata(BaseModel):
     within the dataset.
     """
 
-    extracted_entities: List[MetadataExtractedEntity]
+    extracted_entities: List[KnowledgeGraph]
 
     extraction_criteria: List[ExtractionCriteria]
 
@@ -225,55 +185,3 @@ class ChatPrompt(BaseModel):
     human_llm_metadata: Optional[HumanLlmMetadata] = None
 
     metadata: Optional[Metadata] = None
-
-
-from .execution_step import ExecutionStep
-
-if PYDANTIC_V2:
-    ChatPrompt.model_rebuild()
-    DecodingParams.model_rebuild()
-    DecodingParamsParameterMaxTokens.model_rebuild()
-    DecodingParamsParameterTopP.model_rebuild()
-    DecodingParamsParameterRepeatWindow.model_rebuild()
-    DecodingParamsParameterRepeatPenalty.model_rebuild()
-    DecodingParamsParameterTemperature.model_rebuild()
-    DecodingParamsParameterStopTokens.model_rebuild()
-    DecodingParamsParameterFunctions.model_rebuild()
-    DecodingParamsParameterJsonValidator.model_rebuild()
-    DecodingParamsParameterRegexValidator.model_rebuild()
-    DecodingParamsParameterContextFreeeGrammar.model_rebuild()
-    DecodingParamsParameterCrop.model_rebuild()
-    Message.model_rebuild()
-    MessageContentText.model_rebuild()
-    MessageContentImage.model_rebuild()
-    HumanLlmMetadata.model_rebuild()
-    HumanLlmMetadataHistory.model_rebuild()
-    Metadata.model_rebuild()
-    MetadataExtractedEntity.model_rebuild()
-    MetadataExtractedEntityEntity.model_rebuild()
-    MetadataExtractedEntityRelationship.model_rebuild()
-    MetadataWebFlag.model_rebuild()
-else:
-    ChatPrompt.update_forward_refs()  # type: ignore
-    DecodingParams.update_forward_refs()  # type: ignore
-    DecodingParamsParameterMaxTokens.update_forward_refs()  # type: ignore
-    DecodingParamsParameterTopP.update_forward_refs()  # type: ignore
-    DecodingParamsParameterRepeatWindow.update_forward_refs()  # type: ignore
-    DecodingParamsParameterRepeatPenalty.update_forward_refs()  # type: ignore
-    DecodingParamsParameterTemperature.update_forward_refs()  # type: ignore
-    DecodingParamsParameterStopTokens.update_forward_refs()  # type: ignore
-    DecodingParamsParameterFunctions.update_forward_refs()  # type: ignore
-    DecodingParamsParameterJsonValidator.update_forward_refs()  # type: ignore
-    DecodingParamsParameterRegexValidator.update_forward_refs()  # type: ignore
-    DecodingParamsParameterContextFreeeGrammar.update_forward_refs()  # type: ignore
-    DecodingParamsParameterCrop.update_forward_refs()  # type: ignore
-    Message.update_forward_refs()  # type: ignore
-    MessageContentText.update_forward_refs()  # type: ignore
-    MessageContentImage.update_forward_refs()  # type: ignore
-    HumanLlmMetadata.update_forward_refs()  # type: ignore
-    HumanLlmMetadataHistory.update_forward_refs()  # type: ignore
-    Metadata.update_forward_refs()  # type: ignore
-    MetadataExtractedEntity.update_forward_refs()  # type: ignore
-    MetadataExtractedEntityEntity.update_forward_refs()  # type: ignore
-    MetadataExtractedEntityRelationship.update_forward_refs()  # type: ignore
-    MetadataWebFlag.update_forward_refs()  # type: ignore

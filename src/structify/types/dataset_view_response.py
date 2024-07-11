@@ -1,13 +1,31 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List
+from typing import Dict, Union, Optional
 
-from .entity import Entity
+from pydantic import Field as FieldInfo
 
-__all__ = ["DatasetViewResponse", "DatasetViewResponseItem"]
+from .._models import BaseModel
+
+__all__ = ["DatasetViewResponse", "Entity", "EntityEntity", "Relationship", "RelationshipRelationship"]
 
 
-class DatasetViewResponseItem(Entity):
+class EntityEntity(BaseModel):
+    id: int
+
+    label: str
+    """
+    Since all Entities have exactly two labels (ENTITY_LABEL and their table name),
+    we only store the non-ENTITY_LABEL label here.
+    """
+
+    properties: Dict[str, Union[Optional[str], Optional[bool], Optional[int]]]
+
+
+class Entity(BaseModel):
+    entity: EntityEntity = FieldInfo(alias="Entity")
+
+
+class RelationshipRelationship(BaseModel):
     from_id: int
 
     label: str
@@ -15,4 +33,12 @@ class DatasetViewResponseItem(Entity):
     to_id: int
 
 
-DatasetViewResponse = List[List[DatasetViewResponseItem]]
+class Relationship(BaseModel):
+    relationship: RelationshipRelationship = FieldInfo(alias="Relationship")
+    """Don't actually create these. These are solely used as return types in the API
+
+    TODO: Remove them from models.
+    """
+
+
+DatasetViewResponse = Union[Entity, Relationship]

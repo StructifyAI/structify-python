@@ -14,7 +14,7 @@ class UsageGetJobInfoResponse(BaseModel):
 
     job_id: str
 
-    job_status: Literal["Running", "Completed", "Failed"]
+    job_status: Literal["Queued", "Running", "Completed", "Failed"]
 
     run_time: datetime
 

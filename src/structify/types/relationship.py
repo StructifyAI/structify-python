@@ -1,15 +1,15 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict
+
 
 from .._models import BaseModel
 
-__all__ = ["Entity"]
+__all__ = ["Relationship"]
 
 
-class Entity(BaseModel):
-    id: int
+class Relationship(BaseModel):
+    source: int
 
-    properties: Dict[str, str]
+    target: int
 
     type: str

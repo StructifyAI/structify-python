@@ -2,11 +2,11 @@
 
 from __future__ import annotations
 
-import time
-
 import httpx
 
+from ..types import run_list_params
 from .._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
+from .._utils import maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -15,13 +15,11 @@ from .._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from .._base_client import (
-    make_request_options,
-)
+from ..pagination import SyncRunsList, AsyncRunsList
+from .._base_client import AsyncPaginator, make_request_options
 from ..types.run_get_response import RunGetResponse
 from ..types.run_list_response import RunListResponse
 from ..types.run_cancel_response import RunCancelResponse
-from ..types.dataset_view_response import DatasetViewResponse
 
 __all__ = ["RunsResource", "AsyncRunsResource"]
 
@@ -38,20 +36,44 @@ class RunsResource(SyncAPIResource):
     def list(
         self,
         *,
+        limit: int,
+        offset: int,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> RunListResponse:
-        """List all the executions"""
-        return self._get(
+    ) -> SyncRunsList[RunListResponse]:
+        """
+        List all the executions
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._get_api_list(
             "/runs/list",
+            page=SyncRunsList[RunListResponse],
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "limit": limit,
+                        "offset": offset,
+                    },
+                    run_list_params.RunListParams,
+                ),
             ),
-            cast_to=RunListResponse,
+            model=str,
         )
 
     def delete(
@@ -177,40 +199,6 @@ class RunsResource(SyncAPIResource):
             cast_to=NoneType,
         )
 
-    def run(  # type: ignore
-        self,
-        table_name: str,
-        *args,  # type: ignore
-        timeout: Optional[int] = None,  # type: ignore
-        **kwargs,  # type: ignore
-    ) -> DatasetViewResponse:
-        """
-        This function simulates a synchronous run of the async function by calling it and then waiting.
-        If the timeout is reached, it attempts to cancel the job.
-        """
-        token: str = self.run_async(*args, **kwargs)  # type: ignore
-        start_time = time.time() if timeout is not None else None
-
-        successfully_started_job = False
-        while True:
-            if timeout is not None and start_time is not None:
-                elapsed_time = time.time() - start_time
-                if elapsed_time > timeout:
-                    if successfully_started_job:
-                        raise TimeoutError(f"Job execution exceeded timeout of {timeout} seconds.")
-                    else:
-                        raise TimeoutError(f"Job creation exceeded timeout of {timeout} seconds.")
-
-            try:
-                status = self.job_status(body=[token])  # type: ignore
-                successfully_started_job = True
-                if status[0] == "Completed":  # type: ignore
-                    return self._client.datasets.view(dataset_name=kwargs["dataset_name"], table_name=table_name)  # type: ignore
-            except Exception:
-                pass
-
-            time.sleep(1)
-
 
 class AsyncRunsResource(AsyncAPIResource):
     @cached_property
@@ -221,23 +209,47 @@ class AsyncRunsResource(AsyncAPIResource):
     def with_streaming_response(self) -> AsyncRunsResourceWithStreamingResponse:
         return AsyncRunsResourceWithStreamingResponse(self)
 
-    async def list(
+    def list(
         self,
         *,
+        limit: int,
+        offset: int,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> RunListResponse:
-        """List all the executions"""
-        return await self._get(
+    ) -> AsyncPaginator[RunListResponse, AsyncRunsList[RunListResponse]]:
+        """
+        List all the executions
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._get_api_list(
             "/runs/list",
+            page=AsyncRunsList[RunListResponse],
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "limit": limit,
+                        "offset": offset,
+                    },
+                    run_list_params.RunListParams,
+                ),
             ),
-            cast_to=RunListResponse,
+            model=str,
         )
 
     async def delete(

@@ -2,18 +2,16 @@
 
 from __future__ import annotations
 
-from typing import Dict, Union, Iterable, Optional
+from typing import Union, Iterable, Optional
 from typing_extensions import Required, Annotated, TypedDict
 
 from .._types import FileTypes
 from .._utils import PropertyInfo
+from .knowledge_graph_param import KnowledgeGraphParam
 from .extraction_criteria_param import ExtractionCriteriaParam
 
 __all__ = [
     "LabelRunParams",
-    "SeededEntity",
-    "SeededEntityEntity",
-    "SeededEntityRelationship",
     "StructureInput",
     "StructureInputSecIngestor",
     "StructureInputSecIngestorSecIngestor",
@@ -27,9 +25,6 @@ __all__ = [
     "StructureInputBasicBasicWebSearchWebSearch",
     "StructureInputBasicBasicImageDocument",
     "StructureInputBasicBasicImageDocumentImageDocument",
-    "SeededEntity",
-    "SeededEntityEntity",
-    "SeededEntityRelationship",
 ]
 
 
@@ -39,8 +34,12 @@ class LabelRunParams(TypedDict, total=False):
     structure_input: Required[StructureInput]
     """These are all the types that can be converted into a BasicInputType"""
 
-    seeded_entities: Iterable[SeededEntity]
-
+    seeded_entity: KnowledgeGraphParam
+    """
+    Knowledge graph info structured to deserialize and display in the same format
+    that the LLM outputs. Also the first representation of an LLM output in the
+    pipeline from raw tool output to being merged into a Neo4j DB
+    """
 
 
 class StructureInputSecIngestorSecIngestor(TypedDict, total=False):
@@ -127,25 +126,3 @@ class StructureInputBasic(TypedDict, total=False):
 
 
 StructureInput = Union[StructureInputSecIngestor, StructureInputPdfIngestor, StructureInputBasic]
-
-
-class SeededEntityEntity(TypedDict, total=False):
-    id: Required[int]
-
-    properties: Required[Dict[str, str]]
-
-    type: Required[str]
-
-
-class SeededEntityRelationship(TypedDict, total=False):
-    source: Required[int]
-
-    target: Required[int]
-
-    type: Required[str]
-
-
-class SeededEntity(TypedDict, total=False):
-    entities: Iterable[SeededEntityEntity]
-
-    relationships: Iterable[SeededEntityRelationship]

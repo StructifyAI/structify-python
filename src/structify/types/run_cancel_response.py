@@ -4,10 +4,16 @@ from typing_extensions import Literal
 
 from .._models import BaseModel
 
-__all__ = ["RunCancelResponse"]
+__all__ = ["RunCancelResponse", "ID"]
+
+
+class ID(BaseModel):
+    id: str
+
+    id_type: Literal["Job", "Step", "Logger", "None"]
 
 
 class RunCancelResponse(BaseModel):
-    id: str
+    id: ID
 
-    status: Literal["Running", "Completed", "Failed"]
+    status: Literal["Queued", "Running", "Completed", "Failed"]

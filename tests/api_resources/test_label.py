@@ -23,8 +23,8 @@ class TestLabel:
     @parametrize
     def test_method_update(self, client: Structify) -> None:
         label = client.label.update(
-            0,
-            run_uuid="string",
+            run_idx=0,
+            run_uuid="run_uuid",
             step_update=[
                 {
                     "input": {"save": {}},
@@ -45,8 +45,8 @@ class TestLabel:
     @parametrize
     def test_raw_response_update(self, client: Structify) -> None:
         response = client.label.with_raw_response.update(
-            0,
-            run_uuid="string",
+            run_idx=0,
+            run_uuid="run_uuid",
             step_update=[
                 {
                     "input": {"save": {}},
@@ -71,8 +71,8 @@ class TestLabel:
     @parametrize
     def test_streaming_response_update(self, client: Structify) -> None:
         with client.label.with_streaming_response.update(
-            0,
-            run_uuid="string",
+            run_idx=0,
+            run_uuid="run_uuid",
             step_update=[
                 {
                     "input": {"save": {}},
@@ -100,7 +100,7 @@ class TestLabel:
     def test_path_params_update(self, client: Structify) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `run_uuid` but received ''"):
             client.label.with_raw_response.update(
-                0,
+                run_idx=0,
                 run_uuid="",
                 step_update=[
                     {
@@ -191,14 +191,13 @@ class TestLabel:
     @parametrize
     def test_method_run(self, client: Structify) -> None:
         label = client.label.run(
-            dataset_name="string",
-            seeded_entities=[{}, {}, {}],
+            dataset_name="dataset_name",
             structure_input={
                 "sec_ingestor": {
                     "extraction_criteria": [
-                        {"relationship_extraction": {"relationship_name": "string"}},
-                        {"relationship_extraction": {"relationship_name": "string"}},
-                        {"relationship_extraction": {"relationship_name": "string"}},
+                        {"relationship_extraction": {"relationship_name": "relationship_name"}},
+                        {"relationship_extraction": {"relationship_name": "relationship_name"}},
+                        {"relationship_extraction": {"relationship_name": "relationship_name"}},
                     ]
                 }
             },
@@ -208,143 +207,68 @@ class TestLabel:
     @parametrize
     def test_method_run_with_all_params(self, client: Structify) -> None:
         label = client.label.run(
-            dataset_name="string",
+            dataset_name="dataset_name",
             structure_input={
                 "sec_ingestor": {
-                    "accession_number": "string",
+                    "accession_number": "accession_number",
                     "extraction_criteria": [
-                        {"relationship_extraction": {"relationship_name": "string"}},
-                        {"relationship_extraction": {"relationship_name": "string"}},
-                        {"relationship_extraction": {"relationship_name": "string"}},
+                        {"relationship_extraction": {"relationship_name": "relationship_name"}},
+                        {"relationship_extraction": {"relationship_name": "relationship_name"}},
+                        {"relationship_extraction": {"relationship_name": "relationship_name"}},
                     ],
                     "quarter": 0,
                     "year": 0,
                 }
             },
-            seeded_entities=[
-                {
-                    "entities": [
-                        {
-                            "id": 0,
-                            "properties": {"foo": "string"},
-                            "type": "string",
-                        },
-                        {
-                            "id": 0,
-                            "properties": {"foo": "string"},
-                            "type": "string",
-                        },
-                        {
-                            "id": 0,
-                            "properties": {"foo": "string"},
-                            "type": "string",
-                        },
-                    ],
-                    "relationships": [
-                        {
-                            "source": 0,
-                            "target": 0,
-                            "type": "string",
-                        },
-                        {
-                            "source": 0,
-                            "target": 0,
-                            "type": "string",
-                        },
-                        {
-                            "source": 0,
-                            "target": 0,
-                            "type": "string",
-                        },
-                    ],
-                },
-                {
-                    "entities": [
-                        {
-                            "id": 0,
-                            "properties": {"foo": "string"},
-                            "type": "string",
-                        },
-                        {
-                            "id": 0,
-                            "properties": {"foo": "string"},
-                            "type": "string",
-                        },
-                        {
-                            "id": 0,
-                            "properties": {"foo": "string"},
-                            "type": "string",
-                        },
-                    ],
-                    "relationships": [
-                        {
-                            "source": 0,
-                            "target": 0,
-                            "type": "string",
-                        },
-                        {
-                            "source": 0,
-                            "target": 0,
-                            "type": "string",
-                        },
-                        {
-                            "source": 0,
-                            "target": 0,
-                            "type": "string",
-                        },
-                    ],
-                },
-                {
-                    "entities": [
-                        {
-                            "id": 0,
-                            "properties": {"foo": "string"},
-                            "type": "string",
-                        },
-                        {
-                            "id": 0,
-                            "properties": {"foo": "string"},
-                            "type": "string",
-                        },
-                        {
-                            "id": 0,
-                            "properties": {"foo": "string"},
-                            "type": "string",
-                        },
-                    ],
-                    "relationships": [
-                        {
-                            "source": 0,
-                            "target": 0,
-                            "type": "string",
-                        },
-                        {
-                            "source": 0,
-                            "target": 0,
-                            "type": "string",
-                        },
-                        {
-                            "source": 0,
-                            "target": 0,
-                            "type": "string",
-                        },
-                    ],
-                },
-            ],
+            seeded_entity={
+                "entities": [
+                    {
+                        "id": 0,
+                        "properties": {"foo": "string"},
+                        "type": "type",
+                    },
+                    {
+                        "id": 0,
+                        "properties": {"foo": "string"},
+                        "type": "type",
+                    },
+                    {
+                        "id": 0,
+                        "properties": {"foo": "string"},
+                        "type": "type",
+                    },
+                ],
+                "relationships": [
+                    {
+                        "source": 0,
+                        "target": 0,
+                        "type": "type",
+                    },
+                    {
+                        "source": 0,
+                        "target": 0,
+                        "type": "type",
+                    },
+                    {
+                        "source": 0,
+                        "target": 0,
+                        "type": "type",
+                    },
+                ],
+            },
         )
         assert_matches_type(str, label, path=["response"])
 
     @parametrize
     def test_raw_response_run(self, client: Structify) -> None:
         response = client.label.with_raw_response.run(
-            dataset_name="string",
-            seeded_entities=[{}, {}, {}],
+            dataset_name="dataset_name",
             structure_input={
                 "sec_ingestor": {
                     "extraction_criteria": [
-                        {"relationship_extraction": {"relationship_name": "string"}},
-                        {"relationship_extraction": {"relationship_name": "string"}},
-                        {"relationship_extraction": {"relationship_name": "string"}},
+                        {"relationship_extraction": {"relationship_name": "relationship_name"}},
+                        {"relationship_extraction": {"relationship_name": "relationship_name"}},
+                        {"relationship_extraction": {"relationship_name": "relationship_name"}},
                     ]
                 }
             },
@@ -358,14 +282,13 @@ class TestLabel:
     @parametrize
     def test_streaming_response_run(self, client: Structify) -> None:
         with client.label.with_streaming_response.run(
-            dataset_name="string",
-            seeded_entities=[{}, {}, {}],
+            dataset_name="dataset_name",
             structure_input={
                 "sec_ingestor": {
                     "extraction_criteria": [
-                        {"relationship_extraction": {"relationship_name": "string"}},
-                        {"relationship_extraction": {"relationship_name": "string"}},
-                        {"relationship_extraction": {"relationship_name": "string"}},
+                        {"relationship_extraction": {"relationship_name": "relationship_name"}},
+                        {"relationship_extraction": {"relationship_name": "relationship_name"}},
+                        {"relationship_extraction": {"relationship_name": "relationship_name"}},
                     ]
                 }
             },
@@ -381,7 +304,7 @@ class TestLabel:
     @parametrize
     def test_method_submit(self, client: Structify) -> None:
         label = client.label.submit(
-            "string",
+            uuid="uuid",
             label=[{"save": {}}, {"save": {}}, {"save": {}}],
         )
         assert_matches_type(str, label, path=["response"])
@@ -389,7 +312,7 @@ class TestLabel:
     @parametrize
     def test_raw_response_submit(self, client: Structify) -> None:
         response = client.label.with_raw_response.submit(
-            "string",
+            uuid="uuid",
             label=[{"save": {}}, {"save": {}}, {"save": {}}],
         )
 
@@ -401,7 +324,7 @@ class TestLabel:
     @parametrize
     def test_streaming_response_submit(self, client: Structify) -> None:
         with client.label.with_streaming_response.submit(
-            "string",
+            uuid="uuid",
             label=[{"save": {}}, {"save": {}}, {"save": {}}],
         ) as response:
             assert not response.is_closed
@@ -416,7 +339,7 @@ class TestLabel:
     def test_path_params_submit(self, client: Structify) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `uuid` but received ''"):
             client.label.with_raw_response.submit(
-                "",
+                uuid="",
                 label=[{"save": {}}, {"save": {}}, {"save": {}}],
             )
 
@@ -427,8 +350,8 @@ class TestAsyncLabel:
     @parametrize
     async def test_method_update(self, async_client: AsyncStructify) -> None:
         label = await async_client.label.update(
-            0,
-            run_uuid="string",
+            run_idx=0,
+            run_uuid="run_uuid",
             step_update=[
                 {
                     "input": {"save": {}},
@@ -449,8 +372,8 @@ class TestAsyncLabel:
     @parametrize
     async def test_raw_response_update(self, async_client: AsyncStructify) -> None:
         response = await async_client.label.with_raw_response.update(
-            0,
-            run_uuid="string",
+            run_idx=0,
+            run_uuid="run_uuid",
             step_update=[
                 {
                     "input": {"save": {}},
@@ -475,8 +398,8 @@ class TestAsyncLabel:
     @parametrize
     async def test_streaming_response_update(self, async_client: AsyncStructify) -> None:
         async with async_client.label.with_streaming_response.update(
-            0,
-            run_uuid="string",
+            run_idx=0,
+            run_uuid="run_uuid",
             step_update=[
                 {
                     "input": {"save": {}},
@@ -504,7 +427,7 @@ class TestAsyncLabel:
     async def test_path_params_update(self, async_client: AsyncStructify) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `run_uuid` but received ''"):
             await async_client.label.with_raw_response.update(
-                0,
+                run_idx=0,
                 run_uuid="",
                 step_update=[
                     {
@@ -595,14 +518,13 @@ class TestAsyncLabel:
     @parametrize
     async def test_method_run(self, async_client: AsyncStructify) -> None:
         label = await async_client.label.run(
-            dataset_name="string",
-            seeded_entities=[{}, {}, {}],
+            dataset_name="dataset_name",
             structure_input={
                 "sec_ingestor": {
                     "extraction_criteria": [
-                        {"relationship_extraction": {"relationship_name": "string"}},
-                        {"relationship_extraction": {"relationship_name": "string"}},
-                        {"relationship_extraction": {"relationship_name": "string"}},
+                        {"relationship_extraction": {"relationship_name": "relationship_name"}},
+                        {"relationship_extraction": {"relationship_name": "relationship_name"}},
+                        {"relationship_extraction": {"relationship_name": "relationship_name"}},
                     ]
                 }
             },
@@ -612,143 +534,68 @@ class TestAsyncLabel:
     @parametrize
     async def test_method_run_with_all_params(self, async_client: AsyncStructify) -> None:
         label = await async_client.label.run(
-            dataset_name="string",
+            dataset_name="dataset_name",
             structure_input={
                 "sec_ingestor": {
-                    "accession_number": "string",
+                    "accession_number": "accession_number",
                     "extraction_criteria": [
-                        {"relationship_extraction": {"relationship_name": "string"}},
-                        {"relationship_extraction": {"relationship_name": "string"}},
-                        {"relationship_extraction": {"relationship_name": "string"}},
+                        {"relationship_extraction": {"relationship_name": "relationship_name"}},
+                        {"relationship_extraction": {"relationship_name": "relationship_name"}},
+                        {"relationship_extraction": {"relationship_name": "relationship_name"}},
                     ],
                     "quarter": 0,
                     "year": 0,
                 }
             },
-            seeded_entities=[
-                {
-                    "entities": [
-                        {
-                            "id": 0,
-                            "properties": {"foo": "string"},
-                            "type": "string",
-                        },
-                        {
-                            "id": 0,
-                            "properties": {"foo": "string"},
-                            "type": "string",
-                        },
-                        {
-                            "id": 0,
-                            "properties": {"foo": "string"},
-                            "type": "string",
-                        },
-                    ],
-                    "relationships": [
-                        {
-                            "source": 0,
-                            "target": 0,
-                            "type": "string",
-                        },
-                        {
-                            "source": 0,
-                            "target": 0,
-                            "type": "string",
-                        },
-                        {
-                            "source": 0,
-                            "target": 0,
-                            "type": "string",
-                        },
-                    ],
-                },
-                {
-                    "entities": [
-                        {
-                            "id": 0,
-                            "properties": {"foo": "string"},
-                            "type": "string",
-                        },
-                        {
-                            "id": 0,
-                            "properties": {"foo": "string"},
-                            "type": "string",
-                        },
-                        {
-                            "id": 0,
-                            "properties": {"foo": "string"},
-                            "type": "string",
-                        },
-                    ],
-                    "relationships": [
-                        {
-                            "source": 0,
-                            "target": 0,
-                            "type": "string",
-                        },
-                        {
-                            "source": 0,
-                            "target": 0,
-                            "type": "string",
-                        },
-                        {
-                            "source": 0,
-                            "target": 0,
-                            "type": "string",
-                        },
-                    ],
-                },
-                {
-                    "entities": [
-                        {
-                            "id": 0,
-                            "properties": {"foo": "string"},
-                            "type": "string",
-                        },
-                        {
-                            "id": 0,
-                            "properties": {"foo": "string"},
-                            "type": "string",
-                        },
-                        {
-                            "id": 0,
-                            "properties": {"foo": "string"},
-                            "type": "string",
-                        },
-                    ],
-                    "relationships": [
-                        {
-                            "source": 0,
-                            "target": 0,
-                            "type": "string",
-                        },
-                        {
-                            "source": 0,
-                            "target": 0,
-                            "type": "string",
-                        },
-                        {
-                            "source": 0,
-                            "target": 0,
-                            "type": "string",
-                        },
-                    ],
-                },
-            ],
+            seeded_entity={
+                "entities": [
+                    {
+                        "id": 0,
+                        "properties": {"foo": "string"},
+                        "type": "type",
+                    },
+                    {
+                        "id": 0,
+                        "properties": {"foo": "string"},
+                        "type": "type",
+                    },
+                    {
+                        "id": 0,
+                        "properties": {"foo": "string"},
+                        "type": "type",
+                    },
+                ],
+                "relationships": [
+                    {
+                        "source": 0,
+                        "target": 0,
+                        "type": "type",
+                    },
+                    {
+                        "source": 0,
+                        "target": 0,
+                        "type": "type",
+                    },
+                    {
+                        "source": 0,
+                        "target": 0,
+                        "type": "type",
+                    },
+                ],
+            },
         )
         assert_matches_type(str, label, path=["response"])
 
     @parametrize
     async def test_raw_response_run(self, async_client: AsyncStructify) -> None:
         response = await async_client.label.with_raw_response.run(
-            dataset_name="string",
-            seeded_entities=[{}, {}, {}],
+            dataset_name="dataset_name",
             structure_input={
                 "sec_ingestor": {
                     "extraction_criteria": [
-                        {"relationship_extraction": {"relationship_name": "string"}},
-                        {"relationship_extraction": {"relationship_name": "string"}},
-                        {"relationship_extraction": {"relationship_name": "string"}},
+                        {"relationship_extraction": {"relationship_name": "relationship_name"}},
+                        {"relationship_extraction": {"relationship_name": "relationship_name"}},
+                        {"relationship_extraction": {"relationship_name": "relationship_name"}},
                     ]
                 }
             },
@@ -762,14 +609,13 @@ class TestAsyncLabel:
     @parametrize
     async def test_streaming_response_run(self, async_client: AsyncStructify) -> None:
         async with async_client.label.with_streaming_response.run(
-            dataset_name="string",
-            seeded_entities=[{}, {}, {}],
+            dataset_name="dataset_name",
             structure_input={
                 "sec_ingestor": {
                     "extraction_criteria": [
-                        {"relationship_extraction": {"relationship_name": "string"}},
-                        {"relationship_extraction": {"relationship_name": "string"}},
-                        {"relationship_extraction": {"relationship_name": "string"}},
+                        {"relationship_extraction": {"relationship_name": "relationship_name"}},
+                        {"relationship_extraction": {"relationship_name": "relationship_name"}},
+                        {"relationship_extraction": {"relationship_name": "relationship_name"}},
                     ]
                 }
             },
@@ -785,7 +631,7 @@ class TestAsyncLabel:
     @parametrize
     async def test_method_submit(self, async_client: AsyncStructify) -> None:
         label = await async_client.label.submit(
-            "string",
+            uuid="uuid",
             label=[{"save": {}}, {"save": {}}, {"save": {}}],
         )
         assert_matches_type(str, label, path=["response"])
@@ -793,7 +639,7 @@ class TestAsyncLabel:
     @parametrize
     async def test_raw_response_submit(self, async_client: AsyncStructify) -> None:
         response = await async_client.label.with_raw_response.submit(
-            "string",
+            uuid="uuid",
             label=[{"save": {}}, {"save": {}}, {"save": {}}],
         )
 
@@ -805,7 +651,7 @@ class TestAsyncLabel:
     @parametrize
     async def test_streaming_response_submit(self, async_client: AsyncStructify) -> None:
         async with async_client.label.with_streaming_response.submit(
-            "string",
+            uuid="uuid",
             label=[{"save": {}}, {"save": {}}, {"save": {}}],
         ) as response:
             assert not response.is_closed
@@ -820,6 +666,6 @@ class TestAsyncLabel:
     async def test_path_params_submit(self, async_client: AsyncStructify) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `uuid` but received ''"):
             await async_client.label.with_raw_response.submit(
-                "",
+                uuid="",
                 label=[{"save": {}}, {"save": {}}, {"save": {}}],
             )
