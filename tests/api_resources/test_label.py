@@ -21,104 +21,6 @@ class TestLabel:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @parametrize
-    def test_method_update(self, client: Structify) -> None:
-        label = client.label.update(
-            run_idx=0,
-            run_uuid="run_uuid",
-            step_update=[
-                {
-                    "input": {"save": {}},
-                    "name": "Save",
-                },
-                {
-                    "input": {"save": {}},
-                    "name": "Save",
-                },
-                {
-                    "input": {"save": {}},
-                    "name": "Save",
-                },
-            ],
-        )
-        assert_matches_type(str, label, path=["response"])
-
-    @parametrize
-    def test_raw_response_update(self, client: Structify) -> None:
-        response = client.label.with_raw_response.update(
-            run_idx=0,
-            run_uuid="run_uuid",
-            step_update=[
-                {
-                    "input": {"save": {}},
-                    "name": "Save",
-                },
-                {
-                    "input": {"save": {}},
-                    "name": "Save",
-                },
-                {
-                    "input": {"save": {}},
-                    "name": "Save",
-                },
-            ],
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        label = response.parse()
-        assert_matches_type(str, label, path=["response"])
-
-    @parametrize
-    def test_streaming_response_update(self, client: Structify) -> None:
-        with client.label.with_streaming_response.update(
-            run_idx=0,
-            run_uuid="run_uuid",
-            step_update=[
-                {
-                    "input": {"save": {}},
-                    "name": "Save",
-                },
-                {
-                    "input": {"save": {}},
-                    "name": "Save",
-                },
-                {
-                    "input": {"save": {}},
-                    "name": "Save",
-                },
-            ],
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            label = response.parse()
-            assert_matches_type(str, label, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    def test_path_params_update(self, client: Structify) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `run_uuid` but received ''"):
-            client.label.with_raw_response.update(
-                run_idx=0,
-                run_uuid="",
-                step_update=[
-                    {
-                        "input": {"save": {}},
-                        "name": "Save",
-                    },
-                    {
-                        "input": {"save": {}},
-                        "name": "Save",
-                    },
-                    {
-                        "input": {"save": {}},
-                        "name": "Save",
-                    },
-                ],
-            )
-
-    @parametrize
     def test_method_get_messages(self, client: Structify) -> None:
         label = client.label.get_messages()
         assert_matches_type(Optional[LabelGetMessagesResponse], label, path=["response"])
@@ -304,7 +206,7 @@ class TestLabel:
     @parametrize
     def test_method_submit(self, client: Structify) -> None:
         label = client.label.submit(
-            uuid="uuid",
+            uuid="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             label=[{"save": {}}, {"save": {}}, {"save": {}}],
         )
         assert_matches_type(str, label, path=["response"])
@@ -312,7 +214,7 @@ class TestLabel:
     @parametrize
     def test_raw_response_submit(self, client: Structify) -> None:
         response = client.label.with_raw_response.submit(
-            uuid="uuid",
+            uuid="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             label=[{"save": {}}, {"save": {}}, {"save": {}}],
         )
 
@@ -324,7 +226,7 @@ class TestLabel:
     @parametrize
     def test_streaming_response_submit(self, client: Structify) -> None:
         with client.label.with_streaming_response.submit(
-            uuid="uuid",
+            uuid="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             label=[{"save": {}}, {"save": {}}, {"save": {}}],
         ) as response:
             assert not response.is_closed
@@ -346,104 +248,6 @@ class TestLabel:
 
 class TestAsyncLabel:
     parametrize = pytest.mark.parametrize("async_client", [False, True], indirect=True, ids=["loose", "strict"])
-
-    @parametrize
-    async def test_method_update(self, async_client: AsyncStructify) -> None:
-        label = await async_client.label.update(
-            run_idx=0,
-            run_uuid="run_uuid",
-            step_update=[
-                {
-                    "input": {"save": {}},
-                    "name": "Save",
-                },
-                {
-                    "input": {"save": {}},
-                    "name": "Save",
-                },
-                {
-                    "input": {"save": {}},
-                    "name": "Save",
-                },
-            ],
-        )
-        assert_matches_type(str, label, path=["response"])
-
-    @parametrize
-    async def test_raw_response_update(self, async_client: AsyncStructify) -> None:
-        response = await async_client.label.with_raw_response.update(
-            run_idx=0,
-            run_uuid="run_uuid",
-            step_update=[
-                {
-                    "input": {"save": {}},
-                    "name": "Save",
-                },
-                {
-                    "input": {"save": {}},
-                    "name": "Save",
-                },
-                {
-                    "input": {"save": {}},
-                    "name": "Save",
-                },
-            ],
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        label = await response.parse()
-        assert_matches_type(str, label, path=["response"])
-
-    @parametrize
-    async def test_streaming_response_update(self, async_client: AsyncStructify) -> None:
-        async with async_client.label.with_streaming_response.update(
-            run_idx=0,
-            run_uuid="run_uuid",
-            step_update=[
-                {
-                    "input": {"save": {}},
-                    "name": "Save",
-                },
-                {
-                    "input": {"save": {}},
-                    "name": "Save",
-                },
-                {
-                    "input": {"save": {}},
-                    "name": "Save",
-                },
-            ],
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            label = await response.parse()
-            assert_matches_type(str, label, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    async def test_path_params_update(self, async_client: AsyncStructify) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `run_uuid` but received ''"):
-            await async_client.label.with_raw_response.update(
-                run_idx=0,
-                run_uuid="",
-                step_update=[
-                    {
-                        "input": {"save": {}},
-                        "name": "Save",
-                    },
-                    {
-                        "input": {"save": {}},
-                        "name": "Save",
-                    },
-                    {
-                        "input": {"save": {}},
-                        "name": "Save",
-                    },
-                ],
-            )
 
     @parametrize
     async def test_method_get_messages(self, async_client: AsyncStructify) -> None:
@@ -631,7 +435,7 @@ class TestAsyncLabel:
     @parametrize
     async def test_method_submit(self, async_client: AsyncStructify) -> None:
         label = await async_client.label.submit(
-            uuid="uuid",
+            uuid="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             label=[{"save": {}}, {"save": {}}, {"save": {}}],
         )
         assert_matches_type(str, label, path=["response"])
@@ -639,7 +443,7 @@ class TestAsyncLabel:
     @parametrize
     async def test_raw_response_submit(self, async_client: AsyncStructify) -> None:
         response = await async_client.label.with_raw_response.submit(
-            uuid="uuid",
+            uuid="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             label=[{"save": {}}, {"save": {}}, {"save": {}}],
         )
 
@@ -651,7 +455,7 @@ class TestAsyncLabel:
     @parametrize
     async def test_streaming_response_submit(self, async_client: AsyncStructify) -> None:
         async with async_client.label.with_streaming_response.submit(
-            uuid="uuid",
+            uuid="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             label=[{"save": {}}, {"save": {}}, {"save": {}}],
         ) as response:
             assert not response.is_closed
