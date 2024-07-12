@@ -7,11 +7,11 @@ from pydantic import Field as FieldInfo
 
 from .._models import BaseModel
 from .chat_prompt import ChatPrompt
-from .structify_id import StructifyID
 from .knowledge_graph import KnowledgeGraph
 
 __all__ = [
     "ExecutionStep",
+    "ID",
     "Response",
     "ResponseToolCall",
     "ResponseToolCallInput",
@@ -38,6 +38,12 @@ __all__ = [
     "ResponseToolCallResultInputParseFail",
     "ResponseToolCallResultSuccess",
 ]
+
+
+class ID(BaseModel):
+    id: str
+
+    id_type: Literal["Job", "Step", "Logger", "None"]
 
 
 class ResponseToolCallInputSave(BaseModel):
@@ -183,7 +189,7 @@ class Response(BaseModel):
 
 
 class ExecutionStep(BaseModel):
-    id: StructifyID
+    id: ID
 
     prompt: ChatPrompt
 
