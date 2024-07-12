@@ -40,6 +40,7 @@ from .label_submit_response import LabelSubmitResponse as LabelSubmitResponse
 from .label_update_response import LabelUpdateResponse as LabelUpdateResponse
 from .document_list_response import DocumentListResponse as DocumentListResponse
 from .document_upload_params import DocumentUploadParams as DocumentUploadParams
+from .run_get_steps_response import RunGetStepsResponse as RunGetStepsResponse
 from .extraction_criteria_param import ExtractionCriteriaParam as ExtractionCriteriaParam
 from .label_get_messages_params import LabelGetMessagesParams as LabelGetMessagesParams
 from .label_llm_assist_response import LabelLlmAssistResponse as LabelLlmAssistResponse
