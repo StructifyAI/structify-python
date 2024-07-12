@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Any, Iterable, Optional, cast
+from typing import Iterable, Optional
 from typing_extensions import Literal
 
 import httpx
@@ -21,8 +21,7 @@ from .._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ..pagination import SyncRunsList, AsyncRunsList
-from .._base_client import AsyncPaginator, make_request_options
+from .._base_client import make_request_options
 from ..types.dataset_descriptor import DatasetDescriptor
 from ..types.dataset_list_response import DatasetListResponse
 from ..types.dataset_view_response import DatasetViewResponse
@@ -192,7 +191,7 @@ class DatasetsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> SyncRunsList[DatasetViewResponse]:
+    ) -> DatasetViewResponse:
         """You need to specify a dataset.
 
         If you don't specify a table_name, we assume all
@@ -213,9 +212,8 @@ class DatasetsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._get_api_list(
+        return self._get(
             "/dataset/view",
-            page=SyncRunsList[DatasetViewResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -233,7 +231,7 @@ class DatasetsResource(SyncAPIResource):
                     dataset_view_params.DatasetViewParams,
                 ),
             ),
-            model=cast(Any, DatasetViewResponse),  # Union types cannot be passed in as arguments in the type system
+            cast_to=DatasetViewResponse,
         )
 
 
@@ -384,7 +382,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
             cast_to=DatasetDescriptor,
         )
 
-    def view(
+    async def view(
         self,
         *,
         dataset_name: str,
@@ -399,7 +397,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> AsyncPaginator[DatasetViewResponse, AsyncRunsList[DatasetViewResponse]]:
+    ) -> DatasetViewResponse:
         """You need to specify a dataset.
 
         If you don't specify a table_name, we assume all
@@ -420,15 +418,14 @@ class AsyncDatasetsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._get_api_list(
+        return await self._get(
             "/dataset/view",
-            page=AsyncRunsList[DatasetViewResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform(
+                query=await async_maybe_transform(
                     {
                         "dataset_name": dataset_name,
                         "requested_type": requested_type,
@@ -440,7 +437,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
                     dataset_view_params.DatasetViewParams,
                 ),
             ),
-            model=cast(Any, DatasetViewResponse),  # Union types cannot be passed in as arguments in the type system
+            cast_to=DatasetViewResponse,
         )
 
 

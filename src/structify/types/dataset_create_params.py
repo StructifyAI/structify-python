@@ -31,6 +31,8 @@ class Relationship(TypedDict, total=False):
 class TableProperty(TypedDict, total=False):
     description: Required[str]
 
+    merge_strategy: Required[object]
+
     name: Required[str]
 
 
