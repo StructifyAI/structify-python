@@ -61,7 +61,13 @@ Methods:
 Types:
 
 ```python
-from structify.types import RunListResponse, RunDeleteResponse, RunCancelResponse, RunGetResponse
+from structify.types import (
+    RunListResponse,
+    RunDeleteResponse,
+    RunCancelResponse,
+    RunGetResponse,
+    RunGetStepsResponse,
+)
 ```
 
 Methods:
@@ -70,6 +76,7 @@ Methods:
 - <code title="post /runs/delete/{uuid}">client.runs.<a href="./src/structify/resources/runs.py">delete</a>(uuid) -> str</code>
 - <code title="post /runs/cancel/{uuid}">client.runs.<a href="./src/structify/resources/runs.py">cancel</a>(uuid) -> <a href="./src/structify/types/run_cancel_response.py">RunCancelResponse</a></code>
 - <code title="get /runs/get/{uuid}">client.runs.<a href="./src/structify/resources/runs.py">get</a>(uuid) -> <a href="./src/structify/types/run_get_response.py">RunGetResponse</a></code>
+- <code title="get /runs/get_steps/{job_id}">client.runs.<a href="./src/structify/resources/runs.py">get_steps</a>(job_id) -> <a href="./src/structify/types/run_get_steps_response.py">RunGetStepsResponse</a></code>
 - <code title="post /runs/schedule">client.runs.<a href="./src/structify/resources/runs.py">schedule</a>() -> None</code>
 
 # Server
