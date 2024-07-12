@@ -17,7 +17,6 @@ from .._response import (
 )
 from ..pagination import SyncRunsList, AsyncRunsList
 from .._base_client import AsyncPaginator, make_request_options
-from ..types.run_get_response import RunGetResponse
 from ..types.run_list_response import RunListResponse
 from ..types.run_cancel_response import RunCancelResponse
 from ..types.run_get_steps_response import RunGetStepsResponse
@@ -142,39 +141,6 @@ class RunsResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=RunCancelResponse,
-        )
-
-    def get(
-        self,
-        uuid: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> RunGetResponse:
-        """
-        Retrieve a run from structify.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not uuid:
-            raise ValueError(f"Expected a non-empty value for `uuid` but received {uuid!r}")
-        return self._get(
-            f"/runs/get/{uuid}",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=RunGetResponse,
         )
 
     def get_steps(
@@ -353,39 +319,6 @@ class AsyncRunsResource(AsyncAPIResource):
             cast_to=RunCancelResponse,
         )
 
-    async def get(
-        self,
-        uuid: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> RunGetResponse:
-        """
-        Retrieve a run from structify.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not uuid:
-            raise ValueError(f"Expected a non-empty value for `uuid` but received {uuid!r}")
-        return await self._get(
-            f"/runs/get/{uuid}",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=RunGetResponse,
-        )
-
     async def get_steps(
         self,
         job_id: str,
@@ -456,9 +389,6 @@ class RunsResourceWithRawResponse:
         self.cancel = to_raw_response_wrapper(
             runs.cancel,
         )
-        self.get = to_raw_response_wrapper(
-            runs.get,
-        )
         self.get_steps = to_raw_response_wrapper(
             runs.get_steps,
         )
@@ -479,9 +409,6 @@ class AsyncRunsResourceWithRawResponse:
         )
         self.cancel = async_to_raw_response_wrapper(
             runs.cancel,
-        )
-        self.get = async_to_raw_response_wrapper(
-            runs.get,
         )
         self.get_steps = async_to_raw_response_wrapper(
             runs.get_steps,
@@ -504,9 +431,6 @@ class RunsResourceWithStreamingResponse:
         self.cancel = to_streamed_response_wrapper(
             runs.cancel,
         )
-        self.get = to_streamed_response_wrapper(
-            runs.get,
-        )
         self.get_steps = to_streamed_response_wrapper(
             runs.get_steps,
         )
@@ -527,9 +451,6 @@ class AsyncRunsResourceWithStreamingResponse:
         )
         self.cancel = async_to_streamed_response_wrapper(
             runs.cancel,
-        )
-        self.get = async_to_streamed_response_wrapper(
-            runs.get,
         )
         self.get_steps = async_to_streamed_response_wrapper(
             runs.get_steps,
