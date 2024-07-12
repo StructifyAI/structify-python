@@ -61,18 +61,12 @@ Methods:
 Types:
 
 ```python
-from structify.types import (
-    RunListResponse,
-    RunDeleteResponse,
-    RunCancelResponse,
-    RunGetStepsResponse,
-)
+from structify.types import RunListResponse, RunCancelResponse, RunGetStepsResponse
 ```
 
 Methods:
 
 - <code title="get /runs/list">client.runs.<a href="./src/structify/resources/runs.py">list</a>(\*\*<a href="src/structify/types/run_list_params.py">params</a>) -> <a href="./src/structify/types/run_list_response.py">SyncRunsList[RunListResponse]</a></code>
-- <code title="post /runs/delete/{uuid}">client.runs.<a href="./src/structify/resources/runs.py">delete</a>(uuid) -> str</code>
 - <code title="post /runs/cancel/{uuid}">client.runs.<a href="./src/structify/resources/runs.py">cancel</a>(uuid) -> <a href="./src/structify/types/run_cancel_response.py">RunCancelResponse</a></code>
 - <code title="get /runs/get_steps/{job_id}">client.runs.<a href="./src/structify/resources/runs.py">get_steps</a>(job_id) -> <a href="./src/structify/types/run_get_steps_response.py">RunGetStepsResponse</a></code>
 - <code title="post /runs/schedule">client.runs.<a href="./src/structify/resources/runs.py">schedule</a>() -> None</code>
@@ -140,5 +134,5 @@ Methods:
 Types:
 
 ```python
-from structify.types import Entity, KnowledgeGraph, Relationship, StructifyID
+from structify.types import Entity, KnowledgeGraph, Relationship
 ```

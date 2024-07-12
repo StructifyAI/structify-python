@@ -4,13 +4,12 @@ from datetime import datetime
 from typing_extensions import Literal
 
 from .._models import BaseModel
-from .structify_id import StructifyID
 
 __all__ = ["RunListResponse"]
 
 
 class RunListResponse(BaseModel):
-    id: StructifyID
+    id: str
 
     creation_time: datetime
 

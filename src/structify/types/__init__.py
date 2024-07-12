@@ -10,7 +10,6 @@ from .user_info import UserInfo as UserInfo
 from .chat_prompt import ChatPrompt as ChatPrompt
 from .entity_param import EntityParam as EntityParam
 from .relationship import Relationship as Relationship
-from .structify_id import StructifyID as StructifyID
 from .tool_metadata import ToolMetadata as ToolMetadata
 from .execution_step import ExecutionStep as ExecutionStep
 from .knowledge_graph import KnowledgeGraph as KnowledgeGraph
@@ -24,7 +23,6 @@ from .source_list_params import SourceListParams as SourceListParams
 from .dataset_view_params import DatasetViewParams as DatasetViewParams
 from .extraction_criteria import ExtractionCriteria as ExtractionCriteria
 from .run_cancel_response import RunCancelResponse as RunCancelResponse
-from .run_delete_response import RunDeleteResponse as RunDeleteResponse
 from .source_list_response import SourceListResponse as SourceListResponse
 from .dataset_create_params import DatasetCreateParams as DatasetCreateParams
 from .dataset_delete_params import DatasetDeleteParams as DatasetDeleteParams
