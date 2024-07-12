@@ -14,6 +14,7 @@ from structify.types import (
     DatasetListResponse,
     DatasetViewResponse,
 )
+from structify.pagination import SyncRunsList, AsyncRunsList
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -53,17 +54,14 @@ class TestDatasets:
                     "properties": [
                         {
                             "description": "description",
-                            "merge_strategy": {},
                             "name": "name",
                         },
                         {
                             "description": "description",
-                            "merge_strategy": {},
                             "name": "name",
                         },
                         {
                             "description": "description",
-                            "merge_strategy": {},
                             "name": "name",
                         },
                     ],
@@ -74,17 +72,14 @@ class TestDatasets:
                     "properties": [
                         {
                             "description": "description",
-                            "merge_strategy": {},
                             "name": "name",
                         },
                         {
                             "description": "description",
-                            "merge_strategy": {},
                             "name": "name",
                         },
                         {
                             "description": "description",
-                            "merge_strategy": {},
                             "name": "name",
                         },
                     ],
@@ -95,17 +90,14 @@ class TestDatasets:
                     "properties": [
                         {
                             "description": "description",
-                            "merge_strategy": {},
                             "name": "name",
                         },
                         {
                             "description": "description",
-                            "merge_strategy": {},
                             "name": "name",
                         },
                         {
                             "description": "description",
-                            "merge_strategy": {},
                             "name": "name",
                         },
                     ],
@@ -146,17 +138,14 @@ class TestDatasets:
                     "properties": [
                         {
                             "description": "description",
-                            "merge_strategy": {},
                             "name": "name",
                         },
                         {
                             "description": "description",
-                            "merge_strategy": {},
                             "name": "name",
                         },
                         {
                             "description": "description",
-                            "merge_strategy": {},
                             "name": "name",
                         },
                     ],
@@ -167,17 +156,14 @@ class TestDatasets:
                     "properties": [
                         {
                             "description": "description",
-                            "merge_strategy": {},
                             "name": "name",
                         },
                         {
                             "description": "description",
-                            "merge_strategy": {},
                             "name": "name",
                         },
                         {
                             "description": "description",
-                            "merge_strategy": {},
                             "name": "name",
                         },
                     ],
@@ -188,17 +174,14 @@ class TestDatasets:
                     "properties": [
                         {
                             "description": "description",
-                            "merge_strategy": {},
                             "name": "name",
                         },
                         {
                             "description": "description",
-                            "merge_strategy": {},
                             "name": "name",
                         },
                         {
                             "description": "description",
-                            "merge_strategy": {},
                             "name": "name",
                         },
                     ],
@@ -243,17 +226,14 @@ class TestDatasets:
                     "properties": [
                         {
                             "description": "description",
-                            "merge_strategy": {},
                             "name": "name",
                         },
                         {
                             "description": "description",
-                            "merge_strategy": {},
                             "name": "name",
                         },
                         {
                             "description": "description",
-                            "merge_strategy": {},
                             "name": "name",
                         },
                     ],
@@ -264,17 +244,14 @@ class TestDatasets:
                     "properties": [
                         {
                             "description": "description",
-                            "merge_strategy": {},
                             "name": "name",
                         },
                         {
                             "description": "description",
-                            "merge_strategy": {},
                             "name": "name",
                         },
                         {
                             "description": "description",
-                            "merge_strategy": {},
                             "name": "name",
                         },
                     ],
@@ -285,17 +262,14 @@ class TestDatasets:
                     "properties": [
                         {
                             "description": "description",
-                            "merge_strategy": {},
                             "name": "name",
                         },
                         {
                             "description": "description",
-                            "merge_strategy": {},
                             "name": "name",
                         },
                         {
                             "description": "description",
-                            "merge_strategy": {},
                             "name": "name",
                         },
                     ],
@@ -403,7 +377,7 @@ class TestDatasets:
             dataset_name="dataset_name",
             requested_type="Entities",
         )
-        assert_matches_type(DatasetViewResponse, dataset, path=["response"])
+        assert_matches_type(SyncRunsList[DatasetViewResponse], dataset, path=["response"])
 
     @parametrize
     def test_method_view_with_all_params(self, client: Structify) -> None:
@@ -415,7 +389,7 @@ class TestDatasets:
             relationship_name="relationship_name",
             table_name="table_name",
         )
-        assert_matches_type(DatasetViewResponse, dataset, path=["response"])
+        assert_matches_type(SyncRunsList[DatasetViewResponse], dataset, path=["response"])
 
     @parametrize
     def test_raw_response_view(self, client: Structify) -> None:
@@ -427,7 +401,7 @@ class TestDatasets:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         dataset = response.parse()
-        assert_matches_type(DatasetViewResponse, dataset, path=["response"])
+        assert_matches_type(SyncRunsList[DatasetViewResponse], dataset, path=["response"])
 
     @parametrize
     def test_streaming_response_view(self, client: Structify) -> None:
@@ -439,7 +413,7 @@ class TestDatasets:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             dataset = response.parse()
-            assert_matches_type(DatasetViewResponse, dataset, path=["response"])
+            assert_matches_type(SyncRunsList[DatasetViewResponse], dataset, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -479,17 +453,14 @@ class TestAsyncDatasets:
                     "properties": [
                         {
                             "description": "description",
-                            "merge_strategy": {},
                             "name": "name",
                         },
                         {
                             "description": "description",
-                            "merge_strategy": {},
                             "name": "name",
                         },
                         {
                             "description": "description",
-                            "merge_strategy": {},
                             "name": "name",
                         },
                     ],
@@ -500,17 +471,14 @@ class TestAsyncDatasets:
                     "properties": [
                         {
                             "description": "description",
-                            "merge_strategy": {},
                             "name": "name",
                         },
                         {
                             "description": "description",
-                            "merge_strategy": {},
                             "name": "name",
                         },
                         {
                             "description": "description",
-                            "merge_strategy": {},
                             "name": "name",
                         },
                     ],
@@ -521,17 +489,14 @@ class TestAsyncDatasets:
                     "properties": [
                         {
                             "description": "description",
-                            "merge_strategy": {},
                             "name": "name",
                         },
                         {
                             "description": "description",
-                            "merge_strategy": {},
                             "name": "name",
                         },
                         {
                             "description": "description",
-                            "merge_strategy": {},
                             "name": "name",
                         },
                     ],
@@ -572,17 +537,14 @@ class TestAsyncDatasets:
                     "properties": [
                         {
                             "description": "description",
-                            "merge_strategy": {},
                             "name": "name",
                         },
                         {
                             "description": "description",
-                            "merge_strategy": {},
                             "name": "name",
                         },
                         {
                             "description": "description",
-                            "merge_strategy": {},
                             "name": "name",
                         },
                     ],
@@ -593,17 +555,14 @@ class TestAsyncDatasets:
                     "properties": [
                         {
                             "description": "description",
-                            "merge_strategy": {},
                             "name": "name",
                         },
                         {
                             "description": "description",
-                            "merge_strategy": {},
                             "name": "name",
                         },
                         {
                             "description": "description",
-                            "merge_strategy": {},
                             "name": "name",
                         },
                     ],
@@ -614,17 +573,14 @@ class TestAsyncDatasets:
                     "properties": [
                         {
                             "description": "description",
-                            "merge_strategy": {},
                             "name": "name",
                         },
                         {
                             "description": "description",
-                            "merge_strategy": {},
                             "name": "name",
                         },
                         {
                             "description": "description",
-                            "merge_strategy": {},
                             "name": "name",
                         },
                     ],
@@ -669,17 +625,14 @@ class TestAsyncDatasets:
                     "properties": [
                         {
                             "description": "description",
-                            "merge_strategy": {},
                             "name": "name",
                         },
                         {
                             "description": "description",
-                            "merge_strategy": {},
                             "name": "name",
                         },
                         {
                             "description": "description",
-                            "merge_strategy": {},
                             "name": "name",
                         },
                     ],
@@ -690,17 +643,14 @@ class TestAsyncDatasets:
                     "properties": [
                         {
                             "description": "description",
-                            "merge_strategy": {},
                             "name": "name",
                         },
                         {
                             "description": "description",
-                            "merge_strategy": {},
                             "name": "name",
                         },
                         {
                             "description": "description",
-                            "merge_strategy": {},
                             "name": "name",
                         },
                     ],
@@ -711,17 +661,14 @@ class TestAsyncDatasets:
                     "properties": [
                         {
                             "description": "description",
-                            "merge_strategy": {},
                             "name": "name",
                         },
                         {
                             "description": "description",
-                            "merge_strategy": {},
                             "name": "name",
                         },
                         {
                             "description": "description",
-                            "merge_strategy": {},
                             "name": "name",
                         },
                     ],
@@ -829,7 +776,7 @@ class TestAsyncDatasets:
             dataset_name="dataset_name",
             requested_type="Entities",
         )
-        assert_matches_type(DatasetViewResponse, dataset, path=["response"])
+        assert_matches_type(AsyncRunsList[DatasetViewResponse], dataset, path=["response"])
 
     @parametrize
     async def test_method_view_with_all_params(self, async_client: AsyncStructify) -> None:
@@ -841,7 +788,7 @@ class TestAsyncDatasets:
             relationship_name="relationship_name",
             table_name="table_name",
         )
-        assert_matches_type(DatasetViewResponse, dataset, path=["response"])
+        assert_matches_type(AsyncRunsList[DatasetViewResponse], dataset, path=["response"])
 
     @parametrize
     async def test_raw_response_view(self, async_client: AsyncStructify) -> None:
@@ -853,7 +800,7 @@ class TestAsyncDatasets:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         dataset = await response.parse()
-        assert_matches_type(DatasetViewResponse, dataset, path=["response"])
+        assert_matches_type(AsyncRunsList[DatasetViewResponse], dataset, path=["response"])
 
     @parametrize
     async def test_streaming_response_view(self, async_client: AsyncStructify) -> None:
@@ -865,6 +812,6 @@ class TestAsyncDatasets:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             dataset = await response.parse()
-            assert_matches_type(DatasetViewResponse, dataset, path=["response"])
+            assert_matches_type(AsyncRunsList[DatasetViewResponse], dataset, path=["response"])
 
         assert cast(Any, response.is_closed) is True
