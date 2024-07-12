@@ -20,8 +20,6 @@ class Relationship(BaseModel):
 class TableProperty(BaseModel):
     description: str
 
-    merge_strategy: object
-
     name: str
 
 
