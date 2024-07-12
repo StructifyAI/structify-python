@@ -2,20 +2,10 @@
 
 from __future__ import annotations
 
-from typing import Union, Iterable
-from typing_extensions import Literal, Required, Annotated, TypedDict
+from typing import Iterable
+from typing_extensions import Required, TypedDict
 
-from .._utils import PropertyInfo
-
-__all__ = [
-    "DatasetCreateParams",
-    "Relationship",
-    "Table",
-    "TableProperty",
-    "TablePropertyMergeStrategy",
-    "TablePropertyMergeStrategyPropertyAttr",
-    "TablePropertyMergeStrategyFuzzyStringMatch",
-]
+__all__ = ["DatasetCreateParams", "Relationship", "Table", "TableProperty"]
 
 
 class DatasetCreateParams(TypedDict, total=False):
@@ -38,31 +28,8 @@ class Relationship(TypedDict, total=False):
     target_table: Required[str]
 
 
-class TablePropertyMergeStrategyPropertyAttr(TypedDict, total=False):
-    property_attr: Required[Annotated[str, PropertyInfo(alias="PropertyAttr")]]
-
-
-class TablePropertyMergeStrategyFuzzyStringMatch(TypedDict, total=False):
-    fuzzy_string_match: Required[Annotated[str, PropertyInfo(alias="FuzzyStringMatch")]]
-    """
-    merge on some list of property names iff the values are the same in the
-    extracted KgEntity
-    """
-
-
-TablePropertyMergeStrategy = Union[
-    TablePropertyMergeStrategyPropertyAttr, TablePropertyMergeStrategyFuzzyStringMatch, Literal["None"]
-]
-
-
 class TableProperty(TypedDict, total=False):
     description: Required[str]
-
-    merge_strategy: Required[TablePropertyMergeStrategy]
-    """
-    merge on two entities if they have two property keys listed in this type that
-    return true to some fuzzy string matching function
-    """
 
     name: Required[str]
 

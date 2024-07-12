@@ -7,7 +7,6 @@ from pydantic import Field as FieldInfo
 
 from .._models import BaseModel
 from .chat_prompt import ChatPrompt
-from .structify_id import StructifyID
 from .knowledge_graph import KnowledgeGraph
 
 __all__ = [
@@ -183,7 +182,7 @@ class Response(BaseModel):
 
 
 class ExecutionStep(BaseModel):
-    id: StructifyID
+    id: str
 
     prompt: ChatPrompt
 
