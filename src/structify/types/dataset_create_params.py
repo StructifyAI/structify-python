@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from typing import Iterable
-from typing_extensions import Required, TypedDict
+from typing_extensions import Required, TypedDict, NotRequired
 
 __all__ = ["DatasetCreateParams", "Relationship", "Table", "TableProperty"]
 
@@ -33,7 +33,7 @@ class TableProperty(TypedDict, total=False):
 
     name: Required[str]
     
-    merge_strategy: str
+    merge_strategy: NotRequired[str]
 
 class Table(TypedDict, total=False):
     description: Required[str]

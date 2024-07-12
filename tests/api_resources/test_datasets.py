@@ -23,7 +23,7 @@ class TestDatasets:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @parametrize
-    def test_method_create(self, client: Structify) -> None:
+    def test_method_create_for_datasets(self, client: Structify) -> None:
         dataset = client.datasets.create(
             description="description",
             name="name",
@@ -50,7 +50,7 @@ class TestDatasets:
             tables=[
                 {
                     "description": "description",
-                    "name": "name",
+                    "name": "source_table",
                     "properties": [
                         {
                             "description": "description",
@@ -68,7 +68,7 @@ class TestDatasets:
                 },
                 {
                     "description": "description",
-                    "name": "name",
+                    "name": "target_table",
                     "properties": [
                         {
                             "description": "description",
