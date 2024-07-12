@@ -30,13 +30,7 @@ Methods:
 Types:
 
 ```python
-from structify.types import (
-    Dataset,
-    DatasetDescriptor,
-    Entity,
-    DatasetListResponse,
-    DatasetViewResponse,
-)
+from structify.types import Dataset, DatasetDescriptor, DatasetListResponse, DatasetViewResponse
 ```
 
 Methods:
@@ -45,7 +39,7 @@ Methods:
 - <code title="get /dataset/list">client.datasets.<a href="./src/structify/resources/datasets.py">list</a>() -> <a href="./src/structify/types/dataset_list_response.py">DatasetListResponse</a></code>
 - <code title="delete /dataset/delete">client.datasets.<a href="./src/structify/resources/datasets.py">delete</a>(\*\*<a href="src/structify/types/dataset_delete_params.py">params</a>) -> None</code>
 - <code title="get /dataset/info">client.datasets.<a href="./src/structify/resources/datasets.py">get</a>(\*\*<a href="src/structify/types/dataset_get_params.py">params</a>) -> <a href="./src/structify/types/dataset_descriptor.py">Optional</a></code>
-- <code title="get /dataset/view">client.datasets.<a href="./src/structify/resources/datasets.py">view</a>(\*\*<a href="src/structify/types/dataset_view_params.py">params</a>) -> <a href="./src/structify/types/dataset_view_response.py">DatasetViewResponse</a></code>
+- <code title="get /dataset/view">client.datasets.<a href="./src/structify/resources/datasets.py">view</a>(\*\*<a href="src/structify/types/dataset_view_params.py">params</a>) -> <a href="./src/structify/types/dataset_view_response.py">SyncRunsList[DatasetViewResponse]</a></code>
 
 # Documents
 
@@ -67,15 +61,22 @@ Methods:
 Types:
 
 ```python
-from structify.types import RunListResponse, RunDeleteResponse, RunCancelResponse, RunGetResponse
+from structify.types import (
+    RunListResponse,
+    RunDeleteResponse,
+    RunCancelResponse,
+    RunGetResponse,
+    RunGetStepsResponse,
+)
 ```
 
 Methods:
 
-- <code title="get /runs/list">client.runs.<a href="./src/structify/resources/runs.py">list</a>() -> <a href="./src/structify/types/run_list_response.py">RunListResponse</a></code>
+- <code title="get /runs/list">client.runs.<a href="./src/structify/resources/runs.py">list</a>(\*\*<a href="src/structify/types/run_list_params.py">params</a>) -> <a href="./src/structify/types/run_list_response.py">SyncRunsList[RunListResponse]</a></code>
 - <code title="post /runs/delete/{uuid}">client.runs.<a href="./src/structify/resources/runs.py">delete</a>(uuid) -> str</code>
 - <code title="post /runs/cancel/{uuid}">client.runs.<a href="./src/structify/resources/runs.py">cancel</a>(uuid) -> <a href="./src/structify/types/run_cancel_response.py">RunCancelResponse</a></code>
 - <code title="get /runs/get/{uuid}">client.runs.<a href="./src/structify/resources/runs.py">get</a>(uuid) -> <a href="./src/structify/types/run_get_response.py">RunGetResponse</a></code>
+- <code title="get /runs/get_steps/{job_id}">client.runs.<a href="./src/structify/resources/runs.py">get_steps</a>(job_id) -> <a href="./src/structify/types/run_get_steps_response.py">RunGetStepsResponse</a></code>
 - <code title="post /runs/schedule">client.runs.<a href="./src/structify/resources/runs.py">schedule</a>() -> None</code>
 
 # Server
@@ -156,12 +157,12 @@ from structify.types import UsageGetJobInfoResponse
 
 Methods:
 
-- <code title="post /usage/get_job_info">client.usage.<a href="./src/structify/resources/usage.py">get_job_info</a>(\*\*<a href="src/structify/types/usage_get_job_info_params.py">params</a>) -> <a href="./src/structify/types/usage_get_job_info_response.py">UsageGetJobInfoResponse</a></code>
+- <code title="post /usage/get_job_info">client.usage.<a href="./src/structify/resources/usage.py">get_job_info</a>() -> <a href="./src/structify/types/usage_get_job_info_response.py">UsageGetJobInfoResponse</a></code>
 
 # Shared
 
 Types:
 
 ```python
-from structify.types import Entity, KnowledgeGraph, Relationship
+from structify.types import Entity, KnowledgeGraph, Relationship, StructifyID
 ```
