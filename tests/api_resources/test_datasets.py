@@ -54,32 +54,17 @@ class TestDatasets:
                     "properties": [
                         {
                             "description": "description",
+                            "merge_strategy": {"property_attr": "PropertyAttr"},
                             "name": "name",
                         },
                         {
                             "description": "description",
+                            "merge_strategy": {"property_attr": "PropertyAttr"},
                             "name": "name",
                         },
                         {
                             "description": "description",
-                            "name": "name",
-                        },
-                    ],
-                },
-                {
-                    "description": "description",
-                    "name": "name",
-                    "properties": [
-                        {
-                            "description": "description",
-                            "name": "name",
-                        },
-                        {
-                            "description": "description",
-                            "name": "name",
-                        },
-                        {
-                            "description": "description",
+                            "merge_strategy": {"property_attr": "PropertyAttr"},
                             "name": "name",
                         },
                     ],
@@ -90,14 +75,38 @@ class TestDatasets:
                     "properties": [
                         {
                             "description": "description",
+                            "merge_strategy": {"property_attr": "PropertyAttr"},
                             "name": "name",
                         },
                         {
                             "description": "description",
+                            "merge_strategy": {"property_attr": "PropertyAttr"},
                             "name": "name",
                         },
                         {
                             "description": "description",
+                            "merge_strategy": {"property_attr": "PropertyAttr"},
+                            "name": "name",
+                        },
+                    ],
+                },
+                {
+                    "description": "description",
+                    "name": "name",
+                    "properties": [
+                        {
+                            "description": "description",
+                            "merge_strategy": {"property_attr": "PropertyAttr"},
+                            "name": "name",
+                        },
+                        {
+                            "description": "description",
+                            "merge_strategy": {"property_attr": "PropertyAttr"},
+                            "name": "name",
+                        },
+                        {
+                            "description": "description",
+                            "merge_strategy": {"property_attr": "PropertyAttr"},
                             "name": "name",
                         },
                     ],
@@ -138,32 +147,17 @@ class TestDatasets:
                     "properties": [
                         {
                             "description": "description",
+                            "merge_strategy": {"property_attr": "PropertyAttr"},
                             "name": "name",
                         },
                         {
                             "description": "description",
+                            "merge_strategy": {"property_attr": "PropertyAttr"},
                             "name": "name",
                         },
                         {
                             "description": "description",
-                            "name": "name",
-                        },
-                    ],
-                },
-                {
-                    "description": "description",
-                    "name": "name",
-                    "properties": [
-                        {
-                            "description": "description",
-                            "name": "name",
-                        },
-                        {
-                            "description": "description",
-                            "name": "name",
-                        },
-                        {
-                            "description": "description",
+                            "merge_strategy": {"property_attr": "PropertyAttr"},
                             "name": "name",
                         },
                     ],
@@ -174,14 +168,38 @@ class TestDatasets:
                     "properties": [
                         {
                             "description": "description",
+                            "merge_strategy": {"property_attr": "PropertyAttr"},
                             "name": "name",
                         },
                         {
                             "description": "description",
+                            "merge_strategy": {"property_attr": "PropertyAttr"},
                             "name": "name",
                         },
                         {
                             "description": "description",
+                            "merge_strategy": {"property_attr": "PropertyAttr"},
+                            "name": "name",
+                        },
+                    ],
+                },
+                {
+                    "description": "description",
+                    "name": "name",
+                    "properties": [
+                        {
+                            "description": "description",
+                            "merge_strategy": {"property_attr": "PropertyAttr"},
+                            "name": "name",
+                        },
+                        {
+                            "description": "description",
+                            "merge_strategy": {"property_attr": "PropertyAttr"},
+                            "name": "name",
+                        },
+                        {
+                            "description": "description",
+                            "merge_strategy": {"property_attr": "PropertyAttr"},
                             "name": "name",
                         },
                     ],
@@ -226,32 +244,17 @@ class TestDatasets:
                     "properties": [
                         {
                             "description": "description",
+                            "merge_strategy": {"property_attr": "PropertyAttr"},
                             "name": "name",
                         },
                         {
                             "description": "description",
+                            "merge_strategy": {"property_attr": "PropertyAttr"},
                             "name": "name",
                         },
                         {
                             "description": "description",
-                            "name": "name",
-                        },
-                    ],
-                },
-                {
-                    "description": "description",
-                    "name": "name",
-                    "properties": [
-                        {
-                            "description": "description",
-                            "name": "name",
-                        },
-                        {
-                            "description": "description",
-                            "name": "name",
-                        },
-                        {
-                            "description": "description",
+                            "merge_strategy": {"property_attr": "PropertyAttr"},
                             "name": "name",
                         },
                     ],
@@ -262,14 +265,38 @@ class TestDatasets:
                     "properties": [
                         {
                             "description": "description",
+                            "merge_strategy": {"property_attr": "PropertyAttr"},
                             "name": "name",
                         },
                         {
                             "description": "description",
+                            "merge_strategy": {"property_attr": "PropertyAttr"},
                             "name": "name",
                         },
                         {
                             "description": "description",
+                            "merge_strategy": {"property_attr": "PropertyAttr"},
+                            "name": "name",
+                        },
+                    ],
+                },
+                {
+                    "description": "description",
+                    "name": "name",
+                    "properties": [
+                        {
+                            "description": "description",
+                            "merge_strategy": {"property_attr": "PropertyAttr"},
+                            "name": "name",
+                        },
+                        {
+                            "description": "description",
+                            "merge_strategy": {"property_attr": "PropertyAttr"},
+                            "name": "name",
+                        },
+                        {
+                            "description": "description",
+                            "merge_strategy": {"property_attr": "PropertyAttr"},
                             "name": "name",
                         },
                     ],
@@ -453,32 +480,17 @@ class TestAsyncDatasets:
                     "properties": [
                         {
                             "description": "description",
+                            "merge_strategy": {"property_attr": "PropertyAttr"},
                             "name": "name",
                         },
                         {
                             "description": "description",
+                            "merge_strategy": {"property_attr": "PropertyAttr"},
                             "name": "name",
                         },
                         {
                             "description": "description",
-                            "name": "name",
-                        },
-                    ],
-                },
-                {
-                    "description": "description",
-                    "name": "name",
-                    "properties": [
-                        {
-                            "description": "description",
-                            "name": "name",
-                        },
-                        {
-                            "description": "description",
-                            "name": "name",
-                        },
-                        {
-                            "description": "description",
+                            "merge_strategy": {"property_attr": "PropertyAttr"},
                             "name": "name",
                         },
                     ],
@@ -489,14 +501,38 @@ class TestAsyncDatasets:
                     "properties": [
                         {
                             "description": "description",
+                            "merge_strategy": {"property_attr": "PropertyAttr"},
                             "name": "name",
                         },
                         {
                             "description": "description",
+                            "merge_strategy": {"property_attr": "PropertyAttr"},
                             "name": "name",
                         },
                         {
                             "description": "description",
+                            "merge_strategy": {"property_attr": "PropertyAttr"},
+                            "name": "name",
+                        },
+                    ],
+                },
+                {
+                    "description": "description",
+                    "name": "name",
+                    "properties": [
+                        {
+                            "description": "description",
+                            "merge_strategy": {"property_attr": "PropertyAttr"},
+                            "name": "name",
+                        },
+                        {
+                            "description": "description",
+                            "merge_strategy": {"property_attr": "PropertyAttr"},
+                            "name": "name",
+                        },
+                        {
+                            "description": "description",
+                            "merge_strategy": {"property_attr": "PropertyAttr"},
                             "name": "name",
                         },
                     ],
@@ -537,32 +573,17 @@ class TestAsyncDatasets:
                     "properties": [
                         {
                             "description": "description",
+                            "merge_strategy": {"property_attr": "PropertyAttr"},
                             "name": "name",
                         },
                         {
                             "description": "description",
+                            "merge_strategy": {"property_attr": "PropertyAttr"},
                             "name": "name",
                         },
                         {
                             "description": "description",
-                            "name": "name",
-                        },
-                    ],
-                },
-                {
-                    "description": "description",
-                    "name": "name",
-                    "properties": [
-                        {
-                            "description": "description",
-                            "name": "name",
-                        },
-                        {
-                            "description": "description",
-                            "name": "name",
-                        },
-                        {
-                            "description": "description",
+                            "merge_strategy": {"property_attr": "PropertyAttr"},
                             "name": "name",
                         },
                     ],
@@ -573,14 +594,38 @@ class TestAsyncDatasets:
                     "properties": [
                         {
                             "description": "description",
+                            "merge_strategy": {"property_attr": "PropertyAttr"},
                             "name": "name",
                         },
                         {
                             "description": "description",
+                            "merge_strategy": {"property_attr": "PropertyAttr"},
                             "name": "name",
                         },
                         {
                             "description": "description",
+                            "merge_strategy": {"property_attr": "PropertyAttr"},
+                            "name": "name",
+                        },
+                    ],
+                },
+                {
+                    "description": "description",
+                    "name": "name",
+                    "properties": [
+                        {
+                            "description": "description",
+                            "merge_strategy": {"property_attr": "PropertyAttr"},
+                            "name": "name",
+                        },
+                        {
+                            "description": "description",
+                            "merge_strategy": {"property_attr": "PropertyAttr"},
+                            "name": "name",
+                        },
+                        {
+                            "description": "description",
+                            "merge_strategy": {"property_attr": "PropertyAttr"},
                             "name": "name",
                         },
                     ],
@@ -625,32 +670,17 @@ class TestAsyncDatasets:
                     "properties": [
                         {
                             "description": "description",
+                            "merge_strategy": {"property_attr": "PropertyAttr"},
                             "name": "name",
                         },
                         {
                             "description": "description",
+                            "merge_strategy": {"property_attr": "PropertyAttr"},
                             "name": "name",
                         },
                         {
                             "description": "description",
-                            "name": "name",
-                        },
-                    ],
-                },
-                {
-                    "description": "description",
-                    "name": "name",
-                    "properties": [
-                        {
-                            "description": "description",
-                            "name": "name",
-                        },
-                        {
-                            "description": "description",
-                            "name": "name",
-                        },
-                        {
-                            "description": "description",
+                            "merge_strategy": {"property_attr": "PropertyAttr"},
                             "name": "name",
                         },
                     ],
@@ -661,14 +691,38 @@ class TestAsyncDatasets:
                     "properties": [
                         {
                             "description": "description",
+                            "merge_strategy": {"property_attr": "PropertyAttr"},
                             "name": "name",
                         },
                         {
                             "description": "description",
+                            "merge_strategy": {"property_attr": "PropertyAttr"},
                             "name": "name",
                         },
                         {
                             "description": "description",
+                            "merge_strategy": {"property_attr": "PropertyAttr"},
+                            "name": "name",
+                        },
+                    ],
+                },
+                {
+                    "description": "description",
+                    "name": "name",
+                    "properties": [
+                        {
+                            "description": "description",
+                            "merge_strategy": {"property_attr": "PropertyAttr"},
+                            "name": "name",
+                        },
+                        {
+                            "description": "description",
+                            "merge_strategy": {"property_attr": "PropertyAttr"},
+                            "name": "name",
+                        },
+                        {
+                            "description": "description",
+                            "merge_strategy": {"property_attr": "PropertyAttr"},
                             "name": "name",
                         },
                     ],
