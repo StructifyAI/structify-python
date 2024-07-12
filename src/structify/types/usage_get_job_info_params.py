@@ -4,10 +4,8 @@ from __future__ import annotations
 
 from typing_extensions import Required, TypedDict
 
-__all__ = ["RunListParams"]
+__all__ = ["UsageGetJobInfoParams"]
 
 
-class RunListParams(TypedDict, total=False):
-    limit: Required[int]
-
-    offset: Required[int]
+class UsageGetJobInfoParams(TypedDict, total=False):
+    job_id: Required[str]
