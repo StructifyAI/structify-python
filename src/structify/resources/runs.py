@@ -20,7 +20,6 @@ from .._base_client import AsyncPaginator, make_request_options
 from ..types.run_get_response import RunGetResponse
 from ..types.run_list_response import RunListResponse
 from ..types.run_cancel_response import RunCancelResponse
-from ..types.run_get_steps_response import RunGetStepsResponse
 
 __all__ = ["RunsResource", "AsyncRunsResource"]
 
@@ -37,8 +36,8 @@ class RunsResource(SyncAPIResource):
     def list(
         self,
         *,
-        limit: int | NotGiven = NOT_GIVEN,
-        offset: int | NotGiven = NOT_GIVEN,
+        limit: int,
+        offset: int,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -74,7 +73,7 @@ class RunsResource(SyncAPIResource):
                     run_list_params.RunListParams,
                 ),
             ),
-            model=RunListResponse,
+            model=str,
         )
 
     def delete(
@@ -177,39 +176,6 @@ class RunsResource(SyncAPIResource):
             cast_to=RunGetResponse,
         )
 
-    def get_steps(
-        self,
-        job_id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> RunGetStepsResponse:
-        """
-        Retrieve a run from structify.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not job_id:
-            raise ValueError(f"Expected a non-empty value for `job_id` but received {job_id!r}")
-        return self._get(
-            f"/runs/get_steps/{job_id}",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=RunGetStepsResponse,
-        )
-
     def schedule(
         self,
         *,
@@ -246,8 +212,8 @@ class AsyncRunsResource(AsyncAPIResource):
     def list(
         self,
         *,
-        limit: int | NotGiven = NOT_GIVEN,
-        offset: int | NotGiven = NOT_GIVEN,
+        limit: int,
+        offset: int,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -283,7 +249,7 @@ class AsyncRunsResource(AsyncAPIResource):
                     run_list_params.RunListParams,
                 ),
             ),
-            model=RunListResponse,
+            model=str,
         )
 
     async def delete(
@@ -386,39 +352,6 @@ class AsyncRunsResource(AsyncAPIResource):
             cast_to=RunGetResponse,
         )
 
-    async def get_steps(
-        self,
-        job_id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> RunGetStepsResponse:
-        """
-        Retrieve a run from structify.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not job_id:
-            raise ValueError(f"Expected a non-empty value for `job_id` but received {job_id!r}")
-        return await self._get(
-            f"/runs/get_steps/{job_id}",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=RunGetStepsResponse,
-        )
-
     async def schedule(
         self,
         *,
@@ -459,9 +392,6 @@ class RunsResourceWithRawResponse:
         self.get = to_raw_response_wrapper(
             runs.get,
         )
-        self.get_steps = to_raw_response_wrapper(
-            runs.get_steps,
-        )
         self.schedule = to_raw_response_wrapper(
             runs.schedule,
         )
@@ -482,9 +412,6 @@ class AsyncRunsResourceWithRawResponse:
         )
         self.get = async_to_raw_response_wrapper(
             runs.get,
-        )
-        self.get_steps = async_to_raw_response_wrapper(
-            runs.get_steps,
         )
         self.schedule = async_to_raw_response_wrapper(
             runs.schedule,
@@ -507,9 +434,6 @@ class RunsResourceWithStreamingResponse:
         self.get = to_streamed_response_wrapper(
             runs.get,
         )
-        self.get_steps = to_streamed_response_wrapper(
-            runs.get_steps,
-        )
         self.schedule = to_streamed_response_wrapper(
             runs.schedule,
         )
@@ -530,9 +454,6 @@ class AsyncRunsResourceWithStreamingResponse:
         )
         self.get = async_to_streamed_response_wrapper(
             runs.get,
-        )
-        self.get_steps = async_to_streamed_response_wrapper(
-            runs.get_steps,
         )
         self.schedule = async_to_streamed_response_wrapper(
             runs.schedule,
