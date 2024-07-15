@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, Union, Optional
+from typing import Union
 from typing_extensions import Literal
 
 from pydantic import Field as FieldInfo
@@ -40,7 +40,7 @@ Location = Union[LocationText, LocationVisual, Literal["None"]]
 
 
 class SourceListResponse(BaseModel):
-    extra_properties: Dict[str, Union[Optional[str], Optional[bool], Optional[int]]]
+    id: str
 
     link: Source
 
