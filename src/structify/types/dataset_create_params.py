@@ -60,7 +60,7 @@ class TableProperty(TypedDict, total=False):
 
     name: Required[str]
 
-    prop_type: Required[object]
+    prop_type: Required[Literal["String", "Integer"]]
 
     merge_strategy: TablePropertyMergeStrategy
     """
