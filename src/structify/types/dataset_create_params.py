@@ -60,8 +60,6 @@ class TableProperty(TypedDict, total=False):
 
     name: Required[str]
 
-    prop_type: Required[Literal["String", "Integer"]]
-
     merge_strategy: TablePropertyMergeStrategy
     """
     merge on two entities if they have two property keys listed in this type that
