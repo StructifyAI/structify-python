@@ -50,6 +50,8 @@ class TableProperty(BaseModel):
 
     name: str
 
+    prop_type: object
+
     merge_strategy: Optional[TablePropertyMergeStrategy] = None
     """
     merge on two entities if they have two property keys listed in this type that
