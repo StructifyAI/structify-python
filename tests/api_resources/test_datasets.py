@@ -55,17 +55,14 @@ class TestDatasets:
                         {
                             "description": "description",
                             "name": "name",
-                            "prop_type": "String",
                         },
                         {
                             "description": "description",
                             "name": "name",
-                            "prop_type": "String",
                         },
                         {
                             "description": "description",
                             "name": "name",
-                            "prop_type": "String",
                         },
                     ],
                 },
@@ -76,17 +73,14 @@ class TestDatasets:
                         {
                             "description": "description",
                             "name": "name",
-                            "prop_type": "String",
                         },
                         {
                             "description": "description",
                             "name": "name",
-                            "prop_type": "String",
                         },
                         {
                             "description": "description",
                             "name": "name",
-                            "prop_type": "String",
                         },
                     ],
                 },
@@ -97,17 +91,14 @@ class TestDatasets:
                         {
                             "description": "description",
                             "name": "name",
-                            "prop_type": "String",
                         },
                         {
                             "description": "description",
                             "name": "name",
-                            "prop_type": "String",
                         },
                         {
                             "description": "description",
                             "name": "name",
-                            "prop_type": "String",
                         },
                     ],
                 },
@@ -148,17 +139,14 @@ class TestDatasets:
                         {
                             "description": "description",
                             "name": "name",
-                            "prop_type": "String",
                         },
                         {
                             "description": "description",
                             "name": "name",
-                            "prop_type": "String",
                         },
                         {
                             "description": "description",
                             "name": "name",
-                            "prop_type": "String",
                         },
                     ],
                 },
@@ -169,17 +157,14 @@ class TestDatasets:
                         {
                             "description": "description",
                             "name": "name",
-                            "prop_type": "String",
                         },
                         {
                             "description": "description",
                             "name": "name",
-                            "prop_type": "String",
                         },
                         {
                             "description": "description",
                             "name": "name",
-                            "prop_type": "String",
                         },
                     ],
                 },
@@ -190,17 +175,14 @@ class TestDatasets:
                         {
                             "description": "description",
                             "name": "name",
-                            "prop_type": "String",
                         },
                         {
                             "description": "description",
                             "name": "name",
-                            "prop_type": "String",
                         },
                         {
                             "description": "description",
                             "name": "name",
-                            "prop_type": "String",
                         },
                     ],
                 },
@@ -245,17 +227,14 @@ class TestDatasets:
                         {
                             "description": "description",
                             "name": "name",
-                            "prop_type": "String",
                         },
                         {
                             "description": "description",
                             "name": "name",
-                            "prop_type": "String",
                         },
                         {
                             "description": "description",
                             "name": "name",
-                            "prop_type": "String",
                         },
                     ],
                 },
@@ -266,17 +245,14 @@ class TestDatasets:
                         {
                             "description": "description",
                             "name": "name",
-                            "prop_type": "String",
                         },
                         {
                             "description": "description",
                             "name": "name",
-                            "prop_type": "String",
                         },
                         {
                             "description": "description",
                             "name": "name",
-                            "prop_type": "String",
                         },
                     ],
                 },
@@ -287,17 +263,14 @@ class TestDatasets:
                         {
                             "description": "description",
                             "name": "name",
-                            "prop_type": "String",
                         },
                         {
                             "description": "description",
                             "name": "name",
-                            "prop_type": "String",
                         },
                         {
                             "description": "description",
                             "name": "name",
-                            "prop_type": "String",
                         },
                     ],
                 },
@@ -481,17 +454,14 @@ class TestAsyncDatasets:
                         {
                             "description": "description",
                             "name": "name",
-                            "prop_type": "String",
                         },
                         {
                             "description": "description",
                             "name": "name",
-                            "prop_type": "String",
                         },
                         {
                             "description": "description",
                             "name": "name",
-                            "prop_type": "String",
                         },
                     ],
                 },
@@ -502,17 +472,14 @@ class TestAsyncDatasets:
                         {
                             "description": "description",
                             "name": "name",
-                            "prop_type": "String",
                         },
                         {
                             "description": "description",
                             "name": "name",
-                            "prop_type": "String",
                         },
                         {
                             "description": "description",
                             "name": "name",
-                            "prop_type": "String",
                         },
                     ],
                 },
@@ -523,17 +490,14 @@ class TestAsyncDatasets:
                         {
                             "description": "description",
                             "name": "name",
-                            "prop_type": "String",
                         },
                         {
                             "description": "description",
                             "name": "name",
-                            "prop_type": "String",
                         },
                         {
                             "description": "description",
                             "name": "name",
-                            "prop_type": "String",
                         },
                     ],
                 },
@@ -574,17 +538,14 @@ class TestAsyncDatasets:
                         {
                             "description": "description",
                             "name": "name",
-                            "prop_type": "String",
                         },
                         {
                             "description": "description",
                             "name": "name",
-                            "prop_type": "String",
                         },
                         {
                             "description": "description",
                             "name": "name",
-                            "prop_type": "String",
                         },
                     ],
                 },
@@ -595,17 +556,14 @@ class TestAsyncDatasets:
                         {
                             "description": "description",
                             "name": "name",
-                            "prop_type": "String",
                         },
                         {
                             "description": "description",
                             "name": "name",
-                            "prop_type": "String",
                         },
                         {
                             "description": "description",
                             "name": "name",
-                            "prop_type": "String",
                         },
                     ],
                 },
@@ -616,17 +574,14 @@ class TestAsyncDatasets:
                         {
                             "description": "description",
                             "name": "name",
-                            "prop_type": "String",
                         },
                         {
                             "description": "description",
                             "name": "name",
-                            "prop_type": "String",
                         },
                         {
                             "description": "description",
                             "name": "name",
-                            "prop_type": "String",
                         },
                     ],
                 },
@@ -671,17 +626,14 @@ class TestAsyncDatasets:
                         {
                             "description": "description",
                             "name": "name",
-                            "prop_type": "String",
                         },
                         {
                             "description": "description",
                             "name": "name",
-                            "prop_type": "String",
                         },
                         {
                             "description": "description",
                             "name": "name",
-                            "prop_type": "String",
                         },
                     ],
                 },
@@ -692,17 +644,14 @@ class TestAsyncDatasets:
                         {
                             "description": "description",
                             "name": "name",
-                            "prop_type": "String",
                         },
                         {
                             "description": "description",
                             "name": "name",
-                            "prop_type": "String",
                         },
                         {
                             "description": "description",
                             "name": "name",
-                            "prop_type": "String",
                         },
                     ],
                 },
@@ -713,17 +662,14 @@ class TestAsyncDatasets:
                         {
                             "description": "description",
                             "name": "name",
-                            "prop_type": "String",
                         },
                         {
                             "description": "description",
                             "name": "name",
-                            "prop_type": "String",
                         },
                         {
                             "description": "description",
                             "name": "name",
-                            "prop_type": "String",
                         },
                     ],
                 },
