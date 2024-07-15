@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Union
+from typing import List, Union, Optional
 from typing_extensions import Literal
 
 from pydantic import Field as FieldInfo
@@ -48,13 +48,15 @@ TablePropertyMergeStrategy = Union[
 class TableProperty(BaseModel):
     description: str
 
-    merge_strategy: TablePropertyMergeStrategy
+    name: str
+
+    prop_type: Literal["String", "Integer"]
+
+    merge_strategy: Optional[TablePropertyMergeStrategy] = None
     """
     merge on two entities if they have two property keys listed in this type that
     return true to some fuzzy string matching function
     """
-
-    name: str
 
 
 class Table(BaseModel):

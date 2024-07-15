@@ -76,40 +76,6 @@ class RunsResource(SyncAPIResource):
             model=RunListResponse,
         )
 
-    def delete(
-        self,
-        uuid: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> str:
-        """
-        Delete a run
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not uuid:
-            raise ValueError(f"Expected a non-empty value for `uuid` but received {uuid!r}")
-        extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
-        return self._post(
-            f"/runs/delete/{uuid}",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=str,
-        )
-
     def cancel(
         self,
         uuid: str,
@@ -252,40 +218,6 @@ class AsyncRunsResource(AsyncAPIResource):
             model=RunListResponse,
         )
 
-    async def delete(
-        self,
-        uuid: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> str:
-        """
-        Delete a run
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not uuid:
-            raise ValueError(f"Expected a non-empty value for `uuid` but received {uuid!r}")
-        extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
-        return await self._post(
-            f"/runs/delete/{uuid}",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=str,
-        )
-
     async def cancel(
         self,
         uuid: str,
@@ -383,9 +315,6 @@ class RunsResourceWithRawResponse:
         self.list = to_raw_response_wrapper(
             runs.list,
         )
-        self.delete = to_raw_response_wrapper(
-            runs.delete,
-        )
         self.cancel = to_raw_response_wrapper(
             runs.cancel,
         )
@@ -403,9 +332,6 @@ class AsyncRunsResourceWithRawResponse:
 
         self.list = async_to_raw_response_wrapper(
             runs.list,
-        )
-        self.delete = async_to_raw_response_wrapper(
-            runs.delete,
         )
         self.cancel = async_to_raw_response_wrapper(
             runs.cancel,
@@ -425,9 +351,6 @@ class RunsResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             runs.list,
         )
-        self.delete = to_streamed_response_wrapper(
-            runs.delete,
-        )
         self.cancel = to_streamed_response_wrapper(
             runs.cancel,
         )
@@ -445,9 +368,6 @@ class AsyncRunsResourceWithStreamingResponse:
 
         self.list = async_to_streamed_response_wrapper(
             runs.list,
-        )
-        self.delete = async_to_streamed_response_wrapper(
-            runs.delete,
         )
         self.cancel = async_to_streamed_response_wrapper(
             runs.cancel,
