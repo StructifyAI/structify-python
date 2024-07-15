@@ -56,6 +56,8 @@ class TableProperty(BaseModel):
     return true to some fuzzy string matching function
     """
 
+    prop_type: Optional[Literal["Integer", "String"]] = None
+
 
 class Table(BaseModel):
     description: str
