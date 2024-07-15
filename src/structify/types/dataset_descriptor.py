@@ -50,7 +50,7 @@ class TableProperty(BaseModel):
 
     name: str
 
-    prop_type: object
+    prop_type: Literal["String", "Integer"]
 
     merge_strategy: Optional[TablePropertyMergeStrategy] = None
     """
