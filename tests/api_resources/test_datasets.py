@@ -55,32 +55,17 @@ class TestDatasets:
                         {
                             "description": "description",
                             "name": "name",
+                            "prop_type": {},
                         },
                         {
                             "description": "description",
                             "name": "name",
+                            "prop_type": {},
                         },
                         {
                             "description": "description",
                             "name": "name",
-                        },
-                    ],
-                },
-                {
-                    "description": "description",
-                    "name": "name",
-                    "properties": [
-                        {
-                            "description": "description",
-                            "name": "name",
-                        },
-                        {
-                            "description": "description",
-                            "name": "name",
-                        },
-                        {
-                            "description": "description",
-                            "name": "name",
+                            "prop_type": {},
                         },
                     ],
                 },
@@ -91,14 +76,38 @@ class TestDatasets:
                         {
                             "description": "description",
                             "name": "name",
+                            "prop_type": {},
                         },
                         {
                             "description": "description",
                             "name": "name",
+                            "prop_type": {},
                         },
                         {
                             "description": "description",
                             "name": "name",
+                            "prop_type": {},
+                        },
+                    ],
+                },
+                {
+                    "description": "description",
+                    "name": "name",
+                    "properties": [
+                        {
+                            "description": "description",
+                            "name": "name",
+                            "prop_type": {},
+                        },
+                        {
+                            "description": "description",
+                            "name": "name",
+                            "prop_type": {},
+                        },
+                        {
+                            "description": "description",
+                            "name": "name",
+                            "prop_type": {},
                         },
                     ],
                 },
@@ -139,32 +148,17 @@ class TestDatasets:
                         {
                             "description": "description",
                             "name": "name",
+                            "prop_type": {},
                         },
                         {
                             "description": "description",
                             "name": "name",
+                            "prop_type": {},
                         },
                         {
                             "description": "description",
                             "name": "name",
-                        },
-                    ],
-                },
-                {
-                    "description": "description",
-                    "name": "name",
-                    "properties": [
-                        {
-                            "description": "description",
-                            "name": "name",
-                        },
-                        {
-                            "description": "description",
-                            "name": "name",
-                        },
-                        {
-                            "description": "description",
-                            "name": "name",
+                            "prop_type": {},
                         },
                     ],
                 },
@@ -175,14 +169,38 @@ class TestDatasets:
                         {
                             "description": "description",
                             "name": "name",
+                            "prop_type": {},
                         },
                         {
                             "description": "description",
                             "name": "name",
+                            "prop_type": {},
                         },
                         {
                             "description": "description",
                             "name": "name",
+                            "prop_type": {},
+                        },
+                    ],
+                },
+                {
+                    "description": "description",
+                    "name": "name",
+                    "properties": [
+                        {
+                            "description": "description",
+                            "name": "name",
+                            "prop_type": {},
+                        },
+                        {
+                            "description": "description",
+                            "name": "name",
+                            "prop_type": {},
+                        },
+                        {
+                            "description": "description",
+                            "name": "name",
+                            "prop_type": {},
                         },
                     ],
                 },
@@ -227,32 +245,17 @@ class TestDatasets:
                         {
                             "description": "description",
                             "name": "name",
+                            "prop_type": {},
                         },
                         {
                             "description": "description",
                             "name": "name",
+                            "prop_type": {},
                         },
                         {
                             "description": "description",
                             "name": "name",
-                        },
-                    ],
-                },
-                {
-                    "description": "description",
-                    "name": "name",
-                    "properties": [
-                        {
-                            "description": "description",
-                            "name": "name",
-                        },
-                        {
-                            "description": "description",
-                            "name": "name",
-                        },
-                        {
-                            "description": "description",
-                            "name": "name",
+                            "prop_type": {},
                         },
                     ],
                 },
@@ -263,14 +266,38 @@ class TestDatasets:
                         {
                             "description": "description",
                             "name": "name",
+                            "prop_type": {},
                         },
                         {
                             "description": "description",
                             "name": "name",
+                            "prop_type": {},
                         },
                         {
                             "description": "description",
                             "name": "name",
+                            "prop_type": {},
+                        },
+                    ],
+                },
+                {
+                    "description": "description",
+                    "name": "name",
+                    "properties": [
+                        {
+                            "description": "description",
+                            "name": "name",
+                            "prop_type": {},
+                        },
+                        {
+                            "description": "description",
+                            "name": "name",
+                            "prop_type": {},
+                        },
+                        {
+                            "description": "description",
+                            "name": "name",
+                            "prop_type": {},
                         },
                     ],
                 },
@@ -454,32 +481,17 @@ class TestAsyncDatasets:
                         {
                             "description": "description",
                             "name": "name",
+                            "prop_type": {},
                         },
                         {
                             "description": "description",
                             "name": "name",
+                            "prop_type": {},
                         },
                         {
                             "description": "description",
                             "name": "name",
-                        },
-                    ],
-                },
-                {
-                    "description": "description",
-                    "name": "name",
-                    "properties": [
-                        {
-                            "description": "description",
-                            "name": "name",
-                        },
-                        {
-                            "description": "description",
-                            "name": "name",
-                        },
-                        {
-                            "description": "description",
-                            "name": "name",
+                            "prop_type": {},
                         },
                     ],
                 },
@@ -490,14 +502,38 @@ class TestAsyncDatasets:
                         {
                             "description": "description",
                             "name": "name",
+                            "prop_type": {},
                         },
                         {
                             "description": "description",
                             "name": "name",
+                            "prop_type": {},
                         },
                         {
                             "description": "description",
                             "name": "name",
+                            "prop_type": {},
+                        },
+                    ],
+                },
+                {
+                    "description": "description",
+                    "name": "name",
+                    "properties": [
+                        {
+                            "description": "description",
+                            "name": "name",
+                            "prop_type": {},
+                        },
+                        {
+                            "description": "description",
+                            "name": "name",
+                            "prop_type": {},
+                        },
+                        {
+                            "description": "description",
+                            "name": "name",
+                            "prop_type": {},
                         },
                     ],
                 },
@@ -538,32 +574,17 @@ class TestAsyncDatasets:
                         {
                             "description": "description",
                             "name": "name",
+                            "prop_type": {},
                         },
                         {
                             "description": "description",
                             "name": "name",
+                            "prop_type": {},
                         },
                         {
                             "description": "description",
                             "name": "name",
-                        },
-                    ],
-                },
-                {
-                    "description": "description",
-                    "name": "name",
-                    "properties": [
-                        {
-                            "description": "description",
-                            "name": "name",
-                        },
-                        {
-                            "description": "description",
-                            "name": "name",
-                        },
-                        {
-                            "description": "description",
-                            "name": "name",
+                            "prop_type": {},
                         },
                     ],
                 },
@@ -574,14 +595,38 @@ class TestAsyncDatasets:
                         {
                             "description": "description",
                             "name": "name",
+                            "prop_type": {},
                         },
                         {
                             "description": "description",
                             "name": "name",
+                            "prop_type": {},
                         },
                         {
                             "description": "description",
                             "name": "name",
+                            "prop_type": {},
+                        },
+                    ],
+                },
+                {
+                    "description": "description",
+                    "name": "name",
+                    "properties": [
+                        {
+                            "description": "description",
+                            "name": "name",
+                            "prop_type": {},
+                        },
+                        {
+                            "description": "description",
+                            "name": "name",
+                            "prop_type": {},
+                        },
+                        {
+                            "description": "description",
+                            "name": "name",
+                            "prop_type": {},
                         },
                     ],
                 },
@@ -626,32 +671,17 @@ class TestAsyncDatasets:
                         {
                             "description": "description",
                             "name": "name",
+                            "prop_type": {},
                         },
                         {
                             "description": "description",
                             "name": "name",
+                            "prop_type": {},
                         },
                         {
                             "description": "description",
                             "name": "name",
-                        },
-                    ],
-                },
-                {
-                    "description": "description",
-                    "name": "name",
-                    "properties": [
-                        {
-                            "description": "description",
-                            "name": "name",
-                        },
-                        {
-                            "description": "description",
-                            "name": "name",
-                        },
-                        {
-                            "description": "description",
-                            "name": "name",
+                            "prop_type": {},
                         },
                     ],
                 },
@@ -662,14 +692,38 @@ class TestAsyncDatasets:
                         {
                             "description": "description",
                             "name": "name",
+                            "prop_type": {},
                         },
                         {
                             "description": "description",
                             "name": "name",
+                            "prop_type": {},
                         },
                         {
                             "description": "description",
                             "name": "name",
+                            "prop_type": {},
+                        },
+                    ],
+                },
+                {
+                    "description": "description",
+                    "name": "name",
+                    "properties": [
+                        {
+                            "description": "description",
+                            "name": "name",
+                            "prop_type": {},
+                        },
+                        {
+                            "description": "description",
+                            "name": "name",
+                            "prop_type": {},
+                        },
+                        {
+                            "description": "description",
+                            "name": "name",
+                            "prop_type": {},
                         },
                     ],
                 },
