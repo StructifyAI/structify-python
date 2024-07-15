@@ -66,6 +66,8 @@ class TableProperty(TypedDict, total=False):
     return true to some fuzzy string matching function
     """
 
+    prop_type: Literal["Integer", "String"]
+
 
 class Table(TypedDict, total=False):
     description: Required[str]
