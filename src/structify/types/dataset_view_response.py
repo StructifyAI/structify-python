@@ -10,7 +10,7 @@ __all__ = ["DatasetViewResponse", "Entity", "EntityEntity", "Relationship", "Rel
 
 
 class EntityEntity(BaseModel):
-    id: int
+    id: str
 
     label: str
 
@@ -22,19 +22,15 @@ class Entity(BaseModel):
 
 
 class RelationshipRelationship(BaseModel):
-    from_id: int
+    from_id: str
 
     label: str
 
-    to_id: int
+    to_id: str
 
 
 class Relationship(BaseModel):
     relationship: RelationshipRelationship = FieldInfo(alias="Relationship")
-    """Don't actually create these. These are solely used as return types in the API
-
-    TODO: Remove them from models.
-    """
 
 
 DatasetViewResponse = Union[Entity, Relationship]
