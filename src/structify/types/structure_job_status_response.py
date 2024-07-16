@@ -1,12 +1,14 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import List
+from typing_extensions import Literal
 
-__all__ = ["StructureJobStatusResponse", "StructureJobStatusResponseItem"]
+from .._models import BaseModel
+
+__all__ = ["StructureJobStatusResponse"]
 
 
-class StructureJobStatusResponseItem:
-    pass
+class StructureJobStatusResponse(BaseModel):
+    job_status: List[Literal["Queued", "Running", "Completed", "Failed"]]
 
-
-StructureJobStatusResponse = List[StructureJobStatusResponseItem]
+    log_nodes: List[str]
