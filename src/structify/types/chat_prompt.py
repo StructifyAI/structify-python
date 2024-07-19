@@ -25,6 +25,7 @@ __all__ = [
     "DecodingParamsParameterJsonValidator",
     "DecodingParamsParameterRegexValidator",
     "DecodingParamsParameterContextFreeGrammar",
+    "DecodingParamsParameterNumBeams",
     "DecodingParamsParameterCrop",
     "Message",
     "MessageContent",
@@ -76,6 +77,10 @@ class DecodingParamsParameterContextFreeGrammar(BaseModel):
     context_free_grammar: str = FieldInfo(alias="ContextFreeGrammar")
 
 
+class DecodingParamsParameterNumBeams(BaseModel):
+    num_beams: int = FieldInfo(alias="NumBeams")
+
+
 class DecodingParamsParameterCrop(BaseModel):
     crop: bool = FieldInfo(alias="Crop")
 
@@ -91,6 +96,7 @@ DecodingParamsParameter = Union[
     DecodingParamsParameterJsonValidator,
     DecodingParamsParameterRegexValidator,
     DecodingParamsParameterContextFreeGrammar,
+    DecodingParamsParameterNumBeams,
     DecodingParamsParameterCrop,
 ]
 
