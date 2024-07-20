@@ -24,7 +24,8 @@ __all__ = [
     "DecodingParamsParameterFunctions",
     "DecodingParamsParameterJsonValidator",
     "DecodingParamsParameterRegexValidator",
-    "DecodingParamsParameterContextFreeeGrammar",
+    "DecodingParamsParameterContextFreeGrammar",
+    "DecodingParamsParameterNumBeams",
     "DecodingParamsParameterCrop",
     "Message",
     "MessageContent",
@@ -72,8 +73,12 @@ class DecodingParamsParameterRegexValidator(BaseModel):
     regex_validator: str = FieldInfo(alias="RegexValidator")
 
 
-class DecodingParamsParameterContextFreeeGrammar(BaseModel):
-    context_freee_grammar: str = FieldInfo(alias="ContextFreeeGrammar")
+class DecodingParamsParameterContextFreeGrammar(BaseModel):
+    context_free_grammar: str = FieldInfo(alias="ContextFreeGrammar")
+
+
+class DecodingParamsParameterNumBeams(BaseModel):
+    num_beams: int = FieldInfo(alias="NumBeams")
 
 
 class DecodingParamsParameterCrop(BaseModel):
@@ -90,7 +95,8 @@ DecodingParamsParameter = Union[
     DecodingParamsParameterFunctions,
     DecodingParamsParameterJsonValidator,
     DecodingParamsParameterRegexValidator,
-    DecodingParamsParameterContextFreeeGrammar,
+    DecodingParamsParameterContextFreeGrammar,
+    DecodingParamsParameterNumBeams,
     DecodingParamsParameterCrop,
 ]
 

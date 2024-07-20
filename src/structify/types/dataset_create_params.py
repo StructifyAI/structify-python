@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union, Iterable
+from typing import List, Union, Iterable
 from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from .._utils import PropertyInfo
@@ -15,6 +15,9 @@ __all__ = [
     "TablePropertyMergeStrategy",
     "TablePropertyMergeStrategyPropertyAttr",
     "TablePropertyMergeStrategyFuzzyStringMatch",
+    "TablePropertyPropType",
+    "TablePropertyPropTypeEnum",
+    "TablePropertyPropTypeEnumEnum",
 ]
 
 
@@ -55,18 +58,29 @@ TablePropertyMergeStrategy = Union[
 ]
 
 
+class TablePropertyPropTypeEnumEnum(TypedDict, total=False):
+    types: Required[List[str]]
+
+
+class TablePropertyPropTypeEnum(TypedDict, total=False):
+    enum: Required[Annotated[TablePropertyPropTypeEnumEnum, PropertyInfo(alias="Enum")]]
+
+
+TablePropertyPropType = Union[TablePropertyPropTypeEnum, Literal["Integer"], Literal["String"]]
+
+
 class TableProperty(TypedDict, total=False):
     description: Required[str]
 
     name: Required[str]
-
-    prop_type: Required[Literal["String", "Integer"]]
 
     merge_strategy: TablePropertyMergeStrategy
     """
     merge on two entities if they have two property keys listed in this type that
     return true to some fuzzy string matching function
     """
+
+    prop_type: TablePropertyPropType
 
 
 class Table(TypedDict, total=False):

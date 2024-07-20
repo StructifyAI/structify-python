@@ -15,6 +15,9 @@ __all__ = [
     "TablePropertyMergeStrategy",
     "TablePropertyMergeStrategyPropertyAttr",
     "TablePropertyMergeStrategyFuzzyStringMatch",
+    "TablePropertyPropType",
+    "TablePropertyPropTypeEnum",
+    "TablePropertyPropTypeEnumEnum",
 ]
 
 
@@ -45,18 +48,29 @@ TablePropertyMergeStrategy = Union[
 ]
 
 
+class TablePropertyPropTypeEnumEnum(BaseModel):
+    types: List[str]
+
+
+class TablePropertyPropTypeEnum(BaseModel):
+    enum: TablePropertyPropTypeEnumEnum = FieldInfo(alias="Enum")
+
+
+TablePropertyPropType = Union[TablePropertyPropTypeEnum, Literal["Integer"], Literal["String"]]
+
+
 class TableProperty(BaseModel):
     description: str
 
     name: str
-
-    prop_type: Literal["String", "Integer"]
 
     merge_strategy: Optional[TablePropertyMergeStrategy] = None
     """
     merge on two entities if they have two property keys listed in this type that
     return true to some fuzzy string matching function
     """
+
+    prop_type: Optional[TablePropertyPropType] = None
 
 
 class Table(BaseModel):
