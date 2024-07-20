@@ -29,6 +29,7 @@ from .dataset_delete_params import DatasetDeleteParams as DatasetDeleteParams
 from .dataset_list_response import DatasetListResponse as DatasetListResponse
 from .dataset_view_response import DatasetViewResponse as DatasetViewResponse
 from .knowledge_graph_param import KnowledgeGraphParam as KnowledgeGraphParam
+from .run_get_step_response import RunGetStepResponse as RunGetStepResponse
 from .document_list_response import DocumentListResponse as DocumentListResponse
 from .document_upload_params import DocumentUploadParams as DocumentUploadParams
 from .run_get_steps_response import RunGetStepsResponse as RunGetStepsResponse
