@@ -33,6 +33,7 @@ __all__ = ["StructureResource", "AsyncStructureResource"]
 # ---------------- Stainless modification ----------------
 import logging
 from typing import Optional
+from ..pagination import SyncRunsList
 
 log: logging.Logger = logging.getLogger(__name__)
 
@@ -173,7 +174,7 @@ class StructureResource(SyncAPIResource):
         *args,  # type: ignore
         timeout: Optional[int] = None,
         **kwargs,  # type: ignore
-    ) -> DatasetViewResponse:
+    ) -> SyncRunsList[DatasetViewResponse]:
         """
         This function simulates a synchronous run of the async function by calling it and then waiting.
         If the timeout is reached, it attempts to cancel the job.
