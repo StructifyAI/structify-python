@@ -199,8 +199,8 @@ class StructureResource(SyncAPIResource):
             all_logs = resp.log_nodes
 
             new_logs = all_logs[last_idx:]
-            for log in new_logs:
-                log.info("{}".format(log))
+            for new_log in new_logs:
+                log.info("{}".format(new_log))
             last_idx = len(all_logs)
 
             successfully_started_job = True
