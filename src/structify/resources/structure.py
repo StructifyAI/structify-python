@@ -180,7 +180,7 @@ class StructureResource(SyncAPIResource):
         token: str = self.run_async(*args, **kwargs)  # type: ignore
         start_time = time.time() if timeout is not None else None
         successfully_started_job = False
-        latest_len = 1
+        last_idx = 0
 
         while True:
             if timeout is not None and start_time is not None:
@@ -196,13 +196,13 @@ class StructureResource(SyncAPIResource):
                 status = resp.job_status[0]
                 all_logs = resp.log_nodes
 
-                new_logs = reversed(all_logs[0:len(all_logs)-latest_len+1])
+                new_logs = all_logs[last_idx:]
                 for log in new_logs:
                     print("{}".format(log))
-                latest_len = len(all_logs)
+                last_idx = len(all_logs)
 
                 successfully_started_job = True
-                if status[0] == "Completed":
+                if status == "Completed":
                     return (
                         self._client.datasets.view(dataset_name=kwargs["dataset_name"], table_name=table_name),
                         all_logs,
