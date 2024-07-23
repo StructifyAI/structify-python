@@ -33,6 +33,7 @@ __all__ = ["StructureResource", "AsyncStructureResource"]
 # ---------------- Stainless modification ----------------
 import logging
 from typing import Optional
+
 from ..pagination import SyncRunsList
 
 log: logging.Logger = logging.getLogger(__name__)
