@@ -210,6 +210,7 @@ class StructureResource(SyncAPIResource):
             except Exception:
                 pass
             time.sleep(1)
+            return None
     # -------------------------------------------------------------------------
 
 class AsyncStructureResource(AsyncAPIResource):
