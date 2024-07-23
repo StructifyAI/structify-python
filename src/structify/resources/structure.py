@@ -34,6 +34,8 @@ __all__ = ["StructureResource", "AsyncStructureResource"]
 import logging
 from typing import Tuple
 
+log: logging.Logger = logging.getLogger(__name__)
+
 from ..types.dataset_view_response import DatasetViewResponse
 
 # --------------------------------------------------------
@@ -199,7 +201,7 @@ class StructureResource(SyncAPIResource):
 
                 new_logs = all_logs[last_idx:]
                 for log in new_logs:
-                    logging.info("{}".format(log))
+                    log.info("{}".format(log))
                 last_idx = len(all_logs)
 
                 successfully_started_job = True
