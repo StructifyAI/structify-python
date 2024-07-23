@@ -207,8 +207,7 @@ class StructureResource(SyncAPIResource):
 
             successfully_started_job = True
             if status == "Completed":
-                name: str = kwargs["dataset_name"] # type: ignore
-                return self._client.datasets.view(dataset_name=name, table_name=table_name, requested_type="Entities")
+                return self._client.datasets.view(dataset_name=kwargs["dataset_name"], table_name=table_name, requested_type="Entities") # type: ignore
             time.sleep(1)
     # -------------------------------------------------------------------------
 
