@@ -31,7 +31,12 @@ from ..types.structure_job_status_response import StructureJobStatusResponse
 __all__ = ["StructureResource", "AsyncStructureResource"]
 
 # ---------------- Stainless modification ----------------
-from typing import Tuple
+import logging
+from typing import Optional
+
+from ..pagination import SyncRunsList
+
+log: logging.Logger = logging.getLogger(__name__)
 
 from ..types.dataset_view_response import DatasetViewResponse
 
@@ -168,9 +173,9 @@ class StructureResource(SyncAPIResource):
         self,
         table_name: str,
         *args,  # type: ignore
-        timeout: Optional[int] = None,  # type: ignore
+        timeout: Optional[int] = None,
         **kwargs,  # type: ignore
-    ) -> Tuple[DatasetViewResponse, str]:
+    ) -> SyncRunsList[DatasetViewResponse]:
         """
         This function simulates a synchronous run of the async function by calling it and then waiting.
         If the timeout is reached, it attempts to cancel the job.
@@ -179,9 +184,8 @@ class StructureResource(SyncAPIResource):
 
         token: str = self.run_async(*args, **kwargs)  # type: ignore
         start_time = time.time() if timeout is not None else None
-        true_token = "".join([c for c in token if c not in ["/", " ", '"']])
         successfully_started_job = False
-        latest_len = 1
+        last_idx = 0
 
         while True:
             if timeout is not None and start_time is not None:
@@ -192,22 +196,18 @@ class StructureResource(SyncAPIResource):
                     else:
                         raise TimeoutError(f"Job creation exceeded timeout of {timeout} seconds.")
 
-            try:
-                status, all_logs = self.job_status(job=[true_token])  # type: ignore
+            resp = self.job_status(job=[token])
+            status = resp.job_status[0]
+            all_logs = resp.log_nodes
 
-                new_logs = reversed(all_logs[0:len(all_logs)-latest_len+1]) # type: ignore
-                for log in new_logs: # type: ignore 
-                    logger.info("{}".format(log)) # type: ignore
-                latest_len = len(all_logs) # type: ignore
+            new_logs = all_logs[last_idx:]
+            for new_log in new_logs:
+                log.info("{}".format(new_log))
+            last_idx = len(all_logs)
 
-                successfully_started_job = True
-                if status[0] == "Completed":  # type: ignore
-                    return (
-                        self._client.datasets.view(dataset_name=kwargs["dataset_name"], table_name=table_name), # type: ignore
-                        all_logs, # type: ignore
-                    )
-            except Exception:
-                pass
+            successfully_started_job = True
+            if status == "Completed":
+                return self._client.datasets.view(dataset_name=kwargs["dataset_name"], table_name=table_name, requested_type="Entities")  # type: ignore
             time.sleep(1)
     # -------------------------------------------------------------------------
 
