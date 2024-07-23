@@ -193,9 +193,9 @@ class StructureResource(SyncAPIResource):
                         raise TimeoutError(f"Job creation exceeded timeout of {timeout} seconds.")
 
             try:
-                resp = self.job_status(job=[token])
-                status = resp["job_status"][0]
-                all_logs = resp["log_nodes"]
+                resp = self.job_status(job=[token]) # type: ignore
+                status = resp["job_status"][0] # type: ignore
+                all_logs = resp["log_nodes"] # type: ignore
 
                 new_logs = reversed(all_logs[0:len(all_logs)-latest_len+1]) # type: ignore
                 for log in new_logs: # type: ignore 
