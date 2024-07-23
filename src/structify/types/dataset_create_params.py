@@ -66,7 +66,7 @@ class TablePropertyPropTypeEnum(TypedDict, total=False):
     enum: Required[Annotated[TablePropertyPropTypeEnumEnum, PropertyInfo(alias="Enum")]]
 
 
-TablePropertyPropType = Union[TablePropertyPropTypeEnum, Literal["Integer"], Literal["String"]]
+TablePropertyPropType = Union[Literal["String"], TablePropertyPropTypeEnum, Literal["Integer"]]
 
 
 class TableProperty(TypedDict, total=False):
