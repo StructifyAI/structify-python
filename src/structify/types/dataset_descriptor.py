@@ -56,7 +56,7 @@ class TablePropertyPropTypeEnum(BaseModel):
     enum: TablePropertyPropTypeEnumEnum = FieldInfo(alias="Enum")
 
 
-TablePropertyPropType = Union[TablePropertyPropTypeEnum, Literal["Integer"], Literal["String"]]
+TablePropertyPropType = Union[Literal["String"], TablePropertyPropTypeEnum, Literal["Integer"]]
 
 
 class TableProperty(BaseModel):
