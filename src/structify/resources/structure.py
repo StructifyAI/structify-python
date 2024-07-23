@@ -173,7 +173,7 @@ class StructureResource(SyncAPIResource):
         *args,  # type: ignore
         timeout: Optional[int] = None,
         **kwargs,  # type: ignore
-    ) -> Optional[DatasetViewResponse]:
+    ) -> DatasetViewResponse:
         """
         This function simulates a synchronous run of the async function by calling it and then waiting.
         If the timeout is reached, it attempts to cancel the job.
@@ -194,23 +194,19 @@ class StructureResource(SyncAPIResource):
                     else:
                         raise TimeoutError(f"Job creation exceeded timeout of {timeout} seconds.")
 
-            try:
-                resp = self.job_status(job=[token])
-                status = resp.job_status[0]
-                all_logs = resp.log_nodes
+            resp = self.job_status(job=[token])
+            status = resp.job_status[0]
+            all_logs = resp.log_nodes
 
-                new_logs = all_logs[last_idx:]
-                for log in new_logs:
-                    log.info("{}".format(log))
-                last_idx = len(all_logs)
+            new_logs = all_logs[last_idx:]
+            for log in new_logs:
+                log.info("{}".format(log))
+            last_idx = len(all_logs)
 
-                successfully_started_job = True
-                if status == "Completed":
-                    return self._client.datasets.view(dataset_name=kwargs["dataset_name"], table_name=table_name)
-            except Exception:
-                pass
+            successfully_started_job = True
+            if status == "Completed":
+                return self._client.datasets.view(dataset_name=kwargs["dataset_name"], table_name=table_name)
             time.sleep(1)
-            return None
     # -------------------------------------------------------------------------
 
 class AsyncStructureResource(AsyncAPIResource):
