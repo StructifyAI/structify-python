@@ -179,7 +179,6 @@ class StructureResource(SyncAPIResource):
 
         token: str = self.run_async(*args, **kwargs)  # type: ignore
         start_time = time.time() if timeout is not None else None
-        true_token = "".join([c for c in token if c not in ["/", " ", '"']])
         successfully_started_job = False
         latest_len = 1
 
