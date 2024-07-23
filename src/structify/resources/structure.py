@@ -32,7 +32,7 @@ __all__ = ["StructureResource", "AsyncStructureResource"]
 
 # ---------------- Stainless modification ----------------
 import logging
-from typing import Tuple
+from typing import Optional
 
 log: logging.Logger = logging.getLogger(__name__)
 
@@ -171,9 +171,9 @@ class StructureResource(SyncAPIResource):
         self,
         table_name: str,
         *args,  # type: ignore
-        timeout: Optional[int] = None,  # type: ignore
+        timeout: Optional[int] = None,
         **kwargs,  # type: ignore
-    ) -> Tuple[DatasetViewResponse, str]:
+    ) -> Optional[DatasetViewResponse]:
         """
         This function simulates a synchronous run of the async function by calling it and then waiting.
         If the timeout is reached, it attempts to cancel the job.
@@ -206,10 +206,7 @@ class StructureResource(SyncAPIResource):
 
                 successfully_started_job = True
                 if status == "Completed":
-                    return (
-                        self._client.datasets.view(dataset_name=kwargs["dataset_name"], table_name=table_name),
-                        all_logs,
-                    )
+                    return self._client.datasets.view(dataset_name=kwargs["dataset_name"], table_name=table_name)
             except Exception:
                 pass
             time.sleep(1)
