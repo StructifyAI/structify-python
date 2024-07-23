@@ -16,7 +16,7 @@ The REST API documentation can be found on [api.structify.ai](https://api.struct
 
 ```sh
 # install from PyPI
-pip install --pre structifyai
+pip install structifyai
 ```
 
 ## Usage
