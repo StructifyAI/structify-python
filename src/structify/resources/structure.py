@@ -31,6 +31,7 @@ from ..types.structure_job_status_response import StructureJobStatusResponse
 __all__ = ["StructureResource", "AsyncStructureResource"]
 
 # ---------------- Stainless modification ----------------
+import logging
 from typing import Tuple
 
 from ..types.dataset_view_response import DatasetViewResponse
@@ -198,7 +199,7 @@ class StructureResource(SyncAPIResource):
 
                 new_logs = all_logs[last_idx:]
                 for log in new_logs:
-                    print("{}".format(log))
+                    logging.info("{}".format(log))
                 last_idx = len(all_logs)
 
                 successfully_started_job = True
