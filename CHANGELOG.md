@@ -1,5 +1,38 @@
 # Changelog
 
+## 1.0.0 (2024-07-23)
+
+Full Changelog: [v0.1.0-alpha.45...v1.0.0](https://github.com/StructifyAI/structify-python/compare/v0.1.0-alpha.45...v1.0.0)
+
+### Features
+
+* **api:** OpenAPI spec update via Stainless API ([#281](https://github.com/StructifyAI/structify-python/issues/281)) ([a5e3bd6](https://github.com/StructifyAI/structify-python/commit/a5e3bd61600893ff29b74231b0f208cd9deca9fa))
+* **api:** OpenAPI spec update via Stainless API ([#284](https://github.com/StructifyAI/structify-python/issues/284)) ([d5b8eba](https://github.com/StructifyAI/structify-python/commit/d5b8eba9bc45d161a381db48883566197eaf53ec))
+* asdf ([14fc651](https://github.com/StructifyAI/structify-python/commit/14fc6513e47574cd37ab4ec0205d78b3e6414a71))
+* asdf ([0864342](https://github.com/StructifyAI/structify-python/commit/0864342914681d7263e9bff4af14a88e4081855e))
+* asdf ([7e17049](https://github.com/StructifyAI/structify-python/commit/7e170496daac89507d955cf58070e2c82e683cb7))
+* asdf ([ccd62f7](https://github.com/StructifyAI/structify-python/commit/ccd62f758843347342e9cbed930faaeaf7c38d82))
+* asdf ([97b01db](https://github.com/StructifyAI/structify-python/commit/97b01db021a59089ff52f1e9badab9abb8a3f460))
+* asdf ([c52a9c4](https://github.com/StructifyAI/structify-python/commit/c52a9c475accdf8cd67c864b7ca212e9c51079c1))
+* asdf ([6527556](https://github.com/StructifyAI/structify-python/commit/65275565d81b25ccead3bfeacfec7d23b3dc3bd3))
+* asdf ([440aae8](https://github.com/StructifyAI/structify-python/commit/440aae87e8355b7ff4ef9480743505b4726620f7))
+* asdf ([6a5b992](https://github.com/StructifyAI/structify-python/commit/6a5b992bcccce58a7eb3729a34afbd6f8e766efd))
+* fixed ([2b489c8](https://github.com/StructifyAI/structify-python/commit/2b489c8a06486e67bb87cbbae06565ab17c8d057))
+* fixed ([0580b68](https://github.com/StructifyAI/structify-python/commit/0580b6882ea602adbb06e6fb38b90a158e2ba9dc))
+* fixed ([47bb283](https://github.com/StructifyAI/structify-python/commit/47bb2839411143e9870b386bffbd09c3fd05280e))
+* fixed ([2b4e940](https://github.com/StructifyAI/structify-python/commit/2b4e94023327e595f46c5ab0e4b09fb5648403c3))
+* fixing ([1d93717](https://github.com/StructifyAI/structify-python/commit/1d9371739b063a66cce15813adf742c7a78dc6f5))
+* fixing ([7d18374](https://github.com/StructifyAI/structify-python/commit/7d18374e66cb1d1a2581b74e12e8421400c89fdb))
+* fixing ([833e198](https://github.com/StructifyAI/structify-python/commit/833e1984b2780919fb04d4c6fb11d4118e5e8d38))
+* fixing ([b3e6a0d](https://github.com/StructifyAI/structify-python/commit/b3e6a0dd784dc095f69f6397b995cfdf2d6e6e93))
+* fixing ([0a55976](https://github.com/StructifyAI/structify-python/commit/0a55976c833e3c52a7af0847b16fd2e399034f42))
+
+
+### Chores
+
+* **internal:** refactor release doctor script ([#285](https://github.com/StructifyAI/structify-python/issues/285)) ([98a9cf0](https://github.com/StructifyAI/structify-python/commit/98a9cf0385f466c72f4f0053741ddabd6c3193a6))
+* **tests:** update prism version ([#286](https://github.com/StructifyAI/structify-python/issues/286)) ([987afa6](https://github.com/StructifyAI/structify-python/commit/987afa6da575b4f553546fa62e388f115b8c079f))
+
 ## 0.1.0-alpha.45 (2024-07-20)
 
 Full Changelog: [v0.1.0-alpha.44...v0.1.0-alpha.45](https://github.com/StructifyAI/structify-python/compare/v0.1.0-alpha.44...v0.1.0-alpha.45)
