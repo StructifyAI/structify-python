@@ -196,16 +196,16 @@ class StructureResource(SyncAPIResource):
                 status = resp.job_status[0]
                 all_logs = resp.log_nodes
 
-                new_logs = reversed(all_logs[0:len(all_logs)-latest_len+1]) # type: ignore
-                for log in new_logs: # type: ignore 
-                    logger.info("{}".format(log)) # type: ignore
-                latest_len = len(all_logs) # type: ignore
+                new_logs = reversed(all_logs[0:len(all_logs)-latest_len+1])
+                for log in new_logs:
+                    print("{}".format(log))
+                latest_len = len(all_logs)
 
                 successfully_started_job = True
-                if status[0] == "Completed":  # type: ignore
+                if status[0] == "Completed":
                     return (
-                        self._client.datasets.view(dataset_name=kwargs["dataset_name"], table_name=table_name), # type: ignore
-                        all_logs, # type: ignore
+                        self._client.datasets.view(dataset_name=kwargs["dataset_name"], table_name=table_name),
+                        all_logs,
                     )
             except Exception:
                 pass
