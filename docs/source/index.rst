@@ -1,11 +1,12 @@
 Welcome to Structify!
 =====================
-We power you to collect, enrich, and update your own custom datasets using generative AI. Structify allows you transform any information from document to web page into structured data with as little as two API calls.
+We power you to collect, enrich, and update your own custom datasets using our AI agents, built and trained right here at Structify. 
+Structify allows you transform any information from document to web page into structured data with as little as two API calls.
 
 .. code-block:: python
 
    # First, define the schema of your dataset using our Python Objects
-   schema = Table(
+   table = Table(
       name = "person",
       description = "an individual in my professional network",
       properties = [
@@ -15,16 +16,17 @@ We power you to collect, enrich, and update your own custom datasets using gener
    )
 
    # Next, create a dataset with that schema
-   structify.dataset.create(
+   structify.datasets.create(
       name = "my_network",
       description = "A dataset of people in my professional network",
-      schema = schema
+      tables = [table],
+      relationships = []
    )
 
    # Then, create an agent to index information from defined sources for your dataset
-   structify.structure.run(
-      name = "my_network",
-      source = Source.Web(
+   structify.structure.run_async(
+      dataset_name = "my_network",
+      structure_input = Source.Web(
          prompt = "find details about my first degree connections on LinkedIn",
          websites = ["linkedin.com"])
    )
