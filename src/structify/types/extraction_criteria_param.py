@@ -9,42 +9,31 @@ from .._utils import PropertyInfo
 
 __all__ = [
     "ExtractionCriteriaParam",
-    "RelationshipExtraction",
-    "RelationshipExtractionRelationshipExtraction",
-    "EntityExtraction",
-    "EntityExtractionEntityExtraction",
-    "GenericProperty",
-    "GenericPropertyGenericProperty",
+    "RequiredRelationship",
+    "RequiredEntity",
+    "RequiredProperty",
 ]
 
 
-class RelationshipExtractionRelationshipExtraction(TypedDict, total=False):
+class RequiredRelationship(TypedDict, total=False):
     relationship_name: Required[str]
-
-
-class RelationshipExtraction(TypedDict, total=False):
-    relationship_extraction: Required[
-        Annotated[RelationshipExtractionRelationshipExtraction, PropertyInfo(alias="RelationshipExtraction")]
+    required_relationship: Required[
+        Annotated[dict, PropertyInfo(alias="RequiredRelationship")]
     ]
 
 
-class EntityExtractionEntityExtraction(TypedDict, total=False):
+class RequiredEntity(TypedDict, total=False):
     entity_id: Required[int]
+    required_entity: Required[Annotated[dict, PropertyInfo(alias="RequiredEntity")]]
 
 
-class EntityExtraction(TypedDict, total=False):
-    entity_extraction: Required[Annotated[EntityExtractionEntityExtraction, PropertyInfo(alias="EntityExtraction")]]
-
-
-class GenericPropertyGenericProperty(TypedDict, total=False):
+class RequiredProperty(TypedDict, total=False):
     property_names: Required[List[str]]
 
     table_name: Required[str]
     """Vec<ExtractionCriteria> = it has to meet every one."""
 
-
-class GenericProperty(TypedDict, total=False):
-    generic_property: Required[Annotated[GenericPropertyGenericProperty, PropertyInfo(alias="GenericProperty")]]
+    required_property: Required[Annotated[dict, PropertyInfo(alias="RequiredProperty")]]
 
 
-ExtractionCriteriaParam = Union[RelationshipExtraction, EntityExtraction, GenericProperty]
+ExtractionCriteriaParam = Union[RequiredRelationship, RequiredEntity, RequiredProperty]
