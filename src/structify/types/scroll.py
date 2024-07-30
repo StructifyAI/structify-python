@@ -4,10 +4,11 @@
 from pydantic import Field as FieldInfo
 
 from .._models import BaseModel
+from .scroll_params import ScrollParams
 
 __all__ = ["Scroll"]
 
 
 class Scroll(BaseModel):
-    scroll: Scroll = FieldInfo(alias="Scroll")
+    scroll: ScrollParams = FieldInfo(alias="Scroll")
     """For tools with no inputs."""

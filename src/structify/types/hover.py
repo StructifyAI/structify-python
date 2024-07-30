@@ -4,9 +4,10 @@
 from pydantic import Field as FieldInfo
 
 from .._models import BaseModel
+from .hover_params import HoverParams
 
 __all__ = ["Hover"]
 
 
 class Hover(BaseModel):
-    hover: Hover = FieldInfo(alias="Hover")
+    hover: HoverParams = FieldInfo(alias="Hover")

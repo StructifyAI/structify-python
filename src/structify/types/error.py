@@ -4,9 +4,10 @@
 from pydantic import Field as FieldInfo
 
 from .._models import BaseModel
+from .error_params import ErrorParams
 
 __all__ = ["Error"]
 
 
 class Error(BaseModel):
-    error: Error = FieldInfo(alias="Error")
+    error: ErrorParams = FieldInfo(alias="Error")
