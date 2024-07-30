@@ -26,6 +26,7 @@ from .extraction_criteria import ExtractionCriteria as ExtractionCriteria
 from .run_cancel_response import RunCancelResponse as RunCancelResponse
 from .run_delete_response import RunDeleteResponse as RunDeleteResponse
 from .source_list_response import SourceListResponse as SourceListResponse
+from .source_report_params import SourceReportParams as SourceReportParams
 from .dataset_create_params import DatasetCreateParams as DatasetCreateParams
 from .dataset_delete_params import DatasetDeleteParams as DatasetDeleteParams
 from .dataset_list_response import DatasetListResponse as DatasetListResponse
@@ -34,6 +35,7 @@ from .knowledge_graph_param import KnowledgeGraphParam as KnowledgeGraphParam
 from .document_list_response import DocumentListResponse as DocumentListResponse
 from .document_upload_params import DocumentUploadParams as DocumentUploadParams
 from .run_get_steps_response import RunGetStepsResponse as RunGetStepsResponse
+from .source_report_response import SourceReportResponse as SourceReportResponse
 from .extraction_criteria_param import ExtractionCriteriaParam as ExtractionCriteriaParam
 from .structure_run_async_params import StructureRunAsyncParams as StructureRunAsyncParams
 from .structure_job_status_params import StructureJobStatusParams as StructureJobStatusParams
