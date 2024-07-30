@@ -6,10 +6,8 @@ Overview
 Structify's API, at its core, is designed to let developers collect datasets on demand. You can create a dataset in just a few lines of code. This guide will walk you through the three main steps in getting your first custom dataset:
 
 #. :ref:`define-schema`
-#. :ref:`adding-typing`
 #. :ref:`Populating-Datasets`
 #. :ref:`view-dataset`
-#. :ref:`Refreshing-Dataset`
 
 .. _define-schema:
 
@@ -56,7 +54,7 @@ If you have a schmea you want your dataset to follow, you can easily pre-define 
 
         relationships = [
             Relationship(
-                name="job",
+                name="worked",
                 description="connects the employee to their job history",
                 source_table="employee",
                 target_table="job"
@@ -89,10 +87,8 @@ And the output will echo back a representation of the schema you just created.
     
     We are working on ``structify.datasets.modify`` to allow users to adjust the schema without deleting an existing dataset.
 
-.. _adding-typing:
-
 Adding Typing to Your Schema
------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 We now allow users to add basic typing to the properties in the schemas that they define. We current have three types that we support:
 
 - **Strings**
@@ -151,43 +147,104 @@ Populating Your Datasets
 ------------------------
 Once you have blueprinted your dataset by creating a schema, you can now use Structify's research agents to collect data to fill your dataset.
 
-You can run our scraper agents either through ``structify.structure.run`` or ``structify.structure.run_async`` to populate a dataset with an initial batch of data. The structure API call requires the following:
+You can run our scraper agents either through ``structify.structure.run`` or ``structify.structure.run_async`` to populate a dataset with an initial batch of data. The structure API call takes the following arguments:
 
-- **name:** The name of the dataset you want to populate
-- **source:** The sources or types of sources you want the agent to use (e.g. “LinkedIn” or “news articles”). These will be a Python enum of the sources available to the agent. Make sure to import Source. If not specified, the API call will error out.
+- **name:** *(required)* The name of the dataset you want to populate
+- **source:** *(required)* The source you want the agent to use (limited to "Web", "PDF", "Text", "SEC Filing", or "DocumentImage"). Make sure to import Source. If not specified, the API call will error out.
+- **extraction_criteria:** *(optional)* The criteria you want the agent to use to extract data from the source. More on this in
 
 Here's an example of an API call to populate that employees dataset with data from LinkedIn using ``structify.structure.run``:
 
 .. code-block:: python
 
-    from structify import Structify, Source
+    from structify import Structify
+    from structify.sources import Web
 
     structify.structure.run(
-        name = "employees", 
-        sources = Source.Web(prompt = "find me details about the employees of ACME", websites = ["linkedin.com"])
+        dataset="employees", 
+        source=Web(starting_website="linkedin.com")
     )
    
-
-
 .. note::
-    The output of ``structify.structure.run`` will be a JSON representation of the dataset.
+    The output of ``structify.structure.run`` will be a view of the extracted entities in the dataset after the run completes.
 
 If you want to run the populate request asynchronously, you can use ``structify.structure.run_async``:
 
 .. code-block:: python
-    
-        from structify import Structify, Source
-    
-        dataset = structify.structure.run_async(
-            name = "employees", 
-            sources = Source.Web(prompt = "find me details about the employees of ACME", websites = ["linkedin.com"])
-        )
 
-        structify.structure.wait([dataset])
+    job_id = structify.structure.run_async(
+        dataset="employees", 
+        source=Web(starting_website="linkedin.com")
+    )
+
+    structify.structure.job_status(job=[job_id])
 
 .. note::
-    The output of ``structify.structure.run_async`` will be a key that you can use to access the run via ``structify.structure.wait``. We are working on adding an endpoint that will allow you to check the status on an asynchronous run.
+    The output of ``structify.structure.run_async`` will be a Job ID that you can use to access the run and view its status via ``structify.structure.job_status``.
 
+
+Extraction Criteria
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Extraction Criteria is a way to specify what you want the agent to extract from the source. 
+It provides our agents with guidance as to the specific entities, properties, or relationships that need to appear for it to extract data to populate your dataset.
+There are three types of extraction criteria that you can specify:
+
+**Required Entity**
+In the case that you want to get data about a specific entity, you can specify the entity you want to extract.
+This extraction criteria does necessitate that you input the entity into the run or run_async call as follows:
+
+.. code-block:: python
+
+    from structify.extraction_criteria import RequiredEntity
+    structify.structure.run(
+        dataset="employees", 
+        source=Web(starting_website="linkedin.com"),
+        extraction_criteria=[RequiredEntity(id=0)],
+        starting_entity={
+            "id": 0,
+            "type": "employee",
+            "properties": {
+                "name": "Jane Doe"
+            }
+        }
+    )
+    
+.. note::
+    The ID you specify in the extraction criteria must match the id of the starting_entity.
+
+**Required Property**
+In the case that you want to require that a certain property be present for a table before extracting data, you can use the required property extraction criteria.
+
+.. code-block:: python
+
+    from structify.extraction_criteria import RequiredProperty
+    structify.structure.run(
+        dataset="employees", 
+        source=Web(starting_website="linkedin.com"),
+        extraction_criteria=[RequiredProperty(
+            table="job",
+            properties=["title", "company"]
+        )]
+    )
+
+.. note::
+    The agent will extract data if at least one of the specified properties are present.
+
+**Required Relationship**
+In the case that you want to require that a certain relationship be present for a table before extracting data, you can use the required relationship extraction criteria.
+
+.. code-block:: python
+
+    from structify.extraction_criteria import RequiredRelationship
+    structify.structure.run(
+        dataset="employees", 
+        source=Web(starting_website="linkedin.com"),
+        extraction_criteria=[RequiredRelationship(
+            relationship_name="worked"
+        )]
+    )
+
+You can input multiple extraction criteria to ensure a set of conditions are met before saving data.
 
 
 Populating Datasets from Documents

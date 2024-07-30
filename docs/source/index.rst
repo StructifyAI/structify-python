@@ -28,8 +28,7 @@ Structify allows you transform any information from document to web page into st
       dataset="my_network",
       source=Web(
          starting_website="https://linkedin.com"
-      ),
-      extraction_criteria: []
+      )
    )
 
 

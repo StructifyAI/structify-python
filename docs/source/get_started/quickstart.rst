@@ -69,7 +69,8 @@ Here's an example of how you would make an API call to create a dataset:
 .. code-block:: python
    
    from structify import Structify
-   from structify.types import Source, Table, Property, Relationship
+   from structify.types import Table, Property, Relationship
+   from structify.sources import Web
 
    structify = Structify(api_key=os.environ["STRUCTIFY_API_TOKEN"])
 
@@ -124,14 +125,12 @@ Here's an example of how you would make an API call to create a dataset:
       relationships=relationships
    )
 
-   # Specify the source to populate the dataset from the Source object and then populate the dataset with structify.structure.run
-   source = Source.Web(
-      starting_website="https://www.goodreads.com/"
-   )
-
-   books_dataset = structify.structure.run(
+   # Specify the source to populate the dataset from the Source object and then populate the dataset with structify.structure.run_async
+   books_dataset = structify.structure.run_async(
       dataset="books",
-      source=source,
+      source=Web(
+         starting_website="https://www.goodreads.com/"
+      ),
       extraction_criteria=[]
    )
 
