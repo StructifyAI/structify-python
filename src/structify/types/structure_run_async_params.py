@@ -34,6 +34,8 @@ class StructureRunAsyncParams(TypedDict, total=False):
     structure_input: Required[StructureInput]
     """These are all the types that can be converted into a BasicInputType"""
 
+    extraction_criteria: Iterable[ExtractionCriteriaParam]
+
     seeded_entity: KnowledgeGraphParam
     """
     Knowledge graph info structured to deserialize and display in the same format
@@ -57,8 +59,6 @@ class StructureInputSecIngestor(TypedDict, total=False):
 
 
 class StructureInputPdfIngestorPdfIngestor(TypedDict, total=False):
-    extraction_criteria: Required[Iterable[ExtractionCriteriaParam]]
-
     path: Required[str]
 
 
@@ -71,8 +71,6 @@ class StructureInputPdfIngestor(TypedDict, total=False):
 
 
 class StructureInputBasicBasicTextDocumentTextDocument(TypedDict, total=False):
-    extraction_criteria: Required[Iterable[ExtractionCriteriaParam]]
-
     content: Optional[str]
 
     filepath: Optional[str]
@@ -87,8 +85,6 @@ class StructureInputBasicBasicTextDocument(TypedDict, total=False):
 
 
 class StructureInputBasicBasicWebSearchWebSearch(TypedDict, total=False):
-    extraction_criteria: Required[Iterable[ExtractionCriteriaParam]]
-
     use_local_browser: Required[bool]
 
     starting_website: Optional[str]
@@ -102,8 +98,6 @@ class StructureInputBasicBasicImageDocumentImageDocument(TypedDict, total=False)
     content: Required[FileTypes]
 
     document_name: Required[str]
-
-    extraction_criteria: Required[Iterable[ExtractionCriteriaParam]]
 
 
 class StructureInputBasicBasicImageDocument(TypedDict, total=False):
