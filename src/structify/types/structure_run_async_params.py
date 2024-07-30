@@ -45,8 +45,6 @@ class StructureRunAsyncParams(TypedDict, total=False):
 
 
 class StructureInputSecIngestorSecIngestor(TypedDict, total=False):
-    extraction_criteria: Required[Iterable[ExtractionCriteriaParam]]
-
     accession_number: Optional[str]
 
     quarter: Optional[int]
@@ -83,9 +81,9 @@ class StructureInputBasicBasicTextDocument(TypedDict, total=False):
 
 
 class StructureInputBasicBasicWebSearchWebSearch(TypedDict, total=False):
-    use_local_browser: Required[bool]
-
     starting_website: Optional[str]
+
+    use_local_browser: bool
 
 
 class StructureInputBasicBasicWebSearch(TypedDict, total=False):
