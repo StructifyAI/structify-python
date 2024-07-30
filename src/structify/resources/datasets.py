@@ -182,10 +182,10 @@ class DatasetsResource(SyncAPIResource):
         self,
         *,
         dataset_name: str,
+        requested_type: Literal["Entities", "Relationships"],
         limit: int | NotGiven = NOT_GIVEN,
         offset: int | NotGiven = NOT_GIVEN,
         relationship_name: Optional[str] | NotGiven = NOT_GIVEN,
-        requested_type: Literal["Entities", "Relationships"] | NotGiven = NOT_GIVEN,
         table_name: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -225,10 +225,10 @@ class DatasetsResource(SyncAPIResource):
                 query=maybe_transform(
                     {
                         "dataset_name": dataset_name,
+                        "requested_type": requested_type,
                         "limit": limit,
                         "offset": offset,
                         "relationship_name": relationship_name,
-                        "requested_type": requested_type,
                         "table_name": table_name,
                     },
                     dataset_view_params.DatasetViewParams,
@@ -389,10 +389,10 @@ class AsyncDatasetsResource(AsyncAPIResource):
         self,
         *,
         dataset_name: str,
+        requested_type: Literal["Entities", "Relationships"],
         limit: int | NotGiven = NOT_GIVEN,
         offset: int | NotGiven = NOT_GIVEN,
         relationship_name: Optional[str] | NotGiven = NOT_GIVEN,
-        requested_type: Literal["Entities", "Relationships"] | NotGiven = NOT_GIVEN,
         table_name: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -432,10 +432,10 @@ class AsyncDatasetsResource(AsyncAPIResource):
                 query=maybe_transform(
                     {
                         "dataset_name": dataset_name,
+                        "requested_type": requested_type,
                         "limit": limit,
                         "offset": offset,
                         "relationship_name": relationship_name,
-                        "requested_type": requested_type,
                         "table_name": table_name,
                     },
                     dataset_view_params.DatasetViewParams,
