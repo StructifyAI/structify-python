@@ -7,6 +7,7 @@ from typing import List
 import httpx
 
 from ..types import (
+    extraction_criteria_params,
     structure_run_async_params,
     structure_job_status_params,
     structure_is_complete_params,
@@ -119,9 +120,16 @@ class StructureResource(SyncAPIResource):
     def run_async(
         self,
         *,
-        dataset_name: str,
-        structure_input: structure_run_async_params.StructureInput,
-        seeded_entity: KnowledgeGraphParam | NotGiven = NOT_GIVEN,
+        dataset: str,
+        source: Required[Union[
+            structure_run_async_params.SECFiling, 
+            structure_run_async_params.PDF, 
+            structure_run_async_params.Text, 
+            structure_run_async_params.Web, 
+            structure_run_async_params.DocumentImage
+        ]],
+        extraction_criteria: Required[Iterable[extraction_criteria_params.ExtractionCriteriaParam]],
+        starting_entity: KnowledgeGraphParam | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -152,7 +160,7 @@ class StructureResource(SyncAPIResource):
             "/structure/run_async",
             body=maybe_transform(
                 {
-                    "dataset_name": dataset_name,
+                    "dataset": dataset,
                     "structure_input": structure_input,
                     "seeded_entity": seeded_entity,
                 },
@@ -207,7 +215,7 @@ class StructureResource(SyncAPIResource):
 
             successfully_started_job = True
             if status not in ["Queued", "Running"]:
-                return self._client.datasets.view(dataset_name=kwargs["dataset_name"], table_name=table_name, requested_type="Entities")  # type: ignore
+                return self._client.datasets.view(name=kwargs["dataset"], table_name=table_name, requested_type="Entities")  # type: ignore
             time.sleep(1)
     # -------------------------------------------------------------------------
 
@@ -288,9 +296,16 @@ class AsyncStructureResource(AsyncAPIResource):
     async def run_async(
         self,
         *,
-        dataset_name: str,
-        structure_input: structure_run_async_params.StructureInput,
-        seeded_entity: KnowledgeGraphParam | NotGiven = NOT_GIVEN,
+        dataset: str,
+        source: Required[Union[
+            structure_run_async_params.SECFiling, 
+            structure_run_async_params.PDF, 
+            structure_run_async_params.Text, 
+            structure_run_async_params.Web, 
+            structure_run_async_params.DocumentImage
+        ]],
+        extraction_criteria: Required[Iterable[extraction_criteria_params.ExtractionCriteriaParam]],
+        starting_entity: KnowledgeGraphParam | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -321,7 +336,7 @@ class AsyncStructureResource(AsyncAPIResource):
             "/structure/run_async",
             body=await async_maybe_transform(
                 {
-                    "dataset_name": dataset_name,
+                    "dataset": dataset,
                     "structure_input": structure_input,
                     "seeded_entity": seeded_entity,
                 },

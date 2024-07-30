@@ -180,8 +180,8 @@ class DatasetsResource(SyncAPIResource):
     def view(
         self,
         *,
-        dataset_name: str,
-        requested_type: Literal["Entities", "Relationships"],
+        name: str,
+        requested_type: Literal["Entities", "Relationships"] = "Entities",
         limit: int | NotGiven = NOT_GIVEN,
         offset: int | NotGiven = NOT_GIVEN,
         relationship_name: Optional[str] | NotGiven = NOT_GIVEN,
@@ -387,8 +387,8 @@ class AsyncDatasetsResource(AsyncAPIResource):
     def view(
         self,
         *,
-        dataset_name: str,
-        requested_type: Literal["Entities", "Relationships"],
+        name: str,
+        requested_type: Literal["Entities", "Relationships"] = "Entities",
         limit: int | NotGiven = NOT_GIVEN,
         offset: int | NotGiven = NOT_GIVEN,
         relationship_name: Optional[str] | NotGiven = NOT_GIVEN,
