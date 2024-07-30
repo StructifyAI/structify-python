@@ -21,8 +21,9 @@ from .._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ..pagination import SyncRunsList, AsyncRunsList
+from ..pagination import SyncJobsList, AsyncJobsList
 from .._base_client import AsyncPaginator, make_request_options
+from ..types.table_param import TableParam
 from ..types.dataset_descriptor import DatasetDescriptor
 from ..types.dataset_list_response import DatasetListResponse
 from ..types.dataset_view_response import DatasetViewResponse
@@ -45,7 +46,7 @@ class DatasetsResource(SyncAPIResource):
         description: str,
         name: str,
         relationships: Iterable[dataset_create_params.Relationship],
-        tables: Iterable[dataset_create_params.Table],
+        tables: Iterable[TableParam],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -192,7 +193,7 @@ class DatasetsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> SyncRunsList[DatasetViewResponse]:
+    ) -> SyncJobsList[DatasetViewResponse]:
         """You need to specify a dataset.
 
         If you don't specify a table_name, we assume all
@@ -215,7 +216,7 @@ class DatasetsResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/dataset/view",
-            page=SyncRunsList[DatasetViewResponse],
+            page=SyncJobsList[DatasetViewResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -252,7 +253,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
         description: str,
         name: str,
         relationships: Iterable[dataset_create_params.Relationship],
-        tables: Iterable[dataset_create_params.Table],
+        tables: Iterable[TableParam],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -399,7 +400,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> AsyncPaginator[DatasetViewResponse, AsyncRunsList[DatasetViewResponse]]:
+    ) -> AsyncPaginator[DatasetViewResponse, AsyncJobsList[DatasetViewResponse]]:
         """You need to specify a dataset.
 
         If you don't specify a table_name, we assume all
@@ -422,7 +423,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/dataset/view",
-            page=AsyncRunsList[DatasetViewResponse],
+            page=AsyncJobsList[DatasetViewResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,

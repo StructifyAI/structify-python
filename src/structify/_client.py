@@ -56,7 +56,6 @@ class Structify(SyncAPIClient):
     admin: resources.AdminResource
     datasets: resources.DatasetsResource
     documents: resources.DocumentsResource
-    runs: resources.RunsResource
     server: resources.ServerResource
     sources: resources.SourcesResource
     structure: resources.StructureResource
@@ -146,7 +145,6 @@ class Structify(SyncAPIClient):
         self.admin = resources.AdminResource(self)
         self.datasets = resources.DatasetsResource(self)
         self.documents = resources.DocumentsResource(self)
-        self.runs = resources.RunsResource(self)
         self.server = resources.ServerResource(self)
         self.sources = resources.SourcesResource(self)
         self.structure = resources.StructureResource(self)
@@ -266,7 +264,6 @@ class AsyncStructify(AsyncAPIClient):
     admin: resources.AsyncAdminResource
     datasets: resources.AsyncDatasetsResource
     documents: resources.AsyncDocumentsResource
-    runs: resources.AsyncRunsResource
     server: resources.AsyncServerResource
     sources: resources.AsyncSourcesResource
     structure: resources.AsyncStructureResource
@@ -356,7 +353,6 @@ class AsyncStructify(AsyncAPIClient):
         self.admin = resources.AsyncAdminResource(self)
         self.datasets = resources.AsyncDatasetsResource(self)
         self.documents = resources.AsyncDocumentsResource(self)
-        self.runs = resources.AsyncRunsResource(self)
         self.server = resources.AsyncServerResource(self)
         self.sources = resources.AsyncSourcesResource(self)
         self.structure = resources.AsyncStructureResource(self)
@@ -477,7 +473,6 @@ class StructifyWithRawResponse:
         self.admin = resources.AdminResourceWithRawResponse(client.admin)
         self.datasets = resources.DatasetsResourceWithRawResponse(client.datasets)
         self.documents = resources.DocumentsResourceWithRawResponse(client.documents)
-        self.runs = resources.RunsResourceWithRawResponse(client.runs)
         self.server = resources.ServerResourceWithRawResponse(client.server)
         self.sources = resources.SourcesResourceWithRawResponse(client.sources)
         self.structure = resources.StructureResourceWithRawResponse(client.structure)
@@ -490,7 +485,6 @@ class AsyncStructifyWithRawResponse:
         self.admin = resources.AsyncAdminResourceWithRawResponse(client.admin)
         self.datasets = resources.AsyncDatasetsResourceWithRawResponse(client.datasets)
         self.documents = resources.AsyncDocumentsResourceWithRawResponse(client.documents)
-        self.runs = resources.AsyncRunsResourceWithRawResponse(client.runs)
         self.server = resources.AsyncServerResourceWithRawResponse(client.server)
         self.sources = resources.AsyncSourcesResourceWithRawResponse(client.sources)
         self.structure = resources.AsyncStructureResourceWithRawResponse(client.structure)
@@ -503,7 +497,6 @@ class StructifyWithStreamedResponse:
         self.admin = resources.AdminResourceWithStreamingResponse(client.admin)
         self.datasets = resources.DatasetsResourceWithStreamingResponse(client.datasets)
         self.documents = resources.DocumentsResourceWithStreamingResponse(client.documents)
-        self.runs = resources.RunsResourceWithStreamingResponse(client.runs)
         self.server = resources.ServerResourceWithStreamingResponse(client.server)
         self.sources = resources.SourcesResourceWithStreamingResponse(client.sources)
         self.structure = resources.StructureResourceWithStreamingResponse(client.structure)
@@ -516,7 +509,6 @@ class AsyncStructifyWithStreamedResponse:
         self.admin = resources.AsyncAdminResourceWithStreamingResponse(client.admin)
         self.datasets = resources.AsyncDatasetsResourceWithStreamingResponse(client.datasets)
         self.documents = resources.AsyncDocumentsResourceWithStreamingResponse(client.documents)
-        self.runs = resources.AsyncRunsResourceWithStreamingResponse(client.runs)
         self.server = resources.AsyncServerResourceWithStreamingResponse(client.server)
         self.sources = resources.AsyncSourcesResourceWithStreamingResponse(client.sources)
         self.structure = resources.AsyncStructureResourceWithStreamingResponse(client.structure)
