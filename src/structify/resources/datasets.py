@@ -23,6 +23,7 @@ from .._response import (
 )
 from ..pagination import SyncRunsList, AsyncRunsList
 from .._base_client import AsyncPaginator, make_request_options
+from ..types.table_param import TableParam
 from ..types.dataset_descriptor import DatasetDescriptor
 from ..types.dataset_list_response import DatasetListResponse
 from ..types.dataset_view_response import DatasetViewResponse
@@ -45,7 +46,7 @@ class DatasetsResource(SyncAPIResource):
         description: str,
         name: str,
         relationships: Iterable[dataset_create_params.Relationship],
-        tables: Iterable[dataset_create_params.Table],
+        tables: Iterable[TableParam],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -252,7 +253,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
         description: str,
         name: str,
         relationships: Iterable[dataset_create_params.Relationship],
-        tables: Iterable[dataset_create_params.Table],
+        tables: Iterable[TableParam],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
