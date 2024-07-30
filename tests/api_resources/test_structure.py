@@ -85,15 +85,7 @@ class TestStructure:
     def test_method_run_async(self, client: Structify) -> None:
         structure = client.structure.run_async(
             dataset_name="dataset_name",
-            structure_input={
-                "sec_ingestor": {
-                    "extraction_criteria": [
-                        {"relationship_extraction": {"relationship_name": "relationship_name"}},
-                        {"relationship_extraction": {"relationship_name": "relationship_name"}},
-                        {"relationship_extraction": {"relationship_name": "relationship_name"}},
-                    ]
-                }
-            },
+            structure_input={"sec_ingestor": {}},
         )
         assert_matches_type(str, structure, path=["response"])
 
@@ -104,11 +96,6 @@ class TestStructure:
             structure_input={
                 "sec_ingestor": {
                     "accession_number": "accession_number",
-                    "extraction_criteria": [
-                        {"relationship_extraction": {"relationship_name": "relationship_name"}},
-                        {"relationship_extraction": {"relationship_name": "relationship_name"}},
-                        {"relationship_extraction": {"relationship_name": "relationship_name"}},
-                    ],
                     "quarter": 0,
                     "year": 0,
                 }
@@ -161,15 +148,7 @@ class TestStructure:
     def test_raw_response_run_async(self, client: Structify) -> None:
         response = client.structure.with_raw_response.run_async(
             dataset_name="dataset_name",
-            structure_input={
-                "sec_ingestor": {
-                    "extraction_criteria": [
-                        {"relationship_extraction": {"relationship_name": "relationship_name"}},
-                        {"relationship_extraction": {"relationship_name": "relationship_name"}},
-                        {"relationship_extraction": {"relationship_name": "relationship_name"}},
-                    ]
-                }
-            },
+            structure_input={"sec_ingestor": {}},
         )
 
         assert response.is_closed is True
@@ -181,15 +160,7 @@ class TestStructure:
     def test_streaming_response_run_async(self, client: Structify) -> None:
         with client.structure.with_streaming_response.run_async(
             dataset_name="dataset_name",
-            structure_input={
-                "sec_ingestor": {
-                    "extraction_criteria": [
-                        {"relationship_extraction": {"relationship_name": "relationship_name"}},
-                        {"relationship_extraction": {"relationship_name": "relationship_name"}},
-                        {"relationship_extraction": {"relationship_name": "relationship_name"}},
-                    ]
-                }
-            },
+            structure_input={"sec_ingestor": {}},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -269,15 +240,7 @@ class TestAsyncStructure:
     async def test_method_run_async(self, async_client: AsyncStructify) -> None:
         structure = await async_client.structure.run_async(
             dataset_name="dataset_name",
-            structure_input={
-                "sec_ingestor": {
-                    "extraction_criteria": [
-                        {"relationship_extraction": {"relationship_name": "relationship_name"}},
-                        {"relationship_extraction": {"relationship_name": "relationship_name"}},
-                        {"relationship_extraction": {"relationship_name": "relationship_name"}},
-                    ]
-                }
-            },
+            structure_input={"sec_ingestor": {}},
         )
         assert_matches_type(str, structure, path=["response"])
 
@@ -288,11 +251,6 @@ class TestAsyncStructure:
             structure_input={
                 "sec_ingestor": {
                     "accession_number": "accession_number",
-                    "extraction_criteria": [
-                        {"relationship_extraction": {"relationship_name": "relationship_name"}},
-                        {"relationship_extraction": {"relationship_name": "relationship_name"}},
-                        {"relationship_extraction": {"relationship_name": "relationship_name"}},
-                    ],
                     "quarter": 0,
                     "year": 0,
                 }
@@ -345,15 +303,7 @@ class TestAsyncStructure:
     async def test_raw_response_run_async(self, async_client: AsyncStructify) -> None:
         response = await async_client.structure.with_raw_response.run_async(
             dataset_name="dataset_name",
-            structure_input={
-                "sec_ingestor": {
-                    "extraction_criteria": [
-                        {"relationship_extraction": {"relationship_name": "relationship_name"}},
-                        {"relationship_extraction": {"relationship_name": "relationship_name"}},
-                        {"relationship_extraction": {"relationship_name": "relationship_name"}},
-                    ]
-                }
-            },
+            structure_input={"sec_ingestor": {}},
         )
 
         assert response.is_closed is True
@@ -365,15 +315,7 @@ class TestAsyncStructure:
     async def test_streaming_response_run_async(self, async_client: AsyncStructify) -> None:
         async with async_client.structure.with_streaming_response.run_async(
             dataset_name="dataset_name",
-            structure_input={
-                "sec_ingestor": {
-                    "extraction_criteria": [
-                        {"relationship_extraction": {"relationship_name": "relationship_name"}},
-                        {"relationship_extraction": {"relationship_name": "relationship_name"}},
-                        {"relationship_extraction": {"relationship_name": "relationship_name"}},
-                    ]
-                }
-            },
+            structure_input={"sec_ingestor": {}},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
