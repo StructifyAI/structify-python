@@ -5,9 +5,9 @@ from __future__ import annotations
 from typing import Iterable
 from typing_extensions import Required, TypedDict
 
-from .property_param import PropertyParam
+from .table_param import TableParam
 
-__all__ = ["DatasetCreateParams", "Relationship", "Table"]
+__all__ = ["DatasetCreateParams", "Relationship"]
 
 
 class DatasetCreateParams(TypedDict, total=False):
@@ -17,7 +17,7 @@ class DatasetCreateParams(TypedDict, total=False):
 
     relationships: Required[Iterable[Relationship]]
 
-    tables: Required[Iterable[Table]]
+    tables: Required[Iterable[TableParam]]
 
 
 class Relationship(TypedDict, total=False):
@@ -28,13 +28,3 @@ class Relationship(TypedDict, total=False):
     source_table: Required[str]
 
     target_table: Required[str]
-
-
-class Table(TypedDict, total=False):
-    description: Required[str]
-
-    name: Required[str]
-    """Organized in a name, description format."""
-
-    properties: Required[Iterable[PropertyParam]]
-    """Organized in a name, description format."""
