@@ -1,6 +1,6 @@
 Sharing Datasets
 ================
-Oftentimes, you will want to share your dataset with others. You can use the ``structify.dataset.share`` API call to share your dataset with others. This API call requires the following:
+Oftentimes, you will want to share your dataset with others. You can use the ``structify.datasets.share`` API call to share your dataset with others. This API call requires the following:
 
 * **name:** The name of the dataset you want to share
 * **share_method:** The method of sharing the dataset. This can be "public" or "private". 
@@ -15,8 +15,9 @@ Here's an example that walks through sharing the employees dataset with various 
 
 .. code-block:: python
 
-    structify.dataset.share(
-        name = "employees", 
-        share_method = "private", 
-        restrictions = "no-delete",
-        emails = ["ellie@structify.ai", "sami@structify.ai", "maya@structify.ai"])
+    structify.datasets.share(
+        name="employees", 
+        share_method="private", 
+        restrictions="no-delete",
+        emails=["ellie@structify.ai", "sami@structify.ai", "maya@structify.ai"]
+    )
