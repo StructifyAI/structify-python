@@ -4,9 +4,10 @@
 from pydantic import Field as FieldInfo
 
 from .._models import BaseModel
+from .type_params import TypeParams
 
 __all__ = ["Type"]
 
 
 class Type(BaseModel):
-    type: Type = FieldInfo(alias="Type")
+    type: TypeParams = FieldInfo(alias="Type")
