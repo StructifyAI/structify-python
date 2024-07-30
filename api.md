@@ -30,7 +30,13 @@ Methods:
 Types:
 
 ```python
-from structify.types import Dataset, DatasetDescriptor, DatasetListResponse, DatasetViewResponse
+from structify.types import (
+    Dataset,
+    DatasetDescriptor,
+    Property,
+    DatasetListResponse,
+    DatasetViewResponse,
+)
 ```
 
 Methods:
@@ -112,9 +118,19 @@ Types:
 ```python
 from structify.types import (
     ChatPrompt,
+    Click,
+    Error,
     ExecutionStep,
+    Exit,
     ExtractionCriteria,
+    Google,
+    Hover,
+    Save,
+    Scroll,
+    ToolCall,
     ToolMetadata,
+    Type,
+    Wait,
     StructureIsCompleteResponse,
     StructureJobStatusResponse,
     StructureRunAsyncResponse,
