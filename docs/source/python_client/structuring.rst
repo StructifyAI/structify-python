@@ -49,6 +49,7 @@ Extraction Criteria
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Extraction Criteria is a way to specify what you want the agent to extract from the source. 
 It provides our agents with guidance as to the specific entities, properties, or relationships that need to appear for it to extract data to populate your dataset.
+If not specified, the default value will be an empty list, meaning the agent will extract any data from the provided source that is present in the schema.
 There are three types of extraction criteria that you can specify:
 
 **Required Entity**

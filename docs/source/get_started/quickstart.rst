@@ -128,10 +128,7 @@ Here's an example of how you would make an API call to create a dataset:
    # Specify the source to populate the dataset from the Source object and then populate the dataset with structify.structure.run_async
    books_dataset = structify.structure.run_async(
       dataset="books",
-      source=Web(
-         starting_website="https://www.goodreads.com/"
-      ),
-      extraction_criteria=[]
+      source=Web(starting_website="https://www.goodreads.com/")
    )
 
 

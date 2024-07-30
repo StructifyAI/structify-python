@@ -60,6 +60,7 @@ Check Out Our Capabilities
    :maxdepth: 1
 
    Creating Datasets <python_client/datasets>
+   Structuring Data <python_client/structuring>
    Using Documents <python_client/documents>
    Getting Sources <python_client/backsourcing>
 
