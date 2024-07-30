@@ -106,7 +106,7 @@ class GoogleParams(BaseModel):
 
 
 class Google(BaseModel):
-    google: Google = FieldInfo(alias="Google")
+    google: GoogleParams = FieldInfo(alias="Google")
 
 
 class TypeParams(BaseModel):
