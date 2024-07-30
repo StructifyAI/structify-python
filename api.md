@@ -30,7 +30,7 @@ Methods:
 Types:
 
 ```python
-from structify.types import DatasetListResponse, DatasetViewResponse
+from structify.types import Dataset, DatasetDescriptor, DatasetListResponse, DatasetViewResponse
 ```
 
 Methods:
@@ -143,14 +143,5 @@ Methods:
 Types:
 
 ```python
-from structify.types import (
-    Dataset,
-    DatasetDescriptor,
-    Entity,
-    KnowledgeGraph,
-    MergeStrategy,
-    PropertyType,
-    Relationship,
-    Table,
-)
+from structify.types import Entity, KnowledgeGraph, Relationship
 ```
