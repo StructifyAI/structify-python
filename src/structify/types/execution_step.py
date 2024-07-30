@@ -16,21 +16,13 @@ __all__ = [
     "Inputs",
     "Save",
     "Scroll",
-    "ScrollScroll",
     "Exit",
-    "ExitExit",
     "Click",
-    "ClickClick",
     "Hover",
-    "HoverHover",
     "Wait",
-    "WaitWait",
     "Error",
-    "ErrorError",
     "Google",
-    "GoogleGoogle",
     "Type",
-    "TypeType",
     "Result",
     "ToolQueued",
     "ToolFail",
@@ -48,75 +40,59 @@ class Save(BaseModel):
     """
 
 
-class ScrollParams(BaseModel):
-    reason: str
-    """OpenAI Requires an argument, so we put a dummy one here."""
-
-
 class Scroll(BaseModel):
-    scroll: ScrollParams = FieldInfo(alias="Scroll")
-    """For tools with no inputs."""
-
-
-class ExitParams(BaseModel):
     reason: str
-    """OpenAI Requires an argument, so we put a dummy one here."""
+    """Dummy argument."""
+
+    scroll: dict = FieldInfo(alias="Scroll")
+    """For tools with no inputs."""
 
 
 class Exit(BaseModel):
-    exit: ExitParams = FieldInfo(alias="Exit")
+    reason: str
+    """Dummy argument."""
+
+    exit: dict = FieldInfo(alias="Exit")
     """For tools with no inputs."""
 
 
-class ClickParams(BaseModel):
-    flag: int
-
-
 class Click(BaseModel):
-    click: ClickParams = FieldInfo(alias="Click")
-
-
-class HoverParams(BaseModel):
     flag: int
+
+    click: dict = FieldInfo(alias="Click")
 
 
 class Hover(BaseModel):
-    hover: HoverParams = FieldInfo(alias="Hover")
+    flag: int
 
-
-class WaitParams(BaseModel):
-    seconds: int
-    """Time in seconds to wait"""
+    hover: dict = FieldInfo(alias="Hover")
 
 
 class Wait(BaseModel):
-    wait: WaitParams = FieldInfo(alias="Wait")
+    seconds: int
+    """Time in seconds to wait"""
 
-
-class ErrorParams(BaseModel):
-    error: str
+    wait: dict = FieldInfo(alias="Wait")
 
 
 class Error(BaseModel):
-    error: ErrorParams = FieldInfo(alias="Error")
+    error_message: str
 
-
-class GoogleParams(BaseModel):
-    query: str
+    error: dict = FieldInfo(alias="Error")
 
 
 class Google(BaseModel):
-    google: GoogleParams = FieldInfo(alias="Google")
+    query: str
+
+    google: dict = FieldInfo(alias="Google")
 
 
-class TypeParams(BaseModel):
+class Type(BaseModel):
     flag: int
 
     input: str
 
-
-class Type(BaseModel):
-    type: TypeParams = FieldInfo(alias="Type")
+    type: dict = FieldInfo(alias="Type")
 
 
 Inputs = Union[
