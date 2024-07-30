@@ -11,30 +11,24 @@ from .knowledge_graph_param import KnowledgeGraphParam
 from .extraction_criteria_param import ExtractionCriteriaParam
 
 __all__ = [
-    "StructureRunAsyncParams",
-    "StructureInput",
-    "StructureInputSecIngestor",
-    "StructureInputSecIngestorSecIngestor",
-    "StructureInputPdfIngestor",
-    "StructureInputPdfIngestorPdfIngestor",
-    "StructureInputBasic",
-    "StructureInputBasicBasic",
-    "StructureInputBasicBasicTextDocument",
-    "StructureInputBasicBasicTextDocumentTextDocument",
-    "StructureInputBasicBasicWebSearch",
-    "StructureInputBasicBasicWebSearchWebSearch",
-    "StructureInputBasicBasicImageDocument",
-    "StructureInputBasicBasicImageDocumentImageDocument",
+    "RunAsyncParams",
+    "SECFiling",
+    "PDF",
+    "Text",
+    "Web",
+    "DocumentImage",
 ]
 
 
-class StructureRunAsyncParams(TypedDict, total=False):
+class RunAsyncParams(TypedDict, total=False):
     dataset_name: Required[str]
 
-    structure_input: Required[StructureInput]
-    """These are all the types that can be converted into a BasicInputType"""
+    source: Required[Union[SECFiling, PDF, Text, Web, DocumentImage]]
+    """These are all the types that a structuring run can be created from."""
 
-    seeded_entity: KnowledgeGraphParam
+    extraction_criteria: Required[Iterable[ExtractionCriteriaParam]]
+
+    starting_entity: KnowledgeGraphParam
     """
     Knowledge graph info structured to deserialize and display in the same format
     that the LLM outputs. Also the first representation of an LLM output in the
@@ -42,87 +36,47 @@ class StructureRunAsyncParams(TypedDict, total=False):
     """
 
 
-class StructureInputSecIngestorSecIngestor(TypedDict, total=False):
-    extraction_criteria: Required[Iterable[ExtractionCriteriaParam]]
-
+class SECFiling(TypedDict, total=False):
     accession_number: Optional[str]
 
     quarter: Optional[int]
 
     year: Optional[int]
 
-
-class StructureInputSecIngestor(TypedDict, total=False):
-    sec_ingestor: Required[Annotated[StructureInputSecIngestorSecIngestor, PropertyInfo(alias="SECIngestor")]]
+    sec_filing: Required[Annotated[dict, PropertyInfo(alias="SECFiling")]]
 
 
-class StructureInputPdfIngestorPdfIngestor(TypedDict, total=False):
-    extraction_criteria: Required[Iterable[ExtractionCriteriaParam]]
-
+class PDF(TypedDict, total=False):
     path: Required[str]
 
-
-class StructureInputPdfIngestor(TypedDict, total=False):
-    pdf_ingestor: Required[Annotated[StructureInputPdfIngestorPdfIngestor, PropertyInfo(alias="PDFIngestor")]]
+    pdf: Required[Annotated[dict, PropertyInfo(alias="PDF")]]
     """This is currently a very simple ingestor.
 
     It converts everything to an image and processes them independently.
     """
 
 
-class StructureInputBasicBasicTextDocumentTextDocument(TypedDict, total=False):
-    extraction_criteria: Required[Iterable[ExtractionCriteriaParam]]
-
+class Text(TypedDict, total=False):
     content: Optional[str]
 
-    filepath: Optional[str]
+    path: Optional[str]
 
     save: bool
 
-
-class StructureInputBasicBasicTextDocument(TypedDict, total=False):
-    text_document: Required[
-        Annotated[StructureInputBasicBasicTextDocumentTextDocument, PropertyInfo(alias="TextDocument")]
-    ]
+    text: Required[Annotated[dict, PropertyInfo(alias="Text")]]
 
 
-class StructureInputBasicBasicWebSearchWebSearch(TypedDict, total=False):
-    extraction_criteria: Required[Iterable[ExtractionCriteriaParam]]
-
+class Web(TypedDict, total=False):
     use_local_browser: Required[bool]
 
     starting_website: Optional[str]
 
-
-class StructureInputBasicBasicWebSearch(TypedDict, total=False):
-    web_search: Required[Annotated[StructureInputBasicBasicWebSearchWebSearch, PropertyInfo(alias="WebSearch")]]
+    web: Required[Annotated[dict, PropertyInfo(alias="Web")]]
 
 
-class StructureInputBasicBasicImageDocumentImageDocument(TypedDict, total=False):
+class DocumentImage(TypedDict, total=False):
     content: Required[FileTypes]
 
     document_name: Required[str]
 
-    extraction_criteria: Required[Iterable[ExtractionCriteriaParam]]
-
-
-class StructureInputBasicBasicImageDocument(TypedDict, total=False):
-    image_document: Required[
-        Annotated[StructureInputBasicBasicImageDocumentImageDocument, PropertyInfo(alias="ImageDocument")]
-    ]
-
-
-StructureInputBasicBasic = Union[
-    StructureInputBasicBasicTextDocument, StructureInputBasicBasicWebSearch, StructureInputBasicBasicImageDocument
-]
-
-
-class StructureInputBasic(TypedDict, total=False):
-    basic: Required[Annotated[StructureInputBasicBasic, PropertyInfo(alias="Basic")]]
-    """
-    These are all the types for which we have an agent that is directly capable of
-    navigating. There should be a one to one mapping between them.
-    """
-
-
-StructureInput = Union[StructureInputSecIngestor, StructureInputPdfIngestor, StructureInputBasic]
+    document: Required[Annotated[dict, PropertyInfo(alias="DocumentImage")]]

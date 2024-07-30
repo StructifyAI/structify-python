@@ -7,23 +7,19 @@ from pydantic import Field as FieldInfo
 
 from .._models import BaseModel
 
-__all__ = ["Source", "Web", "WebWeb", "Document", "DocumentDocument"]
+__all__ = ["Source", "Web", "Document"]
 
-
-class WebWeb(BaseModel):
-    url: str
 
 
 class Web(BaseModel):
-    web: WebWeb = FieldInfo(alias="Web")
+    url: str
 
-
-class DocumentDocument(BaseModel):
-    name: str
+    web: dict = FieldInfo(alias="Web") 
 
 
 class Document(BaseModel):
-    document: DocumentDocument = FieldInfo(alias="Document")
+    name: str
+    document: dict = FieldInfo(alias="Document")
 
 
 Source = Union[Web, Document, Literal["None"]]

@@ -11,32 +11,26 @@ from .._models import BaseModel
 __all__ = [
     "SourceListResponse",
     "Location",
-    "LocationText",
-    "LocationTextText",
-    "LocationVisual",
-    "LocationVisualVisual",
+    "Text",
+    "Visual",
 ]
 
 
-class LocationTextText(BaseModel):
+class Text(BaseModel):
     byte_offset: int
 
-
-class LocationText(BaseModel):
-    text: LocationTextText = FieldInfo(alias="Text")
+    text: dict = FieldInfo(alias="Text")
 
 
-class LocationVisualVisual(BaseModel):
+class Visual(BaseModel):
     x: int
 
     y: int
 
-
-class LocationVisual(BaseModel):
-    visual: LocationVisualVisual = FieldInfo(alias="Visual")
+    visual: dict = FieldInfo(alias="Visual")
 
 
-Location = Union[LocationText, LocationVisual, Literal["None"]]
+Location = Union[Text, Visual, Literal["None"]]
 
 
 class SourceListResponse(BaseModel):

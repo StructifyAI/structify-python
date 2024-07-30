@@ -17,31 +17,25 @@ __all__ = [
 ]
 
 
-class RelationshipExtractionRelationshipExtraction(BaseModel):
+class RequiredRelationship(BaseModel):
     relationship_name: str
 
-
-class RelationshipExtraction(BaseModel):
-    relationship_extraction: RelationshipExtractionRelationshipExtraction = FieldInfo(alias="RelationshipExtraction")
+    required_relationship: dict = FieldInfo(alias="RequiredRelationship")
 
 
-class EntityExtractionEntityExtraction(BaseModel):
+class RequiredEntity(BaseModel):
     entity_id: int
 
-
-class EntityExtraction(BaseModel):
-    entity_extraction: EntityExtractionEntityExtraction = FieldInfo(alias="EntityExtraction")
+    required_entity: dict = FieldInfo(alias="RequiredEntity")
 
 
-class GenericPropertyGenericProperty(BaseModel):
+class RequiredProperty(BaseModel):
     property_names: List[str]
 
     table_name: str
     """Vec<ExtractionCriteria> = it has to meet every one."""
 
-
-class GenericProperty(BaseModel):
-    generic_property: GenericPropertyGenericProperty = FieldInfo(alias="GenericProperty")
+    required_property: dict = FieldInfo(alias="RequiredProperty")
 
 
-ExtractionCriteria = Union[RelationshipExtraction, EntityExtraction, GenericProperty]
+ExtractionCriteria = Union[RequiredProperty, RequiredEntity, RequiredProperty]

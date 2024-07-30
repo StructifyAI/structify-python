@@ -12,34 +12,26 @@ from .knowledge_graph import KnowledgeGraph
 __all__ = [
     "ExecutionStep",
     "Response",
-    "ResponseToolCall",
-    "ResponseToolCallInput",
-    "ResponseToolCallInputSave",
-    "ResponseToolCallInputScroll",
-    "ResponseToolCallInputScrollScroll",
-    "ResponseToolCallInputExit",
-    "ResponseToolCallInputExitExit",
-    "ResponseToolCallInputClick",
-    "ResponseToolCallInputClickClick",
-    "ResponseToolCallInputHover",
-    "ResponseToolCallInputHoverHover",
-    "ResponseToolCallInputWait",
-    "ResponseToolCallInputWaitWait",
-    "ResponseToolCallInputError",
-    "ResponseToolCallInputErrorError",
-    "ResponseToolCallInputGoogle",
-    "ResponseToolCallInputGoogleGoogle",
-    "ResponseToolCallInputType",
-    "ResponseToolCallInputTypeType",
-    "ResponseToolCallResult",
-    "ResponseToolCallResultToolQueued",
-    "ResponseToolCallResultToolFail",
-    "ResponseToolCallResultInputParseFail",
-    "ResponseToolCallResultSuccess",
+    "ToolCall",
+    "Inputs",
+    "Save",
+    "Scroll",
+    "Exit",
+    "Click",
+    "Hover",
+    "Wait",
+    "Error",
+    "Google",
+    "Type",
+    "Result",
+    "ToolQueued",
+    "ToolFail",
+    "ParseFail",
+    "Success",
 ]
 
 
-class ResponseToolCallInputSave(BaseModel):
+class Save(BaseModel):
     save: KnowledgeGraph = FieldInfo(alias="Save")
     """
     Knowledge graph info structured to deserialize and display in the same format
@@ -48,121 +40,105 @@ class ResponseToolCallInputSave(BaseModel):
     """
 
 
-class ResponseToolCallInputScrollScroll(BaseModel):
+class Scroll(BaseModel):
     reason: str
-    """OpenAI Requires an argument, so we put a dummy one here."""
+    """Dummy argument."""
 
-
-class ResponseToolCallInputScroll(BaseModel):
-    scroll: ResponseToolCallInputScrollScroll = FieldInfo(alias="Scroll")
+    scroll: dict = FieldInfo(alias="Scroll")
     """For tools with no inputs."""
 
 
-class ResponseToolCallInputExitExit(BaseModel):
+class Exit(BaseModel):
     reason: str
-    """OpenAI Requires an argument, so we put a dummy one here."""
+    """Dummy argument."""
 
-
-class ResponseToolCallInputExit(BaseModel):
-    exit: ResponseToolCallInputExitExit = FieldInfo(alias="Exit")
+    exit: dict = FieldInfo(alias="Exit")
     """For tools with no inputs."""
 
 
-class ResponseToolCallInputClickClick(BaseModel):
+class Click(BaseModel):
     flag: int
 
-
-class ResponseToolCallInputClick(BaseModel):
-    click: ResponseToolCallInputClickClick = FieldInfo(alias="Click")
+    click: dict = FieldInfo(alias="Click")
 
 
-class ResponseToolCallInputHoverHover(BaseModel):
+class Hover(BaseModel):
     flag: int
 
-
-class ResponseToolCallInputHover(BaseModel):
-    hover: ResponseToolCallInputHoverHover = FieldInfo(alias="Hover")
+    hover: dict = FieldInfo(alias="Hover")
 
 
-class ResponseToolCallInputWaitWait(BaseModel):
+class Wait(BaseModel):
     seconds: int
     """Time in seconds to wait"""
 
-
-class ResponseToolCallInputWait(BaseModel):
-    wait: ResponseToolCallInputWaitWait = FieldInfo(alias="Wait")
+    wait: dict = FieldInfo(alias="Wait")
 
 
-class ResponseToolCallInputErrorError(BaseModel):
-    error: str
+class Error(BaseModel):
+    error_message: str
+
+    error: dict = FieldInfo(alias="Error")
 
 
-class ResponseToolCallInputError(BaseModel):
-    error: ResponseToolCallInputErrorError = FieldInfo(alias="Error")
-
-
-class ResponseToolCallInputGoogleGoogle(BaseModel):
+class Google(BaseModel):
     query: str
 
-
-class ResponseToolCallInputGoogle(BaseModel):
-    google: ResponseToolCallInputGoogleGoogle = FieldInfo(alias="Google")
+    google: dict = FieldInfo(alias="Google")
 
 
-class ResponseToolCallInputTypeType(BaseModel):
+class Type(BaseModel):
     flag: int
 
     input: str
 
-
-class ResponseToolCallInputType(BaseModel):
-    type: ResponseToolCallInputTypeType = FieldInfo(alias="Type")
+    type: dict = FieldInfo(alias="Type")
 
 
-ResponseToolCallInput = Union[
-    ResponseToolCallInputSave,
-    ResponseToolCallInputScroll,
-    ResponseToolCallInputExit,
-    ResponseToolCallInputClick,
-    ResponseToolCallInputHover,
-    ResponseToolCallInputWait,
-    ResponseToolCallInputError,
-    ResponseToolCallInputGoogle,
-    ResponseToolCallInputType,
+Inputs = Union[
+    Save,
+    Scroll,
+    Exit,
+    Click,
+    Hover,
+    Wait,
+    Error,
+    Google,
+    Type,
 ]
 
 
-class ResponseToolCallResultToolQueued(BaseModel):
+class ToolQueued(BaseModel):
     tool_queued: str = FieldInfo(alias="ToolQueued")
 
 
-class ResponseToolCallResultToolFail(BaseModel):
+class ToolFail(BaseModel):
     tool_fail: str = FieldInfo(alias="ToolFail")
 
 
-class ResponseToolCallResultInputParseFail(BaseModel):
+class ParseFail(BaseModel):
     input_parse_fail: str = FieldInfo(alias="InputParseFail")
 
 
-class ResponseToolCallResultSuccess(BaseModel):
+class Success(BaseModel):
     success: str = FieldInfo(alias="Success")
 
 
-ResponseToolCallResult = Union[
-    ResponseToolCallResultToolQueued,
-    ResponseToolCallResultToolFail,
-    ResponseToolCallResultInputParseFail,
-    ResponseToolCallResultSuccess,
+Result = Union[
+    ToolQueued,
+    ToolFail,
+    ParseFail,
+    Success,
     None,
 ]
 
 
-class ResponseToolCall(BaseModel):
-    input: ResponseToolCallInput
+class ToolCall(BaseModel):
+    input: Inputs
 
     name: Literal["Save", "Scroll", "Exit", "Click", "Hover", "Wait", "Error", "Google", "Type"]
 
-    result: Optional[ResponseToolCallResult] = None
+    result: Optional[Result] = None
 
 
 class Response(BaseModel):
@@ -178,7 +154,7 @@ class Response(BaseModel):
 
     text: str
 
-    tool_calls: List[ResponseToolCall]
+    tool_calls: List[ToolCall]
 
 
 class ExecutionStep(BaseModel):

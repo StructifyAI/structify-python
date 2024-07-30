@@ -11,13 +11,13 @@ __all__ = [
     "DatasetCreateParams",
     "Relationship",
     "Table",
-    "TableProperty",
-    "TablePropertyMergeStrategy",
-    "TablePropertyMergeStrategyPropertyAttr",
-    "TablePropertyMergeStrategyFuzzyStringMatch",
-    "TablePropertyPropType",
-    "TablePropertyPropTypeEnum",
-    "TablePropertyPropTypeEnumEnum",
+    "Property",
+    "PropertyMergeStrategy",
+    "PropertyMergeStrategyPropertyAttr",
+    "PropertyMergeStrategyFuzzyStringMatch",
+    "PropType",
+    "PropTypeEnum",
+    "PropTypeEnumEnum",
 ]
 
 
@@ -41,11 +41,11 @@ class Relationship(TypedDict, total=False):
     target_table: Required[str]
 
 
-class TablePropertyMergeStrategyPropertyAttr(TypedDict, total=False):
+class PropertyMergeStrategyPropertyAttr(TypedDict, total=False):
     property_attr: Required[Annotated[str, PropertyInfo(alias="PropertyAttr")]]
 
 
-class TablePropertyMergeStrategyFuzzyStringMatch(TypedDict, total=False):
+class PropertyMergeStrategyFuzzyStringMatch(TypedDict, total=False):
     fuzzy_string_match: Required[Annotated[str, PropertyInfo(alias="FuzzyStringMatch")]]
     """
     merge on some list of property names iff the values are the same in the
@@ -53,34 +53,34 @@ class TablePropertyMergeStrategyFuzzyStringMatch(TypedDict, total=False):
     """
 
 
-TablePropertyMergeStrategy = Union[
-    TablePropertyMergeStrategyPropertyAttr, TablePropertyMergeStrategyFuzzyStringMatch, Literal["None"]
+PropertyMergeStrategy = Union[
+    PropertyMergeStrategyPropertyAttr, PropertyMergeStrategyFuzzyStringMatch, Literal["None"]
 ]
 
 
-class TablePropertyPropTypeEnumEnum(TypedDict, total=False):
+class PropTypeEnumEnum(TypedDict, total=False):
     types: Required[List[str]]
 
 
-class TablePropertyPropTypeEnum(TypedDict, total=False):
-    enum: Required[Annotated[TablePropertyPropTypeEnumEnum, PropertyInfo(alias="Enum")]]
+class PropTypeEnum(TypedDict, total=False):
+    enum: Required[Annotated[PropTypeEnumEnum, PropertyInfo(alias="Enum")]]
 
 
-TablePropertyPropType = Union[Literal["String"], TablePropertyPropTypeEnum, Literal["Integer"]]
+PropType = Union[Literal["String"], PropTypeEnum, Literal["Integer"]]
 
 
-class TableProperty(TypedDict, total=False):
+class Property(TypedDict, total=False):
     description: Required[str]
 
     name: Required[str]
 
-    merge_strategy: TablePropertyMergeStrategy
+    merge_strategy: PropertyMergeStrategy
     """
     merge on two entities if they have two property keys listed in this type that
     return true to some fuzzy string matching function
     """
 
-    prop_type: TablePropertyPropType
+    prop_type: PropType
 
 
 class Table(TypedDict, total=False):
@@ -89,5 +89,5 @@ class Table(TypedDict, total=False):
     name: Required[str]
     """Organized in a name, description format."""
 
-    properties: Required[Iterable[TableProperty]]
+    properties: Required[Iterable[Property]]
     """Organized in a name, description format."""
