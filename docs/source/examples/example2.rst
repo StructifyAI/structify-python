@@ -17,23 +17,22 @@ We associate the documents with your account (or your user account), such that m
 
 .. code-block:: python
 
-    from structify import Structify, Source, Table, Property, Relationship
     import os
 
-    client = Structify(headers = {"apiKey": "your_api_key_here"})
+    from structify import Structify
+    from structify.sources import PDF
+    from structify.types import Table, Property, Relationship
+
+    client = Structify(api_key=os.environ["STRUCTIFY_API_TOKEN"])
 
     # You can upload multiple documents at once by specifying a folder than contains them
     folder_path = '/path/to/your/folder/of/pitchdecks'
 
     for filename in os.listdir(folder_path):
         file_path = os.path.join(folder_path, filename)
-        try:
+        if filename.endswith(".pdf"):
             with open(file_path, "rb") as file:
-                client.documents.upload(file, path = "path/to/your/structify/folder/" + filename, doctype = "Pdf")
-        except FileNotFoundError:
-            print("File not found at path:", file_path)
-        except Exception as e:
-            print("An error occurred:", e)
+                client.documents.upload(content=file, path="path/to/your/structify/folder/" + filename, file_type="PDF")
 
 
 Step 2: Create a Relevant Dataset
@@ -42,40 +41,43 @@ Next, we have to blueprint the schema of the dataset that we are interested in c
 
 .. code-block:: python
 
-    # Create the dataset schema
-    schema = [
-        Table(
-            name = "Company",
-            properties = [
-                Property(name = "name", description = "The name of the company"),
-                Property(name = "industry", description = "The industry of the company"),
-                Property(name = "founders", description = "The founders of the company"),
-                Property(name = "investors", description = "The investors of the company"),
-                Property(name = "funding_amount", description = "The funding amount of the company")
-            ],
-            relationships = [
-                Relationship(name = "investors", description = "The investors of the company"),
-            ]
-        ),
-        Table(
-            name = "Investor",
-            properties = [
-                Property(name = "name", description = "The name of the investor"),
-                Property(name = "description", description = "The description of the investor")
-            ],
-            relationships = []
-        )
-    ]
-    
-    
-    client.dataset.create(
-        name = "pitchdecks",
-        description = "A dataset of company information extracted from pitch decks."
-        schema = schema
+    # Create the dataset schema along with the dataset itself
+    client.datasets.create(
+        name="pitchdecks",
+        description="A dataset of company information extracted from pitch decks."
+        tables=[
+            Table(
+                name="Company",
+                properties=[
+                    Property(name="name", description="The name of the company"),
+                    Property(name="industry", description="The industry of the company"),
+                    Property(name="founders", description="The founders of the company"),
+                    Property(name="investors", description="The investors of the company"),
+                    Property(name="funding_amount", description="The funding amount of the company")
+                ],
+                relationships = [
+                ]
+            ),
+            Table(
+                name="Investor",
+                properties = [
+                    Property(name="name", description="The name of the investor"),
+                    Property(name="description", description="The description of the investor")
+                ]
+            )
+        ],
+        relationships=[
+            Relationship(
+                name="invested_in",
+                description="Designates the portfolio companies of a given investor",
+                source_table="Investor",
+                target_table="Company"
+            )
+        ]
     )
 
 .. note::
-    Remember you can always view the schema of any dataset later by using ``client.dataset.info(name = "dataset_name")``.
+    Remember you can always view the schema of any dataset later by using ``client.datasets.get(name="dataset_name")``.
 
 Step 3: Populate the Dataset using the Documents
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -90,29 +92,21 @@ Now that we have the dataset schema, we can populate the dataset with the inform
     file_paths = glob.glob(folder_path + '*')
 
     # Iterate over the file paths and make the API call for each file
+    jobs = []
     for file_path in file_paths:
-        agent = client.structure.run_async(
-            name = pitchdecks.name, 
-            sources = Source.Document(
-                prompt = "Extract company information from the uploaded pitch decks.",
-                path = file_path
-            )
+        job = client.structure.run_async(
+            dataset="pitchdecks", 
+            source=PDF(path=file_path),
+            extraction_criteria=[RequiredProperty(table_name="Company", properties=["name"])]
         )
-        client.structure.wait(agent)
+        jobs.append(job)
 
+    while any([job.job_status != "Completed" for job in jobs]):
+        time.sleep(5)
 
-Step 4: Query the Documents
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Let's assume you have a user that wants to search through the documents. 
-Once you've used the populate method to create the dataset, you can use the query method to search through the documents.
+    entities = client.datasets.view(name="pitchdecks")
 
-.. code-block:: python
-
-    def query_pitchdecks(query):
-        response = client.analysis.query(dataset = "pitchdecks", query = query)
-        print(response)
-
-    query_pitchdecks("Who are the investors in ABC Corp?")
-    query_pitchdecks("What is the industry of XYZ Inc?")
+    for entity in entities:
+        print(entity)
 
 

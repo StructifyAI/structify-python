@@ -12,7 +12,7 @@ You want to know who is on the board of any given company, and you want to know 
 This information is not readily available, but you can determine it by periodically checking company websites, press releases, and SEC filings.
 The goal being to regularly check if there have been any changes. Of course, since all the websites "Team" or "About Us" pages are all formatted differently, this is a near impossible scraping task to execute with high accuracy.
 
-Structify disrupts the manual processes in the status quo and allows you to easily collect this information to track any changes.
+Structify allows you to easily collect this information to track any changes.
 
 Step 1: Upload Your Existing Board Members Dataset
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -21,14 +21,20 @@ First, we want to update the existing dataset that you may have. We start that p
 
 .. code-block:: python
 
-    from structify import Structify, Source, Table, Property, Relationship
-    client = Structify("your_api_key_here")
+    import os
+
+    from structify import Structify
+    from structify.sources import Web, Text
+    from structify.types import Table, Property, Relationship
+    from structify.extraction_criteria import RequiredRelationship
+
+    client = Structify(api_key=os.environ["STRUCTIFY_API_TOKEN"])
 
     # Here, we suppose that you have a dataset of board members in a CSV file
     # We will use the Structify API to upload this dataset to the platform
     csv_path = "path/to/your/board_members.csv"
     with open(csv_path, 'rb') as f:
-        client.documents.upload(f, path = '/structify/board_members.csv', doctype = 'Text')
+        client.documents.upload(content=f, path='/structify/board_members.csv', file_type='Text')
 
 Step 2: Create a Structify Dataset for Board Members
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -36,46 +42,45 @@ Next, we will need to create a dataset to store the board members information. W
 
 .. code-block:: python
 
-    # We will define the schema we want to use for the dataset
-    schema = [
-        Table(
-            name = "board_member",
-            description = "information about board members of private companies in the technology sector",
-            properties = [
-                Property(name = "name", description = "name of the board member"),
-                Property(name = "title", description = "title of the board member"),
-                Property(name = "start_date", description = "start date of the board member's tenure"),
-                Property(name = "end_date", description = "end date of the board member's tenure")
-            ]
-            relationships = [
-                Relationship(name = "company", description = "Company the board member is associated with")
-            ]
-
-        ),
-        Table(
-            name = "company",
-            description = "information about private companies in the technology sector",
-            properties = [
-                Property(name = "name", description = "name of the company"),
-                Property(name = "website", description = "the url of the company's website")
-            ]
-        )
-    ]
-
-
-    # Now, we will create a dataset with the schema
+    # We will define the schema we want to use for the dataset in creating the dataset
     board_members = client.datasets.create(
-        name = "private_tech_company_board_members",
-        description = "Dataset containing information about board members of private companies in the technology sector.",
-        schema = schema
+        name="private_tech_company_board_members",
+        description="Dataset containing information about board members of private companies in the technology sector.",
+        tables=[
+            Table(
+                name="board_member",
+                description="information about board members of private companies in the technology sector",
+                properties=[
+                    Property(name="name", description="name of the board member"),
+                    Property(name="title", description="title of the board member"),
+                    Property(name="start_date", description="start date of the board member's tenure"),
+                    Property(name="end_date", description="end date of the board member's tenure")
+                ]
+            ),
+            Table(
+                name="company",
+                description="information about private companies in the technology sector",
+                properties=[
+                    Property(name="name", description="name of the company"),
+                    Property(name="website", description="the url of the company's website")
+                ]
+            )
+        ],
+        relationships=[
+            Relationship(
+                name="sits_on_board",
+                description="Company the board member is associated with",
+                source_table="board_member",
+                target_table="company"
+            )
+        ]
     )
 
     # Here, we're populating the dataset with the existing information
     client.structure.run_async(
-        name = "private_tech_company_board_members",
-        source = Source.Document(
-            prompt = "Please structure the CSV containing board member data according to the new schema."
-            path = "/structify/board_members.csv")
+        dataset="private_tech_company_board_members",
+        source=Text(path="/structify/board_members.csv"),
+        extraction_criteria=[RequiredRelationship(relationship_name="sits_on_board")]
     )
 
 
@@ -90,11 +95,9 @@ Now that we have a dataset to store the board members information, we want to se
 
     every().day.at("09:30").do(
         structify.structure.run_async, 
-        name = "private_tech_company_board_members", 
-        sources = Source.Web(
-            prompt = "find me details about the board members and the companies they are associated with in the technology sector.", 
-            websites = ["linkedin.com", "techcrunch.com", "prnewswire.com"]
-        )
+        dataset="private_tech_company_board_members", 
+        source=Web("https://www.prnewswire.com"),
+        extraction_criteria=[RequiredRelationship(relationship_name="sits_on_board")]
     )
 
     while True:
