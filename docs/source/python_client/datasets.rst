@@ -137,3 +137,20 @@ And if we wanted to add a "degree" field to the education table that is limited 
         ]
     ),
 
+
+Helpful Dataset Functionality
+------------------------------
+We also have a few other helpful functions to help you manage your datasets: ``structify.datasets.delete`` to delete a dataset, ``structify.datasets.list`` to list all your datasets, and ``structify.datasets.get`` to get the schema for a certain dataset.
+
+Here are some examples of how you can use these functions:
+
+.. code-block:: python
+
+    # Requires no parameters and will return a list of all your datasets
+    structify.datasets.list()
+
+    # Requires the name of the dataset and will return the schema
+    structify.datasets.get(name="employees")
+
+    # Requires the name of the dataset and will delete the dataset
+    structify.datasets.delete(name="employees")

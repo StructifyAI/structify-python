@@ -19,5 +19,6 @@ Explore the Key Endpoints
 -------------------------
 By using the Structify API, you can automatically create datasets and structure information from various sources.
 
-* :ref:`Populating-Datasets`
-* :ref:`Structuring Documents`
+#. :ref:`define-schema`
+#. :ref:`Populating-Datasets`
+#. :ref:`view-dataset`

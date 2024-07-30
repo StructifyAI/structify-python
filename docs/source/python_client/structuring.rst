@@ -130,8 +130,8 @@ Web
     from structify.sources import Web
 
     structify.structure.run_async(
-        name = "employees", 
-        sources = Web(starting_website = "linkedin.com")
+        dataset="employees", 
+        source=Web(starting_website="linkedin.com")
     )
 
 PDF
@@ -142,121 +142,98 @@ PDF
     from structify.sources import PDF
 
     structify.structure.run_async(
-        name = "employees", 
-        sources = PDF()
+        name="employees",
+        source=PDF(path="path/to/pdf")
     )
 
-Populating Datasets from Documents
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Sometimes, you will want to collect data from documents, such as PDFs or PNGs. You can use the ``structify.structure.run`` and ``structify.structure.run_async`` endpoint off of documents as well. 
-
-We'll walk you through the process to uploading documents and such in the :doc:`documents` section. Or you can check out the tutorials at :ref:`document-example`.
+.. note::
+    The path to the PDF will be the remote path of the document uploaded to Structify. For more information on how to upload documents, see the :doc:`documents` section. Or you can check out the tutorials at :ref:`document-example`.
 
 
-Additional Source Types
+
+
+Text
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-We allow for two other sources besides the Web and Documents: SEC filings or plain text.
-
-If you'd like to use Structify to just structure plain text, you can simply pass the text to the API call as such:
+For text, you can either input the text directly or use a path to a text file uploaded to Structify.
 
 .. code-block:: python
     
-    structify.structure.run(
-        name = "employees", 
-        sources = Source.Text(text = "John Doe is the CEO of ACME. Previously he was the Senior VP at EMCA.")
+    from structify.sources import Text
+
+    structify.structure.run_async(
+        dataset="employees", 
+        source=Text(content="Jane Doe is the CEO of ACME. Previously she was the Senior VP at EMCA.")
     )
-
-
-If you'd like to use Structify to get datasets from SEC filings, you can use the following:
 
 .. code-block:: python
+
+    structify.structure.run_async(
+        dataset="employees", 
+        source=Text(path="path/to/text")
+    )
+
+
+SEC Filings
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: python
+
+    from structify.sources import SECFiling
         
-    structify.structure.run(
-        name = "employees", 
-        sources = Source.SECFiling(
-            year = 2021, # Optional
-            quarter = 3, # Optional
-            accession_number = "0000320193-21-000056" # Optional
+    structify.structure.run_async(
+        dataset="employees", 
+        source=SECFiling(
+            year=2021, # Optional
+            quarter=3, # Optional
+            accession_number="0000320193-21-000056" # Optional
         )
     )
+
+
+DocumentImage
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: python
+
+    from structify.sources import DocumentImage
+
+    structify.structure.run_async(
+        dataset="employees", 
+        source=DocumentImage(path="path/to/image")
+    )
+
 
 .. _view-dataset:
 
 Viewing Your Datasets
 ---------------------------------------
-Through this endpoint, we allow users to view specific parts of the dataset that they are interested in. For example, if want to allow users to see the names of the schools that each person attended and their graduation date in their employees dataset, we could create the following view:
+Through this endpoint, we allow users to view either all entities or all the relationships in their dataset.
 
 .. code-block:: python
-
-    from pprint import pprint
     
-    pprint(client.dataset.view(name = dataset_name, table = "education"))
-
-The output will be a JSON object containing the properties and relationships of the entities in the education table (along with their ids).
-
-.. note::
-    
-    We are in the process of adding the ability to view multiple tables at once, or limited the view of a dataset to a certain set of columns. In addition, we are working on methods to export your datasets.
-
-Helpful Dataset functionality
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-We also have a few other helpful functions to help you manage your datasets: ``structify.dataset.delete`` to delete a dataset, ``structify.dataset.list`` to list all your datasets, and ``structify.dataset.info`` to get info on a certain dataset, including the name.
-
-Here are some examples of how you can use these functions:
-
-.. code-block:: python
-
-    # Requires no parameters and will return a list of all your datasets in a JSON object
-    structify.dataset.list()
-
-    # Requires the name of the dataset and will return the schema as a JSON object
-    structify.dataset.info(name = "employees")
-
-    # Requires the name of the dataset and will delete the dataset
-    strucctify.dataset.delete(name = "employees")
-
- 
-.. _Refreshing-Dataset:
-
-Refreshing Your Dataset
------------------------
-Of course, the data in your dataset will become outdated over time. Currently, to refresh your dataset, you will want to set a recurring schedule or refresh the dataset continuously. We are developing an endpoint that will streamline this functionality, but in the meantime, we recommend you use the following:
-
-.. code-block:: python
-
-    while True:
-        run = structify.structure.run_async(
-            name = "employees", 
-            sources = Source.Web(prompt = "find me details about the employees of ACME", websites = ["linkedin.com"])
-        )
-        structify.structure.wait(run)
-
-If you have a regular schedule you want to run the refresh, you can use the ``schedule`` library to run the refresh on a schedule. Here's an example of how you can run the refresh every day at 3:00 PM:
-
-.. code-block:: python
-
-    from schedule import every, run_pending
-    import time
-
-    every().day.at("15:00").do(
-        structify.structure.run_async, 
-        name = "employees", 
-        sources = Source.Web(
-            prompt = "find me details about the employees of ACME", 
-            websites = ["linkedin.com"]
-        )
+    entities = structify.dataset.view(
+        name="employees",
+        requested_type="Entities" # The default value is "Entities", but we show it here for clarity
     )
 
-    while True:
-        run_pending()
-        time.sleep(1)
+    relationships = structify.dataset.view(
+        name="employees",
+        requested_type="Relationships"
+    )
 
+The output for each is an iterator which we can use to view the dataset as follows:
 
+.. code-block:: python
+
+    for entity in entities:
+        print(entity)
+
+    for relationship in relationships:
+        print(relationship)
+
+.. tip::
+    
+    To view a particular type of entity or relationship, you can add the ``table_name`` or ``relationship_name`` parameter to the respective view call.
 
 .. note::
-    Keep your eye out for the ``structify.dataset.refresh`` API call to update the data in your dataset.
-
-For one-time refreshes, we recommend just running ``structify.structure.run`` again to update the dataset.
-
-
-
+    Keep your eye out for the ``structify.datasets.refresh`` API call to update the data in your dataset.
