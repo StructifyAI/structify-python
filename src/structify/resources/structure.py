@@ -141,9 +141,11 @@ class StructureResource(SyncAPIResource):
         Returns a token that can be waited on until the request is finished.
 
         Args:
-          structure_input: These are all the types that can be converted into a BasicInputType
+          source: This specifies the source of the data that is being structured from SECFiling, PDF, Text, Web, DocumentImage
 
-          seeded_entity: Knowledge graph info structured to deserialize and display in the same format
+          extraction_criteria: These are the criteria that are used to determine if data should be saved from the source
+
+          starting_entity: Knowledge graph info structured to deserialize and display in the same format
               that the LLM outputs. Also the first representation of an LLM output in the
               pipeline from raw tool output to being merged into a Neo4j DB
 
@@ -161,8 +163,9 @@ class StructureResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "dataset": dataset,
-                    "structure_input": structure_input,
-                    "seeded_entity": seeded_entity,
+                    "source": source,
+                    "extraction_criteria": extraction_criteria,
+                    "starting_entity": starting_entity,
                 },
                 structure_run_async_params.StructureRunAsyncParams,
             ),
@@ -317,9 +320,11 @@ class AsyncStructureResource(AsyncAPIResource):
         Returns a token that can be waited on until the request is finished.
 
         Args:
-          structure_input: These are all the types that can be converted into a BasicInputType
+          source: This specifies the source of the data that is being structured from SECFiling, PDF, Text, Web, DocumentImage
 
-          seeded_entity: Knowledge graph info structured to deserialize and display in the same format
+          extraction_criteria: These are the criteria that are used to determine if data should be saved from the source
+
+          starting_entity: Knowledge graph info structured to deserialize and display in the same format
               that the LLM outputs. Also the first representation of an LLM output in the
               pipeline from raw tool output to being merged into a Neo4j DB
 
@@ -337,8 +342,9 @@ class AsyncStructureResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "dataset": dataset,
-                    "structure_input": structure_input,
-                    "seeded_entity": seeded_entity,
+                    "source": source,
+                    "extraction_criteria": extraction_criteria,
+                    "starting_entity": starting_entity,
                 },
                 structure_run_async_params.StructureRunAsyncParams,
             ),

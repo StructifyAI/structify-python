@@ -9,7 +9,7 @@ __all__ = ["DatasetViewParams"]
 
 
 class DatasetViewParams(TypedDict, total=False):
-    dataset_name: Required[str]
+    name: Required[str]
 
     requested_type: Required[Literal["Entities", "Relationships"]] = "Entities"
 

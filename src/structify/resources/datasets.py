@@ -223,7 +223,7 @@ class DatasetsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "dataset_name": dataset_name,
+                        "name": name,
                         "requested_type": requested_type,
                         "limit": limit,
                         "offset": offset,
@@ -430,7 +430,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "dataset_name": dataset_name,
+                        "name": name,
                         "requested_type": requested_type,
                         "limit": limit,
                         "offset": offset,
