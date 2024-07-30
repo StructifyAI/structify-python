@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import List
+from typing import List, Iterable
 
 import httpx
 
@@ -26,6 +26,7 @@ from .._response import (
 )
 from .._base_client import make_request_options
 from ..types.knowledge_graph_param import KnowledgeGraphParam
+from ..types.extraction_criteria_param import ExtractionCriteriaParam
 from ..types.structure_job_status_response import StructureJobStatusResponse
 
 __all__ = ["StructureResource", "AsyncStructureResource"]
@@ -121,6 +122,7 @@ class StructureResource(SyncAPIResource):
         *,
         dataset_name: str,
         structure_input: structure_run_async_params.StructureInput,
+        extraction_criteria: Iterable[ExtractionCriteriaParam] | NotGiven = NOT_GIVEN,
         seeded_entity: KnowledgeGraphParam | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -154,6 +156,7 @@ class StructureResource(SyncAPIResource):
                 {
                     "dataset_name": dataset_name,
                     "structure_input": structure_input,
+                    "extraction_criteria": extraction_criteria,
                     "seeded_entity": seeded_entity,
                 },
                 structure_run_async_params.StructureRunAsyncParams,
@@ -290,6 +293,7 @@ class AsyncStructureResource(AsyncAPIResource):
         *,
         dataset_name: str,
         structure_input: structure_run_async_params.StructureInput,
+        extraction_criteria: Iterable[ExtractionCriteriaParam] | NotGiven = NOT_GIVEN,
         seeded_entity: KnowledgeGraphParam | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -323,6 +327,7 @@ class AsyncStructureResource(AsyncAPIResource):
                 {
                     "dataset_name": dataset_name,
                     "structure_input": structure_input,
+                    "extraction_criteria": extraction_criteria,
                     "seeded_entity": seeded_entity,
                 },
                 structure_run_async_params.StructureRunAsyncParams,

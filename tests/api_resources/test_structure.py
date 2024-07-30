@@ -113,6 +113,11 @@ class TestStructure:
                     "year": 0,
                 }
             },
+            extraction_criteria=[
+                {"relationship_extraction": {"relationship_name": "relationship_name"}},
+                {"relationship_extraction": {"relationship_name": "relationship_name"}},
+                {"relationship_extraction": {"relationship_name": "relationship_name"}},
+            ],
             seeded_entity={
                 "entities": [
                     {
@@ -292,6 +297,11 @@ class TestAsyncStructure:
                     "year": 0,
                 }
             },
+            extraction_criteria=[
+                {"relationship_extraction": {"relationship_name": "relationship_name"}},
+                {"relationship_extraction": {"relationship_name": "relationship_name"}},
+                {"relationship_extraction": {"relationship_name": "relationship_name"}},
+            ],
             seeded_entity={
                 "entities": [
                     {
