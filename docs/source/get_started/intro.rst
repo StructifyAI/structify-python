@@ -2,17 +2,14 @@ Introduction
 =============
 Structify powers you and your AI tools to collect custom datasets on demand.
 
-There are countless use cases for Structify. Just imagine what you could do with human-quality data delivered at superhuman speeds.
+Imagine what you could do with human-quality data delivered at superhuman speeds.
 
 Key Features
 ------------
-* **Custom Data, At Your Fingertips**: Our AI sources your datasets using a variety of sources from the Internet to documents.
-* **Personalized Schemas**: Define whatever schema you want for your datasets, or let our LLM handle that part.
+* **Custom Data, At Your Fingertips**: Our AI agents populate your datasets using a variety of sources including the Internet and documents.
+* **Personalized Schemas**: Define any schema you'd like for your datasets.
 * **Automated Entity Resolution**: Structify ensures that your data is clean, consistent, and free of duplicates.
 * **Backsourcing**: Each piece of data is connected to the source or sources we used to collect it.
-* **Confidence Scores**: Our reasoning engine bakes confidence metrics into each data point.
-* **Notifications**: Get realtime alerts when data you care about changes.
-
 
 How It Works
 ------------
@@ -37,7 +34,7 @@ Imagine a simple knowledge graph representing a book database. In this graph:
 
 Creating Knowledge Graphs
 ~~~~~~~~~~~~~~~~~~~~~~~~~
-Our knowledge graphs are built by AI agents that index information from a variety of sources, including the web, documents, and other datasets.
+Our knowledge graphs are built by AI agents that index information from a variety of sources such as the web, SEC filings, and plain text.
 
 *Since we acknowledge most of the world isn't familiar with the power of knowledge graphs, you'll notice that our docs are written in tabular (or close to tabular) language.*
 
