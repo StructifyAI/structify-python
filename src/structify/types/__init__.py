@@ -2,16 +2,20 @@
 
 from __future__ import annotations
 
+from .table import Table as Table
 from .entity import Entity as Entity
 from .source import Source as Source
 from .dataset import Dataset as Dataset
 from .new_token import NewToken as NewToken
 from .user_info import UserInfo as UserInfo
 from .chat_prompt import ChatPrompt as ChatPrompt
+from .table_param import TableParam as TableParam
 from .entity_param import EntityParam as EntityParam
 from .relationship import Relationship as Relationship
+from .property_type import PropertyType as PropertyType
 from .tool_metadata import ToolMetadata as ToolMetadata
 from .execution_step import ExecutionStep as ExecutionStep
+from .merge_strategy import MergeStrategy as MergeStrategy
 from .knowledge_graph import KnowledgeGraph as KnowledgeGraph
 from .run_list_params import RunListParams as RunListParams
 from .run_get_response import RunGetResponse as RunGetResponse
@@ -23,8 +27,10 @@ from .server_information import ServerInformation as ServerInformation
 from .source_list_params import SourceListParams as SourceListParams
 from .dataset_view_params import DatasetViewParams as DatasetViewParams
 from .extraction_criteria import ExtractionCriteria as ExtractionCriteria
+from .property_type_param import PropertyTypeParam as PropertyTypeParam
 from .run_cancel_response import RunCancelResponse as RunCancelResponse
 from .run_delete_response import RunDeleteResponse as RunDeleteResponse
+from .merge_strategy_param import MergeStrategyParam as MergeStrategyParam
 from .source_list_response import SourceListResponse as SourceListResponse
 from .dataset_create_params import DatasetCreateParams as DatasetCreateParams
 from .dataset_delete_params import DatasetDeleteParams as DatasetDeleteParams
