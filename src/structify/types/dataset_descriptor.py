@@ -2,10 +2,10 @@
 
 from typing import List
 
+from .table import Table
 from .._models import BaseModel
-from .property import Property
 
-__all__ = ["DatasetDescriptor", "Relationship", "Table"]
+__all__ = ["DatasetDescriptor", "Relationship"]
 
 
 class Relationship(BaseModel):
@@ -16,16 +16,6 @@ class Relationship(BaseModel):
     source_table: str
 
     target_table: str
-
-
-class Table(BaseModel):
-    description: str
-
-    name: str
-    """Organized in a name, description format."""
-
-    properties: List[Property]
-    """Organized in a name, description format."""
 
 
 class DatasetDescriptor(BaseModel):
