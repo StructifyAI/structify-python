@@ -75,8 +75,6 @@ class StructureInputBasicBasicTextDocumentTextDocument(TypedDict, total=False):
 
     filepath: Optional[str]
 
-    save: bool
-
 
 class StructureInputBasicBasicTextDocument(TypedDict, total=False):
     text_document: Required[
