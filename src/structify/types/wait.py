@@ -4,9 +4,10 @@
 from pydantic import Field as FieldInfo
 
 from .._models import BaseModel
+from .wait_params import WaitParams
 
 __all__ = ["Wait"]
 
 
 class Wait(BaseModel):
-    wait: Wait = FieldInfo(alias="Wait")
+    wait: WaitParams = FieldInfo(alias="Wait")

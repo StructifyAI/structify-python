@@ -4,9 +4,10 @@
 from pydantic import Field as FieldInfo
 
 from .._models import BaseModel
+from .google_params import GoogleParams
 
 __all__ = ["Google"]
 
 
 class Google(BaseModel):
-    google: Google = FieldInfo(alias="Google")
+    google: GoogleParams = FieldInfo(alias="Google")
