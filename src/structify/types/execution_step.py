@@ -50,7 +50,7 @@ class ResponseToolCallInputSave(BaseModel):
 
 class ResponseToolCallInputScrollScroll(BaseModel):
     reason: str
-    """Dummy argument"""
+    """OpenAI Requires an argument, so we put a dummy one here."""
 
 
 class ResponseToolCallInputScroll(BaseModel):
@@ -60,7 +60,7 @@ class ResponseToolCallInputScroll(BaseModel):
 
 class ResponseToolCallInputExitExit(BaseModel):
     reason: str
-    """Dummy argument"""
+    """OpenAI Requires an argument, so we put a dummy one here."""
 
 
 class ResponseToolCallInputExit(BaseModel):

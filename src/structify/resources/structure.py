@@ -109,7 +109,7 @@ class StructureResource(SyncAPIResource):
     def run_async(
         self,
         *,
-        name: str,
+        dataset_name: str,
         structure_input: structure_run_async_params.StructureInput,
         extraction_criteria: Iterable[ExtractionCriteriaParam] | NotGiven = NOT_GIVEN,
         seeded_entity: KnowledgeGraphParam | NotGiven = NOT_GIVEN,
@@ -143,7 +143,7 @@ class StructureResource(SyncAPIResource):
             "/structure/run_async",
             body=maybe_transform(
                 {
-                    "name": name,
+                    "dataset_name": dataset_name,
                     "structure_input": structure_input,
                     "extraction_criteria": extraction_criteria,
                     "seeded_entity": seeded_entity,
@@ -234,7 +234,7 @@ class AsyncStructureResource(AsyncAPIResource):
     async def run_async(
         self,
         *,
-        name: str,
+        dataset_name: str,
         structure_input: structure_run_async_params.StructureInput,
         extraction_criteria: Iterable[ExtractionCriteriaParam] | NotGiven = NOT_GIVEN,
         seeded_entity: KnowledgeGraphParam | NotGiven = NOT_GIVEN,
@@ -268,7 +268,7 @@ class AsyncStructureResource(AsyncAPIResource):
             "/structure/run_async",
             body=await async_maybe_transform(
                 {
-                    "name": name,
+                    "dataset_name": dataset_name,
                     "structure_input": structure_input,
                     "extraction_criteria": extraction_criteria,
                     "seeded_entity": seeded_entity,
