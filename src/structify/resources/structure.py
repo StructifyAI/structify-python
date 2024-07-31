@@ -32,9 +32,9 @@ from ..types.structure_job_status_response import StructureJobStatusResponse
 __all__ = ["StructureResource", "AsyncStructureResource"]
 
 # ---------------- Stainless modification ----------------
-from typing import Optional
-import logging
 import time
+import logging
+from typing import Optional
 
 from ..pagination import SyncJobsList
 
