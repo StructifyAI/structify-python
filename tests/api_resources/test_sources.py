@@ -52,13 +52,6 @@ class TestSources:
     def test_method_report(self, client: Structify) -> None:
         source = client.sources.report(
             id=0,
-        )
-        assert_matches_type(str, source, path=["response"])
-
-    @parametrize
-    def test_method_report_with_all_params(self, client: Structify) -> None:
-        source = client.sources.report(
-            id=0,
             property="property",
         )
         assert_matches_type(str, source, path=["response"])
@@ -67,6 +60,7 @@ class TestSources:
     def test_raw_response_report(self, client: Structify) -> None:
         response = client.sources.with_raw_response.report(
             id=0,
+            property="property",
         )
 
         assert response.is_closed is True
@@ -78,6 +72,7 @@ class TestSources:
     def test_streaming_response_report(self, client: Structify) -> None:
         with client.sources.with_streaming_response.report(
             id=0,
+            property="property",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -126,13 +121,6 @@ class TestAsyncSources:
     async def test_method_report(self, async_client: AsyncStructify) -> None:
         source = await async_client.sources.report(
             id=0,
-        )
-        assert_matches_type(str, source, path=["response"])
-
-    @parametrize
-    async def test_method_report_with_all_params(self, async_client: AsyncStructify) -> None:
-        source = await async_client.sources.report(
-            id=0,
             property="property",
         )
         assert_matches_type(str, source, path=["response"])
@@ -141,6 +129,7 @@ class TestAsyncSources:
     async def test_raw_response_report(self, async_client: AsyncStructify) -> None:
         response = await async_client.sources.with_raw_response.report(
             id=0,
+            property="property",
         )
 
         assert response.is_closed is True
@@ -152,6 +141,7 @@ class TestAsyncSources:
     async def test_streaming_response_report(self, async_client: AsyncStructify) -> None:
         async with async_client.sources.with_streaming_response.report(
             id=0,
+            property="property",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

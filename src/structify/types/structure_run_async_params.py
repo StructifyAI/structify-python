@@ -29,7 +29,7 @@ __all__ = [
 
 
 class StructureRunAsyncParams(TypedDict, total=False):
-    dataset_name: Required[str]
+    name: Required[str]
 
     structure_input: Required[StructureInput]
     """These are all the types that can be converted into a BasicInputType"""
@@ -71,7 +71,7 @@ class StructureInputPdfIngestor(TypedDict, total=False):
 class StructureInputBasicBasicTextDocumentTextDocument(TypedDict, total=False):
     content: Optional[str]
 
-    filepath: Optional[str]
+    path: Optional[str]
 
 
 class StructureInputBasicBasicTextDocument(TypedDict, total=False):
