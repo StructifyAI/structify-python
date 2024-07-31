@@ -1,20 +1,11 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Union, Optional
-from typing_extensions import Literal
+from typing import List
 
-from pydantic import Field as FieldInfo
-
+from .table import Table
 from .._models import BaseModel
 
-__all__ = [
-    "DatasetDescriptor",
-    "Relationship",
-    "Table",
-    "TableProperty",
-    "TablePropertyPropType",
-    "TablePropertyPropTypeEnum",
-]
+__all__ = ["DatasetDescriptor", "Relationship"]
 
 
 class Relationship(BaseModel):
@@ -25,33 +16,6 @@ class Relationship(BaseModel):
     source_table: str
 
     target_table: str
-
-
-class TablePropertyPropTypeEnum(BaseModel):
-    enum: str = FieldInfo(alias="Enum")
-
-
-TablePropertyPropType = Union[Literal["String"], TablePropertyPropTypeEnum, Literal["Integer"]]
-
-
-class TableProperty(BaseModel):
-    description: str
-
-    name: str
-
-    merge_strategy: Optional[Literal["Unique", "FuzzyMatch", "None"]] = None
-
-    prop_type: Optional[TablePropertyPropType] = None
-
-
-class Table(BaseModel):
-    description: str
-
-    name: str
-    """Organized in a name, description format."""
-
-    properties: List[TableProperty]
-    """Organized in a name, description format."""
 
 
 class DatasetDescriptor(BaseModel):
