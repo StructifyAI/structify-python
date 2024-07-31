@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import httpx
 
-from ..types import run_list_params
+from ..types import job_list_params
 from .._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
 from .._utils import maybe_transform
 from .._compat import cached_property
@@ -15,25 +15,25 @@ from .._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ..pagination import SyncRunsList, AsyncRunsList
+from ..pagination import SyncJobsList, AsyncJobsList
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.execution_step import ExecutionStep
-from ..types.run_get_response import RunGetResponse
-from ..types.run_list_response import RunListResponse
-from ..types.run_cancel_response import RunCancelResponse
-from ..types.run_get_steps_response import RunGetStepsResponse
+from ..types.job_get_response import JobGetResponse
+from ..types.job_list_response import JobListResponse
+from ..types.job_cancel_response import JobCancelResponse
+from ..types.job_get_steps_response import JobGetStepsResponse
 
-__all__ = ["RunsResource", "AsyncRunsResource"]
+__all__ = ["JobsResource", "AsyncJobsResource"]
 
 
-class RunsResource(SyncAPIResource):
+class JobsResource(SyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> RunsResourceWithRawResponse:
-        return RunsResourceWithRawResponse(self)
+    def with_raw_response(self) -> JobsResourceWithRawResponse:
+        return JobsResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> RunsResourceWithStreamingResponse:
-        return RunsResourceWithStreamingResponse(self)
+    def with_streaming_response(self) -> JobsResourceWithStreamingResponse:
+        return JobsResourceWithStreamingResponse(self)
 
     def list(
         self,
@@ -46,7 +46,7 @@ class RunsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> SyncRunsList[RunListResponse]:
+    ) -> SyncJobsList[JobListResponse]:
         """
         List all the executions
 
@@ -60,8 +60,8 @@ class RunsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._get_api_list(
-            "/runs/list",
-            page=SyncRunsList[RunListResponse],
+            "/jobs/list",
+            page=SyncJobsList[JobListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -72,10 +72,10 @@ class RunsResource(SyncAPIResource):
                         "limit": limit,
                         "offset": offset,
                     },
-                    run_list_params.RunListParams,
+                    job_list_params.JobListParams,
                 ),
             ),
-            model=RunListResponse,
+            model=JobListResponse,
         )
 
     def delete(
@@ -90,7 +90,7 @@ class RunsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> str:
         """
-        Delete a run
+        Delete a job
 
         Args:
           extra_headers: Send extra headers
@@ -105,7 +105,7 @@ class RunsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `job_id` but received {job_id!r}")
         extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
         return self._post(
-            f"/runs/delete/{job_id}",
+            f"/jobs/delete/{job_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -122,9 +122,9 @@ class RunsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> RunCancelResponse:
+    ) -> JobCancelResponse:
         """
-        You successfully cancelled a run.
+        You successfully cancelled a job.
 
         Args:
           extra_headers: Send extra headers
@@ -138,11 +138,11 @@ class RunsResource(SyncAPIResource):
         if not uuid:
             raise ValueError(f"Expected a non-empty value for `uuid` but received {uuid!r}")
         return self._post(
-            f"/runs/cancel/{uuid}",
+            f"/jobs/cancel/{uuid}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=RunCancelResponse,
+            cast_to=JobCancelResponse,
         )
 
     def get(
@@ -155,9 +155,9 @@ class RunsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> RunGetResponse:
+    ) -> JobGetResponse:
         """
-        Retrieve a run from structify.
+        Retrieve a job from structify.
 
         Args:
           extra_headers: Send extra headers
@@ -171,11 +171,11 @@ class RunsResource(SyncAPIResource):
         if not job_id:
             raise ValueError(f"Expected a non-empty value for `job_id` but received {job_id!r}")
         return self._get(
-            f"/runs/get/{job_id}",
+            f"/jobs/get/{job_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=RunGetResponse,
+            cast_to=JobGetResponse,
         )
 
     def get_step(
@@ -204,7 +204,7 @@ class RunsResource(SyncAPIResource):
         if not step_id:
             raise ValueError(f"Expected a non-empty value for `step_id` but received {step_id!r}")
         return self._get(
-            f"/runs/get_step/{step_id}",
+            f"/jobs/get_step/{step_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -221,9 +221,9 @@ class RunsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> RunGetStepsResponse:
+    ) -> JobGetStepsResponse:
         """
-        Retrieve a run from structify.
+        Retrieve a job from structify.
 
         Args:
           extra_headers: Send extra headers
@@ -237,11 +237,11 @@ class RunsResource(SyncAPIResource):
         if not job_id:
             raise ValueError(f"Expected a non-empty value for `job_id` but received {job_id!r}")
         return self._get(
-            f"/runs/get_steps/{job_id}",
+            f"/jobs/get_steps/{job_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=RunGetStepsResponse,
+            cast_to=JobGetStepsResponse,
         )
 
     def schedule(
@@ -260,7 +260,7 @@ class RunsResource(SyncAPIResource):
         """
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
-            "/runs/schedule",
+            "/jobs/schedule",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -268,14 +268,14 @@ class RunsResource(SyncAPIResource):
         )
 
 
-class AsyncRunsResource(AsyncAPIResource):
+class AsyncJobsResource(AsyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> AsyncRunsResourceWithRawResponse:
-        return AsyncRunsResourceWithRawResponse(self)
+    def with_raw_response(self) -> AsyncJobsResourceWithRawResponse:
+        return AsyncJobsResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> AsyncRunsResourceWithStreamingResponse:
-        return AsyncRunsResourceWithStreamingResponse(self)
+    def with_streaming_response(self) -> AsyncJobsResourceWithStreamingResponse:
+        return AsyncJobsResourceWithStreamingResponse(self)
 
     def list(
         self,
@@ -288,7 +288,7 @@ class AsyncRunsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> AsyncPaginator[RunListResponse, AsyncRunsList[RunListResponse]]:
+    ) -> AsyncPaginator[JobListResponse, AsyncJobsList[JobListResponse]]:
         """
         List all the executions
 
@@ -302,8 +302,8 @@ class AsyncRunsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._get_api_list(
-            "/runs/list",
-            page=AsyncRunsList[RunListResponse],
+            "/jobs/list",
+            page=AsyncJobsList[JobListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -314,10 +314,10 @@ class AsyncRunsResource(AsyncAPIResource):
                         "limit": limit,
                         "offset": offset,
                     },
-                    run_list_params.RunListParams,
+                    job_list_params.JobListParams,
                 ),
             ),
-            model=RunListResponse,
+            model=JobListResponse,
         )
 
     async def delete(
@@ -332,7 +332,7 @@ class AsyncRunsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> str:
         """
-        Delete a run
+        Delete a job
 
         Args:
           extra_headers: Send extra headers
@@ -347,7 +347,7 @@ class AsyncRunsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `job_id` but received {job_id!r}")
         extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
         return await self._post(
-            f"/runs/delete/{job_id}",
+            f"/jobs/delete/{job_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -364,9 +364,9 @@ class AsyncRunsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> RunCancelResponse:
+    ) -> JobCancelResponse:
         """
-        You successfully cancelled a run.
+        You successfully cancelled a job.
 
         Args:
           extra_headers: Send extra headers
@@ -380,11 +380,11 @@ class AsyncRunsResource(AsyncAPIResource):
         if not uuid:
             raise ValueError(f"Expected a non-empty value for `uuid` but received {uuid!r}")
         return await self._post(
-            f"/runs/cancel/{uuid}",
+            f"/jobs/cancel/{uuid}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=RunCancelResponse,
+            cast_to=JobCancelResponse,
         )
 
     async def get(
@@ -397,9 +397,9 @@ class AsyncRunsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> RunGetResponse:
+    ) -> JobGetResponse:
         """
-        Retrieve a run from structify.
+        Retrieve a job from structify.
 
         Args:
           extra_headers: Send extra headers
@@ -413,11 +413,11 @@ class AsyncRunsResource(AsyncAPIResource):
         if not job_id:
             raise ValueError(f"Expected a non-empty value for `job_id` but received {job_id!r}")
         return await self._get(
-            f"/runs/get/{job_id}",
+            f"/jobs/get/{job_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=RunGetResponse,
+            cast_to=JobGetResponse,
         )
 
     async def get_step(
@@ -446,7 +446,7 @@ class AsyncRunsResource(AsyncAPIResource):
         if not step_id:
             raise ValueError(f"Expected a non-empty value for `step_id` but received {step_id!r}")
         return await self._get(
-            f"/runs/get_step/{step_id}",
+            f"/jobs/get_step/{step_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -463,9 +463,9 @@ class AsyncRunsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> RunGetStepsResponse:
+    ) -> JobGetStepsResponse:
         """
-        Retrieve a run from structify.
+        Retrieve a job from structify.
 
         Args:
           extra_headers: Send extra headers
@@ -479,11 +479,11 @@ class AsyncRunsResource(AsyncAPIResource):
         if not job_id:
             raise ValueError(f"Expected a non-empty value for `job_id` but received {job_id!r}")
         return await self._get(
-            f"/runs/get_steps/{job_id}",
+            f"/jobs/get_steps/{job_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=RunGetStepsResponse,
+            cast_to=JobGetStepsResponse,
         )
 
     async def schedule(
@@ -502,7 +502,7 @@ class AsyncRunsResource(AsyncAPIResource):
         """
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
-            "/runs/schedule",
+            "/jobs/schedule",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -510,109 +510,109 @@ class AsyncRunsResource(AsyncAPIResource):
         )
 
 
-class RunsResourceWithRawResponse:
-    def __init__(self, runs: RunsResource) -> None:
-        self._runs = runs
+class JobsResourceWithRawResponse:
+    def __init__(self, jobs: JobsResource) -> None:
+        self._jobs = jobs
 
         self.list = to_raw_response_wrapper(
-            runs.list,
+            jobs.list,
         )
         self.delete = to_raw_response_wrapper(
-            runs.delete,
+            jobs.delete,
         )
         self.cancel = to_raw_response_wrapper(
-            runs.cancel,
+            jobs.cancel,
         )
         self.get = to_raw_response_wrapper(
-            runs.get,
+            jobs.get,
         )
         self.get_step = to_raw_response_wrapper(
-            runs.get_step,
+            jobs.get_step,
         )
         self.get_steps = to_raw_response_wrapper(
-            runs.get_steps,
+            jobs.get_steps,
         )
         self.schedule = to_raw_response_wrapper(
-            runs.schedule,
+            jobs.schedule,
         )
 
 
-class AsyncRunsResourceWithRawResponse:
-    def __init__(self, runs: AsyncRunsResource) -> None:
-        self._runs = runs
+class AsyncJobsResourceWithRawResponse:
+    def __init__(self, jobs: AsyncJobsResource) -> None:
+        self._jobs = jobs
 
         self.list = async_to_raw_response_wrapper(
-            runs.list,
+            jobs.list,
         )
         self.delete = async_to_raw_response_wrapper(
-            runs.delete,
+            jobs.delete,
         )
         self.cancel = async_to_raw_response_wrapper(
-            runs.cancel,
+            jobs.cancel,
         )
         self.get = async_to_raw_response_wrapper(
-            runs.get,
+            jobs.get,
         )
         self.get_step = async_to_raw_response_wrapper(
-            runs.get_step,
+            jobs.get_step,
         )
         self.get_steps = async_to_raw_response_wrapper(
-            runs.get_steps,
+            jobs.get_steps,
         )
         self.schedule = async_to_raw_response_wrapper(
-            runs.schedule,
+            jobs.schedule,
         )
 
 
-class RunsResourceWithStreamingResponse:
-    def __init__(self, runs: RunsResource) -> None:
-        self._runs = runs
+class JobsResourceWithStreamingResponse:
+    def __init__(self, jobs: JobsResource) -> None:
+        self._jobs = jobs
 
         self.list = to_streamed_response_wrapper(
-            runs.list,
+            jobs.list,
         )
         self.delete = to_streamed_response_wrapper(
-            runs.delete,
+            jobs.delete,
         )
         self.cancel = to_streamed_response_wrapper(
-            runs.cancel,
+            jobs.cancel,
         )
         self.get = to_streamed_response_wrapper(
-            runs.get,
+            jobs.get,
         )
         self.get_step = to_streamed_response_wrapper(
-            runs.get_step,
+            jobs.get_step,
         )
         self.get_steps = to_streamed_response_wrapper(
-            runs.get_steps,
+            jobs.get_steps,
         )
         self.schedule = to_streamed_response_wrapper(
-            runs.schedule,
+            jobs.schedule,
         )
 
 
-class AsyncRunsResourceWithStreamingResponse:
-    def __init__(self, runs: AsyncRunsResource) -> None:
-        self._runs = runs
+class AsyncJobsResourceWithStreamingResponse:
+    def __init__(self, jobs: AsyncJobsResource) -> None:
+        self._jobs = jobs
 
         self.list = async_to_streamed_response_wrapper(
-            runs.list,
+            jobs.list,
         )
         self.delete = async_to_streamed_response_wrapper(
-            runs.delete,
+            jobs.delete,
         )
         self.cancel = async_to_streamed_response_wrapper(
-            runs.cancel,
+            jobs.cancel,
         )
         self.get = async_to_streamed_response_wrapper(
-            runs.get,
+            jobs.get,
         )
         self.get_step = async_to_streamed_response_wrapper(
-            runs.get_step,
+            jobs.get_step,
         )
         self.get_steps = async_to_streamed_response_wrapper(
-            runs.get_steps,
+            jobs.get_steps,
         )
         self.schedule = async_to_streamed_response_wrapper(
-            runs.schedule,
+            jobs.schedule,
         )
