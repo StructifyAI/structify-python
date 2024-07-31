@@ -69,11 +69,12 @@ Learn from Examples
 -------------------
 .. toctree::
    :caption: Tutorials
-   :maxdepth: 2
+   :maxdepth: 1
 
-   Making the Internet Your Database <examples/example0>
-   Monitoring Changes in Datasets <examples/example1>
-   Structifying Documents <examples/example2>
+   Grabbing Press about Clients <examples/example0>
+   Tracking Board Member Changes <examples/example1>
+   Structifying Pitch Decks <examples/example2>
+   Creating a Dataset for Your Network <examples/example3>
 
 
 .. Indices and tables
@@ -99,4 +100,3 @@ Read More
    :maxdepth: 1
 
    FAQ <more/faq>
-   Changelog <more/changelog>

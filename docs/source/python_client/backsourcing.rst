@@ -1,6 +1,6 @@
 .. _backsourcing:
 
-Backsourcing
+Sourcing
 ============
 For all our users, knowing that you have accurate data is of paramount importance, so we allow you to see the sources that were used to validate and create any given datapoint. This is useful for understanding the provenance of a given datapoint and for understanding the context in which it was created.
 
@@ -27,7 +27,7 @@ This call would result a Python object including the id, as follows:
         ),
         Source(
             id='Source-92472065-1881-449a-875a-41aab8351bf7',
-            link=Web(url='https://github.com/StructifyAI//'), 
+            link=Web(url='https://github.com/StructifyAI/'), 
             location=Visual(Position(x=0, y=0))
         )
     ]

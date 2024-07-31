@@ -1,16 +1,14 @@
-Structifying Documents
+Structifying Pitch Decks
 =======================
 In this tutorial, we've cover how you can use the Structify API to structure information from documents into datasets.
 In the end, we'll show you how to implement this into an alternative to using RAG to query documents.
 
-.. _document-example:
-
-Extracting Company Information from Pitch Decks
------------------------------------------------
 This example will walk through the process of uploading pitch decks and extracting the company name, industry, founders, investors, and funding amount from each deck.
 
+.. _document-example:
+
 Step 1: Upload the Relevant Documents
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-------------------------------------
 Structify allows you to upload PDF documents.
 We associate the documents with your account (or your user account), such that multiple datasets can be created from the same document 
 (or sets of documents involving some of the same documents and different ones).
@@ -36,7 +34,7 @@ We associate the documents with your account (or your user account), such that m
 
 
 Step 2: Create a Relevant Dataset
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------------------
 Next, we have to blueprint the schema of the dataset that we are interested in creating from these documents.
 
 .. code-block:: python
@@ -80,7 +78,7 @@ Next, we have to blueprint the schema of the dataset that we are interested in c
     Remember you can always view the schema of any dataset later by using ``client.datasets.get(name="dataset_name")``.
 
 Step 3: Populate the Dataset using the Documents
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-------------------------------------------------
 Now that we have the dataset schema, we can populate the dataset with the information from the pitch decks.
 
 .. code-block:: python
@@ -108,5 +106,3 @@ Now that we have the dataset schema, we can populate the dataset with the inform
 
     for entity in entities:
         print(entity)
-
-

@@ -1,9 +1,5 @@
-Monitoring Changes in Datasets
-==============================
-Using the Structify API, you can easily track changes in datasets over time and keep a database up to date when changes occur. This is helpful to keep up to date on information that changes frequently in large scale, such as company board members, executive team, or other personnel changes.
-
-Tracking Private Company Board Members
---------------------------------------
+Tracking Board Member Changes
+======================================
 
 In this tutorial, imagine you are intested in keeping tabs on who is on the board of various private companies.
 Let's say furthermore, you are only interested in companies that are in the technology sector.
@@ -15,8 +11,7 @@ The goal being to regularly check if there have been any changes. Of course, sin
 Structify allows you to easily collect this information to track any changes.
 
 Step 1: Upload Your Existing Board Members Dataset
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
+--------------------------------------------------
 First, we want to update the existing dataset that you may have. We start that process from the Structify document endpoint, using the upload call.
 
 .. code-block:: python
@@ -37,7 +32,7 @@ First, we want to update the existing dataset that you may have. We start that p
         client.documents.upload(content=f, path='/structify/board_members.csv', file_type='Text')
 
 Step 2: Create a Structify Dataset for Board Members
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+----------------------------------------------------
 Next, we will need to create a dataset to store the board members information. We can do this by defining the schema in tables, properties, and relationships, making sure to include descriptions for each.
 
 .. code-block:: python
@@ -84,25 +79,17 @@ Next, we will need to create a dataset to store the board members information. W
     )
 
 
-Step 3: Set Up Regular Refreshes of the Dataset
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Step 3: Add in Web Data
+------------------------------------------------
 Now that we have a dataset to store the board members information, we want to set up regular refreshes of the dataset to keep the information up to date.
 
 .. code-block:: python
 
     # After getting the data from the uploaded CSV, we want to get the most recent information from the Internet sources.
-    # Simultaneously, we will set up a refresh schedule to run every week at 9:30am
-
-    every().day.at("09:30").do(
-        structify.structure.run_async, 
+    structify.structure.run_async(
         dataset="private_tech_company_board_members", 
         source=Web("https://www.prnewswire.com"),
         extraction_criteria=[RequiredRelationship(relationship_name="sits_on_board")]
     )
-
-    while True:
-        run_pending()
-        time.sleep(1)
-
 
 With this setup, you will be able to keep track of the board members of various private companies in the technology sector.

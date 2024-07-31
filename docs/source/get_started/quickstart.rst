@@ -86,14 +86,6 @@ Here's an example of how you would make an API call to create a dataset:
          ]
       ),
       Table(
-         name="publisher",
-         description="a company that publishes books",
-         properties=[
-            Property(name="name", description="The name of the publisher"),
-            Property(name="location", description="The location of the publisher")
-         ]
-      ),
-      Table(
          name="book",
          description="a book that has been written",
          properties=[
@@ -109,12 +101,7 @@ Here's an example of how you would make an API call to create a dataset:
          description="Connects the book to the list of authors who wrote it",
          source_table="book",
          target_table="author"
-         ),
-      Relationship(
-         name= "published_by",
-         description="Connects the book to the list of publishers of the book"),
-         source_table="book",
-         target_table="publisher"
+         )
    ]
 
    # Use the schema to create the dataset
