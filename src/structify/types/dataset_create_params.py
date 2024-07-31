@@ -12,9 +12,6 @@ __all__ = [
     "Relationship",
     "Table",
     "TableProperty",
-    "TablePropertyMergeStrategy",
-    "TablePropertyMergeStrategyPropertyAttr",
-    "TablePropertyMergeStrategyFuzzyStringMatch",
     "TablePropertyPropType",
     "TablePropertyPropTypeEnum",
 ]
@@ -40,23 +37,6 @@ class Relationship(TypedDict, total=False):
     target_table: Required[str]
 
 
-class TablePropertyMergeStrategyPropertyAttr(TypedDict, total=False):
-    property_attr: Required[Annotated[str, PropertyInfo(alias="PropertyAttr")]]
-
-
-class TablePropertyMergeStrategyFuzzyStringMatch(TypedDict, total=False):
-    fuzzy_string_match: Required[Annotated[str, PropertyInfo(alias="FuzzyStringMatch")]]
-    """
-    merge on some list of property names iff the values are the same in the
-    extracted KgEntity
-    """
-
-
-TablePropertyMergeStrategy = Union[
-    TablePropertyMergeStrategyPropertyAttr, TablePropertyMergeStrategyFuzzyStringMatch, Literal["None"]
-]
-
-
 class TablePropertyPropTypeEnum(TypedDict, total=False):
     enum: Required[Annotated[str, PropertyInfo(alias="Enum")]]
 
@@ -69,11 +49,7 @@ class TableProperty(TypedDict, total=False):
 
     name: Required[str]
 
-    merge_strategy: TablePropertyMergeStrategy
-    """
-    merge on two entities if they have two property keys listed in this type that
-    return true to some fuzzy string matching function
-    """
+    merge_strategy: Literal["Unique", "FuzzyMatch", "None"]
 
     prop_type: TablePropertyPropType
 
