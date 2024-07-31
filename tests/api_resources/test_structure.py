@@ -84,7 +84,7 @@ class TestStructure:
     @parametrize
     def test_method_run_async(self, client: Structify) -> None:
         structure = client.structure.run_async(
-            dataset_name="dataset_name",
+            name="name",
             structure_input={"sec_ingestor": {}},
         )
         assert_matches_type(str, structure, path=["response"])
@@ -92,7 +92,7 @@ class TestStructure:
     @parametrize
     def test_method_run_async_with_all_params(self, client: Structify) -> None:
         structure = client.structure.run_async(
-            dataset_name="dataset_name",
+            name="name",
             structure_input={
                 "sec_ingestor": {
                     "accession_number": "accession_number",
@@ -147,7 +147,7 @@ class TestStructure:
     @parametrize
     def test_raw_response_run_async(self, client: Structify) -> None:
         response = client.structure.with_raw_response.run_async(
-            dataset_name="dataset_name",
+            name="name",
             structure_input={"sec_ingestor": {}},
         )
 
@@ -159,7 +159,7 @@ class TestStructure:
     @parametrize
     def test_streaming_response_run_async(self, client: Structify) -> None:
         with client.structure.with_streaming_response.run_async(
-            dataset_name="dataset_name",
+            name="name",
             structure_input={"sec_ingestor": {}},
         ) as response:
             assert not response.is_closed
@@ -239,7 +239,7 @@ class TestAsyncStructure:
     @parametrize
     async def test_method_run_async(self, async_client: AsyncStructify) -> None:
         structure = await async_client.structure.run_async(
-            dataset_name="dataset_name",
+            name="name",
             structure_input={"sec_ingestor": {}},
         )
         assert_matches_type(str, structure, path=["response"])
@@ -247,7 +247,7 @@ class TestAsyncStructure:
     @parametrize
     async def test_method_run_async_with_all_params(self, async_client: AsyncStructify) -> None:
         structure = await async_client.structure.run_async(
-            dataset_name="dataset_name",
+            name="name",
             structure_input={
                 "sec_ingestor": {
                     "accession_number": "accession_number",
@@ -302,7 +302,7 @@ class TestAsyncStructure:
     @parametrize
     async def test_raw_response_run_async(self, async_client: AsyncStructify) -> None:
         response = await async_client.structure.with_raw_response.run_async(
-            dataset_name="dataset_name",
+            name="name",
             structure_input={"sec_ingestor": {}},
         )
 
@@ -314,7 +314,7 @@ class TestAsyncStructure:
     @parametrize
     async def test_streaming_response_run_async(self, async_client: AsyncStructify) -> None:
         async with async_client.structure.with_streaming_response.run_async(
-            dataset_name="dataset_name",
+            name="name",
             structure_input={"sec_ingestor": {}},
         ) as response:
             assert not response.is_closed
