@@ -127,18 +127,6 @@ Methods:
 - <code title="post /structure/job_status">client.structure.<a href="./src/structify/resources/structure.py">job_status</a>(\*\*<a href="src/structify/types/structure_job_status_params.py">params</a>) -> <a href="./src/structify/types/structure_job_status_response.py">StructureJobStatusResponse</a></code>
 - <code title="post /structure/run_async">client.structure.<a href="./src/structify/resources/structure.py">run_async</a>(\*\*<a href="src/structify/types/structure_run_async_params.py">params</a>) -> str</code>
 
-# Usage
-
-Types:
-
-```python
-from structify.types import UsageGetJobInfoResponse
-```
-
-Methods:
-
-- <code title="post /usage/get_job_info">client.usage.<a href="./src/structify/resources/usage.py">get_job_info</a>() -> <a href="./src/structify/types/usage_get_job_info_response.py">UsageGetJobInfoResponse</a></code>
-
 # Shared
 
 Types:
