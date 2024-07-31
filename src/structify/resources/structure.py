@@ -32,6 +32,7 @@ from ..types.structure_job_status_response import StructureJobStatusResponse
 __all__ = ["StructureResource", "AsyncStructureResource"]
 
 # ---------------- Stainless modification ----------------
+import time
 import logging
 from typing import Optional
 
@@ -174,18 +175,23 @@ class StructureResource(SyncAPIResource):
 
     def run(  # type: ignore
         self,
+        name: str,
         table_name: str,
-        *args,  # type: ignore
+        structure_input: structure_run_async_params.StructureInput,
+        extraction_criteria: Iterable[ExtractionCriteriaParam] | NotGiven = NOT_GIVEN,
+        seeded_entity: KnowledgeGraphParam | NotGiven = NOT_GIVEN,
         timeout: Optional[int] = None,
-        **kwargs,  # type: ignore
     ) -> SyncJobsList[DatasetViewResponse]:
         """
         This function simulates a synchronous run of the async function by calling it and then waiting.
         If the timeout is reached, it attempts to cancel the job.
         """
-        import time
-
-        token: str = self.run_async(*args, **kwargs)  # type: ignore
+        token: str = self.run_async(
+            name=name,
+            structure_input=structure_input,
+            extraction_criteria=extraction_criteria,
+            seeded_entity=seeded_entity,
+        )
         start_time = time.time() if timeout is not None else None
         successfully_started_job = False
         last_idx = 0
@@ -210,7 +216,7 @@ class StructureResource(SyncAPIResource):
 
             successfully_started_job = True
             if status not in ["Queued", "Running"]:
-                return self._client.datasets.view(dataset_name=kwargs["dataset_name"], table_name=table_name, requested_type="Entities")  # type: ignore
+                return self._client.datasets.view(dataset_name=name, table_name=table_name, requested_type="Entities")
             time.sleep(1)
     # -------------------------------------------------------------------------
 
