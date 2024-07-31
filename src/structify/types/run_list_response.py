@@ -5,10 +5,10 @@ from typing_extensions import Literal
 
 from .._models import BaseModel
 
-__all__ = ["JobCancelResponse"]
+__all__ = ["RunListResponse"]
 
 
-class JobCancelResponse(BaseModel):
+class RunListResponse(BaseModel):
     id: str
 
     creation_time: datetime

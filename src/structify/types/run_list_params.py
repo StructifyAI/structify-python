@@ -4,10 +4,10 @@ from __future__ import annotations
 
 from typing_extensions import TypedDict
 
-__all__ = ["JobListParams"]
+__all__ = ["RunListParams"]
 
 
-class JobListParams(TypedDict, total=False):
+class RunListParams(TypedDict, total=False):
     limit: int
 
     offset: int
