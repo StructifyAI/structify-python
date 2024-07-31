@@ -17,7 +17,6 @@ __all__ = [
     "TablePropertyMergeStrategyFuzzyStringMatch",
     "TablePropertyPropType",
     "TablePropertyPropTypeEnum",
-    "TablePropertyPropTypeEnumEnum",
 ]
 
 
@@ -48,12 +47,8 @@ TablePropertyMergeStrategy = Union[
 ]
 
 
-class TablePropertyPropTypeEnumEnum(BaseModel):
-    types: List[str]
-
-
 class TablePropertyPropTypeEnum(BaseModel):
-    enum: TablePropertyPropTypeEnumEnum = FieldInfo(alias="Enum")
+    enum: str = FieldInfo(alias="Enum")
 
 
 TablePropertyPropType = Union[Literal["String"], TablePropertyPropTypeEnum, Literal["Integer"]]
