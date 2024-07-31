@@ -4,6 +4,6 @@ from typing import List
 
 from .execution_step import ExecutionStep
 
-__all__ = ["JobGetStepsResponse"]
+__all__ = ["RunGetStepsResponse"]
 
-JobGetStepsResponse = List[ExecutionStep]
+RunGetStepsResponse = List[ExecutionStep]

@@ -11,12 +11,12 @@ __all__ = ["DatasetViewParams"]
 class DatasetViewParams(TypedDict, total=False):
     dataset_name: Required[str]
 
+    requested_type: Required[Literal["Entities", "Relationships"]]
+
     limit: int
 
     offset: int
 
     relationship_name: Optional[str]
-
-    requested_type: Literal["Entities", "Relationships"]
 
     table_name: Optional[str]

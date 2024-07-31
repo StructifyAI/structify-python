@@ -2,8 +2,15 @@
 
 from typing import List
 
-from .dataset import Dataset
+from .._models import BaseModel
 
-__all__ = ["DatasetListResponse"]
+__all__ = ["DatasetListResponse", "DatasetListResponseItem"]
 
-DatasetListResponse = List[Dataset]
+
+class DatasetListResponseItem(BaseModel):
+    description: str
+
+    name: str
+
+
+DatasetListResponse = List[DatasetListResponseItem]
