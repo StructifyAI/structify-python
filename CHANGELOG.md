@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.6.0 (2024-07-31)
+
+Full Changelog: [v1.5.0...v1.6.0](https://github.com/StructifyAI/structify-python/compare/v1.5.0...v1.6.0)
+
+### Features
+
+* **api:** OpenAPI spec update via Stainless API ([#335](https://github.com/StructifyAI/structify-python/issues/335)) ([242a082](https://github.com/StructifyAI/structify-python/commit/242a0826289eb9d8ee60b0454420bd58a825cd52))
+* **api:** OpenAPI spec update via Stainless API ([#336](https://github.com/StructifyAI/structify-python/issues/336)) ([a748fc0](https://github.com/StructifyAI/structify-python/commit/a748fc0037c3ef5422a9b08d90ec67697f0f6bb5))
+* **api:** OpenAPI spec update via Stainless API ([#337](https://github.com/StructifyAI/structify-python/issues/337)) ([90c7c07](https://github.com/StructifyAI/structify-python/commit/90c7c074e53a5f1362300eb535d2c0587e86935e))
+* **api:** OpenAPI spec update via Stainless API ([#338](https://github.com/StructifyAI/structify-python/issues/338)) ([8c95725](https://github.com/StructifyAI/structify-python/commit/8c95725bd09381544e4aaf4c57c4f53f8a5e070c))
+* **api:** OpenAPI spec update via Stainless API ([#339](https://github.com/StructifyAI/structify-python/issues/339)) ([043aea7](https://github.com/StructifyAI/structify-python/commit/043aea762dc5fc382f0d048f44f90ac895157f9e))
+* **api:** OpenAPI spec update via Stainless API ([#340](https://github.com/StructifyAI/structify-python/issues/340)) ([aca91e6](https://github.com/StructifyAI/structify-python/commit/aca91e652f5fa49e81fafdf42607fd60be777fbd))
+
 ## 1.5.0 (2024-07-30)
 
 Full Changelog: [v1.4.0...v1.5.0](https://github.com/StructifyAI/structify-python/compare/v1.4.0...v1.5.0)
