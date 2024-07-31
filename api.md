@@ -30,7 +30,7 @@ Methods:
 Types:
 
 ```python
-from structify.types import DatasetDescriptor, DatasetListResponse, DatasetViewResponse
+from structify.types import DatasetListResponse, DatasetViewResponse
 ```
 
 Methods:
@@ -39,7 +39,7 @@ Methods:
 - <code title="get /dataset/list">client.datasets.<a href="./src/structify/resources/datasets.py">list</a>() -> <a href="./src/structify/types/dataset_list_response.py">DatasetListResponse</a></code>
 - <code title="delete /dataset/delete">client.datasets.<a href="./src/structify/resources/datasets.py">delete</a>(\*\*<a href="src/structify/types/dataset_delete_params.py">params</a>) -> None</code>
 - <code title="get /dataset/info">client.datasets.<a href="./src/structify/resources/datasets.py">get</a>(\*\*<a href="src/structify/types/dataset_get_params.py">params</a>) -> <a href="./src/structify/types/dataset_descriptor.py">Optional</a></code>
-- <code title="get /dataset/view">client.datasets.<a href="./src/structify/resources/datasets.py">view</a>(\*\*<a href="src/structify/types/dataset_view_params.py">params</a>) -> <a href="./src/structify/types/dataset_view_response.py">SyncRunsList[DatasetViewResponse]</a></code>
+- <code title="get /dataset/view">client.datasets.<a href="./src/structify/resources/datasets.py">view</a>(\*\*<a href="src/structify/types/dataset_view_params.py">params</a>) -> <a href="./src/structify/types/dataset_view_response.py">SyncJobsList[DatasetViewResponse]</a></code>
 
 # Documents
 
@@ -56,29 +56,29 @@ Methods:
 - <code title="get /documents/download/{path}">client.documents.<a href="./src/structify/resources/documents.py">download</a>(path) -> BinaryAPIResponse</code>
 - <code title="post /documents/upload">client.documents.<a href="./src/structify/resources/documents.py">upload</a>(\*\*<a href="src/structify/types/document_upload_params.py">params</a>) -> None</code>
 
-# Runs
+# Jobs
 
 Types:
 
 ```python
 from structify.types import (
-    RunListResponse,
-    RunDeleteResponse,
-    RunCancelResponse,
-    RunGetResponse,
-    RunGetStepsResponse,
+    JobListResponse,
+    JobDeleteResponse,
+    JobCancelResponse,
+    JobGetResponse,
+    JobGetStepsResponse,
 )
 ```
 
 Methods:
 
-- <code title="get /runs/list">client.runs.<a href="./src/structify/resources/runs.py">list</a>(\*\*<a href="src/structify/types/run_list_params.py">params</a>) -> <a href="./src/structify/types/run_list_response.py">SyncRunsList[RunListResponse]</a></code>
-- <code title="post /runs/delete/{job_id}">client.runs.<a href="./src/structify/resources/runs.py">delete</a>(job_id) -> str</code>
-- <code title="post /runs/cancel/{uuid}">client.runs.<a href="./src/structify/resources/runs.py">cancel</a>(uuid) -> <a href="./src/structify/types/run_cancel_response.py">RunCancelResponse</a></code>
-- <code title="get /runs/get/{job_id}">client.runs.<a href="./src/structify/resources/runs.py">get</a>(job_id) -> <a href="./src/structify/types/run_get_response.py">RunGetResponse</a></code>
-- <code title="get /runs/get_step/{step_id}">client.runs.<a href="./src/structify/resources/runs.py">get_step</a>(step_id) -> <a href="./src/structify/types/execution_step.py">ExecutionStep</a></code>
-- <code title="get /runs/get_steps/{job_id}">client.runs.<a href="./src/structify/resources/runs.py">get_steps</a>(job_id) -> <a href="./src/structify/types/run_get_steps_response.py">RunGetStepsResponse</a></code>
-- <code title="post /runs/schedule">client.runs.<a href="./src/structify/resources/runs.py">schedule</a>() -> None</code>
+- <code title="get /jobs/list">client.jobs.<a href="./src/structify/resources/jobs.py">list</a>(\*\*<a href="src/structify/types/job_list_params.py">params</a>) -> <a href="./src/structify/types/job_list_response.py">SyncJobsList[JobListResponse]</a></code>
+- <code title="post /jobs/delete/{job_id}">client.jobs.<a href="./src/structify/resources/jobs.py">delete</a>(job_id) -> str</code>
+- <code title="post /jobs/cancel/{uuid}">client.jobs.<a href="./src/structify/resources/jobs.py">cancel</a>(uuid) -> <a href="./src/structify/types/job_cancel_response.py">JobCancelResponse</a></code>
+- <code title="get /jobs/get/{job_id}">client.jobs.<a href="./src/structify/resources/jobs.py">get</a>(job_id) -> <a href="./src/structify/types/job_get_response.py">JobGetResponse</a></code>
+- <code title="get /jobs/get_step/{step_id}">client.jobs.<a href="./src/structify/resources/jobs.py">get_step</a>(step_id) -> <a href="./src/structify/types/execution_step.py">ExecutionStep</a></code>
+- <code title="get /jobs/get_steps/{job_id}">client.jobs.<a href="./src/structify/resources/jobs.py">get_steps</a>(job_id) -> <a href="./src/structify/types/job_get_steps_response.py">JobGetStepsResponse</a></code>
+- <code title="post /jobs/schedule">client.jobs.<a href="./src/structify/resources/jobs.py">schedule</a>() -> None</code>
 
 # Server
 
@@ -144,5 +144,12 @@ Methods:
 Types:
 
 ```python
-from structify.types import Entity, KnowledgeGraph, Relationship
+from structify.types import (
+    DatasetDescriptor,
+    Entity,
+    KnowledgeGraph,
+    PropertyType,
+    Relationship,
+    Table,
+)
 ```

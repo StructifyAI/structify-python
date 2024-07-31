@@ -137,7 +137,7 @@ class HumanLlmMetadata(BaseModel):
     within the dataset.
     """
 
-    run_id: str
+    job_id: str
 
     user_email: str
 
