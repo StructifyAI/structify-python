@@ -1,12 +1,12 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from .jobs import (
-    JobsResource,
-    AsyncJobsResource,
-    JobsResourceWithRawResponse,
-    AsyncJobsResourceWithRawResponse,
-    JobsResourceWithStreamingResponse,
-    AsyncJobsResourceWithStreamingResponse,
+from .runs import (
+    RunsResource,
+    AsyncRunsResource,
+    RunsResourceWithRawResponse,
+    AsyncRunsResourceWithRawResponse,
+    RunsResourceWithStreamingResponse,
+    AsyncRunsResourceWithStreamingResponse,
 )
 from .user import (
     UserResource,
@@ -98,12 +98,12 @@ __all__ = [
     "AsyncDocumentsResourceWithRawResponse",
     "DocumentsResourceWithStreamingResponse",
     "AsyncDocumentsResourceWithStreamingResponse",
-    "JobsResource",
-    "AsyncJobsResource",
-    "JobsResourceWithRawResponse",
-    "AsyncJobsResourceWithRawResponse",
-    "JobsResourceWithStreamingResponse",
-    "AsyncJobsResourceWithStreamingResponse",
+    "RunsResource",
+    "AsyncRunsResource",
+    "RunsResourceWithRawResponse",
+    "AsyncRunsResourceWithRawResponse",
+    "RunsResourceWithStreamingResponse",
+    "AsyncRunsResourceWithStreamingResponse",
     "ServerResource",
     "AsyncServerResource",
     "ServerResourceWithRawResponse",
