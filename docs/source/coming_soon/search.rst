@@ -28,7 +28,7 @@ If we wanted to power a search for employees who attended a certain school, we c
                 "columns": ["name"]
             ]
         }
-        return client.dataset.query(name = dataset_name, search = search_target, keyword = school_name.lower())
+        return client.datasets.query(name=dataset_name, search=search_target, keyword=school_name.lower())
 
 This will return to us a subset of the dataset that contains just the entities whose education table contains the school name we are looking for.
 
@@ -46,6 +46,6 @@ If we wanted to power users to search for employees by describing the type of sc
 .. code-block:: python
 
     def plaintext_school_search(dataset_name, query):
-        return client.analysis.query(dataset = dataset_name, query = query)
+        return client.analysis.query(dataset=dataset_name, query=query)
 
 Using the ``client.analysis.query`` endpoint powers a more conversational experience for users, and typically, we see this endpoint powering chatbots or other conversational interfaces.

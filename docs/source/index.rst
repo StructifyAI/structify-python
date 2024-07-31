@@ -1,32 +1,34 @@
 Welcome to Structify!
 =====================
-We power you to collect, enrich, and update your own custom datasets using generative AI. Structify allows you transform any information from document to web page into structured data with as little as two API calls.
+We power you to collect, enrich, and update your own custom datasets using our AI agents, built and trained right here at Structify. 
+Structify allows you transform any information from document to web page into structured data with as little as two API calls.
 
 .. code-block:: python
 
    # First, define the schema of your dataset using our Python Objects
    schema = Table(
-      name = "person",
-      description = "an individual in my professional network",
-      properties = [
-         Property(name = "name", description = "The name of the person"),
-         Property(name = "job_title", description = "The title the person holds")
+      name="person",
+      description="an individual in my professional network",
+      properties=[
+         Property(name="name", description="The name of the person"),
+         Property(name="job_title", description="The title the person holds")
       ]
    )
 
    # Next, create a dataset with that schema
-   structify.dataset.create(
-      name = "my_network",
-      description = "A dataset of people in my professional network",
-      schema = schema
+   structify.datasets.create(
+      name="my_network",
+      description="A dataset of people in my professional network",
+      tables=[schema],
+      relationships = []
    )
 
    # Then, create an agent to index information from defined sources for your dataset
-   structify.structure.run(
-      name = "my_network",
-      source = Source.Web(
-         prompt = "find details about my first degree connections on LinkedIn",
-         websites = ["linkedin.com"])
+   structify.structure.run_async(
+      dataset="my_network",
+      source=Web(
+         starting_website="https://linkedin.com"
+      )
    )
 
 
@@ -58,6 +60,7 @@ Check Out Our Capabilities
    :maxdepth: 1
 
    Creating Datasets <python_client/datasets>
+   Structuring Data <python_client/structuring>
    Using Documents <python_client/documents>
    Getting Sources <python_client/backsourcing>
 
@@ -66,11 +69,12 @@ Learn from Examples
 -------------------
 .. toctree::
    :caption: Tutorials
-   :maxdepth: 2
+   :maxdepth: 1
 
-   Making the Internet Your Database <examples/example0>
-   Monitoring Changes in Datasets <examples/example1>
-   Structifying Documents <examples/example2>
+   Grabbing Press about Clients <examples/example0>
+   Tracking Board Member Changes <examples/example1>
+   Structifying Pitch Decks <examples/example2>
+   Creating a Dataset for Your Network <examples/example3>
 
 
 .. Indices and tables
@@ -96,4 +100,3 @@ Read More
    :maxdepth: 1
 
    FAQ <more/faq>
-   Changelog <more/changelog>

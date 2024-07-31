@@ -19,7 +19,7 @@ Tagging
 -------
 We will allow you to tag data either via LLM generated tags or custom tags. This lets you to easily filter your data based on the tags you have created.
 
-A common practice is to sort datasets by industry. For example, if you are hiring a GTM specialist, you would want them to have deep knowledge and contacts within your vertical, so tagging your network by industry would allow you to easily filter for the right candidates. You can see a great example of this in `our tutorial <example/example3>`.
+A common practice is to sort datasets by industry. For example, if you are hiring a GTM specialist, you would want them to have deep knowledge and contacts within your vertical, so tagging your network by industry would allow you to easily filter for the right candidates.
 
 .. code-block:: python
 
@@ -55,9 +55,9 @@ If we wanted to get the confidence score for a datapoint, we would call the foll
 
 .. code-block:: python
 
-    structify.source.get_confidence(id = [123456])
+    structify.sources.confidence_score(id = [123456])
 
 
-Note that you first have to use the ``structufy.dataset.view`` endpoint to retrieve the id(s) of the relevant entities.
+Note that you first have to use the ``structufy.datasets.view`` endpoint to retrieve the id(s) of the relevant entities.
 
 Now, you have the tools to be able to more deeply understand your datasets and derive insights from them.

@@ -31,12 +31,6 @@ Running ``pip list`` after it completes will show you the Python libraries you'v
 .. note::
    We constantly push new updates so make sure to check for the latest version of the Structify Python library by running ``pip install structifyai --upgrade``.
 
-Currently we also have a dependency on Azure, so you will want to pip install azure-core:
-
-.. code-block:: bash
-
-   pip install azure-core
-
 
 Anytime you want to use the Structify Python library, you'll need to import it:
 
@@ -53,11 +47,11 @@ We are early, so it is important to us to develop a relationship with all our us
 
 Alternatively, you can book a time for a detailed guided tour of our API and get an API key at the end of the session. Please find a time to meet via `our Calendly <https://calendly.com/ronakgandhi/structify-demo>`_.
 
-Once you have your API key, you can use it to authenticate your requests to the Structify API. You can do this by setting the ``apiKey`` attribute of the client object:
+Once you have your API key, you can use it to authenticate your requests to the Structify API. You can do this by setting the ``api_key`` attribute of the client object:
 
 .. code-block:: python
 
-   structify = Structify(headers = {"apiKey": "your-api-key-here"})"
+   structify = Structify(api_key="your_api_key")"
 
 Our API recognizes two types of users: business and personal. Both have organizations and users underneath, for the case that you are letting users of your program make API calls through us. Every one of the endpoints is done through an authenticated personel.
 
@@ -67,69 +61,65 @@ Create Your First Dataset
 -------------------------
 You can create and fill a dataset with two quick successive API calls:
 
-#. Define a schema using ``structify.dataset.create``.
+#. Define a schema using ``structify.datasets.create``.
 #. Specify the source to populate the dataset from with ``structify.structure.run`` (or ``structify.structure.run_async``).
 
 Here's an example of how you would make an API call to create a dataset:
 
 .. code-block:: python
    
-   from structify import Structify, Source, Table, Property, Relationship
+   from structify import Structify
+   from structify.types import Table, Property, Relationship
+   from structify.sources import Web
 
-   structify = Structify(headers = {"apiKey": "your-api-key-here"})
+   structify = Structify(api_key=os.environ["STRUCTIFY_API_TOKEN"])
 
-   # Define a schema as a JSON object, make sure to include descriptions for each of your tables, properties, and relationships
+   # Define a schema using our Python Objects, make sure to include descriptions for each of your tables, properties, and relationships
 
    tables = [
       Table(
-         name = "author",
-         description = "an individual who wrote a book",
-         properties = [
-            Property(name = "name", description = "The name of the author"),
-            Property(name = "genre", description = "The genre that the author typically writes in")
-         ],
-         relationships = []
-      ),
-      Table(
-         name = "publisher",
-         description = "a company that publishes books",
-         properties = [
-            Property(name = "name", description = "The name of the publisher"),
-            Property(name = "location", description = "The location of the publisher")
-         ],
-         relationships = []
-      ),
-      Table(
-         name = "book",
-         description = "a book that has been written",
-         properties = [
-            Property(name = "title", description = "The title of the book"),
-            Property(name = "copies_sold", description = "The number of copies sold of the book")
-         ],
-         relationships = [
-            Relationship(name = "authored_by", description = "Connects the book to the list of authors who wrote it"),
-            Relationship(name = "published_by", description = "Connects the book to the list of publishers of the book")
+         name="author",
+         description="an individual who wrote a book",
+         properties=[
+            Property(name="name", description="The name of the author"),
+            Property(name="genre", description="The genre that the author typically writes in")
          ]
+      ),
+      Table(
+         name="book",
+         description="a book that has been written",
+         properties=[
+            Property(name="title", description="The title of the book"),
+            Property(name="copies_sold", description="The number of copies sold of the book")
+         ],
       )
    ]
 
+   relationships = [
+      Relationship(
+         name= "authored_by",
+         description="Connects the book to the list of authors who wrote it",
+         source_table="book",
+         target_table="author"
+         )
+   ]
+
    # Use the schema to create the dataset
-   structify.dataset.create(
-      name = "books",
-      description = "Create a dataset named 'books' that tells me about the authors and publishers of books.",
-      schema = entities
+   structify.datasets.create(
+      name="books",
+      description="Create a dataset named 'books' that tells me about the authors and publishers of books.",
+      tables=tables,
+      relationships=relationships
    )
 
-   # Specify the source to populate the dataset from the Source object and then populate the dataset with structify.structure.run
-   source = Source.Web(
-      prompt = "What are details about the books appearing here?",
-      websites = ["https://www.goodreads.com/"]
+   # Specify the source to populate the dataset from the Source object and then populate the dataset with structify.structure.run_async
+   books_dataset = structify.structure.run_async(
+      dataset="books",
+      source=Web(starting_website="https://www.goodreads.com/")
    )
-
-   books_dataset = structify.structure.run(name = "books", source = source)
 
 
 With that, you are on your way to structifying your data.
 
 .. note::
-   We also allow users to asynchronously run agents to populate datasets. This is useful for large datasets that may take a long time to populate. You can use the ``structify.structure.run_async`` method to run an agent asynchronously.
+   We recommend users to asynchronously run agents to populate datasets. This is especially useful for large datasets that may take a long time to populate. You can use the ``structify.structure.run_async`` method to run an agent asynchronously.
