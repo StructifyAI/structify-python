@@ -21,9 +21,8 @@ from .._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ..pagination import SyncJobsList, AsyncJobsList
+from ..pagination import SyncRunsList, AsyncRunsList
 from .._base_client import AsyncPaginator, make_request_options
-from ..types.table_param import TableParam
 from ..types.dataset_descriptor import DatasetDescriptor
 from ..types.dataset_list_response import DatasetListResponse
 from ..types.dataset_view_response import DatasetViewResponse
@@ -46,7 +45,7 @@ class DatasetsResource(SyncAPIResource):
         description: str,
         name: str,
         relationships: Iterable[dataset_create_params.Relationship],
-        tables: Iterable[TableParam],
+        tables: Iterable[dataset_create_params.Table],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -182,10 +181,10 @@ class DatasetsResource(SyncAPIResource):
         self,
         *,
         dataset_name: str,
+        requested_type: Literal["Entities", "Relationships"],
         limit: int | NotGiven = NOT_GIVEN,
         offset: int | NotGiven = NOT_GIVEN,
         relationship_name: Optional[str] | NotGiven = NOT_GIVEN,
-        requested_type: Literal["Entities", "Relationships"] | NotGiven = NOT_GIVEN,
         table_name: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -193,7 +192,7 @@ class DatasetsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> SyncJobsList[DatasetViewResponse]:
+    ) -> SyncRunsList[DatasetViewResponse]:
         """You need to specify a dataset.
 
         If you don't specify a table_name, we assume all
@@ -216,7 +215,7 @@ class DatasetsResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/dataset/view",
-            page=SyncJobsList[DatasetViewResponse],
+            page=SyncRunsList[DatasetViewResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -225,10 +224,10 @@ class DatasetsResource(SyncAPIResource):
                 query=maybe_transform(
                     {
                         "dataset_name": dataset_name,
+                        "requested_type": requested_type,
                         "limit": limit,
                         "offset": offset,
                         "relationship_name": relationship_name,
-                        "requested_type": requested_type,
                         "table_name": table_name,
                     },
                     dataset_view_params.DatasetViewParams,
@@ -253,7 +252,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
         description: str,
         name: str,
         relationships: Iterable[dataset_create_params.Relationship],
-        tables: Iterable[TableParam],
+        tables: Iterable[dataset_create_params.Table],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -389,10 +388,10 @@ class AsyncDatasetsResource(AsyncAPIResource):
         self,
         *,
         dataset_name: str,
+        requested_type: Literal["Entities", "Relationships"],
         limit: int | NotGiven = NOT_GIVEN,
         offset: int | NotGiven = NOT_GIVEN,
         relationship_name: Optional[str] | NotGiven = NOT_GIVEN,
-        requested_type: Literal["Entities", "Relationships"] | NotGiven = NOT_GIVEN,
         table_name: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -400,7 +399,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> AsyncPaginator[DatasetViewResponse, AsyncJobsList[DatasetViewResponse]]:
+    ) -> AsyncPaginator[DatasetViewResponse, AsyncRunsList[DatasetViewResponse]]:
         """You need to specify a dataset.
 
         If you don't specify a table_name, we assume all
@@ -423,7 +422,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/dataset/view",
-            page=AsyncJobsList[DatasetViewResponse],
+            page=AsyncRunsList[DatasetViewResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -432,10 +431,10 @@ class AsyncDatasetsResource(AsyncAPIResource):
                 query=maybe_transform(
                     {
                         "dataset_name": dataset_name,
+                        "requested_type": requested_type,
                         "limit": limit,
                         "offset": offset,
                         "relationship_name": relationship_name,
-                        "requested_type": requested_type,
                         "table_name": table_name,
                     },
                     dataset_view_params.DatasetViewParams,
