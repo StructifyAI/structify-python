@@ -2,19 +2,12 @@
 
 from __future__ import annotations
 
-from typing import Union, Iterable
-from typing_extensions import Literal, Required, Annotated, TypedDict
+from typing import Iterable
+from typing_extensions import Required, TypedDict
 
-from .._utils import PropertyInfo
+from .table_param import TableParam
 
-__all__ = [
-    "DatasetCreateParams",
-    "Relationship",
-    "Table",
-    "TableProperty",
-    "TablePropertyPropType",
-    "TablePropertyPropTypeEnum",
-]
+__all__ = ["DatasetCreateParams", "Relationship"]
 
 
 class DatasetCreateParams(TypedDict, total=False):
@@ -24,7 +17,7 @@ class DatasetCreateParams(TypedDict, total=False):
 
     relationships: Required[Iterable[Relationship]]
 
-    tables: Required[Iterable[Table]]
+    tables: Required[Iterable[TableParam]]
 
 
 class Relationship(TypedDict, total=False):
@@ -35,30 +28,3 @@ class Relationship(TypedDict, total=False):
     source_table: Required[str]
 
     target_table: Required[str]
-
-
-class TablePropertyPropTypeEnum(TypedDict, total=False):
-    enum: Required[Annotated[str, PropertyInfo(alias="Enum")]]
-
-
-TablePropertyPropType = Union[Literal["String"], TablePropertyPropTypeEnum, Literal["Integer"]]
-
-
-class TableProperty(TypedDict, total=False):
-    description: Required[str]
-
-    name: Required[str]
-
-    merge_strategy: Literal["Unique", "FuzzyMatch", "None"]
-
-    prop_type: TablePropertyPropType
-
-
-class Table(TypedDict, total=False):
-    description: Required[str]
-
-    name: Required[str]
-    """Organized in a name, description format."""
-
-    properties: Required[Iterable[TableProperty]]
-    """Organized in a name, description format."""
