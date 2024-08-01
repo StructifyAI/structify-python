@@ -10,6 +10,7 @@ Methods:
 
 - <code title="post /user/create_test_token">client.user.<a href="./src/structify/resources/user.py">create_test_token</a>() -> <a href="./src/structify/types/new_token.py">NewToken</a></code>
 - <code title="get /user/info">client.user.<a href="./src/structify/resources/user.py">info</a>() -> <a href="./src/structify/types/user_info.py">UserInfo</a></code>
+- <code title="get /user/usage">client.user.<a href="./src/structify/resources/user.py">usage</a>() -> <a href="./src/structify/types/new_token.py">NewToken</a></code>
 
 # Admin
 
