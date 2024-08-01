@@ -3,12 +3,11 @@
 from __future__ import annotations
 
 from typing import Iterable
-from typing_extensions import Literal, Required, TypedDict
+from typing_extensions import Required, TypedDict
 
 from .table_param import TableParam
-from .property_type_param import PropertyTypeParam
 
-__all__ = ["DatasetCreateParams", "Relationship", "RelationshipProperty"]
+__all__ = ["DatasetCreateParams", "Relationship"]
 
 
 class DatasetCreateParams(TypedDict, total=False):
@@ -21,16 +20,6 @@ class DatasetCreateParams(TypedDict, total=False):
     tables: Required[Iterable[TableParam]]
 
 
-class RelationshipProperty(TypedDict, total=False):
-    description: Required[str]
-
-    name: Required[str]
-
-    merge_strategy: Literal["Unique", "FuzzyMatch", "None"]
-
-    prop_type: PropertyTypeParam
-
-
 class Relationship(TypedDict, total=False):
     description: Required[str]
 
@@ -39,5 +28,3 @@ class Relationship(TypedDict, total=False):
     source_table: Required[str]
 
     target_table: Required[str]
-
-    properties: Iterable[RelationshipProperty]
