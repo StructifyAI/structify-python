@@ -16,6 +16,7 @@ from .._response import (
 from .._base_client import make_request_options
 from ..types.new_token import NewToken
 from ..types.user_info import UserInfo
+from ..types.user_usage_response import UserUsageResponse
 
 __all__ = ["UserResource", "AsyncUserResource"]
 
@@ -67,6 +68,25 @@ class UserResource(SyncAPIResource):
             cast_to=UserInfo,
         )
 
+    def usage(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> UserUsageResponse:
+        """Creates a test token."""
+        return self._get(
+            "/user/usage",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=UserUsageResponse,
+        )
+
 
 class AsyncUserResource(AsyncAPIResource):
     @cached_property
@@ -115,6 +135,25 @@ class AsyncUserResource(AsyncAPIResource):
             cast_to=UserInfo,
         )
 
+    async def usage(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> UserUsageResponse:
+        """Creates a test token."""
+        return await self._get(
+            "/user/usage",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=UserUsageResponse,
+        )
+
 
 class UserResourceWithRawResponse:
     def __init__(self, user: UserResource) -> None:
@@ -125,6 +164,9 @@ class UserResourceWithRawResponse:
         )
         self.info = to_raw_response_wrapper(
             user.info,
+        )
+        self.usage = to_raw_response_wrapper(
+            user.usage,
         )
 
 
@@ -138,6 +180,9 @@ class AsyncUserResourceWithRawResponse:
         self.info = async_to_raw_response_wrapper(
             user.info,
         )
+        self.usage = async_to_raw_response_wrapper(
+            user.usage,
+        )
 
 
 class UserResourceWithStreamingResponse:
@@ -150,6 +195,9 @@ class UserResourceWithStreamingResponse:
         self.info = to_streamed_response_wrapper(
             user.info,
         )
+        self.usage = to_streamed_response_wrapper(
+            user.usage,
+        )
 
 
 class AsyncUserResourceWithStreamingResponse:
@@ -161,4 +209,7 @@ class AsyncUserResourceWithStreamingResponse:
         )
         self.info = async_to_streamed_response_wrapper(
             user.info,
+        )
+        self.usage = async_to_streamed_response_wrapper(
+            user.usage,
         )

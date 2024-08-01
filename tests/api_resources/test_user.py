@@ -9,7 +9,7 @@ import pytest
 
 from structify import Structify, AsyncStructify
 from tests.utils import assert_matches_type
-from structify.types import NewToken, UserInfo
+from structify.types import NewToken, UserInfo, UserUsageResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -67,6 +67,31 @@ class TestUser:
 
         assert cast(Any, response.is_closed) is True
 
+    @parametrize
+    def test_method_usage(self, client: Structify) -> None:
+        user = client.user.usage()
+        assert_matches_type(UserUsageResponse, user, path=["response"])
+
+    @parametrize
+    def test_raw_response_usage(self, client: Structify) -> None:
+        response = client.user.with_raw_response.usage()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        user = response.parse()
+        assert_matches_type(UserUsageResponse, user, path=["response"])
+
+    @parametrize
+    def test_streaming_response_usage(self, client: Structify) -> None:
+        with client.user.with_streaming_response.usage() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            user = response.parse()
+            assert_matches_type(UserUsageResponse, user, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
 
 class TestAsyncUser:
     parametrize = pytest.mark.parametrize("async_client", [False, True], indirect=True, ids=["loose", "strict"])
@@ -118,5 +143,30 @@ class TestAsyncUser:
 
             user = await response.parse()
             assert_matches_type(UserInfo, user, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_method_usage(self, async_client: AsyncStructify) -> None:
+        user = await async_client.user.usage()
+        assert_matches_type(UserUsageResponse, user, path=["response"])
+
+    @parametrize
+    async def test_raw_response_usage(self, async_client: AsyncStructify) -> None:
+        response = await async_client.user.with_raw_response.usage()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        user = await response.parse()
+        assert_matches_type(UserUsageResponse, user, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_usage(self, async_client: AsyncStructify) -> None:
+        async with async_client.user.with_streaming_response.usage() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            user = await response.parse()
+            assert_matches_type(UserUsageResponse, user, path=["response"])
 
         assert cast(Any, response.is_closed) is True
