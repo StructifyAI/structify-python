@@ -3,14 +3,13 @@
 Types:
 
 ```python
-from structify.types import NewToken, UserInfo, UserUsageResponse
+from structify.types import NewToken, UserInfo
 ```
 
 Methods:
 
 - <code title="post /user/create_test_token">client.user.<a href="./src/structify/resources/user.py">create_test_token</a>() -> <a href="./src/structify/types/new_token.py">NewToken</a></code>
 - <code title="get /user/info">client.user.<a href="./src/structify/resources/user.py">info</a>() -> <a href="./src/structify/types/user_info.py">UserInfo</a></code>
-- <code title="get /user/usage">client.user.<a href="./src/structify/resources/user.py">usage</a>() -> <a href="./src/structify/types/user_usage_response.py">UserUsageResponse</a></code>
 
 # Admin
 
@@ -127,6 +126,18 @@ Methods:
 - <code title="post /structure/is_complete">client.structure.<a href="./src/structify/resources/structure.py">is_complete</a>(\*\*<a href="src/structify/types/structure_is_complete_params.py">params</a>) -> str</code>
 - <code title="post /structure/job_status">client.structure.<a href="./src/structify/resources/structure.py">job_status</a>(\*\*<a href="src/structify/types/structure_job_status_params.py">params</a>) -> <a href="./src/structify/types/structure_job_status_response.py">StructureJobStatusResponse</a></code>
 - <code title="post /structure/run_async">client.structure.<a href="./src/structify/resources/structure.py">run_async</a>(\*\*<a href="src/structify/types/structure_run_async_params.py">params</a>) -> str</code>
+
+# Usage
+
+Types:
+
+```python
+from structify.types import UsageGetJobInfoResponse
+```
+
+Methods:
+
+- <code title="post /usage/get_job_info">client.usage.<a href="./src/structify/resources/usage.py">get_job_info</a>() -> <a href="./src/structify/types/usage_get_job_info_response.py">UsageGetJobInfoResponse</a></code>
 
 # Shared
 

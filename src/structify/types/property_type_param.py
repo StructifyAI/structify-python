@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union
+from typing import List, Union
 from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from .._utils import PropertyInfo
@@ -11,7 +11,7 @@ __all__ = ["PropertyTypeParam", "Enum"]
 
 
 class Enum(TypedDict, total=False):
-    enum: Required[Annotated[str, PropertyInfo(alias="Enum")]]
+    enum: Required[Annotated[List[str], PropertyInfo(alias="Enum")]]
 
 
 PropertyTypeParam = Union[Literal["String"], Enum, Literal["Integer"]]
