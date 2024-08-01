@@ -28,6 +28,7 @@ from .extraction_criteria import ExtractionCriteria as ExtractionCriteria
 from .job_cancel_response import JobCancelResponse as JobCancelResponse
 from .job_delete_response import JobDeleteResponse as JobDeleteResponse
 from .property_type_param import PropertyTypeParam as PropertyTypeParam
+from .user_usage_response import UserUsageResponse as UserUsageResponse
 from .source_list_response import SourceListResponse as SourceListResponse
 from .source_report_params import SourceReportParams as SourceReportParams
 from .dataset_create_params import DatasetCreateParams as DatasetCreateParams
@@ -42,7 +43,6 @@ from .source_report_response import SourceReportResponse as SourceReportResponse
 from .extraction_criteria_param import ExtractionCriteriaParam as ExtractionCriteriaParam
 from .structure_run_async_params import StructureRunAsyncParams as StructureRunAsyncParams
 from .structure_job_status_params import StructureJobStatusParams as StructureJobStatusParams
-from .usage_get_job_info_response import UsageGetJobInfoResponse as UsageGetJobInfoResponse
 from .structure_is_complete_params import StructureIsCompleteParams as StructureIsCompleteParams
 from .structure_run_async_response import StructureRunAsyncResponse as StructureRunAsyncResponse
 from .structure_job_status_response import StructureJobStatusResponse as StructureJobStatusResponse
