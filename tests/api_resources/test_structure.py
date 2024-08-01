@@ -125,16 +125,19 @@ class TestStructure:
                 ],
                 "relationships": [
                     {
+                        "properties": {"foo": "string"},
                         "source": 0,
                         "target": 0,
                         "type": "type",
                     },
                     {
+                        "properties": {"foo": "string"},
                         "source": 0,
                         "target": 0,
                         "type": "type",
                     },
                     {
+                        "properties": {"foo": "string"},
                         "source": 0,
                         "target": 0,
                         "type": "type",
@@ -280,16 +283,19 @@ class TestAsyncStructure:
                 ],
                 "relationships": [
                     {
+                        "properties": {"foo": "string"},
                         "source": 0,
                         "target": 0,
                         "type": "type",
                     },
                     {
+                        "properties": {"foo": "string"},
                         "source": 0,
                         "target": 0,
                         "type": "type",
                     },
                     {
+                        "properties": {"foo": "string"},
                         "source": 0,
                         "target": 0,
                         "type": "type",
