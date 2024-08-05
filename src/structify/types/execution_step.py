@@ -1,7 +1,7 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import List, Union, Optional
-from typing_extensions import Literal
+from typing_extensions import Literal, TypeAlias
 
 from pydantic import Field as FieldInfo
 
@@ -119,7 +119,7 @@ class ResponseToolCallInputType(BaseModel):
     type: ResponseToolCallInputTypeType = FieldInfo(alias="Type")
 
 
-ResponseToolCallInput = Union[
+ResponseToolCallInput: TypeAlias = Union[
     ResponseToolCallInputSave,
     ResponseToolCallInputScroll,
     ResponseToolCallInputExit,
@@ -148,7 +148,7 @@ class ResponseToolCallResultSuccess(BaseModel):
     success: str = FieldInfo(alias="Success")
 
 
-ResponseToolCallResult = Union[
+ResponseToolCallResult: TypeAlias = Union[
     ResponseToolCallResultToolQueued,
     ResponseToolCallResultToolFail,
     ResponseToolCallResultInputParseFail,

@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import List, Union
+from typing_extensions import TypeAlias
 
 from pydantic import Field as FieldInfo
 
@@ -44,4 +45,4 @@ class GenericProperty(BaseModel):
     generic_property: GenericPropertyGenericProperty = FieldInfo(alias="GenericProperty")
 
 
-ExtractionCriteria = Union[RelationshipExtraction, EntityExtraction, GenericProperty]
+ExtractionCriteria: TypeAlias = Union[RelationshipExtraction, EntityExtraction, GenericProperty]

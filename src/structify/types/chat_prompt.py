@@ -1,7 +1,7 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import Dict, List, Union, Optional
-from typing_extensions import Literal
+from typing_extensions import Literal, TypeAlias
 
 from pydantic import Field as FieldInfo
 
@@ -85,7 +85,7 @@ class DecodingParamsParameterCrop(BaseModel):
     crop: bool = FieldInfo(alias="Crop")
 
 
-DecodingParamsParameter = Union[
+DecodingParamsParameter: TypeAlias = Union[
     DecodingParamsParameterMaxTokens,
     DecodingParamsParameterTopP,
     DecodingParamsParameterRepeatWindow,
@@ -113,7 +113,7 @@ class MessageContentImage(BaseModel):
     image: object = FieldInfo(alias="Image")
 
 
-MessageContent = Union[MessageContentText, MessageContentImage]
+MessageContent: TypeAlias = Union[MessageContentText, MessageContentImage]
 
 
 class Message(BaseModel):

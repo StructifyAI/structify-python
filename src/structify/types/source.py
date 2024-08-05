@@ -1,7 +1,7 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import Union
-from typing_extensions import Literal
+from typing_extensions import Literal, TypeAlias
 
 from pydantic import Field as FieldInfo
 
@@ -26,4 +26,4 @@ class Document(BaseModel):
     document: DocumentDocument = FieldInfo(alias="Document")
 
 
-Source = Union[Web, Document, Literal["None"]]
+Source: TypeAlias = Union[Web, Document, Literal["None"]]

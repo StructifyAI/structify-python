@@ -1,7 +1,7 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import List, Union
-from typing_extensions import Literal
+from typing_extensions import Literal, TypeAlias
 
 from pydantic import Field as FieldInfo
 
@@ -14,4 +14,4 @@ class Enum(BaseModel):
     enum: List[str] = FieldInfo(alias="Enum")
 
 
-PropertyType = Union[Literal["String"], Enum, Literal["Integer"]]
+PropertyType: TypeAlias = Union[Literal["String"], Enum, Literal["Integer"]]
