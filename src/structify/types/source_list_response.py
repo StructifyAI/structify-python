@@ -2,7 +2,7 @@
 
 from typing import Union
 from datetime import datetime
-from typing_extensions import Literal
+from typing_extensions import Literal, TypeAlias
 
 from pydantic import Field as FieldInfo
 
@@ -37,7 +37,7 @@ class LocationVisual(BaseModel):
     visual: LocationVisualVisual = FieldInfo(alias="Visual")
 
 
-Location = Union[LocationText, LocationVisual, Literal["None"]]
+Location: TypeAlias = Union[LocationText, LocationVisual, Literal["None"]]
 
 
 class SourceListResponse(BaseModel):

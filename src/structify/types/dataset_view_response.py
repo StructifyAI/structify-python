@@ -2,6 +2,7 @@
 
 from typing import Dict, Union, Optional
 from datetime import datetime
+from typing_extensions import TypeAlias
 
 from pydantic import Field as FieldInfo
 
@@ -36,4 +37,4 @@ class Relationship(BaseModel):
     relationship: RelationshipRelationship = FieldInfo(alias="Relationship")
 
 
-DatasetViewResponse = Union[Entity, Relationship]
+DatasetViewResponse: TypeAlias = Union[Entity, Relationship]
