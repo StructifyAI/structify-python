@@ -176,6 +176,8 @@ class Metadata(BaseModel):
 
     tool_metadata: List[ToolMetadata]
 
+    ocr_content: Optional[str] = None
+
     screenshot: Optional[object] = None
 
     url: Optional[str] = None
