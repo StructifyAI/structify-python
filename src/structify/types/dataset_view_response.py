@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import Dict, Union, Optional
+from datetime import datetime
 
 from pydantic import Field as FieldInfo
 
@@ -11,6 +12,8 @@ __all__ = ["DatasetViewResponse", "Entity", "EntityEntity", "Relationship", "Rel
 
 class EntityEntity(BaseModel):
     id: str
+
+    creation_time: datetime
 
     label: str
 

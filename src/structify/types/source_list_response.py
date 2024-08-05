@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import Union
+from datetime import datetime
 from typing_extensions import Literal
 
 from pydantic import Field as FieldInfo
@@ -41,6 +42,8 @@ Location = Union[LocationText, LocationVisual, Literal["None"]]
 
 class SourceListResponse(BaseModel):
     id: str
+
+    creation_time: datetime
 
     link: Source
 
