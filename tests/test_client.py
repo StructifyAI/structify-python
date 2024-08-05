@@ -17,6 +17,7 @@ from respx import MockRouter
 from pydantic import ValidationError
 
 from structify import Structify, AsyncStructify, APIResponseValidationError
+from structify._types import Omit
 from structify._models import BaseModel, FinalRequestOptions
 from structify._constants import RAW_RESPONSE_HEADER
 from structify._exceptions import APIStatusError, StructifyError, APITimeoutError, APIResponseValidationError
@@ -334,7 +335,8 @@ class TestStructify:
         assert request.headers.get("api_key") == api_key
 
         with pytest.raises(StructifyError):
-            client2 = Structify(base_url=base_url, api_key=None, _strict_response_validation=True)
+            with update_env(**{"STRUCTIFY_API_TOKEN": Omit()}):
+                client2 = Structify(base_url=base_url, api_key=None, _strict_response_validation=True)
             _ = client2
 
     def test_default_query_option(self) -> None:
@@ -1042,7 +1044,8 @@ class TestAsyncStructify:
         assert request.headers.get("api_key") == api_key
 
         with pytest.raises(StructifyError):
-            client2 = AsyncStructify(base_url=base_url, api_key=None, _strict_response_validation=True)
+            with update_env(**{"STRUCTIFY_API_TOKEN": Omit()}):
+                client2 = AsyncStructify(base_url=base_url, api_key=None, _strict_response_validation=True)
             _ = client2
 
     def test_default_query_option(self) -> None:
