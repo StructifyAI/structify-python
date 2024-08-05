@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from typing import List, Union
-from typing_extensions import Required, Annotated, TypedDict
+from typing_extensions import Required, Annotated, TypeAlias, TypedDict
 
 from .._utils import PropertyInfo
 
@@ -47,4 +47,4 @@ class GenericProperty(TypedDict, total=False):
     generic_property: Required[Annotated[GenericPropertyGenericProperty, PropertyInfo(alias="GenericProperty")]]
 
 
-ExtractionCriteriaParam = Union[RelationshipExtraction, EntityExtraction, GenericProperty]
+ExtractionCriteriaParam: TypeAlias = Union[RelationshipExtraction, EntityExtraction, GenericProperty]

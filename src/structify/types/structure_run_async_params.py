@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from typing import Union, Iterable, Optional
-from typing_extensions import Required, Annotated, TypedDict
+from typing_extensions import Required, Annotated, TypeAlias, TypedDict
 
 from .._types import FileTypes
 from .._utils import PropertyInfo
@@ -102,7 +102,7 @@ class StructureInputBasicBasicImageDocument(TypedDict, total=False):
     ]
 
 
-StructureInputBasicBasic = Union[
+StructureInputBasicBasic: TypeAlias = Union[
     StructureInputBasicBasicTextDocument, StructureInputBasicBasicWebSearch, StructureInputBasicBasicImageDocument
 ]
 
@@ -115,4 +115,4 @@ class StructureInputBasic(TypedDict, total=False):
     """
 
 
-StructureInput = Union[StructureInputSecIngestor, StructureInputPdfIngestor, StructureInputBasic]
+StructureInput: TypeAlias = Union[StructureInputSecIngestor, StructureInputPdfIngestor, StructureInputBasic]
