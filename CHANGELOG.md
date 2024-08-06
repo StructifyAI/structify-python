@@ -1,5 +1,28 @@
 # Changelog
 
+## 1.9.0 (2024-08-06)
+
+Full Changelog: [v1.8.0...v1.9.0](https://github.com/StructifyAI/structify-python/compare/v1.8.0...v1.9.0)
+
+### Features
+
+* **api:** OpenAPI spec update via Stainless API ([#353](https://github.com/StructifyAI/structify-python/issues/353)) ([47d2496](https://github.com/StructifyAI/structify-python/commit/47d249672a69980d20c7d5824728fe2767ca96ff))
+* **api:** OpenAPI spec update via Stainless API ([#355](https://github.com/StructifyAI/structify-python/issues/355)) ([d4eac58](https://github.com/StructifyAI/structify-python/commit/d4eac586b99dffa522c35fff6c2ddfa1d9a84047))
+* **api:** OpenAPI spec update via Stainless API ([#356](https://github.com/StructifyAI/structify-python/issues/356)) ([9c0f6ad](https://github.com/StructifyAI/structify-python/commit/9c0f6adc435ac1914a5c48fff57453c614cb1dc8))
+* **api:** OpenAPI spec update via Stainless API ([#357](https://github.com/StructifyAI/structify-python/issues/357)) ([c772a8e](https://github.com/StructifyAI/structify-python/commit/c772a8e9676e9ec95f60cdffbbfef40e520af937))
+* **api:** OpenAPI spec update via Stainless API ([#362](https://github.com/StructifyAI/structify-python/issues/362)) ([b7ea3f3](https://github.com/StructifyAI/structify-python/commit/b7ea3f317c7a60a985fb2507c9dabeb450123349))
+* **api:** OpenAPI spec update via Stainless API ([#365](https://github.com/StructifyAI/structify-python/issues/365)) ([9275551](https://github.com/StructifyAI/structify-python/commit/927555172bdfb9bb7334a2d25f7b1be673cf5c44))
+* **client:** add `retry_count` to raw response class ([#360](https://github.com/StructifyAI/structify-python/issues/360)) ([20d15ab](https://github.com/StructifyAI/structify-python/commit/20d15abbede4c1a9a17de02fd9433567d2c453f0))
+
+
+### Chores
+
+* **internal:** bump pyright ([#359](https://github.com/StructifyAI/structify-python/issues/359)) ([a5ddc71](https://github.com/StructifyAI/structify-python/commit/a5ddc712c1a6dc75eb4a5911d075f8636a28f94d))
+* **internal:** bump ruff version ([#363](https://github.com/StructifyAI/structify-python/issues/363)) ([d3c66d2](https://github.com/StructifyAI/structify-python/commit/d3c66d252480e806b3207ae63ac9e92367aa21de))
+* **internal:** test updates ([#361](https://github.com/StructifyAI/structify-python/issues/361)) ([21258cf](https://github.com/StructifyAI/structify-python/commit/21258cf9308700afa3d3efcb9204148a38eb81fb))
+* **internal:** update pydantic compat helper function ([#364](https://github.com/StructifyAI/structify-python/issues/364)) ([51e453e](https://github.com/StructifyAI/structify-python/commit/51e453ee49db3410fe6a7d1f2586e9db52458319))
+* **internal:** use `TypeAlias` marker for type assignments ([#358](https://github.com/StructifyAI/structify-python/issues/358)) ([0c98467](https://github.com/StructifyAI/structify-python/commit/0c98467f2540969af9066bf2330659ad2797b58c))
+
 ## 1.8.0 (2024-08-01)
 
 Full Changelog: [v1.7.0...v1.8.0](https://github.com/StructifyAI/structify-python/compare/v1.7.0...v1.8.0)
