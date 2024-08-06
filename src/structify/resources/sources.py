@@ -2,9 +2,11 @@
 
 from __future__ import annotations
 
+from typing import Optional
+
 import httpx
 
-from ..types import source_list_params
+from ..types import source_list_params, source_report_params
 from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from .._utils import (
     maybe_transform,
@@ -70,6 +72,53 @@ class SourcesResource(SyncAPIResource):
             cast_to=SourceListResponse,
         )
 
+    def report(
+        self,
+        *,
+        id: int,
+        property: Optional[str] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> str:
+        """
+        Get all sources for a given entity
+
+        Args:
+          id: Id of the entity to report
+
+          property: Property name that is incorrect
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
+        return self._post(
+            "/source/report",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "id": id,
+                        "property": property,
+                    },
+                    source_report_params.SourceReportParams,
+                ),
+            ),
+            cast_to=str,
+        )
+
 
 class AsyncSourcesResource(AsyncAPIResource):
     @cached_property
@@ -117,6 +166,53 @@ class AsyncSourcesResource(AsyncAPIResource):
             cast_to=SourceListResponse,
         )
 
+    async def report(
+        self,
+        *,
+        id: int,
+        property: Optional[str] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> str:
+        """
+        Get all sources for a given entity
+
+        Args:
+          id: Id of the entity to report
+
+          property: Property name that is incorrect
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
+        return await self._post(
+            "/source/report",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "id": id,
+                        "property": property,
+                    },
+                    source_report_params.SourceReportParams,
+                ),
+            ),
+            cast_to=str,
+        )
+
 
 class SourcesResourceWithRawResponse:
     def __init__(self, sources: SourcesResource) -> None:
@@ -124,6 +220,9 @@ class SourcesResourceWithRawResponse:
 
         self.list = to_raw_response_wrapper(
             sources.list,
+        )
+        self.report = to_raw_response_wrapper(
+            sources.report,
         )
 
 
@@ -134,6 +233,9 @@ class AsyncSourcesResourceWithRawResponse:
         self.list = async_to_raw_response_wrapper(
             sources.list,
         )
+        self.report = async_to_raw_response_wrapper(
+            sources.report,
+        )
 
 
 class SourcesResourceWithStreamingResponse:
@@ -143,6 +245,9 @@ class SourcesResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             sources.list,
         )
+        self.report = to_streamed_response_wrapper(
+            sources.report,
+        )
 
 
 class AsyncSourcesResourceWithStreamingResponse:
@@ -151,4 +256,7 @@ class AsyncSourcesResourceWithStreamingResponse:
 
         self.list = async_to_streamed_response_wrapper(
             sources.list,
+        )
+        self.report = async_to_streamed_response_wrapper(
+            sources.report,
         )
