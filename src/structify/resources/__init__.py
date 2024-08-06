@@ -48,6 +48,14 @@ from .datasets import (
     DatasetsResourceWithStreamingResponse,
     AsyncDatasetsResourceWithStreamingResponse,
 )
+from .entities import (
+    EntitiesResource,
+    AsyncEntitiesResource,
+    EntitiesResourceWithRawResponse,
+    AsyncEntitiesResourceWithRawResponse,
+    EntitiesResourceWithStreamingResponse,
+    AsyncEntitiesResourceWithStreamingResponse,
+)
 from .documents import (
     DocumentsResource,
     AsyncDocumentsResource,
@@ -108,6 +116,12 @@ __all__ = [
     "AsyncSourcesResourceWithRawResponse",
     "SourcesResourceWithStreamingResponse",
     "AsyncSourcesResourceWithStreamingResponse",
+    "EntitiesResource",
+    "AsyncEntitiesResource",
+    "EntitiesResourceWithRawResponse",
+    "AsyncEntitiesResourceWithRawResponse",
+    "EntitiesResourceWithStreamingResponse",
+    "AsyncEntitiesResourceWithStreamingResponse",
     "StructureResource",
     "AsyncStructureResource",
     "StructureResourceWithRawResponse",
