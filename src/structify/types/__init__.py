@@ -17,8 +17,6 @@ from .execution_step import ExecutionStep as ExecutionStep
 from .job_list_params import JobListParams as JobListParams
 from .knowledge_graph import KnowledgeGraph as KnowledgeGraph
 from .job_get_response import JobGetResponse as JobGetResponse
-from .entity_add_params import EntityAddParams as EntityAddParams
-from .entity_get_params import EntityGetParams as EntityGetParams
 from .job_list_response import JobListResponse as JobListResponse
 from .dataset_descriptor import DatasetDescriptor as DatasetDescriptor
 from .dataset_get_params import DatasetGetParams as DatasetGetParams
@@ -26,14 +24,13 @@ from .relationship_param import RelationshipParam as RelationshipParam
 from .server_information import ServerInformation as ServerInformation
 from .source_list_params import SourceListParams as SourceListParams
 from .dataset_view_params import DatasetViewParams as DatasetViewParams
-from .entity_add_response import EntityAddResponse as EntityAddResponse
-from .entity_get_response import EntityGetResponse as EntityGetResponse
 from .extraction_criteria import ExtractionCriteria as ExtractionCriteria
 from .job_cancel_response import JobCancelResponse as JobCancelResponse
 from .job_delete_response import JobDeleteResponse as JobDeleteResponse
 from .property_type_param import PropertyTypeParam as PropertyTypeParam
 from .user_usage_response import UserUsageResponse as UserUsageResponse
 from .source_list_response import SourceListResponse as SourceListResponse
+from .source_report_params import SourceReportParams as SourceReportParams
 from .dataset_create_params import DatasetCreateParams as DatasetCreateParams
 from .dataset_delete_params import DatasetDeleteParams as DatasetDeleteParams
 from .dataset_list_response import DatasetListResponse as DatasetListResponse
@@ -42,6 +39,7 @@ from .knowledge_graph_param import KnowledgeGraphParam as KnowledgeGraphParam
 from .document_list_response import DocumentListResponse as DocumentListResponse
 from .document_upload_params import DocumentUploadParams as DocumentUploadParams
 from .job_get_steps_response import JobGetStepsResponse as JobGetStepsResponse
+from .source_report_response import SourceReportResponse as SourceReportResponse
 from .extraction_criteria_param import ExtractionCriteriaParam as ExtractionCriteriaParam
 from .structure_run_async_params import StructureRunAsyncParams as StructureRunAsyncParams
 from .structure_job_status_params import StructureJobStatusParams as StructureJobStatusParams
