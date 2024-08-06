@@ -1,7 +1,8 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+from typing import List
 from typing_extensions import TypeAlias
 
-__all__ = ["SourceReportResponse"]
+__all__ = ["EntityAddResponse"]
 
-SourceReportResponse: TypeAlias = str
+EntityAddResponse: TypeAlias = List[str]
