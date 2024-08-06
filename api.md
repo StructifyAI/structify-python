@@ -98,25 +98,13 @@ Methods:
 Types:
 
 ```python
-from structify.types import Source, SourceListResponse
+from structify.types import Source, SourceListResponse, SourceReportResponse
 ```
 
 Methods:
 
 - <code title="get /source/get_sources">client.sources.<a href="./src/structify/resources/sources.py">list</a>(\*\*<a href="src/structify/types/source_list_params.py">params</a>) -> <a href="./src/structify/types/source_list_response.py">SourceListResponse</a></code>
-
-# Entities
-
-Types:
-
-```python
-from structify.types import EntityAddResponse, EntityGetResponse
-```
-
-Methods:
-
-- <code title="post /entity/manual_add">client.entities.<a href="./src/structify/resources/entities.py">add</a>(\*\*<a href="src/structify/types/entity_add_params.py">params</a>) -> str</code>
-- <code title="get /entity/get_entity">client.entities.<a href="./src/structify/resources/entities.py">get</a>(\*\*<a href="src/structify/types/entity_get_params.py">params</a>) -> <a href="./src/structify/types/entity_get_response.py">EntityGetResponse</a></code>
+- <code title="post /source/report">client.sources.<a href="./src/structify/resources/sources.py">report</a>(\*\*<a href="src/structify/types/source_report_params.py">params</a>) -> str</code>
 
 # Structure
 
