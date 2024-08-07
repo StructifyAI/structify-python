@@ -20,7 +20,8 @@ from .._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from .._base_client import make_request_options
+from ..pagination import SyncJobsList, AsyncJobsList
+from .._base_client import AsyncPaginator, make_request_options
 from ..types.table_param import TableParam
 from ..types.dataset_descriptor import DatasetDescriptor
 from ..types.dataset_list_response import DatasetListResponse
@@ -190,14 +191,10 @@ class DatasetsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> DatasetViewResponse:
-        """You need to specify a dataset.
-
-        If you don't specify a table_name, we assume all
-        tables.
-
-        If you want to view relationships, you can not specify a table_name since the
-        result of inter-table relationships is not well defined.
+    ) -> SyncJobsList[DatasetViewResponse]:
+        """
+        You need to specify a dataset and either a table_name (to view tables) or a
+        relationship_name (to view relationships).
 
         You can either return entities or relationships from this call, but not both. If
         you want both, just make two calls.
@@ -211,30 +208,26 @@ class DatasetsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return cast(
-            DatasetViewResponse,
-            self._get(
-                "/dataset/view",
-                options=make_request_options(
-                    extra_headers=extra_headers,
-                    extra_query=extra_query,
-                    extra_body=extra_body,
-                    timeout=timeout,
-                    query=maybe_transform(
-                        {
-                            "dataset_name": dataset_name,
-                            "limit": limit,
-                            "offset": offset,
-                            "relationship_name": relationship_name,
-                            "table_name": table_name,
-                        },
-                        dataset_view_params.DatasetViewParams,
-                    ),
+        return self._get_api_list(
+            "/dataset/view",
+            page=SyncJobsList[DatasetViewResponse],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "dataset_name": dataset_name,
+                        "limit": limit,
+                        "offset": offset,
+                        "relationship_name": relationship_name,
+                        "table_name": table_name,
+                    },
+                    dataset_view_params.DatasetViewParams,
                 ),
-                cast_to=cast(
-                    Any, DatasetViewResponse
-                ),  # Union types cannot be passed in as arguments in the type system
             ),
+            model=cast(Any, DatasetViewResponse),  # Union types cannot be passed in as arguments in the type system
         )
 
 
@@ -385,7 +378,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
             cast_to=DatasetDescriptor,
         )
 
-    async def view(
+    def view(
         self,
         *,
         dataset_name: str,
@@ -399,14 +392,10 @@ class AsyncDatasetsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> DatasetViewResponse:
-        """You need to specify a dataset.
-
-        If you don't specify a table_name, we assume all
-        tables.
-
-        If you want to view relationships, you can not specify a table_name since the
-        result of inter-table relationships is not well defined.
+    ) -> AsyncPaginator[DatasetViewResponse, AsyncJobsList[DatasetViewResponse]]:
+        """
+        You need to specify a dataset and either a table_name (to view tables) or a
+        relationship_name (to view relationships).
 
         You can either return entities or relationships from this call, but not both. If
         you want both, just make two calls.
@@ -420,30 +409,26 @@ class AsyncDatasetsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return cast(
-            DatasetViewResponse,
-            await self._get(
-                "/dataset/view",
-                options=make_request_options(
-                    extra_headers=extra_headers,
-                    extra_query=extra_query,
-                    extra_body=extra_body,
-                    timeout=timeout,
-                    query=await async_maybe_transform(
-                        {
-                            "dataset_name": dataset_name,
-                            "limit": limit,
-                            "offset": offset,
-                            "relationship_name": relationship_name,
-                            "table_name": table_name,
-                        },
-                        dataset_view_params.DatasetViewParams,
-                    ),
+        return self._get_api_list(
+            "/dataset/view",
+            page=AsyncJobsList[DatasetViewResponse],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "dataset_name": dataset_name,
+                        "limit": limit,
+                        "offset": offset,
+                        "relationship_name": relationship_name,
+                        "table_name": table_name,
+                    },
+                    dataset_view_params.DatasetViewParams,
                 ),
-                cast_to=cast(
-                    Any, DatasetViewResponse
-                ),  # Union types cannot be passed in as arguments in the type system
             ),
+            model=cast(Any, DatasetViewResponse),  # Union types cannot be passed in as arguments in the type system
         )
 
 
