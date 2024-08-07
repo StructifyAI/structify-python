@@ -1,17 +1,15 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, Union, Optional
+from typing import Dict, List, Union, Optional
 from datetime import datetime
 from typing_extensions import TypeAlias
 
-from pydantic import Field as FieldInfo
-
 from .._models import BaseModel
 
-__all__ = ["DatasetViewResponse", "Entity", "EntityEntity", "Relationship", "RelationshipRelationship"]
+__all__ = ["DatasetViewResponse", "UnionMember0", "UnionMember1"]
 
 
-class EntityEntity(BaseModel):
+class UnionMember0(BaseModel):
     id: str
 
     creation_time: datetime
@@ -21,11 +19,7 @@ class EntityEntity(BaseModel):
     properties: Dict[str, Union[Optional[str], Optional[bool], Optional[int]]]
 
 
-class Entity(BaseModel):
-    entity: EntityEntity = FieldInfo(alias="Entity")
-
-
-class RelationshipRelationship(BaseModel):
+class UnionMember1(BaseModel):
     from_id: str
 
     label: str
@@ -33,8 +27,4 @@ class RelationshipRelationship(BaseModel):
     to_id: str
 
 
-class Relationship(BaseModel):
-    relationship: RelationshipRelationship = FieldInfo(alias="Relationship")
-
-
-DatasetViewResponse: TypeAlias = Union[Entity, Relationship]
+DatasetViewResponse: TypeAlias = Union[List[UnionMember0], List[UnionMember1]]

@@ -15,7 +15,7 @@ from .._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ..pagination import SyncJobsList, AsyncJobsList
+from ..pagination import SyncPagination, AsyncPagination
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.execution_step import ExecutionStep
 from ..types.job_get_response import JobGetResponse
@@ -46,7 +46,7 @@ class JobsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> SyncJobsList[JobListResponse]:
+    ) -> SyncPagination[JobListResponse]:
         """
         List all the executions
 
@@ -61,7 +61,7 @@ class JobsResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/jobs/list",
-            page=SyncJobsList[JobListResponse],
+            page=SyncPagination[JobListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -288,7 +288,7 @@ class AsyncJobsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> AsyncPaginator[JobListResponse, AsyncJobsList[JobListResponse]]:
+    ) -> AsyncPaginator[JobListResponse, AsyncPagination[JobListResponse]]:
         """
         List all the executions
 
@@ -303,7 +303,7 @@ class AsyncJobsResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/jobs/list",
-            page=AsyncJobsList[JobListResponse],
+            page=AsyncPagination[JobListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
