@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 from typing import Any, Iterable, Optional, cast
-from typing_extensions import Literal
 
 import httpx
 
@@ -21,8 +20,7 @@ from .._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ..pagination import SyncJobsList, AsyncJobsList
-from .._base_client import AsyncPaginator, make_request_options
+from .._base_client import make_request_options
 from ..types.table_param import TableParam
 from ..types.dataset_descriptor import DatasetDescriptor
 from ..types.dataset_list_response import DatasetListResponse
@@ -185,7 +183,6 @@ class DatasetsResource(SyncAPIResource):
         limit: int | NotGiven = NOT_GIVEN,
         offset: int | NotGiven = NOT_GIVEN,
         relationship_name: Optional[str] | NotGiven = NOT_GIVEN,
-        requested_type: Literal["Entities", "Relationships"] | NotGiven = NOT_GIVEN,
         table_name: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -193,7 +190,7 @@ class DatasetsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> SyncJobsList[DatasetViewResponse]:
+    ) -> DatasetViewResponse:
         """You need to specify a dataset.
 
         If you don't specify a table_name, we assume all
@@ -214,27 +211,30 @@ class DatasetsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._get_api_list(
-            "/dataset/view",
-            page=SyncJobsList[DatasetViewResponse],
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "dataset_name": dataset_name,
-                        "limit": limit,
-                        "offset": offset,
-                        "relationship_name": relationship_name,
-                        "requested_type": requested_type,
-                        "table_name": table_name,
-                    },
-                    dataset_view_params.DatasetViewParams,
+        return cast(
+            DatasetViewResponse,
+            self._get(
+                "/dataset/view",
+                options=make_request_options(
+                    extra_headers=extra_headers,
+                    extra_query=extra_query,
+                    extra_body=extra_body,
+                    timeout=timeout,
+                    query=maybe_transform(
+                        {
+                            "dataset_name": dataset_name,
+                            "limit": limit,
+                            "offset": offset,
+                            "relationship_name": relationship_name,
+                            "table_name": table_name,
+                        },
+                        dataset_view_params.DatasetViewParams,
+                    ),
                 ),
+                cast_to=cast(
+                    Any, DatasetViewResponse
+                ),  # Union types cannot be passed in as arguments in the type system
             ),
-            model=cast(Any, DatasetViewResponse),  # Union types cannot be passed in as arguments in the type system
         )
 
 
@@ -385,14 +385,13 @@ class AsyncDatasetsResource(AsyncAPIResource):
             cast_to=DatasetDescriptor,
         )
 
-    def view(
+    async def view(
         self,
         *,
         dataset_name: str,
         limit: int | NotGiven = NOT_GIVEN,
         offset: int | NotGiven = NOT_GIVEN,
         relationship_name: Optional[str] | NotGiven = NOT_GIVEN,
-        requested_type: Literal["Entities", "Relationships"] | NotGiven = NOT_GIVEN,
         table_name: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -400,7 +399,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> AsyncPaginator[DatasetViewResponse, AsyncJobsList[DatasetViewResponse]]:
+    ) -> DatasetViewResponse:
         """You need to specify a dataset.
 
         If you don't specify a table_name, we assume all
@@ -421,27 +420,30 @@ class AsyncDatasetsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._get_api_list(
-            "/dataset/view",
-            page=AsyncJobsList[DatasetViewResponse],
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "dataset_name": dataset_name,
-                        "limit": limit,
-                        "offset": offset,
-                        "relationship_name": relationship_name,
-                        "requested_type": requested_type,
-                        "table_name": table_name,
-                    },
-                    dataset_view_params.DatasetViewParams,
+        return cast(
+            DatasetViewResponse,
+            await self._get(
+                "/dataset/view",
+                options=make_request_options(
+                    extra_headers=extra_headers,
+                    extra_query=extra_query,
+                    extra_body=extra_body,
+                    timeout=timeout,
+                    query=await async_maybe_transform(
+                        {
+                            "dataset_name": dataset_name,
+                            "limit": limit,
+                            "offset": offset,
+                            "relationship_name": relationship_name,
+                            "table_name": table_name,
+                        },
+                        dataset_view_params.DatasetViewParams,
+                    ),
                 ),
+                cast_to=cast(
+                    Any, DatasetViewResponse
+                ),  # Union types cannot be passed in as arguments in the type system
             ),
-            model=cast(Any, DatasetViewResponse),  # Union types cannot be passed in as arguments in the type system
         )
 
 
