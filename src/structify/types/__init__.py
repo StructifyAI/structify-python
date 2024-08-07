@@ -33,6 +33,7 @@ from .job_cancel_response import JobCancelResponse as JobCancelResponse
 from .job_delete_response import JobDeleteResponse as JobDeleteResponse
 from .property_type_param import PropertyTypeParam as PropertyTypeParam
 from .user_usage_response import UserUsageResponse as UserUsageResponse
+from .entity_report_params import EntityReportParams as EntityReportParams
 from .source_list_response import SourceListResponse as SourceListResponse
 from .dataset_create_params import DatasetCreateParams as DatasetCreateParams
 from .dataset_delete_params import DatasetDeleteParams as DatasetDeleteParams
@@ -41,6 +42,7 @@ from .dataset_view_response import DatasetViewResponse as DatasetViewResponse
 from .knowledge_graph_param import KnowledgeGraphParam as KnowledgeGraphParam
 from .document_list_response import DocumentListResponse as DocumentListResponse
 from .document_upload_params import DocumentUploadParams as DocumentUploadParams
+from .entity_report_response import EntityReportResponse as EntityReportResponse
 from .job_get_steps_response import JobGetStepsResponse as JobGetStepsResponse
 from .extraction_criteria_param import ExtractionCriteriaParam as ExtractionCriteriaParam
 from .structure_run_async_params import StructureRunAsyncParams as StructureRunAsyncParams

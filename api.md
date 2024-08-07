@@ -40,7 +40,7 @@ Methods:
 - <code title="get /dataset/list">client.datasets.<a href="./src/structify/resources/datasets.py">list</a>() -> <a href="./src/structify/types/dataset_list_response.py">DatasetListResponse</a></code>
 - <code title="delete /dataset/delete">client.datasets.<a href="./src/structify/resources/datasets.py">delete</a>(\*\*<a href="src/structify/types/dataset_delete_params.py">params</a>) -> None</code>
 - <code title="get /dataset/info">client.datasets.<a href="./src/structify/resources/datasets.py">get</a>(\*\*<a href="src/structify/types/dataset_get_params.py">params</a>) -> <a href="./src/structify/types/dataset_descriptor.py">Optional</a></code>
-- <code title="get /dataset/view">client.datasets.<a href="./src/structify/resources/datasets.py">view</a>(\*\*<a href="src/structify/types/dataset_view_params.py">params</a>) -> <a href="./src/structify/types/dataset_view_response.py">SyncJobsList[DatasetViewResponse]</a></code>
+- <code title="get /dataset/view">client.datasets.<a href="./src/structify/resources/datasets.py">view</a>(\*\*<a href="src/structify/types/dataset_view_params.py">params</a>) -> <a href="./src/structify/types/dataset_view_response.py">DatasetViewResponse</a></code>
 
 # Documents
 
@@ -110,13 +110,14 @@ Methods:
 Types:
 
 ```python
-from structify.types import EntityAddResponse, EntityGetResponse
+from structify.types import EntityAddResponse, EntityGetResponse, EntityReportResponse
 ```
 
 Methods:
 
 - <code title="post /entity/add">client.entities.<a href="./src/structify/resources/entities.py">add</a>(\*\*<a href="src/structify/types/entity_add_params.py">params</a>) -> <a href="./src/structify/types/entity_add_response.py">EntityAddResponse</a></code>
 - <code title="get /entity/get">client.entities.<a href="./src/structify/resources/entities.py">get</a>(\*\*<a href="src/structify/types/entity_get_params.py">params</a>) -> <a href="./src/structify/types/entity_get_response.py">EntityGetResponse</a></code>
+- <code title="post /entity/report">client.entities.<a href="./src/structify/resources/entities.py">report</a>(\*\*<a href="src/structify/types/entity_report_params.py">params</a>) -> str</code>
 
 # Structure
 
