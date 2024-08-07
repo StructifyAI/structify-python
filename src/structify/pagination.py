@@ -9,14 +9,14 @@ from ._utils import is_mapping
 from ._models import BaseModel
 from ._base_client import BasePage, PageInfo, BaseSyncPage, BaseAsyncPage
 
-__all__ = ["SyncJobsList", "AsyncJobsList"]
+__all__ = ["SyncPagination", "AsyncPagination"]
 
 _BaseModelT = TypeVar("_BaseModelT", bound=BaseModel)
 
 _T = TypeVar("_T")
 
 
-class SyncJobsList(BaseSyncPage[_T], BasePage[_T], Generic[_T]):
+class SyncPagination(BaseSyncPage[_T], BasePage[_T], Generic[_T]):
     items: List[_T]
 
     @override
@@ -47,7 +47,7 @@ class SyncJobsList(BaseSyncPage[_T], BasePage[_T], Generic[_T]):
         )
 
 
-class AsyncJobsList(BaseAsyncPage[_T], BasePage[_T], Generic[_T]):
+class AsyncPagination(BaseAsyncPage[_T], BasePage[_T], Generic[_T]):
     items: List[_T]
 
     @override
