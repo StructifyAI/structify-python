@@ -40,7 +40,7 @@ from ..pagination import SyncJobsList
 
 log: logging.Logger = logging.getLogger(__name__)
 
-from ..types.dataset_view_response import DatasetViewResponse
+from ..types.dataset_view_table_response import DatasetViewTableResponse
 
 # --------------------------------------------------------
 
@@ -181,7 +181,7 @@ class StructureResource(SyncAPIResource):
         extraction_criteria: Iterable[ExtractionCriteriaParam] | NotGiven = NOT_GIVEN,
         seeded_entity: KnowledgeGraphParam | NotGiven = NOT_GIVEN,
         timeout: Optional[int] = None,
-    ) -> SyncJobsList[DatasetViewResponse]:
+    ) -> SyncJobsList[DatasetViewTableResponse]:
         """
         This function simulates a synchronous run of the async function by calling it and then waiting.
         If the timeout is reached, it attempts to cancel the job.
@@ -216,7 +216,7 @@ class StructureResource(SyncAPIResource):
 
             successfully_started_job = True
             if status not in ["Queued", "Running"]:
-                return self._client.datasets.view(dataset_name=name, table_name=table_name, requested_type="Entities")
+                return self._client.datasets.view_table(dataset=name, name=table_name)
             time.sleep(1)
     # -------------------------------------------------------------------------
 

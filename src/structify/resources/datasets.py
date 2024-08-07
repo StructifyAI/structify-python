@@ -2,12 +2,17 @@
 
 from __future__ import annotations
 
-from typing import Any, Iterable, Optional, cast
-from typing_extensions import Literal
+from typing import Iterable, Optional
 
 import httpx
 
-from ..types import dataset_get_params, dataset_view_params, dataset_create_params, dataset_delete_params
+from ..types import (
+    dataset_get_params,
+    dataset_create_params,
+    dataset_delete_params,
+    dataset_view_table_params,
+    dataset_view_relationships_params,
+)
 from .._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
 from .._utils import (
     maybe_transform,
@@ -26,7 +31,8 @@ from .._base_client import AsyncPaginator, make_request_options
 from ..types.table_param import TableParam
 from ..types.dataset_descriptor import DatasetDescriptor
 from ..types.dataset_list_response import DatasetListResponse
-from ..types.dataset_view_response import DatasetViewResponse
+from ..types.dataset_view_table_response import DatasetViewTableResponse
+from ..types.dataset_view_relationships_response import DatasetViewRelationshipsResponse
 
 __all__ = ["DatasetsResource", "AsyncDatasetsResource"]
 
@@ -178,32 +184,22 @@ class DatasetsResource(SyncAPIResource):
             cast_to=DatasetDescriptor,
         )
 
-    def view(
+    def view_relationships(
         self,
         *,
-        dataset_name: str,
+        dataset: str,
+        name: str,
         limit: int | NotGiven = NOT_GIVEN,
         offset: int | NotGiven = NOT_GIVEN,
-        relationship_name: Optional[str] | NotGiven = NOT_GIVEN,
-        requested_type: Literal["Entities", "Relationships"] | NotGiven = NOT_GIVEN,
-        table_name: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> SyncJobsList[DatasetViewResponse]:
-        """You need to specify a dataset.
-
-        If you don't specify a table_name, we assume all
-        tables.
-
-        If you want to view relationships, you can not specify a table_name since the
-        result of inter-table relationships is not well defined.
-
-        You can either return entities or relationships from this call, but not both. If
-        you want both, just make two calls.
+    ) -> SyncJobsList[DatasetViewRelationshipsResponse]:
+        """
+        You need to specify a dataset and the name of the relationship
 
         Args:
           extra_headers: Send extra headers
@@ -215,8 +211,8 @@ class DatasetsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._get_api_list(
-            "/dataset/view",
-            page=SyncJobsList[DatasetViewResponse],
+            "/dataset/view_relationships",
+            page=SyncJobsList[DatasetViewRelationshipsResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -224,17 +220,62 @@ class DatasetsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "dataset_name": dataset_name,
+                        "dataset": dataset,
+                        "name": name,
                         "limit": limit,
                         "offset": offset,
-                        "relationship_name": relationship_name,
-                        "requested_type": requested_type,
-                        "table_name": table_name,
                     },
-                    dataset_view_params.DatasetViewParams,
+                    dataset_view_relationships_params.DatasetViewRelationshipsParams,
                 ),
             ),
-            model=cast(Any, DatasetViewResponse),  # Union types cannot be passed in as arguments in the type system
+            model=DatasetViewRelationshipsResponse,
+        )
+
+    def view_table(
+        self,
+        *,
+        dataset: str,
+        name: str,
+        limit: int | NotGiven = NOT_GIVEN,
+        offset: int | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> SyncJobsList[DatasetViewTableResponse]:
+        """
+        You need to specify a dataset and a table_name
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._get_api_list(
+            "/dataset/view_table",
+            page=SyncJobsList[DatasetViewTableResponse],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "dataset": dataset,
+                        "name": name,
+                        "limit": limit,
+                        "offset": offset,
+                    },
+                    dataset_view_table_params.DatasetViewTableParams,
+                ),
+            ),
+            model=DatasetViewTableResponse,
         )
 
 
@@ -385,32 +426,22 @@ class AsyncDatasetsResource(AsyncAPIResource):
             cast_to=DatasetDescriptor,
         )
 
-    def view(
+    def view_relationships(
         self,
         *,
-        dataset_name: str,
+        dataset: str,
+        name: str,
         limit: int | NotGiven = NOT_GIVEN,
         offset: int | NotGiven = NOT_GIVEN,
-        relationship_name: Optional[str] | NotGiven = NOT_GIVEN,
-        requested_type: Literal["Entities", "Relationships"] | NotGiven = NOT_GIVEN,
-        table_name: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> AsyncPaginator[DatasetViewResponse, AsyncJobsList[DatasetViewResponse]]:
-        """You need to specify a dataset.
-
-        If you don't specify a table_name, we assume all
-        tables.
-
-        If you want to view relationships, you can not specify a table_name since the
-        result of inter-table relationships is not well defined.
-
-        You can either return entities or relationships from this call, but not both. If
-        you want both, just make two calls.
+    ) -> AsyncPaginator[DatasetViewRelationshipsResponse, AsyncJobsList[DatasetViewRelationshipsResponse]]:
+        """
+        You need to specify a dataset and the name of the relationship
 
         Args:
           extra_headers: Send extra headers
@@ -422,8 +453,8 @@ class AsyncDatasetsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._get_api_list(
-            "/dataset/view",
-            page=AsyncJobsList[DatasetViewResponse],
+            "/dataset/view_relationships",
+            page=AsyncJobsList[DatasetViewRelationshipsResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -431,17 +462,62 @@ class AsyncDatasetsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "dataset_name": dataset_name,
+                        "dataset": dataset,
+                        "name": name,
                         "limit": limit,
                         "offset": offset,
-                        "relationship_name": relationship_name,
-                        "requested_type": requested_type,
-                        "table_name": table_name,
                     },
-                    dataset_view_params.DatasetViewParams,
+                    dataset_view_relationships_params.DatasetViewRelationshipsParams,
                 ),
             ),
-            model=cast(Any, DatasetViewResponse),  # Union types cannot be passed in as arguments in the type system
+            model=DatasetViewRelationshipsResponse,
+        )
+
+    def view_table(
+        self,
+        *,
+        dataset: str,
+        name: str,
+        limit: int | NotGiven = NOT_GIVEN,
+        offset: int | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> AsyncPaginator[DatasetViewTableResponse, AsyncJobsList[DatasetViewTableResponse]]:
+        """
+        You need to specify a dataset and a table_name
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._get_api_list(
+            "/dataset/view_table",
+            page=AsyncJobsList[DatasetViewTableResponse],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "dataset": dataset,
+                        "name": name,
+                        "limit": limit,
+                        "offset": offset,
+                    },
+                    dataset_view_table_params.DatasetViewTableParams,
+                ),
+            ),
+            model=DatasetViewTableResponse,
         )
 
 
@@ -461,8 +537,11 @@ class DatasetsResourceWithRawResponse:
         self.get = to_raw_response_wrapper(
             datasets.get,
         )
-        self.view = to_raw_response_wrapper(
-            datasets.view,
+        self.view_relationships = to_raw_response_wrapper(
+            datasets.view_relationships,
+        )
+        self.view_table = to_raw_response_wrapper(
+            datasets.view_table,
         )
 
 
@@ -482,8 +561,11 @@ class AsyncDatasetsResourceWithRawResponse:
         self.get = async_to_raw_response_wrapper(
             datasets.get,
         )
-        self.view = async_to_raw_response_wrapper(
-            datasets.view,
+        self.view_relationships = async_to_raw_response_wrapper(
+            datasets.view_relationships,
+        )
+        self.view_table = async_to_raw_response_wrapper(
+            datasets.view_table,
         )
 
 
@@ -503,8 +585,11 @@ class DatasetsResourceWithStreamingResponse:
         self.get = to_streamed_response_wrapper(
             datasets.get,
         )
-        self.view = to_streamed_response_wrapper(
-            datasets.view,
+        self.view_relationships = to_streamed_response_wrapper(
+            datasets.view_relationships,
+        )
+        self.view_table = to_streamed_response_wrapper(
+            datasets.view_table,
         )
 
 
@@ -524,6 +609,9 @@ class AsyncDatasetsResourceWithStreamingResponse:
         self.get = async_to_streamed_response_wrapper(
             datasets.get,
         )
-        self.view = async_to_streamed_response_wrapper(
-            datasets.view,
+        self.view_relationships = async_to_streamed_response_wrapper(
+            datasets.view_relationships,
+        )
+        self.view_table = async_to_streamed_response_wrapper(
+            datasets.view_table,
         )
