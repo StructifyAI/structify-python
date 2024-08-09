@@ -2,11 +2,15 @@
 
 from __future__ import annotations
 
+from typing import Optional
 from typing_extensions import Required, TypedDict
 
 __all__ = ["SourceListParams"]
 
 
 class SourceListParams(TypedDict, total=False):
-    id: Required[int]
-    """Id of the entity to get sources for"""
+    id: Required[str]
+    """Entity ID to get sources for"""
+
+    property: Optional[str]
+    """Optional property name to filter sources by"""
