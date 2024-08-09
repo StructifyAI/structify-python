@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from typing import Optional
+
 import httpx
 
 from ..types import source_list_params
@@ -36,7 +38,8 @@ class SourcesResource(SyncAPIResource):
     def list(
         self,
         *,
-        id: int,
+        id: str,
+        property: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -48,7 +51,9 @@ class SourcesResource(SyncAPIResource):
         Get all sources for a given entity
 
         Args:
-          id: Id of the entity to get sources for
+          id: Entity ID to get sources for
+
+          property: Optional property name to filter sources by
 
           extra_headers: Send extra headers
 
@@ -65,7 +70,13 @@ class SourcesResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform({"id": id}, source_list_params.SourceListParams),
+                query=maybe_transform(
+                    {
+                        "id": id,
+                        "property": property,
+                    },
+                    source_list_params.SourceListParams,
+                ),
             ),
             cast_to=SourceListResponse,
         )
@@ -83,7 +94,8 @@ class AsyncSourcesResource(AsyncAPIResource):
     async def list(
         self,
         *,
-        id: int,
+        id: str,
+        property: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -95,7 +107,9 @@ class AsyncSourcesResource(AsyncAPIResource):
         Get all sources for a given entity
 
         Args:
-          id: Id of the entity to get sources for
+          id: Entity ID to get sources for
+
+          property: Optional property name to filter sources by
 
           extra_headers: Send extra headers
 
@@ -112,7 +126,13 @@ class AsyncSourcesResource(AsyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform({"id": id}, source_list_params.SourceListParams),
+                query=await async_maybe_transform(
+                    {
+                        "id": id,
+                        "property": property,
+                    },
+                    source_list_params.SourceListParams,
+                ),
             ),
             cast_to=SourceListResponse,
         )
