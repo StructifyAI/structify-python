@@ -8,8 +8,6 @@ import httpx
 
 from ..types import (
     structure_run_async_params,
-    structure_job_status_params,
-    structure_is_complete_params,
 )
 from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from .._utils import (
@@ -79,7 +77,7 @@ class StructureResource(SyncAPIResource):
         extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
         return self._post(
             "/structure/is_complete",
-            body=maybe_transform(job, structure_is_complete_params.StructureIsCompleteParams),
+            body=maybe_transform(job, List[str]),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -111,7 +109,7 @@ class StructureResource(SyncAPIResource):
         """
         return self._post(
             "/structure/job_status",
-            body=maybe_transform(job, structure_job_status_params.StructureJobStatusParams),
+            body=maybe_transform(job, List[str]),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -255,7 +253,7 @@ class AsyncStructureResource(AsyncAPIResource):
         extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
         return await self._post(
             "/structure/is_complete",
-            body=await async_maybe_transform(job, structure_is_complete_params.StructureIsCompleteParams),
+            body=await async_maybe_transform(job, List[str]),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -287,7 +285,7 @@ class AsyncStructureResource(AsyncAPIResource):
         """
         return await self._post(
             "/structure/job_status",
-            body=await async_maybe_transform(job, structure_job_status_params.StructureJobStatusParams),
+            body=await async_maybe_transform(job, List[str]),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
