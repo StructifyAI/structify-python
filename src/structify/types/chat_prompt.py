@@ -145,8 +145,6 @@ class HumanLlmMetadata(BaseModel):
 class MetadataWebFlag(BaseModel):
     aria_label: str = FieldInfo(alias="ariaLabel")
 
-    text: str
-
     type: str
 
     x: float
@@ -154,6 +152,11 @@ class MetadataWebFlag(BaseModel):
     y: float
 
     height: Optional[float] = None
+
+    number: Optional[int] = None
+    """The number by which the flag is referred in image, prompt, and tool calls."""
+
+    text: Optional[str] = None
 
     width: Optional[float] = None
     """
