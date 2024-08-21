@@ -31,9 +31,9 @@ __all__ = [
     "MessageContent",
     "MessageContentText",
     "MessageContentImage",
-    "HumanLlmMetadata",
     "Metadata",
     "MetadataWebFlag",
+    "HumanLlmMetadata",
 ]
 
 
@@ -129,19 +129,6 @@ class Message(BaseModel):
     role: Literal["user", "system", "assistant"]
 
 
-class HumanLlmMetadata(BaseModel):
-    descriptor: DatasetDescriptor
-    """A dataset is where you put multiple referential schemas.
-
-    A dataset is a complete namespace where all references between schemas are held
-    within the dataset.
-    """
-
-    job_id: str
-
-    user_email: str
-
-
 class MetadataWebFlag(BaseModel):
     aria_label: str = FieldInfo(alias="ariaLabel")
 
@@ -188,11 +175,24 @@ class Metadata(BaseModel):
     web_flags: Optional[List[MetadataWebFlag]] = None
 
 
+class HumanLlmMetadata(BaseModel):
+    descriptor: DatasetDescriptor
+    """A dataset is where you put multiple referential schemas.
+
+    A dataset is a complete namespace where all references between schemas are held
+    within the dataset.
+    """
+
+    job_id: str
+
+    user_email: str
+
+
 class ChatPrompt(BaseModel):
     decoding_params: DecodingParams
 
     messages: List[Message]
 
-    human_llm_metadata: Optional[HumanLlmMetadata] = None
+    metadata: Metadata
 
-    metadata: Optional[Metadata] = None
+    human_llm_metadata: Optional[HumanLlmMetadata] = None
