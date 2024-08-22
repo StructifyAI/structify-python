@@ -140,6 +140,8 @@ class MetadataWebFlag(BaseModel):
 
     height: Optional[float] = None
 
+    href: Optional[str] = None
+
     number: Optional[int] = None
     """The number by which the flag is referred in image, prompt, and tool calls."""
 
