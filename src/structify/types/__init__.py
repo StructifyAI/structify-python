@@ -43,6 +43,7 @@ from .document_list_response import DocumentListResponse as DocumentListResponse
 from .document_upload_params import DocumentUploadParams as DocumentUploadParams
 from .entity_report_response import EntityReportResponse as EntityReportResponse
 from .job_get_steps_response import JobGetStepsResponse as JobGetStepsResponse
+from .document_download_params import DocumentDownloadParams as DocumentDownloadParams
 from .dataset_view_table_params import DatasetViewTableParams as DatasetViewTableParams
 from .extraction_criteria_param import ExtractionCriteriaParam as ExtractionCriteriaParam
 from .structure_run_async_params import StructureRunAsyncParams as StructureRunAsyncParams

@@ -7,7 +7,7 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..types import document_delete_params, document_upload_params
+from ..types import document_delete_params, document_upload_params, document_download_params
 from .._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven, FileTypes
 from .._utils import (
     extract_files,
@@ -103,6 +103,7 @@ class DocumentsResource(SyncAPIResource):
     def download(
         self,
         *,
+        file_path: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -110,10 +111,24 @@ class DocumentsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> BinaryAPIResponse:
-        """Download a file from the database"""
+        """
+        Download a file from the database
+
+        Args:
+          file_path: The path of the file to delete
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
         extra_headers = {"Accept": "application/octet-stream", **(extra_headers or {})}
-        return self._get(
+        return self._post(
             "/documents/download",
+            body=maybe_transform({"file_path": file_path}, document_download_params.DocumentDownloadParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -235,6 +250,7 @@ class AsyncDocumentsResource(AsyncAPIResource):
     async def download(
         self,
         *,
+        file_path: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -242,10 +258,24 @@ class AsyncDocumentsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> AsyncBinaryAPIResponse:
-        """Download a file from the database"""
+        """
+        Download a file from the database
+
+        Args:
+          file_path: The path of the file to delete
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
         extra_headers = {"Accept": "application/octet-stream", **(extra_headers or {})}
-        return await self._get(
+        return await self._post(
             "/documents/download",
+            body=await async_maybe_transform({"file_path": file_path}, document_download_params.DocumentDownloadParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
