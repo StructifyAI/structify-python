@@ -39,6 +39,18 @@ from ..types import structure_run_async_params
 from ..types import KnowledgeGraph
 
 __all__ = ["StructureResource", "AsyncStructureResource"]
+# ---------------- Stainless modification ----------------
+import time
+import logging
+from typing import Optional
+
+from ..pagination import SyncJobsList
+
+log: logging.Logger = logging.getLogger(__name__)
+
+from ..types.dataset_view_table_response import DatasetViewTableResponse
+
+# --------------------------------------------------------
 
 class StructureResource(SyncAPIResource):
     @cached_property
@@ -148,6 +160,58 @@ class StructureResource(SyncAPIResource):
             options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=str,
         )
+    
+
+    # -------------------------------------------------------------------------
+    # We put them down here to avoid messing with stainless imports and keep everything
+    # centralized to one spot.
+
+    def run(  # type: ignore
+        self,
+        name: str,
+        table_name: str,
+        structure_input: structure_run_async_params.StructureInput,
+        extraction_criteria: Iterable[ExtractionCriteriaParam] | NotGiven = NOT_GIVEN,
+        seeded_entity: KnowledgeGraphParam | NotGiven = NOT_GIVEN,
+        timeout: Optional[int] = None,
+    ) -> SyncJobsList[DatasetViewTableResponse]:
+        """
+        This function simulates a synchronous run of the async function by calling it and then waiting.
+        If the timeout is reached, it attempts to cancel the job.
+        """
+        token: str = self.run_async(
+            name=name,
+            structure_input=structure_input,
+            extraction_criteria=extraction_criteria,
+            seeded_entity=seeded_entity,
+        )
+        start_time = time.time() if timeout is not None else None
+        successfully_started_job = False
+        last_idx = 0
+
+        while True:
+            if timeout is not None and start_time is not None:
+                elapsed_time = time.time() - start_time
+                if elapsed_time > timeout:
+                    if successfully_started_job:
+                        raise TimeoutError(f"Job execution exceeded timeout of {timeout} seconds.")
+                    else:
+                        raise TimeoutError(f"Job creation exceeded timeout of {timeout} seconds.")
+
+            resp = self.job_status(job=[token])
+            status = resp.job_status[0]
+            all_logs = resp.log_nodes
+
+            new_logs = all_logs[last_idx:]
+            for new_log in new_logs:
+                log.info("{}".format(new_log))
+            last_idx = len(all_logs)
+
+            successfully_started_job = True
+            if status not in ["Queued", "Running"]:
+                return self._client.datasets.view_table(dataset=name, name=table_name)
+            time.sleep(1)
+    # -------------------------------------------------------------------------
 
 class AsyncStructureResource(AsyncAPIResource):
     @cached_property
