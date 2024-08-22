@@ -2,31 +2,24 @@
 
 from __future__ import annotations
 
-from typing import Union, Iterable, Optional
-from typing_extensions import Required, Annotated, TypeAlias, TypedDict
+from typing_extensions import TypedDict, Required, Annotated, TypeAlias
 
-from .._types import FileTypes
-from .._utils import PropertyInfo
-from .knowledge_graph_param import KnowledgeGraphParam
+from typing import Iterable, Optional, Union
+
 from .extraction_criteria_param import ExtractionCriteriaParam
 
-__all__ = [
-    "StructureRunAsyncParams",
-    "StructureInput",
-    "StructureInputSecIngestor",
-    "StructureInputSecIngestorSecIngestor",
-    "StructureInputPdfIngestor",
-    "StructureInputPdfIngestorPdfIngestor",
-    "StructureInputBasic",
-    "StructureInputBasicBasic",
-    "StructureInputBasicBasicTextDocument",
-    "StructureInputBasicBasicTextDocumentTextDocument",
-    "StructureInputBasicBasicWebSearch",
-    "StructureInputBasicBasicWebSearchWebSearch",
-    "StructureInputBasicBasicImageDocument",
-    "StructureInputBasicBasicImageDocumentImageDocument",
-]
+from .knowledge_graph_param import KnowledgeGraphParam
 
+from .._utils import PropertyInfo
+
+from .._types import FileTypes
+
+from typing import List, Union, Dict, Optional
+from typing_extensions import Literal, TypedDict, Required, Annotated
+from .._types import FileTypes
+from .._utils import PropertyInfo
+
+__all__ = ["StructureRunAsyncParams", "StructureInput", "StructureInputSecIngestor", "StructureInputSecIngestorSecIngestor", "StructureInputPdfIngestor", "StructureInputPdfIngestorPdfIngestor", "StructureInputBasic", "StructureInputBasicBasic", "StructureInputBasicBasicTextDocument", "StructureInputBasicBasicTextDocumentTextDocument", "StructureInputBasicBasicWebSearch", "StructureInputBasicBasicWebSearchWebSearch", "StructureInputBasicBasicImageDocument", "StructureInputBasicBasicImageDocumentImageDocument"]
 
 class StructureRunAsyncParams(TypedDict, total=False):
     name: Required[str]
@@ -43,7 +36,6 @@ class StructureRunAsyncParams(TypedDict, total=False):
     pipeline from raw tool output to being merged into a Neo4j DB
     """
 
-
 class StructureInputSecIngestorSecIngestor(TypedDict, total=False):
     accession_number: Optional[str]
 
@@ -51,14 +43,11 @@ class StructureInputSecIngestorSecIngestor(TypedDict, total=False):
 
     year: Optional[int]
 
-
 class StructureInputSecIngestor(TypedDict, total=False):
     sec_ingestor: Required[Annotated[StructureInputSecIngestorSecIngestor, PropertyInfo(alias="SECIngestor")]]
 
-
 class StructureInputPdfIngestorPdfIngestor(TypedDict, total=False):
     path: Required[str]
-
 
 class StructureInputPdfIngestor(TypedDict, total=False):
     pdf_ingestor: Required[Annotated[StructureInputPdfIngestorPdfIngestor, PropertyInfo(alias="PDFIngestor")]]
@@ -67,45 +56,31 @@ class StructureInputPdfIngestor(TypedDict, total=False):
     It converts everything to an image and processes them independently.
     """
 
-
 class StructureInputBasicBasicTextDocumentTextDocument(TypedDict, total=False):
     content: Optional[str]
 
     path: Optional[str]
 
-
 class StructureInputBasicBasicTextDocument(TypedDict, total=False):
-    text_document: Required[
-        Annotated[StructureInputBasicBasicTextDocumentTextDocument, PropertyInfo(alias="TextDocument")]
-    ]
-
+    text_document: Required[Annotated[StructureInputBasicBasicTextDocumentTextDocument, PropertyInfo(alias="TextDocument")]]
 
 class StructureInputBasicBasicWebSearchWebSearch(TypedDict, total=False):
     starting_website: Optional[str]
 
     use_local_browser: bool
 
-
 class StructureInputBasicBasicWebSearch(TypedDict, total=False):
     web_search: Required[Annotated[StructureInputBasicBasicWebSearchWebSearch, PropertyInfo(alias="WebSearch")]]
-
 
 class StructureInputBasicBasicImageDocumentImageDocument(TypedDict, total=False):
     content: Required[FileTypes]
 
     document_name: Required[str]
 
-
 class StructureInputBasicBasicImageDocument(TypedDict, total=False):
-    image_document: Required[
-        Annotated[StructureInputBasicBasicImageDocumentImageDocument, PropertyInfo(alias="ImageDocument")]
-    ]
+    image_document: Required[Annotated[StructureInputBasicBasicImageDocumentImageDocument, PropertyInfo(alias="ImageDocument")]]
 
-
-StructureInputBasicBasic: TypeAlias = Union[
-    StructureInputBasicBasicTextDocument, StructureInputBasicBasicWebSearch, StructureInputBasicBasicImageDocument
-]
-
+StructureInputBasicBasic: TypeAlias = Union[StructureInputBasicBasicTextDocument, StructureInputBasicBasicWebSearch, StructureInputBasicBasicImageDocument]
 
 class StructureInputBasic(TypedDict, total=False):
     basic: Required[Annotated[StructureInputBasicBasic, PropertyInfo(alias="Basic")]]
@@ -113,6 +88,5 @@ class StructureInputBasic(TypedDict, total=False):
     These are all the types for which we have an agent that is directly capable of
     navigating. There should be a one to one mapping between them.
     """
-
 
 StructureInput: TypeAlias = Union[StructureInputSecIngestor, StructureInputPdfIngestor, StructureInputBasic]

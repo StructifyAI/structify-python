@@ -31,11 +31,7 @@ Methods:
 Types:
 
 ```python
-from structify.types import (
-    DatasetListResponse,
-    DatasetViewRelationshipsResponse,
-    DatasetViewTableResponse,
-)
+from structify.types import DatasetListResponse, DatasetViewRelationshipsResponse, DatasetViewTableResponse
 ```
 
 Methods:
@@ -67,13 +63,7 @@ Methods:
 Types:
 
 ```python
-from structify.types import (
-    JobListResponse,
-    JobDeleteResponse,
-    JobCancelResponse,
-    JobGetResponse,
-    JobGetStepsResponse,
-)
+from structify.types import JobListResponse, JobDeleteResponse, JobCancelResponse, JobGetResponse, JobGetStepsResponse
 ```
 
 Methods:
@@ -129,15 +119,7 @@ Methods:
 Types:
 
 ```python
-from structify.types import (
-    ChatPrompt,
-    ExecutionStep,
-    ExtractionCriteria,
-    ToolMetadata,
-    StructureIsCompleteResponse,
-    StructureJobStatusResponse,
-    StructureRunAsyncResponse,
-)
+from structify.types import ChatPrompt, ExecutionStep, ExtractionCriteria, ToolMetadata, StructureIsCompleteResponse, StructureJobStatusResponse, StructureRunAsyncResponse
 ```
 
 Methods:
@@ -151,12 +133,5 @@ Methods:
 Types:
 
 ```python
-from structify.types import (
-    DatasetDescriptor,
-    Entity,
-    KnowledgeGraph,
-    PropertyType,
-    Relationship,
-    Table,
-)
+from structify.types import DatasetDescriptor, Entity, KnowledgeGraph, PropertyType, Relationship, Table
 ```
