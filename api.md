@@ -58,8 +58,8 @@ from structify.types import DocumentListResponse
 Methods:
 
 - <code title="get /documents/list">client.documents.<a href="./src/structify/resources/documents.py">list</a>() -> <a href="./src/structify/types/document_list_response.py">DocumentListResponse</a></code>
-- <code title="delete /documents/delete">client.documents.<a href="./src/structify/resources/documents.py">delete</a>(\*\*<a href="src/structify/types/document_delete_params.py">params</a>) -> None</code>
-- <code title="get /documents/download">client.documents.<a href="./src/structify/resources/documents.py">download</a>() -> BinaryAPIResponse</code>
+- <code title="delete /documents/delete/{path}">client.documents.<a href="./src/structify/resources/documents.py">delete</a>(path) -> None</code>
+- <code title="get /documents/download/{path}">client.documents.<a href="./src/structify/resources/documents.py">download</a>(path) -> BinaryAPIResponse</code>
 - <code title="post /documents/upload">client.documents.<a href="./src/structify/resources/documents.py">upload</a>(\*\*<a href="src/structify/types/document_upload_params.py">params</a>) -> None</code>
 
 # Jobs
@@ -122,7 +122,7 @@ Methods:
 
 - <code title="post /entity/add">client.entities.<a href="./src/structify/resources/entities.py">add</a>(\*\*<a href="src/structify/types/entity_add_params.py">params</a>) -> <a href="./src/structify/types/entity_add_response.py">EntityAddResponse</a></code>
 - <code title="get /entity/get">client.entities.<a href="./src/structify/resources/entities.py">get</a>(\*\*<a href="src/structify/types/entity_get_params.py">params</a>) -> <a href="./src/structify/types/entity_get_response.py">EntityGetResponse</a></code>
-- <code title="post /entity/report">client.entities.<a href="./src/structify/resources/entities.py">report</a>(\*\*<a href="src/structify/types/entity_report_params.py">params</a>) -> str</code>
+- <code title="post /entity/report">client.entities.<a href="./src/structify/resources/entities.py">report</a>() -> str</code>
 
 # Structure
 
