@@ -2,31 +2,39 @@
 
 from __future__ import annotations
 
-from typing import Optional
-
 import httpx
 
-from ..types import entity_add_params, entity_get_params, entity_report_params
-from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
-from .._utils import (
-    maybe_transform,
-    async_maybe_transform,
-)
 from .._compat import cached_property
-from .._resource import SyncAPIResource, AsyncAPIResource
-from .._response import (
-    to_raw_response_wrapper,
-    to_streamed_response_wrapper,
-    async_to_raw_response_wrapper,
-    async_to_streamed_response_wrapper,
-)
-from .._base_client import make_request_options
+
 from ..types.entity_add_response import EntityAddResponse
-from ..types.entity_get_response import EntityGetResponse
+
+from .._utils import maybe_transform, async_maybe_transform
+
+from .._base_client import make_request_options
+
 from ..types.knowledge_graph_param import KnowledgeGraphParam
 
-__all__ = ["EntitiesResource", "AsyncEntitiesResource"]
+from ..types.entity_get_response import EntityGetResponse
 
+from typing import Optional
+
+from ..types.entity_report_response import EntityReportResponse
+
+from .._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
+
+import warnings
+from typing import TYPE_CHECKING, Optional, Union, List, Dict, Any, Mapping, cast, overload
+from typing_extensions import Literal
+from .._utils import extract_files, maybe_transform, required_args, deepcopy_minimal, strip_not_given
+from .._types import NotGiven, Timeout, Headers, NoneType, Query, Body, NOT_GIVEN, FileTypes, BinaryResponseContent
+from .._resource import SyncAPIResource, AsyncAPIResource
+from ..types import shared_params
+from ..types import entity_add_params
+from ..types import entity_get_params
+from ..types import entity_report_params
+from ..types import KnowledgeGraph
+
+__all__ = ["EntitiesResource", "AsyncEntitiesResource"]
 
 class EntitiesResource(SyncAPIResource):
     @cached_property
@@ -37,18 +45,16 @@ class EntitiesResource(SyncAPIResource):
     def with_streaming_response(self) -> EntitiesResourceWithStreamingResponse:
         return EntitiesResourceWithStreamingResponse(self)
 
-    def add(
-        self,
-        *,
-        dataset_name: str,
-        kg: KnowledgeGraphParam,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> EntityAddResponse:
+    def add(self,
+    *,
+    dataset_name: str,
+    kg: KnowledgeGraphParam,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> EntityAddResponse:
         """
         Add an entity manually
 
@@ -67,30 +73,23 @@ class EntitiesResource(SyncAPIResource):
         """
         return self._post(
             "/entity/add",
-            body=maybe_transform(
-                {
-                    "dataset_name": dataset_name,
-                    "kg": kg,
-                },
-                entity_add_params.EntityAddParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=maybe_transform({
+                "dataset_name": dataset_name,
+                "kg": kg,
+            }, entity_add_params.EntityAddParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=EntityAddResponse,
         )
 
-    def get(
-        self,
-        *,
-        id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> EntityGetResponse:
+    def get(self,
+    *,
+    id: str,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> EntityGetResponse:
         """
         Get entity with a given id
 
@@ -105,28 +104,22 @@ class EntitiesResource(SyncAPIResource):
         """
         return self._get(
             "/entity/get",
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform({"id": id}, entity_get_params.EntityGetParams),
-            ),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
+                "id": id
+            }, entity_get_params.EntityGetParams)),
             cast_to=EntityGetResponse,
         )
 
-    def report(
-        self,
-        *,
-        id: int,
-        property: Optional[str] | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> str:
+    def report(self,
+    *,
+    id: int,
+    property: Optional[str] | NotGiven = NOT_GIVEN,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> str:
         """
         Get all sources for a given entity
 
@@ -146,22 +139,12 @@ class EntitiesResource(SyncAPIResource):
         extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
         return self._post(
             "/entity/report",
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "id": id,
-                        "property": property,
-                    },
-                    entity_report_params.EntityReportParams,
-                ),
-            ),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
+                "id": id,
+                "property": property,
+            }, entity_report_params.EntityReportParams)),
             cast_to=str,
         )
-
 
 class AsyncEntitiesResource(AsyncAPIResource):
     @cached_property
@@ -172,18 +155,16 @@ class AsyncEntitiesResource(AsyncAPIResource):
     def with_streaming_response(self) -> AsyncEntitiesResourceWithStreamingResponse:
         return AsyncEntitiesResourceWithStreamingResponse(self)
 
-    async def add(
-        self,
-        *,
-        dataset_name: str,
-        kg: KnowledgeGraphParam,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> EntityAddResponse:
+    async def add(self,
+    *,
+    dataset_name: str,
+    kg: KnowledgeGraphParam,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> EntityAddResponse:
         """
         Add an entity manually
 
@@ -202,30 +183,23 @@ class AsyncEntitiesResource(AsyncAPIResource):
         """
         return await self._post(
             "/entity/add",
-            body=await async_maybe_transform(
-                {
-                    "dataset_name": dataset_name,
-                    "kg": kg,
-                },
-                entity_add_params.EntityAddParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=await async_maybe_transform({
+                "dataset_name": dataset_name,
+                "kg": kg,
+            }, entity_add_params.EntityAddParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=EntityAddResponse,
         )
 
-    async def get(
-        self,
-        *,
-        id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> EntityGetResponse:
+    async def get(self,
+    *,
+    id: str,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> EntityGetResponse:
         """
         Get entity with a given id
 
@@ -240,28 +214,22 @@ class AsyncEntitiesResource(AsyncAPIResource):
         """
         return await self._get(
             "/entity/get",
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform({"id": id}, entity_get_params.EntityGetParams),
-            ),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=await async_maybe_transform({
+                "id": id
+            }, entity_get_params.EntityGetParams)),
             cast_to=EntityGetResponse,
         )
 
-    async def report(
-        self,
-        *,
-        id: int,
-        property: Optional[str] | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> str:
+    async def report(self,
+    *,
+    id: int,
+    property: Optional[str] | NotGiven = NOT_GIVEN,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> str:
         """
         Get all sources for a given entity
 
@@ -281,22 +249,12 @@ class AsyncEntitiesResource(AsyncAPIResource):
         extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
         return await self._post(
             "/entity/report",
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform(
-                    {
-                        "id": id,
-                        "property": property,
-                    },
-                    entity_report_params.EntityReportParams,
-                ),
-            ),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=await async_maybe_transform({
+                "id": id,
+                "property": property,
+            }, entity_report_params.EntityReportParams)),
             cast_to=str,
         )
-
 
 class EntitiesResourceWithRawResponse:
     def __init__(self, entities: EntitiesResource) -> None:
@@ -312,7 +270,6 @@ class EntitiesResourceWithRawResponse:
             entities.report,
         )
 
-
 class AsyncEntitiesResourceWithRawResponse:
     def __init__(self, entities: AsyncEntitiesResource) -> None:
         self._entities = entities
@@ -327,7 +284,6 @@ class AsyncEntitiesResourceWithRawResponse:
             entities.report,
         )
 
-
 class EntitiesResourceWithStreamingResponse:
     def __init__(self, entities: EntitiesResource) -> None:
         self._entities = entities
@@ -341,7 +297,6 @@ class EntitiesResourceWithStreamingResponse:
         self.report = to_streamed_response_wrapper(
             entities.report,
         )
-
 
 class AsyncEntitiesResourceWithStreamingResponse:
     def __init__(self, entities: AsyncEntitiesResource) -> None:
