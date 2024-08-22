@@ -85,7 +85,7 @@ class ResponseToolCallInputHover(BaseModel):
 
 
 class ResponseToolCallInputWaitWait(BaseModel):
-    seconds: int
+    seconds: Optional[int] = None
     """Time in seconds to wait"""
 
 
