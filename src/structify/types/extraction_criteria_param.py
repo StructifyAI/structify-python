@@ -2,25 +2,39 @@
 
 from __future__ import annotations
 
-from typing_extensions import TypedDict, Required, Annotated, TypeAlias
+from typing import List, Union
+from typing_extensions import Required, Annotated, TypeAlias, TypedDict
 
 from .._utils import PropertyInfo
 
-from typing import List, Union
+__all__ = [
+    "ExtractionCriteriaParam",
+    "RelationshipExtraction",
+    "RelationshipExtractionRelationshipExtraction",
+    "EntityExtraction",
+    "EntityExtractionEntityExtraction",
+    "GenericProperty",
+    "GenericPropertyGenericProperty",
+]
 
-__all__ = ["ExtractionCriteriaParam", "RelationshipExtraction", "RelationshipExtractionRelationshipExtraction", "EntityExtraction", "EntityExtractionEntityExtraction", "GenericProperty", "GenericPropertyGenericProperty"]
 
 class RelationshipExtractionRelationshipExtraction(TypedDict, total=False):
     relationship_name: Required[str]
 
+
 class RelationshipExtraction(TypedDict, total=False):
-    relationship_extraction: Required[Annotated[RelationshipExtractionRelationshipExtraction, PropertyInfo(alias="RelationshipExtraction")]]
+    relationship_extraction: Required[
+        Annotated[RelationshipExtractionRelationshipExtraction, PropertyInfo(alias="RelationshipExtraction")]
+    ]
+
 
 class EntityExtractionEntityExtraction(TypedDict, total=False):
     entity_id: Required[int]
 
+
 class EntityExtraction(TypedDict, total=False):
     entity_extraction: Required[Annotated[EntityExtractionEntityExtraction, PropertyInfo(alias="EntityExtraction")]]
+
 
 class GenericPropertyGenericProperty(TypedDict, total=False):
     property_names: Required[List[str]]
@@ -28,7 +42,9 @@ class GenericPropertyGenericProperty(TypedDict, total=False):
     table_name: Required[str]
     """Vec<ExtractionCriteria> = it has to meet every one."""
 
+
 class GenericProperty(TypedDict, total=False):
     generic_property: Required[Annotated[GenericPropertyGenericProperty, PropertyInfo(alias="GenericProperty")]]
+
 
 ExtractionCriteriaParam: TypeAlias = Union[RelationshipExtraction, EntityExtraction, GenericProperty]

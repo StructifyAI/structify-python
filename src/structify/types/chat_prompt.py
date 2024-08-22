@@ -1,74 +1,120 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+from typing import Dict, List, Union, Optional
+from typing_extensions import Literal, TypeAlias
+
+from pydantic import Field as FieldInfo
+
 from .._models import BaseModel
-
-from typing import List, Dict, Optional
-
-from typing_extensions import TypeAlias, Literal
-
-from .dataset_descriptor import DatasetDescriptor
-
+from .tool_metadata import ToolMetadata
 from .knowledge_graph import KnowledgeGraph
-
+from .dataset_descriptor import DatasetDescriptor
 from .extraction_criteria import ExtractionCriteria
 
-from .tool_metadata import ToolMetadata
+__all__ = [
+    "ChatPrompt",
+    "DecodingParams",
+    "DecodingParamsParameter",
+    "DecodingParamsParameterMaxTokens",
+    "DecodingParamsParameterTopP",
+    "DecodingParamsParameterRepeatWindow",
+    "DecodingParamsParameterRepeatPenalty",
+    "DecodingParamsParameterTemperature",
+    "DecodingParamsParameterStopTokens",
+    "DecodingParamsParameterFunctions",
+    "DecodingParamsParameterJsonValidator",
+    "DecodingParamsParameterRegexValidator",
+    "DecodingParamsParameterContextFreeGrammar",
+    "DecodingParamsParameterNumBeams",
+    "DecodingParamsParameterCrop",
+    "Message",
+    "MessageContent",
+    "MessageContentText",
+    "MessageContentImage",
+    "Metadata",
+    "MetadataWebFlag",
+    "HumanLlmMetadata",
+]
 
-from typing import Optional, Union, List, Dict, Any
-from typing_extensions import Literal
-from pydantic import Field as FieldInfo
-from ..types import shared
-
-__all__ = ["ChatPrompt", "DecodingParams", "DecodingParamsParameter", "DecodingParamsParameterMaxTokens", "DecodingParamsParameterTopP", "DecodingParamsParameterRepeatWindow", "DecodingParamsParameterRepeatPenalty", "DecodingParamsParameterTemperature", "DecodingParamsParameterStopTokens", "DecodingParamsParameterFunctions", "DecodingParamsParameterJsonValidator", "DecodingParamsParameterRegexValidator", "DecodingParamsParameterContextFreeGrammar", "DecodingParamsParameterNumBeams", "DecodingParamsParameterCrop", "Message", "MessageContent", "MessageContentText", "MessageContentImage", "Metadata", "MetadataWebFlag", "HumanLlmMetadata"]
 
 class DecodingParamsParameterMaxTokens(BaseModel):
-    max_tokens: int = FieldInfo(alias = "MaxTokens")
+    max_tokens: int = FieldInfo(alias="MaxTokens")
+
 
 class DecodingParamsParameterTopP(BaseModel):
-    top_p: float = FieldInfo(alias = "TopP")
+    top_p: float = FieldInfo(alias="TopP")
+
 
 class DecodingParamsParameterRepeatWindow(BaseModel):
-    repeat_window: int = FieldInfo(alias = "RepeatWindow")
+    repeat_window: int = FieldInfo(alias="RepeatWindow")
+
 
 class DecodingParamsParameterRepeatPenalty(BaseModel):
-    repeat_penalty: float = FieldInfo(alias = "RepeatPenalty")
+    repeat_penalty: float = FieldInfo(alias="RepeatPenalty")
+
 
 class DecodingParamsParameterTemperature(BaseModel):
-    temperature: float = FieldInfo(alias = "Temperature")
+    temperature: float = FieldInfo(alias="Temperature")
+
 
 class DecodingParamsParameterStopTokens(BaseModel):
-    stop_tokens: List[str] = FieldInfo(alias = "StopTokens")
+    stop_tokens: List[str] = FieldInfo(alias="StopTokens")
+
 
 class DecodingParamsParameterFunctions(BaseModel):
-    functions: List[Dict[str, object]] = FieldInfo(alias = "Functions")
+    functions: List[Dict[str, object]] = FieldInfo(alias="Functions")
+
 
 class DecodingParamsParameterJsonValidator(BaseModel):
-    json_validator: Dict[str, object] = FieldInfo(alias = "JsonValidator")
+    json_validator: Dict[str, object] = FieldInfo(alias="JsonValidator")
+
 
 class DecodingParamsParameterRegexValidator(BaseModel):
-    regex_validator: str = FieldInfo(alias = "RegexValidator")
+    regex_validator: str = FieldInfo(alias="RegexValidator")
+
 
 class DecodingParamsParameterContextFreeGrammar(BaseModel):
-    context_free_grammar: str = FieldInfo(alias = "ContextFreeGrammar")
+    context_free_grammar: str = FieldInfo(alias="ContextFreeGrammar")
+
 
 class DecodingParamsParameterNumBeams(BaseModel):
-    num_beams: int = FieldInfo(alias = "NumBeams")
+    num_beams: int = FieldInfo(alias="NumBeams")
+
 
 class DecodingParamsParameterCrop(BaseModel):
-    crop: bool = FieldInfo(alias = "Crop")
+    crop: bool = FieldInfo(alias="Crop")
 
-DecodingParamsParameter: TypeAlias = Union[DecodingParamsParameterMaxTokens, DecodingParamsParameterTopP, DecodingParamsParameterRepeatWindow, DecodingParamsParameterRepeatPenalty, DecodingParamsParameterTemperature, DecodingParamsParameterStopTokens, DecodingParamsParameterFunctions, DecodingParamsParameterJsonValidator, DecodingParamsParameterRegexValidator, DecodingParamsParameterContextFreeGrammar, DecodingParamsParameterNumBeams, DecodingParamsParameterCrop]
+
+DecodingParamsParameter: TypeAlias = Union[
+    DecodingParamsParameterMaxTokens,
+    DecodingParamsParameterTopP,
+    DecodingParamsParameterRepeatWindow,
+    DecodingParamsParameterRepeatPenalty,
+    DecodingParamsParameterTemperature,
+    DecodingParamsParameterStopTokens,
+    DecodingParamsParameterFunctions,
+    DecodingParamsParameterJsonValidator,
+    DecodingParamsParameterRegexValidator,
+    DecodingParamsParameterContextFreeGrammar,
+    DecodingParamsParameterNumBeams,
+    DecodingParamsParameterCrop,
+]
+
 
 class DecodingParams(BaseModel):
     parameters: List[DecodingParamsParameter]
 
+
 class MessageContentText(BaseModel):
-    text: str = FieldInfo(alias = "Text")
+    text: str = FieldInfo(alias="Text")
+
 
 class MessageContentImage(BaseModel):
-    image: object = FieldInfo(alias = "Image")
+    image: object = FieldInfo(alias="Image")
+
 
 MessageContent: TypeAlias = Union[MessageContentText, MessageContentImage]
+
 
 class Message(BaseModel):
     content: List[MessageContent]
@@ -82,8 +128,9 @@ class Message(BaseModel):
 
     role: Literal["user", "system", "assistant"]
 
+
 class MetadataWebFlag(BaseModel):
-    aria_label: str = FieldInfo(alias = "ariaLabel")
+    aria_label: str = FieldInfo(alias="ariaLabel")
 
     type: str
 
@@ -103,6 +150,7 @@ class MetadataWebFlag(BaseModel):
     The serde default here is to give us backwards compatibility it's fine for these
     to be anything as long as the image isn't given since it won't regenerate.
     """
+
 
 class Metadata(BaseModel):
     dataset_descriptor: DatasetDescriptor
@@ -126,6 +174,7 @@ class Metadata(BaseModel):
 
     web_flags: Optional[List[MetadataWebFlag]] = None
 
+
 class HumanLlmMetadata(BaseModel):
     descriptor: DatasetDescriptor
     """A dataset is where you put multiple referential schemas.
@@ -137,6 +186,7 @@ class HumanLlmMetadata(BaseModel):
     job_id: str
 
     user_email: str
+
 
 class ChatPrompt(BaseModel):
     decoding_params: DecodingParams
