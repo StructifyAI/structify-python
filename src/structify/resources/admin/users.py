@@ -4,20 +4,23 @@ from __future__ import annotations
 
 import httpx
 
-from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from ..._compat import cached_property
-from ..._resource import SyncAPIResource, AsyncAPIResource
-from ..._response import (
-    to_raw_response_wrapper,
-    to_streamed_response_wrapper,
-    async_to_raw_response_wrapper,
-    async_to_streamed_response_wrapper,
-)
-from ..._base_client import make_request_options
+
 from ...types.admin.user_list_response import UserListResponse
 
-__all__ = ["UsersResource", "AsyncUsersResource"]
+from ..._base_client import make_request_options
 
+from ..._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
+
+import warnings
+from typing import TYPE_CHECKING, Optional, Union, List, Dict, Any, Mapping, cast, overload
+from typing_extensions import Literal
+from ..._utils import extract_files, maybe_transform, required_args, deepcopy_minimal, strip_not_given
+from ..._types import NotGiven, Timeout, Headers, NoneType, Query, Body, NOT_GIVEN, FileTypes, BinaryResponseContent
+from ..._resource import SyncAPIResource, AsyncAPIResource
+from ...types import shared_params
+
+__all__ = ["UsersResource", "AsyncUsersResource"]
 
 class UsersResource(SyncAPIResource):
     @cached_property
@@ -28,25 +31,20 @@ class UsersResource(SyncAPIResource):
     def with_streaming_response(self) -> UsersResourceWithStreamingResponse:
         return UsersResourceWithStreamingResponse(self)
 
-    def list(
-        self,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> UserListResponse:
+    def list(self,
+    *,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> UserListResponse:
         """Lists all the users in the system."""
         return self._get(
             "/admin/users/list",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=UserListResponse,
         )
-
 
 class AsyncUsersResource(AsyncAPIResource):
     @cached_property
@@ -57,25 +55,20 @@ class AsyncUsersResource(AsyncAPIResource):
     def with_streaming_response(self) -> AsyncUsersResourceWithStreamingResponse:
         return AsyncUsersResourceWithStreamingResponse(self)
 
-    async def list(
-        self,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> UserListResponse:
+    async def list(self,
+    *,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> UserListResponse:
         """Lists all the users in the system."""
         return await self._get(
             "/admin/users/list",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=UserListResponse,
         )
-
 
 class UsersResourceWithRawResponse:
     def __init__(self, users: UsersResource) -> None:
@@ -85,7 +78,6 @@ class UsersResourceWithRawResponse:
             users.list,
         )
 
-
 class AsyncUsersResourceWithRawResponse:
     def __init__(self, users: AsyncUsersResource) -> None:
         self._users = users
@@ -94,7 +86,6 @@ class AsyncUsersResourceWithRawResponse:
             users.list,
         )
 
-
 class UsersResourceWithStreamingResponse:
     def __init__(self, users: UsersResource) -> None:
         self._users = users
@@ -102,7 +93,6 @@ class UsersResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             users.list,
         )
-
 
 class AsyncUsersResourceWithStreamingResponse:
     def __init__(self, users: AsyncUsersResource) -> None:

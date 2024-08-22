@@ -2,40 +2,46 @@
 
 from __future__ import annotations
 
-from typing import Iterable, Optional
-
 import httpx
 
-from ..types import (
-    dataset_get_params,
-    dataset_create_params,
-    dataset_delete_params,
-    dataset_view_table_params,
-    dataset_view_relationships_params,
-)
-from .._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
-from .._utils import (
-    maybe_transform,
-    async_maybe_transform,
-)
 from .._compat import cached_property
-from .._resource import SyncAPIResource, AsyncAPIResource
-from .._response import (
-    to_raw_response_wrapper,
-    to_streamed_response_wrapper,
-    async_to_raw_response_wrapper,
-    async_to_streamed_response_wrapper,
-)
-from ..pagination import SyncJobsList, AsyncJobsList
-from .._base_client import AsyncPaginator, make_request_options
+
+from .._utils import maybe_transform, async_maybe_transform
+
+from .._base_client import make_request_options, AsyncPaginator
+
+from typing import Iterable, Optional
+
 from ..types.table_param import TableParam
-from ..types.dataset_descriptor import DatasetDescriptor
+
 from ..types.dataset_list_response import DatasetListResponse
-from ..types.dataset_view_table_response import DatasetViewTableResponse
+
+from ..types.dataset_descriptor import DatasetDescriptor
+
 from ..types.dataset_view_relationships_response import DatasetViewRelationshipsResponse
 
-__all__ = ["DatasetsResource", "AsyncDatasetsResource"]
+from ..pagination import SyncJobsList, AsyncJobsList
 
+from ..types.dataset_view_table_response import DatasetViewTableResponse
+
+from .._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
+
+from ..types import dataset_create_params
+
+import warnings
+from typing import TYPE_CHECKING, Optional, Union, List, Dict, Any, Mapping, cast, overload
+from typing_extensions import Literal
+from .._utils import extract_files, maybe_transform, required_args, deepcopy_minimal, strip_not_given
+from .._types import NotGiven, Timeout, Headers, NoneType, Query, Body, NOT_GIVEN, FileTypes, BinaryResponseContent
+from .._resource import SyncAPIResource, AsyncAPIResource
+from ..types import shared_params
+from ..types import dataset_create_params
+from ..types import dataset_delete_params
+from ..types import dataset_get_params
+from ..types import dataset_view_relationships_params
+from ..types import dataset_view_table_params
+
+__all__ = ["DatasetsResource", "AsyncDatasetsResource"]
 
 class DatasetsResource(SyncAPIResource):
     @cached_property
@@ -46,20 +52,18 @@ class DatasetsResource(SyncAPIResource):
     def with_streaming_response(self) -> DatasetsResourceWithStreamingResponse:
         return DatasetsResourceWithStreamingResponse(self)
 
-    def create(
-        self,
-        *,
-        description: str,
-        name: str,
-        relationships: Iterable[dataset_create_params.Relationship],
-        tables: Iterable[TableParam],
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> None:
+    def create(self,
+    *,
+    description: str,
+    name: str,
+    relationships: Iterable[dataset_create_params.Relationship],
+    tables: Iterable[TableParam],
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> None:
         """
         Creates a dataset.
 
@@ -75,51 +79,40 @@ class DatasetsResource(SyncAPIResource):
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
             "/dataset/create",
-            body=maybe_transform(
-                {
-                    "description": description,
-                    "name": name,
-                    "relationships": relationships,
-                    "tables": tables,
-                },
-                dataset_create_params.DatasetCreateParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=maybe_transform({
+                "description": description,
+                "name": name,
+                "relationships": relationships,
+                "tables": tables,
+            }, dataset_create_params.DatasetCreateParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=NoneType,
         )
 
-    def list(
-        self,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> DatasetListResponse:
+    def list(self,
+    *,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> DatasetListResponse:
         """Gets all datasets owned by the current user"""
         return self._get(
             "/dataset/list",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=DatasetListResponse,
         )
 
-    def delete(
-        self,
-        *,
-        name: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> None:
+    def delete(self,
+    *,
+    name: str,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> None:
         """
         Permanently delete a dataset and all its contents
 
@@ -137,27 +130,21 @@ class DatasetsResource(SyncAPIResource):
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._delete(
             "/dataset/delete",
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform({"name": name}, dataset_delete_params.DatasetDeleteParams),
-            ),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
+                "name": name
+            }, dataset_delete_params.DatasetDeleteParams)),
             cast_to=NoneType,
         )
 
-    def get(
-        self,
-        *,
-        name: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Optional[DatasetDescriptor]:
+    def get(self,
+    *,
+    name: str,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> Optional[DatasetDescriptor]:
         """
         Grab a dataset by its name.
 
@@ -174,30 +161,24 @@ class DatasetsResource(SyncAPIResource):
         """
         return self._get(
             "/dataset/info",
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform({"name": name}, dataset_get_params.DatasetGetParams),
-            ),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
+                "name": name
+            }, dataset_get_params.DatasetGetParams)),
             cast_to=DatasetDescriptor,
         )
 
-    def view_relationships(
-        self,
-        *,
-        dataset: str,
-        name: str,
-        limit: int | NotGiven = NOT_GIVEN,
-        offset: int | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> SyncJobsList[DatasetViewRelationshipsResponse]:
+    def view_relationships(self,
+    *,
+    dataset: str,
+    name: str,
+    limit: int | NotGiven = NOT_GIVEN,
+    offset: int | NotGiven = NOT_GIVEN,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> SyncJobsList[DatasetViewRelationshipsResponse]:
         """
         You need to specify a dataset and the name of the relationship
 
@@ -212,39 +193,28 @@ class DatasetsResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/dataset/view_relationships",
-            page=SyncJobsList[DatasetViewRelationshipsResponse],
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "dataset": dataset,
-                        "name": name,
-                        "limit": limit,
-                        "offset": offset,
-                    },
-                    dataset_view_relationships_params.DatasetViewRelationshipsParams,
-                ),
-            ),
+            page = SyncJobsList[DatasetViewRelationshipsResponse],
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
+                "dataset": dataset,
+                "name": name,
+                "limit": limit,
+                "offset": offset,
+            }, dataset_view_relationships_params.DatasetViewRelationshipsParams)),
             model=DatasetViewRelationshipsResponse,
         )
 
-    def view_table(
-        self,
-        *,
-        dataset: str,
-        name: str,
-        limit: int | NotGiven = NOT_GIVEN,
-        offset: int | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> SyncJobsList[DatasetViewTableResponse]:
+    def view_table(self,
+    *,
+    dataset: str,
+    name: str,
+    limit: int | NotGiven = NOT_GIVEN,
+    offset: int | NotGiven = NOT_GIVEN,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> SyncJobsList[DatasetViewTableResponse]:
         """
         You need to specify a dataset and a table_name
 
@@ -259,25 +229,15 @@ class DatasetsResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/dataset/view_table",
-            page=SyncJobsList[DatasetViewTableResponse],
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "dataset": dataset,
-                        "name": name,
-                        "limit": limit,
-                        "offset": offset,
-                    },
-                    dataset_view_table_params.DatasetViewTableParams,
-                ),
-            ),
+            page = SyncJobsList[DatasetViewTableResponse],
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
+                "dataset": dataset,
+                "name": name,
+                "limit": limit,
+                "offset": offset,
+            }, dataset_view_table_params.DatasetViewTableParams)),
             model=DatasetViewTableResponse,
         )
-
 
 class AsyncDatasetsResource(AsyncAPIResource):
     @cached_property
@@ -288,20 +248,18 @@ class AsyncDatasetsResource(AsyncAPIResource):
     def with_streaming_response(self) -> AsyncDatasetsResourceWithStreamingResponse:
         return AsyncDatasetsResourceWithStreamingResponse(self)
 
-    async def create(
-        self,
-        *,
-        description: str,
-        name: str,
-        relationships: Iterable[dataset_create_params.Relationship],
-        tables: Iterable[TableParam],
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> None:
+    async def create(self,
+    *,
+    description: str,
+    name: str,
+    relationships: Iterable[dataset_create_params.Relationship],
+    tables: Iterable[TableParam],
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> None:
         """
         Creates a dataset.
 
@@ -317,51 +275,40 @@ class AsyncDatasetsResource(AsyncAPIResource):
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
             "/dataset/create",
-            body=await async_maybe_transform(
-                {
-                    "description": description,
-                    "name": name,
-                    "relationships": relationships,
-                    "tables": tables,
-                },
-                dataset_create_params.DatasetCreateParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=await async_maybe_transform({
+                "description": description,
+                "name": name,
+                "relationships": relationships,
+                "tables": tables,
+            }, dataset_create_params.DatasetCreateParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=NoneType,
         )
 
-    async def list(
-        self,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> DatasetListResponse:
+    async def list(self,
+    *,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> DatasetListResponse:
         """Gets all datasets owned by the current user"""
         return await self._get(
             "/dataset/list",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=DatasetListResponse,
         )
 
-    async def delete(
-        self,
-        *,
-        name: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> None:
+    async def delete(self,
+    *,
+    name: str,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> None:
         """
         Permanently delete a dataset and all its contents
 
@@ -379,27 +326,21 @@ class AsyncDatasetsResource(AsyncAPIResource):
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._delete(
             "/dataset/delete",
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform({"name": name}, dataset_delete_params.DatasetDeleteParams),
-            ),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=await async_maybe_transform({
+                "name": name
+            }, dataset_delete_params.DatasetDeleteParams)),
             cast_to=NoneType,
         )
 
-    async def get(
-        self,
-        *,
-        name: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Optional[DatasetDescriptor]:
+    async def get(self,
+    *,
+    name: str,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> Optional[DatasetDescriptor]:
         """
         Grab a dataset by its name.
 
@@ -416,30 +357,24 @@ class AsyncDatasetsResource(AsyncAPIResource):
         """
         return await self._get(
             "/dataset/info",
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform({"name": name}, dataset_get_params.DatasetGetParams),
-            ),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=await async_maybe_transform({
+                "name": name
+            }, dataset_get_params.DatasetGetParams)),
             cast_to=DatasetDescriptor,
         )
 
-    def view_relationships(
-        self,
-        *,
-        dataset: str,
-        name: str,
-        limit: int | NotGiven = NOT_GIVEN,
-        offset: int | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> AsyncPaginator[DatasetViewRelationshipsResponse, AsyncJobsList[DatasetViewRelationshipsResponse]]:
+    def view_relationships(self,
+    *,
+    dataset: str,
+    name: str,
+    limit: int | NotGiven = NOT_GIVEN,
+    offset: int | NotGiven = NOT_GIVEN,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> AsyncPaginator[DatasetViewRelationshipsResponse, AsyncJobsList[DatasetViewRelationshipsResponse]]:
         """
         You need to specify a dataset and the name of the relationship
 
@@ -454,39 +389,28 @@ class AsyncDatasetsResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/dataset/view_relationships",
-            page=AsyncJobsList[DatasetViewRelationshipsResponse],
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "dataset": dataset,
-                        "name": name,
-                        "limit": limit,
-                        "offset": offset,
-                    },
-                    dataset_view_relationships_params.DatasetViewRelationshipsParams,
-                ),
-            ),
+            page = AsyncJobsList[DatasetViewRelationshipsResponse],
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
+                "dataset": dataset,
+                "name": name,
+                "limit": limit,
+                "offset": offset,
+            }, dataset_view_relationships_params.DatasetViewRelationshipsParams)),
             model=DatasetViewRelationshipsResponse,
         )
 
-    def view_table(
-        self,
-        *,
-        dataset: str,
-        name: str,
-        limit: int | NotGiven = NOT_GIVEN,
-        offset: int | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> AsyncPaginator[DatasetViewTableResponse, AsyncJobsList[DatasetViewTableResponse]]:
+    def view_table(self,
+    *,
+    dataset: str,
+    name: str,
+    limit: int | NotGiven = NOT_GIVEN,
+    offset: int | NotGiven = NOT_GIVEN,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> AsyncPaginator[DatasetViewTableResponse, AsyncJobsList[DatasetViewTableResponse]]:
         """
         You need to specify a dataset and a table_name
 
@@ -501,25 +425,15 @@ class AsyncDatasetsResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/dataset/view_table",
-            page=AsyncJobsList[DatasetViewTableResponse],
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "dataset": dataset,
-                        "name": name,
-                        "limit": limit,
-                        "offset": offset,
-                    },
-                    dataset_view_table_params.DatasetViewTableParams,
-                ),
-            ),
+            page = AsyncJobsList[DatasetViewTableResponse],
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
+                "dataset": dataset,
+                "name": name,
+                "limit": limit,
+                "offset": offset,
+            }, dataset_view_table_params.DatasetViewTableParams)),
             model=DatasetViewTableResponse,
         )
-
 
 class DatasetsResourceWithRawResponse:
     def __init__(self, datasets: DatasetsResource) -> None:
@@ -544,7 +458,6 @@ class DatasetsResourceWithRawResponse:
             datasets.view_table,
         )
 
-
 class AsyncDatasetsResourceWithRawResponse:
     def __init__(self, datasets: AsyncDatasetsResource) -> None:
         self._datasets = datasets
@@ -568,7 +481,6 @@ class AsyncDatasetsResourceWithRawResponse:
             datasets.view_table,
         )
 
-
 class DatasetsResourceWithStreamingResponse:
     def __init__(self, datasets: DatasetsResource) -> None:
         self._datasets = datasets
@@ -591,7 +503,6 @@ class DatasetsResourceWithStreamingResponse:
         self.view_table = to_streamed_response_wrapper(
             datasets.view_table,
         )
-
 
 class AsyncDatasetsResourceWithStreamingResponse:
     def __init__(self, datasets: AsyncDatasetsResource) -> None:
