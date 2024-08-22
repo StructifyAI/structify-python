@@ -8,5 +8,4 @@ __all__ = ["DocumentDeleteParams"]
 
 
 class DocumentDeleteParams(TypedDict, total=False):
-    path: Required[str]
-    """The path of the file to delete"""
+    body: Required[object]
