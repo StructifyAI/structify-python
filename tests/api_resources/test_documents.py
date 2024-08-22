@@ -53,14 +53,14 @@ class TestDocuments:
     @parametrize
     def test_method_delete(self, client: Structify) -> None:
         document = client.documents.delete(
-            body={},
+            "path",
         )
         assert document is None
 
     @parametrize
     def test_raw_response_delete(self, client: Structify) -> None:
         response = client.documents.with_raw_response.delete(
-            body={},
+            "path",
         )
 
         assert response.is_closed is True
@@ -71,7 +71,7 @@ class TestDocuments:
     @parametrize
     def test_streaming_response_delete(self, client: Structify) -> None:
         with client.documents.with_streaming_response.delete(
-            body={},
+            "path",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -82,10 +82,19 @@ class TestDocuments:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
+    def test_path_params_delete(self, client: Structify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `path` but received ''"):
+            client.documents.with_raw_response.delete(
+                "",
+            )
+
+    @parametrize
     @pytest.mark.respx(base_url=base_url)
     def test_method_download(self, client: Structify, respx_mock: MockRouter) -> None:
-        respx_mock.get("/documents/download").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
-        document = client.documents.download()
+        respx_mock.get("/documents/download/path").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
+        document = client.documents.download(
+            "path",
+        )
         assert document.is_closed
         assert document.json() == {"foo": "bar"}
         assert cast(Any, document.is_closed) is True
@@ -94,9 +103,11 @@ class TestDocuments:
     @parametrize
     @pytest.mark.respx(base_url=base_url)
     def test_raw_response_download(self, client: Structify, respx_mock: MockRouter) -> None:
-        respx_mock.get("/documents/download").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
+        respx_mock.get("/documents/download/path").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
 
-        document = client.documents.with_raw_response.download()
+        document = client.documents.with_raw_response.download(
+            "path",
+        )
 
         assert document.is_closed is True
         assert document.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -106,8 +117,10 @@ class TestDocuments:
     @parametrize
     @pytest.mark.respx(base_url=base_url)
     def test_streaming_response_download(self, client: Structify, respx_mock: MockRouter) -> None:
-        respx_mock.get("/documents/download").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
-        with client.documents.with_streaming_response.download() as document:
+        respx_mock.get("/documents/download/path").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
+        with client.documents.with_streaming_response.download(
+            "path",
+        ) as document:
             assert not document.is_closed
             assert document.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -116,6 +129,14 @@ class TestDocuments:
             assert isinstance(document, StreamedBinaryAPIResponse)
 
         assert cast(Any, document.is_closed) is True
+
+    @parametrize
+    @pytest.mark.respx(base_url=base_url)
+    def test_path_params_download(self, client: Structify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `path` but received ''"):
+            client.documents.with_raw_response.download(
+                "",
+            )
 
     @parametrize
     def test_method_upload(self, client: Structify) -> None:
@@ -186,14 +207,14 @@ class TestAsyncDocuments:
     @parametrize
     async def test_method_delete(self, async_client: AsyncStructify) -> None:
         document = await async_client.documents.delete(
-            body={},
+            "path",
         )
         assert document is None
 
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncStructify) -> None:
         response = await async_client.documents.with_raw_response.delete(
-            body={},
+            "path",
         )
 
         assert response.is_closed is True
@@ -204,7 +225,7 @@ class TestAsyncDocuments:
     @parametrize
     async def test_streaming_response_delete(self, async_client: AsyncStructify) -> None:
         async with async_client.documents.with_streaming_response.delete(
-            body={},
+            "path",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -215,10 +236,19 @@ class TestAsyncDocuments:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
+    async def test_path_params_delete(self, async_client: AsyncStructify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `path` but received ''"):
+            await async_client.documents.with_raw_response.delete(
+                "",
+            )
+
+    @parametrize
     @pytest.mark.respx(base_url=base_url)
     async def test_method_download(self, async_client: AsyncStructify, respx_mock: MockRouter) -> None:
-        respx_mock.get("/documents/download").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
-        document = await async_client.documents.download()
+        respx_mock.get("/documents/download/path").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
+        document = await async_client.documents.download(
+            "path",
+        )
         assert document.is_closed
         assert await document.json() == {"foo": "bar"}
         assert cast(Any, document.is_closed) is True
@@ -227,9 +257,11 @@ class TestAsyncDocuments:
     @parametrize
     @pytest.mark.respx(base_url=base_url)
     async def test_raw_response_download(self, async_client: AsyncStructify, respx_mock: MockRouter) -> None:
-        respx_mock.get("/documents/download").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
+        respx_mock.get("/documents/download/path").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
 
-        document = await async_client.documents.with_raw_response.download()
+        document = await async_client.documents.with_raw_response.download(
+            "path",
+        )
 
         assert document.is_closed is True
         assert document.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -239,8 +271,10 @@ class TestAsyncDocuments:
     @parametrize
     @pytest.mark.respx(base_url=base_url)
     async def test_streaming_response_download(self, async_client: AsyncStructify, respx_mock: MockRouter) -> None:
-        respx_mock.get("/documents/download").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
-        async with async_client.documents.with_streaming_response.download() as document:
+        respx_mock.get("/documents/download/path").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
+        async with async_client.documents.with_streaming_response.download(
+            "path",
+        ) as document:
             assert not document.is_closed
             assert document.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -249,6 +283,14 @@ class TestAsyncDocuments:
             assert isinstance(document, AsyncStreamedBinaryAPIResponse)
 
         assert cast(Any, document.is_closed) is True
+
+    @parametrize
+    @pytest.mark.respx(base_url=base_url)
+    async def test_path_params_download(self, async_client: AsyncStructify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `path` but received ''"):
+            await async_client.documents.with_raw_response.download(
+                "",
+            )
 
     @parametrize
     async def test_method_upload(self, async_client: AsyncStructify) -> None:
