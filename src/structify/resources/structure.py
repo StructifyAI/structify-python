@@ -2,43 +2,33 @@
 
 from __future__ import annotations
 
-import httpx
-
-from .._compat import cached_property
-
 from typing import List, Iterable
 
-from .._utils import maybe_transform, async_maybe_transform
+import httpx
 
+from ..types import (
+    structure_run_async_params,
+)
+from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from .._utils import (
+    maybe_transform,
+    async_maybe_transform,
+)
+from .._compat import cached_property
+from .._resource import SyncAPIResource, AsyncAPIResource
+from .._response import (
+    to_raw_response_wrapper,
+    to_streamed_response_wrapper,
+    async_to_raw_response_wrapper,
+    async_to_streamed_response_wrapper,
+)
 from .._base_client import make_request_options
-
-from ..types.structure_is_complete_response import StructureIsCompleteResponse
-
+from ..types.knowledge_graph_param import KnowledgeGraphParam
+from ..types.extraction_criteria_param import ExtractionCriteriaParam
 from ..types.structure_job_status_response import StructureJobStatusResponse
 
-from ..types.extraction_criteria_param import ExtractionCriteriaParam
-
-from ..types.knowledge_graph_param import KnowledgeGraphParam
-
-from ..types.structure_run_async_response import StructureRunAsyncResponse
-
-from .._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
-
-from ..types import structure_run_async_params
-
-import warnings
-from typing import TYPE_CHECKING, Optional, Union, List, Dict, Any, Mapping, cast, overload
-from typing_extensions import Literal
-from .._utils import extract_files, maybe_transform, required_args, deepcopy_minimal, strip_not_given
-from .._types import NotGiven, Timeout, Headers, NoneType, Query, Body, NOT_GIVEN, FileTypes, BinaryResponseContent
-from .._resource import SyncAPIResource, AsyncAPIResource
-from ..types import shared_params
-from ..types import structure_is_complete_params
-from ..types import structure_job_status_params
-from ..types import structure_run_async_params
-from ..types import KnowledgeGraph
-
 __all__ = ["StructureResource", "AsyncStructureResource"]
+
 
 class StructureResource(SyncAPIResource):
     @cached_property
@@ -49,15 +39,17 @@ class StructureResource(SyncAPIResource):
     def with_streaming_response(self) -> StructureResourceWithStreamingResponse:
         return StructureResourceWithStreamingResponse(self)
 
-    def is_complete(self,
-    *,
-    job: List[str],
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> str:
+    def is_complete(
+        self,
+        *,
+        job: List[str],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> str:
         """
         Wait for all specified async tasks to be completed.
 
@@ -74,19 +66,23 @@ class StructureResource(SyncAPIResource):
         return self._post(
             "/structure/is_complete",
             body=maybe_transform(job, List[str]),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=str,
         )
 
-    def job_status(self,
-    *,
-    job: List[str],
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> StructureJobStatusResponse:
+    def job_status(
+        self,
+        *,
+        job: List[str],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> StructureJobStatusResponse:
         """
         and any associated LogNodes that have been added to them
 
@@ -102,22 +98,26 @@ class StructureResource(SyncAPIResource):
         return self._post(
             "/structure/job_status",
             body=maybe_transform(job, List[str]),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=StructureJobStatusResponse,
         )
 
-    def run_async(self,
-    *,
-    name: str,
-    structure_input: structure_run_async_params.StructureInput,
-    extraction_criteria: Iterable[ExtractionCriteriaParam] | NotGiven = NOT_GIVEN,
-    seeded_entity: KnowledgeGraphParam | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> str:
+    def run_async(
+        self,
+        *,
+        name: str,
+        structure_input: structure_run_async_params.StructureInput,
+        extraction_criteria: Iterable[ExtractionCriteriaParam] | NotGiven = NOT_GIVEN,
+        seeded_entity: KnowledgeGraphParam | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> str:
         """
         Returns a token that can be waited on until the request is finished.
 
@@ -139,15 +139,21 @@ class StructureResource(SyncAPIResource):
         extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
         return self._post(
             "/structure/run_async",
-            body=maybe_transform({
-                "name": name,
-                "structure_input": structure_input,
-                "extraction_criteria": extraction_criteria,
-                "seeded_entity": seeded_entity,
-            }, structure_run_async_params.StructureRunAsyncParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform(
+                {
+                    "name": name,
+                    "structure_input": structure_input,
+                    "extraction_criteria": extraction_criteria,
+                    "seeded_entity": seeded_entity,
+                },
+                structure_run_async_params.StructureRunAsyncParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=str,
         )
+
 
 class AsyncStructureResource(AsyncAPIResource):
     @cached_property
@@ -158,15 +164,17 @@ class AsyncStructureResource(AsyncAPIResource):
     def with_streaming_response(self) -> AsyncStructureResourceWithStreamingResponse:
         return AsyncStructureResourceWithStreamingResponse(self)
 
-    async def is_complete(self,
-    *,
-    job: List[str],
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> str:
+    async def is_complete(
+        self,
+        *,
+        job: List[str],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> str:
         """
         Wait for all specified async tasks to be completed.
 
@@ -183,19 +191,23 @@ class AsyncStructureResource(AsyncAPIResource):
         return await self._post(
             "/structure/is_complete",
             body=await async_maybe_transform(job, List[str]),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=str,
         )
 
-    async def job_status(self,
-    *,
-    job: List[str],
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> StructureJobStatusResponse:
+    async def job_status(
+        self,
+        *,
+        job: List[str],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> StructureJobStatusResponse:
         """
         and any associated LogNodes that have been added to them
 
@@ -211,22 +223,26 @@ class AsyncStructureResource(AsyncAPIResource):
         return await self._post(
             "/structure/job_status",
             body=await async_maybe_transform(job, List[str]),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=StructureJobStatusResponse,
         )
 
-    async def run_async(self,
-    *,
-    name: str,
-    structure_input: structure_run_async_params.StructureInput,
-    extraction_criteria: Iterable[ExtractionCriteriaParam] | NotGiven = NOT_GIVEN,
-    seeded_entity: KnowledgeGraphParam | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> str:
+    async def run_async(
+        self,
+        *,
+        name: str,
+        structure_input: structure_run_async_params.StructureInput,
+        extraction_criteria: Iterable[ExtractionCriteriaParam] | NotGiven = NOT_GIVEN,
+        seeded_entity: KnowledgeGraphParam | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> str:
         """
         Returns a token that can be waited on until the request is finished.
 
@@ -248,15 +264,21 @@ class AsyncStructureResource(AsyncAPIResource):
         extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
         return await self._post(
             "/structure/run_async",
-            body=await async_maybe_transform({
-                "name": name,
-                "structure_input": structure_input,
-                "extraction_criteria": extraction_criteria,
-                "seeded_entity": seeded_entity,
-            }, structure_run_async_params.StructureRunAsyncParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform(
+                {
+                    "name": name,
+                    "structure_input": structure_input,
+                    "extraction_criteria": extraction_criteria,
+                    "seeded_entity": seeded_entity,
+                },
+                structure_run_async_params.StructureRunAsyncParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=str,
         )
+
 
 class StructureResourceWithRawResponse:
     def __init__(self, structure: StructureResource) -> None:
@@ -272,6 +294,7 @@ class StructureResourceWithRawResponse:
             structure.run_async,
         )
 
+
 class AsyncStructureResourceWithRawResponse:
     def __init__(self, structure: AsyncStructureResource) -> None:
         self._structure = structure
@@ -286,6 +309,7 @@ class AsyncStructureResourceWithRawResponse:
             structure.run_async,
         )
 
+
 class StructureResourceWithStreamingResponse:
     def __init__(self, structure: StructureResource) -> None:
         self._structure = structure
@@ -299,6 +323,7 @@ class StructureResourceWithStreamingResponse:
         self.run_async = to_streamed_response_wrapper(
             structure.run_async,
         )
+
 
 class AsyncStructureResourceWithStreamingResponse:
     def __init__(self, structure: AsyncStructureResource) -> None:

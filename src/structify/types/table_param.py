@@ -3,12 +3,12 @@
 from __future__ import annotations
 
 from typing import Iterable
-
-from typing_extensions import Literal, TypedDict, Required
+from typing_extensions import Literal, Required, TypedDict
 
 from .property_type_param import PropertyTypeParam
 
 __all__ = ["TableParam", "Property"]
+
 
 class Property(TypedDict, total=False):
     description: Required[str]
@@ -18,6 +18,7 @@ class Property(TypedDict, total=False):
     merge_strategy: Literal["Unique", "FuzzyMatch", "None"]
 
     prop_type: PropertyTypeParam
+
 
 class TableParam(TypedDict, total=False):
     description: Required[str]
