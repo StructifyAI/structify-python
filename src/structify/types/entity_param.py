@@ -3,10 +3,10 @@
 from __future__ import annotations
 
 from typing import Dict
-
-from typing_extensions import TypedDict, Required
+from typing_extensions import Required, TypedDict
 
 __all__ = ["EntityParam"]
+
 
 class EntityParam(TypedDict, total=False):
     id: Required[int]

@@ -1,25 +1,20 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+from typing import Any, List, Type, Generic, Mapping, TypeVar, Optional, cast
 from typing_extensions import override
 
-from typing import List, Type
+from httpx import Response
 
-import re
-from typing import Optional, TypeVar, List, Generic, Dict, Any, Type, Mapping, cast
-from typing_extensions import TypedDict, Literal, Annotated, Protocol, runtime_checkable
-
-from httpx import URL, Response
-from pydantic import Field as FieldInfo
-
+from ._utils import is_mapping
 from ._models import BaseModel
-from ._utils import PropertyInfo, is_mapping
-from ._base_client import BasePage, BaseSyncPage, BaseAsyncPage, PageInfo
+from ._base_client import BasePage, PageInfo, BaseSyncPage, BaseAsyncPage
 
 __all__ = ["SyncJobsList", "AsyncJobsList"]
 
-_BaseModelT = TypeVar('_BaseModelT', bound=BaseModel)
+_BaseModelT = TypeVar("_BaseModelT", bound=BaseModel)
 
-_T = TypeVar('_T')
+_T = TypeVar("_T")
+
 
 class SyncJobsList(BaseSyncPage[_T], BasePage[_T], Generic[_T]):
     items: List[_T]
@@ -35,25 +30,22 @@ class SyncJobsList(BaseSyncPage[_T], BasePage[_T], Generic[_T]):
     def next_page_info(self) -> Optional[PageInfo]:
         offset = self._options.params.get("offset") or 0
         if not isinstance(offset, int):
-          raise ValueError(f'Expected "offset" param to be an integer but got {offset}')
+            raise ValueError(f'Expected "offset" param to be an integer but got {offset}')
 
         length = len(self._get_page_items())
         current_count = offset + length
 
-        return PageInfo(params={
-            "offset": current_count
-        })
+        return PageInfo(params={"offset": current_count})
 
     @classmethod
     def build(cls: Type[_BaseModelT], *, response: Response, data: object) -> _BaseModelT:  # noqa: ARG003
         return cls.construct(
-          None,
-          **{
-            **(cast(Mapping[str, Any], data) if is_mapping(data) else {
-              "items": data
-            }),
+            None,
+            **{
+                **(cast(Mapping[str, Any], data) if is_mapping(data) else {"items": data}),
+            },
+        )
 
-        })
 
 class AsyncJobsList(BaseAsyncPage[_T], BasePage[_T], Generic[_T]):
     items: List[_T]
@@ -69,22 +61,18 @@ class AsyncJobsList(BaseAsyncPage[_T], BasePage[_T], Generic[_T]):
     def next_page_info(self) -> Optional[PageInfo]:
         offset = self._options.params.get("offset") or 0
         if not isinstance(offset, int):
-          raise ValueError(f'Expected "offset" param to be an integer but got {offset}')
+            raise ValueError(f'Expected "offset" param to be an integer but got {offset}')
 
         length = len(self._get_page_items())
         current_count = offset + length
 
-        return PageInfo(params={
-            "offset": current_count
-        })
+        return PageInfo(params={"offset": current_count})
 
     @classmethod
     def build(cls: Type[_BaseModelT], *, response: Response, data: object) -> _BaseModelT:  # noqa: ARG003
         return cls.construct(
-          None,
-          **{
-            **(cast(Mapping[str, Any], data) if is_mapping(data) else {
-              "items": data
-            }),
-
-        })
+            None,
+            **{
+                **(cast(Mapping[str, Any], data) if is_mapping(data) else {"items": data}),
+            },
+        )
