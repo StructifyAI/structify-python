@@ -3,13 +3,11 @@
 from __future__ import annotations
 
 import time
+import anyio
 from typing import TYPE_CHECKING
 
-import anyio
-
 if TYPE_CHECKING:
-    from ._client import Structify, AsyncStructify
-
+  from ._client import Structify, AsyncStructify
 
 class SyncAPIResource:
     _client: Structify
@@ -24,8 +22,7 @@ class SyncAPIResource:
         self._get_api_list = client.get_api_list
 
     def _sleep(self, seconds: float) -> None:
-        time.sleep(seconds)
-
+      time.sleep(seconds)
 
 class AsyncAPIResource:
     _client: AsyncStructify
@@ -40,4 +37,4 @@ class AsyncAPIResource:
         self._get_api_list = client.get_api_list
 
     async def _sleep(self, seconds: float) -> None:
-        await anyio.sleep(seconds)
+      await anyio.sleep(seconds)
