@@ -38,6 +38,7 @@ from .dataset_create_params import DatasetCreateParams as DatasetCreateParams
 from .dataset_delete_params import DatasetDeleteParams as DatasetDeleteParams
 from .dataset_list_response import DatasetListResponse as DatasetListResponse
 from .knowledge_graph_param import KnowledgeGraphParam as KnowledgeGraphParam
+from .document_delete_params import DocumentDeleteParams as DocumentDeleteParams
 from .document_list_response import DocumentListResponse as DocumentListResponse
 from .document_upload_params import DocumentUploadParams as DocumentUploadParams
 from .entity_report_response import EntityReportResponse as EntityReportResponse
