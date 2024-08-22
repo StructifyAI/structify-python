@@ -2,11 +2,9 @@
 
 from __future__ import annotations
 
-from typing import Optional
-
 import httpx
 
-from ..types import entity_add_params, entity_get_params, entity_report_params
+from ..types import entity_add_params, entity_get_params
 from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from .._utils import (
     maybe_transform,
@@ -118,8 +116,6 @@ class EntitiesResource(SyncAPIResource):
     def report(
         self,
         *,
-        id: int,
-        property: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -127,37 +123,12 @@ class EntitiesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> str:
-        """
-        Get all sources for a given entity
-
-        Args:
-          id: Id of the entity to report
-
-          property: Property name that is incorrect
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
+        """Get all sources for a given entity"""
         extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
         return self._post(
             "/entity/report",
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "id": id,
-                        "property": property,
-                    },
-                    entity_report_params.EntityReportParams,
-                ),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=str,
         )
@@ -253,8 +224,6 @@ class AsyncEntitiesResource(AsyncAPIResource):
     async def report(
         self,
         *,
-        id: int,
-        property: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -262,37 +231,12 @@ class AsyncEntitiesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> str:
-        """
-        Get all sources for a given entity
-
-        Args:
-          id: Id of the entity to report
-
-          property: Property name that is incorrect
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
+        """Get all sources for a given entity"""
         extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
         return await self._post(
             "/entity/report",
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform(
-                    {
-                        "id": id,
-                        "property": property,
-                    },
-                    entity_report_params.EntityReportParams,
-                ),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=str,
         )
