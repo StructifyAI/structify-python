@@ -133,12 +133,16 @@ class TestEntities:
 
     @parametrize
     def test_method_report(self, client: Structify) -> None:
-        entity = client.entities.report()
+        entity = client.entities.report(
+            body={},
+        )
         assert_matches_type(str, entity, path=["response"])
 
     @parametrize
     def test_raw_response_report(self, client: Structify) -> None:
-        response = client.entities.with_raw_response.report()
+        response = client.entities.with_raw_response.report(
+            body={},
+        )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -147,7 +151,9 @@ class TestEntities:
 
     @parametrize
     def test_streaming_response_report(self, client: Structify) -> None:
-        with client.entities.with_streaming_response.report() as response:
+        with client.entities.with_streaming_response.report(
+            body={},
+        ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -273,12 +279,16 @@ class TestAsyncEntities:
 
     @parametrize
     async def test_method_report(self, async_client: AsyncStructify) -> None:
-        entity = await async_client.entities.report()
+        entity = await async_client.entities.report(
+            body={},
+        )
         assert_matches_type(str, entity, path=["response"])
 
     @parametrize
     async def test_raw_response_report(self, async_client: AsyncStructify) -> None:
-        response = await async_client.entities.with_raw_response.report()
+        response = await async_client.entities.with_raw_response.report(
+            body={},
+        )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -287,7 +297,9 @@ class TestAsyncEntities:
 
     @parametrize
     async def test_streaming_response_report(self, async_client: AsyncStructify) -> None:
-        async with async_client.entities.with_streaming_response.report() as response:
+        async with async_client.entities.with_streaming_response.report(
+            body={},
+        ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
