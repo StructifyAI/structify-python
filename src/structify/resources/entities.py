@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import httpx
 
-from ..types import entity_add_params, entity_get_params
+from ..types import entity_add_params, entity_get_params, entity_report_params
 from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from .._utils import (
     maybe_transform,
@@ -116,6 +116,7 @@ class EntitiesResource(SyncAPIResource):
     def report(
         self,
         *,
+        body: object,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -123,10 +124,22 @@ class EntitiesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> str:
-        """Get all sources for a given entity"""
+        """
+        Get all sources for a given entity
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
         extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
         return self._post(
             "/entity/report",
+            body=maybe_transform(body, entity_report_params.EntityReportParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -224,6 +237,7 @@ class AsyncEntitiesResource(AsyncAPIResource):
     async def report(
         self,
         *,
+        body: object,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -231,10 +245,22 @@ class AsyncEntitiesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> str:
-        """Get all sources for a given entity"""
+        """
+        Get all sources for a given entity
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
         extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
         return await self._post(
             "/entity/report",
+            body=await async_maybe_transform(body, entity_report_params.EntityReportParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
