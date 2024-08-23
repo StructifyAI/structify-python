@@ -115,7 +115,7 @@ Methods:
 Types:
 
 ```python
-from structify.types import EntityAddResponse, EntityGetResponse, EntityReportResponse
+from structify.types import ReportParams, EntityAddResponse, EntityGetResponse, EntityReportResponse
 ```
 
 Methods:
