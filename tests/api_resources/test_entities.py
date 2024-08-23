@@ -134,14 +134,22 @@ class TestEntities:
     @parametrize
     def test_method_report(self, client: Structify) -> None:
         entity = client.entities.report(
-            body={},
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(str, entity, path=["response"])
+
+    @parametrize
+    def test_method_report_with_all_params(self, client: Structify) -> None:
+        entity = client.entities.report(
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            property="property",
         )
         assert_matches_type(str, entity, path=["response"])
 
     @parametrize
     def test_raw_response_report(self, client: Structify) -> None:
         response = client.entities.with_raw_response.report(
-            body={},
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
         assert response.is_closed is True
@@ -152,7 +160,7 @@ class TestEntities:
     @parametrize
     def test_streaming_response_report(self, client: Structify) -> None:
         with client.entities.with_streaming_response.report(
-            body={},
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -280,14 +288,22 @@ class TestAsyncEntities:
     @parametrize
     async def test_method_report(self, async_client: AsyncStructify) -> None:
         entity = await async_client.entities.report(
-            body={},
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(str, entity, path=["response"])
+
+    @parametrize
+    async def test_method_report_with_all_params(self, async_client: AsyncStructify) -> None:
+        entity = await async_client.entities.report(
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            property="property",
         )
         assert_matches_type(str, entity, path=["response"])
 
     @parametrize
     async def test_raw_response_report(self, async_client: AsyncStructify) -> None:
         response = await async_client.entities.with_raw_response.report(
-            body={},
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
         assert response.is_closed is True
@@ -298,7 +314,7 @@ class TestAsyncEntities:
     @parametrize
     async def test_streaming_response_report(self, async_client: AsyncStructify) -> None:
         async with async_client.entities.with_streaming_response.report(
-            body={},
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
