@@ -122,7 +122,7 @@ Methods:
 
 - <code title="post /entity/add">client.entities.<a href="./src/structify/resources/entities.py">add</a>(\*\*<a href="src/structify/types/entity_add_params.py">params</a>) -> <a href="./src/structify/types/entity_add_response.py">EntityAddResponse</a></code>
 - <code title="get /entity/get">client.entities.<a href="./src/structify/resources/entities.py">get</a>(\*\*<a href="src/structify/types/entity_get_params.py">params</a>) -> <a href="./src/structify/types/entity_get_response.py">EntityGetResponse</a></code>
-- <code title="post /entity/report">client.entities.<a href="./src/structify/resources/entities.py">report</a>() -> str</code>
+- <code title="post /entity/report">client.entities.<a href="./src/structify/resources/entities.py">report</a>(\*\*<a href="src/structify/types/entity_report_params.py">params</a>) -> str</code>
 
 # Structure
 
