@@ -6,7 +6,7 @@ from typing import Optional
 
 import httpx
 
-from ..types import report_report_step_params, report_report_entity_params
+from ..types import report_step_params, report_entity_params
 from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from .._utils import (
     maybe_transform,
@@ -34,7 +34,7 @@ class ReportResource(SyncAPIResource):
     def with_streaming_response(self) -> ReportResourceWithStreamingResponse:
         return ReportResourceWithStreamingResponse(self)
 
-    def report_entity(
+    def entity(
         self,
         *,
         id: str,
@@ -68,7 +68,7 @@ class ReportResource(SyncAPIResource):
                     "id": id,
                     "property": property,
                 },
-                report_report_entity_params.ReportReportEntityParams,
+                report_entity_params.ReportEntityParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -76,11 +76,11 @@ class ReportResource(SyncAPIResource):
             cast_to=str,
         )
 
-    def report_step(
+    def step(
         self,
         *,
-        id: str,
-        property: Optional[str] | NotGiven = NOT_GIVEN,
+        step_id: str,
+        message: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -92,7 +92,7 @@ class ReportResource(SyncAPIResource):
         Get all sources for a given entity
 
         Args:
-          property: A short message about why the entity is being reported
+          message: A short message about why the step is being reported
 
           extra_headers: Send extra headers
 
@@ -107,10 +107,10 @@ class ReportResource(SyncAPIResource):
             "/report/step",
             body=maybe_transform(
                 {
-                    "id": id,
-                    "property": property,
+                    "step_id": step_id,
+                    "message": message,
                 },
-                report_report_step_params.ReportReportStepParams,
+                report_step_params.ReportStepParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -128,7 +128,7 @@ class AsyncReportResource(AsyncAPIResource):
     def with_streaming_response(self) -> AsyncReportResourceWithStreamingResponse:
         return AsyncReportResourceWithStreamingResponse(self)
 
-    async def report_entity(
+    async def entity(
         self,
         *,
         id: str,
@@ -162,7 +162,7 @@ class AsyncReportResource(AsyncAPIResource):
                     "id": id,
                     "property": property,
                 },
-                report_report_entity_params.ReportReportEntityParams,
+                report_entity_params.ReportEntityParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -170,11 +170,11 @@ class AsyncReportResource(AsyncAPIResource):
             cast_to=str,
         )
 
-    async def report_step(
+    async def step(
         self,
         *,
-        id: str,
-        property: Optional[str] | NotGiven = NOT_GIVEN,
+        step_id: str,
+        message: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -186,7 +186,7 @@ class AsyncReportResource(AsyncAPIResource):
         Get all sources for a given entity
 
         Args:
-          property: A short message about why the entity is being reported
+          message: A short message about why the step is being reported
 
           extra_headers: Send extra headers
 
@@ -201,10 +201,10 @@ class AsyncReportResource(AsyncAPIResource):
             "/report/step",
             body=await async_maybe_transform(
                 {
-                    "id": id,
-                    "property": property,
+                    "step_id": step_id,
+                    "message": message,
                 },
-                report_report_step_params.ReportReportStepParams,
+                report_step_params.ReportStepParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -217,11 +217,11 @@ class ReportResourceWithRawResponse:
     def __init__(self, report: ReportResource) -> None:
         self._report = report
 
-        self.report_entity = to_raw_response_wrapper(
-            report.report_entity,
+        self.entity = to_raw_response_wrapper(
+            report.entity,
         )
-        self.report_step = to_raw_response_wrapper(
-            report.report_step,
+        self.step = to_raw_response_wrapper(
+            report.step,
         )
 
 
@@ -229,11 +229,11 @@ class AsyncReportResourceWithRawResponse:
     def __init__(self, report: AsyncReportResource) -> None:
         self._report = report
 
-        self.report_entity = async_to_raw_response_wrapper(
-            report.report_entity,
+        self.entity = async_to_raw_response_wrapper(
+            report.entity,
         )
-        self.report_step = async_to_raw_response_wrapper(
-            report.report_step,
+        self.step = async_to_raw_response_wrapper(
+            report.step,
         )
 
 
@@ -241,11 +241,11 @@ class ReportResourceWithStreamingResponse:
     def __init__(self, report: ReportResource) -> None:
         self._report = report
 
-        self.report_entity = to_streamed_response_wrapper(
-            report.report_entity,
+        self.entity = to_streamed_response_wrapper(
+            report.entity,
         )
-        self.report_step = to_streamed_response_wrapper(
-            report.report_step,
+        self.step = to_streamed_response_wrapper(
+            report.step,
         )
 
 
@@ -253,9 +253,9 @@ class AsyncReportResourceWithStreamingResponse:
     def __init__(self, report: AsyncReportResource) -> None:
         self._report = report
 
-        self.report_entity = async_to_streamed_response_wrapper(
-            report.report_entity,
+        self.entity = async_to_streamed_response_wrapper(
+            report.entity,
         )
-        self.report_step = async_to_streamed_response_wrapper(
-            report.report_step,
+        self.step = async_to_streamed_response_wrapper(
+            report.step,
         )
