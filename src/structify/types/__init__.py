@@ -23,6 +23,7 @@ from .job_list_response import JobListResponse as JobListResponse
 from .dataset_descriptor import DatasetDescriptor as DatasetDescriptor
 from .dataset_get_params import DatasetGetParams as DatasetGetParams
 from .relationship_param import RelationshipParam as RelationshipParam
+from .report_step_params import ReportStepParams as ReportStepParams
 from .server_information import ServerInformation as ServerInformation
 from .source_list_params import SourceListParams as SourceListParams
 from .entity_add_response import EntityAddResponse as EntityAddResponse
@@ -32,6 +33,8 @@ from .job_cancel_response import JobCancelResponse as JobCancelResponse
 from .job_delete_response import JobDeleteResponse as JobDeleteResponse
 from .property_type_param import PropertyTypeParam as PropertyTypeParam
 from .user_usage_response import UserUsageResponse as UserUsageResponse
+from .report_entity_params import ReportEntityParams as ReportEntityParams
+from .report_step_response import ReportStepResponse as ReportStepResponse
 from .source_list_response import SourceListResponse as SourceListResponse
 from .dataset_create_params import DatasetCreateParams as DatasetCreateParams
 from .dataset_delete_params import DatasetDeleteParams as DatasetDeleteParams
@@ -41,18 +44,15 @@ from .document_delete_params import DocumentDeleteParams as DocumentDeleteParams
 from .document_list_response import DocumentListResponse as DocumentListResponse
 from .document_upload_params import DocumentUploadParams as DocumentUploadParams
 from .job_get_steps_response import JobGetStepsResponse as JobGetStepsResponse
+from .report_entity_response import ReportEntityResponse as ReportEntityResponse
 from .document_download_params import DocumentDownloadParams as DocumentDownloadParams
 from .dataset_view_table_params import DatasetViewTableParams as DatasetViewTableParams
 from .extraction_criteria_param import ExtractionCriteriaParam as ExtractionCriteriaParam
-from .report_report_step_params import ReportReportStepParams as ReportReportStepParams
 from .structure_run_async_params import StructureRunAsyncParams as StructureRunAsyncParams
 from .dataset_view_table_response import DatasetViewTableResponse as DatasetViewTableResponse
-from .report_report_entity_params import ReportReportEntityParams as ReportReportEntityParams
-from .report_report_step_response import ReportReportStepResponse as ReportReportStepResponse
 from .structure_job_status_params import StructureJobStatusParams as StructureJobStatusParams
 from .structure_is_complete_params import StructureIsCompleteParams as StructureIsCompleteParams
 from .structure_run_async_response import StructureRunAsyncResponse as StructureRunAsyncResponse
-from .report_report_entity_response import ReportReportEntityResponse as ReportReportEntityResponse
 from .structure_job_status_response import StructureJobStatusResponse as StructureJobStatusResponse
 from .structure_is_complete_response import StructureIsCompleteResponse as StructureIsCompleteResponse
 from .dataset_view_relationships_params import DatasetViewRelationshipsParams as DatasetViewRelationshipsParams

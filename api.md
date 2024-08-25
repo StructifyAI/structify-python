@@ -128,13 +128,13 @@ Methods:
 Types:
 
 ```python
-from structify.types import ReportParams, ReportReportEntityResponse, ReportReportStepResponse
+from structify.types import ReportEntityResponse, ReportStepResponse
 ```
 
 Methods:
 
-- <code title="post /report/entity">client.report.<a href="./src/structify/resources/report.py">report_entity</a>(\*\*<a href="src/structify/types/report_report_entity_params.py">params</a>) -> str</code>
-- <code title="post /report/step">client.report.<a href="./src/structify/resources/report.py">report_step</a>(\*\*<a href="src/structify/types/report_report_step_params.py">params</a>) -> str</code>
+- <code title="post /report/entity">client.report.<a href="./src/structify/resources/report.py">entity</a>(\*\*<a href="src/structify/types/report_entity_params.py">params</a>) -> str</code>
+- <code title="post /report/step">client.report.<a href="./src/structify/resources/report.py">step</a>(\*\*<a href="src/structify/types/report_step_params.py">params</a>) -> str</code>
 
 # Structure
 
