@@ -115,13 +115,26 @@ Methods:
 Types:
 
 ```python
-from structify.types import ReportParams, EntityAddResponse, EntityGetResponse
+from structify.types import EntityAddResponse, EntityGetResponse
 ```
 
 Methods:
 
 - <code title="post /entity/add">client.entities.<a href="./src/structify/resources/entities.py">add</a>(\*\*<a href="src/structify/types/entity_add_params.py">params</a>) -> <a href="./src/structify/types/entity_add_response.py">EntityAddResponse</a></code>
 - <code title="get /entity/get">client.entities.<a href="./src/structify/resources/entities.py">get</a>(\*\*<a href="src/structify/types/entity_get_params.py">params</a>) -> <a href="./src/structify/types/entity_get_response.py">EntityGetResponse</a></code>
+
+# Report
+
+Types:
+
+```python
+from structify.types import ReportParams, ReportReportEntityResponse, ReportReportStepResponse
+```
+
+Methods:
+
+- <code title="post /report/entity">client.report.<a href="./src/structify/resources/report.py">report_entity</a>(\*\*<a href="src/structify/types/report_report_entity_params.py">params</a>) -> str</code>
+- <code title="post /report/step">client.report.<a href="./src/structify/resources/report.py">report_step</a>(\*\*<a href="src/structify/types/report_report_step_params.py">params</a>) -> str</code>
 
 # Structure
 
