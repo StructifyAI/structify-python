@@ -24,6 +24,14 @@ from .admin import (
     AdminResourceWithStreamingResponse,
     AsyncAdminResourceWithStreamingResponse,
 )
+from .report import (
+    ReportResource,
+    AsyncReportResource,
+    ReportResourceWithRawResponse,
+    AsyncReportResourceWithRawResponse,
+    ReportResourceWithStreamingResponse,
+    AsyncReportResourceWithStreamingResponse,
+)
 from .server import (
     ServerResource,
     AsyncServerResource,
@@ -122,6 +130,12 @@ __all__ = [
     "AsyncEntitiesResourceWithRawResponse",
     "EntitiesResourceWithStreamingResponse",
     "AsyncEntitiesResourceWithStreamingResponse",
+    "ReportResource",
+    "AsyncReportResource",
+    "ReportResourceWithRawResponse",
+    "AsyncReportResourceWithRawResponse",
+    "ReportResourceWithStreamingResponse",
+    "AsyncReportResourceWithStreamingResponse",
     "StructureResource",
     "AsyncStructureResource",
     "StructureResourceWithRawResponse",
