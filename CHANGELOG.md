@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.19.0 (2024-08-28)
+
+Full Changelog: [v1.18.0...v1.19.0](https://github.com/StructifyAI/structify-python/compare/v1.18.0...v1.19.0)
+
+### Features
+
+* **api:** OpenAPI spec update via Stainless API ([#437](https://github.com/StructifyAI/structify-python/issues/437)) ([83b83d9](https://github.com/StructifyAI/structify-python/commit/83b83d998a283b9b40ddd7f6838a4e388c69a30e))
+
 ## 1.18.0 (2024-08-28)
 
 Full Changelog: [v1.17.0...v1.18.0](https://github.com/StructifyAI/structify-python/compare/v1.17.0...v1.18.0)
