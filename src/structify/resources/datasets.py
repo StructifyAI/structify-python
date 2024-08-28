@@ -12,6 +12,7 @@ from ..types import (
     dataset_delete_params,
     dataset_view_table_params,
     dataset_view_relationships_params,
+    dataset_view_tables_with_relationships_params,
 )
 from .._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
 from .._utils import (
@@ -33,6 +34,7 @@ from ..types.dataset_descriptor import DatasetDescriptor
 from ..types.dataset_list_response import DatasetListResponse
 from ..types.dataset_view_table_response import DatasetViewTableResponse
 from ..types.dataset_view_relationships_response import DatasetViewRelationshipsResponse
+from ..types.dataset_view_tables_with_relationships_response import DatasetViewTablesWithRelationshipsResponse
 
 __all__ = ["DatasetsResource", "AsyncDatasetsResource"]
 
@@ -278,6 +280,52 @@ class DatasetsResource(SyncAPIResource):
             model=DatasetViewTableResponse,
         )
 
+    def view_tables_with_relationships(
+        self,
+        *,
+        dataset: str,
+        name: str,
+        limit: int | NotGiven = NOT_GIVEN,
+        offset: int | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> DatasetViewTablesWithRelationshipsResponse:
+        """
+        the relationships for each entity and the targets for each relationship.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._get(
+            "/dataset/view_tables_with_relationships",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "dataset": dataset,
+                        "name": name,
+                        "limit": limit,
+                        "offset": offset,
+                    },
+                    dataset_view_tables_with_relationships_params.DatasetViewTablesWithRelationshipsParams,
+                ),
+            ),
+            cast_to=DatasetViewTablesWithRelationshipsResponse,
+        )
+
 
 class AsyncDatasetsResource(AsyncAPIResource):
     @cached_property
@@ -520,6 +568,52 @@ class AsyncDatasetsResource(AsyncAPIResource):
             model=DatasetViewTableResponse,
         )
 
+    async def view_tables_with_relationships(
+        self,
+        *,
+        dataset: str,
+        name: str,
+        limit: int | NotGiven = NOT_GIVEN,
+        offset: int | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> DatasetViewTablesWithRelationshipsResponse:
+        """
+        the relationships for each entity and the targets for each relationship.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._get(
+            "/dataset/view_tables_with_relationships",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "dataset": dataset,
+                        "name": name,
+                        "limit": limit,
+                        "offset": offset,
+                    },
+                    dataset_view_tables_with_relationships_params.DatasetViewTablesWithRelationshipsParams,
+                ),
+            ),
+            cast_to=DatasetViewTablesWithRelationshipsResponse,
+        )
+
 
 class DatasetsResourceWithRawResponse:
     def __init__(self, datasets: DatasetsResource) -> None:
@@ -542,6 +636,9 @@ class DatasetsResourceWithRawResponse:
         )
         self.view_table = to_raw_response_wrapper(
             datasets.view_table,
+        )
+        self.view_tables_with_relationships = to_raw_response_wrapper(
+            datasets.view_tables_with_relationships,
         )
 
 
@@ -567,6 +664,9 @@ class AsyncDatasetsResourceWithRawResponse:
         self.view_table = async_to_raw_response_wrapper(
             datasets.view_table,
         )
+        self.view_tables_with_relationships = async_to_raw_response_wrapper(
+            datasets.view_tables_with_relationships,
+        )
 
 
 class DatasetsResourceWithStreamingResponse:
@@ -591,6 +691,9 @@ class DatasetsResourceWithStreamingResponse:
         self.view_table = to_streamed_response_wrapper(
             datasets.view_table,
         )
+        self.view_tables_with_relationships = to_streamed_response_wrapper(
+            datasets.view_tables_with_relationships,
+        )
 
 
 class AsyncDatasetsResourceWithStreamingResponse:
@@ -614,4 +717,7 @@ class AsyncDatasetsResourceWithStreamingResponse:
         )
         self.view_table = async_to_streamed_response_wrapper(
             datasets.view_table,
+        )
+        self.view_tables_with_relationships = async_to_streamed_response_wrapper(
+            datasets.view_tables_with_relationships,
         )
