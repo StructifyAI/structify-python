@@ -14,6 +14,7 @@ from structify.types import (
     DatasetListResponse,
     DatasetViewTableResponse,
     DatasetViewRelationshipsResponse,
+    DatasetViewTablesWithRelationshipsResponse,
 )
 from structify.pagination import SyncJobsList, AsyncJobsList
 
@@ -460,6 +461,50 @@ class TestDatasets:
 
         assert cast(Any, response.is_closed) is True
 
+    @parametrize
+    def test_method_view_tables_with_relationships(self, client: Structify) -> None:
+        dataset = client.datasets.view_tables_with_relationships(
+            dataset="dataset",
+            name="name",
+        )
+        assert_matches_type(DatasetViewTablesWithRelationshipsResponse, dataset, path=["response"])
+
+    @parametrize
+    def test_method_view_tables_with_relationships_with_all_params(self, client: Structify) -> None:
+        dataset = client.datasets.view_tables_with_relationships(
+            dataset="dataset",
+            name="name",
+            limit=0,
+            offset=0,
+        )
+        assert_matches_type(DatasetViewTablesWithRelationshipsResponse, dataset, path=["response"])
+
+    @parametrize
+    def test_raw_response_view_tables_with_relationships(self, client: Structify) -> None:
+        response = client.datasets.with_raw_response.view_tables_with_relationships(
+            dataset="dataset",
+            name="name",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        dataset = response.parse()
+        assert_matches_type(DatasetViewTablesWithRelationshipsResponse, dataset, path=["response"])
+
+    @parametrize
+    def test_streaming_response_view_tables_with_relationships(self, client: Structify) -> None:
+        with client.datasets.with_streaming_response.view_tables_with_relationships(
+            dataset="dataset",
+            name="name",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            dataset = response.parse()
+            assert_matches_type(DatasetViewTablesWithRelationshipsResponse, dataset, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
 
 class TestAsyncDatasets:
     parametrize = pytest.mark.parametrize("async_client", [False, True], indirect=True, ids=["loose", "strict"])
@@ -898,5 +943,49 @@ class TestAsyncDatasets:
 
             dataset = await response.parse()
             assert_matches_type(AsyncJobsList[DatasetViewTableResponse], dataset, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_method_view_tables_with_relationships(self, async_client: AsyncStructify) -> None:
+        dataset = await async_client.datasets.view_tables_with_relationships(
+            dataset="dataset",
+            name="name",
+        )
+        assert_matches_type(DatasetViewTablesWithRelationshipsResponse, dataset, path=["response"])
+
+    @parametrize
+    async def test_method_view_tables_with_relationships_with_all_params(self, async_client: AsyncStructify) -> None:
+        dataset = await async_client.datasets.view_tables_with_relationships(
+            dataset="dataset",
+            name="name",
+            limit=0,
+            offset=0,
+        )
+        assert_matches_type(DatasetViewTablesWithRelationshipsResponse, dataset, path=["response"])
+
+    @parametrize
+    async def test_raw_response_view_tables_with_relationships(self, async_client: AsyncStructify) -> None:
+        response = await async_client.datasets.with_raw_response.view_tables_with_relationships(
+            dataset="dataset",
+            name="name",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        dataset = await response.parse()
+        assert_matches_type(DatasetViewTablesWithRelationshipsResponse, dataset, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_view_tables_with_relationships(self, async_client: AsyncStructify) -> None:
+        async with async_client.datasets.with_streaming_response.view_tables_with_relationships(
+            dataset="dataset",
+            name="name",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            dataset = await response.parse()
+            assert_matches_type(DatasetViewTablesWithRelationshipsResponse, dataset, path=["response"])
 
         assert cast(Any, response.is_closed) is True
