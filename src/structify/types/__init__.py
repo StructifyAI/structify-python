@@ -57,3 +57,9 @@ from .structure_job_status_response import StructureJobStatusResponse as Structu
 from .structure_is_complete_response import StructureIsCompleteResponse as StructureIsCompleteResponse
 from .dataset_view_relationships_params import DatasetViewRelationshipsParams as DatasetViewRelationshipsParams
 from .dataset_view_relationships_response import DatasetViewRelationshipsResponse as DatasetViewRelationshipsResponse
+from .dataset_view_tables_with_relationships_params import (
+    DatasetViewTablesWithRelationshipsParams as DatasetViewTablesWithRelationshipsParams,
+)
+from .dataset_view_tables_with_relationships_response import (
+    DatasetViewTablesWithRelationshipsResponse as DatasetViewTablesWithRelationshipsResponse,
+)
