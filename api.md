@@ -54,7 +54,7 @@ Methods:
 Types:
 
 ```python
-from structify.types import DocumentListResponse
+from structify.types import FilePath, DocumentListResponse
 ```
 
 Methods:
