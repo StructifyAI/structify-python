@@ -3,14 +3,14 @@
 from __future__ import annotations
 
 import os
-from typing import Any, Optional, cast
+from typing import Any, cast
 
 import pytest
 
 from structify import Structify, AsyncStructify
 from tests.utils import assert_matches_type
 from structify.types import (
-    DatasetDescriptor,
+    DatasetGetResponse,
     DatasetListResponse,
     DatasetViewTableResponse,
     DatasetViewRelationshipsResponse,
@@ -347,7 +347,7 @@ class TestDatasets:
         dataset = client.datasets.get(
             name="name",
         )
-        assert_matches_type(Optional[DatasetDescriptor], dataset, path=["response"])
+        assert_matches_type(DatasetGetResponse, dataset, path=["response"])
 
     @parametrize
     def test_raw_response_get(self, client: Structify) -> None:
@@ -358,7 +358,7 @@ class TestDatasets:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         dataset = response.parse()
-        assert_matches_type(Optional[DatasetDescriptor], dataset, path=["response"])
+        assert_matches_type(DatasetGetResponse, dataset, path=["response"])
 
     @parametrize
     def test_streaming_response_get(self, client: Structify) -> None:
@@ -369,7 +369,7 @@ class TestDatasets:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             dataset = response.parse()
-            assert_matches_type(Optional[DatasetDescriptor], dataset, path=["response"])
+            assert_matches_type(DatasetGetResponse, dataset, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -832,7 +832,7 @@ class TestAsyncDatasets:
         dataset = await async_client.datasets.get(
             name="name",
         )
-        assert_matches_type(Optional[DatasetDescriptor], dataset, path=["response"])
+        assert_matches_type(DatasetGetResponse, dataset, path=["response"])
 
     @parametrize
     async def test_raw_response_get(self, async_client: AsyncStructify) -> None:
@@ -843,7 +843,7 @@ class TestAsyncDatasets:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         dataset = await response.parse()
-        assert_matches_type(Optional[DatasetDescriptor], dataset, path=["response"])
+        assert_matches_type(DatasetGetResponse, dataset, path=["response"])
 
     @parametrize
     async def test_streaming_response_get(self, async_client: AsyncStructify) -> None:
@@ -854,7 +854,7 @@ class TestAsyncDatasets:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             dataset = await response.parse()
-            assert_matches_type(Optional[DatasetDescriptor], dataset, path=["response"])
+            assert_matches_type(DatasetGetResponse, dataset, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
