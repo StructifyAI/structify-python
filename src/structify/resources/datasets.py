@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Iterable, Optional
+from typing import Iterable
 
 import httpx
 
@@ -30,7 +30,7 @@ from .._response import (
 from ..pagination import SyncJobsList, AsyncJobsList
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.table_param import TableParam
-from ..types.dataset_descriptor import DatasetDescriptor
+from ..types.dataset_get_response import DatasetGetResponse
 from ..types.dataset_list_response import DatasetListResponse
 from ..types.dataset_view_table_response import DatasetViewTableResponse
 from ..types.dataset_view_relationships_response import DatasetViewRelationshipsResponse
@@ -159,7 +159,7 @@ class DatasetsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Optional[DatasetDescriptor]:
+    ) -> DatasetGetResponse:
         """
         Grab a dataset by its name.
 
@@ -183,7 +183,7 @@ class DatasetsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform({"name": name}, dataset_get_params.DatasetGetParams),
             ),
-            cast_to=DatasetDescriptor,
+            cast_to=DatasetGetResponse,
         )
 
     def view_relationships(
@@ -447,7 +447,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Optional[DatasetDescriptor]:
+    ) -> DatasetGetResponse:
         """
         Grab a dataset by its name.
 
@@ -471,7 +471,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=await async_maybe_transform({"name": name}, dataset_get_params.DatasetGetParams),
             ),
-            cast_to=DatasetDescriptor,
+            cast_to=DatasetGetResponse,
         )
 
     def view_relationships(
