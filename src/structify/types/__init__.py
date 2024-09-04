@@ -33,6 +33,7 @@ from .job_cancel_response import JobCancelResponse as JobCancelResponse
 from .job_delete_response import JobDeleteResponse as JobDeleteResponse
 from .property_type_param import PropertyTypeParam as PropertyTypeParam
 from .user_usage_response import UserUsageResponse as UserUsageResponse
+from .dataset_get_response import DatasetGetResponse as DatasetGetResponse
 from .report_entity_params import ReportEntityParams as ReportEntityParams
 from .report_step_response import ReportStepResponse as ReportStepResponse
 from .source_list_response import SourceListResponse as SourceListResponse
