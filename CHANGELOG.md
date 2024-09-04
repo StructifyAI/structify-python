@@ -1,5 +1,22 @@
 # Changelog
 
+## 1.20.0 (2024-09-04)
+
+Full Changelog: [v1.19.0...v1.20.0](https://github.com/StructifyAI/structify-python/compare/v1.19.0...v1.20.0)
+
+### Features
+
+* **api:** manual updates ([#442](https://github.com/StructifyAI/structify-python/issues/442)) ([4a0542f](https://github.com/StructifyAI/structify-python/commit/4a0542f225f9d191fdb3c7506b132e9fc1d34211))
+* **api:** OpenAPI spec update via Stainless API ([#440](https://github.com/StructifyAI/structify-python/issues/440)) ([a2a8ac0](https://github.com/StructifyAI/structify-python/commit/a2a8ac08e573bc52ee312702695671c5493aad23))
+* **api:** OpenAPI spec update via Stainless API ([#443](https://github.com/StructifyAI/structify-python/issues/443)) ([08f1187](https://github.com/StructifyAI/structify-python/commit/08f118720d5a1df2af96a6f3f7e99c3693123c7f))
+* **api:** OpenAPI spec update via Stainless API ([#444](https://github.com/StructifyAI/structify-python/issues/444)) ([3fcbcbe](https://github.com/StructifyAI/structify-python/commit/3fcbcbee5dcd8154ce55a555eca82339ebaa6be2))
+* **api:** OpenAPI spec update via Stainless API ([#446](https://github.com/StructifyAI/structify-python/issues/446)) ([3ed898f](https://github.com/StructifyAI/structify-python/commit/3ed898f750ff1cf0af623d21b91d6e0768b3a096))
+
+
+### Chores
+
+* pyproject.toml formatting changes ([#445](https://github.com/StructifyAI/structify-python/issues/445)) ([f81347f](https://github.com/StructifyAI/structify-python/commit/f81347fb6cd11ccafb9d4aeff51bde71fd0a304a))
+
 ## 1.19.0 (2024-08-28)
 
 Full Changelog: [v1.18.0...v1.19.0](https://github.com/StructifyAI/structify-python/compare/v1.18.0...v1.19.0)
