@@ -32,8 +32,10 @@ class TestJobs:
     @parametrize
     def test_method_list_with_all_params(self, client: Structify) -> None:
         job = client.jobs.list(
+            dataset_name="dataset_name",
             limit=0,
             offset=0,
+            status="Queued",
         )
         assert_matches_type(SyncJobsList[JobListResponse], job, path=["response"])
 
@@ -284,8 +286,10 @@ class TestAsyncJobs:
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncStructify) -> None:
         job = await async_client.jobs.list(
+            dataset_name="dataset_name",
             limit=0,
             offset=0,
+            status="Queued",
         )
         assert_matches_type(AsyncJobsList[JobListResponse], job, path=["response"])
 
