@@ -2,6 +2,9 @@
 
 from __future__ import annotations
 
+from typing import Optional
+from typing_extensions import Literal
+
 import httpx
 
 from ..types import job_list_params
@@ -38,8 +41,10 @@ class JobsResource(SyncAPIResource):
     def list(
         self,
         *,
+        dataset_name: Optional[str] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         offset: int | NotGiven = NOT_GIVEN,
+        status: Optional[Literal["Queued", "Running", "Completed", "Failed"]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -51,6 +56,10 @@ class JobsResource(SyncAPIResource):
         List all the executions
 
         Args:
+          dataset_name: Dataset name to optionally filter jobs by
+
+          status: Status to optionally filter jobs by
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -69,8 +78,10 @@ class JobsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "dataset_name": dataset_name,
                         "limit": limit,
                         "offset": offset,
+                        "status": status,
                     },
                     job_list_params.JobListParams,
                 ),
@@ -280,8 +291,10 @@ class AsyncJobsResource(AsyncAPIResource):
     def list(
         self,
         *,
+        dataset_name: Optional[str] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         offset: int | NotGiven = NOT_GIVEN,
+        status: Optional[Literal["Queued", "Running", "Completed", "Failed"]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -293,6 +306,10 @@ class AsyncJobsResource(AsyncAPIResource):
         List all the executions
 
         Args:
+          dataset_name: Dataset name to optionally filter jobs by
+
+          status: Status to optionally filter jobs by
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -311,8 +328,10 @@ class AsyncJobsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "dataset_name": dataset_name,
                         "limit": limit,
                         "offset": offset,
+                        "status": status,
                     },
                     job_list_params.JobListParams,
                 ),
