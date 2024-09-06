@@ -20,6 +20,98 @@ class TestStructure:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @parametrize
+    def test_method_enhance(self, client: Structify) -> None:
+        structure = client.structure.enhance(
+            name="name",
+            structure_input={"sec_ingestor": {}},
+        )
+        assert_matches_type(str, structure, path=["response"])
+
+    @parametrize
+    def test_method_enhance_with_all_params(self, client: Structify) -> None:
+        structure = client.structure.enhance(
+            name="name",
+            structure_input={
+                "sec_ingestor": {
+                    "accession_number": "accession_number",
+                    "quarter": 0,
+                    "year": 0,
+                }
+            },
+            extraction_criteria=[
+                {"relationship_extraction": {"relationship_name": "relationship_name"}},
+                {"relationship_extraction": {"relationship_name": "relationship_name"}},
+                {"relationship_extraction": {"relationship_name": "relationship_name"}},
+            ],
+            seeded_entity={
+                "entities": [
+                    {
+                        "id": 0,
+                        "properties": {"foo": "string"},
+                        "type": "type",
+                    },
+                    {
+                        "id": 0,
+                        "properties": {"foo": "string"},
+                        "type": "type",
+                    },
+                    {
+                        "id": 0,
+                        "properties": {"foo": "string"},
+                        "type": "type",
+                    },
+                ],
+                "relationships": [
+                    {
+                        "source": 0,
+                        "target": 0,
+                        "type": "type",
+                        "properties": {"foo": "string"},
+                    },
+                    {
+                        "source": 0,
+                        "target": 0,
+                        "type": "type",
+                        "properties": {"foo": "string"},
+                    },
+                    {
+                        "source": 0,
+                        "target": 0,
+                        "type": "type",
+                        "properties": {"foo": "string"},
+                    },
+                ],
+            },
+        )
+        assert_matches_type(str, structure, path=["response"])
+
+    @parametrize
+    def test_raw_response_enhance(self, client: Structify) -> None:
+        response = client.structure.with_raw_response.enhance(
+            name="name",
+            structure_input={"sec_ingestor": {}},
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        structure = response.parse()
+        assert_matches_type(str, structure, path=["response"])
+
+    @parametrize
+    def test_streaming_response_enhance(self, client: Structify) -> None:
+        with client.structure.with_streaming_response.enhance(
+            name="name",
+            structure_input={"sec_ingestor": {}},
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            structure = response.parse()
+            assert_matches_type(str, structure, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
     def test_method_is_complete(self, client: Structify) -> None:
         structure = client.structure.is_complete(
             job=["string", "string", "string"],
@@ -176,6 +268,98 @@ class TestStructure:
 
 class TestAsyncStructure:
     parametrize = pytest.mark.parametrize("async_client", [False, True], indirect=True, ids=["loose", "strict"])
+
+    @parametrize
+    async def test_method_enhance(self, async_client: AsyncStructify) -> None:
+        structure = await async_client.structure.enhance(
+            name="name",
+            structure_input={"sec_ingestor": {}},
+        )
+        assert_matches_type(str, structure, path=["response"])
+
+    @parametrize
+    async def test_method_enhance_with_all_params(self, async_client: AsyncStructify) -> None:
+        structure = await async_client.structure.enhance(
+            name="name",
+            structure_input={
+                "sec_ingestor": {
+                    "accession_number": "accession_number",
+                    "quarter": 0,
+                    "year": 0,
+                }
+            },
+            extraction_criteria=[
+                {"relationship_extraction": {"relationship_name": "relationship_name"}},
+                {"relationship_extraction": {"relationship_name": "relationship_name"}},
+                {"relationship_extraction": {"relationship_name": "relationship_name"}},
+            ],
+            seeded_entity={
+                "entities": [
+                    {
+                        "id": 0,
+                        "properties": {"foo": "string"},
+                        "type": "type",
+                    },
+                    {
+                        "id": 0,
+                        "properties": {"foo": "string"},
+                        "type": "type",
+                    },
+                    {
+                        "id": 0,
+                        "properties": {"foo": "string"},
+                        "type": "type",
+                    },
+                ],
+                "relationships": [
+                    {
+                        "source": 0,
+                        "target": 0,
+                        "type": "type",
+                        "properties": {"foo": "string"},
+                    },
+                    {
+                        "source": 0,
+                        "target": 0,
+                        "type": "type",
+                        "properties": {"foo": "string"},
+                    },
+                    {
+                        "source": 0,
+                        "target": 0,
+                        "type": "type",
+                        "properties": {"foo": "string"},
+                    },
+                ],
+            },
+        )
+        assert_matches_type(str, structure, path=["response"])
+
+    @parametrize
+    async def test_raw_response_enhance(self, async_client: AsyncStructify) -> None:
+        response = await async_client.structure.with_raw_response.enhance(
+            name="name",
+            structure_input={"sec_ingestor": {}},
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        structure = await response.parse()
+        assert_matches_type(str, structure, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_enhance(self, async_client: AsyncStructify) -> None:
+        async with async_client.structure.with_streaming_response.enhance(
+            name="name",
+            structure_input={"sec_ingestor": {}},
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            structure = await response.parse()
+            assert_matches_type(str, structure, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
 
     @parametrize
     async def test_method_is_complete(self, async_client: AsyncStructify) -> None:

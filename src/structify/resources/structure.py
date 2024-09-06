@@ -7,6 +7,7 @@ from typing import List, Iterable
 import httpx
 
 from ..types import (
+    structure_enhance_params,
     structure_run_async_params,
 )
 from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
@@ -50,6 +51,56 @@ class StructureResource(SyncAPIResource):
     @cached_property
     def with_streaming_response(self) -> StructureResourceWithStreamingResponse:
         return StructureResourceWithStreamingResponse(self)
+
+    def enhance(
+        self,
+        *,
+        name: str,
+        structure_input: structure_enhance_params.StructureInput,
+        extraction_criteria: Iterable[ExtractionCriteriaParam] | NotGiven = NOT_GIVEN,
+        seeded_entity: KnowledgeGraphParam | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> str:
+        """
+        Returns a job id that can be waited on until the request is finished.
+
+        Args:
+          structure_input: These are all the types that can be converted into a BasicInputType
+
+          seeded_entity: Knowledge graph info structured to deserialize and display in the same format
+              that the LLM outputs. Also the first representation of an LLM output in the
+              pipeline from raw tool output to being merged into a Neo4j DB
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
+        return self._post(
+            "/structure/enhance",
+            body=maybe_transform(
+                {
+                    "name": name,
+                    "structure_input": structure_input,
+                    "extraction_criteria": extraction_criteria,
+                    "seeded_entity": seeded_entity,
+                },
+                structure_enhance_params.StructureEnhanceParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=str,
+        )
 
     def is_complete(
         self,
@@ -228,6 +279,56 @@ class AsyncStructureResource(AsyncAPIResource):
     def with_streaming_response(self) -> AsyncStructureResourceWithStreamingResponse:
         return AsyncStructureResourceWithStreamingResponse(self)
 
+    async def enhance(
+        self,
+        *,
+        name: str,
+        structure_input: structure_enhance_params.StructureInput,
+        extraction_criteria: Iterable[ExtractionCriteriaParam] | NotGiven = NOT_GIVEN,
+        seeded_entity: KnowledgeGraphParam | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> str:
+        """
+        Returns a job id that can be waited on until the request is finished.
+
+        Args:
+          structure_input: These are all the types that can be converted into a BasicInputType
+
+          seeded_entity: Knowledge graph info structured to deserialize and display in the same format
+              that the LLM outputs. Also the first representation of an LLM output in the
+              pipeline from raw tool output to being merged into a Neo4j DB
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
+        return await self._post(
+            "/structure/enhance",
+            body=await async_maybe_transform(
+                {
+                    "name": name,
+                    "structure_input": structure_input,
+                    "extraction_criteria": extraction_criteria,
+                    "seeded_entity": seeded_entity,
+                },
+                structure_enhance_params.StructureEnhanceParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=str,
+        )
+
     async def is_complete(
         self,
         *,
@@ -348,6 +449,9 @@ class StructureResourceWithRawResponse:
     def __init__(self, structure: StructureResource) -> None:
         self._structure = structure
 
+        self.enhance = to_raw_response_wrapper(
+            structure.enhance,
+        )
         self.is_complete = to_raw_response_wrapper(
             structure.is_complete,
         )
@@ -363,6 +467,9 @@ class AsyncStructureResourceWithRawResponse:
     def __init__(self, structure: AsyncStructureResource) -> None:
         self._structure = structure
 
+        self.enhance = async_to_raw_response_wrapper(
+            structure.enhance,
+        )
         self.is_complete = async_to_raw_response_wrapper(
             structure.is_complete,
         )
@@ -378,6 +485,9 @@ class StructureResourceWithStreamingResponse:
     def __init__(self, structure: StructureResource) -> None:
         self._structure = structure
 
+        self.enhance = to_streamed_response_wrapper(
+            structure.enhance,
+        )
         self.is_complete = to_streamed_response_wrapper(
             structure.is_complete,
         )
@@ -393,6 +503,9 @@ class AsyncStructureResourceWithStreamingResponse:
     def __init__(self, structure: AsyncStructureResource) -> None:
         self._structure = structure
 
+        self.enhance = async_to_streamed_response_wrapper(
+            structure.enhance,
+        )
         self.is_complete = async_to_streamed_response_wrapper(
             structure.is_complete,
         )
