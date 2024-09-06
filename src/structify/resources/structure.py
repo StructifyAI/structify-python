@@ -43,10 +43,8 @@ class StructureResource(SyncAPIResource):
     def enhance(
         self,
         *,
-        name: str,
-        structure_input: structure_enhance_params.StructureInput,
-        extraction_criteria: Iterable[ExtractionCriteriaParam] | NotGiven = NOT_GIVEN,
-        seeded_entity: KnowledgeGraphParam | NotGiven = NOT_GIVEN,
+        entity_id: str,
+        property_name: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -58,12 +56,6 @@ class StructureResource(SyncAPIResource):
         Returns a job id that can be waited on until the request is finished.
 
         Args:
-          structure_input: These are all the types that can be converted into a BasicInputType
-
-          seeded_entity: Knowledge graph info structured to deserialize and display in the same format
-              that the LLM outputs. Also the first representation of an LLM output in the
-              pipeline from raw tool output to being merged into a Neo4j DB
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -77,10 +69,8 @@ class StructureResource(SyncAPIResource):
             "/structure/enhance",
             body=maybe_transform(
                 {
-                    "name": name,
-                    "structure_input": structure_input,
-                    "extraction_criteria": extraction_criteria,
-                    "seeded_entity": seeded_entity,
+                    "entity_id": entity_id,
+                    "property_name": property_name,
                 },
                 structure_enhance_params.StructureEnhanceParams,
             ),
@@ -218,10 +208,8 @@ class AsyncStructureResource(AsyncAPIResource):
     async def enhance(
         self,
         *,
-        name: str,
-        structure_input: structure_enhance_params.StructureInput,
-        extraction_criteria: Iterable[ExtractionCriteriaParam] | NotGiven = NOT_GIVEN,
-        seeded_entity: KnowledgeGraphParam | NotGiven = NOT_GIVEN,
+        entity_id: str,
+        property_name: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -233,12 +221,6 @@ class AsyncStructureResource(AsyncAPIResource):
         Returns a job id that can be waited on until the request is finished.
 
         Args:
-          structure_input: These are all the types that can be converted into a BasicInputType
-
-          seeded_entity: Knowledge graph info structured to deserialize and display in the same format
-              that the LLM outputs. Also the first representation of an LLM output in the
-              pipeline from raw tool output to being merged into a Neo4j DB
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -252,10 +234,8 @@ class AsyncStructureResource(AsyncAPIResource):
             "/structure/enhance",
             body=await async_maybe_transform(
                 {
-                    "name": name,
-                    "structure_input": structure_input,
-                    "extraction_criteria": extraction_criteria,
-                    "seeded_entity": seeded_entity,
+                    "entity_id": entity_id,
+                    "property_name": property_name,
                 },
                 structure_enhance_params.StructureEnhanceParams,
             ),
