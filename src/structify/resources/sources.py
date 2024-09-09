@@ -29,10 +29,21 @@ __all__ = ["SourcesResource", "AsyncSourcesResource"]
 class SourcesResource(SyncAPIResource):
     @cached_property
     def with_raw_response(self) -> SourcesResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return the
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/StructifyAI/structify-python#accessing-raw-response-data-eg-headers
+        """
         return SourcesResourceWithRawResponse(self)
 
     @cached_property
     def with_streaming_response(self) -> SourcesResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/StructifyAI/structify-python#with_streaming_response
+        """
         return SourcesResourceWithStreamingResponse(self)
 
     def list(
@@ -85,10 +96,21 @@ class SourcesResource(SyncAPIResource):
 class AsyncSourcesResource(AsyncAPIResource):
     @cached_property
     def with_raw_response(self) -> AsyncSourcesResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return the
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/StructifyAI/structify-python#accessing-raw-response-data-eg-headers
+        """
         return AsyncSourcesResourceWithRawResponse(self)
 
     @cached_property
     def with_streaming_response(self) -> AsyncSourcesResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/StructifyAI/structify-python#with_streaming_response
+        """
         return AsyncSourcesResourceWithStreamingResponse(self)
 
     async def list(

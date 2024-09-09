@@ -46,10 +46,21 @@ from ..types.dataset_view_table_response import DatasetViewTableResponse
 class StructureResource(SyncAPIResource):
     @cached_property
     def with_raw_response(self) -> StructureResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return the
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/StructifyAI/structify-python#accessing-raw-response-data-eg-headers
+        """
         return StructureResourceWithRawResponse(self)
 
     @cached_property
     def with_streaming_response(self) -> StructureResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/StructifyAI/structify-python#with_streaming_response
+        """
         return StructureResourceWithStreamingResponse(self)
 
     def enhance(
@@ -263,10 +274,21 @@ class StructureResource(SyncAPIResource):
 class AsyncStructureResource(AsyncAPIResource):
     @cached_property
     def with_raw_response(self) -> AsyncStructureResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return the
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/StructifyAI/structify-python#accessing-raw-response-data-eg-headers
+        """
         return AsyncStructureResourceWithRawResponse(self)
 
     @cached_property
     def with_streaming_response(self) -> AsyncStructureResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/StructifyAI/structify-python#with_streaming_response
+        """
         return AsyncStructureResourceWithStreamingResponse(self)
 
     async def enhance(
