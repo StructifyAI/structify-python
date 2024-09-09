@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from typing import Optional
 from typing_extensions import Required, TypedDict
 
 from .knowledge_graph_param import KnowledgeGraphParam
@@ -18,3 +19,5 @@ class EntityAddParams(TypedDict, total=False):
     that the LLM outputs. Also the first representation of an LLM output in the
     pipeline from raw tool output to being merged into a Neo4j DB
     """
+
+    source_website: Optional[str]
