@@ -28,6 +28,7 @@ from .server_information import ServerInformation as ServerInformation
 from .source_list_params import SourceListParams as SourceListParams
 from .entity_add_response import EntityAddResponse as EntityAddResponse
 from .entity_get_response import EntityGetResponse as EntityGetResponse
+from .entity_merge_params import EntityMergeParams as EntityMergeParams
 from .extraction_criteria import ExtractionCriteria as ExtractionCriteria
 from .job_cancel_response import JobCancelResponse as JobCancelResponse
 from .job_delete_response import JobDeleteResponse as JobDeleteResponse
@@ -40,6 +41,7 @@ from .source_list_response import SourceListResponse as SourceListResponse
 from .dataset_create_params import DatasetCreateParams as DatasetCreateParams
 from .dataset_delete_params import DatasetDeleteParams as DatasetDeleteParams
 from .dataset_list_response import DatasetListResponse as DatasetListResponse
+from .entity_merge_response import EntityMergeResponse as EntityMergeResponse
 from .knowledge_graph_param import KnowledgeGraphParam as KnowledgeGraphParam
 from .document_delete_params import DocumentDeleteParams as DocumentDeleteParams
 from .document_list_response import DocumentListResponse as DocumentListResponse

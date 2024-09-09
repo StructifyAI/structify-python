@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import httpx
 
-from ..types import entity_add_params, entity_get_params
+from ..types import entity_add_params, entity_get_params, entity_merge_params
 from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from .._utils import (
     maybe_transform,
@@ -21,6 +21,7 @@ from .._response import (
 from .._base_client import make_request_options
 from ..types.entity_add_response import EntityAddResponse
 from ..types.entity_get_response import EntityGetResponse
+from ..types.entity_merge_response import EntityMergeResponse
 from ..types.knowledge_graph_param import KnowledgeGraphParam
 
 __all__ = ["EntitiesResource", "AsyncEntitiesResource"]
@@ -113,6 +114,38 @@ class EntitiesResource(SyncAPIResource):
             cast_to=EntityGetResponse,
         )
 
+    def merge(
+        self,
+        *,
+        body: object,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> EntityMergeResponse:
+        """
+        merge an entity manually
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/entity/merge",
+            body=maybe_transform(body, entity_merge_params.EntityMergeParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=EntityMergeResponse,
+        )
+
 
 class AsyncEntitiesResource(AsyncAPIResource):
     @cached_property
@@ -201,6 +234,38 @@ class AsyncEntitiesResource(AsyncAPIResource):
             cast_to=EntityGetResponse,
         )
 
+    async def merge(
+        self,
+        *,
+        body: object,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> EntityMergeResponse:
+        """
+        merge an entity manually
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/entity/merge",
+            body=await async_maybe_transform(body, entity_merge_params.EntityMergeParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=EntityMergeResponse,
+        )
+
 
 class EntitiesResourceWithRawResponse:
     def __init__(self, entities: EntitiesResource) -> None:
@@ -211,6 +276,9 @@ class EntitiesResourceWithRawResponse:
         )
         self.get = to_raw_response_wrapper(
             entities.get,
+        )
+        self.merge = to_raw_response_wrapper(
+            entities.merge,
         )
 
 
@@ -224,6 +292,9 @@ class AsyncEntitiesResourceWithRawResponse:
         self.get = async_to_raw_response_wrapper(
             entities.get,
         )
+        self.merge = async_to_raw_response_wrapper(
+            entities.merge,
+        )
 
 
 class EntitiesResourceWithStreamingResponse:
@@ -236,6 +307,9 @@ class EntitiesResourceWithStreamingResponse:
         self.get = to_streamed_response_wrapper(
             entities.get,
         )
+        self.merge = to_streamed_response_wrapper(
+            entities.merge,
+        )
 
 
 class AsyncEntitiesResourceWithStreamingResponse:
@@ -247,4 +321,7 @@ class AsyncEntitiesResourceWithStreamingResponse:
         )
         self.get = async_to_streamed_response_wrapper(
             entities.get,
+        )
+        self.merge = async_to_streamed_response_wrapper(
+            entities.merge,
         )
