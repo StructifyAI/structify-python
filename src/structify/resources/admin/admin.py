@@ -23,10 +23,21 @@ class AdminResource(SyncAPIResource):
 
     @cached_property
     def with_raw_response(self) -> AdminResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return the
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/StructifyAI/structify-python#accessing-raw-response-data-eg-headers
+        """
         return AdminResourceWithRawResponse(self)
 
     @cached_property
     def with_streaming_response(self) -> AdminResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/StructifyAI/structify-python#with_streaming_response
+        """
         return AdminResourceWithStreamingResponse(self)
 
 
@@ -37,10 +48,21 @@ class AsyncAdminResource(AsyncAPIResource):
 
     @cached_property
     def with_raw_response(self) -> AsyncAdminResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return the
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/StructifyAI/structify-python#accessing-raw-response-data-eg-headers
+        """
         return AsyncAdminResourceWithRawResponse(self)
 
     @cached_property
     def with_streaming_response(self) -> AsyncAdminResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/StructifyAI/structify-python#with_streaming_response
+        """
         return AsyncAdminResourceWithStreamingResponse(self)
 
 
