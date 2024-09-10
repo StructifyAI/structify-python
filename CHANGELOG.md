@@ -1,5 +1,26 @@
 # Changelog
 
+## 1.23.0 (2024-09-10)
+
+Full Changelog: [v1.22.0...v1.23.0](https://github.com/StructifyAI/structify-python/compare/v1.22.0...v1.23.0)
+
+### Features
+
+* **api:** manual updates ([#461](https://github.com/StructifyAI/structify-python/issues/461)) ([8eeb376](https://github.com/StructifyAI/structify-python/commit/8eeb376475da8bb185f6c052554c74919b42e478))
+* **api:** OpenAPI spec update via Stainless API ([#455](https://github.com/StructifyAI/structify-python/issues/455)) ([fe37e6d](https://github.com/StructifyAI/structify-python/commit/fe37e6deeb519be1996f88055b7330013ddfa468))
+* **api:** OpenAPI spec update via Stainless API ([#459](https://github.com/StructifyAI/structify-python/issues/459)) ([203d3c4](https://github.com/StructifyAI/structify-python/commit/203d3c4431e3795a68d24e1e5abae5b84db4b7fa))
+* **api:** OpenAPI spec update via Stainless API ([#460](https://github.com/StructifyAI/structify-python/issues/460)) ([fcc59ef](https://github.com/StructifyAI/structify-python/commit/fcc59efb1a29eaba2034df83b73f213aac6f1be1))
+
+
+### Chores
+
+* add docstrings to raw response properties ([#457](https://github.com/StructifyAI/structify-python/issues/457)) ([a24f3c3](https://github.com/StructifyAI/structify-python/commit/a24f3c3b9bfa0914a371629fcb13700f781cdec7))
+
+
+### Documentation
+
+* **readme:** add section on determining installed version ([#458](https://github.com/StructifyAI/structify-python/issues/458)) ([7589e44](https://github.com/StructifyAI/structify-python/commit/7589e44f9b617203537b18e87242c4a0c83d8b41))
+
 ## 1.22.0 (2024-09-06)
 
 Full Changelog: [v1.21.0...v1.22.0](https://github.com/StructifyAI/structify-python/compare/v1.21.0...v1.22.0)
