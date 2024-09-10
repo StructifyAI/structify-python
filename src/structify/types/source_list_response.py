@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Union
+from typing import List, Union
 from datetime import datetime
 from typing_extensions import Literal, TypeAlias
 
@@ -11,40 +11,46 @@ from .._models import BaseModel
 
 __all__ = [
     "SourceListResponse",
-    "Location",
-    "LocationText",
-    "LocationTextText",
-    "LocationVisual",
-    "LocationVisualVisual",
+    "SourceListResponseItem",
+    "SourceListResponseItemLocation",
+    "SourceListResponseItemLocationText",
+    "SourceListResponseItemLocationTextText",
+    "SourceListResponseItemLocationVisual",
+    "SourceListResponseItemLocationVisualVisual",
 ]
 
 
-class LocationTextText(BaseModel):
+class SourceListResponseItemLocationTextText(BaseModel):
     byte_offset: int
 
 
-class LocationText(BaseModel):
-    text: LocationTextText = FieldInfo(alias="Text")
+class SourceListResponseItemLocationText(BaseModel):
+    text: SourceListResponseItemLocationTextText = FieldInfo(alias="Text")
 
 
-class LocationVisualVisual(BaseModel):
+class SourceListResponseItemLocationVisualVisual(BaseModel):
     x: int
 
     y: int
 
 
-class LocationVisual(BaseModel):
-    visual: LocationVisualVisual = FieldInfo(alias="Visual")
+class SourceListResponseItemLocationVisual(BaseModel):
+    visual: SourceListResponseItemLocationVisualVisual = FieldInfo(alias="Visual")
 
 
-Location: TypeAlias = Union[LocationText, LocationVisual, Literal["None"]]
+SourceListResponseItemLocation: TypeAlias = Union[
+    SourceListResponseItemLocationText, SourceListResponseItemLocationVisual, Literal["None"]
+]
 
 
-class SourceListResponse(BaseModel):
+class SourceListResponseItem(BaseModel):
     id: str
 
     creation_time: datetime
 
     link: Source
 
-    location: Location
+    location: SourceListResponseItemLocation
+
+
+SourceListResponse: TypeAlias = List[SourceListResponseItem]
