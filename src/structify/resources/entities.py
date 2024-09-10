@@ -132,7 +132,8 @@ class EntitiesResource(SyncAPIResource):
     def merge(
         self,
         *,
-        body: object,
+        entity_1_id: str,
+        entity_2_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -154,7 +155,13 @@ class EntitiesResource(SyncAPIResource):
         """
         return self._post(
             "/entity/merge",
-            body=maybe_transform(body, entity_merge_params.EntityMergeParams),
+            body=maybe_transform(
+                {
+                    "entity_1_id": entity_1_id,
+                    "entity_2_id": entity_2_id,
+                },
+                entity_merge_params.EntityMergeParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -265,7 +272,8 @@ class AsyncEntitiesResource(AsyncAPIResource):
     async def merge(
         self,
         *,
-        body: object,
+        entity_1_id: str,
+        entity_2_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -287,7 +295,13 @@ class AsyncEntitiesResource(AsyncAPIResource):
         """
         return await self._post(
             "/entity/merge",
-            body=await async_maybe_transform(body, entity_merge_params.EntityMergeParams),
+            body=await async_maybe_transform(
+                {
+                    "entity_1_id": entity_1_id,
+                    "entity_2_id": entity_2_id,
+                },
+                entity_merge_params.EntityMergeParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
