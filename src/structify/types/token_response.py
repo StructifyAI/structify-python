@@ -4,8 +4,8 @@
 
 from .._models import BaseModel
 
-__all__ = ["JwtToAPIToken"]
+__all__ = ["TokenResponse"]
 
 
-class JwtToAPIToken(BaseModel):
-    jwt: str
+class TokenResponse(BaseModel):
+    token: str

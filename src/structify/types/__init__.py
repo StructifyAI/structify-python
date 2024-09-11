@@ -5,7 +5,6 @@ from __future__ import annotations
 from .table import Table as Table
 from .entity import Entity as Entity
 from .source import Source as Source
-from .new_token import NewToken as NewToken
 from .user_info import UserInfo as UserInfo
 from .chat_prompt import ChatPrompt as ChatPrompt
 from .table_param import TableParam as TableParam
@@ -14,10 +13,10 @@ from .relationship import Relationship as Relationship
 from .property_type import PropertyType as PropertyType
 from .tool_metadata import ToolMetadata as ToolMetadata
 from .execution_step import ExecutionStep as ExecutionStep
+from .token_response import TokenResponse as TokenResponse
 from .job_list_params import JobListParams as JobListParams
 from .knowledge_graph import KnowledgeGraph as KnowledgeGraph
 from .job_get_response import JobGetResponse as JobGetResponse
-from .jwt_to_api_token import JwtToAPIToken as JwtToAPIToken
 from .entity_add_params import EntityAddParams as EntityAddParams
 from .entity_get_params import EntityGetParams as EntityGetParams
 from .job_list_response import JobListResponse as JobListResponse
