@@ -23,7 +23,15 @@ class TestStructure:
     def test_method_enhance(self, client: Structify) -> None:
         structure = client.structure.enhance(
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(str, structure, path=["response"])
+
+    @parametrize
+    def test_method_enhance_with_all_params(self, client: Structify) -> None:
+        structure = client.structure.enhance(
+            entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             property_name="property_name",
+            relationship_name="relationship_name",
         )
         assert_matches_type(str, structure, path=["response"])
 
@@ -31,7 +39,6 @@ class TestStructure:
     def test_raw_response_enhance(self, client: Structify) -> None:
         response = client.structure.with_raw_response.enhance(
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            property_name="property_name",
         )
 
         assert response.is_closed is True
@@ -43,7 +50,6 @@ class TestStructure:
     def test_streaming_response_enhance(self, client: Structify) -> None:
         with client.structure.with_streaming_response.enhance(
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            property_name="property_name",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -215,7 +221,15 @@ class TestAsyncStructure:
     async def test_method_enhance(self, async_client: AsyncStructify) -> None:
         structure = await async_client.structure.enhance(
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(str, structure, path=["response"])
+
+    @parametrize
+    async def test_method_enhance_with_all_params(self, async_client: AsyncStructify) -> None:
+        structure = await async_client.structure.enhance(
+            entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             property_name="property_name",
+            relationship_name="relationship_name",
         )
         assert_matches_type(str, structure, path=["response"])
 
@@ -223,7 +237,6 @@ class TestAsyncStructure:
     async def test_raw_response_enhance(self, async_client: AsyncStructify) -> None:
         response = await async_client.structure.with_raw_response.enhance(
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            property_name="property_name",
         )
 
         assert response.is_closed is True
@@ -235,7 +248,6 @@ class TestAsyncStructure:
     async def test_streaming_response_enhance(self, async_client: AsyncStructify) -> None:
         async with async_client.structure.with_streaming_response.enhance(
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            property_name="property_name",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

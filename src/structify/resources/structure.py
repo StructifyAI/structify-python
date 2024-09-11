@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import List, Iterable
+from typing import List, Iterable, Optional
 
 import httpx
 
@@ -55,7 +55,8 @@ class StructureResource(SyncAPIResource):
         self,
         *,
         entity_id: str,
-        property_name: str,
+        property_name: Optional[str] | NotGiven = NOT_GIVEN,
+        relationship_name: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -82,6 +83,7 @@ class StructureResource(SyncAPIResource):
                 {
                     "entity_id": entity_id,
                     "property_name": property_name,
+                    "relationship_name": relationship_name,
                 },
                 structure_enhance_params.StructureEnhanceParams,
             ),
@@ -231,7 +233,8 @@ class AsyncStructureResource(AsyncAPIResource):
         self,
         *,
         entity_id: str,
-        property_name: str,
+        property_name: Optional[str] | NotGiven = NOT_GIVEN,
+        relationship_name: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -258,6 +261,7 @@ class AsyncStructureResource(AsyncAPIResource):
                 {
                     "entity_id": entity_id,
                     "property_name": property_name,
+                    "relationship_name": relationship_name,
                 },
                 structure_enhance_params.StructureEnhanceParams,
             ),
