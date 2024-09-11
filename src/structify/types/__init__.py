@@ -17,6 +17,7 @@ from .execution_step import ExecutionStep as ExecutionStep
 from .job_list_params import JobListParams as JobListParams
 from .knowledge_graph import KnowledgeGraph as KnowledgeGraph
 from .job_get_response import JobGetResponse as JobGetResponse
+from .jwt_to_api_token import JwtToAPIToken as JwtToAPIToken
 from .entity_add_params import EntityAddParams as EntityAddParams
 from .entity_get_params import EntityGetParams as EntityGetParams
 from .job_list_response import JobListResponse as JobListResponse
