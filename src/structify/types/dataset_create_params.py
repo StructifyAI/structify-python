@@ -39,7 +39,7 @@ class RelationshipPropertyMergeStrategyProbabilisticProbabilistic(TypedDict, tot
     are only 2 possible values, a match gives less confidence than if there are 100)
     """
 
-    property_match_probability: Required[float]
+    match_transfer_probability: Required[float]
     """The estimated probability that, given an entity match, the properties also match
 
     For a person's full name, this would be quite high. For a person's job title, it
