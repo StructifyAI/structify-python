@@ -14,9 +14,8 @@ from .._response import (
     async_to_streamed_response_wrapper,
 )
 from .._base_client import make_request_options
-from ..types.new_token import NewToken
 from ..types.user_info import UserInfo
-from ..types.jwt_to_api_token import JwtToAPIToken
+from ..types.token_response import TokenResponse
 from ..types.user_usage_response import UserUsageResponse
 
 __all__ = ["UserResource", "AsyncUserResource"]
@@ -51,14 +50,14 @@ class UserResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> NewToken:
+    ) -> TokenResponse:
         """Creates a test token."""
         return self._post(
             "/user/create_test_token",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=NewToken,
+            cast_to=TokenResponse,
         )
 
     def info(
@@ -89,14 +88,29 @@ class UserResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> JwtToAPIToken:
-        """Converts a JWT to an API token."""
+    ) -> TokenResponse:
+        """JWTs are commonly used for authentication in web applications.
+
+        They contain
+        encoded information about the user and are typically short-lived for security
+        reasons.
+
+        This endpoint exists to allow clients who have authenticated via JWT (e.g.,
+        through Supabase) to obtain a long-lived API token. The API token can then be
+        used for subsequent requests to the API without requiring frequent
+        re-authentication.
+
+        This conversion process enhances security by separating the authentication
+        mechanism (JWT) from the API access mechanism (API token), while providing a
+        seamless experience for users transitioning from web-based authentication to API
+        usage.
+        """
         return self._post(
             "/user/jwt_to_api_token",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=JwtToAPIToken,
+            cast_to=TokenResponse,
         )
 
     def usage(
@@ -148,14 +162,14 @@ class AsyncUserResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> NewToken:
+    ) -> TokenResponse:
         """Creates a test token."""
         return await self._post(
             "/user/create_test_token",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=NewToken,
+            cast_to=TokenResponse,
         )
 
     async def info(
@@ -186,14 +200,29 @@ class AsyncUserResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> JwtToAPIToken:
-        """Converts a JWT to an API token."""
+    ) -> TokenResponse:
+        """JWTs are commonly used for authentication in web applications.
+
+        They contain
+        encoded information about the user and are typically short-lived for security
+        reasons.
+
+        This endpoint exists to allow clients who have authenticated via JWT (e.g.,
+        through Supabase) to obtain a long-lived API token. The API token can then be
+        used for subsequent requests to the API without requiring frequent
+        re-authentication.
+
+        This conversion process enhances security by separating the authentication
+        mechanism (JWT) from the API access mechanism (API token), while providing a
+        seamless experience for users transitioning from web-based authentication to API
+        usage.
+        """
         return await self._post(
             "/user/jwt_to_api_token",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=JwtToAPIToken,
+            cast_to=TokenResponse,
         )
 
     async def usage(
