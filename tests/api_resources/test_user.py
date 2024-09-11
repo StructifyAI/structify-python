@@ -68,44 +68,6 @@ class TestUser:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_method_jwt_to_api_token(self, client: Structify) -> None:
-        user = client.user.jwt_to_api_token(
-            "jwt",
-        )
-        assert_matches_type(TokenResponse, user, path=["response"])
-
-    @parametrize
-    def test_raw_response_jwt_to_api_token(self, client: Structify) -> None:
-        response = client.user.with_raw_response.jwt_to_api_token(
-            "jwt",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        user = response.parse()
-        assert_matches_type(TokenResponse, user, path=["response"])
-
-    @parametrize
-    def test_streaming_response_jwt_to_api_token(self, client: Structify) -> None:
-        with client.user.with_streaming_response.jwt_to_api_token(
-            "jwt",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            user = response.parse()
-            assert_matches_type(TokenResponse, user, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    def test_path_params_jwt_to_api_token(self, client: Structify) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `jwt` but received ''"):
-            client.user.with_raw_response.jwt_to_api_token(
-                "",
-            )
-
-    @parametrize
     def test_method_usage(self, client: Structify) -> None:
         user = client.user.usage()
         assert_matches_type(UserUsageResponse, user, path=["response"])
@@ -183,44 +145,6 @@ class TestAsyncUser:
             assert_matches_type(UserInfo, user, path=["response"])
 
         assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    async def test_method_jwt_to_api_token(self, async_client: AsyncStructify) -> None:
-        user = await async_client.user.jwt_to_api_token(
-            "jwt",
-        )
-        assert_matches_type(TokenResponse, user, path=["response"])
-
-    @parametrize
-    async def test_raw_response_jwt_to_api_token(self, async_client: AsyncStructify) -> None:
-        response = await async_client.user.with_raw_response.jwt_to_api_token(
-            "jwt",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        user = await response.parse()
-        assert_matches_type(TokenResponse, user, path=["response"])
-
-    @parametrize
-    async def test_streaming_response_jwt_to_api_token(self, async_client: AsyncStructify) -> None:
-        async with async_client.user.with_streaming_response.jwt_to_api_token(
-            "jwt",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            user = await response.parse()
-            assert_matches_type(TokenResponse, user, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    async def test_path_params_jwt_to_api_token(self, async_client: AsyncStructify) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `jwt` but received ''"):
-            await async_client.user.with_raw_response.jwt_to_api_token(
-                "",
-            )
 
     @parametrize
     async def test_method_usage(self, async_client: AsyncStructify) -> None:
