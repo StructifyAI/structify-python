@@ -16,6 +16,7 @@ from .._response import (
 from .._base_client import make_request_options
 from ..types.new_token import NewToken
 from ..types.user_info import UserInfo
+from ..types.jwt_to_api_token import JwtToAPIToken
 from ..types.user_usage_response import UserUsageResponse
 
 __all__ = ["UserResource", "AsyncUserResource"]
@@ -77,6 +78,25 @@ class UserResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=UserInfo,
+        )
+
+    def jwt_to_api_token(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> JwtToAPIToken:
+        """Converts a JWT to an API token."""
+        return self._post(
+            "/user/jwt_to_api_token",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=JwtToAPIToken,
         )
 
     def usage(
@@ -157,6 +177,25 @@ class AsyncUserResource(AsyncAPIResource):
             cast_to=UserInfo,
         )
 
+    async def jwt_to_api_token(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> JwtToAPIToken:
+        """Converts a JWT to an API token."""
+        return await self._post(
+            "/user/jwt_to_api_token",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=JwtToAPIToken,
+        )
+
     async def usage(
         self,
         *,
@@ -187,6 +226,9 @@ class UserResourceWithRawResponse:
         self.info = to_raw_response_wrapper(
             user.info,
         )
+        self.jwt_to_api_token = to_raw_response_wrapper(
+            user.jwt_to_api_token,
+        )
         self.usage = to_raw_response_wrapper(
             user.usage,
         )
@@ -201,6 +243,9 @@ class AsyncUserResourceWithRawResponse:
         )
         self.info = async_to_raw_response_wrapper(
             user.info,
+        )
+        self.jwt_to_api_token = async_to_raw_response_wrapper(
+            user.jwt_to_api_token,
         )
         self.usage = async_to_raw_response_wrapper(
             user.usage,
@@ -217,6 +262,9 @@ class UserResourceWithStreamingResponse:
         self.info = to_streamed_response_wrapper(
             user.info,
         )
+        self.jwt_to_api_token = to_streamed_response_wrapper(
+            user.jwt_to_api_token,
+        )
         self.usage = to_streamed_response_wrapper(
             user.usage,
         )
@@ -231,6 +279,9 @@ class AsyncUserResourceWithStreamingResponse:
         )
         self.info = async_to_streamed_response_wrapper(
             user.info,
+        )
+        self.jwt_to_api_token = async_to_streamed_response_wrapper(
+            user.jwt_to_api_token,
         )
         self.usage = async_to_streamed_response_wrapper(
             user.usage,
