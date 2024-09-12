@@ -35,6 +35,7 @@ from .job_delete_response import JobDeleteResponse as JobDeleteResponse
 from .property_type_param import PropertyTypeParam as PropertyTypeParam
 from .user_usage_response import UserUsageResponse as UserUsageResponse
 from .dataset_get_response import DatasetGetResponse as DatasetGetResponse
+from .dataset_match_params import DatasetMatchParams as DatasetMatchParams
 from .report_entity_params import ReportEntityParams as ReportEntityParams
 from .report_step_response import ReportStepResponse as ReportStepResponse
 from .source_list_response import SourceListResponse as SourceListResponse
@@ -43,6 +44,7 @@ from .dataset_delete_params import DatasetDeleteParams as DatasetDeleteParams
 from .dataset_list_response import DatasetListResponse as DatasetListResponse
 from .entity_merge_response import EntityMergeResponse as EntityMergeResponse
 from .knowledge_graph_param import KnowledgeGraphParam as KnowledgeGraphParam
+from .dataset_match_response import DatasetMatchResponse as DatasetMatchResponse
 from .document_delete_params import DocumentDeleteParams as DocumentDeleteParams
 from .document_list_response import DocumentListResponse as DocumentListResponse
 from .document_upload_params import DocumentUploadParams as DocumentUploadParams
