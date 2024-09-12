@@ -34,6 +34,7 @@ Types:
 from structify.types import (
     DatasetListResponse,
     DatasetGetResponse,
+    DatasetMatchResponse,
     DatasetViewRelationshipsResponse,
     DatasetViewTableResponse,
     DatasetViewTablesWithRelationshipsResponse,
@@ -46,6 +47,7 @@ Methods:
 - <code title="get /dataset/list">client.datasets.<a href="./src/structify/resources/datasets.py">list</a>() -> <a href="./src/structify/types/dataset_list_response.py">DatasetListResponse</a></code>
 - <code title="delete /dataset/delete">client.datasets.<a href="./src/structify/resources/datasets.py">delete</a>(\*\*<a href="src/structify/types/dataset_delete_params.py">params</a>) -> None</code>
 - <code title="get /dataset/info">client.datasets.<a href="./src/structify/resources/datasets.py">get</a>(\*\*<a href="src/structify/types/dataset_get_params.py">params</a>) -> <a href="./src/structify/types/dataset_get_response.py">DatasetGetResponse</a></code>
+- <code title="post /dataset/match">client.datasets.<a href="./src/structify/resources/datasets.py">match</a>(\*\*<a href="src/structify/types/dataset_match_params.py">params</a>) -> <a href="./src/structify/types/dataset_match_response.py">DatasetMatchResponse</a></code>
 - <code title="get /dataset/view_relationships">client.datasets.<a href="./src/structify/resources/datasets.py">view_relationships</a>(\*\*<a href="src/structify/types/dataset_view_relationships_params.py">params</a>) -> <a href="./src/structify/types/dataset_view_relationships_response.py">SyncJobsList[DatasetViewRelationshipsResponse]</a></code>
 - <code title="get /dataset/view_table">client.datasets.<a href="./src/structify/resources/datasets.py">view_table</a>(\*\*<a href="src/structify/types/dataset_view_table_params.py">params</a>) -> <a href="./src/structify/types/dataset_view_table_response.py">SyncJobsList[DatasetViewTableResponse]</a></code>
 - <code title="get /dataset/view_tables_with_relationships">client.datasets.<a href="./src/structify/resources/datasets.py">view_tables_with_relationships</a>(\*\*<a href="src/structify/types/dataset_view_tables_with_relationships_params.py">params</a>) -> <a href="./src/structify/types/dataset_view_tables_with_relationships_response.py">DatasetViewTablesWithRelationshipsResponse</a></code>
