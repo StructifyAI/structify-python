@@ -33,6 +33,8 @@ class Relationship(BaseModel):
 
     label: str
 
+    properties: Dict[str, str]
+
     to_id: str
 
 
