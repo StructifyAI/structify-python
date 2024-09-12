@@ -12,6 +12,7 @@ from tests.utils import assert_matches_type
 from structify.types import (
     DatasetGetResponse,
     DatasetListResponse,
+    DatasetMatchResponse,
     DatasetViewTableResponse,
     DatasetViewRelationshipsResponse,
     DatasetViewTablesWithRelationshipsResponse,
@@ -370,6 +371,86 @@ class TestDatasets:
 
             dataset = response.parse()
             assert_matches_type(DatasetGetResponse, dataset, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_method_match(self, client: Structify) -> None:
+        dataset = client.datasets.match(
+            dataset="dataset",
+            query_kg={},
+        )
+        assert_matches_type(DatasetMatchResponse, dataset, path=["response"])
+
+    @parametrize
+    def test_method_match_with_all_params(self, client: Structify) -> None:
+        dataset = client.datasets.match(
+            dataset="dataset",
+            query_kg={
+                "entities": [
+                    {
+                        "id": 0,
+                        "properties": {"foo": "string"},
+                        "type": "type",
+                    },
+                    {
+                        "id": 0,
+                        "properties": {"foo": "string"},
+                        "type": "type",
+                    },
+                    {
+                        "id": 0,
+                        "properties": {"foo": "string"},
+                        "type": "type",
+                    },
+                ],
+                "relationships": [
+                    {
+                        "source": 0,
+                        "target": 0,
+                        "type": "type",
+                        "properties": {"foo": "string"},
+                    },
+                    {
+                        "source": 0,
+                        "target": 0,
+                        "type": "type",
+                        "properties": {"foo": "string"},
+                    },
+                    {
+                        "source": 0,
+                        "target": 0,
+                        "type": "type",
+                        "properties": {"foo": "string"},
+                    },
+                ],
+            },
+        )
+        assert_matches_type(DatasetMatchResponse, dataset, path=["response"])
+
+    @parametrize
+    def test_raw_response_match(self, client: Structify) -> None:
+        response = client.datasets.with_raw_response.match(
+            dataset="dataset",
+            query_kg={},
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        dataset = response.parse()
+        assert_matches_type(DatasetMatchResponse, dataset, path=["response"])
+
+    @parametrize
+    def test_streaming_response_match(self, client: Structify) -> None:
+        with client.datasets.with_streaming_response.match(
+            dataset="dataset",
+            query_kg={},
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            dataset = response.parse()
+            assert_matches_type(DatasetMatchResponse, dataset, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -855,6 +936,86 @@ class TestAsyncDatasets:
 
             dataset = await response.parse()
             assert_matches_type(DatasetGetResponse, dataset, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_method_match(self, async_client: AsyncStructify) -> None:
+        dataset = await async_client.datasets.match(
+            dataset="dataset",
+            query_kg={},
+        )
+        assert_matches_type(DatasetMatchResponse, dataset, path=["response"])
+
+    @parametrize
+    async def test_method_match_with_all_params(self, async_client: AsyncStructify) -> None:
+        dataset = await async_client.datasets.match(
+            dataset="dataset",
+            query_kg={
+                "entities": [
+                    {
+                        "id": 0,
+                        "properties": {"foo": "string"},
+                        "type": "type",
+                    },
+                    {
+                        "id": 0,
+                        "properties": {"foo": "string"},
+                        "type": "type",
+                    },
+                    {
+                        "id": 0,
+                        "properties": {"foo": "string"},
+                        "type": "type",
+                    },
+                ],
+                "relationships": [
+                    {
+                        "source": 0,
+                        "target": 0,
+                        "type": "type",
+                        "properties": {"foo": "string"},
+                    },
+                    {
+                        "source": 0,
+                        "target": 0,
+                        "type": "type",
+                        "properties": {"foo": "string"},
+                    },
+                    {
+                        "source": 0,
+                        "target": 0,
+                        "type": "type",
+                        "properties": {"foo": "string"},
+                    },
+                ],
+            },
+        )
+        assert_matches_type(DatasetMatchResponse, dataset, path=["response"])
+
+    @parametrize
+    async def test_raw_response_match(self, async_client: AsyncStructify) -> None:
+        response = await async_client.datasets.with_raw_response.match(
+            dataset="dataset",
+            query_kg={},
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        dataset = await response.parse()
+        assert_matches_type(DatasetMatchResponse, dataset, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_match(self, async_client: AsyncStructify) -> None:
+        async with async_client.datasets.with_streaming_response.match(
+            dataset="dataset",
+            query_kg={},
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            dataset = await response.parse()
+            assert_matches_type(DatasetMatchResponse, dataset, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
