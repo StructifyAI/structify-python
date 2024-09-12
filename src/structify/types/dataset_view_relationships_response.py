@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-
+from typing import Dict
 
 from .._models import BaseModel
 
@@ -11,5 +11,7 @@ class DatasetViewRelationshipsResponse(BaseModel):
     from_id: str
 
     label: str
+
+    properties: Dict[str, str]
 
     to_id: str
