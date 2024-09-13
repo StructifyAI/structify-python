@@ -33,7 +33,6 @@ __all__ = [
     "MessageContentImage",
     "Metadata",
     "MetadataWebFlag",
-    "HumanLlmMetadata",
 ]
 
 
@@ -177,24 +176,9 @@ class Metadata(BaseModel):
     web_flags: Optional[List[MetadataWebFlag]] = None
 
 
-class HumanLlmMetadata(BaseModel):
-    descriptor: DatasetDescriptor
-    """A dataset is where you put multiple referential schemas.
-
-    A dataset is a complete namespace where all references between schemas are held
-    within the dataset.
-    """
-
-    job_id: str
-
-    user_email: str
-
-
 class ChatPrompt(BaseModel):
     decoding_params: DecodingParams
 
     messages: List[Message]
 
     metadata: Metadata
-
-    human_llm_metadata: Optional[HumanLlmMetadata] = None
