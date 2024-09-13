@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, Union, Optional
+from typing import Dict, Union
 from datetime import datetime
 
 from .._models import BaseModel
@@ -15,4 +15,4 @@ class DatasetViewTableResponse(BaseModel):
 
     label: str
 
-    properties: Dict[str, Union[Optional[str], Optional[bool], Optional[int]]]
+    properties: Dict[str, Union[str, int, bool]]
