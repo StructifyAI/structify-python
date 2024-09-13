@@ -54,6 +54,7 @@ from .document_download_params import DocumentDownloadParams as DocumentDownload
 from .structure_enhance_params import StructureEnhanceParams as StructureEnhanceParams
 from .dataset_view_table_params import DatasetViewTableParams as DatasetViewTableParams
 from .extraction_criteria_param import ExtractionCriteriaParam as ExtractionCriteriaParam
+from .document_download_response import DocumentDownloadResponse as DocumentDownloadResponse
 from .structure_enhance_response import StructureEnhanceResponse as StructureEnhanceResponse
 from .structure_run_async_params import StructureRunAsyncParams as StructureRunAsyncParams
 from .dataset_view_table_response import DatasetViewTableResponse as DatasetViewTableResponse

@@ -5,20 +5,13 @@ from __future__ import annotations
 import os
 from typing import Any, cast
 
-import httpx
 import pytest
-from respx import MockRouter
 
 from structify import Structify, AsyncStructify
 from tests.utils import assert_matches_type
 from structify.types import (
     DocumentListResponse,
-)
-from structify._response import (
-    BinaryAPIResponse,
-    AsyncBinaryAPIResponse,
-    StreamedBinaryAPIResponse,
-    AsyncStreamedBinaryAPIResponse,
+    DocumentDownloadResponse,
 )
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
@@ -84,46 +77,35 @@ class TestDocuments:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    @pytest.mark.respx(base_url=base_url)
-    def test_method_download(self, client: Structify, respx_mock: MockRouter) -> None:
-        respx_mock.post("/documents/download").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
+    def test_method_download(self, client: Structify) -> None:
         document = client.documents.download(
             file_path="file_path",
         )
-        assert document.is_closed
-        assert document.json() == {"foo": "bar"}
-        assert cast(Any, document.is_closed) is True
-        assert isinstance(document, BinaryAPIResponse)
+        assert_matches_type(DocumentDownloadResponse, document, path=["response"])
 
     @parametrize
-    @pytest.mark.respx(base_url=base_url)
-    def test_raw_response_download(self, client: Structify, respx_mock: MockRouter) -> None:
-        respx_mock.post("/documents/download").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
-
-        document = client.documents.with_raw_response.download(
+    def test_raw_response_download(self, client: Structify) -> None:
+        response = client.documents.with_raw_response.download(
             file_path="file_path",
         )
 
-        assert document.is_closed is True
-        assert document.http_request.headers.get("X-Stainless-Lang") == "python"
-        assert document.json() == {"foo": "bar"}
-        assert isinstance(document, BinaryAPIResponse)
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        document = response.parse()
+        assert_matches_type(DocumentDownloadResponse, document, path=["response"])
 
     @parametrize
-    @pytest.mark.respx(base_url=base_url)
-    def test_streaming_response_download(self, client: Structify, respx_mock: MockRouter) -> None:
-        respx_mock.post("/documents/download").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
+    def test_streaming_response_download(self, client: Structify) -> None:
         with client.documents.with_streaming_response.download(
             file_path="file_path",
-        ) as document:
-            assert not document.is_closed
-            assert document.http_request.headers.get("X-Stainless-Lang") == "python"
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            assert document.json() == {"foo": "bar"}
-            assert cast(Any, document.is_closed) is True
-            assert isinstance(document, StreamedBinaryAPIResponse)
+            document = response.parse()
+            assert_matches_type(DocumentDownloadResponse, document, path=["response"])
 
-        assert cast(Any, document.is_closed) is True
+        assert cast(Any, response.is_closed) is True
 
     @parametrize
     def test_method_upload(self, client: Structify) -> None:
@@ -223,46 +205,35 @@ class TestAsyncDocuments:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    @pytest.mark.respx(base_url=base_url)
-    async def test_method_download(self, async_client: AsyncStructify, respx_mock: MockRouter) -> None:
-        respx_mock.post("/documents/download").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
+    async def test_method_download(self, async_client: AsyncStructify) -> None:
         document = await async_client.documents.download(
             file_path="file_path",
         )
-        assert document.is_closed
-        assert await document.json() == {"foo": "bar"}
-        assert cast(Any, document.is_closed) is True
-        assert isinstance(document, AsyncBinaryAPIResponse)
+        assert_matches_type(DocumentDownloadResponse, document, path=["response"])
 
     @parametrize
-    @pytest.mark.respx(base_url=base_url)
-    async def test_raw_response_download(self, async_client: AsyncStructify, respx_mock: MockRouter) -> None:
-        respx_mock.post("/documents/download").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
-
-        document = await async_client.documents.with_raw_response.download(
+    async def test_raw_response_download(self, async_client: AsyncStructify) -> None:
+        response = await async_client.documents.with_raw_response.download(
             file_path="file_path",
         )
 
-        assert document.is_closed is True
-        assert document.http_request.headers.get("X-Stainless-Lang") == "python"
-        assert await document.json() == {"foo": "bar"}
-        assert isinstance(document, AsyncBinaryAPIResponse)
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        document = await response.parse()
+        assert_matches_type(DocumentDownloadResponse, document, path=["response"])
 
     @parametrize
-    @pytest.mark.respx(base_url=base_url)
-    async def test_streaming_response_download(self, async_client: AsyncStructify, respx_mock: MockRouter) -> None:
-        respx_mock.post("/documents/download").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
+    async def test_streaming_response_download(self, async_client: AsyncStructify) -> None:
         async with async_client.documents.with_streaming_response.download(
             file_path="file_path",
-        ) as document:
-            assert not document.is_closed
-            assert document.http_request.headers.get("X-Stainless-Lang") == "python"
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            assert await document.json() == {"foo": "bar"}
-            assert cast(Any, document.is_closed) is True
-            assert isinstance(document, AsyncStreamedBinaryAPIResponse)
+            document = await response.parse()
+            assert_matches_type(DocumentDownloadResponse, document, path=["response"])
 
-        assert cast(Any, document.is_closed) is True
+        assert cast(Any, response.is_closed) is True
 
     @parametrize
     async def test_method_upload(self, async_client: AsyncStructify) -> None:
