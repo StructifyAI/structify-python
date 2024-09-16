@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.28.0 (2024-09-16)
+
+Full Changelog: [v1.27.0...v1.28.0](https://github.com/StructifyAI/structify-python/compare/v1.27.0...v1.28.0)
+
+### Features
+
+* **api:** OpenAPI spec update via Stainless API ([#484](https://github.com/StructifyAI/structify-python/issues/484)) ([bfcbfb6](https://github.com/StructifyAI/structify-python/commit/bfcbfb6ba7cf1dff294b61c1eed7c800a73feffc))
+
+
+### Chores
+
+* **internal:** bump pyright / mypy version ([#487](https://github.com/StructifyAI/structify-python/issues/487)) ([b5c6c41](https://github.com/StructifyAI/structify-python/commit/b5c6c41b67507b710ecad0cce89438bb80ffce85))
+* **internal:** bump ruff ([#485](https://github.com/StructifyAI/structify-python/issues/485)) ([7d36ebd](https://github.com/StructifyAI/structify-python/commit/7d36ebd4406fd1f9db4328f447f103178cc71569))
+
 ## 1.27.0 (2024-09-13)
 
 Full Changelog: [v1.26.0...v1.27.0](https://github.com/StructifyAI/structify-python/compare/v1.26.0...v1.27.0)
