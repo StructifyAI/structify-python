@@ -23,6 +23,14 @@ class TestUser:
         assert_matches_type(TokenResponse, user, path=["response"])
 
     @parametrize
+    def test_method_create_test_token_with_all_params(self, client: Structify) -> None:
+        user = client.user.create_test_token(
+            credits=0,
+            is_admin=True,
+        )
+        assert_matches_type(TokenResponse, user, path=["response"])
+
+    @parametrize
     def test_raw_response_create_test_token(self, client: Structify) -> None:
         response = client.user.with_raw_response.create_test_token()
 
@@ -99,6 +107,14 @@ class TestAsyncUser:
     @parametrize
     async def test_method_create_test_token(self, async_client: AsyncStructify) -> None:
         user = await async_client.user.create_test_token()
+        assert_matches_type(TokenResponse, user, path=["response"])
+
+    @parametrize
+    async def test_method_create_test_token_with_all_params(self, async_client: AsyncStructify) -> None:
+        user = await async_client.user.create_test_token(
+            credits=0,
+            is_admin=True,
+        )
         assert_matches_type(TokenResponse, user, path=["response"])
 
     @parametrize
