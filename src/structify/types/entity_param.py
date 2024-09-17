@@ -11,6 +11,6 @@ __all__ = ["EntityParam"]
 class EntityParam(TypedDict, total=False):
     id: Required[int]
 
-    properties: Required[Dict[str, Union[str, int, bool]]]
+    properties: Required[Dict[str, Union[str, bool, float]]]
 
     type: Required[str]

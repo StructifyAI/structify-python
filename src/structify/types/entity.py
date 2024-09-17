@@ -10,6 +10,6 @@ __all__ = ["Entity"]
 class Entity(BaseModel):
     id: int
 
-    properties: Dict[str, Union[str, int, bool]]
+    properties: Dict[str, Union[str, bool, float]]
 
     type: str
