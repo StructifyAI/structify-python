@@ -15,4 +15,4 @@ class RelationshipParam(TypedDict, total=False):
 
     type: Required[str]
 
-    properties: Dict[str, Union[str, int, bool]]
+    properties: Dict[str, Union[str, bool, float]]
