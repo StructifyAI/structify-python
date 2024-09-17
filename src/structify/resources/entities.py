@@ -6,7 +6,12 @@ from typing import Optional
 
 import httpx
 
-from ..types import entity_add_params, entity_get_params, entity_merge_params
+from ..types import (
+    entity_add_params,
+    entity_get_params,
+    entity_merge_params,
+    entity_get_local_subgraph_params,
+)
 from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from .._utils import (
     maybe_transform,
@@ -25,6 +30,7 @@ from ..types.entity_add_response import EntityAddResponse
 from ..types.entity_get_response import EntityGetResponse
 from ..types.entity_merge_response import EntityMergeResponse
 from ..types.knowledge_graph_param import KnowledgeGraphParam
+from ..types.entity_get_local_subgraph_response import EntityGetLocalSubgraphResponse
 
 __all__ = ["EntitiesResource", "AsyncEntitiesResource"]
 
@@ -127,6 +133,46 @@ class EntitiesResource(SyncAPIResource):
                 query=maybe_transform({"id": id}, entity_get_params.EntityGetParams),
             ),
             cast_to=EntityGetResponse,
+        )
+
+    def get_local_subgraph(
+        self,
+        *,
+        id: str,
+        radius: int | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> EntityGetLocalSubgraphResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._get(
+            "/entity/get_local_subgraph",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "id": id,
+                        "radius": radius,
+                    },
+                    entity_get_local_subgraph_params.EntityGetLocalSubgraphParams,
+                ),
+            ),
+            cast_to=EntityGetLocalSubgraphResponse,
         )
 
     def merge(
@@ -269,6 +315,46 @@ class AsyncEntitiesResource(AsyncAPIResource):
             cast_to=EntityGetResponse,
         )
 
+    async def get_local_subgraph(
+        self,
+        *,
+        id: str,
+        radius: int | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> EntityGetLocalSubgraphResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._get(
+            "/entity/get_local_subgraph",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "id": id,
+                        "radius": radius,
+                    },
+                    entity_get_local_subgraph_params.EntityGetLocalSubgraphParams,
+                ),
+            ),
+            cast_to=EntityGetLocalSubgraphResponse,
+        )
+
     async def merge(
         self,
         *,
@@ -319,6 +405,9 @@ class EntitiesResourceWithRawResponse:
         self.get = to_raw_response_wrapper(
             entities.get,
         )
+        self.get_local_subgraph = to_raw_response_wrapper(
+            entities.get_local_subgraph,
+        )
         self.merge = to_raw_response_wrapper(
             entities.merge,
         )
@@ -333,6 +422,9 @@ class AsyncEntitiesResourceWithRawResponse:
         )
         self.get = async_to_raw_response_wrapper(
             entities.get,
+        )
+        self.get_local_subgraph = async_to_raw_response_wrapper(
+            entities.get_local_subgraph,
         )
         self.merge = async_to_raw_response_wrapper(
             entities.merge,
@@ -349,6 +441,9 @@ class EntitiesResourceWithStreamingResponse:
         self.get = to_streamed_response_wrapper(
             entities.get,
         )
+        self.get_local_subgraph = to_streamed_response_wrapper(
+            entities.get_local_subgraph,
+        )
         self.merge = to_streamed_response_wrapper(
             entities.merge,
         )
@@ -363,6 +458,9 @@ class AsyncEntitiesResourceWithStreamingResponse:
         )
         self.get = async_to_streamed_response_wrapper(
             entities.get,
+        )
+        self.get_local_subgraph = async_to_streamed_response_wrapper(
+            entities.get_local_subgraph,
         )
         self.merge = async_to_streamed_response_wrapper(
             entities.merge,
