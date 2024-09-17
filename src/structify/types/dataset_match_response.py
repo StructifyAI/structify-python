@@ -1,19 +1,24 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-
+from typing import Dict, Union
+from datetime import datetime
 
 from .._models import BaseModel
-from .knowledge_graph import KnowledgeGraph
 
-__all__ = ["DatasetMatchResponse"]
+__all__ = ["DatasetMatchResponse", "Entity"]
+
+
+class Entity(BaseModel):
+    id: str
+
+    creation_time: datetime
+
+    label: str
+
+    properties: Dict[str, Union[str, int, bool]]
 
 
 class DatasetMatchResponse(BaseModel):
-    llm_kg: KnowledgeGraph
-    """
-    Knowledge graph info structured to deserialize and display in the same format
-    that the LLM outputs. Also the first representation of an LLM output in the
-    pipeline from raw tool output to being merged into a Neo4j DB
-    """
+    entity: Entity
 
     score: float
