@@ -15,7 +15,7 @@ class ConnectedEntity(BaseModel):
 
     label: str
 
-    properties: Dict[str, Union[str, int, bool]]
+    properties: Dict[str, Union[str, bool, float]]
 
 
 class Entity(BaseModel):
@@ -25,7 +25,7 @@ class Entity(BaseModel):
 
     label: str
 
-    properties: Dict[str, Union[str, int, bool]]
+    properties: Dict[str, Union[str, bool, float]]
 
 
 class Relationship(BaseModel):
@@ -33,7 +33,7 @@ class Relationship(BaseModel):
 
     label: str
 
-    properties: Dict[str, Union[str, int, bool]]
+    properties: Dict[str, Union[str, bool, float]]
 
     to_id: str
 

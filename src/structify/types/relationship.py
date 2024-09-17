@@ -14,4 +14,4 @@ class Relationship(BaseModel):
 
     type: str
 
-    properties: Optional[Dict[str, Union[str, int, bool]]] = None
+    properties: Optional[Dict[str, Union[str, bool, float]]] = None

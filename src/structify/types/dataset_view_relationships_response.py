@@ -12,6 +12,6 @@ class DatasetViewRelationshipsResponse(BaseModel):
 
     label: str
 
-    properties: Dict[str, Union[str, int, bool]]
+    properties: Dict[str, Union[str, bool, float]]
 
     to_id: str
