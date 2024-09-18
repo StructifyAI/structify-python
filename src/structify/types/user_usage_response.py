@@ -8,6 +8,8 @@ __all__ = ["UserUsageResponse"]
 
 
 class UserUsageResponse(BaseModel):
+    credits_used: int
+
     num_entities: int
 
     num_relationships: int
