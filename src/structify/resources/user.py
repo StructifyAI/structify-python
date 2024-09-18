@@ -118,7 +118,7 @@ class UserResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> UserUsageResponse:
         """
-        Creates a test token.
+        Returns usage statistics for the user.
 
         Args:
           extra_headers: Send extra headers
@@ -232,7 +232,7 @@ class AsyncUserResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> UserUsageResponse:
         """
-        Creates a test token.
+        Returns usage statistics for the user.
 
         Args:
           extra_headers: Send extra headers
