@@ -81,6 +81,13 @@ class TestUser:
         assert_matches_type(UserUsageResponse, user, path=["response"])
 
     @parametrize
+    def test_method_usage_with_all_params(self, client: Structify) -> None:
+        user = client.user.usage(
+            dataset="dataset",
+        )
+        assert_matches_type(UserUsageResponse, user, path=["response"])
+
+    @parametrize
     def test_raw_response_usage(self, client: Structify) -> None:
         response = client.user.with_raw_response.usage()
 
@@ -165,6 +172,13 @@ class TestAsyncUser:
     @parametrize
     async def test_method_usage(self, async_client: AsyncStructify) -> None:
         user = await async_client.user.usage()
+        assert_matches_type(UserUsageResponse, user, path=["response"])
+
+    @parametrize
+    async def test_method_usage_with_all_params(self, async_client: AsyncStructify) -> None:
+        user = await async_client.user.usage(
+            dataset="dataset",
+        )
         assert_matches_type(UserUsageResponse, user, path=["response"])
 
     @parametrize

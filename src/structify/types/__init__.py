@@ -20,6 +20,7 @@ from .job_get_response import JobGetResponse as JobGetResponse
 from .entity_add_params import EntityAddParams as EntityAddParams
 from .entity_get_params import EntityGetParams as EntityGetParams
 from .job_list_response import JobListResponse as JobListResponse
+from .user_usage_params import UserUsageParams as UserUsageParams
 from .dataset_descriptor import DatasetDescriptor as DatasetDescriptor
 from .dataset_get_params import DatasetGetParams as DatasetGetParams
 from .relationship_param import RelationshipParam as RelationshipParam
