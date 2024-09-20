@@ -757,6 +757,7 @@ class TestStructify:
         response = client.server.with_raw_response.version()
 
         assert response.retries_taken == failures_before_success
+        assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
 
 
 class TestAsyncStructify:
@@ -1483,3 +1484,4 @@ class TestAsyncStructify:
         response = await client.server.with_raw_response.version()
 
         assert response.retries_taken == failures_before_success
+        assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
