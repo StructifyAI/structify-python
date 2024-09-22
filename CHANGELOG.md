@@ -1,5 +1,23 @@
 # Changelog
 
+## 1.31.0 (2024-09-22)
+
+Full Changelog: [v1.30.0...v1.31.0](https://github.com/StructifyAI/structify-python/compare/v1.30.0...v1.31.0)
+
+### Features
+
+* **api:** OpenAPI spec update via Stainless API ([#499](https://github.com/StructifyAI/structify-python/issues/499)) ([1a6af4f](https://github.com/StructifyAI/structify-python/commit/1a6af4f7fc990be9c6c674c61a0a1284799ea191))
+* **api:** OpenAPI spec update via Stainless API ([#501](https://github.com/StructifyAI/structify-python/issues/501)) ([c74fed6](https://github.com/StructifyAI/structify-python/commit/c74fed6043ce3432675aa5fe43e4802d7cbbf1a6))
+* **api:** OpenAPI spec update via Stainless API ([#502](https://github.com/StructifyAI/structify-python/issues/502)) ([8c5fefb](https://github.com/StructifyAI/structify-python/commit/8c5fefbc6d65ac121b9551503c07e8fb7ac7ef51))
+* **api:** OpenAPI spec update via Stainless API ([#505](https://github.com/StructifyAI/structify-python/issues/505)) ([90303ff](https://github.com/StructifyAI/structify-python/commit/90303ffdeac8dfb156fd67397f93f32eff2314b3))
+* **api:** OpenAPI spec update via Stainless API ([#506](https://github.com/StructifyAI/structify-python/issues/506)) ([6849bef](https://github.com/StructifyAI/structify-python/commit/6849befb1caa637775ac8edde9f4c3141545aa49))
+* **client:** send retry count header ([#504](https://github.com/StructifyAI/structify-python/issues/504)) ([3fb3e2a](https://github.com/StructifyAI/structify-python/commit/3fb3e2a81e6a29c790fd84fd6804127354d5946e))
+
+
+### Bug Fixes
+
+* **client:** handle domains with underscores ([#503](https://github.com/StructifyAI/structify-python/issues/503)) ([5df20ee](https://github.com/StructifyAI/structify-python/commit/5df20ee5149da680245f941d234c3cf43b7e0656))
+
 ## 1.30.0 (2024-09-17)
 
 Full Changelog: [v1.29.0...v1.30.0](https://github.com/StructifyAI/structify-python/compare/v1.29.0...v1.30.0)
