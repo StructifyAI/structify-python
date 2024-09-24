@@ -467,6 +467,7 @@ class TestDatasets:
         dataset = client.datasets.view_relationships(
             dataset="dataset",
             name="name",
+            job_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             limit=0,
             offset=0,
         )
@@ -511,6 +512,7 @@ class TestDatasets:
         dataset = client.datasets.view_table(
             dataset="dataset",
             name="name",
+            job_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             limit=0,
             offset=0,
         )
@@ -555,6 +557,7 @@ class TestDatasets:
         dataset = client.datasets.view_tables_with_relationships(
             dataset="dataset",
             name="name",
+            job_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             limit=0,
             offset=0,
         )
@@ -1032,6 +1035,7 @@ class TestAsyncDatasets:
         dataset = await async_client.datasets.view_relationships(
             dataset="dataset",
             name="name",
+            job_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             limit=0,
             offset=0,
         )
@@ -1076,6 +1080,7 @@ class TestAsyncDatasets:
         dataset = await async_client.datasets.view_table(
             dataset="dataset",
             name="name",
+            job_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             limit=0,
             offset=0,
         )
@@ -1120,6 +1125,7 @@ class TestAsyncDatasets:
         dataset = await async_client.datasets.view_tables_with_relationships(
             dataset="dataset",
             name="name",
+            job_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             limit=0,
             offset=0,
         )
