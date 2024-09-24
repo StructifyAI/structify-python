@@ -34,6 +34,8 @@ class Step(BaseModel):
 
     skipped_reason: Optional[str] = None
 
+    step_index: Optional[int] = None
+
 
 class TransitionToolCall(BaseModel):
     formatted_input: str
