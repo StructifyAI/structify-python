@@ -16,8 +16,7 @@ class JobCancelResponse(BaseModel):
 
     status: Literal["Queued", "Running", "Completed", "Failed"]
 
+    message: Optional[str] = None
+
     run_started_time: Optional[datetime] = None
     """What time did the job start running?"""
-
-    step_count: Optional[int] = None
-    """How many steps were taken for this job?"""
