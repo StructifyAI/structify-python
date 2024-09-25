@@ -12,11 +12,41 @@ from .property_type import PropertyType
 __all__ = [
     "DatasetDescriptor",
     "Relationship",
+    "RelationshipMergeStrategy",
+    "RelationshipMergeStrategyProbabilistic",
     "RelationshipProperty",
     "RelationshipPropertyMergeStrategy",
     "RelationshipPropertyMergeStrategyProbabilistic",
     "RelationshipPropertyMergeStrategyProbabilisticProbabilistic",
 ]
+
+
+class RelationshipMergeStrategyProbabilistic(BaseModel):
+    source_cardinality_given_target_match: Optional[int] = None
+    """
+    Describes the expected cardinality of the source table when a match is found in
+    the target table
+
+    For example, if we have a source company and a target funding round, we expect
+    the source company to appear in multiple funding rounds, but not _too_ many. So
+    if we have a funding round match, the expected number of unique companies is
+    relatively small. This is an estimate of that number.
+    """
+
+    target_cardinality_given_source_match: Optional[int] = None
+    """
+    Describes the expected cardinality of the target table when a match is found in
+    the source table
+
+    For example, if we have a source company and a target funding round, we usually
+    expect some number of funding rounds to be associated with a single company but
+    not _too_ many. So if we have a company match, the expected number of unique
+    funding rounds is relatively small. This is an estimate of that number.
+    """
+
+
+class RelationshipMergeStrategy(BaseModel):
+    probabilistic: RelationshipMergeStrategyProbabilistic = FieldInfo(alias="Probabilistic")
 
 
 class RelationshipPropertyMergeStrategyProbabilisticProbabilistic(BaseModel):
@@ -69,6 +99,8 @@ class Relationship(BaseModel):
     source_table: str
 
     target_table: str
+
+    merge_strategy: Optional[RelationshipMergeStrategy] = None
 
     properties: Optional[List[RelationshipProperty]] = None
 
