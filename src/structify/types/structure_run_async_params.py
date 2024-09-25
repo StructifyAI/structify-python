@@ -95,8 +95,6 @@ class StructureInputBasicBasicImageDocumentImageDocument(TypedDict, total=False)
 
     document_name: Required[str]
 
-    document_page: Required[int]
-
 
 class StructureInputBasicBasicImageDocument(TypedDict, total=False):
     image_document: Required[
