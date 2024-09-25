@@ -27,6 +27,7 @@ class TestEntities:
         entity = client.entities.add(
             dataset_name="dataset_name",
             kg={},
+            source="None",
         )
         assert_matches_type(EntityAddResponse, entity, path=["response"])
 
@@ -73,7 +74,7 @@ class TestEntities:
                     },
                 ],
             },
-            source_website="source_website",
+            source="None",
         )
         assert_matches_type(EntityAddResponse, entity, path=["response"])
 
@@ -82,6 +83,7 @@ class TestEntities:
         response = client.entities.with_raw_response.add(
             dataset_name="dataset_name",
             kg={},
+            source="None",
         )
 
         assert response.is_closed is True
@@ -94,6 +96,7 @@ class TestEntities:
         with client.entities.with_streaming_response.add(
             dataset_name="dataset_name",
             kg={},
+            source="None",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -216,6 +219,7 @@ class TestAsyncEntities:
         entity = await async_client.entities.add(
             dataset_name="dataset_name",
             kg={},
+            source="None",
         )
         assert_matches_type(EntityAddResponse, entity, path=["response"])
 
@@ -262,7 +266,7 @@ class TestAsyncEntities:
                     },
                 ],
             },
-            source_website="source_website",
+            source="None",
         )
         assert_matches_type(EntityAddResponse, entity, path=["response"])
 
@@ -271,6 +275,7 @@ class TestAsyncEntities:
         response = await async_client.entities.with_raw_response.add(
             dataset_name="dataset_name",
             kg={},
+            source="None",
         )
 
         assert response.is_closed is True
@@ -283,6 +288,7 @@ class TestAsyncEntities:
         async with async_client.entities.with_streaming_response.add(
             dataset_name="dataset_name",
             kg={},
+            source="None",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
