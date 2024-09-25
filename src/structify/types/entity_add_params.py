@@ -21,7 +21,7 @@ class EntityAddParams(TypedDict, total=False):
     pipeline from raw tool output to being merged into a Neo4j DB
     """
 
-    source: Required[Source]
+    source: Source
 
 
 class SourceWeb(TypedDict, total=False):
