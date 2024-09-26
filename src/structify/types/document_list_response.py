@@ -9,7 +9,7 @@ __all__ = ["DocumentListResponse", "DocumentListResponseItem"]
 
 
 class DocumentListResponseItem(BaseModel):
-    document_type: Literal["Text", "PDF", "SEC"]
+    document_type: Literal["Text", "PDF", "SEC", "ExecutionHistory"]
 
     name: str
 
