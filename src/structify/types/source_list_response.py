@@ -65,5 +65,7 @@ class SourceListResponseItem(BaseModel):
 
     location: SourceListResponseItemLocation
 
+    user_specified: bool
+
 
 SourceListResponse: TypeAlias = List[SourceListResponseItem]
