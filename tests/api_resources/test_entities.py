@@ -73,7 +73,7 @@ class TestEntities:
                     },
                 ],
             },
-            source_website="source_website",
+            source="None",
         )
         assert_matches_type(EntityAddResponse, entity, path=["response"])
 
@@ -262,7 +262,7 @@ class TestAsyncEntities:
                     },
                 ],
             },
-            source_website="source_website",
+            source="None",
         )
         assert_matches_type(EntityAddResponse, entity, path=["response"])
 
