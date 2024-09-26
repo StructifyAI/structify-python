@@ -2,13 +2,12 @@
 
 from __future__ import annotations
 
-from typing import Union, Iterable
-from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
+from typing import Optional
+from typing_extensions import Required, TypedDict
 
-from .._utils import PropertyInfo
 from .knowledge_graph_param import KnowledgeGraphParam
 
-__all__ = ["EntityAddParams", "Source", "SourceWeb", "SourceDocumentPage"]
+__all__ = ["EntityAddParams"]
 
 
 class EntityAddParams(TypedDict, total=False):
@@ -21,15 +20,4 @@ class EntityAddParams(TypedDict, total=False):
     pipeline from raw tool output to being merged into a Neo4j DB
     """
 
-    source: Source
-
-
-class SourceWeb(TypedDict, total=False):
-    web: Required[Annotated[str, PropertyInfo(alias="Web")]]
-
-
-class SourceDocumentPage(TypedDict, total=False):
-    document_page: Required[Annotated[Iterable[object], PropertyInfo(alias="DocumentPage")]]
-
-
-Source: TypeAlias = Union[Literal["None"], SourceWeb, SourceDocumentPage]
+    source_website: Optional[str]

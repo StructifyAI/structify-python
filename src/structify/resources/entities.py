@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from typing import Optional
+
 import httpx
 
 from ..types import (
@@ -58,7 +60,7 @@ class EntitiesResource(SyncAPIResource):
         *,
         dataset_name: str,
         kg: KnowledgeGraphParam,
-        source: entity_add_params.Source | NotGiven = NOT_GIVEN,
+        source_website: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -88,7 +90,7 @@ class EntitiesResource(SyncAPIResource):
                 {
                     "dataset_name": dataset_name,
                     "kg": kg,
-                    "source": source,
+                    "source_website": source_website,
                 },
                 entity_add_params.EntityAddParams,
             ),
@@ -238,7 +240,7 @@ class AsyncEntitiesResource(AsyncAPIResource):
         *,
         dataset_name: str,
         kg: KnowledgeGraphParam,
-        source: entity_add_params.Source | NotGiven = NOT_GIVEN,
+        source_website: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -268,7 +270,7 @@ class AsyncEntitiesResource(AsyncAPIResource):
                 {
                     "dataset_name": dataset_name,
                     "kg": kg,
-                    "source": source,
+                    "source_website": source_website,
                 },
                 entity_add_params.EntityAddParams,
             ),

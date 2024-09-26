@@ -17,8 +17,6 @@ __all__ = [
     "SourceListResponseItemLocationTextText",
     "SourceListResponseItemLocationVisual",
     "SourceListResponseItemLocationVisualVisual",
-    "SourceListResponseItemLocationPage",
-    "SourceListResponseItemLocationPagePage",
 ]
 
 
@@ -40,19 +38,8 @@ class SourceListResponseItemLocationVisual(BaseModel):
     visual: SourceListResponseItemLocationVisualVisual = FieldInfo(alias="Visual")
 
 
-class SourceListResponseItemLocationPagePage(BaseModel):
-    page_number: int
-
-
-class SourceListResponseItemLocationPage(BaseModel):
-    page: SourceListResponseItemLocationPagePage = FieldInfo(alias="Page")
-
-
 SourceListResponseItemLocation: TypeAlias = Union[
-    SourceListResponseItemLocationText,
-    SourceListResponseItemLocationVisual,
-    SourceListResponseItemLocationPage,
-    Literal["None"],
+    SourceListResponseItemLocationText, SourceListResponseItemLocationVisual, Literal["None"]
 ]
 
 
