@@ -7,17 +7,7 @@ from pydantic import Field as FieldInfo
 
 from .._models import BaseModel
 
-__all__ = [
-    "Source",
-    "Web",
-    "WebWeb",
-    "Document",
-    "DocumentDocument",
-    "UserCreatedWeb",
-    "UserCreatedWebUserCreatedWeb",
-    "UserCreatedDocument",
-    "UserCreatedDocumentUserCreatedDocument",
-]
+__all__ = ["Source", "Web", "WebWeb", "Document", "DocumentDocument"]
 
 
 class WebWeb(BaseModel):
@@ -36,20 +26,4 @@ class Document(BaseModel):
     document: DocumentDocument = FieldInfo(alias="Document")
 
 
-class UserCreatedWebUserCreatedWeb(BaseModel):
-    url: str
-
-
-class UserCreatedWeb(BaseModel):
-    user_created_web: UserCreatedWebUserCreatedWeb = FieldInfo(alias="UserCreatedWeb")
-
-
-class UserCreatedDocumentUserCreatedDocument(BaseModel):
-    name: str
-
-
-class UserCreatedDocument(BaseModel):
-    user_created_document: UserCreatedDocumentUserCreatedDocument = FieldInfo(alias="UserCreatedDocument")
-
-
-Source: TypeAlias = Union[Web, Document, Literal["UserCreated"], UserCreatedWeb, UserCreatedDocument]
+Source: TypeAlias = Union[Web, Document, Literal["None"]]
