@@ -97,6 +97,8 @@ class StructureInputBasicBasicImageDocumentImageDocument(TypedDict, total=False)
 
     document_page: Required[int]
 
+    ocr_content: Optional[str]
+
 
 class StructureInputBasicBasicImageDocument(TypedDict, total=False):
     image_document: Required[
