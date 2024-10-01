@@ -12,14 +12,44 @@ from .._models import BaseModel
 __all__ = [
     "EntityGetSourceEntitiesResponse",
     "SourceEntity",
-    "SourceNode",
-    "SourceNodeLocation",
-    "SourceNodeLocationText",
-    "SourceNodeLocationTextText",
-    "SourceNodeLocationVisual",
-    "SourceNodeLocationVisualVisual",
-    "SourceNodeLocationPage",
-    "SourceNodeLocationPagePage",
+    "SourceEntityLocation",
+    "SourceEntityLocationText",
+    "SourceEntityLocationTextText",
+    "SourceEntityLocationVisual",
+    "SourceEntityLocationVisualVisual",
+    "SourceEntityLocationPage",
+    "SourceEntityLocationPagePage",
+]
+
+
+class SourceEntityLocationTextText(BaseModel):
+    byte_offset: int
+
+
+class SourceEntityLocationText(BaseModel):
+    text: SourceEntityLocationTextText = FieldInfo(alias="Text")
+
+
+class SourceEntityLocationVisualVisual(BaseModel):
+    x: int
+
+    y: int
+
+
+class SourceEntityLocationVisual(BaseModel):
+    visual: SourceEntityLocationVisualVisual = FieldInfo(alias="Visual")
+
+
+class SourceEntityLocationPagePage(BaseModel):
+    page_number: int
+
+
+class SourceEntityLocationPage(BaseModel):
+    page: SourceEntityLocationPagePage = FieldInfo(alias="Page")
+
+
+SourceEntityLocation: TypeAlias = Union[
+    SourceEntityLocationText, SourceEntityLocationVisual, SourceEntityLocationPage, Literal["None"]
 ]
 
 
@@ -30,55 +60,16 @@ class SourceEntity(BaseModel):
 
     label: str
 
-    llm_id: int
-
-    properties: Dict[str, Union[str, bool, float]]
-
-
-class SourceNodeLocationTextText(BaseModel):
-    byte_offset: int
-
-
-class SourceNodeLocationText(BaseModel):
-    text: SourceNodeLocationTextText = FieldInfo(alias="Text")
-
-
-class SourceNodeLocationVisualVisual(BaseModel):
-    x: int
-
-    y: int
-
-
-class SourceNodeLocationVisual(BaseModel):
-    visual: SourceNodeLocationVisualVisual = FieldInfo(alias="Visual")
-
-
-class SourceNodeLocationPagePage(BaseModel):
-    page_number: int
-
-
-class SourceNodeLocationPage(BaseModel):
-    page: SourceNodeLocationPagePage = FieldInfo(alias="Page")
-
-
-SourceNodeLocation: TypeAlias = Union[
-    SourceNodeLocationText, SourceNodeLocationVisual, SourceNodeLocationPage, Literal["None"]
-]
-
-
-class SourceNode(BaseModel):
-    id: str
-
-    creation_time: datetime
-
     link: Source
 
-    location: SourceNodeLocation
+    llm_id: int
+
+    location: SourceEntityLocation
+
+    properties: Dict[str, Union[str, bool, float]]
 
     user_specified: bool
 
 
 class EntityGetSourceEntitiesResponse(BaseModel):
-    source_entities: List[SourceEntity]
-
-    source_nodes: List[SourceNode]
+    source_entities: List[List[SourceEntity]]
