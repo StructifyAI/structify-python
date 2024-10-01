@@ -15,5 +15,12 @@ class Enum(TypedDict, total=False):
 
 
 PropertyTypeParam: TypeAlias = Union[
-    Literal["String"], Literal["Boolean"], Enum, Literal["Integer"], Literal["Float"], Literal["Date"], Literal["URL"]
+    Literal["String"],
+    Literal["Boolean"],
+    Enum,
+    Literal["Integer"],
+    Literal["Float"],
+    Literal["Date"],
+    Literal["URL"],
+    Literal["Money"],
 ]
