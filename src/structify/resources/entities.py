@@ -8,6 +8,7 @@ from ..types import (
     entity_add_params,
     entity_get_params,
     entity_merge_params,
+    entity_search_params,
     entity_get_local_subgraph_params,
     entity_get_source_entities_params,
 )
@@ -29,6 +30,7 @@ from ..types.entity_add_response import EntityAddResponse
 from ..types.entity_get_response import EntityGetResponse
 from ..types.entity_merge_response import EntityMergeResponse
 from ..types.knowledge_graph_param import KnowledgeGraphParam
+from ..types.entity_search_response import EntitySearchResponse
 from ..types.entity_get_local_subgraph_response import EntityGetLocalSubgraphResponse
 from ..types.entity_get_source_entities_response import EntityGetSourceEntitiesResponse
 
@@ -247,6 +249,47 @@ class EntitiesResource(SyncAPIResource):
             cast_to=EntityMergeResponse,
         )
 
+    def search(
+        self,
+        *,
+        dataset_name: str,
+        query: str,
+        table_name: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> EntitySearchResponse:
+        """
+        Search for entities based on the given query
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/entity/search",
+            body=maybe_transform(
+                {
+                    "dataset_name": dataset_name,
+                    "query": query,
+                    "table_name": table_name,
+                },
+                entity_search_params.EntitySearchParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=EntitySearchResponse,
+        )
+
 
 class AsyncEntitiesResource(AsyncAPIResource):
     @cached_property
@@ -462,6 +505,47 @@ class AsyncEntitiesResource(AsyncAPIResource):
             cast_to=EntityMergeResponse,
         )
 
+    async def search(
+        self,
+        *,
+        dataset_name: str,
+        query: str,
+        table_name: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> EntitySearchResponse:
+        """
+        Search for entities based on the given query
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/entity/search",
+            body=await async_maybe_transform(
+                {
+                    "dataset_name": dataset_name,
+                    "query": query,
+                    "table_name": table_name,
+                },
+                entity_search_params.EntitySearchParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=EntitySearchResponse,
+        )
+
 
 class EntitiesResourceWithRawResponse:
     def __init__(self, entities: EntitiesResource) -> None:
@@ -481,6 +565,9 @@ class EntitiesResourceWithRawResponse:
         )
         self.merge = to_raw_response_wrapper(
             entities.merge,
+        )
+        self.search = to_raw_response_wrapper(
+            entities.search,
         )
 
 
@@ -503,6 +590,9 @@ class AsyncEntitiesResourceWithRawResponse:
         self.merge = async_to_raw_response_wrapper(
             entities.merge,
         )
+        self.search = async_to_raw_response_wrapper(
+            entities.search,
+        )
 
 
 class EntitiesResourceWithStreamingResponse:
@@ -524,6 +614,9 @@ class EntitiesResourceWithStreamingResponse:
         self.merge = to_streamed_response_wrapper(
             entities.merge,
         )
+        self.search = to_streamed_response_wrapper(
+            entities.search,
+        )
 
 
 class AsyncEntitiesResourceWithStreamingResponse:
@@ -544,4 +637,7 @@ class AsyncEntitiesResourceWithStreamingResponse:
         )
         self.merge = async_to_streamed_response_wrapper(
             entities.merge,
+        )
+        self.search = async_to_streamed_response_wrapper(
+            entities.search,
         )
