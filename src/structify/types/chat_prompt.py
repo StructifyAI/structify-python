@@ -21,6 +21,7 @@ __all__ = [
     "DecodingParamsParameterRepeatPenalty",
     "DecodingParamsParameterTemperature",
     "DecodingParamsParameterStopTokens",
+    "DecodingParamsParameterLogitBias",
     "DecodingParamsParameterFunctions",
     "DecodingParamsParameterJsonValidator",
     "DecodingParamsParameterRegexValidator",
@@ -60,6 +61,10 @@ class DecodingParamsParameterStopTokens(BaseModel):
     stop_tokens: List[str] = FieldInfo(alias="StopTokens")
 
 
+class DecodingParamsParameterLogitBias(BaseModel):
+    logit_bias: Dict[str, float] = FieldInfo(alias="LogitBias")
+
+
 class DecodingParamsParameterFunctions(BaseModel):
     functions: List[Dict[str, object]] = FieldInfo(alias="Functions")
 
@@ -91,6 +96,7 @@ DecodingParamsParameter: TypeAlias = Union[
     DecodingParamsParameterRepeatPenalty,
     DecodingParamsParameterTemperature,
     DecodingParamsParameterStopTokens,
+    DecodingParamsParameterLogitBias,
     DecodingParamsParameterFunctions,
     DecodingParamsParameterJsonValidator,
     DecodingParamsParameterRegexValidator,
