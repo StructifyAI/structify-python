@@ -7,6 +7,7 @@ import httpx
 from ..types import (
     entity_add_params,
     entity_get_params,
+    entity_view_params,
     entity_merge_params,
     entity_search_params,
     entity_get_local_subgraph_params,
@@ -28,6 +29,7 @@ from .._response import (
 from .._base_client import make_request_options
 from ..types.entity_add_response import EntityAddResponse
 from ..types.entity_get_response import EntityGetResponse
+from ..types.entity_view_response import EntityViewResponse
 from ..types.entity_merge_response import EntityMergeResponse
 from ..types.knowledge_graph_param import KnowledgeGraphParam
 from ..types.entity_search_response import EntitySearchResponse
@@ -290,6 +292,39 @@ class EntitiesResource(SyncAPIResource):
             cast_to=EntitySearchResponse,
         )
 
+    def view(
+        self,
+        *,
+        id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> EntityViewResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._get(
+            "/entity/view",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"id": id}, entity_view_params.EntityViewParams),
+            ),
+            cast_to=EntityViewResponse,
+        )
+
 
 class AsyncEntitiesResource(AsyncAPIResource):
     @cached_property
@@ -546,6 +581,39 @@ class AsyncEntitiesResource(AsyncAPIResource):
             cast_to=EntitySearchResponse,
         )
 
+    async def view(
+        self,
+        *,
+        id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> EntityViewResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._get(
+            "/entity/view",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform({"id": id}, entity_view_params.EntityViewParams),
+            ),
+            cast_to=EntityViewResponse,
+        )
+
 
 class EntitiesResourceWithRawResponse:
     def __init__(self, entities: EntitiesResource) -> None:
@@ -568,6 +636,9 @@ class EntitiesResourceWithRawResponse:
         )
         self.search = to_raw_response_wrapper(
             entities.search,
+        )
+        self.view = to_raw_response_wrapper(
+            entities.view,
         )
 
 
@@ -593,6 +664,9 @@ class AsyncEntitiesResourceWithRawResponse:
         self.search = async_to_raw_response_wrapper(
             entities.search,
         )
+        self.view = async_to_raw_response_wrapper(
+            entities.view,
+        )
 
 
 class EntitiesResourceWithStreamingResponse:
@@ -617,6 +691,9 @@ class EntitiesResourceWithStreamingResponse:
         self.search = to_streamed_response_wrapper(
             entities.search,
         )
+        self.view = to_streamed_response_wrapper(
+            entities.view,
+        )
 
 
 class AsyncEntitiesResourceWithStreamingResponse:
@@ -640,4 +717,7 @@ class AsyncEntitiesResourceWithStreamingResponse:
         )
         self.search = async_to_streamed_response_wrapper(
             entities.search,
+        )
+        self.view = async_to_streamed_response_wrapper(
+            entities.view,
         )

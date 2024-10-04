@@ -23,6 +23,7 @@ from .job_list_response import JobListResponse as JobListResponse
 from .user_usage_params import UserUsageParams as UserUsageParams
 from .dataset_descriptor import DatasetDescriptor as DatasetDescriptor
 from .dataset_get_params import DatasetGetParams as DatasetGetParams
+from .entity_view_params import EntityViewParams as EntityViewParams
 from .relationship_param import RelationshipParam as RelationshipParam
 from .report_step_params import ReportStepParams as ReportStepParams
 from .server_information import ServerInformation as ServerInformation
@@ -38,6 +39,7 @@ from .user_usage_response import UserUsageResponse as UserUsageResponse
 from .dataset_get_response import DatasetGetResponse as DatasetGetResponse
 from .dataset_match_params import DatasetMatchParams as DatasetMatchParams
 from .entity_search_params import EntitySearchParams as EntitySearchParams
+from .entity_view_response import EntityViewResponse as EntityViewResponse
 from .report_entity_params import ReportEntityParams as ReportEntityParams
 from .report_step_response import ReportStepResponse as ReportStepResponse
 from .source_list_response import SourceListResponse as SourceListResponse
