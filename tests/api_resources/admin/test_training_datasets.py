@@ -11,7 +11,6 @@ from structify import Structify, AsyncStructify
 from tests.utils import assert_matches_type
 from structify.types.admin import (
     TrainingDatumResponse,
-    TrainingDatasetSizeResponse,
 )
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
@@ -758,44 +757,6 @@ class TestTrainingDatasets:
     def test_path_params_reset_pending(self, client: Structify) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `name` but received ''"):
             client.admin.training_datasets.with_raw_response.reset_pending(
-                "",
-            )
-
-    @parametrize
-    def test_method_size(self, client: Structify) -> None:
-        training_dataset = client.admin.training_datasets.size(
-            "name",
-        )
-        assert_matches_type(TrainingDatasetSizeResponse, training_dataset, path=["response"])
-
-    @parametrize
-    def test_raw_response_size(self, client: Structify) -> None:
-        response = client.admin.training_datasets.with_raw_response.size(
-            "name",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        training_dataset = response.parse()
-        assert_matches_type(TrainingDatasetSizeResponse, training_dataset, path=["response"])
-
-    @parametrize
-    def test_streaming_response_size(self, client: Structify) -> None:
-        with client.admin.training_datasets.with_streaming_response.size(
-            "name",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            training_dataset = response.parse()
-            assert_matches_type(TrainingDatasetSizeResponse, training_dataset, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    def test_path_params_size(self, client: Structify) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `name` but received ''"):
-            client.admin.training_datasets.with_raw_response.size(
                 "",
             )
 
@@ -2179,44 +2140,6 @@ class TestAsyncTrainingDatasets:
     async def test_path_params_reset_pending(self, async_client: AsyncStructify) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `name` but received ''"):
             await async_client.admin.training_datasets.with_raw_response.reset_pending(
-                "",
-            )
-
-    @parametrize
-    async def test_method_size(self, async_client: AsyncStructify) -> None:
-        training_dataset = await async_client.admin.training_datasets.size(
-            "name",
-        )
-        assert_matches_type(TrainingDatasetSizeResponse, training_dataset, path=["response"])
-
-    @parametrize
-    async def test_raw_response_size(self, async_client: AsyncStructify) -> None:
-        response = await async_client.admin.training_datasets.with_raw_response.size(
-            "name",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        training_dataset = await response.parse()
-        assert_matches_type(TrainingDatasetSizeResponse, training_dataset, path=["response"])
-
-    @parametrize
-    async def test_streaming_response_size(self, async_client: AsyncStructify) -> None:
-        async with async_client.admin.training_datasets.with_streaming_response.size(
-            "name",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            training_dataset = await response.parse()
-            assert_matches_type(TrainingDatasetSizeResponse, training_dataset, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    async def test_path_params_size(self, async_client: AsyncStructify) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `name` but received ''"):
-            await async_client.admin.training_datasets.with_raw_response.size(
                 "",
             )
 
