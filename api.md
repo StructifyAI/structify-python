@@ -26,6 +26,30 @@ Methods:
 
 - <code title="get /admin/users/list">client.admin.users.<a href="./src/structify/resources/admin/users.py">list</a>() -> <a href="./src/structify/types/admin/user_list_response.py">UserListResponse</a></code>
 
+## TrainingDatasets
+
+Types:
+
+```python
+from structify.types.admin import (
+    AddDatasetRequest,
+    AddDatumRequest,
+    GetSizeQuery,
+    TrainingDatumResponse,
+    UpdateDatumRequest,
+    TrainingDatasetSizeResponse,
+)
+```
+
+Methods:
+
+- <code title="post /admin/training_datasets">client.admin.training_datasets.<a href="./src/structify/resources/admin/training_datasets.py">add</a>(\*\*<a href="src/structify/types/admin/training_dataset_add_params.py">params</a>) -> None</code>
+- <code title="post /admin/training_datasets/{name}/data">client.admin.training_datasets.<a href="./src/structify/resources/admin/training_datasets.py">add_datum</a>(name, \*\*<a href="src/structify/types/admin/training_dataset_add_datum_params.py">params</a>) -> None</code>
+- <code title="get /admin/training_datasets/{name}/next_unverified">client.admin.training_datasets.<a href="./src/structify/resources/admin/training_datasets.py">get_next_unverified</a>(name) -> <a href="./src/structify/types/admin/training_datum_response.py">TrainingDatumResponse</a></code>
+- <code title="post /admin/training_datasets/{name}/reset_pending">client.admin.training_datasets.<a href="./src/structify/resources/admin/training_datasets.py">reset_pending</a>(name) -> None</code>
+- <code title="get /admin/training_datasets/{name}/size">client.admin.training_datasets.<a href="./src/structify/resources/admin/training_datasets.py">size</a>(name) -> <a href="./src/structify/types/admin/training_dataset_size_response.py">TrainingDatasetSizeResponse</a></code>
+- <code title="put /admin/training_data/{id}">client.admin.training_datasets.<a href="./src/structify/resources/admin/training_datasets.py">update_datum</a>(id, \*\*<a href="src/structify/types/admin/training_dataset_update_datum_params.py">params</a>) -> None</code>
+
 # Datasets
 
 Types:
