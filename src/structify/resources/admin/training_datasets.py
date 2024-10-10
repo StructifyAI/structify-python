@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from typing import Optional
 from typing_extensions import Literal
 
 import httpx
@@ -21,6 +22,7 @@ from ..._response import (
 )
 from ...types.admin import (
     training_dataset_add_params,
+    training_dataset_size_params,
     training_dataset_add_datum_params,
     training_dataset_update_datum_params,
     training_dataset_reset_pending_params,
@@ -29,6 +31,7 @@ from ...types.admin import (
 from ..._base_client import make_request_options
 from ...types.execution_step_param import ExecutionStepParam
 from ...types.admin.training_datum_response import TrainingDatumResponse
+from ...types.admin.training_dataset_size_response import TrainingDatasetSizeResponse
 
 __all__ = ["TrainingDatasetsResource", "AsyncTrainingDatasetsResource"]
 
@@ -206,6 +209,46 @@ class TrainingDatasetsResource(SyncAPIResource):
                 ),
             ),
             cast_to=NoneType,
+        )
+
+    def size(
+        self,
+        *,
+        dataset_name: str,
+        status: Optional[Literal["Unverified", "Verified", "Pending", "Skipped"]] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> TrainingDatasetSizeResponse:
+        """
+        Returns the number of training data in the specified dataset, filtered by
+        status.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/admin/training_datasets/size",
+            body=maybe_transform(
+                {
+                    "dataset_name": dataset_name,
+                    "status": status,
+                },
+                training_dataset_size_params.TrainingDatasetSizeParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=int,
         )
 
     def update_datum(
@@ -426,6 +469,46 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
             cast_to=NoneType,
         )
 
+    async def size(
+        self,
+        *,
+        dataset_name: str,
+        status: Optional[Literal["Unverified", "Verified", "Pending", "Skipped"]] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> TrainingDatasetSizeResponse:
+        """
+        Returns the number of training data in the specified dataset, filtered by
+        status.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/admin/training_datasets/size",
+            body=await async_maybe_transform(
+                {
+                    "dataset_name": dataset_name,
+                    "status": status,
+                },
+                training_dataset_size_params.TrainingDatasetSizeParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=int,
+        )
+
     async def update_datum(
         self,
         *,
@@ -485,6 +568,9 @@ class TrainingDatasetsResourceWithRawResponse:
         self.reset_pending = to_raw_response_wrapper(
             training_datasets.reset_pending,
         )
+        self.size = to_raw_response_wrapper(
+            training_datasets.size,
+        )
         self.update_datum = to_raw_response_wrapper(
             training_datasets.update_datum,
         )
@@ -505,6 +591,9 @@ class AsyncTrainingDatasetsResourceWithRawResponse:
         )
         self.reset_pending = async_to_raw_response_wrapper(
             training_datasets.reset_pending,
+        )
+        self.size = async_to_raw_response_wrapper(
+            training_datasets.size,
         )
         self.update_datum = async_to_raw_response_wrapper(
             training_datasets.update_datum,
@@ -527,6 +616,9 @@ class TrainingDatasetsResourceWithStreamingResponse:
         self.reset_pending = to_streamed_response_wrapper(
             training_datasets.reset_pending,
         )
+        self.size = to_streamed_response_wrapper(
+            training_datasets.size,
+        )
         self.update_datum = to_streamed_response_wrapper(
             training_datasets.update_datum,
         )
@@ -547,6 +639,9 @@ class AsyncTrainingDatasetsResourceWithStreamingResponse:
         )
         self.reset_pending = async_to_streamed_response_wrapper(
             training_datasets.reset_pending,
+        )
+        self.size = async_to_streamed_response_wrapper(
+            training_datasets.size,
         )
         self.update_datum = async_to_streamed_response_wrapper(
             training_datasets.update_datum,
