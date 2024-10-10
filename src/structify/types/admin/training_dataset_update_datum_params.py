@@ -10,6 +10,8 @@ __all__ = ["TrainingDatasetUpdateDatumParams"]
 
 
 class TrainingDatasetUpdateDatumParams(TypedDict, total=False):
+    id: Required[str]
+
     status: Required[Literal["Unverified", "Verified", "Pending", "Skipped"]]
 
     step: Required[ExecutionStepParam]

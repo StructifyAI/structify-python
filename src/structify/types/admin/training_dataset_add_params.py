@@ -8,4 +8,4 @@ __all__ = ["TrainingDatasetAddParams"]
 
 
 class TrainingDatasetAddParams(TypedDict, total=False):
-    name: Required[str]
+    dataset_name: Required[str]
