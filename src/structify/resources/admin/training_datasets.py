@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from typing import Optional
 from typing_extensions import Literal
 
 import httpx
@@ -21,8 +22,11 @@ from ..._response import (
 )
 from ...types.admin import (
     training_dataset_add_params,
+    training_dataset_size_params,
     training_dataset_add_datum_params,
     training_dataset_update_datum_params,
+    training_dataset_reset_pending_params,
+    training_dataset_get_next_unverified_params,
 )
 from ..._base_client import make_request_options
 from ...types.execution_step_param import ExecutionStepParam
@@ -55,7 +59,7 @@ class TrainingDatasetsResource(SyncAPIResource):
     def add(
         self,
         *,
-        name: str,
+        dataset_name: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -77,18 +81,23 @@ class TrainingDatasetsResource(SyncAPIResource):
         """
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
-            "/admin/training_datasets",
-            body=maybe_transform({"name": name}, training_dataset_add_params.TrainingDatasetAddParams),
+            "/admin/training_datasets/add_dataset",
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {"dataset_name": dataset_name}, training_dataset_add_params.TrainingDatasetAddParams
+                ),
             ),
             cast_to=NoneType,
         )
 
     def add_datum(
         self,
-        name: str,
         *,
+        dataset_name: str,
         step: ExecutionStepParam,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -109,12 +118,16 @@ class TrainingDatasetsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not name:
-            raise ValueError(f"Expected a non-empty value for `name` but received {name!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
-            f"/admin/training_datasets/{name}/data",
-            body=maybe_transform({"step": step}, training_dataset_add_datum_params.TrainingDatasetAddDatumParams),
+            "/admin/training_datasets/add_datum",
+            body=maybe_transform(
+                {
+                    "dataset_name": dataset_name,
+                    "step": step,
+                },
+                training_dataset_add_datum_params.TrainingDatasetAddDatumParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -123,8 +136,8 @@ class TrainingDatasetsResource(SyncAPIResource):
 
     def get_next_unverified(
         self,
-        name: str,
         *,
+        dataset_name: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -144,20 +157,25 @@ class TrainingDatasetsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not name:
-            raise ValueError(f"Expected a non-empty value for `name` but received {name!r}")
         return self._get(
-            f"/admin/training_datasets/{name}/next_unverified",
+            "/admin/training_datasets/next_unverified",
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {"dataset_name": dataset_name},
+                    training_dataset_get_next_unverified_params.TrainingDatasetGetNextUnverifiedParams,
+                ),
             ),
             cast_to=TrainingDatumResponse,
         )
 
     def reset_pending(
         self,
-        name: str,
         *,
+        dataset_name: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -177,21 +195,27 @@ class TrainingDatasetsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not name:
-            raise ValueError(f"Expected a non-empty value for `name` but received {name!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
-            f"/admin/training_datasets/{name}/reset_pending",
+            "/admin/training_datasets/reset_pending",
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {"dataset_name": dataset_name},
+                    training_dataset_reset_pending_params.TrainingDatasetResetPendingParams,
+                ),
             ),
             cast_to=NoneType,
         )
 
     def size(
         self,
-        name: str,
         *,
+        dataset_name: str,
+        status: Optional[Literal["Unverified", "Verified", "Pending", "Skipped"]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -212,21 +236,29 @@ class TrainingDatasetsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not name:
-            raise ValueError(f"Expected a non-empty value for `name` but received {name!r}")
         extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
         return self._get(
-            f"/admin/training_datasets/{name}/size",
+            "/admin/training_datasets/size",
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "dataset_name": dataset_name,
+                        "status": status,
+                    },
+                    training_dataset_size_params.TrainingDatasetSizeParams,
+                ),
             ),
             cast_to=int,
         )
 
     def update_datum(
         self,
-        id: str,
         *,
+        id: str,
         status: Literal["Unverified", "Verified", "Pending", "Skipped"],
         step: ExecutionStepParam,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -248,13 +280,12 @@ class TrainingDatasetsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._put(
-            f"/admin/training_data/{id}",
+            "/admin/training_data/update_datum",
             body=maybe_transform(
                 {
+                    "id": id,
                     "status": status,
                     "step": step,
                 },
@@ -290,7 +321,7 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
     async def add(
         self,
         *,
-        name: str,
+        dataset_name: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -312,18 +343,23 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
         """
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
-            "/admin/training_datasets",
-            body=await async_maybe_transform({"name": name}, training_dataset_add_params.TrainingDatasetAddParams),
+            "/admin/training_datasets/add_dataset",
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"dataset_name": dataset_name}, training_dataset_add_params.TrainingDatasetAddParams
+                ),
             ),
             cast_to=NoneType,
         )
 
     async def add_datum(
         self,
-        name: str,
         *,
+        dataset_name: str,
         step: ExecutionStepParam,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -344,13 +380,15 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not name:
-            raise ValueError(f"Expected a non-empty value for `name` but received {name!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
-            f"/admin/training_datasets/{name}/data",
+            "/admin/training_datasets/add_datum",
             body=await async_maybe_transform(
-                {"step": step}, training_dataset_add_datum_params.TrainingDatasetAddDatumParams
+                {
+                    "dataset_name": dataset_name,
+                    "step": step,
+                },
+                training_dataset_add_datum_params.TrainingDatasetAddDatumParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -360,8 +398,8 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
 
     async def get_next_unverified(
         self,
-        name: str,
         *,
+        dataset_name: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -381,20 +419,25 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not name:
-            raise ValueError(f"Expected a non-empty value for `name` but received {name!r}")
         return await self._get(
-            f"/admin/training_datasets/{name}/next_unverified",
+            "/admin/training_datasets/next_unverified",
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"dataset_name": dataset_name},
+                    training_dataset_get_next_unverified_params.TrainingDatasetGetNextUnverifiedParams,
+                ),
             ),
             cast_to=TrainingDatumResponse,
         )
 
     async def reset_pending(
         self,
-        name: str,
         *,
+        dataset_name: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -414,21 +457,27 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not name:
-            raise ValueError(f"Expected a non-empty value for `name` but received {name!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
-            f"/admin/training_datasets/{name}/reset_pending",
+            "/admin/training_datasets/reset_pending",
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"dataset_name": dataset_name},
+                    training_dataset_reset_pending_params.TrainingDatasetResetPendingParams,
+                ),
             ),
             cast_to=NoneType,
         )
 
     async def size(
         self,
-        name: str,
         *,
+        dataset_name: str,
+        status: Optional[Literal["Unverified", "Verified", "Pending", "Skipped"]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -449,21 +498,29 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not name:
-            raise ValueError(f"Expected a non-empty value for `name` but received {name!r}")
         extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
         return await self._get(
-            f"/admin/training_datasets/{name}/size",
+            "/admin/training_datasets/size",
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "dataset_name": dataset_name,
+                        "status": status,
+                    },
+                    training_dataset_size_params.TrainingDatasetSizeParams,
+                ),
             ),
             cast_to=int,
         )
 
     async def update_datum(
         self,
-        id: str,
         *,
+        id: str,
         status: Literal["Unverified", "Verified", "Pending", "Skipped"],
         step: ExecutionStepParam,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -485,13 +542,12 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._put(
-            f"/admin/training_data/{id}",
+            "/admin/training_data/update_datum",
             body=await async_maybe_transform(
                 {
+                    "id": id,
                     "status": status,
                     "step": step,
                 },
