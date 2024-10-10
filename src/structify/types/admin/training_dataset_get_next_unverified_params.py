@@ -4,12 +4,8 @@ from __future__ import annotations
 
 from typing_extensions import Required, TypedDict
 
-from ..execution_step_param import ExecutionStepParam
-
-__all__ = ["TrainingDatasetAddDatumParams"]
+__all__ = ["TrainingDatasetGetNextUnverifiedParams"]
 
 
-class TrainingDatasetAddDatumParams(TypedDict, total=False):
+class TrainingDatasetGetNextUnverifiedParams(TypedDict, total=False):
     dataset_name: Required[str]
-
-    step: Required[ExecutionStepParam]
