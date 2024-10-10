@@ -24,6 +24,7 @@ from .._base_client import make_request_options
 from ..types.user_info import UserInfo
 from ..types.token_response import TokenResponse
 from ..types.user_usage_response import UserUsageResponse
+from ..types.user_transactions_response import UserTransactionsResponse
 
 __all__ = ["UserResource", "AsyncUserResource"]
 
@@ -104,6 +105,24 @@ class UserResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=UserInfo,
+        )
+
+    def transactions(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> UserTransactionsResponse:
+        return self._get(
+            "/user/transactions/list",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=UserTransactionsResponse,
         )
 
     def usage(
@@ -220,6 +239,24 @@ class AsyncUserResource(AsyncAPIResource):
             cast_to=UserInfo,
         )
 
+    async def transactions(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> UserTransactionsResponse:
+        return await self._get(
+            "/user/transactions/list",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=UserTransactionsResponse,
+        )
+
     async def usage(
         self,
         *,
@@ -266,6 +303,9 @@ class UserResourceWithRawResponse:
         self.info = to_raw_response_wrapper(
             user.info,
         )
+        self.transactions = to_raw_response_wrapper(
+            user.transactions,
+        )
         self.usage = to_raw_response_wrapper(
             user.usage,
         )
@@ -280,6 +320,9 @@ class AsyncUserResourceWithRawResponse:
         )
         self.info = async_to_raw_response_wrapper(
             user.info,
+        )
+        self.transactions = async_to_raw_response_wrapper(
+            user.transactions,
         )
         self.usage = async_to_raw_response_wrapper(
             user.usage,
@@ -296,6 +339,9 @@ class UserResourceWithStreamingResponse:
         self.info = to_streamed_response_wrapper(
             user.info,
         )
+        self.transactions = to_streamed_response_wrapper(
+            user.transactions,
+        )
         self.usage = to_streamed_response_wrapper(
             user.usage,
         )
@@ -310,6 +356,9 @@ class AsyncUserResourceWithStreamingResponse:
         )
         self.info = async_to_streamed_response_wrapper(
             user.info,
+        )
+        self.transactions = async_to_streamed_response_wrapper(
+            user.transactions,
         )
         self.usage = async_to_streamed_response_wrapper(
             user.usage,
