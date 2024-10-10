@@ -18,14 +18,21 @@ from .._utils import (
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
+    BinaryAPIResponse,
+    AsyncBinaryAPIResponse,
+    StreamedBinaryAPIResponse,
+    AsyncStreamedBinaryAPIResponse,
     to_raw_response_wrapper,
     to_streamed_response_wrapper,
     async_to_raw_response_wrapper,
+    to_custom_raw_response_wrapper,
     async_to_streamed_response_wrapper,
+    to_custom_streamed_response_wrapper,
+    async_to_custom_raw_response_wrapper,
+    async_to_custom_streamed_response_wrapper,
 )
 from .._base_client import make_request_options
 from ..types.document_list_response import DocumentListResponse
-from ..types.document_download_response import DocumentDownloadResponse
 
 __all__ = ["DocumentsResource", "AsyncDocumentsResource"]
 
@@ -114,7 +121,7 @@ class DocumentsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> DocumentDownloadResponse:
+    ) -> BinaryAPIResponse:
         """
         Download a file from the database
 
@@ -129,20 +136,21 @@ class DocumentsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {"Accept": "application/octet-stream", **(extra_headers or {})}
         return self._post(
             "/documents/download",
             body=maybe_transform({"file_path": file_path}, document_download_params.DocumentDownloadParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=DocumentDownloadResponse,
+            cast_to=BinaryAPIResponse,
         )
 
     def upload(
         self,
         *,
         content: FileTypes,
-        file_type: Literal["Text", "PDF", "SEC"],
+        file_type: Literal["Text", "PDF", "SEC", "ExecutionHistory"],
         path: FileTypes,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -271,7 +279,7 @@ class AsyncDocumentsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> DocumentDownloadResponse:
+    ) -> AsyncBinaryAPIResponse:
         """
         Download a file from the database
 
@@ -286,20 +294,21 @@ class AsyncDocumentsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {"Accept": "application/octet-stream", **(extra_headers or {})}
         return await self._post(
             "/documents/download",
             body=await async_maybe_transform({"file_path": file_path}, document_download_params.DocumentDownloadParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=DocumentDownloadResponse,
+            cast_to=AsyncBinaryAPIResponse,
         )
 
     async def upload(
         self,
         *,
         content: FileTypes,
-        file_type: Literal["Text", "PDF", "SEC"],
+        file_type: Literal["Text", "PDF", "SEC", "ExecutionHistory"],
         path: FileTypes,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -354,8 +363,9 @@ class DocumentsResourceWithRawResponse:
         self.delete = to_raw_response_wrapper(
             documents.delete,
         )
-        self.download = to_raw_response_wrapper(
+        self.download = to_custom_raw_response_wrapper(
             documents.download,
+            BinaryAPIResponse,
         )
         self.upload = to_raw_response_wrapper(
             documents.upload,
@@ -372,8 +382,9 @@ class AsyncDocumentsResourceWithRawResponse:
         self.delete = async_to_raw_response_wrapper(
             documents.delete,
         )
-        self.download = async_to_raw_response_wrapper(
+        self.download = async_to_custom_raw_response_wrapper(
             documents.download,
+            AsyncBinaryAPIResponse,
         )
         self.upload = async_to_raw_response_wrapper(
             documents.upload,
@@ -390,8 +401,9 @@ class DocumentsResourceWithStreamingResponse:
         self.delete = to_streamed_response_wrapper(
             documents.delete,
         )
-        self.download = to_streamed_response_wrapper(
+        self.download = to_custom_streamed_response_wrapper(
             documents.download,
+            StreamedBinaryAPIResponse,
         )
         self.upload = to_streamed_response_wrapper(
             documents.upload,
@@ -408,8 +420,9 @@ class AsyncDocumentsResourceWithStreamingResponse:
         self.delete = async_to_streamed_response_wrapper(
             documents.delete,
         )
-        self.download = async_to_streamed_response_wrapper(
+        self.download = async_to_custom_streamed_response_wrapper(
             documents.download,
+            AsyncStreamedBinaryAPIResponse,
         )
         self.upload = async_to_streamed_response_wrapper(
             documents.upload,

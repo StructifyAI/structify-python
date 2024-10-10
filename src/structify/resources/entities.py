@@ -4,15 +4,7 @@ from __future__ import annotations
 
 import httpx
 
-from ..types import (
-    entity_add_params,
-    entity_get_params,
-    entity_view_params,
-    entity_merge_params,
-    entity_search_params,
-    entity_get_local_subgraph_params,
-    entity_get_source_entities_params,
-)
+from ..types import entity_add_params, entity_get_params
 from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from .._utils import (
     maybe_transform,
@@ -29,12 +21,7 @@ from .._response import (
 from .._base_client import make_request_options
 from ..types.entity_add_response import EntityAddResponse
 from ..types.entity_get_response import EntityGetResponse
-from ..types.entity_view_response import EntityViewResponse
-from ..types.entity_merge_response import EntityMergeResponse
 from ..types.knowledge_graph_param import KnowledgeGraphParam
-from ..types.entity_search_response import EntitySearchResponse
-from ..types.entity_get_local_subgraph_response import EntityGetLocalSubgraphResponse
-from ..types.entity_get_source_entities_response import EntityGetSourceEntitiesResponse
 
 __all__ = ["EntitiesResource", "AsyncEntitiesResource"]
 
@@ -64,8 +51,6 @@ class EntitiesResource(SyncAPIResource):
         *,
         dataset_name: str,
         kg: KnowledgeGraphParam,
-        attempt_merge: bool | NotGiven = NOT_GIVEN,
-        source: entity_add_params.Source | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -81,8 +66,6 @@ class EntitiesResource(SyncAPIResource):
               that the LLM outputs. Also the first representation of an LLM output in the
               pipeline from raw tool output to being merged into a Neo4j DB
 
-          attempt_merge: If true, attempt to merge with existing entities in the dataset
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -97,8 +80,6 @@ class EntitiesResource(SyncAPIResource):
                 {
                     "dataset_name": dataset_name,
                     "kg": kg,
-                    "attempt_merge": attempt_merge,
-                    "source": source,
                 },
                 entity_add_params.EntityAddParams,
             ),
@@ -143,192 +124,6 @@ class EntitiesResource(SyncAPIResource):
             cast_to=EntityGetResponse,
         )
 
-    def get_local_subgraph(
-        self,
-        *,
-        id: str,
-        radius: int | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> EntityGetLocalSubgraphResponse:
-        """
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return self._get(
-            "/entity/get_local_subgraph",
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "id": id,
-                        "radius": radius,
-                    },
-                    entity_get_local_subgraph_params.EntityGetLocalSubgraphParams,
-                ),
-            ),
-            cast_to=EntityGetLocalSubgraphResponse,
-        )
-
-    def get_source_entities(
-        self,
-        *,
-        id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> EntityGetSourceEntitiesResponse:
-        """
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return self._get(
-            "/entity/get_source_entities",
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform({"id": id}, entity_get_source_entities_params.EntityGetSourceEntitiesParams),
-            ),
-            cast_to=EntityGetSourceEntitiesResponse,
-        )
-
-    def merge(
-        self,
-        *,
-        entity_1_id: str,
-        entity_2_id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> EntityMergeResponse:
-        """
-        merge an entity manually
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return self._post(
-            "/entity/merge",
-            body=maybe_transform(
-                {
-                    "entity_1_id": entity_1_id,
-                    "entity_2_id": entity_2_id,
-                },
-                entity_merge_params.EntityMergeParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=EntityMergeResponse,
-        )
-
-    def search(
-        self,
-        *,
-        dataset_name: str,
-        query: str,
-        table_name: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> EntitySearchResponse:
-        """
-        Search for entities based on the given query
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return self._post(
-            "/entity/search",
-            body=maybe_transform(
-                {
-                    "dataset_name": dataset_name,
-                    "query": query,
-                    "table_name": table_name,
-                },
-                entity_search_params.EntitySearchParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=EntitySearchResponse,
-        )
-
-    def view(
-        self,
-        *,
-        id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> EntityViewResponse:
-        """
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return self._get(
-            "/entity/view",
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform({"id": id}, entity_view_params.EntityViewParams),
-            ),
-            cast_to=EntityViewResponse,
-        )
-
 
 class AsyncEntitiesResource(AsyncAPIResource):
     @cached_property
@@ -355,8 +150,6 @@ class AsyncEntitiesResource(AsyncAPIResource):
         *,
         dataset_name: str,
         kg: KnowledgeGraphParam,
-        attempt_merge: bool | NotGiven = NOT_GIVEN,
-        source: entity_add_params.Source | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -372,8 +165,6 @@ class AsyncEntitiesResource(AsyncAPIResource):
               that the LLM outputs. Also the first representation of an LLM output in the
               pipeline from raw tool output to being merged into a Neo4j DB
 
-          attempt_merge: If true, attempt to merge with existing entities in the dataset
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -388,8 +179,6 @@ class AsyncEntitiesResource(AsyncAPIResource):
                 {
                     "dataset_name": dataset_name,
                     "kg": kg,
-                    "attempt_merge": attempt_merge,
-                    "source": source,
                 },
                 entity_add_params.EntityAddParams,
             ),
@@ -434,194 +223,6 @@ class AsyncEntitiesResource(AsyncAPIResource):
             cast_to=EntityGetResponse,
         )
 
-    async def get_local_subgraph(
-        self,
-        *,
-        id: str,
-        radius: int | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> EntityGetLocalSubgraphResponse:
-        """
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return await self._get(
-            "/entity/get_local_subgraph",
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform(
-                    {
-                        "id": id,
-                        "radius": radius,
-                    },
-                    entity_get_local_subgraph_params.EntityGetLocalSubgraphParams,
-                ),
-            ),
-            cast_to=EntityGetLocalSubgraphResponse,
-        )
-
-    async def get_source_entities(
-        self,
-        *,
-        id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> EntityGetSourceEntitiesResponse:
-        """
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return await self._get(
-            "/entity/get_source_entities",
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform(
-                    {"id": id}, entity_get_source_entities_params.EntityGetSourceEntitiesParams
-                ),
-            ),
-            cast_to=EntityGetSourceEntitiesResponse,
-        )
-
-    async def merge(
-        self,
-        *,
-        entity_1_id: str,
-        entity_2_id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> EntityMergeResponse:
-        """
-        merge an entity manually
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return await self._post(
-            "/entity/merge",
-            body=await async_maybe_transform(
-                {
-                    "entity_1_id": entity_1_id,
-                    "entity_2_id": entity_2_id,
-                },
-                entity_merge_params.EntityMergeParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=EntityMergeResponse,
-        )
-
-    async def search(
-        self,
-        *,
-        dataset_name: str,
-        query: str,
-        table_name: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> EntitySearchResponse:
-        """
-        Search for entities based on the given query
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return await self._post(
-            "/entity/search",
-            body=await async_maybe_transform(
-                {
-                    "dataset_name": dataset_name,
-                    "query": query,
-                    "table_name": table_name,
-                },
-                entity_search_params.EntitySearchParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=EntitySearchResponse,
-        )
-
-    async def view(
-        self,
-        *,
-        id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> EntityViewResponse:
-        """
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return await self._get(
-            "/entity/view",
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform({"id": id}, entity_view_params.EntityViewParams),
-            ),
-            cast_to=EntityViewResponse,
-        )
-
 
 class EntitiesResourceWithRawResponse:
     def __init__(self, entities: EntitiesResource) -> None:
@@ -632,21 +233,6 @@ class EntitiesResourceWithRawResponse:
         )
         self.get = to_raw_response_wrapper(
             entities.get,
-        )
-        self.get_local_subgraph = to_raw_response_wrapper(
-            entities.get_local_subgraph,
-        )
-        self.get_source_entities = to_raw_response_wrapper(
-            entities.get_source_entities,
-        )
-        self.merge = to_raw_response_wrapper(
-            entities.merge,
-        )
-        self.search = to_raw_response_wrapper(
-            entities.search,
-        )
-        self.view = to_raw_response_wrapper(
-            entities.view,
         )
 
 
@@ -660,21 +246,6 @@ class AsyncEntitiesResourceWithRawResponse:
         self.get = async_to_raw_response_wrapper(
             entities.get,
         )
-        self.get_local_subgraph = async_to_raw_response_wrapper(
-            entities.get_local_subgraph,
-        )
-        self.get_source_entities = async_to_raw_response_wrapper(
-            entities.get_source_entities,
-        )
-        self.merge = async_to_raw_response_wrapper(
-            entities.merge,
-        )
-        self.search = async_to_raw_response_wrapper(
-            entities.search,
-        )
-        self.view = async_to_raw_response_wrapper(
-            entities.view,
-        )
 
 
 class EntitiesResourceWithStreamingResponse:
@@ -687,21 +258,6 @@ class EntitiesResourceWithStreamingResponse:
         self.get = to_streamed_response_wrapper(
             entities.get,
         )
-        self.get_local_subgraph = to_streamed_response_wrapper(
-            entities.get_local_subgraph,
-        )
-        self.get_source_entities = to_streamed_response_wrapper(
-            entities.get_source_entities,
-        )
-        self.merge = to_streamed_response_wrapper(
-            entities.merge,
-        )
-        self.search = to_streamed_response_wrapper(
-            entities.search,
-        )
-        self.view = to_streamed_response_wrapper(
-            entities.view,
-        )
 
 
 class AsyncEntitiesResourceWithStreamingResponse:
@@ -713,19 +269,4 @@ class AsyncEntitiesResourceWithStreamingResponse:
         )
         self.get = async_to_streamed_response_wrapper(
             entities.get,
-        )
-        self.get_local_subgraph = async_to_streamed_response_wrapper(
-            entities.get_local_subgraph,
-        )
-        self.get_source_entities = async_to_streamed_response_wrapper(
-            entities.get_source_entities,
-        )
-        self.merge = async_to_streamed_response_wrapper(
-            entities.merge,
-        )
-        self.search = async_to_streamed_response_wrapper(
-            entities.search,
-        )
-        self.view = async_to_streamed_response_wrapper(
-            entities.view,
         )

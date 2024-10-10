@@ -16,14 +16,6 @@ from .users import (
     UsersResourceWithStreamingResponse,
     AsyncUsersResourceWithStreamingResponse,
 )
-from .training_datasets import (
-    TrainingDatasetsResource,
-    AsyncTrainingDatasetsResource,
-    TrainingDatasetsResourceWithRawResponse,
-    AsyncTrainingDatasetsResourceWithRawResponse,
-    TrainingDatasetsResourceWithStreamingResponse,
-    AsyncTrainingDatasetsResourceWithStreamingResponse,
-)
 
 __all__ = [
     "UsersResource",
@@ -32,12 +24,6 @@ __all__ = [
     "AsyncUsersResourceWithRawResponse",
     "UsersResourceWithStreamingResponse",
     "AsyncUsersResourceWithStreamingResponse",
-    "TrainingDatasetsResource",
-    "AsyncTrainingDatasetsResource",
-    "TrainingDatasetsResourceWithRawResponse",
-    "AsyncTrainingDatasetsResourceWithRawResponse",
-    "TrainingDatasetsResourceWithStreamingResponse",
-    "AsyncTrainingDatasetsResourceWithStreamingResponse",
     "AdminResource",
     "AsyncAdminResource",
     "AdminResourceWithRawResponse",
