@@ -29,7 +29,6 @@ from ...types.admin import (
 from ..._base_client import make_request_options
 from ...types.execution_step_param import ExecutionStepParam
 from ...types.admin.training_datum_response import TrainingDatumResponse
-from ...types.admin.training_dataset_size_response import TrainingDatasetSizeResponse
 
 __all__ = ["TrainingDatasetsResource", "AsyncTrainingDatasetsResource"]
 
@@ -207,28 +206,6 @@ class TrainingDatasetsResource(SyncAPIResource):
                 ),
             ),
             cast_to=NoneType,
-        )
-
-    def size(
-        self,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> TrainingDatasetSizeResponse:
-        """
-        Returns the number of training data in the specified dataset, filtered by
-        status.
-        """
-        return self._get(
-            "/admin/training_datasets/size",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=int,
         )
 
     def update_datum(
@@ -449,28 +426,6 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
             cast_to=NoneType,
         )
 
-    async def size(
-        self,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> TrainingDatasetSizeResponse:
-        """
-        Returns the number of training data in the specified dataset, filtered by
-        status.
-        """
-        return await self._get(
-            "/admin/training_datasets/size",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=int,
-        )
-
     async def update_datum(
         self,
         *,
@@ -530,9 +485,6 @@ class TrainingDatasetsResourceWithRawResponse:
         self.reset_pending = to_raw_response_wrapper(
             training_datasets.reset_pending,
         )
-        self.size = to_raw_response_wrapper(
-            training_datasets.size,
-        )
         self.update_datum = to_raw_response_wrapper(
             training_datasets.update_datum,
         )
@@ -553,9 +505,6 @@ class AsyncTrainingDatasetsResourceWithRawResponse:
         )
         self.reset_pending = async_to_raw_response_wrapper(
             training_datasets.reset_pending,
-        )
-        self.size = async_to_raw_response_wrapper(
-            training_datasets.size,
         )
         self.update_datum = async_to_raw_response_wrapper(
             training_datasets.update_datum,
@@ -578,9 +527,6 @@ class TrainingDatasetsResourceWithStreamingResponse:
         self.reset_pending = to_streamed_response_wrapper(
             training_datasets.reset_pending,
         )
-        self.size = to_streamed_response_wrapper(
-            training_datasets.size,
-        )
         self.update_datum = to_streamed_response_wrapper(
             training_datasets.update_datum,
         )
@@ -601,9 +547,6 @@ class AsyncTrainingDatasetsResourceWithStreamingResponse:
         )
         self.reset_pending = async_to_streamed_response_wrapper(
             training_datasets.reset_pending,
-        )
-        self.size = async_to_streamed_response_wrapper(
-            training_datasets.size,
         )
         self.update_datum = async_to_streamed_response_wrapper(
             training_datasets.update_datum,
