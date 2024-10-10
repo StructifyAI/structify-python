@@ -593,24 +593,12 @@ class TestTrainingDatasets:
 
     @parametrize
     def test_method_size(self, client: Structify) -> None:
-        training_dataset = client.admin.training_datasets.size(
-            dataset_name="dataset_name",
-        )
-        assert_matches_type(TrainingDatasetSizeResponse, training_dataset, path=["response"])
-
-    @parametrize
-    def test_method_size_with_all_params(self, client: Structify) -> None:
-        training_dataset = client.admin.training_datasets.size(
-            dataset_name="dataset_name",
-            status="Unverified",
-        )
+        training_dataset = client.admin.training_datasets.size()
         assert_matches_type(TrainingDatasetSizeResponse, training_dataset, path=["response"])
 
     @parametrize
     def test_raw_response_size(self, client: Structify) -> None:
-        response = client.admin.training_datasets.with_raw_response.size(
-            dataset_name="dataset_name",
-        )
+        response = client.admin.training_datasets.with_raw_response.size()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -619,9 +607,7 @@ class TestTrainingDatasets:
 
     @parametrize
     def test_streaming_response_size(self, client: Structify) -> None:
-        with client.admin.training_datasets.with_streaming_response.size(
-            dataset_name="dataset_name",
-        ) as response:
+        with client.admin.training_datasets.with_streaming_response.size() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -1688,24 +1674,12 @@ class TestAsyncTrainingDatasets:
 
     @parametrize
     async def test_method_size(self, async_client: AsyncStructify) -> None:
-        training_dataset = await async_client.admin.training_datasets.size(
-            dataset_name="dataset_name",
-        )
-        assert_matches_type(TrainingDatasetSizeResponse, training_dataset, path=["response"])
-
-    @parametrize
-    async def test_method_size_with_all_params(self, async_client: AsyncStructify) -> None:
-        training_dataset = await async_client.admin.training_datasets.size(
-            dataset_name="dataset_name",
-            status="Unverified",
-        )
+        training_dataset = await async_client.admin.training_datasets.size()
         assert_matches_type(TrainingDatasetSizeResponse, training_dataset, path=["response"])
 
     @parametrize
     async def test_raw_response_size(self, async_client: AsyncStructify) -> None:
-        response = await async_client.admin.training_datasets.with_raw_response.size(
-            dataset_name="dataset_name",
-        )
+        response = await async_client.admin.training_datasets.with_raw_response.size()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -1714,9 +1688,7 @@ class TestAsyncTrainingDatasets:
 
     @parametrize
     async def test_streaming_response_size(self, async_client: AsyncStructify) -> None:
-        async with async_client.admin.training_datasets.with_streaming_response.size(
-            dataset_name="dataset_name",
-        ) as response:
+        async with async_client.admin.training_datasets.with_streaming_response.size() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
