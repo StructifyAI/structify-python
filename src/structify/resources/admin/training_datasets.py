@@ -223,7 +223,6 @@ class TrainingDatasetsResource(SyncAPIResource):
         Returns the number of training data in the specified dataset, filtered by
         status.
         """
-        extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
         return self._get(
             "/admin/training_datasets/size",
             options=make_request_options(
@@ -464,7 +463,6 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
         Returns the number of training data in the specified dataset, filtered by
         status.
         """
-        extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
         return await self._get(
             "/admin/training_datasets/size",
             options=make_request_options(
