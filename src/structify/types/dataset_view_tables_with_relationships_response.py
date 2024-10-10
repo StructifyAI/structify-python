@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Union
+from typing import Dict, List, Union, Optional
 from datetime import datetime
 
 from .._models import BaseModel
@@ -15,7 +15,7 @@ class ConnectedEntity(BaseModel):
 
     label: str
 
-    properties: Dict[str, Union[str, bool, float]]
+    properties: Dict[str, Union[Optional[str], Optional[bool], Optional[int]]]
 
 
 class Entity(BaseModel):
@@ -25,15 +25,13 @@ class Entity(BaseModel):
 
     label: str
 
-    properties: Dict[str, Union[str, bool, float]]
+    properties: Dict[str, Union[Optional[str], Optional[bool], Optional[int]]]
 
 
 class Relationship(BaseModel):
     from_id: str
 
     label: str
-
-    properties: Dict[str, Union[str, bool, float]]
 
     to_id: str
 

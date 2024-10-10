@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Union
+from typing import Union
 from datetime import datetime
 from typing_extensions import Literal, TypeAlias
 
@@ -11,61 +11,40 @@ from .._models import BaseModel
 
 __all__ = [
     "SourceListResponse",
-    "SourceListResponseItem",
-    "SourceListResponseItemLocation",
-    "SourceListResponseItemLocationText",
-    "SourceListResponseItemLocationTextText",
-    "SourceListResponseItemLocationVisual",
-    "SourceListResponseItemLocationVisualVisual",
-    "SourceListResponseItemLocationPage",
-    "SourceListResponseItemLocationPagePage",
+    "Location",
+    "LocationText",
+    "LocationTextText",
+    "LocationVisual",
+    "LocationVisualVisual",
 ]
 
 
-class SourceListResponseItemLocationTextText(BaseModel):
+class LocationTextText(BaseModel):
     byte_offset: int
 
 
-class SourceListResponseItemLocationText(BaseModel):
-    text: SourceListResponseItemLocationTextText = FieldInfo(alias="Text")
+class LocationText(BaseModel):
+    text: LocationTextText = FieldInfo(alias="Text")
 
 
-class SourceListResponseItemLocationVisualVisual(BaseModel):
+class LocationVisualVisual(BaseModel):
     x: int
 
     y: int
 
 
-class SourceListResponseItemLocationVisual(BaseModel):
-    visual: SourceListResponseItemLocationVisualVisual = FieldInfo(alias="Visual")
+class LocationVisual(BaseModel):
+    visual: LocationVisualVisual = FieldInfo(alias="Visual")
 
 
-class SourceListResponseItemLocationPagePage(BaseModel):
-    page_number: int
+Location: TypeAlias = Union[LocationText, LocationVisual, Literal["None"]]
 
 
-class SourceListResponseItemLocationPage(BaseModel):
-    page: SourceListResponseItemLocationPagePage = FieldInfo(alias="Page")
-
-
-SourceListResponseItemLocation: TypeAlias = Union[
-    SourceListResponseItemLocationText,
-    SourceListResponseItemLocationVisual,
-    SourceListResponseItemLocationPage,
-    Literal["None"],
-]
-
-
-class SourceListResponseItem(BaseModel):
+class SourceListResponse(BaseModel):
     id: str
 
     creation_time: datetime
 
     link: Source
 
-    location: SourceListResponseItemLocation
-
-    user_specified: bool
-
-
-SourceListResponse: TypeAlias = List[SourceListResponseItem]
+    location: Location
