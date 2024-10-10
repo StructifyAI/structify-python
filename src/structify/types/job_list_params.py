@@ -2,19 +2,12 @@
 
 from __future__ import annotations
 
-from typing import Optional
-from typing_extensions import Literal, TypedDict
+from typing_extensions import TypedDict
 
 __all__ = ["JobListParams"]
 
 
 class JobListParams(TypedDict, total=False):
-    dataset_name: Optional[str]
-    """Dataset name to optionally filter jobs by"""
-
     limit: int
 
     offset: int
-
-    status: Optional[Literal["Queued", "Running", "Completed", "Failed"]]
-    """Status to optionally filter jobs by"""

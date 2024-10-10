@@ -12,6 +12,6 @@ __all__ = ["DocumentUploadParams"]
 class DocumentUploadParams(TypedDict, total=False):
     content: Required[FileTypes]
 
-    file_type: Required[Literal["Text", "PDF", "SEC"]]
+    file_type: Required[Literal["Text", "PDF", "SEC", "ExecutionHistory"]]
 
     path: Required[FileTypes]

@@ -26,4 +26,4 @@ class Document(BaseModel):
     document: DocumentDocument = FieldInfo(alias="Document")
 
 
-Source: TypeAlias = Union[Web, Document, Literal["None"]]
+Source: TypeAlias = Union[Web, Document, Literal["UserCreated"]]

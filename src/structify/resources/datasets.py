@@ -8,7 +8,6 @@ import httpx
 
 from ..types import (
     dataset_get_params,
-    dataset_match_params,
     dataset_create_params,
     dataset_delete_params,
     dataset_view_table_params,
@@ -31,10 +30,8 @@ from .._response import (
 from ..pagination import SyncJobsList, AsyncJobsList
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.table_param import TableParam
-from ..types.dataset_get_response import DatasetGetResponse
+from ..types.dataset_descriptor import DatasetDescriptor
 from ..types.dataset_list_response import DatasetListResponse
-from ..types.knowledge_graph_param import KnowledgeGraphParam
-from ..types.dataset_match_response import DatasetMatchResponse
 from ..types.dataset_view_table_response import DatasetViewTableResponse
 from ..types.dataset_view_relationships_response import DatasetViewRelationshipsResponse
 from ..types.dataset_view_tables_with_relationships_response import DatasetViewTablesWithRelationshipsResponse
@@ -173,7 +170,7 @@ class DatasetsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> DatasetGetResponse:
+    ) -> Optional[DatasetDescriptor]:
         """
         Grab a dataset by its name.
 
@@ -197,52 +194,7 @@ class DatasetsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform({"name": name}, dataset_get_params.DatasetGetParams),
             ),
-            cast_to=DatasetGetResponse,
-        )
-
-    def match(
-        self,
-        *,
-        dataset: str,
-        query_kg: KnowledgeGraphParam,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> DatasetMatchResponse:
-        """
-        Returns: The matched subgraph and a score for the match.
-
-        Args:
-          dataset: The dataset to match against
-
-          query_kg: Knowledge graph info structured to deserialize and display in the same format
-              that the LLM outputs. Also the first representation of an LLM output in the
-              pipeline from raw tool output to being merged into a Neo4j DB
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return self._post(
-            "/dataset/match",
-            body=maybe_transform(
-                {
-                    "dataset": dataset,
-                    "query_kg": query_kg,
-                },
-                dataset_match_params.DatasetMatchParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=DatasetMatchResponse,
+            cast_to=DatasetDescriptor,
         )
 
     def view_relationships(
@@ -250,7 +202,6 @@ class DatasetsResource(SyncAPIResource):
         *,
         dataset: str,
         name: str,
-        job_id: Optional[str] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         offset: int | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -284,7 +235,6 @@ class DatasetsResource(SyncAPIResource):
                     {
                         "dataset": dataset,
                         "name": name,
-                        "job_id": job_id,
                         "limit": limit,
                         "offset": offset,
                     },
@@ -299,7 +249,6 @@ class DatasetsResource(SyncAPIResource):
         *,
         dataset: str,
         name: str,
-        job_id: Optional[str] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         offset: int | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -333,7 +282,6 @@ class DatasetsResource(SyncAPIResource):
                     {
                         "dataset": dataset,
                         "name": name,
-                        "job_id": job_id,
                         "limit": limit,
                         "offset": offset,
                     },
@@ -348,7 +296,6 @@ class DatasetsResource(SyncAPIResource):
         *,
         dataset: str,
         name: str,
-        job_id: Optional[str] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         offset: int | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -381,7 +328,6 @@ class DatasetsResource(SyncAPIResource):
                     {
                         "dataset": dataset,
                         "name": name,
-                        "job_id": job_id,
                         "limit": limit,
                         "offset": offset,
                     },
@@ -523,7 +469,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> DatasetGetResponse:
+    ) -> Optional[DatasetDescriptor]:
         """
         Grab a dataset by its name.
 
@@ -547,52 +493,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=await async_maybe_transform({"name": name}, dataset_get_params.DatasetGetParams),
             ),
-            cast_to=DatasetGetResponse,
-        )
-
-    async def match(
-        self,
-        *,
-        dataset: str,
-        query_kg: KnowledgeGraphParam,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> DatasetMatchResponse:
-        """
-        Returns: The matched subgraph and a score for the match.
-
-        Args:
-          dataset: The dataset to match against
-
-          query_kg: Knowledge graph info structured to deserialize and display in the same format
-              that the LLM outputs. Also the first representation of an LLM output in the
-              pipeline from raw tool output to being merged into a Neo4j DB
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return await self._post(
-            "/dataset/match",
-            body=await async_maybe_transform(
-                {
-                    "dataset": dataset,
-                    "query_kg": query_kg,
-                },
-                dataset_match_params.DatasetMatchParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=DatasetMatchResponse,
+            cast_to=DatasetDescriptor,
         )
 
     def view_relationships(
@@ -600,7 +501,6 @@ class AsyncDatasetsResource(AsyncAPIResource):
         *,
         dataset: str,
         name: str,
-        job_id: Optional[str] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         offset: int | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -634,7 +534,6 @@ class AsyncDatasetsResource(AsyncAPIResource):
                     {
                         "dataset": dataset,
                         "name": name,
-                        "job_id": job_id,
                         "limit": limit,
                         "offset": offset,
                     },
@@ -649,7 +548,6 @@ class AsyncDatasetsResource(AsyncAPIResource):
         *,
         dataset: str,
         name: str,
-        job_id: Optional[str] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         offset: int | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -683,7 +581,6 @@ class AsyncDatasetsResource(AsyncAPIResource):
                     {
                         "dataset": dataset,
                         "name": name,
-                        "job_id": job_id,
                         "limit": limit,
                         "offset": offset,
                     },
@@ -698,7 +595,6 @@ class AsyncDatasetsResource(AsyncAPIResource):
         *,
         dataset: str,
         name: str,
-        job_id: Optional[str] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         offset: int | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -731,7 +627,6 @@ class AsyncDatasetsResource(AsyncAPIResource):
                     {
                         "dataset": dataset,
                         "name": name,
-                        "job_id": job_id,
                         "limit": limit,
                         "offset": offset,
                     },
@@ -757,9 +652,6 @@ class DatasetsResourceWithRawResponse:
         )
         self.get = to_raw_response_wrapper(
             datasets.get,
-        )
-        self.match = to_raw_response_wrapper(
-            datasets.match,
         )
         self.view_relationships = to_raw_response_wrapper(
             datasets.view_relationships,
@@ -788,9 +680,6 @@ class AsyncDatasetsResourceWithRawResponse:
         self.get = async_to_raw_response_wrapper(
             datasets.get,
         )
-        self.match = async_to_raw_response_wrapper(
-            datasets.match,
-        )
         self.view_relationships = async_to_raw_response_wrapper(
             datasets.view_relationships,
         )
@@ -818,9 +707,6 @@ class DatasetsResourceWithStreamingResponse:
         self.get = to_streamed_response_wrapper(
             datasets.get,
         )
-        self.match = to_streamed_response_wrapper(
-            datasets.match,
-        )
         self.view_relationships = to_streamed_response_wrapper(
             datasets.view_relationships,
         )
@@ -847,9 +733,6 @@ class AsyncDatasetsResourceWithStreamingResponse:
         )
         self.get = async_to_streamed_response_wrapper(
             datasets.get,
-        )
-        self.match = async_to_streamed_response_wrapper(
-            datasets.match,
         )
         self.view_relationships = async_to_streamed_response_wrapper(
             datasets.view_relationships,
