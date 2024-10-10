@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-from typing import Optional
 from typing_extensions import Literal
 
 import httpx
@@ -22,7 +21,6 @@ from ..._response import (
 )
 from ...types.admin import (
     training_dataset_add_params,
-    training_dataset_size_params,
     training_dataset_add_datum_params,
     training_dataset_update_datum_params,
     training_dataset_reset_pending_params,
@@ -214,8 +212,6 @@ class TrainingDatasetsResource(SyncAPIResource):
     def size(
         self,
         *,
-        dataset_name: str,
-        status: Optional[Literal["Unverified", "Verified", "Pending", "Skipped"]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -226,31 +222,12 @@ class TrainingDatasetsResource(SyncAPIResource):
         """
         Returns the number of training data in the specified dataset, filtered by
         status.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
         """
         extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
         return self._get(
             "/admin/training_datasets/size",
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "dataset_name": dataset_name,
-                        "status": status,
-                    },
-                    training_dataset_size_params.TrainingDatasetSizeParams,
-                ),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=int,
         )
@@ -476,8 +453,6 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
     async def size(
         self,
         *,
-        dataset_name: str,
-        status: Optional[Literal["Unverified", "Verified", "Pending", "Skipped"]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -488,31 +463,12 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
         """
         Returns the number of training data in the specified dataset, filtered by
         status.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
         """
         extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
         return await self._get(
             "/admin/training_datasets/size",
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform(
-                    {
-                        "dataset_name": dataset_name,
-                        "status": status,
-                    },
-                    training_dataset_size_params.TrainingDatasetSizeParams,
-                ),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=int,
         )
