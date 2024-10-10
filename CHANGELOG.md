@@ -1,5 +1,22 @@
 # Changelog
 
+## 1.38.0 (2024-10-10)
+
+Full Changelog: [v1.37.0...v1.38.0](https://github.com/StructifyAI/structify-python/compare/v1.37.0...v1.38.0)
+
+### Features
+
+* **api:** api update ([#545](https://github.com/StructifyAI/structify-python/issues/545)) ([42eea98](https://github.com/StructifyAI/structify-python/commit/42eea9814043fe9604dfb854411cba8347a86284))
+* **api:** api update ([#547](https://github.com/StructifyAI/structify-python/issues/547)) ([294fc75](https://github.com/StructifyAI/structify-python/commit/294fc750a02e9dc0d11a112c702347fc974751ef))
+* **api:** api update ([#548](https://github.com/StructifyAI/structify-python/issues/548)) ([739b61c](https://github.com/StructifyAI/structify-python/commit/739b61c108c8438792a3dad2bc5d9a42876a642d))
+* **api:** api update ([#549](https://github.com/StructifyAI/structify-python/issues/549)) ([9c7eb41](https://github.com/StructifyAI/structify-python/commit/9c7eb4156ac5f6bdfefa70944264a156de9a3cd2))
+* **api:** api update ([#550](https://github.com/StructifyAI/structify-python/issues/550)) ([31ff50c](https://github.com/StructifyAI/structify-python/commit/31ff50cd4782700434002cfa2260c7d87fd5c614))
+* **api:** api update ([#551](https://github.com/StructifyAI/structify-python/issues/551)) ([0c0cb2f](https://github.com/StructifyAI/structify-python/commit/0c0cb2f4ada06b5fa361d817e6017fe115f126da))
+* **api:** api update ([#552](https://github.com/StructifyAI/structify-python/issues/552)) ([635b25e](https://github.com/StructifyAI/structify-python/commit/635b25edb04cea985d7ac03bf918993407b52eb4))
+* **api:** api update ([#553](https://github.com/StructifyAI/structify-python/issues/553)) ([3d83ca4](https://github.com/StructifyAI/structify-python/commit/3d83ca488695757ca5a5231d81165c53ed071e12))
+* **api:** api update ([#554](https://github.com/StructifyAI/structify-python/issues/554)) ([1a3b4c2](https://github.com/StructifyAI/structify-python/commit/1a3b4c2c62f5dddbdf5126a7a1e43489499189e8))
+* **api:** api update ([#555](https://github.com/StructifyAI/structify-python/issues/555)) ([2c225ff](https://github.com/StructifyAI/structify-python/commit/2c225ffd5c5226ec4a2e17cfcfff806f2f735fed))
+
 ## 1.37.0 (2024-10-04)
 
 Full Changelog: [v1.36.0...v1.37.0](https://github.com/StructifyAI/structify-python/compare/v1.36.0...v1.37.0)
