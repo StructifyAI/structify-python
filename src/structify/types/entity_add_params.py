@@ -21,6 +21,9 @@ class EntityAddParams(TypedDict, total=False):
     pipeline from raw tool output to being merged into a Neo4j DB
     """
 
+    attempt_merge: bool
+    """If true, attempt to merge with existing entities in the dataset"""
+
     source: Source
 
 
