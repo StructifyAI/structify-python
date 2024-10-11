@@ -9,7 +9,15 @@ import pytest
 
 from structify import Structify, AsyncStructify
 from tests.utils import assert_matches_type
-from structify.types import EntityAddResponse, EntityGetResponse
+from structify.types import (
+    EntityAddResponse,
+    EntityGetResponse,
+    EntityViewResponse,
+    EntityMergeResponse,
+    EntitySearchResponse,
+    EntityGetLocalSubgraphResponse,
+    EntityGetSourceEntitiesResponse,
+)
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -68,6 +76,8 @@ class TestEntities:
                     },
                 ],
             },
+            attempt_merge=True,
+            source="None",
         )
         assert_matches_type(EntityAddResponse, entity, path=["response"])
 
@@ -128,6 +138,178 @@ class TestEntities:
 
         assert cast(Any, response.is_closed) is True
 
+    @parametrize
+    def test_method_get_local_subgraph(self, client: Structify) -> None:
+        entity = client.entities.get_local_subgraph(
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(EntityGetLocalSubgraphResponse, entity, path=["response"])
+
+    @parametrize
+    def test_method_get_local_subgraph_with_all_params(self, client: Structify) -> None:
+        entity = client.entities.get_local_subgraph(
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            radius=0,
+        )
+        assert_matches_type(EntityGetLocalSubgraphResponse, entity, path=["response"])
+
+    @parametrize
+    def test_raw_response_get_local_subgraph(self, client: Structify) -> None:
+        response = client.entities.with_raw_response.get_local_subgraph(
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        entity = response.parse()
+        assert_matches_type(EntityGetLocalSubgraphResponse, entity, path=["response"])
+
+    @parametrize
+    def test_streaming_response_get_local_subgraph(self, client: Structify) -> None:
+        with client.entities.with_streaming_response.get_local_subgraph(
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            entity = response.parse()
+            assert_matches_type(EntityGetLocalSubgraphResponse, entity, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_method_get_source_entities(self, client: Structify) -> None:
+        entity = client.entities.get_source_entities(
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(EntityGetSourceEntitiesResponse, entity, path=["response"])
+
+    @parametrize
+    def test_raw_response_get_source_entities(self, client: Structify) -> None:
+        response = client.entities.with_raw_response.get_source_entities(
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        entity = response.parse()
+        assert_matches_type(EntityGetSourceEntitiesResponse, entity, path=["response"])
+
+    @parametrize
+    def test_streaming_response_get_source_entities(self, client: Structify) -> None:
+        with client.entities.with_streaming_response.get_source_entities(
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            entity = response.parse()
+            assert_matches_type(EntityGetSourceEntitiesResponse, entity, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_method_merge(self, client: Structify) -> None:
+        entity = client.entities.merge(
+            entity_1_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            entity_2_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(EntityMergeResponse, entity, path=["response"])
+
+    @parametrize
+    def test_raw_response_merge(self, client: Structify) -> None:
+        response = client.entities.with_raw_response.merge(
+            entity_1_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            entity_2_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        entity = response.parse()
+        assert_matches_type(EntityMergeResponse, entity, path=["response"])
+
+    @parametrize
+    def test_streaming_response_merge(self, client: Structify) -> None:
+        with client.entities.with_streaming_response.merge(
+            entity_1_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            entity_2_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            entity = response.parse()
+            assert_matches_type(EntityMergeResponse, entity, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_method_search(self, client: Structify) -> None:
+        entity = client.entities.search(
+            dataset_name="dataset_name",
+            query="query",
+            table_name="table_name",
+        )
+        assert_matches_type(EntitySearchResponse, entity, path=["response"])
+
+    @parametrize
+    def test_raw_response_search(self, client: Structify) -> None:
+        response = client.entities.with_raw_response.search(
+            dataset_name="dataset_name",
+            query="query",
+            table_name="table_name",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        entity = response.parse()
+        assert_matches_type(EntitySearchResponse, entity, path=["response"])
+
+    @parametrize
+    def test_streaming_response_search(self, client: Structify) -> None:
+        with client.entities.with_streaming_response.search(
+            dataset_name="dataset_name",
+            query="query",
+            table_name="table_name",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            entity = response.parse()
+            assert_matches_type(EntitySearchResponse, entity, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_method_view(self, client: Structify) -> None:
+        entity = client.entities.view(
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(EntityViewResponse, entity, path=["response"])
+
+    @parametrize
+    def test_raw_response_view(self, client: Structify) -> None:
+        response = client.entities.with_raw_response.view(
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        entity = response.parse()
+        assert_matches_type(EntityViewResponse, entity, path=["response"])
+
+    @parametrize
+    def test_streaming_response_view(self, client: Structify) -> None:
+        with client.entities.with_streaming_response.view(
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            entity = response.parse()
+            assert_matches_type(EntityViewResponse, entity, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
 
 class TestAsyncEntities:
     parametrize = pytest.mark.parametrize("async_client", [False, True], indirect=True, ids=["loose", "strict"])
@@ -183,6 +365,8 @@ class TestAsyncEntities:
                     },
                 ],
             },
+            attempt_merge=True,
+            source="None",
         )
         assert_matches_type(EntityAddResponse, entity, path=["response"])
 
@@ -240,5 +424,177 @@ class TestAsyncEntities:
 
             entity = await response.parse()
             assert_matches_type(EntityGetResponse, entity, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_method_get_local_subgraph(self, async_client: AsyncStructify) -> None:
+        entity = await async_client.entities.get_local_subgraph(
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(EntityGetLocalSubgraphResponse, entity, path=["response"])
+
+    @parametrize
+    async def test_method_get_local_subgraph_with_all_params(self, async_client: AsyncStructify) -> None:
+        entity = await async_client.entities.get_local_subgraph(
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            radius=0,
+        )
+        assert_matches_type(EntityGetLocalSubgraphResponse, entity, path=["response"])
+
+    @parametrize
+    async def test_raw_response_get_local_subgraph(self, async_client: AsyncStructify) -> None:
+        response = await async_client.entities.with_raw_response.get_local_subgraph(
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        entity = await response.parse()
+        assert_matches_type(EntityGetLocalSubgraphResponse, entity, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_get_local_subgraph(self, async_client: AsyncStructify) -> None:
+        async with async_client.entities.with_streaming_response.get_local_subgraph(
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            entity = await response.parse()
+            assert_matches_type(EntityGetLocalSubgraphResponse, entity, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_method_get_source_entities(self, async_client: AsyncStructify) -> None:
+        entity = await async_client.entities.get_source_entities(
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(EntityGetSourceEntitiesResponse, entity, path=["response"])
+
+    @parametrize
+    async def test_raw_response_get_source_entities(self, async_client: AsyncStructify) -> None:
+        response = await async_client.entities.with_raw_response.get_source_entities(
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        entity = await response.parse()
+        assert_matches_type(EntityGetSourceEntitiesResponse, entity, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_get_source_entities(self, async_client: AsyncStructify) -> None:
+        async with async_client.entities.with_streaming_response.get_source_entities(
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            entity = await response.parse()
+            assert_matches_type(EntityGetSourceEntitiesResponse, entity, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_method_merge(self, async_client: AsyncStructify) -> None:
+        entity = await async_client.entities.merge(
+            entity_1_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            entity_2_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(EntityMergeResponse, entity, path=["response"])
+
+    @parametrize
+    async def test_raw_response_merge(self, async_client: AsyncStructify) -> None:
+        response = await async_client.entities.with_raw_response.merge(
+            entity_1_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            entity_2_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        entity = await response.parse()
+        assert_matches_type(EntityMergeResponse, entity, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_merge(self, async_client: AsyncStructify) -> None:
+        async with async_client.entities.with_streaming_response.merge(
+            entity_1_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            entity_2_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            entity = await response.parse()
+            assert_matches_type(EntityMergeResponse, entity, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_method_search(self, async_client: AsyncStructify) -> None:
+        entity = await async_client.entities.search(
+            dataset_name="dataset_name",
+            query="query",
+            table_name="table_name",
+        )
+        assert_matches_type(EntitySearchResponse, entity, path=["response"])
+
+    @parametrize
+    async def test_raw_response_search(self, async_client: AsyncStructify) -> None:
+        response = await async_client.entities.with_raw_response.search(
+            dataset_name="dataset_name",
+            query="query",
+            table_name="table_name",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        entity = await response.parse()
+        assert_matches_type(EntitySearchResponse, entity, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_search(self, async_client: AsyncStructify) -> None:
+        async with async_client.entities.with_streaming_response.search(
+            dataset_name="dataset_name",
+            query="query",
+            table_name="table_name",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            entity = await response.parse()
+            assert_matches_type(EntitySearchResponse, entity, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_method_view(self, async_client: AsyncStructify) -> None:
+        entity = await async_client.entities.view(
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(EntityViewResponse, entity, path=["response"])
+
+    @parametrize
+    async def test_raw_response_view(self, async_client: AsyncStructify) -> None:
+        response = await async_client.entities.with_raw_response.view(
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        entity = await response.parse()
+        assert_matches_type(EntityViewResponse, entity, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_view(self, async_client: AsyncStructify) -> None:
+        async with async_client.entities.with_streaming_response.view(
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            entity = await response.parse()
+            assert_matches_type(EntityViewResponse, entity, path=["response"])
 
         assert cast(Any, response.is_closed) is True

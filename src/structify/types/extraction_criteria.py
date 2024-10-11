@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Union
+from typing import List, Union, Optional
 from typing_extensions import TypeAlias
 
 from pydantic import Field as FieldInfo
@@ -27,7 +27,10 @@ class RelationshipExtraction(BaseModel):
 
 
 class EntityExtractionEntityExtraction(BaseModel):
-    entity_id: int
+    seeded_kg_id: int
+    """The integer id corresponding to an entity in the seeded kg"""
+
+    dataset_entity_id: Optional[str] = None
 
 
 class EntityExtraction(BaseModel):
