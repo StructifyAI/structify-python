@@ -12,6 +12,14 @@ from .users import (
 )
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
+from .training_datasets import (
+    TrainingDatasetsResource,
+    AsyncTrainingDatasetsResource,
+    TrainingDatasetsResourceWithRawResponse,
+    AsyncTrainingDatasetsResourceWithRawResponse,
+    TrainingDatasetsResourceWithStreamingResponse,
+    AsyncTrainingDatasetsResourceWithStreamingResponse,
+)
 
 __all__ = ["AdminResource", "AsyncAdminResource"]
 
@@ -20,6 +28,10 @@ class AdminResource(SyncAPIResource):
     @cached_property
     def users(self) -> UsersResource:
         return UsersResource(self._client)
+
+    @cached_property
+    def training_datasets(self) -> TrainingDatasetsResource:
+        return TrainingDatasetsResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> AdminResourceWithRawResponse:
@@ -45,6 +57,10 @@ class AsyncAdminResource(AsyncAPIResource):
     @cached_property
     def users(self) -> AsyncUsersResource:
         return AsyncUsersResource(self._client)
+
+    @cached_property
+    def training_datasets(self) -> AsyncTrainingDatasetsResource:
+        return AsyncTrainingDatasetsResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> AsyncAdminResourceWithRawResponse:
@@ -74,6 +90,10 @@ class AdminResourceWithRawResponse:
     def users(self) -> UsersResourceWithRawResponse:
         return UsersResourceWithRawResponse(self._admin.users)
 
+    @cached_property
+    def training_datasets(self) -> TrainingDatasetsResourceWithRawResponse:
+        return TrainingDatasetsResourceWithRawResponse(self._admin.training_datasets)
+
 
 class AsyncAdminResourceWithRawResponse:
     def __init__(self, admin: AsyncAdminResource) -> None:
@@ -82,6 +102,10 @@ class AsyncAdminResourceWithRawResponse:
     @cached_property
     def users(self) -> AsyncUsersResourceWithRawResponse:
         return AsyncUsersResourceWithRawResponse(self._admin.users)
+
+    @cached_property
+    def training_datasets(self) -> AsyncTrainingDatasetsResourceWithRawResponse:
+        return AsyncTrainingDatasetsResourceWithRawResponse(self._admin.training_datasets)
 
 
 class AdminResourceWithStreamingResponse:
@@ -92,6 +116,10 @@ class AdminResourceWithStreamingResponse:
     def users(self) -> UsersResourceWithStreamingResponse:
         return UsersResourceWithStreamingResponse(self._admin.users)
 
+    @cached_property
+    def training_datasets(self) -> TrainingDatasetsResourceWithStreamingResponse:
+        return TrainingDatasetsResourceWithStreamingResponse(self._admin.training_datasets)
+
 
 class AsyncAdminResourceWithStreamingResponse:
     def __init__(self, admin: AsyncAdminResource) -> None:
@@ -100,3 +128,7 @@ class AsyncAdminResourceWithStreamingResponse:
     @cached_property
     def users(self) -> AsyncUsersResourceWithStreamingResponse:
         return AsyncUsersResourceWithStreamingResponse(self._admin.users)
+
+    @cached_property
+    def training_datasets(self) -> AsyncTrainingDatasetsResourceWithStreamingResponse:
+        return AsyncTrainingDatasetsResourceWithStreamingResponse(self._admin.training_datasets)

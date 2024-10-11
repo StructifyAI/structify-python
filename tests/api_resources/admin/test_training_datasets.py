@@ -635,155 +635,20 @@ class TestTrainingDatasets:
         training_dataset = client.admin.training_datasets.update_datum(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             status="Unverified",
-            step={
-                "id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "prompt": {
-                    "decoding_params": {"parameters": [{"max_tokens": 0}, {"max_tokens": 0}, {"max_tokens": 0}]},
-                    "messages": [
-                        {
-                            "content": [{"text": "Text"}, {"text": "Text"}, {"text": "Text"}],
-                            "role": "user",
-                        },
-                        {
-                            "content": [{"text": "Text"}, {"text": "Text"}, {"text": "Text"}],
-                            "role": "user",
-                        },
-                        {
-                            "content": [{"text": "Text"}, {"text": "Text"}, {"text": "Text"}],
-                            "role": "user",
-                        },
-                    ],
-                    "metadata": {
-                        "dataset_descriptor": {
-                            "description": "description",
-                            "name": "name",
-                            "relationships": [
-                                {
-                                    "description": "description",
-                                    "name": "name",
-                                    "source_table": "source_table",
-                                    "target_table": "target_table",
-                                },
-                                {
-                                    "description": "description",
-                                    "name": "name",
-                                    "source_table": "source_table",
-                                    "target_table": "target_table",
-                                },
-                                {
-                                    "description": "description",
-                                    "name": "name",
-                                    "source_table": "source_table",
-                                    "target_table": "target_table",
-                                },
-                            ],
-                            "tables": [
-                                {
-                                    "description": "description",
-                                    "name": "name",
-                                    "properties": [
-                                        {
-                                            "description": "description",
-                                            "name": "name",
-                                        },
-                                        {
-                                            "description": "description",
-                                            "name": "name",
-                                        },
-                                        {
-                                            "description": "description",
-                                            "name": "name",
-                                        },
-                                    ],
-                                },
-                                {
-                                    "description": "description",
-                                    "name": "name",
-                                    "properties": [
-                                        {
-                                            "description": "description",
-                                            "name": "name",
-                                        },
-                                        {
-                                            "description": "description",
-                                            "name": "name",
-                                        },
-                                        {
-                                            "description": "description",
-                                            "name": "name",
-                                        },
-                                    ],
-                                },
-                                {
-                                    "description": "description",
-                                    "name": "name",
-                                    "properties": [
-                                        {
-                                            "description": "description",
-                                            "name": "name",
-                                        },
-                                        {
-                                            "description": "description",
-                                            "name": "name",
-                                        },
-                                        {
-                                            "description": "description",
-                                            "name": "name",
-                                        },
-                                    ],
-                                },
-                            ],
-                        },
-                        "extracted_entities": [{}, {}, {}],
-                        "extraction_criteria": [
-                            {"relationship_extraction": {"relationship_name": "relationship_name"}},
-                            {"relationship_extraction": {"relationship_name": "relationship_name"}},
-                            {"relationship_extraction": {"relationship_name": "relationship_name"}},
-                        ],
-                        "tool_metadata": [
-                            {
-                                "description": "description",
-                                "name": "Save",
-                                "regex_validator": "regex_validator",
-                                "tool_validator": {"foo": "bar"},
-                            },
-                            {
-                                "description": "description",
-                                "name": "Save",
-                                "regex_validator": "regex_validator",
-                                "tool_validator": {"foo": "bar"},
-                            },
-                            {
-                                "description": "description",
-                                "name": "Save",
-                                "regex_validator": "regex_validator",
-                                "tool_validator": {"foo": "bar"},
-                            },
-                        ],
-                    },
+            updated_tool_calls=[
+                {
+                    "input": {"save": {}},
+                    "name": "Save",
                 },
-                "response": {
-                    "completion_tokens": 0,
-                    "cost": 0,
-                    "llm": "llm",
-                    "prompt_tokens": 0,
-                    "text": "text",
-                    "tool_calls": [
-                        {
-                            "input": {"save": {}},
-                            "name": "Save",
-                        },
-                        {
-                            "input": {"save": {}},
-                            "name": "Save",
-                        },
-                        {
-                            "input": {"save": {}},
-                            "name": "Save",
-                        },
-                    ],
+                {
+                    "input": {"save": {}},
+                    "name": "Save",
                 },
-            },
+                {
+                    "input": {"save": {}},
+                    "name": "Save",
+                },
+            ],
         )
         assert training_dataset is None
 
@@ -792,155 +657,20 @@ class TestTrainingDatasets:
         response = client.admin.training_datasets.with_raw_response.update_datum(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             status="Unverified",
-            step={
-                "id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "prompt": {
-                    "decoding_params": {"parameters": [{"max_tokens": 0}, {"max_tokens": 0}, {"max_tokens": 0}]},
-                    "messages": [
-                        {
-                            "content": [{"text": "Text"}, {"text": "Text"}, {"text": "Text"}],
-                            "role": "user",
-                        },
-                        {
-                            "content": [{"text": "Text"}, {"text": "Text"}, {"text": "Text"}],
-                            "role": "user",
-                        },
-                        {
-                            "content": [{"text": "Text"}, {"text": "Text"}, {"text": "Text"}],
-                            "role": "user",
-                        },
-                    ],
-                    "metadata": {
-                        "dataset_descriptor": {
-                            "description": "description",
-                            "name": "name",
-                            "relationships": [
-                                {
-                                    "description": "description",
-                                    "name": "name",
-                                    "source_table": "source_table",
-                                    "target_table": "target_table",
-                                },
-                                {
-                                    "description": "description",
-                                    "name": "name",
-                                    "source_table": "source_table",
-                                    "target_table": "target_table",
-                                },
-                                {
-                                    "description": "description",
-                                    "name": "name",
-                                    "source_table": "source_table",
-                                    "target_table": "target_table",
-                                },
-                            ],
-                            "tables": [
-                                {
-                                    "description": "description",
-                                    "name": "name",
-                                    "properties": [
-                                        {
-                                            "description": "description",
-                                            "name": "name",
-                                        },
-                                        {
-                                            "description": "description",
-                                            "name": "name",
-                                        },
-                                        {
-                                            "description": "description",
-                                            "name": "name",
-                                        },
-                                    ],
-                                },
-                                {
-                                    "description": "description",
-                                    "name": "name",
-                                    "properties": [
-                                        {
-                                            "description": "description",
-                                            "name": "name",
-                                        },
-                                        {
-                                            "description": "description",
-                                            "name": "name",
-                                        },
-                                        {
-                                            "description": "description",
-                                            "name": "name",
-                                        },
-                                    ],
-                                },
-                                {
-                                    "description": "description",
-                                    "name": "name",
-                                    "properties": [
-                                        {
-                                            "description": "description",
-                                            "name": "name",
-                                        },
-                                        {
-                                            "description": "description",
-                                            "name": "name",
-                                        },
-                                        {
-                                            "description": "description",
-                                            "name": "name",
-                                        },
-                                    ],
-                                },
-                            ],
-                        },
-                        "extracted_entities": [{}, {}, {}],
-                        "extraction_criteria": [
-                            {"relationship_extraction": {"relationship_name": "relationship_name"}},
-                            {"relationship_extraction": {"relationship_name": "relationship_name"}},
-                            {"relationship_extraction": {"relationship_name": "relationship_name"}},
-                        ],
-                        "tool_metadata": [
-                            {
-                                "description": "description",
-                                "name": "Save",
-                                "regex_validator": "regex_validator",
-                                "tool_validator": {"foo": "bar"},
-                            },
-                            {
-                                "description": "description",
-                                "name": "Save",
-                                "regex_validator": "regex_validator",
-                                "tool_validator": {"foo": "bar"},
-                            },
-                            {
-                                "description": "description",
-                                "name": "Save",
-                                "regex_validator": "regex_validator",
-                                "tool_validator": {"foo": "bar"},
-                            },
-                        ],
-                    },
+            updated_tool_calls=[
+                {
+                    "input": {"save": {}},
+                    "name": "Save",
                 },
-                "response": {
-                    "completion_tokens": 0,
-                    "cost": 0,
-                    "llm": "llm",
-                    "prompt_tokens": 0,
-                    "text": "text",
-                    "tool_calls": [
-                        {
-                            "input": {"save": {}},
-                            "name": "Save",
-                        },
-                        {
-                            "input": {"save": {}},
-                            "name": "Save",
-                        },
-                        {
-                            "input": {"save": {}},
-                            "name": "Save",
-                        },
-                    ],
+                {
+                    "input": {"save": {}},
+                    "name": "Save",
                 },
-            },
+                {
+                    "input": {"save": {}},
+                    "name": "Save",
+                },
+            ],
         )
 
         assert response.is_closed is True
@@ -953,155 +683,20 @@ class TestTrainingDatasets:
         with client.admin.training_datasets.with_streaming_response.update_datum(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             status="Unverified",
-            step={
-                "id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "prompt": {
-                    "decoding_params": {"parameters": [{"max_tokens": 0}, {"max_tokens": 0}, {"max_tokens": 0}]},
-                    "messages": [
-                        {
-                            "content": [{"text": "Text"}, {"text": "Text"}, {"text": "Text"}],
-                            "role": "user",
-                        },
-                        {
-                            "content": [{"text": "Text"}, {"text": "Text"}, {"text": "Text"}],
-                            "role": "user",
-                        },
-                        {
-                            "content": [{"text": "Text"}, {"text": "Text"}, {"text": "Text"}],
-                            "role": "user",
-                        },
-                    ],
-                    "metadata": {
-                        "dataset_descriptor": {
-                            "description": "description",
-                            "name": "name",
-                            "relationships": [
-                                {
-                                    "description": "description",
-                                    "name": "name",
-                                    "source_table": "source_table",
-                                    "target_table": "target_table",
-                                },
-                                {
-                                    "description": "description",
-                                    "name": "name",
-                                    "source_table": "source_table",
-                                    "target_table": "target_table",
-                                },
-                                {
-                                    "description": "description",
-                                    "name": "name",
-                                    "source_table": "source_table",
-                                    "target_table": "target_table",
-                                },
-                            ],
-                            "tables": [
-                                {
-                                    "description": "description",
-                                    "name": "name",
-                                    "properties": [
-                                        {
-                                            "description": "description",
-                                            "name": "name",
-                                        },
-                                        {
-                                            "description": "description",
-                                            "name": "name",
-                                        },
-                                        {
-                                            "description": "description",
-                                            "name": "name",
-                                        },
-                                    ],
-                                },
-                                {
-                                    "description": "description",
-                                    "name": "name",
-                                    "properties": [
-                                        {
-                                            "description": "description",
-                                            "name": "name",
-                                        },
-                                        {
-                                            "description": "description",
-                                            "name": "name",
-                                        },
-                                        {
-                                            "description": "description",
-                                            "name": "name",
-                                        },
-                                    ],
-                                },
-                                {
-                                    "description": "description",
-                                    "name": "name",
-                                    "properties": [
-                                        {
-                                            "description": "description",
-                                            "name": "name",
-                                        },
-                                        {
-                                            "description": "description",
-                                            "name": "name",
-                                        },
-                                        {
-                                            "description": "description",
-                                            "name": "name",
-                                        },
-                                    ],
-                                },
-                            ],
-                        },
-                        "extracted_entities": [{}, {}, {}],
-                        "extraction_criteria": [
-                            {"relationship_extraction": {"relationship_name": "relationship_name"}},
-                            {"relationship_extraction": {"relationship_name": "relationship_name"}},
-                            {"relationship_extraction": {"relationship_name": "relationship_name"}},
-                        ],
-                        "tool_metadata": [
-                            {
-                                "description": "description",
-                                "name": "Save",
-                                "regex_validator": "regex_validator",
-                                "tool_validator": {"foo": "bar"},
-                            },
-                            {
-                                "description": "description",
-                                "name": "Save",
-                                "regex_validator": "regex_validator",
-                                "tool_validator": {"foo": "bar"},
-                            },
-                            {
-                                "description": "description",
-                                "name": "Save",
-                                "regex_validator": "regex_validator",
-                                "tool_validator": {"foo": "bar"},
-                            },
-                        ],
-                    },
+            updated_tool_calls=[
+                {
+                    "input": {"save": {}},
+                    "name": "Save",
                 },
-                "response": {
-                    "completion_tokens": 0,
-                    "cost": 0,
-                    "llm": "llm",
-                    "prompt_tokens": 0,
-                    "text": "text",
-                    "tool_calls": [
-                        {
-                            "input": {"save": {}},
-                            "name": "Save",
-                        },
-                        {
-                            "input": {"save": {}},
-                            "name": "Save",
-                        },
-                        {
-                            "input": {"save": {}},
-                            "name": "Save",
-                        },
-                    ],
+                {
+                    "input": {"save": {}},
+                    "name": "Save",
                 },
-            },
+                {
+                    "input": {"save": {}},
+                    "name": "Save",
+                },
+            ],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -1730,155 +1325,20 @@ class TestAsyncTrainingDatasets:
         training_dataset = await async_client.admin.training_datasets.update_datum(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             status="Unverified",
-            step={
-                "id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "prompt": {
-                    "decoding_params": {"parameters": [{"max_tokens": 0}, {"max_tokens": 0}, {"max_tokens": 0}]},
-                    "messages": [
-                        {
-                            "content": [{"text": "Text"}, {"text": "Text"}, {"text": "Text"}],
-                            "role": "user",
-                        },
-                        {
-                            "content": [{"text": "Text"}, {"text": "Text"}, {"text": "Text"}],
-                            "role": "user",
-                        },
-                        {
-                            "content": [{"text": "Text"}, {"text": "Text"}, {"text": "Text"}],
-                            "role": "user",
-                        },
-                    ],
-                    "metadata": {
-                        "dataset_descriptor": {
-                            "description": "description",
-                            "name": "name",
-                            "relationships": [
-                                {
-                                    "description": "description",
-                                    "name": "name",
-                                    "source_table": "source_table",
-                                    "target_table": "target_table",
-                                },
-                                {
-                                    "description": "description",
-                                    "name": "name",
-                                    "source_table": "source_table",
-                                    "target_table": "target_table",
-                                },
-                                {
-                                    "description": "description",
-                                    "name": "name",
-                                    "source_table": "source_table",
-                                    "target_table": "target_table",
-                                },
-                            ],
-                            "tables": [
-                                {
-                                    "description": "description",
-                                    "name": "name",
-                                    "properties": [
-                                        {
-                                            "description": "description",
-                                            "name": "name",
-                                        },
-                                        {
-                                            "description": "description",
-                                            "name": "name",
-                                        },
-                                        {
-                                            "description": "description",
-                                            "name": "name",
-                                        },
-                                    ],
-                                },
-                                {
-                                    "description": "description",
-                                    "name": "name",
-                                    "properties": [
-                                        {
-                                            "description": "description",
-                                            "name": "name",
-                                        },
-                                        {
-                                            "description": "description",
-                                            "name": "name",
-                                        },
-                                        {
-                                            "description": "description",
-                                            "name": "name",
-                                        },
-                                    ],
-                                },
-                                {
-                                    "description": "description",
-                                    "name": "name",
-                                    "properties": [
-                                        {
-                                            "description": "description",
-                                            "name": "name",
-                                        },
-                                        {
-                                            "description": "description",
-                                            "name": "name",
-                                        },
-                                        {
-                                            "description": "description",
-                                            "name": "name",
-                                        },
-                                    ],
-                                },
-                            ],
-                        },
-                        "extracted_entities": [{}, {}, {}],
-                        "extraction_criteria": [
-                            {"relationship_extraction": {"relationship_name": "relationship_name"}},
-                            {"relationship_extraction": {"relationship_name": "relationship_name"}},
-                            {"relationship_extraction": {"relationship_name": "relationship_name"}},
-                        ],
-                        "tool_metadata": [
-                            {
-                                "description": "description",
-                                "name": "Save",
-                                "regex_validator": "regex_validator",
-                                "tool_validator": {"foo": "bar"},
-                            },
-                            {
-                                "description": "description",
-                                "name": "Save",
-                                "regex_validator": "regex_validator",
-                                "tool_validator": {"foo": "bar"},
-                            },
-                            {
-                                "description": "description",
-                                "name": "Save",
-                                "regex_validator": "regex_validator",
-                                "tool_validator": {"foo": "bar"},
-                            },
-                        ],
-                    },
+            updated_tool_calls=[
+                {
+                    "input": {"save": {}},
+                    "name": "Save",
                 },
-                "response": {
-                    "completion_tokens": 0,
-                    "cost": 0,
-                    "llm": "llm",
-                    "prompt_tokens": 0,
-                    "text": "text",
-                    "tool_calls": [
-                        {
-                            "input": {"save": {}},
-                            "name": "Save",
-                        },
-                        {
-                            "input": {"save": {}},
-                            "name": "Save",
-                        },
-                        {
-                            "input": {"save": {}},
-                            "name": "Save",
-                        },
-                    ],
+                {
+                    "input": {"save": {}},
+                    "name": "Save",
                 },
-            },
+                {
+                    "input": {"save": {}},
+                    "name": "Save",
+                },
+            ],
         )
         assert training_dataset is None
 
@@ -1887,155 +1347,20 @@ class TestAsyncTrainingDatasets:
         response = await async_client.admin.training_datasets.with_raw_response.update_datum(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             status="Unverified",
-            step={
-                "id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "prompt": {
-                    "decoding_params": {"parameters": [{"max_tokens": 0}, {"max_tokens": 0}, {"max_tokens": 0}]},
-                    "messages": [
-                        {
-                            "content": [{"text": "Text"}, {"text": "Text"}, {"text": "Text"}],
-                            "role": "user",
-                        },
-                        {
-                            "content": [{"text": "Text"}, {"text": "Text"}, {"text": "Text"}],
-                            "role": "user",
-                        },
-                        {
-                            "content": [{"text": "Text"}, {"text": "Text"}, {"text": "Text"}],
-                            "role": "user",
-                        },
-                    ],
-                    "metadata": {
-                        "dataset_descriptor": {
-                            "description": "description",
-                            "name": "name",
-                            "relationships": [
-                                {
-                                    "description": "description",
-                                    "name": "name",
-                                    "source_table": "source_table",
-                                    "target_table": "target_table",
-                                },
-                                {
-                                    "description": "description",
-                                    "name": "name",
-                                    "source_table": "source_table",
-                                    "target_table": "target_table",
-                                },
-                                {
-                                    "description": "description",
-                                    "name": "name",
-                                    "source_table": "source_table",
-                                    "target_table": "target_table",
-                                },
-                            ],
-                            "tables": [
-                                {
-                                    "description": "description",
-                                    "name": "name",
-                                    "properties": [
-                                        {
-                                            "description": "description",
-                                            "name": "name",
-                                        },
-                                        {
-                                            "description": "description",
-                                            "name": "name",
-                                        },
-                                        {
-                                            "description": "description",
-                                            "name": "name",
-                                        },
-                                    ],
-                                },
-                                {
-                                    "description": "description",
-                                    "name": "name",
-                                    "properties": [
-                                        {
-                                            "description": "description",
-                                            "name": "name",
-                                        },
-                                        {
-                                            "description": "description",
-                                            "name": "name",
-                                        },
-                                        {
-                                            "description": "description",
-                                            "name": "name",
-                                        },
-                                    ],
-                                },
-                                {
-                                    "description": "description",
-                                    "name": "name",
-                                    "properties": [
-                                        {
-                                            "description": "description",
-                                            "name": "name",
-                                        },
-                                        {
-                                            "description": "description",
-                                            "name": "name",
-                                        },
-                                        {
-                                            "description": "description",
-                                            "name": "name",
-                                        },
-                                    ],
-                                },
-                            ],
-                        },
-                        "extracted_entities": [{}, {}, {}],
-                        "extraction_criteria": [
-                            {"relationship_extraction": {"relationship_name": "relationship_name"}},
-                            {"relationship_extraction": {"relationship_name": "relationship_name"}},
-                            {"relationship_extraction": {"relationship_name": "relationship_name"}},
-                        ],
-                        "tool_metadata": [
-                            {
-                                "description": "description",
-                                "name": "Save",
-                                "regex_validator": "regex_validator",
-                                "tool_validator": {"foo": "bar"},
-                            },
-                            {
-                                "description": "description",
-                                "name": "Save",
-                                "regex_validator": "regex_validator",
-                                "tool_validator": {"foo": "bar"},
-                            },
-                            {
-                                "description": "description",
-                                "name": "Save",
-                                "regex_validator": "regex_validator",
-                                "tool_validator": {"foo": "bar"},
-                            },
-                        ],
-                    },
+            updated_tool_calls=[
+                {
+                    "input": {"save": {}},
+                    "name": "Save",
                 },
-                "response": {
-                    "completion_tokens": 0,
-                    "cost": 0,
-                    "llm": "llm",
-                    "prompt_tokens": 0,
-                    "text": "text",
-                    "tool_calls": [
-                        {
-                            "input": {"save": {}},
-                            "name": "Save",
-                        },
-                        {
-                            "input": {"save": {}},
-                            "name": "Save",
-                        },
-                        {
-                            "input": {"save": {}},
-                            "name": "Save",
-                        },
-                    ],
+                {
+                    "input": {"save": {}},
+                    "name": "Save",
                 },
-            },
+                {
+                    "input": {"save": {}},
+                    "name": "Save",
+                },
+            ],
         )
 
         assert response.is_closed is True
@@ -2048,155 +1373,20 @@ class TestAsyncTrainingDatasets:
         async with async_client.admin.training_datasets.with_streaming_response.update_datum(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             status="Unverified",
-            step={
-                "id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "prompt": {
-                    "decoding_params": {"parameters": [{"max_tokens": 0}, {"max_tokens": 0}, {"max_tokens": 0}]},
-                    "messages": [
-                        {
-                            "content": [{"text": "Text"}, {"text": "Text"}, {"text": "Text"}],
-                            "role": "user",
-                        },
-                        {
-                            "content": [{"text": "Text"}, {"text": "Text"}, {"text": "Text"}],
-                            "role": "user",
-                        },
-                        {
-                            "content": [{"text": "Text"}, {"text": "Text"}, {"text": "Text"}],
-                            "role": "user",
-                        },
-                    ],
-                    "metadata": {
-                        "dataset_descriptor": {
-                            "description": "description",
-                            "name": "name",
-                            "relationships": [
-                                {
-                                    "description": "description",
-                                    "name": "name",
-                                    "source_table": "source_table",
-                                    "target_table": "target_table",
-                                },
-                                {
-                                    "description": "description",
-                                    "name": "name",
-                                    "source_table": "source_table",
-                                    "target_table": "target_table",
-                                },
-                                {
-                                    "description": "description",
-                                    "name": "name",
-                                    "source_table": "source_table",
-                                    "target_table": "target_table",
-                                },
-                            ],
-                            "tables": [
-                                {
-                                    "description": "description",
-                                    "name": "name",
-                                    "properties": [
-                                        {
-                                            "description": "description",
-                                            "name": "name",
-                                        },
-                                        {
-                                            "description": "description",
-                                            "name": "name",
-                                        },
-                                        {
-                                            "description": "description",
-                                            "name": "name",
-                                        },
-                                    ],
-                                },
-                                {
-                                    "description": "description",
-                                    "name": "name",
-                                    "properties": [
-                                        {
-                                            "description": "description",
-                                            "name": "name",
-                                        },
-                                        {
-                                            "description": "description",
-                                            "name": "name",
-                                        },
-                                        {
-                                            "description": "description",
-                                            "name": "name",
-                                        },
-                                    ],
-                                },
-                                {
-                                    "description": "description",
-                                    "name": "name",
-                                    "properties": [
-                                        {
-                                            "description": "description",
-                                            "name": "name",
-                                        },
-                                        {
-                                            "description": "description",
-                                            "name": "name",
-                                        },
-                                        {
-                                            "description": "description",
-                                            "name": "name",
-                                        },
-                                    ],
-                                },
-                            ],
-                        },
-                        "extracted_entities": [{}, {}, {}],
-                        "extraction_criteria": [
-                            {"relationship_extraction": {"relationship_name": "relationship_name"}},
-                            {"relationship_extraction": {"relationship_name": "relationship_name"}},
-                            {"relationship_extraction": {"relationship_name": "relationship_name"}},
-                        ],
-                        "tool_metadata": [
-                            {
-                                "description": "description",
-                                "name": "Save",
-                                "regex_validator": "regex_validator",
-                                "tool_validator": {"foo": "bar"},
-                            },
-                            {
-                                "description": "description",
-                                "name": "Save",
-                                "regex_validator": "regex_validator",
-                                "tool_validator": {"foo": "bar"},
-                            },
-                            {
-                                "description": "description",
-                                "name": "Save",
-                                "regex_validator": "regex_validator",
-                                "tool_validator": {"foo": "bar"},
-                            },
-                        ],
-                    },
+            updated_tool_calls=[
+                {
+                    "input": {"save": {}},
+                    "name": "Save",
                 },
-                "response": {
-                    "completion_tokens": 0,
-                    "cost": 0,
-                    "llm": "llm",
-                    "prompt_tokens": 0,
-                    "text": "text",
-                    "tool_calls": [
-                        {
-                            "input": {"save": {}},
-                            "name": "Save",
-                        },
-                        {
-                            "input": {"save": {}},
-                            "name": "Save",
-                        },
-                        {
-                            "input": {"save": {}},
-                            "name": "Save",
-                        },
-                    ],
+                {
+                    "input": {"save": {}},
+                    "name": "Save",
                 },
-            },
+                {
+                    "input": {"save": {}},
+                    "name": "Save",
+                },
+            ],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
