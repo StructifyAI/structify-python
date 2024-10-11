@@ -100,6 +100,8 @@ class Source(BaseModel):
 
     creation_time: datetime
 
+    is_summary: bool
+
     link: source.Source
 
     location: SourceLocation
