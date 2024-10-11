@@ -61,6 +61,8 @@ class SourceListResponseItem(BaseModel):
 
     creation_time: datetime
 
+    is_summary: bool
+
     link: Source
 
     location: SourceListResponseItemLocation
