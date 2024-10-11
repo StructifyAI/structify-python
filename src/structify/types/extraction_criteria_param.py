@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import List, Union
+from typing import List, Union, Optional
 from typing_extensions import Required, Annotated, TypeAlias, TypedDict
 
 from .._utils import PropertyInfo
@@ -29,7 +29,10 @@ class RelationshipExtraction(TypedDict, total=False):
 
 
 class EntityExtractionEntityExtraction(TypedDict, total=False):
-    entity_id: Required[int]
+    seeded_kg_id: Required[int]
+    """The integer id corresponding to an entity in the seeded kg"""
+
+    dataset_entity_id: Optional[str]
 
 
 class EntityExtraction(TypedDict, total=False):

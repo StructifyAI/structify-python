@@ -9,7 +9,12 @@ import pytest
 
 from structify import Structify, AsyncStructify
 from tests.utils import assert_matches_type
-from structify.types import NewToken, UserInfo, UserUsageResponse
+from structify.types import (
+    UserInfo,
+    TokenResponse,
+    UserUsageResponse,
+    UserTransactionsResponse,
+)
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -20,7 +25,15 @@ class TestUser:
     @parametrize
     def test_method_create_test_token(self, client: Structify) -> None:
         user = client.user.create_test_token()
-        assert_matches_type(NewToken, user, path=["response"])
+        assert_matches_type(TokenResponse, user, path=["response"])
+
+    @parametrize
+    def test_method_create_test_token_with_all_params(self, client: Structify) -> None:
+        user = client.user.create_test_token(
+            credits=0,
+            is_admin=True,
+        )
+        assert_matches_type(TokenResponse, user, path=["response"])
 
     @parametrize
     def test_raw_response_create_test_token(self, client: Structify) -> None:
@@ -29,7 +42,7 @@ class TestUser:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         user = response.parse()
-        assert_matches_type(NewToken, user, path=["response"])
+        assert_matches_type(TokenResponse, user, path=["response"])
 
     @parametrize
     def test_streaming_response_create_test_token(self, client: Structify) -> None:
@@ -38,7 +51,7 @@ class TestUser:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             user = response.parse()
-            assert_matches_type(NewToken, user, path=["response"])
+            assert_matches_type(TokenResponse, user, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -68,8 +81,40 @@ class TestUser:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
+    def test_method_transactions(self, client: Structify) -> None:
+        user = client.user.transactions()
+        assert_matches_type(UserTransactionsResponse, user, path=["response"])
+
+    @parametrize
+    def test_raw_response_transactions(self, client: Structify) -> None:
+        response = client.user.with_raw_response.transactions()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        user = response.parse()
+        assert_matches_type(UserTransactionsResponse, user, path=["response"])
+
+    @parametrize
+    def test_streaming_response_transactions(self, client: Structify) -> None:
+        with client.user.with_streaming_response.transactions() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            user = response.parse()
+            assert_matches_type(UserTransactionsResponse, user, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
     def test_method_usage(self, client: Structify) -> None:
         user = client.user.usage()
+        assert_matches_type(UserUsageResponse, user, path=["response"])
+
+    @parametrize
+    def test_method_usage_with_all_params(self, client: Structify) -> None:
+        user = client.user.usage(
+            dataset="dataset",
+        )
         assert_matches_type(UserUsageResponse, user, path=["response"])
 
     @parametrize
@@ -99,7 +144,15 @@ class TestAsyncUser:
     @parametrize
     async def test_method_create_test_token(self, async_client: AsyncStructify) -> None:
         user = await async_client.user.create_test_token()
-        assert_matches_type(NewToken, user, path=["response"])
+        assert_matches_type(TokenResponse, user, path=["response"])
+
+    @parametrize
+    async def test_method_create_test_token_with_all_params(self, async_client: AsyncStructify) -> None:
+        user = await async_client.user.create_test_token(
+            credits=0,
+            is_admin=True,
+        )
+        assert_matches_type(TokenResponse, user, path=["response"])
 
     @parametrize
     async def test_raw_response_create_test_token(self, async_client: AsyncStructify) -> None:
@@ -108,7 +161,7 @@ class TestAsyncUser:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         user = await response.parse()
-        assert_matches_type(NewToken, user, path=["response"])
+        assert_matches_type(TokenResponse, user, path=["response"])
 
     @parametrize
     async def test_streaming_response_create_test_token(self, async_client: AsyncStructify) -> None:
@@ -117,7 +170,7 @@ class TestAsyncUser:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             user = await response.parse()
-            assert_matches_type(NewToken, user, path=["response"])
+            assert_matches_type(TokenResponse, user, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -147,8 +200,40 @@ class TestAsyncUser:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
+    async def test_method_transactions(self, async_client: AsyncStructify) -> None:
+        user = await async_client.user.transactions()
+        assert_matches_type(UserTransactionsResponse, user, path=["response"])
+
+    @parametrize
+    async def test_raw_response_transactions(self, async_client: AsyncStructify) -> None:
+        response = await async_client.user.with_raw_response.transactions()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        user = await response.parse()
+        assert_matches_type(UserTransactionsResponse, user, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_transactions(self, async_client: AsyncStructify) -> None:
+        async with async_client.user.with_streaming_response.transactions() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            user = await response.parse()
+            assert_matches_type(UserTransactionsResponse, user, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
     async def test_method_usage(self, async_client: AsyncStructify) -> None:
         user = await async_client.user.usage()
+        assert_matches_type(UserUsageResponse, user, path=["response"])
+
+    @parametrize
+    async def test_method_usage_with_all_params(self, async_client: AsyncStructify) -> None:
+        user = await async_client.user.usage(
+            dataset="dataset",
+        )
         assert_matches_type(UserUsageResponse, user, path=["response"])
 
     @parametrize

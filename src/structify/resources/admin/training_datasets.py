@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Optional
+from typing import Iterable, Optional
 from typing_extensions import Literal
 
 import httpx
@@ -256,7 +256,7 @@ class TrainingDatasetsResource(SyncAPIResource):
         *,
         id: str,
         status: Literal["Unverified", "Verified", "Pending", "Skipped"],
-        step: ExecutionStepParam,
+        updated_tool_calls: Iterable[training_dataset_update_datum_params.UpdatedToolCall],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -283,7 +283,7 @@ class TrainingDatasetsResource(SyncAPIResource):
                 {
                     "id": id,
                     "status": status,
-                    "step": step,
+                    "updated_tool_calls": updated_tool_calls,
                 },
                 training_dataset_update_datum_params.TrainingDatasetUpdateDatumParams,
             ),
@@ -514,7 +514,7 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
         *,
         id: str,
         status: Literal["Unverified", "Verified", "Pending", "Skipped"],
-        step: ExecutionStepParam,
+        updated_tool_calls: Iterable[training_dataset_update_datum_params.UpdatedToolCall],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -541,7 +541,7 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
                 {
                     "id": id,
                     "status": status,
-                    "step": step,
+                    "updated_tool_calls": updated_tool_calls,
                 },
                 training_dataset_update_datum_params.TrainingDatasetUpdateDatumParams,
             ),
