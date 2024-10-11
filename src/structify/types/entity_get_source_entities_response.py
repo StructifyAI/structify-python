@@ -58,6 +58,8 @@ class SourceEntity(BaseModel):
 
     creation_time: datetime
 
+    is_summary: bool
+
     label: str
 
     link: Source
