@@ -11,7 +11,6 @@ from .training_dataset_list_response import TrainingDatasetListResponse as Train
 from .training_dataset_size_response import TrainingDatasetSizeResponse as TrainingDatasetSizeResponse
 from .training_dataset_add_datum_params import TrainingDatasetAddDatumParams as TrainingDatasetAddDatumParams
 from .training_dataset_list_datums_params import TrainingDatasetListDatumsParams as TrainingDatasetListDatumsParams
-from .training_dataset_update_datum_params import TrainingDatasetUpdateDatumParams as TrainingDatasetUpdateDatumParams
 from .training_dataset_list_datums_response import (
     TrainingDatasetListDatumsResponse as TrainingDatasetListDatumsResponse,
 )
