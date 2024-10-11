@@ -2,6 +2,9 @@
 
 from __future__ import annotations
 
+from typing import Optional
+from typing_extensions import Literal
+
 import httpx
 
 from ..types import job_list_params
@@ -22,6 +25,7 @@ from ..types.job_get_response import JobGetResponse
 from ..types.job_list_response import JobListResponse
 from ..types.job_cancel_response import JobCancelResponse
 from ..types.job_get_steps_response import JobGetStepsResponse
+from ..types.job_get_step_graph_response import JobGetStepGraphResponse
 
 __all__ = ["JobsResource", "AsyncJobsResource"]
 
@@ -49,8 +53,10 @@ class JobsResource(SyncAPIResource):
     def list(
         self,
         *,
+        dataset_name: Optional[str] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         offset: int | NotGiven = NOT_GIVEN,
+        status: Optional[Literal["Queued", "Running", "Completed", "Failed"]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -62,6 +68,10 @@ class JobsResource(SyncAPIResource):
         List all the executions
 
         Args:
+          dataset_name: Dataset name to optionally filter jobs by
+
+          status: Status to optionally filter jobs by
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -80,8 +90,10 @@ class JobsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "dataset_name": dataset_name,
                         "limit": limit,
                         "offset": offset,
+                        "status": status,
                     },
                     job_list_params.JobListParams,
                 ),
@@ -222,6 +234,37 @@ class JobsResource(SyncAPIResource):
             cast_to=ExecutionStep,
         )
 
+    def get_step_graph(
+        self,
+        job_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> JobGetStepGraphResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not job_id:
+            raise ValueError(f"Expected a non-empty value for `job_id` but received {job_id!r}")
+        return self._get(
+            f"/jobs/get_step_graph/{job_id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=JobGetStepGraphResponse,
+        )
+
     def get_steps(
         self,
         job_id: str,
@@ -302,8 +345,10 @@ class AsyncJobsResource(AsyncAPIResource):
     def list(
         self,
         *,
+        dataset_name: Optional[str] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         offset: int | NotGiven = NOT_GIVEN,
+        status: Optional[Literal["Queued", "Running", "Completed", "Failed"]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -315,6 +360,10 @@ class AsyncJobsResource(AsyncAPIResource):
         List all the executions
 
         Args:
+          dataset_name: Dataset name to optionally filter jobs by
+
+          status: Status to optionally filter jobs by
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -333,8 +382,10 @@ class AsyncJobsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "dataset_name": dataset_name,
                         "limit": limit,
                         "offset": offset,
+                        "status": status,
                     },
                     job_list_params.JobListParams,
                 ),
@@ -475,6 +526,37 @@ class AsyncJobsResource(AsyncAPIResource):
             cast_to=ExecutionStep,
         )
 
+    async def get_step_graph(
+        self,
+        job_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> JobGetStepGraphResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not job_id:
+            raise ValueError(f"Expected a non-empty value for `job_id` but received {job_id!r}")
+        return await self._get(
+            f"/jobs/get_step_graph/{job_id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=JobGetStepGraphResponse,
+        )
+
     async def get_steps(
         self,
         job_id: str,
@@ -551,6 +633,9 @@ class JobsResourceWithRawResponse:
         self.get_step = to_raw_response_wrapper(
             jobs.get_step,
         )
+        self.get_step_graph = to_raw_response_wrapper(
+            jobs.get_step_graph,
+        )
         self.get_steps = to_raw_response_wrapper(
             jobs.get_steps,
         )
@@ -577,6 +662,9 @@ class AsyncJobsResourceWithRawResponse:
         )
         self.get_step = async_to_raw_response_wrapper(
             jobs.get_step,
+        )
+        self.get_step_graph = async_to_raw_response_wrapper(
+            jobs.get_step_graph,
         )
         self.get_steps = async_to_raw_response_wrapper(
             jobs.get_steps,
@@ -605,6 +693,9 @@ class JobsResourceWithStreamingResponse:
         self.get_step = to_streamed_response_wrapper(
             jobs.get_step,
         )
+        self.get_step_graph = to_streamed_response_wrapper(
+            jobs.get_step_graph,
+        )
         self.get_steps = to_streamed_response_wrapper(
             jobs.get_steps,
         )
@@ -631,6 +722,9 @@ class AsyncJobsResourceWithStreamingResponse:
         )
         self.get_step = async_to_streamed_response_wrapper(
             jobs.get_step,
+        )
+        self.get_step_graph = async_to_streamed_response_wrapper(
+            jobs.get_step_graph,
         )
         self.get_steps = async_to_streamed_response_wrapper(
             jobs.get_steps,
