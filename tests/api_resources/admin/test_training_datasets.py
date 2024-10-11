@@ -184,7 +184,7 @@ class TestTrainingDatasets:
     def test_method_size_with_all_params(self, client: Structify) -> None:
         training_dataset = client.admin.training_datasets.size(
             dataset_name="dataset_name",
-            status="Unverified",
+            status="Unlabeled",
         )
         assert_matches_type(TrainingDatasetSizeResponse, training_dataset, path=["response"])
 
@@ -216,7 +216,7 @@ class TestTrainingDatasets:
     def test_method_update_datum(self, client: Structify) -> None:
         training_dataset = client.admin.training_datasets.update_datum(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            status="Unverified",
+            status="Unlabeled",
             updated_tool_calls=[
                 {
                     "input": {"save": {}},
@@ -238,7 +238,7 @@ class TestTrainingDatasets:
     def test_raw_response_update_datum(self, client: Structify) -> None:
         response = client.admin.training_datasets.with_raw_response.update_datum(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            status="Unverified",
+            status="Unlabeled",
             updated_tool_calls=[
                 {
                     "input": {"save": {}},
@@ -264,7 +264,7 @@ class TestTrainingDatasets:
     def test_streaming_response_update_datum(self, client: Structify) -> None:
         with client.admin.training_datasets.with_streaming_response.update_datum(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            status="Unverified",
+            status="Unlabeled",
             updated_tool_calls=[
                 {
                     "input": {"save": {}},
@@ -455,7 +455,7 @@ class TestAsyncTrainingDatasets:
     async def test_method_size_with_all_params(self, async_client: AsyncStructify) -> None:
         training_dataset = await async_client.admin.training_datasets.size(
             dataset_name="dataset_name",
-            status="Unverified",
+            status="Unlabeled",
         )
         assert_matches_type(TrainingDatasetSizeResponse, training_dataset, path=["response"])
 
@@ -487,7 +487,7 @@ class TestAsyncTrainingDatasets:
     async def test_method_update_datum(self, async_client: AsyncStructify) -> None:
         training_dataset = await async_client.admin.training_datasets.update_datum(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            status="Unverified",
+            status="Unlabeled",
             updated_tool_calls=[
                 {
                     "input": {"save": {}},
@@ -509,7 +509,7 @@ class TestAsyncTrainingDatasets:
     async def test_raw_response_update_datum(self, async_client: AsyncStructify) -> None:
         response = await async_client.admin.training_datasets.with_raw_response.update_datum(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            status="Unverified",
+            status="Unlabeled",
             updated_tool_calls=[
                 {
                     "input": {"save": {}},
@@ -535,7 +535,7 @@ class TestAsyncTrainingDatasets:
     async def test_streaming_response_update_datum(self, async_client: AsyncStructify) -> None:
         async with async_client.admin.training_datasets.with_streaming_response.update_datum(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            status="Unverified",
+            status="Unlabeled",
             updated_tool_calls=[
                 {
                     "input": {"save": {}},
