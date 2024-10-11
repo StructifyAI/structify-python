@@ -24,6 +24,7 @@ from ...types.admin import (
     training_dataset_add_params,
     training_dataset_size_params,
     training_dataset_add_datum_params,
+    training_dataset_list_datums_params,
     training_dataset_update_datum_params,
     training_dataset_reset_pending_params,
     training_dataset_get_next_unverified_params,
@@ -32,6 +33,7 @@ from ..._base_client import make_request_options
 from ...types.admin.training_datum_response import TrainingDatumResponse
 from ...types.admin.training_dataset_list_response import TrainingDatasetListResponse
 from ...types.admin.training_dataset_size_response import TrainingDatasetSizeResponse
+from ...types.admin.training_dataset_list_datums_response import TrainingDatasetListDatumsResponse
 
 __all__ = ["TrainingDatasetsResource", "AsyncTrainingDatasetsResource"]
 
@@ -189,6 +191,43 @@ class TrainingDatasetsResource(SyncAPIResource):
                 ),
             ),
             cast_to=TrainingDatumResponse,
+        )
+
+    def list_datums(
+        self,
+        *,
+        dataset_name: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> TrainingDatasetListDatumsResponse:
+        """
+        Lists all training datums for a dataset.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._get(
+            "/admin/training_datasets/list_datums",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {"dataset_name": dataset_name}, training_dataset_list_datums_params.TrainingDatasetListDatumsParams
+                ),
+            ),
+            cast_to=TrainingDatasetListDatumsResponse,
         )
 
     def reset_pending(
@@ -468,6 +507,43 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
             cast_to=TrainingDatumResponse,
         )
 
+    async def list_datums(
+        self,
+        *,
+        dataset_name: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> TrainingDatasetListDatumsResponse:
+        """
+        Lists all training datums for a dataset.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._get(
+            "/admin/training_datasets/list_datums",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"dataset_name": dataset_name}, training_dataset_list_datums_params.TrainingDatasetListDatumsParams
+                ),
+            ),
+            cast_to=TrainingDatasetListDatumsResponse,
+        )
+
     async def reset_pending(
         self,
         *,
@@ -606,6 +682,9 @@ class TrainingDatasetsResourceWithRawResponse:
         self.get_next_unverified = to_raw_response_wrapper(
             training_datasets.get_next_unverified,
         )
+        self.list_datums = to_raw_response_wrapper(
+            training_datasets.list_datums,
+        )
         self.reset_pending = to_raw_response_wrapper(
             training_datasets.reset_pending,
         )
@@ -632,6 +711,9 @@ class AsyncTrainingDatasetsResourceWithRawResponse:
         )
         self.get_next_unverified = async_to_raw_response_wrapper(
             training_datasets.get_next_unverified,
+        )
+        self.list_datums = async_to_raw_response_wrapper(
+            training_datasets.list_datums,
         )
         self.reset_pending = async_to_raw_response_wrapper(
             training_datasets.reset_pending,
@@ -660,6 +742,9 @@ class TrainingDatasetsResourceWithStreamingResponse:
         self.get_next_unverified = to_streamed_response_wrapper(
             training_datasets.get_next_unverified,
         )
+        self.list_datums = to_streamed_response_wrapper(
+            training_datasets.list_datums,
+        )
         self.reset_pending = to_streamed_response_wrapper(
             training_datasets.reset_pending,
         )
@@ -686,6 +771,9 @@ class AsyncTrainingDatasetsResourceWithStreamingResponse:
         )
         self.get_next_unverified = async_to_streamed_response_wrapper(
             training_datasets.get_next_unverified,
+        )
+        self.list_datums = async_to_streamed_response_wrapper(
+            training_datasets.list_datums,
         )
         self.reset_pending = async_to_streamed_response_wrapper(
             training_datasets.reset_pending,
