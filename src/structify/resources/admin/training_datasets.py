@@ -27,9 +27,11 @@ from ...types.admin import (
     training_dataset_list_datums_params,
     training_dataset_update_datum_params,
     training_dataset_reset_pending_params,
+    training_dataset_get_step_by_id_params,
     training_dataset_get_next_unverified_params,
 )
 from ..._base_client import make_request_options
+from ...types.execution_step import ExecutionStep
 from ...types.admin.training_datum_response import TrainingDatumResponse
 from ...types.admin.training_dataset_list_response import TrainingDatasetListResponse
 from ...types.admin.training_dataset_size_response import TrainingDatasetSizeResponse
@@ -191,6 +193,43 @@ class TrainingDatasetsResource(SyncAPIResource):
                 ),
             ),
             cast_to=TrainingDatumResponse,
+        )
+
+    def get_step_by_id(
+        self,
+        *,
+        step_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ExecutionStep:
+        """
+        Lists all training datums for a dataset.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._get(
+            "/admin/training_datasets/get_step_by_id",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {"step_id": step_id}, training_dataset_get_step_by_id_params.TrainingDatasetGetStepByIDParams
+                ),
+            ),
+            cast_to=ExecutionStep,
         )
 
     def list_datums(
@@ -507,6 +546,43 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
             cast_to=TrainingDatumResponse,
         )
 
+    async def get_step_by_id(
+        self,
+        *,
+        step_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ExecutionStep:
+        """
+        Lists all training datums for a dataset.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._get(
+            "/admin/training_datasets/get_step_by_id",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"step_id": step_id}, training_dataset_get_step_by_id_params.TrainingDatasetGetStepByIDParams
+                ),
+            ),
+            cast_to=ExecutionStep,
+        )
+
     async def list_datums(
         self,
         *,
@@ -682,6 +758,9 @@ class TrainingDatasetsResourceWithRawResponse:
         self.get_next_unverified = to_raw_response_wrapper(
             training_datasets.get_next_unverified,
         )
+        self.get_step_by_id = to_raw_response_wrapper(
+            training_datasets.get_step_by_id,
+        )
         self.list_datums = to_raw_response_wrapper(
             training_datasets.list_datums,
         )
@@ -711,6 +790,9 @@ class AsyncTrainingDatasetsResourceWithRawResponse:
         )
         self.get_next_unverified = async_to_raw_response_wrapper(
             training_datasets.get_next_unverified,
+        )
+        self.get_step_by_id = async_to_raw_response_wrapper(
+            training_datasets.get_step_by_id,
         )
         self.list_datums = async_to_raw_response_wrapper(
             training_datasets.list_datums,
@@ -742,6 +824,9 @@ class TrainingDatasetsResourceWithStreamingResponse:
         self.get_next_unverified = to_streamed_response_wrapper(
             training_datasets.get_next_unverified,
         )
+        self.get_step_by_id = to_streamed_response_wrapper(
+            training_datasets.get_step_by_id,
+        )
         self.list_datums = to_streamed_response_wrapper(
             training_datasets.list_datums,
         )
@@ -771,6 +856,9 @@ class AsyncTrainingDatasetsResourceWithStreamingResponse:
         )
         self.get_next_unverified = async_to_streamed_response_wrapper(
             training_datasets.get_next_unverified,
+        )
+        self.get_step_by_id = async_to_streamed_response_wrapper(
+            training_datasets.get_step_by_id,
         )
         self.list_datums = async_to_streamed_response_wrapper(
             training_datasets.list_datums,
