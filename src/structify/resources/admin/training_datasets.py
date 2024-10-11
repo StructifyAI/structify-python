@@ -29,7 +29,6 @@ from ...types.admin import (
     training_dataset_get_next_unverified_params,
 )
 from ..._base_client import make_request_options
-from ...types.execution_step_param import ExecutionStepParam
 from ...types.admin.training_datum_response import TrainingDatumResponse
 from ...types.admin.training_dataset_size_response import TrainingDatasetSizeResponse
 
@@ -98,7 +97,7 @@ class TrainingDatasetsResource(SyncAPIResource):
         self,
         *,
         dataset_name: str,
-        step: ExecutionStepParam,
+        step_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -124,7 +123,7 @@ class TrainingDatasetsResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "dataset_name": dataset_name,
-                    "step": step,
+                    "step_id": step_id,
                 },
                 training_dataset_add_datum_params.TrainingDatasetAddDatumParams,
             ),
@@ -356,7 +355,7 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
         self,
         *,
         dataset_name: str,
-        step: ExecutionStepParam,
+        step_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -382,7 +381,7 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "dataset_name": dataset_name,
-                    "step": step,
+                    "step_id": step_id,
                 },
                 training_dataset_add_datum_params.TrainingDatasetAddDatumParams,
             ),
