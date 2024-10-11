@@ -40,7 +40,7 @@ __all__ = [
 class TrainingDatasetUpdateDatumParams(TypedDict, total=False):
     id: Required[str]
 
-    status: Required[Literal["Unverified", "Verified", "Pending", "Skipped"]]
+    status: Required[Literal["Unlabeled", "Labeled", "Verified", "Pending", "Skipped"]]
 
     updated_tool_calls: Required[Iterable[UpdatedToolCall]]
 

@@ -234,7 +234,7 @@ class TrainingDatasetsResource(SyncAPIResource):
         self,
         *,
         dataset_name: str,
-        status: Optional[Literal["Unverified", "Verified", "Pending", "Skipped"]] | NotGiven = NOT_GIVEN,
+        status: Optional[Literal["Unlabeled", "Labeled", "Verified", "Pending", "Skipped"]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -274,7 +274,7 @@ class TrainingDatasetsResource(SyncAPIResource):
         self,
         *,
         id: str,
-        status: Literal["Unverified", "Verified", "Pending", "Skipped"],
+        status: Literal["Unlabeled", "Labeled", "Verified", "Pending", "Skipped"],
         updated_tool_calls: Iterable[training_dataset_update_datum_params.UpdatedToolCall],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -511,7 +511,7 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
         self,
         *,
         dataset_name: str,
-        status: Optional[Literal["Unverified", "Verified", "Pending", "Skipped"]] | NotGiven = NOT_GIVEN,
+        status: Optional[Literal["Unlabeled", "Labeled", "Verified", "Pending", "Skipped"]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -551,7 +551,7 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
         self,
         *,
         id: str,
-        status: Literal["Unverified", "Verified", "Pending", "Skipped"],
+        status: Literal["Unlabeled", "Labeled", "Verified", "Pending", "Skipped"],
         updated_tool_calls: Iterable[training_dataset_update_datum_params.UpdatedToolCall],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
