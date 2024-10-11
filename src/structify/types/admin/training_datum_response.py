@@ -1,5 +1,7 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+from typing import List
+from datetime import datetime
 from typing_extensions import Literal
 
 from ..._models import BaseModel
@@ -10,6 +12,10 @@ __all__ = ["TrainingDatumResponse"]
 
 class TrainingDatumResponse(BaseModel):
     id: str
+
+    labelers: List[str]
+
+    last_updated: datetime
 
     status: Literal["Unverified", "Verified", "Pending", "Skipped"]
 
