@@ -30,6 +30,7 @@ from ...types.admin import (
 )
 from ..._base_client import make_request_options
 from ...types.admin.training_datum_response import TrainingDatumResponse
+from ...types.admin.training_dataset_list_response import TrainingDatasetListResponse
 from ...types.admin.training_dataset_size_response import TrainingDatasetSizeResponse
 
 __all__ = ["TrainingDatasetsResource", "AsyncTrainingDatasetsResource"]
@@ -54,6 +55,25 @@ class TrainingDatasetsResource(SyncAPIResource):
         For more information, see https://www.github.com/StructifyAI/structify-python#with_streaming_response
         """
         return TrainingDatasetsResourceWithStreamingResponse(self)
+
+    def list(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> TrainingDatasetListResponse:
+        """Lists all training datasets."""
+        return self._get(
+            "/admin/training_datasets/list",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=TrainingDatasetListResponse,
+        )
 
     def add(
         self,
@@ -313,6 +333,25 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
         """
         return AsyncTrainingDatasetsResourceWithStreamingResponse(self)
 
+    async def list(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> TrainingDatasetListResponse:
+        """Lists all training datasets."""
+        return await self._get(
+            "/admin/training_datasets/list",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=TrainingDatasetListResponse,
+        )
+
     async def add(
         self,
         *,
@@ -555,6 +594,9 @@ class TrainingDatasetsResourceWithRawResponse:
     def __init__(self, training_datasets: TrainingDatasetsResource) -> None:
         self._training_datasets = training_datasets
 
+        self.list = to_raw_response_wrapper(
+            training_datasets.list,
+        )
         self.add = to_raw_response_wrapper(
             training_datasets.add,
         )
@@ -579,6 +621,9 @@ class AsyncTrainingDatasetsResourceWithRawResponse:
     def __init__(self, training_datasets: AsyncTrainingDatasetsResource) -> None:
         self._training_datasets = training_datasets
 
+        self.list = async_to_raw_response_wrapper(
+            training_datasets.list,
+        )
         self.add = async_to_raw_response_wrapper(
             training_datasets.add,
         )
@@ -603,6 +648,9 @@ class TrainingDatasetsResourceWithStreamingResponse:
     def __init__(self, training_datasets: TrainingDatasetsResource) -> None:
         self._training_datasets = training_datasets
 
+        self.list = to_streamed_response_wrapper(
+            training_datasets.list,
+        )
         self.add = to_streamed_response_wrapper(
             training_datasets.add,
         )
@@ -627,6 +675,9 @@ class AsyncTrainingDatasetsResourceWithStreamingResponse:
     def __init__(self, training_datasets: AsyncTrainingDatasetsResource) -> None:
         self._training_datasets = training_datasets
 
+        self.list = async_to_streamed_response_wrapper(
+            training_datasets.list,
+        )
         self.add = async_to_streamed_response_wrapper(
             training_datasets.add,
         )

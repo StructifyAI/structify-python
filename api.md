@@ -36,12 +36,14 @@ from structify.types.admin import (
     AddDatumRequest,
     TrainingDatumResponse,
     UpdateDatumRequest,
+    TrainingDatasetListResponse,
     TrainingDatasetSizeResponse,
 )
 ```
 
 Methods:
 
+- <code title="get /admin/training_datasets/list">client.admin.training_datasets.<a href="./src/structify/resources/admin/training_datasets.py">list</a>() -> <a href="./src/structify/types/admin/training_dataset_list_response.py">TrainingDatasetListResponse</a></code>
 - <code title="post /admin/training_datasets/add_dataset">client.admin.training_datasets.<a href="./src/structify/resources/admin/training_datasets.py">add</a>(\*\*<a href="src/structify/types/admin/training_dataset_add_params.py">params</a>) -> None</code>
 - <code title="post /admin/training_datasets/add_datum">client.admin.training_datasets.<a href="./src/structify/resources/admin/training_datasets.py">add_datum</a>(\*\*<a href="src/structify/types/admin/training_dataset_add_datum_params.py">params</a>) -> None</code>
 - <code title="get /admin/training_datasets/next_unverified">client.admin.training_datasets.<a href="./src/structify/resources/admin/training_datasets.py">get_next_unverified</a>(\*\*<a href="src/structify/types/admin/training_dataset_get_next_unverified_params.py">params</a>) -> <a href="./src/structify/types/admin/training_datum_response.py">TrainingDatumResponse</a></code>
