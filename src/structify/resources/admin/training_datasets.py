@@ -25,6 +25,7 @@ from ...types.admin import (
     training_dataset_size_params,
     training_dataset_add_datum_params,
     training_dataset_list_datums_params,
+    training_dataset_remove_datum_params,
     training_dataset_update_datum_params,
     training_dataset_reset_pending_params,
     training_dataset_get_step_by_id_params,
@@ -267,6 +268,44 @@ class TrainingDatasetsResource(SyncAPIResource):
                 ),
             ),
             cast_to=TrainingDatasetListDatumsResponse,
+        )
+
+    def remove_datum(
+        self,
+        *,
+        step_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> None:
+        """
+        Removes a training datum from the specified dataset.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return self._delete(
+            "/admin/training_datasets/remove_datum",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {"step_id": step_id}, training_dataset_remove_datum_params.TrainingDatasetRemoveDatumParams
+                ),
+            ),
+            cast_to=NoneType,
         )
 
     def reset_pending(
@@ -620,6 +659,44 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
             cast_to=TrainingDatasetListDatumsResponse,
         )
 
+    async def remove_datum(
+        self,
+        *,
+        step_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> None:
+        """
+        Removes a training datum from the specified dataset.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return await self._delete(
+            "/admin/training_datasets/remove_datum",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"step_id": step_id}, training_dataset_remove_datum_params.TrainingDatasetRemoveDatumParams
+                ),
+            ),
+            cast_to=NoneType,
+        )
+
     async def reset_pending(
         self,
         *,
@@ -764,6 +841,9 @@ class TrainingDatasetsResourceWithRawResponse:
         self.list_datums = to_raw_response_wrapper(
             training_datasets.list_datums,
         )
+        self.remove_datum = to_raw_response_wrapper(
+            training_datasets.remove_datum,
+        )
         self.reset_pending = to_raw_response_wrapper(
             training_datasets.reset_pending,
         )
@@ -796,6 +876,9 @@ class AsyncTrainingDatasetsResourceWithRawResponse:
         )
         self.list_datums = async_to_raw_response_wrapper(
             training_datasets.list_datums,
+        )
+        self.remove_datum = async_to_raw_response_wrapper(
+            training_datasets.remove_datum,
         )
         self.reset_pending = async_to_raw_response_wrapper(
             training_datasets.reset_pending,
@@ -830,6 +913,9 @@ class TrainingDatasetsResourceWithStreamingResponse:
         self.list_datums = to_streamed_response_wrapper(
             training_datasets.list_datums,
         )
+        self.remove_datum = to_streamed_response_wrapper(
+            training_datasets.remove_datum,
+        )
         self.reset_pending = to_streamed_response_wrapper(
             training_datasets.reset_pending,
         )
@@ -862,6 +948,9 @@ class AsyncTrainingDatasetsResourceWithStreamingResponse:
         )
         self.list_datums = async_to_streamed_response_wrapper(
             training_datasets.list_datums,
+        )
+        self.remove_datum = async_to_streamed_response_wrapper(
+            training_datasets.remove_datum,
         )
         self.reset_pending = async_to_streamed_response_wrapper(
             training_datasets.reset_pending,
