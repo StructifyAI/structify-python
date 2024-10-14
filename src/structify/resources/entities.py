@@ -11,6 +11,7 @@ from ..types import (
     entity_get_params,
     entity_view_params,
     entity_merge_params,
+    entity_delete_params,
     entity_search_params,
     entity_summarize_params,
     entity_get_local_subgraph_params,
@@ -35,6 +36,7 @@ from ..types.entity_get_response import EntityGetResponse
 from ..types.entity_view_response import EntityViewResponse
 from ..types.entity_merge_response import EntityMergeResponse
 from ..types.knowledge_graph_param import KnowledgeGraphParam
+from ..types.entity_delete_response import EntityDeleteResponse
 from ..types.entity_search_response import EntitySearchResponse
 from ..types.entity_summarize_response import EntitySummarizeResponse
 from ..types.entity_get_local_subgraph_response import EntityGetLocalSubgraphResponse
@@ -62,6 +64,45 @@ class EntitiesResource(SyncAPIResource):
         For more information, see https://www.github.com/StructifyAI/structify-python#with_streaming_response
         """
         return EntitiesResourceWithStreamingResponse(self)
+
+    def delete(
+        self,
+        *,
+        dataset_name: str,
+        entity_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> EntityDeleteResponse:
+        """
+        Delete an entity manually
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._delete(
+            "/entity/delete",
+            body=maybe_transform(
+                {
+                    "dataset_name": dataset_name,
+                    "entity_id": entity_id,
+                },
+                entity_delete_params.EntityDeleteParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=EntityDeleteResponse,
+        )
 
     def add(
         self,
@@ -395,6 +436,45 @@ class AsyncEntitiesResource(AsyncAPIResource):
         """
         return AsyncEntitiesResourceWithStreamingResponse(self)
 
+    async def delete(
+        self,
+        *,
+        dataset_name: str,
+        entity_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> EntityDeleteResponse:
+        """
+        Delete an entity manually
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._delete(
+            "/entity/delete",
+            body=await async_maybe_transform(
+                {
+                    "dataset_name": dataset_name,
+                    "entity_id": entity_id,
+                },
+                entity_delete_params.EntityDeleteParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=EntityDeleteResponse,
+        )
+
     async def add(
         self,
         *,
@@ -713,6 +793,9 @@ class EntitiesResourceWithRawResponse:
     def __init__(self, entities: EntitiesResource) -> None:
         self._entities = entities
 
+        self.delete = to_raw_response_wrapper(
+            entities.delete,
+        )
         self.add = to_raw_response_wrapper(
             entities.add,
         )
@@ -743,6 +826,9 @@ class AsyncEntitiesResourceWithRawResponse:
     def __init__(self, entities: AsyncEntitiesResource) -> None:
         self._entities = entities
 
+        self.delete = async_to_raw_response_wrapper(
+            entities.delete,
+        )
         self.add = async_to_raw_response_wrapper(
             entities.add,
         )
@@ -773,6 +859,9 @@ class EntitiesResourceWithStreamingResponse:
     def __init__(self, entities: EntitiesResource) -> None:
         self._entities = entities
 
+        self.delete = to_streamed_response_wrapper(
+            entities.delete,
+        )
         self.add = to_streamed_response_wrapper(
             entities.add,
         )
@@ -803,6 +892,9 @@ class AsyncEntitiesResourceWithStreamingResponse:
     def __init__(self, entities: AsyncEntitiesResource) -> None:
         self._entities = entities
 
+        self.delete = async_to_streamed_response_wrapper(
+            entities.delete,
+        )
         self.add = async_to_streamed_response_wrapper(
             entities.add,
         )
