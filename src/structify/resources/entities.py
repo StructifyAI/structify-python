@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import List
+from typing import List, Union
 
 import httpx
 
@@ -387,7 +387,10 @@ class EntitiesResource(SyncAPIResource):
     def update_property(
         self,
         *,
-        body: object,
+        dataset_name: str,
+        entity_id: str,
+        prop_name: str,
+        prop_value: Union[str, bool, float],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -399,6 +402,8 @@ class EntitiesResource(SyncAPIResource):
         update an entity manually
 
         Args:
+          prop_name: The name of the property to update
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -409,7 +414,15 @@ class EntitiesResource(SyncAPIResource):
         """
         return self._post(
             "/entity/update",
-            body=maybe_transform(body, entity_update_property_params.EntityUpdatePropertyParams),
+            body=maybe_transform(
+                {
+                    "dataset_name": dataset_name,
+                    "entity_id": entity_id,
+                    "prop_name": prop_name,
+                    "prop_value": prop_value,
+                },
+                entity_update_property_params.EntityUpdatePropertyParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -792,7 +805,10 @@ class AsyncEntitiesResource(AsyncAPIResource):
     async def update_property(
         self,
         *,
-        body: object,
+        dataset_name: str,
+        entity_id: str,
+        prop_name: str,
+        prop_value: Union[str, bool, float],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -804,6 +820,8 @@ class AsyncEntitiesResource(AsyncAPIResource):
         update an entity manually
 
         Args:
+          prop_name: The name of the property to update
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -814,7 +832,15 @@ class AsyncEntitiesResource(AsyncAPIResource):
         """
         return await self._post(
             "/entity/update",
-            body=await async_maybe_transform(body, entity_update_property_params.EntityUpdatePropertyParams),
+            body=await async_maybe_transform(
+                {
+                    "dataset_name": dataset_name,
+                    "entity_id": entity_id,
+                    "prop_name": prop_name,
+                    "prop_value": prop_value,
+                },
+                entity_update_property_params.EntityUpdatePropertyParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),

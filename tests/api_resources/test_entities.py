@@ -356,14 +356,20 @@ class TestEntities:
     @parametrize
     def test_method_update_property(self, client: Structify) -> None:
         entity = client.entities.update_property(
-            body={},
+            dataset_name="dataset_name",
+            entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            prop_name="prop_name",
+            prop_value="string",
         )
         assert_matches_type(EntityUpdatePropertyResponse, entity, path=["response"])
 
     @parametrize
     def test_raw_response_update_property(self, client: Structify) -> None:
         response = client.entities.with_raw_response.update_property(
-            body={},
+            dataset_name="dataset_name",
+            entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            prop_name="prop_name",
+            prop_value="string",
         )
 
         assert response.is_closed is True
@@ -374,7 +380,10 @@ class TestEntities:
     @parametrize
     def test_streaming_response_update_property(self, client: Structify) -> None:
         with client.entities.with_streaming_response.update_property(
-            body={},
+            dataset_name="dataset_name",
+            entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            prop_name="prop_name",
+            prop_value="string",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -747,14 +756,20 @@ class TestAsyncEntities:
     @parametrize
     async def test_method_update_property(self, async_client: AsyncStructify) -> None:
         entity = await async_client.entities.update_property(
-            body={},
+            dataset_name="dataset_name",
+            entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            prop_name="prop_name",
+            prop_value="string",
         )
         assert_matches_type(EntityUpdatePropertyResponse, entity, path=["response"])
 
     @parametrize
     async def test_raw_response_update_property(self, async_client: AsyncStructify) -> None:
         response = await async_client.entities.with_raw_response.update_property(
-            body={},
+            dataset_name="dataset_name",
+            entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            prop_name="prop_name",
+            prop_value="string",
         )
 
         assert response.is_closed is True
@@ -765,7 +780,10 @@ class TestAsyncEntities:
     @parametrize
     async def test_streaming_response_update_property(self, async_client: AsyncStructify) -> None:
         async with async_client.entities.with_streaming_response.update_property(
-            body={},
+            dataset_name="dataset_name",
+            entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            prop_name="prop_name",
+            prop_value="string",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
