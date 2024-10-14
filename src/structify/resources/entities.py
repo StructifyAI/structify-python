@@ -14,6 +14,7 @@ from ..types import (
     entity_delete_params,
     entity_search_params,
     entity_summarize_params,
+    entity_update_property_params,
     entity_get_local_subgraph_params,
     entity_get_source_entities_params,
 )
@@ -39,6 +40,7 @@ from ..types.knowledge_graph_param import KnowledgeGraphParam
 from ..types.entity_delete_response import EntityDeleteResponse
 from ..types.entity_search_response import EntitySearchResponse
 from ..types.entity_summarize_response import EntitySummarizeResponse
+from ..types.entity_update_property_response import EntityUpdatePropertyResponse
 from ..types.entity_get_local_subgraph_response import EntityGetLocalSubgraphResponse
 from ..types.entity_get_source_entities_response import EntityGetSourceEntitiesResponse
 
@@ -380,6 +382,38 @@ class EntitiesResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=EntitySummarizeResponse,
+        )
+
+    def update_property(
+        self,
+        *,
+        body: object,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> EntityUpdatePropertyResponse:
+        """
+        update an entity manually
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/entity/update",
+            body=maybe_transform(body, entity_update_property_params.EntityUpdatePropertyParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=EntityUpdatePropertyResponse,
         )
 
     def view(
@@ -755,6 +789,38 @@ class AsyncEntitiesResource(AsyncAPIResource):
             cast_to=EntitySummarizeResponse,
         )
 
+    async def update_property(
+        self,
+        *,
+        body: object,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> EntityUpdatePropertyResponse:
+        """
+        update an entity manually
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/entity/update",
+            body=await async_maybe_transform(body, entity_update_property_params.EntityUpdatePropertyParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=EntityUpdatePropertyResponse,
+        )
+
     async def view(
         self,
         *,
@@ -817,6 +883,9 @@ class EntitiesResourceWithRawResponse:
         self.summarize = to_raw_response_wrapper(
             entities.summarize,
         )
+        self.update_property = to_raw_response_wrapper(
+            entities.update_property,
+        )
         self.view = to_raw_response_wrapper(
             entities.view,
         )
@@ -849,6 +918,9 @@ class AsyncEntitiesResourceWithRawResponse:
         )
         self.summarize = async_to_raw_response_wrapper(
             entities.summarize,
+        )
+        self.update_property = async_to_raw_response_wrapper(
+            entities.update_property,
         )
         self.view = async_to_raw_response_wrapper(
             entities.view,
@@ -883,6 +955,9 @@ class EntitiesResourceWithStreamingResponse:
         self.summarize = to_streamed_response_wrapper(
             entities.summarize,
         )
+        self.update_property = to_streamed_response_wrapper(
+            entities.update_property,
+        )
         self.view = to_streamed_response_wrapper(
             entities.view,
         )
@@ -915,6 +990,9 @@ class AsyncEntitiesResourceWithStreamingResponse:
         )
         self.summarize = async_to_streamed_response_wrapper(
             entities.summarize,
+        )
+        self.update_property = async_to_streamed_response_wrapper(
+            entities.update_property,
         )
         self.view = async_to_streamed_response_wrapper(
             entities.view,
