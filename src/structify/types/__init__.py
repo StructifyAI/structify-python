@@ -38,6 +38,7 @@ from .property_type_param import PropertyTypeParam as PropertyTypeParam
 from .user_usage_response import UserUsageResponse as UserUsageResponse
 from .dataset_get_response import DatasetGetResponse as DatasetGetResponse
 from .dataset_match_params import DatasetMatchParams as DatasetMatchParams
+from .entity_delete_params import EntityDeleteParams as EntityDeleteParams
 from .entity_search_params import EntitySearchParams as EntitySearchParams
 from .entity_view_response import EntityViewResponse as EntityViewResponse
 from .report_entity_params import ReportEntityParams as ReportEntityParams
@@ -52,6 +53,7 @@ from .dataset_match_response import DatasetMatchResponse as DatasetMatchResponse
 from .document_delete_params import DocumentDeleteParams as DocumentDeleteParams
 from .document_list_response import DocumentListResponse as DocumentListResponse
 from .document_upload_params import DocumentUploadParams as DocumentUploadParams
+from .entity_delete_response import EntityDeleteResponse as EntityDeleteResponse
 from .entity_search_response import EntitySearchResponse as EntitySearchResponse
 from .job_get_steps_response import JobGetStepsResponse as JobGetStepsResponse
 from .report_entity_response import ReportEntityResponse as ReportEntityResponse
