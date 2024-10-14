@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.43.0 (2024-10-14)
+
+Full Changelog: [v1.42.0...v1.43.0](https://github.com/StructifyAI/structify-python/compare/v1.42.0...v1.43.0)
+
+### Features
+
+* **api:** api update ([#579](https://github.com/StructifyAI/structify-python/issues/579)) ([7256163](https://github.com/StructifyAI/structify-python/commit/72561632b8dc5cea94780ab641bfa3cad5de0411))
+* **api:** api update ([#581](https://github.com/StructifyAI/structify-python/issues/581)) ([38900d4](https://github.com/StructifyAI/structify-python/commit/38900d460940b09547704e681e1add0e06c18276))
+
 ## 1.42.0 (2024-10-14)
 
 Full Changelog: [v1.41.0...v1.42.0](https://github.com/StructifyAI/structify-python/compare/v1.41.0...v1.42.0)
