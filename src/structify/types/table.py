@@ -35,6 +35,8 @@ class PropertyMergeStrategyProbabilisticProbabilistic(BaseModel):
     different companies at the same time.
     """
 
+    comparison_strategy: Optional[Literal["Default", "EnforceUniqueness"]] = None
+
 
 class PropertyMergeStrategyProbabilistic(BaseModel):
     probabilistic: PropertyMergeStrategyProbabilisticProbabilistic = FieldInfo(alias="Probabilistic")
