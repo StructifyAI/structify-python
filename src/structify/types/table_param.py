@@ -35,6 +35,8 @@ class PropertyMergeStrategyProbabilisticProbabilistic(TypedDict, total=False):
     different companies at the same time.
     """
 
+    comparison_strategy: Literal["Default", "EnforceUniqueness"]
+
 
 class PropertyMergeStrategyProbabilistic(TypedDict, total=False):
     probabilistic: Required[
