@@ -77,6 +77,8 @@ class RelationshipPropertyMergeStrategyProbabilisticProbabilistic(TypedDict, tot
     different companies at the same time.
     """
 
+    comparison_strategy: Literal["Default", "EnforceUniqueness"]
+
 
 class RelationshipPropertyMergeStrategyProbabilistic(TypedDict, total=False):
     probabilistic: Required[
