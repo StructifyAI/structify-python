@@ -106,6 +106,8 @@ class StructureInputEnhanceIngestorEnhanceIngestorTargetDescriptorPropertyProper
     different companies at the same time.
     """
 
+    comparison_strategy: Literal["Default", "EnforceUniqueness"]
+
 
 class StructureInputEnhanceIngestorEnhanceIngestorTargetDescriptorPropertyPropertyMergeStrategyProbabilistic(
     TypedDict, total=False
@@ -203,6 +205,8 @@ class StructureInputEnhanceIngestorEnhanceIngestorTargetDescriptorRelationshipRe
     would be lower because people can have multiple job titles over time or at
     different companies at the same time.
     """
+
+    comparison_strategy: Literal["Default", "EnforceUniqueness"]
 
 
 class StructureInputEnhanceIngestorEnhanceIngestorTargetDescriptorRelationshipRelationshipPropertyMergeStrategyProbabilistic(
