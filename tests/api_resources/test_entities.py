@@ -326,6 +326,16 @@ class TestEntities:
         assert_matches_type(EntitySummarizeResponse, entity, path=["response"])
 
     @parametrize
+    def test_method_summarize_with_all_params(self, client: Structify) -> None:
+        entity = client.entities.summarize(
+            dataset_name="dataset_name",
+            entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            properties=["string", "string", "string"],
+            extra_instructions=["string", "string", "string"],
+        )
+        assert_matches_type(EntitySummarizeResponse, entity, path=["response"])
+
+    @parametrize
     def test_raw_response_summarize(self, client: Structify) -> None:
         response = client.entities.with_raw_response.summarize(
             dataset_name="dataset_name",
@@ -722,6 +732,16 @@ class TestAsyncEntities:
             dataset_name="dataset_name",
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             properties=["string", "string", "string"],
+        )
+        assert_matches_type(EntitySummarizeResponse, entity, path=["response"])
+
+    @parametrize
+    async def test_method_summarize_with_all_params(self, async_client: AsyncStructify) -> None:
+        entity = await async_client.entities.summarize(
+            dataset_name="dataset_name",
+            entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            properties=["string", "string", "string"],
+            extra_instructions=["string", "string", "string"],
         )
         assert_matches_type(EntitySummarizeResponse, entity, path=["response"])
 
