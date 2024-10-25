@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import List, Union
+from typing import List, Union, Optional
 
 import httpx
 
@@ -349,6 +349,7 @@ class EntitiesResource(SyncAPIResource):
         dataset_name: str,
         entity_id: str,
         properties: List[str],
+        extra_instructions: Optional[List[str]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -360,6 +361,8 @@ class EntitiesResource(SyncAPIResource):
         Search for entities based on the given query
 
         Args:
+          extra_instructions: A list of instructions for each property to guide the summarization process
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -375,6 +378,7 @@ class EntitiesResource(SyncAPIResource):
                     "dataset_name": dataset_name,
                     "entity_id": entity_id,
                     "properties": properties,
+                    "extra_instructions": extra_instructions,
                 },
                 entity_summarize_params.EntitySummarizeParams,
             ),
@@ -767,6 +771,7 @@ class AsyncEntitiesResource(AsyncAPIResource):
         dataset_name: str,
         entity_id: str,
         properties: List[str],
+        extra_instructions: Optional[List[str]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -778,6 +783,8 @@ class AsyncEntitiesResource(AsyncAPIResource):
         Search for entities based on the given query
 
         Args:
+          extra_instructions: A list of instructions for each property to guide the summarization process
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -793,6 +800,7 @@ class AsyncEntitiesResource(AsyncAPIResource):
                     "dataset_name": dataset_name,
                     "entity_id": entity_id,
                     "properties": properties,
+                    "extra_instructions": extra_instructions,
                 },
                 entity_summarize_params.EntitySummarizeParams,
             ),
