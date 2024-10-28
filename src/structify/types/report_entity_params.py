@@ -12,4 +12,7 @@ class ReportEntityParams(TypedDict, total=False):
     id: Required[str]
 
     property: Optional[str]
-    """A short message about why the entity is being reported"""
+    """A property that is being reported"""
+
+    source_url: Optional[str]
+    """Correct source URL for the reported entity"""
