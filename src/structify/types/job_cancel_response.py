@@ -14,11 +14,11 @@ class JobCancelResponse(BaseModel):
 
     creation_time: datetime
 
-    report_on_complete: bool
-
     status: Literal["Queued", "Running", "Completed", "Failed"]
 
     message: Optional[str] = None
+
+    report_on_complete: Optional[bool] = None
 
     run_started_time: Optional[datetime] = None
     """What time did the job start running?"""
