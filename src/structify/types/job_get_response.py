@@ -15,6 +15,8 @@ class Job(BaseModel):
 
     creation_time: datetime
 
+    report_on_complete: bool
+
     status: Literal["Queued", "Running", "Completed", "Failed"]
 
     message: Optional[str] = None
