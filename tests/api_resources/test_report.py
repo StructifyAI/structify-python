@@ -28,6 +28,7 @@ class TestReport:
         report = client.report.entity(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             property="property",
+            source_url="source_url",
         )
         assert_matches_type(str, report, path=["response"])
 
@@ -110,6 +111,7 @@ class TestAsyncReport:
         report = await async_client.report.entity(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             property="property",
+            source_url="source_url",
         )
         assert_matches_type(str, report, path=["response"])
 

@@ -50,6 +50,7 @@ class ReportResource(SyncAPIResource):
         *,
         id: str,
         property: Optional[str] | NotGiven = NOT_GIVEN,
+        source_url: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -61,7 +62,9 @@ class ReportResource(SyncAPIResource):
         Get all sources for a given entity
 
         Args:
-          property: A short message about why the entity is being reported
+          property: A property that is being reported
+
+          source_url: Correct source URL for the reported entity
 
           extra_headers: Send extra headers
 
@@ -78,6 +81,7 @@ class ReportResource(SyncAPIResource):
                 {
                     "id": id,
                     "property": property,
+                    "source_url": source_url,
                 },
                 report_entity_params.ReportEntityParams,
             ),
@@ -100,7 +104,7 @@ class ReportResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> str:
         """
-        Get all sources for a given entity
+        Report a step
 
         Args:
           message: A short message about why the step is being reported
@@ -155,6 +159,7 @@ class AsyncReportResource(AsyncAPIResource):
         *,
         id: str,
         property: Optional[str] | NotGiven = NOT_GIVEN,
+        source_url: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -166,7 +171,9 @@ class AsyncReportResource(AsyncAPIResource):
         Get all sources for a given entity
 
         Args:
-          property: A short message about why the entity is being reported
+          property: A property that is being reported
+
+          source_url: Correct source URL for the reported entity
 
           extra_headers: Send extra headers
 
@@ -183,6 +190,7 @@ class AsyncReportResource(AsyncAPIResource):
                 {
                     "id": id,
                     "property": property,
+                    "source_url": source_url,
                 },
                 report_entity_params.ReportEntityParams,
             ),
@@ -205,7 +213,7 @@ class AsyncReportResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> str:
         """
-        Get all sources for a given entity
+        Report a step
 
         Args:
           message: A short message about why the step is being reported
