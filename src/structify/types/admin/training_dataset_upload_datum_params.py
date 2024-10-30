@@ -10,7 +10,6 @@ __all__ = ["TrainingDatasetUploadDatumParams"]
 
 
 class TrainingDatasetUploadDatumParams(TypedDict, total=False):
-    dataset_name: Required[str]
+    dataset_name: Required[FileTypes]
 
     step_bytes: Required[FileTypes]
-    """Proto bytes of the step"""
