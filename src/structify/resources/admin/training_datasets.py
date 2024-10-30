@@ -2,14 +2,16 @@
 
 from __future__ import annotations
 
-from typing import Iterable, Optional
+from typing import Mapping, Iterable, Optional, cast
 from typing_extensions import Literal
 
 import httpx
 
 from ..._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven, FileTypes
 from ..._utils import (
+    extract_files,
     maybe_transform,
+    deepcopy_minimal,
     async_maybe_transform,
 )
 from ..._compat import cached_property
@@ -433,7 +435,7 @@ class TrainingDatasetsResource(SyncAPIResource):
     def upload_datum(
         self,
         *,
-        dataset_name: str,
+        dataset_name: FileTypes,
         step_bytes: FileTypes,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -446,8 +448,6 @@ class TrainingDatasetsResource(SyncAPIResource):
         Uploads a new training datum to the specified dataset.
 
         Args:
-          step_bytes: Proto bytes of the step
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -457,15 +457,21 @@ class TrainingDatasetsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        body = deepcopy_minimal(
+            {
+                "dataset_name": dataset_name,
+                "step_bytes": step_bytes,
+            }
+        )
+        files = extract_files(cast(Mapping[str, object], body), paths=[["dataset_name"], ["step_bytes"]])
+        # It should be noted that the actual Content-Type header that will be
+        # sent to the server will contain a `boundary` parameter, e.g.
+        # multipart/form-data; boundary=---abc--
+        extra_headers["Content-Type"] = "multipart/form-data"
         return self._post(
             "/admin/training_datasets/upload_datum",
-            body=maybe_transform(
-                {
-                    "dataset_name": dataset_name,
-                    "step_bytes": step_bytes,
-                },
-                training_dataset_upload_datum_params.TrainingDatasetUploadDatumParams,
-            ),
+            body=maybe_transform(body, training_dataset_upload_datum_params.TrainingDatasetUploadDatumParams),
+            files=files,
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -864,7 +870,7 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
     async def upload_datum(
         self,
         *,
-        dataset_name: str,
+        dataset_name: FileTypes,
         step_bytes: FileTypes,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -877,8 +883,6 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
         Uploads a new training datum to the specified dataset.
 
         Args:
-          step_bytes: Proto bytes of the step
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -888,15 +892,23 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        body = deepcopy_minimal(
+            {
+                "dataset_name": dataset_name,
+                "step_bytes": step_bytes,
+            }
+        )
+        files = extract_files(cast(Mapping[str, object], body), paths=[["dataset_name"], ["step_bytes"]])
+        # It should be noted that the actual Content-Type header that will be
+        # sent to the server will contain a `boundary` parameter, e.g.
+        # multipart/form-data; boundary=---abc--
+        extra_headers["Content-Type"] = "multipart/form-data"
         return await self._post(
             "/admin/training_datasets/upload_datum",
             body=await async_maybe_transform(
-                {
-                    "dataset_name": dataset_name,
-                    "step_bytes": step_bytes,
-                },
-                training_dataset_upload_datum_params.TrainingDatasetUploadDatumParams,
+                body, training_dataset_upload_datum_params.TrainingDatasetUploadDatumParams
             ),
+            files=files,
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
