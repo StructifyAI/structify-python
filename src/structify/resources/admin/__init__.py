@@ -16,6 +16,14 @@ from .users import (
     UsersResourceWithStreamingResponse,
     AsyncUsersResourceWithStreamingResponse,
 )
+from .human_llm import (
+    HumanLlmResource,
+    AsyncHumanLlmResource,
+    HumanLlmResourceWithRawResponse,
+    AsyncHumanLlmResourceWithRawResponse,
+    HumanLlmResourceWithStreamingResponse,
+    AsyncHumanLlmResourceWithStreamingResponse,
+)
 from .training_datasets import (
     TrainingDatasetsResource,
     AsyncTrainingDatasetsResource,
@@ -26,6 +34,12 @@ from .training_datasets import (
 )
 
 __all__ = [
+    "HumanLlmResource",
+    "AsyncHumanLlmResource",
+    "HumanLlmResourceWithRawResponse",
+    "AsyncHumanLlmResourceWithRawResponse",
+    "HumanLlmResourceWithStreamingResponse",
+    "AsyncHumanLlmResourceWithStreamingResponse",
     "UsersResource",
     "AsyncUsersResource",
     "UsersResourceWithRawResponse",
