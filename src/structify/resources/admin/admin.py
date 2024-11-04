@@ -11,6 +11,14 @@ from .users import (
     AsyncUsersResourceWithStreamingResponse,
 )
 from ..._compat import cached_property
+from .human_llm import (
+    HumanLlmResource,
+    AsyncHumanLlmResource,
+    HumanLlmResourceWithRawResponse,
+    AsyncHumanLlmResourceWithRawResponse,
+    HumanLlmResourceWithStreamingResponse,
+    AsyncHumanLlmResourceWithStreamingResponse,
+)
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from .training_datasets import (
     TrainingDatasetsResource,
@@ -25,6 +33,10 @@ __all__ = ["AdminResource", "AsyncAdminResource"]
 
 
 class AdminResource(SyncAPIResource):
+    @cached_property
+    def human_llm(self) -> HumanLlmResource:
+        return HumanLlmResource(self._client)
+
     @cached_property
     def users(self) -> UsersResource:
         return UsersResource(self._client)
@@ -54,6 +66,10 @@ class AdminResource(SyncAPIResource):
 
 
 class AsyncAdminResource(AsyncAPIResource):
+    @cached_property
+    def human_llm(self) -> AsyncHumanLlmResource:
+        return AsyncHumanLlmResource(self._client)
+
     @cached_property
     def users(self) -> AsyncUsersResource:
         return AsyncUsersResource(self._client)
@@ -87,6 +103,10 @@ class AdminResourceWithRawResponse:
         self._admin = admin
 
     @cached_property
+    def human_llm(self) -> HumanLlmResourceWithRawResponse:
+        return HumanLlmResourceWithRawResponse(self._admin.human_llm)
+
+    @cached_property
     def users(self) -> UsersResourceWithRawResponse:
         return UsersResourceWithRawResponse(self._admin.users)
 
@@ -98,6 +118,10 @@ class AdminResourceWithRawResponse:
 class AsyncAdminResourceWithRawResponse:
     def __init__(self, admin: AsyncAdminResource) -> None:
         self._admin = admin
+
+    @cached_property
+    def human_llm(self) -> AsyncHumanLlmResourceWithRawResponse:
+        return AsyncHumanLlmResourceWithRawResponse(self._admin.human_llm)
 
     @cached_property
     def users(self) -> AsyncUsersResourceWithRawResponse:
@@ -113,6 +137,10 @@ class AdminResourceWithStreamingResponse:
         self._admin = admin
 
     @cached_property
+    def human_llm(self) -> HumanLlmResourceWithStreamingResponse:
+        return HumanLlmResourceWithStreamingResponse(self._admin.human_llm)
+
+    @cached_property
     def users(self) -> UsersResourceWithStreamingResponse:
         return UsersResourceWithStreamingResponse(self._admin.users)
 
@@ -124,6 +152,10 @@ class AdminResourceWithStreamingResponse:
 class AsyncAdminResourceWithStreamingResponse:
     def __init__(self, admin: AsyncAdminResource) -> None:
         self._admin = admin
+
+    @cached_property
+    def human_llm(self) -> AsyncHumanLlmResourceWithStreamingResponse:
+        return AsyncHumanLlmResourceWithStreamingResponse(self._admin.human_llm)
 
     @cached_property
     def users(self) -> AsyncUsersResourceWithStreamingResponse:
