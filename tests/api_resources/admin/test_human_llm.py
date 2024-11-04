@@ -10,7 +10,9 @@ import pytest
 from structify import Structify, AsyncStructify
 from tests.utils import assert_matches_type
 from structify.types import ExecutionStep
-from structify.types.admin import HumanLlmUpdateStepResponse
+from structify.types.admin import (
+    HumanLlmUpdateStepResponse,
+)
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -20,12 +22,18 @@ class TestHumanLlm:
 
     @parametrize
     def test_method_get_next_step(self, client: Structify) -> None:
-        human_llm = client.admin.human_llm.get_next_step()
+        human_llm = client.admin.human_llm.get_next_step(
+            job_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            step_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
         assert_matches_type(ExecutionStep, human_llm, path=["response"])
 
     @parametrize
     def test_raw_response_get_next_step(self, client: Structify) -> None:
-        response = client.admin.human_llm.with_raw_response.get_next_step()
+        response = client.admin.human_llm.with_raw_response.get_next_step(
+            job_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            step_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -34,7 +42,10 @@ class TestHumanLlm:
 
     @parametrize
     def test_streaming_response_get_next_step(self, client: Structify) -> None:
-        with client.admin.human_llm.with_streaming_response.get_next_step() as response:
+        with client.admin.human_llm.with_streaming_response.get_next_step(
+            job_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            step_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -125,12 +136,18 @@ class TestAsyncHumanLlm:
 
     @parametrize
     async def test_method_get_next_step(self, async_client: AsyncStructify) -> None:
-        human_llm = await async_client.admin.human_llm.get_next_step()
+        human_llm = await async_client.admin.human_llm.get_next_step(
+            job_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            step_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
         assert_matches_type(ExecutionStep, human_llm, path=["response"])
 
     @parametrize
     async def test_raw_response_get_next_step(self, async_client: AsyncStructify) -> None:
-        response = await async_client.admin.human_llm.with_raw_response.get_next_step()
+        response = await async_client.admin.human_llm.with_raw_response.get_next_step(
+            job_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            step_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -139,7 +156,10 @@ class TestAsyncHumanLlm:
 
     @parametrize
     async def test_streaming_response_get_next_step(self, async_client: AsyncStructify) -> None:
-        async with async_client.admin.human_llm.with_streaming_response.get_next_step() as response:
+        async with async_client.admin.human_llm.with_streaming_response.get_next_step(
+            job_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            step_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
