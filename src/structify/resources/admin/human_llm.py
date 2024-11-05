@@ -23,6 +23,7 @@ from ...types.admin import human_llm_update_step_params, human_llm_get_next_step
 from ..._base_client import make_request_options
 from ...types.execution_step import ExecutionStep
 from ...types.admin.human_llm_update_step_response import HumanLlmUpdateStepResponse
+from ...types.admin.human_llm_start_next_job_response import HumanLlmStartNextJobResponse
 
 __all__ = ["HumanLlmResource", "AsyncHumanLlmResource"]
 
@@ -84,6 +85,25 @@ class HumanLlmResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=ExecutionStep,
+        )
+
+    def start_next_job(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> HumanLlmStartNextJobResponse:
+        """Start the next human llm job in the queue"""
+        return self._post(
+            "/admin/human_llm/start_next_job",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=HumanLlmStartNextJobResponse,
         )
 
     def update_step(
@@ -188,6 +208,25 @@ class AsyncHumanLlmResource(AsyncAPIResource):
             cast_to=ExecutionStep,
         )
 
+    async def start_next_job(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> HumanLlmStartNextJobResponse:
+        """Start the next human llm job in the queue"""
+        return await self._post(
+            "/admin/human_llm/start_next_job",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=HumanLlmStartNextJobResponse,
+        )
+
     async def update_step(
         self,
         *,
@@ -238,6 +277,9 @@ class HumanLlmResourceWithRawResponse:
         self.get_next_step = to_raw_response_wrapper(
             human_llm.get_next_step,
         )
+        self.start_next_job = to_raw_response_wrapper(
+            human_llm.start_next_job,
+        )
         self.update_step = to_raw_response_wrapper(
             human_llm.update_step,
         )
@@ -249,6 +291,9 @@ class AsyncHumanLlmResourceWithRawResponse:
 
         self.get_next_step = async_to_raw_response_wrapper(
             human_llm.get_next_step,
+        )
+        self.start_next_job = async_to_raw_response_wrapper(
+            human_llm.start_next_job,
         )
         self.update_step = async_to_raw_response_wrapper(
             human_llm.update_step,
@@ -262,6 +307,9 @@ class HumanLlmResourceWithStreamingResponse:
         self.get_next_step = to_streamed_response_wrapper(
             human_llm.get_next_step,
         )
+        self.start_next_job = to_streamed_response_wrapper(
+            human_llm.start_next_job,
+        )
         self.update_step = to_streamed_response_wrapper(
             human_llm.update_step,
         )
@@ -273,6 +321,9 @@ class AsyncHumanLlmResourceWithStreamingResponse:
 
         self.get_next_step = async_to_streamed_response_wrapper(
             human_llm.get_next_step,
+        )
+        self.start_next_job = async_to_streamed_response_wrapper(
+            human_llm.start_next_job,
         )
         self.update_step = async_to_streamed_response_wrapper(
             human_llm.update_step,
