@@ -22,7 +22,7 @@ from ..._response import (
 from ...types.admin import human_llm_update_step_params, human_llm_get_next_step_params
 from ..._base_client import make_request_options
 from ...types.execution_step import ExecutionStep
-from ...types.admin.step_choice_info import StepChoiceInfo
+from ...types.admin.step_choices import StepChoices
 
 __all__ = ["HumanLlmResource", "AsyncHumanLlmResource"]
 
@@ -95,14 +95,14 @@ class HumanLlmResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> StepChoiceInfo:
+    ) -> StepChoices:
         """Start the next human llm job in the queue"""
         return self._post(
             "/admin/human_llm/start_next_job",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=StepChoiceInfo,
+            cast_to=StepChoices,
         )
 
     def update_step(
@@ -117,7 +117,7 @@ class HumanLlmResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> StepChoiceInfo:
+    ) -> StepChoices:
         """
         Update a step by setting and preparing the given tool calls, then return
         possible next steps with descriptions.
@@ -144,7 +144,7 @@ class HumanLlmResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=StepChoiceInfo,
+            cast_to=StepChoices,
         )
 
 
@@ -216,14 +216,14 @@ class AsyncHumanLlmResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> StepChoiceInfo:
+    ) -> StepChoices:
         """Start the next human llm job in the queue"""
         return await self._post(
             "/admin/human_llm/start_next_job",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=StepChoiceInfo,
+            cast_to=StepChoices,
         )
 
     async def update_step(
@@ -238,7 +238,7 @@ class AsyncHumanLlmResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> StepChoiceInfo:
+    ) -> StepChoices:
         """
         Update a step by setting and preparing the given tool calls, then return
         possible next steps with descriptions.
@@ -265,7 +265,7 @@ class AsyncHumanLlmResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=StepChoiceInfo,
+            cast_to=StepChoices,
         )
 
 

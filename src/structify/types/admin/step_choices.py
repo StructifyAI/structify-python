@@ -6,15 +6,19 @@ from ..._models import BaseModel
 from ..knowledge_graph import KnowledgeGraph
 from ..extraction_criteria import ExtractionCriteria
 
-__all__ = ["StepChoiceInfo", "StepOption"]
+__all__ = ["StepChoices", "StepOption"]
 
 
-class StepOption:
-    pass
+class StepOption(BaseModel):
+    id: str
+
+    description: str
 
 
-class StepChoiceInfo(BaseModel):
+class StepChoices(BaseModel):
     extraction_criteria: List[ExtractionCriteria]
+
+    job_id: str
 
     seeded_kg: KnowledgeGraph
     """
@@ -23,4 +27,4 @@ class StepChoiceInfo(BaseModel):
     pipeline from raw tool output to being merged into a Neo4j DB
     """
 
-    step_options: List[List[StepOption]]
+    step_options: List[StepOption]
