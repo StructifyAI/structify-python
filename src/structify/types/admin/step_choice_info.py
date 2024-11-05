@@ -6,14 +6,14 @@ from ..._models import BaseModel
 from ..knowledge_graph import KnowledgeGraph
 from ..extraction_criteria import ExtractionCriteria
 
-__all__ = ["HumanLlmStartNextJobResponse", "StepOption"]
+__all__ = ["StepChoiceInfo", "StepOption"]
 
 
 class StepOption:
     pass
 
 
-class HumanLlmStartNextJobResponse(BaseModel):
+class StepChoiceInfo(BaseModel):
     extraction_criteria: List[ExtractionCriteria]
 
     seeded_kg: KnowledgeGraph
