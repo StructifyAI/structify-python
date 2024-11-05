@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from .user import User as User
-from .step_choice_info import StepChoiceInfo as StepChoiceInfo
+from .step_choices import StepChoices as StepChoices
 from .user_list_response import UserListResponse as UserListResponse
 from .training_datum_response import TrainingDatumResponse as TrainingDatumResponse
 from .training_dataset_add_params import TrainingDatasetAddParams as TrainingDatasetAddParams
