@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Iterable
+from typing import Iterable, Optional
 
 import httpx
 
@@ -19,7 +19,7 @@ from ..._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ...types.admin import human_llm_update_step_params, human_llm_get_next_step_params
+from ...types.admin import human_llm_update_step_params, human_llm_get_next_step_params, human_llm_start_next_job_params
 from ..._base_client import make_request_options
 from ...types.execution_step import ExecutionStep
 from ...types.admin.step_choices import StepChoices
@@ -89,6 +89,7 @@ class HumanLlmResource(SyncAPIResource):
     def start_next_job(
         self,
         *,
+        job_id: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -96,11 +97,26 @@ class HumanLlmResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> StepChoices:
-        """Start the next human llm job in the queue"""
+        """
+        Start the next human llm job in the queue
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
         return self._post(
             "/admin/human_llm/start_next_job",
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"job_id": job_id}, human_llm_start_next_job_params.HumanLlmStartNextJobParams),
             ),
             cast_to=StepChoices,
         )
@@ -210,6 +226,7 @@ class AsyncHumanLlmResource(AsyncAPIResource):
     async def start_next_job(
         self,
         *,
+        job_id: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -217,11 +234,28 @@ class AsyncHumanLlmResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> StepChoices:
-        """Start the next human llm job in the queue"""
+        """
+        Start the next human llm job in the queue
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
         return await self._post(
             "/admin/human_llm/start_next_job",
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"job_id": job_id}, human_llm_start_next_job_params.HumanLlmStartNextJobParams
+                ),
             ),
             cast_to=StepChoices,
         )

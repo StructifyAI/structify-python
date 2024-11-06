@@ -10,7 +10,9 @@ import pytest
 from structify import Structify, AsyncStructify
 from tests.utils import assert_matches_type
 from structify.types import ExecutionStep
-from structify.types.admin import StepChoices
+from structify.types.admin import (
+    StepChoices,
+)
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -55,6 +57,13 @@ class TestHumanLlm:
     @parametrize
     def test_method_start_next_job(self, client: Structify) -> None:
         human_llm = client.admin.human_llm.start_next_job()
+        assert_matches_type(StepChoices, human_llm, path=["response"])
+
+    @parametrize
+    def test_method_start_next_job_with_all_params(self, client: Structify) -> None:
+        human_llm = client.admin.human_llm.start_next_job(
+            job_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
         assert_matches_type(StepChoices, human_llm, path=["response"])
 
     @parametrize
@@ -194,6 +203,13 @@ class TestAsyncHumanLlm:
     @parametrize
     async def test_method_start_next_job(self, async_client: AsyncStructify) -> None:
         human_llm = await async_client.admin.human_llm.start_next_job()
+        assert_matches_type(StepChoices, human_llm, path=["response"])
+
+    @parametrize
+    async def test_method_start_next_job_with_all_params(self, async_client: AsyncStructify) -> None:
+        human_llm = await async_client.admin.human_llm.start_next_job(
+            job_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
         assert_matches_type(StepChoices, human_llm, path=["response"])
 
     @parametrize
