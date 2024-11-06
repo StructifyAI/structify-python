@@ -23,6 +23,7 @@ from ...types.admin import human_llm_update_step_params, human_llm_get_next_step
 from ..._base_client import make_request_options
 from ...types.execution_step import ExecutionStep
 from ...types.admin.step_choices import StepChoices
+from ...types.admin.human_llm_get_queued_jobs_response import HumanLlmGetQueuedJobsResponse
 
 __all__ = ["HumanLlmResource", "AsyncHumanLlmResource"]
 
@@ -84,6 +85,25 @@ class HumanLlmResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=ExecutionStep,
+        )
+
+    def get_queued_jobs(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> HumanLlmGetQueuedJobsResponse:
+        """Start the next human llm job in the queue"""
+        return self._post(
+            "/admin/human_llm/get_queued_jobs",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=HumanLlmGetQueuedJobsResponse,
         )
 
     def start_next_job(
@@ -223,6 +243,25 @@ class AsyncHumanLlmResource(AsyncAPIResource):
             cast_to=ExecutionStep,
         )
 
+    async def get_queued_jobs(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> HumanLlmGetQueuedJobsResponse:
+        """Start the next human llm job in the queue"""
+        return await self._post(
+            "/admin/human_llm/get_queued_jobs",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=HumanLlmGetQueuedJobsResponse,
+        )
+
     async def start_next_job(
         self,
         *,
@@ -310,6 +349,9 @@ class HumanLlmResourceWithRawResponse:
         self.get_next_step = to_raw_response_wrapper(
             human_llm.get_next_step,
         )
+        self.get_queued_jobs = to_raw_response_wrapper(
+            human_llm.get_queued_jobs,
+        )
         self.start_next_job = to_raw_response_wrapper(
             human_llm.start_next_job,
         )
@@ -324,6 +366,9 @@ class AsyncHumanLlmResourceWithRawResponse:
 
         self.get_next_step = async_to_raw_response_wrapper(
             human_llm.get_next_step,
+        )
+        self.get_queued_jobs = async_to_raw_response_wrapper(
+            human_llm.get_queued_jobs,
         )
         self.start_next_job = async_to_raw_response_wrapper(
             human_llm.start_next_job,
@@ -340,6 +385,9 @@ class HumanLlmResourceWithStreamingResponse:
         self.get_next_step = to_streamed_response_wrapper(
             human_llm.get_next_step,
         )
+        self.get_queued_jobs = to_streamed_response_wrapper(
+            human_llm.get_queued_jobs,
+        )
         self.start_next_job = to_streamed_response_wrapper(
             human_llm.start_next_job,
         )
@@ -354,6 +402,9 @@ class AsyncHumanLlmResourceWithStreamingResponse:
 
         self.get_next_step = async_to_streamed_response_wrapper(
             human_llm.get_next_step,
+        )
+        self.get_queued_jobs = async_to_streamed_response_wrapper(
+            human_llm.get_queued_jobs,
         )
         self.start_next_job = async_to_streamed_response_wrapper(
             human_llm.start_next_job,
