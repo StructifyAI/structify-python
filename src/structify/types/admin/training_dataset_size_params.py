@@ -11,4 +11,4 @@ __all__ = ["TrainingDatasetSizeParams"]
 class TrainingDatasetSizeParams(TypedDict, total=False):
     dataset_name: Required[str]
 
-    status: Optional[Literal["Unlabeled", "Labeled", "Verified", "Pending", "Skipped"]]
+    status: Optional[Literal["Unlabeled", "Labeled", "Verified", "Pending", "Skipped", "Suspicious"]]
