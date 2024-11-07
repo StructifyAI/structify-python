@@ -16,7 +16,9 @@ class TrainingDatasetListDatumsResponseItem(BaseModel):
 
     last_updated: datetime
 
-    status: Literal["Unlabeled", "Labeled", "Verified", "Pending", "Skipped"]
+    review_messages: List[str]
+
+    status: Literal["Unlabeled", "Labeled", "Verified", "Pending", "Skipped", "Suspicious"]
 
 
 TrainingDatasetListDatumsResponse: TypeAlias = List[TrainingDatasetListDatumsResponseItem]

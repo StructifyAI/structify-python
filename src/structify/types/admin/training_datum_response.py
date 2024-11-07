@@ -17,6 +17,6 @@ class TrainingDatumResponse(BaseModel):
 
     last_updated: datetime
 
-    status: Literal["Unlabeled", "Labeled", "Verified", "Pending", "Skipped"]
+    status: Literal["Unlabeled", "Labeled", "Verified", "Pending", "Skipped", "Suspicious"]
 
     step: ExecutionStep
