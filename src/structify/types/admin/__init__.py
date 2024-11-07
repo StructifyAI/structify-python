@@ -29,3 +29,6 @@ from .training_dataset_get_step_by_id_params import TrainingDatasetGetStepByIDPa
 from .training_dataset_get_next_unverified_params import (
     TrainingDatasetGetNextUnverifiedParams as TrainingDatasetGetNextUnverifiedParams,
 )
+from .training_dataset_mark_suspicious_datum_params import (
+    TrainingDatasetMarkSuspiciousDatumParams as TrainingDatasetMarkSuspiciousDatumParams,
+)
