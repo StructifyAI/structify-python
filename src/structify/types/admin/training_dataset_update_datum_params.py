@@ -165,6 +165,8 @@ UpdatedToolCallResult: TypeAlias = Union[
 class UpdatedToolCall(TypedDict, total=False):
     input: Required[UpdatedToolCallInput]
 
-    name: Required[Literal["Save", "Scroll", "Exit", "Click", "Hover", "Wait", "Error", "Google", "Type"]]
+    name: Required[
+        Literal["Save", "Scroll", "ScrollToBottom", "Exit", "Click", "Hover", "Wait", "Error", "Google", "Type"]
+    ]
 
     result: Optional[UpdatedToolCallResult]
