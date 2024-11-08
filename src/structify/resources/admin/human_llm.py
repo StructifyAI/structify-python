@@ -23,6 +23,7 @@ from ...types.admin import human_llm_update_step_params, human_llm_get_next_step
 from ..._base_client import make_request_options
 from ...types.execution_step import ExecutionStep
 from ...types.admin.step_choices import StepChoices
+from ...types.admin.human_llm_prelabel_step_response import HumanLlmPrelabelStepResponse
 from ...types.admin.human_llm_get_queued_jobs_response import HumanLlmGetQueuedJobsResponse
 
 __all__ = ["HumanLlmResource", "AsyncHumanLlmResource"]
@@ -104,6 +105,40 @@ class HumanLlmResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=HumanLlmGetQueuedJobsResponse,
+        )
+
+    def prelabel_step(
+        self,
+        step_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> HumanLlmPrelabelStepResponse:
+        """
+        Update a step by setting and preparing the given tool calls, then return
+        possible next steps with descriptions.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not step_id:
+            raise ValueError(f"Expected a non-empty value for `step_id` but received {step_id!r}")
+        return self._post(
+            f"/admin/human_llm/prelabel_step/{step_id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=HumanLlmPrelabelStepResponse,
         )
 
     def start_next_job(
@@ -262,6 +297,40 @@ class AsyncHumanLlmResource(AsyncAPIResource):
             cast_to=HumanLlmGetQueuedJobsResponse,
         )
 
+    async def prelabel_step(
+        self,
+        step_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> HumanLlmPrelabelStepResponse:
+        """
+        Update a step by setting and preparing the given tool calls, then return
+        possible next steps with descriptions.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not step_id:
+            raise ValueError(f"Expected a non-empty value for `step_id` but received {step_id!r}")
+        return await self._post(
+            f"/admin/human_llm/prelabel_step/{step_id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=HumanLlmPrelabelStepResponse,
+        )
+
     async def start_next_job(
         self,
         *,
@@ -352,6 +421,9 @@ class HumanLlmResourceWithRawResponse:
         self.get_queued_jobs = to_raw_response_wrapper(
             human_llm.get_queued_jobs,
         )
+        self.prelabel_step = to_raw_response_wrapper(
+            human_llm.prelabel_step,
+        )
         self.start_next_job = to_raw_response_wrapper(
             human_llm.start_next_job,
         )
@@ -369,6 +441,9 @@ class AsyncHumanLlmResourceWithRawResponse:
         )
         self.get_queued_jobs = async_to_raw_response_wrapper(
             human_llm.get_queued_jobs,
+        )
+        self.prelabel_step = async_to_raw_response_wrapper(
+            human_llm.prelabel_step,
         )
         self.start_next_job = async_to_raw_response_wrapper(
             human_llm.start_next_job,
@@ -388,6 +463,9 @@ class HumanLlmResourceWithStreamingResponse:
         self.get_queued_jobs = to_streamed_response_wrapper(
             human_llm.get_queued_jobs,
         )
+        self.prelabel_step = to_streamed_response_wrapper(
+            human_llm.prelabel_step,
+        )
         self.start_next_job = to_streamed_response_wrapper(
             human_llm.start_next_job,
         )
@@ -405,6 +483,9 @@ class AsyncHumanLlmResourceWithStreamingResponse:
         )
         self.get_queued_jobs = async_to_streamed_response_wrapper(
             human_llm.get_queued_jobs,
+        )
+        self.prelabel_step = async_to_streamed_response_wrapper(
+            human_llm.prelabel_step,
         )
         self.start_next_job = async_to_streamed_response_wrapper(
             human_llm.start_next_job,
