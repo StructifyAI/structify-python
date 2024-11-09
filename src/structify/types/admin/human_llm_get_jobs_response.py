@@ -6,10 +6,10 @@ from typing_extensions import Literal, TypeAlias
 
 from ..._models import BaseModel
 
-__all__ = ["HumanLlmGetQueuedJobsResponse", "HumanLlmGetQueuedJobsResponseItem"]
+__all__ = ["HumanLlmGetJobsResponse", "HumanLlmGetJobsResponseItem"]
 
 
-class HumanLlmGetQueuedJobsResponseItem(BaseModel):
+class HumanLlmGetJobsResponseItem(BaseModel):
     id: str
 
     creation_time: datetime
@@ -24,4 +24,4 @@ class HumanLlmGetQueuedJobsResponseItem(BaseModel):
     """What time did the job start running?"""
 
 
-HumanLlmGetQueuedJobsResponse: TypeAlias = List[HumanLlmGetQueuedJobsResponseItem]
+HumanLlmGetJobsResponse: TypeAlias = List[HumanLlmGetJobsResponseItem]
