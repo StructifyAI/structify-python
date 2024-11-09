@@ -8,7 +8,7 @@ from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 from .._utils import PropertyInfo
 from .knowledge_graph_param import KnowledgeGraphParam
 
-__all__ = ["EntityAddParams", "Source", "SourceWeb", "SourceDocumentPage"]
+__all__ = ["EntityAddParams", "Source", "SourceWeb", "SourceDocumentPage", "SourceSecFiling"]
 
 
 class EntityAddParams(TypedDict, total=False):
@@ -35,4 +35,8 @@ class SourceDocumentPage(TypedDict, total=False):
     document_page: Required[Annotated[Iterable[object], PropertyInfo(alias="DocumentPage")]]
 
 
-Source: TypeAlias = Union[Literal["None"], SourceWeb, SourceDocumentPage]
+class SourceSecFiling(TypedDict, total=False):
+    sec_filing: Required[Annotated[Iterable[object], PropertyInfo(alias="SecFiling")]]
+
+
+Source: TypeAlias = Union[Literal["None"], SourceWeb, SourceDocumentPage, SourceSecFiling]
