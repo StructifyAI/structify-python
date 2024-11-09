@@ -7,7 +7,7 @@ from pydantic import Field as FieldInfo
 
 from .._models import BaseModel
 
-__all__ = ["Source", "Web", "WebWeb", "Document", "DocumentDocument"]
+__all__ = ["Source", "Web", "WebWeb", "Document", "DocumentDocument", "SecFiling", "SecFilingSecFiling"]
 
 
 class WebWeb(BaseModel):
@@ -26,4 +26,14 @@ class Document(BaseModel):
     document: DocumentDocument = FieldInfo(alias="Document")
 
 
-Source: TypeAlias = Union[Web, Document, Literal["None"]]
+class SecFilingSecFiling(BaseModel):
+    accession_number: str
+
+    cik_number: str
+
+
+class SecFiling(BaseModel):
+    sec_filing: SecFilingSecFiling = FieldInfo(alias="SecFiling")
+
+
+Source: TypeAlias = Union[Web, Document, SecFiling, Literal["None"]]
