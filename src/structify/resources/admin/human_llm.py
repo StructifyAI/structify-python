@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from typing import Iterable, Optional
+from typing_extensions import Literal
 
 import httpx
 
@@ -19,12 +20,17 @@ from ..._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ...types.admin import human_llm_update_step_params, human_llm_get_next_step_params, human_llm_start_next_job_params
+from ...types.admin import (
+    human_llm_get_jobs_params,
+    human_llm_update_step_params,
+    human_llm_get_next_step_params,
+    human_llm_start_next_job_params,
+)
 from ..._base_client import make_request_options
 from ...types.execution_step import ExecutionStep
 from ...types.admin.step_choices import StepChoices
+from ...types.admin.human_llm_get_jobs_response import HumanLlmGetJobsResponse
 from ...types.admin.human_llm_prelabel_step_response import HumanLlmPrelabelStepResponse
-from ...types.admin.human_llm_get_queued_jobs_response import HumanLlmGetQueuedJobsResponse
 
 __all__ = ["HumanLlmResource", "AsyncHumanLlmResource"]
 
@@ -48,6 +54,41 @@ class HumanLlmResource(SyncAPIResource):
         For more information, see https://www.github.com/StructifyAI/structify-python#with_streaming_response
         """
         return HumanLlmResourceWithStreamingResponse(self)
+
+    def get_jobs(
+        self,
+        *,
+        status: Optional[Literal["Queued", "Running", "Completed", "Failed"]] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> HumanLlmGetJobsResponse:
+        """
+        Start the next human llm job in the queue
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/admin/human_llm/get_jobs",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"status": status}, human_llm_get_jobs_params.HumanLlmGetJobsParams),
+            ),
+            cast_to=HumanLlmGetJobsResponse,
+        )
 
     def get_next_step(
         self,
@@ -86,25 +127,6 @@ class HumanLlmResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=ExecutionStep,
-        )
-
-    def get_queued_jobs(
-        self,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> HumanLlmGetQueuedJobsResponse:
-        """Start the next human llm job in the queue"""
-        return self._post(
-            "/admin/human_llm/get_queued_jobs",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=HumanLlmGetQueuedJobsResponse,
         )
 
     def prelabel_step(
@@ -239,6 +261,41 @@ class AsyncHumanLlmResource(AsyncAPIResource):
         """
         return AsyncHumanLlmResourceWithStreamingResponse(self)
 
+    async def get_jobs(
+        self,
+        *,
+        status: Optional[Literal["Queued", "Running", "Completed", "Failed"]] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> HumanLlmGetJobsResponse:
+        """
+        Start the next human llm job in the queue
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/admin/human_llm/get_jobs",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform({"status": status}, human_llm_get_jobs_params.HumanLlmGetJobsParams),
+            ),
+            cast_to=HumanLlmGetJobsResponse,
+        )
+
     async def get_next_step(
         self,
         *,
@@ -276,25 +333,6 @@ class AsyncHumanLlmResource(AsyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=ExecutionStep,
-        )
-
-    async def get_queued_jobs(
-        self,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> HumanLlmGetQueuedJobsResponse:
-        """Start the next human llm job in the queue"""
-        return await self._post(
-            "/admin/human_llm/get_queued_jobs",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=HumanLlmGetQueuedJobsResponse,
         )
 
     async def prelabel_step(
@@ -415,11 +453,11 @@ class HumanLlmResourceWithRawResponse:
     def __init__(self, human_llm: HumanLlmResource) -> None:
         self._human_llm = human_llm
 
+        self.get_jobs = to_raw_response_wrapper(
+            human_llm.get_jobs,
+        )
         self.get_next_step = to_raw_response_wrapper(
             human_llm.get_next_step,
-        )
-        self.get_queued_jobs = to_raw_response_wrapper(
-            human_llm.get_queued_jobs,
         )
         self.prelabel_step = to_raw_response_wrapper(
             human_llm.prelabel_step,
@@ -436,11 +474,11 @@ class AsyncHumanLlmResourceWithRawResponse:
     def __init__(self, human_llm: AsyncHumanLlmResource) -> None:
         self._human_llm = human_llm
 
+        self.get_jobs = async_to_raw_response_wrapper(
+            human_llm.get_jobs,
+        )
         self.get_next_step = async_to_raw_response_wrapper(
             human_llm.get_next_step,
-        )
-        self.get_queued_jobs = async_to_raw_response_wrapper(
-            human_llm.get_queued_jobs,
         )
         self.prelabel_step = async_to_raw_response_wrapper(
             human_llm.prelabel_step,
@@ -457,11 +495,11 @@ class HumanLlmResourceWithStreamingResponse:
     def __init__(self, human_llm: HumanLlmResource) -> None:
         self._human_llm = human_llm
 
+        self.get_jobs = to_streamed_response_wrapper(
+            human_llm.get_jobs,
+        )
         self.get_next_step = to_streamed_response_wrapper(
             human_llm.get_next_step,
-        )
-        self.get_queued_jobs = to_streamed_response_wrapper(
-            human_llm.get_queued_jobs,
         )
         self.prelabel_step = to_streamed_response_wrapper(
             human_llm.prelabel_step,
@@ -478,11 +516,11 @@ class AsyncHumanLlmResourceWithStreamingResponse:
     def __init__(self, human_llm: AsyncHumanLlmResource) -> None:
         self._human_llm = human_llm
 
+        self.get_jobs = async_to_streamed_response_wrapper(
+            human_llm.get_jobs,
+        )
         self.get_next_step = async_to_streamed_response_wrapper(
             human_llm.get_next_step,
-        )
-        self.get_queued_jobs = async_to_streamed_response_wrapper(
-            human_llm.get_queued_jobs,
         )
         self.prelabel_step = async_to_streamed_response_wrapper(
             human_llm.prelabel_step,
