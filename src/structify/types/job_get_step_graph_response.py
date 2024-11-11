@@ -40,6 +40,8 @@ class Step(BaseModel):
 
 
 class TransitionToolCall(BaseModel):
+    action: str
+
     formatted_input: str
 
     name: str
