@@ -204,6 +204,7 @@ class HumanLlmResource(SyncAPIResource):
         job_id: str,
         step_id: str,
         tool_calls: Iterable[human_llm_update_step_params.ToolCall],
+        add_to_training_datum: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -231,6 +232,7 @@ class HumanLlmResource(SyncAPIResource):
                     "job_id": job_id,
                     "step_id": step_id,
                     "tool_calls": tool_calls,
+                    "add_to_training_datum": add_to_training_datum,
                 },
                 human_llm_update_step_params.HumanLlmUpdateStepParams,
             ),
@@ -412,6 +414,7 @@ class AsyncHumanLlmResource(AsyncAPIResource):
         job_id: str,
         step_id: str,
         tool_calls: Iterable[human_llm_update_step_params.ToolCall],
+        add_to_training_datum: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -439,6 +442,7 @@ class AsyncHumanLlmResource(AsyncAPIResource):
                     "job_id": job_id,
                     "step_id": step_id,
                     "tool_calls": tool_calls,
+                    "add_to_training_datum": add_to_training_datum,
                 },
                 human_llm_update_step_params.HumanLlmUpdateStepParams,
             ),
