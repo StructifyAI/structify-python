@@ -44,6 +44,8 @@ class HumanLlmUpdateStepParams(TypedDict, total=False):
 
     tool_calls: Required[Iterable[ToolCall]]
 
+    add_to_training_datum: bool
+
 
 class ToolCallInputSave(TypedDict, total=False):
     save: Required[Annotated[KnowledgeGraphParam, PropertyInfo(alias="Save")]]

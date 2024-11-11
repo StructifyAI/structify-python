@@ -181,6 +181,152 @@ class TestHumanLlm:
         assert_matches_type(StepChoices, human_llm, path=["response"])
 
     @parametrize
+    def test_method_update_step_with_all_params(self, client: Structify) -> None:
+        human_llm = client.admin.human_llm.update_step(
+            job_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            step_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            tool_calls=[
+                {
+                    "input": {
+                        "save": {
+                            "entities": [
+                                {
+                                    "id": 0,
+                                    "properties": {"foo": "string"},
+                                    "type": "type",
+                                },
+                                {
+                                    "id": 0,
+                                    "properties": {"foo": "string"},
+                                    "type": "type",
+                                },
+                                {
+                                    "id": 0,
+                                    "properties": {"foo": "string"},
+                                    "type": "type",
+                                },
+                            ],
+                            "relationships": [
+                                {
+                                    "source": 0,
+                                    "target": 0,
+                                    "type": "type",
+                                    "properties": {"foo": "string"},
+                                },
+                                {
+                                    "source": 0,
+                                    "target": 0,
+                                    "type": "type",
+                                    "properties": {"foo": "string"},
+                                },
+                                {
+                                    "source": 0,
+                                    "target": 0,
+                                    "type": "type",
+                                    "properties": {"foo": "string"},
+                                },
+                            ],
+                        }
+                    },
+                    "name": "Save",
+                    "result": {"tool_queued": "ToolQueued"},
+                },
+                {
+                    "input": {
+                        "save": {
+                            "entities": [
+                                {
+                                    "id": 0,
+                                    "properties": {"foo": "string"},
+                                    "type": "type",
+                                },
+                                {
+                                    "id": 0,
+                                    "properties": {"foo": "string"},
+                                    "type": "type",
+                                },
+                                {
+                                    "id": 0,
+                                    "properties": {"foo": "string"},
+                                    "type": "type",
+                                },
+                            ],
+                            "relationships": [
+                                {
+                                    "source": 0,
+                                    "target": 0,
+                                    "type": "type",
+                                    "properties": {"foo": "string"},
+                                },
+                                {
+                                    "source": 0,
+                                    "target": 0,
+                                    "type": "type",
+                                    "properties": {"foo": "string"},
+                                },
+                                {
+                                    "source": 0,
+                                    "target": 0,
+                                    "type": "type",
+                                    "properties": {"foo": "string"},
+                                },
+                            ],
+                        }
+                    },
+                    "name": "Save",
+                    "result": {"tool_queued": "ToolQueued"},
+                },
+                {
+                    "input": {
+                        "save": {
+                            "entities": [
+                                {
+                                    "id": 0,
+                                    "properties": {"foo": "string"},
+                                    "type": "type",
+                                },
+                                {
+                                    "id": 0,
+                                    "properties": {"foo": "string"},
+                                    "type": "type",
+                                },
+                                {
+                                    "id": 0,
+                                    "properties": {"foo": "string"},
+                                    "type": "type",
+                                },
+                            ],
+                            "relationships": [
+                                {
+                                    "source": 0,
+                                    "target": 0,
+                                    "type": "type",
+                                    "properties": {"foo": "string"},
+                                },
+                                {
+                                    "source": 0,
+                                    "target": 0,
+                                    "type": "type",
+                                    "properties": {"foo": "string"},
+                                },
+                                {
+                                    "source": 0,
+                                    "target": 0,
+                                    "type": "type",
+                                    "properties": {"foo": "string"},
+                                },
+                            ],
+                        }
+                    },
+                    "name": "Save",
+                    "result": {"tool_queued": "ToolQueued"},
+                },
+            ],
+            add_to_training_datum=True,
+        )
+        assert_matches_type(StepChoices, human_llm, path=["response"])
+
+    @parametrize
     def test_raw_response_update_step(self, client: Structify) -> None:
         response = client.admin.human_llm.with_raw_response.update_step(
             job_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -393,6 +539,152 @@ class TestAsyncHumanLlm:
                     "name": "Save",
                 },
             ],
+        )
+        assert_matches_type(StepChoices, human_llm, path=["response"])
+
+    @parametrize
+    async def test_method_update_step_with_all_params(self, async_client: AsyncStructify) -> None:
+        human_llm = await async_client.admin.human_llm.update_step(
+            job_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            step_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            tool_calls=[
+                {
+                    "input": {
+                        "save": {
+                            "entities": [
+                                {
+                                    "id": 0,
+                                    "properties": {"foo": "string"},
+                                    "type": "type",
+                                },
+                                {
+                                    "id": 0,
+                                    "properties": {"foo": "string"},
+                                    "type": "type",
+                                },
+                                {
+                                    "id": 0,
+                                    "properties": {"foo": "string"},
+                                    "type": "type",
+                                },
+                            ],
+                            "relationships": [
+                                {
+                                    "source": 0,
+                                    "target": 0,
+                                    "type": "type",
+                                    "properties": {"foo": "string"},
+                                },
+                                {
+                                    "source": 0,
+                                    "target": 0,
+                                    "type": "type",
+                                    "properties": {"foo": "string"},
+                                },
+                                {
+                                    "source": 0,
+                                    "target": 0,
+                                    "type": "type",
+                                    "properties": {"foo": "string"},
+                                },
+                            ],
+                        }
+                    },
+                    "name": "Save",
+                    "result": {"tool_queued": "ToolQueued"},
+                },
+                {
+                    "input": {
+                        "save": {
+                            "entities": [
+                                {
+                                    "id": 0,
+                                    "properties": {"foo": "string"},
+                                    "type": "type",
+                                },
+                                {
+                                    "id": 0,
+                                    "properties": {"foo": "string"},
+                                    "type": "type",
+                                },
+                                {
+                                    "id": 0,
+                                    "properties": {"foo": "string"},
+                                    "type": "type",
+                                },
+                            ],
+                            "relationships": [
+                                {
+                                    "source": 0,
+                                    "target": 0,
+                                    "type": "type",
+                                    "properties": {"foo": "string"},
+                                },
+                                {
+                                    "source": 0,
+                                    "target": 0,
+                                    "type": "type",
+                                    "properties": {"foo": "string"},
+                                },
+                                {
+                                    "source": 0,
+                                    "target": 0,
+                                    "type": "type",
+                                    "properties": {"foo": "string"},
+                                },
+                            ],
+                        }
+                    },
+                    "name": "Save",
+                    "result": {"tool_queued": "ToolQueued"},
+                },
+                {
+                    "input": {
+                        "save": {
+                            "entities": [
+                                {
+                                    "id": 0,
+                                    "properties": {"foo": "string"},
+                                    "type": "type",
+                                },
+                                {
+                                    "id": 0,
+                                    "properties": {"foo": "string"},
+                                    "type": "type",
+                                },
+                                {
+                                    "id": 0,
+                                    "properties": {"foo": "string"},
+                                    "type": "type",
+                                },
+                            ],
+                            "relationships": [
+                                {
+                                    "source": 0,
+                                    "target": 0,
+                                    "type": "type",
+                                    "properties": {"foo": "string"},
+                                },
+                                {
+                                    "source": 0,
+                                    "target": 0,
+                                    "type": "type",
+                                    "properties": {"foo": "string"},
+                                },
+                                {
+                                    "source": 0,
+                                    "target": 0,
+                                    "type": "type",
+                                    "properties": {"foo": "string"},
+                                },
+                            ],
+                        }
+                    },
+                    "name": "Save",
+                    "result": {"tool_queued": "ToolQueued"},
+                },
+            ],
+            add_to_training_datum=True,
         )
         assert_matches_type(StepChoices, human_llm, path=["response"])
 
