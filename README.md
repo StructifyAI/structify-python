@@ -28,8 +28,7 @@ import os
 from structify import Structify
 
 client = Structify(
-    # This is the default and can be omitted
-    api_key=os.environ.get("STRUCTIFY_API_TOKEN"),
+    api_key=os.environ.get("STRUCTIFY_API_TOKEN"),  # This is the default and can be omitted
     # defaults to "production".
     environment="deployment",
 )
@@ -53,8 +52,7 @@ import asyncio
 from structify import AsyncStructify
 
 client = AsyncStructify(
-    # This is the default and can be omitted
-    api_key=os.environ.get("STRUCTIFY_API_TOKEN"),
+    api_key=os.environ.get("STRUCTIFY_API_TOKEN"),  # This is the default and can be omitted
     # defaults to "production".
     environment="deployment",
 )
