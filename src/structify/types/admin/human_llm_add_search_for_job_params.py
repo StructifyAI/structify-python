@@ -10,4 +10,4 @@ __all__ = ["HumanLlmAddSearchForJobParams"]
 class HumanLlmAddSearchForJobParams(TypedDict, total=False):
     job_id: Required[str]
 
-    search_term: Required[str]
+    url: Required[str]
