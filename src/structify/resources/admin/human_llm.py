@@ -60,14 +60,14 @@ class HumanLlmResource(SyncAPIResource):
         self,
         *,
         job_id: str,
-        search_term: str,
+        url: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> StepChoices:
+    ) -> ExecutionStep:
         """
         Args:
           extra_headers: Send extra headers
@@ -88,12 +88,12 @@ class HumanLlmResource(SyncAPIResource):
                 query=maybe_transform(
                     {
                         "job_id": job_id,
-                        "search_term": search_term,
+                        "url": url,
                     },
                     human_llm_add_search_for_job_params.HumanLlmAddSearchForJobParams,
                 ),
             ),
-            cast_to=StepChoices,
+            cast_to=ExecutionStep,
         )
 
     def get_jobs(
@@ -308,14 +308,14 @@ class AsyncHumanLlmResource(AsyncAPIResource):
         self,
         *,
         job_id: str,
-        search_term: str,
+        url: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> StepChoices:
+    ) -> ExecutionStep:
         """
         Args:
           extra_headers: Send extra headers
@@ -336,12 +336,12 @@ class AsyncHumanLlmResource(AsyncAPIResource):
                 query=await async_maybe_transform(
                     {
                         "job_id": job_id,
-                        "search_term": search_term,
+                        "url": url,
                     },
                     human_llm_add_search_for_job_params.HumanLlmAddSearchForJobParams,
                 ),
             ),
-            cast_to=StepChoices,
+            cast_to=ExecutionStep,
         )
 
     async def get_jobs(
