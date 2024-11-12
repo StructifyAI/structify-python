@@ -9,7 +9,6 @@ import pytest
 
 from structify import Structify, AsyncStructify
 from tests.utils import assert_matches_type
-from structify.types import ExecutionStep
 from structify.types.admin import (
     TrainingDatumResponse,
     TrainingDatasetListResponse,
@@ -149,7 +148,7 @@ class TestTrainingDatasets:
         training_dataset = client.admin.training_datasets.get_step_by_id(
             step_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(ExecutionStep, training_dataset, path=["response"])
+        assert_matches_type(TrainingDatumResponse, training_dataset, path=["response"])
 
     @parametrize
     def test_raw_response_get_step_by_id(self, client: Structify) -> None:
@@ -160,7 +159,7 @@ class TestTrainingDatasets:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         training_dataset = response.parse()
-        assert_matches_type(ExecutionStep, training_dataset, path=["response"])
+        assert_matches_type(TrainingDatumResponse, training_dataset, path=["response"])
 
     @parametrize
     def test_streaming_response_get_step_by_id(self, client: Structify) -> None:
@@ -171,7 +170,7 @@ class TestTrainingDatasets:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             training_dataset = response.parse()
-            assert_matches_type(ExecutionStep, training_dataset, path=["response"])
+            assert_matches_type(TrainingDatumResponse, training_dataset, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -581,7 +580,7 @@ class TestAsyncTrainingDatasets:
         training_dataset = await async_client.admin.training_datasets.get_step_by_id(
             step_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(ExecutionStep, training_dataset, path=["response"])
+        assert_matches_type(TrainingDatumResponse, training_dataset, path=["response"])
 
     @parametrize
     async def test_raw_response_get_step_by_id(self, async_client: AsyncStructify) -> None:
@@ -592,7 +591,7 @@ class TestAsyncTrainingDatasets:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         training_dataset = await response.parse()
-        assert_matches_type(ExecutionStep, training_dataset, path=["response"])
+        assert_matches_type(TrainingDatumResponse, training_dataset, path=["response"])
 
     @parametrize
     async def test_streaming_response_get_step_by_id(self, async_client: AsyncStructify) -> None:
@@ -603,7 +602,7 @@ class TestAsyncTrainingDatasets:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             training_dataset = await response.parse()
-            assert_matches_type(ExecutionStep, training_dataset, path=["response"])
+            assert_matches_type(TrainingDatumResponse, training_dataset, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

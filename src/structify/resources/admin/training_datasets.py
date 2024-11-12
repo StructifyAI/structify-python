@@ -36,7 +36,6 @@ from ...types.admin import (
     training_dataset_mark_suspicious_datum_params,
 )
 from ..._base_client import make_request_options
-from ...types.execution_step import ExecutionStep
 from ...types.admin.training_datum_response import TrainingDatumResponse
 from ...types.admin.training_dataset_list_response import TrainingDatasetListResponse
 from ...types.admin.training_dataset_size_response import TrainingDatasetSizeResponse
@@ -210,7 +209,7 @@ class TrainingDatasetsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ExecutionStep:
+    ) -> TrainingDatumResponse:
         """
         Lists all training datums for a dataset.
 
@@ -234,7 +233,7 @@ class TrainingDatasetsResource(SyncAPIResource):
                     {"step_id": step_id}, training_dataset_get_step_by_id_params.TrainingDatasetGetStepByIDParams
                 ),
             ),
-            cast_to=ExecutionStep,
+            cast_to=TrainingDatumResponse,
         )
 
     def list_datums(
@@ -687,7 +686,7 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ExecutionStep:
+    ) -> TrainingDatumResponse:
         """
         Lists all training datums for a dataset.
 
@@ -711,7 +710,7 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
                     {"step_id": step_id}, training_dataset_get_step_by_id_params.TrainingDatasetGetStepByIDParams
                 ),
             ),
-            cast_to=ExecutionStep,
+            cast_to=TrainingDatumResponse,
         )
 
     async def list_datums(
