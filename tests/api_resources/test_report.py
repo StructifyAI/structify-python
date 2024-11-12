@@ -17,15 +17,15 @@ class TestReport:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @parametrize
-    def test_method_entity(self, client: Structify) -> None:
-        report = client.report.entity(
+    def test_method_missing(self, client: Structify) -> None:
+        report = client.report.missing(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(str, report, path=["response"])
 
     @parametrize
-    def test_method_entity_with_all_params(self, client: Structify) -> None:
-        report = client.report.entity(
+    def test_method_missing_with_all_params(self, client: Structify) -> None:
+        report = client.report.missing(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             property="property",
             source_url="source_url",
@@ -33,8 +33,8 @@ class TestReport:
         assert_matches_type(str, report, path=["response"])
 
     @parametrize
-    def test_raw_response_entity(self, client: Structify) -> None:
-        response = client.report.with_raw_response.entity(
+    def test_raw_response_missing(self, client: Structify) -> None:
+        response = client.report.with_raw_response.missing(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
@@ -44,8 +44,8 @@ class TestReport:
         assert_matches_type(str, report, path=["response"])
 
     @parametrize
-    def test_streaming_response_entity(self, client: Structify) -> None:
-        with client.report.with_streaming_response.entity(
+    def test_streaming_response_missing(self, client: Structify) -> None:
+        with client.report.with_streaming_response.missing(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
@@ -95,20 +95,16 @@ class TestReport:
 
         assert cast(Any, response.is_closed) is True
 
-
-class TestAsyncReport:
-    parametrize = pytest.mark.parametrize("async_client", [False, True], indirect=True, ids=["loose", "strict"])
-
     @parametrize
-    async def test_method_entity(self, async_client: AsyncStructify) -> None:
-        report = await async_client.report.entity(
+    def test_method_wrong(self, client: Structify) -> None:
+        report = client.report.wrong(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(str, report, path=["response"])
 
     @parametrize
-    async def test_method_entity_with_all_params(self, async_client: AsyncStructify) -> None:
-        report = await async_client.report.entity(
+    def test_method_wrong_with_all_params(self, client: Structify) -> None:
+        report = client.report.wrong(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             property="property",
             source_url="source_url",
@@ -116,8 +112,52 @@ class TestAsyncReport:
         assert_matches_type(str, report, path=["response"])
 
     @parametrize
-    async def test_raw_response_entity(self, async_client: AsyncStructify) -> None:
-        response = await async_client.report.with_raw_response.entity(
+    def test_raw_response_wrong(self, client: Structify) -> None:
+        response = client.report.with_raw_response.wrong(
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        report = response.parse()
+        assert_matches_type(str, report, path=["response"])
+
+    @parametrize
+    def test_streaming_response_wrong(self, client: Structify) -> None:
+        with client.report.with_streaming_response.wrong(
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            report = response.parse()
+            assert_matches_type(str, report, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+
+class TestAsyncReport:
+    parametrize = pytest.mark.parametrize("async_client", [False, True], indirect=True, ids=["loose", "strict"])
+
+    @parametrize
+    async def test_method_missing(self, async_client: AsyncStructify) -> None:
+        report = await async_client.report.missing(
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(str, report, path=["response"])
+
+    @parametrize
+    async def test_method_missing_with_all_params(self, async_client: AsyncStructify) -> None:
+        report = await async_client.report.missing(
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            property="property",
+            source_url="source_url",
+        )
+        assert_matches_type(str, report, path=["response"])
+
+    @parametrize
+    async def test_raw_response_missing(self, async_client: AsyncStructify) -> None:
+        response = await async_client.report.with_raw_response.missing(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
@@ -127,8 +167,8 @@ class TestAsyncReport:
         assert_matches_type(str, report, path=["response"])
 
     @parametrize
-    async def test_streaming_response_entity(self, async_client: AsyncStructify) -> None:
-        async with async_client.report.with_streaming_response.entity(
+    async def test_streaming_response_missing(self, async_client: AsyncStructify) -> None:
+        async with async_client.report.with_streaming_response.missing(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
@@ -169,6 +209,46 @@ class TestAsyncReport:
     async def test_streaming_response_step(self, async_client: AsyncStructify) -> None:
         async with async_client.report.with_streaming_response.step(
             step_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            report = await response.parse()
+            assert_matches_type(str, report, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_method_wrong(self, async_client: AsyncStructify) -> None:
+        report = await async_client.report.wrong(
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(str, report, path=["response"])
+
+    @parametrize
+    async def test_method_wrong_with_all_params(self, async_client: AsyncStructify) -> None:
+        report = await async_client.report.wrong(
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            property="property",
+            source_url="source_url",
+        )
+        assert_matches_type(str, report, path=["response"])
+
+    @parametrize
+    async def test_raw_response_wrong(self, async_client: AsyncStructify) -> None:
+        response = await async_client.report.with_raw_response.wrong(
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        report = await response.parse()
+        assert_matches_type(str, report, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_wrong(self, async_client: AsyncStructify) -> None:
+        async with async_client.report.with_streaming_response.wrong(
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
