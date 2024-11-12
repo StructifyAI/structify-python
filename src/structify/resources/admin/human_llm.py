@@ -25,6 +25,7 @@ from ...types.admin import (
     human_llm_update_step_params,
     human_llm_get_next_step_params,
     human_llm_start_next_job_params,
+    human_llm_add_search_for_job_params,
 )
 from ..._base_client import make_request_options
 from ...types.execution_step import ExecutionStep
@@ -54,6 +55,46 @@ class HumanLlmResource(SyncAPIResource):
         For more information, see https://www.github.com/StructifyAI/structify-python#with_streaming_response
         """
         return HumanLlmResourceWithStreamingResponse(self)
+
+    def add_search_for_job(
+        self,
+        *,
+        job_id: str,
+        search_term: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> StepChoices:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/admin/human_llm/add_search_for_job",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "job_id": job_id,
+                        "search_term": search_term,
+                    },
+                    human_llm_add_search_for_job_params.HumanLlmAddSearchForJobParams,
+                ),
+            ),
+            cast_to=StepChoices,
+        )
 
     def get_jobs(
         self,
@@ -263,6 +304,46 @@ class AsyncHumanLlmResource(AsyncAPIResource):
         """
         return AsyncHumanLlmResourceWithStreamingResponse(self)
 
+    async def add_search_for_job(
+        self,
+        *,
+        job_id: str,
+        search_term: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> StepChoices:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/admin/human_llm/add_search_for_job",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "job_id": job_id,
+                        "search_term": search_term,
+                    },
+                    human_llm_add_search_for_job_params.HumanLlmAddSearchForJobParams,
+                ),
+            ),
+            cast_to=StepChoices,
+        )
+
     async def get_jobs(
         self,
         *,
@@ -457,6 +538,9 @@ class HumanLlmResourceWithRawResponse:
     def __init__(self, human_llm: HumanLlmResource) -> None:
         self._human_llm = human_llm
 
+        self.add_search_for_job = to_raw_response_wrapper(
+            human_llm.add_search_for_job,
+        )
         self.get_jobs = to_raw_response_wrapper(
             human_llm.get_jobs,
         )
@@ -478,6 +562,9 @@ class AsyncHumanLlmResourceWithRawResponse:
     def __init__(self, human_llm: AsyncHumanLlmResource) -> None:
         self._human_llm = human_llm
 
+        self.add_search_for_job = async_to_raw_response_wrapper(
+            human_llm.add_search_for_job,
+        )
         self.get_jobs = async_to_raw_response_wrapper(
             human_llm.get_jobs,
         )
@@ -499,6 +586,9 @@ class HumanLlmResourceWithStreamingResponse:
     def __init__(self, human_llm: HumanLlmResource) -> None:
         self._human_llm = human_llm
 
+        self.add_search_for_job = to_streamed_response_wrapper(
+            human_llm.add_search_for_job,
+        )
         self.get_jobs = to_streamed_response_wrapper(
             human_llm.get_jobs,
         )
@@ -520,6 +610,9 @@ class AsyncHumanLlmResourceWithStreamingResponse:
     def __init__(self, human_llm: AsyncHumanLlmResource) -> None:
         self._human_llm = human_llm
 
+        self.add_search_for_job = async_to_streamed_response_wrapper(
+            human_llm.add_search_for_job,
+        )
         self.get_jobs = async_to_streamed_response_wrapper(
             human_llm.get_jobs,
         )
