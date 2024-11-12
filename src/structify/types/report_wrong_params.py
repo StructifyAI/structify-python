@@ -5,10 +5,10 @@ from __future__ import annotations
 from typing import Optional
 from typing_extensions import Required, TypedDict
 
-__all__ = ["ReportEntityParams"]
+__all__ = ["ReportWrongParams"]
 
 
-class ReportEntityParams(TypedDict, total=False):
+class ReportWrongParams(TypedDict, total=False):
     id: Required[str]
 
     property: Optional[str]
