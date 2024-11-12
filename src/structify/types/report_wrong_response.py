@@ -2,6 +2,6 @@
 
 from typing_extensions import TypeAlias
 
-__all__ = ["ReportEntityResponse"]
+__all__ = ["ReportWrongResponse"]
 
-ReportEntityResponse: TypeAlias = str
+ReportWrongResponse: TypeAlias = str
