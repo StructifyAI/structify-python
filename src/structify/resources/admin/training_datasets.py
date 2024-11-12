@@ -165,6 +165,7 @@ class TrainingDatasetsResource(SyncAPIResource):
         self,
         *,
         dataset_name: str,
+        status: Literal["Unlabeled", "Labeled", "Verified", "Pending", "Skipped", "Suspicious"],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -192,7 +193,10 @@ class TrainingDatasetsResource(SyncAPIResource):
                 extra_body=extra_body,
                 timeout=timeout,
                 query=maybe_transform(
-                    {"dataset_name": dataset_name},
+                    {
+                        "dataset_name": dataset_name,
+                        "status": status,
+                    },
                     training_dataset_get_next_unverified_params.TrainingDatasetGetNextUnverifiedParams,
                 ),
             ),
@@ -642,6 +646,7 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
         self,
         *,
         dataset_name: str,
+        status: Literal["Unlabeled", "Labeled", "Verified", "Pending", "Skipped", "Suspicious"],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -669,7 +674,10 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
                 extra_body=extra_body,
                 timeout=timeout,
                 query=await async_maybe_transform(
-                    {"dataset_name": dataset_name},
+                    {
+                        "dataset_name": dataset_name,
+                        "status": status,
+                    },
                     training_dataset_get_next_unverified_params.TrainingDatasetGetNextUnverifiedParams,
                 ),
             ),

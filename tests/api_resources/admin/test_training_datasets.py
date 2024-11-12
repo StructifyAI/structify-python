@@ -116,6 +116,7 @@ class TestTrainingDatasets:
     def test_method_get_next_unverified(self, client: Structify) -> None:
         training_dataset = client.admin.training_datasets.get_next_unverified(
             dataset_name="dataset_name",
+            status="Unlabeled",
         )
         assert_matches_type(TrainingDatumResponse, training_dataset, path=["response"])
 
@@ -123,6 +124,7 @@ class TestTrainingDatasets:
     def test_raw_response_get_next_unverified(self, client: Structify) -> None:
         response = client.admin.training_datasets.with_raw_response.get_next_unverified(
             dataset_name="dataset_name",
+            status="Unlabeled",
         )
 
         assert response.is_closed is True
@@ -134,6 +136,7 @@ class TestTrainingDatasets:
     def test_streaming_response_get_next_unverified(self, client: Structify) -> None:
         with client.admin.training_datasets.with_streaming_response.get_next_unverified(
             dataset_name="dataset_name",
+            status="Unlabeled",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -548,6 +551,7 @@ class TestAsyncTrainingDatasets:
     async def test_method_get_next_unverified(self, async_client: AsyncStructify) -> None:
         training_dataset = await async_client.admin.training_datasets.get_next_unverified(
             dataset_name="dataset_name",
+            status="Unlabeled",
         )
         assert_matches_type(TrainingDatumResponse, training_dataset, path=["response"])
 
@@ -555,6 +559,7 @@ class TestAsyncTrainingDatasets:
     async def test_raw_response_get_next_unverified(self, async_client: AsyncStructify) -> None:
         response = await async_client.admin.training_datasets.with_raw_response.get_next_unverified(
             dataset_name="dataset_name",
+            status="Unlabeled",
         )
 
         assert response.is_closed is True
@@ -566,6 +571,7 @@ class TestAsyncTrainingDatasets:
     async def test_streaming_response_get_next_unverified(self, async_client: AsyncStructify) -> None:
         async with async_client.admin.training_datasets.with_streaming_response.get_next_unverified(
             dataset_name="dataset_name",
+            status="Unlabeled",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
