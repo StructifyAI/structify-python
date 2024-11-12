@@ -35,13 +35,13 @@ from .extraction_criteria import ExtractionCriteria as ExtractionCriteria
 from .job_cancel_response import JobCancelResponse as JobCancelResponse
 from .job_delete_response import JobDeleteResponse as JobDeleteResponse
 from .property_type_param import PropertyTypeParam as PropertyTypeParam
+from .report_wrong_params import ReportWrongParams as ReportWrongParams
 from .user_usage_response import UserUsageResponse as UserUsageResponse
 from .dataset_get_response import DatasetGetResponse as DatasetGetResponse
 from .dataset_match_params import DatasetMatchParams as DatasetMatchParams
 from .entity_delete_params import EntityDeleteParams as EntityDeleteParams
 from .entity_search_params import EntitySearchParams as EntitySearchParams
 from .entity_view_response import EntityViewResponse as EntityViewResponse
-from .report_entity_params import ReportEntityParams as ReportEntityParams
 from .report_step_response import ReportStepResponse as ReportStepResponse
 from .source_list_response import SourceListResponse as SourceListResponse
 from .dataset_create_params import DatasetCreateParams as DatasetCreateParams
@@ -49,6 +49,8 @@ from .dataset_delete_params import DatasetDeleteParams as DatasetDeleteParams
 from .dataset_list_response import DatasetListResponse as DatasetListResponse
 from .entity_merge_response import EntityMergeResponse as EntityMergeResponse
 from .knowledge_graph_param import KnowledgeGraphParam as KnowledgeGraphParam
+from .report_missing_params import ReportMissingParams as ReportMissingParams
+from .report_wrong_response import ReportWrongResponse as ReportWrongResponse
 from .dataset_match_response import DatasetMatchResponse as DatasetMatchResponse
 from .document_delete_params import DocumentDeleteParams as DocumentDeleteParams
 from .document_list_response import DocumentListResponse as DocumentListResponse
@@ -56,8 +58,8 @@ from .document_upload_params import DocumentUploadParams as DocumentUploadParams
 from .entity_delete_response import EntityDeleteResponse as EntityDeleteResponse
 from .entity_search_response import EntitySearchResponse as EntitySearchResponse
 from .job_get_steps_response import JobGetStepsResponse as JobGetStepsResponse
-from .report_entity_response import ReportEntityResponse as ReportEntityResponse
 from .entity_summarize_params import EntitySummarizeParams as EntitySummarizeParams
+from .report_missing_response import ReportMissingResponse as ReportMissingResponse
 from .document_download_params import DocumentDownloadParams as DocumentDownloadParams
 from .structure_enhance_params import StructureEnhanceParams as StructureEnhanceParams
 from .dataset_view_table_params import DatasetViewTableParams as DatasetViewTableParams
