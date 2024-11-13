@@ -9,11 +9,13 @@ import pytest
 
 from structify import Structify, AsyncStructify
 from tests.utils import assert_matches_type
+from structify._utils import parse_datetime
 from structify.types.admin import (
     TrainingDatumResponse,
     TrainingDatasetListResponse,
     TrainingDatasetSizeResponse,
     TrainingDatasetListDatumsResponse,
+    TrainingDatasetGetLabellerStatsResponse,
 )
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
@@ -109,6 +111,50 @@ class TestTrainingDatasets:
 
             training_dataset = response.parse()
             assert training_dataset is None
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_method_get_labeller_stats(self, client: Structify) -> None:
+        training_dataset = client.admin.training_datasets.get_labeller_stats(
+            dataset_name="dataset_name",
+            status="Unlabeled",
+        )
+        assert_matches_type(TrainingDatasetGetLabellerStatsResponse, training_dataset, path=["response"])
+
+    @parametrize
+    def test_method_get_labeller_stats_with_all_params(self, client: Structify) -> None:
+        training_dataset = client.admin.training_datasets.get_labeller_stats(
+            dataset_name="dataset_name",
+            status="Unlabeled",
+            end_date=parse_datetime("2019-12-27T18:11:19.117Z"),
+            start_date=parse_datetime("2019-12-27T18:11:19.117Z"),
+        )
+        assert_matches_type(TrainingDatasetGetLabellerStatsResponse, training_dataset, path=["response"])
+
+    @parametrize
+    def test_raw_response_get_labeller_stats(self, client: Structify) -> None:
+        response = client.admin.training_datasets.with_raw_response.get_labeller_stats(
+            dataset_name="dataset_name",
+            status="Unlabeled",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        training_dataset = response.parse()
+        assert_matches_type(TrainingDatasetGetLabellerStatsResponse, training_dataset, path=["response"])
+
+    @parametrize
+    def test_streaming_response_get_labeller_stats(self, client: Structify) -> None:
+        with client.admin.training_datasets.with_streaming_response.get_labeller_stats(
+            dataset_name="dataset_name",
+            status="Unlabeled",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            training_dataset = response.parse()
+            assert_matches_type(TrainingDatasetGetLabellerStatsResponse, training_dataset, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -315,6 +361,8 @@ class TestTrainingDatasets:
     def test_method_size_with_all_params(self, client: Structify) -> None:
         training_dataset = client.admin.training_datasets.size(
             dataset_name="dataset_name",
+            end_date=parse_datetime("2019-12-27T18:11:19.117Z"),
+            start_date=parse_datetime("2019-12-27T18:11:19.117Z"),
             status="Unlabeled",
         )
         assert_matches_type(TrainingDatasetSizeResponse, training_dataset, path=["response"])
@@ -548,6 +596,50 @@ class TestAsyncTrainingDatasets:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
+    async def test_method_get_labeller_stats(self, async_client: AsyncStructify) -> None:
+        training_dataset = await async_client.admin.training_datasets.get_labeller_stats(
+            dataset_name="dataset_name",
+            status="Unlabeled",
+        )
+        assert_matches_type(TrainingDatasetGetLabellerStatsResponse, training_dataset, path=["response"])
+
+    @parametrize
+    async def test_method_get_labeller_stats_with_all_params(self, async_client: AsyncStructify) -> None:
+        training_dataset = await async_client.admin.training_datasets.get_labeller_stats(
+            dataset_name="dataset_name",
+            status="Unlabeled",
+            end_date=parse_datetime("2019-12-27T18:11:19.117Z"),
+            start_date=parse_datetime("2019-12-27T18:11:19.117Z"),
+        )
+        assert_matches_type(TrainingDatasetGetLabellerStatsResponse, training_dataset, path=["response"])
+
+    @parametrize
+    async def test_raw_response_get_labeller_stats(self, async_client: AsyncStructify) -> None:
+        response = await async_client.admin.training_datasets.with_raw_response.get_labeller_stats(
+            dataset_name="dataset_name",
+            status="Unlabeled",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        training_dataset = await response.parse()
+        assert_matches_type(TrainingDatasetGetLabellerStatsResponse, training_dataset, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_get_labeller_stats(self, async_client: AsyncStructify) -> None:
+        async with async_client.admin.training_datasets.with_streaming_response.get_labeller_stats(
+            dataset_name="dataset_name",
+            status="Unlabeled",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            training_dataset = await response.parse()
+            assert_matches_type(TrainingDatasetGetLabellerStatsResponse, training_dataset, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
     async def test_method_get_next_unverified(self, async_client: AsyncStructify) -> None:
         training_dataset = await async_client.admin.training_datasets.get_next_unverified(
             dataset_name="dataset_name",
@@ -750,6 +842,8 @@ class TestAsyncTrainingDatasets:
     async def test_method_size_with_all_params(self, async_client: AsyncStructify) -> None:
         training_dataset = await async_client.admin.training_datasets.size(
             dataset_name="dataset_name",
+            end_date=parse_datetime("2019-12-27T18:11:19.117Z"),
+            start_date=parse_datetime("2019-12-27T18:11:19.117Z"),
             status="Unlabeled",
         )
         assert_matches_type(TrainingDatasetSizeResponse, training_dataset, path=["response"])
