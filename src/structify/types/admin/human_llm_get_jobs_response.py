@@ -4,23 +4,17 @@ from typing import List, Optional
 from datetime import datetime
 from typing_extensions import Literal, TypeAlias
 
-from ..._models import BaseModel
+from .human_llm_metadata import HumanLlmMetadata
 
 __all__ = ["HumanLlmGetJobsResponse", "HumanLlmGetJobsResponseItem"]
 
 
-class HumanLlmGetJobsResponseItem(BaseModel):
+class HumanLlmGetJobsResponseItem(HumanLlmMetadata):
     id: str
 
     creation_time: datetime
 
-    entity_name: str
-
-    property_name: str
-
     status: Literal["Queued", "Running", "Completed", "Failed"]
-
-    user_email: str
 
     message: Optional[str] = None
 

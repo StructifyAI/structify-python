@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from .user import User as User
 from .step_choices import StepChoices as StepChoices
+from .human_llm_metadata import HumanLlmMetadata as HumanLlmMetadata
 from .user_list_response import UserListResponse as UserListResponse
 from .training_datum_response import TrainingDatumResponse as TrainingDatumResponse
 from .human_llm_get_jobs_params import HumanLlmGetJobsParams as HumanLlmGetJobsParams

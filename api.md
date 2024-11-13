@@ -20,7 +20,12 @@ Methods:
 Types:
 
 ```python
-from structify.types.admin import StepChoices, HumanLlmGetJobsResponse, HumanLlmPrelabelStepResponse
+from structify.types.admin import (
+    HumanLlmMetadata,
+    StepChoices,
+    HumanLlmGetJobsResponse,
+    HumanLlmPrelabelStepResponse,
+)
 ```
 
 Methods:
