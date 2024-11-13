@@ -167,8 +167,8 @@ class TrainingDatasetsResource(SyncAPIResource):
     def get_labeller_stats(
         self,
         *,
-        dataset_name: str,
         status: Literal["Unlabeled", "Labeled", "Verified", "Pending", "Skipped", "Suspicious"],
+        dataset_name: Optional[str] | NotGiven = NOT_GIVEN,
         end_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         start_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -199,8 +199,8 @@ class TrainingDatasetsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "dataset_name": dataset_name,
                         "status": status,
+                        "dataset_name": dataset_name,
                         "end_date": end_date,
                         "start_date": start_date,
                     },
@@ -698,8 +698,8 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
     async def get_labeller_stats(
         self,
         *,
-        dataset_name: str,
         status: Literal["Unlabeled", "Labeled", "Verified", "Pending", "Skipped", "Suspicious"],
+        dataset_name: Optional[str] | NotGiven = NOT_GIVEN,
         end_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         start_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -730,8 +730,8 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=await async_maybe_transform(
                     {
-                        "dataset_name": dataset_name,
                         "status": status,
+                        "dataset_name": dataset_name,
                         "end_date": end_date,
                         "start_date": start_date,
                     },

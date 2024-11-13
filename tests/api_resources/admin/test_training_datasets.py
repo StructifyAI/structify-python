@@ -117,7 +117,6 @@ class TestTrainingDatasets:
     @parametrize
     def test_method_get_labeller_stats(self, client: Structify) -> None:
         training_dataset = client.admin.training_datasets.get_labeller_stats(
-            dataset_name="dataset_name",
             status="Unlabeled",
         )
         assert_matches_type(TrainingDatasetGetLabellerStatsResponse, training_dataset, path=["response"])
@@ -125,8 +124,8 @@ class TestTrainingDatasets:
     @parametrize
     def test_method_get_labeller_stats_with_all_params(self, client: Structify) -> None:
         training_dataset = client.admin.training_datasets.get_labeller_stats(
-            dataset_name="dataset_name",
             status="Unlabeled",
+            dataset_name="dataset_name",
             end_date=parse_datetime("2019-12-27T18:11:19.117Z"),
             start_date=parse_datetime("2019-12-27T18:11:19.117Z"),
         )
@@ -135,7 +134,6 @@ class TestTrainingDatasets:
     @parametrize
     def test_raw_response_get_labeller_stats(self, client: Structify) -> None:
         response = client.admin.training_datasets.with_raw_response.get_labeller_stats(
-            dataset_name="dataset_name",
             status="Unlabeled",
         )
 
@@ -147,7 +145,6 @@ class TestTrainingDatasets:
     @parametrize
     def test_streaming_response_get_labeller_stats(self, client: Structify) -> None:
         with client.admin.training_datasets.with_streaming_response.get_labeller_stats(
-            dataset_name="dataset_name",
             status="Unlabeled",
         ) as response:
             assert not response.is_closed
@@ -598,7 +595,6 @@ class TestAsyncTrainingDatasets:
     @parametrize
     async def test_method_get_labeller_stats(self, async_client: AsyncStructify) -> None:
         training_dataset = await async_client.admin.training_datasets.get_labeller_stats(
-            dataset_name="dataset_name",
             status="Unlabeled",
         )
         assert_matches_type(TrainingDatasetGetLabellerStatsResponse, training_dataset, path=["response"])
@@ -606,8 +602,8 @@ class TestAsyncTrainingDatasets:
     @parametrize
     async def test_method_get_labeller_stats_with_all_params(self, async_client: AsyncStructify) -> None:
         training_dataset = await async_client.admin.training_datasets.get_labeller_stats(
-            dataset_name="dataset_name",
             status="Unlabeled",
+            dataset_name="dataset_name",
             end_date=parse_datetime("2019-12-27T18:11:19.117Z"),
             start_date=parse_datetime("2019-12-27T18:11:19.117Z"),
         )
@@ -616,7 +612,6 @@ class TestAsyncTrainingDatasets:
     @parametrize
     async def test_raw_response_get_labeller_stats(self, async_client: AsyncStructify) -> None:
         response = await async_client.admin.training_datasets.with_raw_response.get_labeller_stats(
-            dataset_name="dataset_name",
             status="Unlabeled",
         )
 
@@ -628,7 +623,6 @@ class TestAsyncTrainingDatasets:
     @parametrize
     async def test_streaming_response_get_labeller_stats(self, async_client: AsyncStructify) -> None:
         async with async_client.admin.training_datasets.with_streaming_response.get_labeller_stats(
-            dataset_name="dataset_name",
             status="Unlabeled",
         ) as response:
             assert not response.is_closed
