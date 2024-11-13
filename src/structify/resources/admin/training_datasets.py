@@ -2,7 +2,8 @@
 
 from __future__ import annotations
 
-from typing import Mapping, Iterable, Optional, cast
+from typing import Union, Mapping, Iterable, Optional, cast
+from datetime import datetime
 from typing_extensions import Literal
 
 import httpx
@@ -32,6 +33,7 @@ from ...types.admin import (
     training_dataset_upload_datum_params,
     training_dataset_reset_pending_params,
     training_dataset_get_step_by_id_params,
+    training_dataset_get_labeller_stats_params,
     training_dataset_get_next_unverified_params,
     training_dataset_mark_suspicious_datum_params,
 )
@@ -40,6 +42,7 @@ from ...types.admin.training_datum_response import TrainingDatumResponse
 from ...types.admin.training_dataset_list_response import TrainingDatasetListResponse
 from ...types.admin.training_dataset_size_response import TrainingDatasetSizeResponse
 from ...types.admin.training_dataset_list_datums_response import TrainingDatasetListDatumsResponse
+from ...types.admin.training_dataset_get_labeller_stats_response import TrainingDatasetGetLabellerStatsResponse
 
 __all__ = ["TrainingDatasetsResource", "AsyncTrainingDatasetsResource"]
 
@@ -159,6 +162,52 @@ class TrainingDatasetsResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=NoneType,
+        )
+
+    def get_labeller_stats(
+        self,
+        *,
+        dataset_name: str,
+        status: Literal["Unlabeled", "Labeled", "Verified", "Pending", "Skipped", "Suspicious"],
+        end_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
+        start_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> TrainingDatasetGetLabellerStatsResponse:
+        """
+        Gets statistics about labellers' work on a dataset.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._get(
+            "/admin/training_datasets/labeller_stats",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "dataset_name": dataset_name,
+                        "status": status,
+                        "end_date": end_date,
+                        "start_date": start_date,
+                    },
+                    training_dataset_get_labeller_stats_params.TrainingDatasetGetLabellerStatsParams,
+                ),
+            ),
+            cast_to=TrainingDatasetGetLabellerStatsResponse,
         )
 
     def get_next_unverified(
@@ -399,6 +448,8 @@ class TrainingDatasetsResource(SyncAPIResource):
         self,
         *,
         dataset_name: str,
+        end_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
+        start_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         status: Optional[Literal["Unlabeled", "Labeled", "Verified", "Pending", "Skipped", "Suspicious"]]
         | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -426,6 +477,8 @@ class TrainingDatasetsResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "dataset_name": dataset_name,
+                    "end_date": end_date,
+                    "start_date": start_date,
                     "status": status,
                 },
                 training_dataset_size_params.TrainingDatasetSizeParams,
@@ -640,6 +693,52 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=NoneType,
+        )
+
+    async def get_labeller_stats(
+        self,
+        *,
+        dataset_name: str,
+        status: Literal["Unlabeled", "Labeled", "Verified", "Pending", "Skipped", "Suspicious"],
+        end_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
+        start_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> TrainingDatasetGetLabellerStatsResponse:
+        """
+        Gets statistics about labellers' work on a dataset.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._get(
+            "/admin/training_datasets/labeller_stats",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "dataset_name": dataset_name,
+                        "status": status,
+                        "end_date": end_date,
+                        "start_date": start_date,
+                    },
+                    training_dataset_get_labeller_stats_params.TrainingDatasetGetLabellerStatsParams,
+                ),
+            ),
+            cast_to=TrainingDatasetGetLabellerStatsResponse,
         )
 
     async def get_next_unverified(
@@ -880,6 +979,8 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
         self,
         *,
         dataset_name: str,
+        end_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
+        start_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         status: Optional[Literal["Unlabeled", "Labeled", "Verified", "Pending", "Skipped", "Suspicious"]]
         | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -907,6 +1008,8 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "dataset_name": dataset_name,
+                    "end_date": end_date,
+                    "start_date": start_date,
                     "status": status,
                 },
                 training_dataset_size_params.TrainingDatasetSizeParams,
@@ -1021,6 +1124,9 @@ class TrainingDatasetsResourceWithRawResponse:
         self.add_datum = to_raw_response_wrapper(
             training_datasets.add_datum,
         )
+        self.get_labeller_stats = to_raw_response_wrapper(
+            training_datasets.get_labeller_stats,
+        )
         self.get_next_unverified = to_raw_response_wrapper(
             training_datasets.get_next_unverified,
         )
@@ -1062,6 +1168,9 @@ class AsyncTrainingDatasetsResourceWithRawResponse:
         )
         self.add_datum = async_to_raw_response_wrapper(
             training_datasets.add_datum,
+        )
+        self.get_labeller_stats = async_to_raw_response_wrapper(
+            training_datasets.get_labeller_stats,
         )
         self.get_next_unverified = async_to_raw_response_wrapper(
             training_datasets.get_next_unverified,
@@ -1105,6 +1214,9 @@ class TrainingDatasetsResourceWithStreamingResponse:
         self.add_datum = to_streamed_response_wrapper(
             training_datasets.add_datum,
         )
+        self.get_labeller_stats = to_streamed_response_wrapper(
+            training_datasets.get_labeller_stats,
+        )
         self.get_next_unverified = to_streamed_response_wrapper(
             training_datasets.get_next_unverified,
         )
@@ -1146,6 +1258,9 @@ class AsyncTrainingDatasetsResourceWithStreamingResponse:
         )
         self.add_datum = async_to_streamed_response_wrapper(
             training_datasets.add_datum,
+        )
+        self.get_labeller_stats = async_to_streamed_response_wrapper(
+            training_datasets.get_labeller_stats,
         )
         self.get_next_unverified = async_to_streamed_response_wrapper(
             training_datasets.get_next_unverified,
