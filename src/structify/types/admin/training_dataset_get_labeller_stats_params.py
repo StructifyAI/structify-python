@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union
+from typing import Union, Optional
 from datetime import datetime
 from typing_extensions import Literal, Required, Annotated, TypedDict
 
@@ -12,9 +12,9 @@ __all__ = ["TrainingDatasetGetLabellerStatsParams"]
 
 
 class TrainingDatasetGetLabellerStatsParams(TypedDict, total=False):
-    dataset_name: Required[str]
-
     status: Required[Literal["Unlabeled", "Labeled", "Verified", "Pending", "Skipped", "Suspicious"]]
+
+    dataset_name: Optional[str]
 
     end_date: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
 
