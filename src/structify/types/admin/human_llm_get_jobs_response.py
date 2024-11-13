@@ -14,7 +14,13 @@ class HumanLlmGetJobsResponseItem(BaseModel):
 
     creation_time: datetime
 
+    entity_name: str
+
+    property_name: str
+
     status: Literal["Queued", "Running", "Completed", "Failed"]
+
+    user_email: str
 
     message: Optional[str] = None
 
@@ -24,4 +30,4 @@ class HumanLlmGetJobsResponseItem(BaseModel):
     """What time did the job start running?"""
 
 
-HumanLlmGetJobsResponse: TypeAlias = List[HumanLlmGetJobsResponseItem]
+HumanLlmGetJobsResponse: TypeAlias = List[List[HumanLlmGetJobsResponseItem]]
