@@ -21,7 +21,7 @@ Types:
 
 ```python
 from structify.types.admin import (
-    HumanLlmMetadata,
+    HumanLlmJob,
     StepChoices,
     HumanLlmGetJobsResponse,
     HumanLlmPrelabelStepResponse,
