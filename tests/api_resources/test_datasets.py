@@ -17,6 +17,7 @@ from structify.types import (
     DatasetViewRelationshipsResponse,
     DatasetViewTablesWithRelationshipsResponse,
 )
+from structify._utils import parse_datetime
 from structify.pagination import SyncJobsList, AsyncJobsList
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
@@ -468,6 +469,7 @@ class TestDatasets:
             dataset="dataset",
             name="name",
             job_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            last_updated=parse_datetime("2019-12-27T18:11:19.117Z"),
             limit=0,
             offset=0,
         )
@@ -513,6 +515,7 @@ class TestDatasets:
             dataset="dataset",
             name="name",
             job_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            last_updated=parse_datetime("2019-12-27T18:11:19.117Z"),
             limit=0,
             offset=0,
         )
@@ -558,6 +561,7 @@ class TestDatasets:
             dataset="dataset",
             name="name",
             job_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            last_updated=parse_datetime("2019-12-27T18:11:19.117Z"),
             limit=0,
             offset=0,
         )
@@ -1036,6 +1040,7 @@ class TestAsyncDatasets:
             dataset="dataset",
             name="name",
             job_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            last_updated=parse_datetime("2019-12-27T18:11:19.117Z"),
             limit=0,
             offset=0,
         )
@@ -1081,6 +1086,7 @@ class TestAsyncDatasets:
             dataset="dataset",
             name="name",
             job_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            last_updated=parse_datetime("2019-12-27T18:11:19.117Z"),
             limit=0,
             offset=0,
         )
@@ -1126,6 +1132,7 @@ class TestAsyncDatasets:
             dataset="dataset",
             name="name",
             job_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            last_updated=parse_datetime("2019-12-27T18:11:19.117Z"),
             limit=0,
             offset=0,
         )
