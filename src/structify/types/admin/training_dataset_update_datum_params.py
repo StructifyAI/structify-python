@@ -15,6 +15,8 @@ __all__ = [
     "UpdatedToolCallInputSave",
     "UpdatedToolCallInputScroll",
     "UpdatedToolCallInputScrollScroll",
+    "UpdatedToolCallInputScrollToBottom",
+    "UpdatedToolCallInputScrollToBottomScrollToBottom",
     "UpdatedToolCallInputExit",
     "UpdatedToolCallInputExitExit",
     "UpdatedToolCallInputClick",
@@ -61,6 +63,18 @@ class UpdatedToolCallInputScrollScroll(TypedDict, total=False):
 
 class UpdatedToolCallInputScroll(TypedDict, total=False):
     scroll: Required[Annotated[UpdatedToolCallInputScrollScroll, PropertyInfo(alias="Scroll")]]
+    """For tools with no inputs."""
+
+
+class UpdatedToolCallInputScrollToBottomScrollToBottom(TypedDict, total=False):
+    reason: Required[str]
+    """Dummy argument"""
+
+
+class UpdatedToolCallInputScrollToBottom(TypedDict, total=False):
+    scroll_to_bottom: Required[
+        Annotated[UpdatedToolCallInputScrollToBottomScrollToBottom, PropertyInfo(alias="ScrollToBottom")]
+    ]
     """For tools with no inputs."""
 
 
@@ -128,6 +142,7 @@ class UpdatedToolCallInputType(TypedDict, total=False):
 UpdatedToolCallInput: TypeAlias = Union[
     UpdatedToolCallInputSave,
     UpdatedToolCallInputScroll,
+    UpdatedToolCallInputScrollToBottom,
     UpdatedToolCallInputExit,
     UpdatedToolCallInputClick,
     UpdatedToolCallInputHover,

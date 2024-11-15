@@ -15,6 +15,8 @@ __all__ = [
     "ToolCallInputSave",
     "ToolCallInputScroll",
     "ToolCallInputScrollScroll",
+    "ToolCallInputScrollToBottom",
+    "ToolCallInputScrollToBottomScrollToBottom",
     "ToolCallInputExit",
     "ToolCallInputExitExit",
     "ToolCallInputClick",
@@ -53,6 +55,16 @@ class ToolCallInputScrollScroll(BaseModel):
 
 class ToolCallInputScroll(BaseModel):
     scroll: ToolCallInputScrollScroll = FieldInfo(alias="Scroll")
+    """For tools with no inputs."""
+
+
+class ToolCallInputScrollToBottomScrollToBottom(BaseModel):
+    reason: str
+    """Dummy argument"""
+
+
+class ToolCallInputScrollToBottom(BaseModel):
+    scroll_to_bottom: ToolCallInputScrollToBottomScrollToBottom = FieldInfo(alias="ScrollToBottom")
     """For tools with no inputs."""
 
 
@@ -120,6 +132,7 @@ class ToolCallInputType(BaseModel):
 ToolCallInput: TypeAlias = Union[
     ToolCallInputSave,
     ToolCallInputScroll,
+    ToolCallInputScrollToBottom,
     ToolCallInputExit,
     ToolCallInputClick,
     ToolCallInputHover,

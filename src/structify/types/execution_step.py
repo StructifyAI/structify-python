@@ -17,6 +17,8 @@ __all__ = [
     "ResponseToolCallInputSave",
     "ResponseToolCallInputScroll",
     "ResponseToolCallInputScrollScroll",
+    "ResponseToolCallInputScrollToBottom",
+    "ResponseToolCallInputScrollToBottomScrollToBottom",
     "ResponseToolCallInputExit",
     "ResponseToolCallInputExitExit",
     "ResponseToolCallInputClick",
@@ -55,6 +57,16 @@ class ResponseToolCallInputScrollScroll(BaseModel):
 
 class ResponseToolCallInputScroll(BaseModel):
     scroll: ResponseToolCallInputScrollScroll = FieldInfo(alias="Scroll")
+    """For tools with no inputs."""
+
+
+class ResponseToolCallInputScrollToBottomScrollToBottom(BaseModel):
+    reason: str
+    """Dummy argument"""
+
+
+class ResponseToolCallInputScrollToBottom(BaseModel):
+    scroll_to_bottom: ResponseToolCallInputScrollToBottomScrollToBottom = FieldInfo(alias="ScrollToBottom")
     """For tools with no inputs."""
 
 
@@ -122,6 +134,7 @@ class ResponseToolCallInputType(BaseModel):
 ResponseToolCallInput: TypeAlias = Union[
     ResponseToolCallInputSave,
     ResponseToolCallInputScroll,
+    ResponseToolCallInputScrollToBottom,
     ResponseToolCallInputExit,
     ResponseToolCallInputClick,
     ResponseToolCallInputHover,
