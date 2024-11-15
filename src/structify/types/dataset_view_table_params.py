@@ -2,8 +2,11 @@
 
 from __future__ import annotations
 
-from typing import Optional
-from typing_extensions import Required, TypedDict
+from typing import Union, Optional
+from datetime import datetime
+from typing_extensions import Required, Annotated, TypedDict
+
+from .._utils import PropertyInfo
 
 __all__ = ["DatasetViewTableParams"]
 
@@ -14,6 +17,8 @@ class DatasetViewTableParams(TypedDict, total=False):
     name: Required[str]
 
     job_id: Optional[str]
+
+    last_updated: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
 
     limit: int
 
