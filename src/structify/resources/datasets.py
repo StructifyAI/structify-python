@@ -2,7 +2,8 @@
 
 from __future__ import annotations
 
-from typing import Iterable, Optional
+from typing import Union, Iterable, Optional
+from datetime import datetime
 
 import httpx
 
@@ -251,6 +252,7 @@ class DatasetsResource(SyncAPIResource):
         dataset: str,
         name: str,
         job_id: Optional[str] | NotGiven = NOT_GIVEN,
+        last_updated: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         offset: int | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -285,6 +287,7 @@ class DatasetsResource(SyncAPIResource):
                         "dataset": dataset,
                         "name": name,
                         "job_id": job_id,
+                        "last_updated": last_updated,
                         "limit": limit,
                         "offset": offset,
                     },
@@ -300,6 +303,7 @@ class DatasetsResource(SyncAPIResource):
         dataset: str,
         name: str,
         job_id: Optional[str] | NotGiven = NOT_GIVEN,
+        last_updated: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         offset: int | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -334,6 +338,7 @@ class DatasetsResource(SyncAPIResource):
                         "dataset": dataset,
                         "name": name,
                         "job_id": job_id,
+                        "last_updated": last_updated,
                         "limit": limit,
                         "offset": offset,
                     },
@@ -349,6 +354,7 @@ class DatasetsResource(SyncAPIResource):
         dataset: str,
         name: str,
         job_id: Optional[str] | NotGiven = NOT_GIVEN,
+        last_updated: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         offset: int | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -382,6 +388,7 @@ class DatasetsResource(SyncAPIResource):
                         "dataset": dataset,
                         "name": name,
                         "job_id": job_id,
+                        "last_updated": last_updated,
                         "limit": limit,
                         "offset": offset,
                     },
@@ -601,6 +608,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
         dataset: str,
         name: str,
         job_id: Optional[str] | NotGiven = NOT_GIVEN,
+        last_updated: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         offset: int | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -635,6 +643,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
                         "dataset": dataset,
                         "name": name,
                         "job_id": job_id,
+                        "last_updated": last_updated,
                         "limit": limit,
                         "offset": offset,
                     },
@@ -650,6 +659,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
         dataset: str,
         name: str,
         job_id: Optional[str] | NotGiven = NOT_GIVEN,
+        last_updated: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         offset: int | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -684,6 +694,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
                         "dataset": dataset,
                         "name": name,
                         "job_id": job_id,
+                        "last_updated": last_updated,
                         "limit": limit,
                         "offset": offset,
                     },
@@ -699,6 +710,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
         dataset: str,
         name: str,
         job_id: Optional[str] | NotGiven = NOT_GIVEN,
+        last_updated: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         offset: int | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -732,6 +744,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
                         "dataset": dataset,
                         "name": name,
                         "job_id": job_id,
+                        "last_updated": last_updated,
                         "limit": limit,
                         "offset": offset,
                     },
