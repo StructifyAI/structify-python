@@ -8,6 +8,7 @@ from .human_llm_job import HumanLlmJob as HumanLlmJob
 from .user_list_response import UserListResponse as UserListResponse
 from .training_datum_response import TrainingDatumResponse as TrainingDatumResponse
 from .human_llm_get_jobs_params import HumanLlmGetJobsParams as HumanLlmGetJobsParams
+from .human_llm_finish_job_params import HumanLlmFinishJobParams as HumanLlmFinishJobParams
 from .human_llm_get_jobs_response import HumanLlmGetJobsResponse as HumanLlmGetJobsResponse
 from .training_dataset_add_params import TrainingDatasetAddParams as TrainingDatasetAddParams
 from .human_llm_update_step_params import HumanLlmUpdateStepParams as HumanLlmUpdateStepParams
