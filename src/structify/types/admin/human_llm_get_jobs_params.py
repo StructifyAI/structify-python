@@ -2,10 +2,11 @@
 
 from __future__ import annotations
 
-from typing_extensions import Literal, Required, TypedDict
+from typing import Optional
+from typing_extensions import Literal, TypedDict
 
 __all__ = ["HumanLlmGetJobsParams"]
 
 
 class HumanLlmGetJobsParams(TypedDict, total=False):
-    status: Required[Literal["Queued", "Running", "Completed", "Failed"]]
+    status: Optional[Literal["Queued", "Running", "Completed", "Failed"]]
