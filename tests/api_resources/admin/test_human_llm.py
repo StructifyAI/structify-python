@@ -235,15 +235,7 @@ class TestHumanLlm:
                 {
                     "input": {"save": {}},
                     "name": "Save",
-                },
-                {
-                    "input": {"save": {}},
-                    "name": "Save",
-                },
-                {
-                    "input": {"save": {}},
-                    "name": "Save",
-                },
+                }
             ],
         )
         assert_matches_type(StepChoices, human_llm, path=["response"])
@@ -262,17 +254,7 @@ class TestHumanLlm:
                                     "id": 0,
                                     "properties": {"foo": "string"},
                                     "type": "type",
-                                },
-                                {
-                                    "id": 0,
-                                    "properties": {"foo": "string"},
-                                    "type": "type",
-                                },
-                                {
-                                    "id": 0,
-                                    "properties": {"foo": "string"},
-                                    "type": "type",
-                                },
+                                }
                             ],
                             "relationships": [
                                 {
@@ -280,115 +262,13 @@ class TestHumanLlm:
                                     "target": 0,
                                     "type": "type",
                                     "properties": {"foo": "string"},
-                                },
-                                {
-                                    "source": 0,
-                                    "target": 0,
-                                    "type": "type",
-                                    "properties": {"foo": "string"},
-                                },
-                                {
-                                    "source": 0,
-                                    "target": 0,
-                                    "type": "type",
-                                    "properties": {"foo": "string"},
-                                },
+                                }
                             ],
                         }
                     },
                     "name": "Save",
                     "result": {"tool_queued": "ToolQueued"},
-                },
-                {
-                    "input": {
-                        "save": {
-                            "entities": [
-                                {
-                                    "id": 0,
-                                    "properties": {"foo": "string"},
-                                    "type": "type",
-                                },
-                                {
-                                    "id": 0,
-                                    "properties": {"foo": "string"},
-                                    "type": "type",
-                                },
-                                {
-                                    "id": 0,
-                                    "properties": {"foo": "string"},
-                                    "type": "type",
-                                },
-                            ],
-                            "relationships": [
-                                {
-                                    "source": 0,
-                                    "target": 0,
-                                    "type": "type",
-                                    "properties": {"foo": "string"},
-                                },
-                                {
-                                    "source": 0,
-                                    "target": 0,
-                                    "type": "type",
-                                    "properties": {"foo": "string"},
-                                },
-                                {
-                                    "source": 0,
-                                    "target": 0,
-                                    "type": "type",
-                                    "properties": {"foo": "string"},
-                                },
-                            ],
-                        }
-                    },
-                    "name": "Save",
-                    "result": {"tool_queued": "ToolQueued"},
-                },
-                {
-                    "input": {
-                        "save": {
-                            "entities": [
-                                {
-                                    "id": 0,
-                                    "properties": {"foo": "string"},
-                                    "type": "type",
-                                },
-                                {
-                                    "id": 0,
-                                    "properties": {"foo": "string"},
-                                    "type": "type",
-                                },
-                                {
-                                    "id": 0,
-                                    "properties": {"foo": "string"},
-                                    "type": "type",
-                                },
-                            ],
-                            "relationships": [
-                                {
-                                    "source": 0,
-                                    "target": 0,
-                                    "type": "type",
-                                    "properties": {"foo": "string"},
-                                },
-                                {
-                                    "source": 0,
-                                    "target": 0,
-                                    "type": "type",
-                                    "properties": {"foo": "string"},
-                                },
-                                {
-                                    "source": 0,
-                                    "target": 0,
-                                    "type": "type",
-                                    "properties": {"foo": "string"},
-                                },
-                            ],
-                        }
-                    },
-                    "name": "Save",
-                    "result": {"tool_queued": "ToolQueued"},
-                },
+                }
             ],
             add_to_training_datum=True,
         )
@@ -403,15 +283,7 @@ class TestHumanLlm:
                 {
                     "input": {"save": {}},
                     "name": "Save",
-                },
-                {
-                    "input": {"save": {}},
-                    "name": "Save",
-                },
-                {
-                    "input": {"save": {}},
-                    "name": "Save",
-                },
+                }
             ],
         )
 
@@ -429,15 +301,7 @@ class TestHumanLlm:
                 {
                     "input": {"save": {}},
                     "name": "Save",
-                },
-                {
-                    "input": {"save": {}},
-                    "name": "Save",
-                },
-                {
-                    "input": {"save": {}},
-                    "name": "Save",
-                },
+                }
             ],
         ) as response:
             assert not response.is_closed
@@ -665,15 +529,7 @@ class TestAsyncHumanLlm:
                 {
                     "input": {"save": {}},
                     "name": "Save",
-                },
-                {
-                    "input": {"save": {}},
-                    "name": "Save",
-                },
-                {
-                    "input": {"save": {}},
-                    "name": "Save",
-                },
+                }
             ],
         )
         assert_matches_type(StepChoices, human_llm, path=["response"])
@@ -692,17 +548,7 @@ class TestAsyncHumanLlm:
                                     "id": 0,
                                     "properties": {"foo": "string"},
                                     "type": "type",
-                                },
-                                {
-                                    "id": 0,
-                                    "properties": {"foo": "string"},
-                                    "type": "type",
-                                },
-                                {
-                                    "id": 0,
-                                    "properties": {"foo": "string"},
-                                    "type": "type",
-                                },
+                                }
                             ],
                             "relationships": [
                                 {
@@ -710,115 +556,13 @@ class TestAsyncHumanLlm:
                                     "target": 0,
                                     "type": "type",
                                     "properties": {"foo": "string"},
-                                },
-                                {
-                                    "source": 0,
-                                    "target": 0,
-                                    "type": "type",
-                                    "properties": {"foo": "string"},
-                                },
-                                {
-                                    "source": 0,
-                                    "target": 0,
-                                    "type": "type",
-                                    "properties": {"foo": "string"},
-                                },
+                                }
                             ],
                         }
                     },
                     "name": "Save",
                     "result": {"tool_queued": "ToolQueued"},
-                },
-                {
-                    "input": {
-                        "save": {
-                            "entities": [
-                                {
-                                    "id": 0,
-                                    "properties": {"foo": "string"},
-                                    "type": "type",
-                                },
-                                {
-                                    "id": 0,
-                                    "properties": {"foo": "string"},
-                                    "type": "type",
-                                },
-                                {
-                                    "id": 0,
-                                    "properties": {"foo": "string"},
-                                    "type": "type",
-                                },
-                            ],
-                            "relationships": [
-                                {
-                                    "source": 0,
-                                    "target": 0,
-                                    "type": "type",
-                                    "properties": {"foo": "string"},
-                                },
-                                {
-                                    "source": 0,
-                                    "target": 0,
-                                    "type": "type",
-                                    "properties": {"foo": "string"},
-                                },
-                                {
-                                    "source": 0,
-                                    "target": 0,
-                                    "type": "type",
-                                    "properties": {"foo": "string"},
-                                },
-                            ],
-                        }
-                    },
-                    "name": "Save",
-                    "result": {"tool_queued": "ToolQueued"},
-                },
-                {
-                    "input": {
-                        "save": {
-                            "entities": [
-                                {
-                                    "id": 0,
-                                    "properties": {"foo": "string"},
-                                    "type": "type",
-                                },
-                                {
-                                    "id": 0,
-                                    "properties": {"foo": "string"},
-                                    "type": "type",
-                                },
-                                {
-                                    "id": 0,
-                                    "properties": {"foo": "string"},
-                                    "type": "type",
-                                },
-                            ],
-                            "relationships": [
-                                {
-                                    "source": 0,
-                                    "target": 0,
-                                    "type": "type",
-                                    "properties": {"foo": "string"},
-                                },
-                                {
-                                    "source": 0,
-                                    "target": 0,
-                                    "type": "type",
-                                    "properties": {"foo": "string"},
-                                },
-                                {
-                                    "source": 0,
-                                    "target": 0,
-                                    "type": "type",
-                                    "properties": {"foo": "string"},
-                                },
-                            ],
-                        }
-                    },
-                    "name": "Save",
-                    "result": {"tool_queued": "ToolQueued"},
-                },
+                }
             ],
             add_to_training_datum=True,
         )
@@ -833,15 +577,7 @@ class TestAsyncHumanLlm:
                 {
                     "input": {"save": {}},
                     "name": "Save",
-                },
-                {
-                    "input": {"save": {}},
-                    "name": "Save",
-                },
-                {
-                    "input": {"save": {}},
-                    "name": "Save",
-                },
+                }
             ],
         )
 
@@ -859,15 +595,7 @@ class TestAsyncHumanLlm:
                 {
                     "input": {"save": {}},
                     "name": "Save",
-                },
-                {
-                    "input": {"save": {}},
-                    "name": "Save",
-                },
-                {
-                    "input": {"save": {}},
-                    "name": "Save",
-                },
+                }
             ],
         ) as response:
             assert not response.is_closed

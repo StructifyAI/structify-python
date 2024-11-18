@@ -37,19 +37,7 @@ class TestDatasets:
                     "name": "name",
                     "source_table": "source_table",
                     "target_table": "target_table",
-                },
-                {
-                    "description": "description",
-                    "name": "name",
-                    "source_table": "source_table",
-                    "target_table": "target_table",
-                },
-                {
-                    "description": "description",
-                    "name": "name",
-                    "source_table": "source_table",
-                    "target_table": "target_table",
-                },
+                }
             ],
             tables=[
                 {
@@ -59,53 +47,9 @@ class TestDatasets:
                         {
                             "description": "description",
                             "name": "name",
-                        },
-                        {
-                            "description": "description",
-                            "name": "name",
-                        },
-                        {
-                            "description": "description",
-                            "name": "name",
-                        },
+                        }
                     ],
-                },
-                {
-                    "description": "description",
-                    "name": "name",
-                    "properties": [
-                        {
-                            "description": "description",
-                            "name": "name",
-                        },
-                        {
-                            "description": "description",
-                            "name": "name",
-                        },
-                        {
-                            "description": "description",
-                            "name": "name",
-                        },
-                    ],
-                },
-                {
-                    "description": "description",
-                    "name": "name",
-                    "properties": [
-                        {
-                            "description": "description",
-                            "name": "name",
-                        },
-                        {
-                            "description": "description",
-                            "name": "name",
-                        },
-                        {
-                            "description": "description",
-                            "name": "name",
-                        },
-                    ],
-                },
+                }
             ],
         )
         assert dataset is None
@@ -121,19 +65,7 @@ class TestDatasets:
                     "name": "name",
                     "source_table": "source_table",
                     "target_table": "target_table",
-                },
-                {
-                    "description": "description",
-                    "name": "name",
-                    "source_table": "source_table",
-                    "target_table": "target_table",
-                },
-                {
-                    "description": "description",
-                    "name": "name",
-                    "source_table": "source_table",
-                    "target_table": "target_table",
-                },
+                }
             ],
             tables=[
                 {
@@ -143,53 +75,9 @@ class TestDatasets:
                         {
                             "description": "description",
                             "name": "name",
-                        },
-                        {
-                            "description": "description",
-                            "name": "name",
-                        },
-                        {
-                            "description": "description",
-                            "name": "name",
-                        },
+                        }
                     ],
-                },
-                {
-                    "description": "description",
-                    "name": "name",
-                    "properties": [
-                        {
-                            "description": "description",
-                            "name": "name",
-                        },
-                        {
-                            "description": "description",
-                            "name": "name",
-                        },
-                        {
-                            "description": "description",
-                            "name": "name",
-                        },
-                    ],
-                },
-                {
-                    "description": "description",
-                    "name": "name",
-                    "properties": [
-                        {
-                            "description": "description",
-                            "name": "name",
-                        },
-                        {
-                            "description": "description",
-                            "name": "name",
-                        },
-                        {
-                            "description": "description",
-                            "name": "name",
-                        },
-                    ],
-                },
+                }
             ],
         )
 
@@ -209,19 +97,7 @@ class TestDatasets:
                     "name": "name",
                     "source_table": "source_table",
                     "target_table": "target_table",
-                },
-                {
-                    "description": "description",
-                    "name": "name",
-                    "source_table": "source_table",
-                    "target_table": "target_table",
-                },
-                {
-                    "description": "description",
-                    "name": "name",
-                    "source_table": "source_table",
-                    "target_table": "target_table",
-                },
+                }
             ],
             tables=[
                 {
@@ -231,53 +107,9 @@ class TestDatasets:
                         {
                             "description": "description",
                             "name": "name",
-                        },
-                        {
-                            "description": "description",
-                            "name": "name",
-                        },
-                        {
-                            "description": "description",
-                            "name": "name",
-                        },
+                        }
                     ],
-                },
-                {
-                    "description": "description",
-                    "name": "name",
-                    "properties": [
-                        {
-                            "description": "description",
-                            "name": "name",
-                        },
-                        {
-                            "description": "description",
-                            "name": "name",
-                        },
-                        {
-                            "description": "description",
-                            "name": "name",
-                        },
-                    ],
-                },
-                {
-                    "description": "description",
-                    "name": "name",
-                    "properties": [
-                        {
-                            "description": "description",
-                            "name": "name",
-                        },
-                        {
-                            "description": "description",
-                            "name": "name",
-                        },
-                        {
-                            "description": "description",
-                            "name": "name",
-                        },
-                    ],
-                },
+                }
             ],
         ) as response:
             assert not response.is_closed
@@ -393,17 +225,7 @@ class TestDatasets:
                         "id": 0,
                         "properties": {"foo": "string"},
                         "type": "type",
-                    },
-                    {
-                        "id": 0,
-                        "properties": {"foo": "string"},
-                        "type": "type",
-                    },
-                    {
-                        "id": 0,
-                        "properties": {"foo": "string"},
-                        "type": "type",
-                    },
+                    }
                 ],
                 "relationships": [
                     {
@@ -411,19 +233,7 @@ class TestDatasets:
                         "target": 0,
                         "type": "type",
                         "properties": {"foo": "string"},
-                    },
-                    {
-                        "source": 0,
-                        "target": 0,
-                        "type": "type",
-                        "properties": {"foo": "string"},
-                    },
-                    {
-                        "source": 0,
-                        "target": 0,
-                        "type": "type",
-                        "properties": {"foo": "string"},
-                    },
+                    }
                 ],
             },
         )
@@ -608,19 +418,7 @@ class TestAsyncDatasets:
                     "name": "name",
                     "source_table": "source_table",
                     "target_table": "target_table",
-                },
-                {
-                    "description": "description",
-                    "name": "name",
-                    "source_table": "source_table",
-                    "target_table": "target_table",
-                },
-                {
-                    "description": "description",
-                    "name": "name",
-                    "source_table": "source_table",
-                    "target_table": "target_table",
-                },
+                }
             ],
             tables=[
                 {
@@ -630,53 +428,9 @@ class TestAsyncDatasets:
                         {
                             "description": "description",
                             "name": "name",
-                        },
-                        {
-                            "description": "description",
-                            "name": "name",
-                        },
-                        {
-                            "description": "description",
-                            "name": "name",
-                        },
+                        }
                     ],
-                },
-                {
-                    "description": "description",
-                    "name": "name",
-                    "properties": [
-                        {
-                            "description": "description",
-                            "name": "name",
-                        },
-                        {
-                            "description": "description",
-                            "name": "name",
-                        },
-                        {
-                            "description": "description",
-                            "name": "name",
-                        },
-                    ],
-                },
-                {
-                    "description": "description",
-                    "name": "name",
-                    "properties": [
-                        {
-                            "description": "description",
-                            "name": "name",
-                        },
-                        {
-                            "description": "description",
-                            "name": "name",
-                        },
-                        {
-                            "description": "description",
-                            "name": "name",
-                        },
-                    ],
-                },
+                }
             ],
         )
         assert dataset is None
@@ -692,19 +446,7 @@ class TestAsyncDatasets:
                     "name": "name",
                     "source_table": "source_table",
                     "target_table": "target_table",
-                },
-                {
-                    "description": "description",
-                    "name": "name",
-                    "source_table": "source_table",
-                    "target_table": "target_table",
-                },
-                {
-                    "description": "description",
-                    "name": "name",
-                    "source_table": "source_table",
-                    "target_table": "target_table",
-                },
+                }
             ],
             tables=[
                 {
@@ -714,53 +456,9 @@ class TestAsyncDatasets:
                         {
                             "description": "description",
                             "name": "name",
-                        },
-                        {
-                            "description": "description",
-                            "name": "name",
-                        },
-                        {
-                            "description": "description",
-                            "name": "name",
-                        },
+                        }
                     ],
-                },
-                {
-                    "description": "description",
-                    "name": "name",
-                    "properties": [
-                        {
-                            "description": "description",
-                            "name": "name",
-                        },
-                        {
-                            "description": "description",
-                            "name": "name",
-                        },
-                        {
-                            "description": "description",
-                            "name": "name",
-                        },
-                    ],
-                },
-                {
-                    "description": "description",
-                    "name": "name",
-                    "properties": [
-                        {
-                            "description": "description",
-                            "name": "name",
-                        },
-                        {
-                            "description": "description",
-                            "name": "name",
-                        },
-                        {
-                            "description": "description",
-                            "name": "name",
-                        },
-                    ],
-                },
+                }
             ],
         )
 
@@ -780,19 +478,7 @@ class TestAsyncDatasets:
                     "name": "name",
                     "source_table": "source_table",
                     "target_table": "target_table",
-                },
-                {
-                    "description": "description",
-                    "name": "name",
-                    "source_table": "source_table",
-                    "target_table": "target_table",
-                },
-                {
-                    "description": "description",
-                    "name": "name",
-                    "source_table": "source_table",
-                    "target_table": "target_table",
-                },
+                }
             ],
             tables=[
                 {
@@ -802,53 +488,9 @@ class TestAsyncDatasets:
                         {
                             "description": "description",
                             "name": "name",
-                        },
-                        {
-                            "description": "description",
-                            "name": "name",
-                        },
-                        {
-                            "description": "description",
-                            "name": "name",
-                        },
+                        }
                     ],
-                },
-                {
-                    "description": "description",
-                    "name": "name",
-                    "properties": [
-                        {
-                            "description": "description",
-                            "name": "name",
-                        },
-                        {
-                            "description": "description",
-                            "name": "name",
-                        },
-                        {
-                            "description": "description",
-                            "name": "name",
-                        },
-                    ],
-                },
-                {
-                    "description": "description",
-                    "name": "name",
-                    "properties": [
-                        {
-                            "description": "description",
-                            "name": "name",
-                        },
-                        {
-                            "description": "description",
-                            "name": "name",
-                        },
-                        {
-                            "description": "description",
-                            "name": "name",
-                        },
-                    ],
-                },
+                }
             ],
         ) as response:
             assert not response.is_closed
@@ -964,17 +606,7 @@ class TestAsyncDatasets:
                         "id": 0,
                         "properties": {"foo": "string"},
                         "type": "type",
-                    },
-                    {
-                        "id": 0,
-                        "properties": {"foo": "string"},
-                        "type": "type",
-                    },
-                    {
-                        "id": 0,
-                        "properties": {"foo": "string"},
-                        "type": "type",
-                    },
+                    }
                 ],
                 "relationships": [
                     {
@@ -982,19 +614,7 @@ class TestAsyncDatasets:
                         "target": 0,
                         "type": "type",
                         "properties": {"foo": "string"},
-                    },
-                    {
-                        "source": 0,
-                        "target": 0,
-                        "type": "type",
-                        "properties": {"foo": "string"},
-                    },
-                    {
-                        "source": 0,
-                        "target": 0,
-                        "type": "type",
-                        "properties": {"foo": "string"},
-                    },
+                    }
                 ],
             },
         )

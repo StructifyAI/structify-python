@@ -397,15 +397,7 @@ class TestTrainingDatasets:
                 {
                     "input": {"save": {}},
                     "name": "Save",
-                },
-                {
-                    "input": {"save": {}},
-                    "name": "Save",
-                },
-                {
-                    "input": {"save": {}},
-                    "name": "Save",
-                },
+                }
             ],
         )
         assert training_dataset is None
@@ -419,15 +411,7 @@ class TestTrainingDatasets:
                 {
                     "input": {"save": {}},
                     "name": "Save",
-                },
-                {
-                    "input": {"save": {}},
-                    "name": "Save",
-                },
-                {
-                    "input": {"save": {}},
-                    "name": "Save",
-                },
+                }
             ],
         )
 
@@ -445,15 +429,7 @@ class TestTrainingDatasets:
                 {
                     "input": {"save": {}},
                     "name": "Save",
-                },
-                {
-                    "input": {"save": {}},
-                    "name": "Save",
-                },
-                {
-                    "input": {"save": {}},
-                    "name": "Save",
-                },
+                }
             ],
         ) as response:
             assert not response.is_closed
@@ -875,15 +851,7 @@ class TestAsyncTrainingDatasets:
                 {
                     "input": {"save": {}},
                     "name": "Save",
-                },
-                {
-                    "input": {"save": {}},
-                    "name": "Save",
-                },
-                {
-                    "input": {"save": {}},
-                    "name": "Save",
-                },
+                }
             ],
         )
         assert training_dataset is None
@@ -897,15 +865,7 @@ class TestAsyncTrainingDatasets:
                 {
                     "input": {"save": {}},
                     "name": "Save",
-                },
-                {
-                    "input": {"save": {}},
-                    "name": "Save",
-                },
-                {
-                    "input": {"save": {}},
-                    "name": "Save",
-                },
+                }
             ],
         )
 
@@ -923,15 +883,7 @@ class TestAsyncTrainingDatasets:
                 {
                     "input": {"save": {}},
                     "name": "Save",
-                },
-                {
-                    "input": {"save": {}},
-                    "name": "Save",
-                },
-                {
-                    "input": {"save": {}},
-                    "name": "Save",
-                },
+                }
             ],
         ) as response:
             assert not response.is_closed
