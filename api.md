@@ -15,6 +15,12 @@ Methods:
 
 # Admin
 
+## Entity
+
+Methods:
+
+- <code title="post /admin/entity/verify">client.admin.entity.<a href="./src/structify/resources/admin/entity.py">verify</a>(\*\*<a href="src/structify/types/admin/entity_verify_params.py">params</a>) -> <a href="./src/structify/types/knowledge_graph.py">KnowledgeGraph</a></code>
+
 ## HumanLlm
 
 Types:

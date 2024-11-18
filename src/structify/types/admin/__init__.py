@@ -6,6 +6,7 @@ from .user import User as User
 from .step_choices import StepChoices as StepChoices
 from .human_llm_job import HumanLlmJob as HumanLlmJob
 from .user_list_response import UserListResponse as UserListResponse
+from .entity_verify_params import EntityVerifyParams as EntityVerifyParams
 from .training_datum_response import TrainingDatumResponse as TrainingDatumResponse
 from .human_llm_get_jobs_params import HumanLlmGetJobsParams as HumanLlmGetJobsParams
 from .human_llm_finish_job_params import HumanLlmFinishJobParams as HumanLlmFinishJobParams
