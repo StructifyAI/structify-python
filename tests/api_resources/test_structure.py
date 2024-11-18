@@ -62,14 +62,14 @@ class TestStructure:
     @parametrize
     def test_method_is_complete(self, client: Structify) -> None:
         structure = client.structure.is_complete(
-            job=["string", "string", "string"],
+            job=["string"],
         )
         assert_matches_type(str, structure, path=["response"])
 
     @parametrize
     def test_raw_response_is_complete(self, client: Structify) -> None:
         response = client.structure.with_raw_response.is_complete(
-            job=["string", "string", "string"],
+            job=["string"],
         )
 
         assert response.is_closed is True
@@ -80,7 +80,7 @@ class TestStructure:
     @parametrize
     def test_streaming_response_is_complete(self, client: Structify) -> None:
         with client.structure.with_streaming_response.is_complete(
-            job=["string", "string", "string"],
+            job=["string"],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -93,14 +93,14 @@ class TestStructure:
     @parametrize
     def test_method_job_status(self, client: Structify) -> None:
         structure = client.structure.job_status(
-            job=["string", "string", "string"],
+            job=["string"],
         )
         assert_matches_type(StructureJobStatusResponse, structure, path=["response"])
 
     @parametrize
     def test_raw_response_job_status(self, client: Structify) -> None:
         response = client.structure.with_raw_response.job_status(
-            job=["string", "string", "string"],
+            job=["string"],
         )
 
         assert response.is_closed is True
@@ -111,7 +111,7 @@ class TestStructure:
     @parametrize
     def test_streaming_response_job_status(self, client: Structify) -> None:
         with client.structure.with_streaming_response.job_status(
-            job=["string", "string", "string"],
+            job=["string"],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -140,28 +140,14 @@ class TestStructure:
                     "year": 0,
                 }
             },
-            extraction_criteria=[
-                {"relationship_extraction": {"relationship_name": "relationship_name"}},
-                {"relationship_extraction": {"relationship_name": "relationship_name"}},
-                {"relationship_extraction": {"relationship_name": "relationship_name"}},
-            ],
+            extraction_criteria=[{"relationship_extraction": {"relationship_name": "relationship_name"}}],
             seeded_entity={
                 "entities": [
                     {
                         "id": 0,
                         "properties": {"foo": "string"},
                         "type": "type",
-                    },
-                    {
-                        "id": 0,
-                        "properties": {"foo": "string"},
-                        "type": "type",
-                    },
-                    {
-                        "id": 0,
-                        "properties": {"foo": "string"},
-                        "type": "type",
-                    },
+                    }
                 ],
                 "relationships": [
                     {
@@ -169,19 +155,7 @@ class TestStructure:
                         "target": 0,
                         "type": "type",
                         "properties": {"foo": "string"},
-                    },
-                    {
-                        "source": 0,
-                        "target": 0,
-                        "type": "type",
-                        "properties": {"foo": "string"},
-                    },
-                    {
-                        "source": 0,
-                        "target": 0,
-                        "type": "type",
-                        "properties": {"foo": "string"},
-                    },
+                    }
                 ],
             },
         )
@@ -260,14 +234,14 @@ class TestAsyncStructure:
     @parametrize
     async def test_method_is_complete(self, async_client: AsyncStructify) -> None:
         structure = await async_client.structure.is_complete(
-            job=["string", "string", "string"],
+            job=["string"],
         )
         assert_matches_type(str, structure, path=["response"])
 
     @parametrize
     async def test_raw_response_is_complete(self, async_client: AsyncStructify) -> None:
         response = await async_client.structure.with_raw_response.is_complete(
-            job=["string", "string", "string"],
+            job=["string"],
         )
 
         assert response.is_closed is True
@@ -278,7 +252,7 @@ class TestAsyncStructure:
     @parametrize
     async def test_streaming_response_is_complete(self, async_client: AsyncStructify) -> None:
         async with async_client.structure.with_streaming_response.is_complete(
-            job=["string", "string", "string"],
+            job=["string"],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -291,14 +265,14 @@ class TestAsyncStructure:
     @parametrize
     async def test_method_job_status(self, async_client: AsyncStructify) -> None:
         structure = await async_client.structure.job_status(
-            job=["string", "string", "string"],
+            job=["string"],
         )
         assert_matches_type(StructureJobStatusResponse, structure, path=["response"])
 
     @parametrize
     async def test_raw_response_job_status(self, async_client: AsyncStructify) -> None:
         response = await async_client.structure.with_raw_response.job_status(
-            job=["string", "string", "string"],
+            job=["string"],
         )
 
         assert response.is_closed is True
@@ -309,7 +283,7 @@ class TestAsyncStructure:
     @parametrize
     async def test_streaming_response_job_status(self, async_client: AsyncStructify) -> None:
         async with async_client.structure.with_streaming_response.job_status(
-            job=["string", "string", "string"],
+            job=["string"],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -338,28 +312,14 @@ class TestAsyncStructure:
                     "year": 0,
                 }
             },
-            extraction_criteria=[
-                {"relationship_extraction": {"relationship_name": "relationship_name"}},
-                {"relationship_extraction": {"relationship_name": "relationship_name"}},
-                {"relationship_extraction": {"relationship_name": "relationship_name"}},
-            ],
+            extraction_criteria=[{"relationship_extraction": {"relationship_name": "relationship_name"}}],
             seeded_entity={
                 "entities": [
                     {
                         "id": 0,
                         "properties": {"foo": "string"},
                         "type": "type",
-                    },
-                    {
-                        "id": 0,
-                        "properties": {"foo": "string"},
-                        "type": "type",
-                    },
-                    {
-                        "id": 0,
-                        "properties": {"foo": "string"},
-                        "type": "type",
-                    },
+                    }
                 ],
                 "relationships": [
                     {
@@ -367,19 +327,7 @@ class TestAsyncStructure:
                         "target": 0,
                         "type": "type",
                         "properties": {"foo": "string"},
-                    },
-                    {
-                        "source": 0,
-                        "target": 0,
-                        "type": "type",
-                        "properties": {"foo": "string"},
-                    },
-                    {
-                        "source": 0,
-                        "target": 0,
-                        "type": "type",
-                        "properties": {"foo": "string"},
-                    },
+                    }
                 ],
             },
         )

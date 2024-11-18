@@ -80,17 +80,7 @@ class TestEntities:
                         "id": 0,
                         "properties": {"foo": "string"},
                         "type": "type",
-                    },
-                    {
-                        "id": 0,
-                        "properties": {"foo": "string"},
-                        "type": "type",
-                    },
-                    {
-                        "id": 0,
-                        "properties": {"foo": "string"},
-                        "type": "type",
-                    },
+                    }
                 ],
                 "relationships": [
                     {
@@ -98,19 +88,7 @@ class TestEntities:
                         "target": 0,
                         "type": "type",
                         "properties": {"foo": "string"},
-                    },
-                    {
-                        "source": 0,
-                        "target": 0,
-                        "type": "type",
-                        "properties": {"foo": "string"},
-                    },
-                    {
-                        "source": 0,
-                        "target": 0,
-                        "type": "type",
-                        "properties": {"foo": "string"},
-                    },
+                    }
                 ],
             },
             attempt_merge=True,
@@ -321,7 +299,7 @@ class TestEntities:
         entity = client.entities.summarize(
             dataset_name="dataset_name",
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            properties=["string", "string", "string"],
+            properties=["string"],
         )
         assert_matches_type(EntitySummarizeResponse, entity, path=["response"])
 
@@ -330,8 +308,8 @@ class TestEntities:
         entity = client.entities.summarize(
             dataset_name="dataset_name",
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            properties=["string", "string", "string"],
-            extra_instructions=["string", "string", "string"],
+            properties=["string"],
+            extra_instructions=["string"],
         )
         assert_matches_type(EntitySummarizeResponse, entity, path=["response"])
 
@@ -340,7 +318,7 @@ class TestEntities:
         response = client.entities.with_raw_response.summarize(
             dataset_name="dataset_name",
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            properties=["string", "string", "string"],
+            properties=["string"],
         )
 
         assert response.is_closed is True
@@ -353,7 +331,7 @@ class TestEntities:
         with client.entities.with_streaming_response.summarize(
             dataset_name="dataset_name",
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            properties=["string", "string", "string"],
+            properties=["string"],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -490,17 +468,7 @@ class TestAsyncEntities:
                         "id": 0,
                         "properties": {"foo": "string"},
                         "type": "type",
-                    },
-                    {
-                        "id": 0,
-                        "properties": {"foo": "string"},
-                        "type": "type",
-                    },
-                    {
-                        "id": 0,
-                        "properties": {"foo": "string"},
-                        "type": "type",
-                    },
+                    }
                 ],
                 "relationships": [
                     {
@@ -508,19 +476,7 @@ class TestAsyncEntities:
                         "target": 0,
                         "type": "type",
                         "properties": {"foo": "string"},
-                    },
-                    {
-                        "source": 0,
-                        "target": 0,
-                        "type": "type",
-                        "properties": {"foo": "string"},
-                    },
-                    {
-                        "source": 0,
-                        "target": 0,
-                        "type": "type",
-                        "properties": {"foo": "string"},
-                    },
+                    }
                 ],
             },
             attempt_merge=True,
@@ -731,7 +687,7 @@ class TestAsyncEntities:
         entity = await async_client.entities.summarize(
             dataset_name="dataset_name",
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            properties=["string", "string", "string"],
+            properties=["string"],
         )
         assert_matches_type(EntitySummarizeResponse, entity, path=["response"])
 
@@ -740,8 +696,8 @@ class TestAsyncEntities:
         entity = await async_client.entities.summarize(
             dataset_name="dataset_name",
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            properties=["string", "string", "string"],
-            extra_instructions=["string", "string", "string"],
+            properties=["string"],
+            extra_instructions=["string"],
         )
         assert_matches_type(EntitySummarizeResponse, entity, path=["response"])
 
@@ -750,7 +706,7 @@ class TestAsyncEntities:
         response = await async_client.entities.with_raw_response.summarize(
             dataset_name="dataset_name",
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            properties=["string", "string", "string"],
+            properties=["string"],
         )
 
         assert response.is_closed is True
@@ -763,7 +719,7 @@ class TestAsyncEntities:
         async with async_client.entities.with_streaming_response.summarize(
             dataset_name="dataset_name",
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            properties=["string", "string", "string"],
+            properties=["string"],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
