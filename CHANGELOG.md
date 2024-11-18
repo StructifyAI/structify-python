@@ -1,5 +1,29 @@
 # Changelog
 
+## 1.50.0 (2024-11-18)
+
+Full Changelog: [v1.49.0...v1.50.0](https://github.com/StructifyAI/structify-python/compare/v1.49.0...v1.50.0)
+
+### Features
+
+* **api:** api update ([#625](https://github.com/StructifyAI/structify-python/issues/625)) ([7a1523a](https://github.com/StructifyAI/structify-python/commit/7a1523a62bf4320f6eb8b0c8f9da38d31eebade6))
+* **api:** api update ([#626](https://github.com/StructifyAI/structify-python/issues/626)) ([e4a5547](https://github.com/StructifyAI/structify-python/commit/e4a55479c0267e221e9c9e5f5bd6cc5185b70eed))
+* **api:** api update ([#627](https://github.com/StructifyAI/structify-python/issues/627)) ([6b2ed19](https://github.com/StructifyAI/structify-python/commit/6b2ed19cfd14ad5395138ba2dd4cec9cf2b62b24))
+* **api:** api update ([#628](https://github.com/StructifyAI/structify-python/issues/628)) ([aba9a9e](https://github.com/StructifyAI/structify-python/commit/aba9a9e844d4a36701016fd5ab4cff810681a9e9))
+* **api:** api update ([#629](https://github.com/StructifyAI/structify-python/issues/629)) ([1616859](https://github.com/StructifyAI/structify-python/commit/161685989437047714a38d0598133ae8f33250fc))
+* **api:** api update ([#630](https://github.com/StructifyAI/structify-python/issues/630)) ([960e7ce](https://github.com/StructifyAI/structify-python/commit/960e7ce0139ff980d27d3ebae1e8f6d3a181cacb))
+* **api:** api update ([#631](https://github.com/StructifyAI/structify-python/issues/631)) ([7b013f9](https://github.com/StructifyAI/structify-python/commit/7b013f90c2cee7bbcb951b7f65f84ea68f65c576))
+* **api:** api update ([#632](https://github.com/StructifyAI/structify-python/issues/632)) ([71fbd66](https://github.com/StructifyAI/structify-python/commit/71fbd665f10c8eef45fc5b7b09f7c5569deee7f5))
+* **api:** api update ([#633](https://github.com/StructifyAI/structify-python/issues/633)) ([0f86086](https://github.com/StructifyAI/structify-python/commit/0f86086d2a5b544b419ea174ed4a6a232df3e388))
+* **api:** api update ([#634](https://github.com/StructifyAI/structify-python/issues/634)) ([304e55e](https://github.com/StructifyAI/structify-python/commit/304e55ef5e9120020946428c7c996ea820b2cb2e))
+
+
+### Chores
+
+* **internal:** version bump ([#623](https://github.com/StructifyAI/structify-python/issues/623)) ([9df630a](https://github.com/StructifyAI/structify-python/commit/9df630a465b5b64954087d98c8f7b72a6502ef8d))
+* rebuild project due to codegen change ([#635](https://github.com/StructifyAI/structify-python/issues/635)) ([5af30a9](https://github.com/StructifyAI/structify-python/commit/5af30a9267a86a290c38b7f2248eefe53d4face7))
+* rebuild project due to codegen change ([#636](https://github.com/StructifyAI/structify-python/issues/636)) ([865b19e](https://github.com/StructifyAI/structify-python/commit/865b19e10d88d0281dc02d39206c4593c124d0f9))
+
 ## 1.49.0 (2024-11-12)
 
 Full Changelog: [v1.48.0...v1.49.0](https://github.com/StructifyAI/structify-python/compare/v1.48.0...v1.49.0)
