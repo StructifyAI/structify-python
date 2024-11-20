@@ -23,4 +23,5 @@ PropertyTypeParam: TypeAlias = Union[
     Literal["Date"],
     Literal["URL"],
     Literal["Money"],
+    Literal["Image"],
 ]

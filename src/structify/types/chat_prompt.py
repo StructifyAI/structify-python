@@ -147,6 +147,8 @@ class MetadataWebFlag(BaseModel):
 
     href: Optional[str] = None
 
+    is_interactive: Optional[bool] = FieldInfo(alias="isInteractive", default=None)
+
     number: Optional[int] = None
     """The number by which the flag is referred in image, prompt, and tool calls."""
 
