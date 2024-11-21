@@ -8,6 +8,8 @@ from typing import Any, cast
 import pytest
 
 from structify import Structify, AsyncStructify
+from tests.utils import assert_matches_type
+from structify.types import ImageGetResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -20,7 +22,7 @@ class TestImage:
         image = client.image.get(
             "hash",
         )
-        assert image is None
+        assert_matches_type(ImageGetResponse, image, path=["response"])
 
     @parametrize
     def test_raw_response_get(self, client: Structify) -> None:
@@ -31,7 +33,7 @@ class TestImage:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         image = response.parse()
-        assert image is None
+        assert_matches_type(ImageGetResponse, image, path=["response"])
 
     @parametrize
     def test_streaming_response_get(self, client: Structify) -> None:
@@ -42,7 +44,7 @@ class TestImage:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             image = response.parse()
-            assert image is None
+            assert_matches_type(ImageGetResponse, image, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -62,7 +64,7 @@ class TestAsyncImage:
         image = await async_client.image.get(
             "hash",
         )
-        assert image is None
+        assert_matches_type(ImageGetResponse, image, path=["response"])
 
     @parametrize
     async def test_raw_response_get(self, async_client: AsyncStructify) -> None:
@@ -73,7 +75,7 @@ class TestAsyncImage:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         image = await response.parse()
-        assert image is None
+        assert_matches_type(ImageGetResponse, image, path=["response"])
 
     @parametrize
     async def test_streaming_response_get(self, async_client: AsyncStructify) -> None:
@@ -84,7 +86,7 @@ class TestAsyncImage:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             image = await response.parse()
-            assert image is None
+            assert_matches_type(ImageGetResponse, image, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
