@@ -214,9 +214,15 @@ Methods:
 
 # Image
 
+Types:
+
+```python
+from structify.types import ImageGetResponse
+```
+
 Methods:
 
-- <code title="get /images/{hash}">client.image.<a href="./src/structify/resources/image.py">get</a>(hash) -> None</code>
+- <code title="get /images/{hash}">client.image.<a href="./src/structify/resources/image.py">get</a>(hash) -> <a href="./src/structify/types/image_get_response.py">ImageGetResponse</a></code>
 
 # Report
 
