@@ -212,6 +212,12 @@ Methods:
 - <code title="post /entity/update">client.entities.<a href="./src/structify/resources/entities.py">update_property</a>(\*\*<a href="src/structify/types/entity_update_property_params.py">params</a>) -> <a href="./src/structify/types/entity_update_property_response.py">EntityUpdatePropertyResponse</a></code>
 - <code title="get /entity/view">client.entities.<a href="./src/structify/resources/entities.py">view</a>(\*\*<a href="src/structify/types/entity_view_params.py">params</a>) -> <a href="./src/structify/types/entity_view_response.py">EntityViewResponse</a></code>
 
+# Image
+
+Methods:
+
+- <code title="get /images/{hash}">client.image.<a href="./src/structify/resources/image.py">get</a>(hash) -> None</code>
+
 # Report
 
 Types:
