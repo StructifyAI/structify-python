@@ -1,5 +1,24 @@
 # Changelog
 
+## 1.53.0 (2024-11-22)
+
+Full Changelog: [v1.52.0...v1.53.0](https://github.com/StructifyAI/structify-python/compare/v1.52.0...v1.53.0)
+
+### Features
+
+* **api:** api update ([#644](https://github.com/StructifyAI/structify-python/issues/644)) ([9c378e1](https://github.com/StructifyAI/structify-python/commit/9c378e16d13fd8b769babd471f357da6ea441576))
+* **api:** api update ([#646](https://github.com/StructifyAI/structify-python/issues/646)) ([32f996a](https://github.com/StructifyAI/structify-python/commit/32f996a1de19aeaef7e25b51347645face9196f8))
+
+
+### Chores
+
+* **internal:** fix compat model_dump method when warnings are passed ([#647](https://github.com/StructifyAI/structify-python/issues/647)) ([e469ceb](https://github.com/StructifyAI/structify-python/commit/e469cebf4a9576dda0c42d1e6ac2fde9ca4a0238))
+
+
+### Documentation
+
+* add info log level to readme ([#648](https://github.com/StructifyAI/structify-python/issues/648)) ([f496aef](https://github.com/StructifyAI/structify-python/commit/f496aef7f5fb34f4d5726a2ac29994e98441270a))
+
 ## 1.52.0 (2024-11-20)
 
 Full Changelog: [v1.51.0...v1.52.0](https://github.com/StructifyAI/structify-python/compare/v1.51.0...v1.52.0)
