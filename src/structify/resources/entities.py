@@ -395,6 +395,7 @@ class EntitiesResource(SyncAPIResource):
         entity_id: str,
         prop_name: str,
         prop_value: Union[str, bool, float],
+        source: entity_update_property_params.Source | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -424,6 +425,7 @@ class EntitiesResource(SyncAPIResource):
                     "entity_id": entity_id,
                     "prop_name": prop_name,
                     "prop_value": prop_value,
+                    "source": source,
                 },
                 entity_update_property_params.EntityUpdatePropertyParams,
             ),
@@ -817,6 +819,7 @@ class AsyncEntitiesResource(AsyncAPIResource):
         entity_id: str,
         prop_name: str,
         prop_value: Union[str, bool, float],
+        source: entity_update_property_params.Source | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -846,6 +849,7 @@ class AsyncEntitiesResource(AsyncAPIResource):
                     "entity_id": entity_id,
                     "prop_name": prop_name,
                     "prop_value": prop_value,
+                    "source": source,
                 },
                 entity_update_property_params.EntityUpdatePropertyParams,
             ),

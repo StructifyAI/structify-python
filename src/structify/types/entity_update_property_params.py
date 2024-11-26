@@ -2,10 +2,12 @@
 
 from __future__ import annotations
 
-from typing import Union
-from typing_extensions import Required, TypedDict
+from typing import Union, Iterable
+from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
-__all__ = ["EntityUpdatePropertyParams"]
+from .._utils import PropertyInfo
+
+__all__ = ["EntityUpdatePropertyParams", "Source", "SourceWeb", "SourceDocumentPage", "SourceSecFiling"]
 
 
 class EntityUpdatePropertyParams(TypedDict, total=False):
@@ -17,3 +19,20 @@ class EntityUpdatePropertyParams(TypedDict, total=False):
     """The name of the property to update"""
 
     prop_value: Required[Union[str, bool, float]]
+
+    source: Source
+
+
+class SourceWeb(TypedDict, total=False):
+    web: Required[Annotated[str, PropertyInfo(alias="Web")]]
+
+
+class SourceDocumentPage(TypedDict, total=False):
+    document_page: Required[Annotated[Iterable[object], PropertyInfo(alias="DocumentPage")]]
+
+
+class SourceSecFiling(TypedDict, total=False):
+    sec_filing: Required[Annotated[Iterable[object], PropertyInfo(alias="SecFiling")]]
+
+
+Source: TypeAlias = Union[Literal["None"], SourceWeb, SourceDocumentPage, SourceSecFiling]
