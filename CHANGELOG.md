@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.54.0 (2024-11-26)
+
+Full Changelog: [v1.53.0...v1.54.0](https://github.com/StructifyAI/structify-python/compare/v1.53.0...v1.54.0)
+
+### Features
+
+* **api:** api update ([#652](https://github.com/StructifyAI/structify-python/issues/652)) ([4c3f55f](https://github.com/StructifyAI/structify-python/commit/4c3f55f865330d101f751ff448268dc22823974d))
+
+
+### Chores
+
+* remove now unused `cached-property` dep ([#650](https://github.com/StructifyAI/structify-python/issues/650)) ([6fcfe88](https://github.com/StructifyAI/structify-python/commit/6fcfe88b96b542d5fe7e464fbcc96d8fa2d27fc5))
+
 ## 1.53.0 (2024-11-22)
 
 Full Changelog: [v1.52.0...v1.53.0](https://github.com/StructifyAI/structify-python/compare/v1.52.0...v1.53.0)
