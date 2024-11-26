@@ -352,6 +352,17 @@ class TestEntities:
         assert_matches_type(EntityUpdatePropertyResponse, entity, path=["response"])
 
     @parametrize
+    def test_method_update_property_with_all_params(self, client: Structify) -> None:
+        entity = client.entities.update_property(
+            dataset_name="dataset_name",
+            entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            prop_name="prop_name",
+            prop_value="string",
+            source="None",
+        )
+        assert_matches_type(EntityUpdatePropertyResponse, entity, path=["response"])
+
+    @parametrize
     def test_raw_response_update_property(self, client: Structify) -> None:
         response = client.entities.with_raw_response.update_property(
             dataset_name="dataset_name",
@@ -736,6 +747,17 @@ class TestAsyncEntities:
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             prop_name="prop_name",
             prop_value="string",
+        )
+        assert_matches_type(EntityUpdatePropertyResponse, entity, path=["response"])
+
+    @parametrize
+    async def test_method_update_property_with_all_params(self, async_client: AsyncStructify) -> None:
+        entity = await async_client.entities.update_property(
+            dataset_name="dataset_name",
+            entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            prop_name="prop_name",
+            prop_value="string",
+            source="None",
         )
         assert_matches_type(EntityUpdatePropertyResponse, entity, path=["response"])
 
