@@ -55,6 +55,7 @@ from structify.types.admin import User, UserListResponse
 
 Methods:
 
+- <code title="post /admin/users/create">client.admin.users.<a href="./src/structify/resources/admin/users.py">create</a>() -> <a href="./src/structify/types/token_response.py">TokenResponse</a></code>
 - <code title="get /admin/users/list">client.admin.users.<a href="./src/structify/resources/admin/users.py">list</a>() -> <a href="./src/structify/types/admin/user_list_response.py">UserListResponse</a></code>
 
 ## TrainingDatasets

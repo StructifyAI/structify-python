@@ -14,6 +14,7 @@ from ..._response import (
     async_to_streamed_response_wrapper,
 )
 from ..._base_client import make_request_options
+from ...types.token_response import TokenResponse
 from ...types.admin.user_list_response import UserListResponse
 
 __all__ = ["UsersResource", "AsyncUsersResource"]
@@ -38,6 +39,25 @@ class UsersResource(SyncAPIResource):
         For more information, see https://www.github.com/StructifyAI/structify-python#with_streaming_response
         """
         return UsersResourceWithStreamingResponse(self)
+
+    def create(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> TokenResponse:
+        """Create a user, returing their API token."""
+        return self._post(
+            "/admin/users/create",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=TokenResponse,
+        )
 
     def list(
         self,
@@ -79,6 +99,25 @@ class AsyncUsersResource(AsyncAPIResource):
         """
         return AsyncUsersResourceWithStreamingResponse(self)
 
+    async def create(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> TokenResponse:
+        """Create a user, returing their API token."""
+        return await self._post(
+            "/admin/users/create",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=TokenResponse,
+        )
+
     async def list(
         self,
         *,
@@ -103,6 +142,9 @@ class UsersResourceWithRawResponse:
     def __init__(self, users: UsersResource) -> None:
         self._users = users
 
+        self.create = to_raw_response_wrapper(
+            users.create,
+        )
         self.list = to_raw_response_wrapper(
             users.list,
         )
@@ -112,6 +154,9 @@ class AsyncUsersResourceWithRawResponse:
     def __init__(self, users: AsyncUsersResource) -> None:
         self._users = users
 
+        self.create = async_to_raw_response_wrapper(
+            users.create,
+        )
         self.list = async_to_raw_response_wrapper(
             users.list,
         )
@@ -121,6 +166,9 @@ class UsersResourceWithStreamingResponse:
     def __init__(self, users: UsersResource) -> None:
         self._users = users
 
+        self.create = to_streamed_response_wrapper(
+            users.create,
+        )
         self.list = to_streamed_response_wrapper(
             users.list,
         )
@@ -130,6 +178,9 @@ class AsyncUsersResourceWithStreamingResponse:
     def __init__(self, users: AsyncUsersResource) -> None:
         self._users = users
 
+        self.create = async_to_streamed_response_wrapper(
+            users.create,
+        )
         self.list = async_to_streamed_response_wrapper(
             users.list,
         )
