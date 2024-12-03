@@ -1,5 +1,25 @@
 # Changelog
 
+## 1.55.0 (2024-12-03)
+
+Full Changelog: [v1.54.0...v1.55.0](https://github.com/StructifyAI/structify-python/compare/v1.54.0...v1.55.0)
+
+### Features
+
+* **api:** api update ([#658](https://github.com/StructifyAI/structify-python/issues/658)) ([8f69ef2](https://github.com/StructifyAI/structify-python/commit/8f69ef2273f966e299cd55ddab43d72940562028))
+* **api:** api update ([#659](https://github.com/StructifyAI/structify-python/issues/659)) ([5e69b58](https://github.com/StructifyAI/structify-python/commit/5e69b586a8f84c433db25fdf6a2200707390b3b9))
+
+
+### Bug Fixes
+
+* **client:** compat with new httpx 0.28.0 release ([#656](https://github.com/StructifyAI/structify-python/issues/656)) ([0f8a982](https://github.com/StructifyAI/structify-python/commit/0f8a982dd28dd358c14c575cd9ea0ebf75635a6a))
+
+
+### Chores
+
+* **internal:** bump pyright ([#657](https://github.com/StructifyAI/structify-python/issues/657)) ([bb15cd3](https://github.com/StructifyAI/structify-python/commit/bb15cd3b970fd5f419d920bfcce84c28d6ddcbc6))
+* **internal:** exclude mypy from running on tests ([#654](https://github.com/StructifyAI/structify-python/issues/654)) ([934681f](https://github.com/StructifyAI/structify-python/commit/934681f9c249ef897ece814866408041f534b7ca))
+
 ## 1.54.0 (2024-11-26)
 
 Full Changelog: [v1.53.0...v1.54.0](https://github.com/StructifyAI/structify-python/compare/v1.53.0...v1.54.0)
