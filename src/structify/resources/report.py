@@ -6,7 +6,12 @@ from typing import Optional
 
 import httpx
 
-from ..types import report_step_params, report_wrong_params, report_missing_params
+from ..types import (
+    report_step_params,
+    report_wrong_params,
+    report_missing_params,
+    report_relationship_params,
+)
 from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from .._utils import (
     maybe_transform,
@@ -85,6 +90,50 @@ class ReportResource(SyncAPIResource):
                     "source_url": source_url,
                 },
                 report_missing_params.ReportMissingParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=str,
+        )
+
+    def relationship(
+        self,
+        *,
+        relationship_type: str,
+        source_id: Optional[str] | NotGiven = NOT_GIVEN,
+        source_url: Optional[str] | NotGiven = NOT_GIVEN,
+        target_id: Optional[str] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> str:
+        """
+        Reports a missing relationship between entities
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
+        return self._post(
+            "/report/relationship/missing",
+            body=maybe_transform(
+                {
+                    "relationship_type": relationship_type,
+                    "source_id": source_id,
+                    "source_url": source_url,
+                    "target_id": target_id,
+                },
+                report_relationship_params.ReportRelationshipParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -248,6 +297,50 @@ class AsyncReportResource(AsyncAPIResource):
             cast_to=str,
         )
 
+    async def relationship(
+        self,
+        *,
+        relationship_type: str,
+        source_id: Optional[str] | NotGiven = NOT_GIVEN,
+        source_url: Optional[str] | NotGiven = NOT_GIVEN,
+        target_id: Optional[str] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> str:
+        """
+        Reports a missing relationship between entities
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
+        return await self._post(
+            "/report/relationship/missing",
+            body=await async_maybe_transform(
+                {
+                    "relationship_type": relationship_type,
+                    "source_id": source_id,
+                    "source_url": source_url,
+                    "target_id": target_id,
+                },
+                report_relationship_params.ReportRelationshipParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=str,
+        )
+
     async def step(
         self,
         *,
@@ -344,6 +437,9 @@ class ReportResourceWithRawResponse:
         self.missing = to_raw_response_wrapper(
             report.missing,
         )
+        self.relationship = to_raw_response_wrapper(
+            report.relationship,
+        )
         self.step = to_raw_response_wrapper(
             report.step,
         )
@@ -358,6 +454,9 @@ class AsyncReportResourceWithRawResponse:
 
         self.missing = async_to_raw_response_wrapper(
             report.missing,
+        )
+        self.relationship = async_to_raw_response_wrapper(
+            report.relationship,
         )
         self.step = async_to_raw_response_wrapper(
             report.step,
@@ -374,6 +473,9 @@ class ReportResourceWithStreamingResponse:
         self.missing = to_streamed_response_wrapper(
             report.missing,
         )
+        self.relationship = to_streamed_response_wrapper(
+            report.relationship,
+        )
         self.step = to_streamed_response_wrapper(
             report.step,
         )
@@ -388,6 +490,9 @@ class AsyncReportResourceWithStreamingResponse:
 
         self.missing = async_to_streamed_response_wrapper(
             report.missing,
+        )
+        self.relationship = async_to_streamed_response_wrapper(
+            report.relationship,
         )
         self.step = async_to_streamed_response_wrapper(
             report.step,
