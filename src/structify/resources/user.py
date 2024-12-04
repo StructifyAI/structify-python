@@ -6,7 +6,7 @@ from typing import Optional
 
 import httpx
 
-from ..types import user_usage_params, user_create_test_token_params
+from ..types import user_usage_params
 from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from .._utils import (
     maybe_transform,
@@ -22,7 +22,6 @@ from .._response import (
 )
 from .._base_client import make_request_options
 from ..types.user_info import UserInfo
-from ..types.token_response import TokenResponse
 from ..types.user_usage_response import UserUsageResponse
 from ..types.user_transactions_response import UserTransactionsResponse
 
@@ -48,45 +47,6 @@ class UserResource(SyncAPIResource):
         For more information, see https://www.github.com/StructifyAI/structify-python#with_streaming_response
         """
         return UserResourceWithStreamingResponse(self)
-
-    def create_test_token(
-        self,
-        *,
-        credits: int | NotGiven = NOT_GIVEN,
-        is_admin: bool | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> TokenResponse:
-        """
-        Creates a test token.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return self._post(
-            "/user/create_test_token",
-            body=maybe_transform(
-                {
-                    "credits": credits,
-                    "is_admin": is_admin,
-                },
-                user_create_test_token_params.UserCreateTestTokenParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=TokenResponse,
-        )
 
     def info(
         self,
@@ -181,45 +141,6 @@ class AsyncUserResource(AsyncAPIResource):
         """
         return AsyncUserResourceWithStreamingResponse(self)
 
-    async def create_test_token(
-        self,
-        *,
-        credits: int | NotGiven = NOT_GIVEN,
-        is_admin: bool | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> TokenResponse:
-        """
-        Creates a test token.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return await self._post(
-            "/user/create_test_token",
-            body=await async_maybe_transform(
-                {
-                    "credits": credits,
-                    "is_admin": is_admin,
-                },
-                user_create_test_token_params.UserCreateTestTokenParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=TokenResponse,
-        )
-
     async def info(
         self,
         *,
@@ -297,9 +218,6 @@ class UserResourceWithRawResponse:
     def __init__(self, user: UserResource) -> None:
         self._user = user
 
-        self.create_test_token = to_raw_response_wrapper(
-            user.create_test_token,
-        )
         self.info = to_raw_response_wrapper(
             user.info,
         )
@@ -315,9 +233,6 @@ class AsyncUserResourceWithRawResponse:
     def __init__(self, user: AsyncUserResource) -> None:
         self._user = user
 
-        self.create_test_token = async_to_raw_response_wrapper(
-            user.create_test_token,
-        )
         self.info = async_to_raw_response_wrapper(
             user.info,
         )
@@ -333,9 +248,6 @@ class UserResourceWithStreamingResponse:
     def __init__(self, user: UserResource) -> None:
         self._user = user
 
-        self.create_test_token = to_streamed_response_wrapper(
-            user.create_test_token,
-        )
         self.info = to_streamed_response_wrapper(
             user.info,
         )
@@ -351,9 +263,6 @@ class AsyncUserResourceWithStreamingResponse:
     def __init__(self, user: AsyncUserResource) -> None:
         self._user = user
 
-        self.create_test_token = async_to_streamed_response_wrapper(
-            user.create_test_token,
-        )
         self.info = async_to_streamed_response_wrapper(
             user.info,
         )
