@@ -2,13 +2,11 @@
 
 from __future__ import annotations
 
-from .image import Image as Image
 from .table import Table as Table
 from .entity import Entity as Entity
 from .source import Source as Source
 from .user_info import UserInfo as UserInfo
 from .chat_prompt import ChatPrompt as ChatPrompt
-from .image_param import ImageParam as ImageParam
 from .table_param import TableParam as TableParam
 from .entity_param import EntityParam as EntityParam
 from .relationship import Relationship as Relationship
@@ -45,6 +43,7 @@ from .dataset_match_params import DatasetMatchParams as DatasetMatchParams
 from .document_list_params import DocumentListParams as DocumentListParams
 from .entity_delete_params import EntityDeleteParams as EntityDeleteParams
 from .entity_search_params import EntitySearchParams as EntitySearchParams
+from .entity_verify_params import EntityVerifyParams as EntityVerifyParams
 from .entity_view_response import EntityViewResponse as EntityViewResponse
 from .report_step_response import ReportStepResponse as ReportStepResponse
 from .source_list_response import SourceListResponse as SourceListResponse
