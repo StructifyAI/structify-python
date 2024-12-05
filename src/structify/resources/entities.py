@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Optional
+from typing import List, Optional
 
 import httpx
 
@@ -394,7 +394,7 @@ class EntitiesResource(SyncAPIResource):
         dataset_name: str,
         entity_id: str,
         prop_name: str,
-        prop_value: Union[str, bool, float],
+        prop_value: entity_update_property_params.PropValue,
         source: entity_update_property_params.Source | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -818,7 +818,7 @@ class AsyncEntitiesResource(AsyncAPIResource):
         dataset_name: str,
         entity_id: str,
         prop_name: str,
-        prop_value: Union[str, bool, float],
+        prop_value: entity_update_property_params.PropValue,
         source: entity_update_property_params.Source | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
