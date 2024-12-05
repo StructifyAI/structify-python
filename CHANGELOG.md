@@ -1,5 +1,23 @@
 # Changelog
 
+## 1.57.0 (2024-12-05)
+
+Full Changelog: [v1.56.0...v1.57.0](https://github.com/StructifyAI/structify-python/compare/v1.56.0...v1.57.0)
+
+### Features
+
+* **api:** api update ([#666](https://github.com/StructifyAI/structify-python/issues/666)) ([664dacb](https://github.com/StructifyAI/structify-python/commit/664dacbd0a90d9da6159e2dff560401002993bf6))
+* **api:** api update ([#667](https://github.com/StructifyAI/structify-python/issues/667)) ([e859482](https://github.com/StructifyAI/structify-python/commit/e859482b44e2752756131b68ecff559f2abb3ba5))
+* **api:** api update ([#668](https://github.com/StructifyAI/structify-python/issues/668)) ([483e6d9](https://github.com/StructifyAI/structify-python/commit/483e6d92cfd45015b6481302cf2d10f3228765d2))
+* **api:** api update ([#669](https://github.com/StructifyAI/structify-python/issues/669)) ([5bd42f7](https://github.com/StructifyAI/structify-python/commit/5bd42f74aa39a25fe3ad087e27ea475abfe596cc))
+* **api:** api update ([#670](https://github.com/StructifyAI/structify-python/issues/670)) ([c2da6d7](https://github.com/StructifyAI/structify-python/commit/c2da6d7f167c913dea2b2ff19fa363959594cf4a))
+* **api:** api update ([#671](https://github.com/StructifyAI/structify-python/issues/671)) ([8858607](https://github.com/StructifyAI/structify-python/commit/8858607972f04e37178ea8d280cb8de46e908d86))
+
+
+### Chores
+
+* make the `Omit` type public ([#664](https://github.com/StructifyAI/structify-python/issues/664)) ([92fbce7](https://github.com/StructifyAI/structify-python/commit/92fbce7f6b6ceea379c7f087f3dcfb352b095763))
+
 ## 1.56.0 (2024-12-04)
 
 Full Changelog: [v1.55.0...v1.56.0](https://github.com/StructifyAI/structify-python/compare/v1.55.0...v1.56.0)
