@@ -16,14 +16,6 @@ from .users import (
     UsersResourceWithStreamingResponse,
     AsyncUsersResourceWithStreamingResponse,
 )
-from .entity import (
-    EntityResource,
-    AsyncEntityResource,
-    EntityResourceWithRawResponse,
-    AsyncEntityResourceWithRawResponse,
-    EntityResourceWithStreamingResponse,
-    AsyncEntityResourceWithStreamingResponse,
-)
 from .human_llm import (
     HumanLlmResource,
     AsyncHumanLlmResource,
@@ -42,12 +34,6 @@ from .training_datasets import (
 )
 
 __all__ = [
-    "EntityResource",
-    "AsyncEntityResource",
-    "EntityResourceWithRawResponse",
-    "AsyncEntityResourceWithRawResponse",
-    "EntityResourceWithStreamingResponse",
-    "AsyncEntityResourceWithStreamingResponse",
     "HumanLlmResource",
     "AsyncHumanLlmResource",
     "HumanLlmResourceWithRawResponse",
