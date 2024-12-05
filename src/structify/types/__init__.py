@@ -40,6 +40,7 @@ from .report_wrong_params import ReportWrongParams as ReportWrongParams
 from .user_usage_response import UserUsageResponse as UserUsageResponse
 from .dataset_get_response import DatasetGetResponse as DatasetGetResponse
 from .dataset_match_params import DatasetMatchParams as DatasetMatchParams
+from .document_list_params import DocumentListParams as DocumentListParams
 from .entity_delete_params import EntityDeleteParams as EntityDeleteParams
 from .entity_search_params import EntitySearchParams as EntitySearchParams
 from .entity_view_response import EntityViewResponse as EntityViewResponse
