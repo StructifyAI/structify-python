@@ -7,12 +7,14 @@ from typing import List, Optional
 import httpx
 
 from ..types import (
+    KnowledgeGraph,
     entity_add_params,
     entity_get_params,
     entity_view_params,
     entity_merge_params,
     entity_delete_params,
     entity_search_params,
+    entity_verify_params,
     entity_summarize_params,
     entity_update_property_params,
     entity_get_local_subgraph_params,
@@ -32,6 +34,7 @@ from .._response import (
     async_to_streamed_response_wrapper,
 )
 from .._base_client import make_request_options
+from ..types.knowledge_graph import KnowledgeGraph
 from ..types.entity_add_response import EntityAddResponse
 from ..types.entity_get_response import EntityGetResponse
 from ..types.entity_view_response import EntityViewResponse
@@ -433,6 +436,53 @@ class EntitiesResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=EntityUpdatePropertyResponse,
+        )
+
+    def verify(
+        self,
+        *,
+        dataset_name: str,
+        kg: KnowledgeGraphParam,
+        fix: bool | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> KnowledgeGraph:
+        """
+        verify a kg against the dataset
+
+        Args:
+          kg: Knowledge graph info structured to deserialize and display in the same format
+              that the LLM outputs. Also the first representation of an LLM output in the
+              pipeline from raw tool output to being merged into a Neo4j DB
+
+          fix: Whether to apply fixes to the dataset
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/entity/verify",
+            body=maybe_transform(
+                {
+                    "dataset_name": dataset_name,
+                    "kg": kg,
+                    "fix": fix,
+                },
+                entity_verify_params.EntityVerifyParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=KnowledgeGraph,
         )
 
     def view(
@@ -859,6 +909,53 @@ class AsyncEntitiesResource(AsyncAPIResource):
             cast_to=EntityUpdatePropertyResponse,
         )
 
+    async def verify(
+        self,
+        *,
+        dataset_name: str,
+        kg: KnowledgeGraphParam,
+        fix: bool | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> KnowledgeGraph:
+        """
+        verify a kg against the dataset
+
+        Args:
+          kg: Knowledge graph info structured to deserialize and display in the same format
+              that the LLM outputs. Also the first representation of an LLM output in the
+              pipeline from raw tool output to being merged into a Neo4j DB
+
+          fix: Whether to apply fixes to the dataset
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/entity/verify",
+            body=await async_maybe_transform(
+                {
+                    "dataset_name": dataset_name,
+                    "kg": kg,
+                    "fix": fix,
+                },
+                entity_verify_params.EntityVerifyParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=KnowledgeGraph,
+        )
+
     async def view(
         self,
         *,
@@ -924,6 +1021,9 @@ class EntitiesResourceWithRawResponse:
         self.update_property = to_raw_response_wrapper(
             entities.update_property,
         )
+        self.verify = to_raw_response_wrapper(
+            entities.verify,
+        )
         self.view = to_raw_response_wrapper(
             entities.view,
         )
@@ -959,6 +1059,9 @@ class AsyncEntitiesResourceWithRawResponse:
         )
         self.update_property = async_to_raw_response_wrapper(
             entities.update_property,
+        )
+        self.verify = async_to_raw_response_wrapper(
+            entities.verify,
         )
         self.view = async_to_raw_response_wrapper(
             entities.view,
@@ -996,6 +1099,9 @@ class EntitiesResourceWithStreamingResponse:
         self.update_property = to_streamed_response_wrapper(
             entities.update_property,
         )
+        self.verify = to_streamed_response_wrapper(
+            entities.verify,
+        )
         self.view = to_streamed_response_wrapper(
             entities.view,
         )
@@ -1031,6 +1137,9 @@ class AsyncEntitiesResourceWithStreamingResponse:
         )
         self.update_property = async_to_streamed_response_wrapper(
             entities.update_property,
+        )
+        self.verify = async_to_streamed_response_wrapper(
+            entities.verify,
         )
         self.view = async_to_streamed_response_wrapper(
             entities.view,
