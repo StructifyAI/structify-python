@@ -1,23 +1,32 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Union
+from typing import Dict, List, Union, Optional
 from datetime import datetime
 from typing_extensions import TypeAlias
 
-from .image import Image
 from .._models import BaseModel
 
 __all__ = [
     "DatasetViewTablesWithRelationshipsResponse",
     "ConnectedEntity",
     "ConnectedEntityProperties",
+    "ConnectedEntityPropertiesImage",
     "Entity",
     "EntityProperties",
+    "EntityPropertiesImage",
     "Relationship",
     "RelationshipProperties",
+    "RelationshipPropertiesImage",
 ]
 
-ConnectedEntityProperties: TypeAlias = Union[str, bool, float, Image]
+
+class ConnectedEntityPropertiesImage(BaseModel):
+    number: int
+
+    hash: Optional[str] = None
+
+
+ConnectedEntityProperties: TypeAlias = Union[str, bool, float, ConnectedEntityPropertiesImage]
 
 
 class ConnectedEntity(BaseModel):
@@ -30,7 +39,13 @@ class ConnectedEntity(BaseModel):
     properties: Dict[str, ConnectedEntityProperties]
 
 
-EntityProperties: TypeAlias = Union[str, bool, float, Image]
+class EntityPropertiesImage(BaseModel):
+    number: int
+
+    hash: Optional[str] = None
+
+
+EntityProperties: TypeAlias = Union[str, bool, float, EntityPropertiesImage]
 
 
 class Entity(BaseModel):
@@ -43,7 +58,13 @@ class Entity(BaseModel):
     properties: Dict[str, EntityProperties]
 
 
-RelationshipProperties: TypeAlias = Union[str, bool, float, Image]
+class RelationshipPropertiesImage(BaseModel):
+    number: int
+
+    hash: Optional[str] = None
+
+
+RelationshipProperties: TypeAlias = Union[str, bool, float, RelationshipPropertiesImage]
 
 
 class Relationship(BaseModel):

@@ -1,15 +1,26 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Union
+from typing import Dict, List, Union, Optional
 from datetime import datetime
 from typing_extensions import TypeAlias
 
-from .image import Image
 from .._models import BaseModel
 
-__all__ = ["EntitySummarizeResponse", "EntitySummarizeResponseItem", "EntitySummarizeResponseItemProperties"]
+__all__ = [
+    "EntitySummarizeResponse",
+    "EntitySummarizeResponseItem",
+    "EntitySummarizeResponseItemProperties",
+    "EntitySummarizeResponseItemPropertiesImage",
+]
 
-EntitySummarizeResponseItemProperties: TypeAlias = Union[str, bool, float, Image]
+
+class EntitySummarizeResponseItemPropertiesImage(BaseModel):
+    number: int
+
+    hash: Optional[str] = None
+
+
+EntitySummarizeResponseItemProperties: TypeAlias = Union[str, bool, float, EntitySummarizeResponseItemPropertiesImage]
 
 
 class EntitySummarizeResponseItem(BaseModel):
