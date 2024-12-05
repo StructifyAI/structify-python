@@ -7,7 +7,15 @@ from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
 from .._utils import PropertyInfo
 
-__all__ = ["EntityUpdatePropertyParams", "Source", "SourceWeb", "SourceDocumentPage", "SourceSecFiling"]
+__all__ = [
+    "EntityUpdatePropertyParams",
+    "PropValue",
+    "PropValueImage",
+    "Source",
+    "SourceWeb",
+    "SourceDocumentPage",
+    "SourceSecFiling",
+]
 
 
 class EntityUpdatePropertyParams(TypedDict, total=False):
@@ -18,9 +26,18 @@ class EntityUpdatePropertyParams(TypedDict, total=False):
     prop_name: Required[str]
     """The name of the property to update"""
 
-    prop_value: Required[Union[str, bool, float]]
+    prop_value: Required[PropValue]
 
     source: Source
+
+
+class PropValueImage(TypedDict, total=False):
+    number: Required[int]
+
+    hash: str
+
+
+PropValue: TypeAlias = Union[str, bool, float, PropValueImage]
 
 
 class SourceWeb(TypedDict, total=False):

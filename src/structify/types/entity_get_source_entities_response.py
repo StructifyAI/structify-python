@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Union
+from typing import Dict, List, Union, Optional
 from datetime import datetime
 from typing_extensions import Literal, TypeAlias
 
@@ -19,6 +19,8 @@ __all__ = [
     "SourceEntityLocationVisualVisual",
     "SourceEntityLocationPage",
     "SourceEntityLocationPagePage",
+    "SourceEntityProperties",
+    "SourceEntityPropertiesImage",
 ]
 
 
@@ -53,6 +55,15 @@ SourceEntityLocation: TypeAlias = Union[
 ]
 
 
+class SourceEntityPropertiesImage(BaseModel):
+    number: int
+
+    hash: Optional[str] = None
+
+
+SourceEntityProperties: TypeAlias = Union[str, bool, float, SourceEntityPropertiesImage]
+
+
 class SourceEntity(BaseModel):
     id: str
 
@@ -68,7 +79,7 @@ class SourceEntity(BaseModel):
 
     location: SourceEntityLocation
 
-    properties: Dict[str, Union[str, bool, float]]
+    properties: Dict[str, SourceEntityProperties]
 
     user_specified: bool
 
