@@ -1,26 +1,15 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Union, Optional
+from typing import Dict, List, Union
 from datetime import datetime
 from typing_extensions import TypeAlias
 
+from .image import Image
 from .._models import BaseModel
 
-__all__ = [
-    "EntitySearchResponse",
-    "EntitySearchResponseItem",
-    "EntitySearchResponseItemProperties",
-    "EntitySearchResponseItemPropertiesImage",
-]
+__all__ = ["EntitySearchResponse", "EntitySearchResponseItem", "EntitySearchResponseItemProperties"]
 
-
-class EntitySearchResponseItemPropertiesImage(BaseModel):
-    number: int
-
-    hash: Optional[str] = None
-
-
-EntitySearchResponseItemProperties: TypeAlias = Union[str, bool, float, EntitySearchResponseItemPropertiesImage]
+EntitySearchResponseItemProperties: TypeAlias = Union[str, bool, float, Image]
 
 
 class EntitySearchResponseItem(BaseModel):
