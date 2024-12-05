@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing_extensions import Required, TypedDict
 
-from ..knowledge_graph_param import KnowledgeGraphParam
+from .knowledge_graph_param import KnowledgeGraphParam
 
 __all__ = ["EntityVerifyParams"]
 
