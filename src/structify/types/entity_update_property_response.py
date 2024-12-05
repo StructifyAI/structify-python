@@ -1,11 +1,21 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, Union
+from typing import Dict, Union, Optional
 from datetime import datetime
+from typing_extensions import TypeAlias
 
 from .._models import BaseModel
 
-__all__ = ["EntityUpdatePropertyResponse"]
+__all__ = ["EntityUpdatePropertyResponse", "Properties", "PropertiesImage"]
+
+
+class PropertiesImage(BaseModel):
+    number: int
+
+    hash: Optional[str] = None
+
+
+Properties: TypeAlias = Union[str, bool, float, PropertiesImage]
 
 
 class EntityUpdatePropertyResponse(BaseModel):
@@ -15,4 +25,4 @@ class EntityUpdatePropertyResponse(BaseModel):
 
     label: str
 
-    properties: Dict[str, Union[str, bool, float]]
+    properties: Dict[str, Properties]
