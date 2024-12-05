@@ -1,12 +1,11 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Union
+from typing import Dict, List, Union, Optional
 from datetime import datetime
 from typing_extensions import Literal, TypeAlias
 
 from pydantic import Field as FieldInfo
 
-from .image import Image
 from .source import Source
 from .._models import BaseModel
 
@@ -21,6 +20,7 @@ __all__ = [
     "SourceEntityLocationPage",
     "SourceEntityLocationPagePage",
     "SourceEntityProperties",
+    "SourceEntityPropertiesImage",
 ]
 
 
@@ -54,7 +54,14 @@ SourceEntityLocation: TypeAlias = Union[
     SourceEntityLocationText, SourceEntityLocationVisual, SourceEntityLocationPage, Literal["None"]
 ]
 
-SourceEntityProperties: TypeAlias = Union[str, bool, float, Image]
+
+class SourceEntityPropertiesImage(BaseModel):
+    number: int
+
+    hash: Optional[str] = None
+
+
+SourceEntityProperties: TypeAlias = Union[str, bool, float, SourceEntityPropertiesImage]
 
 
 class SourceEntity(BaseModel):
