@@ -61,6 +61,8 @@ class StructureRunAsyncParams(TypedDict, total=False):
     pipeline from raw tool output to being merged into a Neo4j DB
     """
 
+    special_job_type: Optional[Literal["HumanLLM"]]
+
 
 class StructureInputSecIngestorSecIngestor(TypedDict, total=False):
     accession_number: Optional[str]
