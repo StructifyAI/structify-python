@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from typing import List, Iterable, Optional
+from typing_extensions import Literal
 
 import httpx
 
@@ -165,6 +166,7 @@ class StructureResource(SyncAPIResource):
         structure_input: structure_run_async_params.StructureInput,
         extraction_criteria: Iterable[ExtractionCriteriaParam] | NotGiven = NOT_GIVEN,
         seeded_entity: KnowledgeGraphParam | NotGiven = NOT_GIVEN,
+        special_job_type: Optional[Literal["HumanLLM"]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -199,6 +201,7 @@ class StructureResource(SyncAPIResource):
                     "structure_input": structure_input,
                     "extraction_criteria": extraction_criteria,
                     "seeded_entity": seeded_entity,
+                    "special_job_type": special_job_type,
                 },
                 structure_run_async_params.StructureRunAsyncParams,
             ),
@@ -343,6 +346,7 @@ class AsyncStructureResource(AsyncAPIResource):
         structure_input: structure_run_async_params.StructureInput,
         extraction_criteria: Iterable[ExtractionCriteriaParam] | NotGiven = NOT_GIVEN,
         seeded_entity: KnowledgeGraphParam | NotGiven = NOT_GIVEN,
+        special_job_type: Optional[Literal["HumanLLM"]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -377,6 +381,7 @@ class AsyncStructureResource(AsyncAPIResource):
                     "structure_input": structure_input,
                     "extraction_criteria": extraction_criteria,
                     "seeded_entity": seeded_entity,
+                    "special_job_type": special_job_type,
                 },
                 structure_run_async_params.StructureRunAsyncParams,
             ),

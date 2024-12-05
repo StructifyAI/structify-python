@@ -158,6 +158,7 @@ class TestStructure:
                     }
                 ],
             },
+            special_job_type="HumanLLM",
         )
         assert_matches_type(str, structure, path=["response"])
 
@@ -330,6 +331,7 @@ class TestAsyncStructure:
                     }
                 ],
             },
+            special_job_type="HumanLLM",
         )
         assert_matches_type(str, structure, path=["response"])
 
