@@ -10,7 +10,6 @@ import pytest
 from structify import Structify, AsyncStructify
 from tests.utils import assert_matches_type
 from structify.types import (
-    KnowledgeGraph,
     EntityAddResponse,
     EntityGetResponse,
     EntityViewResponse,
@@ -390,65 +389,6 @@ class TestEntities:
 
             entity = response.parse()
             assert_matches_type(EntityUpdatePropertyResponse, entity, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    def test_method_verify(self, client: Structify) -> None:
-        entity = client.entities.verify(
-            dataset_name="dataset_name",
-            kg={},
-        )
-        assert_matches_type(KnowledgeGraph, entity, path=["response"])
-
-    @parametrize
-    def test_method_verify_with_all_params(self, client: Structify) -> None:
-        entity = client.entities.verify(
-            dataset_name="dataset_name",
-            kg={
-                "entities": [
-                    {
-                        "id": 0,
-                        "properties": {"foo": "string"},
-                        "type": "type",
-                    }
-                ],
-                "relationships": [
-                    {
-                        "source": 0,
-                        "target": 0,
-                        "type": "type",
-                        "properties": {"foo": "string"},
-                    }
-                ],
-            },
-            fix=True,
-        )
-        assert_matches_type(KnowledgeGraph, entity, path=["response"])
-
-    @parametrize
-    def test_raw_response_verify(self, client: Structify) -> None:
-        response = client.entities.with_raw_response.verify(
-            dataset_name="dataset_name",
-            kg={},
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        entity = response.parse()
-        assert_matches_type(KnowledgeGraph, entity, path=["response"])
-
-    @parametrize
-    def test_streaming_response_verify(self, client: Structify) -> None:
-        with client.entities.with_streaming_response.verify(
-            dataset_name="dataset_name",
-            kg={},
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            entity = response.parse()
-            assert_matches_type(KnowledgeGraph, entity, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -848,65 +788,6 @@ class TestAsyncEntities:
 
             entity = await response.parse()
             assert_matches_type(EntityUpdatePropertyResponse, entity, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    async def test_method_verify(self, async_client: AsyncStructify) -> None:
-        entity = await async_client.entities.verify(
-            dataset_name="dataset_name",
-            kg={},
-        )
-        assert_matches_type(KnowledgeGraph, entity, path=["response"])
-
-    @parametrize
-    async def test_method_verify_with_all_params(self, async_client: AsyncStructify) -> None:
-        entity = await async_client.entities.verify(
-            dataset_name="dataset_name",
-            kg={
-                "entities": [
-                    {
-                        "id": 0,
-                        "properties": {"foo": "string"},
-                        "type": "type",
-                    }
-                ],
-                "relationships": [
-                    {
-                        "source": 0,
-                        "target": 0,
-                        "type": "type",
-                        "properties": {"foo": "string"},
-                    }
-                ],
-            },
-            fix=True,
-        )
-        assert_matches_type(KnowledgeGraph, entity, path=["response"])
-
-    @parametrize
-    async def test_raw_response_verify(self, async_client: AsyncStructify) -> None:
-        response = await async_client.entities.with_raw_response.verify(
-            dataset_name="dataset_name",
-            kg={},
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        entity = await response.parse()
-        assert_matches_type(KnowledgeGraph, entity, path=["response"])
-
-    @parametrize
-    async def test_streaming_response_verify(self, async_client: AsyncStructify) -> None:
-        async with async_client.entities.with_streaming_response.verify(
-            dataset_name="dataset_name",
-            kg={},
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            entity = await response.parse()
-            assert_matches_type(KnowledgeGraph, entity, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
