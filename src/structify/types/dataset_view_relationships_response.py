@@ -1,14 +1,20 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, Union
+from typing import Dict, Union, Optional
 from typing_extensions import TypeAlias
 
-from .image import Image
 from .._models import BaseModel
 
-__all__ = ["DatasetViewRelationshipsResponse", "Properties"]
+__all__ = ["DatasetViewRelationshipsResponse", "Properties", "PropertiesImage"]
 
-Properties: TypeAlias = Union[str, bool, float, Image]
+
+class PropertiesImage(BaseModel):
+    number: int
+
+    hash: Optional[str] = None
+
+
+Properties: TypeAlias = Union[str, bool, float, PropertiesImage]
 
 
 class DatasetViewRelationshipsResponse(BaseModel):

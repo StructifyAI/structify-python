@@ -1,15 +1,29 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Union
+from typing import Dict, List, Union, Optional
 from datetime import datetime
 from typing_extensions import TypeAlias
 
-from .image import Image
 from .._models import BaseModel
 
-__all__ = ["EntityGetLocalSubgraphResponse", "Neighbor", "NeighborProperties", "Relationship", "RelationshipProperties"]
+__all__ = [
+    "EntityGetLocalSubgraphResponse",
+    "Neighbor",
+    "NeighborProperties",
+    "NeighborPropertiesImage",
+    "Relationship",
+    "RelationshipProperties",
+    "RelationshipPropertiesImage",
+]
 
-NeighborProperties: TypeAlias = Union[str, bool, float, Image]
+
+class NeighborPropertiesImage(BaseModel):
+    number: int
+
+    hash: Optional[str] = None
+
+
+NeighborProperties: TypeAlias = Union[str, bool, float, NeighborPropertiesImage]
 
 
 class Neighbor(BaseModel):
@@ -22,7 +36,13 @@ class Neighbor(BaseModel):
     properties: Dict[str, NeighborProperties]
 
 
-RelationshipProperties: TypeAlias = Union[str, bool, float, Image]
+class RelationshipPropertiesImage(BaseModel):
+    number: int
+
+    hash: Optional[str] = None
+
+
+RelationshipProperties: TypeAlias = Union[str, bool, float, RelationshipPropertiesImage]
 
 
 class Relationship(BaseModel):
