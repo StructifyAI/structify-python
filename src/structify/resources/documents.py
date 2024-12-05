@@ -2,12 +2,17 @@
 
 from __future__ import annotations
 
-from typing import Mapping, cast
+from typing import Mapping, Optional, cast
 from typing_extensions import Literal
 
 import httpx
 
-from ..types import document_delete_params, document_upload_params, document_download_params
+from ..types import (
+    document_list_params,
+    document_delete_params,
+    document_upload_params,
+    document_download_params,
+)
 from .._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven, FileTypes
 from .._utils import (
     extract_files,
@@ -53,6 +58,7 @@ class DocumentsResource(SyncAPIResource):
     def list(
         self,
         *,
+        dataset_name: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -60,11 +66,26 @@ class DocumentsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> DocumentListResponse:
-        """List all files for your user account in the database."""
+        """
+        List all files for your user account in the database.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
         return self._get(
             "/documents/list",
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"dataset_name": dataset_name}, document_list_params.DocumentListParams),
             ),
             cast_to=DocumentListResponse,
         )
@@ -144,6 +165,7 @@ class DocumentsResource(SyncAPIResource):
         content: FileTypes,
         file_type: Literal["Text", "PDF", "SEC"],
         path: FileTypes,
+        dataset_name: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -181,7 +203,11 @@ class DocumentsResource(SyncAPIResource):
             body=maybe_transform(body, document_upload_params.DocumentUploadParams),
             files=files,
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"dataset_name": dataset_name}, document_upload_params.DocumentUploadParams),
             ),
             cast_to=NoneType,
         )
@@ -210,6 +236,7 @@ class AsyncDocumentsResource(AsyncAPIResource):
     async def list(
         self,
         *,
+        dataset_name: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -217,11 +244,28 @@ class AsyncDocumentsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> DocumentListResponse:
-        """List all files for your user account in the database."""
+        """
+        List all files for your user account in the database.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
         return await self._get(
             "/documents/list",
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"dataset_name": dataset_name}, document_list_params.DocumentListParams
+                ),
             ),
             cast_to=DocumentListResponse,
         )
@@ -301,6 +345,7 @@ class AsyncDocumentsResource(AsyncAPIResource):
         content: FileTypes,
         file_type: Literal["Text", "PDF", "SEC"],
         path: FileTypes,
+        dataset_name: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -338,7 +383,13 @@ class AsyncDocumentsResource(AsyncAPIResource):
             body=await async_maybe_transform(body, document_upload_params.DocumentUploadParams),
             files=files,
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"dataset_name": dataset_name}, document_upload_params.DocumentUploadParams
+                ),
             ),
             cast_to=NoneType,
         )
