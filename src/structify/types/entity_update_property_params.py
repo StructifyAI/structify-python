@@ -6,16 +6,9 @@ from typing import Union, Iterable
 from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
 from .._utils import PropertyInfo
+from .image_param import ImageParam
 
-__all__ = [
-    "EntityUpdatePropertyParams",
-    "PropValue",
-    "PropValueImage",
-    "Source",
-    "SourceWeb",
-    "SourceDocumentPage",
-    "SourceSecFiling",
-]
+__all__ = ["EntityUpdatePropertyParams", "PropValue", "Source", "SourceWeb", "SourceDocumentPage", "SourceSecFiling"]
 
 
 class EntityUpdatePropertyParams(TypedDict, total=False):
@@ -31,13 +24,7 @@ class EntityUpdatePropertyParams(TypedDict, total=False):
     source: Source
 
 
-class PropValueImage(TypedDict, total=False):
-    number: Required[int]
-
-    hash: str
-
-
-PropValue: TypeAlias = Union[str, bool, float, PropValueImage]
+PropValue: TypeAlias = Union[str, bool, float, ImageParam]
 
 
 class SourceWeb(TypedDict, total=False):

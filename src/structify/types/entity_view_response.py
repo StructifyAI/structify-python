@@ -1,28 +1,25 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Union, Optional
+from typing import Dict, List, Union
 from datetime import datetime
 from typing_extensions import Literal, TypeAlias
 
 from pydantic import Field as FieldInfo
 
 from . import source
+from .image import Image
 from .._models import BaseModel
 
 __all__ = [
     "EntityViewResponse",
     "ConnectedEntity",
     "ConnectedEntityProperties",
-    "ConnectedEntityPropertiesImage",
     "Entity",
     "EntityProperties",
-    "EntityPropertiesImage",
     "Relationship",
     "RelationshipProperties",
-    "RelationshipPropertiesImage",
     "SimilarEntity",
     "SimilarEntityProperties",
-    "SimilarEntityPropertiesImage",
     "Source",
     "SourceLocation",
     "SourceLocationText",
@@ -33,14 +30,7 @@ __all__ = [
     "SourceLocationPagePage",
 ]
 
-
-class ConnectedEntityPropertiesImage(BaseModel):
-    number: int
-
-    hash: Optional[str] = None
-
-
-ConnectedEntityProperties: TypeAlias = Union[str, bool, float, ConnectedEntityPropertiesImage]
+ConnectedEntityProperties: TypeAlias = Union[str, bool, float, Image]
 
 
 class ConnectedEntity(BaseModel):
@@ -53,13 +43,7 @@ class ConnectedEntity(BaseModel):
     properties: Dict[str, ConnectedEntityProperties]
 
 
-class EntityPropertiesImage(BaseModel):
-    number: int
-
-    hash: Optional[str] = None
-
-
-EntityProperties: TypeAlias = Union[str, bool, float, EntityPropertiesImage]
+EntityProperties: TypeAlias = Union[str, bool, float, Image]
 
 
 class Entity(BaseModel):
@@ -72,13 +56,7 @@ class Entity(BaseModel):
     properties: Dict[str, EntityProperties]
 
 
-class RelationshipPropertiesImage(BaseModel):
-    number: int
-
-    hash: Optional[str] = None
-
-
-RelationshipProperties: TypeAlias = Union[str, bool, float, RelationshipPropertiesImage]
+RelationshipProperties: TypeAlias = Union[str, bool, float, Image]
 
 
 class Relationship(BaseModel):
@@ -91,13 +69,7 @@ class Relationship(BaseModel):
     to_id: str
 
 
-class SimilarEntityPropertiesImage(BaseModel):
-    number: int
-
-    hash: Optional[str] = None
-
-
-SimilarEntityProperties: TypeAlias = Union[str, bool, float, SimilarEntityPropertiesImage]
+SimilarEntityProperties: TypeAlias = Union[str, bool, float, Image]
 
 
 class SimilarEntity(BaseModel):
