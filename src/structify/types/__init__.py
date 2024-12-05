@@ -2,13 +2,11 @@
 
 from __future__ import annotations
 
-from .image import Image as Image
 from .table import Table as Table
 from .entity import Entity as Entity
 from .source import Source as Source
 from .user_info import UserInfo as UserInfo
 from .chat_prompt import ChatPrompt as ChatPrompt
-from .image_param import ImageParam as ImageParam
 from .table_param import TableParam as TableParam
 from .entity_param import EntityParam as EntityParam
 from .relationship import Relationship as Relationship

@@ -3,12 +3,18 @@
 from typing import Dict, Union, Optional
 from typing_extensions import TypeAlias
 
-from .image import Image
 from .._models import BaseModel
 
-__all__ = ["Relationship", "Properties"]
+__all__ = ["Relationship", "Properties", "PropertiesImage"]
 
-Properties: TypeAlias = Union[str, bool, float, Image]
+
+class PropertiesImage(BaseModel):
+    number: int
+
+    hash: Optional[str] = None
+
+
+Properties: TypeAlias = Union[str, bool, float, PropertiesImage]
 
 
 class Relationship(BaseModel):
