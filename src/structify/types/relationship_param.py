@@ -5,16 +5,11 @@ from __future__ import annotations
 from typing import Dict, Union
 from typing_extensions import Required, TypeAlias, TypedDict
 
-__all__ = ["RelationshipParam", "Properties", "PropertiesImage"]
+from .image_param import ImageParam
 
+__all__ = ["RelationshipParam", "Properties"]
 
-class PropertiesImage(TypedDict, total=False):
-    number: Required[int]
-
-    hash: str
-
-
-Properties: TypeAlias = Union[str, bool, float, PropertiesImage]
+Properties: TypeAlias = Union[str, bool, float, ImageParam]
 
 
 class RelationshipParam(TypedDict, total=False):
