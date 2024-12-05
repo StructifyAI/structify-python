@@ -26,6 +26,13 @@ class TestDocuments:
         assert_matches_type(DocumentListResponse, document, path=["response"])
 
     @parametrize
+    def test_method_list_with_all_params(self, client: Structify) -> None:
+        document = client.documents.list(
+            dataset_name="dataset_name",
+        )
+        assert_matches_type(DocumentListResponse, document, path=["response"])
+
+    @parametrize
     def test_raw_response_list(self, client: Structify) -> None:
         response = client.documents.with_raw_response.list()
 
@@ -117,6 +124,16 @@ class TestDocuments:
         assert document is None
 
     @parametrize
+    def test_method_upload_with_all_params(self, client: Structify) -> None:
+        document = client.documents.upload(
+            content=b"raw file contents",
+            file_type="Text",
+            path=b"raw file contents",
+            dataset_name="dataset_name",
+        )
+        assert document is None
+
+    @parametrize
     def test_raw_response_upload(self, client: Structify) -> None:
         response = client.documents.with_raw_response.upload(
             content=b"raw file contents",
@@ -151,6 +168,13 @@ class TestAsyncDocuments:
     @parametrize
     async def test_method_list(self, async_client: AsyncStructify) -> None:
         document = await async_client.documents.list()
+        assert_matches_type(DocumentListResponse, document, path=["response"])
+
+    @parametrize
+    async def test_method_list_with_all_params(self, async_client: AsyncStructify) -> None:
+        document = await async_client.documents.list(
+            dataset_name="dataset_name",
+        )
         assert_matches_type(DocumentListResponse, document, path=["response"])
 
     @parametrize
@@ -241,6 +265,16 @@ class TestAsyncDocuments:
             content=b"raw file contents",
             file_type="Text",
             path=b"raw file contents",
+        )
+        assert document is None
+
+    @parametrize
+    async def test_method_upload_with_all_params(self, async_client: AsyncStructify) -> None:
+        document = await async_client.documents.upload(
+            content=b"raw file contents",
+            file_type="Text",
+            path=b"raw file contents",
+            dataset_name="dataset_name",
         )
         assert document is None
 
