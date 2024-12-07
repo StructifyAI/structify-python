@@ -27,11 +27,11 @@ class Job(BaseModel):
 class Metadata(BaseModel):
     dataset_name: str
 
-    entity_name: str
-
     property_name: str
 
     user_email: str
+
+    entity_name: Optional[str] = None
 
 
 class HumanLlmJob(BaseModel):
