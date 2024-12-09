@@ -15,6 +15,7 @@ from ..types import (
     entity_delete_params,
     entity_search_params,
     entity_verify_params,
+    entity_list_jobs_params,
     entity_summarize_params,
     entity_update_property_params,
     entity_get_local_subgraph_params,
@@ -42,6 +43,7 @@ from ..types.entity_merge_response import EntityMergeResponse
 from ..types.knowledge_graph_param import KnowledgeGraphParam
 from ..types.entity_delete_response import EntityDeleteResponse
 from ..types.entity_search_response import EntitySearchResponse
+from ..types.entity_list_jobs_response import EntityListJobsResponse
 from ..types.entity_summarize_response import EntitySummarizeResponse
 from ..types.entity_update_property_response import EntityUpdatePropertyResponse
 from ..types.entity_get_local_subgraph_response import EntityGetLocalSubgraphResponse
@@ -264,6 +266,41 @@ class EntitiesResource(SyncAPIResource):
                 query=maybe_transform({"id": id}, entity_get_source_entities_params.EntityGetSourceEntitiesParams),
             ),
             cast_to=EntityGetSourceEntitiesResponse,
+        )
+
+    def list_jobs(
+        self,
+        *,
+        id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> EntityListJobsResponse:
+        """
+        list jobs for a given entity
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._get(
+            "/entity/list_jobs",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"id": id}, entity_list_jobs_params.EntityListJobsParams),
+            ),
+            cast_to=EntityListJobsResponse,
         )
 
     def merge(
@@ -737,6 +774,41 @@ class AsyncEntitiesResource(AsyncAPIResource):
             cast_to=EntityGetSourceEntitiesResponse,
         )
 
+    async def list_jobs(
+        self,
+        *,
+        id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> EntityListJobsResponse:
+        """
+        list jobs for a given entity
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._get(
+            "/entity/list_jobs",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform({"id": id}, entity_list_jobs_params.EntityListJobsParams),
+            ),
+            cast_to=EntityListJobsResponse,
+        )
+
     async def merge(
         self,
         *,
@@ -1009,6 +1081,9 @@ class EntitiesResourceWithRawResponse:
         self.get_source_entities = to_raw_response_wrapper(
             entities.get_source_entities,
         )
+        self.list_jobs = to_raw_response_wrapper(
+            entities.list_jobs,
+        )
         self.merge = to_raw_response_wrapper(
             entities.merge,
         )
@@ -1047,6 +1122,9 @@ class AsyncEntitiesResourceWithRawResponse:
         )
         self.get_source_entities = async_to_raw_response_wrapper(
             entities.get_source_entities,
+        )
+        self.list_jobs = async_to_raw_response_wrapper(
+            entities.list_jobs,
         )
         self.merge = async_to_raw_response_wrapper(
             entities.merge,
@@ -1087,6 +1165,9 @@ class EntitiesResourceWithStreamingResponse:
         self.get_source_entities = to_streamed_response_wrapper(
             entities.get_source_entities,
         )
+        self.list_jobs = to_streamed_response_wrapper(
+            entities.list_jobs,
+        )
         self.merge = to_streamed_response_wrapper(
             entities.merge,
         )
@@ -1125,6 +1206,9 @@ class AsyncEntitiesResourceWithStreamingResponse:
         )
         self.get_source_entities = async_to_streamed_response_wrapper(
             entities.get_source_entities,
+        )
+        self.list_jobs = async_to_streamed_response_wrapper(
+            entities.list_jobs,
         )
         self.merge = async_to_streamed_response_wrapper(
             entities.merge,
