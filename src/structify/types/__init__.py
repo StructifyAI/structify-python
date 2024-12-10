@@ -61,11 +61,13 @@ from .document_upload_params import DocumentUploadParams as DocumentUploadParams
 from .entity_delete_response import EntityDeleteResponse as EntityDeleteResponse
 from .entity_search_response import EntitySearchResponse as EntitySearchResponse
 from .job_get_steps_response import JobGetStepsResponse as JobGetStepsResponse
+from .entity_list_jobs_params import EntityListJobsParams as EntityListJobsParams
 from .entity_summarize_params import EntitySummarizeParams as EntitySummarizeParams
 from .report_missing_response import ReportMissingResponse as ReportMissingResponse
 from .document_download_params import DocumentDownloadParams as DocumentDownloadParams
 from .structure_enhance_params import StructureEnhanceParams as StructureEnhanceParams
 from .dataset_view_table_params import DatasetViewTableParams as DatasetViewTableParams
+from .entity_list_jobs_response import EntityListJobsResponse as EntityListJobsResponse
 from .entity_summarize_response import EntitySummarizeResponse as EntitySummarizeResponse
 from .extraction_criteria_param import ExtractionCriteriaParam as ExtractionCriteriaParam
 from .document_download_response import DocumentDownloadResponse as DocumentDownloadResponse

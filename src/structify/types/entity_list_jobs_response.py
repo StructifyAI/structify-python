@@ -1,15 +1,15 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Optional
+from typing import List, Optional
 from datetime import datetime
-from typing_extensions import Literal
+from typing_extensions import Literal, TypeAlias
 
-from ..._models import BaseModel
+from .._models import BaseModel
 
-__all__ = ["HumanLlmJob", "Job", "Metadata"]
+__all__ = ["EntityListJobsResponse", "EntityListJobsResponseItem"]
 
 
-class Job(BaseModel):
+class EntityListJobsResponseItem(BaseModel):
     id: str
 
     creation_time: datetime
@@ -24,17 +24,4 @@ class Job(BaseModel):
     """What time did the job start running?"""
 
 
-class Metadata(BaseModel):
-    dataset_name: str
-
-    property_name: str
-
-    user_email: str
-
-    entity_name: Optional[str] = None
-
-
-class HumanLlmJob(BaseModel):
-    job: Job
-
-    metadata: Metadata
+EntityListJobsResponse: TypeAlias = List[EntityListJobsResponseItem]
