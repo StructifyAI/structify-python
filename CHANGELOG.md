@@ -1,5 +1,25 @@
 # Changelog
 
+## 1.62.0 (2024-12-11)
+
+Full Changelog: [v1.61.0...v1.62.0](https://github.com/StructifyAI/structify-python/compare/v1.61.0...v1.62.0)
+
+### Features
+
+* **api:** api update ([#686](https://github.com/StructifyAI/structify-python/issues/686)) ([6565787](https://github.com/StructifyAI/structify-python/commit/656578715ed2b0daccb29efd3406089d80ddba59))
+* **api:** api update ([#688](https://github.com/StructifyAI/structify-python/issues/688)) ([001e998](https://github.com/StructifyAI/structify-python/commit/001e998745b707d6de2b42e17e90f6b27668959e))
+* **api:** api update ([#691](https://github.com/StructifyAI/structify-python/issues/691)) ([7c79f49](https://github.com/StructifyAI/structify-python/commit/7c79f4978428cc381a612ca1a916d59955613d83))
+
+
+### Chores
+
+* **internal:** bump pydantic dependency ([#689](https://github.com/StructifyAI/structify-python/issues/689)) ([c1c18ec](https://github.com/StructifyAI/structify-python/commit/c1c18ec313fba427c60f73a667b6f9a906b6c283))
+
+
+### Documentation
+
+* **readme:** fix http client proxies example ([#690](https://github.com/StructifyAI/structify-python/issues/690)) ([41868ed](https://github.com/StructifyAI/structify-python/commit/41868ed90ba19d5a8d3956633b76ea3676978020))
+
 ## 1.61.0 (2024-12-05)
 
 Full Changelog: [v1.60.0...v1.61.0](https://github.com/StructifyAI/structify-python/compare/v1.60.0...v1.61.0)
