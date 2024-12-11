@@ -11,6 +11,8 @@ __all__ = ["StructureEnhanceParams"]
 class StructureEnhanceParams(TypedDict, total=False):
     entity_id: Required[str]
 
+    allow_new_entities: bool
+
     property_name: Optional[str]
 
     relationship_name: Optional[str]
