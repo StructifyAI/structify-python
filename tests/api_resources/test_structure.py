@@ -30,6 +30,7 @@ class TestStructure:
     def test_method_enhance_with_all_params(self, client: Structify) -> None:
         structure = client.structure.enhance(
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            allow_new_entities=True,
             property_name="property_name",
             relationship_name="relationship_name",
         )
@@ -203,6 +204,7 @@ class TestAsyncStructure:
     async def test_method_enhance_with_all_params(self, async_client: AsyncStructify) -> None:
         structure = await async_client.structure.enhance(
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            allow_new_entities=True,
             property_name="property_name",
             relationship_name="relationship_name",
         )
