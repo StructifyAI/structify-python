@@ -290,6 +290,8 @@ class StructureInputEnhanceIngestorEnhanceIngestor(TypedDict, total=False):
 
     target_descriptor: Required[StructureInputEnhanceIngestorEnhanceIngestorTargetDescriptor]
 
+    allow_new_entities: bool
+
 
 class StructureInputEnhanceIngestor(TypedDict, total=False):
     enhance_ingestor: Required[

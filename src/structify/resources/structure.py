@@ -68,6 +68,7 @@ class StructureResource(SyncAPIResource):
         self,
         *,
         entity_id: str,
+        allow_new_entities: bool | NotGiven = NOT_GIVEN,
         property_name: Optional[str] | NotGiven = NOT_GIVEN,
         relationship_name: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -95,6 +96,7 @@ class StructureResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "entity_id": entity_id,
+                    "allow_new_entities": allow_new_entities,
                     "property_name": property_name,
                     "relationship_name": relationship_name,
                 },
@@ -300,6 +302,7 @@ class AsyncStructureResource(AsyncAPIResource):
         self,
         *,
         entity_id: str,
+        allow_new_entities: bool | NotGiven = NOT_GIVEN,
         property_name: Optional[str] | NotGiven = NOT_GIVEN,
         relationship_name: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -327,6 +330,7 @@ class AsyncStructureResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "entity_id": entity_id,
+                    "allow_new_entities": allow_new_entities,
                     "property_name": property_name,
                     "relationship_name": relationship_name,
                 },
