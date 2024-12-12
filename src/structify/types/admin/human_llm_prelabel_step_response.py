@@ -173,15 +173,7 @@ class ToolCall(BaseModel):
 
 
 class HumanLlmPrelabelStepResponse(BaseModel):
-    completion_tokens: int
-
-    cost: float
-    """Cost in dollars"""
-
     llm: str
-
-    prompt_tokens: int
-    """New tokens"""
 
     text: str
 
