@@ -164,6 +164,7 @@ class EntitiesResource(SyncAPIResource):
         self,
         *,
         id: str,
+        resolve_id: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -190,7 +191,13 @@ class EntitiesResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform({"id": id}, entity_get_params.EntityGetParams),
+                query=maybe_transform(
+                    {
+                        "id": id,
+                        "resolve_id": resolve_id,
+                    },
+                    entity_get_params.EntityGetParams,
+                ),
             ),
             cast_to=EntityGetResponse,
         )
@@ -528,6 +535,7 @@ class EntitiesResource(SyncAPIResource):
         self,
         *,
         id: str,
+        resolve_id: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -552,7 +560,13 @@ class EntitiesResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform({"id": id}, entity_view_params.EntityViewParams),
+                query=maybe_transform(
+                    {
+                        "id": id,
+                        "resolve_id": resolve_id,
+                    },
+                    entity_view_params.EntityViewParams,
+                ),
             ),
             cast_to=EntityViewResponse,
         )
@@ -670,6 +684,7 @@ class AsyncEntitiesResource(AsyncAPIResource):
         self,
         *,
         id: str,
+        resolve_id: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -696,7 +711,13 @@ class AsyncEntitiesResource(AsyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform({"id": id}, entity_get_params.EntityGetParams),
+                query=await async_maybe_transform(
+                    {
+                        "id": id,
+                        "resolve_id": resolve_id,
+                    },
+                    entity_get_params.EntityGetParams,
+                ),
             ),
             cast_to=EntityGetResponse,
         )
@@ -1036,6 +1057,7 @@ class AsyncEntitiesResource(AsyncAPIResource):
         self,
         *,
         id: str,
+        resolve_id: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1060,7 +1082,13 @@ class AsyncEntitiesResource(AsyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform({"id": id}, entity_view_params.EntityViewParams),
+                query=await async_maybe_transform(
+                    {
+                        "id": id,
+                        "resolve_id": resolve_id,
+                    },
+                    entity_view_params.EntityViewParams,
+                ),
             ),
             cast_to=EntityViewResponse,
         )
