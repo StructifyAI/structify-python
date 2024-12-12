@@ -132,6 +132,14 @@ class TestEntities:
         assert_matches_type(EntityGetResponse, entity, path=["response"])
 
     @parametrize
+    def test_method_get_with_all_params(self, client: Structify) -> None:
+        entity = client.entities.get(
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            resolve_id=True,
+        )
+        assert_matches_type(EntityGetResponse, entity, path=["response"])
+
+    @parametrize
     def test_raw_response_get(self, client: Structify) -> None:
         response = client.entities.with_raw_response.get(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -501,6 +509,14 @@ class TestEntities:
         assert_matches_type(EntityViewResponse, entity, path=["response"])
 
     @parametrize
+    def test_method_view_with_all_params(self, client: Structify) -> None:
+        entity = client.entities.view(
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            resolve_id=True,
+        )
+        assert_matches_type(EntityViewResponse, entity, path=["response"])
+
+    @parametrize
     def test_raw_response_view(self, client: Structify) -> None:
         response = client.entities.with_raw_response.view(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -626,6 +642,14 @@ class TestAsyncEntities:
     async def test_method_get(self, async_client: AsyncStructify) -> None:
         entity = await async_client.entities.get(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(EntityGetResponse, entity, path=["response"])
+
+    @parametrize
+    async def test_method_get_with_all_params(self, async_client: AsyncStructify) -> None:
+        entity = await async_client.entities.get(
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            resolve_id=True,
         )
         assert_matches_type(EntityGetResponse, entity, path=["response"])
 
@@ -995,6 +1019,14 @@ class TestAsyncEntities:
     async def test_method_view(self, async_client: AsyncStructify) -> None:
         entity = await async_client.entities.view(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(EntityViewResponse, entity, path=["response"])
+
+    @parametrize
+    async def test_method_view_with_all_params(self, async_client: AsyncStructify) -> None:
+        entity = await async_client.entities.view(
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            resolve_id=True,
         )
         assert_matches_type(EntityViewResponse, entity, path=["response"])
 
