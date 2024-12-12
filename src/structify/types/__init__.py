@@ -91,6 +91,12 @@ from .entity_get_source_entities_params import EntityGetSourceEntitiesParams as 
 from .entity_get_local_subgraph_response import EntityGetLocalSubgraphResponse as EntityGetLocalSubgraphResponse
 from .dataset_view_relationships_response import DatasetViewRelationshipsResponse as DatasetViewRelationshipsResponse
 from .entity_get_source_entities_response import EntityGetSourceEntitiesResponse as EntityGetSourceEntitiesResponse
+from .structure_enhance_relationship_params import (
+    StructureEnhanceRelationshipParams as StructureEnhanceRelationshipParams,
+)
+from .structure_enhance_relationship_response import (
+    StructureEnhanceRelationshipResponse as StructureEnhanceRelationshipResponse,
+)
 from .dataset_view_tables_with_relationships_params import (
     DatasetViewTablesWithRelationshipsParams as DatasetViewTablesWithRelationshipsParams,
 )

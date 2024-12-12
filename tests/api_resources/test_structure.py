@@ -61,6 +61,47 @@ class TestStructure:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
+    def test_method_enhance_relationship(self, client: Structify) -> None:
+        structure = client.structure.enhance_relationship(
+            relationship_name="relationship_name",
+        )
+        assert_matches_type(str, structure, path=["response"])
+
+    @parametrize
+    def test_method_enhance_relationship_with_all_params(self, client: Structify) -> None:
+        structure = client.structure.enhance_relationship(
+            relationship_name="relationship_name",
+            allow_new_entities=True,
+            source_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            target_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(str, structure, path=["response"])
+
+    @parametrize
+    def test_raw_response_enhance_relationship(self, client: Structify) -> None:
+        response = client.structure.with_raw_response.enhance_relationship(
+            relationship_name="relationship_name",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        structure = response.parse()
+        assert_matches_type(str, structure, path=["response"])
+
+    @parametrize
+    def test_streaming_response_enhance_relationship(self, client: Structify) -> None:
+        with client.structure.with_streaming_response.enhance_relationship(
+            relationship_name="relationship_name",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            structure = response.parse()
+            assert_matches_type(str, structure, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
     def test_method_is_complete(self, client: Structify) -> None:
         structure = client.structure.is_complete(
             job=["string"],
@@ -225,6 +266,47 @@ class TestAsyncStructure:
     async def test_streaming_response_enhance(self, async_client: AsyncStructify) -> None:
         async with async_client.structure.with_streaming_response.enhance(
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            structure = await response.parse()
+            assert_matches_type(str, structure, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_method_enhance_relationship(self, async_client: AsyncStructify) -> None:
+        structure = await async_client.structure.enhance_relationship(
+            relationship_name="relationship_name",
+        )
+        assert_matches_type(str, structure, path=["response"])
+
+    @parametrize
+    async def test_method_enhance_relationship_with_all_params(self, async_client: AsyncStructify) -> None:
+        structure = await async_client.structure.enhance_relationship(
+            relationship_name="relationship_name",
+            allow_new_entities=True,
+            source_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            target_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(str, structure, path=["response"])
+
+    @parametrize
+    async def test_raw_response_enhance_relationship(self, async_client: AsyncStructify) -> None:
+        response = await async_client.structure.with_raw_response.enhance_relationship(
+            relationship_name="relationship_name",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        structure = await response.parse()
+        assert_matches_type(str, structure, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_enhance_relationship(self, async_client: AsyncStructify) -> None:
+        async with async_client.structure.with_streaming_response.enhance_relationship(
+            relationship_name="relationship_name",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
