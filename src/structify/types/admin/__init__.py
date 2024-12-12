@@ -38,9 +38,9 @@ from .training_dataset_get_labeller_stats_params import (
 from .training_dataset_get_next_unverified_params import (
     TrainingDatasetGetNextUnverifiedParams as TrainingDatasetGetNextUnverifiedParams,
 )
+from .training_dataset_update_datum_status_params import (
+    TrainingDatasetUpdateDatumStatusParams as TrainingDatasetUpdateDatumStatusParams,
+)
 from .training_dataset_get_labeller_stats_response import (
     TrainingDatasetGetLabellerStatsResponse as TrainingDatasetGetLabellerStatsResponse,
-)
-from .training_dataset_mark_suspicious_datum_params import (
-    TrainingDatasetMarkSuspiciousDatumParams as TrainingDatasetMarkSuspiciousDatumParams,
 )
