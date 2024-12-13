@@ -314,8 +314,6 @@ class StructureInputBasicBasicTextDocument(TypedDict, total=False):
 class StructureInputBasicBasicWebSearchWebSearch(TypedDict, total=False):
     starting_website: Optional[str]
 
-    use_local_browser: bool
-
 
 class StructureInputBasicBasicWebSearch(TypedDict, total=False):
     web_search: Required[Annotated[StructureInputBasicBasicWebSearchWebSearch, PropertyInfo(alias="WebSearch")]]
