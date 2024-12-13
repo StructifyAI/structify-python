@@ -275,6 +275,7 @@ Types:
 from structify.types import (
     DatasetDescriptor,
     Entity,
+    Image,
     KnowledgeGraph,
     PropertyType,
     Relationship,
