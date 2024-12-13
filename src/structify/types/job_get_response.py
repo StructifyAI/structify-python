@@ -19,6 +19,8 @@ class Job(BaseModel):
 
     message: Optional[str] = None
 
+    reason: Optional[str] = None
+
     report_on_complete: Optional[bool] = None
 
     run_started_time: Optional[datetime] = None
