@@ -8,7 +8,7 @@ from typing_extensions import Self, Literal, override
 
 import httpx
 
-from . import _exceptions
+from . import resources, _exceptions
 from ._qs import Querystring
 from ._types import (
     NOT_GIVEN,
@@ -24,7 +24,6 @@ from ._utils import (
     get_async_library,
 )
 from ._version import __version__
-from .resources import jobs, user, image, report, server, sources, datasets, entities, documents, structure
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import APIStatusError, StructifyError
 from ._base_client import (
@@ -32,7 +31,6 @@ from ._base_client import (
     SyncAPIClient,
     AsyncAPIClient,
 )
-from .resources.admin import admin
 
 __all__ = [
     "ENVIRONMENTS",
@@ -40,6 +38,7 @@ __all__ = [
     "Transport",
     "ProxiesTypes",
     "RequestOptions",
+    "resources",
     "Structify",
     "AsyncStructify",
     "Client",
@@ -53,17 +52,17 @@ ENVIRONMENTS: Dict[str, str] = {
 
 
 class Structify(SyncAPIClient):
-    user: user.UserResource
-    admin: admin.AdminResource
-    datasets: datasets.DatasetsResource
-    documents: documents.DocumentsResource
-    jobs: jobs.JobsResource
-    server: server.ServerResource
-    sources: sources.SourcesResource
-    entities: entities.EntitiesResource
-    image: image.ImageResource
-    report: report.ReportResource
-    structure: structure.StructureResource
+    user: resources.UserResource
+    admin: resources.AdminResource
+    datasets: resources.DatasetsResource
+    documents: resources.DocumentsResource
+    jobs: resources.JobsResource
+    server: resources.ServerResource
+    sources: resources.SourcesResource
+    entities: resources.EntitiesResource
+    image: resources.ImageResource
+    report: resources.ReportResource
+    structure: resources.StructureResource
     with_raw_response: StructifyWithRawResponse
     with_streaming_response: StructifyWithStreamedResponse
 
@@ -145,17 +144,17 @@ class Structify(SyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.user = user.UserResource(self)
-        self.admin = admin.AdminResource(self)
-        self.datasets = datasets.DatasetsResource(self)
-        self.documents = documents.DocumentsResource(self)
-        self.jobs = jobs.JobsResource(self)
-        self.server = server.ServerResource(self)
-        self.sources = sources.SourcesResource(self)
-        self.entities = entities.EntitiesResource(self)
-        self.image = image.ImageResource(self)
-        self.report = report.ReportResource(self)
-        self.structure = structure.StructureResource(self)
+        self.user = resources.UserResource(self)
+        self.admin = resources.AdminResource(self)
+        self.datasets = resources.DatasetsResource(self)
+        self.documents = resources.DocumentsResource(self)
+        self.jobs = resources.JobsResource(self)
+        self.server = resources.ServerResource(self)
+        self.sources = resources.SourcesResource(self)
+        self.entities = resources.EntitiesResource(self)
+        self.image = resources.ImageResource(self)
+        self.report = resources.ReportResource(self)
+        self.structure = resources.StructureResource(self)
         self.with_raw_response = StructifyWithRawResponse(self)
         self.with_streaming_response = StructifyWithStreamedResponse(self)
 
@@ -267,17 +266,17 @@ class Structify(SyncAPIClient):
 
 
 class AsyncStructify(AsyncAPIClient):
-    user: user.AsyncUserResource
-    admin: admin.AsyncAdminResource
-    datasets: datasets.AsyncDatasetsResource
-    documents: documents.AsyncDocumentsResource
-    jobs: jobs.AsyncJobsResource
-    server: server.AsyncServerResource
-    sources: sources.AsyncSourcesResource
-    entities: entities.AsyncEntitiesResource
-    image: image.AsyncImageResource
-    report: report.AsyncReportResource
-    structure: structure.AsyncStructureResource
+    user: resources.AsyncUserResource
+    admin: resources.AsyncAdminResource
+    datasets: resources.AsyncDatasetsResource
+    documents: resources.AsyncDocumentsResource
+    jobs: resources.AsyncJobsResource
+    server: resources.AsyncServerResource
+    sources: resources.AsyncSourcesResource
+    entities: resources.AsyncEntitiesResource
+    image: resources.AsyncImageResource
+    report: resources.AsyncReportResource
+    structure: resources.AsyncStructureResource
     with_raw_response: AsyncStructifyWithRawResponse
     with_streaming_response: AsyncStructifyWithStreamedResponse
 
@@ -359,17 +358,17 @@ class AsyncStructify(AsyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.user = user.AsyncUserResource(self)
-        self.admin = admin.AsyncAdminResource(self)
-        self.datasets = datasets.AsyncDatasetsResource(self)
-        self.documents = documents.AsyncDocumentsResource(self)
-        self.jobs = jobs.AsyncJobsResource(self)
-        self.server = server.AsyncServerResource(self)
-        self.sources = sources.AsyncSourcesResource(self)
-        self.entities = entities.AsyncEntitiesResource(self)
-        self.image = image.AsyncImageResource(self)
-        self.report = report.AsyncReportResource(self)
-        self.structure = structure.AsyncStructureResource(self)
+        self.user = resources.AsyncUserResource(self)
+        self.admin = resources.AsyncAdminResource(self)
+        self.datasets = resources.AsyncDatasetsResource(self)
+        self.documents = resources.AsyncDocumentsResource(self)
+        self.jobs = resources.AsyncJobsResource(self)
+        self.server = resources.AsyncServerResource(self)
+        self.sources = resources.AsyncSourcesResource(self)
+        self.entities = resources.AsyncEntitiesResource(self)
+        self.image = resources.AsyncImageResource(self)
+        self.report = resources.AsyncReportResource(self)
+        self.structure = resources.AsyncStructureResource(self)
         self.with_raw_response = AsyncStructifyWithRawResponse(self)
         self.with_streaming_response = AsyncStructifyWithStreamedResponse(self)
 
@@ -482,62 +481,62 @@ class AsyncStructify(AsyncAPIClient):
 
 class StructifyWithRawResponse:
     def __init__(self, client: Structify) -> None:
-        self.user = user.UserResourceWithRawResponse(client.user)
-        self.admin = admin.AdminResourceWithRawResponse(client.admin)
-        self.datasets = datasets.DatasetsResourceWithRawResponse(client.datasets)
-        self.documents = documents.DocumentsResourceWithRawResponse(client.documents)
-        self.jobs = jobs.JobsResourceWithRawResponse(client.jobs)
-        self.server = server.ServerResourceWithRawResponse(client.server)
-        self.sources = sources.SourcesResourceWithRawResponse(client.sources)
-        self.entities = entities.EntitiesResourceWithRawResponse(client.entities)
-        self.image = image.ImageResourceWithRawResponse(client.image)
-        self.report = report.ReportResourceWithRawResponse(client.report)
-        self.structure = structure.StructureResourceWithRawResponse(client.structure)
+        self.user = resources.UserResourceWithRawResponse(client.user)
+        self.admin = resources.AdminResourceWithRawResponse(client.admin)
+        self.datasets = resources.DatasetsResourceWithRawResponse(client.datasets)
+        self.documents = resources.DocumentsResourceWithRawResponse(client.documents)
+        self.jobs = resources.JobsResourceWithRawResponse(client.jobs)
+        self.server = resources.ServerResourceWithRawResponse(client.server)
+        self.sources = resources.SourcesResourceWithRawResponse(client.sources)
+        self.entities = resources.EntitiesResourceWithRawResponse(client.entities)
+        self.image = resources.ImageResourceWithRawResponse(client.image)
+        self.report = resources.ReportResourceWithRawResponse(client.report)
+        self.structure = resources.StructureResourceWithRawResponse(client.structure)
 
 
 class AsyncStructifyWithRawResponse:
     def __init__(self, client: AsyncStructify) -> None:
-        self.user = user.AsyncUserResourceWithRawResponse(client.user)
-        self.admin = admin.AsyncAdminResourceWithRawResponse(client.admin)
-        self.datasets = datasets.AsyncDatasetsResourceWithRawResponse(client.datasets)
-        self.documents = documents.AsyncDocumentsResourceWithRawResponse(client.documents)
-        self.jobs = jobs.AsyncJobsResourceWithRawResponse(client.jobs)
-        self.server = server.AsyncServerResourceWithRawResponse(client.server)
-        self.sources = sources.AsyncSourcesResourceWithRawResponse(client.sources)
-        self.entities = entities.AsyncEntitiesResourceWithRawResponse(client.entities)
-        self.image = image.AsyncImageResourceWithRawResponse(client.image)
-        self.report = report.AsyncReportResourceWithRawResponse(client.report)
-        self.structure = structure.AsyncStructureResourceWithRawResponse(client.structure)
+        self.user = resources.AsyncUserResourceWithRawResponse(client.user)
+        self.admin = resources.AsyncAdminResourceWithRawResponse(client.admin)
+        self.datasets = resources.AsyncDatasetsResourceWithRawResponse(client.datasets)
+        self.documents = resources.AsyncDocumentsResourceWithRawResponse(client.documents)
+        self.jobs = resources.AsyncJobsResourceWithRawResponse(client.jobs)
+        self.server = resources.AsyncServerResourceWithRawResponse(client.server)
+        self.sources = resources.AsyncSourcesResourceWithRawResponse(client.sources)
+        self.entities = resources.AsyncEntitiesResourceWithRawResponse(client.entities)
+        self.image = resources.AsyncImageResourceWithRawResponse(client.image)
+        self.report = resources.AsyncReportResourceWithRawResponse(client.report)
+        self.structure = resources.AsyncStructureResourceWithRawResponse(client.structure)
 
 
 class StructifyWithStreamedResponse:
     def __init__(self, client: Structify) -> None:
-        self.user = user.UserResourceWithStreamingResponse(client.user)
-        self.admin = admin.AdminResourceWithStreamingResponse(client.admin)
-        self.datasets = datasets.DatasetsResourceWithStreamingResponse(client.datasets)
-        self.documents = documents.DocumentsResourceWithStreamingResponse(client.documents)
-        self.jobs = jobs.JobsResourceWithStreamingResponse(client.jobs)
-        self.server = server.ServerResourceWithStreamingResponse(client.server)
-        self.sources = sources.SourcesResourceWithStreamingResponse(client.sources)
-        self.entities = entities.EntitiesResourceWithStreamingResponse(client.entities)
-        self.image = image.ImageResourceWithStreamingResponse(client.image)
-        self.report = report.ReportResourceWithStreamingResponse(client.report)
-        self.structure = structure.StructureResourceWithStreamingResponse(client.structure)
+        self.user = resources.UserResourceWithStreamingResponse(client.user)
+        self.admin = resources.AdminResourceWithStreamingResponse(client.admin)
+        self.datasets = resources.DatasetsResourceWithStreamingResponse(client.datasets)
+        self.documents = resources.DocumentsResourceWithStreamingResponse(client.documents)
+        self.jobs = resources.JobsResourceWithStreamingResponse(client.jobs)
+        self.server = resources.ServerResourceWithStreamingResponse(client.server)
+        self.sources = resources.SourcesResourceWithStreamingResponse(client.sources)
+        self.entities = resources.EntitiesResourceWithStreamingResponse(client.entities)
+        self.image = resources.ImageResourceWithStreamingResponse(client.image)
+        self.report = resources.ReportResourceWithStreamingResponse(client.report)
+        self.structure = resources.StructureResourceWithStreamingResponse(client.structure)
 
 
 class AsyncStructifyWithStreamedResponse:
     def __init__(self, client: AsyncStructify) -> None:
-        self.user = user.AsyncUserResourceWithStreamingResponse(client.user)
-        self.admin = admin.AsyncAdminResourceWithStreamingResponse(client.admin)
-        self.datasets = datasets.AsyncDatasetsResourceWithStreamingResponse(client.datasets)
-        self.documents = documents.AsyncDocumentsResourceWithStreamingResponse(client.documents)
-        self.jobs = jobs.AsyncJobsResourceWithStreamingResponse(client.jobs)
-        self.server = server.AsyncServerResourceWithStreamingResponse(client.server)
-        self.sources = sources.AsyncSourcesResourceWithStreamingResponse(client.sources)
-        self.entities = entities.AsyncEntitiesResourceWithStreamingResponse(client.entities)
-        self.image = image.AsyncImageResourceWithStreamingResponse(client.image)
-        self.report = report.AsyncReportResourceWithStreamingResponse(client.report)
-        self.structure = structure.AsyncStructureResourceWithStreamingResponse(client.structure)
+        self.user = resources.AsyncUserResourceWithStreamingResponse(client.user)
+        self.admin = resources.AsyncAdminResourceWithStreamingResponse(client.admin)
+        self.datasets = resources.AsyncDatasetsResourceWithStreamingResponse(client.datasets)
+        self.documents = resources.AsyncDocumentsResourceWithStreamingResponse(client.documents)
+        self.jobs = resources.AsyncJobsResourceWithStreamingResponse(client.jobs)
+        self.server = resources.AsyncServerResourceWithStreamingResponse(client.server)
+        self.sources = resources.AsyncSourcesResourceWithStreamingResponse(client.sources)
+        self.entities = resources.AsyncEntitiesResourceWithStreamingResponse(client.entities)
+        self.image = resources.AsyncImageResourceWithStreamingResponse(client.image)
+        self.report = resources.AsyncReportResourceWithStreamingResponse(client.report)
+        self.structure = resources.AsyncStructureResourceWithStreamingResponse(client.structure)
 
 
 Client = Structify
