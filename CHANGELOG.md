@@ -1,5 +1,30 @@
 # Changelog
 
+## 1.67.0 (2024-12-18)
+
+Full Changelog: [v1.66.0...v1.67.0](https://github.com/StructifyAI/structify-python/compare/v1.66.0...v1.67.0)
+
+### Features
+
+* **api:** api update ([#720](https://github.com/StructifyAI/structify-python/issues/720)) ([342dc39](https://github.com/StructifyAI/structify-python/commit/342dc39b54d39fa56d540a4a0d21716eb2f5e8af))
+
+
+### Chores
+
+* **internal:** codegen related update ([#710](https://github.com/StructifyAI/structify-python/issues/710)) ([65820a9](https://github.com/StructifyAI/structify-python/commit/65820a953b867e79f8b0158f852c0fc0d7bf8b01))
+* **internal:** codegen related update ([#712](https://github.com/StructifyAI/structify-python/issues/712)) ([db6c1bd](https://github.com/StructifyAI/structify-python/commit/db6c1bd259dd7ec421a81eee28feb3e58c17583d))
+* **internal:** codegen related update ([#713](https://github.com/StructifyAI/structify-python/issues/713)) ([4447bbb](https://github.com/StructifyAI/structify-python/commit/4447bbb00495ecbc6fb6d5bf12f9b71174b33142))
+* **internal:** codegen related update ([#714](https://github.com/StructifyAI/structify-python/issues/714)) ([c645ed2](https://github.com/StructifyAI/structify-python/commit/c645ed2368317e33b2d4889b6fb8a2254625d0c0))
+* **internal:** codegen related update ([#716](https://github.com/StructifyAI/structify-python/issues/716)) ([2e767ef](https://github.com/StructifyAI/structify-python/commit/2e767ef91875613445b203d5b1d085941fcef3c5))
+* **internal:** codegen related update ([#717](https://github.com/StructifyAI/structify-python/issues/717)) ([3cb55f8](https://github.com/StructifyAI/structify-python/commit/3cb55f8ede12cdc1b8fc8b2ac2a9a38863c9ba75))
+* **internal:** fix some typos ([#719](https://github.com/StructifyAI/structify-python/issues/719)) ([c0ad578](https://github.com/StructifyAI/structify-python/commit/c0ad57809d5487031a41fe36c787c6a8f4e585ec))
+* **internal:** updated imports ([#715](https://github.com/StructifyAI/structify-python/issues/715)) ([8e86e32](https://github.com/StructifyAI/structify-python/commit/8e86e32cb418dfe449ce901ecf783e0fd54818eb))
+
+
+### Documentation
+
+* **readme:** example snippet for client context manager ([#718](https://github.com/StructifyAI/structify-python/issues/718)) ([be4e219](https://github.com/StructifyAI/structify-python/commit/be4e2197ee6783ccc71fdb0febe069c51ebb195d))
+
 ## 1.66.0 (2024-12-13)
 
 Full Changelog: [v1.65.0...v1.66.0](https://github.com/StructifyAI/structify-python/compare/v1.65.0...v1.66.0)
