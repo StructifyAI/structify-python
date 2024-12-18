@@ -236,6 +236,7 @@ class TestDatasets:
                     }
                 ],
             },
+            match_threshold=0,
         )
         assert_matches_type(DatasetMatchResponse, dataset, path=["response"])
 
@@ -617,6 +618,7 @@ class TestAsyncDatasets:
                     }
                 ],
             },
+            match_threshold=0,
         )
         assert_matches_type(DatasetMatchResponse, dataset, path=["response"])
 
