@@ -206,6 +206,7 @@ class DatasetsResource(SyncAPIResource):
         *,
         dataset: str,
         query_kg: KnowledgeGraphParam,
+        match_threshold: float | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -237,6 +238,7 @@ class DatasetsResource(SyncAPIResource):
                 {
                     "dataset": dataset,
                     "query_kg": query_kg,
+                    "match_threshold": match_threshold,
                 },
                 dataset_match_params.DatasetMatchParams,
             ),
@@ -562,6 +564,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
         *,
         dataset: str,
         query_kg: KnowledgeGraphParam,
+        match_threshold: float | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -593,6 +596,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
                 {
                     "dataset": dataset,
                     "query_kg": query_kg,
+                    "match_threshold": match_threshold,
                 },
                 dataset_match_params.DatasetMatchParams,
             ),

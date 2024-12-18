@@ -19,3 +19,5 @@ class DatasetMatchParams(TypedDict, total=False):
     that the LLM outputs. Also the first representation of an LLM output in the
     pipeline from raw tool output to being merged into a Neo4j DB
     """
+
+    match_threshold: float
