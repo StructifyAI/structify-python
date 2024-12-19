@@ -181,7 +181,7 @@ class UpdatedToolCall(TypedDict, total=False):
     input: Required[UpdatedToolCallInput]
 
     name: Required[
-        Literal["Save", "Scroll", "ScrollToBottom", "Exit", "Click", "Hover", "Wait", "Error", "Google", "Type"]
+        Literal["Exit", "Save", "Wait", "Type", "Scroll", "ScrollToBottom", "Click", "Hover", "Error", "Google"]
     ]
 
     result: Optional[UpdatedToolCallResult]
