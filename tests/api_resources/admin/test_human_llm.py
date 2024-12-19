@@ -234,7 +234,7 @@ class TestHumanLlm:
             tool_calls=[
                 {
                     "input": {"save": {}},
-                    "name": "Save",
+                    "name": "Exit",
                 }
             ],
         )
@@ -266,7 +266,7 @@ class TestHumanLlm:
                             ],
                         }
                     },
-                    "name": "Save",
+                    "name": "Exit",
                     "result": {"tool_queued": "ToolQueued"},
                 }
             ],
@@ -282,7 +282,7 @@ class TestHumanLlm:
             tool_calls=[
                 {
                     "input": {"save": {}},
-                    "name": "Save",
+                    "name": "Exit",
                 }
             ],
         )
@@ -300,7 +300,7 @@ class TestHumanLlm:
             tool_calls=[
                 {
                     "input": {"save": {}},
-                    "name": "Save",
+                    "name": "Exit",
                 }
             ],
         ) as response:
@@ -528,7 +528,7 @@ class TestAsyncHumanLlm:
             tool_calls=[
                 {
                     "input": {"save": {}},
-                    "name": "Save",
+                    "name": "Exit",
                 }
             ],
         )
@@ -560,7 +560,7 @@ class TestAsyncHumanLlm:
                             ],
                         }
                     },
-                    "name": "Save",
+                    "name": "Exit",
                     "result": {"tool_queued": "ToolQueued"},
                 }
             ],
@@ -576,7 +576,7 @@ class TestAsyncHumanLlm:
             tool_calls=[
                 {
                     "input": {"save": {}},
-                    "name": "Save",
+                    "name": "Exit",
                 }
             ],
         )
@@ -594,7 +594,7 @@ class TestAsyncHumanLlm:
             tool_calls=[
                 {
                     "input": {"save": {}},
-                    "name": "Save",
+                    "name": "Exit",
                 }
             ],
         ) as response:

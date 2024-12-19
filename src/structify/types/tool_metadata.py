@@ -11,7 +11,7 @@ __all__ = ["ToolMetadata"]
 class ToolMetadata(BaseModel):
     description: str
 
-    name: Literal["Save", "Scroll", "ScrollToBottom", "Exit", "Click", "Hover", "Wait", "Error", "Google", "Type"]
+    name: Literal["Exit", "Save", "Wait", "Type", "Scroll", "ScrollToBottom", "Click", "Hover", "Error", "Google"]
 
     regex_validator: str
 
