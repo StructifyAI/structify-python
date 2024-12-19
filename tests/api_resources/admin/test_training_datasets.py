@@ -362,7 +362,7 @@ class TestTrainingDatasets:
             updated_tool_calls=[
                 {
                     "input": {"save": {}},
-                    "name": "Save",
+                    "name": "Exit",
                 }
             ],
         )
@@ -376,7 +376,7 @@ class TestTrainingDatasets:
             updated_tool_calls=[
                 {
                     "input": {"save": {}},
-                    "name": "Save",
+                    "name": "Exit",
                 }
             ],
         )
@@ -394,7 +394,7 @@ class TestTrainingDatasets:
             updated_tool_calls=[
                 {
                     "input": {"save": {}},
-                    "name": "Save",
+                    "name": "Exit",
                 }
             ],
         ) as response:
@@ -825,7 +825,7 @@ class TestAsyncTrainingDatasets:
             updated_tool_calls=[
                 {
                     "input": {"save": {}},
-                    "name": "Save",
+                    "name": "Exit",
                 }
             ],
         )
@@ -839,7 +839,7 @@ class TestAsyncTrainingDatasets:
             updated_tool_calls=[
                 {
                     "input": {"save": {}},
-                    "name": "Save",
+                    "name": "Exit",
                 }
             ],
         )
@@ -857,7 +857,7 @@ class TestAsyncTrainingDatasets:
             updated_tool_calls=[
                 {
                     "input": {"save": {}},
-                    "name": "Save",
+                    "name": "Exit",
                 }
             ],
         ) as response:

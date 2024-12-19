@@ -167,7 +167,7 @@ ToolCallResult: TypeAlias = Union[
 class ToolCall(BaseModel):
     input: ToolCallInput
 
-    name: Literal["Save", "Scroll", "ScrollToBottom", "Exit", "Click", "Hover", "Wait", "Error", "Google", "Type"]
+    name: Literal["Exit", "Save", "Wait", "Type", "Scroll", "ScrollToBottom", "Click", "Hover", "Error", "Google"]
 
     result: Optional[ToolCallResult] = None
 

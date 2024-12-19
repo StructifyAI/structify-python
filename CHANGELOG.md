@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.69.0 (2024-12-19)
+
+Full Changelog: [v1.68.0...v1.69.0](https://github.com/StructifyAI/structify-python/compare/v1.68.0...v1.69.0)
+
+### Features
+
+* **api:** api update ([#725](https://github.com/StructifyAI/structify-python/issues/725)) ([72da8d0](https://github.com/StructifyAI/structify-python/commit/72da8d0edbce653cb2bb88a431abd7fc44e14fbe))
+
 ## 1.68.0 (2024-12-18)
 
 Full Changelog: [v1.67.0...v1.68.0](https://github.com/StructifyAI/structify-python/compare/v1.67.0...v1.68.0)
