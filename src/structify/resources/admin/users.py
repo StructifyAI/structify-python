@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Optional
+from typing import List, Optional
 
 import httpx
 
@@ -52,6 +52,7 @@ class UsersResource(SyncAPIResource):
         *,
         credit_count: Optional[int] | NotGiven = NOT_GIVEN,
         email: Optional[str] | NotGiven = NOT_GIVEN,
+        feature_flags: Optional[List[str]] | NotGiven = NOT_GIVEN,
         is_admin: bool | NotGiven = NOT_GIVEN,
         test: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -84,6 +85,7 @@ class UsersResource(SyncAPIResource):
                     {
                         "credit_count": credit_count,
                         "email": email,
+                        "feature_flags": feature_flags,
                         "is_admin": is_admin,
                         "test": test,
                     },
@@ -138,6 +140,7 @@ class AsyncUsersResource(AsyncAPIResource):
         *,
         credit_count: Optional[int] | NotGiven = NOT_GIVEN,
         email: Optional[str] | NotGiven = NOT_GIVEN,
+        feature_flags: Optional[List[str]] | NotGiven = NOT_GIVEN,
         is_admin: bool | NotGiven = NOT_GIVEN,
         test: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -170,6 +173,7 @@ class AsyncUsersResource(AsyncAPIResource):
                     {
                         "credit_count": credit_count,
                         "email": email,
+                        "feature_flags": feature_flags,
                         "is_admin": is_admin,
                         "test": test,
                     },
