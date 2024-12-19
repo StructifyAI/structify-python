@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Optional
+from typing import List, Optional
 from typing_extensions import TypedDict
 
 __all__ = ["UserCreateParams"]
@@ -12,6 +12,8 @@ class UserCreateParams(TypedDict, total=False):
     credit_count: Optional[int]
 
     email: Optional[str]
+
+    feature_flags: Optional[List[str]]
 
     is_admin: bool
 
