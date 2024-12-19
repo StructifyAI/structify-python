@@ -173,7 +173,7 @@ ResponseToolCallResult: TypeAlias = Union[
 class ResponseToolCall(BaseModel):
     input: ResponseToolCallInput
 
-    name: Literal["Save", "Scroll", "ScrollToBottom", "Exit", "Click", "Hover", "Wait", "Error", "Google", "Type"]
+    name: Literal["Exit", "Save", "Wait", "Type", "Scroll", "ScrollToBottom", "Click", "Hover", "Error", "Google"]
 
     result: Optional[ResponseToolCallResult] = None
 
