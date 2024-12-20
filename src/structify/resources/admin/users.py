@@ -76,18 +76,21 @@ class UsersResource(SyncAPIResource):
         """
         return self._post(
             "/admin/users/create",
-            body=maybe_transform(
-                {
-                    "credit_count": credit_count,
-                    "email": email,
-                    "feature_flags": feature_flags,
-                    "is_admin": is_admin,
-                    "test": test,
-                },
-                user_create_params.UserCreateParams,
-            ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "credit_count": credit_count,
+                        "email": email,
+                        "feature_flags": feature_flags,
+                        "is_admin": is_admin,
+                        "test": test,
+                    },
+                    user_create_params.UserCreateParams,
+                ),
             ),
             cast_to=TokenResponse,
         )
@@ -161,18 +164,21 @@ class AsyncUsersResource(AsyncAPIResource):
         """
         return await self._post(
             "/admin/users/create",
-            body=await async_maybe_transform(
-                {
-                    "credit_count": credit_count,
-                    "email": email,
-                    "feature_flags": feature_flags,
-                    "is_admin": is_admin,
-                    "test": test,
-                },
-                user_create_params.UserCreateParams,
-            ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "credit_count": credit_count,
+                        "email": email,
+                        "feature_flags": feature_flags,
+                        "is_admin": is_admin,
+                        "test": test,
+                    },
+                    user_create_params.UserCreateParams,
+                ),
             ),
             cast_to=TokenResponse,
         )
