@@ -13,7 +13,7 @@ The basis of creating datasets is defining the schema, much like creating a blue
 
 Before you can sping up AI agents to fill up your datasets, we need to define the schema of the dataset. Note that each entity table, column, and relationship in the dataset needs a name and description.
 
-If you have a schmea you want your dataset to follow, you can easily pre-define your schema using our Python objects.
+If you have a schema you want your dataset to follow, you can easily pre-define your schema using our Python objects.
 
 .. code-block:: python
     
