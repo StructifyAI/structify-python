@@ -33,6 +33,7 @@ from ...types.admin import (
     training_dataset_upload_datum_params,
     training_dataset_reset_pending_params,
     training_dataset_get_step_by_id_params,
+    training_dataset_switch_dataset_params,
     training_dataset_get_labeller_stats_params,
     training_dataset_get_next_unverified_params,
     training_dataset_update_datum_status_params,
@@ -446,6 +447,49 @@ class TrainingDatasetsResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=int,
+        )
+
+    def switch_dataset(
+        self,
+        *,
+        dataset_name: str,
+        step_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> None:
+        """
+        Removes a training datum from the specified dataset.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return self._post(
+            "/admin/training_datasets/switch_dataset",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "dataset_name": dataset_name,
+                        "step_id": step_id,
+                    },
+                    training_dataset_switch_dataset_params.TrainingDatasetSwitchDatasetParams,
+                ),
+            ),
+            cast_to=NoneType,
         )
 
     def update_datum(
@@ -978,6 +1022,49 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
             cast_to=int,
         )
 
+    async def switch_dataset(
+        self,
+        *,
+        dataset_name: str,
+        step_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> None:
+        """
+        Removes a training datum from the specified dataset.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return await self._post(
+            "/admin/training_datasets/switch_dataset",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "dataset_name": dataset_name,
+                        "step_id": step_id,
+                    },
+                    training_dataset_switch_dataset_params.TrainingDatasetSwitchDatasetParams,
+                ),
+            ),
+            cast_to=NoneType,
+        )
+
     async def update_datum(
         self,
         *,
@@ -1143,6 +1230,9 @@ class TrainingDatasetsResourceWithRawResponse:
         self.size = to_raw_response_wrapper(
             training_datasets.size,
         )
+        self.switch_dataset = to_raw_response_wrapper(
+            training_datasets.switch_dataset,
+        )
         self.update_datum = to_raw_response_wrapper(
             training_datasets.update_datum,
         )
@@ -1187,6 +1277,9 @@ class AsyncTrainingDatasetsResourceWithRawResponse:
         )
         self.size = async_to_raw_response_wrapper(
             training_datasets.size,
+        )
+        self.switch_dataset = async_to_raw_response_wrapper(
+            training_datasets.switch_dataset,
         )
         self.update_datum = async_to_raw_response_wrapper(
             training_datasets.update_datum,
@@ -1233,6 +1326,9 @@ class TrainingDatasetsResourceWithStreamingResponse:
         self.size = to_streamed_response_wrapper(
             training_datasets.size,
         )
+        self.switch_dataset = to_streamed_response_wrapper(
+            training_datasets.switch_dataset,
+        )
         self.update_datum = to_streamed_response_wrapper(
             training_datasets.update_datum,
         )
@@ -1277,6 +1373,9 @@ class AsyncTrainingDatasetsResourceWithStreamingResponse:
         )
         self.size = async_to_streamed_response_wrapper(
             training_datasets.size,
+        )
+        self.switch_dataset = async_to_streamed_response_wrapper(
+            training_datasets.switch_dataset,
         )
         self.update_datum = async_to_streamed_response_wrapper(
             training_datasets.update_datum,
