@@ -32,6 +32,9 @@ from .training_dataset_reset_pending_params import (
     TrainingDatasetResetPendingParams as TrainingDatasetResetPendingParams,
 )
 from .training_dataset_get_step_by_id_params import TrainingDatasetGetStepByIDParams as TrainingDatasetGetStepByIDParams
+from .training_dataset_switch_dataset_params import (
+    TrainingDatasetSwitchDatasetParams as TrainingDatasetSwitchDatasetParams,
+)
 from .training_dataset_get_labeller_stats_params import (
     TrainingDatasetGetLabellerStatsParams as TrainingDatasetGetLabellerStatsParams,
 )
