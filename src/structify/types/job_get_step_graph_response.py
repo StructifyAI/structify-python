@@ -17,7 +17,7 @@ class Step(BaseModel):
 
     creation_time: datetime
 
-    status: Literal["Queued", "Ignored", "Executed"]
+    status: Literal["Queued", "Ignored", "Started", "Executed"]
 
     prompt: Optional[str] = None
 

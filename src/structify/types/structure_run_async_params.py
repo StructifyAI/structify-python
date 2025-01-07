@@ -312,7 +312,7 @@ class StructureInputBasicBasicTextDocument(TypedDict, total=False):
 
 
 class StructureInputBasicBasicWebSearchWebSearch(TypedDict, total=False):
-    starting_website: Optional[str]
+    starting_website: str
 
 
 class StructureInputBasicBasicWebSearch(TypedDict, total=False):
