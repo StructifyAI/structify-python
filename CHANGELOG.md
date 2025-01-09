@@ -1,5 +1,34 @@
 # Changelog
 
+## 1.70.0 (2025-01-09)
+
+Full Changelog: [v1.69.0...v1.70.0](https://github.com/StructifyAI/structify-python/compare/v1.69.0...v1.70.0)
+
+### Features
+
+* **api:** api update ([#730](https://github.com/StructifyAI/structify-python/issues/730)) ([58be274](https://github.com/StructifyAI/structify-python/commit/58be274d300508c9a6b318cce62836cf87ed4e3c))
+* **api:** api update ([#732](https://github.com/StructifyAI/structify-python/issues/732)) ([111b884](https://github.com/StructifyAI/structify-python/commit/111b884961218efc991964499e61ce4c9333f7b8))
+* **api:** api update ([#735](https://github.com/StructifyAI/structify-python/issues/735)) ([b24f067](https://github.com/StructifyAI/structify-python/commit/b24f0678bc3ec03987d18323779cb9eced2dc12e))
+* **api:** api update ([#737](https://github.com/StructifyAI/structify-python/issues/737)) ([d87c003](https://github.com/StructifyAI/structify-python/commit/d87c003c303a483e2bc1e9f8cc0928fccd6ea938))
+
+
+### Bug Fixes
+
+* **client:** only call .close() when needed ([#739](https://github.com/StructifyAI/structify-python/issues/739)) ([7a55291](https://github.com/StructifyAI/structify-python/commit/7a55291bb6595d8e86772478a9596c9f86ea01d8))
+
+
+### Chores
+
+* **internal:** bump httpx dependency ([#738](https://github.com/StructifyAI/structify-python/issues/738)) ([0d9c6de](https://github.com/StructifyAI/structify-python/commit/0d9c6decce72197002d067447efef70ccc0ac901))
+* **internal:** codegen related update ([#734](https://github.com/StructifyAI/structify-python/issues/734)) ([5708ecd](https://github.com/StructifyAI/structify-python/commit/5708ecd74902939aebff0203c99102e16fc11f2d))
+* **internal:** codegen related update ([#736](https://github.com/StructifyAI/structify-python/issues/736)) ([0912150](https://github.com/StructifyAI/structify-python/commit/0912150bf566badbba47d4e7ea6d9a3b96c448d2))
+* **internal:** codegen related update ([#741](https://github.com/StructifyAI/structify-python/issues/741)) ([d22765c](https://github.com/StructifyAI/structify-python/commit/d22765ca340f2b725a8b8416b82eccabbb4374c8))
+
+
+### Documentation
+
+* fix typos ([#740](https://github.com/StructifyAI/structify-python/issues/740)) ([ab71b3b](https://github.com/StructifyAI/structify-python/commit/ab71b3be60391290841f110a070c0b4a74c9869b))
+
 ## 1.69.0 (2024-12-20)
 
 Full Changelog: [v1.68.0...v1.69.0](https://github.com/StructifyAI/structify-python/compare/v1.68.0...v1.69.0)
