@@ -1,22 +1,25 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, Union
-from datetime import datetime
-from typing_extensions import TypeAlias
+from typing import Optional
 
-from .image import Image
 from .._models import BaseModel
 
-__all__ = ["EntityMergeResponse", "Properties"]
+__all__ = ["EntityMergeResponse", "MatchObject"]
 
-Properties: TypeAlias = Union[str, bool, float, Image]
+
+class MatchObject(BaseModel):
+    a_id: str
+
+    b_id: str
+
+    info: str
+
+    p_match: float
+
+    p_match_threshold: float
 
 
 class EntityMergeResponse(BaseModel):
-    id: str
+    match_object: Optional[MatchObject] = None
 
-    creation_time: datetime
-
-    label: str
-
-    properties: Dict[str, Properties]
+    merged_entity_id: Optional[str] = None
