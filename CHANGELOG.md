@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.71.0 (2025-01-10)
+
+Full Changelog: [v1.70.0...v1.71.0](https://github.com/StructifyAI/structify-python/compare/v1.70.0...v1.71.0)
+
+### Features
+
+* **api:** api update ([#745](https://github.com/StructifyAI/structify-python/issues/745)) ([384364f](https://github.com/StructifyAI/structify-python/commit/384364fde5679e53696a6bce5b8960ccd94dcdf9))
+
+
+### Chores
+
+* **internal:** codegen related update ([#743](https://github.com/StructifyAI/structify-python/issues/743)) ([7d7606b](https://github.com/StructifyAI/structify-python/commit/7d7606bef22d3d57300922d4019918b582b0c6ef))
+
 ## 1.70.0 (2025-01-09)
 
 Full Changelog: [v1.69.0...v1.70.0](https://github.com/StructifyAI/structify-python/compare/v1.69.0...v1.70.0)
