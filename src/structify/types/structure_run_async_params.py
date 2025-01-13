@@ -5,7 +5,6 @@ from __future__ import annotations
 from typing import Union, Iterable, Optional
 from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
-from .._types import FileTypes
 from .._utils import PropertyInfo
 from .entity_param import EntityParam
 from .property_type_param import PropertyTypeParam
@@ -320,13 +319,9 @@ class StructureInputBasicBasicWebSearch(TypedDict, total=False):
 
 
 class StructureInputBasicBasicImageDocumentImageDocument(TypedDict, total=False):
-    content: Required[FileTypes]
-
     document_name: Required[str]
 
     document_page: Required[int]
-
-    ocr_content: Optional[str]
 
 
 class StructureInputBasicBasicImageDocument(TypedDict, total=False):
