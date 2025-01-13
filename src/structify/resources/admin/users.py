@@ -53,7 +53,7 @@ class UsersResource(SyncAPIResource):
         *,
         credit_count: Optional[int] | NotGiven = NOT_GIVEN,
         email: Optional[str] | NotGiven = NOT_GIVEN,
-        feature_flags: Optional[List[Literal["PDFParsing", "Labeler", "None"]]] | NotGiven = NOT_GIVEN,
+        feature_flags: Optional[List[Literal["pdf_parsing", "labeler", "none"]]] | NotGiven = NOT_GIVEN,
         is_admin: bool | NotGiven = NOT_GIVEN,
         test: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -138,7 +138,7 @@ class AsyncUsersResource(AsyncAPIResource):
         *,
         credit_count: Optional[int] | NotGiven = NOT_GIVEN,
         email: Optional[str] | NotGiven = NOT_GIVEN,
-        feature_flags: Optional[List[Literal["PDFParsing", "Labeler", "None"]]] | NotGiven = NOT_GIVEN,
+        feature_flags: Optional[List[Literal["pdf_parsing", "labeler", "none"]]] | NotGiven = NOT_GIVEN,
         is_admin: bool | NotGiven = NOT_GIVEN,
         test: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
