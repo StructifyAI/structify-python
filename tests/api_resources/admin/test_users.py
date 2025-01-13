@@ -28,7 +28,7 @@ class TestUsers:
         user = client.admin.users.create(
             credit_count=0,
             email="email",
-            feature_flags=["string"],
+            feature_flags=["PDFParsing"],
             is_admin=True,
             test=True,
         )
@@ -93,7 +93,7 @@ class TestAsyncUsers:
         user = await async_client.admin.users.create(
             credit_count=0,
             email="email",
-            feature_flags=["string"],
+            feature_flags=["PDFParsing"],
             is_admin=True,
             test=True,
         )
