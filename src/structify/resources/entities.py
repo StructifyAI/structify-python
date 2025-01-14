@@ -17,7 +17,6 @@ from ..types import (
     entity_verify_params,
     entity_list_jobs_params,
     entity_summarize_params,
-    entity_trigger_merge_params,
     entity_update_property_params,
     entity_get_local_subgraph_params,
     entity_get_source_entities_params,
@@ -46,7 +45,6 @@ from ..types.entity_delete_response import EntityDeleteResponse
 from ..types.entity_search_response import EntitySearchResponse
 from ..types.entity_list_jobs_response import EntityListJobsResponse
 from ..types.entity_summarize_response import EntitySummarizeResponse
-from ..types.entity_trigger_merge_response import EntityTriggerMergeResponse
 from ..types.entity_update_property_response import EntityUpdatePropertyResponse
 from ..types.entity_get_local_subgraph_response import EntityGetLocalSubgraphResponse
 from ..types.entity_get_source_entities_response import EntityGetSourceEntitiesResponse
@@ -437,41 +435,6 @@ class EntitiesResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=EntitySummarizeResponse,
-        )
-
-    def trigger_merge(
-        self,
-        *,
-        entity_id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> EntityTriggerMergeResponse:
-        """
-        Trigger our merge process for a given entity
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return self._post(
-            "/entity/trigger_merge",
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform({"entity_id": entity_id}, entity_trigger_merge_params.EntityTriggerMergeParams),
-            ),
-            cast_to=EntityTriggerMergeResponse,
         )
 
     def update_property(
@@ -996,43 +959,6 @@ class AsyncEntitiesResource(AsyncAPIResource):
             cast_to=EntitySummarizeResponse,
         )
 
-    async def trigger_merge(
-        self,
-        *,
-        entity_id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> EntityTriggerMergeResponse:
-        """
-        Trigger our merge process for a given entity
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return await self._post(
-            "/entity/trigger_merge",
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform(
-                    {"entity_id": entity_id}, entity_trigger_merge_params.EntityTriggerMergeParams
-                ),
-            ),
-            cast_to=EntityTriggerMergeResponse,
-        )
-
     async def update_property(
         self,
         *,
@@ -1199,9 +1125,6 @@ class EntitiesResourceWithRawResponse:
         self.summarize = to_raw_response_wrapper(
             entities.summarize,
         )
-        self.trigger_merge = to_raw_response_wrapper(
-            entities.trigger_merge,
-        )
         self.update_property = to_raw_response_wrapper(
             entities.update_property,
         )
@@ -1243,9 +1166,6 @@ class AsyncEntitiesResourceWithRawResponse:
         )
         self.summarize = async_to_raw_response_wrapper(
             entities.summarize,
-        )
-        self.trigger_merge = async_to_raw_response_wrapper(
-            entities.trigger_merge,
         )
         self.update_property = async_to_raw_response_wrapper(
             entities.update_property,
@@ -1289,9 +1209,6 @@ class EntitiesResourceWithStreamingResponse:
         self.summarize = to_streamed_response_wrapper(
             entities.summarize,
         )
-        self.trigger_merge = to_streamed_response_wrapper(
-            entities.trigger_merge,
-        )
         self.update_property = to_streamed_response_wrapper(
             entities.update_property,
         )
@@ -1333,9 +1250,6 @@ class AsyncEntitiesResourceWithStreamingResponse:
         )
         self.summarize = async_to_streamed_response_wrapper(
             entities.summarize,
-        )
-        self.trigger_merge = async_to_streamed_response_wrapper(
-            entities.trigger_merge,
         )
         self.update_property = async_to_streamed_response_wrapper(
             entities.update_property,

@@ -33,14 +33,7 @@ __all__ = [
     "MessageContentText",
     "MessageContentImage",
     "Metadata",
-    "MetadataFormatterSpecific",
-    "MetadataFormatterSpecificImageMeta",
-    "MetadataFormatterSpecificImageMetaImageMeta",
-    "MetadataFormatterSpecificWebMeta",
-    "MetadataFormatterSpecificWebMetaWebMeta",
-    "MetadataFormatterSpecificWebMetaWebMetaFlag",
-    "MetadataFormatterSpecificTextMeta",
-    "MetadataFormatterSpecificTextMetaTextMeta",
+    "MetadataWebFlag",
 ]
 
 
@@ -141,21 +134,7 @@ class Message(BaseModel):
     role: Literal["user", "system", "assistant"]
 
 
-class MetadataFormatterSpecificImageMetaImageMeta(BaseModel):
-    document_name: Optional[str] = None
-
-    document_page: Optional[int] = None
-
-    image: Optional[object] = None
-
-    ocr_content: Optional[str] = None
-
-
-class MetadataFormatterSpecificImageMeta(BaseModel):
-    image_meta: MetadataFormatterSpecificImageMetaImageMeta = FieldInfo(alias="ImageMeta")
-
-
-class MetadataFormatterSpecificWebMetaWebMetaFlag(BaseModel):
+class MetadataWebFlag(BaseModel):
     aria_label: str = FieldInfo(alias="ariaLabel")
 
     type: str
@@ -182,33 +161,6 @@ class MetadataFormatterSpecificWebMetaWebMetaFlag(BaseModel):
     """
 
 
-class MetadataFormatterSpecificWebMetaWebMeta(BaseModel):
-    flags: List[MetadataFormatterSpecificWebMetaWebMetaFlag]
-
-    url: str
-
-    ocr_content: Optional[str] = None
-
-    screenshot: Optional[object] = None
-
-
-class MetadataFormatterSpecificWebMeta(BaseModel):
-    web_meta: MetadataFormatterSpecificWebMetaWebMeta = FieldInfo(alias="WebMeta")
-
-
-class MetadataFormatterSpecificTextMetaTextMeta(BaseModel):
-    text: str
-
-
-class MetadataFormatterSpecificTextMeta(BaseModel):
-    text_meta: MetadataFormatterSpecificTextMetaTextMeta = FieldInfo(alias="TextMeta")
-
-
-MetadataFormatterSpecific: TypeAlias = Union[
-    MetadataFormatterSpecificImageMeta, MetadataFormatterSpecificWebMeta, MetadataFormatterSpecificTextMeta
-]
-
-
 class Metadata(BaseModel):
     dataset_descriptor: DatasetDescriptor
     """A dataset is where you put multiple referential schemas.
@@ -221,9 +173,15 @@ class Metadata(BaseModel):
 
     extraction_criteria: List[ExtractionCriteria]
 
-    formatter_specific: MetadataFormatterSpecific
-
     tool_metadata: List[ToolMetadata]
+
+    ocr_content: Optional[str] = None
+
+    screenshot: Optional[object] = None
+
+    url: Optional[str] = None
+
+    web_flags: Optional[List[MetadataWebFlag]] = None
 
 
 class ChatPrompt(BaseModel):
@@ -232,4 +190,3 @@ class ChatPrompt(BaseModel):
     messages: List[Message]
 
     metadata: Metadata
-    """All metadata required to generate a prompt for the LLM"""
