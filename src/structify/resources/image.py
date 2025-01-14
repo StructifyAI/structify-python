@@ -16,28 +16,28 @@ from .._response import (
 from .._base_client import make_request_options
 from ..types.image_get_response import ImageGetResponse
 
-__all__ = ["ImagesResource", "AsyncImagesResource"]
+__all__ = ["ImageResource", "AsyncImageResource"]
 
 
-class ImagesResource(SyncAPIResource):
+class ImageResource(SyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> ImagesResourceWithRawResponse:
+    def with_raw_response(self) -> ImageResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return the
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/StructifyAI/structify-python#accessing-raw-response-data-eg-headers
         """
-        return ImagesResourceWithRawResponse(self)
+        return ImageResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> ImagesResourceWithStreamingResponse:
+    def with_streaming_response(self) -> ImageResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/StructifyAI/structify-python#with_streaming_response
         """
-        return ImagesResourceWithStreamingResponse(self)
+        return ImageResourceWithStreamingResponse(self)
 
     def get(
         self,
@@ -73,25 +73,25 @@ class ImagesResource(SyncAPIResource):
         )
 
 
-class AsyncImagesResource(AsyncAPIResource):
+class AsyncImageResource(AsyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> AsyncImagesResourceWithRawResponse:
+    def with_raw_response(self) -> AsyncImageResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return the
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/StructifyAI/structify-python#accessing-raw-response-data-eg-headers
         """
-        return AsyncImagesResourceWithRawResponse(self)
+        return AsyncImageResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> AsyncImagesResourceWithStreamingResponse:
+    def with_streaming_response(self) -> AsyncImageResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/StructifyAI/structify-python#with_streaming_response
         """
-        return AsyncImagesResourceWithStreamingResponse(self)
+        return AsyncImageResourceWithStreamingResponse(self)
 
     async def get(
         self,
@@ -127,37 +127,37 @@ class AsyncImagesResource(AsyncAPIResource):
         )
 
 
-class ImagesResourceWithRawResponse:
-    def __init__(self, images: ImagesResource) -> None:
-        self._images = images
+class ImageResourceWithRawResponse:
+    def __init__(self, image: ImageResource) -> None:
+        self._image = image
 
         self.get = to_raw_response_wrapper(
-            images.get,
+            image.get,
         )
 
 
-class AsyncImagesResourceWithRawResponse:
-    def __init__(self, images: AsyncImagesResource) -> None:
-        self._images = images
+class AsyncImageResourceWithRawResponse:
+    def __init__(self, image: AsyncImageResource) -> None:
+        self._image = image
 
         self.get = async_to_raw_response_wrapper(
-            images.get,
+            image.get,
         )
 
 
-class ImagesResourceWithStreamingResponse:
-    def __init__(self, images: ImagesResource) -> None:
-        self._images = images
+class ImageResourceWithStreamingResponse:
+    def __init__(self, image: ImageResource) -> None:
+        self._image = image
 
         self.get = to_streamed_response_wrapper(
-            images.get,
+            image.get,
         )
 
 
-class AsyncImagesResourceWithStreamingResponse:
-    def __init__(self, images: AsyncImagesResource) -> None:
-        self._images = images
+class AsyncImageResourceWithStreamingResponse:
+    def __init__(self, image: AsyncImageResource) -> None:
+        self._image = image
 
         self.get = async_to_streamed_response_wrapper(
-            images.get,
+            image.get,
         )
