@@ -1,5 +1,21 @@
 # Changelog
 
+## 1.72.0 (2025-01-14)
+
+Full Changelog: [v1.71.0...v1.72.0](https://github.com/StructifyAI/structify-python/compare/v1.71.0...v1.72.0)
+
+### Features
+
+* **api:** api update ([#747](https://github.com/StructifyAI/structify-python/issues/747)) ([ffbd7e9](https://github.com/StructifyAI/structify-python/commit/ffbd7e9a2ea3ae25b3e5342d71c55e14a7e69323))
+* **api:** api update ([#749](https://github.com/StructifyAI/structify-python/issues/749)) ([5cd050f](https://github.com/StructifyAI/structify-python/commit/5cd050fa28bc14401d5f3282f7b3da038ae9b89f))
+* **api:** api update ([#750](https://github.com/StructifyAI/structify-python/issues/750)) ([d3703de](https://github.com/StructifyAI/structify-python/commit/d3703deaf042c3ac7f17e8e65e95dcd9a37fd453))
+* **api:** api update ([#751](https://github.com/StructifyAI/structify-python/issues/751)) ([0f48706](https://github.com/StructifyAI/structify-python/commit/0f48706c68bf290b586c9bd2ec1c9e7c9d1947db))
+* **api:** api update ([#752](https://github.com/StructifyAI/structify-python/issues/752)) ([3c22151](https://github.com/StructifyAI/structify-python/commit/3c22151dc679218086a3a0dcb06747001c481d15))
+* **api:** manual updates ([#753](https://github.com/StructifyAI/structify-python/issues/753)) ([d874916](https://github.com/StructifyAI/structify-python/commit/d8749169de8bd8fb31aa8dbf167d08c2f56f83a5))
+* **api:** manual updates ([#754](https://github.com/StructifyAI/structify-python/issues/754)) ([50f9083](https://github.com/StructifyAI/structify-python/commit/50f90831e4090b5829f53f3575dd5557907edb06))
+* **api:** manual updates ([#755](https://github.com/StructifyAI/structify-python/issues/755)) ([19ed77d](https://github.com/StructifyAI/structify-python/commit/19ed77dd55e99acd1a1adde9a1a36d1a76b8323a))
+* **api:** manual updates ([#756](https://github.com/StructifyAI/structify-python/issues/756)) ([8d67186](https://github.com/StructifyAI/structify-python/commit/8d671867c6f24e1205a2b0ac1e45be88750b7174))
+
 ## 1.71.0 (2025-01-10)
 
 Full Changelog: [v1.70.0...v1.71.0](https://github.com/StructifyAI/structify-python/compare/v1.70.0...v1.71.0)
