@@ -34,13 +34,13 @@ __all__ = [
     "MessageContentImage",
     "Metadata",
     "MetadataFormatterSpecific",
-    "MetadataFormatterSpecificImageMeta",
-    "MetadataFormatterSpecificImageMetaImageMeta",
-    "MetadataFormatterSpecificWebMeta",
-    "MetadataFormatterSpecificWebMetaWebMeta",
-    "MetadataFormatterSpecificWebMetaWebMetaFlag",
-    "MetadataFormatterSpecificTextMeta",
-    "MetadataFormatterSpecificTextMetaTextMeta",
+    "MetadataFormatterSpecificImage",
+    "MetadataFormatterSpecificImageImage",
+    "MetadataFormatterSpecificWeb",
+    "MetadataFormatterSpecificWebWeb",
+    "MetadataFormatterSpecificWebWebFlag",
+    "MetadataFormatterSpecificText",
+    "MetadataFormatterSpecificTextText",
 ]
 
 
@@ -141,7 +141,7 @@ class Message(BaseModel):
     role: Literal["user", "system", "assistant"]
 
 
-class MetadataFormatterSpecificImageMetaImageMeta(BaseModel):
+class MetadataFormatterSpecificImageImage(BaseModel):
     document_name: Optional[str] = None
 
     document_page: Optional[int] = None
@@ -151,11 +151,11 @@ class MetadataFormatterSpecificImageMetaImageMeta(BaseModel):
     ocr_content: Optional[str] = None
 
 
-class MetadataFormatterSpecificImageMeta(BaseModel):
-    image_meta: MetadataFormatterSpecificImageMetaImageMeta = FieldInfo(alias="ImageMeta")
+class MetadataFormatterSpecificImage(BaseModel):
+    image: MetadataFormatterSpecificImageImage = FieldInfo(alias="Image")
 
 
-class MetadataFormatterSpecificWebMetaWebMetaFlag(BaseModel):
+class MetadataFormatterSpecificWebWebFlag(BaseModel):
     aria_label: str = FieldInfo(alias="ariaLabel")
 
     type: str
@@ -182,8 +182,8 @@ class MetadataFormatterSpecificWebMetaWebMetaFlag(BaseModel):
     """
 
 
-class MetadataFormatterSpecificWebMetaWebMeta(BaseModel):
-    flags: List[MetadataFormatterSpecificWebMetaWebMetaFlag]
+class MetadataFormatterSpecificWebWeb(BaseModel):
+    flags: List[MetadataFormatterSpecificWebWebFlag]
 
     url: str
 
@@ -192,20 +192,20 @@ class MetadataFormatterSpecificWebMetaWebMeta(BaseModel):
     screenshot: Optional[object] = None
 
 
-class MetadataFormatterSpecificWebMeta(BaseModel):
-    web_meta: MetadataFormatterSpecificWebMetaWebMeta = FieldInfo(alias="WebMeta")
+class MetadataFormatterSpecificWeb(BaseModel):
+    web: MetadataFormatterSpecificWebWeb = FieldInfo(alias="Web")
 
 
-class MetadataFormatterSpecificTextMetaTextMeta(BaseModel):
+class MetadataFormatterSpecificTextText(BaseModel):
     text: str
 
 
-class MetadataFormatterSpecificTextMeta(BaseModel):
-    text_meta: MetadataFormatterSpecificTextMetaTextMeta = FieldInfo(alias="TextMeta")
+class MetadataFormatterSpecificText(BaseModel):
+    text: MetadataFormatterSpecificTextText = FieldInfo(alias="Text")
 
 
 MetadataFormatterSpecific: TypeAlias = Union[
-    MetadataFormatterSpecificImageMeta, MetadataFormatterSpecificWebMeta, MetadataFormatterSpecificTextMeta
+    MetadataFormatterSpecificImage, MetadataFormatterSpecificWeb, MetadataFormatterSpecificText
 ]
 
 
