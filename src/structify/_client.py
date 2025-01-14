@@ -24,7 +24,7 @@ from ._utils import (
     get_async_library,
 )
 from ._version import __version__
-from .resources import jobs, user, images, report, server, sources, datasets, entities, documents, structure
+from .resources import jobs, user, image, report, server, sources, datasets, entities, documents, structure
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import APIStatusError, StructifyError
 from ._base_client import (
@@ -61,7 +61,7 @@ class Structify(SyncAPIClient):
     server: server.ServerResource
     sources: sources.SourcesResource
     entities: entities.EntitiesResource
-    images: images.ImagesResource
+    image: image.ImageResource
     report: report.ReportResource
     structure: structure.StructureResource
     with_raw_response: StructifyWithRawResponse
@@ -153,7 +153,7 @@ class Structify(SyncAPIClient):
         self.server = server.ServerResource(self)
         self.sources = sources.SourcesResource(self)
         self.entities = entities.EntitiesResource(self)
-        self.images = images.ImagesResource(self)
+        self.image = image.ImageResource(self)
         self.report = report.ReportResource(self)
         self.structure = structure.StructureResource(self)
         self.with_raw_response = StructifyWithRawResponse(self)
@@ -275,7 +275,7 @@ class AsyncStructify(AsyncAPIClient):
     server: server.AsyncServerResource
     sources: sources.AsyncSourcesResource
     entities: entities.AsyncEntitiesResource
-    images: images.AsyncImagesResource
+    image: image.AsyncImageResource
     report: report.AsyncReportResource
     structure: structure.AsyncStructureResource
     with_raw_response: AsyncStructifyWithRawResponse
@@ -367,7 +367,7 @@ class AsyncStructify(AsyncAPIClient):
         self.server = server.AsyncServerResource(self)
         self.sources = sources.AsyncSourcesResource(self)
         self.entities = entities.AsyncEntitiesResource(self)
-        self.images = images.AsyncImagesResource(self)
+        self.image = image.AsyncImageResource(self)
         self.report = report.AsyncReportResource(self)
         self.structure = structure.AsyncStructureResource(self)
         self.with_raw_response = AsyncStructifyWithRawResponse(self)
@@ -490,7 +490,7 @@ class StructifyWithRawResponse:
         self.server = server.ServerResourceWithRawResponse(client.server)
         self.sources = sources.SourcesResourceWithRawResponse(client.sources)
         self.entities = entities.EntitiesResourceWithRawResponse(client.entities)
-        self.images = images.ImagesResourceWithRawResponse(client.images)
+        self.image = image.ImageResourceWithRawResponse(client.image)
         self.report = report.ReportResourceWithRawResponse(client.report)
         self.structure = structure.StructureResourceWithRawResponse(client.structure)
 
@@ -505,7 +505,7 @@ class AsyncStructifyWithRawResponse:
         self.server = server.AsyncServerResourceWithRawResponse(client.server)
         self.sources = sources.AsyncSourcesResourceWithRawResponse(client.sources)
         self.entities = entities.AsyncEntitiesResourceWithRawResponse(client.entities)
-        self.images = images.AsyncImagesResourceWithRawResponse(client.images)
+        self.image = image.AsyncImageResourceWithRawResponse(client.image)
         self.report = report.AsyncReportResourceWithRawResponse(client.report)
         self.structure = structure.AsyncStructureResourceWithRawResponse(client.structure)
 
@@ -520,7 +520,7 @@ class StructifyWithStreamedResponse:
         self.server = server.ServerResourceWithStreamingResponse(client.server)
         self.sources = sources.SourcesResourceWithStreamingResponse(client.sources)
         self.entities = entities.EntitiesResourceWithStreamingResponse(client.entities)
-        self.images = images.ImagesResourceWithStreamingResponse(client.images)
+        self.image = image.ImageResourceWithStreamingResponse(client.image)
         self.report = report.ReportResourceWithStreamingResponse(client.report)
         self.structure = structure.StructureResourceWithStreamingResponse(client.structure)
 
@@ -535,7 +535,7 @@ class AsyncStructifyWithStreamedResponse:
         self.server = server.AsyncServerResourceWithStreamingResponse(client.server)
         self.sources = sources.AsyncSourcesResourceWithStreamingResponse(client.sources)
         self.entities = entities.AsyncEntitiesResourceWithStreamingResponse(client.entities)
-        self.images = images.AsyncImagesResourceWithStreamingResponse(client.images)
+        self.image = image.AsyncImageResourceWithStreamingResponse(client.image)
         self.report = report.AsyncReportResourceWithStreamingResponse(client.report)
         self.structure = structure.AsyncStructureResourceWithStreamingResponse(client.structure)
 
