@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from typing import List, Optional
-from typing_extensions import Literal, TypedDict
+from typing_extensions import TypedDict
 
 __all__ = ["UserCreateParams"]
 
@@ -13,7 +13,7 @@ class UserCreateParams(TypedDict, total=False):
 
     email: Optional[str]
 
-    feature_flags: Optional[List[Literal["pdf_parsing", "labeler", "none"]]]
+    feature_flags: Optional[List[str]]
 
     is_admin: bool
 
