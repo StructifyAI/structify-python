@@ -210,7 +210,7 @@ Methods:
 - <code title="post /entity/verify">client.entities.<a href="./src/structify/resources/entities.py">verify</a>(\*\*<a href="src/structify/types/entity_verify_params.py">params</a>) -> <a href="./src/structify/types/knowledge_graph.py">KnowledgeGraph</a></code>
 - <code title="get /entity/view">client.entities.<a href="./src/structify/resources/entities.py">view</a>(\*\*<a href="src/structify/types/entity_view_params.py">params</a>) -> <a href="./src/structify/types/entity_view_response.py">EntityViewResponse</a></code>
 
-# Images
+# Image
 
 Types:
 
@@ -220,7 +220,7 @@ from structify.types import ImageGetResponse
 
 Methods:
 
-- <code title="get /images/{hash}">client.images.<a href="./src/structify/resources/images.py">get</a>(hash) -> <a href="./src/structify/types/image_get_response.py">ImageGetResponse</a></code>
+- <code title="get /images/{hash}">client.image.<a href="./src/structify/resources/image.py">get</a>(hash) -> <a href="./src/structify/types/image_get_response.py">ImageGetResponse</a></code>
 
 # Report
 
