@@ -13,8 +13,8 @@ class UserCreateParams(TypedDict, total=False):
 
     email: Optional[str]
 
-    feature_flags: Optional[List[Literal["pdf_parsing", "labeler", "none"]]]
-
     is_admin: bool
+
+    permission: Optional[List[Literal["pdf_parsing", "labeler", "none"]]]
 
     test: bool
