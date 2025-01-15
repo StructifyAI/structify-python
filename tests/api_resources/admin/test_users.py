@@ -28,8 +28,8 @@ class TestUsers:
         user = client.admin.users.create(
             credit_count=0,
             email="email",
-            feature_flags=["pdf_parsing"],
             is_admin=True,
+            permission=["pdf_parsing"],
             test=True,
         )
         assert_matches_type(TokenResponse, user, path=["response"])
@@ -93,8 +93,8 @@ class TestAsyncUsers:
         user = await async_client.admin.users.create(
             credit_count=0,
             email="email",
-            feature_flags=["pdf_parsing"],
             is_admin=True,
+            permission=["pdf_parsing"],
             test=True,
         )
         assert_matches_type(TokenResponse, user, path=["response"])
