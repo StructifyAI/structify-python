@@ -15,6 +15,6 @@ class UserCreateParams(TypedDict, total=False):
 
     is_admin: bool
 
-    permission: Optional[List[Literal["pdf_parsing", "labeler", "none"]]]
+    permission: Optional[List[Literal["pdf_parsing", "labeler", "debug", "none"]]]
 
     test: bool
