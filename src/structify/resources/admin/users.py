@@ -54,7 +54,7 @@ class UsersResource(SyncAPIResource):
         credit_count: Optional[int] | NotGiven = NOT_GIVEN,
         email: Optional[str] | NotGiven = NOT_GIVEN,
         is_admin: bool | NotGiven = NOT_GIVEN,
-        permission: Optional[List[Literal["pdf_parsing", "labeler", "none"]]] | NotGiven = NOT_GIVEN,
+        permission: Optional[List[Literal["pdf_parsing", "labeler", "debug", "none"]]] | NotGiven = NOT_GIVEN,
         test: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -139,7 +139,7 @@ class AsyncUsersResource(AsyncAPIResource):
         credit_count: Optional[int] | NotGiven = NOT_GIVEN,
         email: Optional[str] | NotGiven = NOT_GIVEN,
         is_admin: bool | NotGiven = NOT_GIVEN,
-        permission: Optional[List[Literal["pdf_parsing", "labeler", "none"]]] | NotGiven = NOT_GIVEN,
+        permission: Optional[List[Literal["pdf_parsing", "labeler", "debug", "none"]]] | NotGiven = NOT_GIVEN,
         test: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
