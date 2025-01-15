@@ -462,7 +462,7 @@ class TrainingDatasetsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> None:
         """
-        Removes a training datum from the specified dataset.
+        Switches a training datum to a new dataset.
 
         Args:
           extra_headers: Send extra headers
@@ -1035,7 +1035,7 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> None:
         """
-        Removes a training datum from the specified dataset.
+        Switches a training datum to a new dataset.
 
         Args:
           extra_headers: Send extra headers
