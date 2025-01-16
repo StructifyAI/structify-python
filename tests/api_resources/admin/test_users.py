@@ -29,7 +29,7 @@ class TestUsers:
             credit_count=0,
             email="email",
             is_admin=True,
-            permission=["pdf_parsing"],
+            permissions=["pdf_parsing"],
             test=True,
         )
         assert_matches_type(TokenResponse, user, path=["response"])
@@ -94,7 +94,7 @@ class TestAsyncUsers:
             credit_count=0,
             email="email",
             is_admin=True,
-            permission=["pdf_parsing"],
+            permissions=["pdf_parsing"],
             test=True,
         )
         assert_matches_type(TokenResponse, user, path=["response"])
