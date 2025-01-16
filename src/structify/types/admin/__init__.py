@@ -8,7 +8,11 @@ from .human_llm_job import HumanLlmJob as HumanLlmJob
 from .user_create_params import UserCreateParams as UserCreateParams
 from .user_list_response import UserListResponse as UserListResponse
 from .training_datum_response import TrainingDatumResponse as TrainingDatumResponse
+from .user_get_credits_params import UserGetCreditsParams as UserGetCreditsParams
+from .user_set_credits_params import UserSetCreditsParams as UserSetCreditsParams
 from .human_llm_get_jobs_params import HumanLlmGetJobsParams as HumanLlmGetJobsParams
+from .user_get_credits_response import UserGetCreditsResponse as UserGetCreditsResponse
+from .user_set_credits_response import UserSetCreditsResponse as UserSetCreditsResponse
 from .human_llm_finish_job_params import HumanLlmFinishJobParams as HumanLlmFinishJobParams
 from .human_llm_get_jobs_response import HumanLlmGetJobsResponse as HumanLlmGetJobsResponse
 from .training_dataset_add_params import TrainingDatasetAddParams as TrainingDatasetAddParams
