@@ -311,7 +311,11 @@ class StructureInputBasicBasicTextDocument(TypedDict, total=False):
 
 
 class StructureInputBasicBasicWebSearchWebSearch(TypedDict, total=False):
+    description: Optional[str]
+
     starting_website: str
+
+    title: Optional[str]
 
 
 class StructureInputBasicBasicWebSearch(TypedDict, total=False):
