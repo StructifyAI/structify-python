@@ -117,8 +117,8 @@ class UsersResource(SyncAPIResource):
     def get_credits(
         self,
         *,
-        user_email: Optional[str] | NotGiven = NOT_GIVEN,
-        user_token: Optional[str] | NotGiven = NOT_GIVEN,
+        user_email: str,
+        user_token: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -288,8 +288,8 @@ class AsyncUsersResource(AsyncAPIResource):
     async def get_credits(
         self,
         *,
-        user_email: Optional[str] | NotGiven = NOT_GIVEN,
-        user_token: Optional[str] | NotGiven = NOT_GIVEN,
+        user_email: str,
+        user_token: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
