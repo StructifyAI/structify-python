@@ -2,10 +2,13 @@
 
 from __future__ import annotations
 
-from typing_extensions import Required, TypedDict
+from typing import Optional
+from typing_extensions import TypedDict
 
 __all__ = ["UserGetCreditsParams"]
 
 
 class UserGetCreditsParams(TypedDict, total=False):
-    user_email: Required[str]
+    user_email: Optional[str]
+
+    user_token: Optional[str]
