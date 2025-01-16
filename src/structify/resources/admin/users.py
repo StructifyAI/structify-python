@@ -117,8 +117,7 @@ class UsersResource(SyncAPIResource):
     def get_credits(
         self,
         *,
-        user_email: Optional[str] | NotGiven = NOT_GIVEN,
-        user_token: Optional[str] | NotGiven = NOT_GIVEN,
+        user_email: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -146,13 +145,7 @@ class UsersResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "user_email": user_email,
-                        "user_token": user_token,
-                    },
-                    user_get_credits_params.UserGetCreditsParams,
-                ),
+                query=maybe_transform({"user_email": user_email}, user_get_credits_params.UserGetCreditsParams),
             ),
             cast_to=int,
         )
@@ -288,8 +281,7 @@ class AsyncUsersResource(AsyncAPIResource):
     async def get_credits(
         self,
         *,
-        user_email: Optional[str] | NotGiven = NOT_GIVEN,
-        user_token: Optional[str] | NotGiven = NOT_GIVEN,
+        user_email: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -318,11 +310,7 @@ class AsyncUsersResource(AsyncAPIResource):
                 extra_body=extra_body,
                 timeout=timeout,
                 query=await async_maybe_transform(
-                    {
-                        "user_email": user_email,
-                        "user_token": user_token,
-                    },
-                    user_get_credits_params.UserGetCreditsParams,
+                    {"user_email": user_email}, user_get_credits_params.UserGetCreditsParams
                 ),
             ),
             cast_to=int,
