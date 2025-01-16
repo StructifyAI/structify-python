@@ -85,20 +85,16 @@ class TestUsers:
 
     @parametrize
     def test_method_get_credits(self, client: Structify) -> None:
-        user = client.admin.users.get_credits()
-        assert_matches_type(UserGetCreditsResponse, user, path=["response"])
-
-    @parametrize
-    def test_method_get_credits_with_all_params(self, client: Structify) -> None:
         user = client.admin.users.get_credits(
             user_email="user_email",
-            user_token="user_token",
         )
         assert_matches_type(UserGetCreditsResponse, user, path=["response"])
 
     @parametrize
     def test_raw_response_get_credits(self, client: Structify) -> None:
-        response = client.admin.users.with_raw_response.get_credits()
+        response = client.admin.users.with_raw_response.get_credits(
+            user_email="user_email",
+        )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -107,7 +103,9 @@ class TestUsers:
 
     @parametrize
     def test_streaming_response_get_credits(self, client: Structify) -> None:
-        with client.admin.users.with_streaming_response.get_credits() as response:
+        with client.admin.users.with_streaming_response.get_credits(
+            user_email="user_email",
+        ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -217,20 +215,16 @@ class TestAsyncUsers:
 
     @parametrize
     async def test_method_get_credits(self, async_client: AsyncStructify) -> None:
-        user = await async_client.admin.users.get_credits()
-        assert_matches_type(UserGetCreditsResponse, user, path=["response"])
-
-    @parametrize
-    async def test_method_get_credits_with_all_params(self, async_client: AsyncStructify) -> None:
         user = await async_client.admin.users.get_credits(
             user_email="user_email",
-            user_token="user_token",
         )
         assert_matches_type(UserGetCreditsResponse, user, path=["response"])
 
     @parametrize
     async def test_raw_response_get_credits(self, async_client: AsyncStructify) -> None:
-        response = await async_client.admin.users.with_raw_response.get_credits()
+        response = await async_client.admin.users.with_raw_response.get_credits(
+            user_email="user_email",
+        )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -239,7 +233,9 @@ class TestAsyncUsers:
 
     @parametrize
     async def test_streaming_response_get_credits(self, async_client: AsyncStructify) -> None:
-        async with async_client.admin.users.with_streaming_response.get_credits() as response:
+        async with async_client.admin.users.with_streaming_response.get_credits(
+            user_email="user_email",
+        ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
