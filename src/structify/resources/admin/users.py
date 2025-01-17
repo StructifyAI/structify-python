@@ -137,7 +137,8 @@ class UsersResource(SyncAPIResource):
     def set_credits(
         self,
         *,
-        body: object,
+        credit_count: int,
+        user_email: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -160,7 +161,13 @@ class UsersResource(SyncAPIResource):
         extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
         return self._post(
             "/admin/users/set_credits",
-            body=maybe_transform(body, user_set_credits_params.UserSetCreditsParams),
+            body=maybe_transform(
+                {
+                    "credit_count": credit_count,
+                    "user_email": user_email,
+                },
+                user_set_credits_params.UserSetCreditsParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -275,7 +282,8 @@ class AsyncUsersResource(AsyncAPIResource):
     async def set_credits(
         self,
         *,
-        body: object,
+        credit_count: int,
+        user_email: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -298,7 +306,13 @@ class AsyncUsersResource(AsyncAPIResource):
         extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
         return await self._post(
             "/admin/users/set_credits",
-            body=await async_maybe_transform(body, user_set_credits_params.UserSetCreditsParams),
+            body=await async_maybe_transform(
+                {
+                    "credit_count": credit_count,
+                    "user_email": user_email,
+                },
+                user_set_credits_params.UserSetCreditsParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
