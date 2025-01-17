@@ -111,14 +111,16 @@ class TestUsers:
     @parametrize
     def test_method_set_credits(self, client: Structify) -> None:
         user = client.admin.users.set_credits(
-            body={},
+            credit_count=0,
+            user_email="user_email",
         )
         assert_matches_type(UserSetCreditsResponse, user, path=["response"])
 
     @parametrize
     def test_raw_response_set_credits(self, client: Structify) -> None:
         response = client.admin.users.with_raw_response.set_credits(
-            body={},
+            credit_count=0,
+            user_email="user_email",
         )
 
         assert response.is_closed is True
@@ -129,7 +131,8 @@ class TestUsers:
     @parametrize
     def test_streaming_response_set_credits(self, client: Structify) -> None:
         with client.admin.users.with_streaming_response.set_credits(
-            body={},
+            credit_count=0,
+            user_email="user_email",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -232,14 +235,16 @@ class TestAsyncUsers:
     @parametrize
     async def test_method_set_credits(self, async_client: AsyncStructify) -> None:
         user = await async_client.admin.users.set_credits(
-            body={},
+            credit_count=0,
+            user_email="user_email",
         )
         assert_matches_type(UserSetCreditsResponse, user, path=["response"])
 
     @parametrize
     async def test_raw_response_set_credits(self, async_client: AsyncStructify) -> None:
         response = await async_client.admin.users.with_raw_response.set_credits(
-            body={},
+            credit_count=0,
+            user_email="user_email",
         )
 
         assert response.is_closed is True
@@ -250,7 +255,8 @@ class TestAsyncUsers:
     @parametrize
     async def test_streaming_response_set_credits(self, async_client: AsyncStructify) -> None:
         async with async_client.admin.users.with_streaming_response.set_credits(
-            body={},
+            credit_count=0,
+            user_email="user_email",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
