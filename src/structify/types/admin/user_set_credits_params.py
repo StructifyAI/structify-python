@@ -8,4 +8,6 @@ __all__ = ["UserSetCreditsParams"]
 
 
 class UserSetCreditsParams(TypedDict, total=False):
-    body: Required[object]
+    credit_count: Required[int]
+
+    user_email: Required[str]
