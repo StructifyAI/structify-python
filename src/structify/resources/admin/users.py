@@ -20,7 +20,7 @@ from ..._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ...types.admin import user_create_params, user_get_credits_params, user_set_credits_params
+from ...types.admin import user_create_params, user_set_credits_params
 from ..._base_client import make_request_options
 from ...types.token_response import TokenResponse
 from ...types.admin.user_list_response import UserListResponse
@@ -117,8 +117,6 @@ class UsersResource(SyncAPIResource):
     def get_credits(
         self,
         *,
-        user_email: Optional[str] | NotGiven = NOT_GIVEN,
-        user_token: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -126,33 +124,12 @@ class UsersResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> UserGetCreditsResponse:
-        """
-        get the credit balance of a user by email.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
+        """get the credit balance of a user by email."""
         extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
         return self._get(
             "/admin/users/get_credits",
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "user_email": user_email,
-                        "user_token": user_token,
-                    },
-                    user_get_credits_params.UserGetCreditsParams,
-                ),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=int,
         )
@@ -160,8 +137,7 @@ class UsersResource(SyncAPIResource):
     def set_credits(
         self,
         *,
-        credit_count: int,
-        user_email: str,
+        body: object,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -184,18 +160,9 @@ class UsersResource(SyncAPIResource):
         extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
         return self._post(
             "/admin/users/set_credits",
+            body=maybe_transform(body, user_set_credits_params.UserSetCreditsParams),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "credit_count": credit_count,
-                        "user_email": user_email,
-                    },
-                    user_set_credits_params.UserSetCreditsParams,
-                ),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=int,
         )
@@ -288,8 +255,6 @@ class AsyncUsersResource(AsyncAPIResource):
     async def get_credits(
         self,
         *,
-        user_email: Optional[str] | NotGiven = NOT_GIVEN,
-        user_token: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -297,33 +262,12 @@ class AsyncUsersResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> UserGetCreditsResponse:
-        """
-        get the credit balance of a user by email.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
+        """get the credit balance of a user by email."""
         extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
         return await self._get(
             "/admin/users/get_credits",
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform(
-                    {
-                        "user_email": user_email,
-                        "user_token": user_token,
-                    },
-                    user_get_credits_params.UserGetCreditsParams,
-                ),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=int,
         )
@@ -331,8 +275,7 @@ class AsyncUsersResource(AsyncAPIResource):
     async def set_credits(
         self,
         *,
-        credit_count: int,
-        user_email: str,
+        body: object,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -355,18 +298,9 @@ class AsyncUsersResource(AsyncAPIResource):
         extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
         return await self._post(
             "/admin/users/set_credits",
+            body=await async_maybe_transform(body, user_set_credits_params.UserSetCreditsParams),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform(
-                    {
-                        "credit_count": credit_count,
-                        "user_email": user_email,
-                    },
-                    user_set_credits_params.UserSetCreditsParams,
-                ),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=int,
         )
