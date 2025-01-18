@@ -25,6 +25,7 @@ from ..._base_client import make_request_options
 from ...types.admin.user import User
 from ...types.token_response import TokenResponse
 from ...types.admin.user_list_response import UserListResponse
+from ...types.admin.user_get_credits_response import UserGetCreditsResponse
 from ...types.admin.user_set_credits_response import UserSetCreditsResponse
 
 __all__ = ["UsersResource", "AsyncUsersResource"]
@@ -153,6 +154,25 @@ class UsersResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=UserListResponse,
+        )
+
+    def get_credits(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> UserGetCreditsResponse:
+        """get the credit balance of a user by email."""
+        return self._get(
+            "/admin/users/get_credits",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=UserGetCreditsResponse,
         )
 
     def set_credits(
@@ -320,6 +340,25 @@ class AsyncUsersResource(AsyncAPIResource):
             cast_to=UserListResponse,
         )
 
+    async def get_credits(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> UserGetCreditsResponse:
+        """get the credit balance of a user by email."""
+        return await self._get(
+            "/admin/users/get_credits",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=UserGetCreditsResponse,
+        )
+
     async def set_credits(
         self,
         *,
@@ -373,6 +412,9 @@ class UsersResourceWithRawResponse:
         self.list = to_raw_response_wrapper(
             users.list,
         )
+        self.get_credits = to_raw_response_wrapper(
+            users.get_credits,
+        )
         self.set_credits = to_raw_response_wrapper(
             users.set_credits,
         )
@@ -390,6 +432,9 @@ class AsyncUsersResourceWithRawResponse:
         )
         self.list = async_to_raw_response_wrapper(
             users.list,
+        )
+        self.get_credits = async_to_raw_response_wrapper(
+            users.get_credits,
         )
         self.set_credits = async_to_raw_response_wrapper(
             users.set_credits,
@@ -409,6 +454,9 @@ class UsersResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             users.list,
         )
+        self.get_credits = to_streamed_response_wrapper(
+            users.get_credits,
+        )
         self.set_credits = to_streamed_response_wrapper(
             users.set_credits,
         )
@@ -426,6 +474,9 @@ class AsyncUsersResourceWithStreamingResponse:
         )
         self.list = async_to_streamed_response_wrapper(
             users.list,
+        )
+        self.get_credits = async_to_streamed_response_wrapper(
+            users.get_credits,
         )
         self.set_credits = async_to_streamed_response_wrapper(
             users.set_credits,
