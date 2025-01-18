@@ -11,6 +11,7 @@ from .user_update_params import UserUpdateParams as UserUpdateParams
 from .training_datum_response import TrainingDatumResponse as TrainingDatumResponse
 from .user_set_credits_params import UserSetCreditsParams as UserSetCreditsParams
 from .human_llm_get_jobs_params import HumanLlmGetJobsParams as HumanLlmGetJobsParams
+from .user_get_credits_response import UserGetCreditsResponse as UserGetCreditsResponse
 from .user_set_credits_response import UserSetCreditsResponse as UserSetCreditsResponse
 from .human_llm_finish_job_params import HumanLlmFinishJobParams as HumanLlmFinishJobParams
 from .human_llm_get_jobs_response import HumanLlmGetJobsResponse as HumanLlmGetJobsResponse
