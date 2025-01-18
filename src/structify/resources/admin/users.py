@@ -20,11 +20,11 @@ from ..._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ...types.admin import user_create_params, user_set_credits_params
+from ...types.admin import user_create_params, user_update_params, user_set_credits_params
 from ..._base_client import make_request_options
+from ...types.admin.user import User
 from ...types.token_response import TokenResponse
 from ...types.admin.user_list_response import UserListResponse
-from ...types.admin.user_get_credits_response import UserGetCreditsResponse
 from ...types.admin.user_set_credits_response import UserSetCreditsResponse
 
 __all__ = ["UsersResource", "AsyncUsersResource"]
@@ -95,6 +95,47 @@ class UsersResource(SyncAPIResource):
             cast_to=TokenResponse,
         )
 
+    def update(
+        self,
+        *,
+        current_email: str,
+        new_email: Optional[str] | NotGiven = NOT_GIVEN,
+        new_permissions: Optional[List[Literal["pdf_parsing", "labeler", "debug", "none"]]] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> User:
+        """
+        Update a user's permissions and type.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._put(
+            "/admin/users/update",
+            body=maybe_transform(
+                {
+                    "current_email": current_email,
+                    "new_email": new_email,
+                    "new_permissions": new_permissions,
+                },
+                user_update_params.UserUpdateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=User,
+        )
+
     def list(
         self,
         *,
@@ -112,26 +153,6 @@ class UsersResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=UserListResponse,
-        )
-
-    def get_credits(
-        self,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> UserGetCreditsResponse:
-        """get the credit balance of a user by email."""
-        extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
-        return self._get(
-            "/admin/users/get_credits",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=int,
         )
 
     def set_credits(
@@ -239,6 +260,47 @@ class AsyncUsersResource(AsyncAPIResource):
             cast_to=TokenResponse,
         )
 
+    async def update(
+        self,
+        *,
+        current_email: str,
+        new_email: Optional[str] | NotGiven = NOT_GIVEN,
+        new_permissions: Optional[List[Literal["pdf_parsing", "labeler", "debug", "none"]]] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> User:
+        """
+        Update a user's permissions and type.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._put(
+            "/admin/users/update",
+            body=await async_maybe_transform(
+                {
+                    "current_email": current_email,
+                    "new_email": new_email,
+                    "new_permissions": new_permissions,
+                },
+                user_update_params.UserUpdateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=User,
+        )
+
     async def list(
         self,
         *,
@@ -256,26 +318,6 @@ class AsyncUsersResource(AsyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=UserListResponse,
-        )
-
-    async def get_credits(
-        self,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> UserGetCreditsResponse:
-        """get the credit balance of a user by email."""
-        extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
-        return await self._get(
-            "/admin/users/get_credits",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=int,
         )
 
     async def set_credits(
@@ -325,11 +367,11 @@ class UsersResourceWithRawResponse:
         self.create = to_raw_response_wrapper(
             users.create,
         )
+        self.update = to_raw_response_wrapper(
+            users.update,
+        )
         self.list = to_raw_response_wrapper(
             users.list,
-        )
-        self.get_credits = to_raw_response_wrapper(
-            users.get_credits,
         )
         self.set_credits = to_raw_response_wrapper(
             users.set_credits,
@@ -343,11 +385,11 @@ class AsyncUsersResourceWithRawResponse:
         self.create = async_to_raw_response_wrapper(
             users.create,
         )
+        self.update = async_to_raw_response_wrapper(
+            users.update,
+        )
         self.list = async_to_raw_response_wrapper(
             users.list,
-        )
-        self.get_credits = async_to_raw_response_wrapper(
-            users.get_credits,
         )
         self.set_credits = async_to_raw_response_wrapper(
             users.set_credits,
@@ -361,11 +403,11 @@ class UsersResourceWithStreamingResponse:
         self.create = to_streamed_response_wrapper(
             users.create,
         )
+        self.update = to_streamed_response_wrapper(
+            users.update,
+        )
         self.list = to_streamed_response_wrapper(
             users.list,
-        )
-        self.get_credits = to_streamed_response_wrapper(
-            users.get_credits,
         )
         self.set_credits = to_streamed_response_wrapper(
             users.set_credits,
@@ -379,11 +421,11 @@ class AsyncUsersResourceWithStreamingResponse:
         self.create = async_to_streamed_response_wrapper(
             users.create,
         )
+        self.update = async_to_streamed_response_wrapper(
+            users.update,
+        )
         self.list = async_to_streamed_response_wrapper(
             users.list,
-        )
-        self.get_credits = async_to_streamed_response_wrapper(
-            users.get_credits,
         )
         self.set_credits = async_to_streamed_response_wrapper(
             users.set_credits,
