@@ -158,7 +158,6 @@ class UsersResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
         return self._post(
             "/admin/users/set_credits",
             body=maybe_transform(
@@ -171,7 +170,7 @@ class UsersResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=int,
+            cast_to=UserSetCreditsResponse,
         )
 
 
@@ -303,7 +302,6 @@ class AsyncUsersResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
         return await self._post(
             "/admin/users/set_credits",
             body=await async_maybe_transform(
@@ -316,7 +314,7 @@ class AsyncUsersResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=int,
+            cast_to=UserSetCreditsResponse,
         )
 
 
