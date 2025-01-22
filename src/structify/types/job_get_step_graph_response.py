@@ -7,7 +7,7 @@ from typing_extensions import Literal
 from pydantic import Field as FieldInfo
 
 from .._models import BaseModel
-from .knowledge_graph import KnowledgeGraph
+from .execution_step import ExecutionStep
 
 __all__ = ["JobGetStepGraphResponse", "Step", "Transition", "TransitionToolCall"]
 
@@ -19,18 +19,9 @@ class Step(BaseModel):
 
     status: Literal["Queued", "Ignored", "Started", "Executed"]
 
-    prompt: Optional[str] = None
+    execution_step: Optional[ExecutionStep] = None
 
     queued_message: Optional[str] = None
-
-    save: Optional[KnowledgeGraph] = None
-    """
-    Knowledge graph info structured to deserialize and display in the same format
-    that the LLM outputs. Also the first representation of an LLM output in the
-    pipeline from raw tool output to being merged into a Neo4j DB
-    """
-
-    screenshot: Optional[object] = None
 
     skipped_reason: Optional[str] = None
 
