@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union, Mapping, Optional, cast
+from typing import Union, Mapping, Iterable, Optional, cast
 from datetime import datetime
 from typing_extensions import Literal
 
@@ -18,17 +18,27 @@ from ..._utils import (
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
+    BinaryAPIResponse,
+    AsyncBinaryAPIResponse,
+    StreamedBinaryAPIResponse,
+    AsyncStreamedBinaryAPIResponse,
     to_raw_response_wrapper,
     to_streamed_response_wrapper,
     async_to_raw_response_wrapper,
+    to_custom_raw_response_wrapper,
     async_to_streamed_response_wrapper,
+    to_custom_streamed_response_wrapper,
+    async_to_custom_raw_response_wrapper,
+    async_to_custom_streamed_response_wrapper,
 )
 from ...types.admin import (
     training_dataset_size_params,
     training_dataset_add_datum_params,
+    training_dataset_label_datum_params,
     training_dataset_list_datums_params,
     training_dataset_remove_datum_params,
     training_dataset_upload_datum_params,
+    training_dataset_download_datum_params,
     training_dataset_switch_dataset_params,
     training_dataset_get_labeller_stats_params,
     training_dataset_get_next_unverified_params,
@@ -123,6 +133,44 @@ class TrainingDatasetsResource(SyncAPIResource):
             cast_to=NoneType,
         )
 
+    def download_datum(
+        self,
+        *,
+        step_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> BinaryAPIResponse:
+        """
+        Lists all training datums for a dataset.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        extra_headers = {"Accept": "application/octet-stream", **(extra_headers or {})}
+        return self._get(
+            "/admin/training_datasets/download_datum_step",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {"step_id": step_id}, training_dataset_download_datum_params.TrainingDatasetDownloadDatumParams
+                ),
+            ),
+            cast_to=BinaryAPIResponse,
+        )
+
     def get_labeller_stats(
         self,
         *,
@@ -209,6 +257,46 @@ class TrainingDatasetsResource(SyncAPIResource):
                 ),
             ),
             cast_to=TrainingDatumResponse,
+        )
+
+    def label_datum(
+        self,
+        *,
+        id: str,
+        updated_tool_calls: Iterable[training_dataset_label_datum_params.UpdatedToolCall],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> None:
+        """
+        Updates the status and content of an existing training datum.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return self._put(
+            "/admin/training_datasets/label_datum",
+            body=maybe_transform(
+                {
+                    "id": id,
+                    "updated_tool_calls": updated_tool_calls,
+                },
+                training_dataset_label_datum_params.TrainingDatasetLabelDatumParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NoneType,
         )
 
     def list_datums(
@@ -540,6 +628,44 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
             cast_to=NoneType,
         )
 
+    async def download_datum(
+        self,
+        *,
+        step_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> AsyncBinaryAPIResponse:
+        """
+        Lists all training datums for a dataset.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        extra_headers = {"Accept": "application/octet-stream", **(extra_headers or {})}
+        return await self._get(
+            "/admin/training_datasets/download_datum_step",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"step_id": step_id}, training_dataset_download_datum_params.TrainingDatasetDownloadDatumParams
+                ),
+            ),
+            cast_to=AsyncBinaryAPIResponse,
+        )
+
     async def get_labeller_stats(
         self,
         *,
@@ -626,6 +752,46 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
                 ),
             ),
             cast_to=TrainingDatumResponse,
+        )
+
+    async def label_datum(
+        self,
+        *,
+        id: str,
+        updated_tool_calls: Iterable[training_dataset_label_datum_params.UpdatedToolCall],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> None:
+        """
+        Updates the status and content of an existing training datum.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return await self._put(
+            "/admin/training_datasets/label_datum",
+            body=await async_maybe_transform(
+                {
+                    "id": id,
+                    "updated_tool_calls": updated_tool_calls,
+                },
+                training_dataset_label_datum_params.TrainingDatasetLabelDatumParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NoneType,
         )
 
     async def list_datums(
@@ -890,11 +1056,18 @@ class TrainingDatasetsResourceWithRawResponse:
         self.add_datum = to_raw_response_wrapper(
             training_datasets.add_datum,
         )
+        self.download_datum = to_custom_raw_response_wrapper(
+            training_datasets.download_datum,
+            BinaryAPIResponse,
+        )
         self.get_labeller_stats = to_raw_response_wrapper(
             training_datasets.get_labeller_stats,
         )
         self.get_next_unverified = to_raw_response_wrapper(
             training_datasets.get_next_unverified,
+        )
+        self.label_datum = to_raw_response_wrapper(
+            training_datasets.label_datum,
         )
         self.list_datums = to_raw_response_wrapper(
             training_datasets.list_datums,
@@ -926,11 +1099,18 @@ class AsyncTrainingDatasetsResourceWithRawResponse:
         self.add_datum = async_to_raw_response_wrapper(
             training_datasets.add_datum,
         )
+        self.download_datum = async_to_custom_raw_response_wrapper(
+            training_datasets.download_datum,
+            AsyncBinaryAPIResponse,
+        )
         self.get_labeller_stats = async_to_raw_response_wrapper(
             training_datasets.get_labeller_stats,
         )
         self.get_next_unverified = async_to_raw_response_wrapper(
             training_datasets.get_next_unverified,
+        )
+        self.label_datum = async_to_raw_response_wrapper(
+            training_datasets.label_datum,
         )
         self.list_datums = async_to_raw_response_wrapper(
             training_datasets.list_datums,
@@ -962,11 +1142,18 @@ class TrainingDatasetsResourceWithStreamingResponse:
         self.add_datum = to_streamed_response_wrapper(
             training_datasets.add_datum,
         )
+        self.download_datum = to_custom_streamed_response_wrapper(
+            training_datasets.download_datum,
+            StreamedBinaryAPIResponse,
+        )
         self.get_labeller_stats = to_streamed_response_wrapper(
             training_datasets.get_labeller_stats,
         )
         self.get_next_unverified = to_streamed_response_wrapper(
             training_datasets.get_next_unverified,
+        )
+        self.label_datum = to_streamed_response_wrapper(
+            training_datasets.label_datum,
         )
         self.list_datums = to_streamed_response_wrapper(
             training_datasets.list_datums,
@@ -998,11 +1185,18 @@ class AsyncTrainingDatasetsResourceWithStreamingResponse:
         self.add_datum = async_to_streamed_response_wrapper(
             training_datasets.add_datum,
         )
+        self.download_datum = async_to_custom_streamed_response_wrapper(
+            training_datasets.download_datum,
+            AsyncStreamedBinaryAPIResponse,
+        )
         self.get_labeller_stats = async_to_streamed_response_wrapper(
             training_datasets.get_labeller_stats,
         )
         self.get_next_unverified = async_to_streamed_response_wrapper(
             training_datasets.get_next_unverified,
+        )
+        self.label_datum = async_to_streamed_response_wrapper(
+            training_datasets.label_datum,
         )
         self.list_datums = async_to_streamed_response_wrapper(
             training_datasets.list_datums,
