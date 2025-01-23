@@ -55,6 +55,7 @@ from structify.types.admin import (
 Methods:
 
 - <code title="post /admin/users/create">client.admin.users.<a href="./src/structify/resources/admin/users.py">create</a>(\*\*<a href="src/structify/types/admin/user_create_params.py">params</a>) -> <a href="./src/structify/types/token_response.py">TokenResponse</a></code>
+- <code title="put /admin/users/update">client.admin.users.<a href="./src/structify/resources/admin/users.py">update</a>(\*\*<a href="src/structify/types/admin/user_update_params.py">params</a>) -> <a href="./src/structify/types/admin/user.py">User</a></code>
 - <code title="get /admin/users/list">client.admin.users.<a href="./src/structify/resources/admin/users.py">list</a>() -> <a href="./src/structify/types/admin/user_list_response.py">UserListResponse</a></code>
 - <code title="post /admin/users/get_credits">client.admin.users.<a href="./src/structify/resources/admin/users.py">get_credits</a>(\*\*<a href="src/structify/types/admin/user_get_credits_params.py">params</a>) -> <a href="./src/structify/types/admin/user_get_credits_response.py">UserGetCreditsResponse</a></code>
 - <code title="post /admin/users/get_stats">client.admin.users.<a href="./src/structify/resources/admin/users.py">get_stats</a>(\*\*<a href="src/structify/types/admin/user_get_stats_params.py">params</a>) -> <a href="./src/structify/types/admin/user_get_stats_response.py">UserGetStatsResponse</a></code>
@@ -79,6 +80,7 @@ from structify.types.admin import (
 Methods:
 
 - <code title="get /admin/training_datasets/list">client.admin.training_datasets.<a href="./src/structify/resources/admin/training_datasets.py">list</a>() -> <a href="./src/structify/types/admin/training_dataset_list_response.py">TrainingDatasetListResponse</a></code>
+- <code title="post /admin/training_datasets/add_dataset">client.admin.training_datasets.<a href="./src/structify/resources/admin/training_datasets.py">add</a>(\*\*<a href="src/structify/types/admin/training_dataset_add_params.py">params</a>) -> None</code>
 - <code title="post /admin/training_datasets/add_datum">client.admin.training_datasets.<a href="./src/structify/resources/admin/training_datasets.py">add_datum</a>(\*\*<a href="src/structify/types/admin/training_dataset_add_datum_params.py">params</a>) -> None</code>
 - <code title="get /admin/training_datasets/download_datum_step">client.admin.training_datasets.<a href="./src/structify/resources/admin/training_datasets.py">download_datum</a>(\*\*<a href="src/structify/types/admin/training_dataset_download_datum_params.py">params</a>) -> BinaryAPIResponse</code>
 - <code title="get /admin/training_datasets/labeller_stats">client.admin.training_datasets.<a href="./src/structify/resources/admin/training_datasets.py">get_labeller_stats</a>(\*\*<a href="src/structify/types/admin/training_dataset_get_labeller_stats_params.py">params</a>) -> <a href="./src/structify/types/admin/training_dataset_get_labeller_stats_response.py">TrainingDatasetGetLabellerStatsResponse</a></code>
