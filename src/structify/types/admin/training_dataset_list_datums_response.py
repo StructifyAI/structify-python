@@ -12,9 +12,13 @@ __all__ = ["TrainingDatasetListDatumsResponse", "TrainingDatasetListDatumsRespon
 class TrainingDatasetListDatumsResponseItem(BaseModel):
     id: str
 
+    labelers: List[str]
+
     last_updated: datetime
 
     status: Literal["Unlabeled", "Labeled", "Verified", "Pending", "Skipped", "Suspicious"]
+
+    verifiers: List[str]
 
 
 TrainingDatasetListDatumsResponse: TypeAlias = List[TrainingDatasetListDatumsResponseItem]
