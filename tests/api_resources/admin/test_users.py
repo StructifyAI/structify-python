@@ -10,8 +10,10 @@ import pytest
 from structify import Structify, AsyncStructify
 from tests.utils import assert_matches_type
 from structify.types import TokenResponse
+from structify._utils import parse_datetime
 from structify.types.admin import (
     UserListResponse,
+    UserGetStatsResponse,
     UserGetCreditsResponse,
     UserSetCreditsResponse,
 )
@@ -113,6 +115,42 @@ class TestUsers:
 
             user = response.parse()
             assert_matches_type(UserGetCreditsResponse, user, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_method_get_stats(self, client: Structify) -> None:
+        user = client.admin.users.get_stats()
+        assert_matches_type(UserGetStatsResponse, user, path=["response"])
+
+    @parametrize
+    def test_method_get_stats_with_all_params(self, client: Structify) -> None:
+        user = client.admin.users.get_stats(
+            bucket="Second",
+            end_date=parse_datetime("2019-12-27T18:11:19.117Z"),
+            start_date=parse_datetime("2019-12-27T18:11:19.117Z"),
+            user_email="user_email",
+            user_token="user_token",
+        )
+        assert_matches_type(UserGetStatsResponse, user, path=["response"])
+
+    @parametrize
+    def test_raw_response_get_stats(self, client: Structify) -> None:
+        response = client.admin.users.with_raw_response.get_stats()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        user = response.parse()
+        assert_matches_type(UserGetStatsResponse, user, path=["response"])
+
+    @parametrize
+    def test_streaming_response_get_stats(self, client: Structify) -> None:
+        with client.admin.users.with_streaming_response.get_stats() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            user = response.parse()
+            assert_matches_type(UserGetStatsResponse, user, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -245,6 +283,42 @@ class TestAsyncUsers:
 
             user = await response.parse()
             assert_matches_type(UserGetCreditsResponse, user, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_method_get_stats(self, async_client: AsyncStructify) -> None:
+        user = await async_client.admin.users.get_stats()
+        assert_matches_type(UserGetStatsResponse, user, path=["response"])
+
+    @parametrize
+    async def test_method_get_stats_with_all_params(self, async_client: AsyncStructify) -> None:
+        user = await async_client.admin.users.get_stats(
+            bucket="Second",
+            end_date=parse_datetime("2019-12-27T18:11:19.117Z"),
+            start_date=parse_datetime("2019-12-27T18:11:19.117Z"),
+            user_email="user_email",
+            user_token="user_token",
+        )
+        assert_matches_type(UserGetStatsResponse, user, path=["response"])
+
+    @parametrize
+    async def test_raw_response_get_stats(self, async_client: AsyncStructify) -> None:
+        response = await async_client.admin.users.with_raw_response.get_stats()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        user = await response.parse()
+        assert_matches_type(UserGetStatsResponse, user, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_get_stats(self, async_client: AsyncStructify) -> None:
+        async with async_client.admin.users.with_streaming_response.get_stats() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            user = await response.parse()
+            assert_matches_type(UserGetStatsResponse, user, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
