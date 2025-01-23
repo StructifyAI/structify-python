@@ -4,8 +4,8 @@ from __future__ import annotations
 
 from typing_extensions import Required, TypedDict
 
-__all__ = ["TrainingDatasetAddParams"]
+__all__ = ["TrainingDatasetGetDatumInfoParams"]
 
 
-class TrainingDatasetAddParams(TypedDict, total=False):
-    dataset_name: Required[str]
+class TrainingDatasetGetDatumInfoParams(TypedDict, total=False):
+    id: Required[str]
