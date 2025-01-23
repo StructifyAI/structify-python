@@ -5,11 +5,19 @@ from __future__ import annotations
 import os
 from typing import Any, cast
 
+import httpx
 import pytest
+from respx import MockRouter
 
 from structify import Structify, AsyncStructify
 from tests.utils import assert_matches_type
 from structify._utils import parse_datetime
+from structify._response import (
+    BinaryAPIResponse,
+    AsyncBinaryAPIResponse,
+    StreamedBinaryAPIResponse,
+    AsyncStreamedBinaryAPIResponse,
+)
 from structify.types.admin import (
     TrainingDatumResponse,
     TrainingDatasetListResponse,
@@ -84,6 +92,54 @@ class TestTrainingDatasets:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
+    @pytest.mark.respx(base_url=base_url)
+    def test_method_download_datum(self, client: Structify, respx_mock: MockRouter) -> None:
+        respx_mock.get("/admin/training_datasets/download_datum_step").mock(
+            return_value=httpx.Response(200, json={"foo": "bar"})
+        )
+        training_dataset = client.admin.training_datasets.download_datum(
+            step_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert training_dataset.is_closed
+        assert training_dataset.json() == {"foo": "bar"}
+        assert cast(Any, training_dataset.is_closed) is True
+        assert isinstance(training_dataset, BinaryAPIResponse)
+
+    @parametrize
+    @pytest.mark.respx(base_url=base_url)
+    def test_raw_response_download_datum(self, client: Structify, respx_mock: MockRouter) -> None:
+        respx_mock.get("/admin/training_datasets/download_datum_step").mock(
+            return_value=httpx.Response(200, json={"foo": "bar"})
+        )
+
+        training_dataset = client.admin.training_datasets.with_raw_response.download_datum(
+            step_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert training_dataset.is_closed is True
+        assert training_dataset.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert training_dataset.json() == {"foo": "bar"}
+        assert isinstance(training_dataset, BinaryAPIResponse)
+
+    @parametrize
+    @pytest.mark.respx(base_url=base_url)
+    def test_streaming_response_download_datum(self, client: Structify, respx_mock: MockRouter) -> None:
+        respx_mock.get("/admin/training_datasets/download_datum_step").mock(
+            return_value=httpx.Response(200, json={"foo": "bar"})
+        )
+        with client.admin.training_datasets.with_streaming_response.download_datum(
+            step_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as training_dataset:
+            assert not training_dataset.is_closed
+            assert training_dataset.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            assert training_dataset.json() == {"foo": "bar"}
+            assert cast(Any, training_dataset.is_closed) is True
+            assert isinstance(training_dataset, StreamedBinaryAPIResponse)
+
+        assert cast(Any, training_dataset.is_closed) is True
+
+    @parametrize
     def test_method_get_labeller_stats(self, client: Structify) -> None:
         training_dataset = client.admin.training_datasets.get_labeller_stats(
             status="Unlabeled",
@@ -155,6 +211,55 @@ class TestTrainingDatasets:
 
             training_dataset = response.parse()
             assert_matches_type(TrainingDatumResponse, training_dataset, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_method_label_datum(self, client: Structify) -> None:
+        training_dataset = client.admin.training_datasets.label_datum(
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            updated_tool_calls=[
+                {
+                    "input": {"save": {}},
+                    "name": "Exit",
+                }
+            ],
+        )
+        assert training_dataset is None
+
+    @parametrize
+    def test_raw_response_label_datum(self, client: Structify) -> None:
+        response = client.admin.training_datasets.with_raw_response.label_datum(
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            updated_tool_calls=[
+                {
+                    "input": {"save": {}},
+                    "name": "Exit",
+                }
+            ],
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        training_dataset = response.parse()
+        assert training_dataset is None
+
+    @parametrize
+    def test_streaming_response_label_datum(self, client: Structify) -> None:
+        with client.admin.training_datasets.with_streaming_response.label_datum(
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            updated_tool_calls=[
+                {
+                    "input": {"save": {}},
+                    "name": "Exit",
+                }
+            ],
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            training_dataset = response.parse()
+            assert training_dataset is None
 
         assert cast(Any, response.is_closed) is True
 
@@ -436,6 +541,56 @@ class TestAsyncTrainingDatasets:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
+    @pytest.mark.respx(base_url=base_url)
+    async def test_method_download_datum(self, async_client: AsyncStructify, respx_mock: MockRouter) -> None:
+        respx_mock.get("/admin/training_datasets/download_datum_step").mock(
+            return_value=httpx.Response(200, json={"foo": "bar"})
+        )
+        training_dataset = await async_client.admin.training_datasets.download_datum(
+            step_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert training_dataset.is_closed
+        assert await training_dataset.json() == {"foo": "bar"}
+        assert cast(Any, training_dataset.is_closed) is True
+        assert isinstance(training_dataset, AsyncBinaryAPIResponse)
+
+    @parametrize
+    @pytest.mark.respx(base_url=base_url)
+    async def test_raw_response_download_datum(self, async_client: AsyncStructify, respx_mock: MockRouter) -> None:
+        respx_mock.get("/admin/training_datasets/download_datum_step").mock(
+            return_value=httpx.Response(200, json={"foo": "bar"})
+        )
+
+        training_dataset = await async_client.admin.training_datasets.with_raw_response.download_datum(
+            step_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert training_dataset.is_closed is True
+        assert training_dataset.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert await training_dataset.json() == {"foo": "bar"}
+        assert isinstance(training_dataset, AsyncBinaryAPIResponse)
+
+    @parametrize
+    @pytest.mark.respx(base_url=base_url)
+    async def test_streaming_response_download_datum(
+        self, async_client: AsyncStructify, respx_mock: MockRouter
+    ) -> None:
+        respx_mock.get("/admin/training_datasets/download_datum_step").mock(
+            return_value=httpx.Response(200, json={"foo": "bar"})
+        )
+        async with async_client.admin.training_datasets.with_streaming_response.download_datum(
+            step_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as training_dataset:
+            assert not training_dataset.is_closed
+            assert training_dataset.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            assert await training_dataset.json() == {"foo": "bar"}
+            assert cast(Any, training_dataset.is_closed) is True
+            assert isinstance(training_dataset, AsyncStreamedBinaryAPIResponse)
+
+        assert cast(Any, training_dataset.is_closed) is True
+
+    @parametrize
     async def test_method_get_labeller_stats(self, async_client: AsyncStructify) -> None:
         training_dataset = await async_client.admin.training_datasets.get_labeller_stats(
             status="Unlabeled",
@@ -507,6 +662,55 @@ class TestAsyncTrainingDatasets:
 
             training_dataset = await response.parse()
             assert_matches_type(TrainingDatumResponse, training_dataset, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_method_label_datum(self, async_client: AsyncStructify) -> None:
+        training_dataset = await async_client.admin.training_datasets.label_datum(
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            updated_tool_calls=[
+                {
+                    "input": {"save": {}},
+                    "name": "Exit",
+                }
+            ],
+        )
+        assert training_dataset is None
+
+    @parametrize
+    async def test_raw_response_label_datum(self, async_client: AsyncStructify) -> None:
+        response = await async_client.admin.training_datasets.with_raw_response.label_datum(
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            updated_tool_calls=[
+                {
+                    "input": {"save": {}},
+                    "name": "Exit",
+                }
+            ],
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        training_dataset = await response.parse()
+        assert training_dataset is None
+
+    @parametrize
+    async def test_streaming_response_label_datum(self, async_client: AsyncStructify) -> None:
+        async with async_client.admin.training_datasets.with_streaming_response.label_datum(
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            updated_tool_calls=[
+                {
+                    "input": {"save": {}},
+                    "name": "Exit",
+                }
+            ],
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            training_dataset = await response.parse()
+            assert training_dataset is None
 
         assert cast(Any, response.is_closed) is True
 
