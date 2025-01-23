@@ -66,7 +66,6 @@ Types:
 from structify.types.admin import (
     AddDatumRequest,
     TrainingDatumResponse,
-    UpdateDatumRequest,
     TrainingDatasetListResponse,
     TrainingDatasetGetLabellerStatsResponse,
     TrainingDatasetListDatumsResponse,
@@ -77,19 +76,13 @@ from structify.types.admin import (
 Methods:
 
 - <code title="get /admin/training_datasets/list">client.admin.training_datasets.<a href="./src/structify/resources/admin/training_datasets.py">list</a>() -> <a href="./src/structify/types/admin/training_dataset_list_response.py">TrainingDatasetListResponse</a></code>
-- <code title="post /admin/training_datasets/add_dataset">client.admin.training_datasets.<a href="./src/structify/resources/admin/training_datasets.py">add</a>(\*\*<a href="src/structify/types/admin/training_dataset_add_params.py">params</a>) -> None</code>
 - <code title="post /admin/training_datasets/add_datum">client.admin.training_datasets.<a href="./src/structify/resources/admin/training_datasets.py">add_datum</a>(\*\*<a href="src/structify/types/admin/training_dataset_add_datum_params.py">params</a>) -> None</code>
 - <code title="get /admin/training_datasets/labeller_stats">client.admin.training_datasets.<a href="./src/structify/resources/admin/training_datasets.py">get_labeller_stats</a>(\*\*<a href="src/structify/types/admin/training_dataset_get_labeller_stats_params.py">params</a>) -> <a href="./src/structify/types/admin/training_dataset_get_labeller_stats_response.py">TrainingDatasetGetLabellerStatsResponse</a></code>
 - <code title="get /admin/training_datasets/next_unverified">client.admin.training_datasets.<a href="./src/structify/resources/admin/training_datasets.py">get_next_unverified</a>(\*\*<a href="src/structify/types/admin/training_dataset_get_next_unverified_params.py">params</a>) -> <a href="./src/structify/types/admin/training_datum_response.py">TrainingDatumResponse</a></code>
-- <code title="get /admin/training_datasets/get_step_by_id">client.admin.training_datasets.<a href="./src/structify/resources/admin/training_datasets.py">get_step_by_id</a>(\*\*<a href="src/structify/types/admin/training_dataset_get_step_by_id_params.py">params</a>) -> <a href="./src/structify/types/admin/training_datum_response.py">TrainingDatumResponse</a></code>
 - <code title="get /admin/training_datasets/list_datums">client.admin.training_datasets.<a href="./src/structify/resources/admin/training_datasets.py">list_datums</a>(\*\*<a href="src/structify/types/admin/training_dataset_list_datums_params.py">params</a>) -> <a href="./src/structify/types/admin/training_dataset_list_datums_response.py">TrainingDatasetListDatumsResponse</a></code>
-- <code title="delete /admin/training_datasets/remove_datum">client.admin.training_datasets.<a href="./src/structify/resources/admin/training_datasets.py">remove_datum</a>(\*\*<a href="src/structify/types/admin/training_dataset_remove_datum_params.py">params</a>) -> None</code>
-- <code title="post /admin/training_datasets/reset_pending">client.admin.training_datasets.<a href="./src/structify/resources/admin/training_datasets.py">reset_pending</a>(\*\*<a href="src/structify/types/admin/training_dataset_reset_pending_params.py">params</a>) -> None</code>
 - <code title="post /admin/training_datasets/size">client.admin.training_datasets.<a href="./src/structify/resources/admin/training_datasets.py">size</a>(\*\*<a href="src/structify/types/admin/training_dataset_size_params.py">params</a>) -> <a href="./src/structify/types/admin/training_dataset_size_response.py">TrainingDatasetSizeResponse</a></code>
 - <code title="post /admin/training_datasets/switch_dataset">client.admin.training_datasets.<a href="./src/structify/resources/admin/training_datasets.py">switch_dataset</a>(\*\*<a href="src/structify/types/admin/training_dataset_switch_dataset_params.py">params</a>) -> None</code>
-- <code title="put /admin/training_datasets/update_datum">client.admin.training_datasets.<a href="./src/structify/resources/admin/training_datasets.py">update_datum</a>(\*\*<a href="src/structify/types/admin/training_dataset_update_datum_params.py">params</a>) -> None</code>
 - <code title="post /admin/training_datasets/update_datum_status">client.admin.training_datasets.<a href="./src/structify/resources/admin/training_datasets.py">update_datum_status</a>(\*\*<a href="src/structify/types/admin/training_dataset_update_datum_status_params.py">params</a>) -> None</code>
-- <code title="post /admin/training_datasets/upload_datum">client.admin.training_datasets.<a href="./src/structify/resources/admin/training_datasets.py">upload_datum</a>(\*\*<a href="src/structify/types/admin/training_dataset_upload_datum_params.py">params</a>) -> None</code>
 
 # Datasets
 
