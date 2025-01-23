@@ -7,7 +7,6 @@ from .step_choices import StepChoices as StepChoices
 from .human_llm_job import HumanLlmJob as HumanLlmJob
 from .user_create_params import UserCreateParams as UserCreateParams
 from .user_list_response import UserListResponse as UserListResponse
-from .user_update_params import UserUpdateParams as UserUpdateParams
 from .user_get_stats_params import UserGetStatsParams as UserGetStatsParams
 from .training_datum_response import TrainingDatumResponse as TrainingDatumResponse
 from .user_get_credits_params import UserGetCreditsParams as UserGetCreditsParams
@@ -18,7 +17,6 @@ from .user_get_credits_response import UserGetCreditsResponse as UserGetCreditsR
 from .user_set_credits_response import UserSetCreditsResponse as UserSetCreditsResponse
 from .human_llm_finish_job_params import HumanLlmFinishJobParams as HumanLlmFinishJobParams
 from .human_llm_get_jobs_response import HumanLlmGetJobsResponse as HumanLlmGetJobsResponse
-from .training_dataset_add_params import TrainingDatasetAddParams as TrainingDatasetAddParams
 from .human_llm_update_step_params import HumanLlmUpdateStepParams as HumanLlmUpdateStepParams
 from .training_dataset_size_params import TrainingDatasetSizeParams as TrainingDatasetSizeParams
 from .human_llm_get_next_step_params import HumanLlmGetNextStepParams as HumanLlmGetNextStepParams
@@ -37,6 +35,9 @@ from .training_dataset_list_datums_response import (
 )
 from .training_dataset_download_datum_params import (
     TrainingDatasetDownloadDatumParams as TrainingDatasetDownloadDatumParams,
+)
+from .training_dataset_get_datum_info_params import (
+    TrainingDatasetGetDatumInfoParams as TrainingDatasetGetDatumInfoParams,
 )
 from .training_dataset_switch_dataset_params import (
     TrainingDatasetSwitchDatasetParams as TrainingDatasetSwitchDatasetParams,

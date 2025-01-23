@@ -58,37 +58,6 @@ class TestTrainingDatasets:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_method_add(self, client: Structify) -> None:
-        training_dataset = client.admin.training_datasets.add(
-            dataset_name="dataset_name",
-        )
-        assert training_dataset is None
-
-    @parametrize
-    def test_raw_response_add(self, client: Structify) -> None:
-        response = client.admin.training_datasets.with_raw_response.add(
-            dataset_name="dataset_name",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        training_dataset = response.parse()
-        assert training_dataset is None
-
-    @parametrize
-    def test_streaming_response_add(self, client: Structify) -> None:
-        with client.admin.training_datasets.with_streaming_response.add(
-            dataset_name="dataset_name",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            training_dataset = response.parse()
-            assert training_dataset is None
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
     def test_method_add_datum(self, client: Structify) -> None:
         training_dataset = client.admin.training_datasets.add_datum(
             dataset_name="dataset_name",
@@ -169,6 +138,37 @@ class TestTrainingDatasets:
             assert isinstance(training_dataset, StreamedBinaryAPIResponse)
 
         assert cast(Any, training_dataset.is_closed) is True
+
+    @parametrize
+    def test_method_get_datum_info(self, client: Structify) -> None:
+        training_dataset = client.admin.training_datasets.get_datum_info(
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(TrainingDatumResponse, training_dataset, path=["response"])
+
+    @parametrize
+    def test_raw_response_get_datum_info(self, client: Structify) -> None:
+        response = client.admin.training_datasets.with_raw_response.get_datum_info(
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        training_dataset = response.parse()
+        assert_matches_type(TrainingDatumResponse, training_dataset, path=["response"])
+
+    @parametrize
+    def test_streaming_response_get_datum_info(self, client: Structify) -> None:
+        with client.admin.training_datasets.with_streaming_response.get_datum_info(
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            training_dataset = response.parse()
+            assert_matches_type(TrainingDatumResponse, training_dataset, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
 
     @parametrize
     def test_method_get_labeller_stats(self, client: Structify) -> None:
@@ -538,37 +538,6 @@ class TestAsyncTrainingDatasets:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_method_add(self, async_client: AsyncStructify) -> None:
-        training_dataset = await async_client.admin.training_datasets.add(
-            dataset_name="dataset_name",
-        )
-        assert training_dataset is None
-
-    @parametrize
-    async def test_raw_response_add(self, async_client: AsyncStructify) -> None:
-        response = await async_client.admin.training_datasets.with_raw_response.add(
-            dataset_name="dataset_name",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        training_dataset = await response.parse()
-        assert training_dataset is None
-
-    @parametrize
-    async def test_streaming_response_add(self, async_client: AsyncStructify) -> None:
-        async with async_client.admin.training_datasets.with_streaming_response.add(
-            dataset_name="dataset_name",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            training_dataset = await response.parse()
-            assert training_dataset is None
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
     async def test_method_add_datum(self, async_client: AsyncStructify) -> None:
         training_dataset = await async_client.admin.training_datasets.add_datum(
             dataset_name="dataset_name",
@@ -651,6 +620,37 @@ class TestAsyncTrainingDatasets:
             assert isinstance(training_dataset, AsyncStreamedBinaryAPIResponse)
 
         assert cast(Any, training_dataset.is_closed) is True
+
+    @parametrize
+    async def test_method_get_datum_info(self, async_client: AsyncStructify) -> None:
+        training_dataset = await async_client.admin.training_datasets.get_datum_info(
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(TrainingDatumResponse, training_dataset, path=["response"])
+
+    @parametrize
+    async def test_raw_response_get_datum_info(self, async_client: AsyncStructify) -> None:
+        response = await async_client.admin.training_datasets.with_raw_response.get_datum_info(
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        training_dataset = await response.parse()
+        assert_matches_type(TrainingDatumResponse, training_dataset, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_get_datum_info(self, async_client: AsyncStructify) -> None:
+        async with async_client.admin.training_datasets.with_streaming_response.get_datum_info(
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            training_dataset = await response.parse()
+            assert_matches_type(TrainingDatumResponse, training_dataset, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
 
     @parametrize
     async def test_method_get_labeller_stats(self, async_client: AsyncStructify) -> None:
