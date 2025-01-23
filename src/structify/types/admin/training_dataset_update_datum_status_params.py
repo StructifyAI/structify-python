@@ -2,10 +2,15 @@
 
 from __future__ import annotations
 
-from typing_extensions import Required, TypedDict
+from typing import Optional
+from typing_extensions import Literal, Required, TypedDict
 
 __all__ = ["TrainingDatasetUpdateDatumStatusParams"]
 
 
 class TrainingDatasetUpdateDatumStatusParams(TypedDict, total=False):
-    body: Required[object]
+    id: Required[str]
+
+    status: Required[Literal["Unlabeled", "Labeled", "Verified", "Pending", "Skipped", "Suspicious"]]
+
+    review_message: Optional[str]
