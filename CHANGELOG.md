@@ -1,5 +1,35 @@
 # Changelog
 
+## 1.74.0 (2025-01-23)
+
+Full Changelog: [v1.73.0...v1.74.0](https://github.com/StructifyAI/structify-python/compare/v1.73.0...v1.74.0)
+
+### Features
+
+* **api:** api update ([#779](https://github.com/StructifyAI/structify-python/issues/779)) ([0e1b132](https://github.com/StructifyAI/structify-python/commit/0e1b1323078118b3294fea99d7a25d26781ff7fc))
+* **api:** api update ([#783](https://github.com/StructifyAI/structify-python/issues/783)) ([684d045](https://github.com/StructifyAI/structify-python/commit/684d045d47f716a88c54f16f8ce6691362909f41))
+* **api:** api update ([#784](https://github.com/StructifyAI/structify-python/issues/784)) ([bc3a010](https://github.com/StructifyAI/structify-python/commit/bc3a010acd5b80c145afa8d71a6fa6d1acd6c8e6))
+* **api:** api update ([#786](https://github.com/StructifyAI/structify-python/issues/786)) ([7b65c59](https://github.com/StructifyAI/structify-python/commit/7b65c59480f2a0f0ac49e93722d8ec7bf7727979))
+* **api:** manual updates ([#777](https://github.com/StructifyAI/structify-python/issues/777)) ([c51390e](https://github.com/StructifyAI/structify-python/commit/c51390e83b3650070068867fc83f6e791c2461c3))
+* **api:** manual updates ([#787](https://github.com/StructifyAI/structify-python/issues/787)) ([e3f59ba](https://github.com/StructifyAI/structify-python/commit/e3f59ba69db33a82021e4830a2a49b514ed189e9))
+* **api:** manual updates ([#788](https://github.com/StructifyAI/structify-python/issues/788)) ([c947ce3](https://github.com/StructifyAI/structify-python/commit/c947ce37c49f675162e57adc2a7d86b632eecb1c))
+
+
+### Bug Fixes
+
+* **tests:** make test_get_platform less flaky ([#781](https://github.com/StructifyAI/structify-python/issues/781)) ([a095cfc](https://github.com/StructifyAI/structify-python/commit/a095cfc2afdaa99901211fcbe70a7c977e833504))
+
+
+### Chores
+
+* **internal:** avoid pytest-asyncio deprecation warning ([#782](https://github.com/StructifyAI/structify-python/issues/782)) ([3593b38](https://github.com/StructifyAI/structify-python/commit/3593b38bf9adbb581e2eda204ca1734d0480594d))
+* **internal:** minor style changes ([#785](https://github.com/StructifyAI/structify-python/issues/785)) ([7741d6d](https://github.com/StructifyAI/structify-python/commit/7741d6dcce2df389baaddabc7011ce68e1b3ffdf))
+
+
+### Documentation
+
+* **raw responses:** fix duplicate `the` ([#780](https://github.com/StructifyAI/structify-python/issues/780)) ([ab4e1cc](https://github.com/StructifyAI/structify-python/commit/ab4e1cca07031d3f88d6a8890bfcb0801c31014f))
+
 ## 1.73.0 (2025-01-18)
 
 Full Changelog: [v1.72.0...v1.73.0](https://github.com/StructifyAI/structify-python/compare/v1.72.0...v1.73.0)
