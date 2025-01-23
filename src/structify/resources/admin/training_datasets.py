@@ -2,15 +2,17 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
+from typing import Union, Mapping, Optional, cast
 from datetime import datetime
 from typing_extensions import Literal
 
 import httpx
 
-from ..._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
+from ..._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven, FileTypes
 from ..._utils import (
+    extract_files,
     maybe_transform,
+    deepcopy_minimal,
     async_maybe_transform,
 )
 from ..._compat import cached_property
@@ -25,6 +27,8 @@ from ...types.admin import (
     training_dataset_size_params,
     training_dataset_add_datum_params,
     training_dataset_list_datums_params,
+    training_dataset_remove_datum_params,
+    training_dataset_upload_datum_params,
     training_dataset_switch_dataset_params,
     training_dataset_get_labeller_stats_params,
     training_dataset_get_next_unverified_params,
@@ -244,6 +248,44 @@ class TrainingDatasetsResource(SyncAPIResource):
             cast_to=TrainingDatasetListDatumsResponse,
         )
 
+    def remove_datum(
+        self,
+        *,
+        step_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> None:
+        """
+        Removes a training datum from the specified dataset.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return self._delete(
+            "/admin/training_datasets/remove_from_dataset",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {"step_id": step_id}, training_dataset_remove_datum_params.TrainingDatasetRemoveDatumParams
+                ),
+            ),
+            cast_to=NoneType,
+        )
+
     def size(
         self,
         *,
@@ -335,7 +377,9 @@ class TrainingDatasetsResource(SyncAPIResource):
     def update_datum_status(
         self,
         *,
-        body: object,
+        id: str,
+        status: Literal["Unlabeled", "Labeled", "Verified", "Pending", "Skipped", "Suspicious"],
+        review_message: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -357,8 +401,59 @@ class TrainingDatasetsResource(SyncAPIResource):
         return self._post(
             "/admin/training_datasets/update_datum_status",
             body=maybe_transform(
-                body, training_dataset_update_datum_status_params.TrainingDatasetUpdateDatumStatusParams
+                {
+                    "id": id,
+                    "status": status,
+                    "review_message": review_message,
+                },
+                training_dataset_update_datum_status_params.TrainingDatasetUpdateDatumStatusParams,
             ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NoneType,
+        )
+
+    def upload_datum(
+        self,
+        *,
+        dataset_name: FileTypes,
+        step_bytes: FileTypes,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> None:
+        """
+        Uploads a new training datum to the specified dataset.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        body = deepcopy_minimal(
+            {
+                "dataset_name": dataset_name,
+                "step_bytes": step_bytes,
+            }
+        )
+        files = extract_files(cast(Mapping[str, object], body), paths=[["dataset_name"], ["step_bytes"]])
+        # It should be noted that the actual Content-Type header that will be
+        # sent to the server will contain a `boundary` parameter, e.g.
+        # multipart/form-data; boundary=---abc--
+        extra_headers["Content-Type"] = "multipart/form-data"
+        return self._post(
+            "/admin/training_datasets/upload_labeled_step",
+            body=maybe_transform(body, training_dataset_upload_datum_params.TrainingDatasetUploadDatumParams),
+            files=files,
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -570,6 +665,44 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
             cast_to=TrainingDatasetListDatumsResponse,
         )
 
+    async def remove_datum(
+        self,
+        *,
+        step_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> None:
+        """
+        Removes a training datum from the specified dataset.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return await self._delete(
+            "/admin/training_datasets/remove_from_dataset",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"step_id": step_id}, training_dataset_remove_datum_params.TrainingDatasetRemoveDatumParams
+                ),
+            ),
+            cast_to=NoneType,
+        )
+
     async def size(
         self,
         *,
@@ -661,7 +794,9 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
     async def update_datum_status(
         self,
         *,
-        body: object,
+        id: str,
+        status: Literal["Unlabeled", "Labeled", "Verified", "Pending", "Skipped", "Suspicious"],
+        review_message: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -683,8 +818,61 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
         return await self._post(
             "/admin/training_datasets/update_datum_status",
             body=await async_maybe_transform(
-                body, training_dataset_update_datum_status_params.TrainingDatasetUpdateDatumStatusParams
+                {
+                    "id": id,
+                    "status": status,
+                    "review_message": review_message,
+                },
+                training_dataset_update_datum_status_params.TrainingDatasetUpdateDatumStatusParams,
             ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NoneType,
+        )
+
+    async def upload_datum(
+        self,
+        *,
+        dataset_name: FileTypes,
+        step_bytes: FileTypes,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> None:
+        """
+        Uploads a new training datum to the specified dataset.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        body = deepcopy_minimal(
+            {
+                "dataset_name": dataset_name,
+                "step_bytes": step_bytes,
+            }
+        )
+        files = extract_files(cast(Mapping[str, object], body), paths=[["dataset_name"], ["step_bytes"]])
+        # It should be noted that the actual Content-Type header that will be
+        # sent to the server will contain a `boundary` parameter, e.g.
+        # multipart/form-data; boundary=---abc--
+        extra_headers["Content-Type"] = "multipart/form-data"
+        return await self._post(
+            "/admin/training_datasets/upload_labeled_step",
+            body=await async_maybe_transform(
+                body, training_dataset_upload_datum_params.TrainingDatasetUploadDatumParams
+            ),
+            files=files,
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -711,6 +899,9 @@ class TrainingDatasetsResourceWithRawResponse:
         self.list_datums = to_raw_response_wrapper(
             training_datasets.list_datums,
         )
+        self.remove_datum = to_raw_response_wrapper(
+            training_datasets.remove_datum,
+        )
         self.size = to_raw_response_wrapper(
             training_datasets.size,
         )
@@ -719,6 +910,9 @@ class TrainingDatasetsResourceWithRawResponse:
         )
         self.update_datum_status = to_raw_response_wrapper(
             training_datasets.update_datum_status,
+        )
+        self.upload_datum = to_raw_response_wrapper(
+            training_datasets.upload_datum,
         )
 
 
@@ -741,6 +935,9 @@ class AsyncTrainingDatasetsResourceWithRawResponse:
         self.list_datums = async_to_raw_response_wrapper(
             training_datasets.list_datums,
         )
+        self.remove_datum = async_to_raw_response_wrapper(
+            training_datasets.remove_datum,
+        )
         self.size = async_to_raw_response_wrapper(
             training_datasets.size,
         )
@@ -749,6 +946,9 @@ class AsyncTrainingDatasetsResourceWithRawResponse:
         )
         self.update_datum_status = async_to_raw_response_wrapper(
             training_datasets.update_datum_status,
+        )
+        self.upload_datum = async_to_raw_response_wrapper(
+            training_datasets.upload_datum,
         )
 
 
@@ -771,6 +971,9 @@ class TrainingDatasetsResourceWithStreamingResponse:
         self.list_datums = to_streamed_response_wrapper(
             training_datasets.list_datums,
         )
+        self.remove_datum = to_streamed_response_wrapper(
+            training_datasets.remove_datum,
+        )
         self.size = to_streamed_response_wrapper(
             training_datasets.size,
         )
@@ -779,6 +982,9 @@ class TrainingDatasetsResourceWithStreamingResponse:
         )
         self.update_datum_status = to_streamed_response_wrapper(
             training_datasets.update_datum_status,
+        )
+        self.upload_datum = to_streamed_response_wrapper(
+            training_datasets.upload_datum,
         )
 
 
@@ -801,6 +1007,9 @@ class AsyncTrainingDatasetsResourceWithStreamingResponse:
         self.list_datums = async_to_streamed_response_wrapper(
             training_datasets.list_datums,
         )
+        self.remove_datum = async_to_streamed_response_wrapper(
+            training_datasets.remove_datum,
+        )
         self.size = async_to_streamed_response_wrapper(
             training_datasets.size,
         )
@@ -809,4 +1018,7 @@ class AsyncTrainingDatasetsResourceWithStreamingResponse:
         )
         self.update_datum_status = async_to_streamed_response_wrapper(
             training_datasets.update_datum_status,
+        )
+        self.upload_datum = async_to_streamed_response_wrapper(
+            training_datasets.upload_datum,
         )

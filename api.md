@@ -66,6 +66,7 @@ Types:
 from structify.types.admin import (
     AddDatumRequest,
     TrainingDatumResponse,
+    UpdateDatumStatusRequest,
     TrainingDatasetListResponse,
     TrainingDatasetGetLabellerStatsResponse,
     TrainingDatasetListDatumsResponse,
@@ -80,9 +81,11 @@ Methods:
 - <code title="get /admin/training_datasets/labeller_stats">client.admin.training_datasets.<a href="./src/structify/resources/admin/training_datasets.py">get_labeller_stats</a>(\*\*<a href="src/structify/types/admin/training_dataset_get_labeller_stats_params.py">params</a>) -> <a href="./src/structify/types/admin/training_dataset_get_labeller_stats_response.py">TrainingDatasetGetLabellerStatsResponse</a></code>
 - <code title="get /admin/training_datasets/next_unverified">client.admin.training_datasets.<a href="./src/structify/resources/admin/training_datasets.py">get_next_unverified</a>(\*\*<a href="src/structify/types/admin/training_dataset_get_next_unverified_params.py">params</a>) -> <a href="./src/structify/types/admin/training_datum_response.py">TrainingDatumResponse</a></code>
 - <code title="get /admin/training_datasets/list_datums">client.admin.training_datasets.<a href="./src/structify/resources/admin/training_datasets.py">list_datums</a>(\*\*<a href="src/structify/types/admin/training_dataset_list_datums_params.py">params</a>) -> <a href="./src/structify/types/admin/training_dataset_list_datums_response.py">TrainingDatasetListDatumsResponse</a></code>
+- <code title="delete /admin/training_datasets/remove_from_dataset">client.admin.training_datasets.<a href="./src/structify/resources/admin/training_datasets.py">remove_datum</a>(\*\*<a href="src/structify/types/admin/training_dataset_remove_datum_params.py">params</a>) -> None</code>
 - <code title="post /admin/training_datasets/size">client.admin.training_datasets.<a href="./src/structify/resources/admin/training_datasets.py">size</a>(\*\*<a href="src/structify/types/admin/training_dataset_size_params.py">params</a>) -> <a href="./src/structify/types/admin/training_dataset_size_response.py">TrainingDatasetSizeResponse</a></code>
 - <code title="post /admin/training_datasets/switch_dataset">client.admin.training_datasets.<a href="./src/structify/resources/admin/training_datasets.py">switch_dataset</a>(\*\*<a href="src/structify/types/admin/training_dataset_switch_dataset_params.py">params</a>) -> None</code>
 - <code title="post /admin/training_datasets/update_datum_status">client.admin.training_datasets.<a href="./src/structify/resources/admin/training_datasets.py">update_datum_status</a>(\*\*<a href="src/structify/types/admin/training_dataset_update_datum_status_params.py">params</a>) -> None</code>
+- <code title="post /admin/training_datasets/upload_labeled_step">client.admin.training_datasets.<a href="./src/structify/resources/admin/training_datasets.py">upload_datum</a>(\*\*<a href="src/structify/types/admin/training_dataset_upload_datum_params.py">params</a>) -> None</code>
 
 # Datasets
 
