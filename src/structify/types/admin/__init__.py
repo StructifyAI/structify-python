@@ -31,7 +31,6 @@ from .human_llm_add_search_for_job_params import HumanLlmAddSearchForJobParams a
 from .training_dataset_label_datum_params import TrainingDatasetLabelDatumParams as TrainingDatasetLabelDatumParams
 from .training_dataset_list_datums_params import TrainingDatasetListDatumsParams as TrainingDatasetListDatumsParams
 from .training_dataset_remove_datum_params import TrainingDatasetRemoveDatumParams as TrainingDatasetRemoveDatumParams
-from .training_dataset_upload_datum_params import TrainingDatasetUploadDatumParams as TrainingDatasetUploadDatumParams
 from .training_dataset_list_datums_response import (
     TrainingDatasetListDatumsResponse as TrainingDatasetListDatumsResponse,
 )
@@ -52,6 +51,9 @@ from .training_dataset_get_next_unverified_params import (
 )
 from .training_dataset_update_datum_status_params import (
     TrainingDatasetUpdateDatumStatusParams as TrainingDatasetUpdateDatumStatusParams,
+)
+from .training_dataset_upload_labeled_step_params import (
+    TrainingDatasetUploadLabeledStepParams as TrainingDatasetUploadLabeledStepParams,
 )
 from .training_dataset_get_labeller_stats_response import (
     TrainingDatasetGetLabellerStatsResponse as TrainingDatasetGetLabellerStatsResponse,

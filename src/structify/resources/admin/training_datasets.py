@@ -38,13 +38,13 @@ from ...types.admin import (
     training_dataset_label_datum_params,
     training_dataset_list_datums_params,
     training_dataset_remove_datum_params,
-    training_dataset_upload_datum_params,
     training_dataset_download_datum_params,
     training_dataset_get_datum_info_params,
     training_dataset_switch_dataset_params,
     training_dataset_get_labeller_stats_params,
     training_dataset_get_next_unverified_params,
     training_dataset_update_datum_status_params,
+    training_dataset_upload_labeled_step_params,
 )
 from ..._base_client import make_request_options
 from ...types.admin.training_datum_response import TrainingDatumResponse
@@ -581,7 +581,7 @@ class TrainingDatasetsResource(SyncAPIResource):
             cast_to=NoneType,
         )
 
-    def upload_datum(
+    def upload_labeled_step(
         self,
         *,
         dataset_name: FileTypes,
@@ -619,7 +619,9 @@ class TrainingDatasetsResource(SyncAPIResource):
         extra_headers["Content-Type"] = "multipart/form-data"
         return self._post(
             "/admin/training_datasets/upload_labeled_step",
-            body=maybe_transform(body, training_dataset_upload_datum_params.TrainingDatasetUploadDatumParams),
+            body=maybe_transform(
+                body, training_dataset_upload_labeled_step_params.TrainingDatasetUploadLabeledStepParams
+            ),
             files=files,
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -1153,7 +1155,7 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
             cast_to=NoneType,
         )
 
-    async def upload_datum(
+    async def upload_labeled_step(
         self,
         *,
         dataset_name: FileTypes,
@@ -1192,7 +1194,7 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
         return await self._post(
             "/admin/training_datasets/upload_labeled_step",
             body=await async_maybe_transform(
-                body, training_dataset_upload_datum_params.TrainingDatasetUploadDatumParams
+                body, training_dataset_upload_labeled_step_params.TrainingDatasetUploadLabeledStepParams
             ),
             files=files,
             options=make_request_options(
@@ -1246,8 +1248,8 @@ class TrainingDatasetsResourceWithRawResponse:
         self.update_datum_status = to_raw_response_wrapper(
             training_datasets.update_datum_status,
         )
-        self.upload_datum = to_raw_response_wrapper(
-            training_datasets.upload_datum,
+        self.upload_labeled_step = to_raw_response_wrapper(
+            training_datasets.upload_labeled_step,
         )
 
 
@@ -1295,8 +1297,8 @@ class AsyncTrainingDatasetsResourceWithRawResponse:
         self.update_datum_status = async_to_raw_response_wrapper(
             training_datasets.update_datum_status,
         )
-        self.upload_datum = async_to_raw_response_wrapper(
-            training_datasets.upload_datum,
+        self.upload_labeled_step = async_to_raw_response_wrapper(
+            training_datasets.upload_labeled_step,
         )
 
 
@@ -1344,8 +1346,8 @@ class TrainingDatasetsResourceWithStreamingResponse:
         self.update_datum_status = to_streamed_response_wrapper(
             training_datasets.update_datum_status,
         )
-        self.upload_datum = to_streamed_response_wrapper(
-            training_datasets.upload_datum,
+        self.upload_labeled_step = to_streamed_response_wrapper(
+            training_datasets.upload_labeled_step,
         )
 
 
@@ -1393,6 +1395,6 @@ class AsyncTrainingDatasetsResourceWithStreamingResponse:
         self.update_datum_status = async_to_streamed_response_wrapper(
             training_datasets.update_datum_status,
         )
-        self.upload_datum = async_to_streamed_response_wrapper(
-            training_datasets.upload_datum,
+        self.upload_labeled_step = async_to_streamed_response_wrapper(
+            training_datasets.upload_labeled_step,
         )

@@ -6,10 +6,10 @@ from typing_extensions import Required, TypedDict
 
 from ..._types import FileTypes
 
-__all__ = ["TrainingDatasetUploadDatumParams"]
+__all__ = ["TrainingDatasetUploadLabeledStepParams"]
 
 
-class TrainingDatasetUploadDatumParams(TypedDict, total=False):
+class TrainingDatasetUploadLabeledStepParams(TypedDict, total=False):
     dataset_name: Required[FileTypes]
 
     step_bytes: Required[FileTypes]
