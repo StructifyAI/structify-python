@@ -74,6 +74,7 @@ class TestUsers:
         user = client.admin.users.update(
             current_email="current_email",
             new_email="new_email",
+            new_feature_flags=["test"],
             new_permissions=["labeler"],
         )
         assert_matches_type(User, user, path=["response"])
@@ -283,6 +284,7 @@ class TestAsyncUsers:
         user = await async_client.admin.users.update(
             current_email="current_email",
             new_email="new_email",
+            new_feature_flags=["test"],
             new_permissions=["labeler"],
         )
         assert_matches_type(User, user, path=["response"])
