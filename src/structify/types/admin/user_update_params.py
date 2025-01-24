@@ -13,4 +13,6 @@ class UserUpdateParams(TypedDict, total=False):
 
     new_email: Optional[str]
 
+    new_feature_flags: Optional[List[Literal["test", "pdf_parsing", "none"]]]
+
     new_permissions: Optional[List[Literal["labeler", "debug", "none"]]]

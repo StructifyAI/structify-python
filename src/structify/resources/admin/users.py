@@ -111,6 +111,7 @@ class UsersResource(SyncAPIResource):
         *,
         current_email: str,
         new_email: Optional[str] | NotGiven = NOT_GIVEN,
+        new_feature_flags: Optional[List[Literal["test", "pdf_parsing", "none"]]] | NotGiven = NOT_GIVEN,
         new_permissions: Optional[List[Literal["labeler", "debug", "none"]]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -137,6 +138,7 @@ class UsersResource(SyncAPIResource):
                 {
                     "current_email": current_email,
                     "new_email": new_email,
+                    "new_feature_flags": new_feature_flags,
                     "new_permissions": new_permissions,
                 },
                 user_update_params.UserUpdateParams,
@@ -361,6 +363,7 @@ class AsyncUsersResource(AsyncAPIResource):
         *,
         current_email: str,
         new_email: Optional[str] | NotGiven = NOT_GIVEN,
+        new_feature_flags: Optional[List[Literal["test", "pdf_parsing", "none"]]] | NotGiven = NOT_GIVEN,
         new_permissions: Optional[List[Literal["labeler", "debug", "none"]]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -387,6 +390,7 @@ class AsyncUsersResource(AsyncAPIResource):
                 {
                     "current_email": current_email,
                     "new_email": new_email,
+                    "new_feature_flags": new_feature_flags,
                     "new_permissions": new_permissions,
                 },
                 user_update_params.UserUpdateParams,
