@@ -35,8 +35,9 @@ class TestUsers:
         user = client.admin.users.create(
             credit_count=0,
             email="email",
+            feature_flags=["test"],
             is_admin=True,
-            permissions=["pdf_parsing"],
+            permissions=["labeler"],
             test=True,
         )
         assert_matches_type(TokenResponse, user, path=["response"])
@@ -73,7 +74,7 @@ class TestUsers:
         user = client.admin.users.update(
             current_email="current_email",
             new_email="new_email",
-            new_permissions=["pdf_parsing"],
+            new_permissions=["labeler"],
         )
         assert_matches_type(User, user, path=["response"])
 
@@ -243,8 +244,9 @@ class TestAsyncUsers:
         user = await async_client.admin.users.create(
             credit_count=0,
             email="email",
+            feature_flags=["test"],
             is_admin=True,
-            permissions=["pdf_parsing"],
+            permissions=["labeler"],
             test=True,
         )
         assert_matches_type(TokenResponse, user, path=["response"])
@@ -281,7 +283,7 @@ class TestAsyncUsers:
         user = await async_client.admin.users.update(
             current_email="current_email",
             new_email="new_email",
-            new_permissions=["pdf_parsing"],
+            new_permissions=["labeler"],
         )
         assert_matches_type(User, user, path=["response"])
 
