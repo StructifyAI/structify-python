@@ -11,6 +11,8 @@ __all__ = ["User"]
 class User(BaseModel):
     email: str
 
-    permissions: Optional[List[Literal["pdf_parsing", "labeler", "debug", "none"]]] = None
+    feature_flags: Optional[List[Literal["test", "pdf_parsing", "none"]]] = None
+
+    permissions: Optional[List[Literal["labeler", "debug", "none"]]] = None
 
     user_type: Optional[Literal["Admin", "Public", "EndUser"]] = None
