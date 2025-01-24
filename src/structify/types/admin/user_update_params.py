@@ -13,4 +13,4 @@ class UserUpdateParams(TypedDict, total=False):
 
     new_email: Optional[str]
 
-    new_permissions: Optional[List[Literal["pdf_parsing", "labeler", "debug", "none"]]]
+    new_permissions: Optional[List[Literal["labeler", "debug", "none"]]]
