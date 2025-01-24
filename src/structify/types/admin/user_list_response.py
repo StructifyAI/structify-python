@@ -5,6 +5,11 @@ from typing_extensions import TypeAlias
 
 from .user import User
 
-__all__ = ["UserListResponse"]
+__all__ = ["UserListResponse", "UserListResponseItem"]
 
-UserListResponse: TypeAlias = List[User]
+
+class UserListResponseItem(User):
+    tokens: List[str]
+
+
+UserListResponse: TypeAlias = List[UserListResponseItem]
