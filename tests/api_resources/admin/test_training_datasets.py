@@ -506,16 +506,16 @@ class TestTrainingDatasets:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_method_upload_datum(self, client: Structify) -> None:
-        training_dataset = client.admin.training_datasets.upload_datum(
+    def test_method_upload_labeled_step(self, client: Structify) -> None:
+        training_dataset = client.admin.training_datasets.upload_labeled_step(
             dataset_name=b"raw file contents",
             step_bytes=b"raw file contents",
         )
         assert training_dataset is None
 
     @parametrize
-    def test_raw_response_upload_datum(self, client: Structify) -> None:
-        response = client.admin.training_datasets.with_raw_response.upload_datum(
+    def test_raw_response_upload_labeled_step(self, client: Structify) -> None:
+        response = client.admin.training_datasets.with_raw_response.upload_labeled_step(
             dataset_name=b"raw file contents",
             step_bytes=b"raw file contents",
         )
@@ -526,8 +526,8 @@ class TestTrainingDatasets:
         assert training_dataset is None
 
     @parametrize
-    def test_streaming_response_upload_datum(self, client: Structify) -> None:
-        with client.admin.training_datasets.with_streaming_response.upload_datum(
+    def test_streaming_response_upload_labeled_step(self, client: Structify) -> None:
+        with client.admin.training_datasets.with_streaming_response.upload_labeled_step(
             dataset_name=b"raw file contents",
             step_bytes=b"raw file contents",
         ) as response:
@@ -1019,16 +1019,16 @@ class TestAsyncTrainingDatasets:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_method_upload_datum(self, async_client: AsyncStructify) -> None:
-        training_dataset = await async_client.admin.training_datasets.upload_datum(
+    async def test_method_upload_labeled_step(self, async_client: AsyncStructify) -> None:
+        training_dataset = await async_client.admin.training_datasets.upload_labeled_step(
             dataset_name=b"raw file contents",
             step_bytes=b"raw file contents",
         )
         assert training_dataset is None
 
     @parametrize
-    async def test_raw_response_upload_datum(self, async_client: AsyncStructify) -> None:
-        response = await async_client.admin.training_datasets.with_raw_response.upload_datum(
+    async def test_raw_response_upload_labeled_step(self, async_client: AsyncStructify) -> None:
+        response = await async_client.admin.training_datasets.with_raw_response.upload_labeled_step(
             dataset_name=b"raw file contents",
             step_bytes=b"raw file contents",
         )
@@ -1039,8 +1039,8 @@ class TestAsyncTrainingDatasets:
         assert training_dataset is None
 
     @parametrize
-    async def test_streaming_response_upload_datum(self, async_client: AsyncStructify) -> None:
-        async with async_client.admin.training_datasets.with_streaming_response.upload_datum(
+    async def test_streaming_response_upload_labeled_step(self, async_client: AsyncStructify) -> None:
+        async with async_client.admin.training_datasets.with_streaming_response.upload_labeled_step(
             dataset_name=b"raw file contents",
             step_bytes=b"raw file contents",
         ) as response:
