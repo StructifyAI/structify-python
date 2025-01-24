@@ -15,6 +15,6 @@ class UserInfo(BaseModel):
 
     is_admin: bool
 
-    permissions: List[Literal["pdf_parsing", "labeler", "debug", "none"]]
+    permissions: List[Literal["labeler", "debug", "none"]]
 
     username: str
