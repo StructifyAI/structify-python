@@ -193,7 +193,9 @@ class Update(BaseModel):
 
     author: str
 
-    status: Literal["Unlabeled", "Labeled", "Verified", "Pending", "Skipped", "Suspicious"]
+    status: Literal[
+        "Unlabeled", "NavLabeled", "SaveLabeled", "Verified", "Pending", "Skipped", "SuspiciousNav", "SuspiciousSave"
+    ]
 
     timestamp: datetime
 
@@ -209,7 +211,9 @@ class TrainingDatumResponse(BaseModel):
 
     last_updated: datetime
 
-    status: Literal["Unlabeled", "Labeled", "Verified", "Pending", "Skipped", "Suspicious"]
+    status: Literal[
+        "Unlabeled", "NavLabeled", "SaveLabeled", "Verified", "Pending", "Skipped", "SuspiciousNav", "SuspiciousSave"
+    ]
 
     step: ExecutionStep
 

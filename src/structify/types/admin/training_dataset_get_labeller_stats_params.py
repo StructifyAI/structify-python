@@ -12,7 +12,18 @@ __all__ = ["TrainingDatasetGetLabellerStatsParams"]
 
 
 class TrainingDatasetGetLabellerStatsParams(TypedDict, total=False):
-    status: Required[Literal["Unlabeled", "Labeled", "Verified", "Pending", "Skipped", "Suspicious"]]
+    status: Required[
+        Literal[
+            "Unlabeled",
+            "NavLabeled",
+            "SaveLabeled",
+            "Verified",
+            "Pending",
+            "Skipped",
+            "SuspiciousNav",
+            "SuspiciousSave",
+        ]
+    ]
 
     dataset_name: Optional[str]
 
