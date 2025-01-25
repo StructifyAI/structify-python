@@ -18,4 +18,15 @@ class TrainingDatasetSizeParams(TypedDict, total=False):
 
     start_date: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
 
-    status: Optional[Literal["Unlabeled", "Labeled", "Verified", "Pending", "Skipped", "Suspicious"]]
+    status: Optional[
+        Literal[
+            "Unlabeled",
+            "NavLabeled",
+            "SaveLabeled",
+            "Verified",
+            "Pending",
+            "Skipped",
+            "SuspiciousNav",
+            "SuspiciousSave",
+        ]
+    ]

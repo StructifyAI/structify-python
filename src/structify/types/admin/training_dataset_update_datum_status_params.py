@@ -11,6 +11,17 @@ __all__ = ["TrainingDatasetUpdateDatumStatusParams"]
 class TrainingDatasetUpdateDatumStatusParams(TypedDict, total=False):
     id: Required[str]
 
-    status: Required[Literal["Unlabeled", "Labeled", "Verified", "Pending", "Skipped", "Suspicious"]]
+    status: Required[
+        Literal[
+            "Unlabeled",
+            "NavLabeled",
+            "SaveLabeled",
+            "Verified",
+            "Pending",
+            "Skipped",
+            "SuspiciousNav",
+            "SuspiciousSave",
+        ]
+    ]
 
     review_message: Optional[str]
