@@ -253,7 +253,16 @@ class TrainingDatasetsResource(SyncAPIResource):
     def get_labeller_stats(
         self,
         *,
-        status: Literal["Unlabeled", "Labeled", "Verified", "Pending", "Skipped", "Suspicious"],
+        status: Literal[
+            "Unlabeled",
+            "NavLabeled",
+            "SaveLabeled",
+            "Verified",
+            "Pending",
+            "Skipped",
+            "SuspiciousNav",
+            "SuspiciousSave",
+        ],
         dataset_name: Optional[str] | NotGiven = NOT_GIVEN,
         end_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         start_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
@@ -300,7 +309,16 @@ class TrainingDatasetsResource(SyncAPIResource):
         self,
         *,
         dataset_name: str,
-        status: Literal["Unlabeled", "Labeled", "Verified", "Pending", "Skipped", "Suspicious"],
+        status: Literal[
+            "Unlabeled",
+            "NavLabeled",
+            "SaveLabeled",
+            "Verified",
+            "Pending",
+            "Skipped",
+            "SuspiciousNav",
+            "SuspiciousSave",
+        ],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -459,7 +477,18 @@ class TrainingDatasetsResource(SyncAPIResource):
         dataset_name: str,
         end_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         start_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
-        status: Optional[Literal["Unlabeled", "Labeled", "Verified", "Pending", "Skipped", "Suspicious"]]
+        status: Optional[
+            Literal[
+                "Unlabeled",
+                "NavLabeled",
+                "SaveLabeled",
+                "Verified",
+                "Pending",
+                "Skipped",
+                "SuspiciousNav",
+                "SuspiciousSave",
+            ]
+        ]
         | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -545,7 +574,16 @@ class TrainingDatasetsResource(SyncAPIResource):
         self,
         *,
         id: str,
-        status: Literal["Unlabeled", "Labeled", "Verified", "Pending", "Skipped", "Suspicious"],
+        status: Literal[
+            "Unlabeled",
+            "NavLabeled",
+            "SaveLabeled",
+            "Verified",
+            "Pending",
+            "Skipped",
+            "SuspiciousNav",
+            "SuspiciousSave",
+        ],
         review_message: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -827,7 +865,16 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
     async def get_labeller_stats(
         self,
         *,
-        status: Literal["Unlabeled", "Labeled", "Verified", "Pending", "Skipped", "Suspicious"],
+        status: Literal[
+            "Unlabeled",
+            "NavLabeled",
+            "SaveLabeled",
+            "Verified",
+            "Pending",
+            "Skipped",
+            "SuspiciousNav",
+            "SuspiciousSave",
+        ],
         dataset_name: Optional[str] | NotGiven = NOT_GIVEN,
         end_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         start_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
@@ -874,7 +921,16 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
         self,
         *,
         dataset_name: str,
-        status: Literal["Unlabeled", "Labeled", "Verified", "Pending", "Skipped", "Suspicious"],
+        status: Literal[
+            "Unlabeled",
+            "NavLabeled",
+            "SaveLabeled",
+            "Verified",
+            "Pending",
+            "Skipped",
+            "SuspiciousNav",
+            "SuspiciousSave",
+        ],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1033,7 +1089,18 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
         dataset_name: str,
         end_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         start_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
-        status: Optional[Literal["Unlabeled", "Labeled", "Verified", "Pending", "Skipped", "Suspicious"]]
+        status: Optional[
+            Literal[
+                "Unlabeled",
+                "NavLabeled",
+                "SaveLabeled",
+                "Verified",
+                "Pending",
+                "Skipped",
+                "SuspiciousNav",
+                "SuspiciousSave",
+            ]
+        ]
         | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1119,7 +1186,16 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
         self,
         *,
         id: str,
-        status: Literal["Unlabeled", "Labeled", "Verified", "Pending", "Skipped", "Suspicious"],
+        status: Literal[
+            "Unlabeled",
+            "NavLabeled",
+            "SaveLabeled",
+            "Verified",
+            "Pending",
+            "Skipped",
+            "SuspiciousNav",
+            "SuspiciousSave",
+        ],
         review_message: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.

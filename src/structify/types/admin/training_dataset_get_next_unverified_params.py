@@ -10,4 +10,15 @@ __all__ = ["TrainingDatasetGetNextUnverifiedParams"]
 class TrainingDatasetGetNextUnverifiedParams(TypedDict, total=False):
     dataset_name: Required[str]
 
-    status: Required[Literal["Unlabeled", "Labeled", "Verified", "Pending", "Skipped", "Suspicious"]]
+    status: Required[
+        Literal[
+            "Unlabeled",
+            "NavLabeled",
+            "SaveLabeled",
+            "Verified",
+            "Pending",
+            "Skipped",
+            "SuspiciousNav",
+            "SuspiciousSave",
+        ]
+    ]
