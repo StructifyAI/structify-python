@@ -42,6 +42,19 @@ __all__ = [
 class TrainingDatasetLabelDatumParams(TypedDict, total=False):
     id: Required[str]
 
+    status: Required[
+        Literal[
+            "Unlabeled",
+            "NavLabeled",
+            "SaveLabeled",
+            "Verified",
+            "Pending",
+            "Skipped",
+            "SuspiciousNav",
+            "SuspiciousSave",
+        ]
+    ]
+
     updated_tool_calls: Required[Iterable[UpdatedToolCall]]
 
 
