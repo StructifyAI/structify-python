@@ -13,7 +13,7 @@ class UserCreateParams(TypedDict, total=False):
 
     email: Optional[str]
 
-    feature_flags: List[Literal["test", "pdf_parsing", "none"]]
+    feature_flags: List[Literal["test", "pdf_parsing", "boredm_construction_hack", "boredm_construction_model", "none"]]
 
     is_admin: bool
 
