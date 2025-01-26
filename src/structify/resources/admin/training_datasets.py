@@ -38,6 +38,7 @@ from ...types.admin import (
     training_dataset_label_datum_params,
     training_dataset_list_datums_params,
     training_dataset_remove_datum_params,
+    training_dataset_verify_datum_params,
     training_dataset_download_datum_params,
     training_dataset_get_datum_info_params,
     training_dataset_switch_dataset_params,
@@ -360,6 +361,16 @@ class TrainingDatasetsResource(SyncAPIResource):
         self,
         *,
         id: str,
+        status: Literal[
+            "Unlabeled",
+            "NavLabeled",
+            "SaveLabeled",
+            "Verified",
+            "Pending",
+            "Skipped",
+            "SuspiciousNav",
+            "SuspiciousSave",
+        ],
         updated_tool_calls: Iterable[training_dataset_label_datum_params.UpdatedToolCall],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -386,6 +397,7 @@ class TrainingDatasetsResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "id": id,
+                    "status": status,
                     "updated_tool_calls": updated_tool_calls,
                 },
                 training_dataset_label_datum_params.TrainingDatasetLabelDatumParams,
@@ -661,6 +673,48 @@ class TrainingDatasetsResource(SyncAPIResource):
                 body, training_dataset_upload_labeled_step_params.TrainingDatasetUploadLabeledStepParams
             ),
             files=files,
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NoneType,
+        )
+
+    def verify_datum(
+        self,
+        *,
+        id: str,
+        verified_nav_id: str,
+        verified_save_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> None:
+        """
+        Verifies a training datum update.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return self._put(
+            "/admin/training_datasets/verify_datum",
+            body=maybe_transform(
+                {
+                    "id": id,
+                    "verified_nav_id": verified_nav_id,
+                    "verified_save_id": verified_save_id,
+                },
+                training_dataset_verify_datum_params.TrainingDatasetVerifyDatumParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -972,6 +1026,16 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
         self,
         *,
         id: str,
+        status: Literal[
+            "Unlabeled",
+            "NavLabeled",
+            "SaveLabeled",
+            "Verified",
+            "Pending",
+            "Skipped",
+            "SuspiciousNav",
+            "SuspiciousSave",
+        ],
         updated_tool_calls: Iterable[training_dataset_label_datum_params.UpdatedToolCall],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -998,6 +1062,7 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "id": id,
+                    "status": status,
                     "updated_tool_calls": updated_tool_calls,
                 },
                 training_dataset_label_datum_params.TrainingDatasetLabelDatumParams,
@@ -1279,6 +1344,48 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
             cast_to=NoneType,
         )
 
+    async def verify_datum(
+        self,
+        *,
+        id: str,
+        verified_nav_id: str,
+        verified_save_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> None:
+        """
+        Verifies a training datum update.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return await self._put(
+            "/admin/training_datasets/verify_datum",
+            body=await async_maybe_transform(
+                {
+                    "id": id,
+                    "verified_nav_id": verified_nav_id,
+                    "verified_save_id": verified_save_id,
+                },
+                training_dataset_verify_datum_params.TrainingDatasetVerifyDatumParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NoneType,
+        )
+
 
 class TrainingDatasetsResourceWithRawResponse:
     def __init__(self, training_datasets: TrainingDatasetsResource) -> None:
@@ -1326,6 +1433,9 @@ class TrainingDatasetsResourceWithRawResponse:
         )
         self.upload_labeled_step = to_raw_response_wrapper(
             training_datasets.upload_labeled_step,
+        )
+        self.verify_datum = to_raw_response_wrapper(
+            training_datasets.verify_datum,
         )
 
 
@@ -1376,6 +1486,9 @@ class AsyncTrainingDatasetsResourceWithRawResponse:
         self.upload_labeled_step = async_to_raw_response_wrapper(
             training_datasets.upload_labeled_step,
         )
+        self.verify_datum = async_to_raw_response_wrapper(
+            training_datasets.verify_datum,
+        )
 
 
 class TrainingDatasetsResourceWithStreamingResponse:
@@ -1425,6 +1538,9 @@ class TrainingDatasetsResourceWithStreamingResponse:
         self.upload_labeled_step = to_streamed_response_wrapper(
             training_datasets.upload_labeled_step,
         )
+        self.verify_datum = to_streamed_response_wrapper(
+            training_datasets.verify_datum,
+        )
 
 
 class AsyncTrainingDatasetsResourceWithStreamingResponse:
@@ -1473,4 +1589,7 @@ class AsyncTrainingDatasetsResourceWithStreamingResponse:
         )
         self.upload_labeled_step = async_to_streamed_response_wrapper(
             training_datasets.upload_labeled_step,
+        )
+        self.verify_datum = async_to_streamed_response_wrapper(
+            training_datasets.verify_datum,
         )
