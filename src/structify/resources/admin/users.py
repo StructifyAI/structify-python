@@ -64,7 +64,10 @@ class UsersResource(SyncAPIResource):
         *,
         credit_count: Optional[int] | NotGiven = NOT_GIVEN,
         email: Optional[str] | NotGiven = NOT_GIVEN,
-        feature_flags: List[Literal["test", "pdf_parsing", "none"]] | NotGiven = NOT_GIVEN,
+        feature_flags: List[
+            Literal["test", "pdf_parsing", "boredm_construction_hack", "boredm_construction_model", "none"]
+        ]
+        | NotGiven = NOT_GIVEN,
         is_admin: bool | NotGiven = NOT_GIVEN,
         permissions: List[Literal["labeler", "debug", "none"]] | NotGiven = NOT_GIVEN,
         test: bool | NotGiven = NOT_GIVEN,
@@ -111,7 +114,10 @@ class UsersResource(SyncAPIResource):
         *,
         current_email: str,
         new_email: Optional[str] | NotGiven = NOT_GIVEN,
-        new_feature_flags: Optional[List[Literal["test", "pdf_parsing", "none"]]] | NotGiven = NOT_GIVEN,
+        new_feature_flags: Optional[
+            List[Literal["test", "pdf_parsing", "boredm_construction_hack", "boredm_construction_model", "none"]]
+        ]
+        | NotGiven = NOT_GIVEN,
         new_permissions: Optional[List[Literal["labeler", "debug", "none"]]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -316,7 +322,10 @@ class AsyncUsersResource(AsyncAPIResource):
         *,
         credit_count: Optional[int] | NotGiven = NOT_GIVEN,
         email: Optional[str] | NotGiven = NOT_GIVEN,
-        feature_flags: List[Literal["test", "pdf_parsing", "none"]] | NotGiven = NOT_GIVEN,
+        feature_flags: List[
+            Literal["test", "pdf_parsing", "boredm_construction_hack", "boredm_construction_model", "none"]
+        ]
+        | NotGiven = NOT_GIVEN,
         is_admin: bool | NotGiven = NOT_GIVEN,
         permissions: List[Literal["labeler", "debug", "none"]] | NotGiven = NOT_GIVEN,
         test: bool | NotGiven = NOT_GIVEN,
@@ -363,7 +372,10 @@ class AsyncUsersResource(AsyncAPIResource):
         *,
         current_email: str,
         new_email: Optional[str] | NotGiven = NOT_GIVEN,
-        new_feature_flags: Optional[List[Literal["test", "pdf_parsing", "none"]]] | NotGiven = NOT_GIVEN,
+        new_feature_flags: Optional[
+            List[Literal["test", "pdf_parsing", "boredm_construction_hack", "boredm_construction_model", "none"]]
+        ]
+        | NotGiven = NOT_GIVEN,
         new_permissions: Optional[List[Literal["labeler", "debug", "none"]]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
