@@ -25,6 +25,7 @@ from ...types.admin import (
     human_llm_finish_job_params,
     human_llm_update_step_params,
     human_llm_get_next_step_params,
+    human_llm_add_to_dataset_params,
     human_llm_start_next_job_params,
     human_llm_add_search_for_job_params,
 )
@@ -95,6 +96,49 @@ class HumanLlmResource(SyncAPIResource):
                 ),
             ),
             cast_to=ExecutionStep,
+        )
+
+    def add_to_dataset(
+        self,
+        *,
+        extraction_criteria_met: bool,
+        job_id: str,
+        step_id: str,
+        tool_calls: Iterable[human_llm_add_to_dataset_params.ToolCall],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> object:
+        """
+        Adds the given step to the HumanLLM dataset.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/admin/human_llm/add_to_dataset",
+            body=maybe_transform(
+                {
+                    "extraction_criteria_met": extraction_criteria_met,
+                    "job_id": job_id,
+                    "step_id": step_id,
+                    "tool_calls": tool_calls,
+                },
+                human_llm_add_to_dataset_params.HumanLlmAddToDatasetParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=object,
         )
 
     def finish_job(
@@ -283,10 +327,10 @@ class HumanLlmResource(SyncAPIResource):
     def update_step(
         self,
         *,
+        extraction_criteria_met: bool,
         job_id: str,
         step_id: str,
         tool_calls: Iterable[human_llm_update_step_params.ToolCall],
-        add_to_training_datum: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -311,10 +355,10 @@ class HumanLlmResource(SyncAPIResource):
             "/admin/human_llm/update_step",
             body=maybe_transform(
                 {
+                    "extraction_criteria_met": extraction_criteria_met,
                     "job_id": job_id,
                     "step_id": step_id,
                     "tool_calls": tool_calls,
-                    "add_to_training_datum": add_to_training_datum,
                 },
                 human_llm_update_step_params.HumanLlmUpdateStepParams,
             ),
@@ -383,6 +427,49 @@ class AsyncHumanLlmResource(AsyncAPIResource):
                 ),
             ),
             cast_to=ExecutionStep,
+        )
+
+    async def add_to_dataset(
+        self,
+        *,
+        extraction_criteria_met: bool,
+        job_id: str,
+        step_id: str,
+        tool_calls: Iterable[human_llm_add_to_dataset_params.ToolCall],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> object:
+        """
+        Adds the given step to the HumanLLM dataset.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/admin/human_llm/add_to_dataset",
+            body=await async_maybe_transform(
+                {
+                    "extraction_criteria_met": extraction_criteria_met,
+                    "job_id": job_id,
+                    "step_id": step_id,
+                    "tool_calls": tool_calls,
+                },
+                human_llm_add_to_dataset_params.HumanLlmAddToDatasetParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=object,
         )
 
     async def finish_job(
@@ -573,10 +660,10 @@ class AsyncHumanLlmResource(AsyncAPIResource):
     async def update_step(
         self,
         *,
+        extraction_criteria_met: bool,
         job_id: str,
         step_id: str,
         tool_calls: Iterable[human_llm_update_step_params.ToolCall],
-        add_to_training_datum: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -601,10 +688,10 @@ class AsyncHumanLlmResource(AsyncAPIResource):
             "/admin/human_llm/update_step",
             body=await async_maybe_transform(
                 {
+                    "extraction_criteria_met": extraction_criteria_met,
                     "job_id": job_id,
                     "step_id": step_id,
                     "tool_calls": tool_calls,
-                    "add_to_training_datum": add_to_training_datum,
                 },
                 human_llm_update_step_params.HumanLlmUpdateStepParams,
             ),
@@ -621,6 +708,9 @@ class HumanLlmResourceWithRawResponse:
 
         self.add_search_for_job = to_raw_response_wrapper(
             human_llm.add_search_for_job,
+        )
+        self.add_to_dataset = to_raw_response_wrapper(
+            human_llm.add_to_dataset,
         )
         self.finish_job = to_raw_response_wrapper(
             human_llm.finish_job,
@@ -649,6 +739,9 @@ class AsyncHumanLlmResourceWithRawResponse:
         self.add_search_for_job = async_to_raw_response_wrapper(
             human_llm.add_search_for_job,
         )
+        self.add_to_dataset = async_to_raw_response_wrapper(
+            human_llm.add_to_dataset,
+        )
         self.finish_job = async_to_raw_response_wrapper(
             human_llm.finish_job,
         )
@@ -676,6 +769,9 @@ class HumanLlmResourceWithStreamingResponse:
         self.add_search_for_job = to_streamed_response_wrapper(
             human_llm.add_search_for_job,
         )
+        self.add_to_dataset = to_streamed_response_wrapper(
+            human_llm.add_to_dataset,
+        )
         self.finish_job = to_streamed_response_wrapper(
             human_llm.finish_job,
         )
@@ -702,6 +798,9 @@ class AsyncHumanLlmResourceWithStreamingResponse:
 
         self.add_search_for_job = async_to_streamed_response_wrapper(
             human_llm.add_search_for_job,
+        )
+        self.add_to_dataset = async_to_streamed_response_wrapper(
+            human_llm.add_to_dataset,
         )
         self.finish_job = async_to_streamed_response_wrapper(
             human_llm.finish_job,
