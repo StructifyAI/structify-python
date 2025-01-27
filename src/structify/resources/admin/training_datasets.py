@@ -41,6 +41,7 @@ from ...types.admin import (
     training_dataset_verify_datum_params,
     training_dataset_download_datum_params,
     training_dataset_get_datum_info_params,
+    training_dataset_get_next_datum_params,
     training_dataset_switch_dataset_params,
     training_dataset_get_labeller_stats_params,
     training_dataset_update_datum_status_params,
@@ -303,6 +304,57 @@ class TrainingDatasetsResource(SyncAPIResource):
                 ),
             ),
             cast_to=TrainingDatasetGetLabellerStatsResponse,
+        )
+
+    def get_next_datum(
+        self,
+        *,
+        dataset_name: str,
+        status: Literal[
+            "Unlabeled",
+            "NavLabeled",
+            "SaveLabeled",
+            "Verified",
+            "Pending",
+            "Skipped",
+            "SuspiciousNav",
+            "SuspiciousSave",
+        ],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> Optional[TrainingDatumResponse]:
+        """
+        Returns None if no datum is available.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._get(
+            "/admin/training_datasets/get_next_datum",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "dataset_name": dataset_name,
+                        "status": status,
+                    },
+                    training_dataset_get_next_datum_params.TrainingDatasetGetNextDatumParams,
+                ),
+            ),
+            cast_to=TrainingDatumResponse,
         )
 
     def label_datum(
@@ -919,6 +971,57 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
             cast_to=TrainingDatasetGetLabellerStatsResponse,
         )
 
+    async def get_next_datum(
+        self,
+        *,
+        dataset_name: str,
+        status: Literal[
+            "Unlabeled",
+            "NavLabeled",
+            "SaveLabeled",
+            "Verified",
+            "Pending",
+            "Skipped",
+            "SuspiciousNav",
+            "SuspiciousSave",
+        ],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> Optional[TrainingDatumResponse]:
+        """
+        Returns None if no datum is available.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._get(
+            "/admin/training_datasets/get_next_datum",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "dataset_name": dataset_name,
+                        "status": status,
+                    },
+                    training_dataset_get_next_datum_params.TrainingDatasetGetNextDatumParams,
+                ),
+            ),
+            cast_to=TrainingDatumResponse,
+        )
+
     async def label_datum(
         self,
         *,
@@ -1307,6 +1410,9 @@ class TrainingDatasetsResourceWithRawResponse:
         self.get_labeller_stats = to_raw_response_wrapper(
             training_datasets.get_labeller_stats,
         )
+        self.get_next_datum = to_raw_response_wrapper(
+            training_datasets.get_next_datum,
+        )
         self.label_datum = to_raw_response_wrapper(
             training_datasets.label_datum,
         )
@@ -1355,6 +1461,9 @@ class AsyncTrainingDatasetsResourceWithRawResponse:
         )
         self.get_labeller_stats = async_to_raw_response_wrapper(
             training_datasets.get_labeller_stats,
+        )
+        self.get_next_datum = async_to_raw_response_wrapper(
+            training_datasets.get_next_datum,
         )
         self.label_datum = async_to_raw_response_wrapper(
             training_datasets.label_datum,
@@ -1405,6 +1514,9 @@ class TrainingDatasetsResourceWithStreamingResponse:
         self.get_labeller_stats = to_streamed_response_wrapper(
             training_datasets.get_labeller_stats,
         )
+        self.get_next_datum = to_streamed_response_wrapper(
+            training_datasets.get_next_datum,
+        )
         self.label_datum = to_streamed_response_wrapper(
             training_datasets.label_datum,
         )
@@ -1453,6 +1565,9 @@ class AsyncTrainingDatasetsResourceWithStreamingResponse:
         )
         self.get_labeller_stats = async_to_streamed_response_wrapper(
             training_datasets.get_labeller_stats,
+        )
+        self.get_next_datum = async_to_streamed_response_wrapper(
+            training_datasets.get_next_datum,
         )
         self.label_datum = async_to_streamed_response_wrapper(
             training_datasets.label_datum,

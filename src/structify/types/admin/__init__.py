@@ -41,6 +41,9 @@ from .training_dataset_download_datum_params import (
 from .training_dataset_get_datum_info_params import (
     TrainingDatasetGetDatumInfoParams as TrainingDatasetGetDatumInfoParams,
 )
+from .training_dataset_get_next_datum_params import (
+    TrainingDatasetGetNextDatumParams as TrainingDatasetGetNextDatumParams,
+)
 from .training_dataset_switch_dataset_params import (
     TrainingDatasetSwitchDatasetParams as TrainingDatasetSwitchDatasetParams,
 )
