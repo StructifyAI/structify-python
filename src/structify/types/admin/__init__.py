@@ -47,9 +47,6 @@ from .training_dataset_switch_dataset_params import (
 from .training_dataset_get_labeller_stats_params import (
     TrainingDatasetGetLabellerStatsParams as TrainingDatasetGetLabellerStatsParams,
 )
-from .training_dataset_get_next_unverified_params import (
-    TrainingDatasetGetNextUnverifiedParams as TrainingDatasetGetNextUnverifiedParams,
-)
 from .training_dataset_update_datum_status_params import (
     TrainingDatasetUpdateDatumStatusParams as TrainingDatasetUpdateDatumStatusParams,
 )
