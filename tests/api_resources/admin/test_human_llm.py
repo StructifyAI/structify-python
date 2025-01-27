@@ -57,6 +57,61 @@ class TestHumanLlm:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
+    def test_method_add_to_dataset(self, client: Structify) -> None:
+        human_llm = client.admin.human_llm.add_to_dataset(
+            extraction_criteria_met=True,
+            job_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            step_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            tool_calls=[
+                {
+                    "input": {"save": {}},
+                    "name": "Exit",
+                }
+            ],
+        )
+        assert_matches_type(object, human_llm, path=["response"])
+
+    @parametrize
+    def test_raw_response_add_to_dataset(self, client: Structify) -> None:
+        response = client.admin.human_llm.with_raw_response.add_to_dataset(
+            extraction_criteria_met=True,
+            job_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            step_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            tool_calls=[
+                {
+                    "input": {"save": {}},
+                    "name": "Exit",
+                }
+            ],
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        human_llm = response.parse()
+        assert_matches_type(object, human_llm, path=["response"])
+
+    @parametrize
+    def test_streaming_response_add_to_dataset(self, client: Structify) -> None:
+        with client.admin.human_llm.with_streaming_response.add_to_dataset(
+            extraction_criteria_met=True,
+            job_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            step_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            tool_calls=[
+                {
+                    "input": {"save": {}},
+                    "name": "Exit",
+                }
+            ],
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            human_llm = response.parse()
+            assert_matches_type(object, human_llm, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
     def test_method_finish_job(self, client: Structify) -> None:
         human_llm = client.admin.human_llm.finish_job(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -229,6 +284,7 @@ class TestHumanLlm:
     @parametrize
     def test_method_update_step(self, client: Structify) -> None:
         human_llm = client.admin.human_llm.update_step(
+            extraction_criteria_met=True,
             job_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             step_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             tool_calls=[
@@ -241,42 +297,9 @@ class TestHumanLlm:
         assert_matches_type(StepChoices, human_llm, path=["response"])
 
     @parametrize
-    def test_method_update_step_with_all_params(self, client: Structify) -> None:
-        human_llm = client.admin.human_llm.update_step(
-            job_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            step_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            tool_calls=[
-                {
-                    "input": {
-                        "save": {
-                            "entities": [
-                                {
-                                    "id": 0,
-                                    "properties": {"foo": "string"},
-                                    "type": "type",
-                                }
-                            ],
-                            "relationships": [
-                                {
-                                    "source": 0,
-                                    "target": 0,
-                                    "type": "type",
-                                    "properties": {"foo": "string"},
-                                }
-                            ],
-                        }
-                    },
-                    "name": "Exit",
-                    "result": {"tool_queued": "ToolQueued"},
-                }
-            ],
-            add_to_training_datum=True,
-        )
-        assert_matches_type(StepChoices, human_llm, path=["response"])
-
-    @parametrize
     def test_raw_response_update_step(self, client: Structify) -> None:
         response = client.admin.human_llm.with_raw_response.update_step(
+            extraction_criteria_met=True,
             job_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             step_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             tool_calls=[
@@ -295,6 +318,7 @@ class TestHumanLlm:
     @parametrize
     def test_streaming_response_update_step(self, client: Structify) -> None:
         with client.admin.human_llm.with_streaming_response.update_step(
+            extraction_criteria_met=True,
             job_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             step_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             tool_calls=[
@@ -347,6 +371,61 @@ class TestAsyncHumanLlm:
 
             human_llm = await response.parse()
             assert_matches_type(ExecutionStep, human_llm, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_method_add_to_dataset(self, async_client: AsyncStructify) -> None:
+        human_llm = await async_client.admin.human_llm.add_to_dataset(
+            extraction_criteria_met=True,
+            job_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            step_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            tool_calls=[
+                {
+                    "input": {"save": {}},
+                    "name": "Exit",
+                }
+            ],
+        )
+        assert_matches_type(object, human_llm, path=["response"])
+
+    @parametrize
+    async def test_raw_response_add_to_dataset(self, async_client: AsyncStructify) -> None:
+        response = await async_client.admin.human_llm.with_raw_response.add_to_dataset(
+            extraction_criteria_met=True,
+            job_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            step_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            tool_calls=[
+                {
+                    "input": {"save": {}},
+                    "name": "Exit",
+                }
+            ],
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        human_llm = await response.parse()
+        assert_matches_type(object, human_llm, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_add_to_dataset(self, async_client: AsyncStructify) -> None:
+        async with async_client.admin.human_llm.with_streaming_response.add_to_dataset(
+            extraction_criteria_met=True,
+            job_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            step_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            tool_calls=[
+                {
+                    "input": {"save": {}},
+                    "name": "Exit",
+                }
+            ],
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            human_llm = await response.parse()
+            assert_matches_type(object, human_llm, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -523,6 +602,7 @@ class TestAsyncHumanLlm:
     @parametrize
     async def test_method_update_step(self, async_client: AsyncStructify) -> None:
         human_llm = await async_client.admin.human_llm.update_step(
+            extraction_criteria_met=True,
             job_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             step_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             tool_calls=[
@@ -535,42 +615,9 @@ class TestAsyncHumanLlm:
         assert_matches_type(StepChoices, human_llm, path=["response"])
 
     @parametrize
-    async def test_method_update_step_with_all_params(self, async_client: AsyncStructify) -> None:
-        human_llm = await async_client.admin.human_llm.update_step(
-            job_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            step_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            tool_calls=[
-                {
-                    "input": {
-                        "save": {
-                            "entities": [
-                                {
-                                    "id": 0,
-                                    "properties": {"foo": "string"},
-                                    "type": "type",
-                                }
-                            ],
-                            "relationships": [
-                                {
-                                    "source": 0,
-                                    "target": 0,
-                                    "type": "type",
-                                    "properties": {"foo": "string"},
-                                }
-                            ],
-                        }
-                    },
-                    "name": "Exit",
-                    "result": {"tool_queued": "ToolQueued"},
-                }
-            ],
-            add_to_training_datum=True,
-        )
-        assert_matches_type(StepChoices, human_llm, path=["response"])
-
-    @parametrize
     async def test_raw_response_update_step(self, async_client: AsyncStructify) -> None:
         response = await async_client.admin.human_llm.with_raw_response.update_step(
+            extraction_criteria_met=True,
             job_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             step_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             tool_calls=[
@@ -589,6 +636,7 @@ class TestAsyncHumanLlm:
     @parametrize
     async def test_streaming_response_update_step(self, async_client: AsyncStructify) -> None:
         async with async_client.admin.human_llm.with_streaming_response.update_step(
+            extraction_criteria_met=True,
             job_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             step_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             tool_calls=[

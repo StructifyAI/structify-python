@@ -22,6 +22,7 @@ Types:
 from structify.types.admin import (
     HumanLlmJob,
     StepChoices,
+    HumanLlmAddToDatasetResponse,
     HumanLlmFinishJobResponse,
     HumanLlmGetJobsResponse,
     HumanLlmPrelabelStepResponse,
@@ -31,6 +32,7 @@ from structify.types.admin import (
 Methods:
 
 - <code title="post /admin/human_llm/add_search_for_job">client.admin.human_llm.<a href="./src/structify/resources/admin/human_llm.py">add_search_for_job</a>(\*\*<a href="src/structify/types/admin/human_llm_add_search_for_job_params.py">params</a>) -> <a href="./src/structify/types/execution_step.py">ExecutionStep</a></code>
+- <code title="post /admin/human_llm/add_to_dataset">client.admin.human_llm.<a href="./src/structify/resources/admin/human_llm.py">add_to_dataset</a>(\*\*<a href="src/structify/types/admin/human_llm_add_to_dataset_params.py">params</a>) -> <a href="./src/structify/types/admin/human_llm_add_to_dataset_response.py">object</a></code>
 - <code title="post /admin/human_llm/finish_job">client.admin.human_llm.<a href="./src/structify/resources/admin/human_llm.py">finish_job</a>(\*\*<a href="src/structify/types/admin/human_llm_finish_job_params.py">params</a>) -> <a href="./src/structify/types/admin/human_llm_finish_job_response.py">object</a></code>
 - <code title="post /admin/human_llm/get_jobs">client.admin.human_llm.<a href="./src/structify/resources/admin/human_llm.py">get_jobs</a>(\*\*<a href="src/structify/types/admin/human_llm_get_jobs_params.py">params</a>) -> <a href="./src/structify/types/admin/human_llm_get_jobs_response.py">HumanLlmGetJobsResponse</a></code>
 - <code title="post /admin/human_llm/get_next_step">client.admin.human_llm.<a href="./src/structify/resources/admin/human_llm.py">get_next_step</a>(\*\*<a href="src/structify/types/admin/human_llm_get_next_step_params.py">params</a>) -> <a href="./src/structify/types/execution_step.py">ExecutionStep</a></code>
