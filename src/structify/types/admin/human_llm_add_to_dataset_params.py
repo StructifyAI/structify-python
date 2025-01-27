@@ -9,7 +9,7 @@ from ..._utils import PropertyInfo
 from ..knowledge_graph_param import KnowledgeGraphParam
 
 __all__ = [
-    "HumanLlmUpdateStepParams",
+    "HumanLlmAddToDatasetParams",
     "ToolCall",
     "ToolCallInput",
     "ToolCallInputSave",
@@ -39,7 +39,7 @@ __all__ = [
 ]
 
 
-class HumanLlmUpdateStepParams(TypedDict, total=False):
+class HumanLlmAddToDatasetParams(TypedDict, total=False):
     extraction_criteria_met: Required[bool]
 
     job_id: Required[str]
