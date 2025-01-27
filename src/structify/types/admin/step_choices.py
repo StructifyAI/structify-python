@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List
+from typing import Dict, List, Optional
 
 from ..._models import BaseModel
 from ..knowledge_graph import KnowledgeGraph
@@ -12,9 +12,9 @@ __all__ = ["StepChoices", "StepOption"]
 class StepOption(BaseModel):
     id: str
 
-    action_name: str
+    action_name: Optional[str] = None
 
-    metadata: Dict[str, str]
+    metadata: Optional[Dict[str, str]] = None
 
 
 class StepChoices(BaseModel):
