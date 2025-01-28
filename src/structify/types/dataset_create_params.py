@@ -30,6 +30,8 @@ class DatasetCreateParams(TypedDict, total=False):
 
     tables: Required[Iterable[TableParam]]
 
+    model_override: Optional[str]
+
 
 class RelationshipMergeStrategyProbabilistic(TypedDict, total=False):
     source_cardinality_given_target_match: Optional[int]

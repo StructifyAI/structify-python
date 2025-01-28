@@ -70,6 +70,7 @@ class DatasetsResource(SyncAPIResource):
         name: str,
         relationships: Iterable[dataset_create_params.Relationship],
         tables: Iterable[TableParam],
+        model_override: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -98,6 +99,7 @@ class DatasetsResource(SyncAPIResource):
                     "name": name,
                     "relationships": relationships,
                     "tables": tables,
+                    "model_override": model_override,
                 },
                 dataset_create_params.DatasetCreateParams,
             ),
@@ -434,6 +436,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
         name: str,
         relationships: Iterable[dataset_create_params.Relationship],
         tables: Iterable[TableParam],
+        model_override: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -462,6 +465,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
                     "name": name,
                     "relationships": relationships,
                     "tables": tables,
+                    "model_override": model_override,
                 },
                 dataset_create_params.DatasetCreateParams,
             ),
