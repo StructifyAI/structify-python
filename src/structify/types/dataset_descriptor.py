@@ -111,3 +111,5 @@ class DatasetDescriptor(BaseModel):
     relationships: List[Relationship]
 
     tables: List[Table]
+
+    api_model_override: Optional[str] = FieldInfo(alias="model_override", default=None)

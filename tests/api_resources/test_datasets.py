@@ -55,6 +55,52 @@ class TestDatasets:
         assert dataset is None
 
     @parametrize
+    def test_method_create_with_all_params(self, client: Structify) -> None:
+        dataset = client.datasets.create(
+            description="description",
+            name="name",
+            relationships=[
+                {
+                    "description": "description",
+                    "name": "name",
+                    "source_table": "source_table",
+                    "target_table": "target_table",
+                    "merge_strategy": {
+                        "probabilistic": {
+                            "source_cardinality_given_target_match": 0,
+                            "target_cardinality_given_source_match": 0,
+                        }
+                    },
+                    "properties": [
+                        {
+                            "description": "description",
+                            "name": "name",
+                            "merge_strategy": "Unique",
+                            "prop_type": "String",
+                        }
+                    ],
+                }
+            ],
+            tables=[
+                {
+                    "description": "description",
+                    "name": "name",
+                    "properties": [
+                        {
+                            "description": "description",
+                            "name": "name",
+                            "merge_strategy": "Unique",
+                            "prop_type": "String",
+                        }
+                    ],
+                    "expected_cardinality": 0,
+                }
+            ],
+            model_override="model_override",
+        )
+        assert dataset is None
+
+    @parametrize
     def test_raw_response_create(self, client: Structify) -> None:
         response = client.datasets.with_raw_response.create(
             description="description",
@@ -445,6 +491,52 @@ class TestAsyncDatasets:
                     ],
                 }
             ],
+        )
+        assert dataset is None
+
+    @parametrize
+    async def test_method_create_with_all_params(self, async_client: AsyncStructify) -> None:
+        dataset = await async_client.datasets.create(
+            description="description",
+            name="name",
+            relationships=[
+                {
+                    "description": "description",
+                    "name": "name",
+                    "source_table": "source_table",
+                    "target_table": "target_table",
+                    "merge_strategy": {
+                        "probabilistic": {
+                            "source_cardinality_given_target_match": 0,
+                            "target_cardinality_given_source_match": 0,
+                        }
+                    },
+                    "properties": [
+                        {
+                            "description": "description",
+                            "name": "name",
+                            "merge_strategy": "Unique",
+                            "prop_type": "String",
+                        }
+                    ],
+                }
+            ],
+            tables=[
+                {
+                    "description": "description",
+                    "name": "name",
+                    "properties": [
+                        {
+                            "description": "description",
+                            "name": "name",
+                            "merge_strategy": "Unique",
+                            "prop_type": "String",
+                        }
+                    ],
+                    "expected_cardinality": 0,
+                }
+            ],
+            model_override="model_override",
         )
         assert dataset is None
 
