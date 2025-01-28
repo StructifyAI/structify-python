@@ -44,7 +44,7 @@ class PropertyMergeStrategyProbabilistic(TypedDict, total=False):
     ]
 
 
-PropertyMergeStrategy: TypeAlias = Union[Literal["Unique"], PropertyMergeStrategyProbabilistic, Literal["NoSignal"]]
+PropertyMergeStrategy: TypeAlias = Union[Literal["Unique", "NoSignal"], PropertyMergeStrategyProbabilistic]
 
 
 class Property(TypedDict, total=False):
@@ -53,10 +53,6 @@ class Property(TypedDict, total=False):
     name: Required[str]
 
     merge_strategy: PropertyMergeStrategy
-    """Property with unique 1:1 correspondence to its parent.
-
-    Merge based on this property 100% of the time
-    """
 
     prop_type: PropertyTypeParam
 
