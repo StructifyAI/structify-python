@@ -283,6 +283,10 @@ class TestDatasets:
             last_updated=parse_datetime("2019-12-27T18:11:19.117Z"),
             limit=0,
             offset=0,
+            sort_by={
+                "col_id": "creation_time",
+                "sort": "asc",
+            },
         )
         assert_matches_type(SyncJobsList[DatasetViewRelationshipsResponse], dataset, path=["response"])
 
@@ -329,6 +333,10 @@ class TestDatasets:
             last_updated=parse_datetime("2019-12-27T18:11:19.117Z"),
             limit=0,
             offset=0,
+            sort_by={
+                "col_id": "creation_time",
+                "sort": "asc",
+            },
         )
         assert_matches_type(SyncJobsList[DatasetViewTableResponse], dataset, path=["response"])
 
@@ -375,6 +383,10 @@ class TestDatasets:
             last_updated=parse_datetime("2019-12-27T18:11:19.117Z"),
             limit=0,
             offset=0,
+            sort_by={
+                "col_id": "creation_time",
+                "sort": "asc",
+            },
         )
         assert_matches_type(DatasetViewTablesWithRelationshipsResponse, dataset, path=["response"])
 
@@ -665,6 +677,10 @@ class TestAsyncDatasets:
             last_updated=parse_datetime("2019-12-27T18:11:19.117Z"),
             limit=0,
             offset=0,
+            sort_by={
+                "col_id": "creation_time",
+                "sort": "asc",
+            },
         )
         assert_matches_type(AsyncJobsList[DatasetViewRelationshipsResponse], dataset, path=["response"])
 
@@ -711,6 +727,10 @@ class TestAsyncDatasets:
             last_updated=parse_datetime("2019-12-27T18:11:19.117Z"),
             limit=0,
             offset=0,
+            sort_by={
+                "col_id": "creation_time",
+                "sort": "asc",
+            },
         )
         assert_matches_type(AsyncJobsList[DatasetViewTableResponse], dataset, path=["response"])
 
@@ -757,6 +777,10 @@ class TestAsyncDatasets:
             last_updated=parse_datetime("2019-12-27T18:11:19.117Z"),
             limit=0,
             offset=0,
+            sort_by={
+                "col_id": "creation_time",
+                "sort": "asc",
+            },
         )
         assert_matches_type(DatasetViewTablesWithRelationshipsResponse, dataset, path=["response"])
 

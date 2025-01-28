@@ -4,11 +4,11 @@ from __future__ import annotations
 
 from typing import Union, Optional
 from datetime import datetime
-from typing_extensions import Required, Annotated, TypedDict
+from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from .._utils import PropertyInfo
 
-__all__ = ["DatasetViewTableParams"]
+__all__ = ["DatasetViewTableParams", "SortBy"]
 
 
 class DatasetViewTableParams(TypedDict, total=False):
@@ -23,3 +23,11 @@ class DatasetViewTableParams(TypedDict, total=False):
     limit: int
 
     offset: int
+
+    sort_by: Optional[SortBy]
+
+
+class SortBy(TypedDict, total=False):
+    col_id: Required[Literal["creation_time"]]
+
+    sort: Required[Literal["asc", "desc"]]
