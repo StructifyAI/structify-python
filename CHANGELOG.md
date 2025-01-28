@@ -1,5 +1,23 @@
 # Changelog
 
+## 1.81.0 (2025-01-28)
+
+Full Changelog: [v1.80.0...v1.81.0](https://github.com/StructifyAI/structify-python/compare/v1.80.0...v1.81.0)
+
+### Features
+
+* **api:** api update ([#817](https://github.com/StructifyAI/structify-python/issues/817)) ([ceb701d](https://github.com/StructifyAI/structify-python/commit/ceb701d813b9c7cdf9aa594cf108224a312e2a5d))
+* **api:** api update ([#819](https://github.com/StructifyAI/structify-python/issues/819)) ([1ba3083](https://github.com/StructifyAI/structify-python/commit/1ba3083dd43f93c58a6e4a6319d9ca40dd7c7495))
+* **api:** api update ([#821](https://github.com/StructifyAI/structify-python/issues/821)) ([04a0aae](https://github.com/StructifyAI/structify-python/commit/04a0aae599ede749775484bf4e6b2dd721380215))
+* **api:** api update ([#822](https://github.com/StructifyAI/structify-python/issues/822)) ([af19ad1](https://github.com/StructifyAI/structify-python/commit/af19ad17b9cd26a76f1cbf3f1ecf5caac5cade79))
+* **api:** api update ([#823](https://github.com/StructifyAI/structify-python/issues/823)) ([e1e0424](https://github.com/StructifyAI/structify-python/commit/e1e0424a9f58a9ae5eabefa04c26071bd60adbe3))
+
+
+### Chores
+
+* **internal:** reorder model constants ([#820](https://github.com/StructifyAI/structify-python/issues/820)) ([10f47f4](https://github.com/StructifyAI/structify-python/commit/10f47f494d6aeb5774f393208cc59e5eaa7b7779))
+* **internal:** update models used in tests ([10f47f4](https://github.com/StructifyAI/structify-python/commit/10f47f494d6aeb5774f393208cc59e5eaa7b7779))
+
 ## 1.80.0 (2025-01-27)
 
 Full Changelog: [v1.79.0...v1.80.0](https://github.com/StructifyAI/structify-python/compare/v1.79.0...v1.80.0)
