@@ -33,6 +33,7 @@ class TestStructure:
             allow_new_entities=True,
             property_name="property_name",
             relationship_name="relationship_name",
+            special_job_type="HumanLLM",
         )
         assert_matches_type(str, structure, path=["response"])
 
@@ -73,6 +74,7 @@ class TestStructure:
             relationship_name="relationship_name",
             allow_new_entities=True,
             source_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            special_job_type="HumanLLM",
             target_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(str, structure, path=["response"])
@@ -248,6 +250,7 @@ class TestAsyncStructure:
             allow_new_entities=True,
             property_name="property_name",
             relationship_name="relationship_name",
+            special_job_type="HumanLLM",
         )
         assert_matches_type(str, structure, path=["response"])
 
@@ -288,6 +291,7 @@ class TestAsyncStructure:
             relationship_name="relationship_name",
             allow_new_entities=True,
             source_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            special_job_type="HumanLLM",
             target_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(str, structure, path=["response"])
