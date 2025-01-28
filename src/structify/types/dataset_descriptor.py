@@ -75,7 +75,7 @@ class RelationshipPropertyMergeStrategyProbabilistic(BaseModel):
 
 
 RelationshipPropertyMergeStrategy: TypeAlias = Union[
-    Literal["Unique"], RelationshipPropertyMergeStrategyProbabilistic, Literal["NoSignal"]
+    Literal["Unique", "NoSignal"], RelationshipPropertyMergeStrategyProbabilistic
 ]
 
 
@@ -85,10 +85,6 @@ class RelationshipProperty(BaseModel):
     name: str
 
     merge_strategy: Optional[RelationshipPropertyMergeStrategy] = None
-    """Property with unique 1:1 correspondence to its parent.
-
-    Merge based on this property 100% of the time
-    """
 
     prop_type: Optional[PropertyType] = None
 

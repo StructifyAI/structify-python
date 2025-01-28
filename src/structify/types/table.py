@@ -42,7 +42,7 @@ class PropertyMergeStrategyProbabilistic(BaseModel):
     probabilistic: PropertyMergeStrategyProbabilisticProbabilistic = FieldInfo(alias="Probabilistic")
 
 
-PropertyMergeStrategy: TypeAlias = Union[Literal["Unique"], PropertyMergeStrategyProbabilistic, Literal["NoSignal"]]
+PropertyMergeStrategy: TypeAlias = Union[Literal["Unique", "NoSignal"], PropertyMergeStrategyProbabilistic]
 
 
 class Property(BaseModel):
@@ -51,10 +51,6 @@ class Property(BaseModel):
     name: str
 
     merge_strategy: Optional[PropertyMergeStrategy] = None
-    """Property with unique 1:1 correspondence to its parent.
-
-    Merge based on this property 100% of the time
-    """
 
     prop_type: Optional[PropertyType] = None
 

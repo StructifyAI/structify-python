@@ -122,9 +122,8 @@ class StructureInputEnhanceIngestorEnhanceIngestorTargetDescriptorPropertyProper
 
 
 StructureInputEnhanceIngestorEnhanceIngestorTargetDescriptorPropertyPropertyMergeStrategy: TypeAlias = Union[
-    Literal["Unique"],
+    Literal["Unique", "NoSignal"],
     StructureInputEnhanceIngestorEnhanceIngestorTargetDescriptorPropertyPropertyMergeStrategyProbabilistic,
-    Literal["NoSignal"],
 ]
 
 
@@ -134,10 +133,6 @@ class StructureInputEnhanceIngestorEnhanceIngestorTargetDescriptorPropertyProper
     name: Required[str]
 
     merge_strategy: StructureInputEnhanceIngestorEnhanceIngestorTargetDescriptorPropertyPropertyMergeStrategy
-    """Property with unique 1:1 correspondence to its parent.
-
-    Merge based on this property 100% of the time
-    """
 
     prop_type: PropertyTypeParam
 
@@ -222,9 +217,8 @@ class StructureInputEnhanceIngestorEnhanceIngestorTargetDescriptorRelationshipRe
 
 
 StructureInputEnhanceIngestorEnhanceIngestorTargetDescriptorRelationshipRelationshipPropertyMergeStrategy: TypeAlias = Union[
-    Literal["Unique"],
+    Literal["Unique", "NoSignal"],
     StructureInputEnhanceIngestorEnhanceIngestorTargetDescriptorRelationshipRelationshipPropertyMergeStrategyProbabilistic,
-    Literal["NoSignal"],
 ]
 
 
@@ -238,10 +232,6 @@ class StructureInputEnhanceIngestorEnhanceIngestorTargetDescriptorRelationshipRe
     merge_strategy: (
         StructureInputEnhanceIngestorEnhanceIngestorTargetDescriptorRelationshipRelationshipPropertyMergeStrategy
     )
-    """Property with unique 1:1 correspondence to its parent.
-
-    Merge based on this property 100% of the time
-    """
 
     prop_type: PropertyTypeParam
 
