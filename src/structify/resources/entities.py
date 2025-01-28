@@ -128,8 +128,6 @@ class EntitiesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> EntityAddResponse:
         """
-        Add an entity manually
-
         Args:
           kg: Knowledge graph info structured to deserialize and display in the same format
               that the LLM outputs. Also the first representation of an LLM output in the
@@ -683,8 +681,6 @@ class AsyncEntitiesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> EntityAddResponse:
         """
-        Add an entity manually
-
         Args:
           kg: Knowledge graph info structured to deserialize and display in the same format
               that the LLM outputs. Also the first representation of an LLM output in the
