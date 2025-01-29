@@ -69,7 +69,7 @@ class HumanLlmResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ExecutionStep:
+    ) -> StepChoices:
         """
         Args:
           extra_headers: Send extra headers
@@ -95,7 +95,7 @@ class HumanLlmResource(SyncAPIResource):
                     human_llm_add_search_for_job_params.HumanLlmAddSearchForJobParams,
                 ),
             ),
-            cast_to=ExecutionStep,
+            cast_to=StepChoices,
         )
 
     def add_to_dataset(
@@ -400,7 +400,7 @@ class AsyncHumanLlmResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ExecutionStep:
+    ) -> StepChoices:
         """
         Args:
           extra_headers: Send extra headers
@@ -426,7 +426,7 @@ class AsyncHumanLlmResource(AsyncAPIResource):
                     human_llm_add_search_for_job_params.HumanLlmAddSearchForJobParams,
                 ),
             ),
-            cast_to=ExecutionStep,
+            cast_to=StepChoices,
         )
 
     async def add_to_dataset(
