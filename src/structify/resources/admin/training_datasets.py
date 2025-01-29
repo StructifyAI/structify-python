@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union, Mapping, Iterable, Optional, cast
+from typing import List, Union, Mapping, Iterable, Optional, cast
 from datetime import datetime
 from typing_extensions import Literal
 
@@ -486,7 +486,7 @@ class TrainingDatasetsResource(SyncAPIResource):
     def size(
         self,
         *,
-        dataset_name: str,
+        dataset_names: Optional[List[str]] | NotGiven = NOT_GIVEN,
         end_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         start_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         status: Optional[
@@ -526,7 +526,7 @@ class TrainingDatasetsResource(SyncAPIResource):
             "/admin/training_datasets/size",
             body=maybe_transform(
                 {
-                    "dataset_name": dataset_name,
+                    "dataset_names": dataset_names,
                     "end_date": end_date,
                     "start_date": start_date,
                     "status": status,
@@ -536,7 +536,7 @@ class TrainingDatasetsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=int,
+            cast_to=TrainingDatasetSizeResponse,
         )
 
     def switch_dataset(
@@ -1151,7 +1151,7 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
     async def size(
         self,
         *,
-        dataset_name: str,
+        dataset_names: Optional[List[str]] | NotGiven = NOT_GIVEN,
         end_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         start_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         status: Optional[
@@ -1191,7 +1191,7 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
             "/admin/training_datasets/size",
             body=await async_maybe_transform(
                 {
-                    "dataset_name": dataset_name,
+                    "dataset_names": dataset_names,
                     "end_date": end_date,
                     "start_date": start_date,
                     "status": status,
@@ -1201,7 +1201,7 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=int,
+            cast_to=TrainingDatasetSizeResponse,
         )
 
     async def switch_dataset(
