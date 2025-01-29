@@ -15,7 +15,7 @@ To then find the sources that were used to create this entity, you would call th
 
     print(structify.sources.list(id='Entity-ea121d6f-6261-460d-a899-686fb067524c'))
 
-This call would result a Python object including the id, as follows:
+This call would result in a Python object including the id, as follows:
 
 .. code-block:: python
     
