@@ -17,7 +17,6 @@ from structify.types import (
     EntityMergeResponse,
     EntityDeleteResponse,
     EntitySearchResponse,
-    EntityAddBatchResponse,
     EntityListJobsResponse,
     EntitySummarizeResponse,
     EntityTriggerMergeResponse,
@@ -123,68 +122,6 @@ class TestEntities:
 
             entity = response.parse()
             assert_matches_type(EntityAddResponse, entity, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    def test_method_add_batch(self, client: Structify) -> None:
-        entity = client.entities.add_batch(
-            dataset_name="dataset_name",
-            kgs=[{}],
-        )
-        assert_matches_type(EntityAddBatchResponse, entity, path=["response"])
-
-    @parametrize
-    def test_method_add_batch_with_all_params(self, client: Structify) -> None:
-        entity = client.entities.add_batch(
-            dataset_name="dataset_name",
-            kgs=[
-                {
-                    "entities": [
-                        {
-                            "id": 0,
-                            "properties": {"foo": "string"},
-                            "type": "type",
-                        }
-                    ],
-                    "relationships": [
-                        {
-                            "source": 0,
-                            "target": 0,
-                            "type": "type",
-                            "properties": {"foo": "string"},
-                        }
-                    ],
-                }
-            ],
-            attempt_merge=True,
-            source="None",
-        )
-        assert_matches_type(EntityAddBatchResponse, entity, path=["response"])
-
-    @parametrize
-    def test_raw_response_add_batch(self, client: Structify) -> None:
-        response = client.entities.with_raw_response.add_batch(
-            dataset_name="dataset_name",
-            kgs=[{}],
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        entity = response.parse()
-        assert_matches_type(EntityAddBatchResponse, entity, path=["response"])
-
-    @parametrize
-    def test_streaming_response_add_batch(self, client: Structify) -> None:
-        with client.entities.with_streaming_response.add_batch(
-            dataset_name="dataset_name",
-            kgs=[{}],
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            entity = response.parse()
-            assert_matches_type(EntityAddBatchResponse, entity, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -730,68 +667,6 @@ class TestAsyncEntities:
 
             entity = await response.parse()
             assert_matches_type(EntityAddResponse, entity, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    async def test_method_add_batch(self, async_client: AsyncStructify) -> None:
-        entity = await async_client.entities.add_batch(
-            dataset_name="dataset_name",
-            kgs=[{}],
-        )
-        assert_matches_type(EntityAddBatchResponse, entity, path=["response"])
-
-    @parametrize
-    async def test_method_add_batch_with_all_params(self, async_client: AsyncStructify) -> None:
-        entity = await async_client.entities.add_batch(
-            dataset_name="dataset_name",
-            kgs=[
-                {
-                    "entities": [
-                        {
-                            "id": 0,
-                            "properties": {"foo": "string"},
-                            "type": "type",
-                        }
-                    ],
-                    "relationships": [
-                        {
-                            "source": 0,
-                            "target": 0,
-                            "type": "type",
-                            "properties": {"foo": "string"},
-                        }
-                    ],
-                }
-            ],
-            attempt_merge=True,
-            source="None",
-        )
-        assert_matches_type(EntityAddBatchResponse, entity, path=["response"])
-
-    @parametrize
-    async def test_raw_response_add_batch(self, async_client: AsyncStructify) -> None:
-        response = await async_client.entities.with_raw_response.add_batch(
-            dataset_name="dataset_name",
-            kgs=[{}],
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        entity = await response.parse()
-        assert_matches_type(EntityAddBatchResponse, entity, path=["response"])
-
-    @parametrize
-    async def test_streaming_response_add_batch(self, async_client: AsyncStructify) -> None:
-        async with async_client.entities.with_streaming_response.add_batch(
-            dataset_name="dataset_name",
-            kgs=[{}],
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            entity = await response.parse()
-            assert_matches_type(EntityAddBatchResponse, entity, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
