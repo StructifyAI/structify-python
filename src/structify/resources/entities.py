@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import List, Iterable, Optional
+from typing import List, Optional
 
 import httpx
 
@@ -15,7 +15,6 @@ from ..types import (
     entity_delete_params,
     entity_search_params,
     entity_verify_params,
-    entity_add_batch_params,
     entity_list_jobs_params,
     entity_summarize_params,
     entity_trigger_merge_params,
@@ -45,7 +44,6 @@ from ..types.entity_merge_response import EntityMergeResponse
 from ..types.knowledge_graph_param import KnowledgeGraphParam
 from ..types.entity_delete_response import EntityDeleteResponse
 from ..types.entity_search_response import EntitySearchResponse
-from ..types.entity_add_batch_response import EntityAddBatchResponse
 from ..types.entity_list_jobs_response import EntityListJobsResponse
 from ..types.entity_summarize_response import EntitySummarizeResponse
 from ..types.entity_trigger_merge_response import EntityTriggerMergeResponse
@@ -160,49 +158,6 @@ class EntitiesResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=EntityAddResponse,
-        )
-
-    def add_batch(
-        self,
-        *,
-        dataset_name: str,
-        kgs: Iterable[KnowledgeGraphParam],
-        attempt_merge: bool | NotGiven = NOT_GIVEN,
-        source: entity_add_batch_params.Source | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> EntityAddBatchResponse:
-        """
-        Args:
-          attempt_merge: If true, attempt to merge with existing entities in the dataset
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return self._post(
-            "/entity/add_batch",
-            body=maybe_transform(
-                {
-                    "dataset_name": dataset_name,
-                    "kgs": kgs,
-                    "attempt_merge": attempt_merge,
-                    "source": source,
-                },
-                entity_add_batch_params.EntityAddBatchParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=EntityAddBatchResponse,
         )
 
     def get(
@@ -758,49 +713,6 @@ class AsyncEntitiesResource(AsyncAPIResource):
             cast_to=EntityAddResponse,
         )
 
-    async def add_batch(
-        self,
-        *,
-        dataset_name: str,
-        kgs: Iterable[KnowledgeGraphParam],
-        attempt_merge: bool | NotGiven = NOT_GIVEN,
-        source: entity_add_batch_params.Source | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> EntityAddBatchResponse:
-        """
-        Args:
-          attempt_merge: If true, attempt to merge with existing entities in the dataset
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return await self._post(
-            "/entity/add_batch",
-            body=await async_maybe_transform(
-                {
-                    "dataset_name": dataset_name,
-                    "kgs": kgs,
-                    "attempt_merge": attempt_merge,
-                    "source": source,
-                },
-                entity_add_batch_params.EntityAddBatchParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=EntityAddBatchResponse,
-        )
-
     async def get(
         self,
         *,
@@ -1262,9 +1174,6 @@ class EntitiesResourceWithRawResponse:
         self.add = to_raw_response_wrapper(
             entities.add,
         )
-        self.add_batch = to_raw_response_wrapper(
-            entities.add_batch,
-        )
         self.get = to_raw_response_wrapper(
             entities.get,
         )
@@ -1309,9 +1218,6 @@ class AsyncEntitiesResourceWithRawResponse:
         )
         self.add = async_to_raw_response_wrapper(
             entities.add,
-        )
-        self.add_batch = async_to_raw_response_wrapper(
-            entities.add_batch,
         )
         self.get = async_to_raw_response_wrapper(
             entities.get,
@@ -1358,9 +1264,6 @@ class EntitiesResourceWithStreamingResponse:
         self.add = to_streamed_response_wrapper(
             entities.add,
         )
-        self.add_batch = to_streamed_response_wrapper(
-            entities.add_batch,
-        )
         self.get = to_streamed_response_wrapper(
             entities.get,
         )
@@ -1405,9 +1308,6 @@ class AsyncEntitiesResourceWithStreamingResponse:
         )
         self.add = async_to_streamed_response_wrapper(
             entities.add,
-        )
-        self.add_batch = async_to_streamed_response_wrapper(
-            entities.add_batch,
         )
         self.get = async_to_streamed_response_wrapper(
             entities.get,
