@@ -13,7 +13,7 @@ You can run our scraper agents either through ``structify.structure.run`` or ``s
 
 - **name:** *(required)* The name of the dataset you want to populate
 - **source:** *(required)* The source you want the agent to use to extract data from. More on this in :ref:`source-types`
-- **extraction_criteria:** *(optional)* The criteria you want the agent to use to extract data from the source. More on this in
+- **extraction_criteria:** *(optional)* The criteria you want the agent to use to extract data from the source. More on this in :ref:`extraction-criteria`
 
 Here's an example of an API call to populate that employees dataset with data from LinkedIn using ``structify.structure.run``:
 
@@ -44,6 +44,7 @@ If you want to run the populate request asynchronously, you can use ``structify.
 .. note::
     The output of ``structify.structure.run_async`` will be a Job ID that you can use to access the run and view its status via ``structify.structure.job_status``.
 
+.. _extraction-criteria:
 
 Extraction Criteria
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
