@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.82.0 (2025-01-29)
+
+Full Changelog: [v1.81.0...v1.82.0](https://github.com/StructifyAI/structify-python/compare/v1.81.0...v1.82.0)
+
+### Features
+
+* add missing `in` ([e3c322e](https://github.com/StructifyAI/structify-python/commit/e3c322e28836e9fbaa241944d2d7615fa0018d84))
+* add missing ref to structuring doc ([62513e8](https://github.com/StructifyAI/structify-python/commit/62513e8e25dcc5b5c02cd48749bd492f98e33977))
+* **api:** api update ([#825](https://github.com/StructifyAI/structify-python/issues/825)) ([04427dd](https://github.com/StructifyAI/structify-python/commit/04427ddd97b086c95e743e1590ed6a290a7dada1))
+* **api:** api update ([#828](https://github.com/StructifyAI/structify-python/issues/828)) ([1c9a1ad](https://github.com/StructifyAI/structify-python/commit/1c9a1ad4ea88e93224c0a9999abd8a11c7ce73e3))
+* **api:** manual updates ([#827](https://github.com/StructifyAI/structify-python/issues/827)) ([b5c4746](https://github.com/StructifyAI/structify-python/commit/b5c4746ef568633e9b814b4fa3da09ee9f7fb609))
+* fix schema typo ([f0cff54](https://github.com/StructifyAI/structify-python/commit/f0cff54c17a2d14d6f6f22d9eb3bb8a6d9f46307))
+
 ## 1.81.0 (2025-01-28)
 
 Full Changelog: [v1.80.0...v1.81.0](https://github.com/StructifyAI/structify-python/compare/v1.80.0...v1.81.0)
