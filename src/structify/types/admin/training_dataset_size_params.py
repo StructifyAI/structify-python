@@ -2,9 +2,9 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
+from typing import List, Union, Optional
 from datetime import datetime
-from typing_extensions import Literal, Required, Annotated, TypedDict
+from typing_extensions import Literal, Annotated, TypedDict
 
 from ..._utils import PropertyInfo
 
@@ -12,7 +12,7 @@ __all__ = ["TrainingDatasetSizeParams"]
 
 
 class TrainingDatasetSizeParams(TypedDict, total=False):
-    dataset_name: Required[str]
+    dataset_names: Optional[List[str]]
 
     end_date: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
 
