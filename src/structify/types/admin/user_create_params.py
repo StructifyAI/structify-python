@@ -17,6 +17,6 @@ class UserCreateParams(TypedDict, total=False):
 
     is_admin: bool
 
-    permissions: List[Literal["labeler", "debug", "none"]]
+    permissions: List[Literal["labeler", "debug", "human_llm", "none"]]
 
     test: bool

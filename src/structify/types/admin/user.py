@@ -15,6 +15,6 @@ class User(BaseModel):
         List[Literal["test", "pdf_parsing", "boredm_construction_hack", "boredm_construction_model", "none"]]
     ] = None
 
-    permissions: Optional[List[Literal["labeler", "debug", "none"]]] = None
+    permissions: Optional[List[Literal["labeler", "debug", "human_llm", "none"]]] = None
 
     user_type: Optional[Literal["Admin", "Public", "EndUser"]] = None
