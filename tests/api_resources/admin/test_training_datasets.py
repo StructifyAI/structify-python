@@ -336,6 +336,14 @@ class TestTrainingDatasets:
         assert_matches_type(TrainingDatasetListDatumsResponse, training_dataset, path=["response"])
 
     @parametrize
+    def test_method_list_datums_with_all_params(self, client: Structify) -> None:
+        training_dataset = client.admin.training_datasets.list_datums(
+            dataset_name="dataset_name",
+            last_updated=parse_datetime("2019-12-27T18:11:19.117Z"),
+        )
+        assert_matches_type(TrainingDatasetListDatumsResponse, training_dataset, path=["response"])
+
+    @parametrize
     def test_raw_response_list_datums(self, client: Structify) -> None:
         response = client.admin.training_datasets.with_raw_response.list_datums(
             dataset_name="dataset_name",
@@ -879,6 +887,14 @@ class TestAsyncTrainingDatasets:
     async def test_method_list_datums(self, async_client: AsyncStructify) -> None:
         training_dataset = await async_client.admin.training_datasets.list_datums(
             dataset_name="dataset_name",
+        )
+        assert_matches_type(TrainingDatasetListDatumsResponse, training_dataset, path=["response"])
+
+    @parametrize
+    async def test_method_list_datums_with_all_params(self, async_client: AsyncStructify) -> None:
+        training_dataset = await async_client.admin.training_datasets.list_datums(
+            dataset_name="dataset_name",
+            last_updated=parse_datetime("2019-12-27T18:11:19.117Z"),
         )
         assert_matches_type(TrainingDatasetListDatumsResponse, training_dataset, path=["response"])
 
