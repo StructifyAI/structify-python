@@ -412,6 +412,7 @@ class TrainingDatasetsResource(SyncAPIResource):
         self,
         *,
         dataset_name: str,
+        last_updated: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -439,7 +440,11 @@ class TrainingDatasetsResource(SyncAPIResource):
                 extra_body=extra_body,
                 timeout=timeout,
                 query=maybe_transform(
-                    {"dataset_name": dataset_name}, training_dataset_list_datums_params.TrainingDatasetListDatumsParams
+                    {
+                        "dataset_name": dataset_name,
+                        "last_updated": last_updated,
+                    },
+                    training_dataset_list_datums_params.TrainingDatasetListDatumsParams,
                 ),
             ),
             cast_to=TrainingDatasetListDatumsResponse,
@@ -1077,6 +1082,7 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
         self,
         *,
         dataset_name: str,
+        last_updated: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1104,7 +1110,11 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
                 extra_body=extra_body,
                 timeout=timeout,
                 query=await async_maybe_transform(
-                    {"dataset_name": dataset_name}, training_dataset_list_datums_params.TrainingDatasetListDatumsParams
+                    {
+                        "dataset_name": dataset_name,
+                        "last_updated": last_updated,
+                    },
+                    training_dataset_list_datums_params.TrainingDatasetListDatumsParams,
                 ),
             ),
             cast_to=TrainingDatasetListDatumsResponse,
