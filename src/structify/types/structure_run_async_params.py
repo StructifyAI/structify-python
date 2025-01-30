@@ -270,6 +270,8 @@ StructureInputEnhanceIngestorEnhanceIngestorTargetDescriptor: TypeAlias = Union[
 class StructureInputEnhanceIngestorEnhanceIngestor(TypedDict, total=False):
     central_entity: Required[EntityParam]
 
+    extraction_criteria: Required[Iterable[ExtractionCriteriaParam]]
+
     surrounding_kg: Required[KnowledgeGraphParam]
     """
     Knowledge graph info structured to deserialize and display in the same format
@@ -302,6 +304,8 @@ class StructureInputBasicBasicTextDocument(TypedDict, total=False):
 
 class StructureInputBasicBasicWebSearchWebSearch(TypedDict, total=False):
     description: Optional[str]
+
+    query: Optional[str]
 
     starting_website: str
 
