@@ -11,4 +11,4 @@ __all__ = ["TokenResponse"]
 class TokenResponse(BaseModel):
     token: str
 
-    permissions: List[Literal["labeler", "debug", "none"]]
+    permissions: List[Literal["labeler", "debug", "human_llm", "none"]]

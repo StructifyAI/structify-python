@@ -17,4 +17,4 @@ class UserUpdateParams(TypedDict, total=False):
         List[Literal["test", "pdf_parsing", "boredm_construction_hack", "boredm_construction_model", "none"]]
     ]
 
-    new_permissions: Optional[List[Literal["labeler", "debug", "none"]]]
+    new_permissions: Optional[List[Literal["labeler", "debug", "human_llm", "none"]]]
