@@ -42,14 +42,14 @@ from .training_dataset_download_datum_params import (
 from .training_dataset_get_datum_info_params import (
     TrainingDatasetGetDatumInfoParams as TrainingDatasetGetDatumInfoParams,
 )
-from .training_dataset_get_next_datum_params import (
-    TrainingDatasetGetNextDatumParams as TrainingDatasetGetNextDatumParams,
-)
 from .training_dataset_switch_dataset_params import (
     TrainingDatasetSwitchDatasetParams as TrainingDatasetSwitchDatasetParams,
 )
 from .training_dataset_get_labeller_stats_params import (
     TrainingDatasetGetLabellerStatsParams as TrainingDatasetGetLabellerStatsParams,
+)
+from .training_dataset_get_next_suspicious_params import (
+    TrainingDatasetGetNextSuspiciousParams as TrainingDatasetGetNextSuspiciousParams,
 )
 from .training_dataset_update_datum_status_params import (
     TrainingDatasetUpdateDatumStatusParams as TrainingDatasetUpdateDatumStatusParams,
@@ -59,4 +59,7 @@ from .training_dataset_upload_labeled_step_params import (
 )
 from .training_dataset_get_labeller_stats_response import (
     TrainingDatasetGetLabellerStatsResponse as TrainingDatasetGetLabellerStatsResponse,
+)
+from .training_dataset_get_next_for_labeling_params import (
+    TrainingDatasetGetNextForLabelingParams as TrainingDatasetGetNextForLabelingParams,
 )
