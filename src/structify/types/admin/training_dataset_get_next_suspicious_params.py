@@ -2,14 +2,13 @@
 
 from __future__ import annotations
 
+from typing import Optional
 from typing_extensions import Literal, Required, TypedDict
 
-__all__ = ["TrainingDatasetGetNextDatumParams"]
+__all__ = ["TrainingDatasetGetNextSuspiciousParams"]
 
 
-class TrainingDatasetGetNextDatumParams(TypedDict, total=False):
-    dataset_name: Required[str]
-
+class TrainingDatasetGetNextSuspiciousParams(TypedDict, total=False):
     status: Required[
         Literal[
             "Unlabeled",
@@ -22,3 +21,7 @@ class TrainingDatasetGetNextDatumParams(TypedDict, total=False):
             "SuspiciousSave",
         ]
     ]
+
+    dataset_name: Optional[str]
+
+    user_restriction: bool
