@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List
+from typing import List, Optional
 from datetime import datetime
 from typing_extensions import Literal, TypeAlias
 
@@ -23,6 +23,8 @@ class TrainingDatasetListDatumsResponseItem(BaseModel):
     ]
 
     verifiers: List[str]
+
+    origin: Optional[Literal["HumanLLM", "UserReported", "ManualUpload", "ManualTransfer"]] = None
 
 
 TrainingDatasetListDatumsResponse: TypeAlias = List[TrainingDatasetListDatumsResponseItem]
