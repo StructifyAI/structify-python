@@ -23,6 +23,7 @@ from structify.types.admin import (
     TrainingDatasetListResponse,
     TrainingDatasetSizeResponse,
     TrainingDatasetListDatumsResponse,
+    TrainingDatasetSuspiciousCountResponse,
     TrainingDatasetGetLabellerStatsResponse,
 )
 
@@ -470,6 +471,37 @@ class TestTrainingDatasets:
 
             training_dataset = response.parse()
             assert_matches_type(TrainingDatasetSizeResponse, training_dataset, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_method_suspicious_count(self, client: Structify) -> None:
+        training_dataset = client.admin.training_datasets.suspicious_count(
+            status="Unlabeled",
+        )
+        assert_matches_type(TrainingDatasetSuspiciousCountResponse, training_dataset, path=["response"])
+
+    @parametrize
+    def test_raw_response_suspicious_count(self, client: Structify) -> None:
+        response = client.admin.training_datasets.with_raw_response.suspicious_count(
+            status="Unlabeled",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        training_dataset = response.parse()
+        assert_matches_type(TrainingDatasetSuspiciousCountResponse, training_dataset, path=["response"])
+
+    @parametrize
+    def test_streaming_response_suspicious_count(self, client: Structify) -> None:
+        with client.admin.training_datasets.with_streaming_response.suspicious_count(
+            status="Unlabeled",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            training_dataset = response.parse()
+            assert_matches_type(TrainingDatasetSuspiciousCountResponse, training_dataset, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -1065,6 +1097,37 @@ class TestAsyncTrainingDatasets:
 
             training_dataset = await response.parse()
             assert_matches_type(TrainingDatasetSizeResponse, training_dataset, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_method_suspicious_count(self, async_client: AsyncStructify) -> None:
+        training_dataset = await async_client.admin.training_datasets.suspicious_count(
+            status="Unlabeled",
+        )
+        assert_matches_type(TrainingDatasetSuspiciousCountResponse, training_dataset, path=["response"])
+
+    @parametrize
+    async def test_raw_response_suspicious_count(self, async_client: AsyncStructify) -> None:
+        response = await async_client.admin.training_datasets.with_raw_response.suspicious_count(
+            status="Unlabeled",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        training_dataset = await response.parse()
+        assert_matches_type(TrainingDatasetSuspiciousCountResponse, training_dataset, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_suspicious_count(self, async_client: AsyncStructify) -> None:
+        async with async_client.admin.training_datasets.with_streaming_response.suspicious_count(
+            status="Unlabeled",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            training_dataset = await response.parse()
+            assert_matches_type(TrainingDatasetSuspiciousCountResponse, training_dataset, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
