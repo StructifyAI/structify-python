@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import List, Iterable, Optional
+from typing import Dict, List, Iterable, Optional
 
 import httpx
 
@@ -522,8 +522,7 @@ class EntitiesResource(SyncAPIResource):
         *,
         dataset_name: str,
         entity_id: str,
-        prop_name: str,
-        prop_value: entity_update_property_params.PropValue,
+        properties: Dict[str, entity_update_property_params.Properties],
         source: entity_update_property_params.Source | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -536,8 +535,6 @@ class EntitiesResource(SyncAPIResource):
         update an entity manually
 
         Args:
-          prop_name: The name of the property to update
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -552,8 +549,7 @@ class EntitiesResource(SyncAPIResource):
                 {
                     "dataset_name": dataset_name,
                     "entity_id": entity_id,
-                    "prop_name": prop_name,
-                    "prop_value": prop_value,
+                    "properties": properties,
                     "source": source,
                 },
                 entity_update_property_params.EntityUpdatePropertyParams,
@@ -1122,8 +1118,7 @@ class AsyncEntitiesResource(AsyncAPIResource):
         *,
         dataset_name: str,
         entity_id: str,
-        prop_name: str,
-        prop_value: entity_update_property_params.PropValue,
+        properties: Dict[str, entity_update_property_params.Properties],
         source: entity_update_property_params.Source | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1136,8 +1131,6 @@ class AsyncEntitiesResource(AsyncAPIResource):
         update an entity manually
 
         Args:
-          prop_name: The name of the property to update
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -1152,8 +1145,7 @@ class AsyncEntitiesResource(AsyncAPIResource):
                 {
                     "dataset_name": dataset_name,
                     "entity_id": entity_id,
-                    "prop_name": prop_name,
-                    "prop_value": prop_value,
+                    "properties": properties,
                     "source": source,
                 },
                 entity_update_property_params.EntityUpdatePropertyParams,

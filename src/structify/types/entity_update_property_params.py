@@ -2,13 +2,13 @@
 
 from __future__ import annotations
 
-from typing import Union, Iterable
+from typing import Dict, Union, Iterable
 from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
 from .._utils import PropertyInfo
 from .image_param import ImageParam
 
-__all__ = ["EntityUpdatePropertyParams", "PropValue", "Source", "SourceWeb", "SourceDocumentPage", "SourceSecFiling"]
+__all__ = ["EntityUpdatePropertyParams", "Properties", "Source", "SourceWeb", "SourceDocumentPage", "SourceSecFiling"]
 
 
 class EntityUpdatePropertyParams(TypedDict, total=False):
@@ -16,15 +16,12 @@ class EntityUpdatePropertyParams(TypedDict, total=False):
 
     entity_id: Required[str]
 
-    prop_name: Required[str]
-    """The name of the property to update"""
-
-    prop_value: Required[PropValue]
+    properties: Required[Dict[str, Properties]]
 
     source: Source
 
 
-PropValue: TypeAlias = Union[str, bool, float, ImageParam]
+Properties: TypeAlias = Union[str, bool, float, ImageParam]
 
 
 class SourceWeb(TypedDict, total=False):
