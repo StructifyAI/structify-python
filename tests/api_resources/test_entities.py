@@ -491,8 +491,7 @@ class TestEntities:
         entity = client.entities.update_property(
             dataset_name="dataset_name",
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            prop_name="prop_name",
-            prop_value="string",
+            properties={"foo": "string"},
         )
         assert_matches_type(EntityUpdatePropertyResponse, entity, path=["response"])
 
@@ -501,8 +500,7 @@ class TestEntities:
         entity = client.entities.update_property(
             dataset_name="dataset_name",
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            prop_name="prop_name",
-            prop_value="string",
+            properties={"foo": "string"},
             source="None",
         )
         assert_matches_type(EntityUpdatePropertyResponse, entity, path=["response"])
@@ -512,8 +510,7 @@ class TestEntities:
         response = client.entities.with_raw_response.update_property(
             dataset_name="dataset_name",
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            prop_name="prop_name",
-            prop_value="string",
+            properties={"foo": "string"},
         )
 
         assert response.is_closed is True
@@ -526,8 +523,7 @@ class TestEntities:
         with client.entities.with_streaming_response.update_property(
             dataset_name="dataset_name",
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            prop_name="prop_name",
-            prop_value="string",
+            properties={"foo": "string"},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -1098,8 +1094,7 @@ class TestAsyncEntities:
         entity = await async_client.entities.update_property(
             dataset_name="dataset_name",
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            prop_name="prop_name",
-            prop_value="string",
+            properties={"foo": "string"},
         )
         assert_matches_type(EntityUpdatePropertyResponse, entity, path=["response"])
 
@@ -1108,8 +1103,7 @@ class TestAsyncEntities:
         entity = await async_client.entities.update_property(
             dataset_name="dataset_name",
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            prop_name="prop_name",
-            prop_value="string",
+            properties={"foo": "string"},
             source="None",
         )
         assert_matches_type(EntityUpdatePropertyResponse, entity, path=["response"])
@@ -1119,8 +1113,7 @@ class TestAsyncEntities:
         response = await async_client.entities.with_raw_response.update_property(
             dataset_name="dataset_name",
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            prop_name="prop_name",
-            prop_value="string",
+            properties={"foo": "string"},
         )
 
         assert response.is_closed is True
@@ -1133,8 +1126,7 @@ class TestAsyncEntities:
         async with async_client.entities.with_streaming_response.update_property(
             dataset_name="dataset_name",
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            prop_name="prop_name",
-            prop_value="string",
+            properties={"foo": "string"},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
