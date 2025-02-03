@@ -42,7 +42,6 @@ from ...types.admin import (
     training_dataset_download_datum_params,
     training_dataset_get_datum_info_params,
     training_dataset_switch_dataset_params,
-    training_dataset_suspicious_count_params,
     training_dataset_get_labeller_stats_params,
     training_dataset_get_next_suspicious_params,
     training_dataset_update_datum_status_params,
@@ -603,16 +602,6 @@ class TrainingDatasetsResource(SyncAPIResource):
     def suspicious_count(
         self,
         *,
-        status: Literal[
-            "Unlabeled",
-            "NavLabeled",
-            "SaveLabeled",
-            "Verified",
-            "Pending",
-            "Skipped",
-            "SuspiciousNav",
-            "SuspiciousSave",
-        ],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -620,29 +609,12 @@ class TrainingDatasetsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> TrainingDatasetSuspiciousCountResponse:
-        """
-        Returns the number of suspicious training datums for the current user's labels.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
+        """Returns the number of suspicious training datums for the current user's labels."""
         extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
         return self._get(
             "/admin/training_datasets/suspicious_count",
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {"status": status}, training_dataset_suspicious_count_params.TrainingDatasetSuspiciousCountParams
-                ),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=int,
         )
@@ -1373,16 +1345,6 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
     async def suspicious_count(
         self,
         *,
-        status: Literal[
-            "Unlabeled",
-            "NavLabeled",
-            "SaveLabeled",
-            "Verified",
-            "Pending",
-            "Skipped",
-            "SuspiciousNav",
-            "SuspiciousSave",
-        ],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1390,29 +1352,12 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> TrainingDatasetSuspiciousCountResponse:
-        """
-        Returns the number of suspicious training datums for the current user's labels.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
+        """Returns the number of suspicious training datums for the current user's labels."""
         extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
         return await self._get(
             "/admin/training_datasets/suspicious_count",
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform(
-                    {"status": status}, training_dataset_suspicious_count_params.TrainingDatasetSuspiciousCountParams
-                ),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=int,
         )
