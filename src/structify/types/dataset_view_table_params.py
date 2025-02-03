@@ -24,7 +24,7 @@ class DatasetViewTableParams(TypedDict, total=False):
 
     offset: int
 
-    sort_by: Optional[SortBy]
+    sort_by: SortBy
 
 
 class SortBy(TypedDict, total=False):
