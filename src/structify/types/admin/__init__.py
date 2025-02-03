@@ -45,8 +45,14 @@ from .training_dataset_get_datum_info_params import (
 from .training_dataset_switch_dataset_params import (
     TrainingDatasetSwitchDatasetParams as TrainingDatasetSwitchDatasetParams,
 )
+from .training_dataset_suspicious_count_params import (
+    TrainingDatasetSuspiciousCountParams as TrainingDatasetSuspiciousCountParams,
+)
 from .training_dataset_get_labeller_stats_params import (
     TrainingDatasetGetLabellerStatsParams as TrainingDatasetGetLabellerStatsParams,
+)
+from .training_dataset_suspicious_count_response import (
+    TrainingDatasetSuspiciousCountResponse as TrainingDatasetSuspiciousCountResponse,
 )
 from .training_dataset_get_next_suspicious_params import (
     TrainingDatasetGetNextSuspiciousParams as TrainingDatasetGetNextSuspiciousParams,

@@ -42,6 +42,7 @@ from ...types.admin import (
     training_dataset_download_datum_params,
     training_dataset_get_datum_info_params,
     training_dataset_switch_dataset_params,
+    training_dataset_suspicious_count_params,
     training_dataset_get_labeller_stats_params,
     training_dataset_get_next_suspicious_params,
     training_dataset_update_datum_status_params,
@@ -53,6 +54,7 @@ from ...types.admin.training_datum_response import TrainingDatumResponse
 from ...types.admin.training_dataset_list_response import TrainingDatasetListResponse
 from ...types.admin.training_dataset_size_response import TrainingDatasetSizeResponse
 from ...types.admin.training_dataset_list_datums_response import TrainingDatasetListDatumsResponse
+from ...types.admin.training_dataset_suspicious_count_response import TrainingDatasetSuspiciousCountResponse
 from ...types.admin.training_dataset_get_labeller_stats_response import TrainingDatasetGetLabellerStatsResponse
 
 __all__ = ["TrainingDatasetsResource", "AsyncTrainingDatasetsResource"]
@@ -596,6 +598,53 @@ class TrainingDatasetsResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=TrainingDatasetSizeResponse,
+        )
+
+    def suspicious_count(
+        self,
+        *,
+        status: Literal[
+            "Unlabeled",
+            "NavLabeled",
+            "SaveLabeled",
+            "Verified",
+            "Pending",
+            "Skipped",
+            "SuspiciousNav",
+            "SuspiciousSave",
+        ],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> TrainingDatasetSuspiciousCountResponse:
+        """
+        Returns the number of suspicious training datums for the current user's labels.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
+        return self._get(
+            "/admin/training_datasets/suspicious_count",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {"status": status}, training_dataset_suspicious_count_params.TrainingDatasetSuspiciousCountParams
+                ),
+            ),
+            cast_to=int,
         )
 
     def switch_dataset(
@@ -1321,6 +1370,53 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
             cast_to=TrainingDatasetSizeResponse,
         )
 
+    async def suspicious_count(
+        self,
+        *,
+        status: Literal[
+            "Unlabeled",
+            "NavLabeled",
+            "SaveLabeled",
+            "Verified",
+            "Pending",
+            "Skipped",
+            "SuspiciousNav",
+            "SuspiciousSave",
+        ],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> TrainingDatasetSuspiciousCountResponse:
+        """
+        Returns the number of suspicious training datums for the current user's labels.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
+        return await self._get(
+            "/admin/training_datasets/suspicious_count",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"status": status}, training_dataset_suspicious_count_params.TrainingDatasetSuspiciousCountParams
+                ),
+            ),
+            cast_to=int,
+        )
+
     async def switch_dataset(
         self,
         *,
@@ -1545,6 +1641,9 @@ class TrainingDatasetsResourceWithRawResponse:
         self.size = to_raw_response_wrapper(
             training_datasets.size,
         )
+        self.suspicious_count = to_raw_response_wrapper(
+            training_datasets.suspicious_count,
+        )
         self.switch_dataset = to_raw_response_wrapper(
             training_datasets.switch_dataset,
         )
@@ -1599,6 +1698,9 @@ class AsyncTrainingDatasetsResourceWithRawResponse:
         )
         self.size = async_to_raw_response_wrapper(
             training_datasets.size,
+        )
+        self.suspicious_count = async_to_raw_response_wrapper(
+            training_datasets.suspicious_count,
         )
         self.switch_dataset = async_to_raw_response_wrapper(
             training_datasets.switch_dataset,
@@ -1655,6 +1757,9 @@ class TrainingDatasetsResourceWithStreamingResponse:
         self.size = to_streamed_response_wrapper(
             training_datasets.size,
         )
+        self.suspicious_count = to_streamed_response_wrapper(
+            training_datasets.suspicious_count,
+        )
         self.switch_dataset = to_streamed_response_wrapper(
             training_datasets.switch_dataset,
         )
@@ -1709,6 +1814,9 @@ class AsyncTrainingDatasetsResourceWithStreamingResponse:
         )
         self.size = async_to_streamed_response_wrapper(
             training_datasets.size,
+        )
+        self.suspicious_count = async_to_streamed_response_wrapper(
+            training_datasets.suspicious_count,
         )
         self.switch_dataset = async_to_streamed_response_wrapper(
             training_datasets.switch_dataset,
