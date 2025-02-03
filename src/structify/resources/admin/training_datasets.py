@@ -613,7 +613,8 @@ class TrainingDatasetsResource(SyncAPIResource):
             "SuspiciousNav",
             "SuspiciousSave",
         ],
-        user_restrict: bool | NotGiven = NOT_GIVEN,
+        dataset_name: Optional[str] | NotGiven = NOT_GIVEN,
+        user_restriction: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -644,7 +645,8 @@ class TrainingDatasetsResource(SyncAPIResource):
                 query=maybe_transform(
                     {
                         "status": status,
-                        "user_restrict": user_restrict,
+                        "dataset_name": dataset_name,
+                        "user_restriction": user_restriction,
                     },
                     training_dataset_suspicious_count_params.TrainingDatasetSuspiciousCountParams,
                 ),
@@ -1388,7 +1390,8 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
             "SuspiciousNav",
             "SuspiciousSave",
         ],
-        user_restrict: bool | NotGiven = NOT_GIVEN,
+        dataset_name: Optional[str] | NotGiven = NOT_GIVEN,
+        user_restriction: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1419,7 +1422,8 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
                 query=await async_maybe_transform(
                     {
                         "status": status,
-                        "user_restrict": user_restrict,
+                        "dataset_name": dataset_name,
+                        "user_restriction": user_restriction,
                     },
                     training_dataset_suspicious_count_params.TrainingDatasetSuspiciousCountParams,
                 ),
