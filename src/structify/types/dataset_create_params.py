@@ -30,7 +30,7 @@ class DatasetCreateParams(TypedDict, total=False):
 
     tables: Required[Iterable[TableParam]]
 
-    model_override: Optional[str]
+    model_override_field: Optional[str]
 
 
 class RelationshipMergeStrategyProbabilistic(TypedDict, total=False):
