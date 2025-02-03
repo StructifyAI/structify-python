@@ -259,7 +259,7 @@ class DatasetsResource(SyncAPIResource):
         last_updated: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         offset: int | NotGiven = NOT_GIVEN,
-        sort_by: Optional[dataset_view_relationships_params.SortBy] | NotGiven = NOT_GIVEN,
+        sort_by: dataset_view_relationships_params.SortBy | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -312,7 +312,7 @@ class DatasetsResource(SyncAPIResource):
         last_updated: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         offset: int | NotGiven = NOT_GIVEN,
-        sort_by: Optional[dataset_view_table_params.SortBy] | NotGiven = NOT_GIVEN,
+        sort_by: dataset_view_table_params.SortBy | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -365,7 +365,7 @@ class DatasetsResource(SyncAPIResource):
         last_updated: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         offset: int | NotGiven = NOT_GIVEN,
-        sort_by: Optional[dataset_view_tables_with_relationships_params.SortBy] | NotGiven = NOT_GIVEN,
+        sort_by: dataset_view_tables_with_relationships_params.SortBy | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -625,7 +625,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
         last_updated: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         offset: int | NotGiven = NOT_GIVEN,
-        sort_by: Optional[dataset_view_relationships_params.SortBy] | NotGiven = NOT_GIVEN,
+        sort_by: dataset_view_relationships_params.SortBy | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -678,7 +678,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
         last_updated: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         offset: int | NotGiven = NOT_GIVEN,
-        sort_by: Optional[dataset_view_table_params.SortBy] | NotGiven = NOT_GIVEN,
+        sort_by: dataset_view_table_params.SortBy | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -731,7 +731,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
         last_updated: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         offset: int | NotGiven = NOT_GIVEN,
-        sort_by: Optional[dataset_view_tables_with_relationships_params.SortBy] | NotGiven = NOT_GIVEN,
+        sort_by: dataset_view_tables_with_relationships_params.SortBy | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
