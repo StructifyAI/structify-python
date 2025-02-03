@@ -17,6 +17,7 @@ from structify.types import (
     JobGetStepsResponse,
     JobGetStepGraphResponse,
 )
+from structify._utils import parse_datetime
 from structify.pagination import SyncJobsList, AsyncJobsList
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
@@ -36,6 +37,7 @@ class TestJobs:
             dataset_name="dataset_name",
             limit=0,
             offset=0,
+            since=parse_datetime("2019-12-27T18:11:19.117Z"),
             status="Queued",
         )
         assert_matches_type(SyncJobsList[JobListResponse], job, path=["response"])
@@ -328,6 +330,7 @@ class TestAsyncJobs:
             dataset_name="dataset_name",
             limit=0,
             offset=0,
+            since=parse_datetime("2019-12-27T18:11:19.117Z"),
             status="Queued",
         )
         assert_matches_type(AsyncJobsList[JobListResponse], job, path=["response"])

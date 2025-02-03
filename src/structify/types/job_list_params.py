@@ -2,8 +2,11 @@
 
 from __future__ import annotations
 
-from typing import Optional
-from typing_extensions import Literal, TypedDict
+from typing import Union, Optional
+from datetime import datetime
+from typing_extensions import Literal, Annotated, TypedDict
+
+from .._utils import PropertyInfo
 
 __all__ = ["JobListParams"]
 
@@ -15,6 +18,9 @@ class JobListParams(TypedDict, total=False):
     limit: int
 
     offset: int
+
+    since: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+    """List since a specific timestamp"""
 
     status: Optional[Literal["Queued", "Running", "Completed", "Failed"]]
     """Status to optionally filter jobs by"""

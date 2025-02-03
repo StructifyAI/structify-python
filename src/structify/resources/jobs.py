@@ -2,7 +2,8 @@
 
 from __future__ import annotations
 
-from typing import Optional
+from typing import Union, Optional
+from datetime import datetime
 from typing_extensions import Literal
 
 import httpx
@@ -56,6 +57,7 @@ class JobsResource(SyncAPIResource):
         dataset_name: Optional[str] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         offset: int | NotGiven = NOT_GIVEN,
+        since: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         status: Optional[Literal["Queued", "Running", "Completed", "Failed"]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -69,6 +71,8 @@ class JobsResource(SyncAPIResource):
 
         Args:
           dataset_name: Dataset name to optionally filter jobs by
+
+          since: List since a specific timestamp
 
           status: Status to optionally filter jobs by
 
@@ -93,6 +97,7 @@ class JobsResource(SyncAPIResource):
                         "dataset_name": dataset_name,
                         "limit": limit,
                         "offset": offset,
+                        "since": since,
                         "status": status,
                     },
                     job_list_params.JobListParams,
@@ -348,6 +353,7 @@ class AsyncJobsResource(AsyncAPIResource):
         dataset_name: Optional[str] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         offset: int | NotGiven = NOT_GIVEN,
+        since: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         status: Optional[Literal["Queued", "Running", "Completed", "Failed"]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -361,6 +367,8 @@ class AsyncJobsResource(AsyncAPIResource):
 
         Args:
           dataset_name: Dataset name to optionally filter jobs by
+
+          since: List since a specific timestamp
 
           status: Status to optionally filter jobs by
 
@@ -385,6 +393,7 @@ class AsyncJobsResource(AsyncAPIResource):
                         "dataset_name": dataset_name,
                         "limit": limit,
                         "offset": offset,
+                        "since": since,
                         "status": status,
                     },
                     job_list_params.JobListParams,
