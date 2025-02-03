@@ -634,7 +634,6 @@ class TrainingDatasetsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
         return self._get(
             "/admin/training_datasets/suspicious_count",
             options=make_request_options(
@@ -651,7 +650,7 @@ class TrainingDatasetsResource(SyncAPIResource):
                     training_dataset_suspicious_count_params.TrainingDatasetSuspiciousCountParams,
                 ),
             ),
-            cast_to=int,
+            cast_to=TrainingDatasetSuspiciousCountResponse,
         )
 
     def switch_dataset(
@@ -1411,7 +1410,6 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
         return await self._get(
             "/admin/training_datasets/suspicious_count",
             options=make_request_options(
@@ -1428,7 +1426,7 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
                     training_dataset_suspicious_count_params.TrainingDatasetSuspiciousCountParams,
                 ),
             ),
-            cast_to=int,
+            cast_to=TrainingDatasetSuspiciousCountResponse,
         )
 
     async def switch_dataset(
