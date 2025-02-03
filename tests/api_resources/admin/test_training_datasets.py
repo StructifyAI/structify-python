@@ -485,7 +485,8 @@ class TestTrainingDatasets:
     def test_method_suspicious_count_with_all_params(self, client: Structify) -> None:
         training_dataset = client.admin.training_datasets.suspicious_count(
             status="Unlabeled",
-            user_restrict=True,
+            dataset_name="dataset_name",
+            user_restriction=True,
         )
         assert_matches_type(TrainingDatasetSuspiciousCountResponse, training_dataset, path=["response"])
 
@@ -1119,7 +1120,8 @@ class TestAsyncTrainingDatasets:
     async def test_method_suspicious_count_with_all_params(self, async_client: AsyncStructify) -> None:
         training_dataset = await async_client.admin.training_datasets.suspicious_count(
             status="Unlabeled",
-            user_restrict=True,
+            dataset_name="dataset_name",
+            user_restriction=True,
         )
         assert_matches_type(TrainingDatasetSuspiciousCountResponse, training_dataset, path=["response"])
 
