@@ -139,6 +139,21 @@ class TestTrainingDatasets:
 
     @parametrize
     @pytest.mark.respx(base_url=base_url)
+    def test_method_download_datum_with_all_params(self, client: Structify, respx_mock: MockRouter) -> None:
+        respx_mock.get("/admin/training_datasets/download_datum_step").mock(
+            return_value=httpx.Response(200, json={"foo": "bar"})
+        )
+        training_dataset = client.admin.training_datasets.download_datum(
+            step_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            require_labels=True,
+        )
+        assert training_dataset.is_closed
+        assert training_dataset.json() == {"foo": "bar"}
+        assert cast(Any, training_dataset.is_closed) is True
+        assert isinstance(training_dataset, BinaryAPIResponse)
+
+    @parametrize
+    @pytest.mark.respx(base_url=base_url)
     def test_raw_response_download_datum(self, client: Structify, respx_mock: MockRouter) -> None:
         respx_mock.get("/admin/training_datasets/download_datum_step").mock(
             return_value=httpx.Response(200, json={"foo": "bar"})
@@ -764,6 +779,23 @@ class TestAsyncTrainingDatasets:
         )
         training_dataset = await async_client.admin.training_datasets.download_datum(
             step_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert training_dataset.is_closed
+        assert await training_dataset.json() == {"foo": "bar"}
+        assert cast(Any, training_dataset.is_closed) is True
+        assert isinstance(training_dataset, AsyncBinaryAPIResponse)
+
+    @parametrize
+    @pytest.mark.respx(base_url=base_url)
+    async def test_method_download_datum_with_all_params(
+        self, async_client: AsyncStructify, respx_mock: MockRouter
+    ) -> None:
+        respx_mock.get("/admin/training_datasets/download_datum_step").mock(
+            return_value=httpx.Response(200, json={"foo": "bar"})
+        )
+        training_dataset = await async_client.admin.training_datasets.download_datum(
+            step_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            require_labels=True,
         )
         assert training_dataset.is_closed
         assert await training_dataset.json() == {"foo": "bar"}
