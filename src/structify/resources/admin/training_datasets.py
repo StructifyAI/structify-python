@@ -181,6 +181,7 @@ class TrainingDatasetsResource(SyncAPIResource):
         self,
         *,
         step_id: str,
+        require_labels: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -209,7 +210,11 @@ class TrainingDatasetsResource(SyncAPIResource):
                 extra_body=extra_body,
                 timeout=timeout,
                 query=maybe_transform(
-                    {"step_id": step_id}, training_dataset_download_datum_params.TrainingDatasetDownloadDatumParams
+                    {
+                        "step_id": step_id,
+                        "require_labels": require_labels,
+                    },
+                    training_dataset_download_datum_params.TrainingDatasetDownloadDatumParams,
                 ),
             ),
             cast_to=BinaryAPIResponse,
@@ -957,6 +962,7 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
         self,
         *,
         step_id: str,
+        require_labels: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -985,7 +991,11 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
                 extra_body=extra_body,
                 timeout=timeout,
                 query=await async_maybe_transform(
-                    {"step_id": step_id}, training_dataset_download_datum_params.TrainingDatasetDownloadDatumParams
+                    {
+                        "step_id": step_id,
+                        "require_labels": require_labels,
+                    },
+                    training_dataset_download_datum_params.TrainingDatasetDownloadDatumParams,
                 ),
             ),
             cast_to=AsyncBinaryAPIResponse,
