@@ -1,6 +1,6 @@
 [project]
 name = "structifyai"
-version = "1.87.0"
+version = "1.88.0"
 description = "The official Python library for the structify API"
 dynamic = ["readme"]
 license = "Apache-2.0"
@@ -177,7 +177,7 @@ select = [
   "T201",
   "T203",
   # misuse of typing.TYPE_CHECKING
-  "TCH004",
+  "TC004",
   # import rules
   "TID251",
 ]
