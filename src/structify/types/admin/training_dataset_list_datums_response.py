@@ -24,7 +24,7 @@ class TrainingDatasetListDatumsResponseItem(BaseModel):
 
     verifiers: List[str]
 
-    origin: Optional[Literal["HumanLLM", "UserReported", "ManualUpload", "ManualTransfer"]] = None
+    origin: Optional[Literal["HumanLLM", "UserReported", "ManualUpload", "ManualTransfer", "ToolParseFailure"]] = None
 
 
 TrainingDatasetListDatumsResponse: TypeAlias = List[TrainingDatasetListDatumsResponseItem]
