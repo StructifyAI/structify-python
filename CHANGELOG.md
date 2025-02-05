@@ -1,5 +1,20 @@
 # Changelog
 
+## 1.88.0 (2025-02-05)
+
+Full Changelog: [v1.87.0...v1.88.0](https://github.com/StructifyAI/structify-python/compare/v1.87.0...v1.88.0)
+
+### Features
+
+* **api:** api update ([#865](https://github.com/StructifyAI/structify-python/issues/865)) ([7cbe37a](https://github.com/StructifyAI/structify-python/commit/7cbe37a464dfda08645bbfabc130e4d5f690324a))
+* **api:** api update ([#869](https://github.com/StructifyAI/structify-python/issues/869)) ([9e18349](https://github.com/StructifyAI/structify-python/commit/9e18349c8be839bcf739524584287e2dc1bba014))
+
+
+### Chores
+
+* **internal:** bummp ruff dependency ([#868](https://github.com/StructifyAI/structify-python/issues/868)) ([b7ea824](https://github.com/StructifyAI/structify-python/commit/b7ea824089ae31f20e04c045494f8a56e9339133))
+* **internal:** change default timeout to an int ([#867](https://github.com/StructifyAI/structify-python/issues/867)) ([fd513f2](https://github.com/StructifyAI/structify-python/commit/fd513f290e6572949873736fd90cbf166f0bb9d6))
+
 ## 1.87.0 (2025-02-03)
 
 Full Changelog: [v1.86.0...v1.87.0](https://github.com/StructifyAI/structify-python/compare/v1.86.0...v1.87.0)
