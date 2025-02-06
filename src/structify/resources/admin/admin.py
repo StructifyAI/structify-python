@@ -20,6 +20,14 @@ from .human_llm import (
     AsyncHumanLlmResourceWithStreamingResponse,
 )
 from ..._resource import SyncAPIResource, AsyncAPIResource
+from .next_action import (
+    NextActionResource,
+    AsyncNextActionResource,
+    NextActionResourceWithRawResponse,
+    AsyncNextActionResourceWithRawResponse,
+    NextActionResourceWithStreamingResponse,
+    AsyncNextActionResourceWithStreamingResponse,
+)
 from .training_datasets import (
     TrainingDatasetsResource,
     AsyncTrainingDatasetsResource,
@@ -36,6 +44,10 @@ class AdminResource(SyncAPIResource):
     @cached_property
     def human_llm(self) -> HumanLlmResource:
         return HumanLlmResource(self._client)
+
+    @cached_property
+    def next_action(self) -> NextActionResource:
+        return NextActionResource(self._client)
 
     @cached_property
     def users(self) -> UsersResource:
@@ -69,6 +81,10 @@ class AsyncAdminResource(AsyncAPIResource):
     @cached_property
     def human_llm(self) -> AsyncHumanLlmResource:
         return AsyncHumanLlmResource(self._client)
+
+    @cached_property
+    def next_action(self) -> AsyncNextActionResource:
+        return AsyncNextActionResource(self._client)
 
     @cached_property
     def users(self) -> AsyncUsersResource:
@@ -107,6 +123,10 @@ class AdminResourceWithRawResponse:
         return HumanLlmResourceWithRawResponse(self._admin.human_llm)
 
     @cached_property
+    def next_action(self) -> NextActionResourceWithRawResponse:
+        return NextActionResourceWithRawResponse(self._admin.next_action)
+
+    @cached_property
     def users(self) -> UsersResourceWithRawResponse:
         return UsersResourceWithRawResponse(self._admin.users)
 
@@ -122,6 +142,10 @@ class AsyncAdminResourceWithRawResponse:
     @cached_property
     def human_llm(self) -> AsyncHumanLlmResourceWithRawResponse:
         return AsyncHumanLlmResourceWithRawResponse(self._admin.human_llm)
+
+    @cached_property
+    def next_action(self) -> AsyncNextActionResourceWithRawResponse:
+        return AsyncNextActionResourceWithRawResponse(self._admin.next_action)
 
     @cached_property
     def users(self) -> AsyncUsersResourceWithRawResponse:
@@ -141,6 +165,10 @@ class AdminResourceWithStreamingResponse:
         return HumanLlmResourceWithStreamingResponse(self._admin.human_llm)
 
     @cached_property
+    def next_action(self) -> NextActionResourceWithStreamingResponse:
+        return NextActionResourceWithStreamingResponse(self._admin.next_action)
+
+    @cached_property
     def users(self) -> UsersResourceWithStreamingResponse:
         return UsersResourceWithStreamingResponse(self._admin.users)
 
@@ -156,6 +184,10 @@ class AsyncAdminResourceWithStreamingResponse:
     @cached_property
     def human_llm(self) -> AsyncHumanLlmResourceWithStreamingResponse:
         return AsyncHumanLlmResourceWithStreamingResponse(self._admin.human_llm)
+
+    @cached_property
+    def next_action(self) -> AsyncNextActionResourceWithStreamingResponse:
+        return AsyncNextActionResourceWithStreamingResponse(self._admin.next_action)
 
     @cached_property
     def users(self) -> AsyncUsersResourceWithStreamingResponse:
