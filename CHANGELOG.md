@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.90.0 (2025-02-06)
+
+Full Changelog: [v1.89.0...v1.90.0](https://github.com/StructifyAI/structify-python/compare/v1.89.0...v1.90.0)
+
+### Features
+
+* **api:** api update ([#876](https://github.com/StructifyAI/structify-python/issues/876)) ([3e7eacd](https://github.com/StructifyAI/structify-python/commit/3e7eacd447219ddd9b81a277a36f67a0dad823e4))
+* **api:** api update ([#877](https://github.com/StructifyAI/structify-python/issues/877)) ([6e40fc2](https://github.com/StructifyAI/structify-python/commit/6e40fc21e9126d0d1fbedf1d5a88432889cc1269))
+* **api:** api update ([#878](https://github.com/StructifyAI/structify-python/issues/878)) ([e4e3c97](https://github.com/StructifyAI/structify-python/commit/e4e3c97220d700c8048551701fdf0b8782692933))
+* **client:** send `X-Stainless-Read-Timeout` header ([#874](https://github.com/StructifyAI/structify-python/issues/874)) ([0a8f939](https://github.com/StructifyAI/structify-python/commit/0a8f9390b9be91c1eb93118d7b56fea2f606f072))
+
 ## 1.89.0 (2025-02-06)
 
 Full Changelog: [v1.88.0...v1.89.0](https://github.com/StructifyAI/structify-python/compare/v1.88.0...v1.89.0)
