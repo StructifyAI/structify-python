@@ -40,6 +40,25 @@ Methods:
 - <code title="post /admin/human_llm/start_next_job">client.admin.human_llm.<a href="./src/structify/resources/admin/human_llm.py">start_next_job</a>(\*\*<a href="src/structify/types/admin/human_llm_start_next_job_params.py">params</a>) -> <a href="./src/structify/types/admin/step_choices.py">StepChoices</a></code>
 - <code title="post /admin/human_llm/update_step">client.admin.human_llm.<a href="./src/structify/resources/admin/human_llm.py">update_step</a>(\*\*<a href="src/structify/types/admin/human_llm_update_step_params.py">params</a>) -> <a href="./src/structify/types/admin/step_choices.py">StepChoices</a></code>
 
+## NextAction
+
+Types:
+
+```python
+from structify.types.admin import (
+    ActionTrainingDataEntry,
+    ActionTrainingDataResponse,
+    AddActionTrainingDatumRequest,
+    LabelActionTrainingDatumRequest,
+)
+```
+
+Methods:
+
+- <code title="post /admin/next_action/add_action_training_datum">client.admin.next_action.<a href="./src/structify/resources/admin/next_action.py">add_training_datum</a>(\*\*<a href="src/structify/types/admin/next_action_add_training_datum_params.py">params</a>) -> None</code>
+- <code title="get /admin/next_action/get_action_training_data">client.admin.next_action.<a href="./src/structify/resources/admin/next_action.py">get_training_data</a>() -> <a href="./src/structify/types/admin/action_training_data_response.py">ActionTrainingDataResponse</a></code>
+- <code title="put /admin/next_action/label_action_training_datum">client.admin.next_action.<a href="./src/structify/resources/admin/next_action.py">label_training_datum</a>(\*\*<a href="src/structify/types/admin/next_action_label_training_datum_params.py">params</a>) -> None</code>
+
 ## Users
 
 Types:
