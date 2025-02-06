@@ -112,4 +112,4 @@ class DatasetDescriptor(BaseModel):
 
     tables: List[Table]
 
-    api_model_override_field: Optional[str] = FieldInfo(alias="model_override_field", default=None)
+    llm_override_field: Optional[str] = None
