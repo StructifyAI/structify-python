@@ -24,6 +24,14 @@ from .human_llm import (
     HumanLlmResourceWithStreamingResponse,
     AsyncHumanLlmResourceWithStreamingResponse,
 )
+from .next_action import (
+    NextActionResource,
+    AsyncNextActionResource,
+    NextActionResourceWithRawResponse,
+    AsyncNextActionResourceWithRawResponse,
+    NextActionResourceWithStreamingResponse,
+    AsyncNextActionResourceWithStreamingResponse,
+)
 from .training_datasets import (
     TrainingDatasetsResource,
     AsyncTrainingDatasetsResource,
@@ -40,6 +48,12 @@ __all__ = [
     "AsyncHumanLlmResourceWithRawResponse",
     "HumanLlmResourceWithStreamingResponse",
     "AsyncHumanLlmResourceWithStreamingResponse",
+    "NextActionResource",
+    "AsyncNextActionResource",
+    "NextActionResourceWithRawResponse",
+    "AsyncNextActionResourceWithRawResponse",
+    "NextActionResourceWithStreamingResponse",
+    "AsyncNextActionResourceWithStreamingResponse",
     "UsersResource",
     "AsyncUsersResource",
     "UsersResourceWithRawResponse",
