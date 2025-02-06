@@ -16,11 +16,13 @@ from .user_set_credits_params import UserSetCreditsParams as UserSetCreditsParam
 from .human_llm_get_jobs_params import HumanLlmGetJobsParams as HumanLlmGetJobsParams
 from .user_get_credits_response import UserGetCreditsResponse as UserGetCreditsResponse
 from .user_set_credits_response import UserSetCreditsResponse as UserSetCreditsResponse
+from .action_training_data_entry import ActionTrainingDataEntry as ActionTrainingDataEntry
 from .human_llm_finish_job_params import HumanLlmFinishJobParams as HumanLlmFinishJobParams
 from .human_llm_get_jobs_response import HumanLlmGetJobsResponse as HumanLlmGetJobsResponse
 from .training_dataset_add_params import TrainingDatasetAddParams as TrainingDatasetAddParams
 from .human_llm_update_step_params import HumanLlmUpdateStepParams as HumanLlmUpdateStepParams
 from .training_dataset_size_params import TrainingDatasetSizeParams as TrainingDatasetSizeParams
+from .action_training_data_response import ActionTrainingDataResponse as ActionTrainingDataResponse
 from .human_llm_get_next_step_params import HumanLlmGetNextStepParams as HumanLlmGetNextStepParams
 from .training_dataset_list_response import TrainingDatasetListResponse as TrainingDatasetListResponse
 from .training_dataset_size_response import TrainingDatasetSizeResponse as TrainingDatasetSizeResponse
@@ -33,6 +35,7 @@ from .training_dataset_label_datum_params import TrainingDatasetLabelDatumParams
 from .training_dataset_list_datums_params import TrainingDatasetListDatumsParams as TrainingDatasetListDatumsParams
 from .training_dataset_remove_datum_params import TrainingDatasetRemoveDatumParams as TrainingDatasetRemoveDatumParams
 from .training_dataset_verify_datum_params import TrainingDatasetVerifyDatumParams as TrainingDatasetVerifyDatumParams
+from .next_action_add_training_datum_params import NextActionAddTrainingDatumParams as NextActionAddTrainingDatumParams
 from .training_dataset_list_datums_response import (
     TrainingDatasetListDatumsResponse as TrainingDatasetListDatumsResponse,
 )
@@ -44,6 +47,9 @@ from .training_dataset_get_datum_info_params import (
 )
 from .training_dataset_switch_dataset_params import (
     TrainingDatasetSwitchDatasetParams as TrainingDatasetSwitchDatasetParams,
+)
+from .next_action_label_training_datum_params import (
+    NextActionLabelTrainingDatumParams as NextActionLabelTrainingDatumParams,
 )
 from .training_dataset_suspicious_count_params import (
     TrainingDatasetSuspiciousCountParams as TrainingDatasetSuspiciousCountParams,
