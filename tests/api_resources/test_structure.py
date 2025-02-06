@@ -34,8 +34,6 @@ class TestStructure:
             property_name="property_name",
             relationship_name="relationship_name",
             special_job_type="HumanLLM",
-            starting_searches=["string"],
-            starting_urls=["string"],
         )
         assert_matches_type(str, structure, path=["response"])
 
@@ -77,8 +75,6 @@ class TestStructure:
             allow_new_entities=True,
             source_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             special_job_type="HumanLLM",
-            starting_searches=["string"],
-            starting_urls=["string"],
             target_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(str, structure, path=["response"])
@@ -173,7 +169,7 @@ class TestStructure:
     def test_method_run_async(self, client: Structify) -> None:
         structure = client.structure.run_async(
             name="name",
-            structure_input={"pdf_ingestor": {"path": "path"}},
+            structure_input={"sec_ingestor": {}},
         )
         assert_matches_type(str, structure, path=["response"])
 
@@ -181,7 +177,13 @@ class TestStructure:
     def test_method_run_async_with_all_params(self, client: Structify) -> None:
         structure = client.structure.run_async(
             name="name",
-            structure_input={"pdf_ingestor": {"path": "path"}},
+            structure_input={
+                "sec_ingestor": {
+                    "accession_number": "accession_number",
+                    "quarter": 0,
+                    "year": 0,
+                }
+            },
             extraction_criteria=[{"relationship_extraction": {"relationship_name": "relationship_name"}}],
             seeded_entity={
                 "entities": [
@@ -208,7 +210,7 @@ class TestStructure:
     def test_raw_response_run_async(self, client: Structify) -> None:
         response = client.structure.with_raw_response.run_async(
             name="name",
-            structure_input={"pdf_ingestor": {"path": "path"}},
+            structure_input={"sec_ingestor": {}},
         )
 
         assert response.is_closed is True
@@ -220,7 +222,7 @@ class TestStructure:
     def test_streaming_response_run_async(self, client: Structify) -> None:
         with client.structure.with_streaming_response.run_async(
             name="name",
-            structure_input={"pdf_ingestor": {"path": "path"}},
+            structure_input={"sec_ingestor": {}},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -249,8 +251,6 @@ class TestAsyncStructure:
             property_name="property_name",
             relationship_name="relationship_name",
             special_job_type="HumanLLM",
-            starting_searches=["string"],
-            starting_urls=["string"],
         )
         assert_matches_type(str, structure, path=["response"])
 
@@ -292,8 +292,6 @@ class TestAsyncStructure:
             allow_new_entities=True,
             source_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             special_job_type="HumanLLM",
-            starting_searches=["string"],
-            starting_urls=["string"],
             target_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(str, structure, path=["response"])
@@ -388,7 +386,7 @@ class TestAsyncStructure:
     async def test_method_run_async(self, async_client: AsyncStructify) -> None:
         structure = await async_client.structure.run_async(
             name="name",
-            structure_input={"pdf_ingestor": {"path": "path"}},
+            structure_input={"sec_ingestor": {}},
         )
         assert_matches_type(str, structure, path=["response"])
 
@@ -396,7 +394,13 @@ class TestAsyncStructure:
     async def test_method_run_async_with_all_params(self, async_client: AsyncStructify) -> None:
         structure = await async_client.structure.run_async(
             name="name",
-            structure_input={"pdf_ingestor": {"path": "path"}},
+            structure_input={
+                "sec_ingestor": {
+                    "accession_number": "accession_number",
+                    "quarter": 0,
+                    "year": 0,
+                }
+            },
             extraction_criteria=[{"relationship_extraction": {"relationship_name": "relationship_name"}}],
             seeded_entity={
                 "entities": [
@@ -423,7 +427,7 @@ class TestAsyncStructure:
     async def test_raw_response_run_async(self, async_client: AsyncStructify) -> None:
         response = await async_client.structure.with_raw_response.run_async(
             name="name",
-            structure_input={"pdf_ingestor": {"path": "path"}},
+            structure_input={"sec_ingestor": {}},
         )
 
         assert response.is_closed is True
@@ -435,7 +439,7 @@ class TestAsyncStructure:
     async def test_streaming_response_run_async(self, async_client: AsyncStructify) -> None:
         async with async_client.structure.with_streaming_response.run_async(
             name="name",
-            structure_input={"pdf_ingestor": {"path": "path"}},
+            structure_input={"sec_ingestor": {}},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
