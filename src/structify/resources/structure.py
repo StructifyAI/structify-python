@@ -73,6 +73,8 @@ class StructureResource(SyncAPIResource):
         property_name: Optional[str] | NotGiven = NOT_GIVEN,
         relationship_name: Optional[str] | NotGiven = NOT_GIVEN,
         special_job_type: Optional[Literal["HumanLLM"]] | NotGiven = NOT_GIVEN,
+        starting_searches: List[str] | NotGiven = NOT_GIVEN,
+        starting_urls: List[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -102,6 +104,8 @@ class StructureResource(SyncAPIResource):
                     "property_name": property_name,
                     "relationship_name": relationship_name,
                     "special_job_type": special_job_type,
+                    "starting_searches": starting_searches,
+                    "starting_urls": starting_urls,
                 },
                 structure_enhance_params.StructureEnhanceParams,
             ),
@@ -118,6 +122,8 @@ class StructureResource(SyncAPIResource):
         allow_new_entities: bool | NotGiven = NOT_GIVEN,
         source_id: Optional[str] | NotGiven = NOT_GIVEN,
         special_job_type: Optional[Literal["HumanLLM"]] | NotGiven = NOT_GIVEN,
+        starting_searches: List[str] | NotGiven = NOT_GIVEN,
+        starting_urls: List[str] | NotGiven = NOT_GIVEN,
         target_id: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -147,6 +153,8 @@ class StructureResource(SyncAPIResource):
                     "allow_new_entities": allow_new_entities,
                     "source_id": source_id,
                     "special_job_type": special_job_type,
+                    "starting_searches": starting_searches,
+                    "starting_urls": starting_urls,
                     "target_id": target_id,
                 },
                 structure_enhance_relationship_params.StructureEnhanceRelationshipParams,
@@ -355,6 +363,8 @@ class AsyncStructureResource(AsyncAPIResource):
         property_name: Optional[str] | NotGiven = NOT_GIVEN,
         relationship_name: Optional[str] | NotGiven = NOT_GIVEN,
         special_job_type: Optional[Literal["HumanLLM"]] | NotGiven = NOT_GIVEN,
+        starting_searches: List[str] | NotGiven = NOT_GIVEN,
+        starting_urls: List[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -384,6 +394,8 @@ class AsyncStructureResource(AsyncAPIResource):
                     "property_name": property_name,
                     "relationship_name": relationship_name,
                     "special_job_type": special_job_type,
+                    "starting_searches": starting_searches,
+                    "starting_urls": starting_urls,
                 },
                 structure_enhance_params.StructureEnhanceParams,
             ),
@@ -400,6 +412,8 @@ class AsyncStructureResource(AsyncAPIResource):
         allow_new_entities: bool | NotGiven = NOT_GIVEN,
         source_id: Optional[str] | NotGiven = NOT_GIVEN,
         special_job_type: Optional[Literal["HumanLLM"]] | NotGiven = NOT_GIVEN,
+        starting_searches: List[str] | NotGiven = NOT_GIVEN,
+        starting_urls: List[str] | NotGiven = NOT_GIVEN,
         target_id: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -429,6 +443,8 @@ class AsyncStructureResource(AsyncAPIResource):
                     "allow_new_entities": allow_new_entities,
                     "source_id": source_id,
                     "special_job_type": special_job_type,
+                    "starting_searches": starting_searches,
+                    "starting_urls": starting_urls,
                     "target_id": target_id,
                 },
                 structure_enhance_relationship_params.StructureEnhanceRelationshipParams,
