@@ -52,7 +52,7 @@ class NextActionResource(SyncAPIResource):
         input: next_action_add_training_datum_params.Input,
         label: str,
         output: next_action_add_training_datum_params.Output,
-        dataset_name: Optional[str] | NotGiven = NOT_GIVEN,
+        job_id: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -80,7 +80,7 @@ class NextActionResource(SyncAPIResource):
                     "input": input,
                     "label": label,
                     "output": output,
-                    "dataset_name": dataset_name,
+                    "job_id": job_id,
                 },
                 next_action_add_training_datum_params.NextActionAddTrainingDatumParams,
             ),
@@ -178,7 +178,7 @@ class AsyncNextActionResource(AsyncAPIResource):
         input: next_action_add_training_datum_params.Input,
         label: str,
         output: next_action_add_training_datum_params.Output,
-        dataset_name: Optional[str] | NotGiven = NOT_GIVEN,
+        job_id: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -206,7 +206,7 @@ class AsyncNextActionResource(AsyncAPIResource):
                     "input": input,
                     "label": label,
                     "output": output,
-                    "dataset_name": dataset_name,
+                    "job_id": job_id,
                 },
                 next_action_add_training_datum_params.NextActionAddTrainingDatumParams,
             ),

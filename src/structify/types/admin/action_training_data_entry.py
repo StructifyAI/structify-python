@@ -20,6 +20,8 @@ __all__ = [
     "OutputOutputSelectedStepSelectedStep",
     "OutputOutputSearchStep",
     "OutputOutputSearchStepSearchStep",
+    "OutputOutputInvalidAction",
+    "OutputOutputInvalidActionInvalidAction",
 ]
 
 
@@ -62,7 +64,17 @@ class OutputOutputSearchStep(BaseModel):
     search_step: OutputOutputSearchStepSearchStep = FieldInfo(alias="SearchStep")
 
 
-OutputOutput: TypeAlias = Union[OutputOutputSelectedStep, OutputOutputSearchStep]
+class OutputOutputInvalidActionInvalidAction(BaseModel):
+    error: str
+
+    llm_output: str
+
+
+class OutputOutputInvalidAction(BaseModel):
+    invalid_action: OutputOutputInvalidActionInvalidAction = FieldInfo(alias="InvalidAction")
+
+
+OutputOutput: TypeAlias = Union[OutputOutputSelectedStep, OutputOutputSearchStep, OutputOutputInvalidAction]
 
 
 class Output(BaseModel):
