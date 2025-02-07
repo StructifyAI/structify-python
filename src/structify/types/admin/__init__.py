@@ -76,3 +76,6 @@ from .training_dataset_get_labeller_stats_response import (
 from .training_dataset_get_next_for_labeling_params import (
     TrainingDatasetGetNextForLabelingParams as TrainingDatasetGetNextForLabelingParams,
 )
+from .training_dataset_mark_datum_suspicious_params import (
+    TrainingDatasetMarkDatumSuspiciousParams as TrainingDatasetMarkDatumSuspiciousParams,
+)

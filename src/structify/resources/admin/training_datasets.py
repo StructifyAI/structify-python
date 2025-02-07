@@ -48,6 +48,7 @@ from ...types.admin import (
     training_dataset_update_datum_status_params,
     training_dataset_upload_labeled_step_params,
     training_dataset_get_next_for_labeling_params,
+    training_dataset_mark_datum_suspicious_params,
 )
 from ..._base_client import make_request_options
 from ...types.admin.training_datum_response import TrainingDatumResponse
@@ -513,6 +514,60 @@ class TrainingDatasetsResource(SyncAPIResource):
                 ),
             ),
             cast_to=TrainingDatasetListDatumsResponse,
+        )
+
+    def mark_datum_suspicious(
+        self,
+        *,
+        id: str,
+        message: str,
+        status: Literal[
+            "Unlabeled",
+            "NavLabeled",
+            "SaveLabeled",
+            "NavVerified",
+            "SaveVerified",
+            "Pending",
+            "Skipped",
+            "SuspiciousNav",
+            "SuspiciousSave",
+        ],
+        suspicious_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> None:
+        """
+        Marks a training datum update as suspicious.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return self._put(
+            "/admin/training_datasets/mark_datum_suspicious",
+            body=maybe_transform(
+                {
+                    "id": id,
+                    "message": message,
+                    "status": status,
+                    "suspicious_id": suspicious_id,
+                },
+                training_dataset_mark_datum_suspicious_params.TrainingDatasetMarkDatumSuspiciousParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NoneType,
         )
 
     def remove_datum(
@@ -1313,6 +1368,60 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
             cast_to=TrainingDatasetListDatumsResponse,
         )
 
+    async def mark_datum_suspicious(
+        self,
+        *,
+        id: str,
+        message: str,
+        status: Literal[
+            "Unlabeled",
+            "NavLabeled",
+            "SaveLabeled",
+            "NavVerified",
+            "SaveVerified",
+            "Pending",
+            "Skipped",
+            "SuspiciousNav",
+            "SuspiciousSave",
+        ],
+        suspicious_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> None:
+        """
+        Marks a training datum update as suspicious.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return await self._put(
+            "/admin/training_datasets/mark_datum_suspicious",
+            body=await async_maybe_transform(
+                {
+                    "id": id,
+                    "message": message,
+                    "status": status,
+                    "suspicious_id": suspicious_id,
+                },
+                training_dataset_mark_datum_suspicious_params.TrainingDatasetMarkDatumSuspiciousParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NoneType,
+        )
+
     async def remove_datum(
         self,
         *,
@@ -1691,6 +1800,9 @@ class TrainingDatasetsResourceWithRawResponse:
         self.list_datums = to_raw_response_wrapper(
             training_datasets.list_datums,
         )
+        self.mark_datum_suspicious = to_raw_response_wrapper(
+            training_datasets.mark_datum_suspicious,
+        )
         self.remove_datum = to_raw_response_wrapper(
             training_datasets.remove_datum,
         )
@@ -1748,6 +1860,9 @@ class AsyncTrainingDatasetsResourceWithRawResponse:
         )
         self.list_datums = async_to_raw_response_wrapper(
             training_datasets.list_datums,
+        )
+        self.mark_datum_suspicious = async_to_raw_response_wrapper(
+            training_datasets.mark_datum_suspicious,
         )
         self.remove_datum = async_to_raw_response_wrapper(
             training_datasets.remove_datum,
@@ -1807,6 +1922,9 @@ class TrainingDatasetsResourceWithStreamingResponse:
         self.list_datums = to_streamed_response_wrapper(
             training_datasets.list_datums,
         )
+        self.mark_datum_suspicious = to_streamed_response_wrapper(
+            training_datasets.mark_datum_suspicious,
+        )
         self.remove_datum = to_streamed_response_wrapper(
             training_datasets.remove_datum,
         )
@@ -1864,6 +1982,9 @@ class AsyncTrainingDatasetsResourceWithStreamingResponse:
         )
         self.list_datums = async_to_streamed_response_wrapper(
             training_datasets.list_datums,
+        )
+        self.mark_datum_suspicious = async_to_streamed_response_wrapper(
+            training_datasets.mark_datum_suspicious,
         )
         self.remove_datum = async_to_streamed_response_wrapper(
             training_datasets.remove_datum,
