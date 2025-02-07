@@ -18,6 +18,8 @@ __all__ = [
     "OutputSelectedStepSelectedStep",
     "OutputSearchStep",
     "OutputSearchStepSearchStep",
+    "OutputInvalidAction",
+    "OutputInvalidActionInvalidAction",
 ]
 
 
@@ -28,7 +30,7 @@ class NextActionAddTrainingDatumParams(TypedDict, total=False):
 
     output: Required[Output]
 
-    dataset_name: Optional[str]
+    job_id: Optional[str]
 
 
 class InputAllStep(TypedDict, total=False):
@@ -70,4 +72,14 @@ class OutputSearchStep(TypedDict, total=False):
     search_step: Required[Annotated[OutputSearchStepSearchStep, PropertyInfo(alias="SearchStep")]]
 
 
-Output: TypeAlias = Union[OutputSelectedStep, OutputSearchStep]
+class OutputInvalidActionInvalidAction(TypedDict, total=False):
+    error: Required[str]
+
+    llm_output: Required[str]
+
+
+class OutputInvalidAction(TypedDict, total=False):
+    invalid_action: Required[Annotated[OutputInvalidActionInvalidAction, PropertyInfo(alias="InvalidAction")]]
+
+
+Output: TypeAlias = Union[OutputSelectedStep, OutputSearchStep, OutputInvalidAction]
