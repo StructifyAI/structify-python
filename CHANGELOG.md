@@ -1,5 +1,23 @@
 # Changelog
 
+## 1.91.0 (2025-02-07)
+
+Full Changelog: [v1.90.0...v1.91.0](https://github.com/StructifyAI/structify-python/compare/v1.90.0...v1.91.0)
+
+### Features
+
+* **api:** api update ([#883](https://github.com/StructifyAI/structify-python/issues/883)) ([7ac81be](https://github.com/StructifyAI/structify-python/commit/7ac81bed93620edcf8adb7e2650994bb5e5f076b))
+* **api:** api update ([#884](https://github.com/StructifyAI/structify-python/issues/884)) ([5ba67c3](https://github.com/StructifyAI/structify-python/commit/5ba67c3281b922655bb57ecbf420fd1265cbe6fc))
+* **api:** api update ([#885](https://github.com/StructifyAI/structify-python/issues/885)) ([9d2cf78](https://github.com/StructifyAI/structify-python/commit/9d2cf787ba8468cb6acede555f45340362ada89c))
+* **api:** api update ([#886](https://github.com/StructifyAI/structify-python/issues/886)) ([d58f889](https://github.com/StructifyAI/structify-python/commit/d58f889c055de19269ea78394d69c2579e5bec7a))
+* **api:** api update ([#887](https://github.com/StructifyAI/structify-python/issues/887)) ([30d140d](https://github.com/StructifyAI/structify-python/commit/30d140de1c516f62a3e57711899a9be823a2e897))
+
+
+### Chores
+
+* **internal:** fix type traversing dictionary params ([#880](https://github.com/StructifyAI/structify-python/issues/880)) ([2f0a6e0](https://github.com/StructifyAI/structify-python/commit/2f0a6e0b10e03c1909d4e6280d337ada9a62fc0c))
+* **internal:** minor type handling changes ([#882](https://github.com/StructifyAI/structify-python/issues/882)) ([2d73082](https://github.com/StructifyAI/structify-python/commit/2d73082bd2d8f1584fdee48c65dc90e563b000bb))
+
 ## 1.90.0 (2025-02-06)
 
 Full Changelog: [v1.89.0...v1.90.0](https://github.com/StructifyAI/structify-python/compare/v1.89.0...v1.90.0)
