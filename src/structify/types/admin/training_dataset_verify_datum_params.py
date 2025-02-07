@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing_extensions import Required, TypedDict
+from typing_extensions import Literal, Required, TypedDict
 
 __all__ = ["TrainingDatasetVerifyDatumParams"]
 
@@ -10,6 +10,18 @@ __all__ = ["TrainingDatasetVerifyDatumParams"]
 class TrainingDatasetVerifyDatumParams(TypedDict, total=False):
     id: Required[str]
 
-    verified_nav_id: Required[str]
+    status: Required[
+        Literal[
+            "Unlabeled",
+            "NavLabeled",
+            "SaveLabeled",
+            "NavVerified",
+            "SaveVerified",
+            "Pending",
+            "Skipped",
+            "SuspiciousNav",
+            "SuspiciousSave",
+        ]
+    ]
 
-    verified_save_id: Required[str]
+    verified_id: Required[str]

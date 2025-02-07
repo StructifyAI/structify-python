@@ -14,7 +14,15 @@ class TrainingDatasetSizeResponseItem(BaseModel):
     name: str
 
     status: Literal[
-        "Unlabeled", "NavLabeled", "SaveLabeled", "Verified", "Pending", "Skipped", "SuspiciousNav", "SuspiciousSave"
+        "Unlabeled",
+        "NavLabeled",
+        "SaveLabeled",
+        "NavVerified",
+        "SaveVerified",
+        "Pending",
+        "Skipped",
+        "SuspiciousNav",
+        "SuspiciousSave",
     ]
 
 
