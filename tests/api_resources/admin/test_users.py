@@ -35,7 +35,7 @@ class TestUsers:
         user = client.admin.users.create(
             credit_count=0,
             email="email",
-            feature_flags=["test"],
+            feature_flags=["functional_test"],
             is_admin=True,
             permissions=["labeler"],
             test=True,
@@ -74,7 +74,7 @@ class TestUsers:
         user = client.admin.users.update(
             current_email="current_email",
             new_email="new_email",
-            new_feature_flags=["test"],
+            new_feature_flags=["functional_test"],
             new_permissions=["labeler"],
         )
         assert_matches_type(User, user, path=["response"])
@@ -245,7 +245,7 @@ class TestAsyncUsers:
         user = await async_client.admin.users.create(
             credit_count=0,
             email="email",
-            feature_flags=["test"],
+            feature_flags=["functional_test"],
             is_admin=True,
             permissions=["labeler"],
             test=True,
@@ -284,7 +284,7 @@ class TestAsyncUsers:
         user = await async_client.admin.users.update(
             current_email="current_email",
             new_email="new_email",
-            new_feature_flags=["test"],
+            new_feature_flags=["functional_test"],
             new_permissions=["labeler"],
         )
         assert_matches_type(User, user, path=["response"])
