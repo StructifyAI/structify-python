@@ -114,6 +114,13 @@ class TestNextAction:
         assert_matches_type(ActionTrainingDataResponse, next_action, path=["response"])
 
     @parametrize
+    def test_method_get_training_data_with_all_params(self, client: Structify) -> None:
+        next_action = client.admin.next_action.get_training_data(
+            job_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(ActionTrainingDataResponse, next_action, path=["response"])
+
+    @parametrize
     def test_raw_response_get_training_data(self, client: Structify) -> None:
         response = client.admin.next_action.with_raw_response.get_training_data()
 
@@ -266,6 +273,13 @@ class TestAsyncNextAction:
     @parametrize
     async def test_method_get_training_data(self, async_client: AsyncStructify) -> None:
         next_action = await async_client.admin.next_action.get_training_data()
+        assert_matches_type(ActionTrainingDataResponse, next_action, path=["response"])
+
+    @parametrize
+    async def test_method_get_training_data_with_all_params(self, async_client: AsyncStructify) -> None:
+        next_action = await async_client.admin.next_action.get_training_data(
+            job_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
         assert_matches_type(ActionTrainingDataResponse, next_action, path=["response"])
 
     @parametrize
