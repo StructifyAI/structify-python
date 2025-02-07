@@ -12,7 +12,7 @@ class User(BaseModel):
     email: str
 
     feature_flags: Optional[
-        List[Literal["test", "pdf_parsing", "boredm_construction_hack", "boredm_construction_model", "none"]]
+        List[Literal["functional_test", "pdf_parsing", "boredm_construction_hack", "boredm_construction_model", "none"]]
     ] = None
 
     permissions: Optional[List[Literal["labeler", "debug", "human_llm", "none"]]] = None
