@@ -66,7 +66,7 @@ class TestNextAction:
             },
             label="label",
             output={"selected_step": {"step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}},
-            dataset_name="dataset_name",
+            job_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert next_action is None
 
@@ -221,7 +221,7 @@ class TestAsyncNextAction:
             },
             label="label",
             output={"selected_step": {"step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}},
-            dataset_name="dataset_name",
+            job_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert next_action is None
 
