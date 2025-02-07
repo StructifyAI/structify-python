@@ -194,7 +194,15 @@ class Update(BaseModel):
     author: str
 
     status: Literal[
-        "Unlabeled", "NavLabeled", "SaveLabeled", "Verified", "Pending", "Skipped", "SuspiciousNav", "SuspiciousSave"
+        "Unlabeled",
+        "NavLabeled",
+        "SaveLabeled",
+        "NavVerified",
+        "SaveVerified",
+        "Pending",
+        "Skipped",
+        "SuspiciousNav",
+        "SuspiciousSave",
     ]
 
     timestamp: datetime
@@ -203,7 +211,7 @@ class Update(BaseModel):
 
     review_message: Optional[str] = None
 
-    verified_update_id: Optional[str] = None
+    target_id: Optional[str] = None
 
 
 class TrainingDatumResponse(BaseModel):
@@ -212,7 +220,15 @@ class TrainingDatumResponse(BaseModel):
     last_updated: datetime
 
     status: Literal[
-        "Unlabeled", "NavLabeled", "SaveLabeled", "Verified", "Pending", "Skipped", "SuspiciousNav", "SuspiciousSave"
+        "Unlabeled",
+        "NavLabeled",
+        "SaveLabeled",
+        "NavVerified",
+        "SaveVerified",
+        "Pending",
+        "Skipped",
+        "SuspiciousNav",
+        "SuspiciousSave",
     ]
 
     step: ExecutionStep
