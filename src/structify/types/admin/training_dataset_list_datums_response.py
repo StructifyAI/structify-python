@@ -16,13 +16,23 @@ class TrainingDatasetListDatumsResponseItem(BaseModel):
 
     nav_labelers: List[str]
 
+    nav_verifiers: List[str]
+
     save_labelers: List[str]
 
-    status: Literal[
-        "Unlabeled", "NavLabeled", "SaveLabeled", "Verified", "Pending", "Skipped", "SuspiciousNav", "SuspiciousSave"
-    ]
+    save_verifiers: List[str]
 
-    verifiers: List[str]
+    status: Literal[
+        "Unlabeled",
+        "NavLabeled",
+        "SaveLabeled",
+        "NavVerified",
+        "SaveVerified",
+        "Pending",
+        "Skipped",
+        "SuspiciousNav",
+        "SuspiciousSave",
+    ]
 
     origin: Optional[Literal["HumanLLM", "UserReported", "ManualUpload", "ManualTransfer", "ToolParseFailure"]] = None
 
