@@ -117,6 +117,9 @@ class TestNextAction:
     def test_method_get_training_data_with_all_params(self, client: Structify) -> None:
         next_action = client.admin.next_action.get_training_data(
             job_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            limit=0,
+            offset=0,
+            status="status",
         )
         assert_matches_type(ActionTrainingDataResponse, next_action, path=["response"])
 
@@ -279,6 +282,9 @@ class TestAsyncNextAction:
     async def test_method_get_training_data_with_all_params(self, async_client: AsyncStructify) -> None:
         next_action = await async_client.admin.next_action.get_training_data(
             job_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            limit=0,
+            offset=0,
+            status="status",
         )
         assert_matches_type(ActionTrainingDataResponse, next_action, path=["response"])
 
