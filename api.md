@@ -296,7 +296,6 @@ from structify.types import (
     ExecutionStep,
     ExtractionCriteria,
     ToolMetadata,
-    StructureEnhanceResponse,
     StructureEnhanceRelationshipResponse,
     StructureIsCompleteResponse,
     StructureJobStatusResponse,
@@ -306,7 +305,6 @@ from structify.types import (
 
 Methods:
 
-- <code title="post /structure/enhance">client.structure.<a href="./src/structify/resources/structure.py">enhance</a>(\*\*<a href="src/structify/types/structure_enhance_params.py">params</a>) -> str</code>
 - <code title="post /structure/enhance_relationship">client.structure.<a href="./src/structify/resources/structure.py">enhance_relationship</a>(\*\*<a href="src/structify/types/structure_enhance_relationship_params.py">params</a>) -> str</code>
 - <code title="post /structure/is_complete">client.structure.<a href="./src/structify/resources/structure.py">is_complete</a>(\*\*<a href="src/structify/types/structure_is_complete_params.py">params</a>) -> str</code>
 - <code title="post /structure/job_status">client.structure.<a href="./src/structify/resources/structure.py">job_status</a>(\*\*<a href="src/structify/types/structure_job_status_params.py">params</a>) -> <a href="./src/structify/types/structure_job_status_response.py">StructureJobStatusResponse</a></code>

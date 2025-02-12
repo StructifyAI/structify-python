@@ -68,7 +68,6 @@ from .entity_list_jobs_params import EntityListJobsParams as EntityListJobsParam
 from .entity_summarize_params import EntitySummarizeParams as EntitySummarizeParams
 from .report_missing_response import ReportMissingResponse as ReportMissingResponse
 from .document_download_params import DocumentDownloadParams as DocumentDownloadParams
-from .structure_enhance_params import StructureEnhanceParams as StructureEnhanceParams
 from .dataset_view_table_params import DatasetViewTableParams as DatasetViewTableParams
 from .entity_add_batch_response import EntityAddBatchResponse as EntityAddBatchResponse
 from .entity_list_jobs_response import EntityListJobsResponse as EntityListJobsResponse
@@ -76,7 +75,6 @@ from .entity_summarize_response import EntitySummarizeResponse as EntitySummariz
 from .extraction_criteria_param import ExtractionCriteriaParam as ExtractionCriteriaParam
 from .document_download_response import DocumentDownloadResponse as DocumentDownloadResponse
 from .report_relationship_params import ReportRelationshipParams as ReportRelationshipParams
-from .structure_enhance_response import StructureEnhanceResponse as StructureEnhanceResponse
 from .structure_run_async_params import StructureRunAsyncParams as StructureRunAsyncParams
 from .user_transactions_response import UserTransactionsResponse as UserTransactionsResponse
 from .dataset_view_table_response import DatasetViewTableResponse as DatasetViewTableResponse
