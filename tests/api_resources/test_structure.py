@@ -114,7 +114,7 @@ class TestStructure:
     @parametrize
     def test_method_find_relationship(self, client: Structify) -> None:
         structure = client.structure.find_relationship(
-            relation_name="relation_name",
+            relationship_name="relationship_name",
             source_entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             target_entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
@@ -123,7 +123,7 @@ class TestStructure:
     @parametrize
     def test_method_find_relationship_with_all_params(self, client: Structify) -> None:
         structure = client.structure.find_relationship(
-            relation_name="relation_name",
+            relationship_name="relationship_name",
             source_entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             target_entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             allow_new_entities=True,
@@ -136,7 +136,7 @@ class TestStructure:
     @parametrize
     def test_raw_response_find_relationship(self, client: Structify) -> None:
         response = client.structure.with_raw_response.find_relationship(
-            relation_name="relation_name",
+            relationship_name="relationship_name",
             source_entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             target_entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
@@ -149,7 +149,7 @@ class TestStructure:
     @parametrize
     def test_streaming_response_find_relationship(self, client: Structify) -> None:
         with client.structure.with_streaming_response.find_relationship(
-            relation_name="relation_name",
+            relationship_name="relationship_name",
             source_entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             target_entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
@@ -383,7 +383,7 @@ class TestAsyncStructure:
     @parametrize
     async def test_method_find_relationship(self, async_client: AsyncStructify) -> None:
         structure = await async_client.structure.find_relationship(
-            relation_name="relation_name",
+            relationship_name="relationship_name",
             source_entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             target_entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
@@ -392,7 +392,7 @@ class TestAsyncStructure:
     @parametrize
     async def test_method_find_relationship_with_all_params(self, async_client: AsyncStructify) -> None:
         structure = await async_client.structure.find_relationship(
-            relation_name="relation_name",
+            relationship_name="relationship_name",
             source_entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             target_entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             allow_new_entities=True,
@@ -405,7 +405,7 @@ class TestAsyncStructure:
     @parametrize
     async def test_raw_response_find_relationship(self, async_client: AsyncStructify) -> None:
         response = await async_client.structure.with_raw_response.find_relationship(
-            relation_name="relation_name",
+            relationship_name="relationship_name",
             source_entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             target_entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
@@ -418,7 +418,7 @@ class TestAsyncStructure:
     @parametrize
     async def test_streaming_response_find_relationship(self, async_client: AsyncStructify) -> None:
         async with async_client.structure.with_streaming_response.find_relationship(
-            relation_name="relation_name",
+            relationship_name="relationship_name",
             source_entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             target_entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:

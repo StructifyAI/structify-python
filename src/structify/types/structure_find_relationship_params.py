@@ -9,7 +9,7 @@ __all__ = ["StructureFindRelationshipParams"]
 
 
 class StructureFindRelationshipParams(TypedDict, total=False):
-    relation_name: Required[str]
+    relationship_name: Required[str]
 
     source_entity_id: Required[str]
 
