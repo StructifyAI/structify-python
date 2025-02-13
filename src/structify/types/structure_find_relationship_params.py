@@ -15,7 +15,7 @@ class StructureFindRelationshipParams(TypedDict, total=False):
 
     target_entity_id: Required[str]
 
-    allow_new_entities: bool
+    allow_extra_entities: bool
 
     special_job_type: Optional[Literal["HumanLLM"]]
 
