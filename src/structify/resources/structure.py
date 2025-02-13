@@ -9,6 +9,8 @@ import httpx
 
 from ..types import (
     structure_run_async_params,
+    structure_enhance_property_params,
+    structure_find_relationship_params,
     structure_enhance_relationship_params,
 )
 from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
@@ -64,6 +66,54 @@ class StructureResource(SyncAPIResource):
         """
         return StructureResourceWithStreamingResponse(self)
 
+    def enhance_property(
+        self,
+        *,
+        entity_id: str,
+        property_name: str,
+        allow_new_entities: bool | NotGiven = NOT_GIVEN,
+        special_job_type: Optional[Literal["HumanLLM"]] | NotGiven = NOT_GIVEN,
+        starting_searches: List[str] | NotGiven = NOT_GIVEN,
+        starting_urls: List[str] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> str:
+        """
+        Returns a job id that can be waited on until the request is finished.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
+        return self._post(
+            "/structure/enhance_property",
+            body=maybe_transform(
+                {
+                    "entity_id": entity_id,
+                    "property_name": property_name,
+                    "allow_new_entities": allow_new_entities,
+                    "special_job_type": special_job_type,
+                    "starting_searches": starting_searches,
+                    "starting_urls": starting_urls,
+                },
+                structure_enhance_property_params.StructureEnhancePropertyParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=str,
+        )
+
     def enhance_relationship(
         self,
         *,
@@ -105,6 +155,56 @@ class StructureResource(SyncAPIResource):
                     "starting_urls": starting_urls,
                 },
                 structure_enhance_relationship_params.StructureEnhanceRelationshipParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=str,
+        )
+
+    def find_relationship(
+        self,
+        *,
+        relation_name: str,
+        source_entity_id: str,
+        target_entity_id: str,
+        allow_new_entities: bool | NotGiven = NOT_GIVEN,
+        special_job_type: Optional[Literal["HumanLLM"]] | NotGiven = NOT_GIVEN,
+        starting_searches: List[str] | NotGiven = NOT_GIVEN,
+        starting_urls: List[str] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> str:
+        """
+        Attempt to find the given relation between two entities.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
+        return self._post(
+            "/structure/find_relationship",
+            body=maybe_transform(
+                {
+                    "relation_name": relation_name,
+                    "source_entity_id": source_entity_id,
+                    "target_entity_id": target_entity_id,
+                    "allow_new_entities": allow_new_entities,
+                    "special_job_type": special_job_type,
+                    "starting_searches": starting_searches,
+                    "starting_urls": starting_urls,
+                },
+                structure_find_relationship_params.StructureFindRelationshipParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -302,6 +402,54 @@ class AsyncStructureResource(AsyncAPIResource):
         """
         return AsyncStructureResourceWithStreamingResponse(self)
 
+    async def enhance_property(
+        self,
+        *,
+        entity_id: str,
+        property_name: str,
+        allow_new_entities: bool | NotGiven = NOT_GIVEN,
+        special_job_type: Optional[Literal["HumanLLM"]] | NotGiven = NOT_GIVEN,
+        starting_searches: List[str] | NotGiven = NOT_GIVEN,
+        starting_urls: List[str] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> str:
+        """
+        Returns a job id that can be waited on until the request is finished.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
+        return await self._post(
+            "/structure/enhance_property",
+            body=await async_maybe_transform(
+                {
+                    "entity_id": entity_id,
+                    "property_name": property_name,
+                    "allow_new_entities": allow_new_entities,
+                    "special_job_type": special_job_type,
+                    "starting_searches": starting_searches,
+                    "starting_urls": starting_urls,
+                },
+                structure_enhance_property_params.StructureEnhancePropertyParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=str,
+        )
+
     async def enhance_relationship(
         self,
         *,
@@ -343,6 +491,56 @@ class AsyncStructureResource(AsyncAPIResource):
                     "starting_urls": starting_urls,
                 },
                 structure_enhance_relationship_params.StructureEnhanceRelationshipParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=str,
+        )
+
+    async def find_relationship(
+        self,
+        *,
+        relation_name: str,
+        source_entity_id: str,
+        target_entity_id: str,
+        allow_new_entities: bool | NotGiven = NOT_GIVEN,
+        special_job_type: Optional[Literal["HumanLLM"]] | NotGiven = NOT_GIVEN,
+        starting_searches: List[str] | NotGiven = NOT_GIVEN,
+        starting_urls: List[str] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> str:
+        """
+        Attempt to find the given relation between two entities.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
+        return await self._post(
+            "/structure/find_relationship",
+            body=await async_maybe_transform(
+                {
+                    "relation_name": relation_name,
+                    "source_entity_id": source_entity_id,
+                    "target_entity_id": target_entity_id,
+                    "allow_new_entities": allow_new_entities,
+                    "special_job_type": special_job_type,
+                    "starting_searches": starting_searches,
+                    "starting_urls": starting_urls,
+                },
+                structure_find_relationship_params.StructureFindRelationshipParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -472,8 +670,14 @@ class StructureResourceWithRawResponse:
     def __init__(self, structure: StructureResource) -> None:
         self._structure = structure
 
+        self.enhance_property = to_raw_response_wrapper(
+            structure.enhance_property,
+        )
         self.enhance_relationship = to_raw_response_wrapper(
             structure.enhance_relationship,
+        )
+        self.find_relationship = to_raw_response_wrapper(
+            structure.find_relationship,
         )
         self.is_complete = to_raw_response_wrapper(
             structure.is_complete,
@@ -490,8 +694,14 @@ class AsyncStructureResourceWithRawResponse:
     def __init__(self, structure: AsyncStructureResource) -> None:
         self._structure = structure
 
+        self.enhance_property = async_to_raw_response_wrapper(
+            structure.enhance_property,
+        )
         self.enhance_relationship = async_to_raw_response_wrapper(
             structure.enhance_relationship,
+        )
+        self.find_relationship = async_to_raw_response_wrapper(
+            structure.find_relationship,
         )
         self.is_complete = async_to_raw_response_wrapper(
             structure.is_complete,
@@ -508,8 +718,14 @@ class StructureResourceWithStreamingResponse:
     def __init__(self, structure: StructureResource) -> None:
         self._structure = structure
 
+        self.enhance_property = to_streamed_response_wrapper(
+            structure.enhance_property,
+        )
         self.enhance_relationship = to_streamed_response_wrapper(
             structure.enhance_relationship,
+        )
+        self.find_relationship = to_streamed_response_wrapper(
+            structure.find_relationship,
         )
         self.is_complete = to_streamed_response_wrapper(
             structure.is_complete,
@@ -526,8 +742,14 @@ class AsyncStructureResourceWithStreamingResponse:
     def __init__(self, structure: AsyncStructureResource) -> None:
         self._structure = structure
 
+        self.enhance_property = async_to_streamed_response_wrapper(
+            structure.enhance_property,
+        )
         self.enhance_relationship = async_to_streamed_response_wrapper(
             structure.enhance_relationship,
+        )
+        self.find_relationship = async_to_streamed_response_wrapper(
+            structure.find_relationship,
         )
         self.is_complete = async_to_streamed_response_wrapper(
             structure.is_complete,
