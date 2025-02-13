@@ -153,7 +153,7 @@ class StructureResource(SyncAPIResource):
     def find_relationship(
         self,
         *,
-        relation_name: str,
+        relationship_name: str,
         source_entity_id: str,
         target_entity_id: str,
         allow_new_entities: bool | NotGiven = NOT_GIVEN,
@@ -184,7 +184,7 @@ class StructureResource(SyncAPIResource):
             "/structure/find_relationship",
             body=maybe_transform(
                 {
-                    "relation_name": relation_name,
+                    "relationship_name": relationship_name,
                     "source_entity_id": source_entity_id,
                     "target_entity_id": target_entity_id,
                     "allow_new_entities": allow_new_entities,
@@ -437,7 +437,7 @@ class AsyncStructureResource(AsyncAPIResource):
     async def find_relationship(
         self,
         *,
-        relation_name: str,
+        relationship_name: str,
         source_entity_id: str,
         target_entity_id: str,
         allow_new_entities: bool | NotGiven = NOT_GIVEN,
@@ -468,7 +468,7 @@ class AsyncStructureResource(AsyncAPIResource):
             "/structure/find_relationship",
             body=await async_maybe_transform(
                 {
-                    "relation_name": relation_name,
+                    "relationship_name": relationship_name,
                     "source_entity_id": source_entity_id,
                     "target_entity_id": target_entity_id,
                     "allow_new_entities": allow_new_entities,
