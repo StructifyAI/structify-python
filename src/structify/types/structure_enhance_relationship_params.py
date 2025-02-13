@@ -13,7 +13,7 @@ class StructureEnhanceRelationshipParams(TypedDict, total=False):
 
     relationship_name: Required[str]
 
-    allow_new_entities: bool
+    allow_extra_entities: bool
 
     special_job_type: Optional[Literal["HumanLLM"]]
 
