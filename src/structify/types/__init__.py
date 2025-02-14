@@ -2,11 +2,13 @@
 
 from __future__ import annotations
 
+from .plan import Plan as Plan
 from .image import Image as Image
 from .table import Table as Table
 from .entity import Entity as Entity
 from .source import Source as Source
 from .user_info import UserInfo as UserInfo
+from .plan_param import PlanParam as PlanParam
 from .chat_prompt import ChatPrompt as ChatPrompt
 from .image_param import ImageParam as ImageParam
 from .table_param import TableParam as TableParam
@@ -18,9 +20,11 @@ from .execution_step import ExecutionStep as ExecutionStep
 from .token_response import TokenResponse as TokenResponse
 from .job_list_params import JobListParams as JobListParams
 from .knowledge_graph import KnowledgeGraph as KnowledgeGraph
+from .enhance_property import EnhanceProperty as EnhanceProperty
 from .job_get_response import JobGetResponse as JobGetResponse
 from .entity_add_params import EntityAddParams as EntityAddParams
 from .entity_get_params import EntityGetParams as EntityGetParams
+from .find_relationship import FindRelationship as FindRelationship
 from .job_list_response import JobListResponse as JobListResponse
 from .user_usage_params import UserUsageParams as UserUsageParams
 from .dataset_descriptor import DatasetDescriptor as DatasetDescriptor
@@ -43,6 +47,7 @@ from .user_usage_response import UserUsageResponse as UserUsageResponse
 from .dataset_get_response import DatasetGetResponse as DatasetGetResponse
 from .dataset_match_params import DatasetMatchParams as DatasetMatchParams
 from .document_list_params import DocumentListParams as DocumentListParams
+from .enhance_relationship import EnhanceRelationship as EnhanceRelationship
 from .entity_delete_params import EntityDeleteParams as EntityDeleteParams
 from .entity_search_params import EntitySearchParams as EntitySearchParams
 from .entity_verify_params import EntityVerifyParams as EntityVerifyParams
@@ -60,12 +65,14 @@ from .dataset_match_response import DatasetMatchResponse as DatasetMatchResponse
 from .document_delete_params import DocumentDeleteParams as DocumentDeleteParams
 from .document_list_response import DocumentListResponse as DocumentListResponse
 from .document_upload_params import DocumentUploadParams as DocumentUploadParams
+from .enhance_property_param import EnhancePropertyParam as EnhancePropertyParam
 from .entity_delete_response import EntityDeleteResponse as EntityDeleteResponse
 from .entity_search_response import EntitySearchResponse as EntitySearchResponse
 from .job_get_steps_response import JobGetStepsResponse as JobGetStepsResponse
 from .entity_add_batch_params import EntityAddBatchParams as EntityAddBatchParams
 from .entity_list_jobs_params import EntityListJobsParams as EntityListJobsParams
 from .entity_summarize_params import EntitySummarizeParams as EntitySummarizeParams
+from .find_relationship_param import FindRelationshipParam as FindRelationshipParam
 from .report_missing_response import ReportMissingResponse as ReportMissingResponse
 from .document_download_params import DocumentDownloadParams as DocumentDownloadParams
 from .dataset_view_table_params import DatasetViewTableParams as DatasetViewTableParams
@@ -74,6 +81,7 @@ from .entity_list_jobs_response import EntityListJobsResponse as EntityListJobsR
 from .entity_summarize_response import EntitySummarizeResponse as EntitySummarizeResponse
 from .extraction_criteria_param import ExtractionCriteriaParam as ExtractionCriteriaParam
 from .document_download_response import DocumentDownloadResponse as DocumentDownloadResponse
+from .enhance_relationship_param import EnhanceRelationshipParam as EnhanceRelationshipParam
 from .report_relationship_params import ReportRelationshipParams as ReportRelationshipParams
 from .structure_run_async_params import StructureRunAsyncParams as StructureRunAsyncParams
 from .user_transactions_response import UserTransactionsResponse as UserTransactionsResponse

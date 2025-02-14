@@ -28,6 +28,7 @@ from .._response import (
     async_to_streamed_response_wrapper,
 )
 from .._base_client import make_request_options
+from ..types.plan_param import PlanParam
 from ..types.knowledge_graph_param import KnowledgeGraphParam
 from ..types.extraction_criteria_param import ExtractionCriteriaParam
 from ..types.structure_job_status_response import StructureJobStatusResponse
@@ -60,7 +61,7 @@ class StructureResource(SyncAPIResource):
         self,
         *,
         dataset: str,
-        plan: structure_create_plan_params.Plan,
+        plan: PlanParam,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -403,7 +404,7 @@ class AsyncStructureResource(AsyncAPIResource):
         self,
         *,
         dataset: str,
-        plan: structure_create_plan_params.Plan,
+        plan: PlanParam,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
