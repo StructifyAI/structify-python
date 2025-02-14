@@ -75,6 +75,7 @@ from .entity_summarize_params import EntitySummarizeParams as EntitySummarizePar
 from .find_relationship_param import FindRelationshipParam as FindRelationshipParam
 from .report_missing_response import ReportMissingResponse as ReportMissingResponse
 from .document_download_params import DocumentDownloadParams as DocumentDownloadParams
+from .dataset_evaluate_response import DatasetEvaluateResponse as DatasetEvaluateResponse
 from .dataset_view_table_params import DatasetViewTableParams as DatasetViewTableParams
 from .entity_add_batch_response import EntityAddBatchResponse as EntityAddBatchResponse
 from .entity_list_jobs_response import EntityListJobsResponse as EntityListJobsResponse
