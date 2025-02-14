@@ -297,26 +297,22 @@ from structify.types import (
     ExecutionStep,
     ExtractionCriteria,
     ToolMetadata,
-    StructureCreatePlanResponse,
     StructureEnhancePropertyResponse,
     StructureEnhanceRelationshipResponse,
     StructureFindRelationshipResponse,
     StructureIsCompleteResponse,
     StructureJobStatusResponse,
-    StructureListPlansResponse,
     StructureRunAsyncResponse,
 )
 ```
 
 Methods:
 
-- <code title="post /structure/create_plan">client.structure.<a href="./src/structify/resources/structure.py">create_plan</a>(\*\*<a href="src/structify/types/structure_create_plan_params.py">params</a>) -> str</code>
 - <code title="post /structure/enhance_property">client.structure.<a href="./src/structify/resources/structure.py">enhance_property</a>(\*\*<a href="src/structify/types/structure_enhance_property_params.py">params</a>) -> str</code>
 - <code title="post /structure/enhance_relationship">client.structure.<a href="./src/structify/resources/structure.py">enhance_relationship</a>(\*\*<a href="src/structify/types/structure_enhance_relationship_params.py">params</a>) -> str</code>
 - <code title="post /structure/find_relationship">client.structure.<a href="./src/structify/resources/structure.py">find_relationship</a>(\*\*<a href="src/structify/types/structure_find_relationship_params.py">params</a>) -> str</code>
 - <code title="post /structure/is_complete">client.structure.<a href="./src/structify/resources/structure.py">is_complete</a>(\*\*<a href="src/structify/types/structure_is_complete_params.py">params</a>) -> str</code>
 - <code title="post /structure/job_status">client.structure.<a href="./src/structify/resources/structure.py">job_status</a>(\*\*<a href="src/structify/types/structure_job_status_params.py">params</a>) -> <a href="./src/structify/types/structure_job_status_response.py">StructureJobStatusResponse</a></code>
-- <code title="get /structure/list_plans">client.structure.<a href="./src/structify/resources/structure.py">list_plans</a>() -> <a href="./src/structify/types/structure_list_plans_response.py">StructureListPlansResponse</a></code>
 - <code title="post /structure/run_async">client.structure.<a href="./src/structify/resources/structure.py">run_async</a>(\*\*<a href="src/structify/types/structure_run_async_params.py">params</a>) -> str</code>
 
 # Shared
