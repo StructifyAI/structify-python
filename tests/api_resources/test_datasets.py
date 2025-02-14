@@ -225,12 +225,22 @@ class TestDatasets:
 
     @parametrize
     def test_method_evaluate(self, client: Structify) -> None:
-        dataset = client.datasets.evaluate()
+        dataset = client.datasets.evaluate(
+            dataset_1="dataset_1",
+            dataset_2="dataset_2",
+            email_1="email_1",
+            email_2="email_2",
+        )
         assert_matches_type(DatasetEvaluateResponse, dataset, path=["response"])
 
     @parametrize
     def test_raw_response_evaluate(self, client: Structify) -> None:
-        response = client.datasets.with_raw_response.evaluate()
+        response = client.datasets.with_raw_response.evaluate(
+            dataset_1="dataset_1",
+            dataset_2="dataset_2",
+            email_1="email_1",
+            email_2="email_2",
+        )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -239,7 +249,12 @@ class TestDatasets:
 
     @parametrize
     def test_streaming_response_evaluate(self, client: Structify) -> None:
-        with client.datasets.with_streaming_response.evaluate() as response:
+        with client.datasets.with_streaming_response.evaluate(
+            dataset_1="dataset_1",
+            dataset_2="dataset_2",
+            email_1="email_1",
+            email_2="email_2",
+        ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -690,12 +705,22 @@ class TestAsyncDatasets:
 
     @parametrize
     async def test_method_evaluate(self, async_client: AsyncStructify) -> None:
-        dataset = await async_client.datasets.evaluate()
+        dataset = await async_client.datasets.evaluate(
+            dataset_1="dataset_1",
+            dataset_2="dataset_2",
+            email_1="email_1",
+            email_2="email_2",
+        )
         assert_matches_type(DatasetEvaluateResponse, dataset, path=["response"])
 
     @parametrize
     async def test_raw_response_evaluate(self, async_client: AsyncStructify) -> None:
-        response = await async_client.datasets.with_raw_response.evaluate()
+        response = await async_client.datasets.with_raw_response.evaluate(
+            dataset_1="dataset_1",
+            dataset_2="dataset_2",
+            email_1="email_1",
+            email_2="email_2",
+        )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -704,7 +729,12 @@ class TestAsyncDatasets:
 
     @parametrize
     async def test_streaming_response_evaluate(self, async_client: AsyncStructify) -> None:
-        async with async_client.datasets.with_streaming_response.evaluate() as response:
+        async with async_client.datasets.with_streaming_response.evaluate(
+            dataset_1="dataset_1",
+            dataset_2="dataset_2",
+            email_1="email_1",
+            email_2="email_2",
+        ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 

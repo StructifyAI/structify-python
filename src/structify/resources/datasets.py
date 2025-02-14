@@ -12,6 +12,7 @@ from ..types import (
     dataset_match_params,
     dataset_create_params,
     dataset_delete_params,
+    dataset_evaluate_params,
     dataset_view_table_params,
     dataset_view_relationships_params,
     dataset_view_tables_with_relationships_params,
@@ -170,6 +171,10 @@ class DatasetsResource(SyncAPIResource):
     def evaluate(
         self,
         *,
+        dataset_1: str,
+        dataset_2: str,
+        email_1: str,
+        email_2: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -177,11 +182,34 @@ class DatasetsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> DatasetEvaluateResponse:
-        """Evaluate two datasets"""
+        """
+        Evaluate two datasets
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
         return self._post(
             "/dataset/evaluate",
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "dataset_1": dataset_1,
+                        "dataset_2": dataset_2,
+                        "email_1": email_1,
+                        "email_2": email_2,
+                    },
+                    dataset_evaluate_params.DatasetEvaluateParams,
+                ),
             ),
             cast_to=DatasetEvaluateResponse,
         )
@@ -555,6 +583,10 @@ class AsyncDatasetsResource(AsyncAPIResource):
     async def evaluate(
         self,
         *,
+        dataset_1: str,
+        dataset_2: str,
+        email_1: str,
+        email_2: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -562,11 +594,34 @@ class AsyncDatasetsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> DatasetEvaluateResponse:
-        """Evaluate two datasets"""
+        """
+        Evaluate two datasets
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
         return await self._post(
             "/dataset/evaluate",
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "dataset_1": dataset_1,
+                        "dataset_2": dataset_2,
+                        "email_1": email_1,
+                        "email_2": email_2,
+                    },
+                    dataset_evaluate_params.DatasetEvaluateParams,
+                ),
             ),
             cast_to=DatasetEvaluateResponse,
         )
