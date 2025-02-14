@@ -313,6 +313,8 @@ class TrainingDatasetsResource(SyncAPIResource):
         ],
         dataset_name: Optional[str] | NotGiven = NOT_GIVEN,
         end_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
+        labeled_status: Literal["NonSuspicious", "SuspiciousOnly", "VerifiedOnly"] | NotGiven = NOT_GIVEN,
+        return_prop_count: bool | NotGiven = NOT_GIVEN,
         start_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -345,6 +347,8 @@ class TrainingDatasetsResource(SyncAPIResource):
                         "status": status,
                         "dataset_name": dataset_name,
                         "end_date": end_date,
+                        "labeled_status": labeled_status,
+                        "return_prop_count": return_prop_count,
                         "start_date": start_date,
                     },
                     training_dataset_get_labeller_stats_params.TrainingDatasetGetLabellerStatsParams,
@@ -1201,6 +1205,8 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
         ],
         dataset_name: Optional[str] | NotGiven = NOT_GIVEN,
         end_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
+        labeled_status: Literal["NonSuspicious", "SuspiciousOnly", "VerifiedOnly"] | NotGiven = NOT_GIVEN,
+        return_prop_count: bool | NotGiven = NOT_GIVEN,
         start_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1233,6 +1239,8 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
                         "status": status,
                         "dataset_name": dataset_name,
                         "end_date": end_date,
+                        "labeled_status": labeled_status,
+                        "return_prop_count": return_prop_count,
                         "start_date": start_date,
                     },
                     training_dataset_get_labeller_stats_params.TrainingDatasetGetLabellerStatsParams,

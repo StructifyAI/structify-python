@@ -30,4 +30,8 @@ class TrainingDatasetGetLabellerStatsParams(TypedDict, total=False):
 
     end_date: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
 
+    labeled_status: Literal["NonSuspicious", "SuspiciousOnly", "VerifiedOnly"]
+
+    return_prop_count: bool
+
     start_date: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
