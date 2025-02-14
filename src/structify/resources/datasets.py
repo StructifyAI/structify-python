@@ -36,6 +36,7 @@ from ..types.dataset_get_response import DatasetGetResponse
 from ..types.dataset_list_response import DatasetListResponse
 from ..types.knowledge_graph_param import KnowledgeGraphParam
 from ..types.dataset_match_response import DatasetMatchResponse
+from ..types.dataset_evaluate_response import DatasetEvaluateResponse
 from ..types.dataset_view_table_response import DatasetViewTableResponse
 from ..types.dataset_view_relationships_response import DatasetViewRelationshipsResponse
 from ..types.dataset_view_tables_with_relationships_response import DatasetViewTablesWithRelationshipsResponse
@@ -164,6 +165,25 @@ class DatasetsResource(SyncAPIResource):
                 query=maybe_transform({"name": name}, dataset_delete_params.DatasetDeleteParams),
             ),
             cast_to=NoneType,
+        )
+
+    def evaluate(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> DatasetEvaluateResponse:
+        """Evaluate two datasets"""
+        return self._post(
+            "/dataset/evaluate",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=DatasetEvaluateResponse,
         )
 
     def get(
@@ -532,6 +552,25 @@ class AsyncDatasetsResource(AsyncAPIResource):
             cast_to=NoneType,
         )
 
+    async def evaluate(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> DatasetEvaluateResponse:
+        """Evaluate two datasets"""
+        return await self._post(
+            "/dataset/evaluate",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=DatasetEvaluateResponse,
+        )
+
     async def get(
         self,
         *,
@@ -788,6 +827,9 @@ class DatasetsResourceWithRawResponse:
         self.delete = to_raw_response_wrapper(
             datasets.delete,
         )
+        self.evaluate = to_raw_response_wrapper(
+            datasets.evaluate,
+        )
         self.get = to_raw_response_wrapper(
             datasets.get,
         )
@@ -817,6 +859,9 @@ class AsyncDatasetsResourceWithRawResponse:
         )
         self.delete = async_to_raw_response_wrapper(
             datasets.delete,
+        )
+        self.evaluate = async_to_raw_response_wrapper(
+            datasets.evaluate,
         )
         self.get = async_to_raw_response_wrapper(
             datasets.get,
@@ -848,6 +893,9 @@ class DatasetsResourceWithStreamingResponse:
         self.delete = to_streamed_response_wrapper(
             datasets.delete,
         )
+        self.evaluate = to_streamed_response_wrapper(
+            datasets.evaluate,
+        )
         self.get = to_streamed_response_wrapper(
             datasets.get,
         )
@@ -877,6 +925,9 @@ class AsyncDatasetsResourceWithStreamingResponse:
         )
         self.delete = async_to_streamed_response_wrapper(
             datasets.delete,
+        )
+        self.evaluate = async_to_streamed_response_wrapper(
+            datasets.evaluate,
         )
         self.get = async_to_streamed_response_wrapper(
             datasets.get,
