@@ -294,8 +294,12 @@ Types:
 ```python
 from structify.types import (
     ChatPrompt,
+    EnhanceProperty,
+    EnhanceRelationship,
     ExecutionStep,
     ExtractionCriteria,
+    FindRelationship,
+    Plan,
     ToolMetadata,
     StructureCreatePlanResponse,
     StructureEnhancePropertyResponse,

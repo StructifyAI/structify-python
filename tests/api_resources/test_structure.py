@@ -24,7 +24,14 @@ class TestStructure:
     def test_method_create_plan(self, client: Structify) -> None:
         structure = client.structure.create_plan(
             dataset="dataset",
-            plan={"steps": [[{}]]},
+            plan={
+                "steps": [
+                    {
+                        "entity_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                        "property_name": "property_name",
+                    }
+                ]
+            },
         )
         assert_matches_type(str, structure, path=["response"])
 
@@ -32,7 +39,14 @@ class TestStructure:
     def test_raw_response_create_plan(self, client: Structify) -> None:
         response = client.structure.with_raw_response.create_plan(
             dataset="dataset",
-            plan={"steps": [[{}]]},
+            plan={
+                "steps": [
+                    {
+                        "entity_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                        "property_name": "property_name",
+                    }
+                ]
+            },
         )
 
         assert response.is_closed is True
@@ -44,7 +58,14 @@ class TestStructure:
     def test_streaming_response_create_plan(self, client: Structify) -> None:
         with client.structure.with_streaming_response.create_plan(
             dataset="dataset",
-            plan={"steps": [[{}]]},
+            plan={
+                "steps": [
+                    {
+                        "entity_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                        "property_name": "property_name",
+                    }
+                ]
+            },
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -352,7 +373,14 @@ class TestAsyncStructure:
     async def test_method_create_plan(self, async_client: AsyncStructify) -> None:
         structure = await async_client.structure.create_plan(
             dataset="dataset",
-            plan={"steps": [[{}]]},
+            plan={
+                "steps": [
+                    {
+                        "entity_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                        "property_name": "property_name",
+                    }
+                ]
+            },
         )
         assert_matches_type(str, structure, path=["response"])
 
@@ -360,7 +388,14 @@ class TestAsyncStructure:
     async def test_raw_response_create_plan(self, async_client: AsyncStructify) -> None:
         response = await async_client.structure.with_raw_response.create_plan(
             dataset="dataset",
-            plan={"steps": [[{}]]},
+            plan={
+                "steps": [
+                    {
+                        "entity_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                        "property_name": "property_name",
+                    }
+                ]
+            },
         )
 
         assert response.is_closed is True
@@ -372,7 +407,14 @@ class TestAsyncStructure:
     async def test_streaming_response_create_plan(self, async_client: AsyncStructify) -> None:
         async with async_client.structure.with_streaming_response.create_plan(
             dataset="dataset",
-            plan={"steps": [[{}]]},
+            plan={
+                "steps": [
+                    {
+                        "entity_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                        "property_name": "property_name",
+                    }
+                ]
+            },
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
