@@ -14,7 +14,7 @@ class StructureListPlansResponseItem(BaseModel):
 
     plan_id: str
 
-    status: Literal["Running", "StartingNextStep", "Completed", "Canceled"]
+    status: Literal["Running", "StartingNextStep", "Completed", "Failed"]
 
     step: int
 
