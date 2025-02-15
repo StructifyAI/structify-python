@@ -19,7 +19,8 @@ from ..._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ..._base_client import make_request_options
+from ...pagination import SyncJobsList, AsyncJobsList
+from ..._base_client import AsyncPaginator, make_request_options
 from ...types.datasets import (
     evaluate_get_params,
     evaluate_run_params,
@@ -58,14 +59,14 @@ class EvaluateResource(SyncAPIResource):
         self,
         *,
         limit: Optional[int] | NotGiven = NOT_GIVEN,
-        skip: Optional[int] | NotGiven = NOT_GIVEN,
+        offset: Optional[int] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> EvaluateListResponse:
+    ) -> SyncJobsList[EvaluateListResponse]:
         """
         List all dataset evaluation results with pagination
 
@@ -78,8 +79,9 @@ class EvaluateResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._get(
+        return self._get_api_list(
             "/dataset/evaluate/list",
+            page=SyncJobsList[EvaluateListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -88,12 +90,12 @@ class EvaluateResource(SyncAPIResource):
                 query=maybe_transform(
                     {
                         "limit": limit,
-                        "skip": skip,
+                        "offset": offset,
                     },
                     evaluate_list_params.EvaluateListParams,
                 ),
             ),
-            cast_to=EvaluateListResponse,
+            model=EvaluateListResponse,
         )
 
     def delete(
@@ -172,6 +174,7 @@ class EvaluateResource(SyncAPIResource):
         *,
         dataset_1: str,
         dataset_2: str,
+        dataset_2_is_ground_truth: bool,
         email_1: str,
         email_2: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -204,6 +207,7 @@ class EvaluateResource(SyncAPIResource):
                     {
                         "dataset_1": dataset_1,
                         "dataset_2": dataset_2,
+                        "dataset_2_is_ground_truth": dataset_2_is_ground_truth,
                         "email_1": email_1,
                         "email_2": email_2,
                     },
@@ -274,18 +278,18 @@ class AsyncEvaluateResource(AsyncAPIResource):
         """
         return AsyncEvaluateResourceWithStreamingResponse(self)
 
-    async def list(
+    def list(
         self,
         *,
         limit: Optional[int] | NotGiven = NOT_GIVEN,
-        skip: Optional[int] | NotGiven = NOT_GIVEN,
+        offset: Optional[int] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> EvaluateListResponse:
+    ) -> AsyncPaginator[EvaluateListResponse, AsyncJobsList[EvaluateListResponse]]:
         """
         List all dataset evaluation results with pagination
 
@@ -298,22 +302,23 @@ class AsyncEvaluateResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return await self._get(
+        return self._get_api_list(
             "/dataset/evaluate/list",
+            page=AsyncJobsList[EvaluateListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform(
+                query=maybe_transform(
                     {
                         "limit": limit,
-                        "skip": skip,
+                        "offset": offset,
                     },
                     evaluate_list_params.EvaluateListParams,
                 ),
             ),
-            cast_to=EvaluateListResponse,
+            model=EvaluateListResponse,
         )
 
     async def delete(
@@ -392,6 +397,7 @@ class AsyncEvaluateResource(AsyncAPIResource):
         *,
         dataset_1: str,
         dataset_2: str,
+        dataset_2_is_ground_truth: bool,
         email_1: str,
         email_2: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -424,6 +430,7 @@ class AsyncEvaluateResource(AsyncAPIResource):
                     {
                         "dataset_1": dataset_1,
                         "dataset_2": dataset_2,
+                        "dataset_2_is_ground_truth": dataset_2_is_ground_truth,
                         "email_1": email_1,
                         "email_2": email_2,
                     },
