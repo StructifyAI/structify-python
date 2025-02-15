@@ -11,7 +11,6 @@ from structify import Structify, AsyncStructify
 from tests.utils import assert_matches_type
 from structify.types.datasets import (
     EvaluateGetResponse,
-    EvaluateRunResponse,
     EvaluateListResponse,
     EvaluateStatusResponse,
 )
@@ -125,7 +124,7 @@ class TestEvaluate:
             email_1="email_1",
             email_2="email_2",
         )
-        assert_matches_type(EvaluateRunResponse, evaluate, path=["response"])
+        assert_matches_type(str, evaluate, path=["response"])
 
     @parametrize
     def test_raw_response_run(self, client: Structify) -> None:
@@ -139,7 +138,7 @@ class TestEvaluate:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         evaluate = response.parse()
-        assert_matches_type(EvaluateRunResponse, evaluate, path=["response"])
+        assert_matches_type(str, evaluate, path=["response"])
 
     @parametrize
     def test_streaming_response_run(self, client: Structify) -> None:
@@ -153,7 +152,7 @@ class TestEvaluate:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             evaluate = response.parse()
-            assert_matches_type(EvaluateRunResponse, evaluate, path=["response"])
+            assert_matches_type(str, evaluate, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -295,7 +294,7 @@ class TestAsyncEvaluate:
             email_1="email_1",
             email_2="email_2",
         )
-        assert_matches_type(EvaluateRunResponse, evaluate, path=["response"])
+        assert_matches_type(str, evaluate, path=["response"])
 
     @parametrize
     async def test_raw_response_run(self, async_client: AsyncStructify) -> None:
@@ -309,7 +308,7 @@ class TestAsyncEvaluate:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         evaluate = await response.parse()
-        assert_matches_type(EvaluateRunResponse, evaluate, path=["response"])
+        assert_matches_type(str, evaluate, path=["response"])
 
     @parametrize
     async def test_streaming_response_run(self, async_client: AsyncStructify) -> None:
@@ -323,7 +322,7 @@ class TestAsyncEvaluate:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             evaluate = await response.parse()
-            assert_matches_type(EvaluateRunResponse, evaluate, path=["response"])
+            assert_matches_type(str, evaluate, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
