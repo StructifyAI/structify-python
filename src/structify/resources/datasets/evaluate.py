@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Optional
+from typing import Any, Optional, cast
 
 import httpx
 
@@ -28,7 +28,6 @@ from ...types.datasets import (
     evaluate_status_params,
 )
 from ...types.datasets.evaluate_get_response import EvaluateGetResponse
-from ...types.datasets.evaluate_run_response import EvaluateRunResponse
 from ...types.datasets.evaluate_list_response import EvaluateListResponse
 from ...types.datasets.evaluate_status_response import EvaluateStatusResponse
 
@@ -181,7 +180,7 @@ class EvaluateResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> EvaluateRunResponse:
+    ) -> str:
         """
         Evaluate two datasets
 
@@ -211,7 +210,7 @@ class EvaluateResource(SyncAPIResource):
                     evaluate_run_params.EvaluateRunParams,
                 ),
             ),
-            cast_to=EvaluateRunResponse,
+            cast_to=str,
         )
 
     def status(
@@ -237,16 +236,21 @@ class EvaluateResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._get(
-            "/dataset/evaluate/status",
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform({"id": id}, evaluate_status_params.EvaluateStatusParams),
+        return cast(
+            EvaluateStatusResponse,
+            self._get(
+                "/dataset/evaluate/status",
+                options=make_request_options(
+                    extra_headers=extra_headers,
+                    extra_query=extra_query,
+                    extra_body=extra_body,
+                    timeout=timeout,
+                    query=maybe_transform({"id": id}, evaluate_status_params.EvaluateStatusParams),
+                ),
+                cast_to=cast(
+                    Any, EvaluateStatusResponse
+                ),  # Union types cannot be passed in as arguments in the type system
             ),
-            cast_to=EvaluateStatusResponse,
         )
 
 
@@ -396,7 +400,7 @@ class AsyncEvaluateResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> EvaluateRunResponse:
+    ) -> str:
         """
         Evaluate two datasets
 
@@ -426,7 +430,7 @@ class AsyncEvaluateResource(AsyncAPIResource):
                     evaluate_run_params.EvaluateRunParams,
                 ),
             ),
-            cast_to=EvaluateRunResponse,
+            cast_to=str,
         )
 
     async def status(
@@ -452,16 +456,21 @@ class AsyncEvaluateResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return await self._get(
-            "/dataset/evaluate/status",
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform({"id": id}, evaluate_status_params.EvaluateStatusParams),
+        return cast(
+            EvaluateStatusResponse,
+            await self._get(
+                "/dataset/evaluate/status",
+                options=make_request_options(
+                    extra_headers=extra_headers,
+                    extra_query=extra_query,
+                    extra_body=extra_body,
+                    timeout=timeout,
+                    query=await async_maybe_transform({"id": id}, evaluate_status_params.EvaluateStatusParams),
+                ),
+                cast_to=cast(
+                    Any, EvaluateStatusResponse
+                ),  # Union types cannot be passed in as arguments in the type system
             ),
-            cast_to=EvaluateStatusResponse,
         )
 
 

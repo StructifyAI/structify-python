@@ -169,7 +169,7 @@ Methods:
 - <code title="get /dataset/evaluate/list">client.datasets.evaluate.<a href="./src/structify/resources/datasets/evaluate.py">list</a>(\*\*<a href="src/structify/types/datasets/evaluate_list_params.py">params</a>) -> <a href="./src/structify/types/datasets/evaluate_list_response.py">EvaluateListResponse</a></code>
 - <code title="delete /dataset/evaluate/delete">client.datasets.evaluate.<a href="./src/structify/resources/datasets/evaluate.py">delete</a>(\*\*<a href="src/structify/types/datasets/evaluate_delete_params.py">params</a>) -> None</code>
 - <code title="get /dataset/evaluate/get">client.datasets.evaluate.<a href="./src/structify/resources/datasets/evaluate.py">get</a>(\*\*<a href="src/structify/types/datasets/evaluate_get_params.py">params</a>) -> <a href="./src/structify/types/datasets/evaluate_get_response.py">EvaluateGetResponse</a></code>
-- <code title="post /dataset/evaluate/run">client.datasets.evaluate.<a href="./src/structify/resources/datasets/evaluate.py">run</a>(\*\*<a href="src/structify/types/datasets/evaluate_run_params.py">params</a>) -> <a href="./src/structify/types/datasets/evaluate_run_response.py">EvaluateRunResponse</a></code>
+- <code title="post /dataset/evaluate/run">client.datasets.evaluate.<a href="./src/structify/resources/datasets/evaluate.py">run</a>(\*\*<a href="src/structify/types/datasets/evaluate_run_params.py">params</a>) -> str</code>
 - <code title="get /dataset/evaluate/status">client.datasets.evaluate.<a href="./src/structify/resources/datasets/evaluate.py">status</a>(\*\*<a href="src/structify/types/datasets/evaluate_status_params.py">params</a>) -> <a href="./src/structify/types/datasets/evaluate_status_response.py">EvaluateStatusResponse</a></code>
 
 # Documents
