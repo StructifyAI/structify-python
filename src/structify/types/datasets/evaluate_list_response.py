@@ -1,15 +1,13 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List
 from datetime import datetime
-from typing_extensions import TypeAlias
 
 from ..._models import BaseModel
 
-__all__ = ["EvaluateListResponse", "EvaluateListResponseItem"]
+__all__ = ["EvaluateListResponse"]
 
 
-class EvaluateListResponseItem(BaseModel):
+class EvaluateListResponse(BaseModel):
     id: str
 
     dataset_1: str
@@ -21,6 +19,3 @@ class EvaluateListResponseItem(BaseModel):
     email_2: str
 
     started_at: datetime
-
-
-EvaluateListResponse: TypeAlias = List[EvaluateListResponseItem]
