@@ -9,6 +9,7 @@ import pytest
 
 from structify import Structify, AsyncStructify
 from tests.utils import assert_matches_type
+from structify.pagination import SyncJobsList, AsyncJobsList
 from structify.types.datasets import (
     EvaluateGetResponse,
     EvaluateListResponse,
@@ -24,15 +25,15 @@ class TestEvaluate:
     @parametrize
     def test_method_list(self, client: Structify) -> None:
         evaluate = client.datasets.evaluate.list()
-        assert_matches_type(EvaluateListResponse, evaluate, path=["response"])
+        assert_matches_type(SyncJobsList[EvaluateListResponse], evaluate, path=["response"])
 
     @parametrize
     def test_method_list_with_all_params(self, client: Structify) -> None:
         evaluate = client.datasets.evaluate.list(
             limit=1,
-            skip=0,
+            offset=0,
         )
-        assert_matches_type(EvaluateListResponse, evaluate, path=["response"])
+        assert_matches_type(SyncJobsList[EvaluateListResponse], evaluate, path=["response"])
 
     @parametrize
     def test_raw_response_list(self, client: Structify) -> None:
@@ -41,7 +42,7 @@ class TestEvaluate:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         evaluate = response.parse()
-        assert_matches_type(EvaluateListResponse, evaluate, path=["response"])
+        assert_matches_type(SyncJobsList[EvaluateListResponse], evaluate, path=["response"])
 
     @parametrize
     def test_streaming_response_list(self, client: Structify) -> None:
@@ -50,7 +51,7 @@ class TestEvaluate:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             evaluate = response.parse()
-            assert_matches_type(EvaluateListResponse, evaluate, path=["response"])
+            assert_matches_type(SyncJobsList[EvaluateListResponse], evaluate, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -121,6 +122,7 @@ class TestEvaluate:
         evaluate = client.datasets.evaluate.run(
             dataset_1="dataset_1",
             dataset_2="dataset_2",
+            dataset_2_is_ground_truth=True,
             email_1="email_1",
             email_2="email_2",
         )
@@ -131,6 +133,7 @@ class TestEvaluate:
         response = client.datasets.evaluate.with_raw_response.run(
             dataset_1="dataset_1",
             dataset_2="dataset_2",
+            dataset_2_is_ground_truth=True,
             email_1="email_1",
             email_2="email_2",
         )
@@ -145,6 +148,7 @@ class TestEvaluate:
         with client.datasets.evaluate.with_streaming_response.run(
             dataset_1="dataset_1",
             dataset_2="dataset_2",
+            dataset_2_is_ground_truth=True,
             email_1="email_1",
             email_2="email_2",
         ) as response:
@@ -194,15 +198,15 @@ class TestAsyncEvaluate:
     @parametrize
     async def test_method_list(self, async_client: AsyncStructify) -> None:
         evaluate = await async_client.datasets.evaluate.list()
-        assert_matches_type(EvaluateListResponse, evaluate, path=["response"])
+        assert_matches_type(AsyncJobsList[EvaluateListResponse], evaluate, path=["response"])
 
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncStructify) -> None:
         evaluate = await async_client.datasets.evaluate.list(
             limit=1,
-            skip=0,
+            offset=0,
         )
-        assert_matches_type(EvaluateListResponse, evaluate, path=["response"])
+        assert_matches_type(AsyncJobsList[EvaluateListResponse], evaluate, path=["response"])
 
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncStructify) -> None:
@@ -211,7 +215,7 @@ class TestAsyncEvaluate:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         evaluate = await response.parse()
-        assert_matches_type(EvaluateListResponse, evaluate, path=["response"])
+        assert_matches_type(AsyncJobsList[EvaluateListResponse], evaluate, path=["response"])
 
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncStructify) -> None:
@@ -220,7 +224,7 @@ class TestAsyncEvaluate:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             evaluate = await response.parse()
-            assert_matches_type(EvaluateListResponse, evaluate, path=["response"])
+            assert_matches_type(AsyncJobsList[EvaluateListResponse], evaluate, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -291,6 +295,7 @@ class TestAsyncEvaluate:
         evaluate = await async_client.datasets.evaluate.run(
             dataset_1="dataset_1",
             dataset_2="dataset_2",
+            dataset_2_is_ground_truth=True,
             email_1="email_1",
             email_2="email_2",
         )
@@ -301,6 +306,7 @@ class TestAsyncEvaluate:
         response = await async_client.datasets.evaluate.with_raw_response.run(
             dataset_1="dataset_1",
             dataset_2="dataset_2",
+            dataset_2_is_ground_truth=True,
             email_1="email_1",
             email_2="email_2",
         )
@@ -315,6 +321,7 @@ class TestAsyncEvaluate:
         async with async_client.datasets.evaluate.with_streaming_response.run(
             dataset_1="dataset_1",
             dataset_2="dataset_2",
+            dataset_2_is_ground_truth=True,
             email_1="email_1",
             email_2="email_2",
         ) as response:
