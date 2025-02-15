@@ -24,7 +24,7 @@ from ._utils import (
     get_async_library,
 )
 from ._version import __version__
-from .resources import jobs, user, images, report, server, sources, datasets, entities, documents, structure
+from .resources import jobs, user, images, report, server, sources, entities, documents, structure
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import APIStatusError, StructifyError
 from ._base_client import (
@@ -33,6 +33,7 @@ from ._base_client import (
     AsyncAPIClient,
 )
 from .resources.admin import admin
+from .resources.datasets import datasets
 
 __all__ = [
     "ENVIRONMENTS",
