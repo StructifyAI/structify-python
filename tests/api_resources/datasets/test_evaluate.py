@@ -11,6 +11,7 @@ from structify import Structify, AsyncStructify
 from tests.utils import assert_matches_type
 from structify.types.datasets import (
     EvaluateGetResponse,
+    EvaluateRunResponse,
     EvaluateListResponse,
     EvaluateStatusResponse,
 )
@@ -113,6 +114,46 @@ class TestEvaluate:
 
             evaluate = response.parse()
             assert_matches_type(EvaluateGetResponse, evaluate, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_method_run(self, client: Structify) -> None:
+        evaluate = client.datasets.evaluate.run(
+            dataset_1="dataset_1",
+            dataset_2="dataset_2",
+            email_1="email_1",
+            email_2="email_2",
+        )
+        assert_matches_type(EvaluateRunResponse, evaluate, path=["response"])
+
+    @parametrize
+    def test_raw_response_run(self, client: Structify) -> None:
+        response = client.datasets.evaluate.with_raw_response.run(
+            dataset_1="dataset_1",
+            dataset_2="dataset_2",
+            email_1="email_1",
+            email_2="email_2",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        evaluate = response.parse()
+        assert_matches_type(EvaluateRunResponse, evaluate, path=["response"])
+
+    @parametrize
+    def test_streaming_response_run(self, client: Structify) -> None:
+        with client.datasets.evaluate.with_streaming_response.run(
+            dataset_1="dataset_1",
+            dataset_2="dataset_2",
+            email_1="email_1",
+            email_2="email_2",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            evaluate = response.parse()
+            assert_matches_type(EvaluateRunResponse, evaluate, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -243,6 +284,46 @@ class TestAsyncEvaluate:
 
             evaluate = await response.parse()
             assert_matches_type(EvaluateGetResponse, evaluate, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_method_run(self, async_client: AsyncStructify) -> None:
+        evaluate = await async_client.datasets.evaluate.run(
+            dataset_1="dataset_1",
+            dataset_2="dataset_2",
+            email_1="email_1",
+            email_2="email_2",
+        )
+        assert_matches_type(EvaluateRunResponse, evaluate, path=["response"])
+
+    @parametrize
+    async def test_raw_response_run(self, async_client: AsyncStructify) -> None:
+        response = await async_client.datasets.evaluate.with_raw_response.run(
+            dataset_1="dataset_1",
+            dataset_2="dataset_2",
+            email_1="email_1",
+            email_2="email_2",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        evaluate = await response.parse()
+        assert_matches_type(EvaluateRunResponse, evaluate, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_run(self, async_client: AsyncStructify) -> None:
+        async with async_client.datasets.evaluate.with_streaming_response.run(
+            dataset_1="dataset_1",
+            dataset_2="dataset_2",
+            email_1="email_1",
+            email_2="email_2",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            evaluate = await response.parse()
+            assert_matches_type(EvaluateRunResponse, evaluate, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

@@ -20,8 +20,15 @@ from ..._response import (
     async_to_streamed_response_wrapper,
 )
 from ..._base_client import make_request_options
-from ...types.datasets import evaluate_get_params, evaluate_list_params, evaluate_delete_params, evaluate_status_params
+from ...types.datasets import (
+    evaluate_get_params,
+    evaluate_run_params,
+    evaluate_list_params,
+    evaluate_delete_params,
+    evaluate_status_params,
+)
 from ...types.datasets.evaluate_get_response import EvaluateGetResponse
+from ...types.datasets.evaluate_run_response import EvaluateRunResponse
 from ...types.datasets.evaluate_list_response import EvaluateListResponse
 from ...types.datasets.evaluate_status_response import EvaluateStatusResponse
 
@@ -159,6 +166,52 @@ class EvaluateResource(SyncAPIResource):
                 query=maybe_transform({"id": id}, evaluate_get_params.EvaluateGetParams),
             ),
             cast_to=EvaluateGetResponse,
+        )
+
+    def run(
+        self,
+        *,
+        dataset_1: str,
+        dataset_2: str,
+        email_1: str,
+        email_2: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> EvaluateRunResponse:
+        """
+        Evaluate two datasets
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/dataset/evaluate/run",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "dataset_1": dataset_1,
+                        "dataset_2": dataset_2,
+                        "email_1": email_1,
+                        "email_2": email_2,
+                    },
+                    evaluate_run_params.EvaluateRunParams,
+                ),
+            ),
+            cast_to=EvaluateRunResponse,
         )
 
     def status(
@@ -330,6 +383,52 @@ class AsyncEvaluateResource(AsyncAPIResource):
             cast_to=EvaluateGetResponse,
         )
 
+    async def run(
+        self,
+        *,
+        dataset_1: str,
+        dataset_2: str,
+        email_1: str,
+        email_2: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> EvaluateRunResponse:
+        """
+        Evaluate two datasets
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/dataset/evaluate/run",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "dataset_1": dataset_1,
+                        "dataset_2": dataset_2,
+                        "email_1": email_1,
+                        "email_2": email_2,
+                    },
+                    evaluate_run_params.EvaluateRunParams,
+                ),
+            ),
+            cast_to=EvaluateRunResponse,
+        )
+
     async def status(
         self,
         *,
@@ -379,6 +478,9 @@ class EvaluateResourceWithRawResponse:
         self.get = to_raw_response_wrapper(
             evaluate.get,
         )
+        self.run = to_raw_response_wrapper(
+            evaluate.run,
+        )
         self.status = to_raw_response_wrapper(
             evaluate.status,
         )
@@ -396,6 +498,9 @@ class AsyncEvaluateResourceWithRawResponse:
         )
         self.get = async_to_raw_response_wrapper(
             evaluate.get,
+        )
+        self.run = async_to_raw_response_wrapper(
+            evaluate.run,
         )
         self.status = async_to_raw_response_wrapper(
             evaluate.status,
@@ -415,6 +520,9 @@ class EvaluateResourceWithStreamingResponse:
         self.get = to_streamed_response_wrapper(
             evaluate.get,
         )
+        self.run = to_streamed_response_wrapper(
+            evaluate.run,
+        )
         self.status = to_streamed_response_wrapper(
             evaluate.status,
         )
@@ -432,6 +540,9 @@ class AsyncEvaluateResourceWithStreamingResponse:
         )
         self.get = async_to_streamed_response_wrapper(
             evaluate.get,
+        )
+        self.run = async_to_streamed_response_wrapper(
+            evaluate.run,
         )
         self.status = async_to_streamed_response_wrapper(
             evaluate.status,
