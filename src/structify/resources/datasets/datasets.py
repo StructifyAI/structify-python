@@ -7,45 +7,55 @@ from datetime import datetime
 
 import httpx
 
-from ..types import (
+from ...types import (
     dataset_get_params,
     dataset_match_params,
     dataset_create_params,
     dataset_delete_params,
-    dataset_evaluate_params,
     dataset_view_table_params,
     dataset_view_relationships_params,
     dataset_view_tables_with_relationships_params,
 )
-from .._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
-from .._utils import (
+from ..._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
+from ..._utils import (
     maybe_transform,
     async_maybe_transform,
 )
-from .._compat import cached_property
-from .._resource import SyncAPIResource, AsyncAPIResource
-from .._response import (
+from .evaluate import (
+    EvaluateResource,
+    AsyncEvaluateResource,
+    EvaluateResourceWithRawResponse,
+    AsyncEvaluateResourceWithRawResponse,
+    EvaluateResourceWithStreamingResponse,
+    AsyncEvaluateResourceWithStreamingResponse,
+)
+from ..._compat import cached_property
+from ..._resource import SyncAPIResource, AsyncAPIResource
+from ..._response import (
     to_raw_response_wrapper,
     to_streamed_response_wrapper,
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ..pagination import SyncJobsList, AsyncJobsList
-from .._base_client import AsyncPaginator, make_request_options
-from ..types.table_param import TableParam
-from ..types.dataset_get_response import DatasetGetResponse
-from ..types.dataset_list_response import DatasetListResponse
-from ..types.knowledge_graph_param import KnowledgeGraphParam
-from ..types.dataset_match_response import DatasetMatchResponse
-from ..types.dataset_evaluate_response import DatasetEvaluateResponse
-from ..types.dataset_view_table_response import DatasetViewTableResponse
-from ..types.dataset_view_relationships_response import DatasetViewRelationshipsResponse
-from ..types.dataset_view_tables_with_relationships_response import DatasetViewTablesWithRelationshipsResponse
+from ...pagination import SyncJobsList, AsyncJobsList
+from ..._base_client import AsyncPaginator, make_request_options
+from ...types.table_param import TableParam
+from ...types.dataset_get_response import DatasetGetResponse
+from ...types.dataset_list_response import DatasetListResponse
+from ...types.knowledge_graph_param import KnowledgeGraphParam
+from ...types.dataset_match_response import DatasetMatchResponse
+from ...types.dataset_view_table_response import DatasetViewTableResponse
+from ...types.dataset_view_relationships_response import DatasetViewRelationshipsResponse
+from ...types.dataset_view_tables_with_relationships_response import DatasetViewTablesWithRelationshipsResponse
 
 __all__ = ["DatasetsResource", "AsyncDatasetsResource"]
 
 
 class DatasetsResource(SyncAPIResource):
+    @cached_property
+    def evaluate(self) -> EvaluateResource:
+        return EvaluateResource(self._client)
+
     @cached_property
     def with_raw_response(self) -> DatasetsResourceWithRawResponse:
         """
@@ -166,52 +176,6 @@ class DatasetsResource(SyncAPIResource):
                 query=maybe_transform({"name": name}, dataset_delete_params.DatasetDeleteParams),
             ),
             cast_to=NoneType,
-        )
-
-    def evaluate(
-        self,
-        *,
-        dataset_1: str,
-        dataset_2: str,
-        email_1: str,
-        email_2: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> DatasetEvaluateResponse:
-        """
-        Evaluate two datasets
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return self._post(
-            "/dataset/evaluate",
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "dataset_1": dataset_1,
-                        "dataset_2": dataset_2,
-                        "email_1": email_1,
-                        "email_2": email_2,
-                    },
-                    dataset_evaluate_params.DatasetEvaluateParams,
-                ),
-            ),
-            cast_to=DatasetEvaluateResponse,
         )
 
     def get(
@@ -459,6 +423,10 @@ class DatasetsResource(SyncAPIResource):
 
 class AsyncDatasetsResource(AsyncAPIResource):
     @cached_property
+    def evaluate(self) -> AsyncEvaluateResource:
+        return AsyncEvaluateResource(self._client)
+
+    @cached_property
     def with_raw_response(self) -> AsyncDatasetsResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
@@ -578,52 +546,6 @@ class AsyncDatasetsResource(AsyncAPIResource):
                 query=await async_maybe_transform({"name": name}, dataset_delete_params.DatasetDeleteParams),
             ),
             cast_to=NoneType,
-        )
-
-    async def evaluate(
-        self,
-        *,
-        dataset_1: str,
-        dataset_2: str,
-        email_1: str,
-        email_2: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> DatasetEvaluateResponse:
-        """
-        Evaluate two datasets
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return await self._post(
-            "/dataset/evaluate",
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform(
-                    {
-                        "dataset_1": dataset_1,
-                        "dataset_2": dataset_2,
-                        "email_1": email_1,
-                        "email_2": email_2,
-                    },
-                    dataset_evaluate_params.DatasetEvaluateParams,
-                ),
-            ),
-            cast_to=DatasetEvaluateResponse,
         )
 
     async def get(
@@ -882,9 +804,6 @@ class DatasetsResourceWithRawResponse:
         self.delete = to_raw_response_wrapper(
             datasets.delete,
         )
-        self.evaluate = to_raw_response_wrapper(
-            datasets.evaluate,
-        )
         self.get = to_raw_response_wrapper(
             datasets.get,
         )
@@ -901,6 +820,10 @@ class DatasetsResourceWithRawResponse:
             datasets.view_tables_with_relationships,
         )
 
+    @cached_property
+    def evaluate(self) -> EvaluateResourceWithRawResponse:
+        return EvaluateResourceWithRawResponse(self._datasets.evaluate)
+
 
 class AsyncDatasetsResourceWithRawResponse:
     def __init__(self, datasets: AsyncDatasetsResource) -> None:
@@ -914,9 +837,6 @@ class AsyncDatasetsResourceWithRawResponse:
         )
         self.delete = async_to_raw_response_wrapper(
             datasets.delete,
-        )
-        self.evaluate = async_to_raw_response_wrapper(
-            datasets.evaluate,
         )
         self.get = async_to_raw_response_wrapper(
             datasets.get,
@@ -934,6 +854,10 @@ class AsyncDatasetsResourceWithRawResponse:
             datasets.view_tables_with_relationships,
         )
 
+    @cached_property
+    def evaluate(self) -> AsyncEvaluateResourceWithRawResponse:
+        return AsyncEvaluateResourceWithRawResponse(self._datasets.evaluate)
+
 
 class DatasetsResourceWithStreamingResponse:
     def __init__(self, datasets: DatasetsResource) -> None:
@@ -947,9 +871,6 @@ class DatasetsResourceWithStreamingResponse:
         )
         self.delete = to_streamed_response_wrapper(
             datasets.delete,
-        )
-        self.evaluate = to_streamed_response_wrapper(
-            datasets.evaluate,
         )
         self.get = to_streamed_response_wrapper(
             datasets.get,
@@ -967,6 +888,10 @@ class DatasetsResourceWithStreamingResponse:
             datasets.view_tables_with_relationships,
         )
 
+    @cached_property
+    def evaluate(self) -> EvaluateResourceWithStreamingResponse:
+        return EvaluateResourceWithStreamingResponse(self._datasets.evaluate)
+
 
 class AsyncDatasetsResourceWithStreamingResponse:
     def __init__(self, datasets: AsyncDatasetsResource) -> None:
@@ -980,9 +905,6 @@ class AsyncDatasetsResourceWithStreamingResponse:
         )
         self.delete = async_to_streamed_response_wrapper(
             datasets.delete,
-        )
-        self.evaluate = async_to_streamed_response_wrapper(
-            datasets.evaluate,
         )
         self.get = async_to_streamed_response_wrapper(
             datasets.get,
@@ -999,3 +921,7 @@ class AsyncDatasetsResourceWithStreamingResponse:
         self.view_tables_with_relationships = async_to_streamed_response_wrapper(
             datasets.view_tables_with_relationships,
         )
+
+    @cached_property
+    def evaluate(self) -> AsyncEvaluateResourceWithStreamingResponse:
+        return AsyncEvaluateResourceWithStreamingResponse(self._datasets.evaluate)

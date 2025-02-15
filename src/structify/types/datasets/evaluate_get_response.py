@@ -3,11 +3,11 @@
 from typing import Dict, List, Union
 from typing_extensions import TypeAlias
 
-from .image import Image
-from .._models import BaseModel
+from ..image import Image
+from ..._models import BaseModel
 
 __all__ = [
-    "DatasetEvaluateResponse",
+    "EvaluateGetResponse",
     "Stats",
     "StatsTables",
     "StatsTablesMatchedEntity",
@@ -67,7 +67,7 @@ class Stats(BaseModel):
     tables: Dict[str, StatsTables]
 
 
-class DatasetEvaluateResponse(BaseModel):
+class EvaluateGetResponse(BaseModel):
     id: str
 
     iou: float
