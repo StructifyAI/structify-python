@@ -12,6 +12,8 @@ class EvaluateRunParams(TypedDict, total=False):
 
     dataset_2: Required[str]
 
+    dataset_2_is_ground_truth: Required[bool]
+
     email_1: Required[str]
 
     email_2: Required[str]
