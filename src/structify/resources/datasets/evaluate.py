@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Any, Optional, cast
+from typing import Optional
 
 import httpx
 
@@ -240,21 +240,16 @@ class EvaluateResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return cast(
-            EvaluateStatusResponse,
-            self._get(
-                "/dataset/evaluate/status",
-                options=make_request_options(
-                    extra_headers=extra_headers,
-                    extra_query=extra_query,
-                    extra_body=extra_body,
-                    timeout=timeout,
-                    query=maybe_transform({"id": id}, evaluate_status_params.EvaluateStatusParams),
-                ),
-                cast_to=cast(
-                    Any, EvaluateStatusResponse
-                ),  # Union types cannot be passed in as arguments in the type system
+        return self._get(
+            "/dataset/evaluate/status",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"id": id}, evaluate_status_params.EvaluateStatusParams),
             ),
+            cast_to=EvaluateStatusResponse,
         )
 
 
@@ -463,21 +458,16 @@ class AsyncEvaluateResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return cast(
-            EvaluateStatusResponse,
-            await self._get(
-                "/dataset/evaluate/status",
-                options=make_request_options(
-                    extra_headers=extra_headers,
-                    extra_query=extra_query,
-                    extra_body=extra_body,
-                    timeout=timeout,
-                    query=await async_maybe_transform({"id": id}, evaluate_status_params.EvaluateStatusParams),
-                ),
-                cast_to=cast(
-                    Any, EvaluateStatusResponse
-                ),  # Union types cannot be passed in as arguments in the type system
+        return await self._get(
+            "/dataset/evaluate/status",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform({"id": id}, evaluate_status_params.EvaluateStatusParams),
             ),
+            cast_to=EvaluateStatusResponse,
         )
 
 
