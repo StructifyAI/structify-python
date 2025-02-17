@@ -1,5 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+from typing import Optional
 from datetime import datetime
 from typing_extensions import Literal
 
@@ -28,3 +29,5 @@ class EvaluateListResponse(BaseModel):
     status: Literal["Running", "Completed", "Failed"]
 
     unmatched: int
+
+    run_message: Optional[str] = None
