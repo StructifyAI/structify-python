@@ -32,6 +32,8 @@ class TrainingDatasetListDatumsResponseItem(BaseModel):
         "Skipped",
         "SuspiciousNav",
         "SuspiciousSave",
+        "PotentialSuspiciousNav",
+        "PotentialSuspiciousSave",
     ]
 
     origin: Optional[Literal["HumanLLM", "UserReported", "ManualUpload", "ManualTransfer", "ToolParseFailure"]] = None
