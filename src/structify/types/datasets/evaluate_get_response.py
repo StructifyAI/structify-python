@@ -1,7 +1,8 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Union
-from typing_extensions import TypeAlias
+from typing import Dict, List, Union, Optional
+from datetime import datetime
+from typing_extensions import Literal, TypeAlias
 
 from ..image import Image
 from ..._models import BaseModel
@@ -100,10 +101,26 @@ class Stats(BaseModel):
 class EvaluateGetResponse(BaseModel):
     id: str
 
+    dataset_1: str
+
+    dataset_2: str
+
+    dataset_2_is_ground_truth: bool
+
+    email_1: str
+
+    email_2: str
+
     iou: float
 
     matched: int
 
+    started_at: datetime
+
     stats: Stats
 
+    status: Literal["Running", "Completed", "Failed"]
+
     unmatched: int
+
+    run_message: Optional[str] = None
