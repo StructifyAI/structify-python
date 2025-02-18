@@ -21,5 +21,7 @@ class TrainingDatasetGetNextForLabelingParams(TypedDict, total=False):
             "Skipped",
             "SuspiciousNav",
             "SuspiciousSave",
+            "PotentialSuspiciousNav",
+            "PotentialSuspiciousSave",
         ]
     ]

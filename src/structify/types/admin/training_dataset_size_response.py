@@ -23,6 +23,8 @@ class TrainingDatasetSizeResponseItem(BaseModel):
         "Skipped",
         "SuspiciousNav",
         "SuspiciousSave",
+        "PotentialSuspiciousNav",
+        "PotentialSuspiciousSave",
     ]
 
 
