@@ -53,6 +53,8 @@ class TrainingDatasetLabelDatumParams(TypedDict, total=False):
             "Skipped",
             "SuspiciousNav",
             "SuspiciousSave",
+            "PotentialSuspiciousNav",
+            "PotentialSuspiciousSave",
         ]
     ]
 
