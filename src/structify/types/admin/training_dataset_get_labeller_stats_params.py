@@ -23,6 +23,8 @@ class TrainingDatasetGetLabellerStatsParams(TypedDict, total=False):
             "Skipped",
             "SuspiciousNav",
             "SuspiciousSave",
+            "PotentialSuspiciousNav",
+            "PotentialSuspiciousSave",
         ]
     ]
 

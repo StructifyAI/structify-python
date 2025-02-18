@@ -22,6 +22,8 @@ class TrainingDatasetUpdateDatumStatusParams(TypedDict, total=False):
             "Skipped",
             "SuspiciousNav",
             "SuspiciousSave",
+            "PotentialSuspiciousNav",
+            "PotentialSuspiciousSave",
         ]
     ]
 
