@@ -57,6 +57,9 @@ from .training_dataset_switch_dataset_params import (
 from .next_action_label_training_datum_params import (
     NextActionLabelTrainingDatumParams as NextActionLabelTrainingDatumParams,
 )
+from .training_dataset_get_next_for_qa_params import (
+    TrainingDatasetGetNextForQaParams as TrainingDatasetGetNextForQaParams,
+)
 from .training_dataset_suspicious_count_params import (
     TrainingDatasetSuspiciousCountParams as TrainingDatasetSuspiciousCountParams,
 )
