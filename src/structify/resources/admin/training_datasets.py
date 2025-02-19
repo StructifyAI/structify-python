@@ -43,6 +43,7 @@ from ...types.admin import (
     training_dataset_download_datum_params,
     training_dataset_get_datum_info_params,
     training_dataset_switch_dataset_params,
+    training_dataset_get_next_for_qa_params,
     training_dataset_suspicious_count_params,
     training_dataset_get_labeller_stats_params,
     training_dataset_get_next_suspicious_params,
@@ -408,6 +409,60 @@ class TrainingDatasetsResource(SyncAPIResource):
                         "status": status,
                     },
                     training_dataset_get_next_for_labeling_params.TrainingDatasetGetNextForLabelingParams,
+                ),
+            ),
+            cast_to=TrainingDatumResponse,
+        )
+
+    def get_next_for_qa(
+        self,
+        *,
+        dataset_name: str,
+        status: Literal[
+            "Unlabeled",
+            "NavLabeled",
+            "SaveLabeled",
+            "NavVerified",
+            "SaveVerified",
+            "Pending",
+            "Skipped",
+            "SuspiciousNav",
+            "SuspiciousSave",
+            "PotentialSuspiciousNav",
+            "PotentialSuspiciousSave",
+        ],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> Optional[TrainingDatumResponse]:
+        """
+        Returns None if no datum is available.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._get(
+            "/admin/training_datasets/get_next_for_qa",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "dataset_name": dataset_name,
+                        "status": status,
+                    },
+                    training_dataset_get_next_for_qa_params.TrainingDatasetGetNextForQaParams,
                 ),
             ),
             cast_to=TrainingDatumResponse,
@@ -1323,6 +1378,60 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
             cast_to=TrainingDatumResponse,
         )
 
+    async def get_next_for_qa(
+        self,
+        *,
+        dataset_name: str,
+        status: Literal[
+            "Unlabeled",
+            "NavLabeled",
+            "SaveLabeled",
+            "NavVerified",
+            "SaveVerified",
+            "Pending",
+            "Skipped",
+            "SuspiciousNav",
+            "SuspiciousSave",
+            "PotentialSuspiciousNav",
+            "PotentialSuspiciousSave",
+        ],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> Optional[TrainingDatumResponse]:
+        """
+        Returns None if no datum is available.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._get(
+            "/admin/training_datasets/get_next_for_qa",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "dataset_name": dataset_name,
+                        "status": status,
+                    },
+                    training_dataset_get_next_for_qa_params.TrainingDatasetGetNextForQaParams,
+                ),
+            ),
+            cast_to=TrainingDatumResponse,
+        )
+
     async def get_next_suspicious(
         self,
         *,
@@ -1911,6 +2020,9 @@ class TrainingDatasetsResourceWithRawResponse:
         self.get_next_for_labeling = to_raw_response_wrapper(
             training_datasets.get_next_for_labeling,
         )
+        self.get_next_for_qa = to_raw_response_wrapper(
+            training_datasets.get_next_for_qa,
+        )
         self.get_next_suspicious = to_raw_response_wrapper(
             training_datasets.get_next_suspicious,
         )
@@ -1974,6 +2086,9 @@ class AsyncTrainingDatasetsResourceWithRawResponse:
         )
         self.get_next_for_labeling = async_to_raw_response_wrapper(
             training_datasets.get_next_for_labeling,
+        )
+        self.get_next_for_qa = async_to_raw_response_wrapper(
+            training_datasets.get_next_for_qa,
         )
         self.get_next_suspicious = async_to_raw_response_wrapper(
             training_datasets.get_next_suspicious,
@@ -2039,6 +2154,9 @@ class TrainingDatasetsResourceWithStreamingResponse:
         self.get_next_for_labeling = to_streamed_response_wrapper(
             training_datasets.get_next_for_labeling,
         )
+        self.get_next_for_qa = to_streamed_response_wrapper(
+            training_datasets.get_next_for_qa,
+        )
         self.get_next_suspicious = to_streamed_response_wrapper(
             training_datasets.get_next_suspicious,
         )
@@ -2102,6 +2220,9 @@ class AsyncTrainingDatasetsResourceWithStreamingResponse:
         )
         self.get_next_for_labeling = async_to_streamed_response_wrapper(
             training_datasets.get_next_for_labeling,
+        )
+        self.get_next_for_qa = async_to_streamed_response_wrapper(
+            training_datasets.get_next_for_qa,
         )
         self.get_next_suspicious = async_to_streamed_response_wrapper(
             training_datasets.get_next_suspicious,
