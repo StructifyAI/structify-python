@@ -203,6 +203,8 @@ class Update(BaseModel):
         "Skipped",
         "SuspiciousNav",
         "SuspiciousSave",
+        "PotentialSuspiciousNav",
+        "PotentialSuspiciousSave",
     ]
 
     timestamp: datetime
@@ -229,6 +231,8 @@ class TrainingDatumResponse(BaseModel):
         "Skipped",
         "SuspiciousNav",
         "SuspiciousSave",
+        "PotentialSuspiciousNav",
+        "PotentialSuspiciousSave",
     ]
 
     step: ExecutionStep

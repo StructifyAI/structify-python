@@ -23,6 +23,8 @@ class TrainingDatasetMarkDatumSuspiciousParams(TypedDict, total=False):
             "Skipped",
             "SuspiciousNav",
             "SuspiciousSave",
+            "PotentialSuspiciousNav",
+            "PotentialSuspiciousSave",
         ]
     ]
 

@@ -11,4 +11,4 @@ __all__ = ["EvaluateListParams"]
 class EvaluateListParams(TypedDict, total=False):
     limit: Optional[int]
 
-    skip: Optional[int]
+    offset: Optional[int]
