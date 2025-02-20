@@ -51,6 +51,8 @@ class StatsTablesMatchedEntityPropertyMatches(BaseModel):
 
 
 class StatsTablesMatchedEntity(BaseModel):
+    alternative_matches: List[object]
+
     e1_id: str
 
     e2_id: str
