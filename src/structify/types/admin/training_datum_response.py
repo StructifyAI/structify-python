@@ -238,3 +238,4 @@ class TrainingDatumResponse(BaseModel):
     step: ExecutionStep
 
     updates: List[Update]
+    """All updates for the datum, sorted by ascending timestamp."""
