@@ -1,7 +1,11 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import Literal
+
+from ..._models import BaseModel
 
 __all__ = ["EvaluateStatusResponse"]
 
-EvaluateStatusResponse: TypeAlias = Literal["Running", "Completed", "Failed"]
+
+class EvaluateStatusResponse(BaseModel):
+    status: Literal["Running", "Completed", "Failed"]
