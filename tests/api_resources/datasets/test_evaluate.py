@@ -86,6 +86,7 @@ class TestEvaluate:
 
         assert cast(Any, response.is_closed) is True
 
+    @pytest.mark.skip(reason="infinite array recursion unsupported in prism")
     @parametrize
     def test_method_get(self, client: Structify) -> None:
         evaluate = client.datasets.evaluate.get(
@@ -93,6 +94,7 @@ class TestEvaluate:
         )
         assert_matches_type(EvaluateGetResponse, evaluate, path=["response"])
 
+    @pytest.mark.skip(reason="infinite array recursion unsupported in prism")
     @parametrize
     def test_raw_response_get(self, client: Structify) -> None:
         response = client.datasets.evaluate.with_raw_response.get(
@@ -104,6 +106,7 @@ class TestEvaluate:
         evaluate = response.parse()
         assert_matches_type(EvaluateGetResponse, evaluate, path=["response"])
 
+    @pytest.mark.skip(reason="infinite array recursion unsupported in prism")
     @parametrize
     def test_streaming_response_get(self, client: Structify) -> None:
         with client.datasets.evaluate.with_streaming_response.get(
@@ -259,6 +262,7 @@ class TestAsyncEvaluate:
 
         assert cast(Any, response.is_closed) is True
 
+    @pytest.mark.skip(reason="infinite array recursion unsupported in prism")
     @parametrize
     async def test_method_get(self, async_client: AsyncStructify) -> None:
         evaluate = await async_client.datasets.evaluate.get(
@@ -266,6 +270,7 @@ class TestAsyncEvaluate:
         )
         assert_matches_type(EvaluateGetResponse, evaluate, path=["response"])
 
+    @pytest.mark.skip(reason="infinite array recursion unsupported in prism")
     @parametrize
     async def test_raw_response_get(self, async_client: AsyncStructify) -> None:
         response = await async_client.datasets.evaluate.with_raw_response.get(
@@ -277,6 +282,7 @@ class TestAsyncEvaluate:
         evaluate = await response.parse()
         assert_matches_type(EvaluateGetResponse, evaluate, path=["response"])
 
+    @pytest.mark.skip(reason="infinite array recursion unsupported in prism")
     @parametrize
     async def test_streaming_response_get(self, async_client: AsyncStructify) -> None:
         async with async_client.datasets.evaluate.with_streaming_response.get(
