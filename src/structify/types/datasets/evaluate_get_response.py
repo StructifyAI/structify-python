@@ -1,66 +1,24 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+from __future__ import annotations
+
 from typing import Dict, List, Union, Optional
 from datetime import datetime
 from typing_extensions import Literal, TypeAlias
 
 from ..image import Image
+from ..._compat import PYDANTIC_V2
 from ..._models import BaseModel
 
 __all__ = [
     "EvaluateGetResponse",
     "Stats",
     "StatsTables",
-    "StatsTablesMatchedEntity",
-    "StatsTablesMatchedEntityPropertyMatches",
-    "StatsTablesMatchedEntityPropertyMatchesMatchedProperties",
-    "StatsTablesMatchedEntityPropertyMatchesMatchedPropertiesValue1",
-    "StatsTablesMatchedEntityPropertyMatchesMatchedPropertiesValue2",
-    "StatsTablesMatchedEntityPropertyMatchesUnmatchedProperties1",
-    "StatsTablesMatchedEntityPropertyMatchesUnmatchedProperties2",
     "StatsTablesUnmatched1",
     "StatsTablesUnmatched1Properties",
     "StatsTablesUnmatched2",
     "StatsTablesUnmatched2Properties",
 ]
-
-StatsTablesMatchedEntityPropertyMatchesMatchedPropertiesValue1: TypeAlias = Union[str, bool, float, Image]
-
-StatsTablesMatchedEntityPropertyMatchesMatchedPropertiesValue2: TypeAlias = Union[str, bool, float, Image]
-
-
-class StatsTablesMatchedEntityPropertyMatchesMatchedProperties(BaseModel):
-    match_score: float
-
-    value1: StatsTablesMatchedEntityPropertyMatchesMatchedPropertiesValue1
-
-    value2: StatsTablesMatchedEntityPropertyMatchesMatchedPropertiesValue2
-
-
-StatsTablesMatchedEntityPropertyMatchesUnmatchedProperties1: TypeAlias = Union[str, bool, float, Image]
-
-StatsTablesMatchedEntityPropertyMatchesUnmatchedProperties2: TypeAlias = Union[str, bool, float, Image]
-
-
-class StatsTablesMatchedEntityPropertyMatches(BaseModel):
-    matched_properties: Dict[str, StatsTablesMatchedEntityPropertyMatchesMatchedProperties]
-
-    unmatched_properties_1: Dict[str, StatsTablesMatchedEntityPropertyMatchesUnmatchedProperties1]
-
-    unmatched_properties_2: Dict[str, StatsTablesMatchedEntityPropertyMatchesUnmatchedProperties2]
-
-
-class StatsTablesMatchedEntity(BaseModel):
-    alternative_matches: List[object]
-
-    e1_id: str
-
-    e2_id: str
-
-    match_score: float
-
-    property_matches: StatsTablesMatchedEntityPropertyMatches
-
 
 StatsTablesUnmatched1Properties: TypeAlias = Union[str, bool, float, Image]
 
@@ -85,7 +43,7 @@ class StatsTablesUnmatched2(BaseModel):
 
 
 class StatsTables(BaseModel):
-    matched_entities: List[StatsTablesMatchedEntity]
+    matched_entities: List["MatchedEntity"]
 
     unmatched_1: List[StatsTablesUnmatched1]
     """
@@ -126,3 +84,19 @@ class EvaluateGetResponse(BaseModel):
     unmatched: int
 
     run_message: Optional[str] = None
+
+
+from ..matched_entity import MatchedEntity
+
+if PYDANTIC_V2:
+    EvaluateGetResponse.model_rebuild()
+    Stats.model_rebuild()
+    StatsTables.model_rebuild()
+    StatsTablesUnmatched1.model_rebuild()
+    StatsTablesUnmatched2.model_rebuild()
+else:
+    EvaluateGetResponse.update_forward_refs()  # type: ignore
+    Stats.update_forward_refs()  # type: ignore
+    StatsTables.update_forward_refs()  # type: ignore
+    StatsTablesUnmatched1.update_forward_refs()  # type: ignore
+    StatsTablesUnmatched2.update_forward_refs()  # type: ignore
