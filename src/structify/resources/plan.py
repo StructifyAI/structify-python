@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import httpx
 
-from ..types import plan_pause_params, plan_create_params, plan_resume_params
+from ..types import plan_create_params, plan_pause_all_params, plan_resume_all_params
 from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from .._utils import (
     maybe_transform,
@@ -21,8 +21,8 @@ from .._response import (
 from .._base_client import make_request_options
 from ..types.plan_param import PlanParam
 from ..types.plan_list_response import PlanListResponse
-from ..types.plan_pause_response import PlanPauseResponse
-from ..types.plan_resume_response import PlanResumeResponse
+from ..types.plan_pause_all_response import PlanPauseAllResponse
+from ..types.plan_resume_all_response import PlanResumeAllResponse
 
 __all__ = ["PlanResource", "AsyncPlanResource"]
 
@@ -106,7 +106,7 @@ class PlanResource(SyncAPIResource):
             cast_to=PlanListResponse,
         )
 
-    def pause(
+    def pause_all(
         self,
         *,
         dataset_name: str,
@@ -116,7 +116,7 @@ class PlanResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> PlanPauseResponse:
+    ) -> PlanPauseAllResponse:
         """
         Pause all running plans for your user account in the database.
 
@@ -132,18 +132,18 @@ class PlanResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._get(
-            "/plan/pause",
+            "/plan/pause_all",
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform({"dataset_name": dataset_name}, plan_pause_params.PlanPauseParams),
+                query=maybe_transform({"dataset_name": dataset_name}, plan_pause_all_params.PlanPauseAllParams),
             ),
-            cast_to=PlanPauseResponse,
+            cast_to=PlanPauseAllResponse,
         )
 
-    def resume(
+    def resume_all(
         self,
         *,
         dataset_name: str,
@@ -153,7 +153,7 @@ class PlanResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> PlanResumeResponse:
+    ) -> PlanResumeAllResponse:
         """
         Resume all paused plans for your user account in the database.
 
@@ -169,15 +169,15 @@ class PlanResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._get(
-            "/plan/resume",
+            "/plan/resume_all",
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform({"dataset_name": dataset_name}, plan_resume_params.PlanResumeParams),
+                query=maybe_transform({"dataset_name": dataset_name}, plan_resume_all_params.PlanResumeAllParams),
             ),
-            cast_to=PlanResumeResponse,
+            cast_to=PlanResumeAllResponse,
         )
 
 
@@ -260,7 +260,7 @@ class AsyncPlanResource(AsyncAPIResource):
             cast_to=PlanListResponse,
         )
 
-    async def pause(
+    async def pause_all(
         self,
         *,
         dataset_name: str,
@@ -270,7 +270,7 @@ class AsyncPlanResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> PlanPauseResponse:
+    ) -> PlanPauseAllResponse:
         """
         Pause all running plans for your user account in the database.
 
@@ -286,18 +286,20 @@ class AsyncPlanResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._get(
-            "/plan/pause",
+            "/plan/pause_all",
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform({"dataset_name": dataset_name}, plan_pause_params.PlanPauseParams),
+                query=await async_maybe_transform(
+                    {"dataset_name": dataset_name}, plan_pause_all_params.PlanPauseAllParams
+                ),
             ),
-            cast_to=PlanPauseResponse,
+            cast_to=PlanPauseAllResponse,
         )
 
-    async def resume(
+    async def resume_all(
         self,
         *,
         dataset_name: str,
@@ -307,7 +309,7 @@ class AsyncPlanResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> PlanResumeResponse:
+    ) -> PlanResumeAllResponse:
         """
         Resume all paused plans for your user account in the database.
 
@@ -323,15 +325,17 @@ class AsyncPlanResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._get(
-            "/plan/resume",
+            "/plan/resume_all",
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform({"dataset_name": dataset_name}, plan_resume_params.PlanResumeParams),
+                query=await async_maybe_transform(
+                    {"dataset_name": dataset_name}, plan_resume_all_params.PlanResumeAllParams
+                ),
             ),
-            cast_to=PlanResumeResponse,
+            cast_to=PlanResumeAllResponse,
         )
 
 
@@ -345,11 +349,11 @@ class PlanResourceWithRawResponse:
         self.list = to_raw_response_wrapper(
             plan.list,
         )
-        self.pause = to_raw_response_wrapper(
-            plan.pause,
+        self.pause_all = to_raw_response_wrapper(
+            plan.pause_all,
         )
-        self.resume = to_raw_response_wrapper(
-            plan.resume,
+        self.resume_all = to_raw_response_wrapper(
+            plan.resume_all,
         )
 
 
@@ -363,11 +367,11 @@ class AsyncPlanResourceWithRawResponse:
         self.list = async_to_raw_response_wrapper(
             plan.list,
         )
-        self.pause = async_to_raw_response_wrapper(
-            plan.pause,
+        self.pause_all = async_to_raw_response_wrapper(
+            plan.pause_all,
         )
-        self.resume = async_to_raw_response_wrapper(
-            plan.resume,
+        self.resume_all = async_to_raw_response_wrapper(
+            plan.resume_all,
         )
 
 
@@ -381,11 +385,11 @@ class PlanResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             plan.list,
         )
-        self.pause = to_streamed_response_wrapper(
-            plan.pause,
+        self.pause_all = to_streamed_response_wrapper(
+            plan.pause_all,
         )
-        self.resume = to_streamed_response_wrapper(
-            plan.resume,
+        self.resume_all = to_streamed_response_wrapper(
+            plan.resume_all,
         )
 
 
@@ -399,9 +403,9 @@ class AsyncPlanResourceWithStreamingResponse:
         self.list = async_to_streamed_response_wrapper(
             plan.list,
         )
-        self.pause = async_to_streamed_response_wrapper(
-            plan.pause,
+        self.pause_all = async_to_streamed_response_wrapper(
+            plan.pause_all,
         )
-        self.resume = async_to_streamed_response_wrapper(
-            plan.resume,
+        self.resume_all = async_to_streamed_response_wrapper(
+            plan.resume_all,
         )
