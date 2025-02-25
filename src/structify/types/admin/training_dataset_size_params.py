@@ -4,10 +4,9 @@ from __future__ import annotations
 
 from typing import List, Union, Optional
 from datetime import datetime
-from typing_extensions import Annotated, TypedDict
+from typing_extensions import Literal, Annotated, TypedDict
 
 from ..._utils import PropertyInfo
-from .datum_status import DatumStatus
 
 __all__ = ["TrainingDatasetSizeParams"]
 
@@ -19,4 +18,18 @@ class TrainingDatasetSizeParams(TypedDict, total=False):
 
     start_date: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
 
-    status: Optional[DatumStatus]
+    status: Optional[
+        Literal[
+            "Unlabeled",
+            "NavLabeled",
+            "SaveLabeled",
+            "NavVerified",
+            "SaveVerified",
+            "Pending",
+            "Skipped",
+            "SuspiciousNav",
+            "SuspiciousSave",
+            "PotentialSuspiciousNav",
+            "PotentialSuspiciousSave",
+        ]
+    ]

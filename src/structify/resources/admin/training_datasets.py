@@ -32,7 +32,6 @@ from ..._response import (
     async_to_custom_streamed_response_wrapper,
 )
 from ...types.admin import (
-    DatumStatus,
     training_dataset_add_params,
     training_dataset_size_params,
     training_dataset_delete_params,
@@ -54,7 +53,6 @@ from ...types.admin import (
     training_dataset_mark_datum_suspicious_params,
 )
 from ..._base_client import make_request_options
-from ...types.admin.datum_status import DatumStatus
 from ...types.admin.training_datum_response import TrainingDatumResponse
 from ...types.admin.training_dataset_list_response import TrainingDatasetListResponse
 from ...types.admin.training_dataset_size_response import TrainingDatasetSizeResponse
@@ -353,7 +351,19 @@ class TrainingDatasetsResource(SyncAPIResource):
         self,
         *,
         dataset_name: str,
-        status: DatumStatus,
+        status: Literal[
+            "Unlabeled",
+            "NavLabeled",
+            "SaveLabeled",
+            "NavVerified",
+            "SaveVerified",
+            "Pending",
+            "Skipped",
+            "SuspiciousNav",
+            "SuspiciousSave",
+            "PotentialSuspiciousNav",
+            "PotentialSuspiciousSave",
+        ],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -395,7 +405,19 @@ class TrainingDatasetsResource(SyncAPIResource):
         self,
         *,
         dataset_name: str,
-        status: DatumStatus,
+        status: Literal[
+            "Unlabeled",
+            "NavLabeled",
+            "SaveLabeled",
+            "NavVerified",
+            "SaveVerified",
+            "Pending",
+            "Skipped",
+            "SuspiciousNav",
+            "SuspiciousSave",
+            "PotentialSuspiciousNav",
+            "PotentialSuspiciousSave",
+        ],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -436,7 +458,19 @@ class TrainingDatasetsResource(SyncAPIResource):
     def get_next_suspicious(
         self,
         *,
-        status: DatumStatus,
+        status: Literal[
+            "Unlabeled",
+            "NavLabeled",
+            "SaveLabeled",
+            "NavVerified",
+            "SaveVerified",
+            "Pending",
+            "Skipped",
+            "SuspiciousNav",
+            "SuspiciousSave",
+            "PotentialSuspiciousNav",
+            "PotentialSuspiciousSave",
+        ],
         dataset_name: Optional[str] | NotGiven = NOT_GIVEN,
         user_restriction: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -481,7 +515,19 @@ class TrainingDatasetsResource(SyncAPIResource):
         self,
         *,
         id: str,
-        status: DatumStatus,
+        status: Literal[
+            "Unlabeled",
+            "NavLabeled",
+            "SaveLabeled",
+            "NavVerified",
+            "SaveVerified",
+            "Pending",
+            "Skipped",
+            "SuspiciousNav",
+            "SuspiciousSave",
+            "PotentialSuspiciousNav",
+            "PotentialSuspiciousSave",
+        ],
         updated_tool_calls: Iterable[training_dataset_label_datum_params.UpdatedToolCall],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -566,7 +612,19 @@ class TrainingDatasetsResource(SyncAPIResource):
         *,
         id: str,
         message: str,
-        status: DatumStatus,
+        status: Literal[
+            "Unlabeled",
+            "NavLabeled",
+            "SaveLabeled",
+            "NavVerified",
+            "SaveVerified",
+            "Pending",
+            "Skipped",
+            "SuspiciousNav",
+            "SuspiciousSave",
+            "PotentialSuspiciousNav",
+            "PotentialSuspiciousSave",
+        ],
         suspicious_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -649,7 +707,22 @@ class TrainingDatasetsResource(SyncAPIResource):
         dataset_names: Optional[List[str]] | NotGiven = NOT_GIVEN,
         end_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         start_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
-        status: Optional[DatumStatus] | NotGiven = NOT_GIVEN,
+        status: Optional[
+            Literal[
+                "Unlabeled",
+                "NavLabeled",
+                "SaveLabeled",
+                "NavVerified",
+                "SaveVerified",
+                "Pending",
+                "Skipped",
+                "SuspiciousNav",
+                "SuspiciousSave",
+                "PotentialSuspiciousNav",
+                "PotentialSuspiciousSave",
+            ]
+        ]
+        | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -690,7 +763,19 @@ class TrainingDatasetsResource(SyncAPIResource):
     def suspicious_count(
         self,
         *,
-        status: DatumStatus,
+        status: Literal[
+            "Unlabeled",
+            "NavLabeled",
+            "SaveLabeled",
+            "NavVerified",
+            "SaveVerified",
+            "Pending",
+            "Skipped",
+            "SuspiciousNav",
+            "SuspiciousSave",
+            "PotentialSuspiciousNav",
+            "PotentialSuspiciousSave",
+        ],
         dataset_name: Optional[str] | NotGiven = NOT_GIVEN,
         user_restriction: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -778,7 +863,19 @@ class TrainingDatasetsResource(SyncAPIResource):
         self,
         *,
         id: str,
-        status: DatumStatus,
+        status: Literal[
+            "Unlabeled",
+            "NavLabeled",
+            "SaveLabeled",
+            "NavVerified",
+            "SaveVerified",
+            "Pending",
+            "Skipped",
+            "SuspiciousNav",
+            "SuspiciousSave",
+            "PotentialSuspiciousNav",
+            "PotentialSuspiciousSave",
+        ],
         review_message: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -866,7 +963,19 @@ class TrainingDatasetsResource(SyncAPIResource):
         self,
         *,
         id: str,
-        status: DatumStatus,
+        status: Literal[
+            "Unlabeled",
+            "NavLabeled",
+            "SaveLabeled",
+            "NavVerified",
+            "SaveVerified",
+            "Pending",
+            "Skipped",
+            "SuspiciousNav",
+            "SuspiciousSave",
+            "PotentialSuspiciousNav",
+            "PotentialSuspiciousSave",
+        ],
         verified_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1193,7 +1302,19 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
         self,
         *,
         dataset_name: str,
-        status: DatumStatus,
+        status: Literal[
+            "Unlabeled",
+            "NavLabeled",
+            "SaveLabeled",
+            "NavVerified",
+            "SaveVerified",
+            "Pending",
+            "Skipped",
+            "SuspiciousNav",
+            "SuspiciousSave",
+            "PotentialSuspiciousNav",
+            "PotentialSuspiciousSave",
+        ],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1235,7 +1356,19 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
         self,
         *,
         dataset_name: str,
-        status: DatumStatus,
+        status: Literal[
+            "Unlabeled",
+            "NavLabeled",
+            "SaveLabeled",
+            "NavVerified",
+            "SaveVerified",
+            "Pending",
+            "Skipped",
+            "SuspiciousNav",
+            "SuspiciousSave",
+            "PotentialSuspiciousNav",
+            "PotentialSuspiciousSave",
+        ],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1276,7 +1409,19 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
     async def get_next_suspicious(
         self,
         *,
-        status: DatumStatus,
+        status: Literal[
+            "Unlabeled",
+            "NavLabeled",
+            "SaveLabeled",
+            "NavVerified",
+            "SaveVerified",
+            "Pending",
+            "Skipped",
+            "SuspiciousNav",
+            "SuspiciousSave",
+            "PotentialSuspiciousNav",
+            "PotentialSuspiciousSave",
+        ],
         dataset_name: Optional[str] | NotGiven = NOT_GIVEN,
         user_restriction: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -1321,7 +1466,19 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
         self,
         *,
         id: str,
-        status: DatumStatus,
+        status: Literal[
+            "Unlabeled",
+            "NavLabeled",
+            "SaveLabeled",
+            "NavVerified",
+            "SaveVerified",
+            "Pending",
+            "Skipped",
+            "SuspiciousNav",
+            "SuspiciousSave",
+            "PotentialSuspiciousNav",
+            "PotentialSuspiciousSave",
+        ],
         updated_tool_calls: Iterable[training_dataset_label_datum_params.UpdatedToolCall],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1406,7 +1563,19 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
         *,
         id: str,
         message: str,
-        status: DatumStatus,
+        status: Literal[
+            "Unlabeled",
+            "NavLabeled",
+            "SaveLabeled",
+            "NavVerified",
+            "SaveVerified",
+            "Pending",
+            "Skipped",
+            "SuspiciousNav",
+            "SuspiciousSave",
+            "PotentialSuspiciousNav",
+            "PotentialSuspiciousSave",
+        ],
         suspicious_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1489,7 +1658,22 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
         dataset_names: Optional[List[str]] | NotGiven = NOT_GIVEN,
         end_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         start_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
-        status: Optional[DatumStatus] | NotGiven = NOT_GIVEN,
+        status: Optional[
+            Literal[
+                "Unlabeled",
+                "NavLabeled",
+                "SaveLabeled",
+                "NavVerified",
+                "SaveVerified",
+                "Pending",
+                "Skipped",
+                "SuspiciousNav",
+                "SuspiciousSave",
+                "PotentialSuspiciousNav",
+                "PotentialSuspiciousSave",
+            ]
+        ]
+        | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1530,7 +1714,19 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
     async def suspicious_count(
         self,
         *,
-        status: DatumStatus,
+        status: Literal[
+            "Unlabeled",
+            "NavLabeled",
+            "SaveLabeled",
+            "NavVerified",
+            "SaveVerified",
+            "Pending",
+            "Skipped",
+            "SuspiciousNav",
+            "SuspiciousSave",
+            "PotentialSuspiciousNav",
+            "PotentialSuspiciousSave",
+        ],
         dataset_name: Optional[str] | NotGiven = NOT_GIVEN,
         user_restriction: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -1618,7 +1814,19 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
         self,
         *,
         id: str,
-        status: DatumStatus,
+        status: Literal[
+            "Unlabeled",
+            "NavLabeled",
+            "SaveLabeled",
+            "NavVerified",
+            "SaveVerified",
+            "Pending",
+            "Skipped",
+            "SuspiciousNav",
+            "SuspiciousSave",
+            "PotentialSuspiciousNav",
+            "PotentialSuspiciousSave",
+        ],
         review_message: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1706,7 +1914,19 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
         self,
         *,
         id: str,
-        status: DatumStatus,
+        status: Literal[
+            "Unlabeled",
+            "NavLabeled",
+            "SaveLabeled",
+            "NavVerified",
+            "SaveVerified",
+            "Pending",
+            "Skipped",
+            "SuspiciousNav",
+            "SuspiciousSave",
+            "PotentialSuspiciousNav",
+            "PotentialSuspiciousSave",
+        ],
         verified_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
