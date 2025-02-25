@@ -1,10 +1,9 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import List
-from typing_extensions import TypeAlias
+from typing_extensions import Literal, TypeAlias
 
 from ..._models import BaseModel
-from .datum_status import DatumStatus
 
 __all__ = ["TrainingDatasetSizeResponse", "TrainingDatasetSizeResponseItem"]
 
@@ -14,7 +13,19 @@ class TrainingDatasetSizeResponseItem(BaseModel):
 
     name: str
 
-    status: DatumStatus
+    status: Literal[
+        "Unlabeled",
+        "NavLabeled",
+        "SaveLabeled",
+        "NavVerified",
+        "SaveVerified",
+        "Pending",
+        "Skipped",
+        "SuspiciousNav",
+        "SuspiciousSave",
+        "PotentialSuspiciousNav",
+        "PotentialSuspiciousSave",
+    ]
 
 
 TrainingDatasetSizeResponse: TypeAlias = List[TrainingDatasetSizeResponseItem]

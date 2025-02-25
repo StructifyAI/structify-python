@@ -6,7 +6,6 @@ from typing import Union, Iterable, Optional
 from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
 from ..._utils import PropertyInfo
-from .datum_status import DatumStatus
 from ..knowledge_graph_param import KnowledgeGraphParam
 
 __all__ = [
@@ -43,7 +42,21 @@ __all__ = [
 class TrainingDatasetLabelDatumParams(TypedDict, total=False):
     id: Required[str]
 
-    status: Required[DatumStatus]
+    status: Required[
+        Literal[
+            "Unlabeled",
+            "NavLabeled",
+            "SaveLabeled",
+            "NavVerified",
+            "SaveVerified",
+            "Pending",
+            "Skipped",
+            "SuspiciousNav",
+            "SuspiciousSave",
+            "PotentialSuspiciousNav",
+            "PotentialSuspiciousSave",
+        ]
+    ]
 
     updated_tool_calls: Required[Iterable[UpdatedToolCall]]
 
