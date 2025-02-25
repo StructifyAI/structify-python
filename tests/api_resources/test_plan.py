@@ -11,8 +11,8 @@ from structify import Structify, AsyncStructify
 from tests.utils import assert_matches_type
 from structify.types import (
     PlanListResponse,
-    PlanPauseResponse,
-    PlanResumeResponse,
+    PlanPauseAllResponse,
+    PlanResumeAllResponse,
 )
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
@@ -102,64 +102,64 @@ class TestPlan:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_method_pause(self, client: Structify) -> None:
-        plan = client.plan.pause(
+    def test_method_pause_all(self, client: Structify) -> None:
+        plan = client.plan.pause_all(
             dataset_name="dataset_name",
         )
-        assert_matches_type(PlanPauseResponse, plan, path=["response"])
+        assert_matches_type(PlanPauseAllResponse, plan, path=["response"])
 
     @parametrize
-    def test_raw_response_pause(self, client: Structify) -> None:
-        response = client.plan.with_raw_response.pause(
+    def test_raw_response_pause_all(self, client: Structify) -> None:
+        response = client.plan.with_raw_response.pause_all(
             dataset_name="dataset_name",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         plan = response.parse()
-        assert_matches_type(PlanPauseResponse, plan, path=["response"])
+        assert_matches_type(PlanPauseAllResponse, plan, path=["response"])
 
     @parametrize
-    def test_streaming_response_pause(self, client: Structify) -> None:
-        with client.plan.with_streaming_response.pause(
+    def test_streaming_response_pause_all(self, client: Structify) -> None:
+        with client.plan.with_streaming_response.pause_all(
             dataset_name="dataset_name",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             plan = response.parse()
-            assert_matches_type(PlanPauseResponse, plan, path=["response"])
+            assert_matches_type(PlanPauseAllResponse, plan, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_method_resume(self, client: Structify) -> None:
-        plan = client.plan.resume(
+    def test_method_resume_all(self, client: Structify) -> None:
+        plan = client.plan.resume_all(
             dataset_name="dataset_name",
         )
-        assert_matches_type(PlanResumeResponse, plan, path=["response"])
+        assert_matches_type(PlanResumeAllResponse, plan, path=["response"])
 
     @parametrize
-    def test_raw_response_resume(self, client: Structify) -> None:
-        response = client.plan.with_raw_response.resume(
+    def test_raw_response_resume_all(self, client: Structify) -> None:
+        response = client.plan.with_raw_response.resume_all(
             dataset_name="dataset_name",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         plan = response.parse()
-        assert_matches_type(PlanResumeResponse, plan, path=["response"])
+        assert_matches_type(PlanResumeAllResponse, plan, path=["response"])
 
     @parametrize
-    def test_streaming_response_resume(self, client: Structify) -> None:
-        with client.plan.with_streaming_response.resume(
+    def test_streaming_response_resume_all(self, client: Structify) -> None:
+        with client.plan.with_streaming_response.resume_all(
             dataset_name="dataset_name",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             plan = response.parse()
-            assert_matches_type(PlanResumeResponse, plan, path=["response"])
+            assert_matches_type(PlanResumeAllResponse, plan, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -248,63 +248,63 @@ class TestAsyncPlan:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_method_pause(self, async_client: AsyncStructify) -> None:
-        plan = await async_client.plan.pause(
+    async def test_method_pause_all(self, async_client: AsyncStructify) -> None:
+        plan = await async_client.plan.pause_all(
             dataset_name="dataset_name",
         )
-        assert_matches_type(PlanPauseResponse, plan, path=["response"])
+        assert_matches_type(PlanPauseAllResponse, plan, path=["response"])
 
     @parametrize
-    async def test_raw_response_pause(self, async_client: AsyncStructify) -> None:
-        response = await async_client.plan.with_raw_response.pause(
+    async def test_raw_response_pause_all(self, async_client: AsyncStructify) -> None:
+        response = await async_client.plan.with_raw_response.pause_all(
             dataset_name="dataset_name",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         plan = await response.parse()
-        assert_matches_type(PlanPauseResponse, plan, path=["response"])
+        assert_matches_type(PlanPauseAllResponse, plan, path=["response"])
 
     @parametrize
-    async def test_streaming_response_pause(self, async_client: AsyncStructify) -> None:
-        async with async_client.plan.with_streaming_response.pause(
+    async def test_streaming_response_pause_all(self, async_client: AsyncStructify) -> None:
+        async with async_client.plan.with_streaming_response.pause_all(
             dataset_name="dataset_name",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             plan = await response.parse()
-            assert_matches_type(PlanPauseResponse, plan, path=["response"])
+            assert_matches_type(PlanPauseAllResponse, plan, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_method_resume(self, async_client: AsyncStructify) -> None:
-        plan = await async_client.plan.resume(
+    async def test_method_resume_all(self, async_client: AsyncStructify) -> None:
+        plan = await async_client.plan.resume_all(
             dataset_name="dataset_name",
         )
-        assert_matches_type(PlanResumeResponse, plan, path=["response"])
+        assert_matches_type(PlanResumeAllResponse, plan, path=["response"])
 
     @parametrize
-    async def test_raw_response_resume(self, async_client: AsyncStructify) -> None:
-        response = await async_client.plan.with_raw_response.resume(
+    async def test_raw_response_resume_all(self, async_client: AsyncStructify) -> None:
+        response = await async_client.plan.with_raw_response.resume_all(
             dataset_name="dataset_name",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         plan = await response.parse()
-        assert_matches_type(PlanResumeResponse, plan, path=["response"])
+        assert_matches_type(PlanResumeAllResponse, plan, path=["response"])
 
     @parametrize
-    async def test_streaming_response_resume(self, async_client: AsyncStructify) -> None:
-        async with async_client.plan.with_streaming_response.resume(
+    async def test_streaming_response_resume_all(self, async_client: AsyncStructify) -> None:
+        async with async_client.plan.with_streaming_response.resume_all(
             dataset_name="dataset_name",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             plan = await response.parse()
-            assert_matches_type(PlanResumeResponse, plan, path=["response"])
+            assert_matches_type(PlanResumeAllResponse, plan, path=["response"])
 
         assert cast(Any, response.is_closed) is True
