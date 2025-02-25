@@ -27,11 +27,15 @@ from .entity_add_params import EntityAddParams as EntityAddParams
 from .entity_get_params import EntityGetParams as EntityGetParams
 from .find_relationship import FindRelationship as FindRelationship
 from .job_list_response import JobListResponse as JobListResponse
+from .plan_pause_params import PlanPauseParams as PlanPauseParams
 from .user_usage_params import UserUsageParams as UserUsageParams
 from .dataset_descriptor import DatasetDescriptor as DatasetDescriptor
 from .dataset_get_params import DatasetGetParams as DatasetGetParams
 from .entity_view_params import EntityViewParams as EntityViewParams
 from .image_get_response import ImageGetResponse as ImageGetResponse
+from .plan_create_params import PlanCreateParams as PlanCreateParams
+from .plan_list_response import PlanListResponse as PlanListResponse
+from .plan_resume_params import PlanResumeParams as PlanResumeParams
 from .relationship_param import RelationshipParam as RelationshipParam
 from .report_step_params import ReportStepParams as ReportStepParams
 from .server_information import ServerInformation as ServerInformation
@@ -42,6 +46,7 @@ from .entity_merge_params import EntityMergeParams as EntityMergeParams
 from .extraction_criteria import ExtractionCriteria as ExtractionCriteria
 from .job_cancel_response import JobCancelResponse as JobCancelResponse
 from .job_delete_response import JobDeleteResponse as JobDeleteResponse
+from .plan_pause_response import PlanPauseResponse as PlanPauseResponse
 from .property_type_param import PropertyTypeParam as PropertyTypeParam
 from .report_wrong_params import ReportWrongParams as ReportWrongParams
 from .user_usage_response import UserUsageResponse as UserUsageResponse
@@ -53,6 +58,8 @@ from .entity_delete_params import EntityDeleteParams as EntityDeleteParams
 from .entity_search_params import EntitySearchParams as EntitySearchParams
 from .entity_verify_params import EntityVerifyParams as EntityVerifyParams
 from .entity_view_response import EntityViewResponse as EntityViewResponse
+from .plan_create_response import PlanCreateResponse as PlanCreateResponse
+from .plan_resume_response import PlanResumeResponse as PlanResumeResponse
 from .report_step_response import ReportStepResponse as ReportStepResponse
 from .source_list_response import SourceListResponse as SourceListResponse
 from .dataset_create_params import DatasetCreateParams as DatasetCreateParams
@@ -91,14 +98,11 @@ from .entity_trigger_merge_params import EntityTriggerMergeParams as EntityTrigg
 from .job_get_step_graph_response import JobGetStepGraphResponse as JobGetStepGraphResponse
 from .structure_job_status_params import StructureJobStatusParams as StructureJobStatusParams
 from .report_relationship_response import ReportRelationshipResponse as ReportRelationshipResponse
-from .structure_create_plan_params import StructureCreatePlanParams as StructureCreatePlanParams
 from .structure_is_complete_params import StructureIsCompleteParams as StructureIsCompleteParams
 from .structure_run_async_response import StructureRunAsyncResponse as StructureRunAsyncResponse
 from .entity_trigger_merge_response import EntityTriggerMergeResponse as EntityTriggerMergeResponse
 from .entity_update_property_params import EntityUpdatePropertyParams as EntityUpdatePropertyParams
 from .structure_job_status_response import StructureJobStatusResponse as StructureJobStatusResponse
-from .structure_list_plans_response import StructureListPlansResponse as StructureListPlansResponse
-from .structure_create_plan_response import StructureCreatePlanResponse as StructureCreatePlanResponse
 from .structure_is_complete_response import StructureIsCompleteResponse as StructureIsCompleteResponse
 from .entity_update_property_response import EntityUpdatePropertyResponse as EntityUpdatePropertyResponse
 from .entity_get_local_subgraph_params import EntityGetLocalSubgraphParams as EntityGetLocalSubgraphParams
