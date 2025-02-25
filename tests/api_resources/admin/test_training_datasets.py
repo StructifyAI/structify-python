@@ -250,28 +250,23 @@ class TestTrainingDatasets:
 
     @parametrize
     def test_method_get_labeller_stats(self, client: Structify) -> None:
-        training_dataset = client.admin.training_datasets.get_labeller_stats(
-            status="Unlabeled",
-        )
+        training_dataset = client.admin.training_datasets.get_labeller_stats()
         assert_matches_type(TrainingDatasetGetLabellerStatsResponse, training_dataset, path=["response"])
 
     @parametrize
     def test_method_get_labeller_stats_with_all_params(self, client: Structify) -> None:
         training_dataset = client.admin.training_datasets.get_labeller_stats(
-            status="Unlabeled",
-            dataset_name="dataset_name",
             end_date=parse_datetime("2019-12-27T18:11:19.117Z"),
-            labeled_status="NonSuspicious",
+            labeled_status="None",
             return_prop_count=True,
             start_date=parse_datetime("2019-12-27T18:11:19.117Z"),
+            time_bucket="Second",
         )
         assert_matches_type(TrainingDatasetGetLabellerStatsResponse, training_dataset, path=["response"])
 
     @parametrize
     def test_raw_response_get_labeller_stats(self, client: Structify) -> None:
-        response = client.admin.training_datasets.with_raw_response.get_labeller_stats(
-            status="Unlabeled",
-        )
+        response = client.admin.training_datasets.with_raw_response.get_labeller_stats()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -280,9 +275,7 @@ class TestTrainingDatasets:
 
     @parametrize
     def test_streaming_response_get_labeller_stats(self, client: Structify) -> None:
-        with client.admin.training_datasets.with_streaming_response.get_labeller_stats(
-            status="Unlabeled",
-        ) as response:
+        with client.admin.training_datasets.with_streaming_response.get_labeller_stats() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -1009,28 +1002,23 @@ class TestAsyncTrainingDatasets:
 
     @parametrize
     async def test_method_get_labeller_stats(self, async_client: AsyncStructify) -> None:
-        training_dataset = await async_client.admin.training_datasets.get_labeller_stats(
-            status="Unlabeled",
-        )
+        training_dataset = await async_client.admin.training_datasets.get_labeller_stats()
         assert_matches_type(TrainingDatasetGetLabellerStatsResponse, training_dataset, path=["response"])
 
     @parametrize
     async def test_method_get_labeller_stats_with_all_params(self, async_client: AsyncStructify) -> None:
         training_dataset = await async_client.admin.training_datasets.get_labeller_stats(
-            status="Unlabeled",
-            dataset_name="dataset_name",
             end_date=parse_datetime("2019-12-27T18:11:19.117Z"),
-            labeled_status="NonSuspicious",
+            labeled_status="None",
             return_prop_count=True,
             start_date=parse_datetime("2019-12-27T18:11:19.117Z"),
+            time_bucket="Second",
         )
         assert_matches_type(TrainingDatasetGetLabellerStatsResponse, training_dataset, path=["response"])
 
     @parametrize
     async def test_raw_response_get_labeller_stats(self, async_client: AsyncStructify) -> None:
-        response = await async_client.admin.training_datasets.with_raw_response.get_labeller_stats(
-            status="Unlabeled",
-        )
+        response = await async_client.admin.training_datasets.with_raw_response.get_labeller_stats()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -1039,9 +1027,7 @@ class TestAsyncTrainingDatasets:
 
     @parametrize
     async def test_streaming_response_get_labeller_stats(self, async_client: AsyncStructify) -> None:
-        async with async_client.admin.training_datasets.with_streaming_response.get_labeller_stats(
-            status="Unlabeled",
-        ) as response:
+        async with async_client.admin.training_datasets.with_streaming_response.get_labeller_stats() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
