@@ -4,9 +4,9 @@ from __future__ import annotations
 
 from typing_extensions import Required, TypedDict
 
-__all__ = ["PlanResumeParams"]
+__all__ = ["PlanResumeAllParams"]
 
 
-class PlanResumeParams(TypedDict, total=False):
+class PlanResumeAllParams(TypedDict, total=False):
     dataset_name: Required[str]
     """Name of the dataset to resume plans for"""
