@@ -1,5 +1,34 @@
 # Changelog
 
+## 1.102.0 (2025-02-25)
+
+Full Changelog: [v1.101.0...v1.102.0](https://github.com/StructifyAI/structify-python/compare/v1.101.0...v1.102.0)
+
+### Features
+
+* **api:** api update ([#941](https://github.com/StructifyAI/structify-python/issues/941)) ([ed1e1fb](https://github.com/StructifyAI/structify-python/commit/ed1e1fbec54888e8bbc91723211605c68de62fca))
+* **api:** api update ([#943](https://github.com/StructifyAI/structify-python/issues/943)) ([20964c9](https://github.com/StructifyAI/structify-python/commit/20964c9b1d547e3d6b8fbda11332fe7e0df39c0c))
+* **api:** api update ([#946](https://github.com/StructifyAI/structify-python/issues/946)) ([8524c0c](https://github.com/StructifyAI/structify-python/commit/8524c0c119492928d1b23ea35ef381cd999a7432))
+* **api:** api update ([#948](https://github.com/StructifyAI/structify-python/issues/948)) ([c656135](https://github.com/StructifyAI/structify-python/commit/c656135207457aedf5380082192a0dbe031ea3b7))
+* **api:** api update ([#949](https://github.com/StructifyAI/structify-python/issues/949)) ([ea3d657](https://github.com/StructifyAI/structify-python/commit/ea3d65721ccf10012bf56a5223066f11c7bf4131))
+* **api:** api update ([#950](https://github.com/StructifyAI/structify-python/issues/950)) ([5e69e6a](https://github.com/StructifyAI/structify-python/commit/5e69e6ae53fd326be7276d2384c7471030ab89ae))
+* **api:** api update ([#951](https://github.com/StructifyAI/structify-python/issues/951)) ([9fbc686](https://github.com/StructifyAI/structify-python/commit/9fbc686a0967ec45738e3839c9c28037fd7d4299))
+* **api:** api update ([#952](https://github.com/StructifyAI/structify-python/issues/952)) ([bd9e02d](https://github.com/StructifyAI/structify-python/commit/bd9e02dc6d5a466c4f69a3190e38a636e45c328f))
+* asdf ([08befe0](https://github.com/StructifyAI/structify-python/commit/08befe081ac45d708b04e671f0b8536d301065e4))
+* asdf ([2f1b605](https://github.com/StructifyAI/structify-python/commit/2f1b605e8fb0f242ac0191c950b2305ba05b0ace))
+* **client:** allow passing `NotGiven` for body ([#944](https://github.com/StructifyAI/structify-python/issues/944)) ([22750d7](https://github.com/StructifyAI/structify-python/commit/22750d775a6d652a7cf58229684d4baad1a91ead))
+
+
+### Bug Fixes
+
+* **client:** mark some request bodies as optional ([22750d7](https://github.com/StructifyAI/structify-python/commit/22750d775a6d652a7cf58229684d4baad1a91ead))
+* **tests:** skip unsupported array recursion in tests ([#945](https://github.com/StructifyAI/structify-python/issues/945)) ([78d3f59](https://github.com/StructifyAI/structify-python/commit/78d3f59248404b4898ca6e907e2c4c539f030c94))
+
+
+### Chores
+
+* **internal:** fix devcontainers setup ([#947](https://github.com/StructifyAI/structify-python/issues/947)) ([036f85e](https://github.com/StructifyAI/structify-python/commit/036f85e388ca7131b7a279c67651eb273e106c29))
+
 ## 1.101.0 (2025-02-20)
 
 Full Changelog: [v1.100.0...v1.101.0](https://github.com/StructifyAI/structify-python/compare/v1.100.0...v1.101.0)
