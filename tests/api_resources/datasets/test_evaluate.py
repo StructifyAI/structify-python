@@ -94,8 +94,8 @@ class TestEvaluate:
         )
         assert_matches_type(EvaluateGetResponse, evaluate, path=["response"])
 
-    @parametrize
     @pytest.mark.skip
+    @parametrize
     def test_raw_response_get(self, client: Structify) -> None:
         response = client.datasets.evaluate.with_raw_response.get(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
