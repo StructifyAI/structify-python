@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.103.0 (2025-02-25)
+
+Full Changelog: [v1.102.0...v1.103.0](https://github.com/StructifyAI/structify-python/compare/v1.102.0...v1.103.0)
+
+### Features
+
+* **api:** api update ([#955](https://github.com/StructifyAI/structify-python/issues/955)) ([9fec4d2](https://github.com/StructifyAI/structify-python/commit/9fec4d2beb074b8042a75ebcb4522a60cc60f980))
+
 ## 1.102.0 (2025-02-25)
 
 Full Changelog: [v1.101.0...v1.102.0](https://github.com/StructifyAI/structify-python/compare/v1.101.0...v1.102.0)
