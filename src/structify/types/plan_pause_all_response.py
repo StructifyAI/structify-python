@@ -3,6 +3,6 @@
 from typing import List
 from typing_extensions import TypeAlias
 
-__all__ = ["PlanResumeResponse"]
+__all__ = ["PlanPauseAllResponse"]
 
-PlanResumeResponse: TypeAlias = List[str]
+PlanPauseAllResponse: TypeAlias = List[str]

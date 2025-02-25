@@ -4,9 +4,9 @@ from __future__ import annotations
 
 from typing_extensions import Required, TypedDict
 
-__all__ = ["PlanPauseParams"]
+__all__ = ["PlanPauseAllParams"]
 
 
-class PlanPauseParams(TypedDict, total=False):
+class PlanPauseAllParams(TypedDict, total=False):
     dataset_name: Required[str]
     """Name of the dataset to pause plans for"""
