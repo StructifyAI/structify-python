@@ -301,24 +301,12 @@ class TrainingDatasetsResource(SyncAPIResource):
     def get_labeller_stats(
         self,
         *,
-        status: Literal[
-            "Unlabeled",
-            "NavLabeled",
-            "SaveLabeled",
-            "NavVerified",
-            "SaveVerified",
-            "Pending",
-            "Skipped",
-            "SuspiciousNav",
-            "SuspiciousSave",
-            "PotentialSuspiciousNav",
-            "PotentialSuspiciousSave",
-        ],
-        dataset_name: Optional[str] | NotGiven = NOT_GIVEN,
         end_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
-        labeled_status: Literal["NonSuspicious", "SuspiciousOnly", "VerifiedOnly"] | NotGiven = NOT_GIVEN,
+        labeled_status: Literal["None", "SuspiciousOnly", "VerifiedOnly"] | NotGiven = NOT_GIVEN,
         return_prop_count: bool | NotGiven = NOT_GIVEN,
         start_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
+        time_bucket: Literal["Second", "Minute", "Hour", "Day", "Week", "Month", "Quarter", "Year", "Decade"]
+        | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -347,12 +335,11 @@ class TrainingDatasetsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "status": status,
-                        "dataset_name": dataset_name,
                         "end_date": end_date,
                         "labeled_status": labeled_status,
                         "return_prop_count": return_prop_count,
                         "start_date": start_date,
+                        "time_bucket": time_bucket,
                     },
                     training_dataset_get_labeller_stats_params.TrainingDatasetGetLabellerStatsParams,
                 ),
@@ -1265,24 +1252,12 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
     async def get_labeller_stats(
         self,
         *,
-        status: Literal[
-            "Unlabeled",
-            "NavLabeled",
-            "SaveLabeled",
-            "NavVerified",
-            "SaveVerified",
-            "Pending",
-            "Skipped",
-            "SuspiciousNav",
-            "SuspiciousSave",
-            "PotentialSuspiciousNav",
-            "PotentialSuspiciousSave",
-        ],
-        dataset_name: Optional[str] | NotGiven = NOT_GIVEN,
         end_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
-        labeled_status: Literal["NonSuspicious", "SuspiciousOnly", "VerifiedOnly"] | NotGiven = NOT_GIVEN,
+        labeled_status: Literal["None", "SuspiciousOnly", "VerifiedOnly"] | NotGiven = NOT_GIVEN,
         return_prop_count: bool | NotGiven = NOT_GIVEN,
         start_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
+        time_bucket: Literal["Second", "Minute", "Hour", "Day", "Week", "Month", "Quarter", "Year", "Decade"]
+        | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1311,12 +1286,11 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=await async_maybe_transform(
                     {
-                        "status": status,
-                        "dataset_name": dataset_name,
                         "end_date": end_date,
                         "labeled_status": labeled_status,
                         "return_prop_count": return_prop_count,
                         "start_date": start_date,
+                        "time_bucket": time_bucket,
                     },
                     training_dataset_get_labeller_stats_params.TrainingDatasetGetLabellerStatsParams,
                 ),
