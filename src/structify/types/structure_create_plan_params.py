@@ -6,10 +6,10 @@ from typing_extensions import Required, TypedDict
 
 from .plan_param import PlanParam
 
-__all__ = ["PlanCreateParams"]
+__all__ = ["StructureCreatePlanParams"]
 
 
-class PlanCreateParams(TypedDict, total=False):
+class StructureCreatePlanParams(TypedDict, total=False):
     dataset: Required[str]
 
     plan: Required[PlanParam]
