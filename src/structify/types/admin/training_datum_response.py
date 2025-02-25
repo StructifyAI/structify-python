@@ -7,6 +7,7 @@ from typing_extensions import Literal, TypeAlias
 from pydantic import Field as FieldInfo
 
 from ..._models import BaseModel
+from .datum_status import DatumStatus
 from ..execution_step import ExecutionStep
 from ..knowledge_graph import KnowledgeGraph
 
@@ -193,19 +194,7 @@ class Update(BaseModel):
 
     author: str
 
-    status: Literal[
-        "Unlabeled",
-        "NavLabeled",
-        "SaveLabeled",
-        "NavVerified",
-        "SaveVerified",
-        "Pending",
-        "Skipped",
-        "SuspiciousNav",
-        "SuspiciousSave",
-        "PotentialSuspiciousNav",
-        "PotentialSuspiciousSave",
-    ]
+    status: DatumStatus
 
     timestamp: datetime
 
@@ -221,19 +210,7 @@ class TrainingDatumResponse(BaseModel):
 
     last_updated: datetime
 
-    status: Literal[
-        "Unlabeled",
-        "NavLabeled",
-        "SaveLabeled",
-        "NavVerified",
-        "SaveVerified",
-        "Pending",
-        "Skipped",
-        "SuspiciousNav",
-        "SuspiciousSave",
-        "PotentialSuspiciousNav",
-        "PotentialSuspiciousSave",
-    ]
+    status: DatumStatus
 
     step: ExecutionStep
 
