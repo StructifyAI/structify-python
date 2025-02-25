@@ -2,9 +2,7 @@
 
 from __future__ import annotations
 
-from typing_extensions import Required, TypedDict
-
-from .datum_status import DatumStatus
+from typing_extensions import Literal, Required, TypedDict
 
 __all__ = ["TrainingDatasetGetNextForQaParams"]
 
@@ -12,4 +10,18 @@ __all__ = ["TrainingDatasetGetNextForQaParams"]
 class TrainingDatasetGetNextForQaParams(TypedDict, total=False):
     dataset_name: Required[str]
 
-    status: Required[DatumStatus]
+    status: Required[
+        Literal[
+            "Unlabeled",
+            "NavLabeled",
+            "SaveLabeled",
+            "NavVerified",
+            "SaveVerified",
+            "Pending",
+            "Skipped",
+            "SuspiciousNav",
+            "SuspiciousSave",
+            "PotentialSuspiciousNav",
+            "PotentialSuspiciousSave",
+        ]
+    ]
