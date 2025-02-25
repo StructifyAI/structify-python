@@ -2,6 +2,6 @@
 
 from typing_extensions import TypeAlias
 
-__all__ = ["PlanCreateResponse"]
+__all__ = ["StructureCreatePlanResponse"]
 
-PlanCreateResponse: TypeAlias = str
+StructureCreatePlanResponse: TypeAlias = str

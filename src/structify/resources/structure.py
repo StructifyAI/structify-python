@@ -9,6 +9,7 @@ import httpx
 
 from ..types import (
     structure_run_async_params,
+    structure_create_plan_params,
     structure_enhance_property_params,
     structure_find_relationship_params,
     structure_enhance_relationship_params,
@@ -27,9 +28,11 @@ from .._response import (
     async_to_streamed_response_wrapper,
 )
 from .._base_client import make_request_options
+from ..types.plan_param import PlanParam
 from ..types.knowledge_graph_param import KnowledgeGraphParam
 from ..types.extraction_criteria_param import ExtractionCriteriaParam
 from ..types.structure_job_status_response import StructureJobStatusResponse
+from ..types.structure_list_plans_response import StructureListPlansResponse
 
 __all__ = ["StructureResource", "AsyncStructureResource"]
 
@@ -53,6 +56,46 @@ class StructureResource(SyncAPIResource):
         For more information, see https://www.github.com/StructifyAI/structify-python#with_streaming_response
         """
         return StructureResourceWithStreamingResponse(self)
+
+    def create_plan(
+        self,
+        *,
+        dataset: str,
+        plan: PlanParam,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> str:
+        """
+        Create a plan to run consecutive jobs as each step finishes.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
+        return self._post(
+            "/structure/create_plan",
+            body=maybe_transform(
+                {
+                    "dataset": dataset,
+                    "plan": plan,
+                },
+                structure_create_plan_params.StructureCreatePlanParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=str,
+        )
 
     def enhance_property(
         self,
@@ -267,6 +310,25 @@ class StructureResource(SyncAPIResource):
             cast_to=StructureJobStatusResponse,
         )
 
+    def list_plans(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> StructureListPlansResponse:
+        """List all plans for your user account in the database."""
+        return self._get(
+            "/structure/list_plans",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=StructureListPlansResponse,
+        )
+
     def run_async(
         self,
         *,
@@ -339,6 +401,46 @@ class AsyncStructureResource(AsyncAPIResource):
         For more information, see https://www.github.com/StructifyAI/structify-python#with_streaming_response
         """
         return AsyncStructureResourceWithStreamingResponse(self)
+
+    async def create_plan(
+        self,
+        *,
+        dataset: str,
+        plan: PlanParam,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> str:
+        """
+        Create a plan to run consecutive jobs as each step finishes.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
+        return await self._post(
+            "/structure/create_plan",
+            body=await async_maybe_transform(
+                {
+                    "dataset": dataset,
+                    "plan": plan,
+                },
+                structure_create_plan_params.StructureCreatePlanParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=str,
+        )
 
     async def enhance_property(
         self,
@@ -553,6 +655,25 @@ class AsyncStructureResource(AsyncAPIResource):
             cast_to=StructureJobStatusResponse,
         )
 
+    async def list_plans(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> StructureListPlansResponse:
+        """List all plans for your user account in the database."""
+        return await self._get(
+            "/structure/list_plans",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=StructureListPlansResponse,
+        )
+
     async def run_async(
         self,
         *,
@@ -610,6 +731,9 @@ class StructureResourceWithRawResponse:
     def __init__(self, structure: StructureResource) -> None:
         self._structure = structure
 
+        self.create_plan = to_raw_response_wrapper(
+            structure.create_plan,
+        )
         self.enhance_property = to_raw_response_wrapper(
             structure.enhance_property,
         )
@@ -625,6 +749,9 @@ class StructureResourceWithRawResponse:
         self.job_status = to_raw_response_wrapper(
             structure.job_status,
         )
+        self.list_plans = to_raw_response_wrapper(
+            structure.list_plans,
+        )
         self.run_async = to_raw_response_wrapper(
             structure.run_async,
         )
@@ -634,6 +761,9 @@ class AsyncStructureResourceWithRawResponse:
     def __init__(self, structure: AsyncStructureResource) -> None:
         self._structure = structure
 
+        self.create_plan = async_to_raw_response_wrapper(
+            structure.create_plan,
+        )
         self.enhance_property = async_to_raw_response_wrapper(
             structure.enhance_property,
         )
@@ -649,6 +779,9 @@ class AsyncStructureResourceWithRawResponse:
         self.job_status = async_to_raw_response_wrapper(
             structure.job_status,
         )
+        self.list_plans = async_to_raw_response_wrapper(
+            structure.list_plans,
+        )
         self.run_async = async_to_raw_response_wrapper(
             structure.run_async,
         )
@@ -658,6 +791,9 @@ class StructureResourceWithStreamingResponse:
     def __init__(self, structure: StructureResource) -> None:
         self._structure = structure
 
+        self.create_plan = to_streamed_response_wrapper(
+            structure.create_plan,
+        )
         self.enhance_property = to_streamed_response_wrapper(
             structure.enhance_property,
         )
@@ -673,6 +809,9 @@ class StructureResourceWithStreamingResponse:
         self.job_status = to_streamed_response_wrapper(
             structure.job_status,
         )
+        self.list_plans = to_streamed_response_wrapper(
+            structure.list_plans,
+        )
         self.run_async = to_streamed_response_wrapper(
             structure.run_async,
         )
@@ -682,6 +821,9 @@ class AsyncStructureResourceWithStreamingResponse:
     def __init__(self, structure: AsyncStructureResource) -> None:
         self._structure = structure
 
+        self.create_plan = async_to_streamed_response_wrapper(
+            structure.create_plan,
+        )
         self.enhance_property = async_to_streamed_response_wrapper(
             structure.enhance_property,
         )
@@ -696,6 +838,9 @@ class AsyncStructureResourceWithStreamingResponse:
         )
         self.job_status = async_to_streamed_response_wrapper(
             structure.job_status,
+        )
+        self.list_plans = async_to_streamed_response_wrapper(
+            structure.list_plans,
         )
         self.run_async = async_to_streamed_response_wrapper(
             structure.run_async,

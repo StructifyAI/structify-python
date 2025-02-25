@@ -289,30 +289,6 @@ Methods:
 
 - <code title="get /images/{hash}">client.images.<a href="./src/structify/resources/images.py">get</a>(hash) -> <a href="./src/structify/types/image_get_response.py">ImageGetResponse</a></code>
 
-# Plan
-
-Types:
-
-```python
-from structify.types import (
-    EnhanceProperty,
-    EnhanceRelationship,
-    FindRelationship,
-    Plan,
-    PlanCreateResponse,
-    PlanListResponse,
-    PlanPauseResponse,
-    PlanResumeResponse,
-)
-```
-
-Methods:
-
-- <code title="post /plan/create">client.plan.<a href="./src/structify/resources/plan.py">create</a>(\*\*<a href="src/structify/types/plan_create_params.py">params</a>) -> str</code>
-- <code title="get /plan/list">client.plan.<a href="./src/structify/resources/plan.py">list</a>() -> <a href="./src/structify/types/plan_list_response.py">PlanListResponse</a></code>
-- <code title="get /plan/pause">client.plan.<a href="./src/structify/resources/plan.py">pause</a>(\*\*<a href="src/structify/types/plan_pause_params.py">params</a>) -> <a href="./src/structify/types/plan_pause_response.py">PlanPauseResponse</a></code>
-- <code title="get /plan/resume">client.plan.<a href="./src/structify/resources/plan.py">resume</a>(\*\*<a href="src/structify/types/plan_resume_params.py">params</a>) -> <a href="./src/structify/types/plan_resume_response.py">PlanResumeResponse</a></code>
-
 # Report
 
 Types:
@@ -340,25 +316,33 @@ Types:
 ```python
 from structify.types import (
     ChatPrompt,
+    EnhanceProperty,
+    EnhanceRelationship,
     ExecutionStep,
     ExtractionCriteria,
+    FindRelationship,
+    Plan,
     ToolMetadata,
+    StructureCreatePlanResponse,
     StructureEnhancePropertyResponse,
     StructureEnhanceRelationshipResponse,
     StructureFindRelationshipResponse,
     StructureIsCompleteResponse,
     StructureJobStatusResponse,
+    StructureListPlansResponse,
     StructureRunAsyncResponse,
 )
 ```
 
 Methods:
 
+- <code title="post /structure/create_plan">client.structure.<a href="./src/structify/resources/structure.py">create_plan</a>(\*\*<a href="src/structify/types/structure_create_plan_params.py">params</a>) -> str</code>
 - <code title="post /structure/enhance_property">client.structure.<a href="./src/structify/resources/structure.py">enhance_property</a>(\*\*<a href="src/structify/types/structure_enhance_property_params.py">params</a>) -> str</code>
 - <code title="post /structure/enhance_relationship">client.structure.<a href="./src/structify/resources/structure.py">enhance_relationship</a>(\*\*<a href="src/structify/types/structure_enhance_relationship_params.py">params</a>) -> str</code>
 - <code title="post /structure/find_relationship">client.structure.<a href="./src/structify/resources/structure.py">find_relationship</a>(\*\*<a href="src/structify/types/structure_find_relationship_params.py">params</a>) -> str</code>
 - <code title="post /structure/is_complete">client.structure.<a href="./src/structify/resources/structure.py">is_complete</a>(\*\*<a href="src/structify/types/structure_is_complete_params.py">params</a>) -> str</code>
 - <code title="post /structure/job_status">client.structure.<a href="./src/structify/resources/structure.py">job_status</a>(\*\*<a href="src/structify/types/structure_job_status_params.py">params</a>) -> <a href="./src/structify/types/structure_job_status_response.py">StructureJobStatusResponse</a></code>
+- <code title="get /structure/list_plans">client.structure.<a href="./src/structify/resources/structure.py">list_plans</a>() -> <a href="./src/structify/types/structure_list_plans_response.py">StructureListPlansResponse</a></code>
 - <code title="post /structure/run_async">client.structure.<a href="./src/structify/resources/structure.py">run_async</a>(\*\*<a href="src/structify/types/structure_run_async_params.py">params</a>) -> str</code>
 
 # Shared
