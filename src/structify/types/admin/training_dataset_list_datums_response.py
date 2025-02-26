@@ -5,6 +5,7 @@ from datetime import datetime
 from typing_extensions import Literal, TypeAlias
 
 from ..._models import BaseModel
+from .datum_status import DatumStatus
 
 __all__ = ["TrainingDatasetListDatumsResponse", "TrainingDatasetListDatumsResponseItem"]
 
@@ -22,19 +23,7 @@ class TrainingDatasetListDatumsResponseItem(BaseModel):
 
     save_verifiers: List[str]
 
-    status: Literal[
-        "Unlabeled",
-        "NavLabeled",
-        "SaveLabeled",
-        "NavVerified",
-        "SaveVerified",
-        "Pending",
-        "Skipped",
-        "SuspiciousNav",
-        "SuspiciousSave",
-        "PotentialSuspiciousNav",
-        "PotentialSuspiciousSave",
-    ]
+    status: DatumStatus
 
     origin: Optional[Literal["HumanLLM", "UserReported", "ManualUpload", "ManualTransfer", "ToolParseFailure"]] = None
 
