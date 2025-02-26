@@ -93,6 +93,8 @@ Types:
 ```python
 from structify.types.admin import (
     AddDatumRequest,
+    DatumStatus,
+    LabelingStats,
     TrainingDatumResponse,
     UpdateDatumStatusRequest,
     TrainingDatasetListResponse,
