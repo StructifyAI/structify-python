@@ -258,6 +258,7 @@ class TestTrainingDatasets:
         training_dataset = client.admin.training_datasets.get_labeller_stats(
             end_date=parse_datetime("2019-12-27T18:11:19.117Z"),
             labeled_status="None",
+            max_prop_count=0,
             return_prop_count=True,
             start_date=parse_datetime("2019-12-27T18:11:19.117Z"),
             time_bucket="Second",
@@ -1010,6 +1011,7 @@ class TestAsyncTrainingDatasets:
         training_dataset = await async_client.admin.training_datasets.get_labeller_stats(
             end_date=parse_datetime("2019-12-27T18:11:19.117Z"),
             labeled_status="None",
+            max_prop_count=0,
             return_prop_count=True,
             start_date=parse_datetime("2019-12-27T18:11:19.117Z"),
             time_bucket="Second",

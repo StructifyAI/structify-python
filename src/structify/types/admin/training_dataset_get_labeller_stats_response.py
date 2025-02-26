@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List
+from typing import List, Optional
 from datetime import datetime
 from typing_extensions import Literal, TypeAlias
 
@@ -31,6 +31,8 @@ class TrainingDatasetGetLabellerStatsResponseItem(BaseModel):
         "PotentialSuspiciousNav",
         "PotentialSuspiciousSave",
     ]
+
+    capped_count: Optional[int] = None
 
 
 TrainingDatasetGetLabellerStatsResponse: TypeAlias = List[TrainingDatasetGetLabellerStatsResponseItem]

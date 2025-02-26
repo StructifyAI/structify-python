@@ -303,6 +303,7 @@ class TrainingDatasetsResource(SyncAPIResource):
         *,
         end_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         labeled_status: Literal["None", "SuspiciousOnly", "VerifiedOnly"] | NotGiven = NOT_GIVEN,
+        max_prop_count: Optional[int] | NotGiven = NOT_GIVEN,
         return_prop_count: bool | NotGiven = NOT_GIVEN,
         start_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         time_bucket: Literal["Second", "Minute", "Hour", "Day", "Week", "Month", "Quarter", "Year", "Decade"]
@@ -337,6 +338,7 @@ class TrainingDatasetsResource(SyncAPIResource):
                     {
                         "end_date": end_date,
                         "labeled_status": labeled_status,
+                        "max_prop_count": max_prop_count,
                         "return_prop_count": return_prop_count,
                         "start_date": start_date,
                         "time_bucket": time_bucket,
@@ -1254,6 +1256,7 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
         *,
         end_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         labeled_status: Literal["None", "SuspiciousOnly", "VerifiedOnly"] | NotGiven = NOT_GIVEN,
+        max_prop_count: Optional[int] | NotGiven = NOT_GIVEN,
         return_prop_count: bool | NotGiven = NOT_GIVEN,
         start_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         time_bucket: Literal["Second", "Minute", "Hour", "Day", "Week", "Month", "Quarter", "Year", "Decade"]
@@ -1288,6 +1291,7 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
                     {
                         "end_date": end_date,
                         "labeled_status": labeled_status,
+                        "max_prop_count": max_prop_count,
                         "return_prop_count": return_prop_count,
                         "start_date": start_date,
                         "time_bucket": time_bucket,
