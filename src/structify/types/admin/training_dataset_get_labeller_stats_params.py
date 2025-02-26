@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union
+from typing import Union, Optional
 from datetime import datetime
 from typing_extensions import Literal, Annotated, TypedDict
 
@@ -15,6 +15,8 @@ class TrainingDatasetGetLabellerStatsParams(TypedDict, total=False):
     end_date: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
 
     labeled_status: Literal["None", "SuspiciousOnly", "VerifiedOnly"]
+
+    max_prop_count: Optional[int]
 
     return_prop_count: bool
 
