@@ -1,38 +1,10 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Optional
-from datetime import datetime
-from typing_extensions import Literal, TypeAlias
+from typing import List
+from typing_extensions import TypeAlias
 
-from ..._models import BaseModel
+from .labeling_stats import LabelingStats
 
-__all__ = ["TrainingDatasetGetLabellerStatsResponse", "TrainingDatasetGetLabellerStatsResponseItem"]
+__all__ = ["TrainingDatasetGetLabellerStatsResponse"]
 
-
-class TrainingDatasetGetLabellerStatsResponseItem(BaseModel):
-    author: str
-
-    count: int
-
-    dataset: str
-
-    period: datetime
-
-    status: Literal[
-        "Unlabeled",
-        "NavLabeled",
-        "SaveLabeled",
-        "NavVerified",
-        "SaveVerified",
-        "Pending",
-        "Skipped",
-        "SuspiciousNav",
-        "SuspiciousSave",
-        "PotentialSuspiciousNav",
-        "PotentialSuspiciousSave",
-    ]
-
-    capped_count: Optional[int] = None
-
-
-TrainingDatasetGetLabellerStatsResponse: TypeAlias = List[TrainingDatasetGetLabellerStatsResponseItem]
+TrainingDatasetGetLabellerStatsResponse: TypeAlias = List[LabelingStats]
