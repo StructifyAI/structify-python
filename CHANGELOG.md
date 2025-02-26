@@ -1,5 +1,22 @@
 # Changelog
 
+## 1.104.0 (2025-02-26)
+
+Full Changelog: [v1.103.0...v1.104.0](https://github.com/StructifyAI/structify-python/compare/v1.103.0...v1.104.0)
+
+### Features
+
+* **api:** api update ([#958](https://github.com/StructifyAI/structify-python/issues/958)) ([b08e715](https://github.com/StructifyAI/structify-python/commit/b08e715a2debbe648951311cc2e4cc2d480c8e30))
+* **api:** api update ([#960](https://github.com/StructifyAI/structify-python/issues/960)) ([120d057](https://github.com/StructifyAI/structify-python/commit/120d05707bb00004fd3656cf4683e5a50231f352))
+* **api:** api update ([#961](https://github.com/StructifyAI/structify-python/issues/961)) ([60f2061](https://github.com/StructifyAI/structify-python/commit/60f206175db4301c511241eb56f6b24d97e14dad))
+* **api:** api update ([#963](https://github.com/StructifyAI/structify-python/issues/963)) ([4e025ee](https://github.com/StructifyAI/structify-python/commit/4e025ee5d5859af8fcd6515b0233c4706ac16796))
+* **api:** manual updates ([#964](https://github.com/StructifyAI/structify-python/issues/964)) ([6930a26](https://github.com/StructifyAI/structify-python/commit/6930a2644389b4968bb7da461c4f432b115b577a))
+
+
+### Chores
+
+* **internal:** properly set __pydantic_private__ ([#962](https://github.com/StructifyAI/structify-python/issues/962)) ([3bdff60](https://github.com/StructifyAI/structify-python/commit/3bdff605c7bacaefb92bd54e09fda0cda0ab09f0))
+
 ## 1.103.0 (2025-02-25)
 
 Full Changelog: [v1.102.0...v1.103.0](https://github.com/StructifyAI/structify-python/compare/v1.102.0...v1.103.0)
