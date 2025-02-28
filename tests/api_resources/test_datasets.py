@@ -66,18 +66,16 @@ class TestDatasets:
                     "source_table": "source_table",
                     "target_table": "target_table",
                     "merge_strategy": {
-                        "source_cardinality_given_target_match": 0,
-                        "target_cardinality_given_source_match": 0,
+                        "probabilistic": {
+                            "source_cardinality_given_target_match": 0,
+                            "target_cardinality_given_source_match": 0,
+                        }
                     },
                     "properties": [
                         {
                             "description": "description",
                             "name": "name",
-                            "merge_strategy": {
-                                "baseline_cardinality": 0,
-                                "match_transfer_probability": 0,
-                                "comparison_strategy": "Default",
-                            },
+                            "merge_strategy": "Unique",
                             "prop_type": "String",
                         }
                     ],
@@ -91,11 +89,7 @@ class TestDatasets:
                         {
                             "description": "description",
                             "name": "name",
-                            "merge_strategy": {
-                                "baseline_cardinality": 0,
-                                "match_transfer_probability": 0,
-                                "comparison_strategy": "Default",
-                            },
+                            "merge_strategy": "Unique",
                             "prop_type": "String",
                         }
                     ],
@@ -512,18 +506,16 @@ class TestAsyncDatasets:
                     "source_table": "source_table",
                     "target_table": "target_table",
                     "merge_strategy": {
-                        "source_cardinality_given_target_match": 0,
-                        "target_cardinality_given_source_match": 0,
+                        "probabilistic": {
+                            "source_cardinality_given_target_match": 0,
+                            "target_cardinality_given_source_match": 0,
+                        }
                     },
                     "properties": [
                         {
                             "description": "description",
                             "name": "name",
-                            "merge_strategy": {
-                                "baseline_cardinality": 0,
-                                "match_transfer_probability": 0,
-                                "comparison_strategy": "Default",
-                            },
+                            "merge_strategy": "Unique",
                             "prop_type": "String",
                         }
                     ],
@@ -537,11 +529,7 @@ class TestAsyncDatasets:
                         {
                             "description": "description",
                             "name": "name",
-                            "merge_strategy": {
-                                "baseline_cardinality": 0,
-                                "match_transfer_probability": 0,
-                                "comparison_strategy": "Default",
-                            },
+                            "merge_strategy": "Unique",
                             "prop_type": "String",
                         }
                     ],

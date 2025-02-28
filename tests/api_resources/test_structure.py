@@ -33,7 +33,7 @@ class TestStructure:
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             property_name="property_name",
             allow_extra_entities=True,
-            special_job_type={},
+            special_job_type="HumanLLM",
             starting_searches=["string"],
             starting_urls=["string"],
         )
@@ -79,7 +79,7 @@ class TestStructure:
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             relationship_name="relationship_name",
             allow_extra_entities=True,
-            special_job_type={},
+            special_job_type="HumanLLM",
             starting_searches=["string"],
             starting_urls=["string"],
         )
@@ -127,7 +127,7 @@ class TestStructure:
             source_entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             target_entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             allow_extra_entities=True,
-            special_job_type={},
+            special_job_type="HumanLLM",
             starting_searches=["string"],
             starting_urls=["string"],
         )
@@ -254,7 +254,7 @@ class TestStructure:
                     }
                 ],
             },
-            special_job_type={},
+            special_job_type="HumanLLM",
         )
         assert_matches_type(str, structure, path=["response"])
 
@@ -302,7 +302,7 @@ class TestAsyncStructure:
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             property_name="property_name",
             allow_extra_entities=True,
-            special_job_type={},
+            special_job_type="HumanLLM",
             starting_searches=["string"],
             starting_urls=["string"],
         )
@@ -348,7 +348,7 @@ class TestAsyncStructure:
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             relationship_name="relationship_name",
             allow_extra_entities=True,
-            special_job_type={},
+            special_job_type="HumanLLM",
             starting_searches=["string"],
             starting_urls=["string"],
         )
@@ -396,7 +396,7 @@ class TestAsyncStructure:
             source_entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             target_entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             allow_extra_entities=True,
-            special_job_type={},
+            special_job_type="HumanLLM",
             starting_searches=["string"],
             starting_urls=["string"],
         )
@@ -523,7 +523,7 @@ class TestAsyncStructure:
                     }
                 ],
             },
-            special_job_type={},
+            special_job_type="HumanLLM",
         )
         assert_matches_type(str, structure, path=["response"])
 
