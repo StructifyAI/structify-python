@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from typing import List, Iterable, Optional
+from typing_extensions import Literal
 
 import httpx
 
@@ -59,7 +60,7 @@ class StructureResource(SyncAPIResource):
         entity_id: str,
         property_name: str,
         allow_extra_entities: bool | NotGiven = NOT_GIVEN,
-        special_job_type: Optional[object] | NotGiven = NOT_GIVEN,
+        special_job_type: Optional[Literal["HumanLLM"]] | NotGiven = NOT_GIVEN,
         starting_searches: List[str] | NotGiven = NOT_GIVEN,
         starting_urls: List[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -107,7 +108,7 @@ class StructureResource(SyncAPIResource):
         entity_id: str,
         relationship_name: str,
         allow_extra_entities: bool | NotGiven = NOT_GIVEN,
-        special_job_type: Optional[object] | NotGiven = NOT_GIVEN,
+        special_job_type: Optional[Literal["HumanLLM"]] | NotGiven = NOT_GIVEN,
         starting_searches: List[str] | NotGiven = NOT_GIVEN,
         starting_urls: List[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -156,7 +157,7 @@ class StructureResource(SyncAPIResource):
         source_entity_id: str,
         target_entity_id: str,
         allow_extra_entities: bool | NotGiven = NOT_GIVEN,
-        special_job_type: Optional[object] | NotGiven = NOT_GIVEN,
+        special_job_type: Optional[Literal["HumanLLM"]] | NotGiven = NOT_GIVEN,
         starting_searches: List[str] | NotGiven = NOT_GIVEN,
         starting_urls: List[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -273,7 +274,7 @@ class StructureResource(SyncAPIResource):
         structure_input: structure_run_async_params.StructureInput,
         extraction_criteria: Iterable[ExtractionCriteriaParam] | NotGiven = NOT_GIVEN,
         seeded_entity: KnowledgeGraphParam | NotGiven = NOT_GIVEN,
-        special_job_type: Optional[object] | NotGiven = NOT_GIVEN,
+        special_job_type: Optional[Literal["HumanLLM"]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -345,7 +346,7 @@ class AsyncStructureResource(AsyncAPIResource):
         entity_id: str,
         property_name: str,
         allow_extra_entities: bool | NotGiven = NOT_GIVEN,
-        special_job_type: Optional[object] | NotGiven = NOT_GIVEN,
+        special_job_type: Optional[Literal["HumanLLM"]] | NotGiven = NOT_GIVEN,
         starting_searches: List[str] | NotGiven = NOT_GIVEN,
         starting_urls: List[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -393,7 +394,7 @@ class AsyncStructureResource(AsyncAPIResource):
         entity_id: str,
         relationship_name: str,
         allow_extra_entities: bool | NotGiven = NOT_GIVEN,
-        special_job_type: Optional[object] | NotGiven = NOT_GIVEN,
+        special_job_type: Optional[Literal["HumanLLM"]] | NotGiven = NOT_GIVEN,
         starting_searches: List[str] | NotGiven = NOT_GIVEN,
         starting_urls: List[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -442,7 +443,7 @@ class AsyncStructureResource(AsyncAPIResource):
         source_entity_id: str,
         target_entity_id: str,
         allow_extra_entities: bool | NotGiven = NOT_GIVEN,
-        special_job_type: Optional[object] | NotGiven = NOT_GIVEN,
+        special_job_type: Optional[Literal["HumanLLM"]] | NotGiven = NOT_GIVEN,
         starting_searches: List[str] | NotGiven = NOT_GIVEN,
         starting_urls: List[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -559,7 +560,7 @@ class AsyncStructureResource(AsyncAPIResource):
         structure_input: structure_run_async_params.StructureInput,
         extraction_criteria: Iterable[ExtractionCriteriaParam] | NotGiven = NOT_GIVEN,
         seeded_entity: KnowledgeGraphParam | NotGiven = NOT_GIVEN,
-        special_job_type: Optional[object] | NotGiven = NOT_GIVEN,
+        special_job_type: Optional[Literal["HumanLLM"]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,

@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from typing import List, Union, Iterable, Optional
-from typing_extensions import Required, Annotated, TypeAlias, TypedDict
+from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
 from .._utils import PropertyInfo
 from .knowledge_graph_param import KnowledgeGraphParam
@@ -34,7 +34,7 @@ class StructureRunAsyncParams(TypedDict, total=False):
     pipeline from raw tool output to being merged into a Neo4j DB
     """
 
-    special_job_type: Optional[object]
+    special_job_type: Optional[Literal["HumanLLM"]]
 
 
 class StructureInputPdfIngestorPdfIngestor(TypedDict, total=False):

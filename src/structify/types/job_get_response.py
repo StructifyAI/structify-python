@@ -2,6 +2,7 @@
 
 from typing import List, Optional
 from datetime import datetime
+from typing_extensions import Literal
 
 from .._models import BaseModel
 from .execution_step import ExecutionStep
@@ -14,7 +15,7 @@ class Job(BaseModel):
 
     creation_time: datetime
 
-    status: Optional[object] = None
+    status: Literal["Queued", "Running", "Completed", "Failed"]
 
     message: Optional[str] = None
 
