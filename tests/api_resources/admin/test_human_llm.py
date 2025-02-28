@@ -115,7 +115,7 @@ class TestHumanLlm:
     def test_method_finish_job(self, client: Structify) -> None:
         human_llm = client.admin.human_llm.finish_job(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            status={},
+            status="Queued",
         )
         assert_matches_type(object, human_llm, path=["response"])
 
@@ -123,7 +123,7 @@ class TestHumanLlm:
     def test_raw_response_finish_job(self, client: Structify) -> None:
         response = client.admin.human_llm.with_raw_response.finish_job(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            status={},
+            status="Queued",
         )
 
         assert response.is_closed is True
@@ -135,7 +135,7 @@ class TestHumanLlm:
     def test_streaming_response_finish_job(self, client: Structify) -> None:
         with client.admin.human_llm.with_streaming_response.finish_job(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            status={},
+            status="Queued",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -153,7 +153,7 @@ class TestHumanLlm:
     @parametrize
     def test_method_get_jobs_with_all_params(self, client: Structify) -> None:
         human_llm = client.admin.human_llm.get_jobs(
-            status={},
+            status="Queued",
         )
         assert_matches_type(HumanLlmGetJobsResponse, human_llm, path=["response"])
 
@@ -433,7 +433,7 @@ class TestAsyncHumanLlm:
     async def test_method_finish_job(self, async_client: AsyncStructify) -> None:
         human_llm = await async_client.admin.human_llm.finish_job(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            status={},
+            status="Queued",
         )
         assert_matches_type(object, human_llm, path=["response"])
 
@@ -441,7 +441,7 @@ class TestAsyncHumanLlm:
     async def test_raw_response_finish_job(self, async_client: AsyncStructify) -> None:
         response = await async_client.admin.human_llm.with_raw_response.finish_job(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            status={},
+            status="Queued",
         )
 
         assert response.is_closed is True
@@ -453,7 +453,7 @@ class TestAsyncHumanLlm:
     async def test_streaming_response_finish_job(self, async_client: AsyncStructify) -> None:
         async with async_client.admin.human_llm.with_streaming_response.finish_job(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            status={},
+            status="Queued",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -471,7 +471,7 @@ class TestAsyncHumanLlm:
     @parametrize
     async def test_method_get_jobs_with_all_params(self, async_client: AsyncStructify) -> None:
         human_llm = await async_client.admin.human_llm.get_jobs(
-            status={},
+            status="Queued",
         )
         assert_matches_type(HumanLlmGetJobsResponse, human_llm, path=["response"])
 

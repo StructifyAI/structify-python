@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from typing import List, Optional
-from typing_extensions import Required, TypedDict
+from typing_extensions import Literal, Required, TypedDict
 
 __all__ = ["StructureFindRelationshipParams"]
 
@@ -17,7 +17,7 @@ class StructureFindRelationshipParams(TypedDict, total=False):
 
     allow_extra_entities: bool
 
-    special_job_type: Optional[object]
+    special_job_type: Optional[Literal["HumanLLM"]]
 
     starting_searches: List[str]
 
