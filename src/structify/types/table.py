@@ -3,21 +3,13 @@
 from typing import List, Union, Optional
 from typing_extensions import Literal, TypeAlias
 
-from pydantic import Field as FieldInfo
-
 from .._models import BaseModel
 from .property_type import PropertyType
 
-__all__ = [
-    "Table",
-    "Property",
-    "PropertyMergeStrategy",
-    "PropertyMergeStrategyProbabilistic",
-    "PropertyMergeStrategyProbabilisticProbabilistic",
-]
+__all__ = ["Table", "Property", "PropertyMergeStrategy", "PropertyMergeStrategyMergeProbability"]
 
 
-class PropertyMergeStrategyProbabilisticProbabilistic(BaseModel):
+class PropertyMergeStrategyMergeProbability(BaseModel):
     baseline_cardinality: int
     """
     The number of unique values that are expected to be present in the complete
@@ -38,11 +30,7 @@ class PropertyMergeStrategyProbabilisticProbabilistic(BaseModel):
     comparison_strategy: Optional[Literal["Default", "EnforceUniqueness"]] = None
 
 
-class PropertyMergeStrategyProbabilistic(BaseModel):
-    probabilistic: PropertyMergeStrategyProbabilisticProbabilistic = FieldInfo(alias="Probabilistic")
-
-
-PropertyMergeStrategy: TypeAlias = Union[Literal["Unique", "NoSignal"], PropertyMergeStrategyProbabilistic]
+PropertyMergeStrategy: TypeAlias = Union[PropertyMergeStrategyMergeProbability, Optional[object], Optional[object]]
 
 
 class Property(BaseModel):

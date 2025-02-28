@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from typing import List, Optional
-from typing_extensions import Literal, Required, TypedDict
+from typing_extensions import Required, TypedDict
 
 __all__ = ["StructureEnhanceRelationshipParams"]
 
@@ -15,7 +15,7 @@ class StructureEnhanceRelationshipParams(TypedDict, total=False):
 
     allow_extra_entities: bool
 
-    special_job_type: Optional[Literal["HumanLLM"]]
+    special_job_type: Optional[object]
 
     starting_searches: List[str]
 
