@@ -38,7 +38,7 @@ class TestJobs:
             limit=0,
             offset=0,
             since=parse_datetime("2019-12-27T18:11:19.117Z"),
-            status="Queued",
+            status={},
         )
         assert_matches_type(SyncJobsList[JobListResponse], job, path=["response"])
 
@@ -331,7 +331,7 @@ class TestAsyncJobs:
             limit=0,
             offset=0,
             since=parse_datetime("2019-12-27T18:11:19.117Z"),
-            status="Queued",
+            status={},
         )
         assert_matches_type(AsyncJobsList[JobListResponse], job, path=["response"])
 
