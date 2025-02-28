@@ -98,7 +98,7 @@ class Structify(SyncAPIClient):
         # part of our public interface in the future.
         _strict_response_validation: bool = False,
     ) -> None:
-        """Construct a new synchronous structify client instance.
+        """Construct a new synchronous Structify client instance.
 
         This automatically infers the `api_key` argument from the `STRUCTIFY_API_TOKEN` environment variable if it is not provided.
         """
@@ -314,7 +314,7 @@ class AsyncStructify(AsyncAPIClient):
         # part of our public interface in the future.
         _strict_response_validation: bool = False,
     ) -> None:
-        """Construct a new async structify client instance.
+        """Construct a new async AsyncStructify client instance.
 
         This automatically infers the `api_key` argument from the `STRUCTIFY_API_TOKEN` environment variable if it is not provided.
         """
