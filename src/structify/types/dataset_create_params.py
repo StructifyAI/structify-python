@@ -3,8 +3,9 @@
 from __future__ import annotations
 
 from typing import Union, Iterable, Optional
-from typing_extensions import Literal, Required, TypeAlias, TypedDict
+from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
+from .._utils import PropertyInfo
 from .table_param import TableParam
 from .property_type_param import PropertyTypeParam
 
@@ -12,9 +13,11 @@ __all__ = [
     "DatasetCreateParams",
     "Relationship",
     "RelationshipMergeStrategy",
+    "RelationshipMergeStrategyProbabilistic",
     "RelationshipProperty",
     "RelationshipPropertyMergeStrategy",
-    "RelationshipPropertyMergeStrategyMergeProbability",
+    "RelationshipPropertyMergeStrategyProbabilistic",
+    "RelationshipPropertyMergeStrategyProbabilisticProbabilistic",
 ]
 
 
@@ -30,7 +33,7 @@ class DatasetCreateParams(TypedDict, total=False):
     llm_override_field: Optional[str]
 
 
-class RelationshipMergeStrategy(TypedDict, total=False):
+class RelationshipMergeStrategyProbabilistic(TypedDict, total=False):
     source_cardinality_given_target_match: Optional[int]
     """
     Describes the expected cardinality of the source table when a match is found in
@@ -54,7 +57,11 @@ class RelationshipMergeStrategy(TypedDict, total=False):
     """
 
 
-class RelationshipPropertyMergeStrategyMergeProbability(TypedDict, total=False):
+class RelationshipMergeStrategy(TypedDict, total=False):
+    probabilistic: Required[Annotated[RelationshipMergeStrategyProbabilistic, PropertyInfo(alias="Probabilistic")]]
+
+
+class RelationshipPropertyMergeStrategyProbabilisticProbabilistic(TypedDict, total=False):
     baseline_cardinality: Required[int]
     """
     The number of unique values that are expected to be present in the complete
@@ -75,8 +82,14 @@ class RelationshipPropertyMergeStrategyMergeProbability(TypedDict, total=False):
     comparison_strategy: Literal["Default", "EnforceUniqueness"]
 
 
+class RelationshipPropertyMergeStrategyProbabilistic(TypedDict, total=False):
+    probabilistic: Required[
+        Annotated[RelationshipPropertyMergeStrategyProbabilisticProbabilistic, PropertyInfo(alias="Probabilistic")]
+    ]
+
+
 RelationshipPropertyMergeStrategy: TypeAlias = Union[
-    RelationshipPropertyMergeStrategyMergeProbability, Optional[object], Optional[object]
+    Literal["Unique", "NoSignal"], RelationshipPropertyMergeStrategyProbabilistic
 ]
 
 

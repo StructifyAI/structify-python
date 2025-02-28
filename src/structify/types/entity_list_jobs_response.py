@@ -2,7 +2,7 @@
 
 from typing import List, Optional
 from datetime import datetime
-from typing_extensions import TypeAlias
+from typing_extensions import Literal, TypeAlias
 
 from .._models import BaseModel
 
@@ -14,7 +14,7 @@ class EntityListJobsResponseItem(BaseModel):
 
     creation_time: datetime
 
-    status: Optional[object] = None
+    status: Literal["Queued", "Running", "Completed", "Failed"]
 
     message: Optional[str] = None
 
