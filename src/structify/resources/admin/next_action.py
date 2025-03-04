@@ -22,11 +22,13 @@ from ..._response import (
 from ...types.admin import (
     next_action_get_training_data_params,
     next_action_add_training_datum_params,
+    next_action_delete_training_data_params,
     next_action_label_training_datum_params,
     next_action_get_training_data_metadata_params,
 )
 from ..._base_client import make_request_options
 from ...types.admin.action_training_data_response import ActionTrainingDataResponse
+from ...types.admin.delete_action_training_data_response import DeleteActionTrainingDataResponse
 from ...types.admin.action_training_data_metadata_response import ActionTrainingDataMetadataResponse
 
 __all__ = ["NextActionResource", "AsyncNextActionResource"]
@@ -94,6 +96,43 @@ class NextActionResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=NoneType,
+        )
+
+    def delete_training_data(
+        self,
+        *,
+        id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> DeleteActionTrainingDataResponse:
+        """
+        Args:
+          id: ID of the training datum to delete
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._delete(
+            "/admin/next_action/delete_action_training_data",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {"id": id}, next_action_delete_training_data_params.NextActionDeleteTrainingDataParams
+                ),
+            ),
+            cast_to=DeleteActionTrainingDataResponse,
         )
 
     def get_training_data(
@@ -291,6 +330,43 @@ class AsyncNextActionResource(AsyncAPIResource):
             cast_to=NoneType,
         )
 
+    async def delete_training_data(
+        self,
+        *,
+        id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> DeleteActionTrainingDataResponse:
+        """
+        Args:
+          id: ID of the training datum to delete
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._delete(
+            "/admin/next_action/delete_action_training_data",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"id": id}, next_action_delete_training_data_params.NextActionDeleteTrainingDataParams
+                ),
+            ),
+            cast_to=DeleteActionTrainingDataResponse,
+        )
+
     async def get_training_data(
         self,
         *,
@@ -429,6 +505,9 @@ class NextActionResourceWithRawResponse:
         self.add_training_datum = to_raw_response_wrapper(
             next_action.add_training_datum,
         )
+        self.delete_training_data = to_raw_response_wrapper(
+            next_action.delete_training_data,
+        )
         self.get_training_data = to_raw_response_wrapper(
             next_action.get_training_data,
         )
@@ -446,6 +525,9 @@ class AsyncNextActionResourceWithRawResponse:
 
         self.add_training_datum = async_to_raw_response_wrapper(
             next_action.add_training_datum,
+        )
+        self.delete_training_data = async_to_raw_response_wrapper(
+            next_action.delete_training_data,
         )
         self.get_training_data = async_to_raw_response_wrapper(
             next_action.get_training_data,
@@ -465,6 +547,9 @@ class NextActionResourceWithStreamingResponse:
         self.add_training_datum = to_streamed_response_wrapper(
             next_action.add_training_datum,
         )
+        self.delete_training_data = to_streamed_response_wrapper(
+            next_action.delete_training_data,
+        )
         self.get_training_data = to_streamed_response_wrapper(
             next_action.get_training_data,
         )
@@ -482,6 +567,9 @@ class AsyncNextActionResourceWithStreamingResponse:
 
         self.add_training_datum = async_to_streamed_response_wrapper(
             next_action.add_training_datum,
+        )
+        self.delete_training_data = async_to_streamed_response_wrapper(
+            next_action.delete_training_data,
         )
         self.get_training_data = async_to_streamed_response_wrapper(
             next_action.get_training_data,
