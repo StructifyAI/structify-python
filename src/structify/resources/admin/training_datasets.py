@@ -651,7 +651,6 @@ class TrainingDatasetsResource(SyncAPIResource):
         dataset_names: Optional[List[str]] | NotGiven = NOT_GIVEN,
         end_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         start_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
-        status: Optional[DatumStatus] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -679,7 +678,6 @@ class TrainingDatasetsResource(SyncAPIResource):
                     "dataset_names": dataset_names,
                     "end_date": end_date,
                     "start_date": start_date,
-                    "status": status,
                 },
                 training_dataset_size_params.TrainingDatasetSizeParams,
             ),
@@ -1493,7 +1491,6 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
         dataset_names: Optional[List[str]] | NotGiven = NOT_GIVEN,
         end_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         start_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
-        status: Optional[DatumStatus] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1521,7 +1518,6 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
                     "dataset_names": dataset_names,
                     "end_date": end_date,
                     "start_date": start_date,
-                    "status": status,
                 },
                 training_dataset_size_params.TrainingDatasetSizeParams,
             ),
