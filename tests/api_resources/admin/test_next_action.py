@@ -11,6 +11,7 @@ from structify import Structify, AsyncStructify
 from tests.utils import assert_matches_type
 from structify.types.admin import (
     ActionTrainingDataResponse,
+    DeleteActionTrainingDataResponse,
     ActionTrainingDataMetadataResponse,
 )
 
@@ -106,6 +107,37 @@ class TestNextAction:
 
             next_action = response.parse()
             assert next_action is None
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_method_delete_training_data(self, client: Structify) -> None:
+        next_action = client.admin.next_action.delete_training_data(
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(DeleteActionTrainingDataResponse, next_action, path=["response"])
+
+    @parametrize
+    def test_raw_response_delete_training_data(self, client: Structify) -> None:
+        response = client.admin.next_action.with_raw_response.delete_training_data(
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        next_action = response.parse()
+        assert_matches_type(DeleteActionTrainingDataResponse, next_action, path=["response"])
+
+    @parametrize
+    def test_streaming_response_delete_training_data(self, client: Structify) -> None:
+        with client.admin.next_action.with_streaming_response.delete_training_data(
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            next_action = response.parse()
+            assert_matches_type(DeleteActionTrainingDataResponse, next_action, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -306,6 +338,37 @@ class TestAsyncNextAction:
 
             next_action = await response.parse()
             assert next_action is None
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_method_delete_training_data(self, async_client: AsyncStructify) -> None:
+        next_action = await async_client.admin.next_action.delete_training_data(
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(DeleteActionTrainingDataResponse, next_action, path=["response"])
+
+    @parametrize
+    async def test_raw_response_delete_training_data(self, async_client: AsyncStructify) -> None:
+        response = await async_client.admin.next_action.with_raw_response.delete_training_data(
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        next_action = await response.parse()
+        assert_matches_type(DeleteActionTrainingDataResponse, next_action, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_delete_training_data(self, async_client: AsyncStructify) -> None:
+        async with async_client.admin.next_action.with_streaming_response.delete_training_data(
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            next_action = await response.parse()
+            assert_matches_type(DeleteActionTrainingDataResponse, next_action, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

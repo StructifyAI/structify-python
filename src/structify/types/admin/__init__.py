@@ -37,6 +37,7 @@ from .training_dataset_add_datum_params import TrainingDatasetAddDatumParams as 
 from .human_llm_add_search_for_job_params import HumanLlmAddSearchForJobParams as HumanLlmAddSearchForJobParams
 from .training_dataset_label_datum_params import TrainingDatasetLabelDatumParams as TrainingDatasetLabelDatumParams
 from .training_dataset_list_datums_params import TrainingDatasetListDatumsParams as TrainingDatasetListDatumsParams
+from .delete_action_training_data_response import DeleteActionTrainingDataResponse as DeleteActionTrainingDataResponse
 from .next_action_get_training_data_params import NextActionGetTrainingDataParams as NextActionGetTrainingDataParams
 from .training_dataset_remove_datum_params import TrainingDatasetRemoveDatumParams as TrainingDatasetRemoveDatumParams
 from .training_dataset_verify_datum_params import TrainingDatasetVerifyDatumParams as TrainingDatasetVerifyDatumParams
@@ -55,6 +56,9 @@ from .training_dataset_get_datum_info_params import (
 )
 from .training_dataset_switch_dataset_params import (
     TrainingDatasetSwitchDatasetParams as TrainingDatasetSwitchDatasetParams,
+)
+from .next_action_delete_training_data_params import (
+    NextActionDeleteTrainingDataParams as NextActionDeleteTrainingDataParams,
 )
 from .next_action_label_training_datum_params import (
     NextActionLabelTrainingDatumParams as NextActionLabelTrainingDatumParams,
