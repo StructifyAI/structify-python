@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union, Iterable, Optional
+from typing import Dict, List, Iterable, Optional
 
 import httpx
 
@@ -79,7 +79,7 @@ class EntitiesResource(SyncAPIResource):
     def delete(
         self,
         *,
-        dataset_name: str,
+        dataset: str,
         entity_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -104,7 +104,7 @@ class EntitiesResource(SyncAPIResource):
             "/entity/delete",
             body=maybe_transform(
                 {
-                    "dataset_name": dataset_name,
+                    "dataset": dataset,
                     "entity_id": entity_id,
                 },
                 entity_delete_params.EntityDeleteParams,
@@ -118,10 +118,10 @@ class EntitiesResource(SyncAPIResource):
     def add(
         self,
         *,
-        dataset_name: str,
+        dataset: str,
         kg: KnowledgeGraphParam,
         attempt_merge: bool | NotGiven = NOT_GIVEN,
-        source: Union[str, Iterable[object], Iterable[object], Optional[object]] | NotGiven = NOT_GIVEN,
+        source: entity_add_params.Source | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -149,7 +149,7 @@ class EntitiesResource(SyncAPIResource):
             "/entity/add",
             body=maybe_transform(
                 {
-                    "dataset_name": dataset_name,
+                    "dataset": dataset,
                     "kg": kg,
                     "attempt_merge": attempt_merge,
                     "source": source,
@@ -165,10 +165,10 @@ class EntitiesResource(SyncAPIResource):
     def add_batch(
         self,
         *,
-        dataset_name: str,
+        dataset: str,
         kgs: Iterable[KnowledgeGraphParam],
         attempt_merge: bool | NotGiven = NOT_GIVEN,
-        source: Union[str, Iterable[object], Iterable[object], Optional[object]] | NotGiven = NOT_GIVEN,
+        source: entity_add_batch_params.Source | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -192,7 +192,7 @@ class EntitiesResource(SyncAPIResource):
             "/entity/add_batch",
             body=maybe_transform(
                 {
-                    "dataset_name": dataset_name,
+                    "dataset": dataset,
                     "kgs": kgs,
                     "attempt_merge": attempt_merge,
                     "source": source,
@@ -399,7 +399,7 @@ class EntitiesResource(SyncAPIResource):
     def search(
         self,
         *,
-        dataset_name: str,
+        dataset: str,
         query: str,
         table_name: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -425,7 +425,7 @@ class EntitiesResource(SyncAPIResource):
             "/entity/search",
             body=maybe_transform(
                 {
-                    "dataset_name": dataset_name,
+                    "dataset": dataset,
                     "query": query,
                     "table_name": table_name,
                 },
@@ -440,7 +440,7 @@ class EntitiesResource(SyncAPIResource):
     def summarize(
         self,
         *,
-        dataset_name: str,
+        dataset: str,
         entity_id: str,
         properties: List[str],
         extra_instructions: Optional[List[str]] | NotGiven = NOT_GIVEN,
@@ -469,7 +469,7 @@ class EntitiesResource(SyncAPIResource):
             "/entity/summarize",
             body=maybe_transform(
                 {
-                    "dataset_name": dataset_name,
+                    "dataset": dataset,
                     "entity_id": entity_id,
                     "properties": properties,
                     "extra_instructions": extra_instructions,
@@ -520,10 +520,10 @@ class EntitiesResource(SyncAPIResource):
     def update_property(
         self,
         *,
-        dataset_name: str,
+        dataset: str,
         entity_id: str,
         properties: Dict[str, entity_update_property_params.Properties],
-        source: Union[str, Iterable[object], Iterable[object], Optional[object]] | NotGiven = NOT_GIVEN,
+        source: entity_update_property_params.Source | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -547,7 +547,7 @@ class EntitiesResource(SyncAPIResource):
             "/entity/update",
             body=maybe_transform(
                 {
-                    "dataset_name": dataset_name,
+                    "dataset": dataset,
                     "entity_id": entity_id,
                     "properties": properties,
                     "source": source,
@@ -563,7 +563,7 @@ class EntitiesResource(SyncAPIResource):
     def verify(
         self,
         *,
-        dataset_name: str,
+        dataset: str,
         kg: KnowledgeGraphParam,
         fix: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -595,7 +595,7 @@ class EntitiesResource(SyncAPIResource):
             "/entity/verify",
             body=maybe_transform(
                 {
-                    "dataset_name": dataset_name,
+                    "dataset": dataset,
                     "kg": kg,
                     "fix": fix,
                 },
@@ -671,7 +671,7 @@ class AsyncEntitiesResource(AsyncAPIResource):
     async def delete(
         self,
         *,
-        dataset_name: str,
+        dataset: str,
         entity_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -696,7 +696,7 @@ class AsyncEntitiesResource(AsyncAPIResource):
             "/entity/delete",
             body=await async_maybe_transform(
                 {
-                    "dataset_name": dataset_name,
+                    "dataset": dataset,
                     "entity_id": entity_id,
                 },
                 entity_delete_params.EntityDeleteParams,
@@ -710,10 +710,10 @@ class AsyncEntitiesResource(AsyncAPIResource):
     async def add(
         self,
         *,
-        dataset_name: str,
+        dataset: str,
         kg: KnowledgeGraphParam,
         attempt_merge: bool | NotGiven = NOT_GIVEN,
-        source: Union[str, Iterable[object], Iterable[object], Optional[object]] | NotGiven = NOT_GIVEN,
+        source: entity_add_params.Source | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -741,7 +741,7 @@ class AsyncEntitiesResource(AsyncAPIResource):
             "/entity/add",
             body=await async_maybe_transform(
                 {
-                    "dataset_name": dataset_name,
+                    "dataset": dataset,
                     "kg": kg,
                     "attempt_merge": attempt_merge,
                     "source": source,
@@ -757,10 +757,10 @@ class AsyncEntitiesResource(AsyncAPIResource):
     async def add_batch(
         self,
         *,
-        dataset_name: str,
+        dataset: str,
         kgs: Iterable[KnowledgeGraphParam],
         attempt_merge: bool | NotGiven = NOT_GIVEN,
-        source: Union[str, Iterable[object], Iterable[object], Optional[object]] | NotGiven = NOT_GIVEN,
+        source: entity_add_batch_params.Source | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -784,7 +784,7 @@ class AsyncEntitiesResource(AsyncAPIResource):
             "/entity/add_batch",
             body=await async_maybe_transform(
                 {
-                    "dataset_name": dataset_name,
+                    "dataset": dataset,
                     "kgs": kgs,
                     "attempt_merge": attempt_merge,
                     "source": source,
@@ -993,7 +993,7 @@ class AsyncEntitiesResource(AsyncAPIResource):
     async def search(
         self,
         *,
-        dataset_name: str,
+        dataset: str,
         query: str,
         table_name: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -1019,7 +1019,7 @@ class AsyncEntitiesResource(AsyncAPIResource):
             "/entity/search",
             body=await async_maybe_transform(
                 {
-                    "dataset_name": dataset_name,
+                    "dataset": dataset,
                     "query": query,
                     "table_name": table_name,
                 },
@@ -1034,7 +1034,7 @@ class AsyncEntitiesResource(AsyncAPIResource):
     async def summarize(
         self,
         *,
-        dataset_name: str,
+        dataset: str,
         entity_id: str,
         properties: List[str],
         extra_instructions: Optional[List[str]] | NotGiven = NOT_GIVEN,
@@ -1063,7 +1063,7 @@ class AsyncEntitiesResource(AsyncAPIResource):
             "/entity/summarize",
             body=await async_maybe_transform(
                 {
-                    "dataset_name": dataset_name,
+                    "dataset": dataset,
                     "entity_id": entity_id,
                     "properties": properties,
                     "extra_instructions": extra_instructions,
@@ -1116,10 +1116,10 @@ class AsyncEntitiesResource(AsyncAPIResource):
     async def update_property(
         self,
         *,
-        dataset_name: str,
+        dataset: str,
         entity_id: str,
         properties: Dict[str, entity_update_property_params.Properties],
-        source: Union[str, Iterable[object], Iterable[object], Optional[object]] | NotGiven = NOT_GIVEN,
+        source: entity_update_property_params.Source | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1143,7 +1143,7 @@ class AsyncEntitiesResource(AsyncAPIResource):
             "/entity/update",
             body=await async_maybe_transform(
                 {
-                    "dataset_name": dataset_name,
+                    "dataset": dataset,
                     "entity_id": entity_id,
                     "properties": properties,
                     "source": source,
@@ -1159,7 +1159,7 @@ class AsyncEntitiesResource(AsyncAPIResource):
     async def verify(
         self,
         *,
-        dataset_name: str,
+        dataset: str,
         kg: KnowledgeGraphParam,
         fix: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -1191,7 +1191,7 @@ class AsyncEntitiesResource(AsyncAPIResource):
             "/entity/verify",
             body=await async_maybe_transform(
                 {
-                    "dataset_name": dataset_name,
+                    "dataset": dataset,
                     "kg": kg,
                     "fix": fix,
                 },
