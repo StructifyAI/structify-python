@@ -12,7 +12,7 @@ __all__ = ["EntityAddParams", "Source", "SourceWeb", "SourceDocumentPage", "Sour
 
 
 class EntityAddParams(TypedDict, total=False):
-    dataset: Required[str]
+    dataset_name: Required[str]
 
     kg: Required[KnowledgeGraphParam]
     """
