@@ -85,62 +85,65 @@ And the output will echo back a representation of the schema you just created.
 
 Adding Typing to Your Schema
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-We now allow users to add basic typing to the properties in the schemas that they define. We current have three types that we support:
+We allow users to add typing to the properties in the schemas that they define. We currently support the following types:
 
 - **Strings**
 - **Integers**
+- **Floats**
+- **Booleans**
 - **Enums**
+- **URLs**
+- **Date**
+- **Money**
+- **Image**
 
 Every property in the schema has a default type as a String. 
 
-If we wanted to include an age property in the employee table, we could add the following to the employee table as such:
+For instance, a strongly typed schema for an employee table might look like this:
 
 .. code-block:: python
 
+    from structify.types.property_type import Enum
     Table(
         name="employee",
         description="details about employees at a certain company.",
         properties=[
             Property(name="name", description="the full name of the employee"),
-            Property(name="age", description="the age of the employee", prop_type="Integer")
+            Property(name="age", description="the age of the employee", prop_type="Integer"),
+            Property(name="linkedin", description="the LinkedIn URL of the employee", prop_type="URL"),
+            Property(name="photo", description="the photo of the employee", prop_type="Image"),
+            Property(
+                name="department",
+                description="the department of the employee",
+                prop_type=Enum(
+                    Enum=["Sales", "Marketing", "Engineering", "HR", "Finance", "Legal", "Other"]
+                )
+            )
         ]
     )
 
-And if we wanted to add a "degree" field to the education table that is limited to a few options, we could add the following:
+And note that you can also add properties to relationships as well.
 
 .. code-block:: python
 
-    Table(
-        name="education",
-        description="the educational history of an employee",
+    from structify.types.dataset_descriptor import Relationship, RelationshipProperty
+
+    Relationship(
+        name="worked",
+        description="connects the employee to their job history",
         properties=[
-            Property(name="school_name", description="The name of the school"),
-            Property(name="school_gradyear", description="The year the employee graduated"),
-            Property(
-                name="degree",
-                description="The degree the employee received",
-                prop_type={
-                    "Enum": {
-                        "types": [
-                            "Bachelors",
-                            "Masters",
-                            "PhD",
-                            "Associates"
-                            "MBA",
-                            "JD"
-                            "MD",
-                            "Other"
-                        ]
-                    }
-                }
-            )
+            Property(name="title", description="The title of the job"),
+            Property(name="start_date", description="The start date of the job", prop_type="Date"),
+            Property(name="end_date", description="The end date of the job", prop_type="Date"),
+            Property(name="is_full_time", description="Whether the job was full-time or part-time", prop_type="Boolean"),
+            Property(name="salary", description="The annual salary of the job", prop_type="Money"),
         ]
     ),
 
 
 Helpful Dataset Functionality
 ------------------------------
-We also have a few other helpful functions to help you manage your datasets: ``structify.datasets.delete`` to delete a dataset, ``structify.datasets.list`` to list all your datasets, and ``structify.datasets.get`` to get the schema for a certain dataset.
+We also have a few other helpful functions to help you manage your datasets: ``structify.datasets.list`` to list all your datasets, and ``structify.datasets.get`` to get the schema for a certain dataset.
 
 Here are some examples of how you can use these functions:
 
@@ -151,6 +154,3 @@ Here are some examples of how you can use these functions:
 
     # Requires the name of the dataset and will return the schema
     structify.datasets.get(name="employees")
-
-    # Requires the name of the dataset and will delete the dataset
-    structify.datasets.delete(name="employees")

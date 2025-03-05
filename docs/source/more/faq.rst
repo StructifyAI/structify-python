@@ -7,7 +7,7 @@ Frequently Asked Questions
 
 .. details:: What are some examples of datasets that Structify's API can power me to collect on demand?
 
-    Here is a list of possible prompts that you can use to collect data on demand via our API:
+    Here is a list of possible use cases that you can use our API to collect data on demand for:
 
     - Keep track of M&A activity in the EU
     - How have earnings changed for all public biotech companies in the last N years?
@@ -71,6 +71,4 @@ Frequently Asked Questions
 
 .. details:: Where can I get help with using the API?
     
-    We recommend you first check out `our developer community on Discord <https://discord.gg/tqxmr2Mj>`_. 
-    
-    If you can't find an answer there, we're happy to help you out if you send a note to team@structify.ai.
+    We recommend you email us at team@structify.ai to join our developer community on Slack. 
