@@ -15,7 +15,15 @@ class TrainingDatasetSizeResponseItem(BaseModel):
 
     nav_labels: int
 
+    nav_verified: int
+
+    potential_sus_nav_datums: int
+
+    potential_sus_save_datums: int
+
     save_labels: int
+
+    save_verified: int
 
     sus_nav_datums: int
 
