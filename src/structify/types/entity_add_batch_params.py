@@ -12,7 +12,7 @@ __all__ = ["EntityAddBatchParams", "Source", "SourceWeb", "SourceDocumentPage", 
 
 
 class EntityAddBatchParams(TypedDict, total=False):
-    dataset_name: Required[str]
+    dataset: Required[str]
 
     kgs: Required[Iterable[KnowledgeGraphParam]]
 
