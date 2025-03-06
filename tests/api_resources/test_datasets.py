@@ -10,10 +10,10 @@ import pytest
 from structify import Structify, AsyncStructify
 from tests.utils import assert_matches_type
 from structify.types import (
-    StructifyEntity,
     DatasetGetResponse,
     DatasetListResponse,
     DatasetMatchResponse,
+    DatasetViewTableResponse,
     DatasetViewRelationshipsResponse,
     DatasetViewTablesWithRelationshipsResponse,
 )
@@ -368,7 +368,7 @@ class TestDatasets:
             dataset="dataset",
             name="name",
         )
-        assert_matches_type(SyncJobsList[StructifyEntity], dataset, path=["response"])
+        assert_matches_type(SyncJobsList[DatasetViewTableResponse], dataset, path=["response"])
 
     @parametrize
     def test_method_view_table_with_all_params(self, client: Structify) -> None:
@@ -384,7 +384,7 @@ class TestDatasets:
                 "sort": "asc",
             },
         )
-        assert_matches_type(SyncJobsList[StructifyEntity], dataset, path=["response"])
+        assert_matches_type(SyncJobsList[DatasetViewTableResponse], dataset, path=["response"])
 
     @parametrize
     def test_raw_response_view_table(self, client: Structify) -> None:
@@ -396,7 +396,7 @@ class TestDatasets:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         dataset = response.parse()
-        assert_matches_type(SyncJobsList[StructifyEntity], dataset, path=["response"])
+        assert_matches_type(SyncJobsList[DatasetViewTableResponse], dataset, path=["response"])
 
     @parametrize
     def test_streaming_response_view_table(self, client: Structify) -> None:
@@ -408,7 +408,7 @@ class TestDatasets:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             dataset = response.parse()
-            assert_matches_type(SyncJobsList[StructifyEntity], dataset, path=["response"])
+            assert_matches_type(SyncJobsList[DatasetViewTableResponse], dataset, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -808,7 +808,7 @@ class TestAsyncDatasets:
             dataset="dataset",
             name="name",
         )
-        assert_matches_type(AsyncJobsList[StructifyEntity], dataset, path=["response"])
+        assert_matches_type(AsyncJobsList[DatasetViewTableResponse], dataset, path=["response"])
 
     @parametrize
     async def test_method_view_table_with_all_params(self, async_client: AsyncStructify) -> None:
@@ -824,7 +824,7 @@ class TestAsyncDatasets:
                 "sort": "asc",
             },
         )
-        assert_matches_type(AsyncJobsList[StructifyEntity], dataset, path=["response"])
+        assert_matches_type(AsyncJobsList[DatasetViewTableResponse], dataset, path=["response"])
 
     @parametrize
     async def test_raw_response_view_table(self, async_client: AsyncStructify) -> None:
@@ -836,7 +836,7 @@ class TestAsyncDatasets:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         dataset = await response.parse()
-        assert_matches_type(AsyncJobsList[StructifyEntity], dataset, path=["response"])
+        assert_matches_type(AsyncJobsList[DatasetViewTableResponse], dataset, path=["response"])
 
     @parametrize
     async def test_streaming_response_view_table(self, async_client: AsyncStructify) -> None:
@@ -848,7 +848,7 @@ class TestAsyncDatasets:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             dataset = await response.parse()
-            assert_matches_type(AsyncJobsList[StructifyEntity], dataset, path=["response"])
+            assert_matches_type(AsyncJobsList[DatasetViewTableResponse], dataset, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

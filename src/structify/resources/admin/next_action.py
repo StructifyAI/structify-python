@@ -22,14 +22,11 @@ from ..._response import (
 from ...types.admin import (
     next_action_get_training_data_params,
     next_action_add_training_datum_params,
-    next_action_get_training_datum_params,
     next_action_delete_training_data_params,
     next_action_label_training_datum_params,
     next_action_get_training_data_metadata_params,
 )
 from ..._base_client import make_request_options
-from ...types.admin.next_action_input_param import NextActionInputParam
-from ...types.admin.action_training_data_entry import ActionTrainingDataEntry
 from ...types.admin.action_training_data_response import ActionTrainingDataResponse
 from ...types.admin.delete_action_training_data_response import DeleteActionTrainingDataResponse
 from ...types.admin.action_training_data_metadata_response import ActionTrainingDataMetadataResponse
@@ -60,7 +57,7 @@ class NextActionResource(SyncAPIResource):
     def add_training_datum(
         self,
         *,
-        input: NextActionInputParam,
+        input: next_action_add_training_datum_params.Input,
         label: str,
         output: next_action_add_training_datum_params.Output,
         job_id: Optional[str] | NotGiven = NOT_GIVEN,
@@ -226,43 +223,6 @@ class NextActionResource(SyncAPIResource):
             cast_to=ActionTrainingDataMetadataResponse,
         )
 
-    def get_training_datum(
-        self,
-        *,
-        id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ActionTrainingDataEntry:
-        """
-        Args:
-          id: ID of the training datum to get
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return self._get(
-            "/admin/next_action/get_action_training_datum",
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {"id": id}, next_action_get_training_datum_params.NextActionGetTrainingDatumParams
-                ),
-            ),
-            cast_to=ActionTrainingDataEntry,
-        )
-
     def label_training_datum(
         self,
         *,
@@ -329,7 +289,7 @@ class AsyncNextActionResource(AsyncAPIResource):
     async def add_training_datum(
         self,
         *,
-        input: NextActionInputParam,
+        input: next_action_add_training_datum_params.Input,
         label: str,
         output: next_action_add_training_datum_params.Output,
         job_id: Optional[str] | NotGiven = NOT_GIVEN,
@@ -495,43 +455,6 @@ class AsyncNextActionResource(AsyncAPIResource):
             cast_to=ActionTrainingDataMetadataResponse,
         )
 
-    async def get_training_datum(
-        self,
-        *,
-        id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ActionTrainingDataEntry:
-        """
-        Args:
-          id: ID of the training datum to get
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return await self._get(
-            "/admin/next_action/get_action_training_datum",
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform(
-                    {"id": id}, next_action_get_training_datum_params.NextActionGetTrainingDatumParams
-                ),
-            ),
-            cast_to=ActionTrainingDataEntry,
-        )
-
     async def label_training_datum(
         self,
         *,
@@ -591,9 +514,6 @@ class NextActionResourceWithRawResponse:
         self.get_training_data_metadata = to_raw_response_wrapper(
             next_action.get_training_data_metadata,
         )
-        self.get_training_datum = to_raw_response_wrapper(
-            next_action.get_training_datum,
-        )
         self.label_training_datum = to_raw_response_wrapper(
             next_action.label_training_datum,
         )
@@ -614,9 +534,6 @@ class AsyncNextActionResourceWithRawResponse:
         )
         self.get_training_data_metadata = async_to_raw_response_wrapper(
             next_action.get_training_data_metadata,
-        )
-        self.get_training_datum = async_to_raw_response_wrapper(
-            next_action.get_training_datum,
         )
         self.label_training_datum = async_to_raw_response_wrapper(
             next_action.label_training_datum,
@@ -639,9 +556,6 @@ class NextActionResourceWithStreamingResponse:
         self.get_training_data_metadata = to_streamed_response_wrapper(
             next_action.get_training_data_metadata,
         )
-        self.get_training_datum = to_streamed_response_wrapper(
-            next_action.get_training_datum,
-        )
         self.label_training_datum = to_streamed_response_wrapper(
             next_action.label_training_datum,
         )
@@ -662,9 +576,6 @@ class AsyncNextActionResourceWithStreamingResponse:
         )
         self.get_training_data_metadata = async_to_streamed_response_wrapper(
             next_action.get_training_data_metadata,
-        )
-        self.get_training_datum = async_to_streamed_response_wrapper(
-            next_action.get_training_datum,
         )
         self.label_training_datum = async_to_streamed_response_wrapper(
             next_action.label_training_datum,

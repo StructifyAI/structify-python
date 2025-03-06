@@ -39,13 +39,12 @@ from ..._response import (
 )
 from ...pagination import SyncJobsList, AsyncJobsList
 from ..._base_client import AsyncPaginator, make_request_options
-from ...types.sort_by_param import SortByParam
-from ...types.structify_entity import StructifyEntity
-from ...types.entity_graph_param import EntityGraphParam
+from ...types.table_param import TableParam
 from ...types.dataset_get_response import DatasetGetResponse
 from ...types.dataset_list_response import DatasetListResponse
+from ...types.knowledge_graph_param import KnowledgeGraphParam
 from ...types.dataset_match_response import DatasetMatchResponse
-from ...types.table_descriptor_param import TableDescriptorParam
+from ...types.dataset_view_table_response import DatasetViewTableResponse
 from ...types.dataset_view_relationships_response import DatasetViewRelationshipsResponse
 from ...types.dataset_view_tables_with_relationships_response import DatasetViewTablesWithRelationshipsResponse
 
@@ -82,7 +81,7 @@ class DatasetsResource(SyncAPIResource):
         description: str,
         name: str,
         relationships: Iterable[dataset_create_params.Relationship],
-        tables: Iterable[TableDescriptorParam],
+        tables: Iterable[TableParam],
         llm_override_field: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -220,7 +219,7 @@ class DatasetsResource(SyncAPIResource):
         self,
         *,
         dataset: str,
-        query_kg: EntityGraphParam,
+        query_kg: KnowledgeGraphParam,
         match_threshold: float | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -272,7 +271,7 @@ class DatasetsResource(SyncAPIResource):
         last_updated: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         offset: int | NotGiven = NOT_GIVEN,
-        sort_by: SortByParam | NotGiven = NOT_GIVEN,
+        sort_by: dataset_view_relationships_params.SortBy | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -325,14 +324,14 @@ class DatasetsResource(SyncAPIResource):
         last_updated: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         offset: int | NotGiven = NOT_GIVEN,
-        sort_by: SortByParam | NotGiven = NOT_GIVEN,
+        sort_by: dataset_view_table_params.SortBy | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> SyncJobsList[StructifyEntity]:
+    ) -> SyncJobsList[DatasetViewTableResponse]:
         """
         You need to specify a dataset and a table_name
 
@@ -347,7 +346,7 @@ class DatasetsResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/dataset/view_table",
-            page=SyncJobsList[StructifyEntity],
+            page=SyncJobsList[DatasetViewTableResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -366,7 +365,7 @@ class DatasetsResource(SyncAPIResource):
                     dataset_view_table_params.DatasetViewTableParams,
                 ),
             ),
-            model=StructifyEntity,
+            model=DatasetViewTableResponse,
         )
 
     def view_tables_with_relationships(
@@ -378,7 +377,7 @@ class DatasetsResource(SyncAPIResource):
         last_updated: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         offset: int | NotGiven = NOT_GIVEN,
-        sort_by: SortByParam | NotGiven = NOT_GIVEN,
+        sort_by: dataset_view_tables_with_relationships_params.SortBy | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -452,7 +451,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
         description: str,
         name: str,
         relationships: Iterable[dataset_create_params.Relationship],
-        tables: Iterable[TableDescriptorParam],
+        tables: Iterable[TableParam],
         llm_override_field: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -590,7 +589,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
         self,
         *,
         dataset: str,
-        query_kg: EntityGraphParam,
+        query_kg: KnowledgeGraphParam,
         match_threshold: float | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -642,7 +641,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
         last_updated: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         offset: int | NotGiven = NOT_GIVEN,
-        sort_by: SortByParam | NotGiven = NOT_GIVEN,
+        sort_by: dataset_view_relationships_params.SortBy | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -695,14 +694,14 @@ class AsyncDatasetsResource(AsyncAPIResource):
         last_updated: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         offset: int | NotGiven = NOT_GIVEN,
-        sort_by: SortByParam | NotGiven = NOT_GIVEN,
+        sort_by: dataset_view_table_params.SortBy | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> AsyncPaginator[StructifyEntity, AsyncJobsList[StructifyEntity]]:
+    ) -> AsyncPaginator[DatasetViewTableResponse, AsyncJobsList[DatasetViewTableResponse]]:
         """
         You need to specify a dataset and a table_name
 
@@ -717,7 +716,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/dataset/view_table",
-            page=AsyncJobsList[StructifyEntity],
+            page=AsyncJobsList[DatasetViewTableResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -736,7 +735,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
                     dataset_view_table_params.DatasetViewTableParams,
                 ),
             ),
-            model=StructifyEntity,
+            model=DatasetViewTableResponse,
         )
 
     async def view_tables_with_relationships(
@@ -748,7 +747,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
         last_updated: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         offset: int | NotGiven = NOT_GIVEN,
-        sort_by: SortByParam | NotGiven = NOT_GIVEN,
+        sort_by: dataset_view_tables_with_relationships_params.SortBy | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
