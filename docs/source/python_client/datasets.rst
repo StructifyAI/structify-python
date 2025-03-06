@@ -20,7 +20,7 @@ If you have a schema you want your dataset to follow, you can easily pre-define 
         from structify import Structify
         from structify.types import Table, Property, Relationship
 
-        structify = Structify(api_key=os.environ["STRUCTIFY_API_TOKEN"])
+        client = Structify(api_key=os.environ["STRUCTIFY_API_TOKEN"])
 
         tables = [
             Table(
@@ -32,18 +32,19 @@ If you have a schema you want your dataset to follow, you can easily pre-define 
                 ]
             ),
             Table(
-                name="education",
-                description="the educational history of an employee",
+                name="university",
+                description="an educational institution",
                 properties=[
-                    Property(name="school_name", description="The name of the school"),
-                    Property(name="school_gradyear", description="The year the employee graduated")
+                    Property(name="name", description="The name of the school"),
+                    Property(name="location", description="The location of the school")
                 ]
             ),
             Table(
                 name="employee",
                 description="details about employees at a certain company.",
                 properties=[
-                    Property(name="name", description="the full name of the employee")
+                    Property(name="name", description="the full name of the employee"),
+                    Property(name="current_title", description="the current title of the employee")
                 ]
             )
         ]
@@ -63,25 +64,25 @@ If you have a schema you want your dataset to follow, you can easily pre-define 
             )
         ]
 
-        structify.datasets.create(
+        client.datasets.create(
             name="employees", 
             description="A dataset named 'employees' that tells me about their job and education history.", 
             tables=tables,
             relationships=relationships
             )
 
-        structify.datasets.get(name="employees")
+        client.datasets.get(name="employees")
 
 And the output will echo back a representation of the schema you just created.
 
 .. note::
-   Coming soon: a ``structify.datasets.llm_create`` method to create a dataset with a schema that is automatically generated from just a description.
+   Coming soon: a ``client.datasets.llm_create`` method to create a dataset with a schema that is automatically generated from just a description.
    This will allow users to, instead of writing out an entire schema, simply input plain text to allow the LLM to create your schema.
 
 .. tip::
     Currently, if you need to edit the schema, you will need to either delete the dataset and recreate it with the edited schema or create a dataset with a new name.
     
-    We are working on ``structify.datasets.modify`` to allow users to adjust the schema without deleting an existing dataset.
+    We are working on ``client.datasets.modify`` to allow users to adjust the schema without deleting an existing dataset.
 
 Adding Typing to Your Schema
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -143,14 +144,14 @@ And note that you can also add properties to relationships as well.
 
 Helpful Dataset Functionality
 ------------------------------
-We also have a few other helpful functions to help you manage your datasets: ``structify.datasets.list`` to list all your datasets, and ``structify.datasets.get`` to get the schema for a certain dataset.
+We also have a few other helpful functions to help you manage your datasets: ``client.datasets.list`` to list all your datasets, and ``client.datasets.get`` to get the schema for a certain dataset.
 
 Here are some examples of how you can use these functions:
 
 .. code-block:: python
 
     # Requires no parameters and will return a list of all your datasets
-    structify.datasets.list()
+    client.datasets.list()
 
     # Requires the name of the dataset and will return the schema
-    structify.datasets.get(name="employees")
+    client.datasets.get(name="employees")
