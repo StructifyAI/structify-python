@@ -9,45 +9,43 @@ from .._utils import PropertyInfo
 
 __all__ = [
     "ExtractionCriteriaParam",
-    "RelationshipExtraction",
-    "RelationshipExtractionRelationshipExtraction",
-    "EntityExtraction",
-    "EntityExtractionEntityExtraction",
-    "GenericProperty",
-    "GenericPropertyGenericProperty",
+    "Relationship",
+    "RelationshipRelationship",
+    "Entity",
+    "EntityEntity",
+    "Property",
+    "PropertyProperty",
 ]
 
 
-class RelationshipExtractionRelationshipExtraction(TypedDict, total=False):
+class RelationshipRelationship(TypedDict, total=False):
     relationship_name: Required[str]
 
 
-class RelationshipExtraction(TypedDict, total=False):
-    relationship_extraction: Required[
-        Annotated[RelationshipExtractionRelationshipExtraction, PropertyInfo(alias="RelationshipExtraction")]
-    ]
+class Relationship(TypedDict, total=False):
+    relationship: Required[Annotated[RelationshipRelationship, PropertyInfo(alias="Relationship")]]
 
 
-class EntityExtractionEntityExtraction(TypedDict, total=False):
+class EntityEntity(TypedDict, total=False):
     seeded_kg_id: Required[int]
     """The integer id corresponding to an entity in the seeded kg"""
 
     dataset_entity_id: Optional[str]
 
 
-class EntityExtraction(TypedDict, total=False):
-    entity_extraction: Required[Annotated[EntityExtractionEntityExtraction, PropertyInfo(alias="EntityExtraction")]]
+class Entity(TypedDict, total=False):
+    entity: Required[Annotated[EntityEntity, PropertyInfo(alias="Entity")]]
 
 
-class GenericPropertyGenericProperty(TypedDict, total=False):
+class PropertyProperty(TypedDict, total=False):
     property_names: Required[List[str]]
 
     table_name: Required[str]
     """Vec<ExtractionCriteria> = it has to meet every one."""
 
 
-class GenericProperty(TypedDict, total=False):
-    generic_property: Required[Annotated[GenericPropertyGenericProperty, PropertyInfo(alias="GenericProperty")]]
+class Property(TypedDict, total=False):
+    property: Required[Annotated[PropertyProperty, PropertyInfo(alias="Property")]]
 
 
-ExtractionCriteriaParam: TypeAlias = Union[RelationshipExtraction, EntityExtraction, GenericProperty]
+ExtractionCriteriaParam: TypeAlias = Union[Relationship, Entity, Property]
