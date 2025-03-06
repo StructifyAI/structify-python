@@ -9,43 +9,43 @@ from .._models import BaseModel
 
 __all__ = [
     "ExtractionCriteria",
-    "Relationship",
-    "RelationshipRelationship",
-    "Entity",
-    "EntityEntity",
-    "Property",
-    "PropertyProperty",
+    "RelationshipExtraction",
+    "RelationshipExtractionRelationshipExtraction",
+    "EntityExtraction",
+    "EntityExtractionEntityExtraction",
+    "GenericProperty",
+    "GenericPropertyGenericProperty",
 ]
 
 
-class RelationshipRelationship(BaseModel):
+class RelationshipExtractionRelationshipExtraction(BaseModel):
     relationship_name: str
 
 
-class Relationship(BaseModel):
-    relationship: RelationshipRelationship = FieldInfo(alias="Relationship")
+class RelationshipExtraction(BaseModel):
+    relationship_extraction: RelationshipExtractionRelationshipExtraction = FieldInfo(alias="RelationshipExtraction")
 
 
-class EntityEntity(BaseModel):
+class EntityExtractionEntityExtraction(BaseModel):
     seeded_kg_id: int
     """The integer id corresponding to an entity in the seeded kg"""
 
     dataset_entity_id: Optional[str] = None
 
 
-class Entity(BaseModel):
-    entity: EntityEntity = FieldInfo(alias="Entity")
+class EntityExtraction(BaseModel):
+    entity_extraction: EntityExtractionEntityExtraction = FieldInfo(alias="EntityExtraction")
 
 
-class PropertyProperty(BaseModel):
+class GenericPropertyGenericProperty(BaseModel):
     property_names: List[str]
 
     table_name: str
     """Vec<ExtractionCriteria> = it has to meet every one."""
 
 
-class Property(BaseModel):
-    property: PropertyProperty = FieldInfo(alias="Property")
+class GenericProperty(BaseModel):
+    generic_property: GenericPropertyGenericProperty = FieldInfo(alias="GenericProperty")
 
 
-ExtractionCriteria: TypeAlias = Union[Relationship, Entity, Property]
+ExtractionCriteria: TypeAlias = Union[RelationshipExtraction, EntityExtraction, GenericProperty]
