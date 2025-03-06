@@ -10,7 +10,7 @@ __all__ = ["EntityVerifyParams"]
 
 
 class EntityVerifyParams(TypedDict, total=False):
-    dataset: Required[str]
+    dataset_name: Required[str]
 
     kg: Required[KnowledgeGraphParam]
     """
