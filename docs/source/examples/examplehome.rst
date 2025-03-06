@@ -8,3 +8,4 @@ The best way to learn is by doing. The examples in this section are to help you 
 * :doc:`example1`
 * :doc:`example2`
 * :doc:`example3`
+* :doc:`example4`
