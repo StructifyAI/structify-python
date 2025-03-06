@@ -8,10 +8,10 @@ from typing_extensions import TypedDict
 from .entity_param import EntityParam
 from .relationship_param import RelationshipParam
 
-__all__ = ["KnowledgeGraphParam"]
+__all__ = ["EntityGraphParam"]
 
 
-class KnowledgeGraphParam(TypedDict, total=False):
+class EntityGraphParam(TypedDict, total=False):
     entities: Iterable[EntityParam]
 
     relationships: Iterable[RelationshipParam]

@@ -6,8 +6,8 @@ from typing import Union, Iterable, Optional
 from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
 from .._utils import PropertyInfo
-from .table_param import TableParam
 from .property_type_param import PropertyTypeParam
+from .table_descriptor_param import TableDescriptorParam
 
 __all__ = [
     "DatasetCreateParams",
@@ -28,7 +28,7 @@ class DatasetCreateParams(TypedDict, total=False):
 
     relationships: Required[Iterable[Relationship]]
 
-    tables: Required[Iterable[TableParam]]
+    tables: Required[Iterable[TableDescriptorParam]]
 
     llm_override_field: Optional[str]
 
