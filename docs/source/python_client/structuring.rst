@@ -82,7 +82,7 @@ This API endpoint allows the user to have more finetune control over the agent, 
 .. code-block:: python
 
     job_id = client.structure.run_async(
-        dataset="employees", 
+        name="employees", 
         structure_input={"web_search": {"starting_urls": ["linkedin.com"]}},
         extraction_criteria=[RequiredEntity(id=0)],
     )
@@ -109,8 +109,8 @@ This extraction criteria does necessitate that you input the entity into the run
 .. code-block:: python
 
     client.structure.run_async(
-        dataset="employees", 
-        source=Web(starting_website="linkedin.com"),
+        name="employees", 
+        structure_input={"web_search": {"starting_urls": ["linkedin.com"]}},
         extraction_criteria=[{"EntityExtraction": {"seeded_kg_id": 0}}],
         seeded_entity={
             "id": 0,
@@ -133,8 +133,8 @@ In the case that you want to require that a certain property be present for a ta
 .. code-block:: python
 
     client.structure.run_async(
-        dataset="employees", 
-        source=Web(starting_website="linkedin.com"),
+        name="employees", 
+        structure_input={"web_search": {"starting_urls": ["linkedin.com"]}},
         extraction_criteria=[{"GenericProperty": {"table_name": "job", "property_names": ["title", "company"]}}]
     )
 
@@ -147,8 +147,8 @@ In the case that you want to require that a certain relationship be present for 
 .. code-block:: python
 
     client.structure.run_async(
-        dataset="employees", 
-        source=Web(starting_website="linkedin.com"),
+        name="employees", 
+        structure_input={"web_search": {"starting_urls": ["linkedin.com"]}},
         extraction_criteria=[{"RelationshipExtraction": {"relationship_name": "worked_at"}}]
     )
 
@@ -172,7 +172,7 @@ Web
 .. code-block:: python
 
     client.structure.run_async(
-        dataset="employees", 
+        name="employees", 
         structure_input={"web_search": {"starting_urls": ["linkedin.com"]}},
         extraction_criteria=[{"EntityExtraction": {"seeded_kg_id": 0}}],
         seeded_entity={
@@ -189,7 +189,7 @@ PDF
 .. code-block:: python
 
     client.structure.run_async(
-        dataset="employees",
+        name="employees",
         structure_input={"pdf_ingestor": {"path": "path/to/pdf"}},
         extraction_criteria=[{"RelationshipExtraction": {"relationship_name": "education"}}],
     )
@@ -197,39 +197,53 @@ PDF
 .. note::
     The path to the PDF will be the remote path of the document uploaded to Structify. For more information on how to upload documents, see the :doc:`documents` section. Or you can check out the tutorials at :ref:`document-example`.
 
+.. _tracking-jobs:
 
+Tracking Jobs
+-----------------------
+When you run our agent using ``enhance_property``, ``enhance_relationship``, or ``run_async``, it creates jobs that you can track using the jobs endpoints.
+These endpoints allow you to monitor the progress of your structuring tasks and manage them as needed.
 
-.. _view-dataset:
+Listing Jobs
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+You can list all jobs using ``client.jobs.list()``. This endpoint supports several optional filtering arguments:
 
-Viewing Your Datasets
----------------------------------------
-Through this endpoint, we allow users to view either all entities or all the relationships in their dataset.
-
-.. code-block:: python
-    
-    entities = structify.dataset.view(
-        name="employees",
-        requested_type="Entities" # The default value is "Entities", but we show it here for clarity
-    )
-
-    relationships = structify.dataset.view(
-        name="employees",
-        requested_type="Relationships"
-    )
-
-The output for each is an iterator which we can use to view the dataset as follows:
+- **dataset_name:** Filter jobs by dataset
+- **status:** Filter by job status ("Queued", "Running", "Completed", "Failed")
+- **since:** List jobs since a specific timestamp
+- **limit:** Maximum number of jobs to return
+- **offset:** Number of jobs to skip for pagination
 
 .. code-block:: python
 
-    for entity in entities:
-        print(entity)
+    # List all running jobs for a specific dataset
+    jobs = client.jobs.list(
+        dataset_name="employees",
+        status="Running"
+    )
 
-    for relationship in relationships:
-        print(relationship)
+    # List recently completed jobs
+    from datetime import datetime, timedelta
 
-.. tip::
-    
-    To view a particular type of entity or relationship, you can add the ``table_name`` or ``relationship_name`` parameter to the respective view call.
+    yesterday = datetime.now() - timedelta(days=1)
+    recent_jobs = client.jobs.list(
+        since=yesterday,
+        status="Completed"
+    )
 
-.. note::
-    Keep your eye out for the ``structify.datasets.refresh`` API call to update the data in your dataset.
+Getting Job Details
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+To get detailed information about a specific job, use ``client.jobs.get()``:
+
+.. code-block:: python
+
+    # Get details for a specific job
+    job_details = client.jobs.get(job_id="Job-12345678-abcd-efgh-ijkl-987654321")
+
+The response will be a Job object that contains the following information:
+
+- **id:** The ID of the job
+- **status:** The status of the job ("Queued", "Running", "Completed", "Failed")
+- **created_at:** The timestamp when the job was created
+- **run_started_time:** The timestamp when the job began running
+- **message:** A debugging log of the job

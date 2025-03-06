@@ -13,6 +13,7 @@ To create a new plan:
 
     from structify.types.enhance_property_param import EnhancePropertyParam
     from structify.types.enhance_relationship_param import EnhanceRelationshipParam
+    from structify.types.plan_param import PlanParam
 
     ENTITY_ID = "Entity-12345678-abcd-efgh-ijkl-987654321"
 

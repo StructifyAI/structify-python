@@ -4,12 +4,12 @@ In many cases, a wealth of unstructured data lies within documents without set f
 
 Uploading Documents
 ---------------------
-You can upload documents to Structify using ``structify.documents.upload`` by passing the file in binary mode. You will also need to specify the path you want to store the document on your Structify account, along with the type of document. 
+You can upload documents to Structify using ``client.documents.upload`` by passing the file in binary mode. You will also need to specify the path you want to store the document on your Structify account, along with the type of document. 
 
 .. code-block:: python
 
     from structify import Structify
-    structify = Structify(api_key="your-api-key-here")
+    client = Structify(api_key="your-api-key-here")
 
     file = "/path/to/your/document.pdf"
 
@@ -41,28 +41,28 @@ Here are examples of how you would use those endpoints:
 .. code-block:: python
 
     # Listing all documents will return a JSON object of all your uploaded documents
-    structify.documents.list()
+    client.documents.list()
 
     # Download a document by specifying the name of the document. This will return the document in binary mode, which we can save to your local machine.
-    document = structify.documents.download(path='/path/on/your/Structify/remote.pdf')
+    document = client.documents.download(path='/path/on/your/Structify/remote.pdf')
     open("downloaded_document.pdf", "wb").write(document.read())
 
     # Delete a document by specifying the name of the document. This will remove the document from your Structify account.
-    structify.documents.delete(path='/path/on/your/Structify/remote.pdf')
+    client.documents.delete(path='/path/on/your/Structify/remote.pdf')
 
 
 .. _Structuring Documents:
 
 Extracting Data from Documents
 -------------------------------
-Creating datasets from documents is quite simple. You just use ``structify.structure.run_async`` method and specify the document file path or paths you want to include in the dataset through the relevant Python object.
+Creating datasets from documents is quite simple. You just use ``client.structure.run_async`` method and specify the document file path or paths you want to include in the dataset through the relevant Python object.
 
 .. code-block:: python
 
     from structify.sources import DocumentImage
 
-    structify.structure.run_async(
-        dataset="startups", 
+    client.structure.run_async(
+        name="startups", 
         structure_input={"pdf_ingestor": {"path": ["/path/to/your/document.pdf"]}},
     )
 
