@@ -7,7 +7,7 @@ from typing import Dict, List, Iterable, Optional
 import httpx
 
 from ..types import (
-    KnowledgeGraph,
+    EntityGraph,
     entity_add_params,
     entity_get_params,
     entity_view_params,
@@ -37,19 +37,17 @@ from .._response import (
     async_to_streamed_response_wrapper,
 )
 from .._base_client import make_request_options
-from ..types.knowledge_graph import KnowledgeGraph
+from ..types.entity_graph import EntityGraph
+from ..types.structify_entity import StructifyEntity
+from ..types.entity_graph_param import EntityGraphParam
 from ..types.entity_add_response import EntityAddResponse
-from ..types.entity_get_response import EntityGetResponse
 from ..types.entity_view_response import EntityViewResponse
 from ..types.entity_merge_response import EntityMergeResponse
-from ..types.knowledge_graph_param import KnowledgeGraphParam
 from ..types.entity_delete_response import EntityDeleteResponse
 from ..types.entity_search_response import EntitySearchResponse
 from ..types.entity_add_batch_response import EntityAddBatchResponse
 from ..types.entity_list_jobs_response import EntityListJobsResponse
 from ..types.entity_summarize_response import EntitySummarizeResponse
-from ..types.entity_trigger_merge_response import EntityTriggerMergeResponse
-from ..types.entity_update_property_response import EntityUpdatePropertyResponse
 from ..types.entity_get_local_subgraph_response import EntityGetLocalSubgraphResponse
 from ..types.entity_get_source_entities_response import EntityGetSourceEntitiesResponse
 
@@ -79,7 +77,7 @@ class EntitiesResource(SyncAPIResource):
     def delete(
         self,
         *,
-        dataset_name: str,
+        dataset: str,
         entity_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -104,7 +102,7 @@ class EntitiesResource(SyncAPIResource):
             "/entity/delete",
             body=maybe_transform(
                 {
-                    "dataset_name": dataset_name,
+                    "dataset": dataset,
                     "entity_id": entity_id,
                 },
                 entity_delete_params.EntityDeleteParams,
@@ -118,8 +116,8 @@ class EntitiesResource(SyncAPIResource):
     def add(
         self,
         *,
-        dataset_name: str,
-        kg: KnowledgeGraphParam,
+        dataset: str,
+        entity_graph: EntityGraphParam,
         attempt_merge: bool | NotGiven = NOT_GIVEN,
         source: entity_add_params.Source | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -130,8 +128,11 @@ class EntitiesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> EntityAddResponse:
         """
+        Add an entity (or entities) to a dataset given a graph representation of the
+        entity (or entities).
+
         Args:
-          kg: Knowledge graph info structured to deserialize and display in the same format
+          entity_graph: Knowledge graph info structured to deserialize and display in the same format
               that the LLM outputs. Also the first representation of an LLM output in the
               pipeline from raw tool output to being merged into a Neo4j DB
 
@@ -149,8 +150,8 @@ class EntitiesResource(SyncAPIResource):
             "/entity/add",
             body=maybe_transform(
                 {
-                    "dataset_name": dataset_name,
-                    "kg": kg,
+                    "dataset": dataset,
+                    "entity_graph": entity_graph,
                     "attempt_merge": attempt_merge,
                     "source": source,
                 },
@@ -165,8 +166,8 @@ class EntitiesResource(SyncAPIResource):
     def add_batch(
         self,
         *,
-        dataset_name: str,
-        kgs: Iterable[KnowledgeGraphParam],
+        dataset: str,
+        entity_graphs: Iterable[EntityGraphParam],
         attempt_merge: bool | NotGiven = NOT_GIVEN,
         source: entity_add_batch_params.Source | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -177,6 +178,9 @@ class EntitiesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> EntityAddBatchResponse:
         """
+        Add a batch of entities to a dataset given a list of graph representations of
+        the entities.
+
         Args:
           attempt_merge: If true, attempt to merge with existing entities in the dataset
 
@@ -192,8 +196,8 @@ class EntitiesResource(SyncAPIResource):
             "/entity/add_batch",
             body=maybe_transform(
                 {
-                    "dataset_name": dataset_name,
-                    "kgs": kgs,
+                    "dataset": dataset,
+                    "entity_graphs": entity_graphs,
                     "attempt_merge": attempt_merge,
                     "source": source,
                 },
@@ -216,7 +220,7 @@ class EntitiesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> EntityGetResponse:
+    ) -> StructifyEntity:
         """
         Get entity with a given id
 
@@ -244,7 +248,7 @@ class EntitiesResource(SyncAPIResource):
                     entity_get_params.EntityGetParams,
                 ),
             ),
-            cast_to=EntityGetResponse,
+            cast_to=StructifyEntity,
         )
 
     def get_local_subgraph(
@@ -399,7 +403,7 @@ class EntitiesResource(SyncAPIResource):
     def search(
         self,
         *,
-        dataset_name: str,
+        dataset: str,
         query: str,
         table_name: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -425,7 +429,7 @@ class EntitiesResource(SyncAPIResource):
             "/entity/search",
             body=maybe_transform(
                 {
-                    "dataset_name": dataset_name,
+                    "dataset": dataset,
                     "query": query,
                     "table_name": table_name,
                 },
@@ -440,7 +444,7 @@ class EntitiesResource(SyncAPIResource):
     def summarize(
         self,
         *,
-        dataset_name: str,
+        dataset: str,
         entity_id: str,
         properties: List[str],
         extra_instructions: Optional[List[str]] | NotGiven = NOT_GIVEN,
@@ -469,7 +473,7 @@ class EntitiesResource(SyncAPIResource):
             "/entity/summarize",
             body=maybe_transform(
                 {
-                    "dataset_name": dataset_name,
+                    "dataset": dataset,
                     "entity_id": entity_id,
                     "properties": properties,
                     "extra_instructions": extra_instructions,
@@ -492,7 +496,7 @@ class EntitiesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> EntityTriggerMergeResponse:
+    ) -> StructifyEntity:
         """
         Trigger our merge process for a given entity
 
@@ -514,13 +518,13 @@ class EntitiesResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform({"entity_id": entity_id}, entity_trigger_merge_params.EntityTriggerMergeParams),
             ),
-            cast_to=EntityTriggerMergeResponse,
+            cast_to=StructifyEntity,
         )
 
     def update_property(
         self,
         *,
-        dataset_name: str,
+        dataset: str,
         entity_id: str,
         properties: Dict[str, entity_update_property_params.Properties],
         source: entity_update_property_params.Source | NotGiven = NOT_GIVEN,
@@ -530,7 +534,7 @@ class EntitiesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> EntityUpdatePropertyResponse:
+    ) -> StructifyEntity:
         """
         update an entity manually
 
@@ -547,7 +551,7 @@ class EntitiesResource(SyncAPIResource):
             "/entity/update",
             body=maybe_transform(
                 {
-                    "dataset_name": dataset_name,
+                    "dataset": dataset,
                     "entity_id": entity_id,
                     "properties": properties,
                     "source": source,
@@ -557,14 +561,14 @@ class EntitiesResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=EntityUpdatePropertyResponse,
+            cast_to=StructifyEntity,
         )
 
     def verify(
         self,
         *,
-        dataset_name: str,
-        kg: KnowledgeGraphParam,
+        dataset: str,
+        kg: EntityGraphParam,
         fix: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -572,7 +576,7 @@ class EntitiesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> KnowledgeGraph:
+    ) -> EntityGraph:
         """
         verify a kg against the dataset
 
@@ -595,7 +599,7 @@ class EntitiesResource(SyncAPIResource):
             "/entity/verify",
             body=maybe_transform(
                 {
-                    "dataset_name": dataset_name,
+                    "dataset": dataset,
                     "kg": kg,
                     "fix": fix,
                 },
@@ -604,7 +608,7 @@ class EntitiesResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=KnowledgeGraph,
+            cast_to=EntityGraph,
         )
 
     def view(
@@ -671,7 +675,7 @@ class AsyncEntitiesResource(AsyncAPIResource):
     async def delete(
         self,
         *,
-        dataset_name: str,
+        dataset: str,
         entity_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -696,7 +700,7 @@ class AsyncEntitiesResource(AsyncAPIResource):
             "/entity/delete",
             body=await async_maybe_transform(
                 {
-                    "dataset_name": dataset_name,
+                    "dataset": dataset,
                     "entity_id": entity_id,
                 },
                 entity_delete_params.EntityDeleteParams,
@@ -710,8 +714,8 @@ class AsyncEntitiesResource(AsyncAPIResource):
     async def add(
         self,
         *,
-        dataset_name: str,
-        kg: KnowledgeGraphParam,
+        dataset: str,
+        entity_graph: EntityGraphParam,
         attempt_merge: bool | NotGiven = NOT_GIVEN,
         source: entity_add_params.Source | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -722,8 +726,11 @@ class AsyncEntitiesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> EntityAddResponse:
         """
+        Add an entity (or entities) to a dataset given a graph representation of the
+        entity (or entities).
+
         Args:
-          kg: Knowledge graph info structured to deserialize and display in the same format
+          entity_graph: Knowledge graph info structured to deserialize and display in the same format
               that the LLM outputs. Also the first representation of an LLM output in the
               pipeline from raw tool output to being merged into a Neo4j DB
 
@@ -741,8 +748,8 @@ class AsyncEntitiesResource(AsyncAPIResource):
             "/entity/add",
             body=await async_maybe_transform(
                 {
-                    "dataset_name": dataset_name,
-                    "kg": kg,
+                    "dataset": dataset,
+                    "entity_graph": entity_graph,
                     "attempt_merge": attempt_merge,
                     "source": source,
                 },
@@ -757,8 +764,8 @@ class AsyncEntitiesResource(AsyncAPIResource):
     async def add_batch(
         self,
         *,
-        dataset_name: str,
-        kgs: Iterable[KnowledgeGraphParam],
+        dataset: str,
+        entity_graphs: Iterable[EntityGraphParam],
         attempt_merge: bool | NotGiven = NOT_GIVEN,
         source: entity_add_batch_params.Source | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -769,6 +776,9 @@ class AsyncEntitiesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> EntityAddBatchResponse:
         """
+        Add a batch of entities to a dataset given a list of graph representations of
+        the entities.
+
         Args:
           attempt_merge: If true, attempt to merge with existing entities in the dataset
 
@@ -784,8 +794,8 @@ class AsyncEntitiesResource(AsyncAPIResource):
             "/entity/add_batch",
             body=await async_maybe_transform(
                 {
-                    "dataset_name": dataset_name,
-                    "kgs": kgs,
+                    "dataset": dataset,
+                    "entity_graphs": entity_graphs,
                     "attempt_merge": attempt_merge,
                     "source": source,
                 },
@@ -808,7 +818,7 @@ class AsyncEntitiesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> EntityGetResponse:
+    ) -> StructifyEntity:
         """
         Get entity with a given id
 
@@ -836,7 +846,7 @@ class AsyncEntitiesResource(AsyncAPIResource):
                     entity_get_params.EntityGetParams,
                 ),
             ),
-            cast_to=EntityGetResponse,
+            cast_to=StructifyEntity,
         )
 
     async def get_local_subgraph(
@@ -993,7 +1003,7 @@ class AsyncEntitiesResource(AsyncAPIResource):
     async def search(
         self,
         *,
-        dataset_name: str,
+        dataset: str,
         query: str,
         table_name: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -1019,7 +1029,7 @@ class AsyncEntitiesResource(AsyncAPIResource):
             "/entity/search",
             body=await async_maybe_transform(
                 {
-                    "dataset_name": dataset_name,
+                    "dataset": dataset,
                     "query": query,
                     "table_name": table_name,
                 },
@@ -1034,7 +1044,7 @@ class AsyncEntitiesResource(AsyncAPIResource):
     async def summarize(
         self,
         *,
-        dataset_name: str,
+        dataset: str,
         entity_id: str,
         properties: List[str],
         extra_instructions: Optional[List[str]] | NotGiven = NOT_GIVEN,
@@ -1063,7 +1073,7 @@ class AsyncEntitiesResource(AsyncAPIResource):
             "/entity/summarize",
             body=await async_maybe_transform(
                 {
-                    "dataset_name": dataset_name,
+                    "dataset": dataset,
                     "entity_id": entity_id,
                     "properties": properties,
                     "extra_instructions": extra_instructions,
@@ -1086,7 +1096,7 @@ class AsyncEntitiesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> EntityTriggerMergeResponse:
+    ) -> StructifyEntity:
         """
         Trigger our merge process for a given entity
 
@@ -1110,13 +1120,13 @@ class AsyncEntitiesResource(AsyncAPIResource):
                     {"entity_id": entity_id}, entity_trigger_merge_params.EntityTriggerMergeParams
                 ),
             ),
-            cast_to=EntityTriggerMergeResponse,
+            cast_to=StructifyEntity,
         )
 
     async def update_property(
         self,
         *,
-        dataset_name: str,
+        dataset: str,
         entity_id: str,
         properties: Dict[str, entity_update_property_params.Properties],
         source: entity_update_property_params.Source | NotGiven = NOT_GIVEN,
@@ -1126,7 +1136,7 @@ class AsyncEntitiesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> EntityUpdatePropertyResponse:
+    ) -> StructifyEntity:
         """
         update an entity manually
 
@@ -1143,7 +1153,7 @@ class AsyncEntitiesResource(AsyncAPIResource):
             "/entity/update",
             body=await async_maybe_transform(
                 {
-                    "dataset_name": dataset_name,
+                    "dataset": dataset,
                     "entity_id": entity_id,
                     "properties": properties,
                     "source": source,
@@ -1153,14 +1163,14 @@ class AsyncEntitiesResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=EntityUpdatePropertyResponse,
+            cast_to=StructifyEntity,
         )
 
     async def verify(
         self,
         *,
-        dataset_name: str,
-        kg: KnowledgeGraphParam,
+        dataset: str,
+        kg: EntityGraphParam,
         fix: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1168,7 +1178,7 @@ class AsyncEntitiesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> KnowledgeGraph:
+    ) -> EntityGraph:
         """
         verify a kg against the dataset
 
@@ -1191,7 +1201,7 @@ class AsyncEntitiesResource(AsyncAPIResource):
             "/entity/verify",
             body=await async_maybe_transform(
                 {
-                    "dataset_name": dataset_name,
+                    "dataset": dataset,
                     "kg": kg,
                     "fix": fix,
                 },
@@ -1200,7 +1210,7 @@ class AsyncEntitiesResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=KnowledgeGraph,
+            cast_to=EntityGraph,
         )
 
     async def view(

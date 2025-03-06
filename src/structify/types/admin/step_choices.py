@@ -1,20 +1,13 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Optional
+from typing import List
 
 from ..._models import BaseModel
-from ..knowledge_graph import KnowledgeGraph
+from ..entity_graph import EntityGraph
+from .step_choice_info import StepChoiceInfo
 from ..extraction_criteria import ExtractionCriteria
 
-__all__ = ["StepChoices", "StepOption"]
-
-
-class StepOption(BaseModel):
-    id: str
-
-    action_name: Optional[str] = None
-
-    metadata: Optional[Dict[str, str]] = None
+__all__ = ["StepChoices"]
 
 
 class StepChoices(BaseModel):
@@ -22,11 +15,11 @@ class StepChoices(BaseModel):
 
     job_id: str
 
-    seeded_kg: KnowledgeGraph
+    seeded_kg: EntityGraph
     """
     Knowledge graph info structured to deserialize and display in the same format
     that the LLM outputs. Also the first representation of an LLM output in the
     pipeline from raw tool output to being merged into a Neo4j DB
     """
 
-    step_options: List[StepOption]
+    step_options: List[StepChoiceInfo]

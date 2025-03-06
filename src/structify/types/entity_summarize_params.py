@@ -9,7 +9,7 @@ __all__ = ["EntitySummarizeParams"]
 
 
 class EntitySummarizeParams(TypedDict, total=False):
-    dataset_name: Required[str]
+    dataset: Required[str]
 
     entity_id: Required[str]
 
