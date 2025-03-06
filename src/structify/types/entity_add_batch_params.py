@@ -3,19 +3,18 @@
 from __future__ import annotations
 
 from typing import Union, Iterable
-from typing_extensions import Required, TypeAlias, TypedDict
+from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
-from .entity_graph_param import EntityGraphParam
-from .user_web_source_param import UserWebSourceParam
-from .user_document_source_param import UserDocumentSourceParam
+from .._utils import PropertyInfo
+from .knowledge_graph_param import KnowledgeGraphParam
 
-__all__ = ["EntityAddBatchParams", "Source"]
+__all__ = ["EntityAddBatchParams", "Source", "SourceWeb", "SourceDocumentPage", "SourceSecFiling"]
 
 
 class EntityAddBatchParams(TypedDict, total=False):
-    dataset: Required[str]
+    dataset_name: Required[str]
 
-    entity_graphs: Required[Iterable[EntityGraphParam]]
+    kgs: Required[Iterable[KnowledgeGraphParam]]
 
     attempt_merge: bool
     """If true, attempt to merge with existing entities in the dataset"""
@@ -23,4 +22,16 @@ class EntityAddBatchParams(TypedDict, total=False):
     source: Source
 
 
-Source: TypeAlias = Union[UserWebSourceParam, UserDocumentSourceParam]
+class SourceWeb(TypedDict, total=False):
+    web: Required[Annotated[str, PropertyInfo(alias="Web")]]
+
+
+class SourceDocumentPage(TypedDict, total=False):
+    document_page: Required[Annotated[Iterable[object], PropertyInfo(alias="DocumentPage")]]
+
+
+class SourceSecFiling(TypedDict, total=False):
+    sec_filing: Required[Annotated[Iterable[object], PropertyInfo(alias="SecFiling")]]
+
+
+Source: TypeAlias = Union[Literal["None"], SourceWeb, SourceDocumentPage, SourceSecFiling]

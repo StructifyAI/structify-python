@@ -31,7 +31,6 @@ from ...types.admin import (
 )
 from ..._base_client import make_request_options
 from ...types.execution_step import ExecutionStep
-from ...types.tool_call_param import ToolCallParam
 from ...types.admin.step_choices import StepChoices
 from ...types.admin.human_llm_get_jobs_response import HumanLlmGetJobsResponse
 from ...types.admin.human_llm_prelabel_step_response import HumanLlmPrelabelStepResponse
@@ -105,7 +104,7 @@ class HumanLlmResource(SyncAPIResource):
         extraction_criteria_met: bool,
         job_id: str,
         step_id: str,
-        tool_calls: Iterable[ToolCallParam],
+        tool_calls: Iterable[human_llm_add_to_dataset_params.ToolCall],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -331,7 +330,7 @@ class HumanLlmResource(SyncAPIResource):
         extraction_criteria_met: bool,
         job_id: str,
         step_id: str,
-        tool_calls: Iterable[ToolCallParam],
+        tool_calls: Iterable[human_llm_update_step_params.ToolCall],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -436,7 +435,7 @@ class AsyncHumanLlmResource(AsyncAPIResource):
         extraction_criteria_met: bool,
         job_id: str,
         step_id: str,
-        tool_calls: Iterable[ToolCallParam],
+        tool_calls: Iterable[human_llm_add_to_dataset_params.ToolCall],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -664,7 +663,7 @@ class AsyncHumanLlmResource(AsyncAPIResource):
         extraction_criteria_met: bool,
         job_id: str,
         step_id: str,
-        tool_calls: Iterable[ToolCallParam],
+        tool_calls: Iterable[human_llm_update_step_params.ToolCall],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,

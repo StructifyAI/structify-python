@@ -9,7 +9,7 @@ from .._utils import PropertyInfo
 from .property_type_param import PropertyTypeParam
 
 __all__ = [
-    "TableDescriptorParam",
+    "TableParam",
     "Property",
     "PropertyMergeStrategy",
     "PropertyMergeStrategyProbabilistic",
@@ -57,7 +57,7 @@ class Property(TypedDict, total=False):
     prop_type: PropertyTypeParam
 
 
-class TableDescriptorParam(TypedDict, total=False):
+class TableParam(TypedDict, total=False):
     description: Required[str]
 
     name: Required[str]
