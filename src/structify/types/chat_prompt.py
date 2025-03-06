@@ -6,8 +6,8 @@ from typing_extensions import Literal, TypeAlias
 from pydantic import Field as FieldInfo
 
 from .._models import BaseModel
+from .entity_graph import EntityGraph
 from .tool_metadata import ToolMetadata
-from .knowledge_graph import KnowledgeGraph
 from .dataset_descriptor import DatasetDescriptor
 from .extraction_criteria import ExtractionCriteria
 
@@ -217,7 +217,7 @@ class Metadata(BaseModel):
     within the dataset.
     """
 
-    extracted_entities: List[KnowledgeGraph]
+    extracted_entities: List[EntityGraph]
 
     extraction_criteria: List[ExtractionCriteria]
 
