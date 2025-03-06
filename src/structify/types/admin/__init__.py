@@ -7,14 +7,10 @@ from .datum_status import DatumStatus as DatumStatus
 from .step_choices import StepChoices as StepChoices
 from .human_llm_job import HumanLlmJob as HumanLlmJob
 from .labeling_stats import LabelingStats as LabelingStats
-from .step_choice_info import StepChoiceInfo as StepChoiceInfo
-from .next_action_input import NextActionInput as NextActionInput
 from .user_create_params import UserCreateParams as UserCreateParams
 from .user_list_response import UserListResponse as UserListResponse
 from .user_update_params import UserUpdateParams as UserUpdateParams
 from .user_get_stats_params import UserGetStatsParams as UserGetStatsParams
-from .step_choice_info_param import StepChoiceInfoParam as StepChoiceInfoParam
-from .next_action_input_param import NextActionInputParam as NextActionInputParam
 from .training_datum_response import TrainingDatumResponse as TrainingDatumResponse
 from .user_get_credits_params import UserGetCreditsParams as UserGetCreditsParams
 from .user_get_stats_response import UserGetStatsResponse as UserGetStatsResponse
@@ -46,7 +42,6 @@ from .next_action_get_training_data_params import NextActionGetTrainingDataParam
 from .training_dataset_remove_datum_params import TrainingDatasetRemoveDatumParams as TrainingDatasetRemoveDatumParams
 from .training_dataset_verify_datum_params import TrainingDatasetVerifyDatumParams as TrainingDatasetVerifyDatumParams
 from .next_action_add_training_datum_params import NextActionAddTrainingDatumParams as NextActionAddTrainingDatumParams
-from .next_action_get_training_datum_params import NextActionGetTrainingDatumParams as NextActionGetTrainingDatumParams
 from .training_dataset_list_datums_response import (
     TrainingDatasetListDatumsResponse as TrainingDatasetListDatumsResponse,
 )

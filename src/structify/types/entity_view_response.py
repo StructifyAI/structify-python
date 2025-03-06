@@ -1,24 +1,60 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Union, Optional
+from typing import Dict, List, Union
 from datetime import datetime
-from typing_extensions import TypeAlias
+from typing_extensions import Literal, TypeAlias
+
+from pydantic import Field as FieldInfo
 
 from . import source
 from .image import Image
 from .._models import BaseModel
-from .structify_entity import StructifyEntity
 
 __all__ = [
     "EntityViewResponse",
+    "ConnectedEntity",
+    "ConnectedEntityProperties",
+    "Entity",
+    "EntityProperties",
     "Relationship",
     "RelationshipProperties",
+    "SimilarEntity",
+    "SimilarEntityProperties",
     "Source",
     "SourceLocation",
-    "SourceLocationByteOffset",
-    "SourceLocationUnionMember1",
-    "SourceLocationPageNumber",
+    "SourceLocationText",
+    "SourceLocationTextText",
+    "SourceLocationVisual",
+    "SourceLocationVisualVisual",
+    "SourceLocationPage",
+    "SourceLocationPagePage",
 ]
+
+ConnectedEntityProperties: TypeAlias = Union[str, bool, float, Image]
+
+
+class ConnectedEntity(BaseModel):
+    id: str
+
+    creation_time: datetime
+
+    label: str
+
+    properties: Dict[str, ConnectedEntityProperties]
+
+
+EntityProperties: TypeAlias = Union[str, bool, float, Image]
+
+
+class Entity(BaseModel):
+    id: str
+
+    creation_time: datetime
+
+    label: str
+
+    properties: Dict[str, EntityProperties]
+
 
 RelationshipProperties: TypeAlias = Union[str, bool, float, Image]
 
@@ -33,23 +69,46 @@ class Relationship(BaseModel):
     to_id: str
 
 
-class SourceLocationByteOffset(BaseModel):
+SimilarEntityProperties: TypeAlias = Union[str, bool, float, Image]
+
+
+class SimilarEntity(BaseModel):
+    id: str
+
+    creation_time: datetime
+
+    label: str
+
+    properties: Dict[str, SimilarEntityProperties]
+
+
+class SourceLocationTextText(BaseModel):
     byte_offset: int
 
 
-class SourceLocationUnionMember1(BaseModel):
+class SourceLocationText(BaseModel):
+    text: SourceLocationTextText = FieldInfo(alias="Text")
+
+
+class SourceLocationVisualVisual(BaseModel):
     x: int
 
     y: int
 
 
-class SourceLocationPageNumber(BaseModel):
+class SourceLocationVisual(BaseModel):
+    visual: SourceLocationVisualVisual = FieldInfo(alias="Visual")
+
+
+class SourceLocationPagePage(BaseModel):
     page_number: int
 
 
-SourceLocation: TypeAlias = Union[
-    SourceLocationByteOffset, SourceLocationUnionMember1, SourceLocationPageNumber, Optional[object]
-]
+class SourceLocationPage(BaseModel):
+    page: SourceLocationPagePage = FieldInfo(alias="Page")
+
+
+SourceLocation: TypeAlias = Union[SourceLocationText, SourceLocationVisual, SourceLocationPage, Literal["None"]]
 
 
 class Source(BaseModel):
@@ -67,14 +126,14 @@ class Source(BaseModel):
 
 
 class EntityViewResponse(BaseModel):
-    connected_entities: List[StructifyEntity]
+    connected_entities: List[ConnectedEntity]
 
-    entity: StructifyEntity
+    entity: Entity
 
     last_updated: str
 
     relationships: List[Relationship]
 
-    similar_entities: List[StructifyEntity]
+    similar_entities: List[SimilarEntity]
 
     sources: List[Source]
