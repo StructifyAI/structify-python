@@ -1,16 +1,19 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Union
+from typing import Dict, List, Union, Optional
 from datetime import datetime
 from typing_extensions import TypeAlias
 
 from pydantic import Field as FieldInfo
 
 from ..._models import BaseModel
-from .next_action_input import NextActionInput
+from ..knowledge_graph import KnowledgeGraph
+from ..extraction_criteria import ExtractionCriteria
 
 __all__ = [
     "ActionTrainingDataEntry",
+    "Input",
+    "InputAllStep",
     "Output",
     "OutputOutput",
     "OutputOutputSelectedStep",
@@ -20,6 +23,29 @@ __all__ = [
     "OutputOutputInvalidAction",
     "OutputOutputInvalidActionInvalidAction",
 ]
+
+
+class InputAllStep(BaseModel):
+    id: str
+
+    action_name: Optional[str] = None
+
+    metadata: Optional[Dict[str, str]] = None
+
+
+class Input(BaseModel):
+    all_steps: List[InputAllStep]
+
+    extraction_criteria: List[ExtractionCriteria]
+
+    previous_queries: List[str]
+
+    seeded_kg: KnowledgeGraph
+    """
+    Knowledge graph info structured to deserialize and display in the same format
+    that the LLM outputs. Also the first representation of an LLM output in the
+    pipeline from raw tool output to being merged into a Neo4j DB
+    """
 
 
 class OutputOutputSelectedStepSelectedStep(BaseModel):
@@ -68,6 +94,6 @@ class ActionTrainingDataEntry(BaseModel):
 
     created_at: datetime
 
-    input: NextActionInput
+    input: Input
 
     outputs: List[Output]

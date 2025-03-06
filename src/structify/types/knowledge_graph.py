@@ -6,10 +6,10 @@ from .entity import Entity
 from .._models import BaseModel
 from .relationship import Relationship
 
-__all__ = ["EntityGraph"]
+__all__ = ["KnowledgeGraph"]
 
 
-class EntityGraph(BaseModel):
+class KnowledgeGraph(BaseModel):
     entities: Optional[List[Entity]] = None
 
     relationships: Optional[List[Relationship]] = None
