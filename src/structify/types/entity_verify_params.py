@@ -4,15 +4,15 @@ from __future__ import annotations
 
 from typing_extensions import Required, TypedDict
 
-from .knowledge_graph_param import KnowledgeGraphParam
+from .entity_graph_param import EntityGraphParam
 
 __all__ = ["EntityVerifyParams"]
 
 
 class EntityVerifyParams(TypedDict, total=False):
-    dataset_name: Required[str]
+    dataset: Required[str]
 
-    kg: Required[KnowledgeGraphParam]
+    kg: Required[EntityGraphParam]
     """
     Knowledge graph info structured to deserialize and display in the same format
     that the LLM outputs. Also the first representation of an LLM output in the

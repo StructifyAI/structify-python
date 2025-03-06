@@ -10,6 +10,7 @@ import pytest
 from structify import Structify, AsyncStructify
 from tests.utils import assert_matches_type
 from structify.types.admin import (
+    ActionTrainingDataEntry,
     ActionTrainingDataResponse,
     DeleteActionTrainingDataResponse,
     ActionTrainingDataMetadataResponse,
@@ -26,7 +27,7 @@ class TestNextAction:
         next_action = client.admin.next_action.add_training_datum(
             input={
                 "all_steps": [{"id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
-                "extraction_criteria": [{"relationship_extraction": {"relationship_name": "relationship_name"}}],
+                "extraction_criteria": [{"relationship": {"relationship_name": "relationship_name"}}],
                 "previous_queries": ["string"],
                 "seeded_kg": {},
             },
@@ -46,7 +47,7 @@ class TestNextAction:
                         "metadata": {"foo": "string"},
                     }
                 ],
-                "extraction_criteria": [{"relationship_extraction": {"relationship_name": "relationship_name"}}],
+                "extraction_criteria": [{"relationship": {"relationship_name": "relationship_name"}}],
                 "previous_queries": ["string"],
                 "seeded_kg": {
                     "entities": [
@@ -77,7 +78,7 @@ class TestNextAction:
         response = client.admin.next_action.with_raw_response.add_training_datum(
             input={
                 "all_steps": [{"id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
-                "extraction_criteria": [{"relationship_extraction": {"relationship_name": "relationship_name"}}],
+                "extraction_criteria": [{"relationship": {"relationship_name": "relationship_name"}}],
                 "previous_queries": ["string"],
                 "seeded_kg": {},
             },
@@ -95,7 +96,7 @@ class TestNextAction:
         with client.admin.next_action.with_streaming_response.add_training_datum(
             input={
                 "all_steps": [{"id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
-                "extraction_criteria": [{"relationship_extraction": {"relationship_name": "relationship_name"}}],
+                "extraction_criteria": [{"relationship": {"relationship_name": "relationship_name"}}],
                 "previous_queries": ["string"],
                 "seeded_kg": {},
             },
@@ -212,6 +213,37 @@ class TestNextAction:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
+    def test_method_get_training_datum(self, client: Structify) -> None:
+        next_action = client.admin.next_action.get_training_datum(
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(ActionTrainingDataEntry, next_action, path=["response"])
+
+    @parametrize
+    def test_raw_response_get_training_datum(self, client: Structify) -> None:
+        response = client.admin.next_action.with_raw_response.get_training_datum(
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        next_action = response.parse()
+        assert_matches_type(ActionTrainingDataEntry, next_action, path=["response"])
+
+    @parametrize
+    def test_streaming_response_get_training_datum(self, client: Structify) -> None:
+        with client.admin.next_action.with_streaming_response.get_training_datum(
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            next_action = response.parse()
+            assert_matches_type(ActionTrainingDataEntry, next_action, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
     def test_method_label_training_datum(self, client: Structify) -> None:
         next_action = client.admin.next_action.label_training_datum(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -257,7 +289,7 @@ class TestAsyncNextAction:
         next_action = await async_client.admin.next_action.add_training_datum(
             input={
                 "all_steps": [{"id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
-                "extraction_criteria": [{"relationship_extraction": {"relationship_name": "relationship_name"}}],
+                "extraction_criteria": [{"relationship": {"relationship_name": "relationship_name"}}],
                 "previous_queries": ["string"],
                 "seeded_kg": {},
             },
@@ -277,7 +309,7 @@ class TestAsyncNextAction:
                         "metadata": {"foo": "string"},
                     }
                 ],
-                "extraction_criteria": [{"relationship_extraction": {"relationship_name": "relationship_name"}}],
+                "extraction_criteria": [{"relationship": {"relationship_name": "relationship_name"}}],
                 "previous_queries": ["string"],
                 "seeded_kg": {
                     "entities": [
@@ -308,7 +340,7 @@ class TestAsyncNextAction:
         response = await async_client.admin.next_action.with_raw_response.add_training_datum(
             input={
                 "all_steps": [{"id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
-                "extraction_criteria": [{"relationship_extraction": {"relationship_name": "relationship_name"}}],
+                "extraction_criteria": [{"relationship": {"relationship_name": "relationship_name"}}],
                 "previous_queries": ["string"],
                 "seeded_kg": {},
             },
@@ -326,7 +358,7 @@ class TestAsyncNextAction:
         async with async_client.admin.next_action.with_streaming_response.add_training_datum(
             input={
                 "all_steps": [{"id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
-                "extraction_criteria": [{"relationship_extraction": {"relationship_name": "relationship_name"}}],
+                "extraction_criteria": [{"relationship": {"relationship_name": "relationship_name"}}],
                 "previous_queries": ["string"],
                 "seeded_kg": {},
             },
@@ -439,6 +471,37 @@ class TestAsyncNextAction:
 
             next_action = await response.parse()
             assert_matches_type(ActionTrainingDataMetadataResponse, next_action, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_method_get_training_datum(self, async_client: AsyncStructify) -> None:
+        next_action = await async_client.admin.next_action.get_training_datum(
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(ActionTrainingDataEntry, next_action, path=["response"])
+
+    @parametrize
+    async def test_raw_response_get_training_datum(self, async_client: AsyncStructify) -> None:
+        response = await async_client.admin.next_action.with_raw_response.get_training_datum(
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        next_action = await response.parse()
+        assert_matches_type(ActionTrainingDataEntry, next_action, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_get_training_datum(self, async_client: AsyncStructify) -> None:
+        async with async_client.admin.next_action.with_streaming_response.get_training_datum(
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            next_action = await response.parse()
+            assert_matches_type(ActionTrainingDataEntry, next_action, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

@@ -5,9 +5,9 @@ from typing_extensions import Literal, TypeAlias
 
 from pydantic import Field as FieldInfo
 
-from .table import Table
 from .._models import BaseModel
 from .property_type import PropertyType
+from .table_descriptor import TableDescriptor
 
 __all__ = [
     "DatasetDescriptor",
@@ -110,6 +110,6 @@ class DatasetDescriptor(BaseModel):
 
     relationships: List[Relationship]
 
-    tables: List[Table]
+    tables: List[TableDescriptor]
 
     llm_override_field: Optional[str] = None

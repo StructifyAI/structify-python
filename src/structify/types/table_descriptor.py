@@ -9,7 +9,7 @@ from .._models import BaseModel
 from .property_type import PropertyType
 
 __all__ = [
-    "Table",
+    "TableDescriptor",
     "Property",
     "PropertyMergeStrategy",
     "PropertyMergeStrategyProbabilistic",
@@ -55,7 +55,7 @@ class Property(BaseModel):
     prop_type: Optional[PropertyType] = None
 
 
-class Table(BaseModel):
+class TableDescriptor(BaseModel):
     description: str
 
     name: str

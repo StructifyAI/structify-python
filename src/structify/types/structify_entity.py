@@ -7,12 +7,12 @@ from typing_extensions import TypeAlias
 from .image import Image
 from .._models import BaseModel
 
-__all__ = ["EntityTriggerMergeResponse", "Properties"]
+__all__ = ["StructifyEntity", "Properties"]
 
 Properties: TypeAlias = Union[str, bool, float, Image]
 
 
-class EntityTriggerMergeResponse(BaseModel):
+class StructifyEntity(BaseModel):
     id: str
 
     creation_time: datetime
