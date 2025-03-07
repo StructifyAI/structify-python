@@ -9,4 +9,4 @@ __all__ = ["DocumentListParams"]
 
 
 class DocumentListParams(TypedDict, total=False):
-    dataset_name: Optional[str]
+    dataset: Optional[str]

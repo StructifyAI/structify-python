@@ -1,10 +1,8 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Union
+from typing import Dict, List, Union, Optional
 from datetime import datetime
-from typing_extensions import Literal, TypeAlias
-
-from pydantic import Field as FieldInfo
+from typing_extensions import TypeAlias
 
 from . import source
 from .image import Image
@@ -22,12 +20,9 @@ __all__ = [
     "SimilarEntityProperties",
     "Source",
     "SourceLocation",
-    "SourceLocationText",
-    "SourceLocationTextText",
-    "SourceLocationVisual",
-    "SourceLocationVisualVisual",
-    "SourceLocationPage",
-    "SourceLocationPagePage",
+    "SourceLocationByteOffset",
+    "SourceLocationUnionMember1",
+    "SourceLocationPageNumber",
 ]
 
 ConnectedEntityProperties: TypeAlias = Union[str, bool, float, Image]
@@ -82,33 +77,23 @@ class SimilarEntity(BaseModel):
     properties: Dict[str, SimilarEntityProperties]
 
 
-class SourceLocationTextText(BaseModel):
+class SourceLocationByteOffset(BaseModel):
     byte_offset: int
 
 
-class SourceLocationText(BaseModel):
-    text: SourceLocationTextText = FieldInfo(alias="Text")
-
-
-class SourceLocationVisualVisual(BaseModel):
+class SourceLocationUnionMember1(BaseModel):
     x: int
 
     y: int
 
 
-class SourceLocationVisual(BaseModel):
-    visual: SourceLocationVisualVisual = FieldInfo(alias="Visual")
-
-
-class SourceLocationPagePage(BaseModel):
+class SourceLocationPageNumber(BaseModel):
     page_number: int
 
 
-class SourceLocationPage(BaseModel):
-    page: SourceLocationPagePage = FieldInfo(alias="Page")
-
-
-SourceLocation: TypeAlias = Union[SourceLocationText, SourceLocationVisual, SourceLocationPage, Literal["None"]]
+SourceLocation: TypeAlias = Union[
+    SourceLocationByteOffset, SourceLocationUnionMember1, SourceLocationPageNumber, Optional[object]
+]
 
 
 class Source(BaseModel):

@@ -3,21 +3,14 @@
 from __future__ import annotations
 
 from typing import Union, Iterable, Optional
-from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
+from typing_extensions import Required, TypeAlias, TypedDict
 
-from .._utils import PropertyInfo
 from .property_type_param import PropertyTypeParam
 
-__all__ = [
-    "TableParam",
-    "Property",
-    "PropertyMergeStrategy",
-    "PropertyMergeStrategyProbabilistic",
-    "PropertyMergeStrategyProbabilisticProbabilistic",
-]
+__all__ = ["TableParam", "Property", "PropertyMergeStrategy", "PropertyMergeStrategyMergeProbability"]
 
 
-class PropertyMergeStrategyProbabilisticProbabilistic(TypedDict, total=False):
+class PropertyMergeStrategyMergeProbability(TypedDict, total=False):
     baseline_cardinality: Required[int]
     """
     The number of unique values that are expected to be present in the complete
@@ -35,16 +28,10 @@ class PropertyMergeStrategyProbabilisticProbabilistic(TypedDict, total=False):
     different companies at the same time.
     """
 
-    comparison_strategy: Literal["Default", "EnforceUniqueness"]
+    comparison_strategy: Optional[object]
 
 
-class PropertyMergeStrategyProbabilistic(TypedDict, total=False):
-    probabilistic: Required[
-        Annotated[PropertyMergeStrategyProbabilisticProbabilistic, PropertyInfo(alias="Probabilistic")]
-    ]
-
-
-PropertyMergeStrategy: TypeAlias = Union[Literal["Unique", "NoSignal"], PropertyMergeStrategyProbabilistic]
+PropertyMergeStrategy: TypeAlias = Union[PropertyMergeStrategyMergeProbability, Optional[object], Optional[object]]
 
 
 class Property(TypedDict, total=False):
