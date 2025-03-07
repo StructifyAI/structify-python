@@ -7,7 +7,13 @@ from typing_extensions import Required, TypeAlias, TypedDict
 
 from .knowledge_graph_param import KnowledgeGraphParam
 
-__all__ = ["EntityAddBatchParams", "Source", "SourceUserWebSource", "SourceUserDocumentSource"]
+__all__ = [
+    "EntityAddBatchParams",
+    "Source",
+    "SourceUserWebSource",
+    "SourceUserDocumentSource",
+    "SourceUserSecFilingSource",
+]
 
 
 class EntityAddBatchParams(TypedDict, total=False):
@@ -31,4 +37,12 @@ class SourceUserDocumentSource(TypedDict, total=False):
     page: Required[int]
 
 
-Source: TypeAlias = Union[SourceUserWebSource, SourceUserDocumentSource, object]
+class SourceUserSecFilingSource(TypedDict, total=False):
+    accession_number: Required[str]
+
+    cik_number: Required[str]
+
+    page: Required[int]
+
+
+Source: TypeAlias = Union[SourceUserWebSource, SourceUserDocumentSource, SourceUserSecFilingSource]
