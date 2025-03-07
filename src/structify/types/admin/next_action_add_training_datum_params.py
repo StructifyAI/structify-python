@@ -7,18 +7,12 @@ from typing_extensions import Required, Annotated, TypeAlias, TypedDict
 
 from ..._utils import PropertyInfo
 from ..knowledge_graph_param import KnowledgeGraphParam
+from ..extraction_criteria_param import ExtractionCriteriaParam
 
 __all__ = [
     "NextActionAddTrainingDatumParams",
     "Input",
     "InputAllStep",
-    "InputExtractionCriterion",
-    "InputExtractionCriterionRelationship",
-    "InputExtractionCriterionRelationshipRelationship",
-    "InputExtractionCriterionEntity",
-    "InputExtractionCriterionEntityEntity",
-    "InputExtractionCriterionProperty",
-    "InputExtractionCriterionPropertyProperty",
     "Output",
     "OutputSelectedStep",
     "OutputSelectedStepSelectedStep",
@@ -47,47 +41,10 @@ class InputAllStep(TypedDict, total=False):
     metadata: Dict[str, str]
 
 
-class InputExtractionCriterionRelationshipRelationship(TypedDict, total=False):
-    relationship_name: Required[str]
-
-
-class InputExtractionCriterionRelationship(TypedDict, total=False):
-    relationship: Required[
-        Annotated[InputExtractionCriterionRelationshipRelationship, PropertyInfo(alias="Relationship")]
-    ]
-
-
-class InputExtractionCriterionEntityEntity(TypedDict, total=False):
-    seeded_kg_id: Required[int]
-    """The integer id corresponding to an entity in the seeded kg"""
-
-    dataset_entity_id: Optional[str]
-
-
-class InputExtractionCriterionEntity(TypedDict, total=False):
-    entity: Required[Annotated[InputExtractionCriterionEntityEntity, PropertyInfo(alias="Entity")]]
-
-
-class InputExtractionCriterionPropertyProperty(TypedDict, total=False):
-    property_names: Required[List[str]]
-
-    table_name: Required[str]
-    """Vec<ExtractionCriteria> = it has to meet every one."""
-
-
-class InputExtractionCriterionProperty(TypedDict, total=False):
-    property: Required[Annotated[InputExtractionCriterionPropertyProperty, PropertyInfo(alias="Property")]]
-
-
-InputExtractionCriterion: TypeAlias = Union[
-    InputExtractionCriterionRelationship, InputExtractionCriterionEntity, InputExtractionCriterionProperty
-]
-
-
 class Input(TypedDict, total=False):
     all_steps: Required[Iterable[InputAllStep]]
 
-    extraction_criteria: Required[Iterable[InputExtractionCriterion]]
+    extraction_criteria: Required[Iterable[ExtractionCriteriaParam]]
 
     previous_queries: Required[List[str]]
 

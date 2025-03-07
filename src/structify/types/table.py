@@ -1,15 +1,23 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import List, Union, Optional
-from typing_extensions import TypeAlias
+from typing_extensions import Literal, TypeAlias
+
+from pydantic import Field as FieldInfo
 
 from .._models import BaseModel
 from .property_type import PropertyType
 
-__all__ = ["Table", "Property", "PropertyMergeStrategy", "PropertyMergeStrategyMergeProbability"]
+__all__ = [
+    "Table",
+    "Property",
+    "PropertyMergeStrategy",
+    "PropertyMergeStrategyProbabilistic",
+    "PropertyMergeStrategyProbabilisticProbabilistic",
+]
 
 
-class PropertyMergeStrategyMergeProbability(BaseModel):
+class PropertyMergeStrategyProbabilisticProbabilistic(BaseModel):
     baseline_cardinality: int
     """
     The number of unique values that are expected to be present in the complete
@@ -27,10 +35,14 @@ class PropertyMergeStrategyMergeProbability(BaseModel):
     different companies at the same time.
     """
 
-    comparison_strategy: Optional[object] = None
+    comparison_strategy: Optional[Literal["Default", "EnforceUniqueness"]] = None
 
 
-PropertyMergeStrategy: TypeAlias = Union[PropertyMergeStrategyMergeProbability, Optional[object], Optional[object]]
+class PropertyMergeStrategyProbabilistic(BaseModel):
+    probabilistic: PropertyMergeStrategyProbabilisticProbabilistic = FieldInfo(alias="Probabilistic")
+
+
+PropertyMergeStrategy: TypeAlias = Union[Literal["Unique", "NoSignal"], PropertyMergeStrategyProbabilistic]
 
 
 class Property(BaseModel):
