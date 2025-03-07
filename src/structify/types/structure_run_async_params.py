@@ -3,21 +3,29 @@
 from __future__ import annotations
 
 from typing import List, Union, Iterable, Optional
-from typing_extensions import Literal, Required, TypeAlias, TypedDict
+from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
+from .._utils import PropertyInfo
 from .knowledge_graph_param import KnowledgeGraphParam
-from .save_requirement_param import SaveRequirementParam
+from .extraction_criteria_param import ExtractionCriteriaParam
 
-__all__ = ["StructureRunAsyncParams", "Source", "SourcePdfIngestor", "SourceWebSearch"]
+__all__ = [
+    "StructureRunAsyncParams",
+    "StructureInput",
+    "StructureInputPdfIngestor",
+    "StructureInputPdfIngestorPdfIngestor",
+    "StructureInputWebSearch",
+    "StructureInputWebSearchWebSearch",
+]
 
 
 class StructureRunAsyncParams(TypedDict, total=False):
-    dataset: Required[str]
+    name: Required[str]
 
-    source: Required[Source]
+    structure_input: Required[StructureInput]
     """These are all the types that can be converted into a BasicInputType"""
 
-    save_requirement: Iterable[SaveRequirementParam]
+    extraction_criteria: Iterable[ExtractionCriteriaParam]
 
     seeded_entity: KnowledgeGraphParam
     """
@@ -29,14 +37,23 @@ class StructureRunAsyncParams(TypedDict, total=False):
     special_job_type: Optional[Literal["HumanLLM"]]
 
 
-class SourcePdfIngestor(TypedDict, total=False):
+class StructureInputPdfIngestorPdfIngestor(TypedDict, total=False):
     path: Required[str]
 
 
-class SourceWebSearch(TypedDict, total=False):
+class StructureInputPdfIngestor(TypedDict, total=False):
+    pdf_ingestor: Required[Annotated[StructureInputPdfIngestorPdfIngestor, PropertyInfo(alias="PDFIngestor")]]
+    """Ingest all pages of a PDF and process them independently."""
+
+
+class StructureInputWebSearchWebSearch(TypedDict, total=False):
     starting_searches: List[str]
 
     starting_urls: List[str]
 
 
-Source: TypeAlias = Union[SourcePdfIngestor, SourceWebSearch]
+class StructureInputWebSearch(TypedDict, total=False):
+    web_search: Required[Annotated[StructureInputWebSearchWebSearch, PropertyInfo(alias="WebSearch")]]
+
+
+StructureInput: TypeAlias = Union[StructureInputPdfIngestor, StructureInputWebSearch]
