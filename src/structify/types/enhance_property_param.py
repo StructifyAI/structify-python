@@ -2,19 +2,16 @@
 
 from __future__ import annotations
 
-from typing import List
-from typing_extensions import Required, TypedDict
+from typing_extensions import Required
+
+from .web_param import WebParam
 
 __all__ = ["EnhancePropertyParam"]
 
 
-class EnhancePropertyParam(TypedDict, total=False):
+class EnhancePropertyParam(WebParam):
     entity_id: Required[str]
 
     property_name: Required[str]
 
     allow_extra_entities: bool
-
-    starting_searches: List[str]
-
-    starting_urls: List[str]
