@@ -3,15 +3,14 @@
 from __future__ import annotations
 
 from typing import Union, Iterable, Optional
-from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
+from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
-from .._utils import PropertyInfo
 from .pdf_param import PdfParam
 from .web_param import WebParam
 from .knowledge_graph_param import KnowledgeGraphParam
 from .save_requirement_param import SaveRequirementParam
 
-__all__ = ["StructureRunAsyncParams", "Source", "SourcePdf", "SourceWeb"]
+__all__ = ["StructureRunAsyncParams", "Source"]
 
 
 class StructureRunAsyncParams(TypedDict, total=False):
@@ -32,13 +31,4 @@ class StructureRunAsyncParams(TypedDict, total=False):
     special_job_type: Optional[Literal["HumanLLM"]]
 
 
-class SourcePdf(TypedDict, total=False):
-    pdf: Required[Annotated[PdfParam, PropertyInfo(alias="PDF")]]
-    """Ingest all pages of a PDF and process them independently."""
-
-
-class SourceWeb(TypedDict, total=False):
-    web: Required[Annotated[WebParam, PropertyInfo(alias="Web")]]
-
-
-Source: TypeAlias = Union[SourcePdf, SourceWeb]
+Source: TypeAlias = Union[PdfParam, WebParam]

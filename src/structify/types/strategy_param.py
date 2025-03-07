@@ -8,7 +8,7 @@ from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 from .._utils import PropertyInfo
 from .merge_config_param import MergeConfigParam
 
-__all__ = ["MergeStrategyParam", "Probabilistic"]
+__all__ = ["StrategyParam", "Probabilistic"]
 
 
 class Probabilistic(TypedDict, total=False):
@@ -16,4 +16,4 @@ class Probabilistic(TypedDict, total=False):
     """The configuration for a probabilistic merge strategy"""
 
 
-MergeStrategyParam: TypeAlias = Union[Literal["Unique", "NoSignal"], Probabilistic]
+StrategyParam: TypeAlias = Union[Literal["Unique", "NoSignal"], Probabilistic]
