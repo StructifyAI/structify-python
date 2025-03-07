@@ -13,7 +13,6 @@ __all__ = [
     "DatasetDescriptor",
     "Relationship",
     "RelationshipMergeStrategy",
-    "RelationshipMergeStrategyProbabilistic",
     "RelationshipProperty",
     "RelationshipPropertyMergeStrategy",
     "RelationshipPropertyMergeStrategyProbabilistic",
@@ -21,7 +20,7 @@ __all__ = [
 ]
 
 
-class RelationshipMergeStrategyProbabilistic(BaseModel):
+class RelationshipMergeStrategy(BaseModel):
     source_cardinality_given_target_match: Optional[int] = None
     """
     Describes the expected cardinality of the source table when a match is found in
@@ -43,10 +42,6 @@ class RelationshipMergeStrategyProbabilistic(BaseModel):
     not _too_ many. So if we have a company match, the expected number of unique
     funding rounds is relatively small. This is an estimate of that number.
     """
-
-
-class RelationshipMergeStrategy(BaseModel):
-    probabilistic: RelationshipMergeStrategyProbabilistic = FieldInfo(alias="Probabilistic")
 
 
 class RelationshipPropertyMergeStrategyProbabilisticProbabilistic(BaseModel):
@@ -72,6 +67,7 @@ class RelationshipPropertyMergeStrategyProbabilisticProbabilistic(BaseModel):
 
 class RelationshipPropertyMergeStrategyProbabilistic(BaseModel):
     probabilistic: RelationshipPropertyMergeStrategyProbabilisticProbabilistic = FieldInfo(alias="Probabilistic")
+    """The configuration for a probabilistic merge strategy"""
 
 
 RelationshipPropertyMergeStrategy: TypeAlias = Union[
