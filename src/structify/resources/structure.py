@@ -28,6 +28,7 @@ from .._response import (
 )
 from .._base_client import make_request_options
 from ..types.knowledge_graph_param import KnowledgeGraphParam
+from ..types.save_requirement_param import SaveRequirementParam
 from ..types.structure_job_status_response import StructureJobStatusResponse
 
 __all__ = ["StructureResource", "AsyncStructureResource"]
@@ -271,7 +272,7 @@ class StructureResource(SyncAPIResource):
         *,
         dataset: str,
         source: structure_run_async_params.Source,
-        save_requirement: Iterable[structure_run_async_params.SaveRequirement] | NotGiven = NOT_GIVEN,
+        save_requirement: Iterable[SaveRequirementParam] | NotGiven = NOT_GIVEN,
         seeded_entity: KnowledgeGraphParam | NotGiven = NOT_GIVEN,
         special_job_type: Optional[Literal["HumanLLM"]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -557,7 +558,7 @@ class AsyncStructureResource(AsyncAPIResource):
         *,
         dataset: str,
         source: structure_run_async_params.Source,
-        save_requirement: Iterable[structure_run_async_params.SaveRequirement] | NotGiven = NOT_GIVEN,
+        save_requirement: Iterable[SaveRequirementParam] | NotGiven = NOT_GIVEN,
         seeded_entity: KnowledgeGraphParam | NotGiven = NOT_GIVEN,
         special_job_type: Optional[Literal["HumanLLM"]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
