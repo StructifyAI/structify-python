@@ -54,7 +54,7 @@ class JobsResource(SyncAPIResource):
     def list(
         self,
         *,
-        dataset: Optional[str] | NotGiven = NOT_GIVEN,
+        dataset_name: Optional[str] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         offset: int | NotGiven = NOT_GIVEN,
         since: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
@@ -70,7 +70,7 @@ class JobsResource(SyncAPIResource):
         List all the executions
 
         Args:
-          dataset: Dataset name to optionally filter jobs by
+          dataset_name: Dataset name to optionally filter jobs by
 
           since: List since a specific timestamp
 
@@ -94,7 +94,7 @@ class JobsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "dataset": dataset,
+                        "dataset_name": dataset_name,
                         "limit": limit,
                         "offset": offset,
                         "since": since,
@@ -350,7 +350,7 @@ class AsyncJobsResource(AsyncAPIResource):
     def list(
         self,
         *,
-        dataset: Optional[str] | NotGiven = NOT_GIVEN,
+        dataset_name: Optional[str] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         offset: int | NotGiven = NOT_GIVEN,
         since: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
@@ -366,7 +366,7 @@ class AsyncJobsResource(AsyncAPIResource):
         List all the executions
 
         Args:
-          dataset: Dataset name to optionally filter jobs by
+          dataset_name: Dataset name to optionally filter jobs by
 
           since: List since a specific timestamp
 
@@ -390,7 +390,7 @@ class AsyncJobsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "dataset": dataset,
+                        "dataset_name": dataset_name,
                         "limit": limit,
                         "offset": offset,
                         "since": since,

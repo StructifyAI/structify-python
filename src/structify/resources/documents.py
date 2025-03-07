@@ -58,7 +58,7 @@ class DocumentsResource(SyncAPIResource):
     def list(
         self,
         *,
-        dataset: Optional[str] | NotGiven = NOT_GIVEN,
+        dataset_name: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -85,7 +85,7 @@ class DocumentsResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform({"dataset": dataset}, document_list_params.DocumentListParams),
+                query=maybe_transform({"dataset_name": dataset_name}, document_list_params.DocumentListParams),
             ),
             cast_to=DocumentListResponse,
         )
@@ -165,7 +165,7 @@ class DocumentsResource(SyncAPIResource):
         content: FileTypes,
         file_type: Literal["Text", "PDF", "SEC"],
         path: FileTypes,
-        dataset: Optional[str] | NotGiven = NOT_GIVEN,
+        dataset_name: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -207,7 +207,7 @@ class DocumentsResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform({"dataset": dataset}, document_upload_params.DocumentUploadParams),
+                query=maybe_transform({"dataset_name": dataset_name}, document_upload_params.DocumentUploadParams),
             ),
             cast_to=NoneType,
         )
@@ -236,7 +236,7 @@ class AsyncDocumentsResource(AsyncAPIResource):
     async def list(
         self,
         *,
-        dataset: Optional[str] | NotGiven = NOT_GIVEN,
+        dataset_name: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -263,7 +263,9 @@ class AsyncDocumentsResource(AsyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform({"dataset": dataset}, document_list_params.DocumentListParams),
+                query=await async_maybe_transform(
+                    {"dataset_name": dataset_name}, document_list_params.DocumentListParams
+                ),
             ),
             cast_to=DocumentListResponse,
         )
@@ -343,7 +345,7 @@ class AsyncDocumentsResource(AsyncAPIResource):
         content: FileTypes,
         file_type: Literal["Text", "PDF", "SEC"],
         path: FileTypes,
-        dataset: Optional[str] | NotGiven = NOT_GIVEN,
+        dataset_name: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -385,7 +387,9 @@ class AsyncDocumentsResource(AsyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform({"dataset": dataset}, document_upload_params.DocumentUploadParams),
+                query=await async_maybe_transform(
+                    {"dataset_name": dataset_name}, document_upload_params.DocumentUploadParams
+                ),
             ),
             cast_to=NoneType,
         )
