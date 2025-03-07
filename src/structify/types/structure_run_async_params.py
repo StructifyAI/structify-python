@@ -3,12 +3,13 @@
 from __future__ import annotations
 
 from typing import List, Union, Iterable, Optional
-from typing_extensions import Literal, Required, TypeAlias, TypedDict
+from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
+from .._utils import PropertyInfo
 from .knowledge_graph_param import KnowledgeGraphParam
 from .save_requirement_param import SaveRequirementParam
 
-__all__ = ["StructureRunAsyncParams", "Source", "SourcePdfIngestor", "SourceWebSearch"]
+__all__ = ["StructureRunAsyncParams", "Source", "SourcePdf", "SourcePdfPdf", "SourceWeb", "SourceWebWeb"]
 
 
 class StructureRunAsyncParams(TypedDict, total=False):
@@ -29,14 +30,23 @@ class StructureRunAsyncParams(TypedDict, total=False):
     special_job_type: Optional[Literal["HumanLLM"]]
 
 
-class SourcePdfIngestor(TypedDict, total=False):
+class SourcePdfPdf(TypedDict, total=False):
     path: Required[str]
 
 
-class SourceWebSearch(TypedDict, total=False):
+class SourcePdf(TypedDict, total=False):
+    pdf: Required[Annotated[SourcePdfPdf, PropertyInfo(alias="PDF")]]
+    """Ingest all pages of a PDF and process them independently."""
+
+
+class SourceWebWeb(TypedDict, total=False):
     starting_searches: List[str]
 
     starting_urls: List[str]
 
 
-Source: TypeAlias = Union[SourcePdfIngestor, SourceWebSearch]
+class SourceWeb(TypedDict, total=False):
+    web: Required[Annotated[SourceWebWeb, PropertyInfo(alias="Web")]]
+
+
+Source: TypeAlias = Union[SourcePdf, SourceWeb]
