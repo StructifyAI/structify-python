@@ -9,6 +9,7 @@ from .._models import BaseModel
 from .tool_metadata import ToolMetadata
 from .knowledge_graph import KnowledgeGraph
 from .dataset_descriptor import DatasetDescriptor
+from .extraction_criteria import ExtractionCriteria
 
 __all__ = [
     "ChatPrompt",
@@ -32,10 +33,6 @@ __all__ = [
     "MessageContentText",
     "MessageContentImage",
     "Metadata",
-    "MetadataExtractionCriterion",
-    "MetadataExtractionCriterionRequiredRelationship",
-    "MetadataExtractionCriterionRequiredEntity",
-    "MetadataExtractionCriterionRequiredProperty",
     "MetadataFormatterSpecific",
     "MetadataFormatterSpecificImageMeta",
     "MetadataFormatterSpecificImageMetaImageMeta",
@@ -144,35 +141,6 @@ class Message(BaseModel):
     role: Literal["user", "system", "assistant"]
 
 
-class MetadataExtractionCriterionRequiredRelationship(BaseModel):
-    relationship_name: str
-
-
-class MetadataExtractionCriterionRequiredEntity(BaseModel):
-    seeded_entity_id: int
-    """
-    The integer id corresponding to an entity in the seeded entity graph (different
-    from the global dataset entity id)
-    """
-
-    entity_id: Optional[str] = None
-
-
-class MetadataExtractionCriterionRequiredProperty(BaseModel):
-    property_names: List[str]
-    """If there are multiple properties, it can match just one of them"""
-
-    table_name: str
-    """The table name of the entity to update"""
-
-
-MetadataExtractionCriterion: TypeAlias = Union[
-    MetadataExtractionCriterionRequiredRelationship,
-    MetadataExtractionCriterionRequiredEntity,
-    MetadataExtractionCriterionRequiredProperty,
-]
-
-
 class MetadataFormatterSpecificImageMetaImageMeta(BaseModel):
     document_name: Optional[str] = None
 
@@ -251,7 +219,7 @@ class Metadata(BaseModel):
 
     extracted_entities: List[KnowledgeGraph]
 
-    extraction_criteria: List[MetadataExtractionCriterion]
+    extraction_criteria: List[ExtractionCriteria]
 
     formatter_specific: MetadataFormatterSpecific
 
