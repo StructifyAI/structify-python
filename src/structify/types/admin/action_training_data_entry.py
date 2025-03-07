@@ -8,12 +8,15 @@ from pydantic import Field as FieldInfo
 
 from ..._models import BaseModel
 from ..knowledge_graph import KnowledgeGraph
-from ..extraction_criteria import ExtractionCriteria
 
 __all__ = [
     "ActionTrainingDataEntry",
     "Input",
     "InputAllStep",
+    "InputExtractionCriterion",
+    "InputExtractionCriterionRequiredRelationship",
+    "InputExtractionCriterionRequiredEntity",
+    "InputExtractionCriterionRequiredProperty",
     "Output",
     "OutputOutput",
     "OutputOutputSelectedStep",
@@ -33,10 +36,39 @@ class InputAllStep(BaseModel):
     metadata: Optional[Dict[str, str]] = None
 
 
+class InputExtractionCriterionRequiredRelationship(BaseModel):
+    relationship_name: str
+
+
+class InputExtractionCriterionRequiredEntity(BaseModel):
+    seeded_entity_id: int
+    """
+    The integer id corresponding to an entity in the seeded entity graph (different
+    from the global dataset entity id)
+    """
+
+    entity_id: Optional[str] = None
+
+
+class InputExtractionCriterionRequiredProperty(BaseModel):
+    property_names: List[str]
+    """If there are multiple properties, it can match just one of them"""
+
+    table_name: str
+    """The table name of the entity to update"""
+
+
+InputExtractionCriterion: TypeAlias = Union[
+    InputExtractionCriterionRequiredRelationship,
+    InputExtractionCriterionRequiredEntity,
+    InputExtractionCriterionRequiredProperty,
+]
+
+
 class Input(BaseModel):
     all_steps: List[InputAllStep]
 
-    extraction_criteria: List[ExtractionCriteria]
+    extraction_criteria: List[InputExtractionCriterion]
 
     previous_queries: List[str]
 
