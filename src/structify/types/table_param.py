@@ -42,6 +42,7 @@ class PropertyMergeStrategyProbabilistic(TypedDict, total=False):
     probabilistic: Required[
         Annotated[PropertyMergeStrategyProbabilisticProbabilistic, PropertyInfo(alias="Probabilistic")]
     ]
+    """The configuration for a probabilistic merge strategy"""
 
 
 PropertyMergeStrategy: TypeAlias = Union[Literal["Unique", "NoSignal"], PropertyMergeStrategyProbabilistic]
