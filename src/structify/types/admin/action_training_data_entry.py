@@ -8,7 +8,7 @@ from pydantic import Field as FieldInfo
 
 from ..._models import BaseModel
 from ..knowledge_graph import KnowledgeGraph
-from ..extraction_criteria import ExtractionCriteria
+from ..save_requirement import SaveRequirement
 
 __all__ = [
     "ActionTrainingDataEntry",
@@ -36,7 +36,7 @@ class InputAllStep(BaseModel):
 class Input(BaseModel):
     all_steps: List[InputAllStep]
 
-    extraction_criteria: List[ExtractionCriteria]
+    extraction_criteria: List[SaveRequirement]
 
     previous_queries: List[str]
 
