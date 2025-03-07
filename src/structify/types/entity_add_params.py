@@ -2,18 +2,19 @@
 
 from __future__ import annotations
 
-from typing import Union
-from typing_extensions import Required, TypeAlias, TypedDict
+from typing import Union, Iterable
+from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
+from .._utils import PropertyInfo
 from .knowledge_graph_param import KnowledgeGraphParam
 
-__all__ = ["EntityAddParams", "Source", "SourceUserWebSource", "SourceUserDocumentSource"]
+__all__ = ["EntityAddParams", "Source", "SourceWeb", "SourceDocumentPage", "SourceSecFiling"]
 
 
 class EntityAddParams(TypedDict, total=False):
-    dataset: Required[str]
+    dataset_name: Required[str]
 
-    entity_graph: Required[KnowledgeGraphParam]
+    kg: Required[KnowledgeGraphParam]
     """
     Knowledge graph info structured to deserialize and display in the same format
     that the LLM outputs. Also the first representation of an LLM output in the
@@ -26,14 +27,16 @@ class EntityAddParams(TypedDict, total=False):
     source: Source
 
 
-class SourceUserWebSource(TypedDict, total=False):
-    url: Required[str]
+class SourceWeb(TypedDict, total=False):
+    web: Required[Annotated[str, PropertyInfo(alias="Web")]]
 
 
-class SourceUserDocumentSource(TypedDict, total=False):
-    name: Required[str]
-
-    page: Required[int]
+class SourceDocumentPage(TypedDict, total=False):
+    document_page: Required[Annotated[Iterable[object], PropertyInfo(alias="DocumentPage")]]
 
 
-Source: TypeAlias = Union[SourceUserWebSource, SourceUserDocumentSource]
+class SourceSecFiling(TypedDict, total=False):
+    sec_filing: Required[Annotated[Iterable[object], PropertyInfo(alias="SecFiling")]]
+
+
+Source: TypeAlias = Union[Literal["None"], SourceWeb, SourceDocumentPage, SourceSecFiling]
