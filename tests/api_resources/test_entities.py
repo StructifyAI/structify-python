@@ -35,7 +35,7 @@ class TestEntities:
     @parametrize
     def test_method_delete(self, client: Structify) -> None:
         entity = client.entities.delete(
-            dataset_name="dataset_name",
+            dataset="dataset",
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(EntityDeleteResponse, entity, path=["response"])
@@ -43,7 +43,7 @@ class TestEntities:
     @parametrize
     def test_raw_response_delete(self, client: Structify) -> None:
         response = client.entities.with_raw_response.delete(
-            dataset_name="dataset_name",
+            dataset="dataset",
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
@@ -55,7 +55,7 @@ class TestEntities:
     @parametrize
     def test_streaming_response_delete(self, client: Structify) -> None:
         with client.entities.with_streaming_response.delete(
-            dataset_name="dataset_name",
+            dataset="dataset",
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
@@ -69,16 +69,16 @@ class TestEntities:
     @parametrize
     def test_method_add(self, client: Structify) -> None:
         entity = client.entities.add(
-            dataset_name="dataset_name",
-            kg={},
+            dataset="dataset",
+            entity_graph={},
         )
         assert_matches_type(EntityAddResponse, entity, path=["response"])
 
     @parametrize
     def test_method_add_with_all_params(self, client: Structify) -> None:
         entity = client.entities.add(
-            dataset_name="dataset_name",
-            kg={
+            dataset="dataset",
+            entity_graph={
                 "entities": [
                     {
                         "id": 0,
@@ -96,15 +96,15 @@ class TestEntities:
                 ],
             },
             attempt_merge=True,
-            source="None",
+            source={"url": "url"},
         )
         assert_matches_type(EntityAddResponse, entity, path=["response"])
 
     @parametrize
     def test_raw_response_add(self, client: Structify) -> None:
         response = client.entities.with_raw_response.add(
-            dataset_name="dataset_name",
-            kg={},
+            dataset="dataset",
+            entity_graph={},
         )
 
         assert response.is_closed is True
@@ -115,8 +115,8 @@ class TestEntities:
     @parametrize
     def test_streaming_response_add(self, client: Structify) -> None:
         with client.entities.with_streaming_response.add(
-            dataset_name="dataset_name",
-            kg={},
+            dataset="dataset",
+            entity_graph={},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -129,16 +129,16 @@ class TestEntities:
     @parametrize
     def test_method_add_batch(self, client: Structify) -> None:
         entity = client.entities.add_batch(
-            dataset_name="dataset_name",
-            kgs=[{}],
+            dataset="dataset",
+            entity_graphs=[{}],
         )
         assert_matches_type(EntityAddBatchResponse, entity, path=["response"])
 
     @parametrize
     def test_method_add_batch_with_all_params(self, client: Structify) -> None:
         entity = client.entities.add_batch(
-            dataset_name="dataset_name",
-            kgs=[
+            dataset="dataset",
+            entity_graphs=[
                 {
                     "entities": [
                         {
@@ -158,15 +158,15 @@ class TestEntities:
                 }
             ],
             attempt_merge=True,
-            source="None",
+            source={"url": "url"},
         )
         assert_matches_type(EntityAddBatchResponse, entity, path=["response"])
 
     @parametrize
     def test_raw_response_add_batch(self, client: Structify) -> None:
         response = client.entities.with_raw_response.add_batch(
-            dataset_name="dataset_name",
-            kgs=[{}],
+            dataset="dataset",
+            entity_graphs=[{}],
         )
 
         assert response.is_closed is True
@@ -177,8 +177,8 @@ class TestEntities:
     @parametrize
     def test_streaming_response_add_batch(self, client: Structify) -> None:
         with client.entities.with_streaming_response.add_batch(
-            dataset_name="dataset_name",
-            kgs=[{}],
+            dataset="dataset",
+            entity_graphs=[{}],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -374,7 +374,7 @@ class TestEntities:
     @parametrize
     def test_method_search(self, client: Structify) -> None:
         entity = client.entities.search(
-            dataset_name="dataset_name",
+            dataset="dataset",
             query="query",
             table_name="table_name",
         )
@@ -383,7 +383,7 @@ class TestEntities:
     @parametrize
     def test_raw_response_search(self, client: Structify) -> None:
         response = client.entities.with_raw_response.search(
-            dataset_name="dataset_name",
+            dataset="dataset",
             query="query",
             table_name="table_name",
         )
@@ -396,7 +396,7 @@ class TestEntities:
     @parametrize
     def test_streaming_response_search(self, client: Structify) -> None:
         with client.entities.with_streaming_response.search(
-            dataset_name="dataset_name",
+            dataset="dataset",
             query="query",
             table_name="table_name",
         ) as response:
@@ -411,7 +411,7 @@ class TestEntities:
     @parametrize
     def test_method_summarize(self, client: Structify) -> None:
         entity = client.entities.summarize(
-            dataset_name="dataset_name",
+            dataset="dataset",
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             properties=["string"],
         )
@@ -420,7 +420,7 @@ class TestEntities:
     @parametrize
     def test_method_summarize_with_all_params(self, client: Structify) -> None:
         entity = client.entities.summarize(
-            dataset_name="dataset_name",
+            dataset="dataset",
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             properties=["string"],
             extra_instructions=["string"],
@@ -430,7 +430,7 @@ class TestEntities:
     @parametrize
     def test_raw_response_summarize(self, client: Structify) -> None:
         response = client.entities.with_raw_response.summarize(
-            dataset_name="dataset_name",
+            dataset="dataset",
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             properties=["string"],
         )
@@ -443,7 +443,7 @@ class TestEntities:
     @parametrize
     def test_streaming_response_summarize(self, client: Structify) -> None:
         with client.entities.with_streaming_response.summarize(
-            dataset_name="dataset_name",
+            dataset="dataset",
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             properties=["string"],
         ) as response:
@@ -489,7 +489,7 @@ class TestEntities:
     @parametrize
     def test_method_update_property(self, client: Structify) -> None:
         entity = client.entities.update_property(
-            dataset_name="dataset_name",
+            dataset="dataset",
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             properties={"foo": "string"},
         )
@@ -498,17 +498,17 @@ class TestEntities:
     @parametrize
     def test_method_update_property_with_all_params(self, client: Structify) -> None:
         entity = client.entities.update_property(
-            dataset_name="dataset_name",
+            dataset="dataset",
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             properties={"foo": "string"},
-            source="None",
+            source={"url": "url"},
         )
         assert_matches_type(EntityUpdatePropertyResponse, entity, path=["response"])
 
     @parametrize
     def test_raw_response_update_property(self, client: Structify) -> None:
         response = client.entities.with_raw_response.update_property(
-            dataset_name="dataset_name",
+            dataset="dataset",
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             properties={"foo": "string"},
         )
@@ -521,7 +521,7 @@ class TestEntities:
     @parametrize
     def test_streaming_response_update_property(self, client: Structify) -> None:
         with client.entities.with_streaming_response.update_property(
-            dataset_name="dataset_name",
+            dataset="dataset",
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             properties={"foo": "string"},
         ) as response:
@@ -536,7 +536,7 @@ class TestEntities:
     @parametrize
     def test_method_verify(self, client: Structify) -> None:
         entity = client.entities.verify(
-            dataset_name="dataset_name",
+            dataset="dataset",
             kg={},
         )
         assert_matches_type(KnowledgeGraph, entity, path=["response"])
@@ -544,7 +544,7 @@ class TestEntities:
     @parametrize
     def test_method_verify_with_all_params(self, client: Structify) -> None:
         entity = client.entities.verify(
-            dataset_name="dataset_name",
+            dataset="dataset",
             kg={
                 "entities": [
                     {
@@ -569,7 +569,7 @@ class TestEntities:
     @parametrize
     def test_raw_response_verify(self, client: Structify) -> None:
         response = client.entities.with_raw_response.verify(
-            dataset_name="dataset_name",
+            dataset="dataset",
             kg={},
         )
 
@@ -581,7 +581,7 @@ class TestEntities:
     @parametrize
     def test_streaming_response_verify(self, client: Structify) -> None:
         with client.entities.with_streaming_response.verify(
-            dataset_name="dataset_name",
+            dataset="dataset",
             kg={},
         ) as response:
             assert not response.is_closed
@@ -638,7 +638,7 @@ class TestAsyncEntities:
     @parametrize
     async def test_method_delete(self, async_client: AsyncStructify) -> None:
         entity = await async_client.entities.delete(
-            dataset_name="dataset_name",
+            dataset="dataset",
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(EntityDeleteResponse, entity, path=["response"])
@@ -646,7 +646,7 @@ class TestAsyncEntities:
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncStructify) -> None:
         response = await async_client.entities.with_raw_response.delete(
-            dataset_name="dataset_name",
+            dataset="dataset",
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
@@ -658,7 +658,7 @@ class TestAsyncEntities:
     @parametrize
     async def test_streaming_response_delete(self, async_client: AsyncStructify) -> None:
         async with async_client.entities.with_streaming_response.delete(
-            dataset_name="dataset_name",
+            dataset="dataset",
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
@@ -672,16 +672,16 @@ class TestAsyncEntities:
     @parametrize
     async def test_method_add(self, async_client: AsyncStructify) -> None:
         entity = await async_client.entities.add(
-            dataset_name="dataset_name",
-            kg={},
+            dataset="dataset",
+            entity_graph={},
         )
         assert_matches_type(EntityAddResponse, entity, path=["response"])
 
     @parametrize
     async def test_method_add_with_all_params(self, async_client: AsyncStructify) -> None:
         entity = await async_client.entities.add(
-            dataset_name="dataset_name",
-            kg={
+            dataset="dataset",
+            entity_graph={
                 "entities": [
                     {
                         "id": 0,
@@ -699,15 +699,15 @@ class TestAsyncEntities:
                 ],
             },
             attempt_merge=True,
-            source="None",
+            source={"url": "url"},
         )
         assert_matches_type(EntityAddResponse, entity, path=["response"])
 
     @parametrize
     async def test_raw_response_add(self, async_client: AsyncStructify) -> None:
         response = await async_client.entities.with_raw_response.add(
-            dataset_name="dataset_name",
-            kg={},
+            dataset="dataset",
+            entity_graph={},
         )
 
         assert response.is_closed is True
@@ -718,8 +718,8 @@ class TestAsyncEntities:
     @parametrize
     async def test_streaming_response_add(self, async_client: AsyncStructify) -> None:
         async with async_client.entities.with_streaming_response.add(
-            dataset_name="dataset_name",
-            kg={},
+            dataset="dataset",
+            entity_graph={},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -732,16 +732,16 @@ class TestAsyncEntities:
     @parametrize
     async def test_method_add_batch(self, async_client: AsyncStructify) -> None:
         entity = await async_client.entities.add_batch(
-            dataset_name="dataset_name",
-            kgs=[{}],
+            dataset="dataset",
+            entity_graphs=[{}],
         )
         assert_matches_type(EntityAddBatchResponse, entity, path=["response"])
 
     @parametrize
     async def test_method_add_batch_with_all_params(self, async_client: AsyncStructify) -> None:
         entity = await async_client.entities.add_batch(
-            dataset_name="dataset_name",
-            kgs=[
+            dataset="dataset",
+            entity_graphs=[
                 {
                     "entities": [
                         {
@@ -761,15 +761,15 @@ class TestAsyncEntities:
                 }
             ],
             attempt_merge=True,
-            source="None",
+            source={"url": "url"},
         )
         assert_matches_type(EntityAddBatchResponse, entity, path=["response"])
 
     @parametrize
     async def test_raw_response_add_batch(self, async_client: AsyncStructify) -> None:
         response = await async_client.entities.with_raw_response.add_batch(
-            dataset_name="dataset_name",
-            kgs=[{}],
+            dataset="dataset",
+            entity_graphs=[{}],
         )
 
         assert response.is_closed is True
@@ -780,8 +780,8 @@ class TestAsyncEntities:
     @parametrize
     async def test_streaming_response_add_batch(self, async_client: AsyncStructify) -> None:
         async with async_client.entities.with_streaming_response.add_batch(
-            dataset_name="dataset_name",
-            kgs=[{}],
+            dataset="dataset",
+            entity_graphs=[{}],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -977,7 +977,7 @@ class TestAsyncEntities:
     @parametrize
     async def test_method_search(self, async_client: AsyncStructify) -> None:
         entity = await async_client.entities.search(
-            dataset_name="dataset_name",
+            dataset="dataset",
             query="query",
             table_name="table_name",
         )
@@ -986,7 +986,7 @@ class TestAsyncEntities:
     @parametrize
     async def test_raw_response_search(self, async_client: AsyncStructify) -> None:
         response = await async_client.entities.with_raw_response.search(
-            dataset_name="dataset_name",
+            dataset="dataset",
             query="query",
             table_name="table_name",
         )
@@ -999,7 +999,7 @@ class TestAsyncEntities:
     @parametrize
     async def test_streaming_response_search(self, async_client: AsyncStructify) -> None:
         async with async_client.entities.with_streaming_response.search(
-            dataset_name="dataset_name",
+            dataset="dataset",
             query="query",
             table_name="table_name",
         ) as response:
@@ -1014,7 +1014,7 @@ class TestAsyncEntities:
     @parametrize
     async def test_method_summarize(self, async_client: AsyncStructify) -> None:
         entity = await async_client.entities.summarize(
-            dataset_name="dataset_name",
+            dataset="dataset",
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             properties=["string"],
         )
@@ -1023,7 +1023,7 @@ class TestAsyncEntities:
     @parametrize
     async def test_method_summarize_with_all_params(self, async_client: AsyncStructify) -> None:
         entity = await async_client.entities.summarize(
-            dataset_name="dataset_name",
+            dataset="dataset",
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             properties=["string"],
             extra_instructions=["string"],
@@ -1033,7 +1033,7 @@ class TestAsyncEntities:
     @parametrize
     async def test_raw_response_summarize(self, async_client: AsyncStructify) -> None:
         response = await async_client.entities.with_raw_response.summarize(
-            dataset_name="dataset_name",
+            dataset="dataset",
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             properties=["string"],
         )
@@ -1046,7 +1046,7 @@ class TestAsyncEntities:
     @parametrize
     async def test_streaming_response_summarize(self, async_client: AsyncStructify) -> None:
         async with async_client.entities.with_streaming_response.summarize(
-            dataset_name="dataset_name",
+            dataset="dataset",
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             properties=["string"],
         ) as response:
@@ -1092,7 +1092,7 @@ class TestAsyncEntities:
     @parametrize
     async def test_method_update_property(self, async_client: AsyncStructify) -> None:
         entity = await async_client.entities.update_property(
-            dataset_name="dataset_name",
+            dataset="dataset",
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             properties={"foo": "string"},
         )
@@ -1101,17 +1101,17 @@ class TestAsyncEntities:
     @parametrize
     async def test_method_update_property_with_all_params(self, async_client: AsyncStructify) -> None:
         entity = await async_client.entities.update_property(
-            dataset_name="dataset_name",
+            dataset="dataset",
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             properties={"foo": "string"},
-            source="None",
+            source={"url": "url"},
         )
         assert_matches_type(EntityUpdatePropertyResponse, entity, path=["response"])
 
     @parametrize
     async def test_raw_response_update_property(self, async_client: AsyncStructify) -> None:
         response = await async_client.entities.with_raw_response.update_property(
-            dataset_name="dataset_name",
+            dataset="dataset",
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             properties={"foo": "string"},
         )
@@ -1124,7 +1124,7 @@ class TestAsyncEntities:
     @parametrize
     async def test_streaming_response_update_property(self, async_client: AsyncStructify) -> None:
         async with async_client.entities.with_streaming_response.update_property(
-            dataset_name="dataset_name",
+            dataset="dataset",
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             properties={"foo": "string"},
         ) as response:
@@ -1139,7 +1139,7 @@ class TestAsyncEntities:
     @parametrize
     async def test_method_verify(self, async_client: AsyncStructify) -> None:
         entity = await async_client.entities.verify(
-            dataset_name="dataset_name",
+            dataset="dataset",
             kg={},
         )
         assert_matches_type(KnowledgeGraph, entity, path=["response"])
@@ -1147,7 +1147,7 @@ class TestAsyncEntities:
     @parametrize
     async def test_method_verify_with_all_params(self, async_client: AsyncStructify) -> None:
         entity = await async_client.entities.verify(
-            dataset_name="dataset_name",
+            dataset="dataset",
             kg={
                 "entities": [
                     {
@@ -1172,7 +1172,7 @@ class TestAsyncEntities:
     @parametrize
     async def test_raw_response_verify(self, async_client: AsyncStructify) -> None:
         response = await async_client.entities.with_raw_response.verify(
-            dataset_name="dataset_name",
+            dataset="dataset",
             kg={},
         )
 
@@ -1184,7 +1184,7 @@ class TestAsyncEntities:
     @parametrize
     async def test_streaming_response_verify(self, async_client: AsyncStructify) -> None:
         async with async_client.entities.with_streaming_response.verify(
-            dataset_name="dataset_name",
+            dataset="dataset",
             kg={},
         ) as response:
             assert not response.is_closed
