@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.108.0 (2025-03-07)
+
+Full Changelog: [v1.107.0...v1.108.0](https://github.com/StructifyAI/structify-python/compare/v1.107.0...v1.108.0)
+
+### Features
+
+* **api:** api update ([#1012](https://github.com/StructifyAI/structify-python/issues/1012)) ([4610eb6](https://github.com/StructifyAI/structify-python/commit/4610eb6adb68ce5296d52ce30349e9b7aafabce9))
+* **api:** api update ([#1014](https://github.com/StructifyAI/structify-python/issues/1014)) ([68a515d](https://github.com/StructifyAI/structify-python/commit/68a515d6653285bd9f720d081c3507c987bb9b71))
+* **api:** api update ([#1015](https://github.com/StructifyAI/structify-python/issues/1015)) ([94a5c10](https://github.com/StructifyAI/structify-python/commit/94a5c103c221f4f2c3ef9df9165b69e5af388edd))
+
 ## 1.107.0 (2025-03-07)
 
 Full Changelog: [v1.106.0...v1.107.0](https://github.com/StructifyAI/structify-python/compare/v1.106.0...v1.107.0)
