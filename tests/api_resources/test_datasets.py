@@ -66,8 +66,10 @@ class TestDatasets:
                     "source_table": "source_table",
                     "target_table": "target_table",
                     "merge_strategy": {
-                        "source_cardinality_given_target_match": 0,
-                        "target_cardinality_given_source_match": 0,
+                        "probabilistic": {
+                            "source_cardinality_given_target_match": 0,
+                            "target_cardinality_given_source_match": 0,
+                        }
                     },
                     "properties": [
                         {
@@ -504,8 +506,10 @@ class TestAsyncDatasets:
                     "source_table": "source_table",
                     "target_table": "target_table",
                     "merge_strategy": {
-                        "source_cardinality_given_target_match": 0,
-                        "target_cardinality_given_source_match": 0,
+                        "probabilistic": {
+                            "source_cardinality_given_target_match": 0,
+                            "target_cardinality_given_source_match": 0,
+                        }
                     },
                     "properties": [
                         {
