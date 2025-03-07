@@ -12,7 +12,9 @@ __all__ = [
     "StructureRunAsyncParams",
     "Source",
     "SourcePdfIngestor",
+    "SourcePdfIngestorPdfIngestor",
     "SourceWebSearch",
+    "SourceWebSearchWebSearch",
     "ExtractionCriterion",
     "ExtractionCriterionRelationship",
     "ExtractionCriterionRelationshipRelationship",
@@ -41,14 +43,23 @@ class StructureRunAsyncParams(TypedDict, total=False):
     special_job_type: Optional[Literal["HumanLLM"]]
 
 
-class SourcePdfIngestor(TypedDict, total=False):
+class SourcePdfIngestorPdfIngestor(TypedDict, total=False):
     path: Required[str]
 
 
-class SourceWebSearch(TypedDict, total=False):
+class SourcePdfIngestor(TypedDict, total=False):
+    pdf_ingestor: Required[Annotated[SourcePdfIngestorPdfIngestor, PropertyInfo(alias="PDFIngestor")]]
+    """Ingest all pages of a PDF and process them independently."""
+
+
+class SourceWebSearchWebSearch(TypedDict, total=False):
     starting_searches: List[str]
 
     starting_urls: List[str]
+
+
+class SourceWebSearch(TypedDict, total=False):
+    web_search: Required[Annotated[SourceWebSearchWebSearch, PropertyInfo(alias="WebSearch")]]
 
 
 Source: TypeAlias = Union[SourcePdfIngestor, SourceWebSearch]
