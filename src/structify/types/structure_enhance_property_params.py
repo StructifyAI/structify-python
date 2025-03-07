@@ -2,21 +2,17 @@
 
 from __future__ import annotations
 
-from typing import List, Optional
+from typing import Optional
 from typing_extensions import Literal, Required, TypedDict
 
-__all__ = ["StructureEnhancePropertyParams"]
+from .enhance_property_param import EnhancePropertyParam
+
+__all__ = ["StructureEnhancePropertyParams", "Body"]
 
 
 class StructureEnhancePropertyParams(TypedDict, total=False):
-    entity_id: Required[str]
+    body: Required[Body]
 
-    property_name: Required[str]
 
-    allow_extra_entities: bool
-
+class Body(EnhancePropertyParam):
     special_job_type: Optional[Literal["HumanLLM"]]
-
-    starting_searches: List[str]
-
-    starting_urls: List[str]

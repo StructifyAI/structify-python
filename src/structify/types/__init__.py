@@ -2,12 +2,15 @@
 
 from __future__ import annotations
 
+from .web import Web as Web
 from .plan import Plan as Plan
 from .image import Image as Image
 from .table import Table as Table
 from .entity import Entity as Entity
 from .source import Source as Source
+from .pdf_param import PdfParam as PdfParam
 from .user_info import UserInfo as UserInfo
+from .web_param import WebParam as WebParam
 from .plan_param import PlanParam as PlanParam
 from .chat_prompt import ChatPrompt as ChatPrompt
 from .image_param import ImageParam as ImageParam
