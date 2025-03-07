@@ -7,7 +7,14 @@ from typing_extensions import Required, TypeAlias, TypedDict
 
 from .image_param import ImageParam
 
-__all__ = ["EntityUpdatePropertyParams", "Properties", "Source", "SourceUserWebSource", "SourceUserDocumentSource"]
+__all__ = [
+    "EntityUpdatePropertyParams",
+    "Properties",
+    "Source",
+    "SourceUserWebSource",
+    "SourceUserDocumentSource",
+    "SourceUserSecFilingSource",
+]
 
 
 class EntityUpdatePropertyParams(TypedDict, total=False):
@@ -33,4 +40,12 @@ class SourceUserDocumentSource(TypedDict, total=False):
     page: Required[int]
 
 
-Source: TypeAlias = Union[SourceUserWebSource, SourceUserDocumentSource]
+class SourceUserSecFilingSource(TypedDict, total=False):
+    accession_number: Required[str]
+
+    cik_number: Required[str]
+
+    page: Required[int]
+
+
+Source: TypeAlias = Union[SourceUserWebSource, SourceUserDocumentSource, SourceUserSecFilingSource]
