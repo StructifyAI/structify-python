@@ -17,4 +17,4 @@ class DocumentUploadParams(TypedDict, total=False):
 
     path: Required[FileTypes]
 
-    dataset: Optional[str]
+    dataset_name: Optional[str]
