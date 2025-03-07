@@ -10,9 +10,9 @@ __all__ = ["EntityVerifyParams"]
 
 
 class EntityVerifyParams(TypedDict, total=False):
-    dataset: Required[str]
+    dataset_name: Required[str]
 
-    entity_graph: Required[KnowledgeGraphParam]
+    kg: Required[KnowledgeGraphParam]
     """
     Knowledge graph info structured to deserialize and display in the same format
     that the LLM outputs. Also the first representation of an LLM output in the
