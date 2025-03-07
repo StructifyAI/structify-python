@@ -349,10 +349,8 @@ Types:
 from structify.types import (
     ChatPrompt,
     ExecutionStep,
-    Pdf,
     SaveRequirement,
     ToolMetadata,
-    Web,
     StructureEnhancePropertyResponse,
     StructureEnhanceRelationshipResponse,
     StructureFindRelationshipResponse,
