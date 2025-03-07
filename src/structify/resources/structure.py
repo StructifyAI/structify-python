@@ -57,12 +57,7 @@ class StructureResource(SyncAPIResource):
     def enhance_property(
         self,
         *,
-        entity_id: str,
-        property_name: str,
-        allow_extra_entities: bool | NotGiven = NOT_GIVEN,
-        special_job_type: Optional[Literal["HumanLLM"]] | NotGiven = NOT_GIVEN,
-        starting_searches: List[str] | NotGiven = NOT_GIVEN,
-        starting_urls: List[str] | NotGiven = NOT_GIVEN,
+        body: structure_enhance_property_params.Body,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -85,17 +80,7 @@ class StructureResource(SyncAPIResource):
         extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
         return self._post(
             "/structure/enhance_property",
-            body=maybe_transform(
-                {
-                    "entity_id": entity_id,
-                    "property_name": property_name,
-                    "allow_extra_entities": allow_extra_entities,
-                    "special_job_type": special_job_type,
-                    "starting_searches": starting_searches,
-                    "starting_urls": starting_urls,
-                },
-                structure_enhance_property_params.StructureEnhancePropertyParams,
-            ),
+            body=maybe_transform(body, structure_enhance_property_params.StructureEnhancePropertyParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -105,12 +90,7 @@ class StructureResource(SyncAPIResource):
     def enhance_relationship(
         self,
         *,
-        entity_id: str,
-        relationship_name: str,
-        allow_extra_entities: bool | NotGiven = NOT_GIVEN,
-        special_job_type: Optional[Literal["HumanLLM"]] | NotGiven = NOT_GIVEN,
-        starting_searches: List[str] | NotGiven = NOT_GIVEN,
-        starting_urls: List[str] | NotGiven = NOT_GIVEN,
+        body: structure_enhance_relationship_params.Body,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -133,17 +113,7 @@ class StructureResource(SyncAPIResource):
         extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
         return self._post(
             "/structure/enhance_relationship",
-            body=maybe_transform(
-                {
-                    "entity_id": entity_id,
-                    "relationship_name": relationship_name,
-                    "allow_extra_entities": allow_extra_entities,
-                    "special_job_type": special_job_type,
-                    "starting_searches": starting_searches,
-                    "starting_urls": starting_urls,
-                },
-                structure_enhance_relationship_params.StructureEnhanceRelationshipParams,
-            ),
+            body=maybe_transform(body, structure_enhance_relationship_params.StructureEnhanceRelationshipParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -153,13 +123,7 @@ class StructureResource(SyncAPIResource):
     def find_relationship(
         self,
         *,
-        relationship_name: str,
-        source_entity_id: str,
-        target_entity_id: str,
-        allow_extra_entities: bool | NotGiven = NOT_GIVEN,
-        special_job_type: Optional[Literal["HumanLLM"]] | NotGiven = NOT_GIVEN,
-        starting_searches: List[str] | NotGiven = NOT_GIVEN,
-        starting_urls: List[str] | NotGiven = NOT_GIVEN,
+        body: structure_find_relationship_params.Body,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -182,18 +146,7 @@ class StructureResource(SyncAPIResource):
         extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
         return self._post(
             "/structure/find_relationship",
-            body=maybe_transform(
-                {
-                    "relationship_name": relationship_name,
-                    "source_entity_id": source_entity_id,
-                    "target_entity_id": target_entity_id,
-                    "allow_extra_entities": allow_extra_entities,
-                    "special_job_type": special_job_type,
-                    "starting_searches": starting_searches,
-                    "starting_urls": starting_urls,
-                },
-                structure_find_relationship_params.StructureFindRelationshipParams,
-            ),
+            body=maybe_transform(body, structure_find_relationship_params.StructureFindRelationshipParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -343,12 +296,7 @@ class AsyncStructureResource(AsyncAPIResource):
     async def enhance_property(
         self,
         *,
-        entity_id: str,
-        property_name: str,
-        allow_extra_entities: bool | NotGiven = NOT_GIVEN,
-        special_job_type: Optional[Literal["HumanLLM"]] | NotGiven = NOT_GIVEN,
-        starting_searches: List[str] | NotGiven = NOT_GIVEN,
-        starting_urls: List[str] | NotGiven = NOT_GIVEN,
+        body: structure_enhance_property_params.Body,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -371,17 +319,7 @@ class AsyncStructureResource(AsyncAPIResource):
         extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
         return await self._post(
             "/structure/enhance_property",
-            body=await async_maybe_transform(
-                {
-                    "entity_id": entity_id,
-                    "property_name": property_name,
-                    "allow_extra_entities": allow_extra_entities,
-                    "special_job_type": special_job_type,
-                    "starting_searches": starting_searches,
-                    "starting_urls": starting_urls,
-                },
-                structure_enhance_property_params.StructureEnhancePropertyParams,
-            ),
+            body=await async_maybe_transform(body, structure_enhance_property_params.StructureEnhancePropertyParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -391,12 +329,7 @@ class AsyncStructureResource(AsyncAPIResource):
     async def enhance_relationship(
         self,
         *,
-        entity_id: str,
-        relationship_name: str,
-        allow_extra_entities: bool | NotGiven = NOT_GIVEN,
-        special_job_type: Optional[Literal["HumanLLM"]] | NotGiven = NOT_GIVEN,
-        starting_searches: List[str] | NotGiven = NOT_GIVEN,
-        starting_urls: List[str] | NotGiven = NOT_GIVEN,
+        body: structure_enhance_relationship_params.Body,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -420,15 +353,7 @@ class AsyncStructureResource(AsyncAPIResource):
         return await self._post(
             "/structure/enhance_relationship",
             body=await async_maybe_transform(
-                {
-                    "entity_id": entity_id,
-                    "relationship_name": relationship_name,
-                    "allow_extra_entities": allow_extra_entities,
-                    "special_job_type": special_job_type,
-                    "starting_searches": starting_searches,
-                    "starting_urls": starting_urls,
-                },
-                structure_enhance_relationship_params.StructureEnhanceRelationshipParams,
+                body, structure_enhance_relationship_params.StructureEnhanceRelationshipParams
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -439,13 +364,7 @@ class AsyncStructureResource(AsyncAPIResource):
     async def find_relationship(
         self,
         *,
-        relationship_name: str,
-        source_entity_id: str,
-        target_entity_id: str,
-        allow_extra_entities: bool | NotGiven = NOT_GIVEN,
-        special_job_type: Optional[Literal["HumanLLM"]] | NotGiven = NOT_GIVEN,
-        starting_searches: List[str] | NotGiven = NOT_GIVEN,
-        starting_urls: List[str] | NotGiven = NOT_GIVEN,
+        body: structure_find_relationship_params.Body,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -468,18 +387,7 @@ class AsyncStructureResource(AsyncAPIResource):
         extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
         return await self._post(
             "/structure/find_relationship",
-            body=await async_maybe_transform(
-                {
-                    "relationship_name": relationship_name,
-                    "source_entity_id": source_entity_id,
-                    "target_entity_id": target_entity_id,
-                    "allow_extra_entities": allow_extra_entities,
-                    "special_job_type": special_job_type,
-                    "starting_searches": starting_searches,
-                    "starting_urls": starting_urls,
-                },
-                structure_find_relationship_params.StructureFindRelationshipParams,
-            ),
+            body=await async_maybe_transform(body, structure_find_relationship_params.StructureFindRelationshipParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),

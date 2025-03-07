@@ -2,23 +2,17 @@
 
 from __future__ import annotations
 
-from typing import List, Optional
+from typing import Optional
 from typing_extensions import Literal, Required, TypedDict
 
-__all__ = ["StructureFindRelationshipParams"]
+from .find_relationship_param import FindRelationshipParam
+
+__all__ = ["StructureFindRelationshipParams", "Body"]
 
 
 class StructureFindRelationshipParams(TypedDict, total=False):
-    relationship_name: Required[str]
+    body: Required[Body]
 
-    source_entity_id: Required[str]
 
-    target_entity_id: Required[str]
-
-    allow_extra_entities: bool
-
+class Body(FindRelationshipParam):
     special_job_type: Optional[Literal["HumanLLM"]]
-
-    starting_searches: List[str]
-
-    starting_urls: List[str]
