@@ -8,18 +8,12 @@ from pydantic import Field as FieldInfo
 
 from ..._models import BaseModel
 from ..knowledge_graph import KnowledgeGraph
+from ..extraction_criteria import ExtractionCriteria
 
 __all__ = [
     "ActionTrainingDataEntry",
     "Input",
     "InputAllStep",
-    "InputExtractionCriterion",
-    "InputExtractionCriterionRelationship",
-    "InputExtractionCriterionRelationshipRelationship",
-    "InputExtractionCriterionEntity",
-    "InputExtractionCriterionEntityEntity",
-    "InputExtractionCriterionProperty",
-    "InputExtractionCriterionPropertyProperty",
     "Output",
     "OutputOutput",
     "OutputOutputSelectedStep",
@@ -39,45 +33,10 @@ class InputAllStep(BaseModel):
     metadata: Optional[Dict[str, str]] = None
 
 
-class InputExtractionCriterionRelationshipRelationship(BaseModel):
-    relationship_name: str
-
-
-class InputExtractionCriterionRelationship(BaseModel):
-    relationship: InputExtractionCriterionRelationshipRelationship = FieldInfo(alias="Relationship")
-
-
-class InputExtractionCriterionEntityEntity(BaseModel):
-    seeded_kg_id: int
-    """The integer id corresponding to an entity in the seeded kg"""
-
-    dataset_entity_id: Optional[str] = None
-
-
-class InputExtractionCriterionEntity(BaseModel):
-    entity: InputExtractionCriterionEntityEntity = FieldInfo(alias="Entity")
-
-
-class InputExtractionCriterionPropertyProperty(BaseModel):
-    property_names: List[str]
-
-    table_name: str
-    """Vec<ExtractionCriteria> = it has to meet every one."""
-
-
-class InputExtractionCriterionProperty(BaseModel):
-    property: InputExtractionCriterionPropertyProperty = FieldInfo(alias="Property")
-
-
-InputExtractionCriterion: TypeAlias = Union[
-    InputExtractionCriterionRelationship, InputExtractionCriterionEntity, InputExtractionCriterionProperty
-]
-
-
 class Input(BaseModel):
     all_steps: List[InputAllStep]
 
-    extraction_criteria: List[InputExtractionCriterion]
+    extraction_criteria: List[ExtractionCriteria]
 
     previous_queries: List[str]
 

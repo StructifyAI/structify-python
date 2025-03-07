@@ -9,6 +9,7 @@ from .._models import BaseModel
 from .tool_metadata import ToolMetadata
 from .knowledge_graph import KnowledgeGraph
 from .dataset_descriptor import DatasetDescriptor
+from .extraction_criteria import ExtractionCriteria
 
 __all__ = [
     "ChatPrompt",
@@ -32,13 +33,6 @@ __all__ = [
     "MessageContentText",
     "MessageContentImage",
     "Metadata",
-    "MetadataExtractionCriterion",
-    "MetadataExtractionCriterionRelationship",
-    "MetadataExtractionCriterionRelationshipRelationship",
-    "MetadataExtractionCriterionEntity",
-    "MetadataExtractionCriterionEntityEntity",
-    "MetadataExtractionCriterionProperty",
-    "MetadataExtractionCriterionPropertyProperty",
     "MetadataFormatterSpecific",
     "MetadataFormatterSpecificImageMeta",
     "MetadataFormatterSpecificImageMetaImageMeta",
@@ -147,41 +141,6 @@ class Message(BaseModel):
     role: Literal["user", "system", "assistant"]
 
 
-class MetadataExtractionCriterionRelationshipRelationship(BaseModel):
-    relationship_name: str
-
-
-class MetadataExtractionCriterionRelationship(BaseModel):
-    relationship: MetadataExtractionCriterionRelationshipRelationship = FieldInfo(alias="Relationship")
-
-
-class MetadataExtractionCriterionEntityEntity(BaseModel):
-    seeded_kg_id: int
-    """The integer id corresponding to an entity in the seeded kg"""
-
-    dataset_entity_id: Optional[str] = None
-
-
-class MetadataExtractionCriterionEntity(BaseModel):
-    entity: MetadataExtractionCriterionEntityEntity = FieldInfo(alias="Entity")
-
-
-class MetadataExtractionCriterionPropertyProperty(BaseModel):
-    property_names: List[str]
-
-    table_name: str
-    """Vec<ExtractionCriteria> = it has to meet every one."""
-
-
-class MetadataExtractionCriterionProperty(BaseModel):
-    property: MetadataExtractionCriterionPropertyProperty = FieldInfo(alias="Property")
-
-
-MetadataExtractionCriterion: TypeAlias = Union[
-    MetadataExtractionCriterionRelationship, MetadataExtractionCriterionEntity, MetadataExtractionCriterionProperty
-]
-
-
 class MetadataFormatterSpecificImageMetaImageMeta(BaseModel):
     document_name: Optional[str] = None
 
@@ -260,7 +219,7 @@ class Metadata(BaseModel):
 
     extracted_entities: List[KnowledgeGraph]
 
-    extraction_criteria: List[MetadataExtractionCriterion]
+    extraction_criteria: List[ExtractionCriteria]
 
     formatter_specific: MetadataFormatterSpecific
 
