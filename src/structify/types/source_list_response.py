@@ -1,8 +1,10 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Union, Optional
+from typing import List, Union
 from datetime import datetime
-from typing_extensions import TypeAlias
+from typing_extensions import Literal, TypeAlias
+
+from pydantic import Field as FieldInfo
 
 from .source import Source
 from .._models import BaseModel
@@ -11,31 +13,46 @@ __all__ = [
     "SourceListResponse",
     "SourceListResponseItem",
     "SourceListResponseItemLocation",
-    "SourceListResponseItemLocationByteOffset",
-    "SourceListResponseItemLocationUnionMember1",
-    "SourceListResponseItemLocationPageNumber",
+    "SourceListResponseItemLocationText",
+    "SourceListResponseItemLocationTextText",
+    "SourceListResponseItemLocationVisual",
+    "SourceListResponseItemLocationVisualVisual",
+    "SourceListResponseItemLocationPage",
+    "SourceListResponseItemLocationPagePage",
 ]
 
 
-class SourceListResponseItemLocationByteOffset(BaseModel):
+class SourceListResponseItemLocationTextText(BaseModel):
     byte_offset: int
 
 
-class SourceListResponseItemLocationUnionMember1(BaseModel):
+class SourceListResponseItemLocationText(BaseModel):
+    text: SourceListResponseItemLocationTextText = FieldInfo(alias="Text")
+
+
+class SourceListResponseItemLocationVisualVisual(BaseModel):
     x: int
 
     y: int
 
 
-class SourceListResponseItemLocationPageNumber(BaseModel):
+class SourceListResponseItemLocationVisual(BaseModel):
+    visual: SourceListResponseItemLocationVisualVisual = FieldInfo(alias="Visual")
+
+
+class SourceListResponseItemLocationPagePage(BaseModel):
     page_number: int
 
 
+class SourceListResponseItemLocationPage(BaseModel):
+    page: SourceListResponseItemLocationPagePage = FieldInfo(alias="Page")
+
+
 SourceListResponseItemLocation: TypeAlias = Union[
-    SourceListResponseItemLocationByteOffset,
-    SourceListResponseItemLocationUnionMember1,
-    SourceListResponseItemLocationPageNumber,
-    Optional[object],
+    SourceListResponseItemLocationText,
+    SourceListResponseItemLocationVisual,
+    SourceListResponseItemLocationPage,
+    Literal["None"],
 ]
 
 
