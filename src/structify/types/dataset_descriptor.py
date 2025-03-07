@@ -1,9 +1,7 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import List, Union, Optional
-from typing_extensions import Literal, TypeAlias
-
-from pydantic import Field as FieldInfo
+from typing_extensions import TypeAlias
 
 from .table import Table
 from .._models import BaseModel
@@ -13,15 +11,13 @@ __all__ = [
     "DatasetDescriptor",
     "Relationship",
     "RelationshipMergeStrategy",
-    "RelationshipMergeStrategyProbabilistic",
     "RelationshipProperty",
     "RelationshipPropertyMergeStrategy",
-    "RelationshipPropertyMergeStrategyProbabilistic",
-    "RelationshipPropertyMergeStrategyProbabilisticProbabilistic",
+    "RelationshipPropertyMergeStrategyMergeProbability",
 ]
 
 
-class RelationshipMergeStrategyProbabilistic(BaseModel):
+class RelationshipMergeStrategy(BaseModel):
     source_cardinality_given_target_match: Optional[int] = None
     """
     Describes the expected cardinality of the source table when a match is found in
@@ -45,11 +41,7 @@ class RelationshipMergeStrategyProbabilistic(BaseModel):
     """
 
 
-class RelationshipMergeStrategy(BaseModel):
-    probabilistic: RelationshipMergeStrategyProbabilistic = FieldInfo(alias="Probabilistic")
-
-
-class RelationshipPropertyMergeStrategyProbabilisticProbabilistic(BaseModel):
+class RelationshipPropertyMergeStrategyMergeProbability(BaseModel):
     baseline_cardinality: int
     """
     The number of unique values that are expected to be present in the complete
@@ -67,15 +59,11 @@ class RelationshipPropertyMergeStrategyProbabilisticProbabilistic(BaseModel):
     different companies at the same time.
     """
 
-    comparison_strategy: Optional[Literal["Default", "EnforceUniqueness"]] = None
-
-
-class RelationshipPropertyMergeStrategyProbabilistic(BaseModel):
-    probabilistic: RelationshipPropertyMergeStrategyProbabilisticProbabilistic = FieldInfo(alias="Probabilistic")
+    comparison_strategy: Optional[object] = None
 
 
 RelationshipPropertyMergeStrategy: TypeAlias = Union[
-    Literal["Unique", "NoSignal"], RelationshipPropertyMergeStrategyProbabilistic
+    RelationshipPropertyMergeStrategyMergeProbability, Optional[object], Optional[object]
 ]
 
 

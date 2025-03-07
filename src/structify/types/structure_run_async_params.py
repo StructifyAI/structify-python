@@ -3,29 +3,29 @@
 from __future__ import annotations
 
 from typing import List, Union, Iterable, Optional
-from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
+from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
-from .._utils import PropertyInfo
 from .knowledge_graph_param import KnowledgeGraphParam
-from .extraction_criteria_param import ExtractionCriteriaParam
 
 __all__ = [
     "StructureRunAsyncParams",
-    "StructureInput",
-    "StructureInputPdfIngestor",
-    "StructureInputPdfIngestorPdfIngestor",
-    "StructureInputWebSearch",
-    "StructureInputWebSearchWebSearch",
+    "Source",
+    "SourcePdfIngestor",
+    "SourceWebSearch",
+    "SaveRequirement",
+    "SaveRequirementRequiredRelationship",
+    "SaveRequirementRequiredEntity",
+    "SaveRequirementRequiredProperty",
 ]
 
 
 class StructureRunAsyncParams(TypedDict, total=False):
-    name: Required[str]
+    dataset: Required[str]
 
-    structure_input: Required[StructureInput]
+    source: Required[Source]
     """These are all the types that can be converted into a BasicInputType"""
 
-    extraction_criteria: Iterable[ExtractionCriteriaParam]
+    save_requirement: Iterable[SaveRequirement]
 
     seeded_entity: KnowledgeGraphParam
     """
@@ -37,23 +37,41 @@ class StructureRunAsyncParams(TypedDict, total=False):
     special_job_type: Optional[Literal["HumanLLM"]]
 
 
-class StructureInputPdfIngestorPdfIngestor(TypedDict, total=False):
+class SourcePdfIngestor(TypedDict, total=False):
     path: Required[str]
 
 
-class StructureInputPdfIngestor(TypedDict, total=False):
-    pdf_ingestor: Required[Annotated[StructureInputPdfIngestorPdfIngestor, PropertyInfo(alias="PDFIngestor")]]
-    """Ingest all pages of a PDF and process them independently."""
-
-
-class StructureInputWebSearchWebSearch(TypedDict, total=False):
+class SourceWebSearch(TypedDict, total=False):
     starting_searches: List[str]
 
     starting_urls: List[str]
 
 
-class StructureInputWebSearch(TypedDict, total=False):
-    web_search: Required[Annotated[StructureInputWebSearchWebSearch, PropertyInfo(alias="WebSearch")]]
+Source: TypeAlias = Union[SourcePdfIngestor, SourceWebSearch]
 
 
-StructureInput: TypeAlias = Union[StructureInputPdfIngestor, StructureInputWebSearch]
+class SaveRequirementRequiredRelationship(TypedDict, total=False):
+    relationship_name: Required[str]
+
+
+class SaveRequirementRequiredEntity(TypedDict, total=False):
+    seeded_entity_id: Required[int]
+    """
+    The integer id corresponding to an entity in the seeded entity graph (different
+    from the global dataset entity id)
+    """
+
+    entity_id: Optional[str]
+
+
+class SaveRequirementRequiredProperty(TypedDict, total=False):
+    property_names: Required[List[str]]
+    """If there are multiple properties, it can match just one of them"""
+
+    table_name: Required[str]
+    """The table name of the entity to update"""
+
+
+SaveRequirement: TypeAlias = Union[
+    SaveRequirementRequiredRelationship, SaveRequirementRequiredEntity, SaveRequirementRequiredProperty
+]
