@@ -40,6 +40,7 @@ class PropertyMergeStrategyProbabilisticProbabilistic(BaseModel):
 
 class PropertyMergeStrategyProbabilistic(BaseModel):
     probabilistic: PropertyMergeStrategyProbabilisticProbabilistic = FieldInfo(alias="Probabilistic")
+    """The configuration for a probabilistic merge strategy"""
 
 
 PropertyMergeStrategy: TypeAlias = Union[Literal["Unique", "NoSignal"], PropertyMergeStrategyProbabilistic]

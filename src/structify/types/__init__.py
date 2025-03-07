@@ -41,7 +41,6 @@ from .source_list_params import SourceListParams as SourceListParams
 from .entity_add_response import EntityAddResponse as EntityAddResponse
 from .entity_get_response import EntityGetResponse as EntityGetResponse
 from .entity_merge_params import EntityMergeParams as EntityMergeParams
-from .extraction_criteria import ExtractionCriteria as ExtractionCriteria
 from .job_cancel_response import JobCancelResponse as JobCancelResponse
 from .job_delete_response import JobDeleteResponse as JobDeleteResponse
 from .property_type_param import PropertyTypeParam as PropertyTypeParam
@@ -87,7 +86,6 @@ from .dataset_view_table_params import DatasetViewTableParams as DatasetViewTabl
 from .entity_add_batch_response import EntityAddBatchResponse as EntityAddBatchResponse
 from .entity_list_jobs_response import EntityListJobsResponse as EntityListJobsResponse
 from .entity_summarize_response import EntitySummarizeResponse as EntitySummarizeResponse
-from .extraction_criteria_param import ExtractionCriteriaParam as ExtractionCriteriaParam
 from .document_download_response import DocumentDownloadResponse as DocumentDownloadResponse
 from .enhance_relationship_param import EnhanceRelationshipParam as EnhanceRelationshipParam
 from .report_relationship_params import ReportRelationshipParams as ReportRelationshipParams

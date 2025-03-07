@@ -26,7 +26,7 @@ class TestNextAction:
         next_action = client.admin.next_action.add_training_datum(
             input={
                 "all_steps": [{"id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
-                "extraction_criteria": [{"relationship_extraction": {"relationship_name": "relationship_name"}}],
+                "extraction_criteria": [{"relationship_name": "relationship_name"}],
                 "previous_queries": ["string"],
                 "seeded_kg": {},
             },
@@ -46,7 +46,7 @@ class TestNextAction:
                         "metadata": {"foo": "string"},
                     }
                 ],
-                "extraction_criteria": [{"relationship_extraction": {"relationship_name": "relationship_name"}}],
+                "extraction_criteria": [{"relationship_name": "relationship_name"}],
                 "previous_queries": ["string"],
                 "seeded_kg": {
                     "entities": [
@@ -77,7 +77,7 @@ class TestNextAction:
         response = client.admin.next_action.with_raw_response.add_training_datum(
             input={
                 "all_steps": [{"id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
-                "extraction_criteria": [{"relationship_extraction": {"relationship_name": "relationship_name"}}],
+                "extraction_criteria": [{"relationship_name": "relationship_name"}],
                 "previous_queries": ["string"],
                 "seeded_kg": {},
             },
@@ -95,7 +95,7 @@ class TestNextAction:
         with client.admin.next_action.with_streaming_response.add_training_datum(
             input={
                 "all_steps": [{"id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
-                "extraction_criteria": [{"relationship_extraction": {"relationship_name": "relationship_name"}}],
+                "extraction_criteria": [{"relationship_name": "relationship_name"}],
                 "previous_queries": ["string"],
                 "seeded_kg": {},
             },
@@ -257,7 +257,7 @@ class TestAsyncNextAction:
         next_action = await async_client.admin.next_action.add_training_datum(
             input={
                 "all_steps": [{"id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
-                "extraction_criteria": [{"relationship_extraction": {"relationship_name": "relationship_name"}}],
+                "extraction_criteria": [{"relationship_name": "relationship_name"}],
                 "previous_queries": ["string"],
                 "seeded_kg": {},
             },
@@ -277,7 +277,7 @@ class TestAsyncNextAction:
                         "metadata": {"foo": "string"},
                     }
                 ],
-                "extraction_criteria": [{"relationship_extraction": {"relationship_name": "relationship_name"}}],
+                "extraction_criteria": [{"relationship_name": "relationship_name"}],
                 "previous_queries": ["string"],
                 "seeded_kg": {
                     "entities": [
@@ -308,7 +308,7 @@ class TestAsyncNextAction:
         response = await async_client.admin.next_action.with_raw_response.add_training_datum(
             input={
                 "all_steps": [{"id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
-                "extraction_criteria": [{"relationship_extraction": {"relationship_name": "relationship_name"}}],
+                "extraction_criteria": [{"relationship_name": "relationship_name"}],
                 "previous_queries": ["string"],
                 "seeded_kg": {},
             },
@@ -326,7 +326,7 @@ class TestAsyncNextAction:
         async with async_client.admin.next_action.with_streaming_response.add_training_datum(
             input={
                 "all_steps": [{"id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
-                "extraction_criteria": [{"relationship_extraction": {"relationship_name": "relationship_name"}}],
+                "extraction_criteria": [{"relationship_name": "relationship_name"}],
                 "previous_queries": ["string"],
                 "seeded_kg": {},
             },
