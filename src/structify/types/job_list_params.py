@@ -12,7 +12,7 @@ __all__ = ["JobListParams"]
 
 
 class JobListParams(TypedDict, total=False):
-    dataset_name: Optional[str]
+    dataset: Optional[str]
     """Dataset name to optionally filter jobs by"""
 
     limit: int
