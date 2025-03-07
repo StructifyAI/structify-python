@@ -2,17 +2,21 @@
 
 from __future__ import annotations
 
-from typing import Optional
+from typing import List, Optional
 from typing_extensions import Literal, Required, TypedDict
 
-from .enhance_relationship_param import EnhanceRelationshipParam
-
-__all__ = ["StructureEnhanceRelationshipParams", "Body"]
+__all__ = ["StructureEnhanceRelationshipParams"]
 
 
 class StructureEnhanceRelationshipParams(TypedDict, total=False):
-    body: Required[Body]
+    entity_id: Required[str]
 
+    relationship_name: Required[str]
 
-class Body(EnhanceRelationshipParam):
+    allow_extra_entities: bool
+
     special_job_type: Optional[Literal["HumanLLM"]]
+
+    starting_searches: List[str]
+
+    starting_urls: List[str]

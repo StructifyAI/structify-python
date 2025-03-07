@@ -2,15 +2,13 @@
 
 from __future__ import annotations
 
-from typing import Union, Iterable, Optional
+from typing import List, Union, Iterable, Optional
 from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
-from .pdf_param import PdfParam
-from .web_param import WebParam
 from .knowledge_graph_param import KnowledgeGraphParam
 from .save_requirement_param import SaveRequirementParam
 
-__all__ = ["StructureRunAsyncParams", "Source"]
+__all__ = ["StructureRunAsyncParams", "Source", "SourcePdfIngestor", "SourceWebSearch"]
 
 
 class StructureRunAsyncParams(TypedDict, total=False):
@@ -31,4 +29,14 @@ class StructureRunAsyncParams(TypedDict, total=False):
     special_job_type: Optional[Literal["HumanLLM"]]
 
 
-Source: TypeAlias = Union[PdfParam, WebParam]
+class SourcePdfIngestor(TypedDict, total=False):
+    path: Required[str]
+
+
+class SourceWebSearch(TypedDict, total=False):
+    starting_searches: List[str]
+
+    starting_urls: List[str]
+
+
+Source: TypeAlias = Union[SourcePdfIngestor, SourceWebSearch]
