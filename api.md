@@ -138,8 +138,8 @@ Types:
 ```python
 from structify.types import (
     MergeConfig,
-    MergeStrategy,
     RelationshipMergeStrategy,
+    Strategy,
     DatasetListResponse,
     DatasetGetResponse,
     DatasetMatchResponse,

@@ -8,7 +8,7 @@ from pydantic import Field as FieldInfo
 from .._models import BaseModel
 from .merge_config import MergeConfig
 
-__all__ = ["MergeStrategy", "Probabilistic"]
+__all__ = ["Strategy", "Probabilistic"]
 
 
 class Probabilistic(BaseModel):
@@ -16,4 +16,4 @@ class Probabilistic(BaseModel):
     """The configuration for a probabilistic merge strategy"""
 
 
-MergeStrategy: TypeAlias = Union[Literal["Unique", "NoSignal"], Probabilistic]
+Strategy: TypeAlias = Union[Literal["Unique", "NoSignal"], Probabilistic]

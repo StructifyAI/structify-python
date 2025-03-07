@@ -5,8 +5,8 @@ from __future__ import annotations
 from typing import Iterable, Optional
 from typing_extensions import Required, TypedDict
 
+from .strategy_param import StrategyParam
 from .property_type_param import PropertyTypeParam
-from .merge_strategy_param import MergeStrategyParam
 
 __all__ = ["TableParam", "Property"]
 
@@ -16,7 +16,7 @@ class Property(TypedDict, total=False):
 
     name: Required[str]
 
-    merge_strategy: MergeStrategyParam
+    merge_strategy: StrategyParam
 
     prop_type: PropertyTypeParam
 

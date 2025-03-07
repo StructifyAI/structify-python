@@ -4,8 +4,8 @@ from typing import List, Optional
 
 from .table import Table
 from .._models import BaseModel
+from .strategy import Strategy
 from .property_type import PropertyType
-from .merge_strategy import MergeStrategy
 from .relationship_merge_strategy import RelationshipMergeStrategy
 
 __all__ = ["DatasetDescriptor", "Relationship", "RelationshipProperty"]
@@ -16,7 +16,7 @@ class RelationshipProperty(BaseModel):
 
     name: str
 
-    merge_strategy: Optional[MergeStrategy] = None
+    merge_strategy: Optional[Strategy] = None
 
     prop_type: Optional[PropertyType] = None
 
