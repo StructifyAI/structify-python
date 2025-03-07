@@ -8,7 +8,7 @@ __all__ = ["EntitySearchParams"]
 
 
 class EntitySearchParams(TypedDict, total=False):
-    dataset_name: Required[str]
+    dataset: Required[str]
 
     query: Required[str]
 
