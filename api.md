@@ -137,9 +137,6 @@ Types:
 
 ```python
 from structify.types import (
-    MergeConfig,
-    RelationshipMergeStrategy,
-    Strategy,
     DatasetListResponse,
     DatasetGetResponse,
     DatasetMatchResponse,
@@ -349,7 +346,7 @@ Types:
 from structify.types import (
     ChatPrompt,
     ExecutionStep,
-    SaveRequirement,
+    ExtractionCriteria,
     ToolMetadata,
     StructureEnhancePropertyResponse,
     StructureEnhanceRelationshipResponse,
