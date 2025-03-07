@@ -226,17 +226,17 @@ class TestStructure:
     @parametrize
     def test_method_run_async(self, client: Structify) -> None:
         structure = client.structure.run_async(
-            name="name",
-            structure_input={"pdf_ingestor": {"path": "path"}},
+            dataset="dataset",
+            source={"pdf": {"path": "path"}},
         )
         assert_matches_type(str, structure, path=["response"])
 
     @parametrize
     def test_method_run_async_with_all_params(self, client: Structify) -> None:
         structure = client.structure.run_async(
-            name="name",
-            structure_input={"pdf_ingestor": {"path": "path"}},
-            extraction_criteria=[{"relationship_extraction": {"relationship_name": "relationship_name"}}],
+            dataset="dataset",
+            source={"pdf": {"path": "path"}},
+            save_requirement=[{"relationship_name": "relationship_name"}],
             seeded_entity={
                 "entities": [
                     {
@@ -261,8 +261,8 @@ class TestStructure:
     @parametrize
     def test_raw_response_run_async(self, client: Structify) -> None:
         response = client.structure.with_raw_response.run_async(
-            name="name",
-            structure_input={"pdf_ingestor": {"path": "path"}},
+            dataset="dataset",
+            source={"pdf": {"path": "path"}},
         )
 
         assert response.is_closed is True
@@ -273,8 +273,8 @@ class TestStructure:
     @parametrize
     def test_streaming_response_run_async(self, client: Structify) -> None:
         with client.structure.with_streaming_response.run_async(
-            name="name",
-            structure_input={"pdf_ingestor": {"path": "path"}},
+            dataset="dataset",
+            source={"pdf": {"path": "path"}},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -495,17 +495,17 @@ class TestAsyncStructure:
     @parametrize
     async def test_method_run_async(self, async_client: AsyncStructify) -> None:
         structure = await async_client.structure.run_async(
-            name="name",
-            structure_input={"pdf_ingestor": {"path": "path"}},
+            dataset="dataset",
+            source={"pdf": {"path": "path"}},
         )
         assert_matches_type(str, structure, path=["response"])
 
     @parametrize
     async def test_method_run_async_with_all_params(self, async_client: AsyncStructify) -> None:
         structure = await async_client.structure.run_async(
-            name="name",
-            structure_input={"pdf_ingestor": {"path": "path"}},
-            extraction_criteria=[{"relationship_extraction": {"relationship_name": "relationship_name"}}],
+            dataset="dataset",
+            source={"pdf": {"path": "path"}},
+            save_requirement=[{"relationship_name": "relationship_name"}],
             seeded_entity={
                 "entities": [
                     {
@@ -530,8 +530,8 @@ class TestAsyncStructure:
     @parametrize
     async def test_raw_response_run_async(self, async_client: AsyncStructify) -> None:
         response = await async_client.structure.with_raw_response.run_async(
-            name="name",
-            structure_input={"pdf_ingestor": {"path": "path"}},
+            dataset="dataset",
+            source={"pdf": {"path": "path"}},
         )
 
         assert response.is_closed is True
@@ -542,8 +542,8 @@ class TestAsyncStructure:
     @parametrize
     async def test_streaming_response_run_async(self, async_client: AsyncStructify) -> None:
         async with async_client.structure.with_streaming_response.run_async(
-            name="name",
-            structure_input={"pdf_ingestor": {"path": "path"}},
+            dataset="dataset",
+            source={"pdf": {"path": "path"}},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
