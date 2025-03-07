@@ -28,6 +28,7 @@ from .._response import (
 )
 from .._base_client import make_request_options
 from ..types.knowledge_graph_param import KnowledgeGraphParam
+from ..types.extraction_criteria_param import ExtractionCriteriaParam
 from ..types.structure_job_status_response import StructureJobStatusResponse
 
 __all__ = ["StructureResource", "AsyncStructureResource"]
@@ -269,9 +270,9 @@ class StructureResource(SyncAPIResource):
     def run_async(
         self,
         *,
-        dataset: str,
-        source: structure_run_async_params.Source,
-        extraction_criteria: Iterable[structure_run_async_params.ExtractionCriterion] | NotGiven = NOT_GIVEN,
+        name: str,
+        structure_input: structure_run_async_params.StructureInput,
+        extraction_criteria: Iterable[ExtractionCriteriaParam] | NotGiven = NOT_GIVEN,
         seeded_entity: KnowledgeGraphParam | NotGiven = NOT_GIVEN,
         special_job_type: Optional[Literal["HumanLLM"]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -285,7 +286,7 @@ class StructureResource(SyncAPIResource):
         Returns a token that can be waited on until the request is finished.
 
         Args:
-          source: These are all the types that can be converted into a BasicInputType
+          structure_input: These are all the types that can be converted into a BasicInputType
 
           seeded_entity: Knowledge graph info structured to deserialize and display in the same format
               that the LLM outputs. Also the first representation of an LLM output in the
@@ -304,8 +305,8 @@ class StructureResource(SyncAPIResource):
             "/structure/run_async",
             body=maybe_transform(
                 {
-                    "dataset": dataset,
-                    "source": source,
+                    "name": name,
+                    "structure_input": structure_input,
                     "extraction_criteria": extraction_criteria,
                     "seeded_entity": seeded_entity,
                     "special_job_type": special_job_type,
@@ -555,9 +556,9 @@ class AsyncStructureResource(AsyncAPIResource):
     async def run_async(
         self,
         *,
-        dataset: str,
-        source: structure_run_async_params.Source,
-        extraction_criteria: Iterable[structure_run_async_params.ExtractionCriterion] | NotGiven = NOT_GIVEN,
+        name: str,
+        structure_input: structure_run_async_params.StructureInput,
+        extraction_criteria: Iterable[ExtractionCriteriaParam] | NotGiven = NOT_GIVEN,
         seeded_entity: KnowledgeGraphParam | NotGiven = NOT_GIVEN,
         special_job_type: Optional[Literal["HumanLLM"]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -571,7 +572,7 @@ class AsyncStructureResource(AsyncAPIResource):
         Returns a token that can be waited on until the request is finished.
 
         Args:
-          source: These are all the types that can be converted into a BasicInputType
+          structure_input: These are all the types that can be converted into a BasicInputType
 
           seeded_entity: Knowledge graph info structured to deserialize and display in the same format
               that the LLM outputs. Also the first representation of an LLM output in the
@@ -590,8 +591,8 @@ class AsyncStructureResource(AsyncAPIResource):
             "/structure/run_async",
             body=await async_maybe_transform(
                 {
-                    "dataset": dataset,
-                    "source": source,
+                    "name": name,
+                    "structure_input": structure_input,
                     "extraction_criteria": extraction_criteria,
                     "seeded_entity": seeded_entity,
                     "special_job_type": special_job_type,
