@@ -2,16 +2,17 @@
 
 from __future__ import annotations
 
-from typing import Dict, Union
-from typing_extensions import Required, TypeAlias, TypedDict
+from typing import Dict, Union, Iterable
+from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
+from .._utils import PropertyInfo
 from .image_param import ImageParam
 
-__all__ = ["EntityUpdatePropertyParams", "Properties", "Source", "SourceUserWebSource", "SourceUserDocumentSource"]
+__all__ = ["EntityUpdatePropertyParams", "Properties", "Source", "SourceWeb", "SourceDocumentPage", "SourceSecFiling"]
 
 
 class EntityUpdatePropertyParams(TypedDict, total=False):
-    dataset: Required[str]
+    dataset_name: Required[str]
 
     entity_id: Required[str]
 
@@ -23,14 +24,16 @@ class EntityUpdatePropertyParams(TypedDict, total=False):
 Properties: TypeAlias = Union[str, bool, float, ImageParam]
 
 
-class SourceUserWebSource(TypedDict, total=False):
-    url: Required[str]
+class SourceWeb(TypedDict, total=False):
+    web: Required[Annotated[str, PropertyInfo(alias="Web")]]
 
 
-class SourceUserDocumentSource(TypedDict, total=False):
-    name: Required[str]
-
-    page: Required[int]
+class SourceDocumentPage(TypedDict, total=False):
+    document_page: Required[Annotated[Iterable[object], PropertyInfo(alias="DocumentPage")]]
 
 
-Source: TypeAlias = Union[SourceUserWebSource, SourceUserDocumentSource]
+class SourceSecFiling(TypedDict, total=False):
+    sec_filing: Required[Annotated[Iterable[object], PropertyInfo(alias="SecFiling")]]
+
+
+Source: TypeAlias = Union[Literal["None"], SourceWeb, SourceDocumentPage, SourceSecFiling]
