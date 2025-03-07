@@ -8,6 +8,7 @@ from .image import Image as Image
 from .table import Table as Table
 from .entity import Entity as Entity
 from .source import Source as Source
+from .strategy import Strategy as Strategy
 from .pdf_param import PdfParam as PdfParam
 from .user_info import UserInfo as UserInfo
 from .web_param import WebParam as WebParam
@@ -22,7 +23,7 @@ from .property_type import PropertyType as PropertyType
 from .tool_metadata import ToolMetadata as ToolMetadata
 from .execution_step import ExecutionStep as ExecutionStep
 from .matched_entity import MatchedEntity as MatchedEntity
-from .merge_strategy import MergeStrategy as MergeStrategy
+from .strategy_param import StrategyParam as StrategyParam
 from .token_response import TokenResponse as TokenResponse
 from .job_list_params import JobListParams as JobListParams
 from .knowledge_graph import KnowledgeGraph as KnowledgeGraph
@@ -61,7 +62,6 @@ from .entity_delete_params import EntityDeleteParams as EntityDeleteParams
 from .entity_search_params import EntitySearchParams as EntitySearchParams
 from .entity_verify_params import EntityVerifyParams as EntityVerifyParams
 from .entity_view_response import EntityViewResponse as EntityViewResponse
-from .merge_strategy_param import MergeStrategyParam as MergeStrategyParam
 from .plan_create_response import PlanCreateResponse as PlanCreateResponse
 from .report_step_response import ReportStepResponse as ReportStepResponse
 from .source_list_response import SourceListResponse as SourceListResponse

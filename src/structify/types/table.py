@@ -3,8 +3,8 @@
 from typing import List, Optional
 
 from .._models import BaseModel
+from .strategy import Strategy
 from .property_type import PropertyType
-from .merge_strategy import MergeStrategy
 
 __all__ = ["Table", "Property"]
 
@@ -14,7 +14,7 @@ class Property(BaseModel):
 
     name: str
 
-    merge_strategy: Optional[MergeStrategy] = None
+    merge_strategy: Optional[Strategy] = None
 
     prop_type: Optional[PropertyType] = None
 

@@ -6,8 +6,8 @@ from typing import Iterable, Optional
 from typing_extensions import Required, TypedDict
 
 from .table_param import TableParam
+from .strategy_param import StrategyParam
 from .property_type_param import PropertyTypeParam
-from .merge_strategy_param import MergeStrategyParam
 from .relationship_merge_strategy_param import RelationshipMergeStrategyParam
 
 __all__ = ["DatasetCreateParams", "Relationship", "RelationshipProperty"]
@@ -30,7 +30,7 @@ class RelationshipProperty(TypedDict, total=False):
 
     name: Required[str]
 
-    merge_strategy: MergeStrategyParam
+    merge_strategy: StrategyParam
 
     prop_type: PropertyTypeParam
 
