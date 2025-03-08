@@ -6,7 +6,7 @@ Structify allows you transform any information from document to web page into st
 .. code-block:: python
 
    # First, define the schema of your dataset using our Python Objects
-   tables = Table(
+   table = Table(
       name="person",
       description="an individual in my professional network",
       properties=[
@@ -19,14 +19,14 @@ Structify allows you transform any information from document to web page into st
    structify.datasets.create(
       name="my_network",
       description="A dataset of people in my professional network",
-      tables=[tables],
+      tables=[table],
       relationships = []
    )
 
    # Then, create an agent to index information from defined sources for your dataset
    structify.structure.run_async(
       name="my_network",
-      source={"web_search": {"starting_urls": ["linkedin.com"]}},
+      source=SourceWeb(web=SourceWebWeb(starting_urls=["linkedin.com"]))
    )
 
 
