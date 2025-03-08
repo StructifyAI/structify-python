@@ -45,15 +45,20 @@ Getting an API Key
 ------------------
 We are early, so it is important to us to develop a relationship with all our users. That said, the quickest way to secure an API key is to `email us <mailto:team@structify.ai>`_ with your name, email, and a brief description of your use case. We will send you back an API key and your account details.
 
-Alternatively, you can book a time for a detailed guided tour of our API and get an API key at the end of the session. Please find a time to meet via `our Calendly <https://calendly.com/ronakgandhi/structify-demo>`_.
+Alternatively, you can book a time for a detailed guided tour of our API and get an API key at the end of the session. Please find a time to meet `here <https://calendly.com/ronakgandhi/structify-demo>`_.
 
 Once you have your API key, you can use it to authenticate your requests to the Structify API. You can do this by setting the ``api_key`` attribute of the client object:
 
 .. code-block:: python
 
-   structify = Structify(api_key="your_api_key")"
+   structify = Structify(api_key="your_api_key")
 
-Our API recognizes two types of users: business and personal. Both have organizations and users underneath, for the case that you are letting users of your program make API calls through us. Every one of the endpoints is done through an authenticated personel.
+We recommend setting the ``api_key`` attribute of the client object as an environment variable:
+
+.. code-block:: bash
+
+   export STRUCTIFY_API_TOKEN="your_api_key"
+
 
 .. _create-your-first-dataset:
 
@@ -62,17 +67,19 @@ Create Your First Dataset
 You can create and fill a dataset with two quick successive API calls:
 
 #. Define a schema using ``structify.datasets.create``.
-#. Specify the source to populate the dataset from with ``structify.structure.run`` (or ``structify.structure.run_async``).
+#. Add some starting entities using ``structify.entities.add`` that we want to enrich.
+#. Specify the source to populate the dataset from with ``structify.structure.enhance_property`` and ``structify.structure.enhance_relationship``.
 
 Here's an example of how you would make an API call to create a dataset:
 
 .. code-block:: python
    
    from structify import Structify
-   from structify.types import Table, Property, Relationship
-   from structify.sources import Web
+   from structify.types import KnowledgeGraphParam, EntityParam
+   from structify.types.dataset_descriptor import Relationship
+   from structify.types.table import Table, Property
 
-   structify = Structify(api_key=os.environ["STRUCTIFY_API_TOKEN"])
+   structify = Structify()
 
    # Define a schema using our Python Objects, make sure to include descriptions for each of your tables, properties, and relationships
 
@@ -112,14 +119,26 @@ Here's an example of how you would make an API call to create a dataset:
       relationships=relationships
    )
 
-   # Specify the source to populate the dataset from the Source object and then populate the dataset with structify.structure.run_async
-   books_dataset = structify.structure.run_async(
-      dataset="books",
-      source=Web(starting_website="https://www.goodreads.com/")
-   )
+
+   # Add some initial authors to the dataset
+   for author in ["J.K. Rowling", "Stephen King", "Harper Lee"]:
+      structify.entities.add(
+         dataset="books",
+         kg=KnowledgeGraphParam(
+            entities=[EntityParam(id=0, type="author", properties={"name": author})]
+         )
+      )
+
+   # Now, use the enhance_property and enhance_relationship methods to populate the dataset
+   for author in structify.datasets.view_table(dataset="books", table="author"):
+      structify.structure.enhance_property(
+         entity_id=author.id,
+         property_name="genre",
+      )
+      structify.structure.enhance_relationship(
+         entity_id=author.id,
+         relationship_name="authored_by",
+      )
 
 
 With that, you are on your way to structifying your data.
-
-.. note::
-   We recommend users to asynchronously run agents to populate datasets. This is especially useful for large datasets that may take a long time to populate. You can use the ``structify.structure.run_async`` method to run an agent asynchronously.

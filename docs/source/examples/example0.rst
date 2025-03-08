@@ -9,14 +9,11 @@ First things first. We need a Structify dataset to store all this information. W
 
 .. code-block:: python
 
-    import os
-
     from structify import Structify
-    from structify.types import Table, Property, Relationship
-    from structify.sources import Web
-    from structify.extraction_criteria import RequiredEntity
+    from structify.types import Table, Property
+    from structify.types.dataset_descriptor import Relationship, RelationshipProperty
 
-    client = Structify(api_key=os.environ["STRUCTIFY_API_TOKEN"])
+    client = Structify()
 
     # Create the schema for the dataset using our Python Objects
     client.datasets.create(
@@ -28,7 +25,10 @@ First things first. We need a Structify dataset to store all this information. W
                 description="a list of clients who we cover",
                 properties=[
                     Property(name="name", description="The name of the client"),
-                    Property(name="bio", description="A one phrase description of the client")
+                    Property(name="bio", description="A one phrase description of the client"),
+                    Property(name="twitter_handle", description="The Twitter url of the client", prop_type="Url"),
+                    Property(name="age", description="The age of the client", prop_type="Integer"),
+                    Property(name="location", description="The location of where the client is based"),
                 ]
             )
             Table(
@@ -36,14 +36,16 @@ First things first. We need a Structify dataset to store all this information. W
                 description="news articles covering our clients",
                 properties=[
                     Property(name="title", description="The title of the article"),
-                    Property(name="outlet", description="The outlet that published the article")
+                    Property(name="outlet", description="The outlet that published the article"),
+                    Property(name="topic", description="The topic of the article", prop_type=Enum(Enum=["Sports", "Entertainment", "Politics", "Business", "Science", "Technology", "Other"])),
+                    Property(name="content_overview", description="A short overview of the content of the article")
                 ]
             ),
             Table(
                 name="social_media_noise",
                 description="social media posts about our clients",
                 properties=[
-                    Property(name="app", description="The social media app"),
+                    Property(name="app", description="The social media app", prop_type=Enum(Enum=["Twitter", "YouTube", "LinkedIn", "Reddit", "Other"])),
                     Property(name="handle", description="The handle of the post"),
                     Property(name="content", description="The content of the post")
                 ]
@@ -54,70 +56,89 @@ First things first. We need a Structify dataset to store all this information. W
                 name="covers",
                 description="The client covered in the article",
                 source_table="press",
-                target_table="client"
+                target_table="client",
+                properties=[
+                    RelationshipProperty(name="date", description="The date the article was published", prop_type="Date")
+                ]
             ),
             Relationship(
                 name="mentions",
                 description="The client mentioned in the social media post",
                 source_table="social_media_noise",
-                target_table="client"
+                target_table="client",
+                properties=[
+                    RelationshipProperty(name="date", description="The date the post was published", prop_type="Date")
+                ]
             )
         ]
     )
 
-Step 2: Grab Current Press & News
+Step 2: Add Entities to the Dataset
+-----------------------------------
+Now, we are going to add some entities to the dataset. We will start with the clients.
+
+.. code-block:: python
+
+    for celeb in ["LeBron James", "Taylor Swift", "Elon Musk"]:
+        client.entities.add(
+            dataset="client_press",
+            entity_graph={
+                "id": 0,
+                "type": "client",
+                "properties": {"name": celeb}
+            }
+        )
+
+Step 3: Grab Current Press & News
 ----------------------------------
-Now, we are going to use the Structify API to grab the latest press and news about our clients. We will use the `client.structure.run_async` endpoint to do this along with the ``RequiredEntity`` extraction criteria.
+Now, we are going to use the Structify Plans API to populate the dataset. Our strategy will be to:
+#. Find the twitter handle of the client
+#. Find the latest social media posts from the client
+#. Find the latest articles about the client
+
 
 .. code-block:: python
+    from structify.types.enhance_property_param import EnhancePropertyParam
+    from structify.types.enhance_relationship_param import EnhanceRelationshipParam
+    from structify.types.plan_param import PlanParam
 
-    # In creating agents to populate the dataset, we have to specify the dataset name and the source
-    james = client.structure.run_async(
-        dataset="client_press",
-        source=Web(starting_website="https://www.espn.com"),
-        extraction_criteria=[RequiredEntity(id=0)],
-        starting_entity={
-            "id": 0,
-            "type": "client",
-            "properties": {
-                "name": "LeBron James"
-            }
-        }
-    )
+    celebs = client.datasets.view_table(name="client", dataset="client_press")
+    for celeb in celebs:
+        steps = [
+            # First find the twitter handle
+            EnhancePropertyParam(
+                entity_id=celeb.id,
+                property_name="twitter_handle"
+            ),
+            # Find relationships in parallel
+            [
+                EnhanceRelationshipParam(
+                    entity_id=celeb.id,
+                    relationship_name="mentions",
+                    allow_extra_entities=True
+                ),
+                EnhanceRelationshipParam(
+                    entity_id=celeb.id,
+                    relationship_name="covers",
+                    allow_extra_entities=True
+                )
+            ]
+        ]
+        client.plans.create(dataset="client_press", plan=PlanParam(steps=steps))
 
-    musk = client.structure.run_async(
-        dataset="client_press",
-        source=Web(starting_website="https://www.newyorktimes.com"),
-        extraction_criteria=[RequiredEntity(id=0)],
-        starting_entity={
-            "id": 0,
-            "type": "client",
-            "properties": {
-                "name": "Elon Musk"
-            }
-        }
-    )
 
-    swift = client.structure.run_async(
-        dataset="client_press",
-        source=Web(starting_website="https://www.variety.com"),
-        extraction_criteria=[RequiredEntity(id=0)],
-        starting_entity={
-            "id": 0,
-            "type": "client",
-            "properties": {
-                "name": "Taylor Swift"
-            }
-        }
-    )
-
-Step 3: Wait for the Jobs to Finish Running
+Step 3: Wait for the Plans to Finish Running
 -------------------------------------------
-We can use the `job_status` endpoint to check if the jobs are still running. Then, we can use the `client.datasets.view` endpoint to view the dataset.
+We can use the `plan.list` endpoint to check if the plans are still running. Then, we can use the `client.entities.view` endpoint to view the dataset.
 
 .. code-block:: python
 
-    while any(status for status in client.structure.job_status(job=[james, musk, swift]) if status.job_status == "Running"):
-        time.sleep(10)
+    while True:
+        time.sleep(60)
+        plans = client.plan.list()
+        print(f"Checking if all of {len(plans)} plans are done")
+        if not any(plan.status == "Running" for plan in plans):
+            break
 
-    print(client.datasets.view(name="client_press"))
+    for celeb in celebs:
+        print(client.entities.view(entity_id=celeb.id, dataset="client_press"))
