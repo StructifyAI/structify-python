@@ -12,9 +12,9 @@ __all__ = ["EntityAddBatchParams", "Source", "SourceWeb", "SourceDocumentPage", 
 
 
 class EntityAddBatchParams(TypedDict, total=False):
-    dataset_name: Required[str]
+    dataset: Required[str]
 
-    kgs: Required[Iterable[KnowledgeGraphParam]]
+    entity_graphs: Required[Iterable[KnowledgeGraphParam]]
 
     attempt_merge: bool
     """If true, attempt to merge with existing entities in the dataset"""

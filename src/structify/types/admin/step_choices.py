@@ -4,7 +4,7 @@ from typing import Dict, List, Optional
 
 from ..._models import BaseModel
 from ..knowledge_graph import KnowledgeGraph
-from ..extraction_criteria import ExtractionCriteria
+from ..save_requirement import SaveRequirement
 
 __all__ = ["StepChoices", "StepOption"]
 
@@ -18,7 +18,7 @@ class StepOption(BaseModel):
 
 
 class StepChoices(BaseModel):
-    extraction_criteria: List[ExtractionCriteria]
+    extraction_criteria: List[SaveRequirement]
 
     job_id: str
 
