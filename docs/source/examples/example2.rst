@@ -126,6 +126,8 @@ Now that we have the dataset schema, we can populate the dataset with the inform
     import glob
 
     from structify.types.save_requirement import RequiredProperty
+    from structify.types.structure_run_async_params import SourcePdf, SourcePdfPdf
+
 
     # Get a list of all the file paths in the folder
     folder_path = '/path/to/your/structify/folder/'
@@ -136,7 +138,7 @@ Now that we have the dataset schema, we can populate the dataset with the inform
     for file_path in file_paths:
         job = client.structure.run_async(
             dataset="pitchdecks", 
-            source=PDF(path=file_path),
+            source=SourcePdf(pdf=SourcePdfPdf(path=file_path)),
             save_requirement=[RequiredProperty(table_name="Company", property_names=["name"])]
         )
         jobs.append(job)

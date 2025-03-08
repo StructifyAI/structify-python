@@ -82,10 +82,15 @@ This API endpoint allows the user to have more finetune control over the agent, 
 .. code-block:: python
 
     from structify.types.save_requirement import RequiredEntity, RequiredProperty, RequiredRelationship
+    from structify.types.structure_run_async_params import SourceWeb, SourceWebWeb
 
     job_id = client.structure.run_async(
         name="employees", 
-        source={"web_search": {"starting_urls": ["linkedin.com"]}},
+        source=SourceWeb(
+            SourceWebWeb(
+                starting_urls=["linkedin.com"]
+            )
+        ),
         save_requirement=[RequiredEntity(seeded_entity_id=0)],
     )
 
@@ -114,7 +119,11 @@ This save requirement does necessitate that you input the entity into the run or
 
     client.structure.run_async(
         name="employees", 
-        source={"web_search": {"starting_urls": ["linkedin.com"]}},
+        source=SourceWeb(
+            SourceWebWeb(
+                starting_urls=["linkedin.com"]
+            )
+        ),
         save_requirement=[RequiredEntity(seeded_entity_id=0)],
         seeded_entity=KnowledgeGraphParam(
             entities=[EntityParam(
@@ -139,7 +148,11 @@ In the case that you want to require that a certain property be present for a ta
 
     client.structure.run_async(
         name="employees", 
-        source={"web_search": {"starting_urls": ["linkedin.com"]}},
+        source=SourceWeb(
+            SourceWebWeb(
+                starting_urls=["linkedin.com"]
+            )
+        ),
         save_requirement=[RequiredProperty(table_name="job", property_names=["title", "company"])]
     )
 
@@ -152,8 +165,12 @@ In the case that you want to require that a certain relationship be present for 
 .. code-block:: python
 
     client.structure.run_async(
-        name="employees", 
-        source={"web_search": {"starting_urls": ["linkedin.com"]}},
+        name="employees",
+        source=SourceWeb(
+            SourceWebWeb(
+                starting_urls=["linkedin.com"]
+            )
+        ),
         save_requirement=[RequiredRelationship(relationship_name="worked_at")]
     )
 
@@ -178,7 +195,11 @@ Web
 
     client.structure.run_async(
         name="employees", 
-        source={"web_search": {"starting_urls": ["linkedin.com"]}},
+        source=SourceWeb(
+            SourceWebWeb(
+                starting_urls=["linkedin.com"]
+            )
+        ),
         save_requirement=[RequiredEntity(seeded_entity_id=0)],
         seeded_entity=KnowledgeGraphParam(
             entities=[EntityParam(
@@ -194,9 +215,11 @@ PDF
 
 .. code-block:: python
 
+    from structify.types.structure_run_async_params import SourcePdf, SourcePdfPdf
+
     client.structure.run_async(
         name="employees",
-        source={"pdf_ingestor": {"path": "path/to/pdf"}},
+        source=SourcePdf(pdf=SourcePdfPdf(path="path/to/pdf")),
         save_requirement=[RequiredRelationship(relationship_name="education")],
     )
 

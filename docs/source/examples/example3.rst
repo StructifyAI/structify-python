@@ -97,20 +97,21 @@ To limit the scope of the data, we will only pull restaurants in NYC.
 .. code-block:: python
 
     from structify.types.save_requirement import RequiredEntity, RequiredProperty
+    from structify.types.structure_run_async_params import SourceWeb, SourceWebWeb
 
     # Note how we manually specify the seeded entity. This is because we want to ensure that the restaurant entity is indeed based in NYC
     job = client.structure.run_async(
         dataset="restaurants_and_menus",
-        source={
-            "web_search": {
-                "starting_urls": [
+        source=SourceWeb(
+            SourceWebWeb(
+                starting_urls=[
                     "https://www.timeout.com/newyork/restaurants",
                     "https://www.tripadvisor.com/Restaurants-g60763-New_York_City_New_York.html",
                     "https://www.yelp.com/search?find_desc=Restaurants&find_loc=New+York%2C+NY&start=0",
                     "https://www.google.com/search?q=restaurants+in+nyc",
                 ],
-            },
-        },
+            ),
+        ),
         save_requirement=[
             RequiredProperty(property_names=["name"], table_name="restaurant"),
             RequiredEntity(seeded_kg_id=0)
