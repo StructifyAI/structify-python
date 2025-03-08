@@ -139,7 +139,7 @@ This save requirement does necessitate that you input the entity into the run or
     The ID you specify in the save requirement must match the id of the starting_entity.
 
 .. tip::
-    If the entity already exists in your dataset, you could set the save requirement to ``[{"RequiredEntity": {"seeded_kg_id": 0, "entity_id": entity.id}}]`` to ensure that the agent adds info to the existing entity.
+    If the entity already exists in your dataset, you could set the save requirement to ``[RequiredEntity(entity_id=entity.id)]`` to ensure that the agent adds info to the existing entity.
 
 **RequiredProperty**
 In the case that you want to require that a certain property be present for a table before extracting data, you can use the ``RequiredProperty`` save requirement.

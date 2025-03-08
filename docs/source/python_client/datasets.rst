@@ -84,6 +84,7 @@ And the output will echo back a representation of the schema you just created.
     
     We are working on ``client.datasets.modify`` to allow users to adjust the schema without deleting an existing dataset.
 
+
 Adding Typing to Your Schema
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 We allow users to add typing to the properties in the schemas that they define. We currently support the following types:
@@ -140,6 +141,116 @@ And note that you can also add properties to relationships as well.
             Property(name="salary", description="The annual salary of the job", prop_type="Money"),
         ]
     ),
+
+
+.. _merging:
+
+Merging & Entity Resolution
+--------------------------
+Structify, for its premium users, comes with a robust entity resolution system. When you define your schema, you can specify the ``merge_strategy`` for each property. The default merge strategy is ``"No Signal"``, which means that our API will not merge and deduplicate entities.
+
+There are three types of major merge strategies:
+
+- **Unique**: All entities that have this property value will be merged into a single entity.
+- **Probabilistic**: Using a probabilistic approach, we will merge entities based on the shared properties between them.
+- **Relationship Merging**: We will merge entities based on the relationships between them.
+
+
+Unique Merge Strategy
+~~~~~~~~~~~~~~~~~~~~
+This is the most straightforward merge strategy. If you set the merge strategy to ``"Unique"``, then all entities that have the same property value will be merged together. It effectively removes all duplicates from your dataset.
+You set this as part of the ``merge_strategy`` parameter in the ``Property`` object.
+
+.. code-block:: python
+
+    Property(
+        name="linkedin",
+        description="the LinkedIn URL of the employee",
+        prop_type="URL",
+        merge_strategy="Unique" # Since LinkedIn URLs have a 1:1 correspondence with people, we can use the Unique merge strategy
+    )
+
+
+Probabilistic Merge Strategy
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+This one is a more complex merge strategy that uses a probabilistic approach to merge entities. It is useful when you have a property that is not unique, but still can help inform if an entity from one source is the same as an entity from another source.
+Probabilistic merging depends on the concept of "cardinality", which is the number of expected entities that have a certain property value. When thinking of setting a probabilistic merging strategy for a table, you will have to think about the following and set the following parameters:
+
+#. The ``expected_cardinality`` parameter in the ``Table`` object, which refers to the number of expected entities of that type that exist in the world.
+#. The ``baseline_cardinality`` parameter for the ``Property`` object, which refers to the number of expected entities that have the same property value.
+#. The ``match_transfer_probability`` parameter for the ``Property`` object, which refers to the probability that an entity from one source is the same as an entity from another source given that they have the same property value.
+
+For example, if you are setting a person table of all the people in the US, you would set the ``expected_cardinality`` to the total population of the US. And for the ``baseline_cardinality`` parameter in the birthday property, you would set it to the number of people you expect to have the same birthday. And for the ``match_transfer_probability`` parameter, you would set it to the probability that two people have the same birthday.
+
+.. code-block:: python
+
+    from structify.types.strategy import Probabilistic, MergeConfig
+
+    Table(
+        name="person",
+        description="a person living in the United States",
+        expected_cardinality=330_000_000,
+        properties=[
+            Property(
+                name="name",
+                description="the first name of the person",
+                merge_strategy=Probabilistic(Probabilistic=MergeConfig(
+                    baseline_cardinality=25_000,
+                    match_transfer_probability=0.001,
+                ))
+            ),
+            Property(
+                name="last_name",
+                description="the last name of the person",
+                merge_strategy=Probabilistic(Probabilistic=MergeConfig(
+                    baseline_cardinality=10_000,
+                    match_transfer_probability=0.01,
+                ))
+            ),
+            Property(
+                name="email",
+                description="the email of the person",
+                prop_type="String",
+                merge_strategy="Unique"
+            ),
+            Property(
+                name="birthday",
+                description="the birthday of the person",
+                prop_type="Date",
+                merge_strategy=Probabilistic(Probabilistic=MergeConfig(
+                    baseline_cardinality=365,
+                    match_transfer_probability=0.00001,
+                ))
+            )
+        ]
+    )
+
+
+Relationship Merging
+~~~~~~~~~~~~~~~~~~~~~
+When you specify a relationship between two tables, you can specify the ``merge_strategy`` for the relationship which defines how we will consider sharing endpoints to a common entity via a relationship in the merging process.
+
+For this you need to specify the following parameters:
+
+#. The ``source_cardinality_given_target_match`` parameter, which refers to the number of expected entities of unique endpoints of any given target table.
+#. The ``target_cardinality_given_target_mismatch`` parameter, which refers to the reverse (i.e. the number of expected entities of unique endpoints of any given source table).
+
+Here is an example of how you can specify a relationship merging strategy:
+
+.. code-block:: python
+
+    from structify.types.strategy import RelationshipMergeStrategy
+
+    Relationship(
+        name="worked",
+        description="connects the employee to their job history",
+        source_table="employee",
+        target_table="job",
+        merge_strategy=RelationshipMergeStrategy(
+            source_cardinality_given_target_match=100, # We expect around 100 employees per company
+            target_cardinality_given_source_match=5, # We expect around 5 jobs worked over a career
+        ),
+    )
 
 
 Helpful Dataset Functionality
