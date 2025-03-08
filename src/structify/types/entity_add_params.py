@@ -12,9 +12,9 @@ __all__ = ["EntityAddParams", "Source", "SourceWeb", "SourceDocumentPage", "Sour
 
 
 class EntityAddParams(TypedDict, total=False):
-    dataset_name: Required[str]
+    dataset: Required[str]
 
-    kg: Required[KnowledgeGraphParam]
+    entity_graph: Required[KnowledgeGraphParam]
     """
     Knowledge graph info structured to deserialize and display in the same format
     that the LLM outputs. Also the first representation of an LLM output in the
