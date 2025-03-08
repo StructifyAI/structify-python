@@ -7,7 +7,7 @@ from typing_extensions import Required, Annotated, TypeAlias, TypedDict
 
 from ..._utils import PropertyInfo
 from ..knowledge_graph_param import KnowledgeGraphParam
-from ..save_requirement_param import SaveRequirementParam
+from ..extraction_criteria_param import ExtractionCriteriaParam
 
 __all__ = [
     "NextActionAddTrainingDatumParams",
@@ -44,7 +44,7 @@ class InputAllStep(TypedDict, total=False):
 class Input(TypedDict, total=False):
     all_steps: Required[Iterable[InputAllStep]]
 
-    extraction_criteria: Required[Iterable[SaveRequirementParam]]
+    extraction_criteria: Required[Iterable[ExtractionCriteriaParam]]
 
     previous_queries: Required[List[str]]
 
