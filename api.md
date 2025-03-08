@@ -346,7 +346,6 @@ Types:
 from structify.types import (
     ChatPrompt,
     ExecutionStep,
-    ExtractionCriteria,
     ToolMetadata,
     StructureEnhancePropertyResponse,
     StructureEnhanceRelationshipResponse,
