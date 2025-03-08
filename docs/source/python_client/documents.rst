@@ -59,11 +59,11 @@ Creating datasets from documents is quite simple. You just use ``client.structur
 
 .. code-block:: python
 
-    from structify.sources import DocumentImage
+    from structify.types.structure_run_async_params import SourcePdf, SourcePdfPdf
 
     client.structure.run_async(
         name="startups", 
-        structure_input={"pdf_ingestor": {"path": ["/path/to/your/document.pdf"]}},
+        source=SourcePdf(pdf=SourcePdfPdf(path="/path/to/your/document.pdf")),
     )
 
 And just like that you've created a dataset from your documents. 
