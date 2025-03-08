@@ -35,5 +35,5 @@ Resources
 ---------
 * View the `current API Status <https://structify.statuspage.io/>`_.
 * `Email us <mailto:team@structify.ai>`_ with any questions or comments.
-* Join our developer community on `Discord <https://discord.gg/tqxmr2Mj>`_.
+* Follow us on `Twitter <https://x.com/StructifyAI>`_ to get the latest updates.
 * Read our `blog <https://structify.ai/blog>`_ for the latest.
