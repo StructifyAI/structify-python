@@ -8,6 +8,6 @@ __all__ = ["EntityDeleteParams"]
 
 
 class EntityDeleteParams(TypedDict, total=False):
-    dataset_name: Required[str]
+    dataset: Required[str]
 
     entity_id: Required[str]

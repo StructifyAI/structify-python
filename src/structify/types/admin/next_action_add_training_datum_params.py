@@ -7,12 +7,15 @@ from typing_extensions import Required, Annotated, TypeAlias, TypedDict
 
 from ..._utils import PropertyInfo
 from ..knowledge_graph_param import KnowledgeGraphParam
-from ..extraction_criteria_param import ExtractionCriteriaParam
 
 __all__ = [
     "NextActionAddTrainingDatumParams",
     "Input",
     "InputAllStep",
+    "InputExtractionCriterion",
+    "InputExtractionCriterionRequiredRelationship",
+    "InputExtractionCriterionRequiredEntity",
+    "InputExtractionCriterionRequiredProperty",
     "Output",
     "OutputSelectedStep",
     "OutputSelectedStepSelectedStep",
@@ -41,10 +44,39 @@ class InputAllStep(TypedDict, total=False):
     metadata: Dict[str, str]
 
 
+class InputExtractionCriterionRequiredRelationship(TypedDict, total=False):
+    relationship_name: Required[str]
+
+
+class InputExtractionCriterionRequiredEntity(TypedDict, total=False):
+    seeded_entity_id: Required[int]
+    """
+    The integer id corresponding to an entity in the seeded entity graph (different
+    from the global dataset entity id)
+    """
+
+    entity_id: Optional[str]
+
+
+class InputExtractionCriterionRequiredProperty(TypedDict, total=False):
+    property_names: Required[List[str]]
+    """If there are multiple properties, it can match just one of them"""
+
+    table_name: Required[str]
+    """The table name of the entity to update"""
+
+
+InputExtractionCriterion: TypeAlias = Union[
+    InputExtractionCriterionRequiredRelationship,
+    InputExtractionCriterionRequiredEntity,
+    InputExtractionCriterionRequiredProperty,
+]
+
+
 class Input(TypedDict, total=False):
     all_steps: Required[Iterable[InputAllStep]]
 
-    extraction_criteria: Required[Iterable[ExtractionCriteriaParam]]
+    extraction_criteria: Required[Iterable[InputExtractionCriterion]]
 
     previous_queries: Required[List[str]]
 
