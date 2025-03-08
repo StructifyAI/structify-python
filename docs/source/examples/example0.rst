@@ -9,13 +9,11 @@ First things first. We need a Structify dataset to store all this information. W
 
 .. code-block:: python
 
-    import os
-
     from structify import Structify
     from structify.types import Table, Property
     from structify.types.dataset_descriptor import Relationship, RelationshipProperty
 
-    client = Structify(api_key=os.environ["STRUCTIFY_API_TOKEN"])
+    client = Structify()
 
     # Create the schema for the dataset using our Python Objects
     client.datasets.create(

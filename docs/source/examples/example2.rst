@@ -72,7 +72,13 @@ Next, we have to blueprint the schema of the dataset that we are interested in c
                 properties = [
                     Property(name="amount", description="The amount of the funding round", prop_type="Money"),
                     Property(name="date_announced", description="The date the funding round was announced", prop_type="Date"),
-                    Property(name="round_type", description="The type of funding round", prop_type=Enum(Enum=["Seed", "Series A", "Series B", "Series C", "Series D", "Series E", "Series F", "Series G", "Series H"]))
+                    Property(
+                        name="round_type",
+                        description="The type of funding round",
+                        prop_type=Enum(
+                            Enum=["Seed", "Series A", "Series B", "Series C", "Series D", "Series E", "Series F", "Series G", "Series H"]
+                        )
+                    )
                 ]
             ),
             Table(
@@ -129,7 +135,7 @@ Now that we have the dataset schema, we can populate the dataset with the inform
         job = client.structure.run_async(
             dataset="pitchdecks", 
             source=PDF(path=file_path),
-            extraction_criteria=[{"GenericProperty": {"table_name": "Company", "property_names": ["name"]}}]
+            save_requirement=[{"RequiredProperty": {"table_name": "Company", "property_names": ["name"]}}]
         )
         jobs.append(job)
 

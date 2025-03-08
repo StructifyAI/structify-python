@@ -99,7 +99,7 @@ To limit the scope of the data, we will only pull restaurants in NYC.
     # Note how we manually specify the seeded entity. This is because we want to ensure that the restaurant entity is indeed based in NYC
     job = client.structure.run_async(
         dataset="restaurants_and_menus",
-        structure_input={
+        source={
             "web_search": {
                 "starting_urls": [
                     "https://www.timeout.com/newyork/restaurants",
@@ -109,9 +109,9 @@ To limit the scope of the data, we will only pull restaurants in NYC.
                 ],
             },
         },
-        extraction_criteria=[
-            {"GenericProperty": {"property_names": ["name"], "table_name": "restaurant"}},
-            {"EntityExtraction": {"seeded_kg_id": 0}}
+        save_requirement=[
+            {"RequiredProperty": {"property_names": ["name"], "table_name": "restaurant"}},
+            {"RequiredEntity": {"seeded_kg_id": 0}}
         ],
         seeded_entity={
             "entities": [

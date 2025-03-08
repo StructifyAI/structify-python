@@ -75,7 +75,7 @@ The ``client.structure.run_async`` API call takes the following arguments:
 
 - **name:** *(required)* The name of the dataset you want to populate
 - **source:** *(required)* The source you want the agent to use to extract data from. More on this in :ref:`source-types`
-- **extraction_criteria:** *(required)* The criteria you want the agent to use to extract data from the source. More on this in :ref:`extraction-criteria`
+- **save_requirement:** *(required)* The criteria you want the agent to use to extract data from the source. More on this in :ref:`save-requirement`
 
 This API endpoint allows the user to have more finetune control over the agent, and allows them to specify the sources and criteria for the agent to extract data from the source.
 
@@ -83,8 +83,8 @@ This API endpoint allows the user to have more finetune control over the agent, 
 
     job_id = client.structure.run_async(
         name="employees", 
-        structure_input={"web_search": {"starting_urls": ["linkedin.com"]}},
-        extraction_criteria=[RequiredEntity(id=0)],
+        source={"web_search": {"starting_urls": ["linkedin.com"]}},
+        save_requirement=[RequiredEntity(id=0)],
     )
 
     client.structure.job_status(job=[job_id])
@@ -93,25 +93,25 @@ This API endpoint allows the user to have more finetune control over the agent, 
     The output of ``client.structure.run_async`` will be a Job ID that you can use to access the run and view its status via ``client.structure.job_status``.
 
 
-.. _extraction-criteria:
+.. _save-requirement:
 
-Extraction Criteria
+Save Requirements
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Extraction Criteria is a way to specify what you want the agent to extract from the source. 
+Save Requirements are a way to specify what you want the agent to extract from the source. 
 It provides our agents with guidance as to the specific entities, properties, or relationships that need to appear for it to extract data to populate your dataset.
 If not specified, the default value will be an empty list, meaning the agent will extract any data from the provided source that is present in the schema.
-There are three types of extraction criteria that you can specify:
+There are three types of save requirements that you can specify:
 
-**EntityExtraction**
+**RequiredEntity**
 In the case that you want to get data about a specific entity, you can specify the entity you want to extract.
-This extraction criteria does necessitate that you input the entity into the run or run_async call as follows:
+This save requirement does necessitate that you input the entity into the run or run_async call as follows:
 
 .. code-block:: python
 
     client.structure.run_async(
         name="employees", 
-        structure_input={"web_search": {"starting_urls": ["linkedin.com"]}},
-        extraction_criteria=[{"EntityExtraction": {"seeded_kg_id": 0}}],
+        source={"web_search": {"starting_urls": ["linkedin.com"]}},
+        save_requirement=[{"RequiredEntity": {"seeded_kg_id": 0}}],
         seeded_entity={
             "id": 0,
             "type": "employee",
@@ -122,37 +122,37 @@ This extraction criteria does necessitate that you input the entity into the run
     )
     
 .. note::
-    The ID you specify in the extraction criteria must match the id of the starting_entity.
+    The ID you specify in the save requirement must match the id of the starting_entity.
 
 .. tip::
-    If the entity already exists in your dataset, you could set the extraction criteria to ``[{"EntityExtraction": {"seeded_kg_id": 0, "dataset_entity_id": entity.id}}]`` to ensure that the agent adds info to the existing entity.
+    If the entity already exists in your dataset, you could set the save requirement to ``[{"RequiredEntity": {"seeded_kg_id": 0, "entity_id": entity.id}}]`` to ensure that the agent adds info to the existing entity.
 
-**GenericProperty**
-In the case that you want to require that a certain property be present for a table before extracting data, you can use the required property extraction criteria.
+**RequiredProperty**
+In the case that you want to require that a certain property be present for a table before extracting data, you can use the ``RequiredProperty`` save requirement.
 
 .. code-block:: python
 
     client.structure.run_async(
         name="employees", 
-        structure_input={"web_search": {"starting_urls": ["linkedin.com"]}},
-        extraction_criteria=[{"GenericProperty": {"table_name": "job", "property_names": ["title", "company"]}}]
+        source={"web_search": {"starting_urls": ["linkedin.com"]}},
+        save_requirement=[{"RequiredProperty": {"table_name": "job", "property_names": ["title", "company"]}}]
     )
 
 .. note::
     The agent will extract data if at least one of the specified properties are present.
 
-**RelationshipExtraction**
-In the case that you want to require that a certain relationship be present for a table before extracting data, you can use the required relationship extraction criteria.
+**RequiredRelationship**
+In the case that you want to require that a certain relationship be present for a table before extracting data, you can use the ``RequiredRelationship`` save requirement.
 
 .. code-block:: python
 
     client.structure.run_async(
         name="employees", 
-        structure_input={"web_search": {"starting_urls": ["linkedin.com"]}},
-        extraction_criteria=[{"RelationshipExtraction": {"relationship_name": "worked_at"}}]
+        source={"web_search": {"starting_urls": ["linkedin.com"]}},
+        save_requirement=[{"RequiredRelationship": {"relationship_name": "worked_at"}}]
     )
 
-You can input multiple extraction criteria to ensure a set of conditions are met before saving data.
+You can input multiple save requirement to ensure a set of conditions are met before saving data.
 
 .. _source-types:
 
@@ -173,8 +173,8 @@ Web
 
     client.structure.run_async(
         name="employees", 
-        structure_input={"web_search": {"starting_urls": ["linkedin.com"]}},
-        extraction_criteria=[{"EntityExtraction": {"seeded_kg_id": 0}}],
+        source={"web_search": {"starting_urls": ["linkedin.com"]}},
+        save_requirement=[{"RequiredEntity": {"seeded_kg_id": 0}}],
         seeded_entity={
             "id": 0,
             "type": "employee",
@@ -190,8 +190,8 @@ PDF
 
     client.structure.run_async(
         name="employees",
-        structure_input={"pdf_ingestor": {"path": "path/to/pdf"}},
-        extraction_criteria=[{"RelationshipExtraction": {"relationship_name": "education"}}],
+        source={"pdf_ingestor": {"path": "path/to/pdf"}},
+        save_requirement=[{"RequiredRelationship": {"relationship_name": "education"}}],
     )
 
 .. note::

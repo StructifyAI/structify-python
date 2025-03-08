@@ -26,7 +26,7 @@ Structify allows you transform any information from document to web page into st
    # Then, create an agent to index information from defined sources for your dataset
    structify.structure.run_async(
       name="my_network",
-      structure_input={"web_search": {"starting_urls": ["linkedin.com"]}},
+      source={"web_search": {"starting_urls": ["linkedin.com"]}},
    )
 
 

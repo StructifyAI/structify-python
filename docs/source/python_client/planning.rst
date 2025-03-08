@@ -46,7 +46,7 @@ To create a new plan:
     ]
 
     # Create the plan
-    plan_id = structify.plan.create(
+    plan_id = client.plan.create(
         dataset="companies",
         plan=PlanParam(steps=steps)
     )
@@ -57,7 +57,7 @@ List all your plans:
 
 .. code-block:: python
 
-    plans = structify.plan.list()
+    plans = client.plan.list()
     for plan in plans:
         print(f"Plan {plan.id}: {plan.status}")
 
@@ -65,7 +65,7 @@ Pause all running plans for a dataset:
 
 .. code-block:: python
 
-    response = structify.plan.pause_all(
+    response = client.plan.pause_all(
         dataset_name="companies"
     )
     print(f"Paused {response.paused_count} plans")
@@ -74,7 +74,7 @@ Resume all paused plans:
 
 .. code-block:: python
 
-    response = structify.plan.resume_all(
+    response = client.plan.resume_all(
         dataset_name="companies"
     )
     print(f"Resumed {response.resumed_count} plans")
