@@ -96,7 +96,7 @@ class TestEntities:
                 ],
             },
             attempt_merge=True,
-            source="string",
+            source="None",
         )
         assert_matches_type(EntityAddResponse, entity, path=["response"])
 
@@ -158,7 +158,7 @@ class TestEntities:
                 }
             ],
             attempt_merge=True,
-            source="string",
+            source="None",
         )
         assert_matches_type(EntityAddBatchResponse, entity, path=["response"])
 
@@ -501,7 +501,7 @@ class TestEntities:
             dataset="dataset",
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             properties={"foo": "string"},
-            source="string",
+            source="None",
         )
         assert_matches_type(EntityUpdatePropertyResponse, entity, path=["response"])
 
@@ -699,7 +699,7 @@ class TestAsyncEntities:
                 ],
             },
             attempt_merge=True,
-            source="string",
+            source="None",
         )
         assert_matches_type(EntityAddResponse, entity, path=["response"])
 
@@ -761,7 +761,7 @@ class TestAsyncEntities:
                 }
             ],
             attempt_merge=True,
-            source="string",
+            source="None",
         )
         assert_matches_type(EntityAddBatchResponse, entity, path=["response"])
 
@@ -1104,7 +1104,7 @@ class TestAsyncEntities:
             dataset="dataset",
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             properties={"foo": "string"},
-            source="string",
+            source="None",
         )
         assert_matches_type(EntityUpdatePropertyResponse, entity, path=["response"])
 
