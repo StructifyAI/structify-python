@@ -2,13 +2,49 @@
 
 from __future__ import annotations
 
-from typing import Iterable, Optional
-from typing_extensions import Required, TypedDict
+from typing import Union, Iterable, Optional
+from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
-from .strategy_param import StrategyParam
+from .._utils import PropertyInfo
 from .property_type_param import PropertyTypeParam
 
-__all__ = ["TableParam", "Property"]
+__all__ = [
+    "TableParam",
+    "Property",
+    "PropertyMergeStrategy",
+    "PropertyMergeStrategyProbabilistic",
+    "PropertyMergeStrategyProbabilisticProbabilistic",
+]
+
+
+class PropertyMergeStrategyProbabilisticProbabilistic(TypedDict, total=False):
+    baseline_cardinality: Required[int]
+    """
+    The number of unique values that are expected to be present in the complete
+    dataset
+
+    This is used for merging to determine how significant a match is. (i.e. if there
+    are only 2 possible values, a match gives less confidence than if there are 100)
+    """
+
+    match_transfer_probability: Required[float]
+    """The estimated probability that, given an entity match, the properties also match
+
+    For a person's full name, this would be quite high. For a person's job title, it
+    would be lower because people can have multiple job titles over time or at
+    different companies at the same time.
+    """
+
+    comparison_strategy: Literal["Default", "EnforceUniqueness"]
+
+
+class PropertyMergeStrategyProbabilistic(TypedDict, total=False):
+    probabilistic: Required[
+        Annotated[PropertyMergeStrategyProbabilisticProbabilistic, PropertyInfo(alias="Probabilistic")]
+    ]
+
+
+PropertyMergeStrategy: TypeAlias = Union[Literal["Unique", "NoSignal"], PropertyMergeStrategyProbabilistic]
 
 
 class Property(TypedDict, total=False):
@@ -16,7 +52,7 @@ class Property(TypedDict, total=False):
 
     name: Required[str]
 
-    merge_strategy: StrategyParam
+    merge_strategy: PropertyMergeStrategy
 
     prop_type: PropertyTypeParam
 
