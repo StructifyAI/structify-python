@@ -125,6 +125,8 @@ Now that we have the dataset schema, we can populate the dataset with the inform
 
     import glob
 
+    from structify.types.save_requirement import RequiredProperty
+
     # Get a list of all the file paths in the folder
     folder_path = '/path/to/your/structify/folder/'
     file_paths = glob.glob(folder_path + '*')
@@ -135,7 +137,7 @@ Now that we have the dataset schema, we can populate the dataset with the inform
         job = client.structure.run_async(
             dataset="pitchdecks", 
             source=PDF(path=file_path),
-            save_requirement=[{"RequiredProperty": {"table_name": "Company", "property_names": ["name"]}}]
+            save_requirement=[RequiredProperty(table_name="Company", property_names=["name"])]
         )
         jobs.append(job)
 

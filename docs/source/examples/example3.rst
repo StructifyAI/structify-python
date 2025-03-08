@@ -96,6 +96,8 @@ To limit the scope of the data, we will only pull restaurants in NYC.
 
 .. code-block:: python
 
+    from structify.types.save_requirement import RequiredEntity, RequiredProperty
+
     # Note how we manually specify the seeded entity. This is because we want to ensure that the restaurant entity is indeed based in NYC
     job = client.structure.run_async(
         dataset="restaurants_and_menus",
@@ -110,8 +112,8 @@ To limit the scope of the data, we will only pull restaurants in NYC.
             },
         },
         save_requirement=[
-            {"RequiredProperty": {"property_names": ["name"], "table_name": "restaurant"}},
-            {"RequiredEntity": {"seeded_kg_id": 0}}
+            RequiredProperty(property_names=["name"], table_name="restaurant"),
+            RequiredEntity(seeded_kg_id=0)
         ],
         seeded_entity={
             "entities": [

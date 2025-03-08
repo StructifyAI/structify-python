@@ -268,4 +268,3 @@ Now, let's view the dataset to see what parts we sourced from each manufacturer.
             for relationship in relationship_dict[manufacturer.id]:
                 part = parts_dict[relationship.from_id]
                 print(f"{part.properties[SKU_NAME]}: {part.properties[DESCRIPTION_NAME]}")
-

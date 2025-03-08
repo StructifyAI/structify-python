@@ -81,10 +81,12 @@ This API endpoint allows the user to have more finetune control over the agent, 
 
 .. code-block:: python
 
+    from structify.types.save_requirement import RequiredEntity, RequiredProperty, RequiredRelationship
+
     job_id = client.structure.run_async(
         name="employees", 
         source={"web_search": {"starting_urls": ["linkedin.com"]}},
-        save_requirement=[RequiredEntity(id=0)],
+        save_requirement=[RequiredEntity(seeded_entity_id=0)],
     )
 
     client.structure.job_status(job=[job_id])
@@ -108,17 +110,20 @@ This save requirement does necessitate that you input the entity into the run or
 
 .. code-block:: python
 
+    from structify.types import KnowledgeGraphParam, EntityParam
+
     client.structure.run_async(
         name="employees", 
         source={"web_search": {"starting_urls": ["linkedin.com"]}},
-        save_requirement=[{"RequiredEntity": {"seeded_kg_id": 0}}],
-        seeded_entity={
-            "id": 0,
-            "type": "employee",
-            "properties": {
-                "name": "Jane Doe"
-            }
-        }
+        save_requirement=[RequiredEntity(seeded_entity_id=0)],
+        seeded_entity=KnowledgeGraphParam(
+            entities=[EntityParam(
+                id=0,
+                type="employee",
+                properties={"name": "Jane Doe"}
+            )],
+            relationships=[]
+        )
     )
     
 .. note::
@@ -135,7 +140,7 @@ In the case that you want to require that a certain property be present for a ta
     client.structure.run_async(
         name="employees", 
         source={"web_search": {"starting_urls": ["linkedin.com"]}},
-        save_requirement=[{"RequiredProperty": {"table_name": "job", "property_names": ["title", "company"]}}]
+        save_requirement=[RequiredProperty(table_name="job", property_names=["title", "company"])]
     )
 
 .. note::
@@ -149,7 +154,7 @@ In the case that you want to require that a certain relationship be present for 
     client.structure.run_async(
         name="employees", 
         source={"web_search": {"starting_urls": ["linkedin.com"]}},
-        save_requirement=[{"RequiredRelationship": {"relationship_name": "worked_at"}}]
+        save_requirement=[RequiredRelationship(relationship_name="worked_at")]
     )
 
 You can input multiple save requirement to ensure a set of conditions are met before saving data.
@@ -174,14 +179,15 @@ Web
     client.structure.run_async(
         name="employees", 
         source={"web_search": {"starting_urls": ["linkedin.com"]}},
-        save_requirement=[{"RequiredEntity": {"seeded_kg_id": 0}}],
-        seeded_entity={
-            "id": 0,
-            "type": "employee",
-            "properties": {
-                "name": "Jane Doe"
-            }
-        }
+        save_requirement=[RequiredEntity(seeded_entity_id=0)],
+        seeded_entity=KnowledgeGraphParam(
+            entities=[EntityParam(
+                id=0,
+                type="employee",
+                properties={"name": "Jane Doe"}
+            )],
+            relationships=[]
+        )
     )
 PDF
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -191,7 +197,7 @@ PDF
     client.structure.run_async(
         name="employees",
         source={"pdf_ingestor": {"path": "path/to/pdf"}},
-        save_requirement=[{"RequiredRelationship": {"relationship_name": "education"}}],
+        save_requirement=[RequiredRelationship(relationship_name="education")],
     )
 
 .. note::
