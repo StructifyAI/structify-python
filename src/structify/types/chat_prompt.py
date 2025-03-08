@@ -8,8 +8,8 @@ from pydantic import Field as FieldInfo
 from .._models import BaseModel
 from .tool_metadata import ToolMetadata
 from .knowledge_graph import KnowledgeGraph
+from .save_requirement import SaveRequirement
 from .dataset_descriptor import DatasetDescriptor
-from .extraction_criteria import ExtractionCriteria
 
 __all__ = [
     "ChatPrompt",
@@ -219,7 +219,7 @@ class Metadata(BaseModel):
 
     extracted_entities: List[KnowledgeGraph]
 
-    extraction_criteria: List[ExtractionCriteria]
+    extraction_criteria: List[SaveRequirement]
 
     formatter_specific: MetadataFormatterSpecific
 

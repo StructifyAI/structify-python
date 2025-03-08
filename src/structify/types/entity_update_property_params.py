@@ -12,7 +12,7 @@ __all__ = ["EntityUpdatePropertyParams", "Properties", "Source", "SourceWeb", "S
 
 
 class EntityUpdatePropertyParams(TypedDict, total=False):
-    dataset_name: Required[str]
+    dataset: Required[str]
 
     entity_id: Required[str]
 
