@@ -7,26 +7,22 @@ from .image import Image as Image
 from .table import Table as Table
 from .entity import Entity as Entity
 from .source import Source as Source
-from .strategy import Strategy as Strategy
 from .user_info import UserInfo as UserInfo
 from .plan_param import PlanParam as PlanParam
 from .chat_prompt import ChatPrompt as ChatPrompt
 from .image_param import ImageParam as ImageParam
 from .table_param import TableParam as TableParam
 from .entity_param import EntityParam as EntityParam
-from .merge_config import MergeConfig as MergeConfig
 from .relationship import Relationship as Relationship
 from .property_type import PropertyType as PropertyType
 from .tool_metadata import ToolMetadata as ToolMetadata
 from .execution_step import ExecutionStep as ExecutionStep
 from .matched_entity import MatchedEntity as MatchedEntity
-from .strategy_param import StrategyParam as StrategyParam
 from .token_response import TokenResponse as TokenResponse
 from .job_list_params import JobListParams as JobListParams
 from .knowledge_graph import KnowledgeGraph as KnowledgeGraph
 from .enhance_property import EnhanceProperty as EnhanceProperty
 from .job_get_response import JobGetResponse as JobGetResponse
-from .save_requirement import SaveRequirement as SaveRequirement
 from .entity_add_params import EntityAddParams as EntityAddParams
 from .entity_get_params import EntityGetParams as EntityGetParams
 from .find_relationship import FindRelationship as FindRelationship
@@ -36,7 +32,6 @@ from .dataset_descriptor import DatasetDescriptor as DatasetDescriptor
 from .dataset_get_params import DatasetGetParams as DatasetGetParams
 from .entity_view_params import EntityViewParams as EntityViewParams
 from .image_get_response import ImageGetResponse as ImageGetResponse
-from .merge_config_param import MergeConfigParam as MergeConfigParam
 from .plan_create_params import PlanCreateParams as PlanCreateParams
 from .plan_list_response import PlanListResponse as PlanListResponse
 from .relationship_param import RelationshipParam as RelationshipParam
@@ -46,6 +41,7 @@ from .source_list_params import SourceListParams as SourceListParams
 from .entity_add_response import EntityAddResponse as EntityAddResponse
 from .entity_get_response import EntityGetResponse as EntityGetResponse
 from .entity_merge_params import EntityMergeParams as EntityMergeParams
+from .extraction_criteria import ExtractionCriteria as ExtractionCriteria
 from .job_cancel_response import JobCancelResponse as JobCancelResponse
 from .job_delete_response import JobDeleteResponse as JobDeleteResponse
 from .property_type_param import PropertyTypeParam as PropertyTypeParam
@@ -79,7 +75,6 @@ from .entity_delete_response import EntityDeleteResponse as EntityDeleteResponse
 from .entity_search_response import EntitySearchResponse as EntitySearchResponse
 from .job_get_steps_response import JobGetStepsResponse as JobGetStepsResponse
 from .plan_resume_all_params import PlanResumeAllParams as PlanResumeAllParams
-from .save_requirement_param import SaveRequirementParam as SaveRequirementParam
 from .entity_add_batch_params import EntityAddBatchParams as EntityAddBatchParams
 from .entity_list_jobs_params import EntityListJobsParams as EntityListJobsParams
 from .entity_summarize_params import EntitySummarizeParams as EntitySummarizeParams
@@ -92,6 +87,7 @@ from .dataset_view_table_params import DatasetViewTableParams as DatasetViewTabl
 from .entity_add_batch_response import EntityAddBatchResponse as EntityAddBatchResponse
 from .entity_list_jobs_response import EntityListJobsResponse as EntityListJobsResponse
 from .entity_summarize_response import EntitySummarizeResponse as EntitySummarizeResponse
+from .extraction_criteria_param import ExtractionCriteriaParam as ExtractionCriteriaParam
 from .document_download_response import DocumentDownloadResponse as DocumentDownloadResponse
 from .enhance_relationship_param import EnhanceRelationshipParam as EnhanceRelationshipParam
 from .report_relationship_params import ReportRelationshipParams as ReportRelationshipParams
@@ -100,7 +96,6 @@ from .user_transactions_response import UserTransactionsResponse as UserTransact
 from .dataset_view_table_response import DatasetViewTableResponse as DatasetViewTableResponse
 from .entity_trigger_merge_params import EntityTriggerMergeParams as EntityTriggerMergeParams
 from .job_get_step_graph_response import JobGetStepGraphResponse as JobGetStepGraphResponse
-from .relationship_merge_strategy import RelationshipMergeStrategy as RelationshipMergeStrategy
 from .structure_job_status_params import StructureJobStatusParams as StructureJobStatusParams
 from .report_relationship_response import ReportRelationshipResponse as ReportRelationshipResponse
 from .structure_is_complete_params import StructureIsCompleteParams as StructureIsCompleteParams
@@ -113,7 +108,6 @@ from .entity_update_property_response import EntityUpdatePropertyResponse as Ent
 from .entity_get_local_subgraph_params import EntityGetLocalSubgraphParams as EntityGetLocalSubgraphParams
 from .dataset_view_relationships_params import DatasetViewRelationshipsParams as DatasetViewRelationshipsParams
 from .entity_get_source_entities_params import EntityGetSourceEntitiesParams as EntityGetSourceEntitiesParams
-from .relationship_merge_strategy_param import RelationshipMergeStrategyParam as RelationshipMergeStrategyParam
 from .structure_enhance_property_params import StructureEnhancePropertyParams as StructureEnhancePropertyParams
 from .entity_get_local_subgraph_response import EntityGetLocalSubgraphResponse as EntityGetLocalSubgraphResponse
 from .structure_find_relationship_params import StructureFindRelationshipParams as StructureFindRelationshipParams

@@ -34,7 +34,7 @@ class TestJobs:
     @parametrize
     def test_method_list_with_all_params(self, client: Structify) -> None:
         job = client.jobs.list(
-            dataset="dataset",
+            dataset_name="dataset_name",
             limit=0,
             offset=0,
             since=parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -327,7 +327,7 @@ class TestAsyncJobs:
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncStructify) -> None:
         job = await async_client.jobs.list(
-            dataset="dataset",
+            dataset_name="dataset_name",
             limit=0,
             offset=0,
             since=parse_datetime("2019-12-27T18:11:19.117Z"),
