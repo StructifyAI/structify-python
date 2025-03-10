@@ -14,8 +14,8 @@ To view the contents of a specific table in your dataset:
 .. code-block:: python
     
     table_data = structify.dataset.view_table(
-        dataset="employees",
-        name="employee"
+        dataset="startups",
+        name="founder"
     )
 
     for row in table_data:
@@ -30,8 +30,8 @@ To view specific relationships in your dataset:
 .. code-block:: python
 
     relationships = structify.dataset.view_relationships(
-        dataset="employees",
-        name="education"
+        dataset="startups",
+        name="founded"
     )
 
     for relationship in relationships:
@@ -45,9 +45,9 @@ To view tables along with their associated relationships:
 
 .. code-block:: python
 
-    employee_details = structify.dataset.view_tables_with_relationships(
-        dataset="employees",
-        name="employee"
+    founder_details = structify.dataset.view_tables_with_relationships(
+        dataset="startups",
+        name="founder"
     )
 
     """
@@ -56,9 +56,9 @@ To view tables along with their associated relationships:
      the second contains the relationship data you'd expect from view_relationships
      the third contains the table data of the connected table for all the relationships
     """
-    employees = employee_details.entities
-    relationships = employee_details.relationships
-    connected_entities = employee_details.connected_entities
+    founders = founder_details.entities
+    relationships = founder_details.relationships
+    connected_entities = founder_details.connected_entities
 
 .. tip::
     
