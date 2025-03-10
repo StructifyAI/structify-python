@@ -43,7 +43,7 @@ Here's an example of how you'd use ``client.structure.find_relationship`` to see
 
 .. code-block:: python
 
-    for school in ["Yale", "Harvey-Mudd", "Princeton"]:
+    for school in ["Yale", "Harvey-Mudd", "Amherst"]:
         client.entities.add(
             dataset="founders",
             entity_graph=KnowledgeGraphParam(
