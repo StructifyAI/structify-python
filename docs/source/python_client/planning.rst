@@ -28,7 +28,7 @@ To create a new plan:
         # Find relationships
         EnhanceRelationshipParam(
             entity_id=ENTITY_ID, 
-            relationship_name="investors",
+            relationship_name="invested",
             allow_extra_entities=True
         ),
         
@@ -40,14 +40,14 @@ To create a new plan:
             ),
             EnhancePropertyParam(
                 entity_id=ENTITY_ID, 
-                property_name="headcount"
+                property_name="location"
             )
         ]
     ]
 
     # Create the plan
     plan_id = client.plan.create(
-        dataset="companies",
+        dataset="startups",
         plan=PlanParam(steps=steps)
     )
 
@@ -66,7 +66,7 @@ Pause all running plans for a dataset:
 .. code-block:: python
 
     response = client.plan.pause_all(
-        dataset_name="companies"
+        dataset="startups"
     )
     print(f"Paused {response.paused_count} plans")
 
@@ -75,7 +75,7 @@ Resume all paused plans:
 .. code-block:: python
 
     response = client.plan.resume_all(
-        dataset_name="companies"
+        dataset="startups"
     )
     print(f"Resumed {response.resumed_count} plans")
 

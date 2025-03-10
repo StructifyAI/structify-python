@@ -9,7 +9,7 @@ You can upload documents to Structify using ``client.documents.upload`` by passi
 .. code-block:: python
 
     from structify import Structify
-    client = Structify(api_key="your-api-key-here")
+    client = Structify()
 
     file = "/path/to/your/document.pdf"
 

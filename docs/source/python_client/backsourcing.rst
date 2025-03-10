@@ -1,6 +1,6 @@
 .. _backsourcing:
 
-Sourcing
+Backsourcing
 ============
 For all our users, knowing that you have accurate data is of paramount importance, so we allow you to see the sources that were used to validate and create any given datapoint. This is useful for understanding where our agent found the information for a given datapoint.
 
