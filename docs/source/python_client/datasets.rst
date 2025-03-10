@@ -11,7 +11,7 @@ Defining Your Schema
 ---------------------
 The basis of creating datasets is defining the schema, much like creating a blueprint for a database. The schema of a Structify dataset is comprised of entity tables, which are in turn made up of columns (which we call Properties), and the relationships between them. Check out the example code below for more clarity.
 
-Before you can sping up AI agents to fill up your datasets, we need to define the schema of the dataset. Note that each entity table, column, and relationship in the dataset needs a name and description.
+Before you can spin up AI agents to fill up your datasets, we need to define the schema of the dataset. Note that each entity table, column, and relationship in the dataset needs a name and description.
 
 If you have a schema you want your dataset to follow, you can easily pre-define your schema using our Python objects.
 
@@ -20,58 +20,61 @@ If you have a schema you want your dataset to follow, you can easily pre-define 
         from structify import Structify
         from structify.types import Table, Property, Relationship
 
-        client = Structify(api_key=os.environ["STRUCTIFY_API_TOKEN"])
+        client = Structify()
 
         tables = [
             Table(
-                name="job",
-                description="the job history of the employee",
+                name="founder",
+                description="the founder of a company",
                 properties=[
-                    Property(name="title", description="The title of the job"),
-                    Property(name="company", description="The company the employee worked for")
+                    Property(name="name", description="The name of the founder"),
+                    Property(name="bio", description="The bio of the founder"),
+                    Property(name="title", description="The title of the founder"),
                 ]
             ),
             Table(
-                name="university",
-                description="an educational institution",
+                name="company",
+                description="a private company that is interested in raising capital",
                 properties=[
-                    Property(name="name", description="The name of the school"),
-                    Property(name="location", description="The location of the school")
+                    Property(name="name", description="The name of the company"),
+                    Property(name="business_description", description="The description of the company"),
+                    Property(name="location", description="The location of the company"),
                 ]
             ),
             Table(
-                name="employee",
-                description="details about employees at a certain company.",
+                name="investor",
+                description="an investor (usually a venture capital firm) that is interested in investing in a company",
                 properties=[
-                    Property(name="name", description="the full name of the employee"),
-                    Property(name="current_title", description="the current title of the employee")
+                    Property(name="name", description="The name of the investor"),
+                    Property(name="description", description="The description of the investor"),
+                    Property(name="location", description="The location of the investor"),
                 ]
             )
         ]
 
         relationships = [
             Relationship(
-                name="worked",
-                description="connects the employee to their job history",
-                source_table="employee",
-                target_table="job"
+                name="invested",
+                description="connects the company to the investor",
+                source_table="company",
+                target_table="investor"
             ),
             Relationship(
-                name="education",
-                description="connects the employee to their education history",
-                source_table="employee",
-                target_table="education"
+                name="founded",
+                description="connects the company to the founder",
+                source_table="company",
+                target_table="founder"
             )
         ]
 
         client.datasets.create(
-            name="employees", 
-            description="A dataset named 'employees' that tells me about their job and education history.", 
+            name="startups", 
+            description="A dataset named 'startups' that tells me about their job and education history.", 
             tables=tables,
             relationships=relationships
             )
 
-        client.datasets.get(name="employees")
+        client.datasets.get(name="startups")
 
 And the output will echo back a representation of the schema you just created.
 
@@ -107,16 +110,16 @@ For instance, a strongly typed schema for an employee table might look like this
 
     from structify.types.property_type import Enum
     Table(
-        name="employee",
-        description="details about employees at a certain company.",
+        name="founder",
+        description="the founder of a company",
         properties=[
-            Property(name="name", description="the full name of the employee"),
-            Property(name="age", description="the age of the employee", prop_type="Integer"),
-            Property(name="linkedin", description="the LinkedIn URL of the employee", prop_type="URL"),
-            Property(name="photo", description="the photo of the employee", prop_type="Image"),
+            Property(name="name", description="The name of the founder"),
+            Property(name="age", description="the age of the founder", prop_type="Integer"),
+            Property(name="linkedin", description="the LinkedIn URL of the founder", prop_type="URL"),
+            Property(name="photo", description="the photo of the founder", prop_type="Image"),
             Property(
-                name="department",
-                description="the department of the employee",
+                name="background",
+                description="the professional specialization of the founder",
                 prop_type=Enum(
                     Enum=["Sales", "Marketing", "Engineering", "HR", "Finance", "Legal", "Other"]
                 )
@@ -131,14 +134,13 @@ And note that you can also add properties to relationships as well.
     from structify.types.dataset_descriptor import Relationship, RelationshipProperty
 
     Relationship(
-        name="worked",
-        description="connects the employee to their job history",
+        name="invested",
+        description="connects the company to the investor",
         properties=[
-            Property(name="title", description="The title of the job"),
-            Property(name="start_date", description="The start date of the job", prop_type="Date"),
-            Property(name="end_date", description="The end date of the job", prop_type="Date"),
-            Property(name="is_full_time", description="Whether the job was full-time or part-time", prop_type="Boolean"),
-            Property(name="salary", description="The annual salary of the job", prop_type="Money"),
+            Property(name="amount", description="The amount of money invested", prop_type="Money"),
+            Property(name="date_invested", description="The date of the investment", prop_type="Date"),
+            Property(name="valuation", description="The valuation of the company at the time of the investment", prop_type="Money"),
+            Property(name="round", description="The round of the investment", prop_type=Enum(Enum=["Seed", "Series A", "Series B", "Series C", "Series D", "Series E", "Series F", "Series G", "Series H or later"])),
         ]
     ),
 
@@ -167,7 +169,7 @@ You set this as part of the ``merge_strategy`` parameter in the ``Property`` obj
 
     Property(
         name="linkedin",
-        description="the LinkedIn URL of the employee",
+        description="the LinkedIn URL of the founder",
         prop_type="URL",
         merge_strategy="Unique" # Since LinkedIn URLs have a 1:1 correspondence with people, we can use the Unique merge strategy
     )
@@ -244,13 +246,13 @@ Here is an example of how you can specify a relationship merging strategy:
     from structify.types.strategy import RelationshipMergeStrategy
 
     Relationship(
-        name="worked",
-        description="connects the employee to their job history",
-        source_table="employee",
-        target_table="job",
+        name="founded",
+        description="connects the company to the founder",
+        source_table="company",
+        target_table="founder",
         merge_strategy=RelationshipMergeStrategy(
-            source_cardinality_given_target_match=100, # We expect around 100 employees per company
-            target_cardinality_given_source_match=5, # We expect around 5 jobs worked over a career
+            source_cardinality_given_target_match=3, # We expect around a founder to start roughly 3 companies in their lifetime
+            target_cardinality_given_source_match=2, # And we assume median 2 founders per company
         ),
     )
 
@@ -282,4 +284,4 @@ Here are some examples of how you can use these functions:
     client.datasets.list()
 
     # Requires the name of the dataset and will return the schema
-    client.datasets.get(name="employees")
+    client.datasets.get(name="startups")

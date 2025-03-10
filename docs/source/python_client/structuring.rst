@@ -22,15 +22,15 @@ Here's an example of how you'd enhance missing information for entities in your 
 
 .. code-block:: python
 
-    for entity in client.datasets.view_table(dataset="employees", name="employee"):
+    for entity in client.datasets.view_table(dataset="startups", name="founder"):
         client.structure.enhance_property(
             entity_id=entity.id,
-            property_name="job_title",
+            property_name="background",
             starting_searches=[f"{entity.properties.get("name")} linkedin"]
         )
         client.structure.enhance_relationship(
             entity_id=entity.id,
-            relationship_name="education",
+            relationship_name="founded",
         )
 
 .. note::
@@ -39,13 +39,13 @@ Here's an example of how you'd enhance missing information for entities in your 
 We also have a  ``client.structure.find_relationship`` endpoint that allows you to find if a relationship exists between two entities.
 Instead of taking in a single entity id, it takes in two entity ids (``source_entity_id`` and ``target_entity_id``).
 
-Here's an example of how you'd use ``client.structure.find_relationship`` to see if employees went to a certain set of universities:
+Here's an example of how you'd use ``client.structure.find_relationship`` to see if founders existing in our dataset went to a certain set of universities:
 
 .. code-block:: python
 
     for school in ["Yale", "Harvey-Mudd", "Princeton"]:
         client.entities.add(
-            dataset="employees",
+            dataset="founders",
             entity_graph=KnowledgeGraphParam(
                 entities=[
                     EntityParam(
@@ -57,14 +57,17 @@ Here's an example of how you'd use ``client.structure.find_relationship`` to see
             )
         )
 
-    for employee in client.datasets.view_table(dataset="employees", name="employee"):
-        for university in client.datasets.view_table(dataset="employees", name="university"):
+    for founder in client.datasets.view_table(dataset="startups", name="founder"):
+        for university in client.datasets.view_table(dataset="startups", name="university"):
             client.structure.find_relationship(
-                source_entity_id=employee.id,
+                source_entity_id=founder.id,
                 target_entity_id=university.id,
                 relationship_name="education",
             )
 
+
+.. note::
+    Make sure your schema includes the ``university`` table.
 
 .. _populating-datasets:
 
@@ -76,24 +79,25 @@ The ``client.structure.run_async`` API call takes the following arguments:
 - **name:** *(required)* The name of the dataset you want to populate
 - **source:** *(required)* The source you want the agent to use to extract data from. More on this in :ref:`source-types`
 - **save_requirement:** *(required)* The criteria you want the agent to use to extract data from the source. More on this in :ref:`save-requirement`
+- **seeded_entity:** *(only required if save_requirement is RequiredEntity)* The entity you want the agent to use to extract data from the source.
 
 This API endpoint allows the user to have more finetune control over the agent, and allows them to specify the sources and criteria for the agent to extract data from the source.
 
 .. code-block:: python
 
+    from structify.types import KnowledgeGraphParam, EntityParam
     from structify.types.save_requirement import RequiredEntity, RequiredProperty, RequiredRelationship
     from structify.types.structure_run_async_params import SourceWeb, SourceWebWeb
 
     job_id = client.structure.run_async(
-        name="employees", 
+        name="startups", 
         source=SourceWeb(
             SourceWebWeb(
-                starting_urls=["linkedin.com"]
+                starting_urls=[] # If you don't specify a starting url, the agent will start from Google
             )
         ),
-        save_requirement=[RequiredEntity(seeded_entity_id=0)],
+        save_requirement=[RequiredProperty(table_name="company", property_names=["name"])],
     )
-
     client.structure.job_status(job=[job_id])
 
 .. note::
@@ -118,18 +122,18 @@ This save requirement does necessitate that you input the entity into the run or
     from structify.types import KnowledgeGraphParam, EntityParam
 
     client.structure.run_async(
-        name="employees", 
+        name="startups", 
         source=SourceWeb(
             SourceWebWeb(
-                starting_urls=["linkedin.com"]
+                starting_urls=[]
             )
         ),
         save_requirement=[RequiredEntity(seeded_entity_id=0)],
         seeded_entity=KnowledgeGraphParam(
             entities=[EntityParam(
                 id=0,
-                type="employee",
-                properties={"name": "Jane Doe"}
+                type="company",
+                properties={"name": "Structify"}
             )],
             relationships=[]
         )
@@ -147,13 +151,13 @@ In the case that you want to require that a certain property be present for a ta
 .. code-block:: python
 
     client.structure.run_async(
-        name="employees", 
+        name="startups", 
         source=SourceWeb(
             SourceWebWeb(
-                starting_urls=["linkedin.com"]
+                starting_urls=[]
             )
         ),
-        save_requirement=[RequiredProperty(table_name="job", property_names=["title", "company"])]
+        save_requirement=[RequiredProperty(table_name="founder", property_names=["name", "bio", "title"])]
     )
 
 .. note::
@@ -165,16 +169,19 @@ In the case that you want to require that a certain relationship be present for 
 .. code-block:: python
 
     client.structure.run_async(
-        name="employees",
+        name="startups",
         source=SourceWeb(
             SourceWebWeb(
-                starting_urls=["linkedin.com"]
+                starting_urls=[]
             )
         ),
-        save_requirement=[RequiredRelationship(relationship_name="worked_at")]
+        save_requirement=[RequiredRelationship(relationship_name="founded")]
     )
 
 You can input multiple save requirement to ensure a set of conditions are met before saving data.
+
+.. tip::
+    The best way to use save requirements is to use a RequiredProperty and RequiredRelationship together with a RequiredEntity (i.e. enhance a specific entity for a relationship or property).
 
 .. _source-types:
 
@@ -194,18 +201,18 @@ Web
 .. code-block:: python
 
     client.structure.run_async(
-        name="employees", 
+        name="startups", 
         source=SourceWeb(
             SourceWebWeb(
-                starting_urls=["linkedin.com"]
+                starting_urls=["techcrunch.com"] # Note that this field is optional
             )
         ),
         save_requirement=[RequiredEntity(seeded_entity_id=0)],
         seeded_entity=KnowledgeGraphParam(
             entities=[EntityParam(
                 id=0,
-                type="employee",
-                properties={"name": "Jane Doe"}
+                type="company",
+                properties={"name": "Structify"}
             )],
             relationships=[]
         )
@@ -218,9 +225,9 @@ PDF
     from structify.types.structure_run_async_params import SourcePdf, SourcePdfPdf
 
     client.structure.run_async(
-        name="employees",
+        name="startups",
         source=SourcePdf(pdf=SourcePdfPdf(path="path/to/pdf")),
-        save_requirement=[RequiredRelationship(relationship_name="education")],
+        save_requirement=[RequiredRelationship(relationship_name="founded")],
     )
 
 .. note::
@@ -230,7 +237,7 @@ PDF
 
 Tracking Jobs
 -----------------------
-When you run our agent using ``enhance_property``, ``enhance_relationship``, or ``run_async``, it creates jobs that you can track using the jobs endpoints.
+When you run our agent using ``enhance_property``, ``enhance_relationship``, ``find_relationship``, or ``run_async``, it creates jobs that you can track using the jobs endpoints.
 These endpoints allow you to monitor the progress of your structuring tasks and manage them as needed.
 
 Listing Jobs
@@ -247,7 +254,7 @@ You can list all jobs using ``client.jobs.list()``. This endpoint supports sever
 
     # List all running jobs for a specific dataset
     jobs = client.jobs.list(
-        dataset_name="employees",
+        dataset_name="startups",
         status="Running"
     )
 
