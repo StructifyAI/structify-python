@@ -63,6 +63,7 @@ Check Out Our Capabilities
    Viewing Datasets <python_client/viewing>
    Using Documents <python_client/documents>
    Getting Sources <python_client/backsourcing>
+   Helpful Dataset Functionality <python_client/analysis>
 
 
 Learn from Examples
@@ -74,7 +75,8 @@ Learn from Examples
    Grabbing Press about Clients <examples/example0>
    Tracking Board Member Changes <examples/example1>
    Structifying Pitch Decks <examples/example2>
-   Creating a Dataset for Your Network <examples/example3>
+   Making a Restaurant Menu Dataset <examples/example3>
+   Tracking Pricing for Semiconductor Parts <examples/example4>
 
 
 .. Indices and tables
@@ -82,16 +84,6 @@ Learn from Examples
 .. * :ref:`genindex`
 .. * :ref:`modindex`
 .. * :ref:`search`
-
-See What's Coming Soon
--------------------------
-.. toctree::
-   :caption: In Beta
-   :maxdepth: 1
-
-   Analytical Capabilities <coming_soon/analysis>
-   Searching through Datasets <coming_soon/search>
-   Sharing Datasets <coming_soon/sharing>
 
 Read More
 ---------

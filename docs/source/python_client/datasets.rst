@@ -155,6 +155,8 @@ There are three types of major merge strategies:
 - **Probabilistic**: Using a probabilistic approach, we will merge entities based on the shared properties between them.
 - **Relationship Merging**: We will merge entities based on the relationships between them.
 
+When entities are merged, their entity id will be updated to the entity id of the less recently created entity. You can always find the entity id to reference by setting the ``resolve_id`` parameter to ``True`` in the ``client.entities.get`` function.
+
 
 Unique Merge Strategy
 ~~~~~~~~~~~~~~~~~~~~
@@ -252,6 +254,21 @@ Here is an example of how you can specify a relationship merging strategy:
         ),
     )
 
+
+Manually Merging Entities
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If you ever need to manually merge entities, you can use the ``client.entities.merge`` function. This will allow you to merge two entities by their index.
+
+.. code-block:: python
+
+    client.entities.merge(
+        entity_1_id="123",
+        entity_2_id="456",
+    )
+
+.. note::
+    Please note that this endpoint will automatically resolve the entity IDs to the correct entity reference.
 
 Helpful Dataset Functionality
 ------------------------------

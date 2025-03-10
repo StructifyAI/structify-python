@@ -92,12 +92,13 @@ Now, we are going to add some entities to the dataset. We will start with the cl
 Step 3: Grab Current Press & News
 ----------------------------------
 Now, we are going to use the Structify Plans API to populate the dataset. Our strategy will be to:
+
 #. Find the twitter handle of the client
 #. Find the latest social media posts from the client
 #. Find the latest articles about the client
 
-
 .. code-block:: python
+
     from structify.types.enhance_property_param import EnhancePropertyParam
     from structify.types.enhance_relationship_param import EnhanceRelationshipParam
     from structify.types.plan_param import PlanParam
