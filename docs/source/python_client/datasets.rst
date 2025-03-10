@@ -104,7 +104,7 @@ We allow users to add typing to the properties in the schemas that they define. 
 
 Every property in the schema has a default type as a String. 
 
-For instance, a strongly typed schema for an employee table might look like this:
+For instance, a strongly typed schema for the founder table might look like this:
 
 .. code-block:: python
 

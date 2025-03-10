@@ -38,7 +38,7 @@ This is useful for when the exact text of the property is not as important as th
     summarized_entity = client.entities.summarize(
         dataset="startups",
         entity_id="Entity-ea121d6f-6261-460d-a899-686fb067524c",
-        properties=["description"],
+        properties=["business_description"],
         extra_instructions="Please summarize the key value proposition, excluding any extraneous information." # Optional
     )
 
