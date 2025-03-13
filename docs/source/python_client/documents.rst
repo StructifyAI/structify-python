@@ -62,7 +62,7 @@ Creating datasets from documents is quite simple. You just use ``client.structur
     from structify.types.structure_run_async_params import SourcePdf, SourcePdfPdf
 
     client.structure.run_async(
-        name="startups", 
+        dataset="startups", 
         source=SourcePdf(pdf=SourcePdfPdf(path="/path/to/your/document.pdf")),
     )
 
