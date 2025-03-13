@@ -10,7 +10,7 @@ First things first. We need a Structify dataset to store all this information. W
 .. code-block:: python
 
     from structify import Structify
-    from structify.types import Table, Property
+    from structify.types.table import Table, Property
     from structify.types.dataset_descriptor import Relationship, RelationshipProperty
 
     client = Structify()

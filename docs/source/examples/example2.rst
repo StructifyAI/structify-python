@@ -18,9 +18,9 @@ We associate the documents with your account (or your user account), such that m
     import os
 
     from structify import Structify
-    from structify.sources import PDF
-    from structify.types import Table, Property, Relationship
-    from structify.types.prop_type import Enum
+    from structify.types.dataset_descriptor import DatasetDescriptor, Relationship
+    from structify.types.property_type import Enum
+    from structify.types.table import Property, Table
 
     client = Structify()
 

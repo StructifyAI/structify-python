@@ -13,10 +13,7 @@ Remember that you are going to need to include a description for each entity, ta
 .. code-block:: python
 
     from structify.types.dataset_descriptor import DatasetDescriptor, Relationship
-    from structify.types.table import (
-        Property,
-        Table,
-    )
+    from structify.types.table import Property, Table
 
     DATASET_NAME = "Product Parts"
     PRODUCT_PART_TABLE = "Part"
