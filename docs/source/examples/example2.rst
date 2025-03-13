@@ -115,7 +115,7 @@ Next, we have to blueprint the schema of the dataset that we are interested in c
     )
 
 .. note::
-    Remember you can always view the schema of any dataset later by using ``client.datasets.get(dataset="dataset_name")``.
+    Remember you can always view the schema of any dataset later by using ``client.datasets.get(name="dataset_name")``.
 
 Step 3: Create Agent Jobs to Populate the Dataset
 -------------------------------------------------
