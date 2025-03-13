@@ -10,7 +10,7 @@ import sys
 sys.path.insert(0, "/home/dev/src/prospero/client/structify/")
 
 project = "Structify"
-copyright = "2024, YMTM Inc."
+copyright = "2025, YMTM Inc."
 author = "Alex Reichenbach & Ronak Gandhi"
 
 # -- General configuration ---------------------------------------------------

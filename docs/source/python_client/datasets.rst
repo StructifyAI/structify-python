@@ -17,64 +17,66 @@ If you have a schema you want your dataset to follow, you can easily pre-define 
 
 .. code-block:: python
     
-        from structify import Structify
-        from structify.types import Table, Property, Relationship
+    from structify import Structify
+    from structify.types.dataset_descriptor import DatasetDescriptor, Relationship
+    from structify.types.table import Property, Table
 
-        client = Structify()
+    client = Structify()
 
-        tables = [
-            Table(
-                name="founder",
-                description="the founder of a company",
-                properties=[
-                    Property(name="name", description="The name of the founder"),
-                    Property(name="bio", description="The bio of the founder"),
-                    Property(name="title", description="The title of the founder"),
-                ]
-            ),
-            Table(
-                name="company",
-                description="a private company that is interested in raising capital",
-                properties=[
-                    Property(name="name", description="The name of the company"),
-                    Property(name="business_description", description="The description of the company"),
-                    Property(name="location", description="The location of the company"),
-                ]
-            ),
-            Table(
-                name="investor",
-                description="an investor (usually a venture capital firm) that is interested in investing in a company",
-                properties=[
-                    Property(name="name", description="The name of the investor"),
-                    Property(name="description", description="The description of the investor"),
-                    Property(name="location", description="The location of the investor"),
-                ]
-            )
-        ]
+    tables = [
+        Table(
+            name="founder",
+            description="the founder of a company",
+            properties=[
+                Property(name="name", description="The name of the founder"),
+                Property(name="bio", description="The bio of the founder"),
+                Property(name="title", description="The title of the founder"),
+            ]
+        ),
+        Table(
+            name="company",
+            description="a private company that is interested in raising capital",
+            properties=[
+                Property(name="name", description="The name of the company"),
+                Property(name="business_description", description="The description of the company"),
+                Property(name="location", description="The location of the company"),
+            ]
+        ),
+        Table(
+            name="investor",
+            description="an investor (usually a venture capital firm) that is interested in investing in a company",
+            properties=[
+                Property(name="name", description="The name of the investor"),
+                Property(name="description", description="The description of the investor"),
+                Property(name="location", description="The location of the investor"),
+            ]
+        )
+    ]
 
-        relationships = [
-            Relationship(
-                name="invested",
-                description="connects the company to the investor",
-                source_table="company",
-                target_table="investor"
-            ),
-            Relationship(
-                name="founded",
-                description="connects the company to the founder",
-                source_table="company",
-                target_table="founder"
-            )
-        ]
+    relationships = [
+        Relationship(
+            name="invested",
+            description="connects the company to the investor",
+            source_table="company",
+            target_table="investor"
+        ),
+        Relationship(
+            name="founded",
+            description="connects the company to the founder",
+            source_table="company",
+            target_table="founder"
+        )
+    ]
 
-        client.datasets.create(
-            name="startups", 
-            description="A dataset named 'startups' that tells me about their job and education history.", 
-            tables=tables,
-            relationships=relationships
-            )
+    client.datasets.create(
+        name="startups", 
+        description="A dataset named 'startups' that tells me about their job and education history.", 
+        tables=tables,
+        relationships=relationships
+    )
 
-        client.datasets.get(name="startups")
+    client.datasets.get(name="startups")
+
 
 And the output will echo back a representation of the schema you just created.
 
@@ -104,12 +106,13 @@ We allow users to add typing to the properties in the schemas that they define. 
 
 Every property in the schema has a default type as a String. 
 
-For instance, a strongly typed schema for an employee table might look like this:
+For instance, a strongly typed schema for the founder table might look like this:
 
 .. code-block:: python
 
     from structify.types.property_type import Enum
-    Table(
+
+    founder_table = Table(
         name="founder",
         description="the founder of a company",
         properties=[
@@ -133,7 +136,7 @@ And note that you can also add properties to relationships as well.
 
     from structify.types.dataset_descriptor import Relationship, RelationshipProperty
 
-    Relationship(
+    invested_relationship = Relationship(
         name="invested",
         description="connects the company to the investor",
         properties=[

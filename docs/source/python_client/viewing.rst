@@ -13,7 +13,7 @@ To view the contents of a specific table in your dataset:
 
 .. code-block:: python
     
-    table_data = structify.dataset.view_table(
+    table_data = structify.datasets.view_table(
         dataset="startups",
         name="founder"
     )
@@ -29,7 +29,7 @@ To view specific relationships in your dataset:
 
 .. code-block:: python
 
-    relationships = structify.dataset.view_relationships(
+    relationships = structify.datasets.view_relationships(
         dataset="startups",
         name="founded"
     )
@@ -45,7 +45,7 @@ To view tables along with their associated relationships:
 
 .. code-block:: python
 
-    founder_details = structify.dataset.view_tables_with_relationships(
+    founder_details = structify.datasets.view_tables_with_relationships(
         dataset="startups",
         name="founder"
     )

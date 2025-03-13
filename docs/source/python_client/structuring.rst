@@ -76,7 +76,7 @@ Populating Your Datasets
 To populate your dataset with more control, you can run our agents through ``client.structure.run_async`` to populate a dataset with an initial batch of data. 
 The ``client.structure.run_async`` API call takes the following arguments:
 
-- **name:** *(required)* The name of the dataset you want to populate
+- **dataset:** *(required)* The name of the dataset you want to populate
 - **source:** *(required)* The source you want the agent to use to extract data from. More on this in :ref:`source-types`
 - **save_requirement:** *(required)* The criteria you want the agent to use to extract data from the source. More on this in :ref:`save-requirement`
 - **seeded_entity:** *(only required if save_requirement is RequiredEntity)* The entity you want the agent to use to extract data from the source.
@@ -90,7 +90,7 @@ This API endpoint allows the user to have more finetune control over the agent, 
     from structify.types.structure_run_async_params import SourceWeb, SourceWebWeb
 
     job_id = client.structure.run_async(
-        name="startups", 
+        dataset="startups", 
         source=SourceWeb(
             SourceWebWeb(
                 starting_urls=[] # If you don't specify a starting url, the agent will start from Google
@@ -122,7 +122,7 @@ This save requirement does necessitate that you input the entity into the run or
     from structify.types import KnowledgeGraphParam, EntityParam
 
     client.structure.run_async(
-        name="startups", 
+        dataset="startups", 
         source=SourceWeb(
             SourceWebWeb(
                 starting_urls=[]
@@ -151,7 +151,7 @@ In the case that you want to require that a certain property be present for a ta
 .. code-block:: python
 
     client.structure.run_async(
-        name="startups", 
+        dataset="startups", 
         source=SourceWeb(
             SourceWebWeb(
                 starting_urls=[]
@@ -169,7 +169,7 @@ In the case that you want to require that a certain relationship be present for 
 .. code-block:: python
 
     client.structure.run_async(
-        name="startups",
+        dataset="startups",
         source=SourceWeb(
             SourceWebWeb(
                 starting_urls=[]
@@ -201,7 +201,7 @@ Web
 .. code-block:: python
 
     client.structure.run_async(
-        name="startups", 
+        dataset="startups", 
         source=SourceWeb(
             SourceWebWeb(
                 starting_urls=["techcrunch.com"] # Note that this field is optional
@@ -225,7 +225,7 @@ PDF
     from structify.types.structure_run_async_params import SourcePdf, SourcePdfPdf
 
     client.structure.run_async(
-        name="startups",
+        dataset="startups",
         source=SourcePdf(pdf=SourcePdfPdf(path="path/to/pdf")),
         save_requirement=[RequiredRelationship(relationship_name="founded")],
     )
@@ -244,7 +244,7 @@ Listing Jobs
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 You can list all jobs using ``client.jobs.list()``. This endpoint supports several optional filtering arguments:
 
-- **dataset_name:** Filter jobs by dataset
+- **dataset:** Filter jobs by dataset
 - **status:** Filter by job status ("Queued", "Running", "Completed", "Failed")
 - **since:** List jobs since a specific timestamp
 - **limit:** Maximum number of jobs to return
@@ -254,7 +254,7 @@ You can list all jobs using ``client.jobs.list()``. This endpoint supports sever
 
     # List all running jobs for a specific dataset
     jobs = client.jobs.list(
-        dataset_name="startups",
+        dataset="startups",
         status="Running"
     )
 
