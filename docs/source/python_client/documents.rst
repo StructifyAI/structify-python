@@ -44,11 +44,11 @@ Here are examples of how you would use those endpoints:
     client.documents.list()
 
     # Download a document by specifying the name of the document. This will return the document in binary mode, which we can save to your local machine.
-    document = client.documents.download(path='/path/on/your/Structify/remote.pdf')
+    document = client.documents.download(file_path='/path/on/your/Structify/remote.pdf')
     open("downloaded_document.pdf", "wb").write(document.read())
 
     # Delete a document by specifying the name of the document. This will remove the document from your Structify account.
-    client.documents.delete(path='/path/on/your/Structify/remote.pdf')
+    client.documents.delete(file_path='/path/on/your/Structify/remote.pdf')
 
 
 .. _Structuring Documents:
