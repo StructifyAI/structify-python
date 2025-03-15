@@ -77,6 +77,49 @@ Nested request parameters are [TypedDicts](https://docs.python.org/3/library/typ
 
 Typed requests and responses provide autocomplete and documentation within your editor. If you would like to see type errors in VS Code to help catch bugs earlier, set `python.analysis.typeCheckingMode` to `basic`.
 
+## Nested params
+
+Nested parameters are dictionaries, typed using `TypedDict`, for example:
+
+```python
+from structify import Structify
+
+client = Structify()
+
+client.admin.next_action.add_training_datum(
+    input={
+        "all_steps": [
+            {
+                "id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "action_name": "action_name",
+                "metadata": {"foo": "string"},
+            }
+        ],
+        "extraction_criteria": [{"relationship_name": "relationship_name"}],
+        "previous_queries": ["string"],
+        "seeded_kg": {
+            "entities": [
+                {
+                    "id": 0,
+                    "properties": {"foo": "string"},
+                    "type": "type",
+                }
+            ],
+            "relationships": [
+                {
+                    "source": 0,
+                    "target": 0,
+                    "type": "type",
+                    "properties": {"foo": "string"},
+                }
+            ],
+        },
+    },
+    label="label",
+    output={"selected_step": {"step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}},
+)
+```
+
 ## File uploads
 
 Request parameters that correspond to file uploads can be passed as `bytes`, a [`PathLike`](https://docs.python.org/3/library/os.html#os.PathLike) instance or a tuple of `(filename, contents, media type)`.

@@ -1,5 +1,25 @@
 # Changelog
 
+## 1.110.1 (2025-03-15)
+
+Full Changelog: [v1.110.0...v1.110.1](https://github.com/StructifyAI/structify-python/compare/v1.110.0...v1.110.1)
+
+### Bug Fixes
+
+* **types:** handle more discriminated union shapes ([#1036](https://github.com/StructifyAI/structify-python/issues/1036)) ([9d03122](https://github.com/StructifyAI/structify-python/commit/9d03122226cb61a9da407ab455d987cd3eb906df))
+
+
+### Chores
+
+* **internal:** bump rye to 0.44.0 ([#1035](https://github.com/StructifyAI/structify-python/issues/1035)) ([acaffcd](https://github.com/StructifyAI/structify-python/commit/acaffcd3b75111efd1401d3a41704e0767bedd29))
+* **internal:** codegen related update ([#1034](https://github.com/StructifyAI/structify-python/issues/1034)) ([13a6a6f](https://github.com/StructifyAI/structify-python/commit/13a6a6ff81f238fa83fdf34c3aceff1ff3515708))
+* **internal:** remove extra empty newlines ([#1033](https://github.com/StructifyAI/structify-python/issues/1033)) ([663e9c1](https://github.com/StructifyAI/structify-python/commit/663e9c1dac1ab1cfde912e09e9b72a7f722f0144))
+
+
+### Documentation
+
+* revise readme docs about nested params ([#1031](https://github.com/StructifyAI/structify-python/issues/1031)) ([0d3ca6a](https://github.com/StructifyAI/structify-python/commit/0d3ca6adfdfcd4443d970b1208adfab2c5482c24))
+
 ## 1.110.0 (2025-03-08)
 
 Full Changelog: [v1.109.0...v1.110.0](https://github.com/StructifyAI/structify-python/compare/v1.109.0...v1.110.0)
