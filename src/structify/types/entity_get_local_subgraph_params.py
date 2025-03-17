@@ -8,6 +8,6 @@ __all__ = ["EntityGetLocalSubgraphParams"]
 
 
 class EntityGetLocalSubgraphParams(TypedDict, total=False):
-    id: Required[str]
+    id: Required[int]
 
     radius: int

@@ -5,4 +5,4 @@ from typing_extensions import TypeAlias
 
 __all__ = ["PlanPauseAllResponse"]
 
-PlanPauseAllResponse: TypeAlias = List[str]
+PlanPauseAllResponse: TypeAlias = List[int]

@@ -8,6 +8,6 @@ __all__ = ["EntityViewParams"]
 
 
 class EntityViewParams(TypedDict, total=False):
-    id: Required[str]
+    id: Required[int]
 
     resolve_id: bool
