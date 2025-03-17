@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List
+from typing import List, Optional
 from datetime import datetime
 from typing_extensions import TypeAlias
 
@@ -10,11 +10,15 @@ __all__ = ["UserTransactionsResponse", "UserTransactionsResponseItem"]
 
 
 class UserTransactionsResponseItem(BaseModel):
-    amount: int
+    id: int
+
+    amount: object
 
     timestamp: datetime
 
-    transaction_id: str
+    token_id: object
+
+    job_id: Optional[int] = None
 
 
 UserTransactionsResponse: TypeAlias = List[UserTransactionsResponseItem]

@@ -9,7 +9,7 @@ __all__ = ["StructureEnhanceRelationshipParams"]
 
 
 class StructureEnhanceRelationshipParams(TypedDict, total=False):
-    entity_id: Required[str]
+    entity_id: Required[int]
 
     relationship_name: Required[str]
 

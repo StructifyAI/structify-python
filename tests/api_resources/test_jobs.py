@@ -65,14 +65,14 @@ class TestJobs:
     @parametrize
     def test_method_delete(self, client: Structify) -> None:
         job = client.jobs.delete(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            0,
         )
         assert_matches_type(str, job, path=["response"])
 
     @parametrize
     def test_raw_response_delete(self, client: Structify) -> None:
         response = client.jobs.with_raw_response.delete(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            0,
         )
 
         assert response.is_closed is True
@@ -83,7 +83,7 @@ class TestJobs:
     @parametrize
     def test_streaming_response_delete(self, client: Structify) -> None:
         with client.jobs.with_streaming_response.delete(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            0,
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -92,13 +92,6 @@ class TestJobs:
             assert_matches_type(str, job, path=["response"])
 
         assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    def test_path_params_delete(self, client: Structify) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `job_id` but received ''"):
-            client.jobs.with_raw_response.delete(
-                "",
-            )
 
     @parametrize
     def test_method_cancel(self, client: Structify) -> None:
@@ -141,14 +134,14 @@ class TestJobs:
     @parametrize
     def test_method_get(self, client: Structify) -> None:
         job = client.jobs.get(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            0,
         )
         assert_matches_type(JobGetResponse, job, path=["response"])
 
     @parametrize
     def test_raw_response_get(self, client: Structify) -> None:
         response = client.jobs.with_raw_response.get(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            0,
         )
 
         assert response.is_closed is True
@@ -159,7 +152,7 @@ class TestJobs:
     @parametrize
     def test_streaming_response_get(self, client: Structify) -> None:
         with client.jobs.with_streaming_response.get(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            0,
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -170,23 +163,16 @@ class TestJobs:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_get(self, client: Structify) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `job_id` but received ''"):
-            client.jobs.with_raw_response.get(
-                "",
-            )
-
-    @parametrize
     def test_method_get_step(self, client: Structify) -> None:
         job = client.jobs.get_step(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            0,
         )
         assert_matches_type(ExecutionStep, job, path=["response"])
 
     @parametrize
     def test_raw_response_get_step(self, client: Structify) -> None:
         response = client.jobs.with_raw_response.get_step(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            0,
         )
 
         assert response.is_closed is True
@@ -197,7 +183,7 @@ class TestJobs:
     @parametrize
     def test_streaming_response_get_step(self, client: Structify) -> None:
         with client.jobs.with_streaming_response.get_step(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            0,
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -208,23 +194,16 @@ class TestJobs:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_get_step(self, client: Structify) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `step_id` but received ''"):
-            client.jobs.with_raw_response.get_step(
-                "",
-            )
-
-    @parametrize
     def test_method_get_step_graph(self, client: Structify) -> None:
         job = client.jobs.get_step_graph(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            "job_id",
         )
         assert_matches_type(JobGetStepGraphResponse, job, path=["response"])
 
     @parametrize
     def test_raw_response_get_step_graph(self, client: Structify) -> None:
         response = client.jobs.with_raw_response.get_step_graph(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            "job_id",
         )
 
         assert response.is_closed is True
@@ -235,7 +214,7 @@ class TestJobs:
     @parametrize
     def test_streaming_response_get_step_graph(self, client: Structify) -> None:
         with client.jobs.with_streaming_response.get_step_graph(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            "job_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -255,14 +234,14 @@ class TestJobs:
     @parametrize
     def test_method_get_steps(self, client: Structify) -> None:
         job = client.jobs.get_steps(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            "job_id",
         )
         assert_matches_type(JobGetStepsResponse, job, path=["response"])
 
     @parametrize
     def test_raw_response_get_steps(self, client: Structify) -> None:
         response = client.jobs.with_raw_response.get_steps(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            "job_id",
         )
 
         assert response.is_closed is True
@@ -273,7 +252,7 @@ class TestJobs:
     @parametrize
     def test_streaming_response_get_steps(self, client: Structify) -> None:
         with client.jobs.with_streaming_response.get_steps(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            "job_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -358,14 +337,14 @@ class TestAsyncJobs:
     @parametrize
     async def test_method_delete(self, async_client: AsyncStructify) -> None:
         job = await async_client.jobs.delete(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            0,
         )
         assert_matches_type(str, job, path=["response"])
 
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncStructify) -> None:
         response = await async_client.jobs.with_raw_response.delete(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            0,
         )
 
         assert response.is_closed is True
@@ -376,7 +355,7 @@ class TestAsyncJobs:
     @parametrize
     async def test_streaming_response_delete(self, async_client: AsyncStructify) -> None:
         async with async_client.jobs.with_streaming_response.delete(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            0,
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -385,13 +364,6 @@ class TestAsyncJobs:
             assert_matches_type(str, job, path=["response"])
 
         assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    async def test_path_params_delete(self, async_client: AsyncStructify) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `job_id` but received ''"):
-            await async_client.jobs.with_raw_response.delete(
-                "",
-            )
 
     @parametrize
     async def test_method_cancel(self, async_client: AsyncStructify) -> None:
@@ -434,14 +406,14 @@ class TestAsyncJobs:
     @parametrize
     async def test_method_get(self, async_client: AsyncStructify) -> None:
         job = await async_client.jobs.get(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            0,
         )
         assert_matches_type(JobGetResponse, job, path=["response"])
 
     @parametrize
     async def test_raw_response_get(self, async_client: AsyncStructify) -> None:
         response = await async_client.jobs.with_raw_response.get(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            0,
         )
 
         assert response.is_closed is True
@@ -452,7 +424,7 @@ class TestAsyncJobs:
     @parametrize
     async def test_streaming_response_get(self, async_client: AsyncStructify) -> None:
         async with async_client.jobs.with_streaming_response.get(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            0,
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -463,23 +435,16 @@ class TestAsyncJobs:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_get(self, async_client: AsyncStructify) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `job_id` but received ''"):
-            await async_client.jobs.with_raw_response.get(
-                "",
-            )
-
-    @parametrize
     async def test_method_get_step(self, async_client: AsyncStructify) -> None:
         job = await async_client.jobs.get_step(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            0,
         )
         assert_matches_type(ExecutionStep, job, path=["response"])
 
     @parametrize
     async def test_raw_response_get_step(self, async_client: AsyncStructify) -> None:
         response = await async_client.jobs.with_raw_response.get_step(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            0,
         )
 
         assert response.is_closed is True
@@ -490,7 +455,7 @@ class TestAsyncJobs:
     @parametrize
     async def test_streaming_response_get_step(self, async_client: AsyncStructify) -> None:
         async with async_client.jobs.with_streaming_response.get_step(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            0,
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -501,23 +466,16 @@ class TestAsyncJobs:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_get_step(self, async_client: AsyncStructify) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `step_id` but received ''"):
-            await async_client.jobs.with_raw_response.get_step(
-                "",
-            )
-
-    @parametrize
     async def test_method_get_step_graph(self, async_client: AsyncStructify) -> None:
         job = await async_client.jobs.get_step_graph(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            "job_id",
         )
         assert_matches_type(JobGetStepGraphResponse, job, path=["response"])
 
     @parametrize
     async def test_raw_response_get_step_graph(self, async_client: AsyncStructify) -> None:
         response = await async_client.jobs.with_raw_response.get_step_graph(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            "job_id",
         )
 
         assert response.is_closed is True
@@ -528,7 +486,7 @@ class TestAsyncJobs:
     @parametrize
     async def test_streaming_response_get_step_graph(self, async_client: AsyncStructify) -> None:
         async with async_client.jobs.with_streaming_response.get_step_graph(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            "job_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -548,14 +506,14 @@ class TestAsyncJobs:
     @parametrize
     async def test_method_get_steps(self, async_client: AsyncStructify) -> None:
         job = await async_client.jobs.get_steps(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            "job_id",
         )
         assert_matches_type(JobGetStepsResponse, job, path=["response"])
 
     @parametrize
     async def test_raw_response_get_steps(self, async_client: AsyncStructify) -> None:
         response = await async_client.jobs.with_raw_response.get_steps(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            "job_id",
         )
 
         assert response.is_closed is True
@@ -566,7 +524,7 @@ class TestAsyncJobs:
     @parametrize
     async def test_streaming_response_get_steps(self, async_client: AsyncStructify) -> None:
         async with async_client.jobs.with_streaming_response.get_steps(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            "job_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
