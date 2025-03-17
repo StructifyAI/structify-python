@@ -5,4 +5,4 @@ from typing_extensions import TypeAlias
 
 __all__ = ["EntityDeleteResponse"]
 
-EntityDeleteResponse: TypeAlias = List[int]
+EntityDeleteResponse: TypeAlias = List[str]

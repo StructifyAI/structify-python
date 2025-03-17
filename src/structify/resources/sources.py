@@ -49,7 +49,7 @@ class SourcesResource(SyncAPIResource):
     def list(
         self,
         *,
-        id: int,
+        id: str,
         property: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -116,7 +116,7 @@ class AsyncSourcesResource(AsyncAPIResource):
     async def list(
         self,
         *,
-        id: int,
+        id: str,
         property: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.

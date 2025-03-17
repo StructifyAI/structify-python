@@ -86,27 +86,38 @@ from structify import Structify
 
 client = Structify()
 
-response = client.datasets.match(
-    dataset="dataset",
-    query_kg={
-        "entities": [
+client.admin.next_action.add_training_datum(
+    input={
+        "all_steps": [
             {
-                "id": 0,
-                "properties": {"foo": "string"},
-                "type": "type",
+                "id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "action_name": "action_name",
+                "metadata": {"foo": "string"},
             }
         ],
-        "relationships": [
-            {
-                "source": 0,
-                "target": 0,
-                "type": "type",
-                "properties": {"foo": "string"},
-            }
-        ],
+        "extraction_criteria": [{"relationship_name": "relationship_name"}],
+        "previous_queries": ["string"],
+        "seeded_kg": {
+            "entities": [
+                {
+                    "id": 0,
+                    "properties": {"foo": "string"},
+                    "type": "type",
+                }
+            ],
+            "relationships": [
+                {
+                    "source": 0,
+                    "target": 0,
+                    "type": "type",
+                    "properties": {"foo": "string"},
+                }
+            ],
+        },
     },
+    label="label",
+    output={"selected_step": {"step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}},
 )
-print(response.query_kg)
 ```
 
 ## File uploads
@@ -119,10 +130,9 @@ from structify import Structify
 
 client = Structify()
 
-client.documents.upload(
-    content=Path("/path/to/file"),
-    file_type="Text",
-    path=b"raw file contents",
+client.admin.training_datasets.upload_labeled_step(
+    dataset_name=Path("/path/to/file"),
+    step_bytes=b"raw file contents",
 )
 ```
 

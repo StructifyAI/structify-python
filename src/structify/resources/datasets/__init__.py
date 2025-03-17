@@ -8,8 +8,22 @@ from .datasets import (
     DatasetsResourceWithStreamingResponse,
     AsyncDatasetsResourceWithStreamingResponse,
 )
+from .evaluate import (
+    EvaluateResource,
+    AsyncEvaluateResource,
+    EvaluateResourceWithRawResponse,
+    AsyncEvaluateResourceWithRawResponse,
+    EvaluateResourceWithStreamingResponse,
+    AsyncEvaluateResourceWithStreamingResponse,
+)
 
 __all__ = [
+    "EvaluateResource",
+    "AsyncEvaluateResource",
+    "EvaluateResourceWithRawResponse",
+    "AsyncEvaluateResourceWithRawResponse",
+    "EvaluateResourceWithStreamingResponse",
+    "AsyncEvaluateResourceWithStreamingResponse",
     "DatasetsResource",
     "AsyncDatasetsResource",
     "DatasetsResourceWithRawResponse",

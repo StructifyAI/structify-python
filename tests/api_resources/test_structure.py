@@ -22,7 +22,7 @@ class TestStructure:
     @parametrize
     def test_method_enhance_property(self, client: Structify) -> None:
         structure = client.structure.enhance_property(
-            entity_id=0,
+            entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             property_name="property_name",
         )
         assert_matches_type(str, structure, path=["response"])
@@ -30,7 +30,7 @@ class TestStructure:
     @parametrize
     def test_method_enhance_property_with_all_params(self, client: Structify) -> None:
         structure = client.structure.enhance_property(
-            entity_id=0,
+            entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             property_name="property_name",
             allow_extra_entities=True,
             special_job_type="HumanLLM",
@@ -42,7 +42,7 @@ class TestStructure:
     @parametrize
     def test_raw_response_enhance_property(self, client: Structify) -> None:
         response = client.structure.with_raw_response.enhance_property(
-            entity_id=0,
+            entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             property_name="property_name",
         )
 
@@ -54,7 +54,7 @@ class TestStructure:
     @parametrize
     def test_streaming_response_enhance_property(self, client: Structify) -> None:
         with client.structure.with_streaming_response.enhance_property(
-            entity_id=0,
+            entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             property_name="property_name",
         ) as response:
             assert not response.is_closed
@@ -68,7 +68,7 @@ class TestStructure:
     @parametrize
     def test_method_enhance_relationship(self, client: Structify) -> None:
         structure = client.structure.enhance_relationship(
-            entity_id=0,
+            entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             relationship_name="relationship_name",
         )
         assert_matches_type(str, structure, path=["response"])
@@ -76,7 +76,7 @@ class TestStructure:
     @parametrize
     def test_method_enhance_relationship_with_all_params(self, client: Structify) -> None:
         structure = client.structure.enhance_relationship(
-            entity_id=0,
+            entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             relationship_name="relationship_name",
             allow_extra_entities=True,
             special_job_type="HumanLLM",
@@ -88,7 +88,7 @@ class TestStructure:
     @parametrize
     def test_raw_response_enhance_relationship(self, client: Structify) -> None:
         response = client.structure.with_raw_response.enhance_relationship(
-            entity_id=0,
+            entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             relationship_name="relationship_name",
         )
 
@@ -100,7 +100,7 @@ class TestStructure:
     @parametrize
     def test_streaming_response_enhance_relationship(self, client: Structify) -> None:
         with client.structure.with_streaming_response.enhance_relationship(
-            entity_id=0,
+            entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             relationship_name="relationship_name",
         ) as response:
             assert not response.is_closed
@@ -115,8 +115,8 @@ class TestStructure:
     def test_method_find_relationship(self, client: Structify) -> None:
         structure = client.structure.find_relationship(
             relationship_name="relationship_name",
-            source_entity_id=0,
-            target_entity_id=0,
+            source_entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            target_entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(str, structure, path=["response"])
 
@@ -124,8 +124,8 @@ class TestStructure:
     def test_method_find_relationship_with_all_params(self, client: Structify) -> None:
         structure = client.structure.find_relationship(
             relationship_name="relationship_name",
-            source_entity_id=0,
-            target_entity_id=0,
+            source_entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            target_entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             allow_extra_entities=True,
             special_job_type="HumanLLM",
             starting_searches=["string"],
@@ -137,8 +137,8 @@ class TestStructure:
     def test_raw_response_find_relationship(self, client: Structify) -> None:
         response = client.structure.with_raw_response.find_relationship(
             relationship_name="relationship_name",
-            source_entity_id=0,
-            target_entity_id=0,
+            source_entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            target_entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
         assert response.is_closed is True
@@ -150,8 +150,8 @@ class TestStructure:
     def test_streaming_response_find_relationship(self, client: Structify) -> None:
         with client.structure.with_streaming_response.find_relationship(
             relationship_name="relationship_name",
-            source_entity_id=0,
-            target_entity_id=0,
+            source_entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            target_entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -291,7 +291,7 @@ class TestAsyncStructure:
     @parametrize
     async def test_method_enhance_property(self, async_client: AsyncStructify) -> None:
         structure = await async_client.structure.enhance_property(
-            entity_id=0,
+            entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             property_name="property_name",
         )
         assert_matches_type(str, structure, path=["response"])
@@ -299,7 +299,7 @@ class TestAsyncStructure:
     @parametrize
     async def test_method_enhance_property_with_all_params(self, async_client: AsyncStructify) -> None:
         structure = await async_client.structure.enhance_property(
-            entity_id=0,
+            entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             property_name="property_name",
             allow_extra_entities=True,
             special_job_type="HumanLLM",
@@ -311,7 +311,7 @@ class TestAsyncStructure:
     @parametrize
     async def test_raw_response_enhance_property(self, async_client: AsyncStructify) -> None:
         response = await async_client.structure.with_raw_response.enhance_property(
-            entity_id=0,
+            entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             property_name="property_name",
         )
 
@@ -323,7 +323,7 @@ class TestAsyncStructure:
     @parametrize
     async def test_streaming_response_enhance_property(self, async_client: AsyncStructify) -> None:
         async with async_client.structure.with_streaming_response.enhance_property(
-            entity_id=0,
+            entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             property_name="property_name",
         ) as response:
             assert not response.is_closed
@@ -337,7 +337,7 @@ class TestAsyncStructure:
     @parametrize
     async def test_method_enhance_relationship(self, async_client: AsyncStructify) -> None:
         structure = await async_client.structure.enhance_relationship(
-            entity_id=0,
+            entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             relationship_name="relationship_name",
         )
         assert_matches_type(str, structure, path=["response"])
@@ -345,7 +345,7 @@ class TestAsyncStructure:
     @parametrize
     async def test_method_enhance_relationship_with_all_params(self, async_client: AsyncStructify) -> None:
         structure = await async_client.structure.enhance_relationship(
-            entity_id=0,
+            entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             relationship_name="relationship_name",
             allow_extra_entities=True,
             special_job_type="HumanLLM",
@@ -357,7 +357,7 @@ class TestAsyncStructure:
     @parametrize
     async def test_raw_response_enhance_relationship(self, async_client: AsyncStructify) -> None:
         response = await async_client.structure.with_raw_response.enhance_relationship(
-            entity_id=0,
+            entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             relationship_name="relationship_name",
         )
 
@@ -369,7 +369,7 @@ class TestAsyncStructure:
     @parametrize
     async def test_streaming_response_enhance_relationship(self, async_client: AsyncStructify) -> None:
         async with async_client.structure.with_streaming_response.enhance_relationship(
-            entity_id=0,
+            entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             relationship_name="relationship_name",
         ) as response:
             assert not response.is_closed
@@ -384,8 +384,8 @@ class TestAsyncStructure:
     async def test_method_find_relationship(self, async_client: AsyncStructify) -> None:
         structure = await async_client.structure.find_relationship(
             relationship_name="relationship_name",
-            source_entity_id=0,
-            target_entity_id=0,
+            source_entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            target_entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(str, structure, path=["response"])
 
@@ -393,8 +393,8 @@ class TestAsyncStructure:
     async def test_method_find_relationship_with_all_params(self, async_client: AsyncStructify) -> None:
         structure = await async_client.structure.find_relationship(
             relationship_name="relationship_name",
-            source_entity_id=0,
-            target_entity_id=0,
+            source_entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            target_entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             allow_extra_entities=True,
             special_job_type="HumanLLM",
             starting_searches=["string"],
@@ -406,8 +406,8 @@ class TestAsyncStructure:
     async def test_raw_response_find_relationship(self, async_client: AsyncStructify) -> None:
         response = await async_client.structure.with_raw_response.find_relationship(
             relationship_name="relationship_name",
-            source_entity_id=0,
-            target_entity_id=0,
+            source_entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            target_entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
         assert response.is_closed is True
@@ -419,8 +419,8 @@ class TestAsyncStructure:
     async def test_streaming_response_find_relationship(self, async_client: AsyncStructify) -> None:
         async with async_client.structure.with_streaming_response.find_relationship(
             relationship_name="relationship_name",
-            source_entity_id=0,
-            target_entity_id=0,
+            source_entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            target_entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

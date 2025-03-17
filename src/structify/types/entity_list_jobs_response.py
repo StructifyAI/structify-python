@@ -10,21 +10,13 @@ __all__ = ["EntityListJobsResponse", "EntityListJobsResponseItem"]
 
 
 class EntityListJobsResponseItem(BaseModel):
-    id: int
+    id: str
 
-    created_at: datetime
-
-    dataset_id: object
-
-    parameters: object
+    creation_time: datetime
 
     status: Literal["Queued", "Running", "Completed", "Failed"]
 
-    user_id: object
-
     message: Optional[str] = None
-
-    plan_id: Optional[int] = None
 
     reason: Optional[str] = None
 

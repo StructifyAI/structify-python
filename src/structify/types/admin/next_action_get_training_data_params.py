@@ -9,10 +9,10 @@ __all__ = ["NextActionGetTrainingDataParams"]
 
 
 class NextActionGetTrainingDataParams(TypedDict, total=False):
-    job_id: Optional[int]
+    job_id: Optional[str]
 
     limit: int
 
     offset: int
 
-    status: object
+    status: Optional[str]

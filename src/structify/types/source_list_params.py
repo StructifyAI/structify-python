@@ -9,7 +9,7 @@ __all__ = ["SourceListParams"]
 
 
 class SourceListParams(TypedDict, total=False):
-    id: Required[int]
+    id: Required[str]
     """Entity ID to get sources for"""
 
     property: Optional[str]

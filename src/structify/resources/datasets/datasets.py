@@ -21,6 +21,14 @@ from ..._utils import (
     maybe_transform,
     async_maybe_transform,
 )
+from .evaluate import (
+    EvaluateResource,
+    AsyncEvaluateResource,
+    EvaluateResourceWithRawResponse,
+    AsyncEvaluateResourceWithRawResponse,
+    EvaluateResourceWithStreamingResponse,
+    AsyncEvaluateResourceWithStreamingResponse,
+)
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -44,6 +52,10 @@ __all__ = ["DatasetsResource", "AsyncDatasetsResource"]
 
 
 class DatasetsResource(SyncAPIResource):
+    @cached_property
+    def evaluate(self) -> EvaluateResource:
+        return EvaluateResource(self._client)
+
     @cached_property
     def with_raw_response(self) -> DatasetsResourceWithRawResponse:
         """
@@ -255,7 +267,7 @@ class DatasetsResource(SyncAPIResource):
         *,
         dataset: str,
         name: str,
-        job_id: Optional[int] | NotGiven = NOT_GIVEN,
+        job_id: Optional[str] | NotGiven = NOT_GIVEN,
         last_updated: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         offset: int | NotGiven = NOT_GIVEN,
@@ -308,7 +320,7 @@ class DatasetsResource(SyncAPIResource):
         *,
         dataset: str,
         name: str,
-        job_id: Optional[int] | NotGiven = NOT_GIVEN,
+        job_id: Optional[str] | NotGiven = NOT_GIVEN,
         last_updated: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         offset: int | NotGiven = NOT_GIVEN,
@@ -361,7 +373,7 @@ class DatasetsResource(SyncAPIResource):
         *,
         dataset: str,
         name: str,
-        job_id: Optional[int] | NotGiven = NOT_GIVEN,
+        job_id: Optional[str] | NotGiven = NOT_GIVEN,
         last_updated: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         offset: int | NotGiven = NOT_GIVEN,
@@ -410,6 +422,10 @@ class DatasetsResource(SyncAPIResource):
 
 
 class AsyncDatasetsResource(AsyncAPIResource):
+    @cached_property
+    def evaluate(self) -> AsyncEvaluateResource:
+        return AsyncEvaluateResource(self._client)
+
     @cached_property
     def with_raw_response(self) -> AsyncDatasetsResourceWithRawResponse:
         """
@@ -621,7 +637,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
         *,
         dataset: str,
         name: str,
-        job_id: Optional[int] | NotGiven = NOT_GIVEN,
+        job_id: Optional[str] | NotGiven = NOT_GIVEN,
         last_updated: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         offset: int | NotGiven = NOT_GIVEN,
@@ -674,7 +690,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
         *,
         dataset: str,
         name: str,
-        job_id: Optional[int] | NotGiven = NOT_GIVEN,
+        job_id: Optional[str] | NotGiven = NOT_GIVEN,
         last_updated: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         offset: int | NotGiven = NOT_GIVEN,
@@ -727,7 +743,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
         *,
         dataset: str,
         name: str,
-        job_id: Optional[int] | NotGiven = NOT_GIVEN,
+        job_id: Optional[str] | NotGiven = NOT_GIVEN,
         last_updated: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         offset: int | NotGiven = NOT_GIVEN,
@@ -804,6 +820,10 @@ class DatasetsResourceWithRawResponse:
             datasets.view_tables_with_relationships,
         )
 
+    @cached_property
+    def evaluate(self) -> EvaluateResourceWithRawResponse:
+        return EvaluateResourceWithRawResponse(self._datasets.evaluate)
+
 
 class AsyncDatasetsResourceWithRawResponse:
     def __init__(self, datasets: AsyncDatasetsResource) -> None:
@@ -833,6 +853,10 @@ class AsyncDatasetsResourceWithRawResponse:
         self.view_tables_with_relationships = async_to_raw_response_wrapper(
             datasets.view_tables_with_relationships,
         )
+
+    @cached_property
+    def evaluate(self) -> AsyncEvaluateResourceWithRawResponse:
+        return AsyncEvaluateResourceWithRawResponse(self._datasets.evaluate)
 
 
 class DatasetsResourceWithStreamingResponse:
@@ -864,6 +888,10 @@ class DatasetsResourceWithStreamingResponse:
             datasets.view_tables_with_relationships,
         )
 
+    @cached_property
+    def evaluate(self) -> EvaluateResourceWithStreamingResponse:
+        return EvaluateResourceWithStreamingResponse(self._datasets.evaluate)
+
 
 class AsyncDatasetsResourceWithStreamingResponse:
     def __init__(self, datasets: AsyncDatasetsResource) -> None:
@@ -893,3 +921,7 @@ class AsyncDatasetsResourceWithStreamingResponse:
         self.view_tables_with_relationships = async_to_streamed_response_wrapper(
             datasets.view_tables_with_relationships,
         )
+
+    @cached_property
+    def evaluate(self) -> AsyncEvaluateResourceWithStreamingResponse:
+        return AsyncEvaluateResourceWithStreamingResponse(self._datasets.evaluate)

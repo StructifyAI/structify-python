@@ -19,7 +19,7 @@ class RequiredEntity(BaseModel):
     from the global dataset entity id)
     """
 
-    entity_id: Optional[int] = None
+    entity_id: Optional[str] = None
 
 
 class RequiredProperty(BaseModel):
