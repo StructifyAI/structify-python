@@ -9,7 +9,7 @@ __all__ = ["StructureEnhancePropertyParams"]
 
 
 class StructureEnhancePropertyParams(TypedDict, total=False):
-    entity_id: Required[int]
+    entity_id: Required[str]
 
     property_name: Required[str]
 

@@ -8,8 +8,8 @@ __all__ = ["EntityMergeParams"]
 
 
 class EntityMergeParams(TypedDict, total=False):
-    entity_1_id: Required[int]
+    entity_1_id: Required[str]
 
-    entity_2_id: Required[int]
+    entity_2_id: Required[str]
 
     debug: bool

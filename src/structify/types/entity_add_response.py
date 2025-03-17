@@ -5,4 +5,4 @@ from typing_extensions import TypeAlias
 
 __all__ = ["EntityAddResponse"]
 
-EntityAddResponse: TypeAlias = List[int]
+EntityAddResponse: TypeAlias = List[str]

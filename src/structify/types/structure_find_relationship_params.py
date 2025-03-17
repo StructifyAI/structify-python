@@ -11,9 +11,9 @@ __all__ = ["StructureFindRelationshipParams"]
 class StructureFindRelationshipParams(TypedDict, total=False):
     relationship_name: Required[str]
 
-    source_entity_id: Required[int]
+    source_entity_id: Required[str]
 
-    target_entity_id: Required[int]
+    target_entity_id: Required[str]
 
     allow_extra_entities: bool
 
