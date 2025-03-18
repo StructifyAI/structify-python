@@ -14,11 +14,11 @@ class Job(BaseModel):
 
     created_at: datetime
 
-    dataset_id: object
+    dataset_id: str
 
     status: Literal["Queued", "Running", "Completed", "Failed"]
 
-    user_id: object
+    user_id: str
 
     message: Optional[str] = None
     """A message about the status of the job at completion"""
@@ -35,7 +35,7 @@ class Job(BaseModel):
 
 
 class Metadata(BaseModel):
-    id: object
+    id: str
 
     description: str
 
