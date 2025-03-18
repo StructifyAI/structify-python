@@ -100,10 +100,10 @@ class ReportResource(SyncAPIResource):
     def relationship(
         self,
         *,
-        relationship_type: str,
+        label: str,
         source_id: Optional[str] | NotGiven = NOT_GIVEN,
         source_url: Optional[str] | NotGiven = NOT_GIVEN,
-        target_id: Optional[str] | NotGiven = NOT_GIVEN,
+        to_id: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -128,10 +128,10 @@ class ReportResource(SyncAPIResource):
             "/report/relationship/missing",
             body=maybe_transform(
                 {
-                    "relationship_type": relationship_type,
+                    "label": label,
                     "source_id": source_id,
                     "source_url": source_url,
-                    "target_id": target_id,
+                    "to_id": to_id,
                 },
                 report_relationship_params.ReportRelationshipParams,
             ),
@@ -300,10 +300,10 @@ class AsyncReportResource(AsyncAPIResource):
     async def relationship(
         self,
         *,
-        relationship_type: str,
+        label: str,
         source_id: Optional[str] | NotGiven = NOT_GIVEN,
         source_url: Optional[str] | NotGiven = NOT_GIVEN,
-        target_id: Optional[str] | NotGiven = NOT_GIVEN,
+        to_id: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -328,10 +328,10 @@ class AsyncReportResource(AsyncAPIResource):
             "/report/relationship/missing",
             body=await async_maybe_transform(
                 {
-                    "relationship_type": relationship_type,
+                    "label": label,
                     "source_id": source_id,
                     "source_url": source_url,
-                    "target_id": target_id,
+                    "to_id": to_id,
                 },
                 report_relationship_params.ReportRelationshipParams,
             ),
