@@ -10,7 +10,7 @@ __all__ = ["User"]
 
 
 class User(BaseModel):
-    id: object
+    id: str
 
     created_at: datetime
 
