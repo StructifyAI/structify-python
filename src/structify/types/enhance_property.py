@@ -8,7 +8,7 @@ __all__ = ["EnhanceProperty"]
 
 
 class EnhanceProperty(BaseModel):
-    entity_id: str
+    entity_id: int
 
     property_name: str
 

@@ -11,9 +11,9 @@ __all__ = ["FindRelationshipParam"]
 class FindRelationshipParam(TypedDict, total=False):
     relationship_name: Required[str]
 
-    source_entity_id: Required[str]
+    source_entity_id: Required[int]
 
-    target_entity_id: Required[str]
+    target_entity_id: Required[int]
 
     allow_extra_entities: bool
 

@@ -8,4 +8,4 @@ __all__ = ["EntityGetSourceEntitiesParams"]
 
 
 class EntityGetSourceEntitiesParams(TypedDict, total=False):
-    id: Required[str]
+    id: Required[int]

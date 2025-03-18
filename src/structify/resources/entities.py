@@ -80,7 +80,7 @@ class EntitiesResource(SyncAPIResource):
         self,
         *,
         dataset: str,
-        entity_id: str,
+        entity_id: int,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -214,7 +214,7 @@ class EntitiesResource(SyncAPIResource):
     def get(
         self,
         *,
-        id: str,
+        id: int,
         resolve_id: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -256,7 +256,7 @@ class EntitiesResource(SyncAPIResource):
     def get_local_subgraph(
         self,
         *,
-        id: str,
+        id: int,
         radius: int | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -296,7 +296,7 @@ class EntitiesResource(SyncAPIResource):
     def get_source_entities(
         self,
         *,
-        id: str,
+        id: int,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -329,7 +329,7 @@ class EntitiesResource(SyncAPIResource):
     def list_jobs(
         self,
         *,
-        id: str,
+        id: int,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -364,8 +364,8 @@ class EntitiesResource(SyncAPIResource):
     def merge(
         self,
         *,
-        entity_1_id: str,
-        entity_2_id: str,
+        entity_1_id: int,
+        entity_2_id: int,
         debug: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -447,7 +447,7 @@ class EntitiesResource(SyncAPIResource):
         self,
         *,
         dataset: str,
-        entity_id: str,
+        entity_id: int,
         properties: List[str],
         extra_instructions: Optional[List[str]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -491,7 +491,7 @@ class EntitiesResource(SyncAPIResource):
     def trigger_merge(
         self,
         *,
-        entity_id: str,
+        entity_id: int,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -527,7 +527,7 @@ class EntitiesResource(SyncAPIResource):
         self,
         *,
         dataset: str,
-        entity_id: str,
+        entity_id: int,
         properties: Dict[str, entity_update_property_params.Properties],
         source: entity_update_property_params.Source | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -616,7 +616,7 @@ class EntitiesResource(SyncAPIResource):
     def view(
         self,
         *,
-        id: str,
+        id: int,
         resolve_id: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -678,7 +678,7 @@ class AsyncEntitiesResource(AsyncAPIResource):
         self,
         *,
         dataset: str,
-        entity_id: str,
+        entity_id: int,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -812,7 +812,7 @@ class AsyncEntitiesResource(AsyncAPIResource):
     async def get(
         self,
         *,
-        id: str,
+        id: int,
         resolve_id: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -854,7 +854,7 @@ class AsyncEntitiesResource(AsyncAPIResource):
     async def get_local_subgraph(
         self,
         *,
-        id: str,
+        id: int,
         radius: int | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -894,7 +894,7 @@ class AsyncEntitiesResource(AsyncAPIResource):
     async def get_source_entities(
         self,
         *,
-        id: str,
+        id: int,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -929,7 +929,7 @@ class AsyncEntitiesResource(AsyncAPIResource):
     async def list_jobs(
         self,
         *,
-        id: str,
+        id: int,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -964,8 +964,8 @@ class AsyncEntitiesResource(AsyncAPIResource):
     async def merge(
         self,
         *,
-        entity_1_id: str,
-        entity_2_id: str,
+        entity_1_id: int,
+        entity_2_id: int,
         debug: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1047,7 +1047,7 @@ class AsyncEntitiesResource(AsyncAPIResource):
         self,
         *,
         dataset: str,
-        entity_id: str,
+        entity_id: int,
         properties: List[str],
         extra_instructions: Optional[List[str]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -1091,7 +1091,7 @@ class AsyncEntitiesResource(AsyncAPIResource):
     async def trigger_merge(
         self,
         *,
-        entity_id: str,
+        entity_id: int,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1129,7 +1129,7 @@ class AsyncEntitiesResource(AsyncAPIResource):
         self,
         *,
         dataset: str,
-        entity_id: str,
+        entity_id: int,
         properties: Dict[str, entity_update_property_params.Properties],
         source: entity_update_property_params.Source | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -1218,7 +1218,7 @@ class AsyncEntitiesResource(AsyncAPIResource):
     async def view(
         self,
         *,
-        id: str,
+        id: int,
         resolve_id: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.

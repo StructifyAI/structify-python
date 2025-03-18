@@ -8,5 +8,5 @@ __all__ = ["NextActionDeleteTrainingDataParams"]
 
 
 class NextActionDeleteTrainingDataParams(TypedDict, total=False):
-    id: Required[str]
+    id: Required[int]
     """ID of the training datum to delete"""

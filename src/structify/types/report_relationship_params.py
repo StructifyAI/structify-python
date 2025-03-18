@@ -11,8 +11,8 @@ __all__ = ["ReportRelationshipParams"]
 class ReportRelationshipParams(TypedDict, total=False):
     relationship_type: Required[str]
 
-    source_id: Optional[str]
+    source_id: Optional[int]
 
     source_url: Optional[str]
 
-    target_id: Optional[str]
+    target_id: Optional[int]

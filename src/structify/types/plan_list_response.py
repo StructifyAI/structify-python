@@ -12,7 +12,7 @@ __all__ = ["PlanListResponse", "PlanListResponseItem"]
 class PlanListResponseItem(BaseModel):
     plan: Plan
 
-    plan_id: str
+    plan_id: int
 
     status: Literal["Running", "StartingNextStep", "Completed", "Failed", "Paused"]
 

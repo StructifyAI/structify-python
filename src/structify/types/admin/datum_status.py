@@ -5,15 +5,15 @@ from typing_extensions import Literal, TypeAlias
 __all__ = ["DatumStatus"]
 
 DatumStatus: TypeAlias = Literal[
-    "Unlabeled",
-    "NavLabeled",
-    "SaveLabeled",
-    "NavVerified",
-    "SaveVerified",
-    "Pending",
-    "Skipped",
-    "SuspiciousNav",
-    "SuspiciousSave",
-    "PotentialSuspiciousNav",
-    "PotentialSuspiciousSave",
+    "unlabeled",
+    "nav_labeled",
+    "save_labeled",
+    "nav_verified",
+    "save_verified",
+    "pending",
+    "skipped",
+    "suspicious_nav",
+    "suspicious_save",
+    "potential_suspicious_nav",
+    "potential_suspicious_save",
 ]

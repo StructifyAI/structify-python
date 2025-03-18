@@ -8,9 +8,9 @@ __all__ = ["EntityMergeResponse", "MatchObject"]
 
 
 class MatchObject(BaseModel):
-    a_id: str
+    a_id: int
 
-    b_id: str
+    b_id: int
 
     info: str
 
@@ -22,4 +22,4 @@ class MatchObject(BaseModel):
 class EntityMergeResponse(BaseModel):
     match_object: Optional[MatchObject] = None
 
-    merged_entity_id: Optional[str] = None
+    merged_entity_id: Optional[int] = None

@@ -19,7 +19,7 @@ class RequiredEntity(TypedDict, total=False):
     from the global dataset entity id)
     """
 
-    entity_id: Optional[str]
+    entity_id: Optional[int]
 
 
 class RequiredProperty(TypedDict, total=False):

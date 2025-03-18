@@ -187,7 +187,7 @@ class Response(BaseModel):
 
 
 class ExecutionStep(BaseModel):
-    id: str
+    id: int
 
     prompt: ChatPrompt
 

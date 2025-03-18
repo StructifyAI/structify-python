@@ -8,7 +8,7 @@ __all__ = ["EnhanceRelationship"]
 
 
 class EnhanceRelationship(BaseModel):
-    entity_id: str
+    entity_id: int
 
     relationship_name: str
 

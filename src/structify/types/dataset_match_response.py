@@ -9,7 +9,7 @@ __all__ = ["DatasetMatchResponse", "DatasetMatchResponseItem"]
 
 
 class DatasetMatchResponseItem(BaseModel):
-    entity: str
+    entity: int
 
     score: float
 
