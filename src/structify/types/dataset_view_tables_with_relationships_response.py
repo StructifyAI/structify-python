@@ -23,15 +23,11 @@ ConnectedEntityProperties: TypeAlias = Union[str, bool, float, Image]
 class ConnectedEntity(BaseModel):
     id: str
 
-    created_at: datetime
-
-    dataset_id: str
+    creation_time: datetime
 
     label: str
 
     properties: Dict[str, ConnectedEntityProperties]
-
-    updated_at: datetime
 
 
 EntityProperties: TypeAlias = Union[str, bool, float, Image]
@@ -40,15 +36,11 @@ EntityProperties: TypeAlias = Union[str, bool, float, Image]
 class Entity(BaseModel):
     id: str
 
-    created_at: datetime
-
-    dataset_id: str
+    creation_time: datetime
 
     label: str
 
     properties: Dict[str, EntityProperties]
-
-    updated_at: datetime
 
 
 RelationshipProperties: TypeAlias = Union[str, bool, float, Image]

@@ -5,10 +5,10 @@ from __future__ import annotations
 from typing import Optional
 from typing_extensions import TypedDict
 
-__all__ = ["NextActionGetTrainingDataParams"]
+__all__ = ["NextActionGetTrainingDataMetadataParams"]
 
 
-class NextActionGetTrainingDataParams(TypedDict, total=False):
+class NextActionGetTrainingDataMetadataParams(TypedDict, total=False):
     job_id: Optional[str]
 
     limit: int

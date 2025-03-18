@@ -13,7 +13,7 @@ class StructureFindRelationshipParams(TypedDict, total=False):
 
     source_entity_id: Required[str]
 
-    to_id: Required[str]
+    target_entity_id: Required[str]
 
     allow_extra_entities: bool
 

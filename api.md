@@ -47,7 +47,9 @@ Types:
 ```python
 from structify.types.admin import (
     ActionTrainingDataEntry,
+    ActionTrainingDataMetadataResponse,
     ActionTrainingDataResponse,
+    ActionTrainingDatumMetadata,
     AddActionTrainingDatumRequest,
     DeleteActionTrainingDataParams,
     DeleteActionTrainingDataResponse,
@@ -61,6 +63,7 @@ Methods:
 - <code title="post /admin/next_action/add_action_training_datum">client.admin.next_action.<a href="./src/structify/resources/admin/next_action.py">add_training_datum</a>(\*\*<a href="src/structify/types/admin/next_action_add_training_datum_params.py">params</a>) -> None</code>
 - <code title="delete /admin/next_action/delete_action_training_data">client.admin.next_action.<a href="./src/structify/resources/admin/next_action.py">delete_training_data</a>(\*\*<a href="src/structify/types/admin/next_action_delete_training_data_params.py">params</a>) -> <a href="./src/structify/types/admin/delete_action_training_data_response.py">DeleteActionTrainingDataResponse</a></code>
 - <code title="get /admin/next_action/get_action_training_data">client.admin.next_action.<a href="./src/structify/resources/admin/next_action.py">get_training_data</a>(\*\*<a href="src/structify/types/admin/next_action_get_training_data_params.py">params</a>) -> <a href="./src/structify/types/admin/action_training_data_response.py">ActionTrainingDataResponse</a></code>
+- <code title="get /admin/next_action/get_action_training_data_metadata">client.admin.next_action.<a href="./src/structify/resources/admin/next_action.py">get_training_data_metadata</a>(\*\*<a href="src/structify/types/admin/next_action_get_training_data_metadata_params.py">params</a>) -> <a href="./src/structify/types/admin/action_training_data_metadata_response.py">ActionTrainingDataMetadataResponse</a></code>
 - <code title="put /admin/next_action/label_action_training_datum">client.admin.next_action.<a href="./src/structify/resources/admin/next_action.py">label_training_datum</a>(\*\*<a href="src/structify/types/admin/next_action_label_training_datum_params.py">params</a>) -> None</code>
 
 ## Users
@@ -281,6 +284,18 @@ Methods:
 - <code title="post /entity/update">client.entities.<a href="./src/structify/resources/entities.py">update_property</a>(\*\*<a href="src/structify/types/entity_update_property_params.py">params</a>) -> <a href="./src/structify/types/entity_update_property_response.py">EntityUpdatePropertyResponse</a></code>
 - <code title="post /entity/verify">client.entities.<a href="./src/structify/resources/entities.py">verify</a>(\*\*<a href="src/structify/types/entity_verify_params.py">params</a>) -> <a href="./src/structify/types/knowledge_graph.py">KnowledgeGraph</a></code>
 - <code title="get /entity/view">client.entities.<a href="./src/structify/resources/entities.py">view</a>(\*\*<a href="src/structify/types/entity_view_params.py">params</a>) -> <a href="./src/structify/types/entity_view_response.py">EntityViewResponse</a></code>
+
+# Images
+
+Types:
+
+```python
+from structify.types import ImageGetResponse
+```
+
+Methods:
+
+- <code title="get /images/{hash}">client.images.<a href="./src/structify/resources/images.py">get</a>(hash) -> <a href="./src/structify/types/image_get_response.py">ImageGetResponse</a></code>
 
 # Plan
 
