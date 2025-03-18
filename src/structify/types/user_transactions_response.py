@@ -16,7 +16,7 @@ class UserTransactionsResponseItem(BaseModel):
 
     timestamp: datetime
 
-    token_id: object
+    token_id: str
 
     job_id: Optional[str] = None
 
