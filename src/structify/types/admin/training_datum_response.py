@@ -202,7 +202,7 @@ class Update(BaseModel):
 
     review_message: Optional[str] = None
 
-    target_id: Optional[str] = None
+    to_id: Optional[str] = None
 
 
 class TrainingDatumResponse(BaseModel):

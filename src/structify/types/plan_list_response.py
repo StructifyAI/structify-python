@@ -14,7 +14,7 @@ class PlanListResponseItem(BaseModel):
 
     plan_id: str
 
-    status: Literal["Running", "StartingNextStep", "Completed", "Failed", "Paused"]
+    status: Literal["Queued", "Running", "Completed", "Failed", "Paused"]
 
     step: int
 

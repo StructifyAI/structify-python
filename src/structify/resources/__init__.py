@@ -32,14 +32,6 @@ from .admin import (
     AdminResourceWithStreamingResponse,
     AsyncAdminResourceWithStreamingResponse,
 )
-from .images import (
-    ImagesResource,
-    AsyncImagesResource,
-    ImagesResourceWithRawResponse,
-    AsyncImagesResourceWithRawResponse,
-    ImagesResourceWithStreamingResponse,
-    AsyncImagesResourceWithStreamingResponse,
-)
 from .report import (
     ReportResource,
     AsyncReportResource,
@@ -146,12 +138,6 @@ __all__ = [
     "AsyncEntitiesResourceWithRawResponse",
     "EntitiesResourceWithStreamingResponse",
     "AsyncEntitiesResourceWithStreamingResponse",
-    "ImagesResource",
-    "AsyncImagesResource",
-    "ImagesResourceWithRawResponse",
-    "AsyncImagesResourceWithRawResponse",
-    "ImagesResourceWithStreamingResponse",
-    "AsyncImagesResourceWithStreamingResponse",
     "PlanResource",
     "AsyncPlanResource",
     "PlanResourceWithRawResponse",

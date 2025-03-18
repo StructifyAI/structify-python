@@ -6,7 +6,6 @@ from .plan import Plan as Plan
 from .image import Image as Image
 from .table import Table as Table
 from .entity import Entity as Entity
-from .source import Source as Source
 from .strategy import Strategy as Strategy
 from .user_info import UserInfo as UserInfo
 from .plan_param import PlanParam as PlanParam
@@ -35,7 +34,6 @@ from .user_usage_params import UserUsageParams as UserUsageParams
 from .dataset_descriptor import DatasetDescriptor as DatasetDescriptor
 from .dataset_get_params import DatasetGetParams as DatasetGetParams
 from .entity_view_params import EntityViewParams as EntityViewParams
-from .image_get_response import ImageGetResponse as ImageGetResponse
 from .merge_config_param import MergeConfigParam as MergeConfigParam
 from .plan_create_params import PlanCreateParams as PlanCreateParams
 from .plan_list_response import PlanListResponse as PlanListResponse

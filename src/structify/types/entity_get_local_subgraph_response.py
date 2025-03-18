@@ -7,19 +7,21 @@ from typing_extensions import TypeAlias
 from .image import Image
 from .._models import BaseModel
 
-__all__ = ["EntityGetLocalSubgraphResponse", "Neighbor", "NeighborProperties", "Relationship", "RelationshipProperties"]
-
-NeighborProperties: TypeAlias = Union[str, bool, float, Image]
+__all__ = ["EntityGetLocalSubgraphResponse", "Neighbor", "Relationship", "RelationshipProperties"]
 
 
 class Neighbor(BaseModel):
     id: str
 
-    creation_time: datetime
+    created_at: datetime
+
+    dataset_id: object
 
     label: str
 
-    properties: Dict[str, NeighborProperties]
+    properties: object
+
+    updated_at: datetime
 
 
 RelationshipProperties: TypeAlias = Union[str, bool, float, Image]
