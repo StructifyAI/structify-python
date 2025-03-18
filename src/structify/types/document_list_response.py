@@ -10,7 +10,7 @@ __all__ = ["DocumentListResponse", "DocumentListResponseItem"]
 
 
 class DocumentListResponseItem(BaseModel):
-    id: object
+    id: str
 
     created_at: datetime
 
@@ -20,9 +20,9 @@ class DocumentListResponseItem(BaseModel):
 
     name: str
 
-    user_id: object
+    user_id: str
 
-    dataset_id: Optional[object] = None
+    dataset_id: Optional[str] = None
 
 
 DocumentListResponse: TypeAlias = List[DocumentListResponseItem]

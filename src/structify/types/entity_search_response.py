@@ -14,7 +14,7 @@ class EntitySearchResponseItem(BaseModel):
 
     created_at: datetime
 
-    dataset_id: object
+    dataset_id: str
 
     label: str
 
