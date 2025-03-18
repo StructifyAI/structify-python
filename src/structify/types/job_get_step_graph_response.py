@@ -2,24 +2,24 @@
 
 from typing import List, Optional
 from datetime import datetime
-from typing_extensions import Literal
-
-from pydantic import Field as FieldInfo
+from typing_extensions import Literal, TypeAlias
 
 from .._models import BaseModel
 from .execution_step import ExecutionStep
 
-__all__ = ["JobGetStepGraphResponse", "Step", "Transition", "TransitionToolCall"]
+__all__ = ["JobGetStepGraphResponse", "JobGetStepGraphResponseItem"]
 
 
-class Step(BaseModel):
+class JobGetStepGraphResponseItem(BaseModel):
     id: str
 
     creation_time: datetime
 
-    status: Literal["Queued", "Ignored", "Started", "Executed"]
+    status: Literal["queued", "started", "executed", "skipped"]
 
     execution_step: Optional[ExecutionStep] = None
+
+    parent_transition: Optional[object] = None
 
     queued_message: Optional[str] = None
 
@@ -30,23 +30,4 @@ class Step(BaseModel):
     step_index: Optional[int] = None
 
 
-class TransitionToolCall(BaseModel):
-    action: str
-
-    formatted_input: str
-
-    name: str
-
-
-class Transition(BaseModel):
-    from_: str = FieldInfo(alias="from")
-
-    to: str
-
-    tool_call: TransitionToolCall
-
-
-class JobGetStepGraphResponse(BaseModel):
-    steps: List[Step]
-
-    transitions: List[Transition]
+JobGetStepGraphResponse: TypeAlias = List[JobGetStepGraphResponseItem]
