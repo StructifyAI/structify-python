@@ -8,4 +8,4 @@ __all__ = ["EntityListJobsParams"]
 
 
 class EntityListJobsParams(TypedDict, total=False):
-    id: Required[str]
+    id: Required[int]

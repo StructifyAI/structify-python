@@ -16,7 +16,7 @@ class DatasetViewTablesWithRelationshipsParams(TypedDict, total=False):
 
     name: Required[str]
 
-    job_id: Optional[str]
+    job_id: Optional[int]
 
     last_updated: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
 

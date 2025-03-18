@@ -9,7 +9,7 @@ __all__ = ["ReportMissingParams"]
 
 
 class ReportMissingParams(TypedDict, total=False):
-    id: Required[str]
+    id: Required[int]
 
     property: Optional[str]
     """A property that is being reported"""

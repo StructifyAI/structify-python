@@ -8,4 +8,4 @@ __all__ = ["EntityTriggerMergeParams"]
 
 
 class EntityTriggerMergeParams(TypedDict, total=False):
-    entity_id: Required[str]
+    entity_id: Required[int]

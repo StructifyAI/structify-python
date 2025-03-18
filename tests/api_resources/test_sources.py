@@ -20,14 +20,14 @@ class TestSources:
     @parametrize
     def test_method_list(self, client: Structify) -> None:
         source = client.sources.list(
-            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            id=0,
         )
         assert_matches_type(SourceListResponse, source, path=["response"])
 
     @parametrize
     def test_method_list_with_all_params(self, client: Structify) -> None:
         source = client.sources.list(
-            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            id=0,
             property="property",
         )
         assert_matches_type(SourceListResponse, source, path=["response"])
@@ -35,7 +35,7 @@ class TestSources:
     @parametrize
     def test_raw_response_list(self, client: Structify) -> None:
         response = client.sources.with_raw_response.list(
-            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            id=0,
         )
 
         assert response.is_closed is True
@@ -46,7 +46,7 @@ class TestSources:
     @parametrize
     def test_streaming_response_list(self, client: Structify) -> None:
         with client.sources.with_streaming_response.list(
-            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            id=0,
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -63,14 +63,14 @@ class TestAsyncSources:
     @parametrize
     async def test_method_list(self, async_client: AsyncStructify) -> None:
         source = await async_client.sources.list(
-            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            id=0,
         )
         assert_matches_type(SourceListResponse, source, path=["response"])
 
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncStructify) -> None:
         source = await async_client.sources.list(
-            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            id=0,
             property="property",
         )
         assert_matches_type(SourceListResponse, source, path=["response"])
@@ -78,7 +78,7 @@ class TestAsyncSources:
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncStructify) -> None:
         response = await async_client.sources.with_raw_response.list(
-            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            id=0,
         )
 
         assert response.is_closed is True
@@ -89,7 +89,7 @@ class TestAsyncSources:
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncStructify) -> None:
         async with async_client.sources.with_streaming_response.list(
-            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            id=0,
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

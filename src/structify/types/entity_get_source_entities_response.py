@@ -1,80 +1,39 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Union
+from typing import List, Optional
 from datetime import datetime
-from typing_extensions import Literal, TypeAlias
 
-from pydantic import Field as FieldInfo
-
-from .image import Image
-from .source import Source
 from .._models import BaseModel
 
-__all__ = [
-    "EntityGetSourceEntitiesResponse",
-    "SourceEntity",
-    "SourceEntityLocation",
-    "SourceEntityLocationText",
-    "SourceEntityLocationTextText",
-    "SourceEntityLocationVisual",
-    "SourceEntityLocationVisualVisual",
-    "SourceEntityLocationPage",
-    "SourceEntityLocationPagePage",
-    "SourceEntityProperties",
-]
-
-
-class SourceEntityLocationTextText(BaseModel):
-    byte_offset: int
-
-
-class SourceEntityLocationText(BaseModel):
-    text: SourceEntityLocationTextText = FieldInfo(alias="Text")
-
-
-class SourceEntityLocationVisualVisual(BaseModel):
-    x: int
-
-    y: int
-
-
-class SourceEntityLocationVisual(BaseModel):
-    visual: SourceEntityLocationVisualVisual = FieldInfo(alias="Visual")
-
-
-class SourceEntityLocationPagePage(BaseModel):
-    page_number: int
-
-
-class SourceEntityLocationPage(BaseModel):
-    page: SourceEntityLocationPagePage = FieldInfo(alias="Page")
-
-
-SourceEntityLocation: TypeAlias = Union[
-    SourceEntityLocationText, SourceEntityLocationVisual, SourceEntityLocationPage, Literal["None"]
-]
-
-SourceEntityProperties: TypeAlias = Union[str, bool, float, Image]
+__all__ = ["EntityGetSourceEntitiesResponse", "SourceEntity"]
 
 
 class SourceEntity(BaseModel):
-    id: str
+    id: int
 
-    creation_time: datetime
+    created_at: datetime
 
     is_summary: bool
 
     label: str
 
-    link: Source
+    link: object
 
     llm_id: int
 
-    location: SourceEntityLocation
+    location: object
 
-    properties: Dict[str, SourceEntityProperties]
+    properties: object
+
+    source_id: int
 
     user_specified: bool
+
+    entity_id: Optional[int] = None
+
+    job_id: Optional[int] = None
+
+    step_id: Optional[int] = None
 
 
 class EntityGetSourceEntitiesResponse(BaseModel):
