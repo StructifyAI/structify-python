@@ -15,8 +15,12 @@ Properties: TypeAlias = Union[str, bool, float, Image]
 class EntityUpdatePropertyResponse(BaseModel):
     id: str
 
-    creation_time: datetime
+    created_at: datetime
+
+    dataset_id: str
 
     label: str
 
     properties: Dict[str, Properties]
+
+    updated_at: datetime

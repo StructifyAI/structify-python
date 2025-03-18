@@ -12,7 +12,6 @@ from tests.utils import assert_matches_type
 from structify.types.admin import (
     ActionTrainingDataResponse,
     DeleteActionTrainingDataResponse,
-    ActionTrainingDataMetadataResponse,
 )
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
@@ -152,7 +151,7 @@ class TestNextAction:
             job_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             limit=0,
             offset=0,
-            status="status",
+            status={},
         )
         assert_matches_type(ActionTrainingDataResponse, next_action, path=["response"])
 
@@ -173,41 +172,6 @@ class TestNextAction:
 
             next_action = response.parse()
             assert_matches_type(ActionTrainingDataResponse, next_action, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    def test_method_get_training_data_metadata(self, client: Structify) -> None:
-        next_action = client.admin.next_action.get_training_data_metadata()
-        assert_matches_type(ActionTrainingDataMetadataResponse, next_action, path=["response"])
-
-    @parametrize
-    def test_method_get_training_data_metadata_with_all_params(self, client: Structify) -> None:
-        next_action = client.admin.next_action.get_training_data_metadata(
-            job_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            limit=0,
-            offset=0,
-            status="status",
-        )
-        assert_matches_type(ActionTrainingDataMetadataResponse, next_action, path=["response"])
-
-    @parametrize
-    def test_raw_response_get_training_data_metadata(self, client: Structify) -> None:
-        response = client.admin.next_action.with_raw_response.get_training_data_metadata()
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        next_action = response.parse()
-        assert_matches_type(ActionTrainingDataMetadataResponse, next_action, path=["response"])
-
-    @parametrize
-    def test_streaming_response_get_training_data_metadata(self, client: Structify) -> None:
-        with client.admin.next_action.with_streaming_response.get_training_data_metadata() as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            next_action = response.parse()
-            assert_matches_type(ActionTrainingDataMetadataResponse, next_action, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -383,7 +347,7 @@ class TestAsyncNextAction:
             job_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             limit=0,
             offset=0,
-            status="status",
+            status={},
         )
         assert_matches_type(ActionTrainingDataResponse, next_action, path=["response"])
 
@@ -404,41 +368,6 @@ class TestAsyncNextAction:
 
             next_action = await response.parse()
             assert_matches_type(ActionTrainingDataResponse, next_action, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    async def test_method_get_training_data_metadata(self, async_client: AsyncStructify) -> None:
-        next_action = await async_client.admin.next_action.get_training_data_metadata()
-        assert_matches_type(ActionTrainingDataMetadataResponse, next_action, path=["response"])
-
-    @parametrize
-    async def test_method_get_training_data_metadata_with_all_params(self, async_client: AsyncStructify) -> None:
-        next_action = await async_client.admin.next_action.get_training_data_metadata(
-            job_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            limit=0,
-            offset=0,
-            status="status",
-        )
-        assert_matches_type(ActionTrainingDataMetadataResponse, next_action, path=["response"])
-
-    @parametrize
-    async def test_raw_response_get_training_data_metadata(self, async_client: AsyncStructify) -> None:
-        response = await async_client.admin.next_action.with_raw_response.get_training_data_metadata()
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        next_action = await response.parse()
-        assert_matches_type(ActionTrainingDataMetadataResponse, next_action, path=["response"])
-
-    @parametrize
-    async def test_streaming_response_get_training_data_metadata(self, async_client: AsyncStructify) -> None:
-        async with async_client.admin.next_action.with_streaming_response.get_training_data_metadata() as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            next_action = await response.parse()
-            assert_matches_type(ActionTrainingDataMetadataResponse, next_action, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
