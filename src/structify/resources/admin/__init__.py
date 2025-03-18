@@ -16,6 +16,14 @@ from .users import (
     UsersResourceWithStreamingResponse,
     AsyncUsersResourceWithStreamingResponse,
 )
+from .human_llm import (
+    HumanLlmResource,
+    AsyncHumanLlmResource,
+    HumanLlmResourceWithRawResponse,
+    AsyncHumanLlmResourceWithRawResponse,
+    HumanLlmResourceWithStreamingResponse,
+    AsyncHumanLlmResourceWithStreamingResponse,
+)
 from .next_action import (
     NextActionResource,
     AsyncNextActionResource,
@@ -24,8 +32,22 @@ from .next_action import (
     NextActionResourceWithStreamingResponse,
     AsyncNextActionResourceWithStreamingResponse,
 )
+from .training_datasets import (
+    TrainingDatasetsResource,
+    AsyncTrainingDatasetsResource,
+    TrainingDatasetsResourceWithRawResponse,
+    AsyncTrainingDatasetsResourceWithRawResponse,
+    TrainingDatasetsResourceWithStreamingResponse,
+    AsyncTrainingDatasetsResourceWithStreamingResponse,
+)
 
 __all__ = [
+    "HumanLlmResource",
+    "AsyncHumanLlmResource",
+    "HumanLlmResourceWithRawResponse",
+    "AsyncHumanLlmResourceWithRawResponse",
+    "HumanLlmResourceWithStreamingResponse",
+    "AsyncHumanLlmResourceWithStreamingResponse",
     "NextActionResource",
     "AsyncNextActionResource",
     "NextActionResourceWithRawResponse",
@@ -38,6 +60,12 @@ __all__ = [
     "AsyncUsersResourceWithRawResponse",
     "UsersResourceWithStreamingResponse",
     "AsyncUsersResourceWithStreamingResponse",
+    "TrainingDatasetsResource",
+    "AsyncTrainingDatasetsResource",
+    "TrainingDatasetsResourceWithRawResponse",
+    "AsyncTrainingDatasetsResourceWithRawResponse",
+    "TrainingDatasetsResourceWithStreamingResponse",
+    "AsyncTrainingDatasetsResourceWithStreamingResponse",
     "AdminResource",
     "AsyncAdminResource",
     "AdminResourceWithRawResponse",

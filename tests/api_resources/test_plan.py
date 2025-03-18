@@ -28,7 +28,7 @@ class TestPlan:
             plan={
                 "steps": [
                     {
-                        "entity_id": 0,
+                        "entity_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                         "property_name": "property_name",
                     }
                 ]
@@ -43,7 +43,7 @@ class TestPlan:
             plan={
                 "steps": [
                     {
-                        "entity_id": 0,
+                        "entity_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                         "property_name": "property_name",
                     }
                 ]
@@ -62,7 +62,7 @@ class TestPlan:
             plan={
                 "steps": [
                     {
-                        "entity_id": 0,
+                        "entity_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                         "property_name": "property_name",
                     }
                 ]
@@ -174,7 +174,7 @@ class TestAsyncPlan:
             plan={
                 "steps": [
                     {
-                        "entity_id": 0,
+                        "entity_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                         "property_name": "property_name",
                     }
                 ]
@@ -189,7 +189,7 @@ class TestAsyncPlan:
             plan={
                 "steps": [
                     {
-                        "entity_id": 0,
+                        "entity_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                         "property_name": "property_name",
                     }
                 ]
@@ -208,7 +208,7 @@ class TestAsyncPlan:
             plan={
                 "steps": [
                     {
-                        "entity_id": 0,
+                        "entity_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                         "property_name": "property_name",
                     }
                 ]

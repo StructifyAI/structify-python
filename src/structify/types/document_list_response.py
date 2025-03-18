@@ -10,19 +10,13 @@ __all__ = ["DocumentListResponse", "DocumentListResponseItem"]
 
 
 class DocumentListResponseItem(BaseModel):
-    id: object
+    created_time: datetime
 
-    created_at: datetime
-
-    file_hash: object
-
-    file_type: Literal["Text", "PDF", "SEC"]
+    document_type: Literal["Text", "PDF", "SEC"]
 
     name: str
 
-    user_id: object
-
-    dataset_id: Optional[object] = None
+    content: Optional[object] = None
 
 
 DocumentListResponse: TypeAlias = List[DocumentListResponseItem]

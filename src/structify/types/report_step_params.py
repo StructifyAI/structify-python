@@ -9,7 +9,7 @@ __all__ = ["ReportStepParams"]
 
 
 class ReportStepParams(TypedDict, total=False):
-    step_id: Required[int]
+    step_id: Required[str]
 
     message: Optional[str]
     """A short message about why the step is being reported"""

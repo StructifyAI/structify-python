@@ -108,7 +108,7 @@ class JobsResource(SyncAPIResource):
 
     def delete(
         self,
-        job_id: int,
+        job_id: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -129,6 +129,8 @@ class JobsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        if not job_id:
+            raise ValueError(f"Expected a non-empty value for `job_id` but received {job_id!r}")
         extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
         return self._post(
             f"/jobs/delete/{job_id}",
@@ -173,7 +175,7 @@ class JobsResource(SyncAPIResource):
 
     def get(
         self,
-        job_id: int,
+        job_id: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -194,6 +196,8 @@ class JobsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        if not job_id:
+            raise ValueError(f"Expected a non-empty value for `job_id` but received {job_id!r}")
         return self._get(
             f"/jobs/get/{job_id}",
             options=make_request_options(
@@ -204,7 +208,7 @@ class JobsResource(SyncAPIResource):
 
     def get_step(
         self,
-        step_id: int,
+        step_id: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -225,6 +229,8 @@ class JobsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        if not step_id:
+            raise ValueError(f"Expected a non-empty value for `step_id` but received {step_id!r}")
         return self._get(
             f"/jobs/get_step/{step_id}",
             options=make_request_options(
@@ -398,7 +404,7 @@ class AsyncJobsResource(AsyncAPIResource):
 
     async def delete(
         self,
-        job_id: int,
+        job_id: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -419,6 +425,8 @@ class AsyncJobsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        if not job_id:
+            raise ValueError(f"Expected a non-empty value for `job_id` but received {job_id!r}")
         extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
         return await self._post(
             f"/jobs/delete/{job_id}",
@@ -463,7 +471,7 @@ class AsyncJobsResource(AsyncAPIResource):
 
     async def get(
         self,
-        job_id: int,
+        job_id: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -484,6 +492,8 @@ class AsyncJobsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        if not job_id:
+            raise ValueError(f"Expected a non-empty value for `job_id` but received {job_id!r}")
         return await self._get(
             f"/jobs/get/{job_id}",
             options=make_request_options(
@@ -494,7 +504,7 @@ class AsyncJobsResource(AsyncAPIResource):
 
     async def get_step(
         self,
-        step_id: int,
+        step_id: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -515,6 +525,8 @@ class AsyncJobsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        if not step_id:
+            raise ValueError(f"Expected a non-empty value for `step_id` but received {step_id!r}")
         return await self._get(
             f"/jobs/get_step/{step_id}",
             options=make_request_options(

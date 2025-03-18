@@ -53,7 +53,7 @@ class ReportResource(SyncAPIResource):
     def missing(
         self,
         *,
-        id: int,
+        id: str,
         property: Optional[str] | NotGiven = NOT_GIVEN,
         source_url: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -101,9 +101,9 @@ class ReportResource(SyncAPIResource):
         self,
         *,
         relationship_type: str,
-        source_id: Optional[int] | NotGiven = NOT_GIVEN,
+        source_id: Optional[str] | NotGiven = NOT_GIVEN,
         source_url: Optional[str] | NotGiven = NOT_GIVEN,
-        target_id: Optional[int] | NotGiven = NOT_GIVEN,
+        target_id: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -144,7 +144,7 @@ class ReportResource(SyncAPIResource):
     def step(
         self,
         *,
-        step_id: int,
+        step_id: str,
         message: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -186,7 +186,7 @@ class ReportResource(SyncAPIResource):
     def wrong(
         self,
         *,
-        id: int,
+        id: str,
         property: Optional[str] | NotGiven = NOT_GIVEN,
         source_url: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -253,7 +253,7 @@ class AsyncReportResource(AsyncAPIResource):
     async def missing(
         self,
         *,
-        id: int,
+        id: str,
         property: Optional[str] | NotGiven = NOT_GIVEN,
         source_url: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -301,9 +301,9 @@ class AsyncReportResource(AsyncAPIResource):
         self,
         *,
         relationship_type: str,
-        source_id: Optional[int] | NotGiven = NOT_GIVEN,
+        source_id: Optional[str] | NotGiven = NOT_GIVEN,
         source_url: Optional[str] | NotGiven = NOT_GIVEN,
-        target_id: Optional[int] | NotGiven = NOT_GIVEN,
+        target_id: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -344,7 +344,7 @@ class AsyncReportResource(AsyncAPIResource):
     async def step(
         self,
         *,
-        step_id: int,
+        step_id: str,
         message: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -386,7 +386,7 @@ class AsyncReportResource(AsyncAPIResource):
     async def wrong(
         self,
         *,
-        id: int,
+        id: str,
         property: Optional[str] | NotGiven = NOT_GIVEN,
         source_url: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
