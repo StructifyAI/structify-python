@@ -6,6 +6,7 @@ from .plan import Plan as Plan
 from .image import Image as Image
 from .table import Table as Table
 from .entity import Entity as Entity
+from .source import Source as Source
 from .strategy import Strategy as Strategy
 from .user_info import UserInfo as UserInfo
 from .plan_param import PlanParam as PlanParam
