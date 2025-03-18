@@ -25,6 +25,7 @@ from .training_dataset_add_params import TrainingDatasetAddParams as TrainingDat
 from .human_llm_update_step_params import HumanLlmUpdateStepParams as HumanLlmUpdateStepParams
 from .training_dataset_size_params import TrainingDatasetSizeParams as TrainingDatasetSizeParams
 from .action_training_data_response import ActionTrainingDataResponse as ActionTrainingDataResponse
+from .action_training_datum_metadata import ActionTrainingDatumMetadata as ActionTrainingDatumMetadata
 from .human_llm_get_next_step_params import HumanLlmGetNextStepParams as HumanLlmGetNextStepParams
 from .training_dataset_delete_params import TrainingDatasetDeleteParams as TrainingDatasetDeleteParams
 from .training_dataset_list_response import TrainingDatasetListResponse as TrainingDatasetListResponse
@@ -43,6 +44,9 @@ from .training_dataset_verify_datum_params import TrainingDatasetVerifyDatumPara
 from .next_action_add_training_datum_params import NextActionAddTrainingDatumParams as NextActionAddTrainingDatumParams
 from .training_dataset_list_datums_response import (
     TrainingDatasetListDatumsResponse as TrainingDatasetListDatumsResponse,
+)
+from .action_training_data_metadata_response import (
+    ActionTrainingDataMetadataResponse as ActionTrainingDataMetadataResponse,
 )
 from .training_dataset_download_datum_params import (
     TrainingDatasetDownloadDatumParams as TrainingDatasetDownloadDatumParams,
@@ -82,6 +86,9 @@ from .training_dataset_upload_labeled_step_params import (
 )
 from .training_dataset_get_labeller_stats_response import (
     TrainingDatasetGetLabellerStatsResponse as TrainingDatasetGetLabellerStatsResponse,
+)
+from .next_action_get_training_data_metadata_params import (
+    NextActionGetTrainingDataMetadataParams as NextActionGetTrainingDataMetadataParams,
 )
 from .training_dataset_get_next_for_labeling_params import (
     TrainingDatasetGetNextForLabelingParams as TrainingDatasetGetNextForLabelingParams,
