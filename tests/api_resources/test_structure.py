@@ -116,7 +116,7 @@ class TestStructure:
         structure = client.structure.find_relationship(
             relationship_name="relationship_name",
             source_entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            to_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            target_entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(str, structure, path=["response"])
 
@@ -125,7 +125,7 @@ class TestStructure:
         structure = client.structure.find_relationship(
             relationship_name="relationship_name",
             source_entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            to_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            target_entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             allow_extra_entities=True,
             special_job_type="HumanLLM",
             starting_searches=["string"],
@@ -138,7 +138,7 @@ class TestStructure:
         response = client.structure.with_raw_response.find_relationship(
             relationship_name="relationship_name",
             source_entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            to_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            target_entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
         assert response.is_closed is True
@@ -151,7 +151,7 @@ class TestStructure:
         with client.structure.with_streaming_response.find_relationship(
             relationship_name="relationship_name",
             source_entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            to_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            target_entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -385,7 +385,7 @@ class TestAsyncStructure:
         structure = await async_client.structure.find_relationship(
             relationship_name="relationship_name",
             source_entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            to_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            target_entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(str, structure, path=["response"])
 
@@ -394,7 +394,7 @@ class TestAsyncStructure:
         structure = await async_client.structure.find_relationship(
             relationship_name="relationship_name",
             source_entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            to_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            target_entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             allow_extra_entities=True,
             special_job_type="HumanLLM",
             starting_searches=["string"],
@@ -407,7 +407,7 @@ class TestAsyncStructure:
         response = await async_client.structure.with_raw_response.find_relationship(
             relationship_name="relationship_name",
             source_entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            to_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            target_entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
         assert response.is_closed is True
@@ -420,7 +420,7 @@ class TestAsyncStructure:
         async with async_client.structure.with_streaming_response.find_relationship(
             relationship_name="relationship_name",
             source_entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            to_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            target_entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

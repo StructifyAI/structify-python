@@ -59,24 +59,24 @@ class TestReport:
     @parametrize
     def test_method_relationship(self, client: Structify) -> None:
         report = client.report.relationship(
-            label="label",
+            relationship_type="relationship_type",
         )
         assert_matches_type(str, report, path=["response"])
 
     @parametrize
     def test_method_relationship_with_all_params(self, client: Structify) -> None:
         report = client.report.relationship(
-            label="label",
+            relationship_type="relationship_type",
             source_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             source_url="source_url",
-            to_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            target_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(str, report, path=["response"])
 
     @parametrize
     def test_raw_response_relationship(self, client: Structify) -> None:
         response = client.report.with_raw_response.relationship(
-            label="label",
+            relationship_type="relationship_type",
         )
 
         assert response.is_closed is True
@@ -87,7 +87,7 @@ class TestReport:
     @parametrize
     def test_streaming_response_relationship(self, client: Structify) -> None:
         with client.report.with_streaming_response.relationship(
-            label="label",
+            relationship_type="relationship_type",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -223,24 +223,24 @@ class TestAsyncReport:
     @parametrize
     async def test_method_relationship(self, async_client: AsyncStructify) -> None:
         report = await async_client.report.relationship(
-            label="label",
+            relationship_type="relationship_type",
         )
         assert_matches_type(str, report, path=["response"])
 
     @parametrize
     async def test_method_relationship_with_all_params(self, async_client: AsyncStructify) -> None:
         report = await async_client.report.relationship(
-            label="label",
+            relationship_type="relationship_type",
             source_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             source_url="source_url",
-            to_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            target_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(str, report, path=["response"])
 
     @parametrize
     async def test_raw_response_relationship(self, async_client: AsyncStructify) -> None:
         response = await async_client.report.with_raw_response.relationship(
-            label="label",
+            relationship_type="relationship_type",
         )
 
         assert response.is_closed is True
@@ -251,7 +251,7 @@ class TestAsyncReport:
     @parametrize
     async def test_streaming_response_relationship(self, async_client: AsyncStructify) -> None:
         async with async_client.report.with_streaming_response.relationship(
-            label="label",
+            relationship_type="relationship_type",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

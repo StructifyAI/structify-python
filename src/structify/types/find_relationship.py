@@ -12,7 +12,7 @@ class FindRelationship(BaseModel):
 
     source_entity_id: str
 
-    to_id: str
+    target_entity_id: str
 
     allow_extra_entities: Optional[bool] = None
 
