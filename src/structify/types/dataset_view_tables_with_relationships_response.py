@@ -10,37 +10,38 @@ from .._models import BaseModel
 __all__ = [
     "DatasetViewTablesWithRelationshipsResponse",
     "ConnectedEntity",
-    "ConnectedEntityProperties",
     "Entity",
-    "EntityProperties",
     "Relationship",
     "RelationshipProperties",
 ]
-
-ConnectedEntityProperties: TypeAlias = Union[str, bool, float, Image]
 
 
 class ConnectedEntity(BaseModel):
     id: str
 
-    creation_time: datetime
+    created_at: datetime
+
+    dataset_id: object
 
     label: str
 
-    properties: Dict[str, ConnectedEntityProperties]
+    properties: object
 
-
-EntityProperties: TypeAlias = Union[str, bool, float, Image]
+    updated_at: datetime
 
 
 class Entity(BaseModel):
     id: str
 
-    creation_time: datetime
+    created_at: datetime
+
+    dataset_id: object
 
     label: str
 
-    properties: Dict[str, EntityProperties]
+    properties: object
+
+    updated_at: datetime
 
 
 RelationshipProperties: TypeAlias = Union[str, bool, float, Image]
