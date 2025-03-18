@@ -11,9 +11,7 @@ __all__ = ["User"]
 class User(BaseModel):
     email: str
 
-    feature_flags: Optional[
-        List[Literal["functional_test", "pdf_parsing", "boredm_construction_hack", "boredm_construction_model", "none"]]
-    ] = None
+    feature_flags: Optional[List[Literal["functional_test", "pdf_parsing", "boredm_construction_model", "none"]]] = None
 
     permissions: Optional[List[Literal["labeler", "qa_labeler", "debug", "human_llm", "none"]]] = None
 
