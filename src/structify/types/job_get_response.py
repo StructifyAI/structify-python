@@ -13,15 +13,23 @@ __all__ = ["JobGetResponse", "Job"]
 class Job(BaseModel):
     id: str
 
-    creation_time: datetime
+    created_at: datetime
+
+    dataset_id: str
 
     status: Literal["Queued", "Running", "Completed", "Failed"]
 
+    user_id: str
+
     message: Optional[str] = None
+    """A message about the status of the job at completion"""
+
+    parameters: Optional[object] = None
+
+    plan_id: Optional[str] = None
 
     reason: Optional[str] = None
-
-    report_on_complete: Optional[bool] = None
+    """A reason for the job's existence"""
 
     run_started_time: Optional[datetime] = None
     """What time did the job start running?"""

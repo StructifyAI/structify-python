@@ -82,7 +82,7 @@ class Output(BaseModel):
 
     created_at: datetime
 
-    label: str
+    label: Optional[object] = None
 
     output: OutputOutput
 
