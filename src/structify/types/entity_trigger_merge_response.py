@@ -1,22 +1,21 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, Union
 from datetime import datetime
-from typing_extensions import TypeAlias
 
-from .image import Image
 from .._models import BaseModel
 
-__all__ = ["EntityTriggerMergeResponse", "Properties"]
-
-Properties: TypeAlias = Union[str, bool, float, Image]
+__all__ = ["EntityTriggerMergeResponse"]
 
 
 class EntityTriggerMergeResponse(BaseModel):
     id: str
 
-    creation_time: datetime
+    created_at: datetime
+
+    dataset_id: object
 
     label: str
 
-    properties: Dict[str, Properties]
+    properties: object
+
+    updated_at: datetime

@@ -25,7 +25,9 @@ class TrainingDatasetListDatumsResponseItem(BaseModel):
 
     status: DatumStatus
 
-    origin: Optional[Literal["HumanLLM", "UserReported", "ManualUpload", "ManualTransfer", "ToolParseFailure"]] = None
+    origin: Optional[
+        Literal["human_l_l_m", "user_reported", "manual_upload", "manual_transfer", "tool_parse_failure"]
+    ] = None
 
 
 TrainingDatasetListDatumsResponse: TypeAlias = List[TrainingDatasetListDatumsResponseItem]
