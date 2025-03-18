@@ -15,4 +15,4 @@ class NextActionGetTrainingDataParams(TypedDict, total=False):
 
     offset: int
 
-    status: Optional[str]
+    status: Optional[object]
