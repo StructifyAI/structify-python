@@ -4,18 +4,33 @@ from typing import Dict, List, Union, Optional
 from datetime import datetime
 from typing_extensions import TypeAlias
 
+from pydantic import Field as FieldInfo
+
+from . import source
 from .image import Image
 from .._models import BaseModel
 
 __all__ = [
     "EntityViewResponse",
     "ConnectedEntity",
+    "ConnectedEntityProperties",
     "Entity",
+    "EntityProperties",
     "Relationship",
     "RelationshipProperties",
     "SimilarEntity",
+    "SimilarEntityProperties",
     "Source",
+    "SourceLocation",
+    "SourceLocationText",
+    "SourceLocationTextText",
+    "SourceLocationVisual",
+    "SourceLocationVisualVisual",
+    "SourceLocationPage",
+    "SourceLocationPagePage",
 ]
+
+ConnectedEntityProperties: TypeAlias = Union[str, bool, float, Image]
 
 
 class ConnectedEntity(BaseModel):
@@ -27,9 +42,12 @@ class ConnectedEntity(BaseModel):
 
     label: str
 
-    properties: object
+    properties: Dict[str, ConnectedEntityProperties]
 
     updated_at: datetime
+
+
+EntityProperties: TypeAlias = Union[str, bool, float, Image]
 
 
 class Entity(BaseModel):
@@ -41,7 +59,7 @@ class Entity(BaseModel):
 
     label: str
 
-    properties: object
+    properties: Dict[str, EntityProperties]
 
     updated_at: datetime
 
@@ -59,6 +77,9 @@ class Relationship(BaseModel):
     to_id: str
 
 
+SimilarEntityProperties: TypeAlias = Union[str, bool, float, Image]
+
+
 class SimilarEntity(BaseModel):
     id: str
 
@@ -68,9 +89,38 @@ class SimilarEntity(BaseModel):
 
     label: str
 
-    properties: object
+    properties: Dict[str, SimilarEntityProperties]
 
     updated_at: datetime
+
+
+class SourceLocationTextText(BaseModel):
+    byte_offset: int
+
+
+class SourceLocationText(BaseModel):
+    text: SourceLocationTextText = FieldInfo(alias="Text")
+
+
+class SourceLocationVisualVisual(BaseModel):
+    x: int
+
+    y: int
+
+
+class SourceLocationVisual(BaseModel):
+    visual: SourceLocationVisualVisual = FieldInfo(alias="Visual")
+
+
+class SourceLocationPagePage(BaseModel):
+    page_number: int
+
+
+class SourceLocationPage(BaseModel):
+    page: SourceLocationPagePage = FieldInfo(alias="Page")
+
+
+SourceLocation: TypeAlias = Union[SourceLocationText, SourceLocationVisual, SourceLocationPage, None]
 
 
 class Source(BaseModel):
@@ -82,9 +132,9 @@ class Source(BaseModel):
 
     user_specified: bool
 
-    link: Optional[object] = None
+    link: Optional[source.Source] = None
 
-    location: Optional[object] = None
+    location: Optional[SourceLocation] = None
 
     step_id: Optional[str] = None
 
