@@ -12,7 +12,7 @@ __all__ = ["UserTransactionsResponse", "UserTransactionsResponseItem"]
 class UserTransactionsResponseItem(BaseModel):
     id: str
 
-    amount: object
+    amount: int
 
     timestamp: datetime
 

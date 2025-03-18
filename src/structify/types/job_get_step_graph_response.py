@@ -7,7 +7,15 @@ from typing_extensions import Literal, TypeAlias
 from .._models import BaseModel
 from .execution_step import ExecutionStep
 
-__all__ = ["JobGetStepGraphResponse", "JobGetStepGraphResponseItem"]
+__all__ = ["JobGetStepGraphResponse", "JobGetStepGraphResponseItem", "JobGetStepGraphResponseItemParentTransition"]
+
+
+class JobGetStepGraphResponseItemParentTransition(BaseModel):
+    parent_id: str
+
+    tool_input: str
+
+    tool_name: str
 
 
 class JobGetStepGraphResponseItem(BaseModel):
@@ -19,7 +27,7 @@ class JobGetStepGraphResponseItem(BaseModel):
 
     execution_step: Optional[ExecutionStep] = None
 
-    parent_transition: Optional[object] = None
+    parent_transition: Optional[JobGetStepGraphResponseItemParentTransition] = None
 
     queued_message: Optional[str] = None
 
