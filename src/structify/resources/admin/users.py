@@ -64,9 +64,7 @@ class UsersResource(SyncAPIResource):
         *,
         credit_count: Optional[int] | NotGiven = NOT_GIVEN,
         email: Optional[str] | NotGiven = NOT_GIVEN,
-        feature_flags: List[
-            Literal["functional_test", "pdf_parsing", "boredm_construction_hack", "boredm_construction_model", "none"]
-        ]
+        feature_flags: List[Literal["functional_test", "pdf_parsing", "boredm_construction_model", "none"]]
         | NotGiven = NOT_GIVEN,
         is_admin: bool | NotGiven = NOT_GIVEN,
         permissions: List[Literal["labeler", "qa_labeler", "debug", "human_llm", "none"]] | NotGiven = NOT_GIVEN,
@@ -115,11 +113,7 @@ class UsersResource(SyncAPIResource):
         current_email: str,
         new_email: Optional[str] | NotGiven = NOT_GIVEN,
         new_feature_flags: Optional[
-            List[
-                Literal[
-                    "functional_test", "pdf_parsing", "boredm_construction_hack", "boredm_construction_model", "none"
-                ]
-            ]
+            List[Literal["functional_test", "pdf_parsing", "boredm_construction_model", "none"]]
         ]
         | NotGiven = NOT_GIVEN,
         new_permissions: Optional[List[Literal["labeler", "qa_labeler", "debug", "human_llm", "none"]]]
@@ -327,9 +321,7 @@ class AsyncUsersResource(AsyncAPIResource):
         *,
         credit_count: Optional[int] | NotGiven = NOT_GIVEN,
         email: Optional[str] | NotGiven = NOT_GIVEN,
-        feature_flags: List[
-            Literal["functional_test", "pdf_parsing", "boredm_construction_hack", "boredm_construction_model", "none"]
-        ]
+        feature_flags: List[Literal["functional_test", "pdf_parsing", "boredm_construction_model", "none"]]
         | NotGiven = NOT_GIVEN,
         is_admin: bool | NotGiven = NOT_GIVEN,
         permissions: List[Literal["labeler", "qa_labeler", "debug", "human_llm", "none"]] | NotGiven = NOT_GIVEN,
@@ -378,11 +370,7 @@ class AsyncUsersResource(AsyncAPIResource):
         current_email: str,
         new_email: Optional[str] | NotGiven = NOT_GIVEN,
         new_feature_flags: Optional[
-            List[
-                Literal[
-                    "functional_test", "pdf_parsing", "boredm_construction_hack", "boredm_construction_model", "none"
-                ]
-            ]
+            List[Literal["functional_test", "pdf_parsing", "boredm_construction_model", "none"]]
         ]
         | NotGiven = NOT_GIVEN,
         new_permissions: Optional[List[Literal["labeler", "qa_labeler", "debug", "human_llm", "none"]]]
