@@ -1,8 +1,8 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Union, Optional
+from typing import Dict, List, Union
 from datetime import datetime
-from typing_extensions import TypeAlias
+from typing_extensions import Literal, TypeAlias
 
 from pydantic import Field as FieldInfo
 
@@ -13,7 +13,6 @@ from .._models import BaseModel
 __all__ = [
     "EntityGetSourceEntitiesResponse",
     "SourceEntity",
-    "SourceEntityProperties",
     "SourceEntityLocation",
     "SourceEntityLocationText",
     "SourceEntityLocationTextText",
@@ -21,9 +20,8 @@ __all__ = [
     "SourceEntityLocationVisualVisual",
     "SourceEntityLocationPage",
     "SourceEntityLocationPagePage",
+    "SourceEntityProperties",
 ]
-
-SourceEntityProperties: TypeAlias = Union[str, bool, float, Image]
 
 
 class SourceEntityLocationTextText(BaseModel):
@@ -53,36 +51,30 @@ class SourceEntityLocationPage(BaseModel):
 
 
 SourceEntityLocation: TypeAlias = Union[
-    SourceEntityLocationText, SourceEntityLocationVisual, SourceEntityLocationPage, None
+    SourceEntityLocationText, SourceEntityLocationVisual, SourceEntityLocationPage, Literal["None"]
 ]
+
+SourceEntityProperties: TypeAlias = Union[str, bool, float, Image]
 
 
 class SourceEntity(BaseModel):
     id: str
 
-    created_at: datetime
+    creation_time: datetime
 
     is_summary: bool
 
     label: str
 
+    link: Source
+
     llm_id: int
+
+    location: SourceEntityLocation
 
     properties: Dict[str, SourceEntityProperties]
 
-    source_id: str
-
     user_specified: bool
-
-    job_id: Optional[str] = None
-
-    kg_entity_id: Optional[str] = None
-
-    link: Optional[Source] = None
-
-    location: Optional[SourceEntityLocation] = None
-
-    step_id: Optional[str] = None
 
 
 class EntityGetSourceEntitiesResponse(BaseModel):

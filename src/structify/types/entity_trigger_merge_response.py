@@ -15,12 +15,8 @@ Properties: TypeAlias = Union[str, bool, float, Image]
 class EntityTriggerMergeResponse(BaseModel):
     id: str
 
-    created_at: datetime
-
-    dataset_id: str
+    creation_time: datetime
 
     label: str
 
     properties: Dict[str, Properties]
-
-    updated_at: datetime
