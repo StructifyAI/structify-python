@@ -1,8 +1,8 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Union, Optional
+from typing import Dict, List, Union
 from datetime import datetime
-from typing_extensions import TypeAlias
+from typing_extensions import Literal, TypeAlias
 
 from pydantic import Field as FieldInfo
 
@@ -36,15 +36,11 @@ ConnectedEntityProperties: TypeAlias = Union[str, bool, float, Image]
 class ConnectedEntity(BaseModel):
     id: str
 
-    created_at: datetime
-
-    dataset_id: str
+    creation_time: datetime
 
     label: str
 
     properties: Dict[str, ConnectedEntityProperties]
-
-    updated_at: datetime
 
 
 EntityProperties: TypeAlias = Union[str, bool, float, Image]
@@ -53,15 +49,11 @@ EntityProperties: TypeAlias = Union[str, bool, float, Image]
 class Entity(BaseModel):
     id: str
 
-    created_at: datetime
-
-    dataset_id: str
+    creation_time: datetime
 
     label: str
 
     properties: Dict[str, EntityProperties]
-
-    updated_at: datetime
 
 
 RelationshipProperties: TypeAlias = Union[str, bool, float, Image]
@@ -83,15 +75,11 @@ SimilarEntityProperties: TypeAlias = Union[str, bool, float, Image]
 class SimilarEntity(BaseModel):
     id: str
 
-    created_at: datetime
-
-    dataset_id: str
+    creation_time: datetime
 
     label: str
 
     properties: Dict[str, SimilarEntityProperties]
-
-    updated_at: datetime
 
 
 class SourceLocationTextText(BaseModel):
@@ -120,23 +108,21 @@ class SourceLocationPage(BaseModel):
     page: SourceLocationPagePage = FieldInfo(alias="Page")
 
 
-SourceLocation: TypeAlias = Union[SourceLocationText, SourceLocationVisual, SourceLocationPage, None]
+SourceLocation: TypeAlias = Union[SourceLocationText, SourceLocationVisual, SourceLocationPage, Literal["None"]]
 
 
 class Source(BaseModel):
     id: str
 
-    created_at: datetime
+    creation_time: datetime
 
     is_summary: bool
 
+    link: source.Source
+
+    location: SourceLocation
+
     user_specified: bool
-
-    link: Optional[source.Source] = None
-
-    location: Optional[SourceLocation] = None
-
-    step_id: Optional[str] = None
 
 
 class EntityViewResponse(BaseModel):
