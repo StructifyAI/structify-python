@@ -10,9 +10,9 @@ __all__ = ["FindRelationship"]
 class FindRelationship(BaseModel):
     relationship_name: str
 
-    source_entity_id: int
+    source_entity_id: str
 
-    target_entity_id: int
+    target_entity_id: str
 
     allow_extra_entities: Optional[bool] = None
 

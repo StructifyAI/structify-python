@@ -11,7 +11,7 @@ __all__ = ["EntitySummarizeParams"]
 class EntitySummarizeParams(TypedDict, total=False):
     dataset: Required[str]
 
-    entity_id: Required[int]
+    entity_id: Required[str]
 
     properties: Required[List[str]]
 

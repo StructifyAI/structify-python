@@ -1,7 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import List, Optional
-from datetime import datetime
 from typing_extensions import Literal
 
 from ..._models import BaseModel
@@ -10,18 +9,12 @@ __all__ = ["User"]
 
 
 class User(BaseModel):
-    id: object
-
-    created_at: datetime
-
     email: str
 
-    feature_flags: List[
-        Optional[
-            Literal["functional_test", "pdf_parsing", "boredm_construction_hack", "boredm_construction_model", "none"]
-        ]
-    ]
+    feature_flags: Optional[
+        List[Literal["functional_test", "pdf_parsing", "boredm_construction_hack", "boredm_construction_model", "none"]]
+    ] = None
 
-    permissions: List[Optional[Literal["labeler", "qa_labeler", "debug", "human_llm", "none"]]]
+    permissions: Optional[List[Literal["labeler", "qa_labeler", "debug", "human_llm", "none"]]] = None
 
-    user_type: Literal["admin", "public", "end_user"]
+    user_type: Optional[Literal["Admin", "Public", "EndUser"]] = None

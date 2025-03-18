@@ -12,10 +12,10 @@ Properties: TypeAlias = Union[str, bool, float, Image]
 
 
 class DatasetViewRelationshipsResponse(BaseModel):
-    from_id: int
+    from_id: str
 
     label: str
 
     properties: Dict[str, Properties]
 
-    to_id: int
+    to_id: str
