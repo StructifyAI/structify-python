@@ -153,8 +153,8 @@ class StructureResource(SyncAPIResource):
     def find_relationship(
         self,
         *,
+        from_id: str,
         relationship_name: str,
-        source_entity_id: str,
         to_id: str,
         allow_extra_entities: bool | NotGiven = NOT_GIVEN,
         special_job_type: Optional[Literal["HumanLLM"]] | NotGiven = NOT_GIVEN,
@@ -184,8 +184,8 @@ class StructureResource(SyncAPIResource):
             "/structure/find_relationship",
             body=maybe_transform(
                 {
+                    "from_id": from_id,
                     "relationship_name": relationship_name,
-                    "source_entity_id": source_entity_id,
                     "to_id": to_id,
                     "allow_extra_entities": allow_extra_entities,
                     "special_job_type": special_job_type,
@@ -439,8 +439,8 @@ class AsyncStructureResource(AsyncAPIResource):
     async def find_relationship(
         self,
         *,
+        from_id: str,
         relationship_name: str,
-        source_entity_id: str,
         to_id: str,
         allow_extra_entities: bool | NotGiven = NOT_GIVEN,
         special_job_type: Optional[Literal["HumanLLM"]] | NotGiven = NOT_GIVEN,
@@ -470,8 +470,8 @@ class AsyncStructureResource(AsyncAPIResource):
             "/structure/find_relationship",
             body=await async_maybe_transform(
                 {
+                    "from_id": from_id,
                     "relationship_name": relationship_name,
-                    "source_entity_id": source_entity_id,
                     "to_id": to_id,
                     "allow_extra_entities": allow_extra_entities,
                     "special_job_type": special_job_type,
