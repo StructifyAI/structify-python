@@ -10,4 +10,4 @@ __all__ = ["TrainingDatasetSwitchDatasetParams"]
 class TrainingDatasetSwitchDatasetParams(TypedDict, total=False):
     dataset_name: Required[str]
 
-    step_id: Required[str]
+    datum_id: Required[str]

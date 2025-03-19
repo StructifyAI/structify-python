@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Mapping, Iterable, Optional, cast
+from typing import Union, Mapping, Iterable, Optional, cast
 from datetime import datetime
 from typing_extensions import Literal
 
@@ -221,7 +221,7 @@ class TrainingDatasetsResource(SyncAPIResource):
     def download_datum(
         self,
         *,
-        step_id: str,
+        datum_id: str,
         require_labels: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -252,7 +252,7 @@ class TrainingDatasetsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "step_id": step_id,
+                        "datum_id": datum_id,
                         "require_labels": require_labels,
                     },
                     training_dataset_download_datum_params.TrainingDatasetDownloadDatumParams,
@@ -306,7 +306,6 @@ class TrainingDatasetsResource(SyncAPIResource):
         end_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         labeled_status: Literal["None", "SuspiciousOnly", "VerifiedOnly"] | NotGiven = NOT_GIVEN,
         max_prop_count: Optional[int] | NotGiven = NOT_GIVEN,
-        return_prop_count: bool | NotGiven = NOT_GIVEN,
         start_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         time_bucket: Literal["Second", "Minute", "Hour", "Day", "Week", "Month", "Quarter", "Year", "Decade"]
         | NotGiven = NOT_GIVEN,
@@ -341,7 +340,6 @@ class TrainingDatasetsResource(SyncAPIResource):
                         "end_date": end_date,
                         "labeled_status": labeled_status,
                         "max_prop_count": max_prop_count,
-                        "return_prop_count": return_prop_count,
                         "start_date": start_date,
                         "time_bucket": time_bucket,
                     },
@@ -610,7 +608,7 @@ class TrainingDatasetsResource(SyncAPIResource):
     def remove_datum(
         self,
         *,
-        step_id: str,
+        datum_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -639,7 +637,7 @@ class TrainingDatasetsResource(SyncAPIResource):
                 extra_body=extra_body,
                 timeout=timeout,
                 query=maybe_transform(
-                    {"step_id": step_id}, training_dataset_remove_datum_params.TrainingDatasetRemoveDatumParams
+                    {"datum_id": datum_id}, training_dataset_remove_datum_params.TrainingDatasetRemoveDatumParams
                 ),
             ),
             cast_to=NoneType,
@@ -648,7 +646,7 @@ class TrainingDatasetsResource(SyncAPIResource):
     def size(
         self,
         *,
-        dataset_names: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        dataset_name: Optional[str] | NotGiven = NOT_GIVEN,
         end_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         start_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -675,7 +673,7 @@ class TrainingDatasetsResource(SyncAPIResource):
             "/admin/training_datasets/size",
             body=maybe_transform(
                 {
-                    "dataset_names": dataset_names,
+                    "dataset_name": dataset_name,
                     "end_date": end_date,
                     "start_date": start_date,
                 },
@@ -735,7 +733,7 @@ class TrainingDatasetsResource(SyncAPIResource):
         self,
         *,
         dataset_name: str,
-        step_id: str,
+        datum_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -766,7 +764,7 @@ class TrainingDatasetsResource(SyncAPIResource):
                 query=maybe_transform(
                     {
                         "dataset_name": dataset_name,
-                        "step_id": step_id,
+                        "datum_id": datum_id,
                     },
                     training_dataset_switch_dataset_params.TrainingDatasetSwitchDatasetParams,
                 ),
@@ -1061,7 +1059,7 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
     async def download_datum(
         self,
         *,
-        step_id: str,
+        datum_id: str,
         require_labels: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1092,7 +1090,7 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=await async_maybe_transform(
                     {
-                        "step_id": step_id,
+                        "datum_id": datum_id,
                         "require_labels": require_labels,
                     },
                     training_dataset_download_datum_params.TrainingDatasetDownloadDatumParams,
@@ -1146,7 +1144,6 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
         end_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         labeled_status: Literal["None", "SuspiciousOnly", "VerifiedOnly"] | NotGiven = NOT_GIVEN,
         max_prop_count: Optional[int] | NotGiven = NOT_GIVEN,
-        return_prop_count: bool | NotGiven = NOT_GIVEN,
         start_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         time_bucket: Literal["Second", "Minute", "Hour", "Day", "Week", "Month", "Quarter", "Year", "Decade"]
         | NotGiven = NOT_GIVEN,
@@ -1181,7 +1178,6 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
                         "end_date": end_date,
                         "labeled_status": labeled_status,
                         "max_prop_count": max_prop_count,
-                        "return_prop_count": return_prop_count,
                         "start_date": start_date,
                         "time_bucket": time_bucket,
                     },
@@ -1450,7 +1446,7 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
     async def remove_datum(
         self,
         *,
-        step_id: str,
+        datum_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1479,7 +1475,7 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
                 extra_body=extra_body,
                 timeout=timeout,
                 query=await async_maybe_transform(
-                    {"step_id": step_id}, training_dataset_remove_datum_params.TrainingDatasetRemoveDatumParams
+                    {"datum_id": datum_id}, training_dataset_remove_datum_params.TrainingDatasetRemoveDatumParams
                 ),
             ),
             cast_to=NoneType,
@@ -1488,7 +1484,7 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
     async def size(
         self,
         *,
-        dataset_names: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        dataset_name: Optional[str] | NotGiven = NOT_GIVEN,
         end_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         start_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -1515,7 +1511,7 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
             "/admin/training_datasets/size",
             body=await async_maybe_transform(
                 {
-                    "dataset_names": dataset_names,
+                    "dataset_name": dataset_name,
                     "end_date": end_date,
                     "start_date": start_date,
                 },
@@ -1575,7 +1571,7 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
         self,
         *,
         dataset_name: str,
-        step_id: str,
+        datum_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1606,7 +1602,7 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
                 query=await async_maybe_transform(
                     {
                         "dataset_name": dataset_name,
-                        "step_id": step_id,
+                        "datum_id": datum_id,
                     },
                     training_dataset_switch_dataset_params.TrainingDatasetSwitchDatasetParams,
                 ),

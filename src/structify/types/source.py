@@ -1,7 +1,7 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import Union
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import TypeAlias
 
 from pydantic import Field as FieldInfo
 
@@ -36,4 +36,4 @@ class SecFiling(BaseModel):
     sec_filing: SecFilingSecFiling = FieldInfo(alias="SecFiling")
 
 
-Source: TypeAlias = Union[Web, Document, SecFiling, Literal["None"]]
+Source: TypeAlias = Union[Web, Document, SecFiling]
