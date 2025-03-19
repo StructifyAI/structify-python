@@ -8,4 +8,4 @@ __all__ = ["TrainingDatasetRemoveDatumParams"]
 
 
 class TrainingDatasetRemoveDatumParams(TypedDict, total=False):
-    step_id: Required[str]
+    datum_id: Required[str]

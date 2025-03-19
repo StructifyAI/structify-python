@@ -1,6 +1,5 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Optional
 from datetime import datetime
 
 from ..._models import BaseModel
@@ -12,12 +11,14 @@ __all__ = ["LabelingStats"]
 class LabelingStats(BaseModel):
     author: str
 
+    capped_prop_count: int
+
     count: int
 
     dataset: str
 
-    period: datetime
+    prop_count: int
 
     status: DatumStatus
 
-    capped_count: Optional[int] = None
+    window_start: datetime

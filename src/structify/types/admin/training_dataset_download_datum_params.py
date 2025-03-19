@@ -8,6 +8,6 @@ __all__ = ["TrainingDatasetDownloadDatumParams"]
 
 
 class TrainingDatasetDownloadDatumParams(TypedDict, total=False):
-    step_id: Required[str]
+    datum_id: Required[str]
 
     require_labels: bool

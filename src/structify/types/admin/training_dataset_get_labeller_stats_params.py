@@ -18,8 +18,6 @@ class TrainingDatasetGetLabellerStatsParams(TypedDict, total=False):
 
     max_prop_count: Optional[int]
 
-    return_prop_count: bool
-
     start_date: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
 
     time_bucket: Literal["Second", "Minute", "Hour", "Day", "Week", "Month", "Quarter", "Year", "Decade"]

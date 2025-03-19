@@ -9,6 +9,8 @@ __all__ = ["UserListResponse", "UserListResponseItem"]
 
 
 class UserListResponseItem(User):
+    balance: int
+
     tokens: List[str]
 
 
