@@ -15,11 +15,15 @@ EntitySearchResponseItemProperties: TypeAlias = Union[str, bool, float, Image]
 class EntitySearchResponseItem(BaseModel):
     id: str
 
-    creation_time: datetime
+    created_at: datetime
+
+    dataset_id: str
 
     label: str
 
     properties: Dict[str, EntitySearchResponseItemProperties]
+
+    updated_at: datetime
 
 
 EntitySearchResponse: TypeAlias = List[EntitySearchResponseItem]

@@ -161,7 +161,7 @@ class TestTrainingDatasets:
             return_value=httpx.Response(200, json={"foo": "bar"})
         )
         training_dataset = client.admin.training_datasets.download_datum(
-            step_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            datum_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert training_dataset.is_closed
         assert training_dataset.json() == {"foo": "bar"}
@@ -175,7 +175,7 @@ class TestTrainingDatasets:
             return_value=httpx.Response(200, json={"foo": "bar"})
         )
         training_dataset = client.admin.training_datasets.download_datum(
-            step_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            datum_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             require_labels=True,
         )
         assert training_dataset.is_closed
@@ -191,7 +191,7 @@ class TestTrainingDatasets:
         )
 
         training_dataset = client.admin.training_datasets.with_raw_response.download_datum(
-            step_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            datum_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
         assert training_dataset.is_closed is True
@@ -206,7 +206,7 @@ class TestTrainingDatasets:
             return_value=httpx.Response(200, json={"foo": "bar"})
         )
         with client.admin.training_datasets.with_streaming_response.download_datum(
-            step_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            datum_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as training_dataset:
             assert not training_dataset.is_closed
             assert training_dataset.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -259,7 +259,6 @@ class TestTrainingDatasets:
             end_date=parse_datetime("2019-12-27T18:11:19.117Z"),
             labeled_status="None",
             max_prop_count=0,
-            return_prop_count=True,
             start_date=parse_datetime("2019-12-27T18:11:19.117Z"),
             time_bucket="Second",
         )
@@ -289,7 +288,7 @@ class TestTrainingDatasets:
     def test_method_get_next_for_labeling(self, client: Structify) -> None:
         training_dataset = client.admin.training_datasets.get_next_for_labeling(
             dataset_name="dataset_name",
-            status="Unlabeled",
+            status="unlabeled",
         )
         assert_matches_type(Optional[TrainingDatumResponse], training_dataset, path=["response"])
 
@@ -297,7 +296,7 @@ class TestTrainingDatasets:
     def test_raw_response_get_next_for_labeling(self, client: Structify) -> None:
         response = client.admin.training_datasets.with_raw_response.get_next_for_labeling(
             dataset_name="dataset_name",
-            status="Unlabeled",
+            status="unlabeled",
         )
 
         assert response.is_closed is True
@@ -309,7 +308,7 @@ class TestTrainingDatasets:
     def test_streaming_response_get_next_for_labeling(self, client: Structify) -> None:
         with client.admin.training_datasets.with_streaming_response.get_next_for_labeling(
             dataset_name="dataset_name",
-            status="Unlabeled",
+            status="unlabeled",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -323,7 +322,7 @@ class TestTrainingDatasets:
     def test_method_get_next_for_qa(self, client: Structify) -> None:
         training_dataset = client.admin.training_datasets.get_next_for_qa(
             dataset_name="dataset_name",
-            status="Unlabeled",
+            status="unlabeled",
         )
         assert_matches_type(Optional[TrainingDatumResponse], training_dataset, path=["response"])
 
@@ -331,7 +330,7 @@ class TestTrainingDatasets:
     def test_raw_response_get_next_for_qa(self, client: Structify) -> None:
         response = client.admin.training_datasets.with_raw_response.get_next_for_qa(
             dataset_name="dataset_name",
-            status="Unlabeled",
+            status="unlabeled",
         )
 
         assert response.is_closed is True
@@ -343,7 +342,7 @@ class TestTrainingDatasets:
     def test_streaming_response_get_next_for_qa(self, client: Structify) -> None:
         with client.admin.training_datasets.with_streaming_response.get_next_for_qa(
             dataset_name="dataset_name",
-            status="Unlabeled",
+            status="unlabeled",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -356,14 +355,14 @@ class TestTrainingDatasets:
     @parametrize
     def test_method_get_next_suspicious(self, client: Structify) -> None:
         training_dataset = client.admin.training_datasets.get_next_suspicious(
-            status="Unlabeled",
+            status="unlabeled",
         )
         assert_matches_type(Optional[TrainingDatumResponse], training_dataset, path=["response"])
 
     @parametrize
     def test_method_get_next_suspicious_with_all_params(self, client: Structify) -> None:
         training_dataset = client.admin.training_datasets.get_next_suspicious(
-            status="Unlabeled",
+            status="unlabeled",
             dataset_name="dataset_name",
             user_restriction=True,
         )
@@ -372,7 +371,7 @@ class TestTrainingDatasets:
     @parametrize
     def test_raw_response_get_next_suspicious(self, client: Structify) -> None:
         response = client.admin.training_datasets.with_raw_response.get_next_suspicious(
-            status="Unlabeled",
+            status="unlabeled",
         )
 
         assert response.is_closed is True
@@ -383,7 +382,7 @@ class TestTrainingDatasets:
     @parametrize
     def test_streaming_response_get_next_suspicious(self, client: Structify) -> None:
         with client.admin.training_datasets.with_streaming_response.get_next_suspicious(
-            status="Unlabeled",
+            status="unlabeled",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -397,7 +396,7 @@ class TestTrainingDatasets:
     def test_method_label_datum(self, client: Structify) -> None:
         training_dataset = client.admin.training_datasets.label_datum(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            status="Unlabeled",
+            status="unlabeled",
             updated_tool_calls=[
                 {
                     "input": {"save": {}},
@@ -411,7 +410,7 @@ class TestTrainingDatasets:
     def test_raw_response_label_datum(self, client: Structify) -> None:
         response = client.admin.training_datasets.with_raw_response.label_datum(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            status="Unlabeled",
+            status="unlabeled",
             updated_tool_calls=[
                 {
                     "input": {"save": {}},
@@ -429,7 +428,7 @@ class TestTrainingDatasets:
     def test_streaming_response_label_datum(self, client: Structify) -> None:
         with client.admin.training_datasets.with_streaming_response.label_datum(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            status="Unlabeled",
+            status="unlabeled",
             updated_tool_calls=[
                 {
                     "input": {"save": {}},
@@ -489,7 +488,7 @@ class TestTrainingDatasets:
         training_dataset = client.admin.training_datasets.mark_datum_suspicious(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             message="message",
-            status="Unlabeled",
+            status="unlabeled",
             suspicious_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert training_dataset is None
@@ -499,7 +498,7 @@ class TestTrainingDatasets:
         response = client.admin.training_datasets.with_raw_response.mark_datum_suspicious(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             message="message",
-            status="Unlabeled",
+            status="unlabeled",
             suspicious_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
@@ -513,7 +512,7 @@ class TestTrainingDatasets:
         with client.admin.training_datasets.with_streaming_response.mark_datum_suspicious(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             message="message",
-            status="Unlabeled",
+            status="unlabeled",
             suspicious_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
@@ -527,14 +526,14 @@ class TestTrainingDatasets:
     @parametrize
     def test_method_remove_datum(self, client: Structify) -> None:
         training_dataset = client.admin.training_datasets.remove_datum(
-            step_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            datum_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert training_dataset is None
 
     @parametrize
     def test_raw_response_remove_datum(self, client: Structify) -> None:
         response = client.admin.training_datasets.with_raw_response.remove_datum(
-            step_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            datum_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
         assert response.is_closed is True
@@ -545,7 +544,7 @@ class TestTrainingDatasets:
     @parametrize
     def test_streaming_response_remove_datum(self, client: Structify) -> None:
         with client.admin.training_datasets.with_streaming_response.remove_datum(
-            step_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            datum_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -563,7 +562,7 @@ class TestTrainingDatasets:
     @parametrize
     def test_method_size_with_all_params(self, client: Structify) -> None:
         training_dataset = client.admin.training_datasets.size(
-            dataset_names=["string"],
+            dataset_name="dataset_name",
             end_date=parse_datetime("2019-12-27T18:11:19.117Z"),
             start_date=parse_datetime("2019-12-27T18:11:19.117Z"),
         )
@@ -592,14 +591,14 @@ class TestTrainingDatasets:
     @parametrize
     def test_method_suspicious_count(self, client: Structify) -> None:
         training_dataset = client.admin.training_datasets.suspicious_count(
-            status="Unlabeled",
+            status="unlabeled",
         )
         assert_matches_type(TrainingDatasetSuspiciousCountResponse, training_dataset, path=["response"])
 
     @parametrize
     def test_method_suspicious_count_with_all_params(self, client: Structify) -> None:
         training_dataset = client.admin.training_datasets.suspicious_count(
-            status="Unlabeled",
+            status="unlabeled",
             dataset_name="dataset_name",
             user_restriction=True,
         )
@@ -608,7 +607,7 @@ class TestTrainingDatasets:
     @parametrize
     def test_raw_response_suspicious_count(self, client: Structify) -> None:
         response = client.admin.training_datasets.with_raw_response.suspicious_count(
-            status="Unlabeled",
+            status="unlabeled",
         )
 
         assert response.is_closed is True
@@ -619,7 +618,7 @@ class TestTrainingDatasets:
     @parametrize
     def test_streaming_response_suspicious_count(self, client: Structify) -> None:
         with client.admin.training_datasets.with_streaming_response.suspicious_count(
-            status="Unlabeled",
+            status="unlabeled",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -633,7 +632,7 @@ class TestTrainingDatasets:
     def test_method_switch_dataset(self, client: Structify) -> None:
         training_dataset = client.admin.training_datasets.switch_dataset(
             dataset_name="dataset_name",
-            step_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            datum_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert training_dataset is None
 
@@ -641,7 +640,7 @@ class TestTrainingDatasets:
     def test_raw_response_switch_dataset(self, client: Structify) -> None:
         response = client.admin.training_datasets.with_raw_response.switch_dataset(
             dataset_name="dataset_name",
-            step_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            datum_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
         assert response.is_closed is True
@@ -653,7 +652,7 @@ class TestTrainingDatasets:
     def test_streaming_response_switch_dataset(self, client: Structify) -> None:
         with client.admin.training_datasets.with_streaming_response.switch_dataset(
             dataset_name="dataset_name",
-            step_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            datum_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -667,7 +666,7 @@ class TestTrainingDatasets:
     def test_method_update_datum_status(self, client: Structify) -> None:
         training_dataset = client.admin.training_datasets.update_datum_status(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            status="Unlabeled",
+            status="unlabeled",
         )
         assert training_dataset is None
 
@@ -675,7 +674,7 @@ class TestTrainingDatasets:
     def test_method_update_datum_status_with_all_params(self, client: Structify) -> None:
         training_dataset = client.admin.training_datasets.update_datum_status(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            status="Unlabeled",
+            status="unlabeled",
             review_message="review_message",
         )
         assert training_dataset is None
@@ -684,7 +683,7 @@ class TestTrainingDatasets:
     def test_raw_response_update_datum_status(self, client: Structify) -> None:
         response = client.admin.training_datasets.with_raw_response.update_datum_status(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            status="Unlabeled",
+            status="unlabeled",
         )
 
         assert response.is_closed is True
@@ -696,7 +695,7 @@ class TestTrainingDatasets:
     def test_streaming_response_update_datum_status(self, client: Structify) -> None:
         with client.admin.training_datasets.with_streaming_response.update_datum_status(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            status="Unlabeled",
+            status="unlabeled",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -744,7 +743,7 @@ class TestTrainingDatasets:
     def test_method_verify_datum(self, client: Structify) -> None:
         training_dataset = client.admin.training_datasets.verify_datum(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            status="Unlabeled",
+            status="unlabeled",
             verified_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert training_dataset is None
@@ -753,7 +752,7 @@ class TestTrainingDatasets:
     def test_raw_response_verify_datum(self, client: Structify) -> None:
         response = client.admin.training_datasets.with_raw_response.verify_datum(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            status="Unlabeled",
+            status="unlabeled",
             verified_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
@@ -766,7 +765,7 @@ class TestTrainingDatasets:
     def test_streaming_response_verify_datum(self, client: Structify) -> None:
         with client.admin.training_datasets.with_streaming_response.verify_datum(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            status="Unlabeled",
+            status="unlabeled",
             verified_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
@@ -909,7 +908,7 @@ class TestAsyncTrainingDatasets:
             return_value=httpx.Response(200, json={"foo": "bar"})
         )
         training_dataset = await async_client.admin.training_datasets.download_datum(
-            step_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            datum_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert training_dataset.is_closed
         assert await training_dataset.json() == {"foo": "bar"}
@@ -925,7 +924,7 @@ class TestAsyncTrainingDatasets:
             return_value=httpx.Response(200, json={"foo": "bar"})
         )
         training_dataset = await async_client.admin.training_datasets.download_datum(
-            step_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            datum_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             require_labels=True,
         )
         assert training_dataset.is_closed
@@ -941,7 +940,7 @@ class TestAsyncTrainingDatasets:
         )
 
         training_dataset = await async_client.admin.training_datasets.with_raw_response.download_datum(
-            step_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            datum_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
         assert training_dataset.is_closed is True
@@ -958,7 +957,7 @@ class TestAsyncTrainingDatasets:
             return_value=httpx.Response(200, json={"foo": "bar"})
         )
         async with async_client.admin.training_datasets.with_streaming_response.download_datum(
-            step_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            datum_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as training_dataset:
             assert not training_dataset.is_closed
             assert training_dataset.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -1011,7 +1010,6 @@ class TestAsyncTrainingDatasets:
             end_date=parse_datetime("2019-12-27T18:11:19.117Z"),
             labeled_status="None",
             max_prop_count=0,
-            return_prop_count=True,
             start_date=parse_datetime("2019-12-27T18:11:19.117Z"),
             time_bucket="Second",
         )
@@ -1041,7 +1039,7 @@ class TestAsyncTrainingDatasets:
     async def test_method_get_next_for_labeling(self, async_client: AsyncStructify) -> None:
         training_dataset = await async_client.admin.training_datasets.get_next_for_labeling(
             dataset_name="dataset_name",
-            status="Unlabeled",
+            status="unlabeled",
         )
         assert_matches_type(Optional[TrainingDatumResponse], training_dataset, path=["response"])
 
@@ -1049,7 +1047,7 @@ class TestAsyncTrainingDatasets:
     async def test_raw_response_get_next_for_labeling(self, async_client: AsyncStructify) -> None:
         response = await async_client.admin.training_datasets.with_raw_response.get_next_for_labeling(
             dataset_name="dataset_name",
-            status="Unlabeled",
+            status="unlabeled",
         )
 
         assert response.is_closed is True
@@ -1061,7 +1059,7 @@ class TestAsyncTrainingDatasets:
     async def test_streaming_response_get_next_for_labeling(self, async_client: AsyncStructify) -> None:
         async with async_client.admin.training_datasets.with_streaming_response.get_next_for_labeling(
             dataset_name="dataset_name",
-            status="Unlabeled",
+            status="unlabeled",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -1075,7 +1073,7 @@ class TestAsyncTrainingDatasets:
     async def test_method_get_next_for_qa(self, async_client: AsyncStructify) -> None:
         training_dataset = await async_client.admin.training_datasets.get_next_for_qa(
             dataset_name="dataset_name",
-            status="Unlabeled",
+            status="unlabeled",
         )
         assert_matches_type(Optional[TrainingDatumResponse], training_dataset, path=["response"])
 
@@ -1083,7 +1081,7 @@ class TestAsyncTrainingDatasets:
     async def test_raw_response_get_next_for_qa(self, async_client: AsyncStructify) -> None:
         response = await async_client.admin.training_datasets.with_raw_response.get_next_for_qa(
             dataset_name="dataset_name",
-            status="Unlabeled",
+            status="unlabeled",
         )
 
         assert response.is_closed is True
@@ -1095,7 +1093,7 @@ class TestAsyncTrainingDatasets:
     async def test_streaming_response_get_next_for_qa(self, async_client: AsyncStructify) -> None:
         async with async_client.admin.training_datasets.with_streaming_response.get_next_for_qa(
             dataset_name="dataset_name",
-            status="Unlabeled",
+            status="unlabeled",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -1108,14 +1106,14 @@ class TestAsyncTrainingDatasets:
     @parametrize
     async def test_method_get_next_suspicious(self, async_client: AsyncStructify) -> None:
         training_dataset = await async_client.admin.training_datasets.get_next_suspicious(
-            status="Unlabeled",
+            status="unlabeled",
         )
         assert_matches_type(Optional[TrainingDatumResponse], training_dataset, path=["response"])
 
     @parametrize
     async def test_method_get_next_suspicious_with_all_params(self, async_client: AsyncStructify) -> None:
         training_dataset = await async_client.admin.training_datasets.get_next_suspicious(
-            status="Unlabeled",
+            status="unlabeled",
             dataset_name="dataset_name",
             user_restriction=True,
         )
@@ -1124,7 +1122,7 @@ class TestAsyncTrainingDatasets:
     @parametrize
     async def test_raw_response_get_next_suspicious(self, async_client: AsyncStructify) -> None:
         response = await async_client.admin.training_datasets.with_raw_response.get_next_suspicious(
-            status="Unlabeled",
+            status="unlabeled",
         )
 
         assert response.is_closed is True
@@ -1135,7 +1133,7 @@ class TestAsyncTrainingDatasets:
     @parametrize
     async def test_streaming_response_get_next_suspicious(self, async_client: AsyncStructify) -> None:
         async with async_client.admin.training_datasets.with_streaming_response.get_next_suspicious(
-            status="Unlabeled",
+            status="unlabeled",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -1149,7 +1147,7 @@ class TestAsyncTrainingDatasets:
     async def test_method_label_datum(self, async_client: AsyncStructify) -> None:
         training_dataset = await async_client.admin.training_datasets.label_datum(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            status="Unlabeled",
+            status="unlabeled",
             updated_tool_calls=[
                 {
                     "input": {"save": {}},
@@ -1163,7 +1161,7 @@ class TestAsyncTrainingDatasets:
     async def test_raw_response_label_datum(self, async_client: AsyncStructify) -> None:
         response = await async_client.admin.training_datasets.with_raw_response.label_datum(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            status="Unlabeled",
+            status="unlabeled",
             updated_tool_calls=[
                 {
                     "input": {"save": {}},
@@ -1181,7 +1179,7 @@ class TestAsyncTrainingDatasets:
     async def test_streaming_response_label_datum(self, async_client: AsyncStructify) -> None:
         async with async_client.admin.training_datasets.with_streaming_response.label_datum(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            status="Unlabeled",
+            status="unlabeled",
             updated_tool_calls=[
                 {
                     "input": {"save": {}},
@@ -1241,7 +1239,7 @@ class TestAsyncTrainingDatasets:
         training_dataset = await async_client.admin.training_datasets.mark_datum_suspicious(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             message="message",
-            status="Unlabeled",
+            status="unlabeled",
             suspicious_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert training_dataset is None
@@ -1251,7 +1249,7 @@ class TestAsyncTrainingDatasets:
         response = await async_client.admin.training_datasets.with_raw_response.mark_datum_suspicious(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             message="message",
-            status="Unlabeled",
+            status="unlabeled",
             suspicious_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
@@ -1265,7 +1263,7 @@ class TestAsyncTrainingDatasets:
         async with async_client.admin.training_datasets.with_streaming_response.mark_datum_suspicious(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             message="message",
-            status="Unlabeled",
+            status="unlabeled",
             suspicious_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
@@ -1279,14 +1277,14 @@ class TestAsyncTrainingDatasets:
     @parametrize
     async def test_method_remove_datum(self, async_client: AsyncStructify) -> None:
         training_dataset = await async_client.admin.training_datasets.remove_datum(
-            step_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            datum_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert training_dataset is None
 
     @parametrize
     async def test_raw_response_remove_datum(self, async_client: AsyncStructify) -> None:
         response = await async_client.admin.training_datasets.with_raw_response.remove_datum(
-            step_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            datum_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
         assert response.is_closed is True
@@ -1297,7 +1295,7 @@ class TestAsyncTrainingDatasets:
     @parametrize
     async def test_streaming_response_remove_datum(self, async_client: AsyncStructify) -> None:
         async with async_client.admin.training_datasets.with_streaming_response.remove_datum(
-            step_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            datum_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -1315,7 +1313,7 @@ class TestAsyncTrainingDatasets:
     @parametrize
     async def test_method_size_with_all_params(self, async_client: AsyncStructify) -> None:
         training_dataset = await async_client.admin.training_datasets.size(
-            dataset_names=["string"],
+            dataset_name="dataset_name",
             end_date=parse_datetime("2019-12-27T18:11:19.117Z"),
             start_date=parse_datetime("2019-12-27T18:11:19.117Z"),
         )
@@ -1344,14 +1342,14 @@ class TestAsyncTrainingDatasets:
     @parametrize
     async def test_method_suspicious_count(self, async_client: AsyncStructify) -> None:
         training_dataset = await async_client.admin.training_datasets.suspicious_count(
-            status="Unlabeled",
+            status="unlabeled",
         )
         assert_matches_type(TrainingDatasetSuspiciousCountResponse, training_dataset, path=["response"])
 
     @parametrize
     async def test_method_suspicious_count_with_all_params(self, async_client: AsyncStructify) -> None:
         training_dataset = await async_client.admin.training_datasets.suspicious_count(
-            status="Unlabeled",
+            status="unlabeled",
             dataset_name="dataset_name",
             user_restriction=True,
         )
@@ -1360,7 +1358,7 @@ class TestAsyncTrainingDatasets:
     @parametrize
     async def test_raw_response_suspicious_count(self, async_client: AsyncStructify) -> None:
         response = await async_client.admin.training_datasets.with_raw_response.suspicious_count(
-            status="Unlabeled",
+            status="unlabeled",
         )
 
         assert response.is_closed is True
@@ -1371,7 +1369,7 @@ class TestAsyncTrainingDatasets:
     @parametrize
     async def test_streaming_response_suspicious_count(self, async_client: AsyncStructify) -> None:
         async with async_client.admin.training_datasets.with_streaming_response.suspicious_count(
-            status="Unlabeled",
+            status="unlabeled",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -1385,7 +1383,7 @@ class TestAsyncTrainingDatasets:
     async def test_method_switch_dataset(self, async_client: AsyncStructify) -> None:
         training_dataset = await async_client.admin.training_datasets.switch_dataset(
             dataset_name="dataset_name",
-            step_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            datum_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert training_dataset is None
 
@@ -1393,7 +1391,7 @@ class TestAsyncTrainingDatasets:
     async def test_raw_response_switch_dataset(self, async_client: AsyncStructify) -> None:
         response = await async_client.admin.training_datasets.with_raw_response.switch_dataset(
             dataset_name="dataset_name",
-            step_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            datum_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
         assert response.is_closed is True
@@ -1405,7 +1403,7 @@ class TestAsyncTrainingDatasets:
     async def test_streaming_response_switch_dataset(self, async_client: AsyncStructify) -> None:
         async with async_client.admin.training_datasets.with_streaming_response.switch_dataset(
             dataset_name="dataset_name",
-            step_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            datum_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -1419,7 +1417,7 @@ class TestAsyncTrainingDatasets:
     async def test_method_update_datum_status(self, async_client: AsyncStructify) -> None:
         training_dataset = await async_client.admin.training_datasets.update_datum_status(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            status="Unlabeled",
+            status="unlabeled",
         )
         assert training_dataset is None
 
@@ -1427,7 +1425,7 @@ class TestAsyncTrainingDatasets:
     async def test_method_update_datum_status_with_all_params(self, async_client: AsyncStructify) -> None:
         training_dataset = await async_client.admin.training_datasets.update_datum_status(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            status="Unlabeled",
+            status="unlabeled",
             review_message="review_message",
         )
         assert training_dataset is None
@@ -1436,7 +1434,7 @@ class TestAsyncTrainingDatasets:
     async def test_raw_response_update_datum_status(self, async_client: AsyncStructify) -> None:
         response = await async_client.admin.training_datasets.with_raw_response.update_datum_status(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            status="Unlabeled",
+            status="unlabeled",
         )
 
         assert response.is_closed is True
@@ -1448,7 +1446,7 @@ class TestAsyncTrainingDatasets:
     async def test_streaming_response_update_datum_status(self, async_client: AsyncStructify) -> None:
         async with async_client.admin.training_datasets.with_streaming_response.update_datum_status(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            status="Unlabeled",
+            status="unlabeled",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -1496,7 +1494,7 @@ class TestAsyncTrainingDatasets:
     async def test_method_verify_datum(self, async_client: AsyncStructify) -> None:
         training_dataset = await async_client.admin.training_datasets.verify_datum(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            status="Unlabeled",
+            status="unlabeled",
             verified_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert training_dataset is None
@@ -1505,7 +1503,7 @@ class TestAsyncTrainingDatasets:
     async def test_raw_response_verify_datum(self, async_client: AsyncStructify) -> None:
         response = await async_client.admin.training_datasets.with_raw_response.verify_datum(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            status="Unlabeled",
+            status="unlabeled",
             verified_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
@@ -1518,7 +1516,7 @@ class TestAsyncTrainingDatasets:
     async def test_streaming_response_verify_datum(self, async_client: AsyncStructify) -> None:
         async with async_client.admin.training_datasets.with_streaming_response.verify_datum(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            status="Unlabeled",
+            status="unlabeled",
             verified_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed

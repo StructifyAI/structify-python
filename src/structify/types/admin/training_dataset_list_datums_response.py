@@ -13,8 +13,6 @@ __all__ = ["TrainingDatasetListDatumsResponse", "TrainingDatasetListDatumsRespon
 class TrainingDatasetListDatumsResponseItem(BaseModel):
     id: str
 
-    last_updated: datetime
-
     nav_labelers: List[str]
 
     nav_verifiers: List[str]
@@ -25,7 +23,11 @@ class TrainingDatasetListDatumsResponseItem(BaseModel):
 
     status: DatumStatus
 
-    origin: Optional[Literal["HumanLLM", "UserReported", "ManualUpload", "ManualTransfer", "ToolParseFailure"]] = None
+    updated_at: datetime
+
+    origin: Optional[
+        Literal["human_l_l_m", "user_reported", "manual_upload", "manual_transfer", "tool_parse_failure"]
+    ] = None
 
 
 TrainingDatasetListDatumsResponse: TypeAlias = List[TrainingDatasetListDatumsResponseItem]

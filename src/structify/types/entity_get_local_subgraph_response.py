@@ -15,11 +15,15 @@ NeighborProperties: TypeAlias = Union[str, bool, float, Image]
 class Neighbor(BaseModel):
     id: str
 
-    creation_time: datetime
+    created_at: datetime
+
+    dataset_id: str
 
     label: str
 
     properties: Dict[str, NeighborProperties]
+
+    updated_at: datetime
 
 
 RelationshipProperties: TypeAlias = Union[str, bool, float, Image]

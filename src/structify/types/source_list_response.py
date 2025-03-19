@@ -1,8 +1,8 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Union
+from typing import List, Union, Optional
 from datetime import datetime
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import TypeAlias
 
 from pydantic import Field as FieldInfo
 
@@ -49,25 +49,24 @@ class SourceListResponseItemLocationPage(BaseModel):
 
 
 SourceListResponseItemLocation: TypeAlias = Union[
-    SourceListResponseItemLocationText,
-    SourceListResponseItemLocationVisual,
-    SourceListResponseItemLocationPage,
-    Literal["None"],
+    SourceListResponseItemLocationText, SourceListResponseItemLocationVisual, SourceListResponseItemLocationPage, None
 ]
 
 
 class SourceListResponseItem(BaseModel):
     id: str
 
-    creation_time: datetime
+    created_at: datetime
 
     is_summary: bool
 
-    link: Source
-
-    location: SourceListResponseItemLocation
-
     user_specified: bool
+
+    link: Optional[Source] = None
+
+    location: Optional[SourceListResponseItemLocation] = None
+
+    step_id: Optional[str] = None
 
 
 SourceListResponse: TypeAlias = List[SourceListResponseItem]
