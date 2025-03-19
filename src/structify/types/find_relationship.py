@@ -8,9 +8,9 @@ __all__ = ["FindRelationship"]
 
 
 class FindRelationship(BaseModel):
-    relationship_name: str
+    from_id: str
 
-    source_entity_id: str
+    relationship_name: str
 
     to_id: str
 

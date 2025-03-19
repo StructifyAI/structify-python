@@ -67,7 +67,7 @@ class TestReport:
     def test_method_relationship_with_all_params(self, client: Structify) -> None:
         report = client.report.relationship(
             label="label",
-            source_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            from_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             source_url="source_url",
             to_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
@@ -231,7 +231,7 @@ class TestAsyncReport:
     async def test_method_relationship_with_all_params(self, async_client: AsyncStructify) -> None:
         report = await async_client.report.relationship(
             label="label",
-            source_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            from_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             source_url="source_url",
             to_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )

@@ -101,7 +101,7 @@ class ReportResource(SyncAPIResource):
         self,
         *,
         label: str,
-        source_id: Optional[str] | NotGiven = NOT_GIVEN,
+        from_id: Optional[str] | NotGiven = NOT_GIVEN,
         source_url: Optional[str] | NotGiven = NOT_GIVEN,
         to_id: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -129,7 +129,7 @@ class ReportResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "label": label,
-                    "source_id": source_id,
+                    "from_id": from_id,
                     "source_url": source_url,
                     "to_id": to_id,
                 },
@@ -301,7 +301,7 @@ class AsyncReportResource(AsyncAPIResource):
         self,
         *,
         label: str,
-        source_id: Optional[str] | NotGiven = NOT_GIVEN,
+        from_id: Optional[str] | NotGiven = NOT_GIVEN,
         source_url: Optional[str] | NotGiven = NOT_GIVEN,
         to_id: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -329,7 +329,7 @@ class AsyncReportResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "label": label,
-                    "source_id": source_id,
+                    "from_id": from_id,
                     "source_url": source_url,
                     "to_id": to_id,
                 },
