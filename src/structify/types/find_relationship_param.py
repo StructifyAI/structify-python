@@ -9,9 +9,9 @@ __all__ = ["FindRelationshipParam"]
 
 
 class FindRelationshipParam(TypedDict, total=False):
-    relationship_name: Required[str]
+    from_id: Required[str]
 
-    source_entity_id: Required[str]
+    relationship_name: Required[str]
 
     to_id: Required[str]
 
