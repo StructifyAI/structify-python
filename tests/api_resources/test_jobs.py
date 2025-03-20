@@ -10,10 +10,10 @@ import pytest
 from structify import Structify, AsyncStructify
 from tests.utils import assert_matches_type
 from structify.types import (
-    ExecutionStep,
     JobGetResponse,
     JobListResponse,
     JobCancelResponse,
+    JobGetStepResponse,
     JobGetStepsResponse,
     JobGetStepGraphResponse,
 )
@@ -181,7 +181,7 @@ class TestJobs:
         job = client.jobs.get_step(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(ExecutionStep, job, path=["response"])
+        assert_matches_type(JobGetStepResponse, job, path=["response"])
 
     @parametrize
     def test_raw_response_get_step(self, client: Structify) -> None:
@@ -192,7 +192,7 @@ class TestJobs:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         job = response.parse()
-        assert_matches_type(ExecutionStep, job, path=["response"])
+        assert_matches_type(JobGetStepResponse, job, path=["response"])
 
     @parametrize
     def test_streaming_response_get_step(self, client: Structify) -> None:
@@ -203,7 +203,7 @@ class TestJobs:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             job = response.parse()
-            assert_matches_type(ExecutionStep, job, path=["response"])
+            assert_matches_type(JobGetStepResponse, job, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -474,7 +474,7 @@ class TestAsyncJobs:
         job = await async_client.jobs.get_step(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(ExecutionStep, job, path=["response"])
+        assert_matches_type(JobGetStepResponse, job, path=["response"])
 
     @parametrize
     async def test_raw_response_get_step(self, async_client: AsyncStructify) -> None:
@@ -485,7 +485,7 @@ class TestAsyncJobs:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         job = await response.parse()
-        assert_matches_type(ExecutionStep, job, path=["response"])
+        assert_matches_type(JobGetStepResponse, job, path=["response"])
 
     @parametrize
     async def test_streaming_response_get_step(self, async_client: AsyncStructify) -> None:
@@ -496,7 +496,7 @@ class TestAsyncJobs:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             job = await response.parse()
-            assert_matches_type(ExecutionStep, job, path=["response"])
+            assert_matches_type(JobGetStepResponse, job, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
