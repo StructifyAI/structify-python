@@ -30,9 +30,9 @@ from ...types.admin import (
     human_llm_add_search_for_job_params,
 )
 from ..._base_client import make_request_options
-from ...types.execution_step import ExecutionStep
 from ...types.admin.step_choices import StepChoices
 from ...types.admin.human_llm_get_jobs_response import HumanLlmGetJobsResponse
+from ...types.admin.human_llm_get_next_step_response import HumanLlmGetNextStepResponse
 from ...types.admin.human_llm_prelabel_step_response import HumanLlmPrelabelStepResponse
 
 __all__ = ["HumanLlmResource", "AsyncHumanLlmResource"]
@@ -227,7 +227,7 @@ class HumanLlmResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ExecutionStep:
+    ) -> HumanLlmGetNextStepResponse:
         """
         Given a step id, get the next formatted step to label.
 
@@ -252,7 +252,7 @@ class HumanLlmResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ExecutionStep,
+            cast_to=HumanLlmGetNextStepResponse,
         )
 
     def prelabel_step(
@@ -558,7 +558,7 @@ class AsyncHumanLlmResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ExecutionStep:
+    ) -> HumanLlmGetNextStepResponse:
         """
         Given a step id, get the next formatted step to label.
 
@@ -583,7 +583,7 @@ class AsyncHumanLlmResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ExecutionStep,
+            cast_to=HumanLlmGetNextStepResponse,
         )
 
     async def prelabel_step(

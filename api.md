@@ -25,6 +25,7 @@ from structify.types.admin import (
     HumanLlmAddToDatasetResponse,
     HumanLlmFinishJobResponse,
     HumanLlmGetJobsResponse,
+    HumanLlmGetNextStepResponse,
     HumanLlmPrelabelStepResponse,
 )
 ```
@@ -35,7 +36,7 @@ Methods:
 - <code title="post /admin/human_llm/add_to_dataset">client.admin.human_llm.<a href="./src/structify/resources/admin/human_llm.py">add_to_dataset</a>(\*\*<a href="src/structify/types/admin/human_llm_add_to_dataset_params.py">params</a>) -> <a href="./src/structify/types/admin/human_llm_add_to_dataset_response.py">object</a></code>
 - <code title="post /admin/human_llm/finish_job">client.admin.human_llm.<a href="./src/structify/resources/admin/human_llm.py">finish_job</a>(\*\*<a href="src/structify/types/admin/human_llm_finish_job_params.py">params</a>) -> <a href="./src/structify/types/admin/human_llm_finish_job_response.py">object</a></code>
 - <code title="post /admin/human_llm/get_jobs">client.admin.human_llm.<a href="./src/structify/resources/admin/human_llm.py">get_jobs</a>(\*\*<a href="src/structify/types/admin/human_llm_get_jobs_params.py">params</a>) -> <a href="./src/structify/types/admin/human_llm_get_jobs_response.py">HumanLlmGetJobsResponse</a></code>
-- <code title="post /admin/human_llm/get_next_step">client.admin.human_llm.<a href="./src/structify/resources/admin/human_llm.py">get_next_step</a>(\*\*<a href="src/structify/types/admin/human_llm_get_next_step_params.py">params</a>) -> <a href="./src/structify/types/execution_step.py">ExecutionStep</a></code>
+- <code title="post /admin/human_llm/get_next_step">client.admin.human_llm.<a href="./src/structify/resources/admin/human_llm.py">get_next_step</a>(\*\*<a href="src/structify/types/admin/human_llm_get_next_step_params.py">params</a>) -> <a href="./src/structify/types/admin/human_llm_get_next_step_response.py">HumanLlmGetNextStepResponse</a></code>
 - <code title="post /admin/human_llm/prelabel_step/{step_id}">client.admin.human_llm.<a href="./src/structify/resources/admin/human_llm.py">prelabel_step</a>(step_id) -> <a href="./src/structify/types/admin/human_llm_prelabel_step_response.py">HumanLlmPrelabelStepResponse</a></code>
 - <code title="post /admin/human_llm/start_next_job">client.admin.human_llm.<a href="./src/structify/resources/admin/human_llm.py">start_next_job</a>(\*\*<a href="src/structify/types/admin/human_llm_start_next_job_params.py">params</a>) -> <a href="./src/structify/types/admin/step_choices.py">StepChoices</a></code>
 - <code title="post /admin/human_llm/update_step">client.admin.human_llm.<a href="./src/structify/resources/admin/human_llm.py">update_step</a>(\*\*<a href="src/structify/types/admin/human_llm_update_step_params.py">params</a>) -> <a href="./src/structify/types/admin/step_choices.py">StepChoices</a></code>
@@ -203,6 +204,7 @@ from structify.types import (
     JobDeleteResponse,
     JobCancelResponse,
     JobGetResponse,
+    JobGetStepResponse,
     JobGetStepGraphResponse,
     JobGetStepsResponse,
 )
@@ -214,7 +216,7 @@ Methods:
 - <code title="post /jobs/delete/{job_id}">client.jobs.<a href="./src/structify/resources/jobs.py">delete</a>(job_id) -> str</code>
 - <code title="post /jobs/cancel/{uuid}">client.jobs.<a href="./src/structify/resources/jobs.py">cancel</a>(uuid) -> <a href="./src/structify/types/job_cancel_response.py">JobCancelResponse</a></code>
 - <code title="get /jobs/get/{job_id}">client.jobs.<a href="./src/structify/resources/jobs.py">get</a>(job_id) -> <a href="./src/structify/types/job_get_response.py">JobGetResponse</a></code>
-- <code title="get /jobs/get_step/{step_id}">client.jobs.<a href="./src/structify/resources/jobs.py">get_step</a>(step_id) -> <a href="./src/structify/types/execution_step.py">ExecutionStep</a></code>
+- <code title="get /jobs/get_step/{step_id}">client.jobs.<a href="./src/structify/resources/jobs.py">get_step</a>(step_id) -> <a href="./src/structify/types/job_get_step_response.py">JobGetStepResponse</a></code>
 - <code title="get /jobs/get_step_graph/{job_id}">client.jobs.<a href="./src/structify/resources/jobs.py">get_step_graph</a>(job_id) -> <a href="./src/structify/types/job_get_step_graph_response.py">JobGetStepGraphResponse</a></code>
 - <code title="get /jobs/get_steps/{job_id}">client.jobs.<a href="./src/structify/resources/jobs.py">get_steps</a>(job_id) -> <a href="./src/structify/types/job_get_steps_response.py">JobGetStepsResponse</a></code>
 - <code title="post /jobs/schedule">client.jobs.<a href="./src/structify/resources/jobs.py">schedule</a>() -> None</code>
