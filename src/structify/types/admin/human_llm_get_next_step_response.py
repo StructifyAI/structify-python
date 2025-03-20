@@ -5,12 +5,12 @@ from typing_extensions import Literal, TypeAlias
 
 from pydantic import Field as FieldInfo
 
-from .._models import BaseModel
-from .chat_prompt import ChatPrompt
-from .knowledge_graph import KnowledgeGraph
+from ..._models import BaseModel
+from ..chat_prompt import ChatPrompt
+from ..knowledge_graph import KnowledgeGraph
 
 __all__ = [
-    "ExecutionStep",
+    "HumanLlmGetNextStepResponse",
     "Response",
     "ResponseToolCall",
     "ResponseToolCallInput",
@@ -186,9 +186,7 @@ class Response(BaseModel):
     tool_calls: List[ResponseToolCall]
 
 
-class ExecutionStep(BaseModel):
-    id: str
-
+class HumanLlmGetNextStepResponse(BaseModel):
     prompt: ChatPrompt
 
     response: Response

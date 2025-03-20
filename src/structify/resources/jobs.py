@@ -21,10 +21,10 @@ from .._response import (
 )
 from ..pagination import SyncJobsList, AsyncJobsList
 from .._base_client import AsyncPaginator, make_request_options
-from ..types.execution_step import ExecutionStep
 from ..types.job_get_response import JobGetResponse
 from ..types.job_list_response import JobListResponse
 from ..types.job_cancel_response import JobCancelResponse
+from ..types.job_get_step_response import JobGetStepResponse
 from ..types.job_get_steps_response import JobGetStepsResponse
 from ..types.job_get_step_graph_response import JobGetStepGraphResponse
 
@@ -216,7 +216,7 @@ class JobsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ExecutionStep:
+    ) -> JobGetStepResponse:
         """
         Retrieve a step from structify.
 
@@ -236,7 +236,7 @@ class JobsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ExecutionStep,
+            cast_to=JobGetStepResponse,
         )
 
     def get_step_graph(
@@ -512,7 +512,7 @@ class AsyncJobsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ExecutionStep:
+    ) -> JobGetStepResponse:
         """
         Retrieve a step from structify.
 
@@ -532,7 +532,7 @@ class AsyncJobsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ExecutionStep,
+            cast_to=JobGetStepResponse,
         )
 
     async def get_step_graph(

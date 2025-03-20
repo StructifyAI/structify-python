@@ -10,7 +10,7 @@ from .chat_prompt import ChatPrompt
 from .knowledge_graph import KnowledgeGraph
 
 __all__ = [
-    "ExecutionStep",
+    "JobGetStepResponse",
     "Response",
     "ResponseToolCall",
     "ResponseToolCallInput",
@@ -186,9 +186,7 @@ class Response(BaseModel):
     tool_calls: List[ResponseToolCall]
 
 
-class ExecutionStep(BaseModel):
-    id: str
-
+class JobGetStepResponse(BaseModel):
     prompt: ChatPrompt
 
     response: Response

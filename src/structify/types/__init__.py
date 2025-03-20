@@ -65,6 +65,7 @@ from .dataset_create_params import DatasetCreateParams as DatasetCreateParams
 from .dataset_delete_params import DatasetDeleteParams as DatasetDeleteParams
 from .dataset_list_response import DatasetListResponse as DatasetListResponse
 from .entity_merge_response import EntityMergeResponse as EntityMergeResponse
+from .job_get_step_response import JobGetStepResponse as JobGetStepResponse
 from .knowledge_graph_param import KnowledgeGraphParam as KnowledgeGraphParam
 from .plan_pause_all_params import PlanPauseAllParams as PlanPauseAllParams
 from .report_missing_params import ReportMissingParams as ReportMissingParams
