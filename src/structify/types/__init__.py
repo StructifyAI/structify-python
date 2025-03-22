@@ -26,6 +26,7 @@ from .job_list_params import JobListParams as JobListParams
 from .knowledge_graph import KnowledgeGraph as KnowledgeGraph
 from .enhance_property import EnhanceProperty as EnhanceProperty
 from .job_get_response import JobGetResponse as JobGetResponse
+from .plan_list_params import PlanListParams as PlanListParams
 from .save_requirement import SaveRequirement as SaveRequirement
 from .entity_add_params import EntityAddParams as EntityAddParams
 from .entity_get_params import EntityGetParams as EntityGetParams
@@ -94,6 +95,7 @@ from .entity_list_jobs_response import EntityListJobsResponse as EntityListJobsR
 from .entity_summarize_response import EntitySummarizeResponse as EntitySummarizeResponse
 from .document_download_response import DocumentDownloadResponse as DocumentDownloadResponse
 from .enhance_relationship_param import EnhanceRelationshipParam as EnhanceRelationshipParam
+from .plan_list_with_jobs_params import PlanListWithJobsParams as PlanListWithJobsParams
 from .report_relationship_params import ReportRelationshipParams as ReportRelationshipParams
 from .structure_run_async_params import StructureRunAsyncParams as StructureRunAsyncParams
 from .user_transactions_response import UserTransactionsResponse as UserTransactionsResponse
@@ -102,6 +104,7 @@ from .entity_trigger_merge_params import EntityTriggerMergeParams as EntityTrigg
 from .job_get_step_graph_response import JobGetStepGraphResponse as JobGetStepGraphResponse
 from .relationship_merge_strategy import RelationshipMergeStrategy as RelationshipMergeStrategy
 from .structure_job_status_params import StructureJobStatusParams as StructureJobStatusParams
+from .plan_list_with_jobs_response import PlanListWithJobsResponse as PlanListWithJobsResponse
 from .report_relationship_response import ReportRelationshipResponse as ReportRelationshipResponse
 from .structure_is_complete_params import StructureIsCompleteParams as StructureIsCompleteParams
 from .structure_run_async_response import StructureRunAsyncResponse as StructureRunAsyncResponse

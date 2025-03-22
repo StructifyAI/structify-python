@@ -296,6 +296,7 @@ from structify.types import (
     Plan,
     PlanCreateResponse,
     PlanListResponse,
+    PlanListWithJobsResponse,
     PlanPauseAllResponse,
     PlanResumeAllResponse,
 )
@@ -304,7 +305,8 @@ from structify.types import (
 Methods:
 
 - <code title="post /plan/create">client.plan.<a href="./src/structify/resources/plan.py">create</a>(\*\*<a href="src/structify/types/plan_create_params.py">params</a>) -> str</code>
-- <code title="get /plan/list">client.plan.<a href="./src/structify/resources/plan.py">list</a>() -> <a href="./src/structify/types/plan_list_response.py">PlanListResponse</a></code>
+- <code title="get /plan/list">client.plan.<a href="./src/structify/resources/plan.py">list</a>(\*\*<a href="src/structify/types/plan_list_params.py">params</a>) -> <a href="./src/structify/types/plan_list_response.py">SyncJobsList[PlanListResponse]</a></code>
+- <code title="get /plan/list_with_jobs">client.plan.<a href="./src/structify/resources/plan.py">list_with_jobs</a>(\*\*<a href="src/structify/types/plan_list_with_jobs_params.py">params</a>) -> <a href="./src/structify/types/plan_list_with_jobs_response.py">SyncJobsList[PlanListWithJobsResponse]</a></code>
 - <code title="get /plan/pause_all">client.plan.<a href="./src/structify/resources/plan.py">pause_all</a>(\*\*<a href="src/structify/types/plan_pause_all_params.py">params</a>) -> <a href="./src/structify/types/plan_pause_all_response.py">PlanPauseAllResponse</a></code>
 - <code title="get /plan/resume_all">client.plan.<a href="./src/structify/resources/plan.py">resume_all</a>(\*\*<a href="src/structify/types/plan_resume_all_params.py">params</a>) -> <a href="./src/structify/types/plan_resume_all_response.py">PlanResumeAllResponse</a></code>
 
