@@ -36,6 +36,8 @@ class Job(BaseModel):
 
 
 class PlanListWithJobsResponse(BaseModel):
+    created_at: datetime
+
     jobs: List[Job]
 
     plan: Plan
@@ -45,3 +47,5 @@ class PlanListWithJobsResponse(BaseModel):
     status: Literal["Queued", "Running", "Completed", "Failed", "Paused"]
 
     step: int
+
+    updated_at: datetime
