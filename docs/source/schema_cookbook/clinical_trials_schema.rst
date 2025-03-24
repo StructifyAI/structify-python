@@ -252,7 +252,7 @@ Pharmaceutical Clinical Trials Schema
                 properties=[
                     Property(
                         name=EVENT_NAME_PROPERTY,
-                        description="The name of the adverse event," " or a phrase that describes its effects.",
+                        description="The name of the adverse event, or a phrase that describes its effects.",
                         merge_strategy=Probabilistic(
                             Probabilistic=MergeConfig(baseline_cardinality=100_000, match_transfer_probability=0.9)
                         ),

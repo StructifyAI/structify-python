@@ -1,6 +1,27 @@
 Financial Data Schema
 ======================
 
+Introduction
+-------------
+The schema below is designed to structure data for Venture Capital firms, including information about VC firms that have previously invested, which rounds they've raised, and the respective raise amounts. This information can help connect investors with companies looking for capital.
+
+Design Decisions
+-----------------
+A couple of highlights from this schema, from a design perspective: 
+
+* Notice how we restricted industry and sub-industry to ENUMS because they're naturally limited to certain choices
+* Take a look at the relationship properties. This is a good example to think about how you should use these when something is a characteristic of the relationship itself (i.e. the led round relationship, that doesn't fit in either the company table funding round table, but it does on the relationship!)
+
+Also, consider how we decided to link the company table and the vc firm table not directly, but rather with another table. 
+
+This allows the data to be structured very neatly, even though it may seem intuitive to make the funding round itself the relationship.
+
+Detailed Descriptions
+----------------------
+Take a look at the address property. In its description, we're extremely clear about what we're looking to extract. This gives a lot of guidance to our model and creates better results.
+
+The business description property is another good example; it's different between VC firm and company! This is because we're interested in different things about each. Attention to detail like this can make all the difference, so make sure to keep an eye on the specificity of your descriptions!
+
 .. code-block:: python
 
     from customer_success.shared.industry_classifications.gics import GICS_INDUSTRIES
