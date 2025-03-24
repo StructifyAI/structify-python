@@ -1,6 +1,65 @@
 Financial Data Schema
--------------------------
+======================
+
 .. code-block:: python
+
+    from customer_success.shared.industry_classifications.gics import GICS_INDUSTRIES
+    from customer_success.shared.industry_classifications.naics import NAICS_VERTICALS
+    from customer_success.shared.schema.enums import (
+        COMPANY_STATUSES,
+        DEPARTMENTS,
+        INVESTOR_STATUSES,
+        STAGES,
+        TRANSACTION_FEATURES,
+        TRANSACTION_TYPES,
+    )
+    from customer_success.shared.schema.property_names import (
+        ADDRESS_PROPERTY,
+        BUSINESS_DESCRIPTION_PROPERTY,
+        COMPANY_CIK_PROPERTY,
+        COMPANY_SECTOR_PROPERTY,
+        COMPANY_VERTICAL_PROPERTY,
+        DEPARTMENT_PROPERTY,
+        END_DATE_PROPERTY,
+        FOUNDING_DATE_PROPERTY,
+        HEADCOUNT_PROPERTY,
+        IMAGE_PROPERTY,
+        IS_BOARD_OBSERVER_PROPERTY,
+        IS_CURRENT_PROPERTY,
+        IS_FOUNDER_PROPERTY,
+        IS_INVESTOR_PROPERTY,
+        LED_ROUND_PROPERTY,
+        LEGAL_NAME_PROPERTY,
+        LINKEDIN_PROPERTY,
+        LOGO_PROPERTY,
+        NAME_PROPERTY,
+        ON_BOARD_PROPERTY,
+        ON_EXEC_PROPERTY,
+        PERSON_BIO_PROPERTY,
+        PERSON_CURRENT_TITLE_PROPERTY,
+        PERSON_INDUSTRY_PROPERTY,
+        PERSON_NAME_PROPERTY,
+        PERSON_NICKNAME_PROPERTY,
+        ROUND_ADVISOR_PROPERTY,
+        ROUND_ANNOUNCED_DATE_PROPERTY,
+        ROUND_RAISED_AMOUNT_PROPERTY,
+        ROUND_STAGE_PROPERTY,
+        ROUND_USE_PROPERTY,
+        ROUND_VALUATION_PROPERTY,
+        START_DATE_PROPERTY,
+        STATUS_PROPERTY,
+        TITLE_PROPERTY,
+        TWITTER_PROPERTY,
+        WEBSITE_PROPERTY,
+    )
+    from customer_success.shared.schema.relationship_names import (
+        INVESTED_IN_ROUND_RELATIONSHIP,
+        JOB_AT_COMPANY_RELATIONSHIP,
+        JOB_AT_VC_FIRM_RELATIONSHIP,
+        PORTFOLIO_COMPANY_RELATIONSHIP,
+        RAISED_RELATIONSHIP,
+    )
+    from customer_success.shared.schema.table_names import COMPANY_TABLE, FUNDING_ROUND_TABLE, VC_FIRM_TABLE
 
     DatasetDescriptor(
         name=DATASET_NAME,
@@ -191,18 +250,6 @@ Financial Data Schema
                         source_cardinality_given_target_match=100,
                         target_cardinality_given_source_match=5,
                     ),
-                    properties=[
-                        RelationshipProperty(
-                            name=TRANSACTION_TYPE_PROPERTY,
-                            description=("The specific type of financial transaction that took place."),
-                            prop_type=Enum(Enum=TRANSACTION_TYPES),
-                        ),
-                        RelationshipProperty(
-                            name=TRANSACTION_FEATURES_PROPERTY,
-                            description=("The key feature or grouping of the financial transaction."),
-                            prop_type=Enum(Enum=TRANSACTION_FEATURES),
-                        ),
-                    ],
                 ),
                 Relationship(
                     name=PORTFOLIO_COMPANY_RELATIONSHIP,

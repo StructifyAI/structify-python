@@ -1,6 +1,87 @@
-Bonus Schema: Pharmaceutical Clinical Trials
---------------------------------------------
+Pharmaceutical Clinical Trials Schema
+======================================
+
 .. code-block:: python
+
+    DATASET_NAME = "Pharmaceutical_Clinical_Trial_Results"
+    TRIAL_TABLE = "Clinical_Trials"
+    PHARMACEUTICAL_TABLE = "Pharmaceuticals"
+    PARTICIPANT_TABLE = "Trial_Participants"
+    OUTCOME_TABLE = "Trial_Outcomes"
+    ADVERSE_EVENT_TABLE = "adverse_events"
+    JOURNAL_TABLE = "journals"
+    COMPANY_TABLE = "pharmaceutical_companies"
+
+    # Clinical Trial Properties
+    TRIAL_NAME_PROPERTY = "Trial_Name"
+    TRIAL_PHASE_PROPERTY = "Trial_Phase"
+    DISEASE_TARGETED_PROPERTY = "Disease_Targeted"
+    ENROLLMENT_SIZE_PROPERTY = "Enrollment_Size"
+    START_DATE_PROPERTY = "Start_Date"
+    END_DATE_PROPERTY = "End_Date"
+    PRIMARY_OUTCOME_PROPERTY = "Primary_Outcome"
+    SECONDARY_OUTCOME_PROPERTY = "Secondary_Outcome"
+    NAME_PROPERTY = "Name"
+    WEBSITE_PROPERTY = "Website"
+
+    # Pharmaceutical (Treatment) Properties
+    PHARMACEUTICAL_NAME_PROPERTY = "Pharmaceutical_Name"
+    PHARMACEUTICAL_TYPE_PROPERTY = "Pharmaceutical_Type"
+    ACTIVE_INGREDIENT_PROPERTY = "Active_Ingredient"
+    FDA_APPROVAL_STATUS_PROPERTY = "FDA_Approval_Status"
+
+    # Participant Flow Properties
+    GROUP_ASSIGNMENT_PROPERTY = "Group_Assignment"
+    NUMBER_ENROLLED_PROPERTY = "Number_Enrolled"
+    NUMBER_COMPLETED_PROPERTY = "Number_Completed"
+    NUMBER_WITHDRAWN_PROPERTY = "Number_Withdrawn"
+    NUMBER_ANALYZED_PROPERTY = "Number_Analyzed"
+
+    # Outcome Properties
+    OUTCOME_NAME_PROPERTY = "Outcome_Name"
+    TREATMENT_GROUP_PROPERTY = "Treatment_Group"
+    OUTCOME_MEASURE_PROPERTY = "Outcome_Measure"
+    STATISTICAL_SIGNIFICANCE_PROPERTY = "Statistical_Significance"
+    CONFIDENCE_INTERVAL_MIN_PROPERTY = "Confidence_Interval_Min"
+    CONFIDENCE_INTERVAL_MAX_PROPERTY = "Confidence_Interval_Max"
+    P_VALUE_PROPERTY = "P_Value"
+    IS_PRIMARY_PROPERTY = "Is_Primary"
+    TIME_RANGE_PROPERTY = "Time_Range"
+    OUTCOME_UNIT_PROPERTY = "outcome_measure_unit"
+
+    # Adverse Event Properties
+    EVENT_NAME_PROPERTY = "Event_Name"
+    SEVERITY_PROPERTY = "Severity"
+    FREQUENCY_PROPERTY = "Frequency"
+    TREATMENT_GROUP_AFFECTED_PROPERTY = "Treatment_Group_Affected"
+
+    LOCATION_PROPERTY = "Location"
+    DESCRIPTION_PROPERTY = "company_description"
+    # Relationships
+    ADVERSE_EVENT_RELATIONSHIP = "adverse_event_happened"
+    OUTCOME_RELATIONSHIP = "outcome_measured"
+    PHARMA_USED_RELATIONSHIP = "pharmaceutical_used"
+    TRIAL_RELATIONSHIP = "trial_published"
+    SPONSOR_RELATIONSHIP = "trial_sponsored_by"
+
+
+    # Enum Values
+    TRIAL_PHASES = [
+        "Preclinical",
+        "Phase 1",
+        "Phase 2",
+        "Phase 3",
+        "Phase 4",
+    ]
+
+    PHARMACEUTICAL_TYPES = [
+        "Small Molecule Drug",
+        "Biologic",
+        "Vaccine",
+        "Gene Therapy",
+        "Monoclonal Antibody",
+        "Other",
+    ]
 
     DatasetDescriptor(
         name=DATASET_NAME,

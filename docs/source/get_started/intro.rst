@@ -27,6 +27,7 @@ The best part of Structify is that it's easy to start seeing the power of our AP
 
 #. Get your API Key by `emailing us <mailto:team@structify.ai>`_.
 #. Define your first dataset. See :ref:`define-schema`.
+#. For dataset help, checkout the schema cookbook. See :ref:`schema-guidance`
 #. Add data to your dataset. See :ref:`populating-datasets`.
 
 And just like that, you've gathered your first dataset using Structify.

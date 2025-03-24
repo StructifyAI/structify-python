@@ -1,7 +1,24 @@
 Semiconductor Pricing Schema
-------------------------------
+=============================
+
 A schema to help structure the pricing of semiconductor parts
+
 .. code-block:: python
+
+    DATASET_NAME = "product_parts"
+    PRODUCT_PART_TABLE = "Part"
+    PRICE_TABLE = "Unit_Price"
+    MANUFACTURER_NAME = "Manufacturer"
+    SKU_NAME = "SKU"
+    LABEL_UNIT_PRICE_NAME = "Label_Unit_Price"
+    DESCRIPTION_NAME = "Description"
+    SPECIFICATIONS_NAME = "Specifications"
+    IMAGE_NAME = "Image"
+    QUANTITY_NAME = "Quantity"
+    UNIT_PRICE_NAME = "Unit_Price"
+    SOURCE_URL_NAME = "Source_URL"
+    TOTAL_PRICE_NAME = "Total_Price"
+    PRICING_RELATIONSHIP_NAME = "Pricing"
 
     DatasetDescriptor(
         name=DATASET_NAME,

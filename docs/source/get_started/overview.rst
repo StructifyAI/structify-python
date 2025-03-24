@@ -14,6 +14,7 @@ If you're ready to start structifying, you can get started by visiting the follo
    Intro <intro>
    Quickstart <quickstart>
    Examples Home <../examples/examplehome>
+   Schema Cookbook <../schema_cookbook/schema_guidance>
 
 Explore the Key Endpoints
 -------------------------

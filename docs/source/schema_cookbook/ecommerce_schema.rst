@@ -1,7 +1,26 @@
-E-Commerce
----------------------
+E-Commerce Schema
+==================
+
 .. code-block:: python
 
+    DATASET_NAME = "ecommerce_tracking"
+    COMPANY_TABLE = "company"
+    MERCHANT_TABLE = "merchant"
+    # Product Table Properties
+    IMAGE_PROPERTY = "product_image"
+    PRICE_PROPERTY = "product_price"
+    DESCRIPTION_PROPERTY = "description"
+    RETAIL_AGGREGATOR_PROPERTY = "retail_aggregator_url"
+    PRODUCT_TABLE = "products"
+    QUANTITY_PROPERTY = "quantity"
+    NAME_PROPERTY = "name"
+
+    # Merchant Table Properties
+    WEBSITE_PROPERTY = "website"
+    BUSINESS_DESCRIPTION_PROPERTY = "business_description"
+
+    # Relationship
+    SELLS_RELATIONSHIP = "sell"
     DatasetDescriptor(
         name=DATASET_NAME,
         description=(
@@ -16,28 +35,28 @@ E-Commerce
                 expected_cardinality=10_000_000,
                 properties=[
                     Property(
-                        name=PRODUCT_NAME_PROPERTY,
+                        name=NAME_PROPERTY,
                         description="The name of the product being sold.",
                         merge_strategy=Probabilistic(
                             Probabilistic=MergeConfig(baseline_cardinality=1_000_000, match_transfer_probability=0.9)
                         ),
                     ),
                     Property(
-                        name=PRODUCT_IMAGE_PROPERTY,
+                        name=IMAGE_PROPERTY,
                         description="The image of the product.",
                         prop_type="Image",
                     ),
                     Property(
-                        name=PRODUCT_PRICE_PROPERTY,
+                        name=PRICE_PROPERTY,
                         description="The price of the product",
                         prop_type="Money",
                     ),
                     Property(
-                        name=PRODUCT_DESCRIPTION_PROPERTY,
+                        name=DESCRIPTION_PROPERTY,
                         description="A detailed description of the product, including specifications and features.",
                     ),
                     Property(
-                        name=PRODUCT_AMAZON_PAGE_PROPERTY,
+                        name=RETAIL_AGGREGATOR_PROPERTY,
                         description="The URL to the product's page on Amazon or "
                         "another e-commerce platform., if available",
                         prop_type="URL",

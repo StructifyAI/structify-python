@@ -141,4 +141,4 @@ Here's an example of how you would make an API call to create a dataset:
       )
 
 
-With that, you are on your way to structifying your data.
+With that, you are on your way to structifying your data. Check out the Schema Cookbook for some guidance on creating more complex datasets and some stuff to try out of the box :ref:`schema-guidance`
