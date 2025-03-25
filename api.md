@@ -368,7 +368,6 @@ from structify.types import (
     Entity,
     Image,
     KnowledgeGraph,
-    MatchedEntity,
     PropertyType,
     Relationship,
     Table,
