@@ -1,6 +1,5 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict
 from typing_extensions import Literal
 
 from .._models import BaseModel
@@ -14,5 +13,3 @@ class ToolMetadata(BaseModel):
     name: Literal["Exit", "Save", "Wait", "Type", "Scroll", "ScrollToBottom", "Click", "Hover", "Error", "Google"]
 
     regex_validator: str
-
-    tool_validator: Dict[str, object]
