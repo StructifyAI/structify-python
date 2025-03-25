@@ -14,4 +14,6 @@ class Enum(BaseModel):
     enum: List[str] = FieldInfo(alias="Enum")
 
 
-PropertyType: TypeAlias = Union[Literal["String", "Boolean", "Integer", "Float", "Date", "URL", "Money", "Image"], Enum]
+PropertyType: TypeAlias = Union[
+    Literal["String", "Boolean", "Integer", "Float", "Date", "URL", "Money", "Image", "PersonName"], Enum
+]
