@@ -1,61 +1,135 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from __future__ import annotations
-
 from typing import Dict, List, Union, Optional
 from datetime import datetime
 from typing_extensions import Literal, TypeAlias
 
 from ..image import Image
-from ..._compat import PYDANTIC_V2
 from ..._models import BaseModel
 
 __all__ = [
     "EvaluateGetResponse",
     "Stats",
-    "StatsTables",
-    "StatsTablesUnmatched1",
-    "StatsTablesUnmatched1Properties",
-    "StatsTablesUnmatched2",
-    "StatsTablesUnmatched2Properties",
+    "StatsTableMatches",
+    "StatsTableMatchesEntityMatch",
+    "StatsTableMatchesEntityMatchEntityA",
+    "StatsTableMatchesEntityMatchEntityAProperties",
+    "StatsTableMatchesEntityMatchEntityB",
+    "StatsTableMatchesEntityMatchEntityBProperties",
+    "StatsTableMatchesEntityMatchMatchedProperty",
+    "StatsTableMatchesUnmatchedA",
+    "StatsTableMatchesUnmatchedAProperties",
+    "StatsTableMatchesUnmatchedB",
+    "StatsTableMatchesUnmatchedBProperties",
 ]
 
-StatsTablesUnmatched1Properties: TypeAlias = Union[str, bool, float, Image]
+StatsTableMatchesEntityMatchEntityAProperties: TypeAlias = Union[str, bool, float, Image]
 
 
-class StatsTablesUnmatched1(BaseModel):
+class StatsTableMatchesEntityMatchEntityA(BaseModel):
     id: str
 
-    properties: Dict[str, StatsTablesUnmatched1Properties]
+    created_at: datetime
 
-    type: str
+    dataset_id: str
+
+    label: str
+
+    properties: Dict[str, StatsTableMatchesEntityMatchEntityAProperties]
+
+    updated_at: datetime
 
 
-StatsTablesUnmatched2Properties: TypeAlias = Union[str, bool, float, Image]
+StatsTableMatchesEntityMatchEntityBProperties: TypeAlias = Union[str, bool, float, Image]
 
 
-class StatsTablesUnmatched2(BaseModel):
+class StatsTableMatchesEntityMatchEntityB(BaseModel):
     id: str
 
-    properties: Dict[str, StatsTablesUnmatched2Properties]
+    created_at: datetime
 
-    type: str
+    dataset_id: str
+
+    label: str
+
+    properties: Dict[str, StatsTableMatchesEntityMatchEntityBProperties]
+
+    updated_at: datetime
 
 
-class StatsTables(BaseModel):
-    matched_entities: List["MatchedEntity"]
+class StatsTableMatchesEntityMatchMatchedProperty(BaseModel):
+    match_prob: float
 
-    unmatched_1: List[StatsTablesUnmatched1]
-    """
-    We don't want to make the assumption that the dataset is static after eval, so
-    it's useful to save the full entities.
-    """
+    match_transfer_prob: float
 
-    unmatched_2: List[StatsTablesUnmatched2]
+    name: str
+
+    property_cardinality: int
+
+    unique: bool
+
+
+class StatsTableMatchesEntityMatch(BaseModel):
+    alternate_matches: List[object]
+    """Alternate matches for entity a - just used for dataset eval"""
+
+    baseline_cardinality: int
+
+    entity_a: StatsTableMatchesEntityMatchEntityA
+
+    entity_b: StatsTableMatchesEntityMatchEntityB
+
+    matched_properties: List[StatsTableMatchesEntityMatchMatchedProperty]
+
+    p_match: float
+
+    p_match_threshold: float
+
+
+StatsTableMatchesUnmatchedAProperties: TypeAlias = Union[str, bool, float, Image]
+
+
+class StatsTableMatchesUnmatchedA(BaseModel):
+    id: str
+
+    created_at: datetime
+
+    dataset_id: str
+
+    label: str
+
+    properties: Dict[str, StatsTableMatchesUnmatchedAProperties]
+
+    updated_at: datetime
+
+
+StatsTableMatchesUnmatchedBProperties: TypeAlias = Union[str, bool, float, Image]
+
+
+class StatsTableMatchesUnmatchedB(BaseModel):
+    id: str
+
+    created_at: datetime
+
+    dataset_id: str
+
+    label: str
+
+    properties: Dict[str, StatsTableMatchesUnmatchedBProperties]
+
+    updated_at: datetime
+
+
+class StatsTableMatches(BaseModel):
+    entity_matches: List[StatsTableMatchesEntityMatch]
+
+    unmatched_a: List[StatsTableMatchesUnmatchedA]
+
+    unmatched_b: List[StatsTableMatchesUnmatchedB]
 
 
 class Stats(BaseModel):
-    tables: Dict[str, StatsTables]
+    table_matches: Dict[str, StatsTableMatches]
 
 
 class EvaluateGetResponse(BaseModel):
@@ -84,19 +158,3 @@ class EvaluateGetResponse(BaseModel):
     unmatched: int
 
     run_message: Optional[str] = None
-
-
-from ..matched_entity import MatchedEntity
-
-if PYDANTIC_V2:
-    EvaluateGetResponse.model_rebuild()
-    Stats.model_rebuild()
-    StatsTables.model_rebuild()
-    StatsTablesUnmatched1.model_rebuild()
-    StatsTablesUnmatched2.model_rebuild()
-else:
-    EvaluateGetResponse.update_forward_refs()  # type: ignore
-    Stats.update_forward_refs()  # type: ignore
-    StatsTables.update_forward_refs()  # type: ignore
-    StatsTablesUnmatched1.update_forward_refs()  # type: ignore
-    StatsTablesUnmatched2.update_forward_refs()  # type: ignore
