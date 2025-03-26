@@ -87,6 +87,7 @@ from .find_relationship_param import FindRelationshipParam as FindRelationshipPa
 from .plan_pause_all_response import PlanPauseAllResponse as PlanPauseAllResponse
 from .report_missing_response import ReportMissingResponse as ReportMissingResponse
 from .document_download_params import DocumentDownloadParams as DocumentDownloadParams
+from .entity_get_merges_params import EntityGetMergesParams as EntityGetMergesParams
 from .plan_resume_all_response import PlanResumeAllResponse as PlanResumeAllResponse
 from .dataset_view_table_params import DatasetViewTableParams as DatasetViewTableParams
 from .entity_add_batch_response import EntityAddBatchResponse as EntityAddBatchResponse
@@ -94,6 +95,7 @@ from .entity_list_jobs_response import EntityListJobsResponse as EntityListJobsR
 from .entity_summarize_response import EntitySummarizeResponse as EntitySummarizeResponse
 from .document_download_response import DocumentDownloadResponse as DocumentDownloadResponse
 from .enhance_relationship_param import EnhanceRelationshipParam as EnhanceRelationshipParam
+from .entity_get_merges_response import EntityGetMergesResponse as EntityGetMergesResponse
 from .plan_list_with_jobs_params import PlanListWithJobsParams as PlanListWithJobsParams
 from .report_relationship_params import ReportRelationshipParams as ReportRelationshipParams
 from .structure_run_async_params import StructureRunAsyncParams as StructureRunAsyncParams
