@@ -1,6 +1,22 @@
 E-Commerce Schema
 ==================
 
+Introduction
+-------------
+The schema below is designed to structure data about e-commerce. In particular, we extract information from various specific merchants (such as Louis Vitton or Samsung). We get their price, description, and a link to purchase on a retail aggregator (such as Amazon), among other things.
+
+Design Decisions
+-----------------
+This schema is fairly simple but very powerful! Sometimes, a simple schema gets the job done better than anything fancy.
+
+Detailed Descriptions
+----------------------
+Take a look at each of the description and business description properties. 
+
+These are fairly generically named, so it's helpful to provide context for what you want to find and save. For instance, for products, we don't care about price in the description, but we do care about specifications of the item (color, dimensions, number of pieces, etc.)
+
+Similarly, for the business description property, we specifically mention that we're interested in what kinds of products the company sells, as opposed to say what markets they target or something of that nature. Simple things like this go a long way! 
+
 .. code-block:: python
 
     DATASET_NAME = "ecommerce_tracking"

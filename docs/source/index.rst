@@ -90,7 +90,7 @@ Schema Cookbook
 
    Schema Guidance <schema_cookbook/schema_guidance>
    Financial Schema <schema_cookbook/financials_schema>
-   E-Commerce <schema_cookbook/ecommerce_schema>
+   E-Commerce Schema <schema_cookbook/ecommerce_schema>
    Semiconductor Schema <schema_cookbook/semiconductor_schema>
    Clinical Trials Schema <schema_cookbook/clinical_trials_schema>
 

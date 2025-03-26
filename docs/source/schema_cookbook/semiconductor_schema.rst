@@ -1,7 +1,19 @@
 Semiconductor Pricing Schema
 =============================
 
-A schema to help structure the pricing of semiconductor parts
+Introduction
+-------------
+The schema below is designed to structure data about semiconductor parts and pricing. This includes details about the manufacturing, and the unit economics of individual parts.
+
+Design Decisions
+-----------------
+Something that shines with this schema is creativity! It's somewhat hard to imagine how to structure different prices based on bulk ordering. We accomplished this by simply creating a pricing table which proves to be elegant and pretty powerful. Thanks to this simple structure, we're able to keep track of the pricing at various purchase amounts, in an easily digestible way.
+
+Detailed Descriptions
+----------------------
+This schema is a good example of when to separate properties and call out the difference via the descriptions. Check out DESCRIPTION_NAME and SPECIFICATIONS_NAME properties -- these things seem similar (and are often found together on webpages), but there's enough of a difference that it should be highlighted.
+
+In this case, that highlighting is done by separating them into separate properties and delineating which property has what included.
 
 .. code-block:: python
 
