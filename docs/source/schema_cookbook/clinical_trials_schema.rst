@@ -9,15 +9,15 @@ With a little creativity, though, it's clear that with Structify, this data can 
 
 Design Decisions
 -----------------
-Overall, the goal of any schema is to best structure the information you're after. In this case, we achieved it by creating a table for each piece that was of interest, and connecting those via relationships. This creates a nice branching nature to the dataset, wherein each trial connects to multiple participant tables to break out the various groups. Then, each participant table connects to outcome and adverse event tables, to further break down those stats. Each trial is also connect of course to the pharmaceutical (or other treatment) that is its subject.
+Overall, the goal of any schema is to best structure the information you're after. In this case, we achieved it by creating a table for each piece that was of interest, and connecting those via relationships. This creates a nice branching nature to the dataset, wherein each trial connects to multiple participant tables to break out the various groups. Then, each participant table connects to outcome and adverse event tables, to further break down those stats. Each trial is also connected to the pharmaceutical (or other treatment) that is its subject.
 
 Finally, we also connect journals to the trials they publish, and companies to the trials they sponsor as helpful additional pieces of data, and for sourcing purposes. 
 
 The participant table allows us to nicely store the numbers associated with each participant group, while also elegantly connecting each participant group to their own outcomes and adverse events via relationships. This allows simulation of the various charts that appear in the clinical trials reports.
 
-In this case, its cleaner to use many relationships and tables rather than to try and cram everything into properties. For instance, you could imagine the treatment group just being a property on each outcome and adverse event table. That technically would've worked, but overall is very messy, leads to duplicate information, and is more fallible. Furthermore, you could imagine it being a relationship property on a relationship between the trial table and each of the other two, BUT then it becomes difficult to keep track of the participant group's details.
+In this case, its cleaner to use many relationships and tables rather than to try and cram everything into properties. For instance, you could imagine the treatment group just being a property on each outcome and adverse event in each of their respective tables. That technically would've worked, but overall is very messy, leads to duplicate information, and is more fallible. Furthermore, you could imagine it being a relationship property on a relationship between the trial table and each of the other two, BUT then it becomes difficult to keep track of the participant group's details.
 
-The solution outlined solves both of those issues and that's why we believe it's the correct way to build this schema.
+The solution outlined solves both of those issues and that's why we believe it's a more elegant way to build this schema.
 
 Detailed Descriptions
 ----------------------
