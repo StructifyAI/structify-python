@@ -18,6 +18,7 @@ from ..types import (
     entity_add_batch_params,
     entity_list_jobs_params,
     entity_summarize_params,
+    entity_get_merges_params,
     entity_trigger_merge_params,
     entity_update_property_params,
     entity_get_local_subgraph_params,
@@ -48,6 +49,7 @@ from ..types.entity_search_response import EntitySearchResponse
 from ..types.entity_add_batch_response import EntityAddBatchResponse
 from ..types.entity_list_jobs_response import EntityListJobsResponse
 from ..types.entity_summarize_response import EntitySummarizeResponse
+from ..types.entity_get_merges_response import EntityGetMergesResponse
 from ..types.entity_trigger_merge_response import EntityTriggerMergeResponse
 from ..types.entity_update_property_response import EntityUpdatePropertyResponse
 from ..types.entity_get_local_subgraph_response import EntityGetLocalSubgraphResponse
@@ -291,6 +293,41 @@ class EntitiesResource(SyncAPIResource):
                 ),
             ),
             cast_to=EntityGetLocalSubgraphResponse,
+        )
+
+    def get_merges(
+        self,
+        *,
+        entity_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> EntityGetMergesResponse:
+        """
+        Get all historical merges for a given entity
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._get(
+            "/entity/get_merges",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"entity_id": entity_id}, entity_get_merges_params.EntityGetMergesParams),
+            ),
+            cast_to=EntityGetMergesResponse,
         )
 
     def get_source_entities(
@@ -891,6 +928,43 @@ class AsyncEntitiesResource(AsyncAPIResource):
             cast_to=EntityGetLocalSubgraphResponse,
         )
 
+    async def get_merges(
+        self,
+        *,
+        entity_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> EntityGetMergesResponse:
+        """
+        Get all historical merges for a given entity
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._get(
+            "/entity/get_merges",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"entity_id": entity_id}, entity_get_merges_params.EntityGetMergesParams
+                ),
+            ),
+            cast_to=EntityGetMergesResponse,
+        )
+
     async def get_source_entities(
         self,
         *,
@@ -1275,6 +1349,9 @@ class EntitiesResourceWithRawResponse:
         self.get_local_subgraph = to_raw_response_wrapper(
             entities.get_local_subgraph,
         )
+        self.get_merges = to_raw_response_wrapper(
+            entities.get_merges,
+        )
         self.get_source_entities = to_raw_response_wrapper(
             entities.get_source_entities,
         )
@@ -1322,6 +1399,9 @@ class AsyncEntitiesResourceWithRawResponse:
         )
         self.get_local_subgraph = async_to_raw_response_wrapper(
             entities.get_local_subgraph,
+        )
+        self.get_merges = async_to_raw_response_wrapper(
+            entities.get_merges,
         )
         self.get_source_entities = async_to_raw_response_wrapper(
             entities.get_source_entities,
@@ -1371,6 +1451,9 @@ class EntitiesResourceWithStreamingResponse:
         self.get_local_subgraph = to_streamed_response_wrapper(
             entities.get_local_subgraph,
         )
+        self.get_merges = to_streamed_response_wrapper(
+            entities.get_merges,
+        )
         self.get_source_entities = to_streamed_response_wrapper(
             entities.get_source_entities,
         )
@@ -1418,6 +1501,9 @@ class AsyncEntitiesResourceWithStreamingResponse:
         )
         self.get_local_subgraph = async_to_streamed_response_wrapper(
             entities.get_local_subgraph,
+        )
+        self.get_merges = async_to_streamed_response_wrapper(
+            entities.get_merges,
         )
         self.get_source_entities = async_to_streamed_response_wrapper(
             entities.get_source_entities,
