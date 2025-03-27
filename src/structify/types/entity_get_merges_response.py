@@ -7,6 +7,6 @@ from typing_extensions import TypeAlias
 
 __all__ = ["EntityGetMergesResponse"]
 
-EntityGetMergesResponse: TypeAlias = List["EntityMatch"]
+EntityGetMergesResponse: TypeAlias = List["MatchedEntity"]
 
-from .entity_match import EntityMatch
+from .matched_entity import MatchedEntity
