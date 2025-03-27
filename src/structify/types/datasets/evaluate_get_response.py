@@ -55,7 +55,7 @@ class StatsTableMatchesUnmatchedB(BaseModel):
 
 
 class StatsTableMatches(BaseModel):
-    entity_matches: List["MatchedEntity"]
+    entity_matches: List["EntityMatch"]
 
     unmatched_a: List[StatsTableMatchesUnmatchedA]
 
@@ -90,7 +90,7 @@ class EvaluateGetResponse(BaseModel):
     run_message: Optional[str] = None
 
 
-from ..matched_entity import MatchedEntity
+from ..entity_match import EntityMatch
 
 if PYDANTIC_V2:
     EvaluateGetResponse.model_rebuild()

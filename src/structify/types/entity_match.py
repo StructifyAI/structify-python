@@ -10,7 +10,7 @@ from .image import Image
 from .._compat import PYDANTIC_V2
 from .._models import BaseModel
 
-__all__ = ["MatchedEntity", "EntityA", "EntityAProperties", "EntityB", "EntityBProperties", "MatchedProperty"]
+__all__ = ["EntityMatch", "EntityA", "EntityAProperties", "EntityB", "EntityBProperties", "MatchedProperty"]
 
 EntityAProperties: TypeAlias = Union[str, bool, float, Image]
 
@@ -58,8 +58,8 @@ class MatchedProperty(BaseModel):
     unique: bool
 
 
-class MatchedEntity(BaseModel):
-    alternate_matches: List["MatchedEntity"]
+class EntityMatch(BaseModel):
+    alternate_matches: List["EntityMatch"]
     """Alternate matches for entity a - just used for dataset eval"""
 
     baseline_cardinality: int
@@ -76,12 +76,12 @@ class MatchedEntity(BaseModel):
 
 
 if PYDANTIC_V2:
-    MatchedEntity.model_rebuild()
+    EntityMatch.model_rebuild()
     EntityA.model_rebuild()
     EntityB.model_rebuild()
     MatchedProperty.model_rebuild()
 else:
-    MatchedEntity.update_forward_refs()  # type: ignore
+    EntityMatch.update_forward_refs()  # type: ignore
     EntityA.update_forward_refs()  # type: ignore
     EntityB.update_forward_refs()  # type: ignore
     MatchedProperty.update_forward_refs()  # type: ignore

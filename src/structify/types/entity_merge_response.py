@@ -11,12 +11,12 @@ __all__ = ["EntityMergeResponse"]
 
 
 class EntityMergeResponse(BaseModel):
-    match_object: Optional["MatchedEntity"] = None
+    match_object: Optional["EntityMatch"] = None
 
     merged_entity_id: Optional[str] = None
 
 
-from .matched_entity import MatchedEntity
+from .entity_match import EntityMatch
 
 if PYDANTIC_V2:
     EntityMergeResponse.model_rebuild()
