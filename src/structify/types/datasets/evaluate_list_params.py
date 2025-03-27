@@ -2,13 +2,12 @@
 
 from __future__ import annotations
 
-from typing import Optional
-from typing_extensions import TypedDict
+from typing_extensions import Required, TypedDict
 
 __all__ = ["EvaluateListParams"]
 
 
 class EvaluateListParams(TypedDict, total=False):
-    limit: Optional[int]
+    limit: Required[int]
 
-    offset: Optional[int]
+    offset: Required[int]

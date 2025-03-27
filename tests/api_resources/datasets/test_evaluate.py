@@ -24,11 +24,6 @@ class TestEvaluate:
 
     @parametrize
     def test_method_list(self, client: Structify) -> None:
-        evaluate = client.datasets.evaluate.list()
-        assert_matches_type(SyncJobsList[EvaluateListResponse], evaluate, path=["response"])
-
-    @parametrize
-    def test_method_list_with_all_params(self, client: Structify) -> None:
         evaluate = client.datasets.evaluate.list(
             limit=1,
             offset=0,
@@ -37,7 +32,10 @@ class TestEvaluate:
 
     @parametrize
     def test_raw_response_list(self, client: Structify) -> None:
-        response = client.datasets.evaluate.with_raw_response.list()
+        response = client.datasets.evaluate.with_raw_response.list(
+            limit=1,
+            offset=0,
+        )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -46,7 +44,10 @@ class TestEvaluate:
 
     @parametrize
     def test_streaming_response_list(self, client: Structify) -> None:
-        with client.datasets.evaluate.with_streaming_response.list() as response:
+        with client.datasets.evaluate.with_streaming_response.list(
+            limit=1,
+            offset=0,
+        ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -123,22 +124,18 @@ class TestEvaluate:
     @parametrize
     def test_method_run(self, client: Structify) -> None:
         evaluate = client.datasets.evaluate.run(
-            dataset_1="dataset_1",
-            dataset_2="dataset_2",
+            dataset_1="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            dataset_2="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             dataset_2_is_ground_truth=True,
-            email_1="email_1",
-            email_2="email_2",
         )
         assert_matches_type(str, evaluate, path=["response"])
 
     @parametrize
     def test_raw_response_run(self, client: Structify) -> None:
         response = client.datasets.evaluate.with_raw_response.run(
-            dataset_1="dataset_1",
-            dataset_2="dataset_2",
+            dataset_1="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            dataset_2="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             dataset_2_is_ground_truth=True,
-            email_1="email_1",
-            email_2="email_2",
         )
 
         assert response.is_closed is True
@@ -149,11 +146,9 @@ class TestEvaluate:
     @parametrize
     def test_streaming_response_run(self, client: Structify) -> None:
         with client.datasets.evaluate.with_streaming_response.run(
-            dataset_1="dataset_1",
-            dataset_2="dataset_2",
+            dataset_1="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            dataset_2="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             dataset_2_is_ground_truth=True,
-            email_1="email_1",
-            email_2="email_2",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -200,11 +195,6 @@ class TestAsyncEvaluate:
 
     @parametrize
     async def test_method_list(self, async_client: AsyncStructify) -> None:
-        evaluate = await async_client.datasets.evaluate.list()
-        assert_matches_type(AsyncJobsList[EvaluateListResponse], evaluate, path=["response"])
-
-    @parametrize
-    async def test_method_list_with_all_params(self, async_client: AsyncStructify) -> None:
         evaluate = await async_client.datasets.evaluate.list(
             limit=1,
             offset=0,
@@ -213,7 +203,10 @@ class TestAsyncEvaluate:
 
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncStructify) -> None:
-        response = await async_client.datasets.evaluate.with_raw_response.list()
+        response = await async_client.datasets.evaluate.with_raw_response.list(
+            limit=1,
+            offset=0,
+        )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -222,7 +215,10 @@ class TestAsyncEvaluate:
 
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncStructify) -> None:
-        async with async_client.datasets.evaluate.with_streaming_response.list() as response:
+        async with async_client.datasets.evaluate.with_streaming_response.list(
+            limit=1,
+            offset=0,
+        ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -299,22 +295,18 @@ class TestAsyncEvaluate:
     @parametrize
     async def test_method_run(self, async_client: AsyncStructify) -> None:
         evaluate = await async_client.datasets.evaluate.run(
-            dataset_1="dataset_1",
-            dataset_2="dataset_2",
+            dataset_1="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            dataset_2="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             dataset_2_is_ground_truth=True,
-            email_1="email_1",
-            email_2="email_2",
         )
         assert_matches_type(str, evaluate, path=["response"])
 
     @parametrize
     async def test_raw_response_run(self, async_client: AsyncStructify) -> None:
         response = await async_client.datasets.evaluate.with_raw_response.run(
-            dataset_1="dataset_1",
-            dataset_2="dataset_2",
+            dataset_1="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            dataset_2="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             dataset_2_is_ground_truth=True,
-            email_1="email_1",
-            email_2="email_2",
         )
 
         assert response.is_closed is True
@@ -325,11 +317,9 @@ class TestAsyncEvaluate:
     @parametrize
     async def test_streaming_response_run(self, async_client: AsyncStructify) -> None:
         async with async_client.datasets.evaluate.with_streaming_response.run(
-            dataset_1="dataset_1",
-            dataset_2="dataset_2",
+            dataset_1="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            dataset_2="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             dataset_2_is_ground_truth=True,
-            email_1="email_1",
-            email_2="email_2",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
