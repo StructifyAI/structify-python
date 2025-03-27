@@ -369,9 +369,9 @@ Types:
 from structify.types import (
     DatasetDescriptor,
     Entity,
-    EntityMatch,
     Image,
     KnowledgeGraph,
+    MatchedEntity,
     PropertyType,
     Relationship,
     Table,
