@@ -52,7 +52,7 @@ class TestDatasets:
                 }
             ],
         )
-        assert dataset is None
+        assert_matches_type(str, dataset, path=["response"])
 
     @parametrize
     def test_method_create_with_all_params(self, client: Structify) -> None:
@@ -96,7 +96,7 @@ class TestDatasets:
             ],
             llm_override_field="llm_override_field",
         )
-        assert dataset is None
+        assert_matches_type(str, dataset, path=["response"])
 
     @parametrize
     def test_raw_response_create(self, client: Structify) -> None:
@@ -128,7 +128,7 @@ class TestDatasets:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         dataset = response.parse()
-        assert dataset is None
+        assert_matches_type(str, dataset, path=["response"])
 
     @parametrize
     def test_streaming_response_create(self, client: Structify) -> None:
@@ -160,7 +160,7 @@ class TestDatasets:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             dataset = response.parse()
-            assert dataset is None
+            assert_matches_type(str, dataset, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -490,7 +490,7 @@ class TestAsyncDatasets:
                 }
             ],
         )
-        assert dataset is None
+        assert_matches_type(str, dataset, path=["response"])
 
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncStructify) -> None:
@@ -534,7 +534,7 @@ class TestAsyncDatasets:
             ],
             llm_override_field="llm_override_field",
         )
-        assert dataset is None
+        assert_matches_type(str, dataset, path=["response"])
 
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncStructify) -> None:
@@ -566,7 +566,7 @@ class TestAsyncDatasets:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         dataset = await response.parse()
-        assert dataset is None
+        assert_matches_type(str, dataset, path=["response"])
 
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncStructify) -> None:
@@ -598,7 +598,7 @@ class TestAsyncDatasets:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             dataset = await response.parse()
-            assert dataset is None
+            assert_matches_type(str, dataset, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
