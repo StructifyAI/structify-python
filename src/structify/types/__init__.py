@@ -13,6 +13,7 @@ from .plan_param import PlanParam as PlanParam
 from .chat_prompt import ChatPrompt as ChatPrompt
 from .image_param import ImageParam as ImageParam
 from .table_param import TableParam as TableParam
+from .entity_match import EntityMatch as EntityMatch
 from .entity_param import EntityParam as EntityParam
 from .merge_config import MergeConfig as MergeConfig
 from .relationship import Relationship as Relationship
