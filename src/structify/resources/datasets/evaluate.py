@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-from typing import Optional
-
 import httpx
 
 from ..._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
@@ -58,8 +56,8 @@ class EvaluateResource(SyncAPIResource):
     def list(
         self,
         *,
-        limit: Optional[int] | NotGiven = NOT_GIVEN,
-        offset: Optional[int] | NotGiven = NOT_GIVEN,
+        limit: int,
+        offset: int,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -175,8 +173,6 @@ class EvaluateResource(SyncAPIResource):
         dataset_1: str,
         dataset_2: str,
         dataset_2_is_ground_truth: bool,
-        email_1: str,
-        email_2: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -208,8 +204,6 @@ class EvaluateResource(SyncAPIResource):
                         "dataset_1": dataset_1,
                         "dataset_2": dataset_2,
                         "dataset_2_is_ground_truth": dataset_2_is_ground_truth,
-                        "email_1": email_1,
-                        "email_2": email_2,
                     },
                     evaluate_run_params.EvaluateRunParams,
                 ),
@@ -276,8 +270,8 @@ class AsyncEvaluateResource(AsyncAPIResource):
     def list(
         self,
         *,
-        limit: Optional[int] | NotGiven = NOT_GIVEN,
-        offset: Optional[int] | NotGiven = NOT_GIVEN,
+        limit: int,
+        offset: int,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -393,8 +387,6 @@ class AsyncEvaluateResource(AsyncAPIResource):
         dataset_1: str,
         dataset_2: str,
         dataset_2_is_ground_truth: bool,
-        email_1: str,
-        email_2: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -426,8 +418,6 @@ class AsyncEvaluateResource(AsyncAPIResource):
                         "dataset_1": dataset_1,
                         "dataset_2": dataset_2,
                         "dataset_2_is_ground_truth": dataset_2_is_ground_truth,
-                        "email_1": email_1,
-                        "email_2": email_2,
                     },
                     evaluate_run_params.EvaluateRunParams,
                 ),
