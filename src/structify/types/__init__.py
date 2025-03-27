@@ -19,6 +19,7 @@ from .relationship import Relationship as Relationship
 from .property_type import PropertyType as PropertyType
 from .tool_metadata import ToolMetadata as ToolMetadata
 from .execution_step import ExecutionStep as ExecutionStep
+from .matched_entity import MatchedEntity as MatchedEntity
 from .strategy_param import StrategyParam as StrategyParam
 from .token_response import TokenResponse as TokenResponse
 from .job_list_params import JobListParams as JobListParams
