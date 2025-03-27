@@ -16,10 +16,6 @@ class EvaluateListResponse(BaseModel):
 
     dataset_2: str
 
-    email_1: str
-
-    email_2: str
-
     iou: float
 
     matched: int

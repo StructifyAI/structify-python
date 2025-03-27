@@ -141,10 +141,6 @@ class EvaluateGetResponse(BaseModel):
 
     dataset_2_is_ground_truth: bool
 
-    email_1: str
-
-    email_2: str
-
     iou: float
 
     matched: int

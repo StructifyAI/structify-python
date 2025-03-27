@@ -80,6 +80,7 @@ from .entity_search_response import EntitySearchResponse as EntitySearchResponse
 from .job_get_steps_response import JobGetStepsResponse as JobGetStepsResponse
 from .plan_resume_all_params import PlanResumeAllParams as PlanResumeAllParams
 from .save_requirement_param import SaveRequirementParam as SaveRequirementParam
+from .dataset_create_response import DatasetCreateResponse as DatasetCreateResponse
 from .entity_add_batch_params import EntityAddBatchParams as EntityAddBatchParams
 from .entity_list_jobs_params import EntityListJobsParams as EntityListJobsParams
 from .entity_summarize_params import EntitySummarizeParams as EntitySummarizeParams
