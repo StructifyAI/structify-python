@@ -50,7 +50,7 @@ The business description property is another good example; it's different betwee
     ]
 
     DatasetDescriptor(
-        name=DATASET_NAME,
+        name="venture_capital_funding",
         description=(
             "This dataset encompasses comprehensive information about privately held companies that have received "
             "venture capital backing, including details on their funding rounds and investors."
@@ -122,7 +122,7 @@ The business description property is another good example; it's different betwee
                 ],
             ),
             Table(
-                name=FUNDING_ROUND_TABLE,
+                name="funding_round",
                 description="Detailed information about individual transactions and deals between companies and investors.",
                 expected_cardinality=200_000,
                 properties=[
@@ -162,7 +162,7 @@ The business description property is another good example; it's different betwee
                 ],
             ),
             Table(
-                name=COMPANY_TABLE,
+                name="company",
                 description=(
                     "Comprehensive details about companies that have received venture capital investment,"
                     " including their operations, financial performance, and ownership."
@@ -227,8 +227,8 @@ The business description property is another good example; it's different betwee
             Relationship(
                     name="Transaction",
                     description="Links companies to the individual funding rounds they have completed, detailing their financial transactions.",
-                    source_table=COMPANY_TABLE,
-                    target_table=FUNDING_ROUND_TABLE,
+                    source_table="company",
+                    target_table="funding_round",
                     merge_strategy=RelationshipMergeStrategy(
                         source_cardinality_given_target_match=100,
                         target_cardinality_given_source_match=5,
@@ -240,8 +240,8 @@ The business description property is another good example; it's different betwee
                         "Links venture capital firms to the companies in which they have invested,"
                         "detailing their portfolio of investments."
                     ),
-                    source_table=VC_FIRM_TABLE,
-                    target_table=COMPANY_TABLE,
+                    source_table="vc_firm",
+                    target_table="company",
                     merge_strategy=RelationshipMergeStrategy(
                         source_cardinality_given_target_match=10,
                         target_cardinality_given_source_match=500,
@@ -253,8 +253,8 @@ The business description property is another good example; it's different betwee
                         "Links venture capital firms to the deals "
                         "they have participated in, detailing their investment activities."
                     ),
-                    source_table=VC_FIRM_TABLE,
-                    target_table=FUNDING_ROUND_TABLE,
+                    source_table="vc_firm",
+                    target_table="funding_round",
                     merge_strategy=RelationshipMergeStrategy(
                         source_cardinality_given_target_match=10,
                         target_cardinality_given_source_match=5_000,

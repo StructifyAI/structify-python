@@ -47,6 +47,9 @@ Relationships can also have **properties** attached to them, which is where the 
 
 This is a good example of a relationship property because it applies to THAT SPECIFIC relationship between entities. This is because a different manufacturer, that might also supply that product, could have a different supply rate. This means it can't be a property in the product table. Since a manufacturer likely supplies multiple different products, with different supply rates, it can't be in the manufacturer table either. Thus, it's a relationship property. Pretty cool right?
 
+
+.. note::
+    Quick Style note: Notice in our schemas that we often use constants for names of properties, tables, and relationships. This is good practice in the sense that we only need to edit names in one place. It also helps make the code more readable, and it has added benefit of making certain table names etc. re-useable across the codebase.
 Schema Cookbook
 ----------------
 Check out the schema cookbook section to find schemas you might find useful in putting these design principles into practice. Give them a try, and let us know what you think!
