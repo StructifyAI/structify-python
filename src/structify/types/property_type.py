@@ -15,5 +15,5 @@ class Enum(BaseModel):
 
 
 PropertyType: TypeAlias = Union[
-    Literal["String", "Boolean", "Integer", "Float", "Date", "URL", "Money", "Image", "PersonName"], Enum
+    Literal["String", "Boolean", "Integer", "Float", "Date", "URL", "Money", "Image", "PersonName", "Address"], Enum
 ]
