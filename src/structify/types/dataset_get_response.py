@@ -8,4 +8,6 @@ __all__ = ["DatasetGetResponse"]
 
 
 class DatasetGetResponse(DatasetDescriptor):
+    id: str
+
     created_timestamp: datetime
