@@ -22,6 +22,8 @@ class DocumentListResponseItem(BaseModel):
 
     user_id: str
 
+    created_from_job: Optional[str] = None
+
     dataset_id: Optional[str] = None
 
 
