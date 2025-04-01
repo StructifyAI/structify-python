@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.111.0-alpha.7 (2025-04-01)
+
+Full Changelog: [v1.111.0-alpha.6...v1.111.0-alpha.7](https://github.com/StructifyAI/structify-python/compare/v1.111.0-alpha.6...v1.111.0-alpha.7)
+
+### Features
+
+* **api:** api update ([#1078](https://github.com/StructifyAI/structify-python/issues/1078)) ([048652e](https://github.com/StructifyAI/structify-python/commit/048652e17bffb0c2b29f5380ee6d6146bd20dce0))
+* **api:** api update ([#1080](https://github.com/StructifyAI/structify-python/issues/1080)) ([1920161](https://github.com/StructifyAI/structify-python/commit/1920161c2ab7afa1e1d7bcaec61eb13e4a79bab1))
+* **api:** api update ([#1081](https://github.com/StructifyAI/structify-python/issues/1081)) ([29dbce2](https://github.com/StructifyAI/structify-python/commit/29dbce23c4dd19fcfdde0d402b0bdbe7023f1a40))
+* **api:** api update ([#1082](https://github.com/StructifyAI/structify-python/issues/1082)) ([4d89f98](https://github.com/StructifyAI/structify-python/commit/4d89f98e9e12137db6bb5e313c3c76cd750daabf))
+* **api:** api update ([#1083](https://github.com/StructifyAI/structify-python/issues/1083)) ([cdd5540](https://github.com/StructifyAI/structify-python/commit/cdd5540e68dc5109857b5949ccc14ec413b3b339))
+* **api:** api update ([#1084](https://github.com/StructifyAI/structify-python/issues/1084)) ([00dd16d](https://github.com/StructifyAI/structify-python/commit/00dd16de198740d551aea872d3356ed882ec086f))
+
 ## 1.111.0-alpha.6 (2025-03-27)
 
 Full Changelog: [v1.111.0-alpha.5...v1.111.0-alpha.6](https://github.com/StructifyAI/structify-python/compare/v1.111.0-alpha.5...v1.111.0-alpha.6)
