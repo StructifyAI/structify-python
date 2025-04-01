@@ -221,6 +221,66 @@ class TestDatasets:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
+    def test_method_add_property(self, client: Structify) -> None:
+        dataset = client.datasets.add_property(
+            dataset_name="dataset_name",
+            property={
+                "description": "description",
+                "name": "name",
+            },
+            table_name="table_name",
+        )
+        assert dataset is None
+
+    @parametrize
+    def test_method_add_property_with_all_params(self, client: Structify) -> None:
+        dataset = client.datasets.add_property(
+            dataset_name="dataset_name",
+            property={
+                "description": "description",
+                "name": "name",
+                "merge_strategy": "Unique",
+                "prop_type": "String",
+            },
+            table_name="table_name",
+        )
+        assert dataset is None
+
+    @parametrize
+    def test_raw_response_add_property(self, client: Structify) -> None:
+        response = client.datasets.with_raw_response.add_property(
+            dataset_name="dataset_name",
+            property={
+                "description": "description",
+                "name": "name",
+            },
+            table_name="table_name",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        dataset = response.parse()
+        assert dataset is None
+
+    @parametrize
+    def test_streaming_response_add_property(self, client: Structify) -> None:
+        with client.datasets.with_streaming_response.add_property(
+            dataset_name="dataset_name",
+            property={
+                "description": "description",
+                "name": "name",
+            },
+            table_name="table_name",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            dataset = response.parse()
+            assert dataset is None
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
     def test_method_get(self, client: Structify) -> None:
         dataset = client.datasets.get(
             name="name",
@@ -307,6 +367,43 @@ class TestDatasets:
 
             dataset = response.parse()
             assert_matches_type(DatasetMatchResponse, dataset, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_method_remove_property(self, client: Structify) -> None:
+        dataset = client.datasets.remove_property(
+            dataset_name="dataset_name",
+            property_name="property_name",
+            table_name="table_name",
+        )
+        assert dataset is None
+
+    @parametrize
+    def test_raw_response_remove_property(self, client: Structify) -> None:
+        response = client.datasets.with_raw_response.remove_property(
+            dataset_name="dataset_name",
+            property_name="property_name",
+            table_name="table_name",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        dataset = response.parse()
+        assert dataset is None
+
+    @parametrize
+    def test_streaming_response_remove_property(self, client: Structify) -> None:
+        with client.datasets.with_streaming_response.remove_property(
+            dataset_name="dataset_name",
+            property_name="property_name",
+            table_name="table_name",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            dataset = response.parse()
+            assert dataset is None
 
         assert cast(Any, response.is_closed) is True
 
@@ -659,6 +756,66 @@ class TestAsyncDatasets:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
+    async def test_method_add_property(self, async_client: AsyncStructify) -> None:
+        dataset = await async_client.datasets.add_property(
+            dataset_name="dataset_name",
+            property={
+                "description": "description",
+                "name": "name",
+            },
+            table_name="table_name",
+        )
+        assert dataset is None
+
+    @parametrize
+    async def test_method_add_property_with_all_params(self, async_client: AsyncStructify) -> None:
+        dataset = await async_client.datasets.add_property(
+            dataset_name="dataset_name",
+            property={
+                "description": "description",
+                "name": "name",
+                "merge_strategy": "Unique",
+                "prop_type": "String",
+            },
+            table_name="table_name",
+        )
+        assert dataset is None
+
+    @parametrize
+    async def test_raw_response_add_property(self, async_client: AsyncStructify) -> None:
+        response = await async_client.datasets.with_raw_response.add_property(
+            dataset_name="dataset_name",
+            property={
+                "description": "description",
+                "name": "name",
+            },
+            table_name="table_name",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        dataset = await response.parse()
+        assert dataset is None
+
+    @parametrize
+    async def test_streaming_response_add_property(self, async_client: AsyncStructify) -> None:
+        async with async_client.datasets.with_streaming_response.add_property(
+            dataset_name="dataset_name",
+            property={
+                "description": "description",
+                "name": "name",
+            },
+            table_name="table_name",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            dataset = await response.parse()
+            assert dataset is None
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
     async def test_method_get(self, async_client: AsyncStructify) -> None:
         dataset = await async_client.datasets.get(
             name="name",
@@ -745,6 +902,43 @@ class TestAsyncDatasets:
 
             dataset = await response.parse()
             assert_matches_type(DatasetMatchResponse, dataset, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_method_remove_property(self, async_client: AsyncStructify) -> None:
+        dataset = await async_client.datasets.remove_property(
+            dataset_name="dataset_name",
+            property_name="property_name",
+            table_name="table_name",
+        )
+        assert dataset is None
+
+    @parametrize
+    async def test_raw_response_remove_property(self, async_client: AsyncStructify) -> None:
+        response = await async_client.datasets.with_raw_response.remove_property(
+            dataset_name="dataset_name",
+            property_name="property_name",
+            table_name="table_name",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        dataset = await response.parse()
+        assert dataset is None
+
+    @parametrize
+    async def test_streaming_response_remove_property(self, async_client: AsyncStructify) -> None:
+        async with async_client.datasets.with_streaming_response.remove_property(
+            dataset_name="dataset_name",
+            property_name="property_name",
+            table_name="table_name",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            dataset = await response.parse()
+            assert dataset is None
 
         assert cast(Any, response.is_closed) is True
 

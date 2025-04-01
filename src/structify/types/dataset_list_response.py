@@ -9,8 +9,6 @@ __all__ = ["DatasetListResponse", "DatasetListResponseItem"]
 
 
 class DatasetListResponseItem(BaseModel):
-    id: str
-
     description: str
 
     name: str
