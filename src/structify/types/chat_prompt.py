@@ -28,6 +28,7 @@ __all__ = [
     "DecodingParamsParameterContextFreeGrammar",
     "DecodingParamsParameterNumBeams",
     "DecodingParamsParameterCrop",
+    "DecodingParamsParameterThinking",
     "Message",
     "MessageContent",
     "MessageContentText",
@@ -96,6 +97,11 @@ class DecodingParamsParameterCrop(BaseModel):
     crop: bool = FieldInfo(alias="Crop")
 
 
+class DecodingParamsParameterThinking(BaseModel):
+    thinking: int = FieldInfo(alias="Thinking")
+    """Thinking tokens for Claude 3.7. Contains the budget in tokens for thinking."""
+
+
 DecodingParamsParameter: TypeAlias = Union[
     DecodingParamsParameterMaxTokens,
     DecodingParamsParameterTopP,
@@ -110,6 +116,7 @@ DecodingParamsParameter: TypeAlias = Union[
     DecodingParamsParameterContextFreeGrammar,
     DecodingParamsParameterNumBeams,
     DecodingParamsParameterCrop,
+    DecodingParamsParameterThinking,
 ]
 
 
