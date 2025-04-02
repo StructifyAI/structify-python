@@ -25,6 +25,7 @@ class Job(BaseModel):
     """A message about the status of the job at completion"""
 
     parameters: Optional[object] = None
+    """Proto for JobInput"""
 
     plan_id: Optional[str] = None
 
