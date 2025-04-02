@@ -155,6 +155,8 @@ class TrainingDatasetsResource(SyncAPIResource):
         Creates a new training dataset with the given name.
 
         Args:
+          dataset_name: The name of the training dataset to add.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -394,8 +396,9 @@ class TrainingDatasetsResource(SyncAPIResource):
     def get_next_for_qa(
         self,
         *,
-        dataset_name: str,
+        is_final_qa: bool,
         status: DatumStatus,
+        dataset_name: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -424,8 +427,9 @@ class TrainingDatasetsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "dataset_name": dataset_name,
+                        "is_final_qa": is_final_qa,
                         "status": status,
+                        "dataset_name": dataset_name,
                     },
                     training_dataset_get_next_for_qa_params.TrainingDatasetGetNextForQaParams,
                 ),
@@ -993,6 +997,8 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
         Creates a new training dataset with the given name.
 
         Args:
+          dataset_name: The name of the training dataset to add.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -1232,8 +1238,9 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
     async def get_next_for_qa(
         self,
         *,
-        dataset_name: str,
+        is_final_qa: bool,
         status: DatumStatus,
+        dataset_name: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1262,8 +1269,9 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=await async_maybe_transform(
                     {
-                        "dataset_name": dataset_name,
+                        "is_final_qa": is_final_qa,
                         "status": status,
+                        "dataset_name": dataset_name,
                     },
                     training_dataset_get_next_for_qa_params.TrainingDatasetGetNextForQaParams,
                 ),
