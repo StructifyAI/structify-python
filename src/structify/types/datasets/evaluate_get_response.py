@@ -9,10 +9,15 @@ from typing_extensions import Literal, TypeAlias
 from ..image import Image
 from ..._compat import PYDANTIC_V2
 from ..._models import BaseModel
+from ..entity_match import EntityMatch
 
 __all__ = [
     "EvaluateGetResponse",
     "Stats",
+    "StatsRelationshipsA",
+    "StatsRelationshipsAProperties",
+    "StatsRelationshipsB",
+    "StatsRelationshipsBProperties",
     "StatsTableMatches",
     "StatsTableMatchesUnmatchedA",
     "StatsTableMatchesUnmatchedAProperties",
@@ -20,10 +25,36 @@ __all__ = [
     "StatsTableMatchesUnmatchedBProperties",
 ]
 
+StatsRelationshipsAProperties: TypeAlias = Union[str, bool, float, Image]
+
+
+class StatsRelationshipsA(BaseModel):
+    from_id: str
+
+    label: str
+
+    properties: Dict[str, StatsRelationshipsAProperties]
+
+    to_id: str
+
+
+StatsRelationshipsBProperties: TypeAlias = Union[str, bool, float, Image]
+
+
+class StatsRelationshipsB(BaseModel):
+    from_id: str
+
+    label: str
+
+    properties: Dict[str, StatsRelationshipsBProperties]
+
+    to_id: str
+
+
 StatsTableMatchesUnmatchedAProperties: TypeAlias = Union[str, bool, float, Image]
 
 
-class StatsTableMatchesUnmatchedA(BaseModel):
+class StatsTableMatchesUnmatchedA(EntityMatch):
     id: str
 
     created_at: datetime
@@ -40,7 +71,7 @@ class StatsTableMatchesUnmatchedA(BaseModel):
 StatsTableMatchesUnmatchedBProperties: TypeAlias = Union[str, bool, float, Image]
 
 
-class StatsTableMatchesUnmatchedB(BaseModel):
+class StatsTableMatchesUnmatchedB(EntityMatch):
     id: str
 
     created_at: datetime
@@ -57,12 +88,16 @@ class StatsTableMatchesUnmatchedB(BaseModel):
 class StatsTableMatches(BaseModel):
     entity_matches: List["EntityMatch"]
 
-    unmatched_a: List[StatsTableMatchesUnmatchedA]
+    unmatched_a: List[List[StatsTableMatchesUnmatchedA]]
 
-    unmatched_b: List[StatsTableMatchesUnmatchedB]
+    unmatched_b: List[List[StatsTableMatchesUnmatchedB]]
 
 
 class Stats(BaseModel):
+    relationships_a: List[StatsRelationshipsA]
+
+    relationships_b: List[StatsRelationshipsB]
+
     table_matches: Dict[str, StatsTableMatches]
 
 
@@ -95,12 +130,12 @@ from ..entity_match import EntityMatch
 if PYDANTIC_V2:
     EvaluateGetResponse.model_rebuild()
     Stats.model_rebuild()
+    StatsRelationshipsA.model_rebuild()
+    StatsRelationshipsB.model_rebuild()
     StatsTableMatches.model_rebuild()
-    StatsTableMatchesUnmatchedA.model_rebuild()
-    StatsTableMatchesUnmatchedB.model_rebuild()
 else:
     EvaluateGetResponse.update_forward_refs()  # type: ignore
     Stats.update_forward_refs()  # type: ignore
+    StatsRelationshipsA.update_forward_refs()  # type: ignore
+    StatsRelationshipsB.update_forward_refs()  # type: ignore
     StatsTableMatches.update_forward_refs()  # type: ignore
-    StatsTableMatchesUnmatchedA.update_forward_refs()  # type: ignore
-    StatsTableMatchesUnmatchedB.update_forward_refs()  # type: ignore
