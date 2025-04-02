@@ -117,9 +117,13 @@ class EvaluateGetResponse(BaseModel):
 
     dataset_1: str
 
+    dataset_1_name: str
+
     dataset_2: str
 
     dataset_2_is_ground_truth: bool
+
+    dataset_2_name: str
 
     iou: float
 
