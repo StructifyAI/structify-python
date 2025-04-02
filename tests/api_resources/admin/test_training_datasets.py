@@ -321,15 +321,24 @@ class TestTrainingDatasets:
     @parametrize
     def test_method_get_next_for_qa(self, client: Structify) -> None:
         training_dataset = client.admin.training_datasets.get_next_for_qa(
-            dataset_name="dataset_name",
+            is_final_qa=True,
             status="unlabeled",
+        )
+        assert_matches_type(Optional[TrainingDatumResponse], training_dataset, path=["response"])
+
+    @parametrize
+    def test_method_get_next_for_qa_with_all_params(self, client: Structify) -> None:
+        training_dataset = client.admin.training_datasets.get_next_for_qa(
+            is_final_qa=True,
+            status="unlabeled",
+            dataset_name="dataset_name",
         )
         assert_matches_type(Optional[TrainingDatumResponse], training_dataset, path=["response"])
 
     @parametrize
     def test_raw_response_get_next_for_qa(self, client: Structify) -> None:
         response = client.admin.training_datasets.with_raw_response.get_next_for_qa(
-            dataset_name="dataset_name",
+            is_final_qa=True,
             status="unlabeled",
         )
 
@@ -341,7 +350,7 @@ class TestTrainingDatasets:
     @parametrize
     def test_streaming_response_get_next_for_qa(self, client: Structify) -> None:
         with client.admin.training_datasets.with_streaming_response.get_next_for_qa(
-            dataset_name="dataset_name",
+            is_final_qa=True,
             status="unlabeled",
         ) as response:
             assert not response.is_closed
@@ -1072,15 +1081,24 @@ class TestAsyncTrainingDatasets:
     @parametrize
     async def test_method_get_next_for_qa(self, async_client: AsyncStructify) -> None:
         training_dataset = await async_client.admin.training_datasets.get_next_for_qa(
-            dataset_name="dataset_name",
+            is_final_qa=True,
             status="unlabeled",
+        )
+        assert_matches_type(Optional[TrainingDatumResponse], training_dataset, path=["response"])
+
+    @parametrize
+    async def test_method_get_next_for_qa_with_all_params(self, async_client: AsyncStructify) -> None:
+        training_dataset = await async_client.admin.training_datasets.get_next_for_qa(
+            is_final_qa=True,
+            status="unlabeled",
+            dataset_name="dataset_name",
         )
         assert_matches_type(Optional[TrainingDatumResponse], training_dataset, path=["response"])
 
     @parametrize
     async def test_raw_response_get_next_for_qa(self, async_client: AsyncStructify) -> None:
         response = await async_client.admin.training_datasets.with_raw_response.get_next_for_qa(
-            dataset_name="dataset_name",
+            is_final_qa=True,
             status="unlabeled",
         )
 
@@ -1092,7 +1110,7 @@ class TestAsyncTrainingDatasets:
     @parametrize
     async def test_streaming_response_get_next_for_qa(self, async_client: AsyncStructify) -> None:
         async with async_client.admin.training_datasets.with_streaming_response.get_next_for_qa(
-            dataset_name="dataset_name",
+            is_final_qa=True,
             status="unlabeled",
         ) as response:
             assert not response.is_closed

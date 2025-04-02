@@ -128,6 +128,16 @@ class TestEvaluate:
         assert_matches_type(str, evaluate, path=["response"])
 
     @parametrize
+    def test_method_run_with_all_params(self, client: Structify) -> None:
+        evaluate = client.datasets.evaluate.run(
+            dataset_1="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            dataset_2="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            dataset_2_is_ground_truth=True,
+            merge_threshold_override=0,
+        )
+        assert_matches_type(str, evaluate, path=["response"])
+
+    @parametrize
     def test_raw_response_run(self, client: Structify) -> None:
         response = client.datasets.evaluate.with_raw_response.run(
             dataset_1="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -292,6 +302,16 @@ class TestAsyncEvaluate:
             dataset_1="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             dataset_2="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             dataset_2_is_ground_truth=True,
+        )
+        assert_matches_type(str, evaluate, path=["response"])
+
+    @parametrize
+    async def test_method_run_with_all_params(self, async_client: AsyncStructify) -> None:
+        evaluate = await async_client.datasets.evaluate.run(
+            dataset_1="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            dataset_2="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            dataset_2_is_ground_truth=True,
+            merge_threshold_override=0,
         )
         assert_matches_type(str, evaluate, path=["response"])
 
