@@ -1,13 +1,10 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from __future__ import annotations
-
 from typing import Dict, List, Union, Optional
 from datetime import datetime
 from typing_extensions import Literal, TypeAlias
 
 from ..image import Image
-from ..._compat import PYDANTIC_V2
 from ..._models import BaseModel
 from ..entity_match import EntityMatch
 
@@ -20,9 +17,11 @@ __all__ = [
     "StatsRelationshipsBProperties",
     "StatsTableMatches",
     "StatsTableMatchesUnmatchedA",
-    "StatsTableMatchesUnmatchedAProperties",
+    "StatsTableMatchesUnmatchedAEntity",
+    "StatsTableMatchesUnmatchedAEntityProperties",
     "StatsTableMatchesUnmatchedB",
-    "StatsTableMatchesUnmatchedBProperties",
+    "StatsTableMatchesUnmatchedBEntity",
+    "StatsTableMatchesUnmatchedBEntityProperties",
 ]
 
 StatsRelationshipsAProperties: TypeAlias = Union[str, bool, float, Image]
@@ -51,10 +50,10 @@ class StatsRelationshipsB(BaseModel):
     to_id: str
 
 
-StatsTableMatchesUnmatchedAProperties: TypeAlias = Union[str, bool, float, Image]
+StatsTableMatchesUnmatchedAEntityProperties: TypeAlias = Union[str, bool, float, Image]
 
 
-class StatsTableMatchesUnmatchedA(EntityMatch):
+class StatsTableMatchesUnmatchedAEntity(BaseModel):
     id: str
 
     created_at: datetime
@@ -63,15 +62,21 @@ class StatsTableMatchesUnmatchedA(EntityMatch):
 
     label: str
 
-    properties: Dict[str, StatsTableMatchesUnmatchedAProperties]
+    properties: Dict[str, StatsTableMatchesUnmatchedAEntityProperties]
 
     updated_at: datetime
 
 
-StatsTableMatchesUnmatchedBProperties: TypeAlias = Union[str, bool, float, Image]
+class StatsTableMatchesUnmatchedA(BaseModel):
+    entity: StatsTableMatchesUnmatchedAEntity
+
+    best_match: Optional[EntityMatch] = None
 
 
-class StatsTableMatchesUnmatchedB(EntityMatch):
+StatsTableMatchesUnmatchedBEntityProperties: TypeAlias = Union[str, bool, float, Image]
+
+
+class StatsTableMatchesUnmatchedBEntity(BaseModel):
     id: str
 
     created_at: datetime
@@ -80,17 +85,23 @@ class StatsTableMatchesUnmatchedB(EntityMatch):
 
     label: str
 
-    properties: Dict[str, StatsTableMatchesUnmatchedBProperties]
+    properties: Dict[str, StatsTableMatchesUnmatchedBEntityProperties]
 
     updated_at: datetime
+
+
+class StatsTableMatchesUnmatchedB(BaseModel):
+    entity: StatsTableMatchesUnmatchedBEntity
+
+    best_match: Optional[EntityMatch] = None
 
 
 class StatsTableMatches(BaseModel):
-    entity_matches: List["EntityMatch"]
+    entity_matches: List[EntityMatch]
 
-    unmatched_a: List[List[StatsTableMatchesUnmatchedA]]
+    unmatched_a: List[StatsTableMatchesUnmatchedA]
 
-    unmatched_b: List[List[StatsTableMatchesUnmatchedB]]
+    unmatched_b: List[StatsTableMatchesUnmatchedB]
 
 
 class Stats(BaseModel):
@@ -123,19 +134,3 @@ class EvaluateGetResponse(BaseModel):
     unmatched: int
 
     run_message: Optional[str] = None
-
-
-from ..entity_match import EntityMatch
-
-if PYDANTIC_V2:
-    EvaluateGetResponse.model_rebuild()
-    Stats.model_rebuild()
-    StatsRelationshipsA.model_rebuild()
-    StatsRelationshipsB.model_rebuild()
-    StatsTableMatches.model_rebuild()
-else:
-    EvaluateGetResponse.update_forward_refs()  # type: ignore
-    Stats.update_forward_refs()  # type: ignore
-    StatsRelationshipsA.update_forward_refs()  # type: ignore
-    StatsRelationshipsB.update_forward_refs()  # type: ignore
-    StatsTableMatches.update_forward_refs()  # type: ignore
