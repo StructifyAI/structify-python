@@ -9,3 +9,4 @@ __all__ = ["TrainingDatasetAddParams"]
 
 class TrainingDatasetAddParams(TypedDict, total=False):
     dataset_name: Required[str]
+    """The name of the training dataset to add."""
