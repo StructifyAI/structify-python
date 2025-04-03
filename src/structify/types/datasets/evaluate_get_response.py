@@ -10,50 +10,55 @@ from ..entity_match import EntityMatch
 
 __all__ = [
     "EvaluateGetResponse",
+    "Matches",
+    "MatchesRelationshipsA",
+    "MatchesRelationshipsAProperties",
+    "MatchesRelationshipsB",
+    "MatchesRelationshipsBProperties",
+    "MatchesTableMatches",
+    "MatchesTableMatchesUnmatchedA",
+    "MatchesTableMatchesUnmatchedAEntity",
+    "MatchesTableMatchesUnmatchedAEntityProperties",
+    "MatchesTableMatchesUnmatchedB",
+    "MatchesTableMatchesUnmatchedBEntity",
+    "MatchesTableMatchesUnmatchedBEntityProperties",
     "Stats",
-    "StatsRelationshipsA",
-    "StatsRelationshipsAProperties",
-    "StatsRelationshipsB",
-    "StatsRelationshipsBProperties",
-    "StatsTableMatches",
-    "StatsTableMatchesUnmatchedA",
-    "StatsTableMatchesUnmatchedAEntity",
-    "StatsTableMatchesUnmatchedAEntityProperties",
-    "StatsTableMatchesUnmatchedB",
-    "StatsTableMatchesUnmatchedBEntity",
-    "StatsTableMatchesUnmatchedBEntityProperties",
+    "StatsPerTable",
+    "StatsPerTableEntityGranularity",
+    "StatsPerTablePerProperty",
+    "StatsPerTablePropGranularity",
 ]
 
-StatsRelationshipsAProperties: TypeAlias = Union[str, bool, float, Image]
+MatchesRelationshipsAProperties: TypeAlias = Union[str, bool, float, Image]
 
 
-class StatsRelationshipsA(BaseModel):
+class MatchesRelationshipsA(BaseModel):
     from_id: str
 
     label: str
 
-    properties: Dict[str, StatsRelationshipsAProperties]
+    properties: Dict[str, MatchesRelationshipsAProperties]
 
     to_id: str
 
 
-StatsRelationshipsBProperties: TypeAlias = Union[str, bool, float, Image]
+MatchesRelationshipsBProperties: TypeAlias = Union[str, bool, float, Image]
 
 
-class StatsRelationshipsB(BaseModel):
+class MatchesRelationshipsB(BaseModel):
     from_id: str
 
     label: str
 
-    properties: Dict[str, StatsRelationshipsBProperties]
+    properties: Dict[str, MatchesRelationshipsBProperties]
 
     to_id: str
 
 
-StatsTableMatchesUnmatchedAEntityProperties: TypeAlias = Union[str, bool, float, Image]
+MatchesTableMatchesUnmatchedAEntityProperties: TypeAlias = Union[str, bool, float, Image]
 
 
-class StatsTableMatchesUnmatchedAEntity(BaseModel):
+class MatchesTableMatchesUnmatchedAEntity(BaseModel):
     id: str
 
     created_at: datetime
@@ -62,21 +67,21 @@ class StatsTableMatchesUnmatchedAEntity(BaseModel):
 
     label: str
 
-    properties: Dict[str, StatsTableMatchesUnmatchedAEntityProperties]
+    properties: Dict[str, MatchesTableMatchesUnmatchedAEntityProperties]
 
     updated_at: datetime
 
 
-class StatsTableMatchesUnmatchedA(BaseModel):
-    entity: StatsTableMatchesUnmatchedAEntity
+class MatchesTableMatchesUnmatchedA(BaseModel):
+    entity: MatchesTableMatchesUnmatchedAEntity
 
     best_match: Optional[EntityMatch] = None
 
 
-StatsTableMatchesUnmatchedBEntityProperties: TypeAlias = Union[str, bool, float, Image]
+MatchesTableMatchesUnmatchedBEntityProperties: TypeAlias = Union[str, bool, float, Image]
 
 
-class StatsTableMatchesUnmatchedBEntity(BaseModel):
+class MatchesTableMatchesUnmatchedBEntity(BaseModel):
     id: str
 
     created_at: datetime
@@ -85,31 +90,67 @@ class StatsTableMatchesUnmatchedBEntity(BaseModel):
 
     label: str
 
-    properties: Dict[str, StatsTableMatchesUnmatchedBEntityProperties]
+    properties: Dict[str, MatchesTableMatchesUnmatchedBEntityProperties]
 
     updated_at: datetime
 
 
-class StatsTableMatchesUnmatchedB(BaseModel):
-    entity: StatsTableMatchesUnmatchedBEntity
+class MatchesTableMatchesUnmatchedB(BaseModel):
+    entity: MatchesTableMatchesUnmatchedBEntity
 
     best_match: Optional[EntityMatch] = None
 
 
-class StatsTableMatches(BaseModel):
+class MatchesTableMatches(BaseModel):
     entity_matches: List[EntityMatch]
 
-    unmatched_a: List[StatsTableMatchesUnmatchedA]
+    unmatched_a: List[MatchesTableMatchesUnmatchedA]
 
-    unmatched_b: List[StatsTableMatchesUnmatchedB]
+    unmatched_b: List[MatchesTableMatchesUnmatchedB]
+
+
+class Matches(BaseModel):
+    relationships_a: List[MatchesRelationshipsA]
+
+    relationships_b: List[MatchesRelationshipsB]
+
+    table_matches: Dict[str, MatchesTableMatches]
+
+
+class StatsPerTableEntityGranularity(BaseModel):
+    false_negatives: int
+
+    false_positives: int
+
+    true_positives: int
+
+
+class StatsPerTablePerProperty(BaseModel):
+    false_negatives: int
+
+    false_positives: int
+
+    true_positives: int
+
+
+class StatsPerTablePropGranularity(BaseModel):
+    false_negatives: int
+
+    false_positives: int
+
+    true_positives: int
+
+
+class StatsPerTable(BaseModel):
+    entity_granularity: StatsPerTableEntityGranularity
+
+    per_property: Dict[str, StatsPerTablePerProperty]
+
+    prop_granularity: StatsPerTablePropGranularity
 
 
 class Stats(BaseModel):
-    relationships_a: List[StatsRelationshipsA]
-
-    relationships_b: List[StatsRelationshipsB]
-
-    table_matches: Dict[str, StatsTableMatches]
+    per_table: Dict[str, StatsPerTable]
 
 
 class EvaluateGetResponse(BaseModel):
@@ -128,6 +169,8 @@ class EvaluateGetResponse(BaseModel):
     iou: float
 
     matched: int
+
+    matches: Matches
 
     started_at: datetime
 
