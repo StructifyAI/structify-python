@@ -1,5 +1,24 @@
 # Changelog
 
+## 1.111.0-alpha.9 (2025-04-04)
+
+Full Changelog: [v1.111.0-alpha.8...v1.111.0-alpha.9](https://github.com/StructifyAI/structify-python/compare/v1.111.0-alpha.8...v1.111.0-alpha.9)
+
+### Features
+
+* **api:** api update ([#1092](https://github.com/StructifyAI/structify-python/issues/1092)) ([cf695f2](https://github.com/StructifyAI/structify-python/commit/cf695f2c58d972b3a88ec75ec4f684c5b68ad6b5))
+* **api:** api update ([#1094](https://github.com/StructifyAI/structify-python/issues/1094)) ([51434c5](https://github.com/StructifyAI/structify-python/commit/51434c594a51887f86e97f7b00ffead92eb36d49))
+* **api:** api update ([#1095](https://github.com/StructifyAI/structify-python/issues/1095)) ([17c312d](https://github.com/StructifyAI/structify-python/commit/17c312db95004030bb6f21c2c8fc57d248b615a8))
+* **api:** api update ([#1096](https://github.com/StructifyAI/structify-python/issues/1096)) ([2b30fd7](https://github.com/StructifyAI/structify-python/commit/2b30fd7f497f62daf2ce94cc78bc4872cb3152d7))
+* **api:** api update ([#1097](https://github.com/StructifyAI/structify-python/issues/1097)) ([73e78b6](https://github.com/StructifyAI/structify-python/commit/73e78b69bfe553dd35191e9cd764f69bc030fac3))
+* **api:** api update ([#1098](https://github.com/StructifyAI/structify-python/issues/1098)) ([4e74035](https://github.com/StructifyAI/structify-python/commit/4e74035082ae46e89e852d1dbeace38884222b0d))
+
+
+### Chores
+
+* configure new SDK language ([894a185](https://github.com/StructifyAI/structify-python/commit/894a18505e96c86561f04636d907af104721d668))
+* **internal:** remove trailing character ([#1099](https://github.com/StructifyAI/structify-python/issues/1099)) ([26116ba](https://github.com/StructifyAI/structify-python/commit/26116ba73d235596a8134faa7bdfcf12f6cc9b62))
+
 ## 1.111.0-alpha.8 (2025-04-02)
 
 Full Changelog: [v1.111.0-alpha.7...v1.111.0-alpha.8](https://github.com/StructifyAI/structify-python/compare/v1.111.0-alpha.7...v1.111.0-alpha.8)

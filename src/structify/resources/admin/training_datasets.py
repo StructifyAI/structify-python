@@ -454,6 +454,10 @@ class TrainingDatasetsResource(SyncAPIResource):
         Returns None if no datum is available.
 
         Args:
+          user_restriction: If true, the query will only return datums that are suspicious for the current
+              user. If false, the query will return datums that are suspicious for any author
+              that does not have the Labeler permission.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -706,6 +710,10 @@ class TrainingDatasetsResource(SyncAPIResource):
         Returns the number of suspicious training datums for the current user's labels.
 
         Args:
+          user_restriction: If true, the query will only return datums that are suspicious for the current
+              user. If false, the query will return datums that are suspicious for any author
+              that does not have the Labeler permission.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -1296,6 +1304,10 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
         Returns None if no datum is available.
 
         Args:
+          user_restriction: If true, the query will only return datums that are suspicious for the current
+              user. If false, the query will return datums that are suspicious for any author
+              that does not have the Labeler permission.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -1548,6 +1560,10 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
         Returns the number of suspicious training datums for the current user's labels.
 
         Args:
+          user_restriction: If true, the query will only return datums that are suspicious for the current
+              user. If false, the query will return datums that are suspicious for any author
+              that does not have the Labeler permission.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request

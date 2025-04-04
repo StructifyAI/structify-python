@@ -16,3 +16,8 @@ class TrainingDatasetGetNextSuspiciousParams(TypedDict, total=False):
     dataset_name: Optional[str]
 
     user_restriction: bool
+    """
+    If true, the query will only return datums that are suspicious for the current
+    user. If false, the query will return datums that are suspicious for any author
+    that does not have the Labeler permission.
+    """
