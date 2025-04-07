@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 
-from typing import Optional
+from typing import Union, Optional
+from datetime import datetime
+from typing_extensions import Literal
 
 import httpx
 
@@ -136,10 +138,13 @@ class NextActionResource(SyncAPIResource):
     def get_training_data(
         self,
         *,
+        from_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         job_id: Optional[str] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         offset: int | NotGiven = NOT_GIVEN,
-        status: Optional[object] | NotGiven = NOT_GIVEN,
+        status: Optional[Literal["HumanLLMLabel", "LLMOutput", "Pending", "Reviewed", "Verified", "Others"]]
+        | NotGiven = NOT_GIVEN,
+        to_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -166,10 +171,12 @@ class NextActionResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "from_date": from_date,
                         "job_id": job_id,
                         "limit": limit,
                         "offset": offset,
                         "status": status,
+                        "to_date": to_date,
                     },
                     next_action_get_training_data_params.NextActionGetTrainingDataParams,
                 ),
@@ -324,10 +331,13 @@ class AsyncNextActionResource(AsyncAPIResource):
     async def get_training_data(
         self,
         *,
+        from_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         job_id: Optional[str] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         offset: int | NotGiven = NOT_GIVEN,
-        status: Optional[object] | NotGiven = NOT_GIVEN,
+        status: Optional[Literal["HumanLLMLabel", "LLMOutput", "Pending", "Reviewed", "Verified", "Others"]]
+        | NotGiven = NOT_GIVEN,
+        to_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -354,10 +364,12 @@ class AsyncNextActionResource(AsyncAPIResource):
                 timeout=timeout,
                 query=await async_maybe_transform(
                     {
+                        "from_date": from_date,
                         "job_id": job_id,
                         "limit": limit,
                         "offset": offset,
                         "status": status,
+                        "to_date": to_date,
                     },
                     next_action_get_training_data_params.NextActionGetTrainingDataParams,
                 ),
