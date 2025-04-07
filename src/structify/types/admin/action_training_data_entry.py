@@ -2,7 +2,7 @@
 
 from typing import Dict, List, Union, Optional
 from datetime import datetime
-from typing_extensions import TypeAlias
+from typing_extensions import Literal, TypeAlias
 
 from pydantic import Field as FieldInfo
 
@@ -82,7 +82,7 @@ class Output(BaseModel):
 
     created_at: datetime
 
-    label: Optional[object] = None
+    label: Literal["HumanLLMLabel", "LLMOutput", "Pending", "Reviewed", "Verified", "Others"]
 
     output: OutputOutput
 
