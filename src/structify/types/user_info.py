@@ -13,6 +13,10 @@ class UserInfo(BaseModel):
 
     credits_used: int
 
+    feature_flags: List[
+        Literal["functional_test", "pdf_parsing", "boredm_construction_model", "generic_suspicious_queue", "none"]
+    ]
+
     is_admin: bool
 
     permissions: List[Literal["labeler", "qa_labeler", "debug", "human_llm", "none"]]
