@@ -3,13 +3,9 @@
 from __future__ import annotations
 
 from typing import Dict, Union
-from typing_extensions import Required, TypeAlias, TypedDict
+from typing_extensions import Required, TypedDict
 
-from .image_param import ImageParam
-
-__all__ = ["RelationshipParam", "Properties"]
-
-Properties: TypeAlias = Union[str, bool, float, ImageParam]
+__all__ = ["RelationshipParam"]
 
 
 class RelationshipParam(TypedDict, total=False):
@@ -19,4 +15,4 @@ class RelationshipParam(TypedDict, total=False):
 
     type: Required[str]
 
-    properties: Dict[str, Properties]
+    properties: Dict[str, Union[str, bool, float]]

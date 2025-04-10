@@ -1,14 +1,10 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import Dict, Union, Optional
-from typing_extensions import TypeAlias
 
-from .image import Image
 from .._models import BaseModel
 
-__all__ = ["Relationship", "Properties"]
-
-Properties: TypeAlias = Union[str, bool, float, Image]
+__all__ = ["Relationship"]
 
 
 class Relationship(BaseModel):
@@ -18,4 +14,4 @@ class Relationship(BaseModel):
 
     type: str
 
-    properties: Optional[Dict[str, Properties]] = None
+    properties: Optional[Dict[str, Union[str, bool, float]]] = None

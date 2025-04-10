@@ -3,18 +3,14 @@
 from __future__ import annotations
 
 from typing import Dict, Union
-from typing_extensions import Required, TypeAlias, TypedDict
+from typing_extensions import Required, TypedDict
 
-from .image_param import ImageParam
-
-__all__ = ["EntityParam", "Properties"]
-
-Properties: TypeAlias = Union[str, bool, float, ImageParam]
+__all__ = ["EntityParam"]
 
 
 class EntityParam(TypedDict, total=False):
     id: Required[int]
 
-    properties: Required[Dict[str, Properties]]
+    properties: Required[Dict[str, Union[str, bool, float]]]
 
     type: Required[str]
