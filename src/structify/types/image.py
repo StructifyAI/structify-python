@@ -8,6 +8,6 @@ __all__ = ["Image"]
 
 
 class Image(BaseModel):
-    number: int
+    flag_number: Optional[int] = None
 
-    hash: Optional[str] = None
+    image: Optional[object] = None

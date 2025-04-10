@@ -2,7 +2,7 @@
 
 from typing import Dict, List, Union, Optional
 from datetime import datetime
-from typing_extensions import TypeAlias
+from typing_extensions import Literal, TypeAlias
 
 from .image import Image
 from .._models import BaseModel
@@ -11,13 +11,99 @@ __all__ = [
     "EntityMatch",
     "EntityA",
     "EntityAProperties",
+    "EntityAPropertiesPartialDateObject",
+    "EntityAPropertiesURLObject",
+    "EntityAPropertiesMoneyObject",
+    "EntityAPropertiesPersonName",
+    "EntityAPropertiesAddressObject",
     "EntityB",
     "EntityBProperties",
+    "EntityBPropertiesPartialDateObject",
+    "EntityBPropertiesURLObject",
+    "EntityBPropertiesMoneyObject",
+    "EntityBPropertiesPersonName",
+    "EntityBPropertiesAddressObject",
     "MatchedProperty",
     "CardinalityOverride",
 ]
 
-EntityAProperties: TypeAlias = Union[str, bool, float, Image]
+
+class EntityAPropertiesPartialDateObject(BaseModel):
+    original_string: str
+
+    year: int
+
+    day: Optional[int] = None
+
+    month: Optional[int] = None
+
+
+class EntityAPropertiesURLObject(BaseModel):
+    original_string: str
+
+    url: str
+
+
+class EntityAPropertiesMoneyObject(BaseModel):
+    amount: float
+
+    currency_code: Literal[
+        "USD",
+        "EUR",
+        "GBP",
+        "JPY",
+        "CNY",
+        "INR",
+        "RUB",
+        "CAD",
+        "AUD",
+        "CHF",
+        "ILS",
+        "NZD",
+        "SGD",
+        "HKD",
+        "NOK",
+        "SEK",
+        "PLN",
+        "TRY",
+        "DKK",
+        "MXN",
+        "ZAR",
+        "PHP",
+        "VND",
+        "THB",
+        "BRL",
+        "KRW",
+    ]
+
+    original_string: str
+
+
+class EntityAPropertiesPersonName(BaseModel):
+    name: str
+
+
+class EntityAPropertiesAddressObject(BaseModel):
+    components: Dict[str, str]
+
+    original_address: str
+
+
+EntityAProperties: TypeAlias = Union[
+    str,
+    bool,
+    float,
+    EntityAPropertiesPartialDateObject,
+    str,
+    str,
+    EntityAPropertiesURLObject,
+    str,
+    EntityAPropertiesMoneyObject,
+    Image,
+    EntityAPropertiesPersonName,
+    EntityAPropertiesAddressObject,
+    str,
+]
 
 
 class EntityA(BaseModel):
@@ -34,7 +120,82 @@ class EntityA(BaseModel):
     updated_at: datetime
 
 
-EntityBProperties: TypeAlias = Union[str, bool, float, Image]
+class EntityBPropertiesPartialDateObject(BaseModel):
+    original_string: str
+
+    year: int
+
+    day: Optional[int] = None
+
+    month: Optional[int] = None
+
+
+class EntityBPropertiesURLObject(BaseModel):
+    original_string: str
+
+    url: str
+
+
+class EntityBPropertiesMoneyObject(BaseModel):
+    amount: float
+
+    currency_code: Literal[
+        "USD",
+        "EUR",
+        "GBP",
+        "JPY",
+        "CNY",
+        "INR",
+        "RUB",
+        "CAD",
+        "AUD",
+        "CHF",
+        "ILS",
+        "NZD",
+        "SGD",
+        "HKD",
+        "NOK",
+        "SEK",
+        "PLN",
+        "TRY",
+        "DKK",
+        "MXN",
+        "ZAR",
+        "PHP",
+        "VND",
+        "THB",
+        "BRL",
+        "KRW",
+    ]
+
+    original_string: str
+
+
+class EntityBPropertiesPersonName(BaseModel):
+    name: str
+
+
+class EntityBPropertiesAddressObject(BaseModel):
+    components: Dict[str, str]
+
+    original_address: str
+
+
+EntityBProperties: TypeAlias = Union[
+    str,
+    bool,
+    float,
+    EntityBPropertiesPartialDateObject,
+    str,
+    str,
+    EntityBPropertiesURLObject,
+    str,
+    EntityBPropertiesMoneyObject,
+    Image,
+    EntityBPropertiesPersonName,
+    EntityBPropertiesAddressObject,
+    str,
+]
 
 
 class EntityB(BaseModel):

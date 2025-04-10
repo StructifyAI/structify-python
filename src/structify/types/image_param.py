@@ -2,12 +2,15 @@
 
 from __future__ import annotations
 
-from typing_extensions import Required, TypedDict
+from typing import Optional
+from typing_extensions import TypedDict
+
+from .._types import FileTypes
 
 __all__ = ["ImageParam"]
 
 
 class ImageParam(TypedDict, total=False):
-    number: Required[int]
+    flag_number: Optional[int]
 
-    hash: str
+    image: Optional[FileTypes]

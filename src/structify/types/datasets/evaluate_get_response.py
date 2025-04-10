@@ -16,19 +16,49 @@ __all__ = [
     "MatchesRelationshipMatchesRelationshipMatchMatchedProperty",
     "MatchesRelationshipMatchesRelationshipMatchRelationshipA",
     "MatchesRelationshipMatchesRelationshipMatchRelationshipAProperties",
+    "MatchesRelationshipMatchesRelationshipMatchRelationshipAPropertiesPartialDateObject",
+    "MatchesRelationshipMatchesRelationshipMatchRelationshipAPropertiesURLObject",
+    "MatchesRelationshipMatchesRelationshipMatchRelationshipAPropertiesMoneyObject",
+    "MatchesRelationshipMatchesRelationshipMatchRelationshipAPropertiesPersonName",
+    "MatchesRelationshipMatchesRelationshipMatchRelationshipAPropertiesAddressObject",
     "MatchesRelationshipMatchesRelationshipMatchRelationshipB",
     "MatchesRelationshipMatchesRelationshipMatchRelationshipBProperties",
+    "MatchesRelationshipMatchesRelationshipMatchRelationshipBPropertiesPartialDateObject",
+    "MatchesRelationshipMatchesRelationshipMatchRelationshipBPropertiesURLObject",
+    "MatchesRelationshipMatchesRelationshipMatchRelationshipBPropertiesMoneyObject",
+    "MatchesRelationshipMatchesRelationshipMatchRelationshipBPropertiesPersonName",
+    "MatchesRelationshipMatchesRelationshipMatchRelationshipBPropertiesAddressObject",
     "MatchesRelationshipMatchesUnmatchedA",
     "MatchesRelationshipMatchesUnmatchedAProperties",
+    "MatchesRelationshipMatchesUnmatchedAPropertiesPartialDateObject",
+    "MatchesRelationshipMatchesUnmatchedAPropertiesURLObject",
+    "MatchesRelationshipMatchesUnmatchedAPropertiesMoneyObject",
+    "MatchesRelationshipMatchesUnmatchedAPropertiesPersonName",
+    "MatchesRelationshipMatchesUnmatchedAPropertiesAddressObject",
     "MatchesRelationshipMatchesUnmatchedB",
     "MatchesRelationshipMatchesUnmatchedBProperties",
+    "MatchesRelationshipMatchesUnmatchedBPropertiesPartialDateObject",
+    "MatchesRelationshipMatchesUnmatchedBPropertiesURLObject",
+    "MatchesRelationshipMatchesUnmatchedBPropertiesMoneyObject",
+    "MatchesRelationshipMatchesUnmatchedBPropertiesPersonName",
+    "MatchesRelationshipMatchesUnmatchedBPropertiesAddressObject",
     "MatchesTableMatches",
     "MatchesTableMatchesUnmatchedA",
     "MatchesTableMatchesUnmatchedAEntity",
     "MatchesTableMatchesUnmatchedAEntityProperties",
+    "MatchesTableMatchesUnmatchedAEntityPropertiesPartialDateObject",
+    "MatchesTableMatchesUnmatchedAEntityPropertiesURLObject",
+    "MatchesTableMatchesUnmatchedAEntityPropertiesMoneyObject",
+    "MatchesTableMatchesUnmatchedAEntityPropertiesPersonName",
+    "MatchesTableMatchesUnmatchedAEntityPropertiesAddressObject",
     "MatchesTableMatchesUnmatchedB",
     "MatchesTableMatchesUnmatchedBEntity",
     "MatchesTableMatchesUnmatchedBEntityProperties",
+    "MatchesTableMatchesUnmatchedBEntityPropertiesPartialDateObject",
+    "MatchesTableMatchesUnmatchedBEntityPropertiesURLObject",
+    "MatchesTableMatchesUnmatchedBEntityPropertiesMoneyObject",
+    "MatchesTableMatchesUnmatchedBEntityPropertiesPersonName",
+    "MatchesTableMatchesUnmatchedBEntityPropertiesAddressObject",
     "Stats",
     "StatsPerRelationship",
     "StatsPerRelationshipPerProperty",
@@ -53,10 +83,91 @@ class MatchesRelationshipMatchesRelationshipMatchMatchedProperty(BaseModel):
     unique: bool
 
 
-MatchesRelationshipMatchesRelationshipMatchRelationshipAProperties: TypeAlias = Union[str, bool, float, Image]
+class MatchesRelationshipMatchesRelationshipMatchRelationshipAPropertiesPartialDateObject(BaseModel):
+    original_string: str
+
+    year: int
+
+    day: Optional[int] = None
+
+    month: Optional[int] = None
+
+
+class MatchesRelationshipMatchesRelationshipMatchRelationshipAPropertiesURLObject(BaseModel):
+    original_string: str
+
+    url: str
+
+
+class MatchesRelationshipMatchesRelationshipMatchRelationshipAPropertiesMoneyObject(BaseModel):
+    amount: float
+
+    currency_code: Literal[
+        "USD",
+        "EUR",
+        "GBP",
+        "JPY",
+        "CNY",
+        "INR",
+        "RUB",
+        "CAD",
+        "AUD",
+        "CHF",
+        "ILS",
+        "NZD",
+        "SGD",
+        "HKD",
+        "NOK",
+        "SEK",
+        "PLN",
+        "TRY",
+        "DKK",
+        "MXN",
+        "ZAR",
+        "PHP",
+        "VND",
+        "THB",
+        "BRL",
+        "KRW",
+    ]
+
+    original_string: str
+
+
+class MatchesRelationshipMatchesRelationshipMatchRelationshipAPropertiesPersonName(BaseModel):
+    name: str
+
+
+class MatchesRelationshipMatchesRelationshipMatchRelationshipAPropertiesAddressObject(BaseModel):
+    components: Dict[str, str]
+
+    original_address: str
+
+
+MatchesRelationshipMatchesRelationshipMatchRelationshipAProperties: TypeAlias = Union[
+    str,
+    bool,
+    float,
+    MatchesRelationshipMatchesRelationshipMatchRelationshipAPropertiesPartialDateObject,
+    str,
+    str,
+    MatchesRelationshipMatchesRelationshipMatchRelationshipAPropertiesURLObject,
+    str,
+    MatchesRelationshipMatchesRelationshipMatchRelationshipAPropertiesMoneyObject,
+    Image,
+    MatchesRelationshipMatchesRelationshipMatchRelationshipAPropertiesPersonName,
+    MatchesRelationshipMatchesRelationshipMatchRelationshipAPropertiesAddressObject,
+    str,
+]
 
 
 class MatchesRelationshipMatchesRelationshipMatchRelationshipA(BaseModel):
+    id: str
+
+    created_at: datetime
+
+    dataset_id: str
+
     from_id: str
 
     label: str
@@ -65,11 +176,94 @@ class MatchesRelationshipMatchesRelationshipMatchRelationshipA(BaseModel):
 
     to_id: str
 
+    updated_at: datetime
 
-MatchesRelationshipMatchesRelationshipMatchRelationshipBProperties: TypeAlias = Union[str, bool, float, Image]
+
+class MatchesRelationshipMatchesRelationshipMatchRelationshipBPropertiesPartialDateObject(BaseModel):
+    original_string: str
+
+    year: int
+
+    day: Optional[int] = None
+
+    month: Optional[int] = None
+
+
+class MatchesRelationshipMatchesRelationshipMatchRelationshipBPropertiesURLObject(BaseModel):
+    original_string: str
+
+    url: str
+
+
+class MatchesRelationshipMatchesRelationshipMatchRelationshipBPropertiesMoneyObject(BaseModel):
+    amount: float
+
+    currency_code: Literal[
+        "USD",
+        "EUR",
+        "GBP",
+        "JPY",
+        "CNY",
+        "INR",
+        "RUB",
+        "CAD",
+        "AUD",
+        "CHF",
+        "ILS",
+        "NZD",
+        "SGD",
+        "HKD",
+        "NOK",
+        "SEK",
+        "PLN",
+        "TRY",
+        "DKK",
+        "MXN",
+        "ZAR",
+        "PHP",
+        "VND",
+        "THB",
+        "BRL",
+        "KRW",
+    ]
+
+    original_string: str
+
+
+class MatchesRelationshipMatchesRelationshipMatchRelationshipBPropertiesPersonName(BaseModel):
+    name: str
+
+
+class MatchesRelationshipMatchesRelationshipMatchRelationshipBPropertiesAddressObject(BaseModel):
+    components: Dict[str, str]
+
+    original_address: str
+
+
+MatchesRelationshipMatchesRelationshipMatchRelationshipBProperties: TypeAlias = Union[
+    str,
+    bool,
+    float,
+    MatchesRelationshipMatchesRelationshipMatchRelationshipBPropertiesPartialDateObject,
+    str,
+    str,
+    MatchesRelationshipMatchesRelationshipMatchRelationshipBPropertiesURLObject,
+    str,
+    MatchesRelationshipMatchesRelationshipMatchRelationshipBPropertiesMoneyObject,
+    Image,
+    MatchesRelationshipMatchesRelationshipMatchRelationshipBPropertiesPersonName,
+    MatchesRelationshipMatchesRelationshipMatchRelationshipBPropertiesAddressObject,
+    str,
+]
 
 
 class MatchesRelationshipMatchesRelationshipMatchRelationshipB(BaseModel):
+    id: str
+
+    created_at: datetime
+
+    dataset_id: str
+
     from_id: str
 
     label: str
@@ -77,6 +271,8 @@ class MatchesRelationshipMatchesRelationshipMatchRelationshipB(BaseModel):
     properties: Dict[str, MatchesRelationshipMatchesRelationshipMatchRelationshipBProperties]
 
     to_id: str
+
+    updated_at: datetime
 
 
 class MatchesRelationshipMatchesRelationshipMatch(BaseModel):
@@ -87,10 +283,91 @@ class MatchesRelationshipMatchesRelationshipMatch(BaseModel):
     relationship_b: MatchesRelationshipMatchesRelationshipMatchRelationshipB
 
 
-MatchesRelationshipMatchesUnmatchedAProperties: TypeAlias = Union[str, bool, float, Image]
+class MatchesRelationshipMatchesUnmatchedAPropertiesPartialDateObject(BaseModel):
+    original_string: str
+
+    year: int
+
+    day: Optional[int] = None
+
+    month: Optional[int] = None
+
+
+class MatchesRelationshipMatchesUnmatchedAPropertiesURLObject(BaseModel):
+    original_string: str
+
+    url: str
+
+
+class MatchesRelationshipMatchesUnmatchedAPropertiesMoneyObject(BaseModel):
+    amount: float
+
+    currency_code: Literal[
+        "USD",
+        "EUR",
+        "GBP",
+        "JPY",
+        "CNY",
+        "INR",
+        "RUB",
+        "CAD",
+        "AUD",
+        "CHF",
+        "ILS",
+        "NZD",
+        "SGD",
+        "HKD",
+        "NOK",
+        "SEK",
+        "PLN",
+        "TRY",
+        "DKK",
+        "MXN",
+        "ZAR",
+        "PHP",
+        "VND",
+        "THB",
+        "BRL",
+        "KRW",
+    ]
+
+    original_string: str
+
+
+class MatchesRelationshipMatchesUnmatchedAPropertiesPersonName(BaseModel):
+    name: str
+
+
+class MatchesRelationshipMatchesUnmatchedAPropertiesAddressObject(BaseModel):
+    components: Dict[str, str]
+
+    original_address: str
+
+
+MatchesRelationshipMatchesUnmatchedAProperties: TypeAlias = Union[
+    str,
+    bool,
+    float,
+    MatchesRelationshipMatchesUnmatchedAPropertiesPartialDateObject,
+    str,
+    str,
+    MatchesRelationshipMatchesUnmatchedAPropertiesURLObject,
+    str,
+    MatchesRelationshipMatchesUnmatchedAPropertiesMoneyObject,
+    Image,
+    MatchesRelationshipMatchesUnmatchedAPropertiesPersonName,
+    MatchesRelationshipMatchesUnmatchedAPropertiesAddressObject,
+    str,
+]
 
 
 class MatchesRelationshipMatchesUnmatchedA(BaseModel):
+    id: str
+
+    created_at: datetime
+
+    dataset_id: str
+
     from_id: str
 
     label: str
@@ -99,11 +376,94 @@ class MatchesRelationshipMatchesUnmatchedA(BaseModel):
 
     to_id: str
 
+    updated_at: datetime
 
-MatchesRelationshipMatchesUnmatchedBProperties: TypeAlias = Union[str, bool, float, Image]
+
+class MatchesRelationshipMatchesUnmatchedBPropertiesPartialDateObject(BaseModel):
+    original_string: str
+
+    year: int
+
+    day: Optional[int] = None
+
+    month: Optional[int] = None
+
+
+class MatchesRelationshipMatchesUnmatchedBPropertiesURLObject(BaseModel):
+    original_string: str
+
+    url: str
+
+
+class MatchesRelationshipMatchesUnmatchedBPropertiesMoneyObject(BaseModel):
+    amount: float
+
+    currency_code: Literal[
+        "USD",
+        "EUR",
+        "GBP",
+        "JPY",
+        "CNY",
+        "INR",
+        "RUB",
+        "CAD",
+        "AUD",
+        "CHF",
+        "ILS",
+        "NZD",
+        "SGD",
+        "HKD",
+        "NOK",
+        "SEK",
+        "PLN",
+        "TRY",
+        "DKK",
+        "MXN",
+        "ZAR",
+        "PHP",
+        "VND",
+        "THB",
+        "BRL",
+        "KRW",
+    ]
+
+    original_string: str
+
+
+class MatchesRelationshipMatchesUnmatchedBPropertiesPersonName(BaseModel):
+    name: str
+
+
+class MatchesRelationshipMatchesUnmatchedBPropertiesAddressObject(BaseModel):
+    components: Dict[str, str]
+
+    original_address: str
+
+
+MatchesRelationshipMatchesUnmatchedBProperties: TypeAlias = Union[
+    str,
+    bool,
+    float,
+    MatchesRelationshipMatchesUnmatchedBPropertiesPartialDateObject,
+    str,
+    str,
+    MatchesRelationshipMatchesUnmatchedBPropertiesURLObject,
+    str,
+    MatchesRelationshipMatchesUnmatchedBPropertiesMoneyObject,
+    Image,
+    MatchesRelationshipMatchesUnmatchedBPropertiesPersonName,
+    MatchesRelationshipMatchesUnmatchedBPropertiesAddressObject,
+    str,
+]
 
 
 class MatchesRelationshipMatchesUnmatchedB(BaseModel):
+    id: str
+
+    created_at: datetime
+
+    dataset_id: str
+
     from_id: str
 
     label: str
@@ -111,6 +471,8 @@ class MatchesRelationshipMatchesUnmatchedB(BaseModel):
     properties: Dict[str, MatchesRelationshipMatchesUnmatchedBProperties]
 
     to_id: str
+
+    updated_at: datetime
 
 
 class MatchesRelationshipMatches(BaseModel):
@@ -121,7 +483,82 @@ class MatchesRelationshipMatches(BaseModel):
     unmatched_b: List[MatchesRelationshipMatchesUnmatchedB]
 
 
-MatchesTableMatchesUnmatchedAEntityProperties: TypeAlias = Union[str, bool, float, Image]
+class MatchesTableMatchesUnmatchedAEntityPropertiesPartialDateObject(BaseModel):
+    original_string: str
+
+    year: int
+
+    day: Optional[int] = None
+
+    month: Optional[int] = None
+
+
+class MatchesTableMatchesUnmatchedAEntityPropertiesURLObject(BaseModel):
+    original_string: str
+
+    url: str
+
+
+class MatchesTableMatchesUnmatchedAEntityPropertiesMoneyObject(BaseModel):
+    amount: float
+
+    currency_code: Literal[
+        "USD",
+        "EUR",
+        "GBP",
+        "JPY",
+        "CNY",
+        "INR",
+        "RUB",
+        "CAD",
+        "AUD",
+        "CHF",
+        "ILS",
+        "NZD",
+        "SGD",
+        "HKD",
+        "NOK",
+        "SEK",
+        "PLN",
+        "TRY",
+        "DKK",
+        "MXN",
+        "ZAR",
+        "PHP",
+        "VND",
+        "THB",
+        "BRL",
+        "KRW",
+    ]
+
+    original_string: str
+
+
+class MatchesTableMatchesUnmatchedAEntityPropertiesPersonName(BaseModel):
+    name: str
+
+
+class MatchesTableMatchesUnmatchedAEntityPropertiesAddressObject(BaseModel):
+    components: Dict[str, str]
+
+    original_address: str
+
+
+MatchesTableMatchesUnmatchedAEntityProperties: TypeAlias = Union[
+    str,
+    bool,
+    float,
+    MatchesTableMatchesUnmatchedAEntityPropertiesPartialDateObject,
+    str,
+    str,
+    MatchesTableMatchesUnmatchedAEntityPropertiesURLObject,
+    str,
+    MatchesTableMatchesUnmatchedAEntityPropertiesMoneyObject,
+    Image,
+    MatchesTableMatchesUnmatchedAEntityPropertiesPersonName,
+    MatchesTableMatchesUnmatchedAEntityPropertiesAddressObject,
+    str,
+]
 
 
 class MatchesTableMatchesUnmatchedAEntity(BaseModel):
@@ -144,7 +581,82 @@ class MatchesTableMatchesUnmatchedA(BaseModel):
     best_match: Optional[EntityMatch] = None
 
 
-MatchesTableMatchesUnmatchedBEntityProperties: TypeAlias = Union[str, bool, float, Image]
+class MatchesTableMatchesUnmatchedBEntityPropertiesPartialDateObject(BaseModel):
+    original_string: str
+
+    year: int
+
+    day: Optional[int] = None
+
+    month: Optional[int] = None
+
+
+class MatchesTableMatchesUnmatchedBEntityPropertiesURLObject(BaseModel):
+    original_string: str
+
+    url: str
+
+
+class MatchesTableMatchesUnmatchedBEntityPropertiesMoneyObject(BaseModel):
+    amount: float
+
+    currency_code: Literal[
+        "USD",
+        "EUR",
+        "GBP",
+        "JPY",
+        "CNY",
+        "INR",
+        "RUB",
+        "CAD",
+        "AUD",
+        "CHF",
+        "ILS",
+        "NZD",
+        "SGD",
+        "HKD",
+        "NOK",
+        "SEK",
+        "PLN",
+        "TRY",
+        "DKK",
+        "MXN",
+        "ZAR",
+        "PHP",
+        "VND",
+        "THB",
+        "BRL",
+        "KRW",
+    ]
+
+    original_string: str
+
+
+class MatchesTableMatchesUnmatchedBEntityPropertiesPersonName(BaseModel):
+    name: str
+
+
+class MatchesTableMatchesUnmatchedBEntityPropertiesAddressObject(BaseModel):
+    components: Dict[str, str]
+
+    original_address: str
+
+
+MatchesTableMatchesUnmatchedBEntityProperties: TypeAlias = Union[
+    str,
+    bool,
+    float,
+    MatchesTableMatchesUnmatchedBEntityPropertiesPartialDateObject,
+    str,
+    str,
+    MatchesTableMatchesUnmatchedBEntityPropertiesURLObject,
+    str,
+    MatchesTableMatchesUnmatchedBEntityPropertiesMoneyObject,
+    Image,
+    MatchesTableMatchesUnmatchedBEntityPropertiesPersonName,
+    MatchesTableMatchesUnmatchedBEntityPropertiesAddressObject,
+    str,
+]
 
 
 class MatchesTableMatchesUnmatchedBEntity(BaseModel):
