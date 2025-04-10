@@ -14,7 +14,16 @@ class UserUpdateParams(TypedDict, total=False):
     new_email: Optional[str]
 
     new_feature_flags: Optional[
-        List[Literal["functional_test", "pdf_parsing", "boredm_construction_model", "generic_suspicious_queue", "none"]]
+        List[
+            Literal[
+                "functional_test",
+                "pdf_parsing",
+                "boredm_construction_model",
+                "generic_suspicious_queue",
+                "new_use_case_preview",
+                "none",
+            ]
+        ]
     ]
 
     new_permissions: Optional[List[Literal["labeler", "qa_labeler", "debug", "human_llm", "none"]]]

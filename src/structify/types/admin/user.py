@@ -18,7 +18,14 @@ class User(BaseModel):
 
     feature_flags: List[
         Optional[
-            Literal["functional_test", "pdf_parsing", "boredm_construction_model", "generic_suspicious_queue", "none"]
+            Literal[
+                "functional_test",
+                "pdf_parsing",
+                "boredm_construction_model",
+                "generic_suspicious_queue",
+                "new_use_case_preview",
+                "none",
+            ]
         ]
     ]
 
