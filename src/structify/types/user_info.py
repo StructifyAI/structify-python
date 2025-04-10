@@ -14,7 +14,14 @@ class UserInfo(BaseModel):
     credits_used: int
 
     feature_flags: List[
-        Literal["functional_test", "pdf_parsing", "boredm_construction_model", "generic_suspicious_queue", "none"]
+        Literal[
+            "functional_test",
+            "pdf_parsing",
+            "boredm_construction_model",
+            "generic_suspicious_queue",
+            "new_use_case_preview",
+            "none",
+        ]
     ]
 
     is_admin: bool

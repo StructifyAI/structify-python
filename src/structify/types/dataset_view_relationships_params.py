@@ -4,11 +4,11 @@ from __future__ import annotations
 
 from typing import Union, Optional
 from datetime import datetime
-from typing_extensions import Literal, Required, Annotated, TypedDict
+from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
 from .._utils import PropertyInfo
 
-__all__ = ["DatasetViewRelationshipsParams", "SortBy"]
+__all__ = ["DatasetViewRelationshipsParams", "SortBy", "SortByColID", "SortByColIDUserDefinedColumn"]
 
 
 class DatasetViewRelationshipsParams(TypedDict, total=False):
@@ -27,7 +27,14 @@ class DatasetViewRelationshipsParams(TypedDict, total=False):
     sort_by: SortBy
 
 
+class SortByColIDUserDefinedColumn(TypedDict, total=False):
+    user_defined_column: Required[str]
+
+
+SortByColID: TypeAlias = Union[SortByColIDUserDefinedColumn, Literal["creation_time"]]
+
+
 class SortBy(TypedDict, total=False):
-    col_id: Required[Literal["creation_time"]]
+    col_id: Required[SortByColID]
 
     sort: Required[Literal["asc", "desc"]]

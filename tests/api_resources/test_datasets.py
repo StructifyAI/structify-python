@@ -474,7 +474,7 @@ class TestDatasets:
             limit=0,
             offset=0,
             sort_by={
-                "col_id": "creation_time",
+                "col_id": {"user_defined_column": "user_defined_column"},
                 "sort": "asc",
             },
         )
@@ -524,7 +524,7 @@ class TestDatasets:
             limit=0,
             offset=0,
             sort_by={
-                "col_id": "creation_time",
+                "col_id": {"user_defined_column": "user_defined_column"},
                 "sort": "asc",
             },
         )
@@ -574,7 +574,7 @@ class TestDatasets:
             limit=0,
             offset=0,
             sort_by={
-                "col_id": "creation_time",
+                "col_id": {"user_defined_column": "user_defined_column"},
                 "sort": "asc",
             },
         )
@@ -1058,7 +1058,7 @@ class TestAsyncDatasets:
             limit=0,
             offset=0,
             sort_by={
-                "col_id": "creation_time",
+                "col_id": {"user_defined_column": "user_defined_column"},
                 "sort": "asc",
             },
         )
@@ -1108,7 +1108,7 @@ class TestAsyncDatasets:
             limit=0,
             offset=0,
             sort_by={
-                "col_id": "creation_time",
+                "col_id": {"user_defined_column": "user_defined_column"},
                 "sort": "asc",
             },
         )
@@ -1158,7 +1158,7 @@ class TestAsyncDatasets:
             limit=0,
             offset=0,
             sort_by={
-                "col_id": "creation_time",
+                "col_id": {"user_defined_column": "user_defined_column"},
                 "sort": "asc",
             },
         )

@@ -65,7 +65,14 @@ class UsersResource(SyncAPIResource):
         credit_count: Optional[int] | NotGiven = NOT_GIVEN,
         email: Optional[str] | NotGiven = NOT_GIVEN,
         feature_flags: List[
-            Literal["functional_test", "pdf_parsing", "boredm_construction_model", "generic_suspicious_queue", "none"]
+            Literal[
+                "functional_test",
+                "pdf_parsing",
+                "boredm_construction_model",
+                "generic_suspicious_queue",
+                "new_use_case_preview",
+                "none",
+            ]
         ]
         | NotGiven = NOT_GIVEN,
         is_admin: bool | NotGiven = NOT_GIVEN,
@@ -117,7 +124,12 @@ class UsersResource(SyncAPIResource):
         new_feature_flags: Optional[
             List[
                 Literal[
-                    "functional_test", "pdf_parsing", "boredm_construction_model", "generic_suspicious_queue", "none"
+                    "functional_test",
+                    "pdf_parsing",
+                    "boredm_construction_model",
+                    "generic_suspicious_queue",
+                    "new_use_case_preview",
+                    "none",
                 ]
             ]
         ]
@@ -328,7 +340,14 @@ class AsyncUsersResource(AsyncAPIResource):
         credit_count: Optional[int] | NotGiven = NOT_GIVEN,
         email: Optional[str] | NotGiven = NOT_GIVEN,
         feature_flags: List[
-            Literal["functional_test", "pdf_parsing", "boredm_construction_model", "generic_suspicious_queue", "none"]
+            Literal[
+                "functional_test",
+                "pdf_parsing",
+                "boredm_construction_model",
+                "generic_suspicious_queue",
+                "new_use_case_preview",
+                "none",
+            ]
         ]
         | NotGiven = NOT_GIVEN,
         is_admin: bool | NotGiven = NOT_GIVEN,
@@ -380,7 +399,12 @@ class AsyncUsersResource(AsyncAPIResource):
         new_feature_flags: Optional[
             List[
                 Literal[
-                    "functional_test", "pdf_parsing", "boredm_construction_model", "generic_suspicious_queue", "none"
+                    "functional_test",
+                    "pdf_parsing",
+                    "boredm_construction_model",
+                    "generic_suspicious_queue",
+                    "new_use_case_preview",
+                    "none",
                 ]
             ]
         ]
