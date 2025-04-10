@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Iterable, Optional
+from typing import Dict, List, Union, Iterable, Optional
 
 import httpx
 
@@ -565,7 +565,7 @@ class EntitiesResource(SyncAPIResource):
         *,
         dataset: str,
         entity_id: str,
-        properties: Dict[str, entity_update_property_params.Properties],
+        properties: Dict[str, Union[str, bool, float]],
         source: entity_update_property_params.Source | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1204,7 +1204,7 @@ class AsyncEntitiesResource(AsyncAPIResource):
         *,
         dataset: str,
         entity_id: str,
-        properties: Dict[str, entity_update_property_params.Properties],
+        properties: Dict[str, Union[str, bool, float]],
         source: entity_update_property_params.Source | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.

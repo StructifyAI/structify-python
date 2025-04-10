@@ -2,25 +2,12 @@
 
 from __future__ import annotations
 
-from typing import Dict, Union, Iterable, Optional
+from typing import Dict, Union, Iterable
 from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
 from .._utils import PropertyInfo
-from .image_param import ImageParam
 
-__all__ = [
-    "EntityUpdatePropertyParams",
-    "Properties",
-    "PropertiesPartialDateObject",
-    "PropertiesURLObject",
-    "PropertiesMoneyObject",
-    "PropertiesPersonName",
-    "PropertiesAddressObject",
-    "Source",
-    "SourceWeb",
-    "SourceDocumentPage",
-    "SourceSecFiling",
-]
+__all__ = ["EntityUpdatePropertyParams", "Source", "SourceWeb", "SourceDocumentPage", "SourceSecFiling"]
 
 
 class EntityUpdatePropertyParams(TypedDict, total=False):
@@ -28,89 +15,9 @@ class EntityUpdatePropertyParams(TypedDict, total=False):
 
     entity_id: Required[str]
 
-    properties: Required[Dict[str, Properties]]
+    properties: Required[Dict[str, Union[str, bool, float]]]
 
     source: Source
-
-
-class PropertiesPartialDateObject(TypedDict, total=False):
-    original_string: Required[str]
-
-    year: Required[int]
-
-    day: Optional[int]
-
-    month: Optional[int]
-
-
-class PropertiesURLObject(TypedDict, total=False):
-    original_string: Required[str]
-
-    url: Required[str]
-
-
-class PropertiesMoneyObject(TypedDict, total=False):
-    amount: Required[float]
-
-    currency_code: Required[
-        Literal[
-            "USD",
-            "EUR",
-            "GBP",
-            "JPY",
-            "CNY",
-            "INR",
-            "RUB",
-            "CAD",
-            "AUD",
-            "CHF",
-            "ILS",
-            "NZD",
-            "SGD",
-            "HKD",
-            "NOK",
-            "SEK",
-            "PLN",
-            "TRY",
-            "DKK",
-            "MXN",
-            "ZAR",
-            "PHP",
-            "VND",
-            "THB",
-            "BRL",
-            "KRW",
-        ]
-    ]
-
-    original_string: Required[str]
-
-
-class PropertiesPersonName(TypedDict, total=False):
-    name: Required[str]
-
-
-class PropertiesAddressObject(TypedDict, total=False):
-    components: Required[Dict[str, str]]
-
-    original_address: Required[str]
-
-
-Properties: TypeAlias = Union[
-    str,
-    bool,
-    float,
-    PropertiesPartialDateObject,
-    str,
-    str,
-    PropertiesURLObject,
-    str,
-    PropertiesMoneyObject,
-    ImageParam,
-    PropertiesPersonName,
-    PropertiesAddressObject,
-    str,
-]
 
 
 class SourceWeb(TypedDict, total=False):
