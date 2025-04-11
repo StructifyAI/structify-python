@@ -1,5 +1,23 @@
 # Changelog
 
+## 1.111.0-alpha.10 (2025-04-11)
+
+Full Changelog: [v1.111.0-alpha.9...v1.111.0-alpha.10](https://github.com/StructifyAI/structify-python/compare/v1.111.0-alpha.9...v1.111.0-alpha.10)
+
+### Features
+
+* **api:** api update ([f12de8a](https://github.com/StructifyAI/structify-python/commit/f12de8af868405a885eb291f29fca8a5d390ab09))
+* **api:** api update ([3a06057](https://github.com/StructifyAI/structify-python/commit/3a060573b2be2a64d799da445488059913ab5356))
+* **api:** api update ([9be36f7](https://github.com/StructifyAI/structify-python/commit/9be36f7360ca8c1be8b8534a0c90e34f8ab74e3f))
+* **api:** api update ([d6be679](https://github.com/StructifyAI/structify-python/commit/d6be679121fd3c6eb32f1ede9e72bd51b701271f))
+* **api:** api update ([6539909](https://github.com/StructifyAI/structify-python/commit/653990905aaa0ff7562d7853a6db942e846cbe15))
+
+
+### Chores
+
+* **internal:** expand CI branch coverage ([8e38a07](https://github.com/StructifyAI/structify-python/commit/8e38a0722e2b7ad80d5fc8300b31dfaa8707bf8d))
+* **internal:** reduce CI branch coverage ([3c731e3](https://github.com/StructifyAI/structify-python/commit/3c731e318120d511fe26fd0555b0a2d450c50887))
+
 ## 1.111.0-alpha.9 (2025-04-10)
 
 Full Changelog: [v1.111.0-alpha.8...v1.111.0-alpha.9](https://github.com/StructifyAI/structify-python/compare/v1.111.0-alpha.8...v1.111.0-alpha.9)
