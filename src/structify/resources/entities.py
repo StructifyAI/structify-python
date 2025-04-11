@@ -21,6 +21,7 @@ from ..types import (
     entity_get_merges_params,
     entity_trigger_merge_params,
     entity_update_property_params,
+    entity_add_relationship_params,
     entity_get_local_subgraph_params,
     entity_get_source_entities_params,
 )
@@ -52,6 +53,7 @@ from ..types.entity_summarize_response import EntitySummarizeResponse
 from ..types.entity_get_merges_response import EntityGetMergesResponse
 from ..types.entity_trigger_merge_response import EntityTriggerMergeResponse
 from ..types.entity_update_property_response import EntityUpdatePropertyResponse
+from ..types.entity_add_relationship_response import EntityAddRelationshipResponse
 from ..types.entity_get_local_subgraph_response import EntityGetLocalSubgraphResponse
 from ..types.entity_get_source_entities_response import EntityGetSourceEntitiesResponse
 
@@ -211,6 +213,51 @@ class EntitiesResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=EntityAddBatchResponse,
+        )
+
+    def add_relationship(
+        self,
+        *,
+        dataset: str,
+        from_id: str,
+        relationship_type: str,
+        to_id: str,
+        properties: Dict[str, Union[str, bool, float]] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> EntityAddRelationshipResponse:
+        """
+        Add a relationship between two entities in a dataset
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/entity/add_relationship",
+            body=maybe_transform(
+                {
+                    "dataset": dataset,
+                    "from_id": from_id,
+                    "relationship_type": relationship_type,
+                    "to_id": to_id,
+                    "properties": properties,
+                },
+                entity_add_relationship_params.EntityAddRelationshipParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=EntityAddRelationshipResponse,
         )
 
     def get(
@@ -846,6 +893,51 @@ class AsyncEntitiesResource(AsyncAPIResource):
             cast_to=EntityAddBatchResponse,
         )
 
+    async def add_relationship(
+        self,
+        *,
+        dataset: str,
+        from_id: str,
+        relationship_type: str,
+        to_id: str,
+        properties: Dict[str, Union[str, bool, float]] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> EntityAddRelationshipResponse:
+        """
+        Add a relationship between two entities in a dataset
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/entity/add_relationship",
+            body=await async_maybe_transform(
+                {
+                    "dataset": dataset,
+                    "from_id": from_id,
+                    "relationship_type": relationship_type,
+                    "to_id": to_id,
+                    "properties": properties,
+                },
+                entity_add_relationship_params.EntityAddRelationshipParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=EntityAddRelationshipResponse,
+        )
+
     async def get(
         self,
         *,
@@ -1343,6 +1435,9 @@ class EntitiesResourceWithRawResponse:
         self.add_batch = to_raw_response_wrapper(
             entities.add_batch,
         )
+        self.add_relationship = to_raw_response_wrapper(
+            entities.add_relationship,
+        )
         self.get = to_raw_response_wrapper(
             entities.get,
         )
@@ -1393,6 +1488,9 @@ class AsyncEntitiesResourceWithRawResponse:
         )
         self.add_batch = async_to_raw_response_wrapper(
             entities.add_batch,
+        )
+        self.add_relationship = async_to_raw_response_wrapper(
+            entities.add_relationship,
         )
         self.get = async_to_raw_response_wrapper(
             entities.get,
@@ -1445,6 +1543,9 @@ class EntitiesResourceWithStreamingResponse:
         self.add_batch = to_streamed_response_wrapper(
             entities.add_batch,
         )
+        self.add_relationship = to_streamed_response_wrapper(
+            entities.add_relationship,
+        )
         self.get = to_streamed_response_wrapper(
             entities.get,
         )
@@ -1495,6 +1596,9 @@ class AsyncEntitiesResourceWithStreamingResponse:
         )
         self.add_batch = async_to_streamed_response_wrapper(
             entities.add_batch,
+        )
+        self.add_relationship = async_to_streamed_response_wrapper(
+            entities.add_relationship,
         )
         self.get = async_to_streamed_response_wrapper(
             entities.get,
