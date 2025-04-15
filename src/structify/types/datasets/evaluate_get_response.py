@@ -694,27 +694,27 @@ class Matches(BaseModel):
 
 
 class StatsPerRelationshipPerProperty(BaseModel):
-    false_negatives: int
+    false_negatives: float
 
-    false_positives: int
+    false_positives: float
 
-    true_positives: int
+    true_positives: float
 
 
 class StatsPerRelationshipPropGranularity(BaseModel):
-    false_negatives: int
+    false_negatives: float
 
-    false_positives: int
+    false_positives: float
 
-    true_positives: int
+    true_positives: float
 
 
 class StatsPerRelationshipRelationshipGranularity(BaseModel):
-    false_negatives: int
+    false_negatives: float
 
-    false_positives: int
+    false_positives: float
 
-    true_positives: int
+    true_positives: float
 
 
 class StatsPerRelationship(BaseModel):
@@ -726,27 +726,27 @@ class StatsPerRelationship(BaseModel):
 
 
 class StatsPerTableEntityGranularity(BaseModel):
-    false_negatives: int
+    false_negatives: float
 
-    false_positives: int
+    false_positives: float
 
-    true_positives: int
+    true_positives: float
 
 
 class StatsPerTablePerProperty(BaseModel):
-    false_negatives: int
+    false_negatives: float
 
-    false_positives: int
+    false_positives: float
 
-    true_positives: int
+    true_positives: float
 
 
 class StatsPerTablePropGranularity(BaseModel):
-    false_negatives: int
+    false_negatives: float
 
-    false_positives: int
+    false_positives: float
 
-    true_positives: int
+    true_positives: float
 
 
 class StatsPerTable(BaseModel):
