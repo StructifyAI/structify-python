@@ -26,7 +26,7 @@ from ._utils import (
 from ._version import __version__
 from .resources import jobs, plan, user, report, server, sources, entities, documents, structure
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
-from ._exceptions import APIStatusError, StructifyError
+from ._exceptions import APIStatusError
 from ._base_client import (
     DEFAULT_MAX_RETRIES,
     SyncAPIClient,
@@ -69,7 +69,7 @@ class Structify(SyncAPIClient):
     with_streaming_response: StructifyWithStreamedResponse
 
     # client options
-    api_key: str
+    api_key: str | None
 
     _environment: Literal["production", "deployment"] | NotGiven
 
@@ -103,10 +103,6 @@ class Structify(SyncAPIClient):
         """
         if api_key is None:
             api_key = os.environ.get("STRUCTIFY_API_TOKEN")
-        if api_key is None:
-            raise StructifyError(
-                "The api_key client option must be set either by passing api_key to the client or by setting the STRUCTIFY_API_TOKEN environment variable"
-            )
         self.api_key = api_key
 
         self._environment = environment
@@ -169,6 +165,8 @@ class Structify(SyncAPIClient):
     @override
     def auth_headers(self) -> dict[str, str]:
         api_key = self.api_key
+        if api_key is None:
+            return {}
         return {"api_key": api_key}
 
     @property
@@ -283,7 +281,7 @@ class AsyncStructify(AsyncAPIClient):
     with_streaming_response: AsyncStructifyWithStreamedResponse
 
     # client options
-    api_key: str
+    api_key: str | None
 
     _environment: Literal["production", "deployment"] | NotGiven
 
@@ -317,10 +315,6 @@ class AsyncStructify(AsyncAPIClient):
         """
         if api_key is None:
             api_key = os.environ.get("STRUCTIFY_API_TOKEN")
-        if api_key is None:
-            raise StructifyError(
-                "The api_key client option must be set either by passing api_key to the client or by setting the STRUCTIFY_API_TOKEN environment variable"
-            )
         self.api_key = api_key
 
         self._environment = environment
@@ -383,6 +377,8 @@ class AsyncStructify(AsyncAPIClient):
     @override
     def auth_headers(self) -> dict[str, str]:
         api_key = self.api_key
+        if api_key is None:
+            return {}
         return {"api_key": api_key}
 
     @property
