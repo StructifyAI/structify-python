@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union, Iterable, Optional
+from typing import List, Union, Iterable, Optional
 from datetime import datetime
 
 import httpx
@@ -16,6 +16,7 @@ from ...types import (
     dataset_add_property_params,
     dataset_remove_property_params,
     dataset_update_property_params,
+    dataset_reorder_properties_params,
     dataset_view_relationships_params,
     dataset_view_tables_with_relationships_params,
 )
@@ -343,6 +344,46 @@ class DatasetsResource(SyncAPIResource):
                     "table_name": table_name,
                 },
                 dataset_remove_property_params.DatasetRemovePropertyParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NoneType,
+        )
+
+    def reorder_properties(
+        self,
+        *,
+        dataset_name: str,
+        property_names: List[str],
+        table_name: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> None:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return self._post(
+            "/dataset/reorder_properties",
+            body=maybe_transform(
+                {
+                    "dataset_name": dataset_name,
+                    "property_names": property_names,
+                    "table_name": table_name,
+                },
+                dataset_reorder_properties_params.DatasetReorderPropertiesParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -851,6 +892,46 @@ class AsyncDatasetsResource(AsyncAPIResource):
             cast_to=NoneType,
         )
 
+    async def reorder_properties(
+        self,
+        *,
+        dataset_name: str,
+        property_names: List[str],
+        table_name: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> None:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return await self._post(
+            "/dataset/reorder_properties",
+            body=await async_maybe_transform(
+                {
+                    "dataset_name": dataset_name,
+                    "property_names": property_names,
+                    "table_name": table_name,
+                },
+                dataset_reorder_properties_params.DatasetReorderPropertiesParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NoneType,
+        )
+
     async def update_property(
         self,
         *,
@@ -1083,6 +1164,9 @@ class DatasetsResourceWithRawResponse:
         self.remove_property = to_raw_response_wrapper(
             datasets.remove_property,
         )
+        self.reorder_properties = to_raw_response_wrapper(
+            datasets.reorder_properties,
+        )
         self.update_property = to_raw_response_wrapper(
             datasets.update_property,
         )
@@ -1125,6 +1209,9 @@ class AsyncDatasetsResourceWithRawResponse:
         )
         self.remove_property = async_to_raw_response_wrapper(
             datasets.remove_property,
+        )
+        self.reorder_properties = async_to_raw_response_wrapper(
+            datasets.reorder_properties,
         )
         self.update_property = async_to_raw_response_wrapper(
             datasets.update_property,
@@ -1169,6 +1256,9 @@ class DatasetsResourceWithStreamingResponse:
         self.remove_property = to_streamed_response_wrapper(
             datasets.remove_property,
         )
+        self.reorder_properties = to_streamed_response_wrapper(
+            datasets.reorder_properties,
+        )
         self.update_property = to_streamed_response_wrapper(
             datasets.update_property,
         )
@@ -1211,6 +1301,9 @@ class AsyncDatasetsResourceWithStreamingResponse:
         )
         self.remove_property = async_to_streamed_response_wrapper(
             datasets.remove_property,
+        )
+        self.reorder_properties = async_to_streamed_response_wrapper(
+            datasets.reorder_properties,
         )
         self.update_property = async_to_streamed_response_wrapper(
             datasets.update_property,
