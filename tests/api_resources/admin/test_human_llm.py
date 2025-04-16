@@ -64,7 +64,24 @@ class TestHumanLlm:
             step_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             tool_calls=[
                 {
-                    "input": {"save": {}},
+                    "input": {
+                        "save": {
+                            "entities": [
+                                {
+                                    "id": 0,
+                                    "properties": {"foo": "string"},
+                                    "type": "type",
+                                }
+                            ],
+                            "relationships": [
+                                {
+                                    "source": 0,
+                                    "target": 0,
+                                    "type": "type",
+                                }
+                            ],
+                        }
+                    },
                     "name": "Exit",
                 }
             ],
@@ -79,7 +96,24 @@ class TestHumanLlm:
             step_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             tool_calls=[
                 {
-                    "input": {"save": {}},
+                    "input": {
+                        "save": {
+                            "entities": [
+                                {
+                                    "id": 0,
+                                    "properties": {"foo": "string"},
+                                    "type": "type",
+                                }
+                            ],
+                            "relationships": [
+                                {
+                                    "source": 0,
+                                    "target": 0,
+                                    "type": "type",
+                                }
+                            ],
+                        }
+                    },
                     "name": "Exit",
                 }
             ],
@@ -98,7 +132,24 @@ class TestHumanLlm:
             step_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             tool_calls=[
                 {
-                    "input": {"save": {}},
+                    "input": {
+                        "save": {
+                            "entities": [
+                                {
+                                    "id": 0,
+                                    "properties": {"foo": "string"},
+                                    "type": "type",
+                                }
+                            ],
+                            "relationships": [
+                                {
+                                    "source": 0,
+                                    "target": 0,
+                                    "type": "type",
+                                }
+                            ],
+                        }
+                    },
                     "name": "Exit",
                 }
             ],
@@ -289,7 +340,24 @@ class TestHumanLlm:
             step_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             tool_calls=[
                 {
-                    "input": {"save": {}},
+                    "input": {
+                        "save": {
+                            "entities": [
+                                {
+                                    "id": 0,
+                                    "properties": {"foo": "string"},
+                                    "type": "type",
+                                }
+                            ],
+                            "relationships": [
+                                {
+                                    "source": 0,
+                                    "target": 0,
+                                    "type": "type",
+                                }
+                            ],
+                        }
+                    },
                     "name": "Exit",
                 }
             ],
@@ -304,7 +372,24 @@ class TestHumanLlm:
             step_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             tool_calls=[
                 {
-                    "input": {"save": {}},
+                    "input": {
+                        "save": {
+                            "entities": [
+                                {
+                                    "id": 0,
+                                    "properties": {"foo": "string"},
+                                    "type": "type",
+                                }
+                            ],
+                            "relationships": [
+                                {
+                                    "source": 0,
+                                    "target": 0,
+                                    "type": "type",
+                                }
+                            ],
+                        }
+                    },
                     "name": "Exit",
                 }
             ],
@@ -323,7 +408,24 @@ class TestHumanLlm:
             step_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             tool_calls=[
                 {
-                    "input": {"save": {}},
+                    "input": {
+                        "save": {
+                            "entities": [
+                                {
+                                    "id": 0,
+                                    "properties": {"foo": "string"},
+                                    "type": "type",
+                                }
+                            ],
+                            "relationships": [
+                                {
+                                    "source": 0,
+                                    "target": 0,
+                                    "type": "type",
+                                }
+                            ],
+                        }
+                    },
                     "name": "Exit",
                 }
             ],
@@ -382,7 +484,24 @@ class TestAsyncHumanLlm:
             step_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             tool_calls=[
                 {
-                    "input": {"save": {}},
+                    "input": {
+                        "save": {
+                            "entities": [
+                                {
+                                    "id": 0,
+                                    "properties": {"foo": "string"},
+                                    "type": "type",
+                                }
+                            ],
+                            "relationships": [
+                                {
+                                    "source": 0,
+                                    "target": 0,
+                                    "type": "type",
+                                }
+                            ],
+                        }
+                    },
                     "name": "Exit",
                 }
             ],
@@ -397,7 +516,24 @@ class TestAsyncHumanLlm:
             step_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             tool_calls=[
                 {
-                    "input": {"save": {}},
+                    "input": {
+                        "save": {
+                            "entities": [
+                                {
+                                    "id": 0,
+                                    "properties": {"foo": "string"},
+                                    "type": "type",
+                                }
+                            ],
+                            "relationships": [
+                                {
+                                    "source": 0,
+                                    "target": 0,
+                                    "type": "type",
+                                }
+                            ],
+                        }
+                    },
                     "name": "Exit",
                 }
             ],
@@ -416,7 +552,24 @@ class TestAsyncHumanLlm:
             step_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             tool_calls=[
                 {
-                    "input": {"save": {}},
+                    "input": {
+                        "save": {
+                            "entities": [
+                                {
+                                    "id": 0,
+                                    "properties": {"foo": "string"},
+                                    "type": "type",
+                                }
+                            ],
+                            "relationships": [
+                                {
+                                    "source": 0,
+                                    "target": 0,
+                                    "type": "type",
+                                }
+                            ],
+                        }
+                    },
                     "name": "Exit",
                 }
             ],
@@ -607,7 +760,24 @@ class TestAsyncHumanLlm:
             step_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             tool_calls=[
                 {
-                    "input": {"save": {}},
+                    "input": {
+                        "save": {
+                            "entities": [
+                                {
+                                    "id": 0,
+                                    "properties": {"foo": "string"},
+                                    "type": "type",
+                                }
+                            ],
+                            "relationships": [
+                                {
+                                    "source": 0,
+                                    "target": 0,
+                                    "type": "type",
+                                }
+                            ],
+                        }
+                    },
                     "name": "Exit",
                 }
             ],
@@ -622,7 +792,24 @@ class TestAsyncHumanLlm:
             step_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             tool_calls=[
                 {
-                    "input": {"save": {}},
+                    "input": {
+                        "save": {
+                            "entities": [
+                                {
+                                    "id": 0,
+                                    "properties": {"foo": "string"},
+                                    "type": "type",
+                                }
+                            ],
+                            "relationships": [
+                                {
+                                    "source": 0,
+                                    "target": 0,
+                                    "type": "type",
+                                }
+                            ],
+                        }
+                    },
                     "name": "Exit",
                 }
             ],
@@ -641,7 +828,24 @@ class TestAsyncHumanLlm:
             step_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             tool_calls=[
                 {
-                    "input": {"save": {}},
+                    "input": {
+                        "save": {
+                            "entities": [
+                                {
+                                    "id": 0,
+                                    "properties": {"foo": "string"},
+                                    "type": "type",
+                                }
+                            ],
+                            "relationships": [
+                                {
+                                    "source": 0,
+                                    "target": 0,
+                                    "type": "type",
+                                }
+                            ],
+                        }
+                    },
                     "name": "Exit",
                 }
             ],

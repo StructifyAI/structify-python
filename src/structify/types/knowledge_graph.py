@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Optional
+from typing import List
 
 from .entity import Entity
 from .._models import BaseModel
@@ -10,6 +10,6 @@ __all__ = ["KnowledgeGraph"]
 
 
 class KnowledgeGraph(BaseModel):
-    entities: Optional[List[Entity]] = None
+    entities: List[Entity]
 
-    relationships: Optional[List[Relationship]] = None
+    relationships: List[Relationship]
