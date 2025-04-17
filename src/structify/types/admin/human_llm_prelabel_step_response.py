@@ -180,3 +180,5 @@ class HumanLlmPrelabelStepResponse(BaseModel):
     tool_calls: List[ToolCall]
 
     reasoning: Optional[str] = None
+
+    thinking: Optional[str] = None

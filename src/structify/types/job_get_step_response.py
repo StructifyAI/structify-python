@@ -187,6 +187,8 @@ class Response(BaseModel):
 
     reasoning: Optional[str] = None
 
+    thinking: Optional[str] = None
+
 
 class JobGetStepResponse(BaseModel):
     prompt: ChatPrompt
