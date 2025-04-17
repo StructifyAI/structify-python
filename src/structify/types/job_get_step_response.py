@@ -185,6 +185,8 @@ class Response(BaseModel):
 
     tool_calls: List[ResponseToolCall]
 
+    reasoning: Optional[str] = None
+
 
 class JobGetStepResponse(BaseModel):
     prompt: ChatPrompt
