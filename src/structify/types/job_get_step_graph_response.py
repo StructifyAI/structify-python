@@ -191,6 +191,8 @@ class JobGetStepGraphResponseItemExecutionStepResponse(BaseModel):
 
     tool_calls: List[JobGetStepGraphResponseItemExecutionStepResponseToolCall]
 
+    reasoning: Optional[str] = None
+
 
 class JobGetStepGraphResponseItemExecutionStep(BaseModel):
     prompt: ChatPrompt
