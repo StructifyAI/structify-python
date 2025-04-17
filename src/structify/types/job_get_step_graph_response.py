@@ -193,6 +193,8 @@ class JobGetStepGraphResponseItemExecutionStepResponse(BaseModel):
 
     reasoning: Optional[str] = None
 
+    thinking: Optional[str] = None
+
 
 class JobGetStepGraphResponseItemExecutionStep(BaseModel):
     prompt: ChatPrompt

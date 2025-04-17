@@ -218,6 +218,8 @@ class StepResponse(BaseModel):
 
     reasoning: Optional[str] = None
 
+    thinking: Optional[str] = None
+
 
 class Step(BaseModel):
     prompt: ChatPrompt
@@ -370,6 +372,8 @@ class UpdateResponse(BaseModel):
     tool_calls: List[UpdateResponseToolCall]
 
     reasoning: Optional[str] = None
+
+    thinking: Optional[str] = None
 
 
 class Update(BaseModel):
