@@ -283,6 +283,7 @@ class TestDatasets:
     @parametrize
     def test_method_entity_ws(self, client: Structify) -> None:
         dataset = client.datasets.entity_ws(
+            api_key="api_key",
             name="name",
         )
         assert dataset is None
@@ -290,6 +291,7 @@ class TestDatasets:
     @parametrize
     def test_raw_response_entity_ws(self, client: Structify) -> None:
         response = client.datasets.with_raw_response.entity_ws(
+            api_key="api_key",
             name="name",
         )
 
@@ -301,6 +303,7 @@ class TestDatasets:
     @parametrize
     def test_streaming_response_entity_ws(self, client: Structify) -> None:
         with client.datasets.with_streaming_response.entity_ws(
+            api_key="api_key",
             name="name",
         ) as response:
             assert not response.is_closed
@@ -980,6 +983,7 @@ class TestAsyncDatasets:
     @parametrize
     async def test_method_entity_ws(self, async_client: AsyncStructify) -> None:
         dataset = await async_client.datasets.entity_ws(
+            api_key="api_key",
             name="name",
         )
         assert dataset is None
@@ -987,6 +991,7 @@ class TestAsyncDatasets:
     @parametrize
     async def test_raw_response_entity_ws(self, async_client: AsyncStructify) -> None:
         response = await async_client.datasets.with_raw_response.entity_ws(
+            api_key="api_key",
             name="name",
         )
 
@@ -998,6 +1003,7 @@ class TestAsyncDatasets:
     @parametrize
     async def test_streaming_response_entity_ws(self, async_client: AsyncStructify) -> None:
         async with async_client.datasets.with_streaming_response.entity_ws(
+            api_key="api_key",
             name="name",
         ) as response:
             assert not response.is_closed
