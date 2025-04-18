@@ -8,5 +8,8 @@ __all__ = ["DatasetEntityWsParams"]
 
 
 class DatasetEntityWsParams(TypedDict, total=False):
+    api_key: Required[str]
+    """API key for authentication"""
+
     name: Required[str]
     """The name of the dataset to monitor"""

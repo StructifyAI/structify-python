@@ -229,6 +229,7 @@ class DatasetsResource(SyncAPIResource):
     def entity_ws(
         self,
         *,
+        api_key: str,
         name: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -239,6 +240,8 @@ class DatasetsResource(SyncAPIResource):
     ) -> None:
         """
         Args:
+          api_key: API key for authentication
+
           name: The name of the dataset to monitor
 
           extra_headers: Send extra headers
@@ -257,7 +260,13 @@ class DatasetsResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform({"name": name}, dataset_entity_ws_params.DatasetEntityWsParams),
+                query=maybe_transform(
+                    {
+                        "api_key": api_key,
+                        "name": name,
+                    },
+                    dataset_entity_ws_params.DatasetEntityWsParams,
+                ),
             ),
             cast_to=NoneType,
         )
@@ -806,6 +815,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
     async def entity_ws(
         self,
         *,
+        api_key: str,
         name: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -816,6 +826,8 @@ class AsyncDatasetsResource(AsyncAPIResource):
     ) -> None:
         """
         Args:
+          api_key: API key for authentication
+
           name: The name of the dataset to monitor
 
           extra_headers: Send extra headers
@@ -834,7 +846,13 @@ class AsyncDatasetsResource(AsyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform({"name": name}, dataset_entity_ws_params.DatasetEntityWsParams),
+                query=await async_maybe_transform(
+                    {
+                        "api_key": api_key,
+                        "name": name,
+                    },
+                    dataset_entity_ws_params.DatasetEntityWsParams,
+                ),
             ),
             cast_to=NoneType,
         )
