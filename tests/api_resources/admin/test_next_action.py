@@ -28,7 +28,22 @@ class TestNextAction:
                 "all_steps": [{"id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
                 "extraction_criteria": [{"relationship_name": "relationship_name"}],
                 "previous_queries": ["string"],
-                "seeded_kg": {},
+                "seeded_kg": {
+                    "entities": [
+                        {
+                            "id": 0,
+                            "properties": {"foo": "string"},
+                            "type": "type",
+                        }
+                    ],
+                    "relationships": [
+                        {
+                            "source": 0,
+                            "target": 0,
+                            "type": "type",
+                        }
+                    ],
+                },
             },
             label="label",
             output={"selected_step": {"step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}},
@@ -79,7 +94,22 @@ class TestNextAction:
                 "all_steps": [{"id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
                 "extraction_criteria": [{"relationship_name": "relationship_name"}],
                 "previous_queries": ["string"],
-                "seeded_kg": {},
+                "seeded_kg": {
+                    "entities": [
+                        {
+                            "id": 0,
+                            "properties": {"foo": "string"},
+                            "type": "type",
+                        }
+                    ],
+                    "relationships": [
+                        {
+                            "source": 0,
+                            "target": 0,
+                            "type": "type",
+                        }
+                    ],
+                },
             },
             label="label",
             output={"selected_step": {"step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}},
@@ -97,7 +127,22 @@ class TestNextAction:
                 "all_steps": [{"id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
                 "extraction_criteria": [{"relationship_name": "relationship_name"}],
                 "previous_queries": ["string"],
-                "seeded_kg": {},
+                "seeded_kg": {
+                    "entities": [
+                        {
+                            "id": 0,
+                            "properties": {"foo": "string"},
+                            "type": "type",
+                        }
+                    ],
+                    "relationships": [
+                        {
+                            "source": 0,
+                            "target": 0,
+                            "type": "type",
+                        }
+                    ],
+                },
             },
             label="label",
             output={"selected_step": {"step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}},
@@ -226,7 +271,22 @@ class TestAsyncNextAction:
                 "all_steps": [{"id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
                 "extraction_criteria": [{"relationship_name": "relationship_name"}],
                 "previous_queries": ["string"],
-                "seeded_kg": {},
+                "seeded_kg": {
+                    "entities": [
+                        {
+                            "id": 0,
+                            "properties": {"foo": "string"},
+                            "type": "type",
+                        }
+                    ],
+                    "relationships": [
+                        {
+                            "source": 0,
+                            "target": 0,
+                            "type": "type",
+                        }
+                    ],
+                },
             },
             label="label",
             output={"selected_step": {"step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}},
@@ -277,7 +337,22 @@ class TestAsyncNextAction:
                 "all_steps": [{"id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
                 "extraction_criteria": [{"relationship_name": "relationship_name"}],
                 "previous_queries": ["string"],
-                "seeded_kg": {},
+                "seeded_kg": {
+                    "entities": [
+                        {
+                            "id": 0,
+                            "properties": {"foo": "string"},
+                            "type": "type",
+                        }
+                    ],
+                    "relationships": [
+                        {
+                            "source": 0,
+                            "target": 0,
+                            "type": "type",
+                        }
+                    ],
+                },
             },
             label="label",
             output={"selected_step": {"step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}},
@@ -295,7 +370,22 @@ class TestAsyncNextAction:
                 "all_steps": [{"id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
                 "extraction_criteria": [{"relationship_name": "relationship_name"}],
                 "previous_queries": ["string"],
-                "seeded_kg": {},
+                "seeded_kg": {
+                    "entities": [
+                        {
+                            "id": 0,
+                            "properties": {"foo": "string"},
+                            "type": "type",
+                        }
+                    ],
+                    "relationships": [
+                        {
+                            "source": 0,
+                            "target": 0,
+                            "type": "type",
+                        }
+                    ],
+                },
             },
             label="label",
             output={"selected_step": {"step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}},

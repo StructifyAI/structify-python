@@ -72,7 +72,22 @@ class TestEntities:
     def test_method_add(self, client: Structify) -> None:
         entity = client.entities.add(
             dataset="dataset",
-            entity_graph={},
+            entity_graph={
+                "entities": [
+                    {
+                        "id": 0,
+                        "properties": {"foo": "string"},
+                        "type": "type",
+                    }
+                ],
+                "relationships": [
+                    {
+                        "source": 0,
+                        "target": 0,
+                        "type": "type",
+                    }
+                ],
+            },
         )
         assert_matches_type(EntityAddResponse, entity, path=["response"])
 
@@ -106,7 +121,22 @@ class TestEntities:
     def test_raw_response_add(self, client: Structify) -> None:
         response = client.entities.with_raw_response.add(
             dataset="dataset",
-            entity_graph={},
+            entity_graph={
+                "entities": [
+                    {
+                        "id": 0,
+                        "properties": {"foo": "string"},
+                        "type": "type",
+                    }
+                ],
+                "relationships": [
+                    {
+                        "source": 0,
+                        "target": 0,
+                        "type": "type",
+                    }
+                ],
+            },
         )
 
         assert response.is_closed is True
@@ -118,7 +148,22 @@ class TestEntities:
     def test_streaming_response_add(self, client: Structify) -> None:
         with client.entities.with_streaming_response.add(
             dataset="dataset",
-            entity_graph={},
+            entity_graph={
+                "entities": [
+                    {
+                        "id": 0,
+                        "properties": {"foo": "string"},
+                        "type": "type",
+                    }
+                ],
+                "relationships": [
+                    {
+                        "source": 0,
+                        "target": 0,
+                        "type": "type",
+                    }
+                ],
+            },
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -132,7 +177,24 @@ class TestEntities:
     def test_method_add_batch(self, client: Structify) -> None:
         entity = client.entities.add_batch(
             dataset="dataset",
-            entity_graphs=[{}],
+            entity_graphs=[
+                {
+                    "entities": [
+                        {
+                            "id": 0,
+                            "properties": {"foo": "string"},
+                            "type": "type",
+                        }
+                    ],
+                    "relationships": [
+                        {
+                            "source": 0,
+                            "target": 0,
+                            "type": "type",
+                        }
+                    ],
+                }
+            ],
         )
         assert_matches_type(EntityAddBatchResponse, entity, path=["response"])
 
@@ -168,7 +230,24 @@ class TestEntities:
     def test_raw_response_add_batch(self, client: Structify) -> None:
         response = client.entities.with_raw_response.add_batch(
             dataset="dataset",
-            entity_graphs=[{}],
+            entity_graphs=[
+                {
+                    "entities": [
+                        {
+                            "id": 0,
+                            "properties": {"foo": "string"},
+                            "type": "type",
+                        }
+                    ],
+                    "relationships": [
+                        {
+                            "source": 0,
+                            "target": 0,
+                            "type": "type",
+                        }
+                    ],
+                }
+            ],
         )
 
         assert response.is_closed is True
@@ -180,7 +259,24 @@ class TestEntities:
     def test_streaming_response_add_batch(self, client: Structify) -> None:
         with client.entities.with_streaming_response.add_batch(
             dataset="dataset",
-            entity_graphs=[{}],
+            entity_graphs=[
+                {
+                    "entities": [
+                        {
+                            "id": 0,
+                            "properties": {"foo": "string"},
+                            "type": "type",
+                        }
+                    ],
+                    "relationships": [
+                        {
+                            "source": 0,
+                            "target": 0,
+                            "type": "type",
+                        }
+                    ],
+                }
+            ],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -238,6 +334,40 @@ class TestEntities:
 
             entity = response.parse()
             assert_matches_type(EntityAddRelationshipResponse, entity, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_method_delete_relationship(self, client: Structify) -> None:
+        entity = client.entities.delete_relationship(
+            dataset="dataset",
+            relationship_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(object, entity, path=["response"])
+
+    @parametrize
+    def test_raw_response_delete_relationship(self, client: Structify) -> None:
+        response = client.entities.with_raw_response.delete_relationship(
+            dataset="dataset",
+            relationship_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        entity = response.parse()
+        assert_matches_type(object, entity, path=["response"])
+
+    @parametrize
+    def test_streaming_response_delete_relationship(self, client: Structify) -> None:
+        with client.entities.with_streaming_response.delete_relationship(
+            dataset="dataset",
+            relationship_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            entity = response.parse()
+            assert_matches_type(object, entity, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -628,7 +758,22 @@ class TestEntities:
     def test_method_verify(self, client: Structify) -> None:
         entity = client.entities.verify(
             dataset="dataset",
-            entity_graph={},
+            entity_graph={
+                "entities": [
+                    {
+                        "id": 0,
+                        "properties": {"foo": "string"},
+                        "type": "type",
+                    }
+                ],
+                "relationships": [
+                    {
+                        "source": 0,
+                        "target": 0,
+                        "type": "type",
+                    }
+                ],
+            },
         )
         assert_matches_type(KnowledgeGraph, entity, path=["response"])
 
@@ -661,7 +806,22 @@ class TestEntities:
     def test_raw_response_verify(self, client: Structify) -> None:
         response = client.entities.with_raw_response.verify(
             dataset="dataset",
-            entity_graph={},
+            entity_graph={
+                "entities": [
+                    {
+                        "id": 0,
+                        "properties": {"foo": "string"},
+                        "type": "type",
+                    }
+                ],
+                "relationships": [
+                    {
+                        "source": 0,
+                        "target": 0,
+                        "type": "type",
+                    }
+                ],
+            },
         )
 
         assert response.is_closed is True
@@ -673,7 +833,22 @@ class TestEntities:
     def test_streaming_response_verify(self, client: Structify) -> None:
         with client.entities.with_streaming_response.verify(
             dataset="dataset",
-            entity_graph={},
+            entity_graph={
+                "entities": [
+                    {
+                        "id": 0,
+                        "properties": {"foo": "string"},
+                        "type": "type",
+                    }
+                ],
+                "relationships": [
+                    {
+                        "source": 0,
+                        "target": 0,
+                        "type": "type",
+                    }
+                ],
+            },
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -764,7 +939,22 @@ class TestAsyncEntities:
     async def test_method_add(self, async_client: AsyncStructify) -> None:
         entity = await async_client.entities.add(
             dataset="dataset",
-            entity_graph={},
+            entity_graph={
+                "entities": [
+                    {
+                        "id": 0,
+                        "properties": {"foo": "string"},
+                        "type": "type",
+                    }
+                ],
+                "relationships": [
+                    {
+                        "source": 0,
+                        "target": 0,
+                        "type": "type",
+                    }
+                ],
+            },
         )
         assert_matches_type(EntityAddResponse, entity, path=["response"])
 
@@ -798,7 +988,22 @@ class TestAsyncEntities:
     async def test_raw_response_add(self, async_client: AsyncStructify) -> None:
         response = await async_client.entities.with_raw_response.add(
             dataset="dataset",
-            entity_graph={},
+            entity_graph={
+                "entities": [
+                    {
+                        "id": 0,
+                        "properties": {"foo": "string"},
+                        "type": "type",
+                    }
+                ],
+                "relationships": [
+                    {
+                        "source": 0,
+                        "target": 0,
+                        "type": "type",
+                    }
+                ],
+            },
         )
 
         assert response.is_closed is True
@@ -810,7 +1015,22 @@ class TestAsyncEntities:
     async def test_streaming_response_add(self, async_client: AsyncStructify) -> None:
         async with async_client.entities.with_streaming_response.add(
             dataset="dataset",
-            entity_graph={},
+            entity_graph={
+                "entities": [
+                    {
+                        "id": 0,
+                        "properties": {"foo": "string"},
+                        "type": "type",
+                    }
+                ],
+                "relationships": [
+                    {
+                        "source": 0,
+                        "target": 0,
+                        "type": "type",
+                    }
+                ],
+            },
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -824,7 +1044,24 @@ class TestAsyncEntities:
     async def test_method_add_batch(self, async_client: AsyncStructify) -> None:
         entity = await async_client.entities.add_batch(
             dataset="dataset",
-            entity_graphs=[{}],
+            entity_graphs=[
+                {
+                    "entities": [
+                        {
+                            "id": 0,
+                            "properties": {"foo": "string"},
+                            "type": "type",
+                        }
+                    ],
+                    "relationships": [
+                        {
+                            "source": 0,
+                            "target": 0,
+                            "type": "type",
+                        }
+                    ],
+                }
+            ],
         )
         assert_matches_type(EntityAddBatchResponse, entity, path=["response"])
 
@@ -860,7 +1097,24 @@ class TestAsyncEntities:
     async def test_raw_response_add_batch(self, async_client: AsyncStructify) -> None:
         response = await async_client.entities.with_raw_response.add_batch(
             dataset="dataset",
-            entity_graphs=[{}],
+            entity_graphs=[
+                {
+                    "entities": [
+                        {
+                            "id": 0,
+                            "properties": {"foo": "string"},
+                            "type": "type",
+                        }
+                    ],
+                    "relationships": [
+                        {
+                            "source": 0,
+                            "target": 0,
+                            "type": "type",
+                        }
+                    ],
+                }
+            ],
         )
 
         assert response.is_closed is True
@@ -872,7 +1126,24 @@ class TestAsyncEntities:
     async def test_streaming_response_add_batch(self, async_client: AsyncStructify) -> None:
         async with async_client.entities.with_streaming_response.add_batch(
             dataset="dataset",
-            entity_graphs=[{}],
+            entity_graphs=[
+                {
+                    "entities": [
+                        {
+                            "id": 0,
+                            "properties": {"foo": "string"},
+                            "type": "type",
+                        }
+                    ],
+                    "relationships": [
+                        {
+                            "source": 0,
+                            "target": 0,
+                            "type": "type",
+                        }
+                    ],
+                }
+            ],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -930,6 +1201,40 @@ class TestAsyncEntities:
 
             entity = await response.parse()
             assert_matches_type(EntityAddRelationshipResponse, entity, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_method_delete_relationship(self, async_client: AsyncStructify) -> None:
+        entity = await async_client.entities.delete_relationship(
+            dataset="dataset",
+            relationship_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(object, entity, path=["response"])
+
+    @parametrize
+    async def test_raw_response_delete_relationship(self, async_client: AsyncStructify) -> None:
+        response = await async_client.entities.with_raw_response.delete_relationship(
+            dataset="dataset",
+            relationship_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        entity = await response.parse()
+        assert_matches_type(object, entity, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_delete_relationship(self, async_client: AsyncStructify) -> None:
+        async with async_client.entities.with_streaming_response.delete_relationship(
+            dataset="dataset",
+            relationship_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            entity = await response.parse()
+            assert_matches_type(object, entity, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -1320,7 +1625,22 @@ class TestAsyncEntities:
     async def test_method_verify(self, async_client: AsyncStructify) -> None:
         entity = await async_client.entities.verify(
             dataset="dataset",
-            entity_graph={},
+            entity_graph={
+                "entities": [
+                    {
+                        "id": 0,
+                        "properties": {"foo": "string"},
+                        "type": "type",
+                    }
+                ],
+                "relationships": [
+                    {
+                        "source": 0,
+                        "target": 0,
+                        "type": "type",
+                    }
+                ],
+            },
         )
         assert_matches_type(KnowledgeGraph, entity, path=["response"])
 
@@ -1353,7 +1673,22 @@ class TestAsyncEntities:
     async def test_raw_response_verify(self, async_client: AsyncStructify) -> None:
         response = await async_client.entities.with_raw_response.verify(
             dataset="dataset",
-            entity_graph={},
+            entity_graph={
+                "entities": [
+                    {
+                        "id": 0,
+                        "properties": {"foo": "string"},
+                        "type": "type",
+                    }
+                ],
+                "relationships": [
+                    {
+                        "source": 0,
+                        "target": 0,
+                        "type": "type",
+                    }
+                ],
+            },
         )
 
         assert response.is_closed is True
@@ -1365,7 +1700,22 @@ class TestAsyncEntities:
     async def test_streaming_response_verify(self, async_client: AsyncStructify) -> None:
         async with async_client.entities.with_streaming_response.verify(
             dataset="dataset",
-            entity_graph={},
+            entity_graph={
+                "entities": [
+                    {
+                        "id": 0,
+                        "properties": {"foo": "string"},
+                        "type": "type",
+                    }
+                ],
+                "relationships": [
+                    {
+                        "source": 0,
+                        "target": 0,
+                        "type": "type",
+                    }
+                ],
+            },
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

@@ -9,11 +9,12 @@ import httpx
 
 from ..types import (
     structure_run_async_params,
+    structure_job_status_ws_params,
     structure_enhance_property_params,
     structure_find_relationship_params,
     structure_enhance_relationship_params,
 )
-from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from .._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
 from .._utils import (
     maybe_transform,
     async_maybe_transform,
@@ -265,6 +266,44 @@ class StructureResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=StructureJobStatusResponse,
+        )
+
+    def job_status_ws(
+        self,
+        *,
+        job_ids: List[str],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> None:
+        """
+        WebSocket endpoint for job status updates
+
+        Args:
+          job_ids: List of job IDs to monitor
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return self._get(
+            "/structure/job_status_ws",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"job_ids": job_ids}, structure_job_status_ws_params.StructureJobStatusWsParams),
+            ),
+            cast_to=NoneType,
         )
 
     def run_async(
@@ -553,6 +592,46 @@ class AsyncStructureResource(AsyncAPIResource):
             cast_to=StructureJobStatusResponse,
         )
 
+    async def job_status_ws(
+        self,
+        *,
+        job_ids: List[str],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> None:
+        """
+        WebSocket endpoint for job status updates
+
+        Args:
+          job_ids: List of job IDs to monitor
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return await self._get(
+            "/structure/job_status_ws",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"job_ids": job_ids}, structure_job_status_ws_params.StructureJobStatusWsParams
+                ),
+            ),
+            cast_to=NoneType,
+        )
+
     async def run_async(
         self,
         *,
@@ -625,6 +704,9 @@ class StructureResourceWithRawResponse:
         self.job_status = to_raw_response_wrapper(
             structure.job_status,
         )
+        self.job_status_ws = to_raw_response_wrapper(
+            structure.job_status_ws,
+        )
         self.run_async = to_raw_response_wrapper(
             structure.run_async,
         )
@@ -648,6 +730,9 @@ class AsyncStructureResourceWithRawResponse:
         )
         self.job_status = async_to_raw_response_wrapper(
             structure.job_status,
+        )
+        self.job_status_ws = async_to_raw_response_wrapper(
+            structure.job_status_ws,
         )
         self.run_async = async_to_raw_response_wrapper(
             structure.run_async,
@@ -673,6 +758,9 @@ class StructureResourceWithStreamingResponse:
         self.job_status = to_streamed_response_wrapper(
             structure.job_status,
         )
+        self.job_status_ws = to_streamed_response_wrapper(
+            structure.job_status_ws,
+        )
         self.run_async = to_streamed_response_wrapper(
             structure.run_async,
         )
@@ -696,6 +784,9 @@ class AsyncStructureResourceWithStreamingResponse:
         )
         self.job_status = async_to_streamed_response_wrapper(
             structure.job_status,
+        )
+        self.job_status_ws = async_to_streamed_response_wrapper(
+            structure.job_status_ws,
         )
         self.run_async = async_to_streamed_response_wrapper(
             structure.run_async,

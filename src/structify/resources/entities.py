@@ -23,6 +23,7 @@ from ..types import (
     entity_update_property_params,
     entity_add_relationship_params,
     entity_get_local_subgraph_params,
+    entity_delete_relationship_params,
     entity_get_source_entities_params,
 )
 from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
@@ -258,6 +259,45 @@ class EntitiesResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=EntityAddRelationshipResponse,
+        )
+
+    def delete_relationship(
+        self,
+        *,
+        dataset: str,
+        relationship_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> object:
+        """
+        delete a relationship between two entities in a dataset
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/entity/delete_relationship",
+            body=maybe_transform(
+                {
+                    "dataset": dataset,
+                    "relationship_id": relationship_id,
+                },
+                entity_delete_relationship_params.EntityDeleteRelationshipParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=object,
         )
 
     def get(
@@ -938,6 +978,45 @@ class AsyncEntitiesResource(AsyncAPIResource):
             cast_to=EntityAddRelationshipResponse,
         )
 
+    async def delete_relationship(
+        self,
+        *,
+        dataset: str,
+        relationship_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> object:
+        """
+        delete a relationship between two entities in a dataset
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/entity/delete_relationship",
+            body=await async_maybe_transform(
+                {
+                    "dataset": dataset,
+                    "relationship_id": relationship_id,
+                },
+                entity_delete_relationship_params.EntityDeleteRelationshipParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=object,
+        )
+
     async def get(
         self,
         *,
@@ -1438,6 +1517,9 @@ class EntitiesResourceWithRawResponse:
         self.add_relationship = to_raw_response_wrapper(
             entities.add_relationship,
         )
+        self.delete_relationship = to_raw_response_wrapper(
+            entities.delete_relationship,
+        )
         self.get = to_raw_response_wrapper(
             entities.get,
         )
@@ -1491,6 +1573,9 @@ class AsyncEntitiesResourceWithRawResponse:
         )
         self.add_relationship = async_to_raw_response_wrapper(
             entities.add_relationship,
+        )
+        self.delete_relationship = async_to_raw_response_wrapper(
+            entities.delete_relationship,
         )
         self.get = async_to_raw_response_wrapper(
             entities.get,
@@ -1546,6 +1631,9 @@ class EntitiesResourceWithStreamingResponse:
         self.add_relationship = to_streamed_response_wrapper(
             entities.add_relationship,
         )
+        self.delete_relationship = to_streamed_response_wrapper(
+            entities.delete_relationship,
+        )
         self.get = to_streamed_response_wrapper(
             entities.get,
         )
@@ -1599,6 +1687,9 @@ class AsyncEntitiesResourceWithStreamingResponse:
         )
         self.add_relationship = async_to_streamed_response_wrapper(
             entities.add_relationship,
+        )
+        self.delete_relationship = async_to_streamed_response_wrapper(
+            entities.delete_relationship,
         )
         self.get = async_to_streamed_response_wrapper(
             entities.get,

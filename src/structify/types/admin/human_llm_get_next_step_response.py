@@ -185,6 +185,10 @@ class Response(BaseModel):
 
     tool_calls: List[ResponseToolCall]
 
+    reasoning: Optional[str] = None
+
+    thinking: Optional[str] = None
+
 
 class HumanLlmGetNextStepResponse(BaseModel):
     prompt: ChatPrompt
