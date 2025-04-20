@@ -281,40 +281,6 @@ class TestDatasets:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_method_entity_ws(self, client: Structify) -> None:
-        dataset = client.datasets.entity_ws(
-            api_key="api_key",
-            name="name",
-        )
-        assert dataset is None
-
-    @parametrize
-    def test_raw_response_entity_ws(self, client: Structify) -> None:
-        response = client.datasets.with_raw_response.entity_ws(
-            api_key="api_key",
-            name="name",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        dataset = response.parse()
-        assert dataset is None
-
-    @parametrize
-    def test_streaming_response_entity_ws(self, client: Structify) -> None:
-        with client.datasets.with_streaming_response.entity_ws(
-            api_key="api_key",
-            name="name",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            dataset = response.parse()
-            assert dataset is None
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
     def test_method_get(self, client: Structify) -> None:
         dataset = client.datasets.get(
             name="name",
@@ -971,40 +937,6 @@ class TestAsyncDatasets:
                 "name": "name",
             },
             table_name="table_name",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            dataset = await response.parse()
-            assert dataset is None
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    async def test_method_entity_ws(self, async_client: AsyncStructify) -> None:
-        dataset = await async_client.datasets.entity_ws(
-            api_key="api_key",
-            name="name",
-        )
-        assert dataset is None
-
-    @parametrize
-    async def test_raw_response_entity_ws(self, async_client: AsyncStructify) -> None:
-        response = await async_client.datasets.with_raw_response.entity_ws(
-            api_key="api_key",
-            name="name",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        dataset = await response.parse()
-        assert dataset is None
-
-    @parametrize
-    async def test_streaming_response_entity_ws(self, async_client: AsyncStructify) -> None:
-        async with async_client.datasets.with_streaming_response.entity_ws(
-            api_key="api_key",
-            name="name",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
