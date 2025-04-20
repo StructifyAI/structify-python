@@ -12,7 +12,6 @@ from ...types import (
     dataset_match_params,
     dataset_create_params,
     dataset_delete_params,
-    dataset_entity_ws_params,
     dataset_view_table_params,
     dataset_add_property_params,
     dataset_remove_property_params,
@@ -222,51 +221,6 @@ class DatasetsResource(SyncAPIResource):
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=NoneType,
-        )
-
-    def entity_ws(
-        self,
-        *,
-        api_key: str,
-        name: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> None:
-        """
-        Args:
-          api_key: API key for authentication
-
-          name: The name of the dataset to monitor
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
-        return self._get(
-            "/dataset/entity_ws",
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "api_key": api_key,
-                        "name": name,
-                    },
-                    dataset_entity_ws_params.DatasetEntityWsParams,
-                ),
             ),
             cast_to=NoneType,
         )
@@ -812,51 +766,6 @@ class AsyncDatasetsResource(AsyncAPIResource):
             cast_to=NoneType,
         )
 
-    async def entity_ws(
-        self,
-        *,
-        api_key: str,
-        name: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> None:
-        """
-        Args:
-          api_key: API key for authentication
-
-          name: The name of the dataset to monitor
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
-        return await self._get(
-            "/dataset/entity_ws",
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform(
-                    {
-                        "api_key": api_key,
-                        "name": name,
-                    },
-                    dataset_entity_ws_params.DatasetEntityWsParams,
-                ),
-            ),
-            cast_to=NoneType,
-        )
-
     async def get(
         self,
         *,
@@ -1246,9 +1155,6 @@ class DatasetsResourceWithRawResponse:
         self.add_property = to_raw_response_wrapper(
             datasets.add_property,
         )
-        self.entity_ws = to_raw_response_wrapper(
-            datasets.entity_ws,
-        )
         self.get = to_raw_response_wrapper(
             datasets.get,
         )
@@ -1294,9 +1200,6 @@ class AsyncDatasetsResourceWithRawResponse:
         )
         self.add_property = async_to_raw_response_wrapper(
             datasets.add_property,
-        )
-        self.entity_ws = async_to_raw_response_wrapper(
-            datasets.entity_ws,
         )
         self.get = async_to_raw_response_wrapper(
             datasets.get,
@@ -1344,9 +1247,6 @@ class DatasetsResourceWithStreamingResponse:
         self.add_property = to_streamed_response_wrapper(
             datasets.add_property,
         )
-        self.entity_ws = to_streamed_response_wrapper(
-            datasets.entity_ws,
-        )
         self.get = to_streamed_response_wrapper(
             datasets.get,
         )
@@ -1392,9 +1292,6 @@ class AsyncDatasetsResourceWithStreamingResponse:
         )
         self.add_property = async_to_streamed_response_wrapper(
             datasets.add_property,
-        )
-        self.entity_ws = async_to_streamed_response_wrapper(
-            datasets.entity_ws,
         )
         self.get = async_to_streamed_response_wrapper(
             datasets.get,
