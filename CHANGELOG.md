@@ -1,5 +1,39 @@
 # Changelog
 
+## 1.111.0-alpha.11 (2025-04-21)
+
+Full Changelog: [v1.111.0-alpha.10...v1.111.0-alpha.11](https://github.com/StructifyAI/structify-python/compare/v1.111.0-alpha.10...v1.111.0-alpha.11)
+
+### Features
+
+* **api:** api update ([1861679](https://github.com/StructifyAI/structify-python/commit/1861679f1144c83640ca81953935d4325b280306))
+* **api:** api update ([b5ed2fd](https://github.com/StructifyAI/structify-python/commit/b5ed2fd92bb73b28701f91fe998e29330f218f18))
+* **api:** api update ([4a815bc](https://github.com/StructifyAI/structify-python/commit/4a815bceeb776184fb2e83355238cc0251a5adc8))
+* **api:** api update ([cf04a14](https://github.com/StructifyAI/structify-python/commit/cf04a1479d61a97691112ee9c3387a38e7300a0a))
+* **api:** api update ([e9c8f10](https://github.com/StructifyAI/structify-python/commit/e9c8f104935757c1bc0ea24f953646921b4fde1c))
+* **api:** api update ([a661a5c](https://github.com/StructifyAI/structify-python/commit/a661a5c74b6047343cd24305a3e6eb59322fd12c))
+* **api:** api update ([6cc098e](https://github.com/StructifyAI/structify-python/commit/6cc098e0141a245a5ad79a4986e07c50b5d65df9))
+* **api:** api update ([991e422](https://github.com/StructifyAI/structify-python/commit/991e422792569c399d4d80a664ad8e07e3d4e39c))
+* **api:** api update ([10f8629](https://github.com/StructifyAI/structify-python/commit/10f8629698a567db6f3036c0e1f79b2d55c2aedb))
+* **api:** api update ([6abe945](https://github.com/StructifyAI/structify-python/commit/6abe945938d66880126c7638b429fd69fef1bcd3))
+* **api:** api update ([67c4e0c](https://github.com/StructifyAI/structify-python/commit/67c4e0c012828628aa39722f19a3eeef9ee2c698))
+* **api:** api update ([847dda4](https://github.com/StructifyAI/structify-python/commit/847dda439314a6d7e85803eb7fc7bc1d81cde4df))
+
+
+### Bug Fixes
+
+* **perf:** optimize some hot paths ([4772a50](https://github.com/StructifyAI/structify-python/commit/4772a504c38388dcfc35fc9a12341a5db3352ac2))
+* **perf:** skip traversing types for NotGiven values ([75e40d7](https://github.com/StructifyAI/structify-python/commit/75e40d73f0c7dc450af25e31ce746a9d41c1d3e4))
+
+
+### Chores
+
+* **client:** minor internal fixes ([c7b9ce9](https://github.com/StructifyAI/structify-python/commit/c7b9ce9061614f0ffbe85b4d2c0ba54164bf765d))
+* **internal:** base client updates ([68bcd91](https://github.com/StructifyAI/structify-python/commit/68bcd91215fbc03c8b1d0b9ace4573be551cfe19))
+* **internal:** bump pyright version ([50f2a55](https://github.com/StructifyAI/structify-python/commit/50f2a554bc64153a14935925f664d47fd86a0129))
+* **internal:** update models test ([29843ae](https://github.com/StructifyAI/structify-python/commit/29843aec1c644053f631cecfcaed3a7e7719a74a))
+* **internal:** update pyright settings ([90b8b6d](https://github.com/StructifyAI/structify-python/commit/90b8b6dd5b9b0291c91be32fa57d3ef53cc3690a))
+
 ## 1.111.0-alpha.10 (2025-04-11)
 
 Full Changelog: [v1.111.0-alpha.9...v1.111.0-alpha.10](https://github.com/StructifyAI/structify-python/compare/v1.111.0-alpha.9...v1.111.0-alpha.10)
