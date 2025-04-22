@@ -92,6 +92,7 @@ class TestDatasets:
                         }
                     ],
                     "expected_cardinality": 0,
+                    "primary_column": "primary_column",
                 }
             ],
             llm_override_field="llm_override_field",
@@ -490,6 +491,43 @@ class TestDatasets:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
+    def test_method_set_primary_column(self, client: Structify) -> None:
+        dataset = client.datasets.set_primary_column(
+            dataset_name="dataset_name",
+            property_name="property_name",
+            table_name="table_name",
+        )
+        assert dataset is None
+
+    @parametrize
+    def test_raw_response_set_primary_column(self, client: Structify) -> None:
+        response = client.datasets.with_raw_response.set_primary_column(
+            dataset_name="dataset_name",
+            property_name="property_name",
+            table_name="table_name",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        dataset = response.parse()
+        assert dataset is None
+
+    @parametrize
+    def test_streaming_response_set_primary_column(self, client: Structify) -> None:
+        with client.datasets.with_streaming_response.set_primary_column(
+            dataset_name="dataset_name",
+            property_name="property_name",
+            table_name="table_name",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            dataset = response.parse()
+            assert dataset is None
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
     def test_method_update_property(self, client: Structify) -> None:
         dataset = client.datasets.update_property(
             dataset_name="dataset_name",
@@ -758,6 +796,7 @@ class TestAsyncDatasets:
                         }
                     ],
                     "expected_cardinality": 0,
+                    "primary_column": "primary_column",
                 }
             ],
             llm_override_field="llm_override_field",
@@ -1145,6 +1184,43 @@ class TestAsyncDatasets:
         async with async_client.datasets.with_streaming_response.reorder_properties(
             dataset_name="dataset_name",
             property_names=["string"],
+            table_name="table_name",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            dataset = await response.parse()
+            assert dataset is None
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_method_set_primary_column(self, async_client: AsyncStructify) -> None:
+        dataset = await async_client.datasets.set_primary_column(
+            dataset_name="dataset_name",
+            property_name="property_name",
+            table_name="table_name",
+        )
+        assert dataset is None
+
+    @parametrize
+    async def test_raw_response_set_primary_column(self, async_client: AsyncStructify) -> None:
+        response = await async_client.datasets.with_raw_response.set_primary_column(
+            dataset_name="dataset_name",
+            property_name="property_name",
+            table_name="table_name",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        dataset = await response.parse()
+        assert dataset is None
+
+    @parametrize
+    async def test_streaming_response_set_primary_column(self, async_client: AsyncStructify) -> None:
+        async with async_client.datasets.with_streaming_response.set_primary_column(
+            dataset_name="dataset_name",
+            property_name="property_name",
             table_name="table_name",
         ) as response:
             assert not response.is_closed
