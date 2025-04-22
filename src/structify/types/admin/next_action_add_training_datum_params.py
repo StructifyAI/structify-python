@@ -3,11 +3,12 @@
 from __future__ import annotations
 
 from typing import Dict, List, Union, Iterable, Optional
-from typing_extensions import Required, Annotated, TypeAlias, TypedDict
+from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
 from ..._utils import PropertyInfo
 from ..knowledge_graph_param import KnowledgeGraphParam
 from ..save_requirement_param import SaveRequirementParam
+from ..dataset_descriptor_param import DatasetDescriptorParam
 
 __all__ = [
     "NextActionAddTrainingDatumParams",
@@ -43,6 +44,13 @@ class InputAllStep(TypedDict, total=False):
 
 class Input(TypedDict, total=False):
     all_steps: Required[Iterable[InputAllStep]]
+
+    descriptor: Required[DatasetDescriptorParam]
+    """A dataset is where you put multiple referential schemas.
+
+    A dataset is a complete namespace where all references between schemas are held
+    within the dataset.
+    """
 
     extraction_criteria: Required[Iterable[SaveRequirementParam]]
 
@@ -82,4 +90,4 @@ class OutputInvalidAction(TypedDict, total=False):
     invalid_action: Required[Annotated[OutputInvalidActionInvalidAction, PropertyInfo(alias="InvalidAction")]]
 
 
-Output: TypeAlias = Union[OutputSelectedStep, OutputSearchStep, OutputInvalidAction]
+Output: TypeAlias = Union[OutputSelectedStep, OutputSearchStep, OutputInvalidAction, Literal["Exit"]]
