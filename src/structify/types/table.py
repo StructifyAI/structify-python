@@ -33,3 +33,5 @@ class Table(BaseModel):
 
     This is used for our probabilistic merge strategy.
     """
+
+    primary_column: Optional[str] = None
