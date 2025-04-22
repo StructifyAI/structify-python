@@ -89,6 +89,7 @@ from .entity_summarize_params import EntitySummarizeParams as EntitySummarizePar
 from .find_relationship_param import FindRelationshipParam as FindRelationshipParam
 from .plan_pause_all_response import PlanPauseAllResponse as PlanPauseAllResponse
 from .report_missing_response import ReportMissingResponse as ReportMissingResponse
+from .dataset_descriptor_param import DatasetDescriptorParam as DatasetDescriptorParam
 from .document_download_params import DocumentDownloadParams as DocumentDownloadParams
 from .entity_get_merges_params import EntityGetMergesParams as EntityGetMergesParams
 from .plan_resume_all_response import PlanResumeAllResponse as PlanResumeAllResponse

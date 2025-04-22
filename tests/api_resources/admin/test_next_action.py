@@ -26,6 +26,30 @@ class TestNextAction:
         next_action = client.admin.next_action.add_training_datum(
             input={
                 "all_steps": [{"id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
+                "descriptor": {
+                    "description": "description",
+                    "name": "name",
+                    "relationships": [
+                        {
+                            "description": "description",
+                            "name": "name",
+                            "source_table": "source_table",
+                            "target_table": "target_table",
+                        }
+                    ],
+                    "tables": [
+                        {
+                            "description": "description",
+                            "name": "name",
+                            "properties": [
+                                {
+                                    "description": "description",
+                                    "name": "name",
+                                }
+                            ],
+                        }
+                    ],
+                },
                 "extraction_criteria": [{"relationship_name": "relationship_name"}],
                 "previous_queries": ["string"],
                 "seeded_kg": {
@@ -61,6 +85,47 @@ class TestNextAction:
                         "metadata": {"foo": "string"},
                     }
                 ],
+                "descriptor": {
+                    "description": "description",
+                    "name": "name",
+                    "relationships": [
+                        {
+                            "description": "description",
+                            "name": "name",
+                            "source_table": "source_table",
+                            "target_table": "target_table",
+                            "merge_strategy": {
+                                "source_cardinality_given_target_match": 0,
+                                "target_cardinality_given_source_match": 0,
+                            },
+                            "properties": [
+                                {
+                                    "description": "description",
+                                    "name": "name",
+                                    "merge_strategy": "Unique",
+                                    "prop_type": "String",
+                                }
+                            ],
+                        }
+                    ],
+                    "tables": [
+                        {
+                            "description": "description",
+                            "name": "name",
+                            "properties": [
+                                {
+                                    "description": "description",
+                                    "name": "name",
+                                    "merge_strategy": "Unique",
+                                    "prop_type": "String",
+                                }
+                            ],
+                            "expected_cardinality": 0,
+                            "primary_column": "primary_column",
+                        }
+                    ],
+                    "llm_override_field": "llm_override_field",
+                },
                 "extraction_criteria": [{"relationship_name": "relationship_name"}],
                 "previous_queries": ["string"],
                 "seeded_kg": {
@@ -92,6 +157,30 @@ class TestNextAction:
         response = client.admin.next_action.with_raw_response.add_training_datum(
             input={
                 "all_steps": [{"id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
+                "descriptor": {
+                    "description": "description",
+                    "name": "name",
+                    "relationships": [
+                        {
+                            "description": "description",
+                            "name": "name",
+                            "source_table": "source_table",
+                            "target_table": "target_table",
+                        }
+                    ],
+                    "tables": [
+                        {
+                            "description": "description",
+                            "name": "name",
+                            "properties": [
+                                {
+                                    "description": "description",
+                                    "name": "name",
+                                }
+                            ],
+                        }
+                    ],
+                },
                 "extraction_criteria": [{"relationship_name": "relationship_name"}],
                 "previous_queries": ["string"],
                 "seeded_kg": {
@@ -125,6 +214,30 @@ class TestNextAction:
         with client.admin.next_action.with_streaming_response.add_training_datum(
             input={
                 "all_steps": [{"id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
+                "descriptor": {
+                    "description": "description",
+                    "name": "name",
+                    "relationships": [
+                        {
+                            "description": "description",
+                            "name": "name",
+                            "source_table": "source_table",
+                            "target_table": "target_table",
+                        }
+                    ],
+                    "tables": [
+                        {
+                            "description": "description",
+                            "name": "name",
+                            "properties": [
+                                {
+                                    "description": "description",
+                                    "name": "name",
+                                }
+                            ],
+                        }
+                    ],
+                },
                 "extraction_criteria": [{"relationship_name": "relationship_name"}],
                 "previous_queries": ["string"],
                 "seeded_kg": {
@@ -269,6 +382,30 @@ class TestAsyncNextAction:
         next_action = await async_client.admin.next_action.add_training_datum(
             input={
                 "all_steps": [{"id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
+                "descriptor": {
+                    "description": "description",
+                    "name": "name",
+                    "relationships": [
+                        {
+                            "description": "description",
+                            "name": "name",
+                            "source_table": "source_table",
+                            "target_table": "target_table",
+                        }
+                    ],
+                    "tables": [
+                        {
+                            "description": "description",
+                            "name": "name",
+                            "properties": [
+                                {
+                                    "description": "description",
+                                    "name": "name",
+                                }
+                            ],
+                        }
+                    ],
+                },
                 "extraction_criteria": [{"relationship_name": "relationship_name"}],
                 "previous_queries": ["string"],
                 "seeded_kg": {
@@ -304,6 +441,47 @@ class TestAsyncNextAction:
                         "metadata": {"foo": "string"},
                     }
                 ],
+                "descriptor": {
+                    "description": "description",
+                    "name": "name",
+                    "relationships": [
+                        {
+                            "description": "description",
+                            "name": "name",
+                            "source_table": "source_table",
+                            "target_table": "target_table",
+                            "merge_strategy": {
+                                "source_cardinality_given_target_match": 0,
+                                "target_cardinality_given_source_match": 0,
+                            },
+                            "properties": [
+                                {
+                                    "description": "description",
+                                    "name": "name",
+                                    "merge_strategy": "Unique",
+                                    "prop_type": "String",
+                                }
+                            ],
+                        }
+                    ],
+                    "tables": [
+                        {
+                            "description": "description",
+                            "name": "name",
+                            "properties": [
+                                {
+                                    "description": "description",
+                                    "name": "name",
+                                    "merge_strategy": "Unique",
+                                    "prop_type": "String",
+                                }
+                            ],
+                            "expected_cardinality": 0,
+                            "primary_column": "primary_column",
+                        }
+                    ],
+                    "llm_override_field": "llm_override_field",
+                },
                 "extraction_criteria": [{"relationship_name": "relationship_name"}],
                 "previous_queries": ["string"],
                 "seeded_kg": {
@@ -335,6 +513,30 @@ class TestAsyncNextAction:
         response = await async_client.admin.next_action.with_raw_response.add_training_datum(
             input={
                 "all_steps": [{"id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
+                "descriptor": {
+                    "description": "description",
+                    "name": "name",
+                    "relationships": [
+                        {
+                            "description": "description",
+                            "name": "name",
+                            "source_table": "source_table",
+                            "target_table": "target_table",
+                        }
+                    ],
+                    "tables": [
+                        {
+                            "description": "description",
+                            "name": "name",
+                            "properties": [
+                                {
+                                    "description": "description",
+                                    "name": "name",
+                                }
+                            ],
+                        }
+                    ],
+                },
                 "extraction_criteria": [{"relationship_name": "relationship_name"}],
                 "previous_queries": ["string"],
                 "seeded_kg": {
@@ -368,6 +570,30 @@ class TestAsyncNextAction:
         async with async_client.admin.next_action.with_streaming_response.add_training_datum(
             input={
                 "all_steps": [{"id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
+                "descriptor": {
+                    "description": "description",
+                    "name": "name",
+                    "relationships": [
+                        {
+                            "description": "description",
+                            "name": "name",
+                            "source_table": "source_table",
+                            "target_table": "target_table",
+                        }
+                    ],
+                    "tables": [
+                        {
+                            "description": "description",
+                            "name": "name",
+                            "properties": [
+                                {
+                                    "description": "description",
+                                    "name": "name",
+                                }
+                            ],
+                        }
+                    ],
+                },
                 "extraction_criteria": [{"relationship_name": "relationship_name"}],
                 "previous_queries": ["string"],
                 "seeded_kg": {

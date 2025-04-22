@@ -9,6 +9,7 @@ from pydantic import Field as FieldInfo
 from ..._models import BaseModel
 from ..knowledge_graph import KnowledgeGraph
 from ..save_requirement import SaveRequirement
+from ..dataset_descriptor import DatasetDescriptor
 
 __all__ = [
     "ActionTrainingDataEntry",
@@ -35,6 +36,13 @@ class InputAllStep(BaseModel):
 
 class Input(BaseModel):
     all_steps: List[InputAllStep]
+
+    descriptor: DatasetDescriptor
+    """A dataset is where you put multiple referential schemas.
+
+    A dataset is a complete namespace where all references between schemas are held
+    within the dataset.
+    """
 
     extraction_criteria: List[SaveRequirement]
 
@@ -74,7 +82,9 @@ class OutputOutputInvalidAction(BaseModel):
     invalid_action: OutputOutputInvalidActionInvalidAction = FieldInfo(alias="InvalidAction")
 
 
-OutputOutput: TypeAlias = Union[OutputOutputSelectedStep, OutputOutputSearchStep, OutputOutputInvalidAction]
+OutputOutput: TypeAlias = Union[
+    OutputOutputSelectedStep, OutputOutputSearchStep, OutputOutputInvalidAction, Literal["Exit"]
+]
 
 
 class Output(BaseModel):
