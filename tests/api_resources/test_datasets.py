@@ -95,6 +95,7 @@ class TestDatasets:
                     "primary_column": "primary_column",
                 }
             ],
+            generate_merge_criteria=True,
             llm_override_field="llm_override_field",
         )
         assert_matches_type(str, dataset, path=["response"])
@@ -799,6 +800,7 @@ class TestAsyncDatasets:
                     "primary_column": "primary_column",
                 }
             ],
+            generate_merge_criteria=True,
             llm_override_field="llm_override_field",
         )
         assert_matches_type(str, dataset, path=["response"])

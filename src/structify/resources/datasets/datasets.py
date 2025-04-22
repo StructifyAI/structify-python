@@ -89,6 +89,7 @@ class DatasetsResource(SyncAPIResource):
         name: str,
         relationships: Iterable[dataset_create_params.Relationship],
         tables: Iterable[TableParam],
+        generate_merge_criteria: bool | NotGiven = NOT_GIVEN,
         llm_override_field: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -117,6 +118,7 @@ class DatasetsResource(SyncAPIResource):
                     "name": name,
                     "relationships": relationships,
                     "tables": tables,
+                    "generate_merge_criteria": generate_merge_criteria,
                     "llm_override_field": llm_override_field,
                 },
                 dataset_create_params.DatasetCreateParams,
@@ -670,6 +672,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
         name: str,
         relationships: Iterable[dataset_create_params.Relationship],
         tables: Iterable[TableParam],
+        generate_merge_criteria: bool | NotGiven = NOT_GIVEN,
         llm_override_field: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -698,6 +701,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
                     "name": name,
                     "relationships": relationships,
                     "tables": tables,
+                    "generate_merge_criteria": generate_merge_criteria,
                     "llm_override_field": llm_override_field,
                 },
                 dataset_create_params.DatasetCreateParams,
