@@ -13,6 +13,7 @@ from ..types import (
     entity_view_params,
     entity_merge_params,
     entity_delete_params,
+    entity_derive_params,
     entity_search_params,
     entity_verify_params,
     entity_add_batch_params,
@@ -298,6 +299,54 @@ class EntitiesResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=object,
+        )
+
+    def derive(
+        self,
+        *,
+        dataset: str,
+        derived_property: str,
+        entity_id: str,
+        table_name: str,
+        extra_instruction: Optional[str] | NotGiven = NOT_GIVEN,
+        input_properties: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> str:
+        """
+        Derive a new property value based on existing source properties
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
+        return self._post(
+            "/entity/derive",
+            body=maybe_transform(
+                {
+                    "dataset": dataset,
+                    "derived_property": derived_property,
+                    "entity_id": entity_id,
+                    "table_name": table_name,
+                    "extra_instruction": extra_instruction,
+                    "input_properties": input_properties,
+                },
+                entity_derive_params.EntityDeriveParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=str,
         )
 
     def get(
@@ -1017,6 +1066,54 @@ class AsyncEntitiesResource(AsyncAPIResource):
             cast_to=object,
         )
 
+    async def derive(
+        self,
+        *,
+        dataset: str,
+        derived_property: str,
+        entity_id: str,
+        table_name: str,
+        extra_instruction: Optional[str] | NotGiven = NOT_GIVEN,
+        input_properties: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> str:
+        """
+        Derive a new property value based on existing source properties
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
+        return await self._post(
+            "/entity/derive",
+            body=await async_maybe_transform(
+                {
+                    "dataset": dataset,
+                    "derived_property": derived_property,
+                    "entity_id": entity_id,
+                    "table_name": table_name,
+                    "extra_instruction": extra_instruction,
+                    "input_properties": input_properties,
+                },
+                entity_derive_params.EntityDeriveParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=str,
+        )
+
     async def get(
         self,
         *,
@@ -1520,6 +1617,9 @@ class EntitiesResourceWithRawResponse:
         self.delete_relationship = to_raw_response_wrapper(
             entities.delete_relationship,
         )
+        self.derive = to_raw_response_wrapper(
+            entities.derive,
+        )
         self.get = to_raw_response_wrapper(
             entities.get,
         )
@@ -1576,6 +1676,9 @@ class AsyncEntitiesResourceWithRawResponse:
         )
         self.delete_relationship = async_to_raw_response_wrapper(
             entities.delete_relationship,
+        )
+        self.derive = async_to_raw_response_wrapper(
+            entities.derive,
         )
         self.get = async_to_raw_response_wrapper(
             entities.get,
@@ -1634,6 +1737,9 @@ class EntitiesResourceWithStreamingResponse:
         self.delete_relationship = to_streamed_response_wrapper(
             entities.delete_relationship,
         )
+        self.derive = to_streamed_response_wrapper(
+            entities.derive,
+        )
         self.get = to_streamed_response_wrapper(
             entities.get,
         )
@@ -1690,6 +1796,9 @@ class AsyncEntitiesResourceWithStreamingResponse:
         )
         self.delete_relationship = async_to_streamed_response_wrapper(
             entities.delete_relationship,
+        )
+        self.derive = async_to_streamed_response_wrapper(
+            entities.derive,
         )
         self.get = async_to_streamed_response_wrapper(
             entities.get,
