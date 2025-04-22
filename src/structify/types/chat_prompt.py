@@ -232,6 +232,8 @@ class Metadata(BaseModel):
 
     tool_metadata: List[ToolMetadata]
 
+    qa_potentially_sus_response: Optional[str] = None
+
 
 class ChatPrompt(BaseModel):
     decoding_params: DecodingParams
