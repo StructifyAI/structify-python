@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from typing import Union
-from typing_extensions import Required, Annotated, TypeAlias, TypedDict
+from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
 from ..._utils import PropertyInfo
 
@@ -53,4 +53,4 @@ class OutputInvalidAction(TypedDict, total=False):
     invalid_action: Required[Annotated[OutputInvalidActionInvalidAction, PropertyInfo(alias="InvalidAction")]]
 
 
-Output: TypeAlias = Union[OutputSelectedStep, OutputSearchStep, OutputInvalidAction]
+Output: TypeAlias = Union[OutputSelectedStep, OutputSearchStep, OutputInvalidAction, Literal["Exit"]]
