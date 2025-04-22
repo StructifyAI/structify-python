@@ -1,6 +1,6 @@
 [project]
 name = "structifyai"
-version = "1.111.0-alpha.11"
+version = "1.111.0-alpha.12"
 description = "The official Python library for the structify API"
 dynamic = ["readme"]
 license = "Apache-2.0"
