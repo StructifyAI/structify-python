@@ -22,6 +22,8 @@ class DatasetCreateParams(TypedDict, total=False):
 
     tables: Required[Iterable[TableParam]]
 
+    generate_merge_criteria: bool
+
     llm_override_field: Optional[str]
 
 
