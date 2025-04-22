@@ -35,3 +35,5 @@ class TableParam(TypedDict, total=False):
 
     This is used for our probabilistic merge strategy.
     """
+
+    primary_column: Optional[str]
