@@ -166,6 +166,19 @@ Methods:
 - <code title="get /dataset/view_table">client.datasets.<a href="./src/structify/resources/datasets/datasets.py">view_table</a>(\*\*<a href="src/structify/types/dataset_view_table_params.py">params</a>) -> <a href="./src/structify/types/dataset_view_table_response.py">SyncJobsList[DatasetViewTableResponse]</a></code>
 - <code title="get /dataset/view_tables_with_relationships">client.datasets.<a href="./src/structify/resources/datasets/datasets.py">view_tables_with_relationships</a>(\*\*<a href="src/structify/types/dataset_view_tables_with_relationships_params.py">params</a>) -> <a href="./src/structify/types/dataset_view_tables_with_relationships_response.py">DatasetViewTablesWithRelationshipsResponse</a></code>
 
+## Workflow
+
+Types:
+
+```python
+from structify.types.datasets import WorkflowCreateResponse, WorkflowListResponse
+```
+
+Methods:
+
+- <code title="post /dataset/workflow/create">client.datasets.workflow.<a href="./src/structify/resources/datasets/workflow.py">create</a>(\*\*<a href="src/structify/types/datasets/workflow_create_params.py">params</a>) -> <a href="./src/structify/types/datasets/workflow_create_response.py">object</a></code>
+- <code title="post /dataset/workflow/list">client.datasets.workflow.<a href="./src/structify/resources/datasets/workflow.py">list</a>(\*\*<a href="src/structify/types/datasets/workflow_list_params.py">params</a>) -> <a href="./src/structify/types/datasets/workflow_list_response.py">object</a></code>
+
 ## Evaluate
 
 Types:

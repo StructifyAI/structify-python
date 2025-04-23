@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union, Iterable
+from typing import Union, Iterable, Optional
 from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
 from .._utils import PropertyInfo
@@ -25,6 +25,8 @@ class EntityAddParams(TypedDict, total=False):
     """If true, attempt to merge with existing entities in the dataset"""
 
     source: Source
+
+    triggering_workflow: Optional[str]
 
 
 class SourceWeb(TypedDict, total=False):

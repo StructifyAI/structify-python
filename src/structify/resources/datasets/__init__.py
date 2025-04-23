@@ -16,8 +16,22 @@ from .evaluate import (
     EvaluateResourceWithStreamingResponse,
     AsyncEvaluateResourceWithStreamingResponse,
 )
+from .workflow import (
+    WorkflowResource,
+    AsyncWorkflowResource,
+    WorkflowResourceWithRawResponse,
+    AsyncWorkflowResourceWithRawResponse,
+    WorkflowResourceWithStreamingResponse,
+    AsyncWorkflowResourceWithStreamingResponse,
+)
 
 __all__ = [
+    "WorkflowResource",
+    "AsyncWorkflowResource",
+    "WorkflowResourceWithRawResponse",
+    "AsyncWorkflowResourceWithRawResponse",
+    "WorkflowResourceWithStreamingResponse",
+    "AsyncWorkflowResourceWithStreamingResponse",
     "EvaluateResource",
     "AsyncEvaluateResource",
     "EvaluateResourceWithRawResponse",
