@@ -114,6 +114,7 @@ class TestEntities:
             },
             attempt_merge=True,
             source="None",
+            triggering_workflow="triggering_workflow",
         )
         assert_matches_type(EntityAddResponse, entity, path=["response"])
 
@@ -1033,6 +1034,7 @@ class TestAsyncEntities:
             },
             attempt_merge=True,
             source="None",
+            triggering_workflow="triggering_workflow",
         )
         assert_matches_type(EntityAddResponse, entity, path=["response"])
 
