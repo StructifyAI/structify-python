@@ -1,5 +1,30 @@
 # Changelog
 
+## 1.111.0-alpha.13 (2025-04-23)
+
+Full Changelog: [v1.111.0-alpha.12...v1.111.0-alpha.13](https://github.com/StructifyAI/structify-python/compare/v1.111.0-alpha.12...v1.111.0-alpha.13)
+
+### Features
+
+* **api:** api update ([948cb99](https://github.com/StructifyAI/structify-python/commit/948cb99b0db46cfb12834e81ef5c128d4a33cdff))
+* **api:** api update ([404a57e](https://github.com/StructifyAI/structify-python/commit/404a57ef4261be6943a48460e23834586ff673db))
+* **api:** api update ([9253263](https://github.com/StructifyAI/structify-python/commit/925326324933cf9c949ea9e2c984a8fd05a7ffe3))
+* **api:** api update ([2496043](https://github.com/StructifyAI/structify-python/commit/24960439dbef59f678a7ed59d5a65b6d910ce6d5))
+* **api:** api update ([2945ec3](https://github.com/StructifyAI/structify-python/commit/2945ec362ec9f150017c02a7dd3d89c73131253d))
+
+
+### Bug Fixes
+
+* **pydantic v1:** more robust ModelField.annotation check ([efb7114](https://github.com/StructifyAI/structify-python/commit/efb71140c901af93c744efec1ff663d285d568b6))
+
+
+### Chores
+
+* **ci:** add timeout thresholds for CI jobs ([0d2bdb6](https://github.com/StructifyAI/structify-python/commit/0d2bdb63088298421b203822bc03a0a61e2cb8db))
+* **internal:** fix list file params ([c0ac1a4](https://github.com/StructifyAI/structify-python/commit/c0ac1a4eb003c62ce8ea689115943210af0fee3d))
+* **internal:** import reformatting ([6381d24](https://github.com/StructifyAI/structify-python/commit/6381d2410208748a6f2843515d1165ebc0b94636))
+* **internal:** refactor retries to not use recursion ([a120b5a](https://github.com/StructifyAI/structify-python/commit/a120b5a780385465ca349fcbfec921f1f8a41863))
+
 ## 1.111.0-alpha.12 (2025-04-22)
 
 Full Changelog: [v1.111.0-alpha.11...v1.111.0-alpha.12](https://github.com/StructifyAI/structify-python/compare/v1.111.0-alpha.11...v1.111.0-alpha.12)
