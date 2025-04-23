@@ -18,6 +18,8 @@ from ..._response import (
 )
 from ..._base_client import make_request_options
 from ...types.datasets import workflow_list_params, workflow_create_params
+from ...types.datasets.workflow_param import WorkflowParam
+from ...types.datasets.workflow_list_response import WorkflowListResponse
 
 __all__ = ["WorkflowResource", "AsyncWorkflowResource"]
 
@@ -47,14 +49,14 @@ class WorkflowResource(SyncAPIResource):
         *,
         dataset_name: str,
         name: str,
-        workflow: workflow_create_params.Workflow,
+        workflow: WorkflowParam,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> object:
+    ) -> str:
         """
         Create a new workflow
 
@@ -80,7 +82,7 @@ class WorkflowResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=object,
+            cast_to=str,
         )
 
     def list(
@@ -93,7 +95,7 @@ class WorkflowResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> object:
+    ) -> WorkflowListResponse:
         """
         list a new workflow
 
@@ -115,7 +117,7 @@ class WorkflowResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform({"dataset_name": dataset_name}, workflow_list_params.WorkflowListParams),
             ),
-            cast_to=object,
+            cast_to=WorkflowListResponse,
         )
 
 
@@ -144,14 +146,14 @@ class AsyncWorkflowResource(AsyncAPIResource):
         *,
         dataset_name: str,
         name: str,
-        workflow: workflow_create_params.Workflow,
+        workflow: WorkflowParam,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> object:
+    ) -> str:
         """
         Create a new workflow
 
@@ -177,7 +179,7 @@ class AsyncWorkflowResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=object,
+            cast_to=str,
         )
 
     async def list(
@@ -190,7 +192,7 @@ class AsyncWorkflowResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> object:
+    ) -> WorkflowListResponse:
         """
         list a new workflow
 
@@ -214,7 +216,7 @@ class AsyncWorkflowResource(AsyncAPIResource):
                     {"dataset_name": dataset_name}, workflow_list_params.WorkflowListParams
                 ),
             ),
-            cast_to=object,
+            cast_to=WorkflowListResponse,
         )
 
 

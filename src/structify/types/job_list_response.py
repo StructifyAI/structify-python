@@ -5,6 +5,7 @@ from datetime import datetime
 from typing_extensions import Literal
 
 from .._models import BaseModel
+from .datasets.id import ID
 
 __all__ = ["JobListResponse"]
 
@@ -36,6 +37,6 @@ class JobListResponse(BaseModel):
     run_started_time: Optional[datetime] = None
     """What time did the job start running?"""
 
-    workflow_id: Optional[str] = None
+    workflow_id: Optional[ID] = None
 
     workflow_step_id: Optional[str] = None
