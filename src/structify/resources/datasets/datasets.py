@@ -32,6 +32,14 @@ from .evaluate import (
     EvaluateResourceWithStreamingResponse,
     AsyncEvaluateResourceWithStreamingResponse,
 )
+from .workflow import (
+    WorkflowResource,
+    AsyncWorkflowResource,
+    WorkflowResourceWithRawResponse,
+    AsyncWorkflowResourceWithRawResponse,
+    WorkflowResourceWithStreamingResponse,
+    AsyncWorkflowResourceWithStreamingResponse,
+)
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -58,6 +66,10 @@ __all__ = ["DatasetsResource", "AsyncDatasetsResource"]
 
 
 class DatasetsResource(SyncAPIResource):
+    @cached_property
+    def workflow(self) -> WorkflowResource:
+        return WorkflowResource(self._client)
+
     @cached_property
     def evaluate(self) -> EvaluateResource:
         return EvaluateResource(self._client)
@@ -680,6 +692,10 @@ class DatasetsResource(SyncAPIResource):
 
 
 class AsyncDatasetsResource(AsyncAPIResource):
+    @cached_property
+    def workflow(self) -> AsyncWorkflowResource:
+        return AsyncWorkflowResource(self._client)
+
     @cached_property
     def evaluate(self) -> AsyncEvaluateResource:
         return AsyncEvaluateResource(self._client)
@@ -1349,6 +1365,10 @@ class DatasetsResourceWithRawResponse:
         )
 
     @cached_property
+    def workflow(self) -> WorkflowResourceWithRawResponse:
+        return WorkflowResourceWithRawResponse(self._datasets.workflow)
+
+    @cached_property
     def evaluate(self) -> EvaluateResourceWithRawResponse:
         return EvaluateResourceWithRawResponse(self._datasets.evaluate)
 
@@ -1399,6 +1419,10 @@ class AsyncDatasetsResourceWithRawResponse:
         self.view_tables_with_relationships = async_to_raw_response_wrapper(
             datasets.view_tables_with_relationships,
         )
+
+    @cached_property
+    def workflow(self) -> AsyncWorkflowResourceWithRawResponse:
+        return AsyncWorkflowResourceWithRawResponse(self._datasets.workflow)
 
     @cached_property
     def evaluate(self) -> AsyncEvaluateResourceWithRawResponse:
@@ -1453,6 +1477,10 @@ class DatasetsResourceWithStreamingResponse:
         )
 
     @cached_property
+    def workflow(self) -> WorkflowResourceWithStreamingResponse:
+        return WorkflowResourceWithStreamingResponse(self._datasets.workflow)
+
+    @cached_property
     def evaluate(self) -> EvaluateResourceWithStreamingResponse:
         return EvaluateResourceWithStreamingResponse(self._datasets.evaluate)
 
@@ -1503,6 +1531,10 @@ class AsyncDatasetsResourceWithStreamingResponse:
         self.view_tables_with_relationships = async_to_streamed_response_wrapper(
             datasets.view_tables_with_relationships,
         )
+
+    @cached_property
+    def workflow(self) -> AsyncWorkflowResourceWithStreamingResponse:
+        return AsyncWorkflowResourceWithStreamingResponse(self._datasets.workflow)
 
     @cached_property
     def evaluate(self) -> AsyncEvaluateResourceWithStreamingResponse:
