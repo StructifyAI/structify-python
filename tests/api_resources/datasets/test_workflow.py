@@ -26,14 +26,14 @@ class TestWorkflow:
                 "name": "name",
                 "starting_step": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "starting_table": "starting_table",
-                "steps": {
-                    "foo": {
+                "steps": [
+                    {
                         "id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                         "children": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
                         "operation": {"enhance_properties": ["string"]},
                         "table_name": "table_name",
                     }
-                },
+                ],
             },
         )
         assert_matches_type(str, workflow, path=["response"])
@@ -47,14 +47,14 @@ class TestWorkflow:
                 "name": "name",
                 "starting_step": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "starting_table": "starting_table",
-                "steps": {
-                    "foo": {
+                "steps": [
+                    {
                         "id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                         "children": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
                         "operation": {"enhance_properties": ["string"]},
                         "table_name": "table_name",
                     }
-                },
+                ],
             },
         )
 
@@ -72,14 +72,14 @@ class TestWorkflow:
                 "name": "name",
                 "starting_step": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "starting_table": "starting_table",
-                "steps": {
-                    "foo": {
+                "steps": [
+                    {
                         "id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                         "children": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
                         "operation": {"enhance_properties": ["string"]},
                         "table_name": "table_name",
                     }
-                },
+                ],
             },
         ) as response:
             assert not response.is_closed
@@ -135,14 +135,14 @@ class TestAsyncWorkflow:
                 "name": "name",
                 "starting_step": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "starting_table": "starting_table",
-                "steps": {
-                    "foo": {
+                "steps": [
+                    {
                         "id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                         "children": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
                         "operation": {"enhance_properties": ["string"]},
                         "table_name": "table_name",
                     }
-                },
+                ],
             },
         )
         assert_matches_type(str, workflow, path=["response"])
@@ -156,14 +156,14 @@ class TestAsyncWorkflow:
                 "name": "name",
                 "starting_step": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "starting_table": "starting_table",
-                "steps": {
-                    "foo": {
+                "steps": [
+                    {
                         "id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                         "children": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
                         "operation": {"enhance_properties": ["string"]},
                         "table_name": "table_name",
                     }
-                },
+                ],
             },
         )
 
@@ -181,14 +181,14 @@ class TestAsyncWorkflow:
                 "name": "name",
                 "starting_step": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "starting_table": "starting_table",
-                "steps": {
-                    "foo": {
+                "steps": [
+                    {
                         "id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                         "children": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
                         "operation": {"enhance_properties": ["string"]},
                         "table_name": "table_name",
                     }
-                },
+                ],
             },
         ) as response:
             assert not response.is_closed
