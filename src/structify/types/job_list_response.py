@@ -16,6 +16,8 @@ class JobListResponse(BaseModel):
 
     dataset_id: str
 
+    selected_next_workflow_step: bool
+
     status: Literal["Queued", "Running", "Completed", "Failed"]
 
     user_id: str
@@ -33,3 +35,7 @@ class JobListResponse(BaseModel):
 
     run_started_time: Optional[datetime] = None
     """What time did the job start running?"""
+
+    workflow_id: Optional[str] = None
+
+    workflow_step_id: Optional[str] = None
