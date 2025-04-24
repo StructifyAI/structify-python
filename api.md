@@ -177,7 +177,10 @@ from structify.types.datasets import ID, Workflow, WorkflowListResponse
 Methods:
 
 - <code title="post /dataset/workflow/create">client.datasets.workflow.<a href="./src/structify/resources/datasets/workflow.py">create</a>(\*\*<a href="src/structify/types/datasets/workflow_create_params.py">params</a>) -> <a href="./src/structify/types/datasets/id.py">str</a></code>
+- <code title="put /dataset/workflow/update">client.datasets.workflow.<a href="./src/structify/resources/datasets/workflow.py">update</a>(\*\*<a href="src/structify/types/datasets/workflow_update_params.py">params</a>) -> <a href="./src/structify/types/datasets/id.py">str</a></code>
 - <code title="post /dataset/workflow/list">client.datasets.workflow.<a href="./src/structify/resources/datasets/workflow.py">list</a>(\*\*<a href="src/structify/types/datasets/workflow_list_params.py">params</a>) -> <a href="./src/structify/types/datasets/workflow_list_response.py">WorkflowListResponse</a></code>
+- <code title="delete /dataset/workflow/delete">client.datasets.workflow.<a href="./src/structify/resources/datasets/workflow.py">delete</a>(\*\*<a href="src/structify/types/datasets/workflow_delete_params.py">params</a>) -> None</code>
+- <code title="get /dataset/workflow/get">client.datasets.workflow.<a href="./src/structify/resources/datasets/workflow.py">get</a>(\*\*<a href="src/structify/types/datasets/workflow_get_params.py">params</a>) -> <a href="./src/structify/types/datasets/workflow.py">Workflow</a></code>
 
 ## Evaluate
 
