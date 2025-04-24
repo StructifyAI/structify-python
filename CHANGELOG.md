@@ -1,5 +1,23 @@
 # Changelog
 
+## 1.111.0-alpha.14 (2025-04-24)
+
+Full Changelog: [v1.111.0-alpha.13...v1.111.0-alpha.14](https://github.com/StructifyAI/structify-python/compare/v1.111.0-alpha.13...v1.111.0-alpha.14)
+
+### Features
+
+* **api:** api update ([70f1e15](https://github.com/StructifyAI/structify-python/commit/70f1e1554fc85739e8a708284b1aff70f4dba0ed))
+* **api:** api update ([e2725d7](https://github.com/StructifyAI/structify-python/commit/e2725d79d447bf5da8d631f82a50f1404a8cc7c1))
+* **api:** api update ([17f5338](https://github.com/StructifyAI/structify-python/commit/17f5338a142452c7b726d8173816c46a8dda6c9b))
+
+
+### Chores
+
+* broadly detect json family of content-type headers ([58aba28](https://github.com/StructifyAI/structify-python/commit/58aba28025e4a263e3153553b7fb1d66e538ee2e))
+* **ci:** only use depot for staging repos ([757ea24](https://github.com/StructifyAI/structify-python/commit/757ea2476b9b88b042c6cb8377394505bf720e15))
+* **internal:** codegen related update ([a4da43c](https://github.com/StructifyAI/structify-python/commit/a4da43c5abe609ff5c95a19d27ca5ca0d083d9f8))
+* **internal:** minor formatting changes ([3372297](https://github.com/StructifyAI/structify-python/commit/3372297c7e9dfb220469bf18a84a0c81f84a4555))
+
 ## 1.111.0-alpha.13 (2025-04-23)
 
 Full Changelog: [v1.111.0-alpha.12...v1.111.0-alpha.13](https://github.com/StructifyAI/structify-python/compare/v1.111.0-alpha.12...v1.111.0-alpha.13)
