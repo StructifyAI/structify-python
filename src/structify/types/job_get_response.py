@@ -18,6 +18,8 @@ class Job(BaseModel):
 
     dataset_id: str
 
+    job_type: Literal["Web", "Pdf", "Derive"]
+
     selected_next_workflow_step: bool
 
     status: Literal["Queued", "Running", "Completed", "Failed"]
@@ -30,13 +32,13 @@ class Job(BaseModel):
     parameters: Optional[object] = None
     """Proto for JobInput"""
 
-    plan_id: Optional[str] = None
-
     reason: Optional[str] = None
     """A reason for the job's existence"""
 
     run_started_time: Optional[datetime] = None
     """What time did the job start running?"""
+
+    run_time_milliseconds: Optional[int] = None
 
     workflow_id: Optional[ID] = None
 
