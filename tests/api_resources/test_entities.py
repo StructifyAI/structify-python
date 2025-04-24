@@ -223,7 +223,9 @@ class TestEntities:
                 }
             ],
             attempt_merge=True,
+            skip_malformed_entities=True,
             source="None",
+            triggering_workflow="triggering_workflow",
         )
         assert_matches_type(EntityAddBatchResponse, entity, path=["response"])
 
@@ -1143,7 +1145,9 @@ class TestAsyncEntities:
                 }
             ],
             attempt_merge=True,
+            skip_malformed_entities=True,
             source="None",
+            triggering_workflow="triggering_workflow",
         )
         assert_matches_type(EntityAddBatchResponse, entity, path=["response"])
 
