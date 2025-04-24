@@ -4,12 +4,15 @@ from __future__ import annotations
 
 from typing_extensions import Required, TypedDict
 
+from .id import ID
 from .workflow_param import WorkflowParam
 
-__all__ = ["WorkflowCreateParams"]
+__all__ = ["WorkflowUpdateParams"]
 
 
-class WorkflowCreateParams(TypedDict, total=False):
+class WorkflowUpdateParams(TypedDict, total=False):
     dataset_name: Required[str]
 
     workflow: Required[WorkflowParam]
+
+    workflow_id: Required[ID]
