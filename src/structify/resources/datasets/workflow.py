@@ -19,7 +19,6 @@ from ..._response import (
 from ..._base_client import make_request_options
 from ...types.datasets import (
     ID,
-    Workflow,
     workflow_get_params,
     workflow_list_params,
     workflow_create_params,
@@ -28,8 +27,8 @@ from ...types.datasets import (
     workflow_trigger_params,
 )
 from ...types.datasets.id import ID
-from ...types.datasets.workflow import Workflow
 from ...types.datasets.workflow_param import WorkflowParam
+from ...types.datasets.workflow_get_response import WorkflowGetResponse
 from ...types.datasets.workflow_list_response import WorkflowListResponse
 
 __all__ = ["WorkflowResource", "AsyncWorkflowResource"]
@@ -213,7 +212,7 @@ class WorkflowResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Workflow:
+    ) -> WorkflowGetResponse:
         """
         Get a workflow by ID
 
@@ -235,7 +234,7 @@ class WorkflowResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform({"workflow_id": workflow_id}, workflow_get_params.WorkflowGetParams),
             ),
-            cast_to=Workflow,
+            cast_to=WorkflowGetResponse,
         )
 
     def trigger(
@@ -458,7 +457,7 @@ class AsyncWorkflowResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Workflow:
+    ) -> WorkflowGetResponse:
         """
         Get a workflow by ID
 
@@ -480,7 +479,7 @@ class AsyncWorkflowResource(AsyncAPIResource):
                 timeout=timeout,
                 query=await async_maybe_transform({"workflow_id": workflow_id}, workflow_get_params.WorkflowGetParams),
             ),
-            cast_to=Workflow,
+            cast_to=WorkflowGetResponse,
         )
 
     async def trigger(

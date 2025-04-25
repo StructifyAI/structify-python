@@ -12,6 +12,7 @@ from .evaluate_list_params import EvaluateListParams as EvaluateListParams
 from .workflow_list_params import WorkflowListParams as WorkflowListParams
 from .evaluate_get_response import EvaluateGetResponse as EvaluateGetResponse
 from .evaluate_run_response import EvaluateRunResponse as EvaluateRunResponse
+from .workflow_get_response import WorkflowGetResponse as WorkflowGetResponse
 from .evaluate_delete_params import EvaluateDeleteParams as EvaluateDeleteParams
 from .evaluate_list_response import EvaluateListResponse as EvaluateListResponse
 from .evaluate_status_params import EvaluateStatusParams as EvaluateStatusParams
