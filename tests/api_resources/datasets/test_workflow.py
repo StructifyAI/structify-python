@@ -257,6 +257,40 @@ class TestWorkflow:
 
         assert cast(Any, response.is_closed) is True
 
+    @parametrize
+    def test_method_trigger(self, client: Structify) -> None:
+        workflow = client.datasets.workflow.trigger(
+            entity_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+            workflow_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(object, workflow, path=["response"])
+
+    @parametrize
+    def test_raw_response_trigger(self, client: Structify) -> None:
+        response = client.datasets.workflow.with_raw_response.trigger(
+            entity_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+            workflow_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        workflow = response.parse()
+        assert_matches_type(object, workflow, path=["response"])
+
+    @parametrize
+    def test_streaming_response_trigger(self, client: Structify) -> None:
+        with client.datasets.workflow.with_streaming_response.trigger(
+            entity_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+            workflow_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            workflow = response.parse()
+            assert_matches_type(object, workflow, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
 
 class TestAsyncWorkflow:
     parametrize = pytest.mark.parametrize("async_client", [False, True], indirect=True, ids=["loose", "strict"])
@@ -495,5 +529,39 @@ class TestAsyncWorkflow:
 
             workflow = await response.parse()
             assert_matches_type(Workflow, workflow, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_method_trigger(self, async_client: AsyncStructify) -> None:
+        workflow = await async_client.datasets.workflow.trigger(
+            entity_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+            workflow_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(object, workflow, path=["response"])
+
+    @parametrize
+    async def test_raw_response_trigger(self, async_client: AsyncStructify) -> None:
+        response = await async_client.datasets.workflow.with_raw_response.trigger(
+            entity_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+            workflow_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        workflow = await response.parse()
+        assert_matches_type(object, workflow, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_trigger(self, async_client: AsyncStructify) -> None:
+        async with async_client.datasets.workflow.with_streaming_response.trigger(
+            entity_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+            workflow_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            workflow = await response.parse()
+            assert_matches_type(object, workflow, path=["response"])
 
         assert cast(Any, response.is_closed) is True

@@ -19,4 +19,5 @@ from .workflow_create_params import WorkflowCreateParams as WorkflowCreateParams
 from .workflow_delete_params import WorkflowDeleteParams as WorkflowDeleteParams
 from .workflow_list_response import WorkflowListResponse as WorkflowListResponse
 from .workflow_update_params import WorkflowUpdateParams as WorkflowUpdateParams
+from .workflow_trigger_params import WorkflowTriggerParams as WorkflowTriggerParams
 from .evaluate_status_response import EvaluateStatusResponse as EvaluateStatusResponse

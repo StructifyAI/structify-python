@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Optional
+from typing import List, Optional
 
 import httpx
 
@@ -25,6 +25,7 @@ from ...types.datasets import (
     workflow_create_params,
     workflow_delete_params,
     workflow_update_params,
+    workflow_trigger_params,
 )
 from ...types.datasets.id import ID
 from ...types.datasets.workflow import Workflow
@@ -237,6 +238,45 @@ class WorkflowResource(SyncAPIResource):
             cast_to=Workflow,
         )
 
+    def trigger(
+        self,
+        *,
+        entity_ids: List[str],
+        workflow_id: ID,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> object:
+        """
+        Trigger a workflow on a set of entities
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/dataset/workflow/trigger",
+            body=maybe_transform(
+                {
+                    "entity_ids": entity_ids,
+                    "workflow_id": workflow_id,
+                },
+                workflow_trigger_params.WorkflowTriggerParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=object,
+        )
+
 
 class AsyncWorkflowResource(AsyncAPIResource):
     @cached_property
@@ -443,6 +483,45 @@ class AsyncWorkflowResource(AsyncAPIResource):
             cast_to=Workflow,
         )
 
+    async def trigger(
+        self,
+        *,
+        entity_ids: List[str],
+        workflow_id: ID,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> object:
+        """
+        Trigger a workflow on a set of entities
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/dataset/workflow/trigger",
+            body=await async_maybe_transform(
+                {
+                    "entity_ids": entity_ids,
+                    "workflow_id": workflow_id,
+                },
+                workflow_trigger_params.WorkflowTriggerParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=object,
+        )
+
 
 class WorkflowResourceWithRawResponse:
     def __init__(self, workflow: WorkflowResource) -> None:
@@ -462,6 +541,9 @@ class WorkflowResourceWithRawResponse:
         )
         self.get = to_raw_response_wrapper(
             workflow.get,
+        )
+        self.trigger = to_raw_response_wrapper(
+            workflow.trigger,
         )
 
 
@@ -484,6 +566,9 @@ class AsyncWorkflowResourceWithRawResponse:
         self.get = async_to_raw_response_wrapper(
             workflow.get,
         )
+        self.trigger = async_to_raw_response_wrapper(
+            workflow.trigger,
+        )
 
 
 class WorkflowResourceWithStreamingResponse:
@@ -505,6 +590,9 @@ class WorkflowResourceWithStreamingResponse:
         self.get = to_streamed_response_wrapper(
             workflow.get,
         )
+        self.trigger = to_streamed_response_wrapper(
+            workflow.trigger,
+        )
 
 
 class AsyncWorkflowResourceWithStreamingResponse:
@@ -525,4 +613,7 @@ class AsyncWorkflowResourceWithStreamingResponse:
         )
         self.get = async_to_streamed_response_wrapper(
             workflow.get,
+        )
+        self.trigger = async_to_streamed_response_wrapper(
+            workflow.trigger,
         )
