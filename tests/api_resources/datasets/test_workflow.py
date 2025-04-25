@@ -10,7 +10,7 @@ import pytest
 from structify import Structify, AsyncStructify
 from tests.utils import assert_matches_type
 from structify.types.datasets import (
-    Workflow,
+    WorkflowGetResponse,
     WorkflowListResponse,
 )
 
@@ -231,7 +231,7 @@ class TestWorkflow:
         workflow = client.datasets.workflow.get(
             workflow_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(Workflow, workflow, path=["response"])
+        assert_matches_type(WorkflowGetResponse, workflow, path=["response"])
 
     @parametrize
     def test_raw_response_get(self, client: Structify) -> None:
@@ -242,7 +242,7 @@ class TestWorkflow:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         workflow = response.parse()
-        assert_matches_type(Workflow, workflow, path=["response"])
+        assert_matches_type(WorkflowGetResponse, workflow, path=["response"])
 
     @parametrize
     def test_streaming_response_get(self, client: Structify) -> None:
@@ -253,7 +253,7 @@ class TestWorkflow:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             workflow = response.parse()
-            assert_matches_type(Workflow, workflow, path=["response"])
+            assert_matches_type(WorkflowGetResponse, workflow, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -506,7 +506,7 @@ class TestAsyncWorkflow:
         workflow = await async_client.datasets.workflow.get(
             workflow_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(Workflow, workflow, path=["response"])
+        assert_matches_type(WorkflowGetResponse, workflow, path=["response"])
 
     @parametrize
     async def test_raw_response_get(self, async_client: AsyncStructify) -> None:
@@ -517,7 +517,7 @@ class TestAsyncWorkflow:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         workflow = await response.parse()
-        assert_matches_type(Workflow, workflow, path=["response"])
+        assert_matches_type(WorkflowGetResponse, workflow, path=["response"])
 
     @parametrize
     async def test_streaming_response_get(self, async_client: AsyncStructify) -> None:
@@ -528,7 +528,7 @@ class TestAsyncWorkflow:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             workflow = await response.parse()
-            assert_matches_type(Workflow, workflow, path=["response"])
+            assert_matches_type(WorkflowGetResponse, workflow, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

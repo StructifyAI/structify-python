@@ -3,8 +3,14 @@
 from typing import List
 from typing_extensions import TypeAlias
 
+from .id import ID
 from .workflow import Workflow
 
-__all__ = ["WorkflowListResponse"]
+__all__ = ["WorkflowListResponse", "WorkflowListResponseItem"]
 
-WorkflowListResponse: TypeAlias = List[Workflow]
+
+class WorkflowListResponseItem(Workflow):
+    id: ID
+
+
+WorkflowListResponse: TypeAlias = List[WorkflowListResponseItem]
