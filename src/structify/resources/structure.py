@@ -9,6 +9,7 @@ import httpx
 
 from ..types import (
     structure_run_async_params,
+    structure_job_status_params,
     structure_enhance_property_params,
     structure_find_relationship_params,
     structure_enhance_relationship_params,
@@ -233,7 +234,7 @@ class StructureResource(SyncAPIResource):
     def job_status(
         self,
         *,
-        job: List[str],
+        job: structure_job_status_params.Job,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -241,10 +242,9 @@ class StructureResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> StructureJobStatusResponse:
-        """Wait for all specified async tasks to be completed.
-
-        Returns the state of the job
-        tasks
+        """
+        Get status for specified jobs with detailed information similar to websocket
+        endpoint
 
         Args:
           extra_headers: Send extra headers
@@ -257,7 +257,7 @@ class StructureResource(SyncAPIResource):
         """
         return self._post(
             "/structure/job_status",
-            body=maybe_transform(job, List[str]),
+            body=maybe_transform(job, structure_job_status_params.StructureJobStatusParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -519,7 +519,7 @@ class AsyncStructureResource(AsyncAPIResource):
     async def job_status(
         self,
         *,
-        job: List[str],
+        job: structure_job_status_params.Job,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -527,10 +527,9 @@ class AsyncStructureResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> StructureJobStatusResponse:
-        """Wait for all specified async tasks to be completed.
-
-        Returns the state of the job
-        tasks
+        """
+        Get status for specified jobs with detailed information similar to websocket
+        endpoint
 
         Args:
           extra_headers: Send extra headers
@@ -543,7 +542,7 @@ class AsyncStructureResource(AsyncAPIResource):
         """
         return await self._post(
             "/structure/job_status",
-            body=await async_maybe_transform(job, List[str]),
+            body=await async_maybe_transform(job, structure_job_status_params.StructureJobStatusParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
