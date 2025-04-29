@@ -51,40 +51,6 @@ class TestStripe:
 
         assert cast(Any, response.is_closed) is True
 
-    @parametrize
-    def test_method_stripe_webhook(self, client: Structify) -> None:
-        stripe = client.user.stripe.stripe_webhook(
-            data={"object": {}},
-            type="type",
-        )
-        assert_matches_type(object, stripe, path=["response"])
-
-    @parametrize
-    def test_raw_response_stripe_webhook(self, client: Structify) -> None:
-        response = client.user.stripe.with_raw_response.stripe_webhook(
-            data={"object": {}},
-            type="type",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        stripe = response.parse()
-        assert_matches_type(object, stripe, path=["response"])
-
-    @parametrize
-    def test_streaming_response_stripe_webhook(self, client: Structify) -> None:
-        with client.user.stripe.with_streaming_response.stripe_webhook(
-            data={"object": {}},
-            type="type",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            stripe = response.parse()
-            assert_matches_type(object, stripe, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
 
 class TestAsyncStripe:
     parametrize = pytest.mark.parametrize("async_client", [False, True], indirect=True, ids=["loose", "strict"])
@@ -120,39 +86,5 @@ class TestAsyncStripe:
 
             stripe = await response.parse()
             assert_matches_type(CreateSessionResponse, stripe, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    async def test_method_stripe_webhook(self, async_client: AsyncStructify) -> None:
-        stripe = await async_client.user.stripe.stripe_webhook(
-            data={"object": {}},
-            type="type",
-        )
-        assert_matches_type(object, stripe, path=["response"])
-
-    @parametrize
-    async def test_raw_response_stripe_webhook(self, async_client: AsyncStructify) -> None:
-        response = await async_client.user.stripe.with_raw_response.stripe_webhook(
-            data={"object": {}},
-            type="type",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        stripe = await response.parse()
-        assert_matches_type(object, stripe, path=["response"])
-
-    @parametrize
-    async def test_streaming_response_stripe_webhook(self, async_client: AsyncStructify) -> None:
-        async with async_client.user.stripe.with_streaming_response.stripe_webhook(
-            data={"object": {}},
-            type="type",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            stripe = await response.parse()
-            assert_matches_type(object, stripe, path=["response"])
 
         assert cast(Any, response.is_closed) is True
