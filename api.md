@@ -8,9 +8,26 @@ from structify.types import TokenResponse, UserInfo, UserTransactionsResponse, U
 
 Methods:
 
-- <code title="get /user/info">client.user.<a href="./src/structify/resources/user.py">info</a>() -> <a href="./src/structify/types/user_info.py">UserInfo</a></code>
-- <code title="get /user/transactions/list">client.user.<a href="./src/structify/resources/user.py">transactions</a>() -> <a href="./src/structify/types/user_transactions_response.py">UserTransactionsResponse</a></code>
-- <code title="get /user/usage">client.user.<a href="./src/structify/resources/user.py">usage</a>(\*\*<a href="src/structify/types/user_usage_params.py">params</a>) -> <a href="./src/structify/types/user_usage_response.py">UserUsageResponse</a></code>
+- <code title="get /user/info">client.user.<a href="./src/structify/resources/user/user.py">info</a>() -> <a href="./src/structify/types/user_info.py">UserInfo</a></code>
+- <code title="get /user/transactions/list">client.user.<a href="./src/structify/resources/user/user.py">transactions</a>() -> <a href="./src/structify/types/user_transactions_response.py">UserTransactionsResponse</a></code>
+- <code title="get /user/usage">client.user.<a href="./src/structify/resources/user/user.py">usage</a>(\*\*<a href="src/structify/types/user_usage_params.py">params</a>) -> <a href="./src/structify/types/user_usage_response.py">UserUsageResponse</a></code>
+
+## Stripe
+
+Types:
+
+```python
+from structify.types.user import (
+    CreateSessionRequest,
+    CreateSessionResponse,
+    StripeStripeWebhookResponse,
+)
+```
+
+Methods:
+
+- <code title="post /user/transactions/stripe/create_session">client.user.stripe.<a href="./src/structify/resources/user/stripe.py">create_session</a>(\*\*<a href="src/structify/types/user/stripe_create_session_params.py">params</a>) -> <a href="./src/structify/types/user/create_session_response.py">CreateSessionResponse</a></code>
+- <code title="post /user/transactions/stripe/webhook">client.user.stripe.<a href="./src/structify/resources/user/stripe.py">stripe_webhook</a>(\*\*<a href="src/structify/types/user/stripe_stripe_webhook_params.py">params</a>) -> <a href="./src/structify/types/user/stripe_stripe_webhook_response.py">object</a></code>
 
 # Admin
 
