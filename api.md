@@ -17,17 +17,12 @@ Methods:
 Types:
 
 ```python
-from structify.types.user import (
-    CreateSessionRequest,
-    CreateSessionResponse,
-    StripeStripeWebhookResponse,
-)
+from structify.types.user import CreateSessionRequest, CreateSessionResponse
 ```
 
 Methods:
 
 - <code title="post /user/transactions/stripe/create_session">client.user.stripe.<a href="./src/structify/resources/user/stripe.py">create_session</a>(\*\*<a href="src/structify/types/user/stripe_create_session_params.py">params</a>) -> <a href="./src/structify/types/user/create_session_response.py">CreateSessionResponse</a></code>
-- <code title="post /user/transactions/stripe/webhook">client.user.stripe.<a href="./src/structify/resources/user/stripe.py">stripe_webhook</a>(\*\*<a href="src/structify/types/user/stripe_stripe_webhook_params.py">params</a>) -> <a href="./src/structify/types/user/stripe_stripe_webhook_response.py">object</a></code>
 
 # Admin
 

@@ -14,7 +14,7 @@ from ..._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ...types.user import stripe_create_session_params, stripe_stripe_webhook_params
+from ...types.user import stripe_create_session_params
 from ..._base_client import make_request_options
 from ...types.user.create_session_response import CreateSessionResponse
 
@@ -80,43 +80,6 @@ class StripeResource(SyncAPIResource):
             cast_to=CreateSessionResponse,
         )
 
-    def stripe_webhook(
-        self,
-        *,
-        data: stripe_stripe_webhook_params.Data,
-        type: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> object:
-        """
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return self._post(
-            "/user/transactions/stripe/webhook",
-            body=maybe_transform(
-                {
-                    "data": data,
-                    "type": type,
-                },
-                stripe_stripe_webhook_params.StripeStripeWebhookParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=object,
-        )
-
 
 class AsyncStripeResource(AsyncAPIResource):
     @cached_property
@@ -177,43 +140,6 @@ class AsyncStripeResource(AsyncAPIResource):
             cast_to=CreateSessionResponse,
         )
 
-    async def stripe_webhook(
-        self,
-        *,
-        data: stripe_stripe_webhook_params.Data,
-        type: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> object:
-        """
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return await self._post(
-            "/user/transactions/stripe/webhook",
-            body=await async_maybe_transform(
-                {
-                    "data": data,
-                    "type": type,
-                },
-                stripe_stripe_webhook_params.StripeStripeWebhookParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=object,
-        )
-
 
 class StripeResourceWithRawResponse:
     def __init__(self, stripe: StripeResource) -> None:
@@ -221,9 +147,6 @@ class StripeResourceWithRawResponse:
 
         self.create_session = to_raw_response_wrapper(
             stripe.create_session,
-        )
-        self.stripe_webhook = to_raw_response_wrapper(
-            stripe.stripe_webhook,
         )
 
 
@@ -234,9 +157,6 @@ class AsyncStripeResourceWithRawResponse:
         self.create_session = async_to_raw_response_wrapper(
             stripe.create_session,
         )
-        self.stripe_webhook = async_to_raw_response_wrapper(
-            stripe.stripe_webhook,
-        )
 
 
 class StripeResourceWithStreamingResponse:
@@ -246,9 +166,6 @@ class StripeResourceWithStreamingResponse:
         self.create_session = to_streamed_response_wrapper(
             stripe.create_session,
         )
-        self.stripe_webhook = to_streamed_response_wrapper(
-            stripe.stripe_webhook,
-        )
 
 
 class AsyncStripeResourceWithStreamingResponse:
@@ -257,7 +174,4 @@ class AsyncStripeResourceWithStreamingResponse:
 
         self.create_session = async_to_streamed_response_wrapper(
             stripe.create_session,
-        )
-        self.stripe_webhook = async_to_streamed_response_wrapper(
-            stripe.stripe_webhook,
         )
