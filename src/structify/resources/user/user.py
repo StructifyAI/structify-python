@@ -6,26 +6,38 @@ from typing import Optional
 
 import httpx
 
-from ..types import user_usage_params
-from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
-from .._utils import maybe_transform, async_maybe_transform
-from .._compat import cached_property
-from .._resource import SyncAPIResource, AsyncAPIResource
-from .._response import (
+from .stripe import (
+    StripeResource,
+    AsyncStripeResource,
+    StripeResourceWithRawResponse,
+    AsyncStripeResourceWithRawResponse,
+    StripeResourceWithStreamingResponse,
+    AsyncStripeResourceWithStreamingResponse,
+)
+from ...types import user_usage_params
+from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from ..._utils import maybe_transform, async_maybe_transform
+from ..._compat import cached_property
+from ..._resource import SyncAPIResource, AsyncAPIResource
+from ..._response import (
     to_raw_response_wrapper,
     to_streamed_response_wrapper,
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from .._base_client import make_request_options
-from ..types.user_info import UserInfo
-from ..types.user_usage_response import UserUsageResponse
-from ..types.user_transactions_response import UserTransactionsResponse
+from ..._base_client import make_request_options
+from ...types.user_info import UserInfo
+from ...types.user_usage_response import UserUsageResponse
+from ...types.user_transactions_response import UserTransactionsResponse
 
 __all__ = ["UserResource", "AsyncUserResource"]
 
 
 class UserResource(SyncAPIResource):
+    @cached_property
+    def stripe(self) -> StripeResource:
+        return StripeResource(self._client)
+
     @cached_property
     def with_raw_response(self) -> UserResourceWithRawResponse:
         """
@@ -119,6 +131,10 @@ class UserResource(SyncAPIResource):
 
 
 class AsyncUserResource(AsyncAPIResource):
+    @cached_property
+    def stripe(self) -> AsyncStripeResource:
+        return AsyncStripeResource(self._client)
+
     @cached_property
     def with_raw_response(self) -> AsyncUserResourceWithRawResponse:
         """
@@ -225,6 +241,10 @@ class UserResourceWithRawResponse:
             user.usage,
         )
 
+    @cached_property
+    def stripe(self) -> StripeResourceWithRawResponse:
+        return StripeResourceWithRawResponse(self._user.stripe)
+
 
 class AsyncUserResourceWithRawResponse:
     def __init__(self, user: AsyncUserResource) -> None:
@@ -239,6 +259,10 @@ class AsyncUserResourceWithRawResponse:
         self.usage = async_to_raw_response_wrapper(
             user.usage,
         )
+
+    @cached_property
+    def stripe(self) -> AsyncStripeResourceWithRawResponse:
+        return AsyncStripeResourceWithRawResponse(self._user.stripe)
 
 
 class UserResourceWithStreamingResponse:
@@ -255,6 +279,10 @@ class UserResourceWithStreamingResponse:
             user.usage,
         )
 
+    @cached_property
+    def stripe(self) -> StripeResourceWithStreamingResponse:
+        return StripeResourceWithStreamingResponse(self._user.stripe)
+
 
 class AsyncUserResourceWithStreamingResponse:
     def __init__(self, user: AsyncUserResource) -> None:
@@ -269,3 +297,7 @@ class AsyncUserResourceWithStreamingResponse:
         self.usage = async_to_streamed_response_wrapper(
             user.usage,
         )
+
+    @cached_property
+    def stripe(self) -> AsyncStripeResourceWithStreamingResponse:
+        return AsyncStripeResourceWithStreamingResponse(self._user.stripe)
