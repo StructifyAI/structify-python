@@ -86,79 +86,16 @@ from structify import Structify
 
 client = Structify()
 
-client.admin.next_action.add_training_datum(
-    input={
-        "all_steps": [
-            {
-                "id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "action_name": "action_name",
-                "metadata": {"foo": "string"},
-            }
-        ],
-        "descriptor": {
-            "description": "description",
-            "name": "name",
-            "relationships": [
-                {
-                    "description": "description",
-                    "name": "name",
-                    "source_table": "source_table",
-                    "target_table": "target_table",
-                    "merge_strategy": {
-                        "source_cardinality_given_target_match": 0,
-                        "target_cardinality_given_source_match": 0,
-                    },
-                    "properties": [
-                        {
-                            "description": "description",
-                            "name": "name",
-                            "merge_strategy": "Unique",
-                            "prop_type": "String",
-                        }
-                    ],
-                }
-            ],
-            "tables": [
-                {
-                    "description": "description",
-                    "name": "name",
-                    "properties": [
-                        {
-                            "description": "description",
-                            "name": "name",
-                            "merge_strategy": "Unique",
-                            "prop_type": "String",
-                        }
-                    ],
-                    "expected_cardinality": 0,
-                    "primary_column": "primary_column",
-                }
-            ],
-            "llm_override_field": "llm_override_field",
-        },
-        "extraction_criteria": [{"relationship_name": "relationship_name"}],
-        "previous_queries": ["string"],
-        "seeded_kg": {
-            "entities": [
-                {
-                    "id": 0,
-                    "properties": {"foo": "string"},
-                    "type": "type",
-                }
-            ],
-            "relationships": [
-                {
-                    "source": 0,
-                    "target": 0,
-                    "type": "type",
-                    "properties": {"foo": "string"},
-                }
-            ],
-        },
+response = client.user.stripe.stripe_webhook(
+    data={
+        "object": {
+            "amount_subtotal": 0,
+            "metadata": {"foo": "string"},
+        }
     },
-    label="label",
-    output={"selected_step": {"step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}},
+    type="type",
 )
+print(response.data)
 ```
 
 ## File uploads

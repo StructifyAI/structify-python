@@ -21,7 +21,7 @@ from ._types import (
 )
 from ._utils import is_given, get_async_library
 from ._version import __version__
-from .resources import jobs, user, report, server, sources, entities, documents, structure
+from .resources import jobs, report, server, sources, entities, documents, structure
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import APIStatusError
 from ._base_client import (
@@ -29,6 +29,7 @@ from ._base_client import (
     SyncAPIClient,
     AsyncAPIClient,
 )
+from .resources.user import user
 from .resources.admin import admin
 from .resources.datasets import datasets
 
