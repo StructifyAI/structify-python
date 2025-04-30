@@ -14,8 +14,9 @@ from ..._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ...types.user import stripe_create_session_params
+from ...types.user import SubscriptionPlan, stripe_create_session_params, stripe_create_subscription_params
 from ..._base_client import make_request_options
+from ...types.user.subscription_plan import SubscriptionPlan
 from ...types.user.create_session_response import CreateSessionResponse
 
 __all__ = ["StripeResource", "AsyncStripeResource"]
@@ -73,6 +74,43 @@ class StripeResource(SyncAPIResource):
                     "origin": origin,
                 },
                 stripe_create_session_params.StripeCreateSessionParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=CreateSessionResponse,
+        )
+
+    def create_subscription(
+        self,
+        *,
+        origin: str,
+        plan: SubscriptionPlan,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> CreateSessionResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/user/transactions/stripe/create_subscription",
+            body=maybe_transform(
+                {
+                    "origin": origin,
+                    "plan": plan,
+                },
+                stripe_create_subscription_params.StripeCreateSubscriptionParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -140,6 +178,43 @@ class AsyncStripeResource(AsyncAPIResource):
             cast_to=CreateSessionResponse,
         )
 
+    async def create_subscription(
+        self,
+        *,
+        origin: str,
+        plan: SubscriptionPlan,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> CreateSessionResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/user/transactions/stripe/create_subscription",
+            body=await async_maybe_transform(
+                {
+                    "origin": origin,
+                    "plan": plan,
+                },
+                stripe_create_subscription_params.StripeCreateSubscriptionParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=CreateSessionResponse,
+        )
+
 
 class StripeResourceWithRawResponse:
     def __init__(self, stripe: StripeResource) -> None:
@@ -147,6 +222,9 @@ class StripeResourceWithRawResponse:
 
         self.create_session = to_raw_response_wrapper(
             stripe.create_session,
+        )
+        self.create_subscription = to_raw_response_wrapper(
+            stripe.create_subscription,
         )
 
 
@@ -157,6 +235,9 @@ class AsyncStripeResourceWithRawResponse:
         self.create_session = async_to_raw_response_wrapper(
             stripe.create_session,
         )
+        self.create_subscription = async_to_raw_response_wrapper(
+            stripe.create_subscription,
+        )
 
 
 class StripeResourceWithStreamingResponse:
@@ -166,6 +247,9 @@ class StripeResourceWithStreamingResponse:
         self.create_session = to_streamed_response_wrapper(
             stripe.create_session,
         )
+        self.create_subscription = to_streamed_response_wrapper(
+            stripe.create_subscription,
+        )
 
 
 class AsyncStripeResourceWithStreamingResponse:
@@ -174,4 +258,7 @@ class AsyncStripeResourceWithStreamingResponse:
 
         self.create_session = async_to_streamed_response_wrapper(
             stripe.create_session,
+        )
+        self.create_subscription = async_to_streamed_response_wrapper(
+            stripe.create_subscription,
         )

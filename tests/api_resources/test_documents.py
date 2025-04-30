@@ -115,6 +115,37 @@ class TestDocuments:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
+    def test_method_structure(self, client: Structify) -> None:
+        document = client.documents.structure(
+            body={"dataset": "dataset"},
+        )
+        assert_matches_type(str, document, path=["response"])
+
+    @parametrize
+    def test_raw_response_structure(self, client: Structify) -> None:
+        response = client.documents.with_raw_response.structure(
+            body={"dataset": "dataset"},
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        document = response.parse()
+        assert_matches_type(str, document, path=["response"])
+
+    @parametrize
+    def test_streaming_response_structure(self, client: Structify) -> None:
+        with client.documents.with_streaming_response.structure(
+            body={"dataset": "dataset"},
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            document = response.parse()
+            assert_matches_type(str, document, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
     def test_method_upload(self, client: Structify) -> None:
         document = client.documents.upload(
             content=b"raw file contents",
@@ -256,6 +287,37 @@ class TestAsyncDocuments:
 
             document = await response.parse()
             assert_matches_type(DocumentDownloadResponse, document, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_method_structure(self, async_client: AsyncStructify) -> None:
+        document = await async_client.documents.structure(
+            body={"dataset": "dataset"},
+        )
+        assert_matches_type(str, document, path=["response"])
+
+    @parametrize
+    async def test_raw_response_structure(self, async_client: AsyncStructify) -> None:
+        response = await async_client.documents.with_raw_response.structure(
+            body={"dataset": "dataset"},
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        document = await response.parse()
+        assert_matches_type(str, document, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_structure(self, async_client: AsyncStructify) -> None:
+        async with async_client.documents.with_streaming_response.structure(
+            body={"dataset": "dataset"},
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            document = await response.parse()
+            assert_matches_type(str, document, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

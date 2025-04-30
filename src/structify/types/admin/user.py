@@ -33,4 +33,4 @@ class User(BaseModel):
 
     updated_at: datetime
 
-    user_type: Literal["admin", "public", "end_user"]
+    user_type: Literal["admin", "public", "end_user", "pro"]

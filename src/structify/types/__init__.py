@@ -79,6 +79,7 @@ from .dataset_descriptor_param import DatasetDescriptorParam as DatasetDescripto
 from .document_download_params import DocumentDownloadParams as DocumentDownloadParams
 from .entity_get_merges_params import EntityGetMergesParams as EntityGetMergesParams
 from .dataset_view_table_params import DatasetViewTableParams as DatasetViewTableParams
+from .document_structure_params import DocumentStructureParams as DocumentStructureParams
 from .entity_add_batch_response import EntityAddBatchResponse as EntityAddBatchResponse
 from .entity_list_jobs_response import EntityListJobsResponse as EntityListJobsResponse
 from .entity_summarize_response import EntitySummarizeResponse as EntitySummarizeResponse
@@ -89,6 +90,7 @@ from .structure_run_async_params import StructureRunAsyncParams as StructureRunA
 from .user_transactions_response import UserTransactionsResponse as UserTransactionsResponse
 from .dataset_add_property_params import DatasetAddPropertyParams as DatasetAddPropertyParams
 from .dataset_view_table_response import DatasetViewTableResponse as DatasetViewTableResponse
+from .document_structure_response import DocumentStructureResponse as DocumentStructureResponse
 from .entity_trigger_merge_params import EntityTriggerMergeParams as EntityTriggerMergeParams
 from .job_get_step_graph_response import JobGetStepGraphResponse as JobGetStepGraphResponse
 from .relationship_merge_strategy import RelationshipMergeStrategy as RelationshipMergeStrategy
