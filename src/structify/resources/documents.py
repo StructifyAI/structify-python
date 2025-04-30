@@ -158,7 +158,8 @@ class DocumentsResource(SyncAPIResource):
     def structure(
         self,
         *,
-        body: document_structure_params.Body,
+        dataset: str,
+        path: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -181,7 +182,13 @@ class DocumentsResource(SyncAPIResource):
         extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
         return self._post(
             "/documents/structure",
-            body=maybe_transform(body, document_structure_params.DocumentStructureParams),
+            body=maybe_transform(
+                {
+                    "dataset": dataset,
+                    "path": path,
+                },
+                document_structure_params.DocumentStructureParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -369,7 +376,8 @@ class AsyncDocumentsResource(AsyncAPIResource):
     async def structure(
         self,
         *,
-        body: document_structure_params.Body,
+        dataset: str,
+        path: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -392,7 +400,13 @@ class AsyncDocumentsResource(AsyncAPIResource):
         extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
         return await self._post(
             "/documents/structure",
-            body=await async_maybe_transform(body, document_structure_params.DocumentStructureParams),
+            body=await async_maybe_transform(
+                {
+                    "dataset": dataset,
+                    "path": path,
+                },
+                document_structure_params.DocumentStructureParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),

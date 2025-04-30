@@ -4,12 +4,10 @@ from __future__ import annotations
 
 from typing_extensions import Required, TypedDict
 
-__all__ = ["DocumentStructureParams", "Body"]
+__all__ = ["DocumentStructureParams"]
 
 
 class DocumentStructureParams(TypedDict, total=False):
-    body: Required[Body]
+    dataset: Required[str]
 
-
-class Body(total=False):
-    pass
+    path: Required[str]
