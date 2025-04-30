@@ -14,6 +14,8 @@ from ...types import (
     dataset_delete_params,
     dataset_view_table_params,
     dataset_add_property_params,
+    dataset_export_to_csv_params,
+    dataset_export_to_excel_params,
     dataset_remove_property_params,
     dataset_update_property_params,
     dataset_reorder_properties_params,
@@ -276,6 +278,85 @@ class DatasetsResource(SyncAPIResource):
                 ),
             ),
             cast_to=DatasetEnrichmentProgressResponse,
+        )
+
+    def export_to_csv(
+        self,
+        *,
+        dataset: str,
+        name: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> None:
+        """
+        You need to specify a dataset and a table_name
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return self._get(
+            "/dataset/export_to_csv",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "dataset": dataset,
+                        "name": name,
+                    },
+                    dataset_export_to_csv_params.DatasetExportToCsvParams,
+                ),
+            ),
+            cast_to=NoneType,
+        )
+
+    def export_to_excel(
+        self,
+        *,
+        dataset: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> None:
+        """
+        Each table and relationship type will be in its own sheet
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return self._get(
+            "/dataset/export_to_excel",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"dataset": dataset}, dataset_export_to_excel_params.DatasetExportToExcelParams),
+            ),
+            cast_to=NoneType,
         )
 
     def get(
@@ -904,6 +985,87 @@ class AsyncDatasetsResource(AsyncAPIResource):
             cast_to=DatasetEnrichmentProgressResponse,
         )
 
+    async def export_to_csv(
+        self,
+        *,
+        dataset: str,
+        name: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> None:
+        """
+        You need to specify a dataset and a table_name
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return await self._get(
+            "/dataset/export_to_csv",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "dataset": dataset,
+                        "name": name,
+                    },
+                    dataset_export_to_csv_params.DatasetExportToCsvParams,
+                ),
+            ),
+            cast_to=NoneType,
+        )
+
+    async def export_to_excel(
+        self,
+        *,
+        dataset: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> None:
+        """
+        Each table and relationship type will be in its own sheet
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return await self._get(
+            "/dataset/export_to_excel",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"dataset": dataset}, dataset_export_to_excel_params.DatasetExportToExcelParams
+                ),
+            ),
+            cast_to=NoneType,
+        )
+
     async def get(
         self,
         *,
@@ -1336,6 +1498,12 @@ class DatasetsResourceWithRawResponse:
         self.enrichment_progress = to_raw_response_wrapper(
             datasets.enrichment_progress,
         )
+        self.export_to_csv = to_raw_response_wrapper(
+            datasets.export_to_csv,
+        )
+        self.export_to_excel = to_raw_response_wrapper(
+            datasets.export_to_excel,
+        )
         self.get = to_raw_response_wrapper(
             datasets.get,
         )
@@ -1391,6 +1559,12 @@ class AsyncDatasetsResourceWithRawResponse:
         )
         self.enrichment_progress = async_to_raw_response_wrapper(
             datasets.enrichment_progress,
+        )
+        self.export_to_csv = async_to_raw_response_wrapper(
+            datasets.export_to_csv,
+        )
+        self.export_to_excel = async_to_raw_response_wrapper(
+            datasets.export_to_excel,
         )
         self.get = async_to_raw_response_wrapper(
             datasets.get,
@@ -1448,6 +1622,12 @@ class DatasetsResourceWithStreamingResponse:
         self.enrichment_progress = to_streamed_response_wrapper(
             datasets.enrichment_progress,
         )
+        self.export_to_csv = to_streamed_response_wrapper(
+            datasets.export_to_csv,
+        )
+        self.export_to_excel = to_streamed_response_wrapper(
+            datasets.export_to_excel,
+        )
         self.get = to_streamed_response_wrapper(
             datasets.get,
         )
@@ -1503,6 +1683,12 @@ class AsyncDatasetsResourceWithStreamingResponse:
         )
         self.enrichment_progress = async_to_streamed_response_wrapper(
             datasets.enrichment_progress,
+        )
+        self.export_to_csv = async_to_streamed_response_wrapper(
+            datasets.export_to_csv,
+        )
+        self.export_to_excel = async_to_streamed_response_wrapper(
+            datasets.export_to_excel,
         )
         self.get = async_to_streamed_response_wrapper(
             datasets.get,
