@@ -7,7 +7,13 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..types import document_list_params, document_delete_params, document_upload_params, document_download_params
+from ..types import (
+    document_list_params,
+    document_delete_params,
+    document_upload_params,
+    document_download_params,
+    document_structure_params,
+)
 from .._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven, FileTypes
 from .._utils import extract_files, maybe_transform, deepcopy_minimal, async_maybe_transform
 from .._compat import cached_property
@@ -147,6 +153,39 @@ class DocumentsResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=DocumentDownloadResponse,
+        )
+
+    def structure(
+        self,
+        *,
+        body: document_structure_params.Body,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> str:
+        """
+        Returns a job id that can be waited on until the request is finished.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
+        return self._post(
+            "/documents/structure",
+            body=maybe_transform(body, document_structure_params.DocumentStructureParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=str,
         )
 
     def upload(
@@ -327,6 +366,39 @@ class AsyncDocumentsResource(AsyncAPIResource):
             cast_to=DocumentDownloadResponse,
         )
 
+    async def structure(
+        self,
+        *,
+        body: document_structure_params.Body,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> str:
+        """
+        Returns a job id that can be waited on until the request is finished.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
+        return await self._post(
+            "/documents/structure",
+            body=await async_maybe_transform(body, document_structure_params.DocumentStructureParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=str,
+        )
+
     async def upload(
         self,
         *,
@@ -394,6 +466,9 @@ class DocumentsResourceWithRawResponse:
         self.download = to_raw_response_wrapper(
             documents.download,
         )
+        self.structure = to_raw_response_wrapper(
+            documents.structure,
+        )
         self.upload = to_raw_response_wrapper(
             documents.upload,
         )
@@ -411,6 +486,9 @@ class AsyncDocumentsResourceWithRawResponse:
         )
         self.download = async_to_raw_response_wrapper(
             documents.download,
+        )
+        self.structure = async_to_raw_response_wrapper(
+            documents.structure,
         )
         self.upload = async_to_raw_response_wrapper(
             documents.upload,
@@ -430,6 +508,9 @@ class DocumentsResourceWithStreamingResponse:
         self.download = to_streamed_response_wrapper(
             documents.download,
         )
+        self.structure = to_streamed_response_wrapper(
+            documents.structure,
+        )
         self.upload = to_streamed_response_wrapper(
             documents.upload,
         )
@@ -447,6 +528,9 @@ class AsyncDocumentsResourceWithStreamingResponse:
         )
         self.download = async_to_streamed_response_wrapper(
             documents.download,
+        )
+        self.structure = async_to_streamed_response_wrapper(
+            documents.structure,
         )
         self.upload = async_to_streamed_response_wrapper(
             documents.upload,
