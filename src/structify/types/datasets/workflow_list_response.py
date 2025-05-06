@@ -12,5 +12,7 @@ __all__ = ["WorkflowListResponse", "WorkflowListResponseItem"]
 class WorkflowListResponseItem(Workflow):
     id: ID
 
+    dataset_name: str
+
 
 WorkflowListResponse: TypeAlias = List[WorkflowListResponseItem]
