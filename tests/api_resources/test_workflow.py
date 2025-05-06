@@ -9,8 +9,8 @@ import pytest
 
 from structify import Structify, AsyncStructify
 from tests.utils import assert_matches_type
-from structify.types.datasets import (
-    WorkflowGetResponse,
+from structify.types import (
+    ExistingWorkflow,
     WorkflowListResponse,
 )
 
@@ -22,7 +22,7 @@ class TestWorkflow:
 
     @parametrize
     def test_method_create(self, client: Structify) -> None:
-        workflow = client.datasets.workflow.create(
+        workflow = client.workflow.create(
             dataset_name="dataset_name",
             workflow={
                 "name": "name",
@@ -42,7 +42,7 @@ class TestWorkflow:
 
     @parametrize
     def test_raw_response_create(self, client: Structify) -> None:
-        response = client.datasets.workflow.with_raw_response.create(
+        response = client.workflow.with_raw_response.create(
             dataset_name="dataset_name",
             workflow={
                 "name": "name",
@@ -66,7 +66,7 @@ class TestWorkflow:
 
     @parametrize
     def test_streaming_response_create(self, client: Structify) -> None:
-        with client.datasets.workflow.with_streaming_response.create(
+        with client.workflow.with_streaming_response.create(
             dataset_name="dataset_name",
             workflow={
                 "name": "name",
@@ -92,7 +92,7 @@ class TestWorkflow:
 
     @parametrize
     def test_method_update(self, client: Structify) -> None:
-        workflow = client.datasets.workflow.update(
+        workflow = client.workflow.update(
             dataset_name="dataset_name",
             workflow={
                 "name": "name",
@@ -113,7 +113,7 @@ class TestWorkflow:
 
     @parametrize
     def test_raw_response_update(self, client: Structify) -> None:
-        response = client.datasets.workflow.with_raw_response.update(
+        response = client.workflow.with_raw_response.update(
             dataset_name="dataset_name",
             workflow={
                 "name": "name",
@@ -138,7 +138,7 @@ class TestWorkflow:
 
     @parametrize
     def test_streaming_response_update(self, client: Structify) -> None:
-        with client.datasets.workflow.with_streaming_response.update(
+        with client.workflow.with_streaming_response.update(
             dataset_name="dataset_name",
             workflow={
                 "name": "name",
@@ -165,19 +165,19 @@ class TestWorkflow:
 
     @parametrize
     def test_method_list(self, client: Structify) -> None:
-        workflow = client.datasets.workflow.list()
+        workflow = client.workflow.list()
         assert_matches_type(WorkflowListResponse, workflow, path=["response"])
 
     @parametrize
     def test_method_list_with_all_params(self, client: Structify) -> None:
-        workflow = client.datasets.workflow.list(
+        workflow = client.workflow.list(
             dataset_name="dataset_name",
         )
         assert_matches_type(WorkflowListResponse, workflow, path=["response"])
 
     @parametrize
     def test_raw_response_list(self, client: Structify) -> None:
-        response = client.datasets.workflow.with_raw_response.list()
+        response = client.workflow.with_raw_response.list()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -186,7 +186,7 @@ class TestWorkflow:
 
     @parametrize
     def test_streaming_response_list(self, client: Structify) -> None:
-        with client.datasets.workflow.with_streaming_response.list() as response:
+        with client.workflow.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -197,14 +197,14 @@ class TestWorkflow:
 
     @parametrize
     def test_method_delete(self, client: Structify) -> None:
-        workflow = client.datasets.workflow.delete(
+        workflow = client.workflow.delete(
             workflow_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert workflow is None
 
     @parametrize
     def test_raw_response_delete(self, client: Structify) -> None:
-        response = client.datasets.workflow.with_raw_response.delete(
+        response = client.workflow.with_raw_response.delete(
             workflow_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
@@ -215,7 +215,7 @@ class TestWorkflow:
 
     @parametrize
     def test_streaming_response_delete(self, client: Structify) -> None:
-        with client.datasets.workflow.with_streaming_response.delete(
+        with client.workflow.with_streaming_response.delete(
             workflow_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
@@ -228,38 +228,38 @@ class TestWorkflow:
 
     @parametrize
     def test_method_get(self, client: Structify) -> None:
-        workflow = client.datasets.workflow.get(
+        workflow = client.workflow.get(
             workflow_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(WorkflowGetResponse, workflow, path=["response"])
+        assert_matches_type(ExistingWorkflow, workflow, path=["response"])
 
     @parametrize
     def test_raw_response_get(self, client: Structify) -> None:
-        response = client.datasets.workflow.with_raw_response.get(
+        response = client.workflow.with_raw_response.get(
             workflow_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         workflow = response.parse()
-        assert_matches_type(WorkflowGetResponse, workflow, path=["response"])
+        assert_matches_type(ExistingWorkflow, workflow, path=["response"])
 
     @parametrize
     def test_streaming_response_get(self, client: Structify) -> None:
-        with client.datasets.workflow.with_streaming_response.get(
+        with client.workflow.with_streaming_response.get(
             workflow_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             workflow = response.parse()
-            assert_matches_type(WorkflowGetResponse, workflow, path=["response"])
+            assert_matches_type(ExistingWorkflow, workflow, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @parametrize
     def test_method_trigger(self, client: Structify) -> None:
-        workflow = client.datasets.workflow.trigger(
+        workflow = client.workflow.trigger(
             entity_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             workflow_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
@@ -267,7 +267,7 @@ class TestWorkflow:
 
     @parametrize
     def test_raw_response_trigger(self, client: Structify) -> None:
-        response = client.datasets.workflow.with_raw_response.trigger(
+        response = client.workflow.with_raw_response.trigger(
             entity_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             workflow_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
@@ -279,7 +279,7 @@ class TestWorkflow:
 
     @parametrize
     def test_streaming_response_trigger(self, client: Structify) -> None:
-        with client.datasets.workflow.with_streaming_response.trigger(
+        with client.workflow.with_streaming_response.trigger(
             entity_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             workflow_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
@@ -297,7 +297,7 @@ class TestAsyncWorkflow:
 
     @parametrize
     async def test_method_create(self, async_client: AsyncStructify) -> None:
-        workflow = await async_client.datasets.workflow.create(
+        workflow = await async_client.workflow.create(
             dataset_name="dataset_name",
             workflow={
                 "name": "name",
@@ -317,7 +317,7 @@ class TestAsyncWorkflow:
 
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncStructify) -> None:
-        response = await async_client.datasets.workflow.with_raw_response.create(
+        response = await async_client.workflow.with_raw_response.create(
             dataset_name="dataset_name",
             workflow={
                 "name": "name",
@@ -341,7 +341,7 @@ class TestAsyncWorkflow:
 
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncStructify) -> None:
-        async with async_client.datasets.workflow.with_streaming_response.create(
+        async with async_client.workflow.with_streaming_response.create(
             dataset_name="dataset_name",
             workflow={
                 "name": "name",
@@ -367,7 +367,7 @@ class TestAsyncWorkflow:
 
     @parametrize
     async def test_method_update(self, async_client: AsyncStructify) -> None:
-        workflow = await async_client.datasets.workflow.update(
+        workflow = await async_client.workflow.update(
             dataset_name="dataset_name",
             workflow={
                 "name": "name",
@@ -388,7 +388,7 @@ class TestAsyncWorkflow:
 
     @parametrize
     async def test_raw_response_update(self, async_client: AsyncStructify) -> None:
-        response = await async_client.datasets.workflow.with_raw_response.update(
+        response = await async_client.workflow.with_raw_response.update(
             dataset_name="dataset_name",
             workflow={
                 "name": "name",
@@ -413,7 +413,7 @@ class TestAsyncWorkflow:
 
     @parametrize
     async def test_streaming_response_update(self, async_client: AsyncStructify) -> None:
-        async with async_client.datasets.workflow.with_streaming_response.update(
+        async with async_client.workflow.with_streaming_response.update(
             dataset_name="dataset_name",
             workflow={
                 "name": "name",
@@ -440,19 +440,19 @@ class TestAsyncWorkflow:
 
     @parametrize
     async def test_method_list(self, async_client: AsyncStructify) -> None:
-        workflow = await async_client.datasets.workflow.list()
+        workflow = await async_client.workflow.list()
         assert_matches_type(WorkflowListResponse, workflow, path=["response"])
 
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncStructify) -> None:
-        workflow = await async_client.datasets.workflow.list(
+        workflow = await async_client.workflow.list(
             dataset_name="dataset_name",
         )
         assert_matches_type(WorkflowListResponse, workflow, path=["response"])
 
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncStructify) -> None:
-        response = await async_client.datasets.workflow.with_raw_response.list()
+        response = await async_client.workflow.with_raw_response.list()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -461,7 +461,7 @@ class TestAsyncWorkflow:
 
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncStructify) -> None:
-        async with async_client.datasets.workflow.with_streaming_response.list() as response:
+        async with async_client.workflow.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -472,14 +472,14 @@ class TestAsyncWorkflow:
 
     @parametrize
     async def test_method_delete(self, async_client: AsyncStructify) -> None:
-        workflow = await async_client.datasets.workflow.delete(
+        workflow = await async_client.workflow.delete(
             workflow_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert workflow is None
 
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncStructify) -> None:
-        response = await async_client.datasets.workflow.with_raw_response.delete(
+        response = await async_client.workflow.with_raw_response.delete(
             workflow_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
@@ -490,7 +490,7 @@ class TestAsyncWorkflow:
 
     @parametrize
     async def test_streaming_response_delete(self, async_client: AsyncStructify) -> None:
-        async with async_client.datasets.workflow.with_streaming_response.delete(
+        async with async_client.workflow.with_streaming_response.delete(
             workflow_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
@@ -503,38 +503,38 @@ class TestAsyncWorkflow:
 
     @parametrize
     async def test_method_get(self, async_client: AsyncStructify) -> None:
-        workflow = await async_client.datasets.workflow.get(
+        workflow = await async_client.workflow.get(
             workflow_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(WorkflowGetResponse, workflow, path=["response"])
+        assert_matches_type(ExistingWorkflow, workflow, path=["response"])
 
     @parametrize
     async def test_raw_response_get(self, async_client: AsyncStructify) -> None:
-        response = await async_client.datasets.workflow.with_raw_response.get(
+        response = await async_client.workflow.with_raw_response.get(
             workflow_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         workflow = await response.parse()
-        assert_matches_type(WorkflowGetResponse, workflow, path=["response"])
+        assert_matches_type(ExistingWorkflow, workflow, path=["response"])
 
     @parametrize
     async def test_streaming_response_get(self, async_client: AsyncStructify) -> None:
-        async with async_client.datasets.workflow.with_streaming_response.get(
+        async with async_client.workflow.with_streaming_response.get(
             workflow_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             workflow = await response.parse()
-            assert_matches_type(WorkflowGetResponse, workflow, path=["response"])
+            assert_matches_type(ExistingWorkflow, workflow, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @parametrize
     async def test_method_trigger(self, async_client: AsyncStructify) -> None:
-        workflow = await async_client.datasets.workflow.trigger(
+        workflow = await async_client.workflow.trigger(
             entity_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             workflow_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
@@ -542,7 +542,7 @@ class TestAsyncWorkflow:
 
     @parametrize
     async def test_raw_response_trigger(self, async_client: AsyncStructify) -> None:
-        response = await async_client.datasets.workflow.with_raw_response.trigger(
+        response = await async_client.workflow.with_raw_response.trigger(
             entity_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             workflow_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
@@ -554,7 +554,7 @@ class TestAsyncWorkflow:
 
     @parametrize
     async def test_streaming_response_trigger(self, async_client: AsyncStructify) -> None:
-        async with async_client.datasets.workflow.with_streaming_response.trigger(
+        async with async_client.workflow.with_streaming_response.trigger(
             entity_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             workflow_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:

@@ -5,7 +5,7 @@ from __future__ import annotations
 from typing import List, Union, Iterable
 from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
-from ..._utils import PropertyInfo
+from .._utils import PropertyInfo
 
 __all__ = [
     "WorkflowParam",

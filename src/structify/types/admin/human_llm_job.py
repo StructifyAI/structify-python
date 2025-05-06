@@ -4,8 +4,8 @@ from typing import Optional
 from datetime import datetime
 from typing_extensions import Literal
 
+from ..id import ID
 from ..._models import BaseModel
-from ..datasets.id import ID
 
 __all__ = ["HumanLlmJob", "Job", "Metadata"]
 

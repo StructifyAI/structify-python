@@ -21,7 +21,7 @@ from ._types import (
 )
 from ._utils import is_given, get_async_library
 from ._version import __version__
-from .resources import jobs, report, server, sources, entities, documents, structure
+from .resources import jobs, report, server, sources, entities, workflow, documents, structure
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import APIStatusError, StructifyError
 from ._base_client import (
@@ -54,6 +54,7 @@ ENVIRONMENTS: Dict[str, str] = {
 class Structify(SyncAPIClient):
     user: user.UserResource
     admin: admin.AdminResource
+    workflow: workflow.WorkflowResource
     datasets: datasets.DatasetsResource
     documents: documents.DocumentsResource
     jobs: jobs.JobsResource
@@ -145,6 +146,7 @@ class Structify(SyncAPIClient):
 
         self.user = user.UserResource(self)
         self.admin = admin.AdminResource(self)
+        self.workflow = workflow.WorkflowResource(self)
         self.datasets = datasets.DatasetsResource(self)
         self.documents = documents.DocumentsResource(self)
         self.jobs = jobs.JobsResource(self)
@@ -266,6 +268,7 @@ class Structify(SyncAPIClient):
 class AsyncStructify(AsyncAPIClient):
     user: user.AsyncUserResource
     admin: admin.AsyncAdminResource
+    workflow: workflow.AsyncWorkflowResource
     datasets: datasets.AsyncDatasetsResource
     documents: documents.AsyncDocumentsResource
     jobs: jobs.AsyncJobsResource
@@ -357,6 +360,7 @@ class AsyncStructify(AsyncAPIClient):
 
         self.user = user.AsyncUserResource(self)
         self.admin = admin.AsyncAdminResource(self)
+        self.workflow = workflow.AsyncWorkflowResource(self)
         self.datasets = datasets.AsyncDatasetsResource(self)
         self.documents = documents.AsyncDocumentsResource(self)
         self.jobs = jobs.AsyncJobsResource(self)
@@ -479,6 +483,7 @@ class StructifyWithRawResponse:
     def __init__(self, client: Structify) -> None:
         self.user = user.UserResourceWithRawResponse(client.user)
         self.admin = admin.AdminResourceWithRawResponse(client.admin)
+        self.workflow = workflow.WorkflowResourceWithRawResponse(client.workflow)
         self.datasets = datasets.DatasetsResourceWithRawResponse(client.datasets)
         self.documents = documents.DocumentsResourceWithRawResponse(client.documents)
         self.jobs = jobs.JobsResourceWithRawResponse(client.jobs)
@@ -493,6 +498,7 @@ class AsyncStructifyWithRawResponse:
     def __init__(self, client: AsyncStructify) -> None:
         self.user = user.AsyncUserResourceWithRawResponse(client.user)
         self.admin = admin.AsyncAdminResourceWithRawResponse(client.admin)
+        self.workflow = workflow.AsyncWorkflowResourceWithRawResponse(client.workflow)
         self.datasets = datasets.AsyncDatasetsResourceWithRawResponse(client.datasets)
         self.documents = documents.AsyncDocumentsResourceWithRawResponse(client.documents)
         self.jobs = jobs.AsyncJobsResourceWithRawResponse(client.jobs)
@@ -507,6 +513,7 @@ class StructifyWithStreamedResponse:
     def __init__(self, client: Structify) -> None:
         self.user = user.UserResourceWithStreamingResponse(client.user)
         self.admin = admin.AdminResourceWithStreamingResponse(client.admin)
+        self.workflow = workflow.WorkflowResourceWithStreamingResponse(client.workflow)
         self.datasets = datasets.DatasetsResourceWithStreamingResponse(client.datasets)
         self.documents = documents.DocumentsResourceWithStreamingResponse(client.documents)
         self.jobs = jobs.JobsResourceWithStreamingResponse(client.jobs)
@@ -521,6 +528,7 @@ class AsyncStructifyWithStreamedResponse:
     def __init__(self, client: AsyncStructify) -> None:
         self.user = user.AsyncUserResourceWithStreamingResponse(client.user)
         self.admin = admin.AsyncAdminResourceWithStreamingResponse(client.admin)
+        self.workflow = workflow.AsyncWorkflowResourceWithStreamingResponse(client.workflow)
         self.datasets = datasets.AsyncDatasetsResourceWithStreamingResponse(client.datasets)
         self.documents = documents.AsyncDocumentsResourceWithStreamingResponse(client.documents)
         self.jobs = jobs.AsyncJobsResourceWithStreamingResponse(client.jobs)
