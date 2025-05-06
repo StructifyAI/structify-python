@@ -3,10 +3,10 @@
 from .id import ID
 from .workflow import Workflow
 
-__all__ = ["WorkflowGetResponse"]
+__all__ = ["ExistingWorkflow"]
 
 
-class WorkflowGetResponse(Workflow):
+class ExistingWorkflow(Workflow):
     id: ID
 
     dataset_name: str

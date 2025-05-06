@@ -6,18 +6,7 @@ from typing import List, Optional
 
 import httpx
 
-from ..._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
-from ..._utils import maybe_transform, async_maybe_transform
-from ..._compat import cached_property
-from ..._resource import SyncAPIResource, AsyncAPIResource
-from ..._response import (
-    to_raw_response_wrapper,
-    to_streamed_response_wrapper,
-    async_to_raw_response_wrapper,
-    async_to_streamed_response_wrapper,
-)
-from ..._base_client import make_request_options
-from ...types.datasets import (
+from ..types import (
     ID,
     workflow_get_params,
     workflow_list_params,
@@ -26,10 +15,21 @@ from ...types.datasets import (
     workflow_update_params,
     workflow_trigger_params,
 )
-from ...types.datasets.id import ID
-from ...types.datasets.workflow_param import WorkflowParam
-from ...types.datasets.workflow_get_response import WorkflowGetResponse
-from ...types.datasets.workflow_list_response import WorkflowListResponse
+from .._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
+from .._utils import maybe_transform, async_maybe_transform
+from .._compat import cached_property
+from ..types.id import ID
+from .._resource import SyncAPIResource, AsyncAPIResource
+from .._response import (
+    to_raw_response_wrapper,
+    to_streamed_response_wrapper,
+    async_to_raw_response_wrapper,
+    async_to_streamed_response_wrapper,
+)
+from .._base_client import make_request_options
+from ..types.workflow_param import WorkflowParam
+from ..types.existing_workflow import ExistingWorkflow
+from ..types.workflow_list_response import WorkflowListResponse
 
 __all__ = ["WorkflowResource", "AsyncWorkflowResource"]
 
@@ -79,7 +79,7 @@ class WorkflowResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/dataset/workflow/create",
+            "/workflow/create",
             body=maybe_transform(
                 {
                     "dataset_name": dataset_name,
@@ -119,7 +119,7 @@ class WorkflowResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._put(
-            "/dataset/workflow/update",
+            "/workflow/update",
             body=maybe_transform(
                 {
                     "dataset_name": dataset_name,
@@ -158,7 +158,7 @@ class WorkflowResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/dataset/workflow/list",
+            "/workflow/list",
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -194,7 +194,7 @@ class WorkflowResource(SyncAPIResource):
         """
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._delete(
-            "/dataset/workflow/delete",
+            "/workflow/delete",
             body=maybe_transform({"workflow_id": workflow_id}, workflow_delete_params.WorkflowDeleteParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -212,7 +212,7 @@ class WorkflowResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> WorkflowGetResponse:
+    ) -> ExistingWorkflow:
         """
         Get a workflow by ID
 
@@ -226,7 +226,7 @@ class WorkflowResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._get(
-            "/dataset/workflow/get",
+            "/workflow/get",
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -234,7 +234,7 @@ class WorkflowResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform({"workflow_id": workflow_id}, workflow_get_params.WorkflowGetParams),
             ),
-            cast_to=WorkflowGetResponse,
+            cast_to=ExistingWorkflow,
         )
 
     def trigger(
@@ -262,7 +262,7 @@ class WorkflowResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/dataset/workflow/trigger",
+            "/workflow/trigger",
             body=maybe_transform(
                 {
                     "entity_ids": entity_ids,
@@ -322,7 +322,7 @@ class AsyncWorkflowResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/dataset/workflow/create",
+            "/workflow/create",
             body=await async_maybe_transform(
                 {
                     "dataset_name": dataset_name,
@@ -362,7 +362,7 @@ class AsyncWorkflowResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._put(
-            "/dataset/workflow/update",
+            "/workflow/update",
             body=await async_maybe_transform(
                 {
                     "dataset_name": dataset_name,
@@ -401,7 +401,7 @@ class AsyncWorkflowResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/dataset/workflow/list",
+            "/workflow/list",
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -439,7 +439,7 @@ class AsyncWorkflowResource(AsyncAPIResource):
         """
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._delete(
-            "/dataset/workflow/delete",
+            "/workflow/delete",
             body=await async_maybe_transform({"workflow_id": workflow_id}, workflow_delete_params.WorkflowDeleteParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -457,7 +457,7 @@ class AsyncWorkflowResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> WorkflowGetResponse:
+    ) -> ExistingWorkflow:
         """
         Get a workflow by ID
 
@@ -471,7 +471,7 @@ class AsyncWorkflowResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._get(
-            "/dataset/workflow/get",
+            "/workflow/get",
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -479,7 +479,7 @@ class AsyncWorkflowResource(AsyncAPIResource):
                 timeout=timeout,
                 query=await async_maybe_transform({"workflow_id": workflow_id}, workflow_get_params.WorkflowGetParams),
             ),
-            cast_to=WorkflowGetResponse,
+            cast_to=ExistingWorkflow,
         )
 
     async def trigger(
@@ -507,7 +507,7 @@ class AsyncWorkflowResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/dataset/workflow/trigger",
+            "/workflow/trigger",
             body=await async_maybe_transform(
                 {
                     "entity_ids": entity_ids,
