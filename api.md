@@ -147,6 +147,29 @@ Methods:
 - <code title="post /admin/training_datasets/upload_labeled_step">client.admin.training_datasets.<a href="./src/structify/resources/admin/training_datasets.py">upload_labeled_step</a>(\*\*<a href="src/structify/types/admin/training_dataset_upload_labeled_step_params.py">params</a>) -> None</code>
 - <code title="put /admin/training_datasets/verify_datum">client.admin.training_datasets.<a href="./src/structify/resources/admin/training_datasets.py">verify_datum</a>(\*\*<a href="src/structify/types/admin/training_dataset_verify_datum_params.py">params</a>) -> None</code>
 
+# Workflow
+
+Types:
+
+```python
+from structify.types import (
+    ExistingWorkflow,
+    ID,
+    Workflow,
+    WorkflowListResponse,
+    WorkflowTriggerResponse,
+)
+```
+
+Methods:
+
+- <code title="post /workflow/create">client.workflow.<a href="./src/structify/resources/workflow.py">create</a>(\*\*<a href="src/structify/types/workflow_create_params.py">params</a>) -> <a href="./src/structify/types/id.py">str</a></code>
+- <code title="put /workflow/update">client.workflow.<a href="./src/structify/resources/workflow.py">update</a>(\*\*<a href="src/structify/types/workflow_update_params.py">params</a>) -> <a href="./src/structify/types/id.py">str</a></code>
+- <code title="post /workflow/list">client.workflow.<a href="./src/structify/resources/workflow.py">list</a>(\*\*<a href="src/structify/types/workflow_list_params.py">params</a>) -> <a href="./src/structify/types/workflow_list_response.py">WorkflowListResponse</a></code>
+- <code title="delete /workflow/delete">client.workflow.<a href="./src/structify/resources/workflow.py">delete</a>(\*\*<a href="src/structify/types/workflow_delete_params.py">params</a>) -> None</code>
+- <code title="get /workflow/get">client.workflow.<a href="./src/structify/resources/workflow.py">get</a>(\*\*<a href="src/structify/types/workflow_get_params.py">params</a>) -> <a href="./src/structify/types/existing_workflow.py">ExistingWorkflow</a></code>
+- <code title="post /workflow/trigger">client.workflow.<a href="./src/structify/resources/workflow.py">trigger</a>(\*\*<a href="src/structify/types/workflow_trigger_params.py">params</a>) -> <a href="./src/structify/types/workflow_trigger_response.py">object</a></code>
+
 # Datasets
 
 Types:
@@ -185,29 +208,6 @@ Methods:
 - <code title="get /dataset/view_relationships">client.datasets.<a href="./src/structify/resources/datasets/datasets.py">view_relationships</a>(\*\*<a href="src/structify/types/dataset_view_relationships_params.py">params</a>) -> <a href="./src/structify/types/dataset_view_relationships_response.py">SyncJobsList[DatasetViewRelationshipsResponse]</a></code>
 - <code title="get /dataset/view_table">client.datasets.<a href="./src/structify/resources/datasets/datasets.py">view_table</a>(\*\*<a href="src/structify/types/dataset_view_table_params.py">params</a>) -> <a href="./src/structify/types/dataset_view_table_response.py">SyncJobsList[DatasetViewTableResponse]</a></code>
 - <code title="get /dataset/view_tables_with_relationships">client.datasets.<a href="./src/structify/resources/datasets/datasets.py">view_tables_with_relationships</a>(\*\*<a href="src/structify/types/dataset_view_tables_with_relationships_params.py">params</a>) -> <a href="./src/structify/types/dataset_view_tables_with_relationships_response.py">DatasetViewTablesWithRelationshipsResponse</a></code>
-
-## Workflow
-
-Types:
-
-```python
-from structify.types.datasets import (
-    ID,
-    Workflow,
-    WorkflowListResponse,
-    WorkflowGetResponse,
-    WorkflowTriggerResponse,
-)
-```
-
-Methods:
-
-- <code title="post /dataset/workflow/create">client.datasets.workflow.<a href="./src/structify/resources/datasets/workflow.py">create</a>(\*\*<a href="src/structify/types/datasets/workflow_create_params.py">params</a>) -> <a href="./src/structify/types/datasets/id.py">str</a></code>
-- <code title="put /dataset/workflow/update">client.datasets.workflow.<a href="./src/structify/resources/datasets/workflow.py">update</a>(\*\*<a href="src/structify/types/datasets/workflow_update_params.py">params</a>) -> <a href="./src/structify/types/datasets/id.py">str</a></code>
-- <code title="post /dataset/workflow/list">client.datasets.workflow.<a href="./src/structify/resources/datasets/workflow.py">list</a>(\*\*<a href="src/structify/types/datasets/workflow_list_params.py">params</a>) -> <a href="./src/structify/types/datasets/workflow_list_response.py">WorkflowListResponse</a></code>
-- <code title="delete /dataset/workflow/delete">client.datasets.workflow.<a href="./src/structify/resources/datasets/workflow.py">delete</a>(\*\*<a href="src/structify/types/datasets/workflow_delete_params.py">params</a>) -> None</code>
-- <code title="get /dataset/workflow/get">client.datasets.workflow.<a href="./src/structify/resources/datasets/workflow.py">get</a>(\*\*<a href="src/structify/types/datasets/workflow_get_params.py">params</a>) -> <a href="./src/structify/types/datasets/workflow_get_response.py">WorkflowGetResponse</a></code>
-- <code title="post /dataset/workflow/trigger">client.datasets.workflow.<a href="./src/structify/resources/datasets/workflow.py">trigger</a>(\*\*<a href="src/structify/types/datasets/workflow_trigger_params.py">params</a>) -> <a href="./src/structify/types/datasets/workflow_trigger_response.py">object</a></code>
 
 ## Evaluate
 

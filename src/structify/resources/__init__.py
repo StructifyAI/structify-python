@@ -64,6 +64,14 @@ from .entities import (
     EntitiesResourceWithStreamingResponse,
     AsyncEntitiesResourceWithStreamingResponse,
 )
+from .workflow import (
+    WorkflowResource,
+    AsyncWorkflowResource,
+    WorkflowResourceWithRawResponse,
+    AsyncWorkflowResourceWithRawResponse,
+    WorkflowResourceWithStreamingResponse,
+    AsyncWorkflowResourceWithStreamingResponse,
+)
 from .documents import (
     DocumentsResource,
     AsyncDocumentsResource,
@@ -94,6 +102,12 @@ __all__ = [
     "AsyncAdminResourceWithRawResponse",
     "AdminResourceWithStreamingResponse",
     "AsyncAdminResourceWithStreamingResponse",
+    "WorkflowResource",
+    "AsyncWorkflowResource",
+    "WorkflowResourceWithRawResponse",
+    "AsyncWorkflowResourceWithRawResponse",
+    "WorkflowResourceWithStreamingResponse",
+    "AsyncWorkflowResourceWithStreamingResponse",
     "DatasetsResource",
     "AsyncDatasetsResource",
     "DatasetsResourceWithRawResponse",

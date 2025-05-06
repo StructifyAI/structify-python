@@ -2,11 +2,13 @@
 
 from __future__ import annotations
 
+from .id import ID as ID
 from .image import Image as Image
 from .table import Table as Table
 from .entity import Entity as Entity
 from .source import Source as Source
 from .strategy import Strategy as Strategy
+from .workflow import Workflow as Workflow
 from .user_info import UserInfo as UserInfo
 from .chat_prompt import ChatPrompt as ChatPrompt
 from .table_param import TableParam as TableParam
@@ -19,12 +21,14 @@ from .tool_metadata import ToolMetadata as ToolMetadata
 from .execution_step import ExecutionStep as ExecutionStep
 from .strategy_param import StrategyParam as StrategyParam
 from .token_response import TokenResponse as TokenResponse
+from .workflow_param import WorkflowParam as WorkflowParam
 from .job_list_params import JobListParams as JobListParams
 from .knowledge_graph import KnowledgeGraph as KnowledgeGraph
 from .job_get_response import JobGetResponse as JobGetResponse
 from .save_requirement import SaveRequirement as SaveRequirement
 from .entity_add_params import EntityAddParams as EntityAddParams
 from .entity_get_params import EntityGetParams as EntityGetParams
+from .existing_workflow import ExistingWorkflow as ExistingWorkflow
 from .job_list_response import JobListResponse as JobListResponse
 from .user_usage_params import UserUsageParams as UserUsageParams
 from .dataset_descriptor import DatasetDescriptor as DatasetDescriptor
@@ -43,6 +47,7 @@ from .job_delete_response import JobDeleteResponse as JobDeleteResponse
 from .property_type_param import PropertyTypeParam as PropertyTypeParam
 from .report_wrong_params import ReportWrongParams as ReportWrongParams
 from .user_usage_response import UserUsageResponse as UserUsageResponse
+from .workflow_get_params import WorkflowGetParams as WorkflowGetParams
 from .dataset_get_response import DatasetGetResponse as DatasetGetResponse
 from .dataset_match_params import DatasetMatchParams as DatasetMatchParams
 from .document_list_params import DocumentListParams as DocumentListParams
@@ -53,6 +58,7 @@ from .entity_verify_params import EntityVerifyParams as EntityVerifyParams
 from .entity_view_response import EntityViewResponse as EntityViewResponse
 from .report_step_response import ReportStepResponse as ReportStepResponse
 from .source_list_response import SourceListResponse as SourceListResponse
+from .workflow_list_params import WorkflowListParams as WorkflowListParams
 from .dataset_create_params import DatasetCreateParams as DatasetCreateParams
 from .dataset_delete_params import DatasetDeleteParams as DatasetDeleteParams
 from .dataset_list_response import DatasetListResponse as DatasetListResponse
@@ -70,11 +76,16 @@ from .entity_derive_response import EntityDeriveResponse as EntityDeriveResponse
 from .entity_search_response import EntitySearchResponse as EntitySearchResponse
 from .job_get_steps_response import JobGetStepsResponse as JobGetStepsResponse
 from .save_requirement_param import SaveRequirementParam as SaveRequirementParam
+from .workflow_create_params import WorkflowCreateParams as WorkflowCreateParams
+from .workflow_delete_params import WorkflowDeleteParams as WorkflowDeleteParams
+from .workflow_list_response import WorkflowListResponse as WorkflowListResponse
+from .workflow_update_params import WorkflowUpdateParams as WorkflowUpdateParams
 from .dataset_create_response import DatasetCreateResponse as DatasetCreateResponse
 from .entity_add_batch_params import EntityAddBatchParams as EntityAddBatchParams
 from .entity_list_jobs_params import EntityListJobsParams as EntityListJobsParams
 from .entity_summarize_params import EntitySummarizeParams as EntitySummarizeParams
 from .report_missing_response import ReportMissingResponse as ReportMissingResponse
+from .workflow_trigger_params import WorkflowTriggerParams as WorkflowTriggerParams
 from .dataset_descriptor_param import DatasetDescriptorParam as DatasetDescriptorParam
 from .document_download_params import DocumentDownloadParams as DocumentDownloadParams
 from .entity_get_merges_params import EntityGetMergesParams as EntityGetMergesParams

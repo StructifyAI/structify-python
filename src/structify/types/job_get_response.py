@@ -4,8 +4,8 @@ from typing import List, Optional
 from datetime import datetime
 from typing_extensions import Literal
 
+from .id import ID
 from .._models import BaseModel
-from .datasets.id import ID
 from .execution_step import ExecutionStep
 
 __all__ = ["JobGetResponse", "Job"]
