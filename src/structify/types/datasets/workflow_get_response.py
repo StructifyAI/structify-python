@@ -8,3 +8,5 @@ __all__ = ["WorkflowGetResponse"]
 
 class WorkflowGetResponse(Workflow):
     id: ID
+
+    dataset_name: str
