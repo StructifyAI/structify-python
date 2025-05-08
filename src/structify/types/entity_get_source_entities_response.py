@@ -163,6 +163,8 @@ class SourceEntity(BaseModel):
 
     location: Optional[SourceEntityLocation] = None
 
+    scraper_id: Optional[str] = None
+
     step_id: Optional[str] = None
 
 

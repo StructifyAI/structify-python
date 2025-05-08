@@ -14,6 +14,8 @@ __all__ = [
     "StepOperationEnhanceProperties",
     "StepOperationEnhanceRelationship",
     "StepOperationDeriveProperty",
+    "StepOperationScrapePage",
+    "StepOperationScrapePageScrapePage",
 ]
 
 
@@ -29,8 +31,22 @@ class StepOperationDeriveProperty(TypedDict, total=False):
     derive_property: Required[Annotated[List[str], PropertyInfo(alias="DeriveProperty")]]
 
 
+class StepOperationScrapePageScrapePage(TypedDict, total=False):
+    relationship_name: Required[str]
+
+    starting_url_property_name: Required[str]
+
+
+class StepOperationScrapePage(TypedDict, total=False):
+    scrape_page: Required[Annotated[StepOperationScrapePageScrapePage, PropertyInfo(alias="ScrapePage")]]
+
+
 StepOperation: TypeAlias = Union[
-    StepOperationEnhanceProperties, StepOperationEnhanceRelationship, StepOperationDeriveProperty, Literal["IngestData"]
+    StepOperationEnhanceProperties,
+    StepOperationEnhanceRelationship,
+    StepOperationDeriveProperty,
+    StepOperationScrapePage,
+    Literal["IngestData"],
 ]
 
 

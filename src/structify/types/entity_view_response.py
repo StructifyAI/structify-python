@@ -465,6 +465,8 @@ class Source(BaseModel):
 
     location: Optional[SourceLocation] = None
 
+    scraper_id: Optional[str] = None
+
     step_id: Optional[str] = None
 
 
