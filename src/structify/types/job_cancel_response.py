@@ -17,7 +17,7 @@ class JobCancelResponse(BaseModel):
 
     dataset_id: str
 
-    job_type: Literal["Web", "Pdf", "Derive"]
+    job_type: Literal["Web", "Pdf", "Derive", "Scrape"]
 
     selected_next_workflow_step: bool
 
