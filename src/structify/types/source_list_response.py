@@ -66,6 +66,8 @@ class SourceListResponseItem(BaseModel):
 
     location: Optional[SourceListResponseItemLocation] = None
 
+    scraper_id: Optional[str] = None
+
     step_id: Optional[str] = None
 
 

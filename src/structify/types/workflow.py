@@ -14,6 +14,8 @@ __all__ = [
     "StepOperationEnhanceProperties",
     "StepOperationEnhanceRelationship",
     "StepOperationDeriveProperty",
+    "StepOperationScrapePage",
+    "StepOperationScrapePageScrapePage",
 ]
 
 
@@ -29,8 +31,22 @@ class StepOperationDeriveProperty(BaseModel):
     derive_property: List[str] = FieldInfo(alias="DeriveProperty")
 
 
+class StepOperationScrapePageScrapePage(BaseModel):
+    relationship_name: str
+
+    starting_url_property_name: str
+
+
+class StepOperationScrapePage(BaseModel):
+    scrape_page: StepOperationScrapePageScrapePage = FieldInfo(alias="ScrapePage")
+
+
 StepOperation: TypeAlias = Union[
-    StepOperationEnhanceProperties, StepOperationEnhanceRelationship, StepOperationDeriveProperty, Literal["IngestData"]
+    StepOperationEnhanceProperties,
+    StepOperationEnhanceRelationship,
+    StepOperationDeriveProperty,
+    StepOperationScrapePage,
+    Literal["IngestData"],
 ]
 
 
