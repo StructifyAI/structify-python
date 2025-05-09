@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.112.0 (2025-05-09)
+
+Full Changelog: [v1.111.0-alpha.18...v1.112.0](https://github.com/StructifyAI/structify-python/compare/v1.111.0-alpha.18...v1.112.0)
+
+### Features
+
+* **api:** api update ([967ea5e](https://github.com/StructifyAI/structify-python/commit/967ea5e0a955f2f268580c9a82b033540cd8aa0d))
+
+
+### Chores
+
+* **internal:** avoid errors for isinstance checks on proxies ([fff45a4](https://github.com/StructifyAI/structify-python/commit/fff45a4f5ad1a19eec5b0882dc68db351b2a6c8d))
+
 ## 1.111.0-alpha.18 (2025-05-06)
 
 Full Changelog: [v1.111.0-alpha.17...v1.111.0-alpha.18](https://github.com/StructifyAI/structify-python/compare/v1.111.0-alpha.17...v1.111.0-alpha.18)
