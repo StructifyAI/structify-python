@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.112.1 (2025-05-10)
+
+Full Changelog: [v1.112.0...v1.112.1](https://github.com/StructifyAI/structify-python/compare/v1.112.0...v1.112.1)
+
+### Bug Fixes
+
+* **package:** support direct resource imports ([2f4d7c7](https://github.com/StructifyAI/structify-python/commit/2f4d7c7d0c6340ee8f8b5422a4806d7cb2ba9ce6))
+
 ## 1.112.0 (2025-05-09)
 
 Full Changelog: [v1.111.0-alpha.18...v1.112.0](https://github.com/StructifyAI/structify-python/compare/v1.111.0-alpha.18...v1.112.0)
