@@ -10,7 +10,7 @@ import httpx
 
 from ..types import job_list_params
 from .._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
-from .._utils import maybe_transform
+from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -19,8 +19,7 @@ from .._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ..pagination import SyncJobsList, AsyncJobsList
-from .._base_client import AsyncPaginator, make_request_options
+from .._base_client import make_request_options
 from ..types.job_get_response import JobGetResponse
 from ..types.job_list_response import JobListResponse
 from ..types.job_cancel_response import JobCancelResponse
@@ -65,7 +64,7 @@ class JobsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> SyncJobsList[JobListResponse]:
+    ) -> JobListResponse:
         """
         List all the executions
 
@@ -84,9 +83,8 @@ class JobsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._get_api_list(
+        return self._get(
             "/jobs/list",
-            page=SyncJobsList[JobListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -103,7 +101,7 @@ class JobsResource(SyncAPIResource):
                     job_list_params.JobListParams,
                 ),
             ),
-            model=JobListResponse,
+            cast_to=JobListResponse,
         )
 
     def delete(
@@ -347,7 +345,7 @@ class AsyncJobsResource(AsyncAPIResource):
         """
         return AsyncJobsResourceWithStreamingResponse(self)
 
-    def list(
+    async def list(
         self,
         *,
         dataset: Optional[str] | NotGiven = NOT_GIVEN,
@@ -361,7 +359,7 @@ class AsyncJobsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> AsyncPaginator[JobListResponse, AsyncJobsList[JobListResponse]]:
+    ) -> JobListResponse:
         """
         List all the executions
 
@@ -380,15 +378,14 @@ class AsyncJobsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._get_api_list(
+        return await self._get(
             "/jobs/list",
-            page=AsyncJobsList[JobListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform(
+                query=await async_maybe_transform(
                     {
                         "dataset": dataset,
                         "limit": limit,
@@ -399,7 +396,7 @@ class AsyncJobsResource(AsyncAPIResource):
                     job_list_params.JobListParams,
                 ),
             ),
-            model=JobListResponse,
+            cast_to=JobListResponse,
         )
 
     async def delete(
