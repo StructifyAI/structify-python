@@ -58,6 +58,7 @@ from .entity_verify_params import EntityVerifyParams as EntityVerifyParams
 from .entity_view_response import EntityViewResponse as EntityViewResponse
 from .report_step_response import ReportStepResponse as ReportStepResponse
 from .source_list_response import SourceListResponse as SourceListResponse
+from .workflow_jobs_params import WorkflowJobsParams as WorkflowJobsParams
 from .workflow_list_params import WorkflowListParams as WorkflowListParams
 from .dataset_create_params import DatasetCreateParams as DatasetCreateParams
 from .dataset_delete_params import DatasetDeleteParams as DatasetDeleteParams
@@ -78,6 +79,7 @@ from .job_get_steps_response import JobGetStepsResponse as JobGetStepsResponse
 from .save_requirement_param import SaveRequirementParam as SaveRequirementParam
 from .workflow_create_params import WorkflowCreateParams as WorkflowCreateParams
 from .workflow_delete_params import WorkflowDeleteParams as WorkflowDeleteParams
+from .workflow_jobs_response import WorkflowJobsResponse as WorkflowJobsResponse
 from .workflow_list_response import WorkflowListResponse as WorkflowListResponse
 from .workflow_update_params import WorkflowUpdateParams as WorkflowUpdateParams
 from .dataset_create_response import DatasetCreateResponse as DatasetCreateResponse
@@ -110,6 +112,7 @@ from .dataset_export_to_csv_params import DatasetExportToCsvParams as DatasetExp
 from .report_relationship_response import ReportRelationshipResponse as ReportRelationshipResponse
 from .structure_is_complete_params import StructureIsCompleteParams as StructureIsCompleteParams
 from .structure_run_async_response import StructureRunAsyncResponse as StructureRunAsyncResponse
+from .workflow_job_progress_params import WorkflowJobProgressParams as WorkflowJobProgressParams
 from .entity_trigger_merge_response import EntityTriggerMergeResponse as EntityTriggerMergeResponse
 from .entity_update_property_params import EntityUpdatePropertyParams as EntityUpdatePropertyParams
 from .structure_job_status_response import StructureJobStatusResponse as StructureJobStatusResponse
@@ -118,6 +121,7 @@ from .dataset_remove_property_params import DatasetRemovePropertyParams as Datas
 from .dataset_update_property_params import DatasetUpdatePropertyParams as DatasetUpdatePropertyParams
 from .entity_add_relationship_params import EntityAddRelationshipParams as EntityAddRelationshipParams
 from .structure_is_complete_response import StructureIsCompleteResponse as StructureIsCompleteResponse
+from .workflow_job_progress_response import WorkflowJobProgressResponse as WorkflowJobProgressResponse
 from .entity_update_property_response import EntityUpdatePropertyResponse as EntityUpdatePropertyResponse
 from .entity_add_relationship_response import EntityAddRelationshipResponse as EntityAddRelationshipResponse
 from .entity_get_local_subgraph_params import EntityGetLocalSubgraphParams as EntityGetLocalSubgraphParams

@@ -157,6 +157,8 @@ from structify.types import (
     ID,
     Workflow,
     WorkflowListResponse,
+    WorkflowJobProgressResponse,
+    WorkflowJobsResponse,
     WorkflowTriggerResponse,
 )
 ```
@@ -168,6 +170,8 @@ Methods:
 - <code title="post /workflow/list">client.workflow.<a href="./src/structify/resources/workflow.py">list</a>(\*\*<a href="src/structify/types/workflow_list_params.py">params</a>) -> <a href="./src/structify/types/workflow_list_response.py">WorkflowListResponse</a></code>
 - <code title="delete /workflow/delete">client.workflow.<a href="./src/structify/resources/workflow.py">delete</a>(\*\*<a href="src/structify/types/workflow_delete_params.py">params</a>) -> None</code>
 - <code title="get /workflow/get">client.workflow.<a href="./src/structify/resources/workflow.py">get</a>(\*\*<a href="src/structify/types/workflow_get_params.py">params</a>) -> <a href="./src/structify/types/existing_workflow.py">ExistingWorkflow</a></code>
+- <code title="get /workflow/job_progress">client.workflow.<a href="./src/structify/resources/workflow.py">job_progress</a>(\*\*<a href="src/structify/types/workflow_job_progress_params.py">params</a>) -> <a href="./src/structify/types/workflow_job_progress_response.py">WorkflowJobProgressResponse</a></code>
+- <code title="get /workflow/jobs">client.workflow.<a href="./src/structify/resources/workflow.py">jobs</a>(\*\*<a href="src/structify/types/workflow_jobs_params.py">params</a>) -> <a href="./src/structify/types/workflow_jobs_response.py">WorkflowJobsResponse</a></code>
 - <code title="post /workflow/trigger">client.workflow.<a href="./src/structify/resources/workflow.py">trigger</a>(\*\*<a href="src/structify/types/workflow_trigger_params.py">params</a>) -> <a href="./src/structify/types/workflow_trigger_response.py">object</a></code>
 
 # Datasets

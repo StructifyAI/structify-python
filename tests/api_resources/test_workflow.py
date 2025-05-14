@@ -11,7 +11,9 @@ from structify import Structify, AsyncStructify
 from tests.utils import assert_matches_type
 from structify.types import (
     ExistingWorkflow,
+    WorkflowJobsResponse,
     WorkflowListResponse,
+    WorkflowJobProgressResponse,
 )
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
@@ -254,6 +256,78 @@ class TestWorkflow:
 
             workflow = response.parse()
             assert_matches_type(ExistingWorkflow, workflow, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_method_job_progress(self, client: Structify) -> None:
+        workflow = client.workflow.job_progress(
+            workflow_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(WorkflowJobProgressResponse, workflow, path=["response"])
+
+    @parametrize
+    def test_raw_response_job_progress(self, client: Structify) -> None:
+        response = client.workflow.with_raw_response.job_progress(
+            workflow_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        workflow = response.parse()
+        assert_matches_type(WorkflowJobProgressResponse, workflow, path=["response"])
+
+    @parametrize
+    def test_streaming_response_job_progress(self, client: Structify) -> None:
+        with client.workflow.with_streaming_response.job_progress(
+            workflow_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            workflow = response.parse()
+            assert_matches_type(WorkflowJobProgressResponse, workflow, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_method_jobs(self, client: Structify) -> None:
+        workflow = client.workflow.jobs(
+            workflow_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(WorkflowJobsResponse, workflow, path=["response"])
+
+    @parametrize
+    def test_method_jobs_with_all_params(self, client: Structify) -> None:
+        workflow = client.workflow.jobs(
+            workflow_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            group_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            status="Queued",
+            step_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(WorkflowJobsResponse, workflow, path=["response"])
+
+    @parametrize
+    def test_raw_response_jobs(self, client: Structify) -> None:
+        response = client.workflow.with_raw_response.jobs(
+            workflow_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        workflow = response.parse()
+        assert_matches_type(WorkflowJobsResponse, workflow, path=["response"])
+
+    @parametrize
+    def test_streaming_response_jobs(self, client: Structify) -> None:
+        with client.workflow.with_streaming_response.jobs(
+            workflow_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            workflow = response.parse()
+            assert_matches_type(WorkflowJobsResponse, workflow, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -529,6 +603,78 @@ class TestAsyncWorkflow:
 
             workflow = await response.parse()
             assert_matches_type(ExistingWorkflow, workflow, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_method_job_progress(self, async_client: AsyncStructify) -> None:
+        workflow = await async_client.workflow.job_progress(
+            workflow_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(WorkflowJobProgressResponse, workflow, path=["response"])
+
+    @parametrize
+    async def test_raw_response_job_progress(self, async_client: AsyncStructify) -> None:
+        response = await async_client.workflow.with_raw_response.job_progress(
+            workflow_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        workflow = await response.parse()
+        assert_matches_type(WorkflowJobProgressResponse, workflow, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_job_progress(self, async_client: AsyncStructify) -> None:
+        async with async_client.workflow.with_streaming_response.job_progress(
+            workflow_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            workflow = await response.parse()
+            assert_matches_type(WorkflowJobProgressResponse, workflow, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_method_jobs(self, async_client: AsyncStructify) -> None:
+        workflow = await async_client.workflow.jobs(
+            workflow_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(WorkflowJobsResponse, workflow, path=["response"])
+
+    @parametrize
+    async def test_method_jobs_with_all_params(self, async_client: AsyncStructify) -> None:
+        workflow = await async_client.workflow.jobs(
+            workflow_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            group_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            status="Queued",
+            step_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(WorkflowJobsResponse, workflow, path=["response"])
+
+    @parametrize
+    async def test_raw_response_jobs(self, async_client: AsyncStructify) -> None:
+        response = await async_client.workflow.with_raw_response.jobs(
+            workflow_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        workflow = await response.parse()
+        assert_matches_type(WorkflowJobsResponse, workflow, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_jobs(self, async_client: AsyncStructify) -> None:
+        async with async_client.workflow.with_streaming_response.jobs(
+            workflow_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            workflow = await response.parse()
+            assert_matches_type(WorkflowJobsResponse, workflow, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
