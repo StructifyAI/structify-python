@@ -3,17 +3,20 @@
 from __future__ import annotations
 
 from typing import List, Optional
+from typing_extensions import Literal
 
 import httpx
 
 from ..types import (
     ID,
     workflow_get_params,
+    workflow_jobs_params,
     workflow_list_params,
     workflow_create_params,
     workflow_delete_params,
     workflow_update_params,
     workflow_trigger_params,
+    workflow_job_progress_params,
 )
 from .._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
 from .._utils import maybe_transform, async_maybe_transform
@@ -29,7 +32,9 @@ from .._response import (
 from .._base_client import make_request_options
 from ..types.workflow_param import WorkflowParam
 from ..types.existing_workflow import ExistingWorkflow
+from ..types.workflow_jobs_response import WorkflowJobsResponse
 from ..types.workflow_list_response import WorkflowListResponse
+from ..types.workflow_job_progress_response import WorkflowJobProgressResponse
 
 __all__ = ["WorkflowResource", "AsyncWorkflowResource"]
 
@@ -235,6 +240,87 @@ class WorkflowResource(SyncAPIResource):
                 query=maybe_transform({"workflow_id": workflow_id}, workflow_get_params.WorkflowGetParams),
             ),
             cast_to=ExistingWorkflow,
+        )
+
+    def job_progress(
+        self,
+        *,
+        workflow_id: ID,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> WorkflowJobProgressResponse:
+        """
+        Get the job status breakdown of a workflow
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._get(
+            "/workflow/job_progress",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {"workflow_id": workflow_id}, workflow_job_progress_params.WorkflowJobProgressParams
+                ),
+            ),
+            cast_to=WorkflowJobProgressResponse,
+        )
+
+    def jobs(
+        self,
+        *,
+        workflow_id: ID,
+        group_id: Optional[str] | NotGiven = NOT_GIVEN,
+        status: Optional[Literal["Queued", "Running", "Completed", "Failed"]] | NotGiven = NOT_GIVEN,
+        step_id: Optional[str] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> WorkflowJobsResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._get(
+            "/workflow/jobs",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "workflow_id": workflow_id,
+                        "group_id": group_id,
+                        "status": status,
+                        "step_id": step_id,
+                    },
+                    workflow_jobs_params.WorkflowJobsParams,
+                ),
+            ),
+            cast_to=WorkflowJobsResponse,
         )
 
     def trigger(
@@ -482,6 +568,87 @@ class AsyncWorkflowResource(AsyncAPIResource):
             cast_to=ExistingWorkflow,
         )
 
+    async def job_progress(
+        self,
+        *,
+        workflow_id: ID,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> WorkflowJobProgressResponse:
+        """
+        Get the job status breakdown of a workflow
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._get(
+            "/workflow/job_progress",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"workflow_id": workflow_id}, workflow_job_progress_params.WorkflowJobProgressParams
+                ),
+            ),
+            cast_to=WorkflowJobProgressResponse,
+        )
+
+    async def jobs(
+        self,
+        *,
+        workflow_id: ID,
+        group_id: Optional[str] | NotGiven = NOT_GIVEN,
+        status: Optional[Literal["Queued", "Running", "Completed", "Failed"]] | NotGiven = NOT_GIVEN,
+        step_id: Optional[str] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> WorkflowJobsResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._get(
+            "/workflow/jobs",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "workflow_id": workflow_id,
+                        "group_id": group_id,
+                        "status": status,
+                        "step_id": step_id,
+                    },
+                    workflow_jobs_params.WorkflowJobsParams,
+                ),
+            ),
+            cast_to=WorkflowJobsResponse,
+        )
+
     async def trigger(
         self,
         *,
@@ -541,6 +708,12 @@ class WorkflowResourceWithRawResponse:
         self.get = to_raw_response_wrapper(
             workflow.get,
         )
+        self.job_progress = to_raw_response_wrapper(
+            workflow.job_progress,
+        )
+        self.jobs = to_raw_response_wrapper(
+            workflow.jobs,
+        )
         self.trigger = to_raw_response_wrapper(
             workflow.trigger,
         )
@@ -564,6 +737,12 @@ class AsyncWorkflowResourceWithRawResponse:
         )
         self.get = async_to_raw_response_wrapper(
             workflow.get,
+        )
+        self.job_progress = async_to_raw_response_wrapper(
+            workflow.job_progress,
+        )
+        self.jobs = async_to_raw_response_wrapper(
+            workflow.jobs,
         )
         self.trigger = async_to_raw_response_wrapper(
             workflow.trigger,
@@ -589,6 +768,12 @@ class WorkflowResourceWithStreamingResponse:
         self.get = to_streamed_response_wrapper(
             workflow.get,
         )
+        self.job_progress = to_streamed_response_wrapper(
+            workflow.job_progress,
+        )
+        self.jobs = to_streamed_response_wrapper(
+            workflow.jobs,
+        )
         self.trigger = to_streamed_response_wrapper(
             workflow.trigger,
         )
@@ -612,6 +797,12 @@ class AsyncWorkflowResourceWithStreamingResponse:
         )
         self.get = async_to_streamed_response_wrapper(
             workflow.get,
+        )
+        self.job_progress = async_to_streamed_response_wrapper(
+            workflow.job_progress,
+        )
+        self.jobs = async_to_streamed_response_wrapper(
+            workflow.jobs,
         )
         self.trigger = async_to_streamed_response_wrapper(
             workflow.trigger,
