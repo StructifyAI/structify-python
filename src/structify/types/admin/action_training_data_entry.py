@@ -106,4 +106,6 @@ class ActionTrainingDataEntry(BaseModel):
 
     input: Input
 
+    input_prompt: str
+
     outputs: List[Output]
