@@ -100,6 +100,8 @@ class JobListResponse(BaseModel):
 
     user_id: str
 
+    message: Optional[str] = None
+
     parameters: Optional[Parameters] = None
 
     reason: Optional[str] = None
