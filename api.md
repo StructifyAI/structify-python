@@ -40,8 +40,6 @@ Types:
 from structify.types.admin import (
     HumanLlmJob,
     StepChoices,
-    HumanLlmAddToDatasetResponse,
-    HumanLlmFinishJobResponse,
     HumanLlmGetJobsResponse,
     HumanLlmGetNextStepResponse,
     HumanLlmPrelabelStepResponse,
@@ -51,8 +49,8 @@ from structify.types.admin import (
 Methods:
 
 - <code title="post /admin/human_llm/add_search_for_job">client.admin.human_llm.<a href="./src/structify/resources/admin/human_llm.py">add_search_for_job</a>(\*\*<a href="src/structify/types/admin/human_llm_add_search_for_job_params.py">params</a>) -> <a href="./src/structify/types/admin/step_choices.py">StepChoices</a></code>
-- <code title="post /admin/human_llm/add_to_dataset">client.admin.human_llm.<a href="./src/structify/resources/admin/human_llm.py">add_to_dataset</a>(\*\*<a href="src/structify/types/admin/human_llm_add_to_dataset_params.py">params</a>) -> <a href="./src/structify/types/admin/human_llm_add_to_dataset_response.py">object</a></code>
-- <code title="post /admin/human_llm/finish_job">client.admin.human_llm.<a href="./src/structify/resources/admin/human_llm.py">finish_job</a>(\*\*<a href="src/structify/types/admin/human_llm_finish_job_params.py">params</a>) -> <a href="./src/structify/types/admin/human_llm_finish_job_response.py">object</a></code>
+- <code title="post /admin/human_llm/add_to_dataset">client.admin.human_llm.<a href="./src/structify/resources/admin/human_llm.py">add_to_dataset</a>(\*\*<a href="src/structify/types/admin/human_llm_add_to_dataset_params.py">params</a>) -> object</code>
+- <code title="post /admin/human_llm/finish_job">client.admin.human_llm.<a href="./src/structify/resources/admin/human_llm.py">finish_job</a>(\*\*<a href="src/structify/types/admin/human_llm_finish_job_params.py">params</a>) -> object</code>
 - <code title="post /admin/human_llm/get_jobs">client.admin.human_llm.<a href="./src/structify/resources/admin/human_llm.py">get_jobs</a>(\*\*<a href="src/structify/types/admin/human_llm_get_jobs_params.py">params</a>) -> <a href="./src/structify/types/admin/human_llm_get_jobs_response.py">HumanLlmGetJobsResponse</a></code>
 - <code title="post /admin/human_llm/get_next_step">client.admin.human_llm.<a href="./src/structify/resources/admin/human_llm.py">get_next_step</a>(\*\*<a href="src/structify/types/admin/human_llm_get_next_step_params.py">params</a>) -> <a href="./src/structify/types/admin/human_llm_get_next_step_response.py">HumanLlmGetNextStepResponse</a></code>
 - <code title="post /admin/human_llm/prelabel_step/{step_id}">client.admin.human_llm.<a href="./src/structify/resources/admin/human_llm.py">prelabel_step</a>(step_id) -> <a href="./src/structify/types/admin/human_llm_prelabel_step_response.py">HumanLlmPrelabelStepResponse</a></code>
@@ -160,7 +158,6 @@ from structify.types import (
     WorkflowListResponse,
     WorkflowJobProgressResponse,
     WorkflowJobsResponse,
-    WorkflowTriggerResponse,
 )
 ```
 
@@ -173,7 +170,7 @@ Methods:
 - <code title="get /workflow/get">client.workflow.<a href="./src/structify/resources/workflow.py">get</a>(\*\*<a href="src/structify/types/workflow_get_params.py">params</a>) -> <a href="./src/structify/types/existing_workflow.py">ExistingWorkflow</a></code>
 - <code title="get /workflow/job_progress">client.workflow.<a href="./src/structify/resources/workflow.py">job_progress</a>(\*\*<a href="src/structify/types/workflow_job_progress_params.py">params</a>) -> <a href="./src/structify/types/workflow_job_progress_response.py">WorkflowJobProgressResponse</a></code>
 - <code title="get /workflow/jobs">client.workflow.<a href="./src/structify/resources/workflow.py">jobs</a>(\*\*<a href="src/structify/types/workflow_jobs_params.py">params</a>) -> <a href="./src/structify/types/workflow_jobs_response.py">WorkflowJobsResponse</a></code>
-- <code title="post /workflow/trigger">client.workflow.<a href="./src/structify/resources/workflow.py">trigger</a>(\*\*<a href="src/structify/types/workflow_trigger_params.py">params</a>) -> <a href="./src/structify/types/workflow_trigger_response.py">object</a></code>
+- <code title="post /workflow/trigger">client.workflow.<a href="./src/structify/resources/workflow.py">trigger</a>(\*\*<a href="src/structify/types/workflow_trigger_params.py">params</a>) -> object</code>
 
 # Datasets
 
@@ -316,7 +313,6 @@ from structify.types import (
     EntityAddResponse,
     EntityAddBatchResponse,
     EntityAddRelationshipResponse,
-    EntityDeleteRelationshipResponse,
     EntityDeriveResponse,
     EntityGetResponse,
     EntityGetLocalSubgraphResponse,
@@ -338,7 +334,7 @@ Methods:
 - <code title="post /entity/add">client.entities.<a href="./src/structify/resources/entities.py">add</a>(\*\*<a href="src/structify/types/entity_add_params.py">params</a>) -> <a href="./src/structify/types/entity_add_response.py">EntityAddResponse</a></code>
 - <code title="post /entity/add_batch">client.entities.<a href="./src/structify/resources/entities.py">add_batch</a>(\*\*<a href="src/structify/types/entity_add_batch_params.py">params</a>) -> <a href="./src/structify/types/entity_add_batch_response.py">EntityAddBatchResponse</a></code>
 - <code title="post /entity/add_relationship">client.entities.<a href="./src/structify/resources/entities.py">add_relationship</a>(\*\*<a href="src/structify/types/entity_add_relationship_params.py">params</a>) -> <a href="./src/structify/types/entity_add_relationship_response.py">EntityAddRelationshipResponse</a></code>
-- <code title="post /entity/delete_relationship">client.entities.<a href="./src/structify/resources/entities.py">delete_relationship</a>(\*\*<a href="src/structify/types/entity_delete_relationship_params.py">params</a>) -> <a href="./src/structify/types/entity_delete_relationship_response.py">object</a></code>
+- <code title="post /entity/delete_relationship">client.entities.<a href="./src/structify/resources/entities.py">delete_relationship</a>(\*\*<a href="src/structify/types/entity_delete_relationship_params.py">params</a>) -> object</code>
 - <code title="post /entity/derive">client.entities.<a href="./src/structify/resources/entities.py">derive</a>(\*\*<a href="src/structify/types/entity_derive_params.py">params</a>) -> str</code>
 - <code title="get /entity/get">client.entities.<a href="./src/structify/resources/entities.py">get</a>(\*\*<a href="src/structify/types/entity_get_params.py">params</a>) -> <a href="./src/structify/types/entity_get_response.py">EntityGetResponse</a></code>
 - <code title="get /entity/get_local_subgraph">client.entities.<a href="./src/structify/resources/entities.py">get_local_subgraph</a>(\*\*<a href="src/structify/types/entity_get_local_subgraph_params.py">params</a>) -> <a href="./src/structify/types/entity_get_local_subgraph_response.py">EntityGetLocalSubgraphResponse</a></code>
