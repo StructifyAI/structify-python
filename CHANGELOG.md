@@ -1,5 +1,28 @@
 # Changelog
 
+## 1.115.0 (2025-05-29)
+
+Full Changelog: [v1.114.0...v1.115.0](https://github.com/StructifyAI/structify-python/compare/v1.114.0...v1.115.0)
+
+### Features
+
+* **api:** api update ([b918fa0](https://github.com/StructifyAI/structify-python/commit/b918fa0610f9c806094a343e73e6d3297c95c2d4))
+* **api:** api update ([33864ba](https://github.com/StructifyAI/structify-python/commit/33864ba9990efef3959f7e7f97ad1171630711e4))
+* **api:** api update ([d037ccd](https://github.com/StructifyAI/structify-python/commit/d037ccdda939ee393253cd7e7d3c34ac56ae5372))
+
+
+### Bug Fixes
+
+* **docs/api:** remove references to nonexistent types ([06d42b5](https://github.com/StructifyAI/structify-python/commit/06d42b50260d27e7d68b332c940e52e5bc2668e9))
+
+
+### Chores
+
+* **ci:** fix installation instructions ([7e0cf73](https://github.com/StructifyAI/structify-python/commit/7e0cf73c86507ede7d557617e574b4fbeeb1d2d8))
+* **ci:** upload sdks to package manager ([f254fcb](https://github.com/StructifyAI/structify-python/commit/f254fcbec35ecf2a96a71ba17436b4daa29e676c))
+* **docs:** grammar improvements ([1d7e573](https://github.com/StructifyAI/structify-python/commit/1d7e5735cd4ce3aac1f92ce8496bf73b357e1878))
+* **internal:** codegen related update ([de1d86c](https://github.com/StructifyAI/structify-python/commit/de1d86c27c4024476000e65be76404b2dbe2daa1))
+
 ## 1.114.0 (2025-05-14)
 
 Full Changelog: [v1.113.0...v1.114.0](https://github.com/StructifyAI/structify-python/compare/v1.113.0...v1.114.0)
