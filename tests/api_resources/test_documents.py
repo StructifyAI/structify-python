@@ -118,6 +118,78 @@ class TestDocuments:
     @parametrize
     def test_method_structure(self, client: Structify) -> None:
         document = client.documents.structure(
+            dataset_descriptor={
+                "description": "description",
+                "name": "name",
+                "relationships": [
+                    {
+                        "description": "description",
+                        "name": "name",
+                        "source_table": "source_table",
+                        "target_table": "target_table",
+                    }
+                ],
+                "tables": [
+                    {
+                        "description": "description",
+                        "name": "name",
+                        "properties": [
+                            {
+                                "description": "description",
+                                "name": "name",
+                            }
+                        ],
+                    }
+                ],
+            },
+            content=b"raw file contents",
+        )
+        assert_matches_type(DocumentStructureResponse, document, path=["response"])
+
+    @parametrize
+    def test_method_structure_with_all_params(self, client: Structify) -> None:
+        document = client.documents.structure(
+            dataset_descriptor={
+                "description": "description",
+                "name": "name",
+                "relationships": [
+                    {
+                        "description": "description",
+                        "name": "name",
+                        "source_table": "source_table",
+                        "target_table": "target_table",
+                        "merge_strategy": {
+                            "source_cardinality_given_target_match": 0,
+                            "target_cardinality_given_source_match": 0,
+                        },
+                        "properties": [
+                            {
+                                "description": "description",
+                                "name": "name",
+                                "merge_strategy": "Unique",
+                                "prop_type": "String",
+                            }
+                        ],
+                    }
+                ],
+                "tables": [
+                    {
+                        "description": "description",
+                        "name": "name",
+                        "properties": [
+                            {
+                                "description": "description",
+                                "name": "name",
+                                "merge_strategy": "Unique",
+                                "prop_type": "String",
+                            }
+                        ],
+                        "expected_cardinality": 0,
+                        "primary_column": "primary_column",
+                    }
+                ],
+                "llm_override_field": "llm_override_field",
+            },
             content=b"raw file contents",
         )
         assert_matches_type(DocumentStructureResponse, document, path=["response"])
@@ -125,6 +197,30 @@ class TestDocuments:
     @parametrize
     def test_raw_response_structure(self, client: Structify) -> None:
         response = client.documents.with_raw_response.structure(
+            dataset_descriptor={
+                "description": "description",
+                "name": "name",
+                "relationships": [
+                    {
+                        "description": "description",
+                        "name": "name",
+                        "source_table": "source_table",
+                        "target_table": "target_table",
+                    }
+                ],
+                "tables": [
+                    {
+                        "description": "description",
+                        "name": "name",
+                        "properties": [
+                            {
+                                "description": "description",
+                                "name": "name",
+                            }
+                        ],
+                    }
+                ],
+            },
             content=b"raw file contents",
         )
 
@@ -136,6 +232,30 @@ class TestDocuments:
     @parametrize
     def test_streaming_response_structure(self, client: Structify) -> None:
         with client.documents.with_streaming_response.structure(
+            dataset_descriptor={
+                "description": "description",
+                "name": "name",
+                "relationships": [
+                    {
+                        "description": "description",
+                        "name": "name",
+                        "source_table": "source_table",
+                        "target_table": "target_table",
+                    }
+                ],
+                "tables": [
+                    {
+                        "description": "description",
+                        "name": "name",
+                        "properties": [
+                            {
+                                "description": "description",
+                                "name": "name",
+                            }
+                        ],
+                    }
+                ],
+            },
             content=b"raw file contents",
         ) as response:
             assert not response.is_closed
@@ -294,6 +414,78 @@ class TestAsyncDocuments:
     @parametrize
     async def test_method_structure(self, async_client: AsyncStructify) -> None:
         document = await async_client.documents.structure(
+            dataset_descriptor={
+                "description": "description",
+                "name": "name",
+                "relationships": [
+                    {
+                        "description": "description",
+                        "name": "name",
+                        "source_table": "source_table",
+                        "target_table": "target_table",
+                    }
+                ],
+                "tables": [
+                    {
+                        "description": "description",
+                        "name": "name",
+                        "properties": [
+                            {
+                                "description": "description",
+                                "name": "name",
+                            }
+                        ],
+                    }
+                ],
+            },
+            content=b"raw file contents",
+        )
+        assert_matches_type(DocumentStructureResponse, document, path=["response"])
+
+    @parametrize
+    async def test_method_structure_with_all_params(self, async_client: AsyncStructify) -> None:
+        document = await async_client.documents.structure(
+            dataset_descriptor={
+                "description": "description",
+                "name": "name",
+                "relationships": [
+                    {
+                        "description": "description",
+                        "name": "name",
+                        "source_table": "source_table",
+                        "target_table": "target_table",
+                        "merge_strategy": {
+                            "source_cardinality_given_target_match": 0,
+                            "target_cardinality_given_source_match": 0,
+                        },
+                        "properties": [
+                            {
+                                "description": "description",
+                                "name": "name",
+                                "merge_strategy": "Unique",
+                                "prop_type": "String",
+                            }
+                        ],
+                    }
+                ],
+                "tables": [
+                    {
+                        "description": "description",
+                        "name": "name",
+                        "properties": [
+                            {
+                                "description": "description",
+                                "name": "name",
+                                "merge_strategy": "Unique",
+                                "prop_type": "String",
+                            }
+                        ],
+                        "expected_cardinality": 0,
+                        "primary_column": "primary_column",
+                    }
+                ],
+                "llm_override_field": "llm_override_field",
+            },
             content=b"raw file contents",
         )
         assert_matches_type(DocumentStructureResponse, document, path=["response"])
@@ -301,6 +493,30 @@ class TestAsyncDocuments:
     @parametrize
     async def test_raw_response_structure(self, async_client: AsyncStructify) -> None:
         response = await async_client.documents.with_raw_response.structure(
+            dataset_descriptor={
+                "description": "description",
+                "name": "name",
+                "relationships": [
+                    {
+                        "description": "description",
+                        "name": "name",
+                        "source_table": "source_table",
+                        "target_table": "target_table",
+                    }
+                ],
+                "tables": [
+                    {
+                        "description": "description",
+                        "name": "name",
+                        "properties": [
+                            {
+                                "description": "description",
+                                "name": "name",
+                            }
+                        ],
+                    }
+                ],
+            },
             content=b"raw file contents",
         )
 
@@ -312,6 +528,30 @@ class TestAsyncDocuments:
     @parametrize
     async def test_streaming_response_structure(self, async_client: AsyncStructify) -> None:
         async with async_client.documents.with_streaming_response.structure(
+            dataset_descriptor={
+                "description": "description",
+                "name": "name",
+                "relationships": [
+                    {
+                        "description": "description",
+                        "name": "name",
+                        "source_table": "source_table",
+                        "target_table": "target_table",
+                    }
+                ],
+                "tables": [
+                    {
+                        "description": "description",
+                        "name": "name",
+                        "properties": [
+                            {
+                                "description": "description",
+                                "name": "name",
+                            }
+                        ],
+                    }
+                ],
+            },
             content=b"raw file contents",
         ) as response:
             assert not response.is_closed
