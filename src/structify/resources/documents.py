@@ -26,6 +26,7 @@ from .._response import (
 )
 from .._base_client import make_request_options
 from ..types.document_list_response import DocumentListResponse
+from ..types.dataset_descriptor_param import DatasetDescriptorParam
 from ..types.document_download_response import DocumentDownloadResponse
 from ..types.document_structure_response import DocumentStructureResponse
 
@@ -159,6 +160,7 @@ class DocumentsResource(SyncAPIResource):
     def structure(
         self,
         *,
+        dataset_descriptor: DatasetDescriptorParam,
         content: FileTypes,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -171,6 +173,11 @@ class DocumentsResource(SyncAPIResource):
         Returns the structured data as JSON.
 
         Args:
+          dataset_descriptor: A dataset is where you put multiple referential schemas.
+
+              A dataset is a complete namespace where all references between schemas are held
+              within the dataset.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -190,7 +197,13 @@ class DocumentsResource(SyncAPIResource):
             body=maybe_transform(body, document_structure_params.DocumentStructureParams),
             files=files,
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {"dataset_descriptor": dataset_descriptor}, document_structure_params.DocumentStructureParams
+                ),
             ),
             cast_to=DocumentStructureResponse,
         )
@@ -376,6 +389,7 @@ class AsyncDocumentsResource(AsyncAPIResource):
     async def structure(
         self,
         *,
+        dataset_descriptor: DatasetDescriptorParam,
         content: FileTypes,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -388,6 +402,11 @@ class AsyncDocumentsResource(AsyncAPIResource):
         Returns the structured data as JSON.
 
         Args:
+          dataset_descriptor: A dataset is where you put multiple referential schemas.
+
+              A dataset is a complete namespace where all references between schemas are held
+              within the dataset.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -407,7 +426,13 @@ class AsyncDocumentsResource(AsyncAPIResource):
             body=await async_maybe_transform(body, document_structure_params.DocumentStructureParams),
             files=files,
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"dataset_descriptor": dataset_descriptor}, document_structure_params.DocumentStructureParams
+                ),
             ),
             cast_to=DocumentStructureResponse,
         )
