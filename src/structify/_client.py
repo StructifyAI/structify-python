@@ -47,7 +47,7 @@ __all__ = [
 
 ENVIRONMENTS: Dict[str, str] = {
     "production": "https://api.structify.ai",
-    "deployment": "http://localhost:8080",
+    "development": "http://localhost:8080",
 }
 
 
@@ -69,13 +69,13 @@ class Structify(SyncAPIClient):
     # client options
     api_key: str
 
-    _environment: Literal["production", "deployment"] | NotGiven
+    _environment: Literal["production", "development"] | NotGiven
 
     def __init__(
         self,
         *,
         api_key: str | None = None,
-        environment: Literal["production", "deployment"] | NotGiven = NOT_GIVEN,
+        environment: Literal["production", "development"] | NotGiven = NOT_GIVEN,
         base_url: str | httpx.URL | None | NotGiven = NOT_GIVEN,
         timeout: Union[float, Timeout, None, NotGiven] = NOT_GIVEN,
         max_retries: int = DEFAULT_MAX_RETRIES,
@@ -182,7 +182,7 @@ class Structify(SyncAPIClient):
         self,
         *,
         api_key: str | None = None,
-        environment: Literal["production", "deployment"] | None = None,
+        environment: Literal["production", "development"] | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: float | Timeout | None | NotGiven = NOT_GIVEN,
         http_client: httpx.Client | None = None,
@@ -283,13 +283,13 @@ class AsyncStructify(AsyncAPIClient):
     # client options
     api_key: str
 
-    _environment: Literal["production", "deployment"] | NotGiven
+    _environment: Literal["production", "development"] | NotGiven
 
     def __init__(
         self,
         *,
         api_key: str | None = None,
-        environment: Literal["production", "deployment"] | NotGiven = NOT_GIVEN,
+        environment: Literal["production", "development"] | NotGiven = NOT_GIVEN,
         base_url: str | httpx.URL | None | NotGiven = NOT_GIVEN,
         timeout: Union[float, Timeout, None, NotGiven] = NOT_GIVEN,
         max_retries: int = DEFAULT_MAX_RETRIES,
@@ -396,7 +396,7 @@ class AsyncStructify(AsyncAPIClient):
         self,
         *,
         api_key: str | None = None,
-        environment: Literal["production", "deployment"] | None = None,
+        environment: Literal["production", "development"] | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: float | Timeout | None | NotGiven = NOT_GIVEN,
         http_client: httpx.AsyncClient | None = None,
