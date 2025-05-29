@@ -27,6 +27,7 @@ from .._response import (
 from .._base_client import make_request_options
 from ..types.document_list_response import DocumentListResponse
 from ..types.document_download_response import DocumentDownloadResponse
+from ..types.document_structure_response import DocumentStructureResponse
 
 __all__ = ["DocumentsResource", "AsyncDocumentsResource"]
 
@@ -158,17 +159,16 @@ class DocumentsResource(SyncAPIResource):
     def structure(
         self,
         *,
-        dataset: str,
-        path: str,
+        content: FileTypes,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> str:
+    ) -> DocumentStructureResponse:
         """
-        Returns a job id that can be waited on until the request is finished.
+        Returns the structured data as JSON.
 
         Args:
           extra_headers: Send extra headers
@@ -179,20 +179,20 @@ class DocumentsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
+        body = deepcopy_minimal({"content": content})
+        files = extract_files(cast(Mapping[str, object], body), paths=[["content"]])
+        # It should be noted that the actual Content-Type header that will be
+        # sent to the server will contain a `boundary` parameter, e.g.
+        # multipart/form-data; boundary=---abc--
+        extra_headers = {"Content-Type": "multipart/form-data", **(extra_headers or {})}
         return self._post(
             "/documents/structure",
-            body=maybe_transform(
-                {
-                    "dataset": dataset,
-                    "path": path,
-                },
-                document_structure_params.DocumentStructureParams,
-            ),
+            body=maybe_transform(body, document_structure_params.DocumentStructureParams),
+            files=files,
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=str,
+            cast_to=DocumentStructureResponse,
         )
 
     def upload(
@@ -376,17 +376,16 @@ class AsyncDocumentsResource(AsyncAPIResource):
     async def structure(
         self,
         *,
-        dataset: str,
-        path: str,
+        content: FileTypes,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> str:
+    ) -> DocumentStructureResponse:
         """
-        Returns a job id that can be waited on until the request is finished.
+        Returns the structured data as JSON.
 
         Args:
           extra_headers: Send extra headers
@@ -397,20 +396,20 @@ class AsyncDocumentsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
+        body = deepcopy_minimal({"content": content})
+        files = extract_files(cast(Mapping[str, object], body), paths=[["content"]])
+        # It should be noted that the actual Content-Type header that will be
+        # sent to the server will contain a `boundary` parameter, e.g.
+        # multipart/form-data; boundary=---abc--
+        extra_headers = {"Content-Type": "multipart/form-data", **(extra_headers or {})}
         return await self._post(
             "/documents/structure",
-            body=await async_maybe_transform(
-                {
-                    "dataset": dataset,
-                    "path": path,
-                },
-                document_structure_params.DocumentStructureParams,
-            ),
+            body=await async_maybe_transform(body, document_structure_params.DocumentStructureParams),
+            files=files,
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=str,
+            cast_to=DocumentStructureResponse,
         )
 
     async def upload(

@@ -249,7 +249,7 @@ Methods:
 - <code title="get /documents/list">client.documents.<a href="./src/structify/resources/documents.py">list</a>(\*\*<a href="src/structify/types/document_list_params.py">params</a>) -> <a href="./src/structify/types/document_list_response.py">DocumentListResponse</a></code>
 - <code title="delete /documents/delete">client.documents.<a href="./src/structify/resources/documents.py">delete</a>(\*\*<a href="src/structify/types/document_delete_params.py">params</a>) -> None</code>
 - <code title="post /documents/download">client.documents.<a href="./src/structify/resources/documents.py">download</a>(\*\*<a href="src/structify/types/document_download_params.py">params</a>) -> <a href="./src/structify/types/document_download_response.py">DocumentDownloadResponse</a></code>
-- <code title="post /documents/structure">client.documents.<a href="./src/structify/resources/documents.py">structure</a>(\*\*<a href="src/structify/types/document_structure_params.py">params</a>) -> str</code>
+- <code title="post /documents/structure">client.documents.<a href="./src/structify/resources/documents.py">structure</a>(\*\*<a href="src/structify/types/document_structure_params.py">params</a>) -> <a href="./src/structify/types/document_structure_response.py">DocumentStructureResponse</a></code>
 - <code title="post /documents/upload">client.documents.<a href="./src/structify/resources/documents.py">upload</a>(\*\*<a href="src/structify/types/document_upload_params.py">params</a>) -> None</code>
 
 # Jobs
