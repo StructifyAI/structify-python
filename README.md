@@ -30,7 +30,7 @@ from structify import Structify
 client = Structify(
     api_key=os.environ.get("STRUCTIFY_API_TOKEN"),  # This is the default and can be omitted
     # defaults to "production".
-    environment="deployment",
+    environment="development",
 )
 
 server_information = client.server.version()
@@ -54,7 +54,7 @@ from structify import AsyncStructify
 client = AsyncStructify(
     api_key=os.environ.get("STRUCTIFY_API_TOKEN"),  # This is the default and can be omitted
     # defaults to "production".
-    environment="deployment",
+    environment="development",
 )
 
 
