@@ -1,7 +1,7 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 from __future__ import annotations
 
-import time
+import uuid
 from typing import Any, Optional
 
 import pandas as pd
@@ -66,14 +66,14 @@ class DataFrameResource(SyncAPIResource):
         if column_name not in column_names:
             column_names.append(column_name)
 
-        dataset_name = f"enhance_{column_name}_{int(time.time() * 1000)}"
+        dataset_name = f"enhance_{column_name}_{uuid.uuid4().hex}"
         table_name_resolved = (
-            str(table_name) if table_name is not NOT_GIVEN and table_name is not None else "default_table"
+            str(table_name) if table_name is not NOT_GIVEN and table_name is not None else "No table name provided"
         )
         table_description_resolved = (
             str(table_description)
             if table_description is not NOT_GIVEN and table_description is not None
-            else "default_table_description"
+            else "No description provided"
         )
 
         self._client.datasets.create(
@@ -125,7 +125,7 @@ class DataFrameResource(SyncAPIResource):
             job_id = self._client.structure.enhance_property(
                 entity_id=entity_id,
                 property_name=column_name,
-                allow_extra_entities=True,
+                allow_extra_entities=False,
             )
             job_ids.append(job_id)
 
