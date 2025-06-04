@@ -14,7 +14,7 @@ from .._response import (
     to_raw_response_wrapper,
     to_streamed_response_wrapper,
 )
-from ..types.table_param import Property  # <-- Use Property from table_param
+from ..types.table_param import Property
 
 __all__ = ["DataFrameResource"]
 
@@ -92,7 +92,6 @@ class DataFrameResource(SyncAPIResource):
             relationships=[],
         )
 
-        # Ensure the column exists in the DataFrame, and if not, fill with None
         if column_name not in df.columns:
             df[column_name] = None
 
