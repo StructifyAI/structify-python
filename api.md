@@ -30,6 +30,33 @@ Methods:
 - <code title="post /user/transactions/stripe/create_session">client.user.stripe.<a href="./src/structify/resources/user/stripe.py">create_session</a>(\*\*<a href="src/structify/types/user/stripe_create_session_params.py">params</a>) -> <a href="./src/structify/types/user/create_session_response.py">CreateSessionResponse</a></code>
 - <code title="post /user/transactions/stripe/create_subscription">client.user.stripe.<a href="./src/structify/resources/user/stripe.py">create_subscription</a>(\*\*<a href="src/structify/types/user/stripe_create_subscription_params.py">params</a>) -> <a href="./src/structify/types/user/create_session_response.py">CreateSessionResponse</a></code>
 
+# Chat
+
+Types:
+
+```python
+from structify.types import (
+    AddChatMessageRequest,
+    AddChatMessageResponse,
+    ChatSession,
+    ChatSessionWithMessages,
+    CreateChatSessionRequest,
+    CreateChatSessionResponse,
+    DeleteChatSessionResponse,
+    ErrorResponse,
+    GetChatSessionResponse,
+    ListChatSessionsResponse,
+)
+```
+
+Methods:
+
+- <code title="post /chat/sessions/{session_id}/messages">client.chat.<a href="./src/structify/resources/chat.py">add_message</a>(session_id, \*\*<a href="src/structify/types/chat_add_message_params.py">params</a>) -> <a href="./src/structify/types/add_chat_message_response.py">AddChatMessageResponse</a></code>
+- <code title="post /chat/sessions">client.chat.<a href="./src/structify/resources/chat.py">create_session</a>(\*\*<a href="src/structify/types/chat_create_session_params.py">params</a>) -> <a href="./src/structify/types/create_chat_session_response.py">CreateChatSessionResponse</a></code>
+- <code title="delete /chat/sessions/{session_id}">client.chat.<a href="./src/structify/resources/chat.py">delete_session</a>(session_id) -> <a href="./src/structify/types/delete_chat_session_response.py">DeleteChatSessionResponse</a></code>
+- <code title="get /chat/sessions/{session_id}">client.chat.<a href="./src/structify/resources/chat.py">get_session</a>(session_id) -> <a href="./src/structify/types/get_chat_session_response.py">GetChatSessionResponse</a></code>
+- <code title="get /chat/sessions">client.chat.<a href="./src/structify/resources/chat.py">list_sessions</a>(\*\*<a href="src/structify/types/chat_list_sessions_params.py">params</a>) -> <a href="./src/structify/types/list_chat_sessions_response.py">ListChatSessionsResponse</a></code>
+
 # Admin
 
 ## HumanLlm
