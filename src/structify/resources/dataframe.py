@@ -55,7 +55,6 @@ class DataFrameResource(SyncAPIResource):
           df: The pandas DataFrame to enhance
           column_name: Name of the column to enhance
           column_description: Description of what the column should contain
-          column_type: The type of the column property
           table_name: Name of the table (optional)
           table_description: Description of the table (optional)
           extra_headers: Send extra headers
