@@ -349,8 +349,8 @@ class JobsResource(SyncAPIResource):
 
             # Count statuses
             counts = {"Queued": 0, "Running": 0, "Completed": 0, "Failed": 0, "Other": 0}
-            for status in statuses.values():
-                if status in counts:
+            for status in statuses.values():  # type: ignore
+                if status is not None and status in counts:
                     counts[status] += 1
                 else:
                     counts["Other"] += 1
