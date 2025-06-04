@@ -28,7 +28,7 @@ async def enhance_column(
             Table(
                 name=table_name,
                 description=table_description,
-                properties=column_names.map(lambda name: Property(name=name, description=f"Enhanced {name} column")),
+                properties=[Property(name=name, description=f"Enhanced {name} column") for name in column_names],
             )
         ],
     )
