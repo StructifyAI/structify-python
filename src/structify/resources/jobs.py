@@ -346,16 +346,31 @@ class JobsResource(SyncAPIResource):
                 if status in ("Completed", "Failed"):
                     completed.add(job_id)
             remaining -= completed
-            # Print status line with spinner
-            status_line = " ".join(f"{job_id[:8]}:{statuses[job_id]}" for job_id in job_ids)
-            sys.stdout.write(f"\r{spinner[spin_idx % len(spinner)]} Waiting for jobs... {status_line}   ")
+
+            # Count statuses
+            counts = {"Queued": 0, "Running": 0, "Completed": 0, "Failed": 0, "Other": 0}
+            for status in statuses.values():
+                if status in counts:
+                    counts[status] += 1
+                else:
+                    counts["Other"] += 1
+
+            status_line = (
+                f"{spinner[spin_idx % len(spinner)]} "
+                f"Waiting for jobs... "
+                f"Queued: {counts['Queued']}  "
+                f"Running: {counts['Running']}  "
+                f"Completed: {counts['Completed']}  "
+                f"Failed: {counts['Failed']}"
+            )
+            sys.stdout.write("\r" + status_line)
             sys.stdout.flush()
             spin_idx += 1
             if remaining:
                 time.sleep(1)
         # Final status print
         sys.stdout.write("\n")
-
+        sys.stdout.flush()
 
 class AsyncJobsResource(AsyncAPIResource):
     @cached_property

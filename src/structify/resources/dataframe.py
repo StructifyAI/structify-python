@@ -78,12 +78,18 @@ class DataFrameResource(SyncAPIResource):
 
         self._client.datasets.create(
             name=dataset_name,
-            description=f"Enhanced {column_name} column",
+            description=f"",
             tables=[
                 TableParam(
                     name=table_name_resolved,
                     description=table_description_resolved,
-                    properties=[Property(name=name, description=f"Enhanced {name} column") for name in column_names],
+                    properties=[
+                        Property(
+                            name=name,
+                            description=column_description if name == column_name else f""
+                        )
+                        for name in column_names
+                    ],
                 )
             ],
             relationships=[],
@@ -124,8 +130,6 @@ class DataFrameResource(SyncAPIResource):
                 entity_id=entity_id,
                 property_name=column_name,
                 allow_extra_entities=True,
-                special_job_type="HumanLLM",
-                starting_searches=[column_description],
             )
             job_ids.append(job_id)
 
