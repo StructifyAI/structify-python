@@ -59,5 +59,5 @@ async def enhance_column(
     await asyncio.gather(*(enhance_and_wait(entity_id) for entity_id in entity_ids))
 
     entities = await client.datasets.view_table(dataset=dataset_name, name=table_name)
-
-    return entities
+    data = [ {col: entity.properties.get(col) for col in column_names} for entity in entities ]
+    return pd.DataFrame(data, columns=column_names)
