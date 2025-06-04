@@ -84,10 +84,7 @@ class DataFrameResource(SyncAPIResource):
                     name=table_name_resolved,
                     description=table_description_resolved,
                     properties=[
-                        Property(
-                            name=name,
-                            description=column_description if name == column_name else f""
-                        )
+                        Property(name=name, description=column_description if name == column_name else f"")
                         for name in column_names
                     ],
                 )

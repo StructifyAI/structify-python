@@ -372,6 +372,7 @@ class JobsResource(SyncAPIResource):
         sys.stdout.write("\n")
         sys.stdout.flush()
 
+
 class AsyncJobsResource(AsyncAPIResource):
     @cached_property
     def with_raw_response(self) -> AsyncJobsResourceWithRawResponse:
