@@ -1,11 +1,12 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 from __future__ import annotations
 
-from typing import Optional
+import time
+from typing import Any, Optional
 
 import pandas as pd
 
-from ..types import Table, KnowledgeGraph
+from ..types import TableParam, KnowledgeGraph
 from .._types import NOT_GIVEN, NotGiven
 from .._compat import cached_property
 from .._resource import SyncAPIResource
@@ -13,7 +14,7 @@ from .._response import (
     to_raw_response_wrapper,
     to_streamed_response_wrapper,
 )
-from ..types.table import Property
+from ..types.table_param import Property  # <-- Use Property from table_param
 
 __all__ = ["DataFrameResource"]
 
@@ -62,23 +63,25 @@ class DataFrameResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        column_names = df.columns.values.tolist()
+        column_names: list[str] = df.columns.tolist()
         if column_name not in column_names:
             column_names.append(column_name)
 
-        import time
-
         dataset_name = f"enhance_{column_name}_{int(time.time() * 1000)}"
-        table_name_resolved = table_name if table_name is not NOT_GIVEN else "default_table"
+        table_name_resolved = (
+            str(table_name) if table_name is not NOT_GIVEN and table_name is not None else "default_table"
+        )
         table_description_resolved = (
-            table_description if table_description is not NOT_GIVEN else "default_table_description"
+            str(table_description)
+            if table_description is not NOT_GIVEN and table_description is not None
+            else "default_table_description"
         )
 
         self._client.datasets.create(
             name=dataset_name,
             description=f"Enhanced {column_name} column",
             tables=[
-                Table(
+                TableParam(
                     name=table_name_resolved,
                     description=table_description_resolved,
                     properties=[Property(name=name, description=f"Enhanced {name} column") for name in column_names],
@@ -91,21 +94,32 @@ class DataFrameResource(SyncAPIResource):
         if column_name not in df.columns:
             df[column_name] = None
 
-        entities = [
-            {
-                "id": index,
-                "type": table_name_resolved,
-                "properties": {col: str(row[col]) for col in column_names if pd.notnull(row[col])},
-            }
-            for index, row in df.iterrows()
-        ]
+        entities: list[dict[str, Any]] = []
+        for index, row in df.iterrows():  # type: ignore
+            entity_properties: dict[str, Any] = {}
+            for col in column_names:
+                value = row[col]  # type: ignore
+                if pd.notna(value):  # type: ignore
+                    entity_properties[col] = str(value)  # type: ignore
+            entities.append(
+                {
+                    "id": index,
+                    "type": table_name_resolved,
+                    "properties": entity_properties,
+                }
+            )
 
         entity_ids = self._client.entities.add_batch(
             dataset=dataset_name,
-            entity_graphs=[KnowledgeGraph(entities=entities, relationships=[])],
+            entity_graphs=[
+                KnowledgeGraph(
+                    entities=entities,  # type: ignore
+                    relationships=[],
+                ),
+            ],
         )
 
-        job_ids = []
+        job_ids: list[str] = []
         for entity_id in entity_ids:
             job_id = self._client.structure.enhance_property(
                 entity_id=entity_id,
@@ -117,9 +131,13 @@ class DataFrameResource(SyncAPIResource):
             job_ids.append(job_id)
 
         self._client.jobs.wait_for_jobs(job_ids)
-        entities = self._client.datasets.view_table(dataset=dataset_name, name=table_name_resolved)
-        data = [{col: entity.properties.get(col) for col in column_names} for entity in entities]
-        return pd.DataFrame(data, columns=column_names)
+        entities_result = self._client.datasets.view_table(dataset=dataset_name, name=table_name_resolved)
+        data = [{col: entity.properties.get(col) for col in column_names} for entity in entities_result]
+        df_result = pd.DataFrame(data)
+        for col in column_names:
+            if col not in df_result.columns:
+                df_result[col] = None
+        return df_result[column_names]
 
 
 class DataFrameResourceWithRawResponse:

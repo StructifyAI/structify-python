@@ -279,7 +279,6 @@ class AsyncStructify(AsyncAPIClient):
     entities: entities.AsyncEntitiesResource
     report: report.AsyncReportResource
     structure: structure.AsyncStructureResource
-    dataframe: dataframe.AsyncDataFrameResource
     with_raw_response: AsyncStructifyWithRawResponse
     with_streaming_response: AsyncStructifyWithStreamedResponse
 
@@ -372,7 +371,6 @@ class AsyncStructify(AsyncAPIClient):
         self.entities = entities.AsyncEntitiesResource(self)
         self.report = report.AsyncReportResource(self)
         self.structure = structure.AsyncStructureResource(self)
-        self.dataframe = dataframe.AsyncDataFrameResource(self)
         self.with_raw_response = AsyncStructifyWithRawResponse(self)
         self.with_streaming_response = AsyncStructifyWithStreamedResponse(self)
 
@@ -512,7 +510,6 @@ class AsyncStructifyWithRawResponse:
         self.entities = entities.AsyncEntitiesResourceWithRawResponse(client.entities)
         self.report = report.AsyncReportResourceWithRawResponse(client.report)
         self.structure = structure.AsyncStructureResourceWithRawResponse(client.structure)
-        self.dataframe = dataframe.AsyncDataFrameResourceWithRawResponse(client.dataframe)
 
 
 class StructifyWithStreamedResponse:
@@ -544,7 +541,6 @@ class AsyncStructifyWithStreamedResponse:
         self.entities = entities.AsyncEntitiesResourceWithStreamingResponse(client.entities)
         self.report = report.AsyncReportResourceWithStreamingResponse(client.report)
         self.structure = structure.AsyncStructureResourceWithStreamingResponse(client.structure)
-        self.dataframe = dataframe.AsyncDataFrameResourceWithStreamingResponse(client.dataframe)
 
 
 Client = Structify

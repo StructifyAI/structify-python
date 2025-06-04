@@ -162,7 +162,6 @@ __all__ = [
     "StructureResourceWithStreamingResponse",
     "AsyncStructureResourceWithStreamingResponse",
     "DataFrameResource",
-    "AsyncDataFrameResource",
     "DataFrameResourceWithRawResponse",
     "DataFrameResourceWithStreamingResponse",
 ]

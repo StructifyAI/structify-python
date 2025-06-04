@@ -58,11 +58,13 @@ nodeenv==1.8.0
 nox==2023.4.22
 numpy==2.0.2
     # via pandas
+    # via pandas-stubs
 packaging==23.2
     # via nox
     # via pytest
 pandas==2.2.3
     # via structifyai
+pandas-stubs==2.2.2.240807
 platformdirs==3.11.0
     # via virtualenv
 pluggy==1.5.0
@@ -97,6 +99,8 @@ time-machine==2.9.0
 tomli==2.0.2
     # via mypy
     # via pytest
+types-pytz==2025.2.0.20250516
+    # via pandas-stubs
 typing-extensions==4.12.2
     # via anyio
     # via mypy

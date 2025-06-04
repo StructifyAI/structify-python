@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 
+import sys
 import time
-from typing import Union, Optional
+from typing import List, Union, Optional
 from datetime import datetime
 from typing_extensions import Literal
 
@@ -327,22 +328,22 @@ class JobsResource(SyncAPIResource):
             cast_to=NoneType,
         )
 
-    def wait_for_jobs(self, job_ids: list[str]) -> None:
+    def wait_for_jobs(self, job_ids: List[str]) -> None:
         """
         Wait for jobs to complete synchronously.
         """
-        import sys
 
         spinner = ["|", "/", "-", "\\"]
         spin_idx = 0
-        remaining = set(job_ids)
-        statuses = {job_id: None for job_id in job_ids}
+        remaining: set[str] = set(job_ids)
+        statuses: dict[str, str | None] = {job_id: None for job_id in job_ids}
         while remaining:
-            completed = set()
+            completed: set[str] = set()
             for job_id in list(remaining):
                 res = self.get(job_id)
-                statuses[job_id] = res.job.status
-                if res.job.status == "Completed" or res.job.status == "Failed":
+                status = res.job.status
+                statuses[job_id] = status
+                if status in ("Completed", "Failed"):
                     completed.add(job_id)
             remaining -= completed
             # Print status line with spinner
