@@ -12,6 +12,7 @@ from .workflow import Workflow as Workflow
 from .user_info import UserInfo as UserInfo
 from .chat_prompt import ChatPrompt as ChatPrompt
 from .table_param import TableParam as TableParam
+from .chat_session import ChatSession as ChatSession
 from .entity_match import EntityMatch as EntityMatch
 from .entity_param import EntityParam as EntityParam
 from .merge_config import MergeConfig as MergeConfig
@@ -82,6 +83,7 @@ from .workflow_delete_params import WorkflowDeleteParams as WorkflowDeleteParams
 from .workflow_jobs_response import WorkflowJobsResponse as WorkflowJobsResponse
 from .workflow_list_response import WorkflowListResponse as WorkflowListResponse
 from .workflow_update_params import WorkflowUpdateParams as WorkflowUpdateParams
+from .chat_add_message_params import ChatAddMessageParams as ChatAddMessageParams
 from .dataset_create_response import DatasetCreateResponse as DatasetCreateResponse
 from .entity_add_batch_params import EntityAddBatchParams as EntityAddBatchParams
 from .entity_list_jobs_params import EntityListJobsParams as EntityListJobsParams
@@ -91,11 +93,16 @@ from .workflow_trigger_params import WorkflowTriggerParams as WorkflowTriggerPar
 from .dataset_descriptor_param import DatasetDescriptorParam as DatasetDescriptorParam
 from .document_download_params import DocumentDownloadParams as DocumentDownloadParams
 from .entity_get_merges_params import EntityGetMergesParams as EntityGetMergesParams
+from .add_chat_message_response import AddChatMessageResponse as AddChatMessageResponse
+from .chat_list_sessions_params import ChatListSessionsParams as ChatListSessionsParams
 from .dataset_view_table_params import DatasetViewTableParams as DatasetViewTableParams
 from .document_structure_params import DocumentStructureParams as DocumentStructureParams
 from .entity_add_batch_response import EntityAddBatchResponse as EntityAddBatchResponse
 from .entity_list_jobs_response import EntityListJobsResponse as EntityListJobsResponse
 from .entity_summarize_response import EntitySummarizeResponse as EntitySummarizeResponse
+from .get_chat_session_response import GetChatSessionResponse as GetChatSessionResponse
+from .chat_create_session_params import ChatCreateSessionParams as ChatCreateSessionParams
+from .chat_session_with_messages import ChatSessionWithMessages as ChatSessionWithMessages
 from .document_download_response import DocumentDownloadResponse as DocumentDownloadResponse
 from .entity_get_merges_response import EntityGetMergesResponse as EntityGetMergesResponse
 from .report_relationship_params import ReportRelationshipParams as ReportRelationshipParams
@@ -106,9 +113,12 @@ from .dataset_view_table_response import DatasetViewTableResponse as DatasetView
 from .document_structure_response import DocumentStructureResponse as DocumentStructureResponse
 from .entity_trigger_merge_params import EntityTriggerMergeParams as EntityTriggerMergeParams
 from .job_get_step_graph_response import JobGetStepGraphResponse as JobGetStepGraphResponse
+from .list_chat_sessions_response import ListChatSessionsResponse as ListChatSessionsResponse
 from .relationship_merge_strategy import RelationshipMergeStrategy as RelationshipMergeStrategy
 from .structure_job_status_params import StructureJobStatusParams as StructureJobStatusParams
+from .create_chat_session_response import CreateChatSessionResponse as CreateChatSessionResponse
 from .dataset_export_to_csv_params import DatasetExportToCsvParams as DatasetExportToCsvParams
+from .delete_chat_session_response import DeleteChatSessionResponse as DeleteChatSessionResponse
 from .report_relationship_response import ReportRelationshipResponse as ReportRelationshipResponse
 from .structure_is_complete_params import StructureIsCompleteParams as StructureIsCompleteParams
 from .structure_run_async_response import StructureRunAsyncResponse as StructureRunAsyncResponse

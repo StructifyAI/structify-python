@@ -17,7 +17,8 @@ $ rye sync --all-features
 You can then run scripts using `rye run python script.py` or by activating the virtual environment:
 
 ```sh
-# Activate the virtual environment - https://docs.python.org/3/library/venv.html#how-venvs-work
+$ rye shell
+# or manually activate - https://docs.python.org/3/library/venv.html#how-venvs-work
 $ source .venv/bin/activate
 
 # now you can omit the `rye run` prefix
