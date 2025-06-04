@@ -14,6 +14,7 @@ dependencies = [
     "anyio>=3.5.0, <5",
     "distro>=1.7.0, <2",
     "sniffio",
+    "pandas>=2.2.3",
 ]
 requires-python = ">= 3.8"
 classifiers = [
@@ -54,6 +55,7 @@ dev-dependencies = [
     "importlib-metadata>=6.7.0",
     "rich>=13.7.1",
     "nest_asyncio==1.6.0",
+    "pandas-stubs>=2.0.0.0",
 ]
 
 [tool.rye.scripts]
