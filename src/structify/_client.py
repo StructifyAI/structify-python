@@ -21,7 +21,7 @@ from ._types import (
 )
 from ._utils import is_given, get_async_library
 from ._version import __version__
-from .resources import jobs, report, server, sources, entities, workflow, dataframe, documents, structure
+from .resources import chat, jobs, report, server, sources, entities, workflow, dataframe, documents, structure
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import APIStatusError, StructifyError
 from ._base_client import (
@@ -53,6 +53,7 @@ ENVIRONMENTS: Dict[str, str] = {
 
 class Structify(SyncAPIClient):
     user: user.UserResource
+    chat: chat.ChatResource
     admin: admin.AdminResource
     workflow: workflow.WorkflowResource
     datasets: datasets.DatasetsResource
@@ -146,6 +147,7 @@ class Structify(SyncAPIClient):
         )
 
         self.user = user.UserResource(self)
+        self.chat = chat.ChatResource(self)
         self.admin = admin.AdminResource(self)
         self.workflow = workflow.WorkflowResource(self)
         self.datasets = datasets.DatasetsResource(self)
@@ -269,6 +271,7 @@ class Structify(SyncAPIClient):
 
 class AsyncStructify(AsyncAPIClient):
     user: user.AsyncUserResource
+    chat: chat.AsyncChatResource
     admin: admin.AsyncAdminResource
     workflow: workflow.AsyncWorkflowResource
     datasets: datasets.AsyncDatasetsResource
@@ -361,6 +364,7 @@ class AsyncStructify(AsyncAPIClient):
         )
 
         self.user = user.AsyncUserResource(self)
+        self.chat = chat.AsyncChatResource(self)
         self.admin = admin.AsyncAdminResource(self)
         self.workflow = workflow.AsyncWorkflowResource(self)
         self.datasets = datasets.AsyncDatasetsResource(self)
@@ -484,6 +488,7 @@ class AsyncStructify(AsyncAPIClient):
 class StructifyWithRawResponse:
     def __init__(self, client: Structify) -> None:
         self.user = user.UserResourceWithRawResponse(client.user)
+        self.chat = chat.ChatResourceWithRawResponse(client.chat)
         self.admin = admin.AdminResourceWithRawResponse(client.admin)
         self.workflow = workflow.WorkflowResourceWithRawResponse(client.workflow)
         self.datasets = datasets.DatasetsResourceWithRawResponse(client.datasets)
@@ -500,6 +505,7 @@ class StructifyWithRawResponse:
 class AsyncStructifyWithRawResponse:
     def __init__(self, client: AsyncStructify) -> None:
         self.user = user.AsyncUserResourceWithRawResponse(client.user)
+        self.chat = chat.AsyncChatResourceWithRawResponse(client.chat)
         self.admin = admin.AsyncAdminResourceWithRawResponse(client.admin)
         self.workflow = workflow.AsyncWorkflowResourceWithRawResponse(client.workflow)
         self.datasets = datasets.AsyncDatasetsResourceWithRawResponse(client.datasets)
@@ -515,6 +521,7 @@ class AsyncStructifyWithRawResponse:
 class StructifyWithStreamedResponse:
     def __init__(self, client: Structify) -> None:
         self.user = user.UserResourceWithStreamingResponse(client.user)
+        self.chat = chat.ChatResourceWithStreamingResponse(client.chat)
         self.admin = admin.AdminResourceWithStreamingResponse(client.admin)
         self.workflow = workflow.WorkflowResourceWithStreamingResponse(client.workflow)
         self.datasets = datasets.DatasetsResourceWithStreamingResponse(client.datasets)
@@ -531,6 +538,7 @@ class StructifyWithStreamedResponse:
 class AsyncStructifyWithStreamedResponse:
     def __init__(self, client: AsyncStructify) -> None:
         self.user = user.AsyncUserResourceWithStreamingResponse(client.user)
+        self.chat = chat.AsyncChatResourceWithStreamingResponse(client.chat)
         self.admin = admin.AsyncAdminResourceWithStreamingResponse(client.admin)
         self.workflow = workflow.AsyncWorkflowResourceWithStreamingResponse(client.workflow)
         self.datasets = datasets.AsyncDatasetsResourceWithStreamingResponse(client.datasets)

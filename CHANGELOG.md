@@ -1,5 +1,21 @@
 # Changelog
 
+## 1.117.0 (2025-06-04)
+
+Full Changelog: [v1.116.0...v1.117.0](https://github.com/StructifyAI/structify-python/compare/v1.116.0...v1.117.0)
+
+### Features
+
+* **api:** manual updates ([47e1818](https://github.com/StructifyAI/structify-python/commit/47e181842b7262ec4824c68aab5da2b9d68476fb))
+* **api:** manual updates ([8305ef6](https://github.com/StructifyAI/structify-python/commit/8305ef62f2b5169751d9b4a611e75545c150edb1))
+* **client:** add follow_redirects request option ([6023e61](https://github.com/StructifyAI/structify-python/commit/6023e61bd5f2cebb34a3e387411663a6128f1f0f))
+
+
+### Chores
+
+* **docs:** remove reference to rye shell ([3c4353d](https://github.com/StructifyAI/structify-python/commit/3c4353dc7de8dd42133cb324af7b6f2fc9cf5e68))
+* **docs:** remove unnecessary param examples ([d9edfdf](https://github.com/StructifyAI/structify-python/commit/d9edfdf1931da77123c9f628d8502862b246f4d0))
+
 ## 1.116.0 (2025-05-29)
 
 Full Changelog: [v1.115.0...v1.116.0](https://github.com/StructifyAI/structify-python/compare/v1.115.0...v1.116.0)
