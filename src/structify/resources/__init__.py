@@ -80,6 +80,11 @@ from .workflow import (
     WorkflowResourceWithStreamingResponse,
     AsyncWorkflowResourceWithStreamingResponse,
 )
+from .dataframe import (
+    DataFrameResource,
+    DataFrameResourceWithRawResponse,
+    DataFrameResourceWithStreamingResponse,
+)
 from .documents import (
     DocumentsResource,
     AsyncDocumentsResource,
@@ -170,4 +175,7 @@ __all__ = [
     "AsyncStructureResourceWithRawResponse",
     "StructureResourceWithStreamingResponse",
     "AsyncStructureResourceWithStreamingResponse",
+    "DataFrameResource",
+    "DataFrameResourceWithRawResponse",
+    "DataFrameResourceWithStreamingResponse",
 ]

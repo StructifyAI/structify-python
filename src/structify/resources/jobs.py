@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
+import sys
+import time
+from typing import List, Union, Optional
 from datetime import datetime
 from typing_extensions import Literal
 
@@ -325,6 +327,50 @@ class JobsResource(SyncAPIResource):
             ),
             cast_to=NoneType,
         )
+
+    def wait_for_jobs(self, job_ids: List[str]) -> None:
+        """
+        Wait for jobs to complete synchronously.
+        """
+
+        spinner = ["|", "/", "-", "\\"]
+        spin_idx = 0
+        remaining: set[str] = set(job_ids)
+        statuses: dict[str, str | None] = {job_id: None for job_id in job_ids}
+        while remaining:
+            completed: set[str] = set()
+            for job_id in list(remaining):
+                res = self.get(job_id)
+                status = res.job.status
+                statuses[job_id] = status
+                if status in ("Completed", "Failed"):
+                    completed.add(job_id)
+            remaining -= completed
+
+            # Count statuses
+            counts = {"Queued": 0, "Running": 0, "Completed": 0, "Failed": 0, "Other": 0}
+            for status in statuses.values():  # type: ignore
+                if status is not None and status in counts:
+                    counts[status] += 1
+                else:
+                    counts["Other"] += 1
+
+            status_line = (
+                f"{spinner[spin_idx % len(spinner)]} "
+                f"Waiting for jobs... "
+                f"Queued: {counts['Queued']}  "
+                f"Running: {counts['Running']}  "
+                f"Completed: {counts['Completed']}  "
+                f"Failed: {counts['Failed']}"
+            )
+            sys.stdout.write("\r" + status_line)
+            sys.stdout.flush()
+            spin_idx += 1
+            if remaining:
+                time.sleep(1)
+        # Final status print
+        sys.stdout.write("\n")
+        sys.stdout.flush()
 
 
 class AsyncJobsResource(AsyncAPIResource):
@@ -651,6 +697,9 @@ class JobsResourceWithRawResponse:
         self.schedule = to_raw_response_wrapper(
             jobs.schedule,
         )
+        self.wait_for_jobs = to_raw_response_wrapper(
+            jobs.wait_for_jobs,
+        )
 
 
 class AsyncJobsResourceWithRawResponse:
@@ -710,6 +759,9 @@ class JobsResourceWithStreamingResponse:
         )
         self.schedule = to_streamed_response_wrapper(
             jobs.schedule,
+        )
+        self.wait_for_jobs = to_streamed_response_wrapper(
+            jobs.wait_for_jobs,
         )
 
 
