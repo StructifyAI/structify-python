@@ -4,10 +4,12 @@ from __future__ import annotations
 
 from typing_extensions import Required, TypedDict
 
-__all__ = ["ChatCreateSessionParams"]
+from .team_role import TeamRole
+
+__all__ = ["TeamAddMemberParams"]
 
 
-class ChatCreateSessionParams(TypedDict, total=False):
-    initial_message: Required[str]
+class TeamAddMemberParams(TypedDict, total=False):
+    role: Required[TeamRole]
 
-    project_id: Required[str]
+    user_id: Required[str]

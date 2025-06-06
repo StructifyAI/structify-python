@@ -22,8 +22,7 @@ __all__ = [
     "ParametersStructuringInputAgentAgentWeb",
     "ParametersStructuringInputAgentAgentWebWeb",
     "ParametersStructuringInputTransformationPrompt",
-    "ParametersStructuringInputScrapeFromURLProperty",
-    "ParametersStructuringInputScrapeURL",
+    "ParametersStructuringInputScrapePage",
 ]
 
 
@@ -60,19 +59,14 @@ class ParametersStructuringInputTransformationPrompt(BaseModel):
     transformation_prompt: str = FieldInfo(alias="TransformationPrompt")
 
 
-class ParametersStructuringInputScrapeFromURLProperty(BaseModel):
-    scrape_from_url_property: str = FieldInfo(alias="ScrapeFromUrlProperty")
-
-
-class ParametersStructuringInputScrapeURL(BaseModel):
-    scrape_url: str = FieldInfo(alias="ScrapeUrl")
+class ParametersStructuringInputScrapePage(BaseModel):
+    scrape_page: str = FieldInfo(alias="ScrapePage")
 
 
 ParametersStructuringInput: TypeAlias = Union[
     ParametersStructuringInputAgent,
     ParametersStructuringInputTransformationPrompt,
-    ParametersStructuringInputScrapeFromURLProperty,
-    ParametersStructuringInputScrapeURL,
+    ParametersStructuringInputScrapePage,
 ]
 
 

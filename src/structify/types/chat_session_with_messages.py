@@ -29,6 +29,8 @@ class ChatSessionWithMessages(BaseModel):
 
     messages: List[Message]
 
+    project_id: str
+
     updated_at: datetime
 
     user_id: str

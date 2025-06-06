@@ -57,6 +57,59 @@ Methods:
 - <code title="get /chat/sessions/{session_id}">client.chat.<a href="./src/structify/resources/chat.py">get_session</a>(session_id) -> <a href="./src/structify/types/get_chat_session_response.py">GetChatSessionResponse</a></code>
 - <code title="get /chat/sessions">client.chat.<a href="./src/structify/resources/chat.py">list_sessions</a>(\*\*<a href="src/structify/types/chat_list_sessions_params.py">params</a>) -> <a href="./src/structify/types/list_chat_sessions_response.py">ListChatSessionsResponse</a></code>
 
+# Teams
+
+Types:
+
+```python
+from structify.types import (
+    AddMemberRequest,
+    AddMemberResponse,
+    CreateProjectRequest,
+    CreateProjectResponse,
+    CreateTeamRequest,
+    CreateTeamResponse,
+    DeleteTeamResponse,
+    GetTeamResponse,
+    ListMembersResponse,
+    ListProjectsResponse,
+    ListTeamsResponse,
+    RemoveMemberResponse,
+    Team,
+    TeamRole,
+    TeamWithRole,
+    UpdateTeamRequest,
+    UpdateTeamResponse,
+    UserTeam,
+)
+```
+
+Methods:
+
+- <code title="post /team/create">client.teams.<a href="./src/structify/resources/teams.py">create</a>(\*\*<a href="src/structify/types/team_create_params.py">params</a>) -> <a href="./src/structify/types/create_team_response.py">CreateTeamResponse</a></code>
+- <code title="put /team/{team_id}">client.teams.<a href="./src/structify/resources/teams.py">update</a>(team_id, \*\*<a href="src/structify/types/team_update_params.py">params</a>) -> <a href="./src/structify/types/update_team_response.py">UpdateTeamResponse</a></code>
+- <code title="get /team/list">client.teams.<a href="./src/structify/resources/teams.py">list</a>() -> <a href="./src/structify/types/list_teams_response.py">ListTeamsResponse</a></code>
+- <code title="delete /team/{team_id}">client.teams.<a href="./src/structify/resources/teams.py">delete</a>(team_id) -> <a href="./src/structify/types/delete_team_response.py">DeleteTeamResponse</a></code>
+- <code title="post /team/{team_id}/members">client.teams.<a href="./src/structify/resources/teams.py">add_member</a>(team_id, \*\*<a href="src/structify/types/team_add_member_params.py">params</a>) -> <a href="./src/structify/types/add_member_response.py">AddMemberResponse</a></code>
+- <code title="post /team/{team_id}/projects">client.teams.<a href="./src/structify/resources/teams.py">create_project</a>(team_id, \*\*<a href="src/structify/types/team_create_project_params.py">params</a>) -> <a href="./src/structify/types/create_project_response.py">CreateProjectResponse</a></code>
+- <code title="get /team/{team_id}">client.teams.<a href="./src/structify/resources/teams.py">get</a>(team_id) -> <a href="./src/structify/types/get_team_response.py">GetTeamResponse</a></code>
+- <code title="get /team/{team_id}/members">client.teams.<a href="./src/structify/resources/teams.py">list_members</a>(team_id) -> <a href="./src/structify/types/list_members_response.py">ListMembersResponse</a></code>
+- <code title="get /team/{team_id}/projects">client.teams.<a href="./src/structify/resources/teams.py">list_projects</a>(team_id) -> <a href="./src/structify/types/list_projects_response.py">ListProjectsResponse</a></code>
+- <code title="delete /team/{team_id}/members/{user_id}">client.teams.<a href="./src/structify/resources/teams.py">remove_member</a>(user_id, \*, team_id) -> <a href="./src/structify/types/remove_member_response.py">RemoveMemberResponse</a></code>
+
+# Projects
+
+Types:
+
+```python
+from structify.types import DeleteProjectResponse, GetProjectResponse, Project
+```
+
+Methods:
+
+- <code title="delete /team/{team_id}/project/{project_id}">client.projects.<a href="./src/structify/resources/projects.py">delete</a>(project_id, \*, team_id) -> <a href="./src/structify/types/delete_project_response.py">DeleteProjectResponse</a></code>
+- <code title="get /team/{team_id}/project/{project_id}">client.projects.<a href="./src/structify/resources/projects.py">get</a>(project_id, \*, team_id) -> <a href="./src/structify/types/get_project_response.py">GetProjectResponse</a></code>
+
 # Admin
 
 ## HumanLlm
@@ -395,18 +448,6 @@ Methods:
 - <code title="post /report/relationship/missing">client.report.<a href="./src/structify/resources/report.py">relationship</a>(\*\*<a href="src/structify/types/report_relationship_params.py">params</a>) -> str</code>
 - <code title="post /report/step">client.report.<a href="./src/structify/resources/report.py">step</a>(\*\*<a href="src/structify/types/report_step_params.py">params</a>) -> str</code>
 - <code title="post /report/entity/wrong">client.report.<a href="./src/structify/resources/report.py">wrong</a>(\*\*<a href="src/structify/types/report_wrong_params.py">params</a>) -> str</code>
-
-# Scrape
-
-Types:
-
-```python
-from structify.types import ScrapeListRequest, ScrapeListResponse
-```
-
-Methods:
-
-- <code title="post /scrape/list">client.scrape.<a href="./src/structify/resources/scrape.py">list</a>(\*\*<a href="src/structify/types/scrape_list_params.py">params</a>) -> <a href="./src/structify/types/scrape_list_response.py">ScrapeListResponse</a></code>
 
 # Structure
 

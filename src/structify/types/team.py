@@ -1,19 +1,20 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+from typing import Optional
 from datetime import datetime
 
 from .._models import BaseModel
 
-__all__ = ["ChatSession"]
+__all__ = ["Team"]
 
 
-class ChatSession(BaseModel):
+class Team(BaseModel):
     id: str
 
     created_at: datetime
 
-    project_id: str
+    name: str
 
     updated_at: datetime
 
-    user_id: str
+    description: Optional[str] = None
