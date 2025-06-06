@@ -60,10 +60,6 @@ class DataFrameResource(SyncAPIResource):
           column_description: Description of what the column should contain
           table_name: Name of the table (optional)
           table_description: Description of the table (optional)
-          extra_headers: Send extra headers
-          extra_query: Add additional query parameters to the request
-          extra_body: Add additional JSON properties to the request
-          timeout: Override the client-level default timeout for this request, in seconds
         """
         column_names: list[str] = df.columns.tolist()
         if column_name not in column_names:
@@ -157,7 +153,7 @@ class DataFrameResource(SyncAPIResource):
         Args:
           url: The URL to scrape
           table_name: Name of the table for the structured data
-          table_descriptor: Schema definition for the data to extract
+          schema: Schema definition for the data to extract
         """
         dataset_descriptor = DatasetDescriptorParam(
             name=f"scrape_{table_name}_{uuid.uuid4().hex}",
@@ -201,7 +197,7 @@ class DataFrameResource(SyncAPIResource):
                    - Raw bytes
                    - Tuple with (filename, content, [content_type], [headers])
           table_name: Name of the table for the structured data
-          table_descriptor: Schema definition for the data to extract
+          schema: Schema definition for the data to extract
 
         Returns:
           pd.DataFrame: Structured data extracted from the PDF
