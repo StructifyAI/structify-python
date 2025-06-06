@@ -96,6 +96,7 @@ class ChatResource(SyncAPIResource):
         self,
         *,
         initial_message: str,
+        project_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -118,7 +119,11 @@ class ChatResource(SyncAPIResource):
         return self._post(
             "/chat/sessions",
             body=maybe_transform(
-                {"initial_message": initial_message}, chat_create_session_params.ChatCreateSessionParams
+                {
+                    "initial_message": initial_message,
+                    "project_id": project_id,
+                },
+                chat_create_session_params.ChatCreateSessionParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -298,6 +303,7 @@ class AsyncChatResource(AsyncAPIResource):
         self,
         *,
         initial_message: str,
+        project_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -320,7 +326,11 @@ class AsyncChatResource(AsyncAPIResource):
         return await self._post(
             "/chat/sessions",
             body=await async_maybe_transform(
-                {"initial_message": initial_message}, chat_create_session_params.ChatCreateSessionParams
+                {
+                    "initial_message": initial_message,
+                    "project_id": project_id,
+                },
+                chat_create_session_params.ChatCreateSessionParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout

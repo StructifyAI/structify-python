@@ -3,17 +3,18 @@
 from datetime import datetime
 
 from .._models import BaseModel
+from .team_role import TeamRole
 
-__all__ = ["ChatSession"]
+__all__ = ["UserTeam"]
 
 
-class ChatSession(BaseModel):
+class UserTeam(BaseModel):
     id: str
 
     created_at: datetime
 
-    project_id: str
+    role: TeamRole
 
-    updated_at: datetime
+    team_id: str
 
     user_id: str

@@ -96,6 +96,7 @@ class TestDatasets:
                     "primary_column": "primary_column",
                 }
             ],
+            ephemeral=True,
             generate_merge_criteria=True,
             llm_override_field="llm_override_field",
         )
@@ -897,6 +898,7 @@ class TestAsyncDatasets:
                     "primary_column": "primary_column",
                 }
             ],
+            ephemeral=True,
             generate_merge_criteria=True,
             llm_override_field="llm_override_field",
         )

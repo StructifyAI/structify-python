@@ -32,6 +32,14 @@ from .admin import (
     AdminResourceWithStreamingResponse,
     AsyncAdminResourceWithStreamingResponse,
 )
+from .teams import (
+    TeamsResource,
+    AsyncTeamsResource,
+    TeamsResourceWithRawResponse,
+    AsyncTeamsResourceWithRawResponse,
+    TeamsResourceWithStreamingResponse,
+    AsyncTeamsResourceWithStreamingResponse,
+)
 from .report import (
     ReportResource,
     AsyncReportResource,
@@ -39,14 +47,6 @@ from .report import (
     AsyncReportResourceWithRawResponse,
     ReportResourceWithStreamingResponse,
     AsyncReportResourceWithStreamingResponse,
-)
-from .scrape import (
-    ScrapeResource,
-    AsyncScrapeResource,
-    ScrapeResourceWithRawResponse,
-    AsyncScrapeResourceWithRawResponse,
-    ScrapeResourceWithStreamingResponse,
-    AsyncScrapeResourceWithStreamingResponse,
 )
 from .server import (
     ServerResource,
@@ -79,6 +79,14 @@ from .entities import (
     AsyncEntitiesResourceWithRawResponse,
     EntitiesResourceWithStreamingResponse,
     AsyncEntitiesResourceWithStreamingResponse,
+)
+from .projects import (
+    ProjectsResource,
+    AsyncProjectsResource,
+    ProjectsResourceWithRawResponse,
+    AsyncProjectsResourceWithRawResponse,
+    ProjectsResourceWithStreamingResponse,
+    AsyncProjectsResourceWithStreamingResponse,
 )
 from .workflow import (
     WorkflowResource,
@@ -118,6 +126,18 @@ __all__ = [
     "AsyncChatResourceWithRawResponse",
     "ChatResourceWithStreamingResponse",
     "AsyncChatResourceWithStreamingResponse",
+    "TeamsResource",
+    "AsyncTeamsResource",
+    "TeamsResourceWithRawResponse",
+    "AsyncTeamsResourceWithRawResponse",
+    "TeamsResourceWithStreamingResponse",
+    "AsyncTeamsResourceWithStreamingResponse",
+    "ProjectsResource",
+    "AsyncProjectsResource",
+    "ProjectsResourceWithRawResponse",
+    "AsyncProjectsResourceWithRawResponse",
+    "ProjectsResourceWithStreamingResponse",
+    "AsyncProjectsResourceWithStreamingResponse",
     "AdminResource",
     "AsyncAdminResource",
     "AdminResourceWithRawResponse",
@@ -172,12 +192,6 @@ __all__ = [
     "AsyncReportResourceWithRawResponse",
     "ReportResourceWithStreamingResponse",
     "AsyncReportResourceWithStreamingResponse",
-    "ScrapeResource",
-    "AsyncScrapeResource",
-    "ScrapeResourceWithRawResponse",
-    "AsyncScrapeResourceWithRawResponse",
-    "ScrapeResourceWithStreamingResponse",
-    "AsyncScrapeResourceWithStreamingResponse",
     "StructureResource",
     "AsyncStructureResource",
     "StructureResourceWithRawResponse",
