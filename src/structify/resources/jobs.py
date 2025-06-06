@@ -328,7 +328,7 @@ class JobsResource(SyncAPIResource):
             cast_to=NoneType,
         )
 
-    def wait_for_jobs(self, job_ids: List[str]) -> None:
+    def wait_for_jobs(self, job_ids: List[str]) -> Optional[str]:
         """
         Wait for jobs to complete synchronously.
         """
@@ -337,12 +337,15 @@ class JobsResource(SyncAPIResource):
         spin_idx = 0
         remaining: set[str] = set(job_ids)
         statuses: dict[str, str | None] = {job_id: None for job_id in job_ids}
+        job_results: dict[str, JobGetResponse] = {}
+        
         while remaining:
             completed: set[str] = set()
             for job_id in list(remaining):
                 res = self.get(job_id)
                 status = res.job.status
                 statuses[job_id] = status
+                job_results[job_id] = res
                 if status in ("Completed", "Failed"):
                     completed.add(job_id)
             remaining -= completed
@@ -371,6 +374,12 @@ class JobsResource(SyncAPIResource):
         # Final status print
         sys.stdout.write("\n")
         sys.stdout.flush()
+        
+        # Check for any failed jobs and return error message
+        for job_id, result in job_results.items():
+            if result.job.status == "Failed":
+                return f"Job {job_id} failed: {result.job.message}"
+        return None
 
 
 class AsyncJobsResource(AsyncAPIResource):
