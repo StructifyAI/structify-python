@@ -338,7 +338,7 @@ class JobsResource(SyncAPIResource):
         remaining: set[str] = set(job_ids)
         statuses: dict[str, str | None] = {job_id: None for job_id in job_ids}
         job_results: dict[str, JobGetResponse] = {}
-        
+
         while remaining:
             completed: set[str] = set()
             for job_id in list(remaining):
@@ -374,7 +374,7 @@ class JobsResource(SyncAPIResource):
         # Final status print
         sys.stdout.write("\n")
         sys.stdout.flush()
-        
+
         # Check for any failed jobs and return error message
         for job_id, result in job_results.items():
             if result.job.status == "Failed":

@@ -1,11 +1,11 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 from __future__ import annotations
 
-import time
 import uuid
 from typing import Any, Optional
 
 import pandas as pd
+
 from structify.types.dataset_descriptor_param import DatasetDescriptorParam
 from structify.types.structure_run_async_params import SourcePdf
 
@@ -49,7 +49,7 @@ class DataFrameResource(SyncAPIResource):
         column_name: str,
         column_description: str,
         table_name: Optional[str] | NotGiven = NOT_GIVEN,
-        schema: Optional[str] | NotGiven = NOT_GIVEN,
+        table_description: Optional[str] | NotGiven = NOT_GIVEN,
     ) -> pd.DataFrame:
         """
         Enhance a column in a DataFrame using Structify's AI capabilities.
@@ -74,8 +74,8 @@ class DataFrameResource(SyncAPIResource):
             str(table_name) if table_name is not NOT_GIVEN and table_name is not None else "No table name provided"
         )
         table_description_resolved = (
-            str(schema)
-            if schema is not NOT_GIVEN and schema is not None
+            str(table_description)
+            if table_description is not NOT_GIVEN and table_description is not None
             else "No description provided"
         )
 
@@ -135,7 +135,7 @@ class DataFrameResource(SyncAPIResource):
         error_message = self._client.jobs.wait_for_jobs(job_ids)
         if error_message:
             raise Exception(error_message)
-        
+
         entities_result = self._client.datasets.view_table(dataset=dataset_name, name=table_name_resolved)
         data = [{col: entity.properties.get(col) for col in column_names} for entity in entities_result]
         df_result = pd.DataFrame(data)
@@ -143,7 +143,7 @@ class DataFrameResource(SyncAPIResource):
             if col not in df_result.columns:
                 df_result[col] = None
         return df_result[column_names]
-    
+
     def scrape_url(
         self,
         *,
@@ -162,9 +162,7 @@ class DataFrameResource(SyncAPIResource):
         dataset_descriptor = DatasetDescriptorParam(
             name=f"scrape_{table_name}_{uuid.uuid4().hex}",
             description="",
-            tables=[
-                schema
-            ],
+            tables=[schema],
             relationships=[],
         )
         job_id = self._client.scrape.list(
@@ -172,12 +170,15 @@ class DataFrameResource(SyncAPIResource):
             table_name=table_name,
             dataset_descriptor=dataset_descriptor,
         )
-        error_message = self._client.jobs.wait_for_jobs([job_id]) # type: ignore
+        error_message = self._client.jobs.wait_for_jobs([job_id])  # type: ignore
         if error_message:
             raise Exception(error_message)
-        
+
         entities_result = self._client.datasets.view_table(dataset=dataset_descriptor["name"], name=table_name)
-        data = [{col["name"]: entity.properties.get(col["name"]) for  col in schema["properties"]} for entity in entities_result]
+        data = [
+            {col["name"]: entity.properties.get(col["name"]) for col in schema["properties"]}
+            for entity in entities_result
+        ]
         df_result = pd.DataFrame(data)
         for col in schema["properties"]:
             if col["name"] not in df_result.columns:
@@ -209,12 +210,10 @@ class DataFrameResource(SyncAPIResource):
         self._client.datasets.create(
             name=dataset_name,
             description="",
-            tables=[
-                schema
-            ],
+            tables=[schema],
             relationships=[],
         )
-        
+
         # Upload the PDF document using the FileTypes interface
         self._client.documents.upload(
             content=document,
@@ -222,30 +221,24 @@ class DataFrameResource(SyncAPIResource):
             dataset=dataset_name,
             path=f"{dataset_name}.pdf".encode(),
         )
-        
+
         job_id = self._client.structure.run_async(
             dataset=dataset_name,
-            source=SourcePdf(
-                pdf={
-                    "path": f"{dataset_name}.pdf"
-                }
-            ),
+            source=SourcePdf(pdf={"path": f"{dataset_name}.pdf"}),
         )
         error_message = self._client.jobs.wait_for_jobs([job_id])
         if error_message:
             raise Exception(error_message)
         entities_result = self._client.datasets.view_table(dataset=dataset_name, name=table_name)
-        
+
         column_names = [prop["name"] for prop in schema["properties"]]
-        
-        data = [
-            {col_name: entity.properties.get(col_name) for col_name in column_names}
-            for entity in entities_result
-        ]
-        
+
+        data = [{col_name: entity.properties.get(col_name) for col_name in column_names} for entity in entities_result]
+
         df_result = pd.DataFrame(data, columns=column_names)
-        
+
         return df_result
+
 
 class DataFrameResourceWithRawResponse:
     def __init__(self, dataframe: DataFrameResource) -> None:
