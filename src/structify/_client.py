@@ -21,7 +21,20 @@ from ._types import (
 )
 from ._utils import is_given, get_async_library
 from ._version import __version__
-from .resources import chat, jobs, teams, report, server, sources, entities, projects, workflow, dataframe, documents, structure
+from .resources import (
+    chat,
+    jobs,
+    teams,
+    report,
+    server,
+    sources,
+    entities,
+    projects,
+    workflow,
+    dataframe,
+    documents,
+    structure,
+)
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import APIStatusError, StructifyError
 from ._base_client import (
