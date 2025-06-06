@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.119.0 (2025-06-06)
+
+Full Changelog: [v1.118.0...v1.119.0](https://github.com/StructifyAI/structify-python/compare/v1.118.0...v1.119.0)
+
+### Features
+
+* **api:** manual updates ([f1d6cb7](https://github.com/StructifyAI/structify-python/commit/f1d6cb7f51eaf356b818493c05debff86b69624f))
+
 ## 1.118.0 (2025-06-06)
 
 Full Changelog: [v1.117.0...v1.118.0](https://github.com/StructifyAI/structify-python/compare/v1.117.0...v1.118.0)
