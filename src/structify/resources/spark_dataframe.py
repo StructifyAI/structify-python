@@ -18,7 +18,6 @@ if TYPE_CHECKING:
     # Provide a callable stub for ``Row`` that matches the runtime signature.
     # This avoids static analysers flagging invocations like ``Row(**kwargs)``.
     from typing import (  # noqa: WPS433 – re-import for TYPE_CHECKING only
-        Any,
         Any as F,  # type: ignore
         Any as SparkDF,  # type: ignore
         Any as SparkSession,  # type: ignore
@@ -147,7 +146,8 @@ class SparkDataFrameResource(SyncAPIResource):
                 entities.append({"id": idx, "type": table_name_resolved, "properties": props})  # type: ignore[arg-type]
 
             entity_ids = client.entities.add_batch(
-                dataset=dataset_name, entity_graphs=[KnowledgeGraph(entities=entities, relationships=[])]
+                dataset=dataset_name,
+                entity_graphs=[KnowledgeGraph(entities=entities, relationships=[])],  # type: ignore[arg-type]
             )  # type: ignore[arg-type]
 
             # Issue enhancement requests concurrently to reduce latency.
@@ -155,7 +155,7 @@ class SparkDataFrameResource(SyncAPIResource):
 
             def _launch(enhance_id: str) -> str:  # noqa: WPS430 – nested function is fine here
                 """Submit an enhancement job for a single entity and return the Job ID."""
-                return client.structure.enhance_property(
+                return client.structure.enhance_property(  # type: ignore[attr-defined,no-any-return]
                     entity_id=enhance_id,
                     property_name=column_name,
                     allow_extra_entities=False,
