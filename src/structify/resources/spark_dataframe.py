@@ -15,16 +15,16 @@ from typing import TYPE_CHECKING, Any, Iterator, Optional, Sequence, cast
 if TYPE_CHECKING:
     # Statically treat all PySpark objects as ``Any`` so that the project can
     # be type-checked without PySpark (and its stubs) installed.
-    from typing import (
+    # Provide a callable stub for ``Row`` that matches the runtime signature.
+    # This avoids static analysers flagging invocations like ``Row(**kwargs)``.
+    from typing import (  # noqa: WPS433 – re-import for TYPE_CHECKING only
+        Any,
         Any as F,  # type: ignore
         Any as SparkDF,  # type: ignore
         Any as SparkSession,  # type: ignore
         Any as T,  # type: ignore
+        Callable,
     )
-
-    # Provide a callable stub for ``Row`` that matches the runtime signature.
-    # This avoids static analysers flagging invocations like ``Row(**kwargs)``.
-    from typing import Callable, Any  # noqa: WPS433 – re-import for TYPE_CHECKING only
 
     Row: Callable[..., Any]  # type: ignore[type-arg]
 else:  # pragma: no cover – runtime import that may fail if PySpark is absent.
