@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.118.0 (2025-06-06)
+
+Full Changelog: [v1.117.0...v1.118.0](https://github.com/StructifyAI/structify-python/compare/v1.117.0...v1.118.0)
+
+### Features
+
+* scraper functional ([e29a5a4](https://github.com/StructifyAI/structify-python/commit/e29a5a4044495c379313d90053f4d5524cceb6c0))
+
 ## 1.117.0 (2025-06-04)
 
 Full Changelog: [v1.116.0...v1.117.0](https://github.com/StructifyAI/structify-python/compare/v1.116.0...v1.117.0)
