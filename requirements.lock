@@ -35,10 +35,14 @@ numpy==2.0.2
     # via pandas
 pandas==2.2.3
     # via structifyai
+py4j==0.10.9.7
+    # via pyspark
 pydantic==2.10.3
     # via structifyai
 pydantic-core==2.27.1
     # via pydantic
+pyspark==3.5.6
+    # via structifyai
 python-dateutil==2.9.0.post0
     # via pandas
 pytz==2025.2

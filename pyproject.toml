@@ -34,6 +34,14 @@ classifiers = [
   "License :: OSI Approved :: Apache Software License"
 ]
 
+# Optional dependency groups ---------------------------------------------------
+
+[project.optional-dependencies]
+# Install with `pip install structifyai[spark]` to enable PySpark-based helpers.
+spark = [
+  "pyspark>=3.5.0, <4",
+]
+
 [project.urls]
 Homepage = "https://github.com/StructifyAI/structify-python"
 Repository = "https://github.com/StructifyAI/structify-python"
