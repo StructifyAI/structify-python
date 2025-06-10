@@ -29,6 +29,7 @@ class TestChat:
         chat = client.chat.add_message(
             session_id="session_id",
             content="content",
+            git_commit_hash="git_commit_hash",
             role="role",
         )
         assert_matches_type(AddChatMessageResponse, chat, path=["response"])
@@ -38,6 +39,7 @@ class TestChat:
         chat = client.chat.add_message(
             session_id="session_id",
             content="content",
+            git_commit_hash="git_commit_hash",
             role="role",
             timestamp=parse_datetime("2019-12-27T18:11:19.117Z"),
         )
@@ -48,6 +50,7 @@ class TestChat:
         response = client.chat.with_raw_response.add_message(
             session_id="session_id",
             content="content",
+            git_commit_hash="git_commit_hash",
             role="role",
         )
 
@@ -61,6 +64,7 @@ class TestChat:
         with client.chat.with_streaming_response.add_message(
             session_id="session_id",
             content="content",
+            git_commit_hash="git_commit_hash",
             role="role",
         ) as response:
             assert not response.is_closed
@@ -77,12 +81,16 @@ class TestChat:
             client.chat.with_raw_response.add_message(
                 session_id="",
                 content="content",
+                git_commit_hash="git_commit_hash",
                 role="role",
             )
 
     @parametrize
     def test_method_create_session(self, client: Structify) -> None:
         chat = client.chat.create_session(
+            git_branch="git_branch",
+            git_commit_hash="git_commit_hash",
+            git_repo_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             initial_message="initial_message",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
@@ -91,6 +99,9 @@ class TestChat:
     @parametrize
     def test_raw_response_create_session(self, client: Structify) -> None:
         response = client.chat.with_raw_response.create_session(
+            git_branch="git_branch",
+            git_commit_hash="git_commit_hash",
+            git_repo_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             initial_message="initial_message",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
@@ -103,6 +114,9 @@ class TestChat:
     @parametrize
     def test_streaming_response_create_session(self, client: Structify) -> None:
         with client.chat.with_streaming_response.create_session(
+            git_branch="git_branch",
+            git_commit_hash="git_commit_hash",
+            git_repo_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             initial_message="initial_message",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
@@ -231,6 +245,7 @@ class TestAsyncChat:
         chat = await async_client.chat.add_message(
             session_id="session_id",
             content="content",
+            git_commit_hash="git_commit_hash",
             role="role",
         )
         assert_matches_type(AddChatMessageResponse, chat, path=["response"])
@@ -240,6 +255,7 @@ class TestAsyncChat:
         chat = await async_client.chat.add_message(
             session_id="session_id",
             content="content",
+            git_commit_hash="git_commit_hash",
             role="role",
             timestamp=parse_datetime("2019-12-27T18:11:19.117Z"),
         )
@@ -250,6 +266,7 @@ class TestAsyncChat:
         response = await async_client.chat.with_raw_response.add_message(
             session_id="session_id",
             content="content",
+            git_commit_hash="git_commit_hash",
             role="role",
         )
 
@@ -263,6 +280,7 @@ class TestAsyncChat:
         async with async_client.chat.with_streaming_response.add_message(
             session_id="session_id",
             content="content",
+            git_commit_hash="git_commit_hash",
             role="role",
         ) as response:
             assert not response.is_closed
@@ -279,12 +297,16 @@ class TestAsyncChat:
             await async_client.chat.with_raw_response.add_message(
                 session_id="",
                 content="content",
+                git_commit_hash="git_commit_hash",
                 role="role",
             )
 
     @parametrize
     async def test_method_create_session(self, async_client: AsyncStructify) -> None:
         chat = await async_client.chat.create_session(
+            git_branch="git_branch",
+            git_commit_hash="git_commit_hash",
+            git_repo_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             initial_message="initial_message",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
@@ -293,6 +315,9 @@ class TestAsyncChat:
     @parametrize
     async def test_raw_response_create_session(self, async_client: AsyncStructify) -> None:
         response = await async_client.chat.with_raw_response.create_session(
+            git_branch="git_branch",
+            git_commit_hash="git_commit_hash",
+            git_repo_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             initial_message="initial_message",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
@@ -305,6 +330,9 @@ class TestAsyncChat:
     @parametrize
     async def test_streaming_response_create_session(self, async_client: AsyncStructify) -> None:
         async with async_client.chat.with_streaming_response.create_session(
+            git_branch="git_branch",
+            git_commit_hash="git_commit_hash",
+            git_repo_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             initial_message="initial_message",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
