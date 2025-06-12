@@ -48,6 +48,14 @@ from .report import (
     ReportResourceWithStreamingResponse,
     AsyncReportResourceWithStreamingResponse,
 )
+from .scrape import (
+    ScrapeResource,
+    AsyncScrapeResource,
+    ScrapeResourceWithRawResponse,
+    AsyncScrapeResourceWithRawResponse,
+    ScrapeResourceWithStreamingResponse,
+    AsyncScrapeResourceWithStreamingResponse,
+)
 from .server import (
     ServerResource,
     AsyncServerResource,
@@ -192,6 +200,12 @@ __all__ = [
     "AsyncReportResourceWithRawResponse",
     "ReportResourceWithStreamingResponse",
     "AsyncReportResourceWithStreamingResponse",
+    "ScrapeResource",
+    "AsyncScrapeResource",
+    "ScrapeResourceWithRawResponse",
+    "AsyncScrapeResourceWithRawResponse",
+    "ScrapeResourceWithStreamingResponse",
+    "AsyncScrapeResourceWithStreamingResponse",
     "StructureResource",
     "AsyncStructureResource",
     "StructureResourceWithRawResponse",

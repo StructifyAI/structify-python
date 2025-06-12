@@ -21,7 +21,20 @@ from ._types import (
 )
 from ._utils import is_given, get_async_library
 from ._version import __version__
-from .resources import chat, jobs, teams, report, server, sources, entities, projects, workflow, documents, structure
+from .resources import (
+    chat,
+    jobs,
+    teams,
+    report,
+    scrape,
+    server,
+    sources,
+    entities,
+    projects,
+    workflow,
+    documents,
+    structure,
+)
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import APIStatusError, StructifyError
 from ._base_client import (
@@ -65,6 +78,7 @@ class Structify(SyncAPIClient):
     sources: sources.SourcesResource
     entities: entities.EntitiesResource
     report: report.ReportResource
+    scrape: scrape.ScrapeResource
     structure: structure.StructureResource
     with_raw_response: StructifyWithRawResponse
     with_streaming_response: StructifyWithStreamedResponse
@@ -160,6 +174,7 @@ class Structify(SyncAPIClient):
         self.sources = sources.SourcesResource(self)
         self.entities = entities.EntitiesResource(self)
         self.report = report.ReportResource(self)
+        self.scrape = scrape.ScrapeResource(self)
         self.structure = structure.StructureResource(self)
         self.with_raw_response = StructifyWithRawResponse(self)
         self.with_streaming_response = StructifyWithStreamedResponse(self)
@@ -285,6 +300,7 @@ class AsyncStructify(AsyncAPIClient):
     sources: sources.AsyncSourcesResource
     entities: entities.AsyncEntitiesResource
     report: report.AsyncReportResource
+    scrape: scrape.AsyncScrapeResource
     structure: structure.AsyncStructureResource
     with_raw_response: AsyncStructifyWithRawResponse
     with_streaming_response: AsyncStructifyWithStreamedResponse
@@ -380,6 +396,7 @@ class AsyncStructify(AsyncAPIClient):
         self.sources = sources.AsyncSourcesResource(self)
         self.entities = entities.AsyncEntitiesResource(self)
         self.report = report.AsyncReportResource(self)
+        self.scrape = scrape.AsyncScrapeResource(self)
         self.structure = structure.AsyncStructureResource(self)
         self.with_raw_response = AsyncStructifyWithRawResponse(self)
         self.with_streaming_response = AsyncStructifyWithStreamedResponse(self)
@@ -506,6 +523,7 @@ class StructifyWithRawResponse:
         self.sources = sources.SourcesResourceWithRawResponse(client.sources)
         self.entities = entities.EntitiesResourceWithRawResponse(client.entities)
         self.report = report.ReportResourceWithRawResponse(client.report)
+        self.scrape = scrape.ScrapeResourceWithRawResponse(client.scrape)
         self.structure = structure.StructureResourceWithRawResponse(client.structure)
 
 
@@ -524,6 +542,7 @@ class AsyncStructifyWithRawResponse:
         self.sources = sources.AsyncSourcesResourceWithRawResponse(client.sources)
         self.entities = entities.AsyncEntitiesResourceWithRawResponse(client.entities)
         self.report = report.AsyncReportResourceWithRawResponse(client.report)
+        self.scrape = scrape.AsyncScrapeResourceWithRawResponse(client.scrape)
         self.structure = structure.AsyncStructureResourceWithRawResponse(client.structure)
 
 
@@ -542,6 +561,7 @@ class StructifyWithStreamedResponse:
         self.sources = sources.SourcesResourceWithStreamingResponse(client.sources)
         self.entities = entities.EntitiesResourceWithStreamingResponse(client.entities)
         self.report = report.ReportResourceWithStreamingResponse(client.report)
+        self.scrape = scrape.ScrapeResourceWithStreamingResponse(client.scrape)
         self.structure = structure.StructureResourceWithStreamingResponse(client.structure)
 
 
@@ -560,6 +580,7 @@ class AsyncStructifyWithStreamedResponse:
         self.sources = sources.AsyncSourcesResourceWithStreamingResponse(client.sources)
         self.entities = entities.AsyncEntitiesResourceWithStreamingResponse(client.entities)
         self.report = report.AsyncReportResourceWithStreamingResponse(client.report)
+        self.scrape = scrape.AsyncScrapeResourceWithStreamingResponse(client.scrape)
         self.structure = structure.AsyncStructureResourceWithStreamingResponse(client.structure)
 
 
