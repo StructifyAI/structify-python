@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Optional
+from typing import Dict, Optional
 
 import httpx
 
@@ -14,7 +14,7 @@ from .stripe import (
     StripeResourceWithStreamingResponse,
     AsyncStripeResourceWithStreamingResponse,
 )
-from ...types import user_usage_params
+from ...types import user_usage_params, user_survey_submit_params
 from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from ..._utils import maybe_transform, async_maybe_transform
 from ..._compat import cached_property
@@ -28,6 +28,7 @@ from ..._response import (
 from ..._base_client import make_request_options
 from ...types.user_info import UserInfo
 from ...types.user_usage_response import UserUsageResponse
+from ...types.survey_submission_response import SurveySubmissionResponse
 from ...types.user_transactions_response import UserTransactionsResponse
 
 __all__ = ["UserResource", "AsyncUserResource"]
@@ -74,6 +75,40 @@ class UserResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=UserInfo,
+        )
+
+    def survey_submit(
+        self,
+        *,
+        survey_response: Dict[str, object],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> SurveySubmissionResponse:
+        """
+        Submit user onboarding survey
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/user/survey/submit",
+            body=maybe_transform(
+                {"survey_response": survey_response}, user_survey_submit_params.UserSurveySubmitParams
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=SurveySubmissionResponse,
         )
 
     def transactions(
@@ -173,6 +208,40 @@ class AsyncUserResource(AsyncAPIResource):
             cast_to=UserInfo,
         )
 
+    async def survey_submit(
+        self,
+        *,
+        survey_response: Dict[str, object],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> SurveySubmissionResponse:
+        """
+        Submit user onboarding survey
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/user/survey/submit",
+            body=await async_maybe_transform(
+                {"survey_response": survey_response}, user_survey_submit_params.UserSurveySubmitParams
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=SurveySubmissionResponse,
+        )
+
     async def transactions(
         self,
         *,
@@ -234,6 +303,9 @@ class UserResourceWithRawResponse:
         self.info = to_raw_response_wrapper(
             user.info,
         )
+        self.survey_submit = to_raw_response_wrapper(
+            user.survey_submit,
+        )
         self.transactions = to_raw_response_wrapper(
             user.transactions,
         )
@@ -252,6 +324,9 @@ class AsyncUserResourceWithRawResponse:
 
         self.info = async_to_raw_response_wrapper(
             user.info,
+        )
+        self.survey_submit = async_to_raw_response_wrapper(
+            user.survey_submit,
         )
         self.transactions = async_to_raw_response_wrapper(
             user.transactions,
@@ -272,6 +347,9 @@ class UserResourceWithStreamingResponse:
         self.info = to_streamed_response_wrapper(
             user.info,
         )
+        self.survey_submit = to_streamed_response_wrapper(
+            user.survey_submit,
+        )
         self.transactions = to_streamed_response_wrapper(
             user.transactions,
         )
@@ -290,6 +368,9 @@ class AsyncUserResourceWithStreamingResponse:
 
         self.info = async_to_streamed_response_wrapper(
             user.info,
+        )
+        self.survey_submit = async_to_streamed_response_wrapper(
+            user.survey_submit,
         )
         self.transactions = async_to_streamed_response_wrapper(
             user.transactions,

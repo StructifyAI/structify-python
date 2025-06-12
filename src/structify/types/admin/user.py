@@ -34,3 +34,7 @@ class User(BaseModel):
     updated_at: datetime
 
     user_type: Literal["admin", "public", "end_user", "pro"]
+
+    survey_completed_at: Optional[datetime] = None
+
+    survey_response: Optional[object] = None
