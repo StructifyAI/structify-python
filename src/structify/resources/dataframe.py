@@ -42,12 +42,11 @@ class DataFrameResource(SyncAPIResource):
         """
         return DataFrameResourceWithStreamingResponse(self)
 
-    def enhance_column(
+    def enhance_columns(
         self,
         *,
         df: pd.DataFrame,
-        column_name: str,
-        column_description: str,
+        columns: list[Property],
         table_name: Optional[str] | NotGiven = NOT_GIVEN,
         table_description: Optional[str] | NotGiven = NOT_GIVEN,
     ) -> pd.DataFrame:
@@ -56,16 +55,16 @@ class DataFrameResource(SyncAPIResource):
 
         Args:
           df: The pandas DataFrame to enhance
-          column_name: Name of the column to enhance
-          column_description: Description of what the column should contain
+          columns: List of columns to enhance
           table_name: Name of the table (optional)
           table_description: Description of the table (optional)
         """
         column_names: list[str] = df.columns.tolist()
-        if column_name not in column_names:
-            column_names.append(column_name)
+        for column in columns:
+            if column["name"] not in column_names:
+                column_names.append(column["name"])
 
-        dataset_name = f"enhance_{column_name}_{uuid.uuid4().hex}"
+        dataset_name = f"enhance_{'_'.join(column_names)}_{uuid.uuid4().hex}"
         table_name_resolved = (
             str(table_name) if table_name is not NOT_GIVEN and table_name is not None else "No table name provided"
         )
@@ -83,17 +82,16 @@ class DataFrameResource(SyncAPIResource):
                     name=table_name_resolved,
                     description=table_description_resolved,
                     properties=[
-                        Property(name=name, description=column_description if name == column_name else f"")
+                        Property(name=name, description=column["description"])
                         for name in column_names
                     ],
                 )
             ],
             relationships=[],
+            ephemeral=True,
         )
 
-        if column_name not in df.columns:
-            df[column_name] = None
-
+        # Add entities to the dataset
         entities: list[dict[str, Any]] = []
         for index, row in df.iterrows():  # type: ignore
             entity_properties: dict[str, Any] = {}
@@ -109,6 +107,7 @@ class DataFrameResource(SyncAPIResource):
                 }
             )
 
+        # Add entities to the dataset
         entity_ids = self._client.entities.add_batch(
             dataset=dataset_name,
             entity_graphs=[
@@ -121,12 +120,13 @@ class DataFrameResource(SyncAPIResource):
 
         job_ids: list[str] = []
         for entity_id in entity_ids:
-            job_id = self._client.structure.enhance_property(
-                entity_id=entity_id,
-                property_name=column_name,
-                allow_extra_entities=False,
-            )
-            job_ids.append(job_id)
+            for column in columns:
+                job_id = self._client.structure.enhance_property(
+                    entity_id=entity_id,
+                    property_name=column["name"],
+                    allow_extra_entities=False,
+                )
+                job_ids.append(job_id)
 
         error_message = self._client.jobs.wait_for_jobs(job_ids)
         if error_message:
@@ -240,8 +240,8 @@ class DataFrameResourceWithRawResponse:
     def __init__(self, dataframe: DataFrameResource) -> None:
         self._dataframe = dataframe
 
-        self.enhance_column = to_raw_response_wrapper(
-            dataframe.enhance_column,
+        self.enhance_columns = to_raw_response_wrapper(
+            dataframe.enhance_columns,
         )
 
 
@@ -249,6 +249,6 @@ class DataFrameResourceWithStreamingResponse:
     def __init__(self, dataframe: DataFrameResource) -> None:
         self._dataframe = dataframe
 
-        self.enhance_column = to_streamed_response_wrapper(
-            dataframe.enhance_column,
+        self.enhance_columns = to_streamed_response_wrapper(
+            dataframe.enhance_columns,
         )
