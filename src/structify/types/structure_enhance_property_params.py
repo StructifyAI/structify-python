@@ -15,6 +15,8 @@ class StructureEnhancePropertyParams(TypedDict, total=False):
 
     allow_extra_entities: bool
 
+    max_steps_without_save: int
+
     special_job_type: Optional[Literal["HumanLLM"]]
 
     starting_searches: List[str]

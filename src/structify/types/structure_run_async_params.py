@@ -18,6 +18,8 @@ class StructureRunAsyncParams(TypedDict, total=False):
     source: Required[Source]
     """These are all the types that can be converted into a BasicInputType"""
 
+    max_steps_without_save: int
+
     save_requirement: Iterable[SaveRequirementParam]
 
     seeded_entity: KnowledgeGraphParam

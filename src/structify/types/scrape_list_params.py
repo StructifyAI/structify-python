@@ -20,3 +20,5 @@ class ScrapeListParams(TypedDict, total=False):
     table_name: Required[str]
 
     url: Required[str]
+
+    max_steps_without_save: int

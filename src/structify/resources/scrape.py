@@ -48,6 +48,7 @@ class ScrapeResource(SyncAPIResource):
         dataset_descriptor: DatasetDescriptorParam,
         table_name: str,
         url: str,
+        max_steps_without_save: int | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -79,6 +80,7 @@ class ScrapeResource(SyncAPIResource):
                     "dataset_descriptor": dataset_descriptor,
                     "table_name": table_name,
                     "url": url,
+                    "max_steps_without_save": max_steps_without_save,
                 },
                 scrape_list_params.ScrapeListParams,
             ),
@@ -115,6 +117,7 @@ class AsyncScrapeResource(AsyncAPIResource):
         dataset_descriptor: DatasetDescriptorParam,
         table_name: str,
         url: str,
+        max_steps_without_save: int | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -146,6 +149,7 @@ class AsyncScrapeResource(AsyncAPIResource):
                     "dataset_descriptor": dataset_descriptor,
                     "table_name": table_name,
                     "url": url,
+                    "max_steps_without_save": max_steps_without_save,
                 },
                 scrape_list_params.ScrapeListParams,
             ),

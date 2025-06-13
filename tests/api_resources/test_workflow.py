@@ -340,6 +340,15 @@ class TestWorkflow:
         assert_matches_type(object, workflow, path=["response"])
 
     @parametrize
+    def test_method_trigger_with_all_params(self, client: Structify) -> None:
+        workflow = client.workflow.trigger(
+            entity_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+            workflow_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            max_steps_without_save=0,
+        )
+        assert_matches_type(object, workflow, path=["response"])
+
+    @parametrize
     def test_raw_response_trigger(self, client: Structify) -> None:
         response = client.workflow.with_raw_response.trigger(
             entity_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
@@ -683,6 +692,15 @@ class TestAsyncWorkflow:
         workflow = await async_client.workflow.trigger(
             entity_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             workflow_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(object, workflow, path=["response"])
+
+    @parametrize
+    async def test_method_trigger_with_all_params(self, async_client: AsyncStructify) -> None:
+        workflow = await async_client.workflow.trigger(
+            entity_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+            workflow_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            max_steps_without_save=0,
         )
         assert_matches_type(object, workflow, path=["response"])
 

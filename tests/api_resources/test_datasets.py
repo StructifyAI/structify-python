@@ -676,6 +676,53 @@ class TestDatasets:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
+    def test_method_update_relationship(self, client: Structify) -> None:
+        dataset = client.datasets.update_relationship(
+            dataset_name="dataset_name",
+            relationship_name="relationship_name",
+        )
+        assert dataset is None
+
+    @parametrize
+    def test_method_update_relationship_with_all_params(self, client: Structify) -> None:
+        dataset = client.datasets.update_relationship(
+            dataset_name="dataset_name",
+            relationship_name="relationship_name",
+            new_description="new_description",
+            new_merge_strategy={
+                "source_cardinality_given_target_match": 0,
+                "target_cardinality_given_source_match": 0,
+            },
+        )
+        assert dataset is None
+
+    @parametrize
+    def test_raw_response_update_relationship(self, client: Structify) -> None:
+        response = client.datasets.with_raw_response.update_relationship(
+            dataset_name="dataset_name",
+            relationship_name="relationship_name",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        dataset = response.parse()
+        assert dataset is None
+
+    @parametrize
+    def test_streaming_response_update_relationship(self, client: Structify) -> None:
+        with client.datasets.with_streaming_response.update_relationship(
+            dataset_name="dataset_name",
+            relationship_name="relationship_name",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            dataset = response.parse()
+            assert dataset is None
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
     def test_method_view_relationships(self, client: Structify) -> None:
         dataset = client.datasets.view_relationships(
             dataset="dataset",
@@ -1468,6 +1515,53 @@ class TestAsyncDatasets:
             dataset_name="dataset_name",
             property_name="property_name",
             table_name="table_name",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            dataset = await response.parse()
+            assert dataset is None
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_method_update_relationship(self, async_client: AsyncStructify) -> None:
+        dataset = await async_client.datasets.update_relationship(
+            dataset_name="dataset_name",
+            relationship_name="relationship_name",
+        )
+        assert dataset is None
+
+    @parametrize
+    async def test_method_update_relationship_with_all_params(self, async_client: AsyncStructify) -> None:
+        dataset = await async_client.datasets.update_relationship(
+            dataset_name="dataset_name",
+            relationship_name="relationship_name",
+            new_description="new_description",
+            new_merge_strategy={
+                "source_cardinality_given_target_match": 0,
+                "target_cardinality_given_source_match": 0,
+            },
+        )
+        assert dataset is None
+
+    @parametrize
+    async def test_raw_response_update_relationship(self, async_client: AsyncStructify) -> None:
+        response = await async_client.datasets.with_raw_response.update_relationship(
+            dataset_name="dataset_name",
+            relationship_name="relationship_name",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        dataset = await response.parse()
+        assert dataset is None
+
+    @parametrize
+    async def test_streaming_response_update_relationship(self, async_client: AsyncStructify) -> None:
+        async with async_client.datasets.with_streaming_response.update_relationship(
+            dataset_name="dataset_name",
+            relationship_name="relationship_name",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

@@ -6,7 +6,7 @@ from typing import Optional
 
 import httpx
 
-from ..types import source_list_params
+from ..types import source_list_params, source_delete_entity_params, source_delete_relationship_params
 from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -19,6 +19,8 @@ from .._response import (
 )
 from .._base_client import make_request_options
 from ..types.source_list_response import SourceListResponse
+from ..types.delete_source_entity_response import DeleteSourceEntityResponse
+from ..types.delete_source_relationship_response import DeleteSourceRelationshipResponse
 
 __all__ = ["SourcesResource", "AsyncSourcesResource"]
 
@@ -89,6 +91,71 @@ class SourcesResource(SyncAPIResource):
             cast_to=SourceListResponse,
         )
 
+    def delete_entity(
+        self,
+        *,
+        source_entity_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> DeleteSourceEntityResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._delete(
+            "/source/entity",
+            body=maybe_transform(
+                {"source_entity_id": source_entity_id}, source_delete_entity_params.SourceDeleteEntityParams
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=DeleteSourceEntityResponse,
+        )
+
+    def delete_relationship(
+        self,
+        *,
+        source_relationship_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> DeleteSourceRelationshipResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._delete(
+            "/source/relationship",
+            body=maybe_transform(
+                {"source_relationship_id": source_relationship_id},
+                source_delete_relationship_params.SourceDeleteRelationshipParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=DeleteSourceRelationshipResponse,
+        )
+
 
 class AsyncSourcesResource(AsyncAPIResource):
     @cached_property
@@ -156,6 +223,71 @@ class AsyncSourcesResource(AsyncAPIResource):
             cast_to=SourceListResponse,
         )
 
+    async def delete_entity(
+        self,
+        *,
+        source_entity_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> DeleteSourceEntityResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._delete(
+            "/source/entity",
+            body=await async_maybe_transform(
+                {"source_entity_id": source_entity_id}, source_delete_entity_params.SourceDeleteEntityParams
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=DeleteSourceEntityResponse,
+        )
+
+    async def delete_relationship(
+        self,
+        *,
+        source_relationship_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> DeleteSourceRelationshipResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._delete(
+            "/source/relationship",
+            body=await async_maybe_transform(
+                {"source_relationship_id": source_relationship_id},
+                source_delete_relationship_params.SourceDeleteRelationshipParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=DeleteSourceRelationshipResponse,
+        )
+
 
 class SourcesResourceWithRawResponse:
     def __init__(self, sources: SourcesResource) -> None:
@@ -163,6 +295,12 @@ class SourcesResourceWithRawResponse:
 
         self.list = to_raw_response_wrapper(
             sources.list,
+        )
+        self.delete_entity = to_raw_response_wrapper(
+            sources.delete_entity,
+        )
+        self.delete_relationship = to_raw_response_wrapper(
+            sources.delete_relationship,
         )
 
 
@@ -173,6 +311,12 @@ class AsyncSourcesResourceWithRawResponse:
         self.list = async_to_raw_response_wrapper(
             sources.list,
         )
+        self.delete_entity = async_to_raw_response_wrapper(
+            sources.delete_entity,
+        )
+        self.delete_relationship = async_to_raw_response_wrapper(
+            sources.delete_relationship,
+        )
 
 
 class SourcesResourceWithStreamingResponse:
@@ -182,6 +326,12 @@ class SourcesResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             sources.list,
         )
+        self.delete_entity = to_streamed_response_wrapper(
+            sources.delete_entity,
+        )
+        self.delete_relationship = to_streamed_response_wrapper(
+            sources.delete_relationship,
+        )
 
 
 class AsyncSourcesResourceWithStreamingResponse:
@@ -190,4 +340,10 @@ class AsyncSourcesResourceWithStreamingResponse:
 
         self.list = async_to_streamed_response_wrapper(
             sources.list,
+        )
+        self.delete_entity = async_to_streamed_response_wrapper(
+            sources.delete_entity,
+        )
+        self.delete_relationship = async_to_streamed_response_wrapper(
+            sources.delete_relationship,
         )
