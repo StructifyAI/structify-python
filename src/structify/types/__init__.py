@@ -44,6 +44,7 @@ from .entity_view_params import EntityViewParams as EntityViewParams
 from .merge_config_param import MergeConfigParam as MergeConfigParam
 from .relationship_param import RelationshipParam as RelationshipParam
 from .report_step_params import ReportStepParams as ReportStepParams
+from .scrape_list_params import ScrapeListParams as ScrapeListParams
 from .server_information import ServerInformation as ServerInformation
 from .source_list_params import SourceListParams as SourceListParams
 from .team_create_params import TeamCreateParams as TeamCreateParams
@@ -71,6 +72,7 @@ from .entity_verify_params import EntityVerifyParams as EntityVerifyParams
 from .entity_view_response import EntityViewResponse as EntityViewResponse
 from .get_project_response import GetProjectResponse as GetProjectResponse
 from .report_step_response import ReportStepResponse as ReportStepResponse
+from .scrape_list_response import ScrapeListResponse as ScrapeListResponse
 from .source_list_response import SourceListResponse as SourceListResponse
 from .update_team_response import UpdateTeamResponse as UpdateTeamResponse
 from .workflow_jobs_params import WorkflowJobsParams as WorkflowJobsParams
@@ -121,12 +123,14 @@ from .entity_add_batch_response import EntityAddBatchResponse as EntityAddBatchR
 from .entity_list_jobs_response import EntityListJobsResponse as EntityListJobsResponse
 from .entity_summarize_response import EntitySummarizeResponse as EntitySummarizeResponse
 from .get_chat_session_response import GetChatSessionResponse as GetChatSessionResponse
+from .user_survey_submit_params import UserSurveySubmitParams as UserSurveySubmitParams
 from .chat_create_session_params import ChatCreateSessionParams as ChatCreateSessionParams
 from .chat_session_with_messages import ChatSessionWithMessages as ChatSessionWithMessages
 from .document_download_response import DocumentDownloadResponse as DocumentDownloadResponse
 from .entity_get_merges_response import EntityGetMergesResponse as EntityGetMergesResponse
 from .report_relationship_params import ReportRelationshipParams as ReportRelationshipParams
 from .structure_run_async_params import StructureRunAsyncParams as StructureRunAsyncParams
+from .survey_submission_response import SurveySubmissionResponse as SurveySubmissionResponse
 from .team_create_project_params import TeamCreateProjectParams as TeamCreateProjectParams
 from .user_transactions_response import UserTransactionsResponse as UserTransactionsResponse
 from .dataset_add_property_params import DatasetAddPropertyParams as DatasetAddPropertyParams
