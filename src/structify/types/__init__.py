@@ -44,6 +44,7 @@ from .entity_view_params import EntityViewParams as EntityViewParams
 from .merge_config_param import MergeConfigParam as MergeConfigParam
 from .relationship_param import RelationshipParam as RelationshipParam
 from .report_step_params import ReportStepParams as ReportStepParams
+from .scrape_list_params import ScrapeListParams as ScrapeListParams
 from .server_information import ServerInformation as ServerInformation
 from .source_list_params import SourceListParams as SourceListParams
 from .team_create_params import TeamCreateParams as TeamCreateParams
@@ -71,6 +72,7 @@ from .entity_verify_params import EntityVerifyParams as EntityVerifyParams
 from .entity_view_response import EntityViewResponse as EntityViewResponse
 from .get_project_response import GetProjectResponse as GetProjectResponse
 from .report_step_response import ReportStepResponse as ReportStepResponse
+from .scrape_list_response import ScrapeListResponse as ScrapeListResponse
 from .source_list_response import SourceListResponse as SourceListResponse
 from .update_team_response import UpdateTeamResponse as UpdateTeamResponse
 from .workflow_jobs_params import WorkflowJobsParams as WorkflowJobsParams
