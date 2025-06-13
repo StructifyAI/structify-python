@@ -24,6 +24,8 @@ class EntityAddParams(TypedDict, total=False):
     attempt_merge: bool
     """If true, attempt to merge with existing entities in the dataset"""
 
+    max_steps_without_save: int
+
     source: Source
 
     triggering_workflow: Optional[str]

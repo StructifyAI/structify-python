@@ -295,6 +295,7 @@ Methods:
 - <code title="post /dataset/reorder_properties">client.datasets.<a href="./src/structify/resources/datasets/datasets.py">reorder_properties</a>(\*\*<a href="src/structify/types/dataset_reorder_properties_params.py">params</a>) -> None</code>
 - <code title="post /dataset/set_primary_column">client.datasets.<a href="./src/structify/resources/datasets/datasets.py">set_primary_column</a>(\*\*<a href="src/structify/types/dataset_set_primary_column_params.py">params</a>) -> None</code>
 - <code title="post /dataset/update_property">client.datasets.<a href="./src/structify/resources/datasets/datasets.py">update_property</a>(\*\*<a href="src/structify/types/dataset_update_property_params.py">params</a>) -> None</code>
+- <code title="post /dataset/update_relationship">client.datasets.<a href="./src/structify/resources/datasets/datasets.py">update_relationship</a>(\*\*<a href="src/structify/types/dataset_update_relationship_params.py">params</a>) -> None</code>
 - <code title="get /dataset/view_relationships">client.datasets.<a href="./src/structify/resources/datasets/datasets.py">view_relationships</a>(\*\*<a href="src/structify/types/dataset_view_relationships_params.py">params</a>) -> <a href="./src/structify/types/dataset_view_relationships_response.py">SyncJobsList[DatasetViewRelationshipsResponse]</a></code>
 - <code title="get /dataset/view_table">client.datasets.<a href="./src/structify/resources/datasets/datasets.py">view_table</a>(\*\*<a href="src/structify/types/dataset_view_table_params.py">params</a>) -> <a href="./src/structify/types/dataset_view_table_response.py">SyncJobsList[DatasetViewTableResponse]</a></code>
 - <code title="get /dataset/view_tables_with_relationships">client.datasets.<a href="./src/structify/resources/datasets/datasets.py">view_tables_with_relationships</a>(\*\*<a href="src/structify/types/dataset_view_tables_with_relationships_params.py">params</a>) -> <a href="./src/structify/types/dataset_view_tables_with_relationships_response.py">DatasetViewTablesWithRelationshipsResponse</a></code>
@@ -384,12 +385,21 @@ Methods:
 Types:
 
 ```python
-from structify.types import Source, SourceListResponse
+from structify.types import (
+    DeleteSourceEntityParams,
+    DeleteSourceEntityResponse,
+    DeleteSourceRelationshipParams,
+    DeleteSourceRelationshipResponse,
+    Source,
+    SourceListResponse,
+)
 ```
 
 Methods:
 
 - <code title="get /source/get_sources">client.sources.<a href="./src/structify/resources/sources.py">list</a>(\*\*<a href="src/structify/types/source_list_params.py">params</a>) -> <a href="./src/structify/types/source_list_response.py">SourceListResponse</a></code>
+- <code title="delete /source/entity">client.sources.<a href="./src/structify/resources/sources.py">delete_entity</a>(\*\*<a href="src/structify/types/source_delete_entity_params.py">params</a>) -> <a href="./src/structify/types/delete_source_entity_response.py">DeleteSourceEntityResponse</a></code>
+- <code title="delete /source/relationship">client.sources.<a href="./src/structify/resources/sources.py">delete_relationship</a>(\*\*<a href="src/structify/types/source_delete_relationship_params.py">params</a>) -> <a href="./src/structify/types/delete_source_relationship_response.py">DeleteSourceRelationshipResponse</a></code>
 
 # Entities
 
@@ -401,6 +411,7 @@ from structify.types import (
     EntityAddResponse,
     EntityAddBatchResponse,
     EntityAddRelationshipResponse,
+    EntityAgentMergeResponse,
     EntityDeriveResponse,
     EntityGetResponse,
     EntityGetLocalSubgraphResponse,
@@ -422,6 +433,7 @@ Methods:
 - <code title="post /entity/add">client.entities.<a href="./src/structify/resources/entities.py">add</a>(\*\*<a href="src/structify/types/entity_add_params.py">params</a>) -> <a href="./src/structify/types/entity_add_response.py">EntityAddResponse</a></code>
 - <code title="post /entity/add_batch">client.entities.<a href="./src/structify/resources/entities.py">add_batch</a>(\*\*<a href="src/structify/types/entity_add_batch_params.py">params</a>) -> <a href="./src/structify/types/entity_add_batch_response.py">EntityAddBatchResponse</a></code>
 - <code title="post /entity/add_relationship">client.entities.<a href="./src/structify/resources/entities.py">add_relationship</a>(\*\*<a href="src/structify/types/entity_add_relationship_params.py">params</a>) -> <a href="./src/structify/types/entity_add_relationship_response.py">EntityAddRelationshipResponse</a></code>
+- <code title="post /entity/agent_merge">client.entities.<a href="./src/structify/resources/entities.py">agent_merge</a>(\*\*<a href="src/structify/types/entity_agent_merge_params.py">params</a>) -> <a href="./src/structify/types/entity_agent_merge_response.py">EntityAgentMergeResponse</a></code>
 - <code title="post /entity/delete_relationship">client.entities.<a href="./src/structify/resources/entities.py">delete_relationship</a>(\*\*<a href="src/structify/types/entity_delete_relationship_params.py">params</a>) -> object</code>
 - <code title="post /entity/derive">client.entities.<a href="./src/structify/resources/entities.py">derive</a>(\*\*<a href="src/structify/types/entity_derive_params.py">params</a>) -> str</code>
 - <code title="get /entity/get">client.entities.<a href="./src/structify/resources/entities.py">get</a>(\*\*<a href="src/structify/types/entity_get_params.py">params</a>) -> <a href="./src/structify/types/entity_get_response.py">EntityGetResponse</a></code>

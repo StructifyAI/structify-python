@@ -95,6 +95,7 @@ class TestScrape:
             },
             table_name="table_name",
             url="url",
+            max_steps_without_save=0,
         )
         assert_matches_type(ScrapeListResponse, scrape, path=["response"])
 
@@ -254,6 +255,7 @@ class TestAsyncScrape:
             },
             table_name="table_name",
             url="url",
+            max_steps_without_save=0,
         )
         assert_matches_type(ScrapeListResponse, scrape, path=["response"])
 
