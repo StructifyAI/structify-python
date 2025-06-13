@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.120.0 (2025-06-13)
+
+Full Changelog: [v1.119.0...v1.120.0](https://github.com/StructifyAI/structify-python/compare/v1.119.0...v1.120.0)
+
+### Features
+
+* **api:** manual updates ([38a990e](https://github.com/StructifyAI/structify-python/commit/38a990ed1fc3ab0338de9a8115ced79275b05e9f))
+* **api:** manual updates ([49d8242](https://github.com/StructifyAI/structify-python/commit/49d82429d43aac296836db886e3095df27b21370))
+
+
+### Bug Fixes
+
+* add scrapers that somehow went missing ([61fa1ae](https://github.com/StructifyAI/structify-python/commit/61fa1aec5c45c7109bc629969123b7f81750efe4))
+
 ## 1.119.0 (2025-06-06)
 
 Full Changelog: [v1.118.0...v1.119.0](https://github.com/StructifyAI/structify-python/compare/v1.118.0...v1.119.0)
