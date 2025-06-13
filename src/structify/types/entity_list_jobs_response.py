@@ -19,6 +19,8 @@ class EntityListJobsResponseItem(BaseModel):
 
     job_type: Literal["Web", "Pdf", "Derive", "Scrape"]
 
+    max_steps_without_save: int
+
     selected_next_workflow_step: bool
 
     status: Literal["Queued", "Running", "Completed", "Failed"]

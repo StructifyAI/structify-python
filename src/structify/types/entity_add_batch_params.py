@@ -19,6 +19,8 @@ class EntityAddBatchParams(TypedDict, total=False):
     attempt_merge: bool
     """If true, attempt to merge with existing entities in the dataset"""
 
+    max_steps_without_save: int
+
     skip_malformed_entities: bool
 
     source: Source

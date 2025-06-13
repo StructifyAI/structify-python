@@ -14,3 +14,5 @@ class WorkflowTriggerParams(TypedDict, total=False):
     entity_ids: Required[List[str]]
 
     workflow_id: Required[ID]
+
+    max_steps_without_save: int
