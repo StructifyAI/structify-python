@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.120.1 (2025-06-13)
+
+Full Changelog: [v1.120.0...v1.120.1](https://github.com/StructifyAI/structify-python/compare/v1.120.0...v1.120.1)
+
+### Bug Fixes
+
+* **client:** correctly parse binary response | stream ([4d2364f](https://github.com/StructifyAI/structify-python/commit/4d2364f7fb91ae7315cd074fbcba77f53ff41c3d))
+
+
+### Chores
+
+* **tests:** run tests in parallel ([86f1cb5](https://github.com/StructifyAI/structify-python/commit/86f1cb58135036adac4492ef881a8d1af7597e09))
+
 ## 1.120.0 (2025-06-13)
 
 Full Changelog: [v1.119.0...v1.120.0](https://github.com/StructifyAI/structify-python/compare/v1.119.0...v1.120.0)
