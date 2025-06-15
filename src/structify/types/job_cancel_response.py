@@ -41,6 +41,8 @@ class JobCancelResponse(BaseModel):
 
     run_time_milliseconds: Optional[int] = None
 
+    seeded_kg_search_term: Optional[str] = None
+
     workflow_group_id: Optional[str] = None
 
     workflow_id: Optional[ID] = None

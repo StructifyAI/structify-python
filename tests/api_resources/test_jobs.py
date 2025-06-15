@@ -37,6 +37,7 @@ class TestJobs:
             dataset="dataset",
             limit=0,
             offset=0,
+            seeded_kg_search_term="seeded_kg_search_term",
             since=parse_datetime("2019-12-27T18:11:19.117Z"),
             status="Queued",
         )
@@ -330,6 +331,7 @@ class TestAsyncJobs:
             dataset="dataset",
             limit=0,
             offset=0,
+            seeded_kg_search_term="seeded_kg_search_term",
             since=parse_datetime("2019-12-27T18:11:19.117Z"),
             status="Queued",
         )
