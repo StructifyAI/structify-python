@@ -19,6 +19,9 @@ class JobListParams(TypedDict, total=False):
 
     offset: int
 
+    seeded_kg_search_term: Optional[str]
+    """seeded kg search term"""
+
     since: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
     """List since a specific timestamp"""
 
