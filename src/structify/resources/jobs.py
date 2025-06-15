@@ -57,6 +57,7 @@ class JobsResource(SyncAPIResource):
         dataset: Optional[str] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         offset: int | NotGiven = NOT_GIVEN,
+        seeded_kg_search_term: Optional[str] | NotGiven = NOT_GIVEN,
         since: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         status: Optional[Literal["Queued", "Running", "Completed", "Failed"]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -71,6 +72,8 @@ class JobsResource(SyncAPIResource):
 
         Args:
           dataset: Dataset name to optionally filter jobs by
+
+          seeded_kg_search_term: seeded kg search term
 
           since: List since a specific timestamp
 
@@ -97,6 +100,7 @@ class JobsResource(SyncAPIResource):
                         "dataset": dataset,
                         "limit": limit,
                         "offset": offset,
+                        "seeded_kg_search_term": seeded_kg_search_term,
                         "since": since,
                         "status": status,
                     },
@@ -353,6 +357,7 @@ class AsyncJobsResource(AsyncAPIResource):
         dataset: Optional[str] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         offset: int | NotGiven = NOT_GIVEN,
+        seeded_kg_search_term: Optional[str] | NotGiven = NOT_GIVEN,
         since: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         status: Optional[Literal["Queued", "Running", "Completed", "Failed"]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -367,6 +372,8 @@ class AsyncJobsResource(AsyncAPIResource):
 
         Args:
           dataset: Dataset name to optionally filter jobs by
+
+          seeded_kg_search_term: seeded kg search term
 
           since: List since a specific timestamp
 
@@ -393,6 +400,7 @@ class AsyncJobsResource(AsyncAPIResource):
                         "dataset": dataset,
                         "limit": limit,
                         "offset": offset,
+                        "seeded_kg_search_term": seeded_kg_search_term,
                         "since": since,
                         "status": status,
                     },
