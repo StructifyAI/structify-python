@@ -9,7 +9,6 @@ from .._models import BaseModel
 
 __all__ = [
     "Workflow",
-    "DefaultStopConditions",
     "Step",
     "StepOperation",
     "StepOperationEnhanceProperties",
@@ -17,17 +16,8 @@ __all__ = [
     "StepOperationDeriveProperty",
     "StepOperationScrapePage",
     "StepOperationScrapePageScrapePage",
+    "DefaultStopConditions",
 ]
-
-
-class DefaultStopConditions(BaseModel):
-    max_steps_without_save: int
-
-    max_errors: Optional[int] = None
-
-    max_execution_time_secs: Optional[int] = None
-
-    max_total_steps: Optional[int] = None
 
 
 class StepOperationEnhanceProperties(BaseModel):
@@ -71,10 +61,17 @@ class Step(BaseModel):
     table_name: str
 
 
-class Workflow(BaseModel):
-    default_stop_conditions: DefaultStopConditions
-    """Configuration parameters for the StopChecker"""
+class DefaultStopConditions(BaseModel):
+    max_steps_without_save: int
 
+    max_errors: Optional[int] = None
+
+    max_execution_time_secs: Optional[int] = None
+
+    max_total_steps: Optional[int] = None
+
+
+class Workflow(BaseModel):
     name: str
 
     starting_step: str
@@ -82,3 +79,6 @@ class Workflow(BaseModel):
     starting_table: str
 
     steps: List[Step]
+
+    default_stop_conditions: Optional[DefaultStopConditions] = None
+    """Configuration parameters for the StopChecker"""
