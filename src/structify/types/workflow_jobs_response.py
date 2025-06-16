@@ -27,6 +27,12 @@ class WorkflowJobsResponseItem(BaseModel):
 
     user_id: str
 
+    max_errors: Optional[int] = None
+
+    max_execution_time_secs: Optional[int] = None
+
+    max_total_steps: Optional[int] = None
+
     message: Optional[str] = None
     """A message about the status of the job at completion"""
 

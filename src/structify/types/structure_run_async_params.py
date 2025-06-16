@@ -9,7 +9,7 @@ from .._utils import PropertyInfo
 from .knowledge_graph_param import KnowledgeGraphParam
 from .save_requirement_param import SaveRequirementParam
 
-__all__ = ["StructureRunAsyncParams", "Source", "SourcePdf", "SourcePdfPdf", "SourceWeb", "SourceWebWeb"]
+__all__ = ["StructureRunAsyncParams", "Source", "SourcePdf", "SourcePdfPdf", "SourceWeb", "SourceWebWeb", "StopConfig"]
 
 
 class StructureRunAsyncParams(TypedDict, total=False):
@@ -17,8 +17,6 @@ class StructureRunAsyncParams(TypedDict, total=False):
 
     source: Required[Source]
     """These are all the types that can be converted into a BasicInputType"""
-
-    max_steps_without_save: int
 
     save_requirement: Iterable[SaveRequirementParam]
 
@@ -30,6 +28,9 @@ class StructureRunAsyncParams(TypedDict, total=False):
     """
 
     special_job_type: Optional[Literal["HumanLLM"]]
+
+    stop_config: Optional[StopConfig]
+    """Configuration parameters for the StopChecker"""
 
 
 class SourcePdfPdf(TypedDict, total=False):
@@ -52,3 +53,13 @@ class SourceWeb(TypedDict, total=False):
 
 
 Source: TypeAlias = Union[SourcePdf, SourceWeb]
+
+
+class StopConfig(TypedDict, total=False):
+    max_steps_without_save: Required[int]
+
+    max_errors: Optional[int]
+
+    max_execution_time_secs: Optional[int]
+
+    max_total_steps: Optional[int]

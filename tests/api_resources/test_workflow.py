@@ -27,6 +27,7 @@ class TestWorkflow:
         workflow = client.workflow.create(
             dataset_name="dataset_name",
             workflow={
+                "default_stop_conditions": {"max_steps_without_save": 0},
                 "name": "name",
                 "starting_step": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "starting_table": "starting_table",
@@ -47,6 +48,7 @@ class TestWorkflow:
         response = client.workflow.with_raw_response.create(
             dataset_name="dataset_name",
             workflow={
+                "default_stop_conditions": {"max_steps_without_save": 0},
                 "name": "name",
                 "starting_step": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "starting_table": "starting_table",
@@ -71,6 +73,7 @@ class TestWorkflow:
         with client.workflow.with_streaming_response.create(
             dataset_name="dataset_name",
             workflow={
+                "default_stop_conditions": {"max_steps_without_save": 0},
                 "name": "name",
                 "starting_step": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "starting_table": "starting_table",
@@ -97,6 +100,7 @@ class TestWorkflow:
         workflow = client.workflow.update(
             dataset_name="dataset_name",
             workflow={
+                "default_stop_conditions": {"max_steps_without_save": 0},
                 "name": "name",
                 "starting_step": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "starting_table": "starting_table",
@@ -118,6 +122,7 @@ class TestWorkflow:
         response = client.workflow.with_raw_response.update(
             dataset_name="dataset_name",
             workflow={
+                "default_stop_conditions": {"max_steps_without_save": 0},
                 "name": "name",
                 "starting_step": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "starting_table": "starting_table",
@@ -143,6 +148,7 @@ class TestWorkflow:
         with client.workflow.with_streaming_response.update(
             dataset_name="dataset_name",
             workflow={
+                "default_stop_conditions": {"max_steps_without_save": 0},
                 "name": "name",
                 "starting_step": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "starting_table": "starting_table",
@@ -344,7 +350,12 @@ class TestWorkflow:
         workflow = client.workflow.trigger(
             entity_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             workflow_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            max_steps_without_save=0,
+            stop_config={
+                "max_steps_without_save": 0,
+                "max_errors": 0,
+                "max_execution_time_secs": 0,
+                "max_total_steps": 0,
+            },
         )
         assert_matches_type(object, workflow, path=["response"])
 
@@ -383,6 +394,7 @@ class TestAsyncWorkflow:
         workflow = await async_client.workflow.create(
             dataset_name="dataset_name",
             workflow={
+                "default_stop_conditions": {"max_steps_without_save": 0},
                 "name": "name",
                 "starting_step": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "starting_table": "starting_table",
@@ -403,6 +415,7 @@ class TestAsyncWorkflow:
         response = await async_client.workflow.with_raw_response.create(
             dataset_name="dataset_name",
             workflow={
+                "default_stop_conditions": {"max_steps_without_save": 0},
                 "name": "name",
                 "starting_step": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "starting_table": "starting_table",
@@ -427,6 +440,7 @@ class TestAsyncWorkflow:
         async with async_client.workflow.with_streaming_response.create(
             dataset_name="dataset_name",
             workflow={
+                "default_stop_conditions": {"max_steps_without_save": 0},
                 "name": "name",
                 "starting_step": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "starting_table": "starting_table",
@@ -453,6 +467,7 @@ class TestAsyncWorkflow:
         workflow = await async_client.workflow.update(
             dataset_name="dataset_name",
             workflow={
+                "default_stop_conditions": {"max_steps_without_save": 0},
                 "name": "name",
                 "starting_step": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "starting_table": "starting_table",
@@ -474,6 +489,7 @@ class TestAsyncWorkflow:
         response = await async_client.workflow.with_raw_response.update(
             dataset_name="dataset_name",
             workflow={
+                "default_stop_conditions": {"max_steps_without_save": 0},
                 "name": "name",
                 "starting_step": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "starting_table": "starting_table",
@@ -499,6 +515,7 @@ class TestAsyncWorkflow:
         async with async_client.workflow.with_streaming_response.update(
             dataset_name="dataset_name",
             workflow={
+                "default_stop_conditions": {"max_steps_without_save": 0},
                 "name": "name",
                 "starting_step": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "starting_table": "starting_table",
@@ -700,7 +717,12 @@ class TestAsyncWorkflow:
         workflow = await async_client.workflow.trigger(
             entity_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             workflow_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            max_steps_without_save=0,
+            stop_config={
+                "max_steps_without_save": 0,
+                "max_errors": 0,
+                "max_execution_time_secs": 0,
+                "max_total_steps": 0,
+            },
         )
         assert_matches_type(object, workflow, path=["response"])
 
