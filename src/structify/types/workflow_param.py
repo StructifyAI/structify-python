@@ -2,13 +2,14 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Iterable
+from typing import List, Union, Iterable, Optional
 from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
 from .._utils import PropertyInfo
 
 __all__ = [
     "WorkflowParam",
+    "DefaultStopConditions",
     "Step",
     "StepOperation",
     "StepOperationEnhanceProperties",
@@ -17,6 +18,16 @@ __all__ = [
     "StepOperationScrapePage",
     "StepOperationScrapePageScrapePage",
 ]
+
+
+class DefaultStopConditions(TypedDict, total=False):
+    max_steps_without_save: Required[int]
+
+    max_errors: Optional[int]
+
+    max_execution_time_secs: Optional[int]
+
+    max_total_steps: Optional[int]
 
 
 class StepOperationEnhanceProperties(TypedDict, total=False):
@@ -61,6 +72,9 @@ class Step(TypedDict, total=False):
 
 
 class WorkflowParam(TypedDict, total=False):
+    default_stop_conditions: Required[DefaultStopConditions]
+    """Configuration parameters for the StopChecker"""
+
     name: Required[str]
 
     starting_step: Required[str]

@@ -95,7 +95,12 @@ class TestScrape:
             },
             table_name="table_name",
             url="url",
-            max_steps_without_save=0,
+            stop_config={
+                "max_steps_without_save": 0,
+                "max_errors": 0,
+                "max_execution_time_secs": 0,
+                "max_total_steps": 0,
+            },
         )
         assert_matches_type(ScrapeListResponse, scrape, path=["response"])
 
@@ -255,7 +260,12 @@ class TestAsyncScrape:
             },
             table_name="table_name",
             url="url",
-            max_steps_without_save=0,
+            stop_config={
+                "max_steps_without_save": 0,
+                "max_errors": 0,
+                "max_execution_time_secs": 0,
+                "max_total_steps": 0,
+            },
         )
         assert_matches_type(ScrapeListResponse, scrape, path=["response"])
 

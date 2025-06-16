@@ -58,10 +58,10 @@ class StructureResource(SyncAPIResource):
         entity_id: str,
         property_name: str,
         allow_extra_entities: bool | NotGiven = NOT_GIVEN,
-        max_steps_without_save: int | NotGiven = NOT_GIVEN,
         special_job_type: Optional[Literal["HumanLLM"]] | NotGiven = NOT_GIVEN,
         starting_searches: List[str] | NotGiven = NOT_GIVEN,
         starting_urls: List[str] | NotGiven = NOT_GIVEN,
+        stop_config: Optional[structure_enhance_property_params.StopConfig] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -73,6 +73,8 @@ class StructureResource(SyncAPIResource):
         Returns a job id that can be waited on until the request is finished.
 
         Args:
+          stop_config: Configuration parameters for the StopChecker
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -89,10 +91,10 @@ class StructureResource(SyncAPIResource):
                     "entity_id": entity_id,
                     "property_name": property_name,
                     "allow_extra_entities": allow_extra_entities,
-                    "max_steps_without_save": max_steps_without_save,
                     "special_job_type": special_job_type,
                     "starting_searches": starting_searches,
                     "starting_urls": starting_urls,
+                    "stop_config": stop_config,
                 },
                 structure_enhance_property_params.StructureEnhancePropertyParams,
             ),
@@ -108,10 +110,10 @@ class StructureResource(SyncAPIResource):
         entity_id: str,
         relationship_name: str,
         allow_extra_entities: bool | NotGiven = NOT_GIVEN,
-        max_steps_without_save: int | NotGiven = NOT_GIVEN,
         special_job_type: Optional[Literal["HumanLLM"]] | NotGiven = NOT_GIVEN,
         starting_searches: List[str] | NotGiven = NOT_GIVEN,
         starting_urls: List[str] | NotGiven = NOT_GIVEN,
+        stop_config: Optional[structure_enhance_relationship_params.StopConfig] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -123,6 +125,8 @@ class StructureResource(SyncAPIResource):
         Returns a job id that can be waited on until the request is finished.
 
         Args:
+          stop_config: Configuration parameters for the StopChecker
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -139,10 +143,10 @@ class StructureResource(SyncAPIResource):
                     "entity_id": entity_id,
                     "relationship_name": relationship_name,
                     "allow_extra_entities": allow_extra_entities,
-                    "max_steps_without_save": max_steps_without_save,
                     "special_job_type": special_job_type,
                     "starting_searches": starting_searches,
                     "starting_urls": starting_urls,
+                    "stop_config": stop_config,
                 },
                 structure_enhance_relationship_params.StructureEnhanceRelationshipParams,
             ),
@@ -159,10 +163,10 @@ class StructureResource(SyncAPIResource):
         relationship_name: str,
         to_id: str,
         allow_extra_entities: bool | NotGiven = NOT_GIVEN,
-        max_steps_without_save: int | NotGiven = NOT_GIVEN,
         special_job_type: Optional[Literal["HumanLLM"]] | NotGiven = NOT_GIVEN,
         starting_searches: List[str] | NotGiven = NOT_GIVEN,
         starting_urls: List[str] | NotGiven = NOT_GIVEN,
+        stop_config: Optional[structure_find_relationship_params.StopConfig] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -174,6 +178,8 @@ class StructureResource(SyncAPIResource):
         Attempt to find the given relation between two entities.
 
         Args:
+          stop_config: Configuration parameters for the StopChecker
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -191,10 +197,10 @@ class StructureResource(SyncAPIResource):
                     "relationship_name": relationship_name,
                     "to_id": to_id,
                     "allow_extra_entities": allow_extra_entities,
-                    "max_steps_without_save": max_steps_without_save,
                     "special_job_type": special_job_type,
                     "starting_searches": starting_searches,
                     "starting_urls": starting_urls,
+                    "stop_config": stop_config,
                 },
                 structure_find_relationship_params.StructureFindRelationshipParams,
             ),
@@ -275,10 +281,10 @@ class StructureResource(SyncAPIResource):
         *,
         dataset: str,
         source: structure_run_async_params.Source,
-        max_steps_without_save: int | NotGiven = NOT_GIVEN,
         save_requirement: Iterable[SaveRequirementParam] | NotGiven = NOT_GIVEN,
         seeded_entity: KnowledgeGraphParam | NotGiven = NOT_GIVEN,
         special_job_type: Optional[Literal["HumanLLM"]] | NotGiven = NOT_GIVEN,
+        stop_config: Optional[structure_run_async_params.StopConfig] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -296,6 +302,8 @@ class StructureResource(SyncAPIResource):
               that the LLM outputs. Also the first representation of an LLM output in the
               pipeline from raw tool output to being merged into a Neo4j DB
 
+          stop_config: Configuration parameters for the StopChecker
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -311,10 +319,10 @@ class StructureResource(SyncAPIResource):
                 {
                     "dataset": dataset,
                     "source": source,
-                    "max_steps_without_save": max_steps_without_save,
                     "save_requirement": save_requirement,
                     "seeded_entity": seeded_entity,
                     "special_job_type": special_job_type,
+                    "stop_config": stop_config,
                 },
                 structure_run_async_params.StructureRunAsyncParams,
             ),
@@ -351,10 +359,10 @@ class AsyncStructureResource(AsyncAPIResource):
         entity_id: str,
         property_name: str,
         allow_extra_entities: bool | NotGiven = NOT_GIVEN,
-        max_steps_without_save: int | NotGiven = NOT_GIVEN,
         special_job_type: Optional[Literal["HumanLLM"]] | NotGiven = NOT_GIVEN,
         starting_searches: List[str] | NotGiven = NOT_GIVEN,
         starting_urls: List[str] | NotGiven = NOT_GIVEN,
+        stop_config: Optional[structure_enhance_property_params.StopConfig] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -366,6 +374,8 @@ class AsyncStructureResource(AsyncAPIResource):
         Returns a job id that can be waited on until the request is finished.
 
         Args:
+          stop_config: Configuration parameters for the StopChecker
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -382,10 +392,10 @@ class AsyncStructureResource(AsyncAPIResource):
                     "entity_id": entity_id,
                     "property_name": property_name,
                     "allow_extra_entities": allow_extra_entities,
-                    "max_steps_without_save": max_steps_without_save,
                     "special_job_type": special_job_type,
                     "starting_searches": starting_searches,
                     "starting_urls": starting_urls,
+                    "stop_config": stop_config,
                 },
                 structure_enhance_property_params.StructureEnhancePropertyParams,
             ),
@@ -401,10 +411,10 @@ class AsyncStructureResource(AsyncAPIResource):
         entity_id: str,
         relationship_name: str,
         allow_extra_entities: bool | NotGiven = NOT_GIVEN,
-        max_steps_without_save: int | NotGiven = NOT_GIVEN,
         special_job_type: Optional[Literal["HumanLLM"]] | NotGiven = NOT_GIVEN,
         starting_searches: List[str] | NotGiven = NOT_GIVEN,
         starting_urls: List[str] | NotGiven = NOT_GIVEN,
+        stop_config: Optional[structure_enhance_relationship_params.StopConfig] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -416,6 +426,8 @@ class AsyncStructureResource(AsyncAPIResource):
         Returns a job id that can be waited on until the request is finished.
 
         Args:
+          stop_config: Configuration parameters for the StopChecker
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -432,10 +444,10 @@ class AsyncStructureResource(AsyncAPIResource):
                     "entity_id": entity_id,
                     "relationship_name": relationship_name,
                     "allow_extra_entities": allow_extra_entities,
-                    "max_steps_without_save": max_steps_without_save,
                     "special_job_type": special_job_type,
                     "starting_searches": starting_searches,
                     "starting_urls": starting_urls,
+                    "stop_config": stop_config,
                 },
                 structure_enhance_relationship_params.StructureEnhanceRelationshipParams,
             ),
@@ -452,10 +464,10 @@ class AsyncStructureResource(AsyncAPIResource):
         relationship_name: str,
         to_id: str,
         allow_extra_entities: bool | NotGiven = NOT_GIVEN,
-        max_steps_without_save: int | NotGiven = NOT_GIVEN,
         special_job_type: Optional[Literal["HumanLLM"]] | NotGiven = NOT_GIVEN,
         starting_searches: List[str] | NotGiven = NOT_GIVEN,
         starting_urls: List[str] | NotGiven = NOT_GIVEN,
+        stop_config: Optional[structure_find_relationship_params.StopConfig] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -467,6 +479,8 @@ class AsyncStructureResource(AsyncAPIResource):
         Attempt to find the given relation between two entities.
 
         Args:
+          stop_config: Configuration parameters for the StopChecker
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -484,10 +498,10 @@ class AsyncStructureResource(AsyncAPIResource):
                     "relationship_name": relationship_name,
                     "to_id": to_id,
                     "allow_extra_entities": allow_extra_entities,
-                    "max_steps_without_save": max_steps_without_save,
                     "special_job_type": special_job_type,
                     "starting_searches": starting_searches,
                     "starting_urls": starting_urls,
+                    "stop_config": stop_config,
                 },
                 structure_find_relationship_params.StructureFindRelationshipParams,
             ),
@@ -568,10 +582,10 @@ class AsyncStructureResource(AsyncAPIResource):
         *,
         dataset: str,
         source: structure_run_async_params.Source,
-        max_steps_without_save: int | NotGiven = NOT_GIVEN,
         save_requirement: Iterable[SaveRequirementParam] | NotGiven = NOT_GIVEN,
         seeded_entity: KnowledgeGraphParam | NotGiven = NOT_GIVEN,
         special_job_type: Optional[Literal["HumanLLM"]] | NotGiven = NOT_GIVEN,
+        stop_config: Optional[structure_run_async_params.StopConfig] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -589,6 +603,8 @@ class AsyncStructureResource(AsyncAPIResource):
               that the LLM outputs. Also the first representation of an LLM output in the
               pipeline from raw tool output to being merged into a Neo4j DB
 
+          stop_config: Configuration parameters for the StopChecker
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -604,10 +620,10 @@ class AsyncStructureResource(AsyncAPIResource):
                 {
                     "dataset": dataset,
                     "source": source,
-                    "max_steps_without_save": max_steps_without_save,
                     "save_requirement": save_requirement,
                     "seeded_entity": seeded_entity,
                     "special_job_type": special_job_type,
+                    "stop_config": stop_config,
                 },
                 structure_run_async_params.StructureRunAsyncParams,
             ),

@@ -114,8 +114,13 @@ class TestEntities:
                 ],
             },
             attempt_merge=True,
-            max_steps_without_save=0,
             source="None",
+            stop_config={
+                "max_steps_without_save": 0,
+                "max_errors": 0,
+                "max_execution_time_secs": 0,
+                "max_total_steps": 0,
+            },
             triggering_workflow="triggering_workflow",
         )
         assert_matches_type(EntityAddResponse, entity, path=["response"])
@@ -225,9 +230,14 @@ class TestEntities:
                 }
             ],
             attempt_merge=True,
-            max_steps_without_save=0,
             skip_malformed_entities=True,
             source="None",
+            stop_config={
+                "max_steps_without_save": 0,
+                "max_errors": 0,
+                "max_execution_time_secs": 0,
+                "max_total_steps": 0,
+            },
             triggering_workflow="triggering_workflow",
         )
         assert_matches_type(EntityAddBatchResponse, entity, path=["response"])
@@ -1075,8 +1085,13 @@ class TestAsyncEntities:
                 ],
             },
             attempt_merge=True,
-            max_steps_without_save=0,
             source="None",
+            stop_config={
+                "max_steps_without_save": 0,
+                "max_errors": 0,
+                "max_execution_time_secs": 0,
+                "max_total_steps": 0,
+            },
             triggering_workflow="triggering_workflow",
         )
         assert_matches_type(EntityAddResponse, entity, path=["response"])
@@ -1186,9 +1201,14 @@ class TestAsyncEntities:
                 }
             ],
             attempt_merge=True,
-            max_steps_without_save=0,
             skip_malformed_entities=True,
             source="None",
+            stop_config={
+                "max_steps_without_save": 0,
+                "max_errors": 0,
+                "max_execution_time_secs": 0,
+                "max_total_steps": 0,
+            },
             triggering_workflow="triggering_workflow",
         )
         assert_matches_type(EntityAddBatchResponse, entity, path=["response"])
