@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Union
+from typing import List, Union, Optional
 from typing_extensions import Literal, TypeAlias
 
 from pydantic import Field as FieldInfo
@@ -9,6 +9,7 @@ from .._models import BaseModel
 
 __all__ = [
     "Workflow",
+    "DefaultStopConditions",
     "Step",
     "StepOperation",
     "StepOperationEnhanceProperties",
@@ -17,6 +18,16 @@ __all__ = [
     "StepOperationScrapePage",
     "StepOperationScrapePageScrapePage",
 ]
+
+
+class DefaultStopConditions(BaseModel):
+    max_steps_without_save: int
+
+    max_errors: Optional[int] = None
+
+    max_execution_time_secs: Optional[int] = None
+
+    max_total_steps: Optional[int] = None
 
 
 class StepOperationEnhanceProperties(BaseModel):
@@ -61,6 +72,9 @@ class Step(BaseModel):
 
 
 class Workflow(BaseModel):
+    default_stop_conditions: DefaultStopConditions
+    """Configuration parameters for the StopChecker"""
+
     name: str
 
     starting_step: str

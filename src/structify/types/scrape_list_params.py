@@ -2,11 +2,12 @@
 
 from __future__ import annotations
 
+from typing import Optional
 from typing_extensions import Required, TypedDict
 
 from .dataset_descriptor_param import DatasetDescriptorParam
 
-__all__ = ["ScrapeListParams"]
+__all__ = ["ScrapeListParams", "StopConfig"]
 
 
 class ScrapeListParams(TypedDict, total=False):
@@ -21,4 +22,15 @@ class ScrapeListParams(TypedDict, total=False):
 
     url: Required[str]
 
-    max_steps_without_save: int
+    stop_config: Optional[StopConfig]
+    """Configuration parameters for the StopChecker"""
+
+
+class StopConfig(TypedDict, total=False):
+    max_steps_without_save: Required[int]
+
+    max_errors: Optional[int]
+
+    max_execution_time_secs: Optional[int]
+
+    max_total_steps: Optional[int]
