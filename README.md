@@ -1,6 +1,6 @@
 # Structify Python API library
 
-[![PyPI version](https://img.shields.io/pypi/v/structifyai.svg)](https://pypi.org/project/structifyai/)
+[![PyPI version](<https://img.shields.io/pypi/v/structifyai.svg?label=pypi%20(stable)>)](https://pypi.org/project/structifyai/)
 
 The Structify Python library provides convenient access to the Structify REST API from any Python 3.8+
 application. The library includes type definitions for all request params and response fields,
