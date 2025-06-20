@@ -80,5 +80,7 @@ class Workflow(BaseModel):
 
     steps: List[Step]
 
+    default_banned_domains: Optional[List[str]] = None
+
     default_stop_conditions: Optional[DefaultStopConditions] = None
     """Configuration parameters for the StopChecker"""

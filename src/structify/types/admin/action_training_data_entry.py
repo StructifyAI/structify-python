@@ -15,6 +15,13 @@ __all__ = [
     "ActionTrainingDataEntry",
     "Input",
     "InputAllStep",
+    "InputPreviousAction",
+    "InputPreviousActionSelectedStep",
+    "InputPreviousActionSelectedStepSelectedStep",
+    "InputPreviousActionSearchStep",
+    "InputPreviousActionSearchStepSearchStep",
+    "InputPreviousActionInvalidAction",
+    "InputPreviousActionInvalidActionInvalidAction",
     "Output",
     "OutputOutput",
     "OutputOutputSelectedStep",
@@ -34,6 +41,37 @@ class InputAllStep(BaseModel):
     metadata: Optional[Dict[str, str]] = None
 
 
+class InputPreviousActionSelectedStepSelectedStep(BaseModel):
+    step_id: str
+
+
+class InputPreviousActionSelectedStep(BaseModel):
+    selected_step: InputPreviousActionSelectedStepSelectedStep = FieldInfo(alias="SelectedStep")
+
+
+class InputPreviousActionSearchStepSearchStep(BaseModel):
+    search_query: str
+
+
+class InputPreviousActionSearchStep(BaseModel):
+    search_step: InputPreviousActionSearchStepSearchStep = FieldInfo(alias="SearchStep")
+
+
+class InputPreviousActionInvalidActionInvalidAction(BaseModel):
+    error: str
+
+    llm_output: str
+
+
+class InputPreviousActionInvalidAction(BaseModel):
+    invalid_action: InputPreviousActionInvalidActionInvalidAction = FieldInfo(alias="InvalidAction")
+
+
+InputPreviousAction: TypeAlias = Union[
+    InputPreviousActionSelectedStep, InputPreviousActionSearchStep, InputPreviousActionInvalidAction, Literal["Exit"]
+]
+
+
 class Input(BaseModel):
     all_steps: List[InputAllStep]
 
@@ -46,7 +84,7 @@ class Input(BaseModel):
 
     extraction_criteria: List[SaveRequirement]
 
-    previous_queries: List[str]
+    previous_actions: List[InputPreviousAction]
 
     seeded_kg: KnowledgeGraph
     """

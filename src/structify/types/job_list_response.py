@@ -37,6 +37,8 @@ class ParametersStructuringInputAgentAgentPdf(BaseModel):
 
 
 class ParametersStructuringInputAgentAgentWebWeb(BaseModel):
+    banned_domains: Optional[List[str]] = None
+
     starting_searches: Optional[List[str]] = None
 
     starting_urls: Optional[List[str]] = None
