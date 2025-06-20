@@ -52,7 +52,7 @@ class TestNextAction:
                     ],
                 },
                 "extraction_criteria": [{"relationship_name": "relationship_name"}],
-                "previous_queries": ["string"],
+                "previous_actions": [{"selected_step": {"step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}}],
                 "seeded_kg": {
                     "entities": [
                         {
@@ -128,7 +128,7 @@ class TestNextAction:
                     "llm_override_field": "llm_override_field",
                 },
                 "extraction_criteria": [{"relationship_name": "relationship_name"}],
-                "previous_queries": ["string"],
+                "previous_actions": [{"selected_step": {"step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}}],
                 "seeded_kg": {
                     "entities": [
                         {
@@ -183,7 +183,7 @@ class TestNextAction:
                     ],
                 },
                 "extraction_criteria": [{"relationship_name": "relationship_name"}],
-                "previous_queries": ["string"],
+                "previous_actions": [{"selected_step": {"step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}}],
                 "seeded_kg": {
                     "entities": [
                         {
@@ -240,7 +240,7 @@ class TestNextAction:
                     ],
                 },
                 "extraction_criteria": [{"relationship_name": "relationship_name"}],
-                "previous_queries": ["string"],
+                "previous_actions": [{"selected_step": {"step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}}],
                 "seeded_kg": {
                     "entities": [
                         {
@@ -439,7 +439,7 @@ class TestAsyncNextAction:
                     ],
                 },
                 "extraction_criteria": [{"relationship_name": "relationship_name"}],
-                "previous_queries": ["string"],
+                "previous_actions": [{"selected_step": {"step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}}],
                 "seeded_kg": {
                     "entities": [
                         {
@@ -515,7 +515,7 @@ class TestAsyncNextAction:
                     "llm_override_field": "llm_override_field",
                 },
                 "extraction_criteria": [{"relationship_name": "relationship_name"}],
-                "previous_queries": ["string"],
+                "previous_actions": [{"selected_step": {"step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}}],
                 "seeded_kg": {
                     "entities": [
                         {
@@ -570,7 +570,7 @@ class TestAsyncNextAction:
                     ],
                 },
                 "extraction_criteria": [{"relationship_name": "relationship_name"}],
-                "previous_queries": ["string"],
+                "previous_actions": [{"selected_step": {"step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}}],
                 "seeded_kg": {
                     "entities": [
                         {
@@ -627,7 +627,7 @@ class TestAsyncNextAction:
                     ],
                 },
                 "extraction_criteria": [{"relationship_name": "relationship_name"}],
-                "previous_queries": ["string"],
+                "previous_actions": [{"selected_step": {"step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}}],
                 "seeded_kg": {
                     "entities": [
                         {

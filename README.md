@@ -114,7 +114,9 @@ client.admin.next_action.add_training_datum(
             ],
         },
         "extraction_criteria": [{"relationship_name": "relationship_name"}],
-        "previous_queries": ["string"],
+        "previous_actions": [
+            {"selected_step": {"step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}}
+        ],
         "seeded_kg": {
             "entities": [
                 {

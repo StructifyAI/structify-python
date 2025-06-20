@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union, Iterable, Optional
+from typing import Dict, Union, Iterable, Optional
 from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
 from ..._utils import PropertyInfo
@@ -14,6 +14,13 @@ __all__ = [
     "NextActionAddTrainingDatumParams",
     "Input",
     "InputAllStep",
+    "InputPreviousAction",
+    "InputPreviousActionSelectedStep",
+    "InputPreviousActionSelectedStepSelectedStep",
+    "InputPreviousActionSearchStep",
+    "InputPreviousActionSearchStepSearchStep",
+    "InputPreviousActionInvalidAction",
+    "InputPreviousActionInvalidActionInvalidAction",
     "Output",
     "OutputSelectedStep",
     "OutputSelectedStepSelectedStep",
@@ -42,6 +49,39 @@ class InputAllStep(TypedDict, total=False):
     metadata: Dict[str, str]
 
 
+class InputPreviousActionSelectedStepSelectedStep(TypedDict, total=False):
+    step_id: Required[str]
+
+
+class InputPreviousActionSelectedStep(TypedDict, total=False):
+    selected_step: Required[Annotated[InputPreviousActionSelectedStepSelectedStep, PropertyInfo(alias="SelectedStep")]]
+
+
+class InputPreviousActionSearchStepSearchStep(TypedDict, total=False):
+    search_query: Required[str]
+
+
+class InputPreviousActionSearchStep(TypedDict, total=False):
+    search_step: Required[Annotated[InputPreviousActionSearchStepSearchStep, PropertyInfo(alias="SearchStep")]]
+
+
+class InputPreviousActionInvalidActionInvalidAction(TypedDict, total=False):
+    error: Required[str]
+
+    llm_output: Required[str]
+
+
+class InputPreviousActionInvalidAction(TypedDict, total=False):
+    invalid_action: Required[
+        Annotated[InputPreviousActionInvalidActionInvalidAction, PropertyInfo(alias="InvalidAction")]
+    ]
+
+
+InputPreviousAction: TypeAlias = Union[
+    InputPreviousActionSelectedStep, InputPreviousActionSearchStep, InputPreviousActionInvalidAction, Literal["Exit"]
+]
+
+
 class Input(TypedDict, total=False):
     all_steps: Required[Iterable[InputAllStep]]
 
@@ -54,7 +94,7 @@ class Input(TypedDict, total=False):
 
     extraction_criteria: Required[Iterable[SaveRequirementParam]]
 
-    previous_queries: Required[List[str]]
+    previous_actions: Required[Iterable[InputPreviousAction]]
 
     seeded_kg: Required[KnowledgeGraphParam]
     """
