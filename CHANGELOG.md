@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.122.1 (2025-06-16)
+
+Full Changelog: [v1.122.0...v1.122.1](https://github.com/StructifyAI/structify-python/compare/v1.122.0...v1.122.1)
+
+### Bug Fixes
+
+* Stop parameters shouldn't be required ([539d713](https://github.com/StructifyAI/structify-python/commit/539d71334be44a0c798c088537851b8113349054))
+
 ## 1.122.0 (2025-06-16)
 
 Full Changelog: [v1.121.0...v1.122.0](https://github.com/StructifyAI/structify-python/compare/v1.121.0...v1.122.0)

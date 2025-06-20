@@ -9,7 +9,6 @@ from .._utils import PropertyInfo
 
 __all__ = [
     "WorkflowParam",
-    "DefaultStopConditions",
     "Step",
     "StepOperation",
     "StepOperationEnhanceProperties",
@@ -17,17 +16,8 @@ __all__ = [
     "StepOperationDeriveProperty",
     "StepOperationScrapePage",
     "StepOperationScrapePageScrapePage",
+    "DefaultStopConditions",
 ]
-
-
-class DefaultStopConditions(TypedDict, total=False):
-    max_steps_without_save: Required[int]
-
-    max_errors: Optional[int]
-
-    max_execution_time_secs: Optional[int]
-
-    max_total_steps: Optional[int]
 
 
 class StepOperationEnhanceProperties(TypedDict, total=False):
@@ -71,10 +61,17 @@ class Step(TypedDict, total=False):
     table_name: Required[str]
 
 
-class WorkflowParam(TypedDict, total=False):
-    default_stop_conditions: Required[DefaultStopConditions]
-    """Configuration parameters for the StopChecker"""
+class DefaultStopConditions(TypedDict, total=False):
+    max_steps_without_save: Required[int]
 
+    max_errors: Optional[int]
+
+    max_execution_time_secs: Optional[int]
+
+    max_total_steps: Optional[int]
+
+
+class WorkflowParam(TypedDict, total=False):
     name: Required[str]
 
     starting_step: Required[str]
@@ -82,3 +79,6 @@ class WorkflowParam(TypedDict, total=False):
     starting_table: Required[str]
 
     steps: Required[Iterable[Step]]
+
+    default_stop_conditions: DefaultStopConditions
+    """Configuration parameters for the StopChecker"""
