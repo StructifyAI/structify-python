@@ -1,5 +1,27 @@
 # Changelog
 
+## 1.122.2 (2025-06-20)
+
+Full Changelog: [v1.122.1...v1.122.2](https://github.com/StructifyAI/structify-python/compare/v1.122.1...v1.122.2)
+
+### Bug Fixes
+
+* **tests:** fix: tests which call HTTP endpoints directly with the example parameters ([82a415f](https://github.com/StructifyAI/structify-python/commit/82a415fe3e199d4cb4fe4ed7311baea0b80510c4))
+
+
+### Chores
+
+* **ci:** enable for pull requests ([3282eeb](https://github.com/StructifyAI/structify-python/commit/3282eeb23dc564421fe79df5ba6b3f8d390dc5a6))
+* **internal:** codegen related update ([5a5a0de](https://github.com/StructifyAI/structify-python/commit/5a5a0de254381f49dee7c72d1d3fcf24b1a1c04c))
+* **internal:** update conftest.py ([1adddb5](https://github.com/StructifyAI/structify-python/commit/1adddb59688659980051eafa623998517ca8fcc1))
+* **readme:** update badges ([8852234](https://github.com/StructifyAI/structify-python/commit/88522340f265d8b8be20774a44a8c6e8684ede1f))
+* **tests:** add tests for httpx client instantiation & proxies ([b463cb4](https://github.com/StructifyAI/structify-python/commit/b463cb49e6ac0bbba3bea2b81b5ea600fc18afe1))
+
+
+### Documentation
+
+* **client:** fix httpx.Timeout documentation reference ([6c85924](https://github.com/StructifyAI/structify-python/commit/6c85924597395c1be7b5a8d113bebbafb8a184d5))
+
 ## 1.122.1 (2025-06-16)
 
 Full Changelog: [v1.122.0...v1.122.1](https://github.com/StructifyAI/structify-python/compare/v1.122.0...v1.122.1)
