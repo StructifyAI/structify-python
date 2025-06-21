@@ -7,6 +7,7 @@ from typing_extensions import Literal, TypeAlias
 from pydantic import Field as FieldInfo
 
 from ..._models import BaseModel
+from ..chat_prompt import ChatPrompt
 from ..knowledge_graph import KnowledgeGraph
 from ..save_requirement import SaveRequirement
 from ..dataset_descriptor import DatasetDescriptor
@@ -46,7 +47,7 @@ class InputAllStep(BaseModel):
 
 
 class InputPreviousActionSelectedStepSelectedStep(BaseModel):
-    llm_input: str
+    llm_input: ChatPrompt
 
     llm_output: str
 
@@ -58,7 +59,7 @@ class InputPreviousActionSelectedStep(BaseModel):
 
 
 class InputPreviousActionSearchStepSearchStep(BaseModel):
-    llm_input: str
+    llm_input: ChatPrompt
 
     llm_output: str
 
@@ -72,7 +73,7 @@ class InputPreviousActionSearchStep(BaseModel):
 class InputPreviousActionInvalidActionInvalidAction(BaseModel):
     error: str
 
-    llm_input: str
+    llm_input: ChatPrompt
 
     llm_output: str
 
@@ -82,7 +83,7 @@ class InputPreviousActionInvalidAction(BaseModel):
 
 
 class InputPreviousActionExitExit(BaseModel):
-    llm_input: str
+    llm_input: ChatPrompt
 
     llm_output: str
 
@@ -122,7 +123,7 @@ class Input(BaseModel):
 
 
 class OutputOutputSelectedStepSelectedStep(BaseModel):
-    llm_input: str
+    llm_input: ChatPrompt
 
     llm_output: str
 
@@ -134,7 +135,7 @@ class OutputOutputSelectedStep(BaseModel):
 
 
 class OutputOutputSearchStepSearchStep(BaseModel):
-    llm_input: str
+    llm_input: ChatPrompt
 
     llm_output: str
 
@@ -148,7 +149,7 @@ class OutputOutputSearchStep(BaseModel):
 class OutputOutputInvalidActionInvalidAction(BaseModel):
     error: str
 
-    llm_input: str
+    llm_input: ChatPrompt
 
     llm_output: str
 
@@ -158,7 +159,7 @@ class OutputOutputInvalidAction(BaseModel):
 
 
 class OutputOutputExitExit(BaseModel):
-    llm_input: str
+    llm_input: ChatPrompt
 
     llm_output: str
 
