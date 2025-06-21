@@ -992,9 +992,7 @@ class TestEntities:
 
 
 class TestAsyncEntities:
-    parametrize = pytest.mark.parametrize(
-        "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
-    )
+    parametrize = pytest.mark.parametrize("async_client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @parametrize
     async def test_method_delete(self, async_client: AsyncStructify) -> None:
