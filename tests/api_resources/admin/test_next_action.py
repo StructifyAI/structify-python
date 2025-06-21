@@ -55,6 +55,7 @@ class TestNextAction:
                 "previous_actions": [
                     {
                         "selected_step": {
+                            "llm_input": "llm_input",
                             "llm_output": "llm_output",
                             "step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                         }
@@ -80,6 +81,7 @@ class TestNextAction:
             label="label",
             output={
                 "selected_step": {
+                    "llm_input": "llm_input",
                     "llm_output": "llm_output",
                     "step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 }
@@ -143,6 +145,7 @@ class TestNextAction:
                 "previous_actions": [
                     {
                         "selected_step": {
+                            "llm_input": "llm_input",
                             "llm_output": "llm_output",
                             "step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                         }
@@ -169,6 +172,7 @@ class TestNextAction:
             label="label",
             output={
                 "selected_step": {
+                    "llm_input": "llm_input",
                     "llm_output": "llm_output",
                     "step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 }
@@ -210,6 +214,7 @@ class TestNextAction:
                 "previous_actions": [
                     {
                         "selected_step": {
+                            "llm_input": "llm_input",
                             "llm_output": "llm_output",
                             "step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                         }
@@ -235,6 +240,7 @@ class TestNextAction:
             label="label",
             output={
                 "selected_step": {
+                    "llm_input": "llm_input",
                     "llm_output": "llm_output",
                     "step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 }
@@ -279,6 +285,7 @@ class TestNextAction:
                 "previous_actions": [
                     {
                         "selected_step": {
+                            "llm_input": "llm_input",
                             "llm_output": "llm_output",
                             "step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                         }
@@ -304,6 +311,7 @@ class TestNextAction:
             label="label",
             output={
                 "selected_step": {
+                    "llm_input": "llm_input",
                     "llm_output": "llm_output",
                     "step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 }
@@ -423,6 +431,7 @@ class TestNextAction:
             label="label",
             output={
                 "selected_step": {
+                    "llm_input": "llm_input",
                     "llm_output": "llm_output",
                     "step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 }
@@ -437,6 +446,7 @@ class TestNextAction:
             label="label",
             output={
                 "selected_step": {
+                    "llm_input": "llm_input",
                     "llm_output": "llm_output",
                     "step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 }
@@ -455,6 +465,7 @@ class TestNextAction:
             label="label",
             output={
                 "selected_step": {
+                    "llm_input": "llm_input",
                     "llm_output": "llm_output",
                     "step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 }
@@ -505,6 +516,7 @@ class TestAsyncNextAction:
                 "previous_actions": [
                     {
                         "selected_step": {
+                            "llm_input": "llm_input",
                             "llm_output": "llm_output",
                             "step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                         }
@@ -530,6 +542,7 @@ class TestAsyncNextAction:
             label="label",
             output={
                 "selected_step": {
+                    "llm_input": "llm_input",
                     "llm_output": "llm_output",
                     "step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 }
@@ -593,6 +606,7 @@ class TestAsyncNextAction:
                 "previous_actions": [
                     {
                         "selected_step": {
+                            "llm_input": "llm_input",
                             "llm_output": "llm_output",
                             "step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                         }
@@ -619,6 +633,7 @@ class TestAsyncNextAction:
             label="label",
             output={
                 "selected_step": {
+                    "llm_input": "llm_input",
                     "llm_output": "llm_output",
                     "step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 }
@@ -660,6 +675,7 @@ class TestAsyncNextAction:
                 "previous_actions": [
                     {
                         "selected_step": {
+                            "llm_input": "llm_input",
                             "llm_output": "llm_output",
                             "step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                         }
@@ -685,6 +701,7 @@ class TestAsyncNextAction:
             label="label",
             output={
                 "selected_step": {
+                    "llm_input": "llm_input",
                     "llm_output": "llm_output",
                     "step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 }
@@ -729,6 +746,7 @@ class TestAsyncNextAction:
                 "previous_actions": [
                     {
                         "selected_step": {
+                            "llm_input": "llm_input",
                             "llm_output": "llm_output",
                             "step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                         }
@@ -754,6 +772,7 @@ class TestAsyncNextAction:
             label="label",
             output={
                 "selected_step": {
+                    "llm_input": "llm_input",
                     "llm_output": "llm_output",
                     "step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 }
@@ -873,6 +892,7 @@ class TestAsyncNextAction:
             label="label",
             output={
                 "selected_step": {
+                    "llm_input": "llm_input",
                     "llm_output": "llm_output",
                     "step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 }
@@ -887,6 +907,7 @@ class TestAsyncNextAction:
             label="label",
             output={
                 "selected_step": {
+                    "llm_input": "llm_input",
                     "llm_output": "llm_output",
                     "step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 }
@@ -905,6 +926,7 @@ class TestAsyncNextAction:
             label="label",
             output={
                 "selected_step": {
+                    "llm_input": "llm_input",
                     "llm_output": "llm_output",
                     "step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 }

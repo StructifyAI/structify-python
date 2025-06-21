@@ -42,6 +42,8 @@ __all__ = [
     "MetadataFormatterSpecificWebMetaWebMetaFlag",
     "MetadataFormatterSpecificTextMeta",
     "MetadataFormatterSpecificTextMetaTextMeta",
+    "MetadataFormatterSpecificScraperMeta",
+    "MetadataFormatterSpecificScraperMetaScraperMeta",
 ]
 
 
@@ -211,8 +213,21 @@ class MetadataFormatterSpecificTextMeta(BaseModel):
     text_meta: MetadataFormatterSpecificTextMetaTextMeta = FieldInfo(alias="TextMeta")
 
 
+class MetadataFormatterSpecificScraperMetaScraperMeta(BaseModel):
+    html_content: str
+
+    url: str
+
+
+class MetadataFormatterSpecificScraperMeta(BaseModel):
+    scraper_meta: MetadataFormatterSpecificScraperMetaScraperMeta = FieldInfo(alias="ScraperMeta")
+
+
 MetadataFormatterSpecific: TypeAlias = Union[
-    MetadataFormatterSpecificImageMeta, MetadataFormatterSpecificWebMeta, MetadataFormatterSpecificTextMeta
+    MetadataFormatterSpecificImageMeta,
+    MetadataFormatterSpecificWebMeta,
+    MetadataFormatterSpecificTextMeta,
+    MetadataFormatterSpecificScraperMeta,
 ]
 
 

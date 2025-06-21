@@ -54,6 +54,8 @@ class InputAllStep(TypedDict, total=False):
 
 
 class InputPreviousActionSelectedStepSelectedStep(TypedDict, total=False):
+    llm_input: Required[str]
+
     llm_output: Required[str]
 
     step_id: Required[str]
@@ -64,6 +66,8 @@ class InputPreviousActionSelectedStep(TypedDict, total=False):
 
 
 class InputPreviousActionSearchStepSearchStep(TypedDict, total=False):
+    llm_input: Required[str]
+
     llm_output: Required[str]
 
     search_query: Required[str]
@@ -76,6 +80,8 @@ class InputPreviousActionSearchStep(TypedDict, total=False):
 class InputPreviousActionInvalidActionInvalidAction(TypedDict, total=False):
     error: Required[str]
 
+    llm_input: Required[str]
+
     llm_output: Required[str]
 
 
@@ -86,6 +92,8 @@ class InputPreviousActionInvalidAction(TypedDict, total=False):
 
 
 class InputPreviousActionExitExit(TypedDict, total=False):
+    llm_input: Required[str]
+
     llm_output: Required[str]
 
 
@@ -124,6 +132,8 @@ class Input(TypedDict, total=False):
 
 
 class OutputSelectedStepSelectedStep(TypedDict, total=False):
+    llm_input: Required[str]
+
     llm_output: Required[str]
 
     step_id: Required[str]
@@ -134,6 +144,8 @@ class OutputSelectedStep(TypedDict, total=False):
 
 
 class OutputSearchStepSearchStep(TypedDict, total=False):
+    llm_input: Required[str]
+
     llm_output: Required[str]
 
     search_query: Required[str]
@@ -146,6 +158,8 @@ class OutputSearchStep(TypedDict, total=False):
 class OutputInvalidActionInvalidAction(TypedDict, total=False):
     error: Required[str]
 
+    llm_input: Required[str]
+
     llm_output: Required[str]
 
 
@@ -154,6 +168,8 @@ class OutputInvalidAction(TypedDict, total=False):
 
 
 class OutputExitExit(TypedDict, total=False):
+    llm_input: Required[str]
+
     llm_output: Required[str]
 
 
