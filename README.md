@@ -115,7 +115,12 @@ client.admin.next_action.add_training_datum(
         },
         "extraction_criteria": [{"relationship_name": "relationship_name"}],
         "previous_actions": [
-            {"selected_step": {"step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}}
+            {
+                "selected_step": {
+                    "llm_output": "llm_output",
+                    "step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                }
+            }
         ],
         "seeded_kg": {
             "entities": [
@@ -135,7 +140,12 @@ client.admin.next_action.add_training_datum(
         },
     },
     label="label",
-    output={"selected_step": {"step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}},
+    output={
+        "selected_step": {
+            "llm_output": "llm_output",
+            "step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        }
+    },
 )
 ```
 
