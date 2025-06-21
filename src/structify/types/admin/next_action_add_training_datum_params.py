@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from typing import Dict, Union, Iterable, Optional
-from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
+from typing_extensions import Required, Annotated, TypeAlias, TypedDict
 
 from ..._utils import PropertyInfo
 from ..knowledge_graph_param import KnowledgeGraphParam
@@ -21,6 +21,8 @@ __all__ = [
     "InputPreviousActionSearchStepSearchStep",
     "InputPreviousActionInvalidAction",
     "InputPreviousActionInvalidActionInvalidAction",
+    "InputPreviousActionExit",
+    "InputPreviousActionExitExit",
     "Output",
     "OutputSelectedStep",
     "OutputSelectedStepSelectedStep",
@@ -28,6 +30,8 @@ __all__ = [
     "OutputSearchStepSearchStep",
     "OutputInvalidAction",
     "OutputInvalidActionInvalidAction",
+    "OutputExit",
+    "OutputExitExit",
 ]
 
 
@@ -50,6 +54,8 @@ class InputAllStep(TypedDict, total=False):
 
 
 class InputPreviousActionSelectedStepSelectedStep(TypedDict, total=False):
+    llm_output: Required[str]
+
     step_id: Required[str]
 
 
@@ -58,6 +64,8 @@ class InputPreviousActionSelectedStep(TypedDict, total=False):
 
 
 class InputPreviousActionSearchStepSearchStep(TypedDict, total=False):
+    llm_output: Required[str]
+
     search_query: Required[str]
 
 
@@ -77,8 +85,19 @@ class InputPreviousActionInvalidAction(TypedDict, total=False):
     ]
 
 
+class InputPreviousActionExitExit(TypedDict, total=False):
+    llm_output: Required[str]
+
+
+class InputPreviousActionExit(TypedDict, total=False):
+    exit: Required[Annotated[InputPreviousActionExitExit, PropertyInfo(alias="Exit")]]
+
+
 InputPreviousAction: TypeAlias = Union[
-    InputPreviousActionSelectedStep, InputPreviousActionSearchStep, InputPreviousActionInvalidAction, Literal["Exit"]
+    InputPreviousActionSelectedStep,
+    InputPreviousActionSearchStep,
+    InputPreviousActionInvalidAction,
+    InputPreviousActionExit,
 ]
 
 
@@ -105,6 +124,8 @@ class Input(TypedDict, total=False):
 
 
 class OutputSelectedStepSelectedStep(TypedDict, total=False):
+    llm_output: Required[str]
+
     step_id: Required[str]
 
 
@@ -113,6 +134,8 @@ class OutputSelectedStep(TypedDict, total=False):
 
 
 class OutputSearchStepSearchStep(TypedDict, total=False):
+    llm_output: Required[str]
+
     search_query: Required[str]
 
 
@@ -130,4 +153,12 @@ class OutputInvalidAction(TypedDict, total=False):
     invalid_action: Required[Annotated[OutputInvalidActionInvalidAction, PropertyInfo(alias="InvalidAction")]]
 
 
-Output: TypeAlias = Union[OutputSelectedStep, OutputSearchStep, OutputInvalidAction, Literal["Exit"]]
+class OutputExitExit(TypedDict, total=False):
+    llm_output: Required[str]
+
+
+class OutputExit(TypedDict, total=False):
+    exit: Required[Annotated[OutputExitExit, PropertyInfo(alias="Exit")]]
+
+
+Output: TypeAlias = Union[OutputSelectedStep, OutputSearchStep, OutputInvalidAction, OutputExit]

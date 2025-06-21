@@ -22,6 +22,8 @@ __all__ = [
     "InputPreviousActionSearchStepSearchStep",
     "InputPreviousActionInvalidAction",
     "InputPreviousActionInvalidActionInvalidAction",
+    "InputPreviousActionExit",
+    "InputPreviousActionExitExit",
     "Output",
     "OutputOutput",
     "OutputOutputSelectedStep",
@@ -30,6 +32,8 @@ __all__ = [
     "OutputOutputSearchStepSearchStep",
     "OutputOutputInvalidAction",
     "OutputOutputInvalidActionInvalidAction",
+    "OutputOutputExit",
+    "OutputOutputExitExit",
 ]
 
 
@@ -42,6 +46,8 @@ class InputAllStep(BaseModel):
 
 
 class InputPreviousActionSelectedStepSelectedStep(BaseModel):
+    llm_output: str
+
     step_id: str
 
 
@@ -50,6 +56,8 @@ class InputPreviousActionSelectedStep(BaseModel):
 
 
 class InputPreviousActionSearchStepSearchStep(BaseModel):
+    llm_output: str
+
     search_query: str
 
 
@@ -67,8 +75,19 @@ class InputPreviousActionInvalidAction(BaseModel):
     invalid_action: InputPreviousActionInvalidActionInvalidAction = FieldInfo(alias="InvalidAction")
 
 
+class InputPreviousActionExitExit(BaseModel):
+    llm_output: str
+
+
+class InputPreviousActionExit(BaseModel):
+    exit: InputPreviousActionExitExit = FieldInfo(alias="Exit")
+
+
 InputPreviousAction: TypeAlias = Union[
-    InputPreviousActionSelectedStep, InputPreviousActionSearchStep, InputPreviousActionInvalidAction, Literal["Exit"]
+    InputPreviousActionSelectedStep,
+    InputPreviousActionSearchStep,
+    InputPreviousActionInvalidAction,
+    InputPreviousActionExit,
 ]
 
 
@@ -95,6 +114,8 @@ class Input(BaseModel):
 
 
 class OutputOutputSelectedStepSelectedStep(BaseModel):
+    llm_output: str
+
     step_id: str
 
 
@@ -103,6 +124,8 @@ class OutputOutputSelectedStep(BaseModel):
 
 
 class OutputOutputSearchStepSearchStep(BaseModel):
+    llm_output: str
+
     search_query: str
 
 
@@ -120,8 +143,16 @@ class OutputOutputInvalidAction(BaseModel):
     invalid_action: OutputOutputInvalidActionInvalidAction = FieldInfo(alias="InvalidAction")
 
 
+class OutputOutputExitExit(BaseModel):
+    llm_output: str
+
+
+class OutputOutputExit(BaseModel):
+    exit: OutputOutputExitExit = FieldInfo(alias="Exit")
+
+
 OutputOutput: TypeAlias = Union[
-    OutputOutputSelectedStep, OutputOutputSearchStep, OutputOutputInvalidAction, Literal["Exit"]
+    OutputOutputSelectedStep, OutputOutputSearchStep, OutputOutputInvalidAction, OutputOutputExit
 ]
 
 
