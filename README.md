@@ -117,6 +117,7 @@ client.admin.next_action.add_training_datum(
         "previous_actions": [
             {
                 "selected_step": {
+                    "llm_input": "llm_input",
                     "llm_output": "llm_output",
                     "step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 }
@@ -142,6 +143,7 @@ client.admin.next_action.add_training_datum(
     label="label",
     output={
         "selected_step": {
+            "llm_input": "llm_input",
             "llm_output": "llm_output",
             "step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         }
