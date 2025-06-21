@@ -8,7 +8,7 @@ from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 from .._utils import PropertyInfo
 from .knowledge_graph_param import KnowledgeGraphParam
 
-__all__ = ["EntityAddParams", "Source", "SourceWeb", "SourceDocumentPage", "SourceSecFiling", "StopConfig"]
+__all__ = ["EntityAddParams", "Source", "SourceWeb", "SourceDocumentPage", "SourceSecFiling"]
 
 
 class EntityAddParams(TypedDict, total=False):
@@ -26,9 +26,6 @@ class EntityAddParams(TypedDict, total=False):
 
     source: Source
 
-    stop_config: Optional[StopConfig]
-    """Configuration parameters for the StopChecker"""
-
     triggering_workflow: Optional[str]
 
 
@@ -45,13 +42,3 @@ class SourceSecFiling(TypedDict, total=False):
 
 
 Source: TypeAlias = Union[Literal["None"], SourceWeb, SourceDocumentPage, SourceSecFiling]
-
-
-class StopConfig(TypedDict, total=False):
-    max_steps_without_save: Required[int]
-
-    max_errors: Optional[int]
-
-    max_execution_time_secs: Optional[int]
-
-    max_total_steps: Optional[int]

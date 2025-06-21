@@ -80,5 +80,7 @@ class WorkflowParam(TypedDict, total=False):
 
     steps: Required[Iterable[Step]]
 
+    default_banned_domains: List[str]
+
     default_stop_conditions: DefaultStopConditions
     """Configuration parameters for the StopChecker"""

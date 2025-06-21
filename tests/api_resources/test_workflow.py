@@ -58,6 +58,7 @@ class TestWorkflow:
                         "table_name": "table_name",
                     }
                 ],
+                "default_banned_domains": ["string"],
                 "default_stop_conditions": {
                     "max_steps_without_save": 0,
                     "max_errors": 0,
@@ -155,6 +156,7 @@ class TestWorkflow:
                         "table_name": "table_name",
                     }
                 ],
+                "default_banned_domains": ["string"],
                 "default_stop_conditions": {
                     "max_steps_without_save": 0,
                     "max_errors": 0,
@@ -397,6 +399,7 @@ class TestWorkflow:
         workflow = client.workflow.trigger(
             entity_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             workflow_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            banned_domains=["string"],
             stop_config={
                 "max_steps_without_save": 0,
                 "max_errors": 0,
@@ -472,6 +475,7 @@ class TestAsyncWorkflow:
                         "table_name": "table_name",
                     }
                 ],
+                "default_banned_domains": ["string"],
                 "default_stop_conditions": {
                     "max_steps_without_save": 0,
                     "max_errors": 0,
@@ -569,6 +573,7 @@ class TestAsyncWorkflow:
                         "table_name": "table_name",
                     }
                 ],
+                "default_banned_domains": ["string"],
                 "default_stop_conditions": {
                     "max_steps_without_save": 0,
                     "max_errors": 0,
@@ -811,6 +816,7 @@ class TestAsyncWorkflow:
         workflow = await async_client.workflow.trigger(
             entity_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             workflow_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            banned_domains=["string"],
             stop_config={
                 "max_steps_without_save": 0,
                 "max_errors": 0,

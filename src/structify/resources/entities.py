@@ -127,7 +127,6 @@ class EntitiesResource(SyncAPIResource):
         entity_graph: KnowledgeGraphParam,
         attempt_merge: bool | NotGiven = NOT_GIVEN,
         source: entity_add_params.Source | NotGiven = NOT_GIVEN,
-        stop_config: Optional[entity_add_params.StopConfig] | NotGiven = NOT_GIVEN,
         triggering_workflow: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -147,8 +146,6 @@ class EntitiesResource(SyncAPIResource):
 
           attempt_merge: If true, attempt to merge with existing entities in the dataset
 
-          stop_config: Configuration parameters for the StopChecker
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -165,7 +162,6 @@ class EntitiesResource(SyncAPIResource):
                     "entity_graph": entity_graph,
                     "attempt_merge": attempt_merge,
                     "source": source,
-                    "stop_config": stop_config,
                     "triggering_workflow": triggering_workflow,
                 },
                 entity_add_params.EntityAddParams,
@@ -184,7 +180,6 @@ class EntitiesResource(SyncAPIResource):
         attempt_merge: bool | NotGiven = NOT_GIVEN,
         skip_malformed_entities: bool | NotGiven = NOT_GIVEN,
         source: entity_add_batch_params.Source | NotGiven = NOT_GIVEN,
-        stop_config: Optional[entity_add_batch_params.StopConfig] | NotGiven = NOT_GIVEN,
         triggering_workflow: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -199,8 +194,6 @@ class EntitiesResource(SyncAPIResource):
 
         Args:
           attempt_merge: If true, attempt to merge with existing entities in the dataset
-
-          stop_config: Configuration parameters for the StopChecker
 
           extra_headers: Send extra headers
 
@@ -219,7 +212,6 @@ class EntitiesResource(SyncAPIResource):
                     "attempt_merge": attempt_merge,
                     "skip_malformed_entities": skip_malformed_entities,
                     "source": source,
-                    "stop_config": stop_config,
                     "triggering_workflow": triggering_workflow,
                 },
                 entity_add_batch_params.EntityAddBatchParams,
@@ -950,7 +942,6 @@ class AsyncEntitiesResource(AsyncAPIResource):
         entity_graph: KnowledgeGraphParam,
         attempt_merge: bool | NotGiven = NOT_GIVEN,
         source: entity_add_params.Source | NotGiven = NOT_GIVEN,
-        stop_config: Optional[entity_add_params.StopConfig] | NotGiven = NOT_GIVEN,
         triggering_workflow: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -970,8 +961,6 @@ class AsyncEntitiesResource(AsyncAPIResource):
 
           attempt_merge: If true, attempt to merge with existing entities in the dataset
 
-          stop_config: Configuration parameters for the StopChecker
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -988,7 +977,6 @@ class AsyncEntitiesResource(AsyncAPIResource):
                     "entity_graph": entity_graph,
                     "attempt_merge": attempt_merge,
                     "source": source,
-                    "stop_config": stop_config,
                     "triggering_workflow": triggering_workflow,
                 },
                 entity_add_params.EntityAddParams,
@@ -1007,7 +995,6 @@ class AsyncEntitiesResource(AsyncAPIResource):
         attempt_merge: bool | NotGiven = NOT_GIVEN,
         skip_malformed_entities: bool | NotGiven = NOT_GIVEN,
         source: entity_add_batch_params.Source | NotGiven = NOT_GIVEN,
-        stop_config: Optional[entity_add_batch_params.StopConfig] | NotGiven = NOT_GIVEN,
         triggering_workflow: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1022,8 +1009,6 @@ class AsyncEntitiesResource(AsyncAPIResource):
 
         Args:
           attempt_merge: If true, attempt to merge with existing entities in the dataset
-
-          stop_config: Configuration parameters for the StopChecker
 
           extra_headers: Send extra headers
 
@@ -1042,7 +1027,6 @@ class AsyncEntitiesResource(AsyncAPIResource):
                     "attempt_merge": attempt_merge,
                     "skip_malformed_entities": skip_malformed_entities,
                     "source": source,
-                    "stop_config": stop_config,
                     "triggering_workflow": triggering_workflow,
                 },
                 entity_add_batch_params.EntityAddBatchParams,

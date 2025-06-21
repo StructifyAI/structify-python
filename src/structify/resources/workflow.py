@@ -328,6 +328,7 @@ class WorkflowResource(SyncAPIResource):
         *,
         entity_ids: List[str],
         workflow_id: ID,
+        banned_domains: Optional[List[str]] | NotGiven = NOT_GIVEN,
         stop_config: Optional[workflow_trigger_params.StopConfig] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -356,6 +357,7 @@ class WorkflowResource(SyncAPIResource):
                 {
                     "entity_ids": entity_ids,
                     "workflow_id": workflow_id,
+                    "banned_domains": banned_domains,
                     "stop_config": stop_config,
                 },
                 workflow_trigger_params.WorkflowTriggerParams,
@@ -658,6 +660,7 @@ class AsyncWorkflowResource(AsyncAPIResource):
         *,
         entity_ids: List[str],
         workflow_id: ID,
+        banned_domains: Optional[List[str]] | NotGiven = NOT_GIVEN,
         stop_config: Optional[workflow_trigger_params.StopConfig] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -686,6 +689,7 @@ class AsyncWorkflowResource(AsyncAPIResource):
                 {
                     "entity_ids": entity_ids,
                     "workflow_id": workflow_id,
+                    "banned_domains": banned_domains,
                     "stop_config": stop_config,
                 },
                 workflow_trigger_params.WorkflowTriggerParams,
