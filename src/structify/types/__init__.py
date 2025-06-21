@@ -32,6 +32,7 @@ from .job_list_params import JobListParams as JobListParams
 from .knowledge_graph import KnowledgeGraph as KnowledgeGraph
 from .job_get_response import JobGetResponse as JobGetResponse
 from .save_requirement import SaveRequirement as SaveRequirement
+from .chat_prompt_param import ChatPromptParam as ChatPromptParam
 from .entity_add_params import EntityAddParams as EntityAddParams
 from .entity_get_params import EntityGetParams as EntityGetParams
 from .existing_workflow import ExistingWorkflow as ExistingWorkflow
@@ -58,6 +59,7 @@ from .job_delete_response import JobDeleteResponse as JobDeleteResponse
 from .list_teams_response import ListTeamsResponse as ListTeamsResponse
 from .property_type_param import PropertyTypeParam as PropertyTypeParam
 from .report_wrong_params import ReportWrongParams as ReportWrongParams
+from .tool_metadata_param import ToolMetadataParam as ToolMetadataParam
 from .user_usage_response import UserUsageResponse as UserUsageResponse
 from .workflow_get_params import WorkflowGetParams as WorkflowGetParams
 from .create_team_response import CreateTeamResponse as CreateTeamResponse
