@@ -34,6 +34,10 @@ class TestStructure:
             property_name="property_name",
             allow_extra_entities=True,
             banned_domains=["string"],
+            run_metadata={
+                "node_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "session_id": "session_id",
+            },
             special_job_type="HumanLLM",
             starting_searches=["string"],
             starting_urls=["string"],
@@ -342,6 +346,10 @@ class TestAsyncStructure:
             property_name="property_name",
             allow_extra_entities=True,
             banned_domains=["string"],
+            run_metadata={
+                "node_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "session_id": "session_id",
+            },
             special_job_type="HumanLLM",
             starting_searches=["string"],
             starting_urls=["string"],

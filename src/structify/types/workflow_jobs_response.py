@@ -36,6 +36,8 @@ class WorkflowJobsResponseItem(BaseModel):
     message: Optional[str] = None
     """A message about the status of the job at completion"""
 
+    node_id: Optional[str] = None
+
     parameters: Optional[object] = None
     """Proto for JobInput"""
 
