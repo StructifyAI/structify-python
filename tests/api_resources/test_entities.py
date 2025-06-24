@@ -115,12 +115,6 @@ class TestEntities:
             },
             attempt_merge=True,
             source="None",
-            stop_config={
-                "max_steps_without_save": 0,
-                "max_errors": 0,
-                "max_execution_time_secs": 0,
-                "max_total_steps": 0,
-            },
             triggering_workflow="triggering_workflow",
         )
         assert_matches_type(EntityAddResponse, entity, path=["response"])
@@ -232,12 +226,6 @@ class TestEntities:
             attempt_merge=True,
             skip_malformed_entities=True,
             source="None",
-            stop_config={
-                "max_steps_without_save": 0,
-                "max_errors": 0,
-                "max_execution_time_secs": 0,
-                "max_total_steps": 0,
-            },
             triggering_workflow="triggering_workflow",
         )
         assert_matches_type(EntityAddBatchResponse, entity, path=["response"])
@@ -1011,7 +999,9 @@ class TestEntities:
 
 
 class TestAsyncEntities:
-    parametrize = pytest.mark.parametrize("async_client", [False, True], indirect=True, ids=["loose", "strict"])
+    parametrize = pytest.mark.parametrize(
+        "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
+    )
 
     @parametrize
     async def test_method_delete(self, async_client: AsyncStructify) -> None:
@@ -1093,12 +1083,6 @@ class TestAsyncEntities:
             },
             attempt_merge=True,
             source="None",
-            stop_config={
-                "max_steps_without_save": 0,
-                "max_errors": 0,
-                "max_execution_time_secs": 0,
-                "max_total_steps": 0,
-            },
             triggering_workflow="triggering_workflow",
         )
         assert_matches_type(EntityAddResponse, entity, path=["response"])
@@ -1210,12 +1194,6 @@ class TestAsyncEntities:
             attempt_merge=True,
             skip_malformed_entities=True,
             source="None",
-            stop_config={
-                "max_steps_without_save": 0,
-                "max_errors": 0,
-                "max_execution_time_secs": 0,
-                "max_total_steps": 0,
-            },
             triggering_workflow="triggering_workflow",
         )
         assert_matches_type(EntityAddBatchResponse, entity, path=["response"])

@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.123.0 (2025-06-23)
+
+Full Changelog: [v1.122.2...v1.123.0](https://github.com/StructifyAI/structify-python/compare/v1.122.2...v1.123.0)
+
+### Features
+
+* **api:** manual updates ([85a0a95](https://github.com/StructifyAI/structify-python/commit/85a0a956409ecdc3a5e1f88c1c0721378462e273))
+* **api:** manual updates ([861ca4b](https://github.com/StructifyAI/structify-python/commit/861ca4b5a18445ec9bcfb5c3388ac7611f9f43de))
+* **client:** add support for aiohttp ([0401993](https://github.com/StructifyAI/structify-python/commit/0401993858e3124eddaac24cad14c4fb198c5dfc))
+
 ## 1.122.2 (2025-06-20)
 
 Full Changelog: [v1.122.1...v1.122.2](https://github.com/StructifyAI/structify-python/compare/v1.122.1...v1.122.2)

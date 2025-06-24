@@ -15,6 +15,8 @@ class WorkflowTriggerParams(TypedDict, total=False):
 
     workflow_id: Required[ID]
 
+    banned_domains: Optional[List[str]]
+
     stop_config: Optional[StopConfig]
     """Configuration parameters for the StopChecker"""
 

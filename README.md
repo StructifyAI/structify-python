@@ -68,6 +68,38 @@ asyncio.run(main())
 
 Functionality between the synchronous and asynchronous clients is otherwise identical.
 
+### With aiohttp
+
+By default, the async client uses `httpx` for HTTP requests. However, for improved concurrency performance you may also use `aiohttp` as the HTTP backend.
+
+You can enable this by installing `aiohttp`:
+
+```sh
+# install from PyPI
+pip install structifyai[aiohttp]
+```
+
+Then you can enable it by instantiating the client with `http_client=DefaultAioHttpClient()`:
+
+```python
+import os
+import asyncio
+from structify import DefaultAioHttpClient
+from structify import AsyncStructify
+
+
+async def main() -> None:
+    async with AsyncStructify(
+        api_key=os.environ.get("STRUCTIFY_API_TOKEN"),  # This is the default and can be omitted
+        http_client=DefaultAioHttpClient(),
+    ) as client:
+        server_information = await client.server.version()
+        print(server_information.version)
+
+
+asyncio.run(main())
+```
+
 ## Using types
 
 Nested request parameters are [TypedDicts](https://docs.python.org/3/library/typing.html#typing.TypedDict). Responses are [Pydantic models](https://docs.pydantic.dev) which also provide helper methods for things like:
@@ -114,7 +146,14 @@ client.admin.next_action.add_training_datum(
             ],
         },
         "extraction_criteria": [{"relationship_name": "relationship_name"}],
-        "previous_queries": ["string"],
+        "previous_actions": [
+            {
+                "selected_step": {
+                    "llm_output": "llm_output",
+                    "step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                }
+            }
+        ],
         "seeded_kg": {
             "entities": [
                 {
@@ -133,7 +172,12 @@ client.admin.next_action.add_training_datum(
         },
     },
     label="label",
-    output={"selected_step": {"step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}},
+    output={
+        "selected_step": {
+            "llm_output": "llm_output",
+            "step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        }
+    },
 )
 ```
 

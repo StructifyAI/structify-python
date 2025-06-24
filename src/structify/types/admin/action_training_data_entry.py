@@ -15,6 +15,15 @@ __all__ = [
     "ActionTrainingDataEntry",
     "Input",
     "InputAllStep",
+    "InputPreviousAction",
+    "InputPreviousActionSelectedStep",
+    "InputPreviousActionSelectedStepSelectedStep",
+    "InputPreviousActionSearchStep",
+    "InputPreviousActionSearchStepSearchStep",
+    "InputPreviousActionInvalidAction",
+    "InputPreviousActionInvalidActionInvalidAction",
+    "InputPreviousActionExit",
+    "InputPreviousActionExitExit",
     "Output",
     "OutputOutput",
     "OutputOutputSelectedStep",
@@ -23,6 +32,8 @@ __all__ = [
     "OutputOutputSearchStepSearchStep",
     "OutputOutputInvalidAction",
     "OutputOutputInvalidActionInvalidAction",
+    "OutputOutputExit",
+    "OutputOutputExitExit",
 ]
 
 
@@ -32,6 +43,52 @@ class InputAllStep(BaseModel):
     action_name: Optional[str] = None
 
     metadata: Optional[Dict[str, str]] = None
+
+
+class InputPreviousActionSelectedStepSelectedStep(BaseModel):
+    llm_output: str
+
+    step_id: str
+
+
+class InputPreviousActionSelectedStep(BaseModel):
+    selected_step: InputPreviousActionSelectedStepSelectedStep = FieldInfo(alias="SelectedStep")
+
+
+class InputPreviousActionSearchStepSearchStep(BaseModel):
+    llm_output: str
+
+    search_query: str
+
+
+class InputPreviousActionSearchStep(BaseModel):
+    search_step: InputPreviousActionSearchStepSearchStep = FieldInfo(alias="SearchStep")
+
+
+class InputPreviousActionInvalidActionInvalidAction(BaseModel):
+    error: str
+
+    llm_output: str
+
+
+class InputPreviousActionInvalidAction(BaseModel):
+    invalid_action: InputPreviousActionInvalidActionInvalidAction = FieldInfo(alias="InvalidAction")
+
+
+class InputPreviousActionExitExit(BaseModel):
+    llm_output: str
+
+
+class InputPreviousActionExit(BaseModel):
+    exit: InputPreviousActionExitExit = FieldInfo(alias="Exit")
+
+
+InputPreviousAction: TypeAlias = Union[
+    InputPreviousActionSelectedStep,
+    InputPreviousActionSearchStep,
+    InputPreviousActionInvalidAction,
+    InputPreviousActionExit,
+]
 
 
 class Input(BaseModel):
@@ -46,7 +103,7 @@ class Input(BaseModel):
 
     extraction_criteria: List[SaveRequirement]
 
-    previous_queries: List[str]
+    previous_actions: List[InputPreviousAction]
 
     seeded_kg: KnowledgeGraph
     """
@@ -57,6 +114,8 @@ class Input(BaseModel):
 
 
 class OutputOutputSelectedStepSelectedStep(BaseModel):
+    llm_output: str
+
     step_id: str
 
 
@@ -65,6 +124,8 @@ class OutputOutputSelectedStep(BaseModel):
 
 
 class OutputOutputSearchStepSearchStep(BaseModel):
+    llm_output: str
+
     search_query: str
 
 
@@ -82,8 +143,16 @@ class OutputOutputInvalidAction(BaseModel):
     invalid_action: OutputOutputInvalidActionInvalidAction = FieldInfo(alias="InvalidAction")
 
 
+class OutputOutputExitExit(BaseModel):
+    llm_output: str
+
+
+class OutputOutputExit(BaseModel):
+    exit: OutputOutputExitExit = FieldInfo(alias="Exit")
+
+
 OutputOutput: TypeAlias = Union[
-    OutputOutputSelectedStep, OutputOutputSearchStep, OutputOutputInvalidAction, Literal["Exit"]
+    OutputOutputSelectedStep, OutputOutputSearchStep, OutputOutputInvalidAction, OutputOutputExit
 ]
 
 

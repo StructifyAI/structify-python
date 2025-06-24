@@ -33,6 +33,7 @@ class TestStructure:
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             property_name="property_name",
             allow_extra_entities=True,
+            banned_domains=["string"],
             special_job_type="HumanLLM",
             starting_searches=["string"],
             starting_urls=["string"],
@@ -85,6 +86,7 @@ class TestStructure:
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             relationship_name="relationship_name",
             allow_extra_entities=True,
+            banned_domains=["string"],
             special_job_type="HumanLLM",
             starting_searches=["string"],
             starting_urls=["string"],
@@ -139,6 +141,7 @@ class TestStructure:
             relationship_name="relationship_name",
             to_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             allow_extra_entities=True,
+            banned_domains=["string"],
             special_job_type="HumanLLM",
             starting_searches=["string"],
             starting_urls=["string"],
@@ -320,7 +323,9 @@ class TestStructure:
 
 
 class TestAsyncStructure:
-    parametrize = pytest.mark.parametrize("async_client", [False, True], indirect=True, ids=["loose", "strict"])
+    parametrize = pytest.mark.parametrize(
+        "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
+    )
 
     @parametrize
     async def test_method_enhance_property(self, async_client: AsyncStructify) -> None:
@@ -336,6 +341,7 @@ class TestAsyncStructure:
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             property_name="property_name",
             allow_extra_entities=True,
+            banned_domains=["string"],
             special_job_type="HumanLLM",
             starting_searches=["string"],
             starting_urls=["string"],
@@ -388,6 +394,7 @@ class TestAsyncStructure:
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             relationship_name="relationship_name",
             allow_extra_entities=True,
+            banned_domains=["string"],
             special_job_type="HumanLLM",
             starting_searches=["string"],
             starting_urls=["string"],
@@ -442,6 +449,7 @@ class TestAsyncStructure:
             relationship_name="relationship_name",
             to_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             allow_extra_entities=True,
+            banned_domains=["string"],
             special_job_type="HumanLLM",
             starting_searches=["string"],
             starting_urls=["string"],

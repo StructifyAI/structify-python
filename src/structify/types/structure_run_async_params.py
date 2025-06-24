@@ -43,6 +43,8 @@ class SourcePdf(TypedDict, total=False):
 
 
 class SourceWebWeb(TypedDict, total=False):
+    banned_domains: List[str]
+
     starting_searches: List[str]
 
     starting_urls: List[str]

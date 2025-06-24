@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from typing import Union
-from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
+from typing_extensions import Required, Annotated, TypeAlias, TypedDict
 
 from ..._utils import PropertyInfo
 
@@ -16,6 +16,8 @@ __all__ = [
     "OutputSearchStepSearchStep",
     "OutputInvalidAction",
     "OutputInvalidActionInvalidAction",
+    "OutputExit",
+    "OutputExitExit",
 ]
 
 
@@ -28,6 +30,8 @@ class NextActionLabelTrainingDatumParams(TypedDict, total=False):
 
 
 class OutputSelectedStepSelectedStep(TypedDict, total=False):
+    llm_output: Required[str]
+
     step_id: Required[str]
 
 
@@ -36,6 +40,8 @@ class OutputSelectedStep(TypedDict, total=False):
 
 
 class OutputSearchStepSearchStep(TypedDict, total=False):
+    llm_output: Required[str]
+
     search_query: Required[str]
 
 
@@ -53,4 +59,12 @@ class OutputInvalidAction(TypedDict, total=False):
     invalid_action: Required[Annotated[OutputInvalidActionInvalidAction, PropertyInfo(alias="InvalidAction")]]
 
 
-Output: TypeAlias = Union[OutputSelectedStep, OutputSearchStep, OutputInvalidAction, Literal["Exit"]]
+class OutputExitExit(TypedDict, total=False):
+    llm_output: Required[str]
+
+
+class OutputExit(TypedDict, total=False):
+    exit: Required[Annotated[OutputExitExit, PropertyInfo(alias="Exit")]]
+
+
+Output: TypeAlias = Union[OutputSelectedStep, OutputSearchStep, OutputInvalidAction, OutputExit]
