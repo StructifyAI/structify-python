@@ -107,7 +107,7 @@ class TestNextAction:
                                         }
                                     ],
                                     "extraction_criteria": [{"relationship_name": "relationship_name"}],
-                                    "formatter_specific": {"image_meta": {}},
+                                    "formatter_specific": {"image_meta": {"image": "image"}},
                                     "tool_metadata": [
                                         {
                                             "description": "description",
@@ -194,7 +194,7 @@ class TestNextAction:
                                 }
                             ],
                             "extraction_criteria": [{"relationship_name": "relationship_name"}],
-                            "formatter_specific": {"image_meta": {}},
+                            "formatter_specific": {"image_meta": {"image": "image"}},
                             "tool_metadata": [
                                 {
                                     "description": "description",
@@ -339,9 +339,9 @@ class TestNextAction:
                                     "extraction_criteria": [{"relationship_name": "relationship_name"}],
                                     "formatter_specific": {
                                         "image_meta": {
+                                            "image": "image",
                                             "document_name": "document_name",
                                             "document_page": 0,
-                                            "image": b"raw file contents",
                                             "ocr_content": "ocr_content",
                                         }
                                     },
@@ -453,9 +453,9 @@ class TestNextAction:
                             "extraction_criteria": [{"relationship_name": "relationship_name"}],
                             "formatter_specific": {
                                 "image_meta": {
+                                    "image": "image",
                                     "document_name": "document_name",
                                     "document_page": 0,
-                                    "image": b"raw file contents",
                                     "ocr_content": "ocr_content",
                                 }
                             },
@@ -562,7 +562,7 @@ class TestNextAction:
                                         }
                                     ],
                                     "extraction_criteria": [{"relationship_name": "relationship_name"}],
-                                    "formatter_specific": {"image_meta": {}},
+                                    "formatter_specific": {"image_meta": {"image": "image"}},
                                     "tool_metadata": [
                                         {
                                             "description": "description",
@@ -649,7 +649,7 @@ class TestNextAction:
                                 }
                             ],
                             "extraction_criteria": [{"relationship_name": "relationship_name"}],
-                            "formatter_specific": {"image_meta": {}},
+                            "formatter_specific": {"image_meta": {"image": "image"}},
                             "tool_metadata": [
                                 {
                                     "description": "description",
@@ -755,7 +755,7 @@ class TestNextAction:
                                         }
                                     ],
                                     "extraction_criteria": [{"relationship_name": "relationship_name"}],
-                                    "formatter_specific": {"image_meta": {}},
+                                    "formatter_specific": {"image_meta": {"image": "image"}},
                                     "tool_metadata": [
                                         {
                                             "description": "description",
@@ -842,7 +842,7 @@ class TestNextAction:
                                 }
                             ],
                             "extraction_criteria": [{"relationship_name": "relationship_name"}],
-                            "formatter_specific": {"image_meta": {}},
+                            "formatter_specific": {"image_meta": {"image": "image"}},
                             "tool_metadata": [
                                 {
                                     "description": "description",
@@ -1023,7 +1023,7 @@ class TestNextAction:
                                 }
                             ],
                             "extraction_criteria": [{"relationship_name": "relationship_name"}],
-                            "formatter_specific": {"image_meta": {}},
+                            "formatter_specific": {"image_meta": {"image": "image"}},
                             "tool_metadata": [
                                 {
                                     "description": "description",
@@ -1099,7 +1099,7 @@ class TestNextAction:
                                 }
                             ],
                             "extraction_criteria": [{"relationship_name": "relationship_name"}],
-                            "formatter_specific": {"image_meta": {}},
+                            "formatter_specific": {"image_meta": {"image": "image"}},
                             "tool_metadata": [
                                 {
                                     "description": "description",
@@ -1179,7 +1179,7 @@ class TestNextAction:
                                 }
                             ],
                             "extraction_criteria": [{"relationship_name": "relationship_name"}],
-                            "formatter_specific": {"image_meta": {}},
+                            "formatter_specific": {"image_meta": {"image": "image"}},
                             "tool_metadata": [
                                 {
                                     "description": "description",
@@ -1293,7 +1293,7 @@ class TestAsyncNextAction:
                                         }
                                     ],
                                     "extraction_criteria": [{"relationship_name": "relationship_name"}],
-                                    "formatter_specific": {"image_meta": {}},
+                                    "formatter_specific": {"image_meta": {"image": "image"}},
                                     "tool_metadata": [
                                         {
                                             "description": "description",
@@ -1380,7 +1380,7 @@ class TestAsyncNextAction:
                                 }
                             ],
                             "extraction_criteria": [{"relationship_name": "relationship_name"}],
-                            "formatter_specific": {"image_meta": {}},
+                            "formatter_specific": {"image_meta": {"image": "image"}},
                             "tool_metadata": [
                                 {
                                     "description": "description",
@@ -1525,9 +1525,9 @@ class TestAsyncNextAction:
                                     "extraction_criteria": [{"relationship_name": "relationship_name"}],
                                     "formatter_specific": {
                                         "image_meta": {
+                                            "image": "image",
                                             "document_name": "document_name",
                                             "document_page": 0,
-                                            "image": b"raw file contents",
                                             "ocr_content": "ocr_content",
                                         }
                                     },
@@ -1639,9 +1639,9 @@ class TestAsyncNextAction:
                             "extraction_criteria": [{"relationship_name": "relationship_name"}],
                             "formatter_specific": {
                                 "image_meta": {
+                                    "image": "image",
                                     "document_name": "document_name",
                                     "document_page": 0,
-                                    "image": b"raw file contents",
                                     "ocr_content": "ocr_content",
                                 }
                             },
@@ -1748,7 +1748,7 @@ class TestAsyncNextAction:
                                         }
                                     ],
                                     "extraction_criteria": [{"relationship_name": "relationship_name"}],
-                                    "formatter_specific": {"image_meta": {}},
+                                    "formatter_specific": {"image_meta": {"image": "image"}},
                                     "tool_metadata": [
                                         {
                                             "description": "description",
@@ -1835,7 +1835,7 @@ class TestAsyncNextAction:
                                 }
                             ],
                             "extraction_criteria": [{"relationship_name": "relationship_name"}],
-                            "formatter_specific": {"image_meta": {}},
+                            "formatter_specific": {"image_meta": {"image": "image"}},
                             "tool_metadata": [
                                 {
                                     "description": "description",
@@ -1941,7 +1941,7 @@ class TestAsyncNextAction:
                                         }
                                     ],
                                     "extraction_criteria": [{"relationship_name": "relationship_name"}],
-                                    "formatter_specific": {"image_meta": {}},
+                                    "formatter_specific": {"image_meta": {"image": "image"}},
                                     "tool_metadata": [
                                         {
                                             "description": "description",
@@ -2028,7 +2028,7 @@ class TestAsyncNextAction:
                                 }
                             ],
                             "extraction_criteria": [{"relationship_name": "relationship_name"}],
-                            "formatter_specific": {"image_meta": {}},
+                            "formatter_specific": {"image_meta": {"image": "image"}},
                             "tool_metadata": [
                                 {
                                     "description": "description",
@@ -2209,7 +2209,7 @@ class TestAsyncNextAction:
                                 }
                             ],
                             "extraction_criteria": [{"relationship_name": "relationship_name"}],
-                            "formatter_specific": {"image_meta": {}},
+                            "formatter_specific": {"image_meta": {"image": "image"}},
                             "tool_metadata": [
                                 {
                                     "description": "description",
@@ -2285,7 +2285,7 @@ class TestAsyncNextAction:
                                 }
                             ],
                             "extraction_criteria": [{"relationship_name": "relationship_name"}],
-                            "formatter_specific": {"image_meta": {}},
+                            "formatter_specific": {"image_meta": {"image": "image"}},
                             "tool_metadata": [
                                 {
                                     "description": "description",
@@ -2365,7 +2365,7 @@ class TestAsyncNextAction:
                                 }
                             ],
                             "extraction_criteria": [{"relationship_name": "relationship_name"}],
-                            "formatter_specific": {"image_meta": {}},
+                            "formatter_specific": {"image_meta": {"image": "image"}},
                             "tool_metadata": [
                                 {
                                     "description": "description",
