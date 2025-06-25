@@ -2,7 +2,7 @@
 from __future__ import annotations
 
 import uuid
-from typing import Any, Dict, List, Optional, cast
+from typing import Any, Dict, List, Optional
 
 import pandas as pd
 
@@ -50,7 +50,7 @@ class DataFrameResource(SyncAPIResource):
         column_description: str,
         table_name: Optional[str] | NotGiven = NOT_GIVEN,
         table_description: Optional[str] | NotGiven = NOT_GIVEN,
-        node_metadata: Optional[dict[str, Any]] | NotGiven = NOT_GIVEN,
+        node_metadata: Any | NotGiven = NOT_GIVEN,
     ) -> pd.DataFrame:
         """
         Enhance a column in a DataFrame using Structify's AI capabilities.
@@ -123,18 +123,15 @@ class DataFrameResource(SyncAPIResource):
 
         job_ids: list[str] = []
         for entity_id in entity_ids:
-            # Build kwargs with explicit Any typing to satisfy static analyzers.
-            enhance_kwargs: Dict[str, Any] = {
+            enhance_kwargs = {
                 "entity_id": entity_id,
                 "property_name": column_name,
                 "allow_extra_entities": False,
             }
-
             if node_metadata is not NOT_GIVEN and node_metadata is not None:
-                nm = cast(Dict[str, Any], node_metadata)
                 enhance_kwargs["run_metadata"] = {
-                    "node_id": nm.get("NODE_ID"),
-                    "session_id": nm.get("SESSION_ID"),
+                    "node_id": node_metadata.value.get("NODE_ID"),
+                    "session_id": node_metadata.value.get("SESSION_ID"),
                 }
 
             job_id = self._client.structure.enhance_property(**enhance_kwargs)
@@ -175,19 +172,18 @@ class DataFrameResource(SyncAPIResource):
             tables=[schema],
             relationships=[],
         )
-        scrape_kwargs: Dict[str, Any] = {
+        scrape_kwargs = {
             "url": url,
             "table_name": table_name,
             "dataset_descriptor": dataset_descriptor,
         }
         if node_metadata is not NOT_GIVEN and node_metadata is not None:
-            nm = cast(Dict[str, Any], node_metadata)
             scrape_kwargs["run_metadata"] = {
-                "node_id": nm.get("NODE_ID"),
-                "session_id": nm.get("SESSION_ID"),
+                "node_id": node_metadata.value.get("NODE_ID"),
+                "session_id": node_metadata.value.get("SESSION_ID"),
             }
 
-        job_id = self._client.scrape.list(**scrape_kwargs)  # type: ignore[arg-type]
+        job_id = self._client.scrape.list(**scrape_kwargs)
         error_message = self._client.jobs.wait_for_jobs([job_id])  # type: ignore
         if error_message:
             raise Exception(error_message)
@@ -242,15 +238,14 @@ class DataFrameResource(SyncAPIResource):
             path=f"{dataset_name}.pdf".encode(),
         )
 
-        structure_kwargs: Dict[str, Any] = {
+        structure_kwargs = {
             "dataset": dataset_name,
             "source": SourcePdf(pdf={"path": f"{dataset_name}.pdf"}),
         }
         if node_metadata is not NOT_GIVEN and node_metadata is not None:
-            nm = cast(Dict[str, Any], node_metadata)
             structure_kwargs["run_metadata"] = {
-                "node_id": nm.get("NODE_ID"),
-                "session_id": nm.get("SESSION_ID"),
+                "node_id": node_metadata.value.get("NODE_ID"),
+                "session_id": node_metadata.value.get("SESSION_ID"),
             }
 
         job_id = self._client.structure.run_async(**structure_kwargs)
@@ -291,8 +286,8 @@ class DataFrameResource(SyncAPIResource):
             params["limit"] = limit
 
         # Make the request using the client's get method
-        response = cast(Dict[str, Any], self._client.get(url, params=params if params else None))
-        return cast(List[Dict[str, Any]], response.get("events", []))
+        response = self._client.get(url, params=params if params else None)
+        return response.get("events", [])
 
 
 class DataFrameResourceWithRawResponse:
