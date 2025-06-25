@@ -2,7 +2,7 @@
 from __future__ import annotations
 
 import uuid
-from typing import Any, Optional
+from typing import Any, Optional, Dict, List
 
 import pandas as pd
 
@@ -267,7 +267,7 @@ class DataFrameResource(SyncAPIResource):
         *,
         session_id: str,
         limit: Optional[int] = None,
-    ) -> list:
+    ) -> List[Dict[str, Any]]:
         """
         Get events for all jobs in a session.
 
@@ -276,17 +276,17 @@ class DataFrameResource(SyncAPIResource):
           limit: Maximum number of events to retrieve (optional)
 
         Returns:
-          list: List of session events with job_id and node_id information
+          List[Dict[str, Any]]: List of session events with job_id and node_id information
         """
 
         # Build the URL
         url = f"/sessions/{session_id}/events"
-        params = {}
+        params: Dict[str, Any] = {}
         if limit is not None:
             params["limit"] = limit
 
-        # Make the request using the client's internal request method
-        response = self._client._get(url, params=params if params else None)
+        # Make the request using the client's get method
+        response = self._client.get(url, params=params if params else None)
         return response.get("events", [])
 
 
