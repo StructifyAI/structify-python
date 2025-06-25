@@ -2,7 +2,7 @@
 from __future__ import annotations
 
 import uuid
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, cast
 
 import pandas as pd
 
@@ -123,15 +123,18 @@ class DataFrameResource(SyncAPIResource):
 
         job_ids: list[str] = []
         for entity_id in entity_ids:
-            enhance_kwargs = {
+            # Build kwargs with explicit Any typing to satisfy static analyzers.
+            enhance_kwargs: Dict[str, Any] = {
                 "entity_id": entity_id,
                 "property_name": column_name,
                 "allow_extra_entities": False,
             }
+
             if node_metadata is not NOT_GIVEN and node_metadata is not None:
+                nm = cast(Dict[str, Any], node_metadata)
                 enhance_kwargs["run_metadata"] = {
-                    "node_id": node_metadata.get("NODE_ID"),
-                    "session_id": node_metadata.get("SESSION_ID"),
+                    "node_id": nm.get("NODE_ID"),
+                    "session_id": nm.get("SESSION_ID"),
                 }
 
             job_id = self._client.structure.enhance_property(**enhance_kwargs)
@@ -172,15 +175,16 @@ class DataFrameResource(SyncAPIResource):
             tables=[schema],
             relationships=[],
         )
-        scrape_kwargs = {
+        scrape_kwargs: Dict[str, Any] = {
             "url": url,
             "table_name": table_name,
             "dataset_descriptor": dataset_descriptor,
         }
         if node_metadata is not NOT_GIVEN and node_metadata is not None:
+            nm = cast(Dict[str, Any], node_metadata)
             scrape_kwargs["run_metadata"] = {
-                "node_id": node_metadata.get("NODE_ID"),
-                "session_id": node_metadata.get("SESSION_ID"),
+                "node_id": nm.get("NODE_ID"),
+                "session_id": nm.get("SESSION_ID"),
             }
 
         job_id = self._client.scrape.list(**scrape_kwargs)
@@ -238,14 +242,15 @@ class DataFrameResource(SyncAPIResource):
             path=f"{dataset_name}.pdf".encode(),
         )
 
-        structure_kwargs = {
+        structure_kwargs: Dict[str, Any] = {
             "dataset": dataset_name,
             "source": SourcePdf(pdf={"path": f"{dataset_name}.pdf"}),
         }
         if node_metadata is not NOT_GIVEN and node_metadata is not None:
+            nm = cast(Dict[str, Any], node_metadata)
             structure_kwargs["run_metadata"] = {
-                "node_id": node_metadata.get("NODE_ID"),
-                "session_id": node_metadata.get("SESSION_ID"),
+                "node_id": nm.get("NODE_ID"),
+                "session_id": nm.get("SESSION_ID"),
             }
 
         job_id = self._client.structure.run_async(**structure_kwargs)
@@ -286,8 +291,8 @@ class DataFrameResource(SyncAPIResource):
             params["limit"] = limit
 
         # Make the request using the client's get method
-        response = self._client.get(url, params=params if params else None)
-        return response.get("events", [])
+        response = cast(Dict[str, Any], self._client.get(url, params=params if params else None))
+        return cast(List[Dict[str, Any]], response.get("events", []))
 
 
 class DataFrameResourceWithRawResponse:
