@@ -50,6 +50,7 @@ class DataFrameResource(SyncAPIResource):
         column_description: str,
         table_name: Optional[str] | NotGiven = NOT_GIVEN,
         table_description: Optional[str] | NotGiven = NOT_GIVEN,
+        node_metadata: Optional[dict[str, Any]] | NotGiven = NOT_GIVEN,
     ) -> pd.DataFrame:
         """
         Enhance a column in a DataFrame using Structify's AI capabilities.
@@ -60,6 +61,7 @@ class DataFrameResource(SyncAPIResource):
           column_description: Description of what the column should contain
           table_name: Name of the table (optional)
           table_description: Description of the table (optional)
+          node_metadata: Optional node metadata to group related jobs (optional)
         """
         column_names: list[str] = df.columns.tolist()
         if column_name not in column_names:
@@ -121,11 +123,18 @@ class DataFrameResource(SyncAPIResource):
 
         job_ids: list[str] = []
         for entity_id in entity_ids:
-            job_id = self._client.structure.enhance_property(
-                entity_id=entity_id,
-                property_name=column_name,
-                allow_extra_entities=False,
-            )
+            enhance_kwargs = {
+                "entity_id": entity_id,
+                "property_name": column_name,
+                "allow_extra_entities": False,
+            }
+            if node_metadata is not NOT_GIVEN and node_metadata is not None:
+                enhance_kwargs["run_metadata"] = {
+                    "node_id": node_metadata.get("NODE_ID"),
+                    "session_id": node_metadata.get("SESSION_ID"),
+                }
+
+            job_id = self._client.structure.enhance_property(**enhance_kwargs)
             job_ids.append(job_id)
 
         error_message = self._client.jobs.wait_for_jobs(job_ids)
@@ -146,6 +155,7 @@ class DataFrameResource(SyncAPIResource):
         url: str,
         table_name: str,
         schema: TableParam,
+        node_metadata: Optional[dict[str, Any]] | NotGiven = NOT_GIVEN,
     ) -> pd.DataFrame:
         """
         Scrape data from a URL and return as a DataFrame.
@@ -154,6 +164,7 @@ class DataFrameResource(SyncAPIResource):
           url: The URL to scrape
           table_name: Name of the table for the structured data
           schema: Schema definition for the data to extract
+          node_metadata: Optional node metadata to group related jobs (optional)
         """
         dataset_descriptor = DatasetDescriptorParam(
             name=f"scrape_{table_name}_{uuid.uuid4().hex}",
@@ -161,11 +172,18 @@ class DataFrameResource(SyncAPIResource):
             tables=[schema],
             relationships=[],
         )
-        job_id = self._client.scrape.list(
-            url=url,
-            table_name=table_name,
-            dataset_descriptor=dataset_descriptor,
-        )
+        scrape_kwargs = {
+            "url": url,
+            "table_name": table_name,
+            "dataset_descriptor": dataset_descriptor,
+        }
+        if node_metadata is not NOT_GIVEN and node_metadata is not None:
+            scrape_kwargs["run_metadata"] = {
+                "node_id": node_metadata.get("NODE_ID"),
+                "session_id": node_metadata.get("SESSION_ID"),
+            }
+
+        job_id = self._client.scrape.list(**scrape_kwargs)
         error_message = self._client.jobs.wait_for_jobs([job_id])  # type: ignore
         if error_message:
             raise Exception(error_message)
@@ -187,6 +205,7 @@ class DataFrameResource(SyncAPIResource):
         document: FileTypes,
         table_name: str,
         schema: TableParam,
+        node_metadata: Optional[dict[str, Any]] | NotGiven = NOT_GIVEN,
     ) -> pd.DataFrame:
         """
         Extract structured data from a PDF document and return as a DataFrame.
@@ -198,6 +217,7 @@ class DataFrameResource(SyncAPIResource):
                    - Tuple with (filename, content, [content_type], [headers])
           table_name: Name of the table for the structured data
           schema: Schema definition for the data to extract
+          node_metadata: Optional node metadata to group related jobs (optional)
 
         Returns:
           pd.DataFrame: Structured data extracted from the PDF
@@ -218,10 +238,17 @@ class DataFrameResource(SyncAPIResource):
             path=f"{dataset_name}.pdf".encode(),
         )
 
-        job_id = self._client.structure.run_async(
-            dataset=dataset_name,
-            source=SourcePdf(pdf={"path": f"{dataset_name}.pdf"}),
-        )
+        structure_kwargs = {
+            "dataset": dataset_name,
+            "source": SourcePdf(pdf={"path": f"{dataset_name}.pdf"}),
+        }
+        if node_metadata is not NOT_GIVEN and node_metadata is not None:
+            structure_kwargs["run_metadata"] = {
+                "node_id": node_metadata.get("NODE_ID"),
+                "session_id": node_metadata.get("SESSION_ID"),
+            }
+
+        job_id = self._client.structure.run_async(**structure_kwargs)
         error_message = self._client.jobs.wait_for_jobs([job_id])
         if error_message:
             raise Exception(error_message)
@@ -234,6 +261,34 @@ class DataFrameResource(SyncAPIResource):
         df_result = pd.DataFrame(data, columns=column_names)
 
         return df_result
+
+    def get_session_events(
+        self,
+        *,
+        session_id: str,
+        limit: Optional[int] = None,
+    ) -> list:
+        """
+        Get events for all jobs in a session.
+
+        Args:
+          session_id: The session ID to get events for
+          limit: Maximum number of events to retrieve (optional)
+
+        Returns:
+          list: List of session events with job_id and node_id information
+        """
+        import httpx
+
+        # Build the URL
+        url = f"/sessions/{session_id}/events"
+        params = {}
+        if limit is not None:
+            params["limit"] = limit
+
+        # Make the request using the client's internal request method
+        response = self._client._get(url, params=params if params else None)
+        return response.get("events", [])
 
 
 class DataFrameResourceWithRawResponse:
