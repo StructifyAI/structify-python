@@ -278,7 +278,6 @@ class DataFrameResource(SyncAPIResource):
         Returns:
           list: List of session events with job_id and node_id information
         """
-        import httpx
 
         # Build the URL
         url = f"/sessions/{session_id}/events"
