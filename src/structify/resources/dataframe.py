@@ -2,12 +2,9 @@
 from __future__ import annotations
 
 import uuid
-from typing import Any, Optional
+from typing import Any, Optional, cast
 
 import pandas as pd
-
-from structify.types.dataset_descriptor_param import DatasetDescriptorParam
-from structify.types.structure_run_async_params import SourcePdf
 
 from ..types import TableParam, KnowledgeGraph
 from .._types import NOT_GIVEN, NotGiven, FileTypes
@@ -18,6 +15,9 @@ from .._response import (
     to_streamed_response_wrapper,
 )
 from ..types.table_param import Property
+from ..types.dataset_descriptor_param import DatasetDescriptorParam
+from ..types.structure_run_async_params import SourcePdf
+from ..types.structure_enhance_property_params import RunMetadata
 
 __all__ = ["DataFrameResource"]
 
@@ -42,6 +42,7 @@ class DataFrameResource(SyncAPIResource):
         """
         return DataFrameResourceWithStreamingResponse(self)
 
+    # type: ignore
     def enhance_column(
         self,
         *,
@@ -50,6 +51,7 @@ class DataFrameResource(SyncAPIResource):
         column_description: str,
         table_name: Optional[str] | NotGiven = NOT_GIVEN,
         table_description: Optional[str] | NotGiven = NOT_GIVEN,
+        node_metadata: Any | NotGiven = NOT_GIVEN,
     ) -> pd.DataFrame:
         """
         Enhance a column in a DataFrame using Structify's AI capabilities.
@@ -60,6 +62,7 @@ class DataFrameResource(SyncAPIResource):
           column_description: Description of what the column should contain
           table_name: Name of the table (optional)
           table_description: Description of the table (optional)
+          node_metadata: Optional node metadata to group related jobs (optional)
         """
         column_names: list[str] = df.columns.tolist()
         if column_name not in column_names:
@@ -121,11 +124,11 @@ class DataFrameResource(SyncAPIResource):
 
         job_ids: list[str] = []
         for entity_id in entity_ids:
-            job_id = self._client.structure.enhance_property(
-                entity_id=entity_id,
-                property_name=column_name,
-                allow_extra_entities=False,
-            )
+            run_metadata = get_run_metadata(node_metadata)
+
+            job_id: str = self._client.structure.enhance_property(
+                entity_id=entity_id, property_name=column_name, allow_extra_entities=False, run_metadata=run_metadata
+            )  # type: ignore
             job_ids.append(job_id)
 
         error_message = self._client.jobs.wait_for_jobs(job_ids)
@@ -140,12 +143,14 @@ class DataFrameResource(SyncAPIResource):
                 df_result[col] = None
         return df_result[column_names]
 
+    # type: ignore
     def scrape_url(
         self,
         *,
         url: str,
         table_name: str,
         schema: TableParam,
+        node_metadata: Optional[dict[str, Any]] | NotGiven = NOT_GIVEN,
     ) -> pd.DataFrame:
         """
         Scrape data from a URL and return as a DataFrame.
@@ -154,6 +159,7 @@ class DataFrameResource(SyncAPIResource):
           url: The URL to scrape
           table_name: Name of the table for the structured data
           schema: Schema definition for the data to extract
+          node_metadata: Optional node metadata to group related jobs (optional)
         """
         dataset_descriptor = DatasetDescriptorParam(
             name=f"scrape_{table_name}_{uuid.uuid4().hex}",
@@ -161,11 +167,14 @@ class DataFrameResource(SyncAPIResource):
             tables=[schema],
             relationships=[],
         )
-        job_id = self._client.scrape.list(
+        run_metadata = get_run_metadata(node_metadata)
+
+        job_id: str = self._client.scrape.list(  # type: ignore
             url=url,
             table_name=table_name,
             dataset_descriptor=dataset_descriptor,
-        )
+            run_metadata=run_metadata,  # type: ignore
+        )  # type: ignore
         error_message = self._client.jobs.wait_for_jobs([job_id])  # type: ignore
         if error_message:
             raise Exception(error_message)
@@ -181,12 +190,14 @@ class DataFrameResource(SyncAPIResource):
                 df_result[col["name"]] = None
         return df_result
 
+    # type: ignore
     def structure_pdf(
         self,
         *,
         document: FileTypes,
         table_name: str,
         schema: TableParam,
+        node_metadata: Optional[dict[str, Any]] | NotGiven = NOT_GIVEN,
     ) -> pd.DataFrame:
         """
         Extract structured data from a PDF document and return as a DataFrame.
@@ -198,6 +209,7 @@ class DataFrameResource(SyncAPIResource):
                    - Tuple with (filename, content, [content_type], [headers])
           table_name: Name of the table for the structured data
           schema: Schema definition for the data to extract
+          node_metadata: Optional node metadata to group related jobs (optional)
 
         Returns:
           pd.DataFrame: Structured data extracted from the PDF
@@ -218,11 +230,14 @@ class DataFrameResource(SyncAPIResource):
             path=f"{dataset_name}.pdf".encode(),
         )
 
-        job_id = self._client.structure.run_async(
+        run_metadata = get_run_metadata(node_metadata)
+
+        job_id: str = self._client.structure.run_async(  # type: ignore
             dataset=dataset_name,
             source=SourcePdf(pdf={"path": f"{dataset_name}.pdf"}),
-        )
-        error_message = self._client.jobs.wait_for_jobs([job_id])
+            run_metadata=run_metadata,  # type: ignore
+        )  # type: ignore
+        error_message = self._client.jobs.wait_for_jobs([job_id])  # type: ignore
         if error_message:
             raise Exception(error_message)
         entities_result = self._client.datasets.view_table(dataset=dataset_name, name=table_name)
@@ -252,3 +267,21 @@ class DataFrameResourceWithStreamingResponse:
         self.enhance_column = to_streamed_response_wrapper(
             dataframe.enhance_column,
         )
+
+
+def get_run_metadata(node_metadata: Optional[dict[str, Any]] | NotGiven) -> Optional[RunMetadata]:
+    """
+    Helper function to cast node_metadata to run_metadata.
+
+    Args:
+      node_metadata: Optional node metadata to group related jobs.
+
+    Returns:
+      A dictionary with node_id and session_id if node_metadata is provided, otherwise None.
+    """
+    if node_metadata is not NOT_GIVEN and node_metadata is not None:
+        node_metadata_dict: dict[str, str] = cast(dict[str, str], node_metadata)
+        node_id = node_metadata_dict.get("node_id", "default_node_id")
+        session_id = node_metadata_dict.get("session_id", "default_session_id")
+        return RunMetadata(node_id=node_id, session_id=session_id)
+    return None
