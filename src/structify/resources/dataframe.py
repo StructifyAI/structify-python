@@ -126,11 +126,8 @@ class DataFrameResource(SyncAPIResource):
         for entity_id in entity_ids:
             run_metadata = get_run_metadata(node_metadata)
 
-            job_id: str = self._client.structure.enhance_property(  # type: ignore
-                entity_id=entity_id,
-                property_name=column_name,
-                allow_extra_entities=False,
-                run_metadata=run_metadata,  # type: ignore
+            job_id: str = self._client.structure.enhance_property(
+                entity_id=entity_id, property_name=column_name, allow_extra_entities=False, run_metadata=run_metadata
             )  # type: ignore
             job_ids.append(job_id)
 
@@ -252,35 +249,6 @@ class DataFrameResource(SyncAPIResource):
         df_result = pd.DataFrame(data, columns=column_names)
 
         return df_result
-
-    # type: ignore
-    def get_session_events(
-        self,
-        *,
-        session_id: str,
-        limit: Optional[int] = None,
-    ) -> List[Dict[str, Any]]:
-        """
-        Get events for all jobs in a session.
-
-        Args:
-          session_id: The session ID to get events for
-          limit: Maximum number of events to retrieve (optional)
-
-        Returns:
-          List[Dict[str, Any]]: List of session events with job_id and node_id information
-        """
-
-        # Build the URL
-        url = f"/sessions/{session_id}/events"
-        params: Dict[str, Any] = {}
-        if limit is not None:
-            params["limit"] = limit
-
-        # Make the request using the client's get method
-        response: Dict[str, Any] = self._client.get(url, params=params if params else None)  # type: ignore
-        events: List[Dict[str, Any]] = response.get("events", [])  # type: ignore
-        return events  # type: ignore
 
 
 class DataFrameResourceWithRawResponse:
