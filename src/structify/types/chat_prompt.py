@@ -151,11 +151,11 @@ class Message(BaseModel):
 
 
 class MetadataFormatterSpecificImageMetaImageMeta(BaseModel):
+    image: Optional[str] = None
+
     document_name: Optional[str] = None
 
     document_page: Optional[int] = None
-
-    image: Optional[object] = None
 
     ocr_content: Optional[str] = None
 

@@ -152,11 +152,11 @@ class Message(TypedDict, total=False):
 
 
 class MetadataFormatterSpecificImageMetaImageMeta(TypedDict, total=False):
+    image: Required[Optional[str]]
+
     document_name: Optional[str]
 
     document_page: Optional[int]
-
-    image: Optional[FileTypes]
 
     ocr_content: Optional[str]
 
