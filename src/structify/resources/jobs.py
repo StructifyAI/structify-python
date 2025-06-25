@@ -26,6 +26,7 @@ from ..types.job_list_response import JobListResponse
 from ..types.job_cancel_response import JobCancelResponse
 from ..types.job_get_step_response import JobGetStepResponse
 from ..types.job_get_steps_response import JobGetStepsResponse
+from ..types.job_get_scrapers_response import JobGetScrapersResponse
 from ..types.job_get_step_graph_response import JobGetStepGraphResponse
 
 __all__ = ["JobsResource", "AsyncJobsResource"]
@@ -208,6 +209,39 @@ class JobsResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=JobGetResponse,
+        )
+
+    def get_scrapers(
+        self,
+        job_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> JobGetScrapersResponse:
+        """
+        Retrieve scrapers associated with a job from structify.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not job_id:
+            raise ValueError(f"Expected a non-empty value for `job_id` but received {job_id!r}")
+        return self._get(
+            f"/jobs/get_scrapers/{job_id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=JobGetScrapersResponse,
         )
 
     def get_step(
@@ -510,6 +544,39 @@ class AsyncJobsResource(AsyncAPIResource):
             cast_to=JobGetResponse,
         )
 
+    async def get_scrapers(
+        self,
+        job_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> JobGetScrapersResponse:
+        """
+        Retrieve scrapers associated with a job from structify.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not job_id:
+            raise ValueError(f"Expected a non-empty value for `job_id` but received {job_id!r}")
+        return await self._get(
+            f"/jobs/get_scrapers/{job_id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=JobGetScrapersResponse,
+        )
+
     async def get_step(
         self,
         step_id: str,
@@ -647,6 +714,9 @@ class JobsResourceWithRawResponse:
         self.get = to_raw_response_wrapper(
             jobs.get,
         )
+        self.get_scrapers = to_raw_response_wrapper(
+            jobs.get_scrapers,
+        )
         self.get_step = to_raw_response_wrapper(
             jobs.get_step,
         )
@@ -676,6 +746,9 @@ class AsyncJobsResourceWithRawResponse:
         )
         self.get = async_to_raw_response_wrapper(
             jobs.get,
+        )
+        self.get_scrapers = async_to_raw_response_wrapper(
+            jobs.get_scrapers,
         )
         self.get_step = async_to_raw_response_wrapper(
             jobs.get_step,
@@ -707,6 +780,9 @@ class JobsResourceWithStreamingResponse:
         self.get = to_streamed_response_wrapper(
             jobs.get,
         )
+        self.get_scrapers = to_streamed_response_wrapper(
+            jobs.get_scrapers,
+        )
         self.get_step = to_streamed_response_wrapper(
             jobs.get_step,
         )
@@ -736,6 +812,9 @@ class AsyncJobsResourceWithStreamingResponse:
         )
         self.get = async_to_streamed_response_wrapper(
             jobs.get,
+        )
+        self.get_scrapers = async_to_streamed_response_wrapper(
+            jobs.get_scrapers,
         )
         self.get_step = async_to_streamed_response_wrapper(
             jobs.get_step,
