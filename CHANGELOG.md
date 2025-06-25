@@ -1,5 +1,27 @@
 # Changelog
 
+## 1.124.0 (2025-06-25)
+
+Full Changelog: [v1.123.0...v1.124.0](https://github.com/StructifyAI/structify-python/compare/v1.123.0...v1.124.0)
+
+### Features
+
+* **api:** manual updates ([330cf45](https://github.com/StructifyAI/structify-python/commit/330cf45916212011169e68cb8afe87dbc09e3c64))
+* **api:** manual updates ([315c7ce](https://github.com/StructifyAI/structify-python/commit/315c7ce9a96459a4d8bb7712d1191bf94e2c8499))
+* **api:** manual updates ([f8cc146](https://github.com/StructifyAI/structify-python/commit/f8cc146a08a5268e469aa6e6b7d06d6ac879987b))
+
+
+### Bug Fixes
+
+* Implement job events queue functionality ([9d4df9d](https://github.com/StructifyAI/structify-python/commit/9d4df9de501beb85ca4badcf80e01bf160be820e))
+* stainless maybe ([4901947](https://github.com/StructifyAI/structify-python/commit/4901947ded6351e118c32fe9d22d2b482744b463))
+
+
+### Chores
+
+* **internal:** codegen related update ([6c33eab](https://github.com/StructifyAI/structify-python/commit/6c33eab4fdd87470d31b07a936e974b480e50b91))
+* **tests:** skip some failing tests on the latest python versions ([8cf1cff](https://github.com/StructifyAI/structify-python/commit/8cf1cff6ca56f92bddf8394365f76acb6f44a02f))
+
 ## 1.123.0 (2025-06-23)
 
 Full Changelog: [v1.122.2...v1.123.0](https://github.com/StructifyAI/structify-python/compare/v1.122.2...v1.123.0)
