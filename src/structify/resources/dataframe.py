@@ -187,7 +187,7 @@ class DataFrameResource(SyncAPIResource):
                 "session_id": nm.get("SESSION_ID"),
             }
 
-        job_id = self._client.scrape.list(**scrape_kwargs)
+        job_id = self._client.scrape.list(**scrape_kwargs)  # type: ignore[arg-type]
         error_message = self._client.jobs.wait_for_jobs([job_id])  # type: ignore
         if error_message:
             raise Exception(error_message)
