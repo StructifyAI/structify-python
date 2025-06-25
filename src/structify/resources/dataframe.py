@@ -2,12 +2,9 @@
 from __future__ import annotations
 
 import uuid
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, cast
 
 import pandas as pd
-
-from structify.types.dataset_descriptor_param import DatasetDescriptorParam
-from structify.types.structure_run_async_params import SourcePdf
 
 from ..types import TableParam, KnowledgeGraph
 from .._types import NOT_GIVEN, NotGiven, FileTypes
@@ -18,6 +15,9 @@ from .._response import (
     to_streamed_response_wrapper,
 )
 from ..types.table_param import Property
+from ..types.dataset_descriptor_param import DatasetDescriptorParam
+from ..types.structure_run_async_params import SourcePdf
+from ..types.structure_enhance_property_params import RunMetadata
 
 __all__ = ["DataFrameResource"]
 
@@ -42,6 +42,7 @@ class DataFrameResource(SyncAPIResource):
         """
         return DataFrameResourceWithStreamingResponse(self)
 
+    # type: ignore
     def enhance_column(
         self,
         *,
@@ -123,18 +124,11 @@ class DataFrameResource(SyncAPIResource):
 
         job_ids: list[str] = []
         for entity_id in entity_ids:
-            enhance_kwargs = {
-                "entity_id": entity_id,
-                "property_name": column_name,
-                "allow_extra_entities": False,
-            }
-            if node_metadata is not NOT_GIVEN and node_metadata is not None:
-                enhance_kwargs["run_metadata"] = {
-                    "node_id": node_metadata.value.get("NODE_ID"),
-                    "session_id": node_metadata.value.get("SESSION_ID"),
-                }
+            run_metadata = get_run_metadata(node_metadata)
 
-            job_id = self._client.structure.enhance_property(**enhance_kwargs)
+            job_id: str = self._client.structure.enhance_property(
+                entity_id=entity_id, property_name=column_name, allow_extra_entities=False, run_metadata=run_metadata
+            )  # type: ignore
             job_ids.append(job_id)
 
         error_message = self._client.jobs.wait_for_jobs(job_ids)
@@ -149,6 +143,7 @@ class DataFrameResource(SyncAPIResource):
                 df_result[col] = None
         return df_result[column_names]
 
+    # type: ignore
     def scrape_url(
         self,
         *,
@@ -172,18 +167,11 @@ class DataFrameResource(SyncAPIResource):
             tables=[schema],
             relationships=[],
         )
-        scrape_kwargs = {
-            "url": url,
-            "table_name": table_name,
-            "dataset_descriptor": dataset_descriptor,
-        }
-        if node_metadata is not NOT_GIVEN and node_metadata is not None:
-            scrape_kwargs["run_metadata"] = {
-                "node_id": node_metadata.value.get("NODE_ID"),
-                "session_id": node_metadata.value.get("SESSION_ID"),
-            }
+        run_metadata = get_run_metadata(node_metadata)
 
-        job_id = self._client.scrape.list(**scrape_kwargs)
+        job_id: str = self._client.scrape.list(
+            url=url, table_name=table_name, dataset_descriptor=dataset_descriptor, run_metadata=run_metadata
+        )  # type: ignore
         error_message = self._client.jobs.wait_for_jobs([job_id])  # type: ignore
         if error_message:
             raise Exception(error_message)
@@ -199,6 +187,7 @@ class DataFrameResource(SyncAPIResource):
                 df_result[col["name"]] = None
         return df_result
 
+    # type: ignore
     def structure_pdf(
         self,
         *,
@@ -238,17 +227,11 @@ class DataFrameResource(SyncAPIResource):
             path=f"{dataset_name}.pdf".encode(),
         )
 
-        structure_kwargs = {
-            "dataset": dataset_name,
-            "source": SourcePdf(pdf={"path": f"{dataset_name}.pdf"}),
-        }
-        if node_metadata is not NOT_GIVEN and node_metadata is not None:
-            structure_kwargs["run_metadata"] = {
-                "node_id": node_metadata.value.get("NODE_ID"),
-                "session_id": node_metadata.value.get("SESSION_ID"),
-            }
+        run_metadata = get_run_metadata(node_metadata)
 
-        job_id = self._client.structure.run_async(**structure_kwargs)
+        job_id: str = self._client.structure.run_async(
+            dataset=dataset_name, source=SourcePdf(pdf={"path": f"{dataset_name}.pdf"}), run_metadata=run_metadata
+        )  # type: ignore
         error_message = self._client.jobs.wait_for_jobs([job_id])
         if error_message:
             raise Exception(error_message)
@@ -262,6 +245,7 @@ class DataFrameResource(SyncAPIResource):
 
         return df_result
 
+    # type: ignore
     def get_session_events(
         self,
         *,
@@ -286,8 +270,9 @@ class DataFrameResource(SyncAPIResource):
             params["limit"] = limit
 
         # Make the request using the client's get method
-        response = self._client.get(url, params=params if params else None)
-        return response.get("events", [])
+        response: Dict[str, Any] = self._client.get(url, params=params if params else None)  # type: ignore
+        events: List[Dict[str, Any]] = response.get("events", [])
+        return events
 
 
 class DataFrameResourceWithRawResponse:
@@ -306,3 +291,21 @@ class DataFrameResourceWithStreamingResponse:
         self.enhance_column = to_streamed_response_wrapper(
             dataframe.enhance_column,
         )
+
+
+def get_run_metadata(node_metadata: Optional[dict[str, Any]] | NotGiven) -> Optional[RunMetadata]:
+    """
+    Helper function to cast node_metadata to run_metadata.
+
+    Args:
+      node_metadata: Optional node metadata to group related jobs.
+
+    Returns:
+      A dictionary with node_id and session_id if node_metadata is provided, otherwise None.
+    """
+    if node_metadata is not NOT_GIVEN and node_metadata is not None:
+        node_metadata_dict: dict[str, str] = cast(dict[str, str], node_metadata)
+        node_id = node_metadata_dict.get("node_id", "default_node_id")
+        session_id = node_metadata_dict.get("session_id", "default_session_id")
+        return RunMetadata(node_id=node_id, session_id=session_id)
+    return None
