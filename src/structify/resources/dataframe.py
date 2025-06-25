@@ -232,7 +232,7 @@ class DataFrameResource(SyncAPIResource):
         job_id: str = self._client.structure.run_async(
             dataset=dataset_name, source=SourcePdf(pdf={"path": f"{dataset_name}.pdf"}), run_metadata=run_metadata
         )  # type: ignore
-        error_message = self._client.jobs.wait_for_jobs([job_id])
+        error_message = self._client.jobs.wait_for_jobs([job_id])  # type: ignore
         if error_message:
             raise Exception(error_message)
         entities_result = self._client.datasets.view_table(dataset=dataset_name, name=table_name)
@@ -271,7 +271,7 @@ class DataFrameResource(SyncAPIResource):
 
         # Make the request using the client's get method
         response: Dict[str, Any] = self._client.get(url, params=params if params else None)  # type: ignore
-        events: List[Dict[str, Any]] = response.get("events", [])
+        events: List[Dict[str, Any]] = response.get("events", [])  # type: ignore
         return events
 
 
