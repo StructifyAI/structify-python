@@ -32,6 +32,7 @@ from .job_list_params import JobListParams as JobListParams
 from .knowledge_graph import KnowledgeGraph as KnowledgeGraph
 from .job_get_response import JobGetResponse as JobGetResponse
 from .save_requirement import SaveRequirement as SaveRequirement
+from .chat_prompt_param import ChatPromptParam as ChatPromptParam
 from .entity_add_params import EntityAddParams as EntityAddParams
 from .entity_get_params import EntityGetParams as EntityGetParams
 from .existing_workflow import ExistingWorkflow as ExistingWorkflow
@@ -58,6 +59,7 @@ from .job_delete_response import JobDeleteResponse as JobDeleteResponse
 from .list_teams_response import ListTeamsResponse as ListTeamsResponse
 from .property_type_param import PropertyTypeParam as PropertyTypeParam
 from .report_wrong_params import ReportWrongParams as ReportWrongParams
+from .tool_metadata_param import ToolMetadataParam as ToolMetadataParam
 from .user_usage_response import UserUsageResponse as UserUsageResponse
 from .workflow_get_params import WorkflowGetParams as WorkflowGetParams
 from .create_team_response import CreateTeamResponse as CreateTeamResponse
@@ -124,6 +126,7 @@ from .entity_agent_merge_params import EntityAgentMergeParams as EntityAgentMerg
 from .entity_list_jobs_response import EntityListJobsResponse as EntityListJobsResponse
 from .entity_summarize_response import EntitySummarizeResponse as EntitySummarizeResponse
 from .get_chat_session_response import GetChatSessionResponse as GetChatSessionResponse
+from .session_get_events_params import SessionGetEventsParams as SessionGetEventsParams
 from .user_survey_submit_params import UserSurveySubmitParams as UserSurveySubmitParams
 from .chat_create_session_params import ChatCreateSessionParams as ChatCreateSessionParams
 from .chat_session_with_messages import ChatSessionWithMessages as ChatSessionWithMessages
@@ -139,6 +142,7 @@ from .dataset_view_table_response import DatasetViewTableResponse as DatasetView
 from .document_structure_response import DocumentStructureResponse as DocumentStructureResponse
 from .entity_agent_merge_response import EntityAgentMergeResponse as EntityAgentMergeResponse
 from .entity_trigger_merge_params import EntityTriggerMergeParams as EntityTriggerMergeParams
+from .get_session_events_response import GetSessionEventsResponse as GetSessionEventsResponse
 from .job_get_step_graph_response import JobGetStepGraphResponse as JobGetStepGraphResponse
 from .list_chat_sessions_response import ListChatSessionsResponse as ListChatSessionsResponse
 from .relationship_merge_strategy import RelationshipMergeStrategy as RelationshipMergeStrategy

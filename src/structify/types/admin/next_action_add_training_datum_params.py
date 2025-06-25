@@ -6,6 +6,7 @@ from typing import Dict, Union, Iterable, Optional
 from typing_extensions import Required, Annotated, TypeAlias, TypedDict
 
 from ..._utils import PropertyInfo
+from ..chat_prompt_param import ChatPromptParam
 from ..knowledge_graph_param import KnowledgeGraphParam
 from ..save_requirement_param import SaveRequirementParam
 from ..dataset_descriptor_param import DatasetDescriptorParam
@@ -54,6 +55,8 @@ class InputAllStep(TypedDict, total=False):
 
 
 class InputPreviousActionSelectedStepSelectedStep(TypedDict, total=False):
+    llm_input: Required[ChatPromptParam]
+
     llm_output: Required[str]
 
     step_id: Required[str]
@@ -64,6 +67,8 @@ class InputPreviousActionSelectedStep(TypedDict, total=False):
 
 
 class InputPreviousActionSearchStepSearchStep(TypedDict, total=False):
+    llm_input: Required[ChatPromptParam]
+
     llm_output: Required[str]
 
     search_query: Required[str]
@@ -76,6 +81,8 @@ class InputPreviousActionSearchStep(TypedDict, total=False):
 class InputPreviousActionInvalidActionInvalidAction(TypedDict, total=False):
     error: Required[str]
 
+    llm_input: Required[ChatPromptParam]
+
     llm_output: Required[str]
 
 
@@ -86,6 +93,8 @@ class InputPreviousActionInvalidAction(TypedDict, total=False):
 
 
 class InputPreviousActionExitExit(TypedDict, total=False):
+    llm_input: Required[ChatPromptParam]
+
     llm_output: Required[str]
 
 
@@ -124,6 +133,8 @@ class Input(TypedDict, total=False):
 
 
 class OutputSelectedStepSelectedStep(TypedDict, total=False):
+    llm_input: Required[ChatPromptParam]
+
     llm_output: Required[str]
 
     step_id: Required[str]
@@ -134,6 +145,8 @@ class OutputSelectedStep(TypedDict, total=False):
 
 
 class OutputSearchStepSearchStep(TypedDict, total=False):
+    llm_input: Required[ChatPromptParam]
+
     llm_output: Required[str]
 
     search_query: Required[str]
@@ -146,6 +159,8 @@ class OutputSearchStep(TypedDict, total=False):
 class OutputInvalidActionInvalidAction(TypedDict, total=False):
     error: Required[str]
 
+    llm_input: Required[ChatPromptParam]
+
     llm_output: Required[str]
 
 
@@ -154,6 +169,8 @@ class OutputInvalidAction(TypedDict, total=False):
 
 
 class OutputExitExit(TypedDict, total=False):
+    llm_input: Required[ChatPromptParam]
+
     llm_output: Required[str]
 
 

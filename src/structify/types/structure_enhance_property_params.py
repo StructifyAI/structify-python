@@ -5,7 +5,7 @@ from __future__ import annotations
 from typing import List, Optional
 from typing_extensions import Literal, Required, TypedDict
 
-__all__ = ["StructureEnhancePropertyParams", "StopConfig"]
+__all__ = ["StructureEnhancePropertyParams", "RunMetadata", "StopConfig"]
 
 
 class StructureEnhancePropertyParams(TypedDict, total=False):
@@ -17,6 +17,8 @@ class StructureEnhancePropertyParams(TypedDict, total=False):
 
     banned_domains: List[str]
 
+    run_metadata: Optional[RunMetadata]
+
     special_job_type: Optional[Literal["HumanLLM"]]
 
     starting_searches: List[str]
@@ -25,6 +27,12 @@ class StructureEnhancePropertyParams(TypedDict, total=False):
 
     stop_config: Optional[StopConfig]
     """Configuration parameters for the StopChecker"""
+
+
+class RunMetadata(TypedDict, total=False):
+    node_id: Required[str]
+
+    session_id: Required[str]
 
 
 class StopConfig(TypedDict, total=False):

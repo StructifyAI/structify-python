@@ -6,6 +6,7 @@ from typing import Union
 from typing_extensions import Required, Annotated, TypeAlias, TypedDict
 
 from ..._utils import PropertyInfo
+from ..chat_prompt_param import ChatPromptParam
 
 __all__ = [
     "NextActionLabelTrainingDatumParams",
@@ -30,6 +31,8 @@ class NextActionLabelTrainingDatumParams(TypedDict, total=False):
 
 
 class OutputSelectedStepSelectedStep(TypedDict, total=False):
+    llm_input: Required[ChatPromptParam]
+
     llm_output: Required[str]
 
     step_id: Required[str]
@@ -40,6 +43,8 @@ class OutputSelectedStep(TypedDict, total=False):
 
 
 class OutputSearchStepSearchStep(TypedDict, total=False):
+    llm_input: Required[ChatPromptParam]
+
     llm_output: Required[str]
 
     search_query: Required[str]
@@ -52,6 +57,8 @@ class OutputSearchStep(TypedDict, total=False):
 class OutputInvalidActionInvalidAction(TypedDict, total=False):
     error: Required[str]
 
+    llm_input: Required[ChatPromptParam]
+
     llm_output: Required[str]
 
 
@@ -60,6 +67,8 @@ class OutputInvalidAction(TypedDict, total=False):
 
 
 class OutputExitExit(TypedDict, total=False):
+    llm_input: Required[ChatPromptParam]
+
     llm_output: Required[str]
 
 

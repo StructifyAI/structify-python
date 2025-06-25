@@ -31,6 +31,7 @@ from .resources import (
     sources,
     entities,
     projects,
+    sessions,
     workflow,
     dataframe,
     documents,
@@ -75,6 +76,7 @@ class Structify(SyncAPIClient):
     datasets: datasets.DatasetsResource
     documents: documents.DocumentsResource
     jobs: jobs.JobsResource
+    sessions: sessions.SessionsResource
     server: server.ServerResource
     sources: sources.SourcesResource
     entities: entities.EntitiesResource
@@ -172,6 +174,7 @@ class Structify(SyncAPIClient):
         self.datasets = datasets.DatasetsResource(self)
         self.documents = documents.DocumentsResource(self)
         self.jobs = jobs.JobsResource(self)
+        self.sessions = sessions.SessionsResource(self)
         self.server = server.ServerResource(self)
         self.sources = sources.SourcesResource(self)
         self.entities = entities.EntitiesResource(self)
@@ -299,6 +302,7 @@ class AsyncStructify(AsyncAPIClient):
     datasets: datasets.AsyncDatasetsResource
     documents: documents.AsyncDocumentsResource
     jobs: jobs.AsyncJobsResource
+    sessions: sessions.AsyncSessionsResource
     server: server.AsyncServerResource
     sources: sources.AsyncSourcesResource
     entities: entities.AsyncEntitiesResource
@@ -395,6 +399,7 @@ class AsyncStructify(AsyncAPIClient):
         self.datasets = datasets.AsyncDatasetsResource(self)
         self.documents = documents.AsyncDocumentsResource(self)
         self.jobs = jobs.AsyncJobsResource(self)
+        self.sessions = sessions.AsyncSessionsResource(self)
         self.server = server.AsyncServerResource(self)
         self.sources = sources.AsyncSourcesResource(self)
         self.entities = entities.AsyncEntitiesResource(self)
@@ -522,6 +527,7 @@ class StructifyWithRawResponse:
         self.datasets = datasets.DatasetsResourceWithRawResponse(client.datasets)
         self.documents = documents.DocumentsResourceWithRawResponse(client.documents)
         self.jobs = jobs.JobsResourceWithRawResponse(client.jobs)
+        self.sessions = sessions.SessionsResourceWithRawResponse(client.sessions)
         self.server = server.ServerResourceWithRawResponse(client.server)
         self.sources = sources.SourcesResourceWithRawResponse(client.sources)
         self.entities = entities.EntitiesResourceWithRawResponse(client.entities)
@@ -542,6 +548,7 @@ class AsyncStructifyWithRawResponse:
         self.datasets = datasets.AsyncDatasetsResourceWithRawResponse(client.datasets)
         self.documents = documents.AsyncDocumentsResourceWithRawResponse(client.documents)
         self.jobs = jobs.AsyncJobsResourceWithRawResponse(client.jobs)
+        self.sessions = sessions.AsyncSessionsResourceWithRawResponse(client.sessions)
         self.server = server.AsyncServerResourceWithRawResponse(client.server)
         self.sources = sources.AsyncSourcesResourceWithRawResponse(client.sources)
         self.entities = entities.AsyncEntitiesResourceWithRawResponse(client.entities)
@@ -561,6 +568,7 @@ class StructifyWithStreamedResponse:
         self.datasets = datasets.DatasetsResourceWithStreamingResponse(client.datasets)
         self.documents = documents.DocumentsResourceWithStreamingResponse(client.documents)
         self.jobs = jobs.JobsResourceWithStreamingResponse(client.jobs)
+        self.sessions = sessions.SessionsResourceWithStreamingResponse(client.sessions)
         self.server = server.ServerResourceWithStreamingResponse(client.server)
         self.sources = sources.SourcesResourceWithStreamingResponse(client.sources)
         self.entities = entities.EntitiesResourceWithStreamingResponse(client.entities)
@@ -581,6 +589,7 @@ class AsyncStructifyWithStreamedResponse:
         self.datasets = datasets.AsyncDatasetsResourceWithStreamingResponse(client.datasets)
         self.documents = documents.AsyncDocumentsResourceWithStreamingResponse(client.documents)
         self.jobs = jobs.AsyncJobsResourceWithStreamingResponse(client.jobs)
+        self.sessions = sessions.AsyncSessionsResourceWithStreamingResponse(client.sessions)
         self.server = server.AsyncServerResourceWithStreamingResponse(client.server)
         self.sources = sources.AsyncSourcesResourceWithStreamingResponse(client.sources)
         self.entities = entities.AsyncEntitiesResourceWithStreamingResponse(client.entities)

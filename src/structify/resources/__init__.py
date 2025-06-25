@@ -96,6 +96,14 @@ from .projects import (
     ProjectsResourceWithStreamingResponse,
     AsyncProjectsResourceWithStreamingResponse,
 )
+from .sessions import (
+    SessionsResource,
+    AsyncSessionsResource,
+    SessionsResourceWithRawResponse,
+    AsyncSessionsResourceWithRawResponse,
+    SessionsResourceWithStreamingResponse,
+    AsyncSessionsResourceWithStreamingResponse,
+)
 from .workflow import (
     WorkflowResource,
     AsyncWorkflowResource,
@@ -181,6 +189,12 @@ __all__ = [
     "AsyncJobsResourceWithRawResponse",
     "JobsResourceWithStreamingResponse",
     "AsyncJobsResourceWithStreamingResponse",
+    "SessionsResource",
+    "AsyncSessionsResource",
+    "SessionsResourceWithRawResponse",
+    "AsyncSessionsResourceWithRawResponse",
+    "SessionsResourceWithStreamingResponse",
+    "AsyncSessionsResourceWithStreamingResponse",
     "ServerResource",
     "AsyncServerResource",
     "ServerResourceWithRawResponse",
