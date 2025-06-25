@@ -126,8 +126,11 @@ class DataFrameResource(SyncAPIResource):
         for entity_id in entity_ids:
             run_metadata = get_run_metadata(node_metadata)
 
-            job_id: str = self._client.structure.enhance_property(
-                entity_id=entity_id, property_name=column_name, allow_extra_entities=False, run_metadata=run_metadata
+            job_id: str = self._client.structure.enhance_property(  # type: ignore
+                entity_id=entity_id,
+                property_name=column_name,
+                allow_extra_entities=False,
+                run_metadata=run_metadata,  # type: ignore
             )  # type: ignore
             job_ids.append(job_id)
 
@@ -169,8 +172,11 @@ class DataFrameResource(SyncAPIResource):
         )
         run_metadata = get_run_metadata(node_metadata)
 
-        job_id: str = self._client.scrape.list(
-            url=url, table_name=table_name, dataset_descriptor=dataset_descriptor, run_metadata=run_metadata
+        job_id: str = self._client.scrape.list(  # type: ignore
+            url=url,
+            table_name=table_name,
+            dataset_descriptor=dataset_descriptor,
+            run_metadata=run_metadata,  # type: ignore
         )  # type: ignore
         error_message = self._client.jobs.wait_for_jobs([job_id])  # type: ignore
         if error_message:
@@ -229,8 +235,10 @@ class DataFrameResource(SyncAPIResource):
 
         run_metadata = get_run_metadata(node_metadata)
 
-        job_id: str = self._client.structure.run_async(
-            dataset=dataset_name, source=SourcePdf(pdf={"path": f"{dataset_name}.pdf"}), run_metadata=run_metadata
+        job_id: str = self._client.structure.run_async(  # type: ignore
+            dataset=dataset_name,
+            source=SourcePdf(pdf={"path": f"{dataset_name}.pdf"}),
+            run_metadata=run_metadata,  # type: ignore
         )  # type: ignore
         error_message = self._client.jobs.wait_for_jobs([job_id])  # type: ignore
         if error_message:
@@ -272,7 +280,7 @@ class DataFrameResource(SyncAPIResource):
         # Make the request using the client's get method
         response: Dict[str, Any] = self._client.get(url, params=params if params else None)  # type: ignore
         events: List[Dict[str, Any]] = response.get("events", [])  # type: ignore
-        return events
+        return events  # type: ignore
 
 
 class DataFrameResourceWithRawResponse:
