@@ -287,4 +287,5 @@ def get_run_metadata(node_metadata: Optional[Any] | NotGiven) -> Optional[RunMet
             session_id = cast(str | None, node_metadata.value.get("session_id"))  # type: ignore
             if node_id is None or session_id is None:
                 return None
+            return RunMetadata(node_id=node_id, session_id=session_id)
     return None
