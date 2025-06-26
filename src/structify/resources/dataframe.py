@@ -2,7 +2,7 @@
 from __future__ import annotations
 
 import uuid
-from typing import Any, Optional, cast
+from typing import Any, Optional, cast, TypedDict
 
 import pandas as pd
 
@@ -269,7 +269,11 @@ class DataFrameResourceWithStreamingResponse:
         )
 
 
-def get_run_metadata(node_metadata: Optional[dict[str, Any]] | NotGiven) -> Optional[RunMetadata]:
+class RunMetadataBroadcastVariable(TypedDict):
+    value: dict[str, Any]
+
+
+def get_run_metadata(node_metadata: Optional[RunMetadataBroadcastVariable] | NotGiven) -> Optional[RunMetadata]:
     """
     Helper function to cast node_metadata to run_metadata.
 
@@ -280,8 +284,7 @@ def get_run_metadata(node_metadata: Optional[dict[str, Any]] | NotGiven) -> Opti
       A dictionary with node_id and session_id if node_metadata is provided, otherwise None.
     """
     if node_metadata is not NOT_GIVEN and node_metadata is not None:
-        node_metadata_dict: dict[str, str] = cast(dict[str, str], node_metadata)
-        node_id = node_metadata_dict.get("node_id", "default_node_id")
-        session_id = node_metadata_dict.get("session_id", "default_session_id")
+        node_id = cast(str, node_metadata.value.get("node_id", "default_node_id"))
+        session_id = cast(str, node_metadata.value.get("session_id", "default_session_id"))
         return RunMetadata(node_id=node_id, session_id=session_id)
     return None
