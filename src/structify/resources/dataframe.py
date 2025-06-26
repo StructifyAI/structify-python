@@ -150,7 +150,7 @@ class DataFrameResource(SyncAPIResource):
         url: str,
         table_name: str,
         schema: TableParam,
-        node_metadata: Optional[dict[str, Any]] | NotGiven = NOT_GIVEN,
+        node_metadata: Optional[Any] | NotGiven = NOT_GIVEN,
     ) -> pd.DataFrame:
         """
         Scrape data from a URL and return as a DataFrame.
@@ -197,7 +197,7 @@ class DataFrameResource(SyncAPIResource):
         document: FileTypes,
         table_name: str,
         schema: TableParam,
-        node_metadata: Optional[dict[str, Any]] | NotGiven = NOT_GIVEN,
+        node_metadata: Optional[Any] | NotGiven = NOT_GIVEN,
     ) -> pd.DataFrame:
         """
         Extract structured data from a PDF document and return as a DataFrame.
@@ -269,7 +269,7 @@ class DataFrameResourceWithStreamingResponse:
         )
 
 
-def get_run_metadata(node_metadata: Optional[dict[str, Any]] | NotGiven) -> Optional[RunMetadata]:
+def get_run_metadata(node_metadata: Optional[Any] | NotGiven) -> Optional[RunMetadata]:
     """
     Helper function to cast node_metadata to run_metadata.
 
@@ -279,9 +279,10 @@ def get_run_metadata(node_metadata: Optional[dict[str, Any]] | NotGiven) -> Opti
     Returns:
       A dictionary with node_id and session_id if node_metadata is provided, otherwise None.
     """
-    if node_metadata is not NOT_GIVEN and node_metadata is not None:
-        node_metadata_dict: dict[str, str] = cast(dict[str, str], node_metadata)
-        node_id = node_metadata_dict.get("node_id", "default_node_id")
-        session_id = node_metadata_dict.get("session_id", "default_session_id")
+    if isinstance(node_metadata.value, dict):  # type: ignore
+        node_id = cast(str | None, node_metadata.value.get("node_id"))  # type: ignore
+        session_id = cast(str | None, node_metadata.value.get("session_id"))  # type: ignore
+        if node_id is None or session_id is None:
+            return None
         return RunMetadata(node_id=node_id, session_id=session_id)
     return None

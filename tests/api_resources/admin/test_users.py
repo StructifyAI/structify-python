@@ -12,7 +12,6 @@ from tests.utils import assert_matches_type
 from structify.types import TokenResponse
 from structify._utils import parse_datetime
 from structify.types.admin import (
-    User,
     UserListResponse,
     UserGetStatsResponse,
     UserGetCreditsResponse,
@@ -59,47 +58,6 @@ class TestUsers:
 
             user = response.parse()
             assert_matches_type(TokenResponse, user, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    def test_method_update(self, client: Structify) -> None:
-        user = client.admin.users.update(
-            current_email="current_email",
-        )
-        assert_matches_type(User, user, path=["response"])
-
-    @parametrize
-    def test_method_update_with_all_params(self, client: Structify) -> None:
-        user = client.admin.users.update(
-            current_email="current_email",
-            new_email="new_email",
-            new_feature_flags=["functional_test"],
-            new_permissions=["labeler"],
-        )
-        assert_matches_type(User, user, path=["response"])
-
-    @parametrize
-    def test_raw_response_update(self, client: Structify) -> None:
-        response = client.admin.users.with_raw_response.update(
-            current_email="current_email",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        user = response.parse()
-        assert_matches_type(User, user, path=["response"])
-
-    @parametrize
-    def test_streaming_response_update(self, client: Structify) -> None:
-        with client.admin.users.with_streaming_response.update(
-            current_email="current_email",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            user = response.parse()
-            assert_matches_type(User, user, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -233,9 +191,7 @@ class TestUsers:
 
 
 class TestAsyncUsers:
-    parametrize = pytest.mark.parametrize(
-        "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
-    )
+    parametrize = pytest.mark.parametrize("async_client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @parametrize
     async def test_method_create(self, async_client: AsyncStructify) -> None:
@@ -271,47 +227,6 @@ class TestAsyncUsers:
 
             user = await response.parse()
             assert_matches_type(TokenResponse, user, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    async def test_method_update(self, async_client: AsyncStructify) -> None:
-        user = await async_client.admin.users.update(
-            current_email="current_email",
-        )
-        assert_matches_type(User, user, path=["response"])
-
-    @parametrize
-    async def test_method_update_with_all_params(self, async_client: AsyncStructify) -> None:
-        user = await async_client.admin.users.update(
-            current_email="current_email",
-            new_email="new_email",
-            new_feature_flags=["functional_test"],
-            new_permissions=["labeler"],
-        )
-        assert_matches_type(User, user, path=["response"])
-
-    @parametrize
-    async def test_raw_response_update(self, async_client: AsyncStructify) -> None:
-        response = await async_client.admin.users.with_raw_response.update(
-            current_email="current_email",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        user = await response.parse()
-        assert_matches_type(User, user, path=["response"])
-
-    @parametrize
-    async def test_streaming_response_update(self, async_client: AsyncStructify) -> None:
-        async with async_client.admin.users.with_streaming_response.update(
-            current_email="current_email",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            user = await response.parse()
-            assert_matches_type(User, user, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

@@ -289,6 +289,7 @@ class StructureResource(SyncAPIResource):
         *,
         dataset: str,
         source: structure_run_async_params.Source,
+        run_metadata: Optional[structure_run_async_params.RunMetadata] | NotGiven = NOT_GIVEN,
         save_requirement: Iterable[SaveRequirementParam] | NotGiven = NOT_GIVEN,
         seeded_entity: KnowledgeGraphParam | NotGiven = NOT_GIVEN,
         special_job_type: Optional[Literal["HumanLLM"]] | NotGiven = NOT_GIVEN,
@@ -327,6 +328,7 @@ class StructureResource(SyncAPIResource):
                 {
                     "dataset": dataset,
                     "source": source,
+                    "run_metadata": run_metadata,
                     "save_requirement": save_requirement,
                     "seeded_entity": seeded_entity,
                     "special_job_type": special_job_type,
@@ -598,6 +600,7 @@ class AsyncStructureResource(AsyncAPIResource):
         *,
         dataset: str,
         source: structure_run_async_params.Source,
+        run_metadata: Optional[structure_run_async_params.RunMetadata] | NotGiven = NOT_GIVEN,
         save_requirement: Iterable[SaveRequirementParam] | NotGiven = NOT_GIVEN,
         seeded_entity: KnowledgeGraphParam | NotGiven = NOT_GIVEN,
         special_job_type: Optional[Literal["HumanLLM"]] | NotGiven = NOT_GIVEN,
@@ -636,6 +639,7 @@ class AsyncStructureResource(AsyncAPIResource):
                 {
                     "dataset": dataset,
                     "source": source,
+                    "run_metadata": run_metadata,
                     "save_requirement": save_requirement,
                     "seeded_entity": seeded_entity,
                     "special_job_type": special_job_type,

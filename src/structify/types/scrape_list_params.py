@@ -7,7 +7,7 @@ from typing_extensions import Required, TypedDict
 
 from .dataset_descriptor_param import DatasetDescriptorParam
 
-__all__ = ["ScrapeListParams", "StopConfig"]
+__all__ = ["ScrapeListParams", "RunMetadata", "StopConfig"]
 
 
 class ScrapeListParams(TypedDict, total=False):
@@ -22,8 +22,16 @@ class ScrapeListParams(TypedDict, total=False):
 
     url: Required[str]
 
+    run_metadata: Optional[RunMetadata]
+
     stop_config: Optional[StopConfig]
     """Configuration parameters for the StopChecker"""
+
+
+class RunMetadata(TypedDict, total=False):
+    node_id: Required[str]
+
+    session_id: Required[str]
 
 
 class StopConfig(TypedDict, total=False):

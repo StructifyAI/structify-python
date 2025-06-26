@@ -9,7 +9,6 @@ from .human_llm_job import HumanLlmJob as HumanLlmJob
 from .labeling_stats import LabelingStats as LabelingStats
 from .user_create_params import UserCreateParams as UserCreateParams
 from .user_list_response import UserListResponse as UserListResponse
-from .user_update_params import UserUpdateParams as UserUpdateParams
 from .user_get_stats_params import UserGetStatsParams as UserGetStatsParams
 from .training_datum_response import TrainingDatumResponse as TrainingDatumResponse
 from .user_get_credits_params import UserGetCreditsParams as UserGetCreditsParams
