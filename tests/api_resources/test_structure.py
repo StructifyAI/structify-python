@@ -271,6 +271,10 @@ class TestStructure:
         structure = client.structure.run_async(
             dataset="dataset",
             source={"pdf": {"path": "path"}},
+            run_metadata={
+                "node_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "session_id": "session_id",
+            },
             save_requirement=[{"relationship_name": "relationship_name"}],
             seeded_entity={
                 "entities": [
@@ -327,9 +331,7 @@ class TestStructure:
 
 
 class TestAsyncStructure:
-    parametrize = pytest.mark.parametrize(
-        "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
-    )
+    parametrize = pytest.mark.parametrize("async_client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @parametrize
     async def test_method_enhance_property(self, async_client: AsyncStructify) -> None:
@@ -583,6 +585,10 @@ class TestAsyncStructure:
         structure = await async_client.structure.run_async(
             dataset="dataset",
             source={"pdf": {"path": "path"}},
+            run_metadata={
+                "node_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "session_id": "session_id",
+            },
             save_requirement=[{"relationship_name": "relationship_name"}],
             seeded_entity={
                 "entities": [

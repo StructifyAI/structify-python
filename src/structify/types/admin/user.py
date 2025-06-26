@@ -29,6 +29,8 @@ class User(BaseModel):
         ]
     ]
 
+    is_developer: bool
+
     permissions: List[Optional[Literal["labeler", "qa_labeler", "debug", "human_llm", "none"]]]
 
     updated_at: datetime
