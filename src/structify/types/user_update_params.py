@@ -3,13 +3,15 @@
 from __future__ import annotations
 
 from typing import List, Optional
-from typing_extensions import Literal, Required, TypedDict
+from typing_extensions import Literal, TypedDict
 
 __all__ = ["UserUpdateParams"]
 
 
 class UserUpdateParams(TypedDict, total=False):
-    current_email: Required[str]
+    current_email: Optional[str]
+
+    is_developer: Optional[bool]
 
     new_email: Optional[str]
 

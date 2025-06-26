@@ -15,12 +15,49 @@ from structify.types import (
     SurveySubmissionResponse,
     UserTransactionsResponse,
 )
+from structify.types.admin import User
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
 
 class TestUser:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
+
+    @parametrize
+    def test_method_update(self, client: Structify) -> None:
+        user = client.user.update()
+        assert_matches_type(User, user, path=["response"])
+
+    @parametrize
+    def test_method_update_with_all_params(self, client: Structify) -> None:
+        user = client.user.update(
+            current_email="current_email",
+            is_developer=True,
+            new_email="new_email",
+            new_feature_flags=["functional_test"],
+            new_permissions=["labeler"],
+        )
+        assert_matches_type(User, user, path=["response"])
+
+    @parametrize
+    def test_raw_response_update(self, client: Structify) -> None:
+        response = client.user.with_raw_response.update()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        user = response.parse()
+        assert_matches_type(User, user, path=["response"])
+
+    @parametrize
+    def test_streaming_response_update(self, client: Structify) -> None:
+        with client.user.with_streaming_response.update() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            user = response.parse()
+            assert_matches_type(User, user, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
 
     @parametrize
     def test_method_info(self, client: Structify) -> None:
@@ -137,9 +174,43 @@ class TestUser:
 
 
 class TestAsyncUser:
-    parametrize = pytest.mark.parametrize(
-        "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
-    )
+    parametrize = pytest.mark.parametrize("async_client", [False, True], indirect=True, ids=["loose", "strict"])
+
+    @parametrize
+    async def test_method_update(self, async_client: AsyncStructify) -> None:
+        user = await async_client.user.update()
+        assert_matches_type(User, user, path=["response"])
+
+    @parametrize
+    async def test_method_update_with_all_params(self, async_client: AsyncStructify) -> None:
+        user = await async_client.user.update(
+            current_email="current_email",
+            is_developer=True,
+            new_email="new_email",
+            new_feature_flags=["functional_test"],
+            new_permissions=["labeler"],
+        )
+        assert_matches_type(User, user, path=["response"])
+
+    @parametrize
+    async def test_raw_response_update(self, async_client: AsyncStructify) -> None:
+        response = await async_client.user.with_raw_response.update()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        user = await response.parse()
+        assert_matches_type(User, user, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_update(self, async_client: AsyncStructify) -> None:
+        async with async_client.user.with_streaming_response.update() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            user = await response.parse()
+            assert_matches_type(User, user, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
 
     @parametrize
     async def test_method_info(self, async_client: AsyncStructify) -> None:

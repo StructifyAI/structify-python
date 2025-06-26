@@ -440,9 +440,7 @@ class TestHumanLlm:
 
 
 class TestAsyncHumanLlm:
-    parametrize = pytest.mark.parametrize(
-        "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
-    )
+    parametrize = pytest.mark.parametrize("async_client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @parametrize
     async def test_method_add_search_for_job(self, async_client: AsyncStructify) -> None:

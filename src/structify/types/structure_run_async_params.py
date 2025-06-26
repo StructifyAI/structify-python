@@ -9,7 +9,16 @@ from .._utils import PropertyInfo
 from .knowledge_graph_param import KnowledgeGraphParam
 from .save_requirement_param import SaveRequirementParam
 
-__all__ = ["StructureRunAsyncParams", "Source", "SourcePdf", "SourcePdfPdf", "SourceWeb", "SourceWebWeb", "StopConfig"]
+__all__ = [
+    "StructureRunAsyncParams",
+    "Source",
+    "SourcePdf",
+    "SourcePdfPdf",
+    "SourceWeb",
+    "SourceWebWeb",
+    "RunMetadata",
+    "StopConfig",
+]
 
 
 class StructureRunAsyncParams(TypedDict, total=False):
@@ -17,6 +26,8 @@ class StructureRunAsyncParams(TypedDict, total=False):
 
     source: Required[Source]
     """These are all the types that can be converted into a BasicInputType"""
+
+    run_metadata: Optional[RunMetadata]
 
     save_requirement: Iterable[SaveRequirementParam]
 
@@ -55,6 +66,12 @@ class SourceWeb(TypedDict, total=False):
 
 
 Source: TypeAlias = Union[SourcePdf, SourceWeb]
+
+
+class RunMetadata(TypedDict, total=False):
+    node_id: Required[str]
+
+    session_id: Required[str]
 
 
 class StopConfig(TypedDict, total=False):

@@ -18,7 +18,6 @@ from .._response import (
     async_to_streamed_response_wrapper,
 )
 from .._base_client import make_request_options
-from ..types.scrape_list_response import ScrapeListResponse
 from ..types.dataset_descriptor_param import DatasetDescriptorParam
 
 __all__ = ["ScrapeResource", "AsyncScrapeResource"]
@@ -50,6 +49,7 @@ class ScrapeResource(SyncAPIResource):
         dataset_descriptor: DatasetDescriptorParam,
         table_name: str,
         url: str,
+        run_metadata: Optional[scrape_list_params.RunMetadata] | NotGiven = NOT_GIVEN,
         stop_config: Optional[scrape_list_params.StopConfig] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -57,7 +57,7 @@ class ScrapeResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ScrapeListResponse:
+    ) -> str:
         """
         Scrape a list from a URL and return a knowledge graph
 
@@ -84,6 +84,7 @@ class ScrapeResource(SyncAPIResource):
                     "dataset_descriptor": dataset_descriptor,
                     "table_name": table_name,
                     "url": url,
+                    "run_metadata": run_metadata,
                     "stop_config": stop_config,
                 },
                 scrape_list_params.ScrapeListParams,
@@ -91,7 +92,7 @@ class ScrapeResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ScrapeListResponse,
+            cast_to=str,
         )
 
 
@@ -121,6 +122,7 @@ class AsyncScrapeResource(AsyncAPIResource):
         dataset_descriptor: DatasetDescriptorParam,
         table_name: str,
         url: str,
+        run_metadata: Optional[scrape_list_params.RunMetadata] | NotGiven = NOT_GIVEN,
         stop_config: Optional[scrape_list_params.StopConfig] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -128,7 +130,7 @@ class AsyncScrapeResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ScrapeListResponse:
+    ) -> str:
         """
         Scrape a list from a URL and return a knowledge graph
 
@@ -155,6 +157,7 @@ class AsyncScrapeResource(AsyncAPIResource):
                     "dataset_descriptor": dataset_descriptor,
                     "table_name": table_name,
                     "url": url,
+                    "run_metadata": run_metadata,
                     "stop_config": stop_config,
                 },
                 scrape_list_params.ScrapeListParams,
@@ -162,7 +165,7 @@ class AsyncScrapeResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ScrapeListResponse,
+            cast_to=str,
         )
 
 
