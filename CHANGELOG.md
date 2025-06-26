@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.125.1 (2025-06-26)
+
+Full Changelog: [v1.125.0...v1.125.1](https://github.com/StructifyAI/structify-python/compare/v1.125.0...v1.125.1)
+
+### Bug Fixes
+
+* add run metadata to `run_async` ([23a10b7](https://github.com/StructifyAI/structify-python/commit/23a10b7c8e426d73a4168e6fe7fb82d647d37f0e))
+
+
+### Chores
+
+* **internal:** codegen related update ([5961791](https://github.com/StructifyAI/structify-python/commit/5961791a91bd799f1fc6cc143de06bff51f8f425))
+* **internal:** version bump ([d660aed](https://github.com/StructifyAI/structify-python/commit/d660aede5ea8d95359b11fa61661a4c54e4cc4bc))
+
 ## 1.125.0 (2025-06-25)
 
 Full Changelog: [v1.124.0...v1.125.0](https://github.com/StructifyAI/structify-python/compare/v1.124.0...v1.125.0)
