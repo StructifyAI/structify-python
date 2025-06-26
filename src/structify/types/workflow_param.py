@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Iterable
+from typing import List, Union, Iterable, Optional
 from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
 from .._utils import PropertyInfo
@@ -16,6 +16,7 @@ __all__ = [
     "StepOperationDeriveProperty",
     "StepOperationScrapePage",
     "StepOperationScrapePageScrapePage",
+    "DefaultStopConditions",
 ]
 
 
@@ -60,6 +61,16 @@ class Step(TypedDict, total=False):
     table_name: Required[str]
 
 
+class DefaultStopConditions(TypedDict, total=False):
+    max_steps_without_save: Required[int]
+
+    max_errors: Optional[int]
+
+    max_execution_time_secs: Optional[int]
+
+    max_total_steps: Optional[int]
+
+
 class WorkflowParam(TypedDict, total=False):
     name: Required[str]
 
@@ -68,3 +79,8 @@ class WorkflowParam(TypedDict, total=False):
     starting_table: Required[str]
 
     steps: Required[Iterable[Step]]
+
+    default_banned_domains: List[str]
+
+    default_stop_conditions: DefaultStopConditions
+    """Configuration parameters for the StopChecker"""

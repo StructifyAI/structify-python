@@ -52,7 +52,76 @@ class TestNextAction:
                     ],
                 },
                 "extraction_criteria": [{"relationship_name": "relationship_name"}],
-                "previous_queries": ["string"],
+                "previous_actions": [
+                    {
+                        "selected_step": {
+                            "llm_input": {
+                                "decoding_params": {"parameters": [{"max_tokens": 0}]},
+                                "messages": [
+                                    {
+                                        "content": [{"text": "Text"}],
+                                        "role": "user",
+                                    }
+                                ],
+                                "metadata": {
+                                    "dataset_descriptor": {
+                                        "description": "description",
+                                        "name": "name",
+                                        "relationships": [
+                                            {
+                                                "description": "description",
+                                                "name": "name",
+                                                "source_table": "source_table",
+                                                "target_table": "target_table",
+                                            }
+                                        ],
+                                        "tables": [
+                                            {
+                                                "description": "description",
+                                                "name": "name",
+                                                "properties": [
+                                                    {
+                                                        "description": "description",
+                                                        "name": "name",
+                                                    }
+                                                ],
+                                            }
+                                        ],
+                                    },
+                                    "extracted_entities": [
+                                        {
+                                            "entities": [
+                                                {
+                                                    "id": 0,
+                                                    "properties": {"foo": "string"},
+                                                    "type": "type",
+                                                }
+                                            ],
+                                            "relationships": [
+                                                {
+                                                    "source": 0,
+                                                    "target": 0,
+                                                    "type": "type",
+                                                }
+                                            ],
+                                        }
+                                    ],
+                                    "extraction_criteria": [{"relationship_name": "relationship_name"}],
+                                    "formatter_specific": {"image_meta": {"image": "image"}},
+                                    "tool_metadata": [
+                                        {
+                                            "description": "description",
+                                            "name": "Exit",
+                                            "regex_validator": "regex_validator",
+                                        }
+                                    ],
+                                },
+                            },
+                            "llm_output": "llm_output",
+                            "step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                        }
+                    }
+                ],
                 "seeded_kg": {
                     "entities": [
                         {
@@ -71,7 +140,74 @@ class TestNextAction:
                 },
             },
             label="label",
-            output={"selected_step": {"step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}},
+            output={
+                "selected_step": {
+                    "llm_input": {
+                        "decoding_params": {"parameters": [{"max_tokens": 0}]},
+                        "messages": [
+                            {
+                                "content": [{"text": "Text"}],
+                                "role": "user",
+                            }
+                        ],
+                        "metadata": {
+                            "dataset_descriptor": {
+                                "description": "description",
+                                "name": "name",
+                                "relationships": [
+                                    {
+                                        "description": "description",
+                                        "name": "name",
+                                        "source_table": "source_table",
+                                        "target_table": "target_table",
+                                    }
+                                ],
+                                "tables": [
+                                    {
+                                        "description": "description",
+                                        "name": "name",
+                                        "properties": [
+                                            {
+                                                "description": "description",
+                                                "name": "name",
+                                            }
+                                        ],
+                                    }
+                                ],
+                            },
+                            "extracted_entities": [
+                                {
+                                    "entities": [
+                                        {
+                                            "id": 0,
+                                            "properties": {"foo": "string"},
+                                            "type": "type",
+                                        }
+                                    ],
+                                    "relationships": [
+                                        {
+                                            "source": 0,
+                                            "target": 0,
+                                            "type": "type",
+                                        }
+                                    ],
+                                }
+                            ],
+                            "extraction_criteria": [{"relationship_name": "relationship_name"}],
+                            "formatter_specific": {"image_meta": {"image": "image"}},
+                            "tool_metadata": [
+                                {
+                                    "description": "description",
+                                    "name": "Exit",
+                                    "regex_validator": "regex_validator",
+                                }
+                            ],
+                        },
+                    },
+                    "llm_output": "llm_output",
+                    "step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                }
+            },
         )
         assert next_action is None
 
@@ -128,7 +264,102 @@ class TestNextAction:
                     "llm_override_field": "llm_override_field",
                 },
                 "extraction_criteria": [{"relationship_name": "relationship_name"}],
-                "previous_queries": ["string"],
+                "previous_actions": [
+                    {
+                        "selected_step": {
+                            "llm_input": {
+                                "decoding_params": {"parameters": [{"max_tokens": 0}]},
+                                "messages": [
+                                    {
+                                        "content": [{"text": "Text"}],
+                                        "role": "user",
+                                    }
+                                ],
+                                "metadata": {
+                                    "dataset_descriptor": {
+                                        "description": "description",
+                                        "name": "name",
+                                        "relationships": [
+                                            {
+                                                "description": "description",
+                                                "name": "name",
+                                                "source_table": "source_table",
+                                                "target_table": "target_table",
+                                                "merge_strategy": {
+                                                    "source_cardinality_given_target_match": 0,
+                                                    "target_cardinality_given_source_match": 0,
+                                                },
+                                                "properties": [
+                                                    {
+                                                        "description": "description",
+                                                        "name": "name",
+                                                        "merge_strategy": "Unique",
+                                                        "prop_type": "String",
+                                                    }
+                                                ],
+                                            }
+                                        ],
+                                        "tables": [
+                                            {
+                                                "description": "description",
+                                                "name": "name",
+                                                "properties": [
+                                                    {
+                                                        "description": "description",
+                                                        "name": "name",
+                                                        "merge_strategy": "Unique",
+                                                        "prop_type": "String",
+                                                    }
+                                                ],
+                                                "expected_cardinality": 0,
+                                                "primary_column": "primary_column",
+                                            }
+                                        ],
+                                        "llm_override_field": "llm_override_field",
+                                    },
+                                    "extracted_entities": [
+                                        {
+                                            "entities": [
+                                                {
+                                                    "id": 0,
+                                                    "properties": {"foo": "string"},
+                                                    "type": "type",
+                                                }
+                                            ],
+                                            "relationships": [
+                                                {
+                                                    "source": 0,
+                                                    "target": 0,
+                                                    "type": "type",
+                                                    "properties": {"foo": "string"},
+                                                }
+                                            ],
+                                        }
+                                    ],
+                                    "extraction_criteria": [{"relationship_name": "relationship_name"}],
+                                    "formatter_specific": {
+                                        "image_meta": {
+                                            "image": "image",
+                                            "document_name": "document_name",
+                                            "document_page": 0,
+                                            "ocr_content": "ocr_content",
+                                        }
+                                    },
+                                    "tool_metadata": [
+                                        {
+                                            "description": "description",
+                                            "name": "Exit",
+                                            "regex_validator": "regex_validator",
+                                        }
+                                    ],
+                                    "qa_potentially_sus_response": "qa_potentially_sus_response",
+                                },
+                            },
+                            "llm_output": "llm_output",
+                            "step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                        }
+                    }
+                ],
                 "seeded_kg": {
                     "entities": [
                         {
@@ -148,7 +379,100 @@ class TestNextAction:
                 },
             },
             label="label",
-            output={"selected_step": {"step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}},
+            output={
+                "selected_step": {
+                    "llm_input": {
+                        "decoding_params": {"parameters": [{"max_tokens": 0}]},
+                        "messages": [
+                            {
+                                "content": [{"text": "Text"}],
+                                "role": "user",
+                            }
+                        ],
+                        "metadata": {
+                            "dataset_descriptor": {
+                                "description": "description",
+                                "name": "name",
+                                "relationships": [
+                                    {
+                                        "description": "description",
+                                        "name": "name",
+                                        "source_table": "source_table",
+                                        "target_table": "target_table",
+                                        "merge_strategy": {
+                                            "source_cardinality_given_target_match": 0,
+                                            "target_cardinality_given_source_match": 0,
+                                        },
+                                        "properties": [
+                                            {
+                                                "description": "description",
+                                                "name": "name",
+                                                "merge_strategy": "Unique",
+                                                "prop_type": "String",
+                                            }
+                                        ],
+                                    }
+                                ],
+                                "tables": [
+                                    {
+                                        "description": "description",
+                                        "name": "name",
+                                        "properties": [
+                                            {
+                                                "description": "description",
+                                                "name": "name",
+                                                "merge_strategy": "Unique",
+                                                "prop_type": "String",
+                                            }
+                                        ],
+                                        "expected_cardinality": 0,
+                                        "primary_column": "primary_column",
+                                    }
+                                ],
+                                "llm_override_field": "llm_override_field",
+                            },
+                            "extracted_entities": [
+                                {
+                                    "entities": [
+                                        {
+                                            "id": 0,
+                                            "properties": {"foo": "string"},
+                                            "type": "type",
+                                        }
+                                    ],
+                                    "relationships": [
+                                        {
+                                            "source": 0,
+                                            "target": 0,
+                                            "type": "type",
+                                            "properties": {"foo": "string"},
+                                        }
+                                    ],
+                                }
+                            ],
+                            "extraction_criteria": [{"relationship_name": "relationship_name"}],
+                            "formatter_specific": {
+                                "image_meta": {
+                                    "image": "image",
+                                    "document_name": "document_name",
+                                    "document_page": 0,
+                                    "ocr_content": "ocr_content",
+                                }
+                            },
+                            "tool_metadata": [
+                                {
+                                    "description": "description",
+                                    "name": "Exit",
+                                    "regex_validator": "regex_validator",
+                                }
+                            ],
+                            "qa_potentially_sus_response": "qa_potentially_sus_response",
+                        },
+                    },
+                    "llm_output": "llm_output",
+                    "step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                }
+            },
             job_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert next_action is None
@@ -183,7 +507,76 @@ class TestNextAction:
                     ],
                 },
                 "extraction_criteria": [{"relationship_name": "relationship_name"}],
-                "previous_queries": ["string"],
+                "previous_actions": [
+                    {
+                        "selected_step": {
+                            "llm_input": {
+                                "decoding_params": {"parameters": [{"max_tokens": 0}]},
+                                "messages": [
+                                    {
+                                        "content": [{"text": "Text"}],
+                                        "role": "user",
+                                    }
+                                ],
+                                "metadata": {
+                                    "dataset_descriptor": {
+                                        "description": "description",
+                                        "name": "name",
+                                        "relationships": [
+                                            {
+                                                "description": "description",
+                                                "name": "name",
+                                                "source_table": "source_table",
+                                                "target_table": "target_table",
+                                            }
+                                        ],
+                                        "tables": [
+                                            {
+                                                "description": "description",
+                                                "name": "name",
+                                                "properties": [
+                                                    {
+                                                        "description": "description",
+                                                        "name": "name",
+                                                    }
+                                                ],
+                                            }
+                                        ],
+                                    },
+                                    "extracted_entities": [
+                                        {
+                                            "entities": [
+                                                {
+                                                    "id": 0,
+                                                    "properties": {"foo": "string"},
+                                                    "type": "type",
+                                                }
+                                            ],
+                                            "relationships": [
+                                                {
+                                                    "source": 0,
+                                                    "target": 0,
+                                                    "type": "type",
+                                                }
+                                            ],
+                                        }
+                                    ],
+                                    "extraction_criteria": [{"relationship_name": "relationship_name"}],
+                                    "formatter_specific": {"image_meta": {"image": "image"}},
+                                    "tool_metadata": [
+                                        {
+                                            "description": "description",
+                                            "name": "Exit",
+                                            "regex_validator": "regex_validator",
+                                        }
+                                    ],
+                                },
+                            },
+                            "llm_output": "llm_output",
+                            "step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                        }
+                    }
+                ],
                 "seeded_kg": {
                     "entities": [
                         {
@@ -202,7 +595,74 @@ class TestNextAction:
                 },
             },
             label="label",
-            output={"selected_step": {"step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}},
+            output={
+                "selected_step": {
+                    "llm_input": {
+                        "decoding_params": {"parameters": [{"max_tokens": 0}]},
+                        "messages": [
+                            {
+                                "content": [{"text": "Text"}],
+                                "role": "user",
+                            }
+                        ],
+                        "metadata": {
+                            "dataset_descriptor": {
+                                "description": "description",
+                                "name": "name",
+                                "relationships": [
+                                    {
+                                        "description": "description",
+                                        "name": "name",
+                                        "source_table": "source_table",
+                                        "target_table": "target_table",
+                                    }
+                                ],
+                                "tables": [
+                                    {
+                                        "description": "description",
+                                        "name": "name",
+                                        "properties": [
+                                            {
+                                                "description": "description",
+                                                "name": "name",
+                                            }
+                                        ],
+                                    }
+                                ],
+                            },
+                            "extracted_entities": [
+                                {
+                                    "entities": [
+                                        {
+                                            "id": 0,
+                                            "properties": {"foo": "string"},
+                                            "type": "type",
+                                        }
+                                    ],
+                                    "relationships": [
+                                        {
+                                            "source": 0,
+                                            "target": 0,
+                                            "type": "type",
+                                        }
+                                    ],
+                                }
+                            ],
+                            "extraction_criteria": [{"relationship_name": "relationship_name"}],
+                            "formatter_specific": {"image_meta": {"image": "image"}},
+                            "tool_metadata": [
+                                {
+                                    "description": "description",
+                                    "name": "Exit",
+                                    "regex_validator": "regex_validator",
+                                }
+                            ],
+                        },
+                    },
+                    "llm_output": "llm_output",
+                    "step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                }
+            },
         )
 
         assert response.is_closed is True
@@ -240,7 +700,76 @@ class TestNextAction:
                     ],
                 },
                 "extraction_criteria": [{"relationship_name": "relationship_name"}],
-                "previous_queries": ["string"],
+                "previous_actions": [
+                    {
+                        "selected_step": {
+                            "llm_input": {
+                                "decoding_params": {"parameters": [{"max_tokens": 0}]},
+                                "messages": [
+                                    {
+                                        "content": [{"text": "Text"}],
+                                        "role": "user",
+                                    }
+                                ],
+                                "metadata": {
+                                    "dataset_descriptor": {
+                                        "description": "description",
+                                        "name": "name",
+                                        "relationships": [
+                                            {
+                                                "description": "description",
+                                                "name": "name",
+                                                "source_table": "source_table",
+                                                "target_table": "target_table",
+                                            }
+                                        ],
+                                        "tables": [
+                                            {
+                                                "description": "description",
+                                                "name": "name",
+                                                "properties": [
+                                                    {
+                                                        "description": "description",
+                                                        "name": "name",
+                                                    }
+                                                ],
+                                            }
+                                        ],
+                                    },
+                                    "extracted_entities": [
+                                        {
+                                            "entities": [
+                                                {
+                                                    "id": 0,
+                                                    "properties": {"foo": "string"},
+                                                    "type": "type",
+                                                }
+                                            ],
+                                            "relationships": [
+                                                {
+                                                    "source": 0,
+                                                    "target": 0,
+                                                    "type": "type",
+                                                }
+                                            ],
+                                        }
+                                    ],
+                                    "extraction_criteria": [{"relationship_name": "relationship_name"}],
+                                    "formatter_specific": {"image_meta": {"image": "image"}},
+                                    "tool_metadata": [
+                                        {
+                                            "description": "description",
+                                            "name": "Exit",
+                                            "regex_validator": "regex_validator",
+                                        }
+                                    ],
+                                },
+                            },
+                            "llm_output": "llm_output",
+                            "step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                        }
+                    }
+                ],
                 "seeded_kg": {
                     "entities": [
                         {
@@ -259,7 +788,74 @@ class TestNextAction:
                 },
             },
             label="label",
-            output={"selected_step": {"step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}},
+            output={
+                "selected_step": {
+                    "llm_input": {
+                        "decoding_params": {"parameters": [{"max_tokens": 0}]},
+                        "messages": [
+                            {
+                                "content": [{"text": "Text"}],
+                                "role": "user",
+                            }
+                        ],
+                        "metadata": {
+                            "dataset_descriptor": {
+                                "description": "description",
+                                "name": "name",
+                                "relationships": [
+                                    {
+                                        "description": "description",
+                                        "name": "name",
+                                        "source_table": "source_table",
+                                        "target_table": "target_table",
+                                    }
+                                ],
+                                "tables": [
+                                    {
+                                        "description": "description",
+                                        "name": "name",
+                                        "properties": [
+                                            {
+                                                "description": "description",
+                                                "name": "name",
+                                            }
+                                        ],
+                                    }
+                                ],
+                            },
+                            "extracted_entities": [
+                                {
+                                    "entities": [
+                                        {
+                                            "id": 0,
+                                            "properties": {"foo": "string"},
+                                            "type": "type",
+                                        }
+                                    ],
+                                    "relationships": [
+                                        {
+                                            "source": 0,
+                                            "target": 0,
+                                            "type": "type",
+                                        }
+                                    ],
+                                }
+                            ],
+                            "extraction_criteria": [{"relationship_name": "relationship_name"}],
+                            "formatter_specific": {"image_meta": {"image": "image"}},
+                            "tool_metadata": [
+                                {
+                                    "description": "description",
+                                    "name": "Exit",
+                                    "regex_validator": "regex_validator",
+                                }
+                            ],
+                        },
+                    },
+                    "llm_output": "llm_output",
+                    "step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                }
+            },
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -373,7 +969,74 @@ class TestNextAction:
         next_action = client.admin.next_action.label_training_datum(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             label="label",
-            output={"selected_step": {"step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}},
+            output={
+                "selected_step": {
+                    "llm_input": {
+                        "decoding_params": {"parameters": [{"max_tokens": 0}]},
+                        "messages": [
+                            {
+                                "content": [{"text": "Text"}],
+                                "role": "user",
+                            }
+                        ],
+                        "metadata": {
+                            "dataset_descriptor": {
+                                "description": "description",
+                                "name": "name",
+                                "relationships": [
+                                    {
+                                        "description": "description",
+                                        "name": "name",
+                                        "source_table": "source_table",
+                                        "target_table": "target_table",
+                                    }
+                                ],
+                                "tables": [
+                                    {
+                                        "description": "description",
+                                        "name": "name",
+                                        "properties": [
+                                            {
+                                                "description": "description",
+                                                "name": "name",
+                                            }
+                                        ],
+                                    }
+                                ],
+                            },
+                            "extracted_entities": [
+                                {
+                                    "entities": [
+                                        {
+                                            "id": 0,
+                                            "properties": {"foo": "string"},
+                                            "type": "type",
+                                        }
+                                    ],
+                                    "relationships": [
+                                        {
+                                            "source": 0,
+                                            "target": 0,
+                                            "type": "type",
+                                        }
+                                    ],
+                                }
+                            ],
+                            "extraction_criteria": [{"relationship_name": "relationship_name"}],
+                            "formatter_specific": {"image_meta": {"image": "image"}},
+                            "tool_metadata": [
+                                {
+                                    "description": "description",
+                                    "name": "Exit",
+                                    "regex_validator": "regex_validator",
+                                }
+                            ],
+                        },
+                    },
+                    "llm_output": "llm_output",
+                    "step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                }
+            },
         )
         assert next_action is None
 
@@ -382,7 +1045,74 @@ class TestNextAction:
         response = client.admin.next_action.with_raw_response.label_training_datum(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             label="label",
-            output={"selected_step": {"step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}},
+            output={
+                "selected_step": {
+                    "llm_input": {
+                        "decoding_params": {"parameters": [{"max_tokens": 0}]},
+                        "messages": [
+                            {
+                                "content": [{"text": "Text"}],
+                                "role": "user",
+                            }
+                        ],
+                        "metadata": {
+                            "dataset_descriptor": {
+                                "description": "description",
+                                "name": "name",
+                                "relationships": [
+                                    {
+                                        "description": "description",
+                                        "name": "name",
+                                        "source_table": "source_table",
+                                        "target_table": "target_table",
+                                    }
+                                ],
+                                "tables": [
+                                    {
+                                        "description": "description",
+                                        "name": "name",
+                                        "properties": [
+                                            {
+                                                "description": "description",
+                                                "name": "name",
+                                            }
+                                        ],
+                                    }
+                                ],
+                            },
+                            "extracted_entities": [
+                                {
+                                    "entities": [
+                                        {
+                                            "id": 0,
+                                            "properties": {"foo": "string"},
+                                            "type": "type",
+                                        }
+                                    ],
+                                    "relationships": [
+                                        {
+                                            "source": 0,
+                                            "target": 0,
+                                            "type": "type",
+                                        }
+                                    ],
+                                }
+                            ],
+                            "extraction_criteria": [{"relationship_name": "relationship_name"}],
+                            "formatter_specific": {"image_meta": {"image": "image"}},
+                            "tool_metadata": [
+                                {
+                                    "description": "description",
+                                    "name": "Exit",
+                                    "regex_validator": "regex_validator",
+                                }
+                            ],
+                        },
+                    },
+                    "llm_output": "llm_output",
+                    "step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                }
+            },
         )
 
         assert response.is_closed is True
@@ -395,7 +1125,74 @@ class TestNextAction:
         with client.admin.next_action.with_streaming_response.label_training_datum(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             label="label",
-            output={"selected_step": {"step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}},
+            output={
+                "selected_step": {
+                    "llm_input": {
+                        "decoding_params": {"parameters": [{"max_tokens": 0}]},
+                        "messages": [
+                            {
+                                "content": [{"text": "Text"}],
+                                "role": "user",
+                            }
+                        ],
+                        "metadata": {
+                            "dataset_descriptor": {
+                                "description": "description",
+                                "name": "name",
+                                "relationships": [
+                                    {
+                                        "description": "description",
+                                        "name": "name",
+                                        "source_table": "source_table",
+                                        "target_table": "target_table",
+                                    }
+                                ],
+                                "tables": [
+                                    {
+                                        "description": "description",
+                                        "name": "name",
+                                        "properties": [
+                                            {
+                                                "description": "description",
+                                                "name": "name",
+                                            }
+                                        ],
+                                    }
+                                ],
+                            },
+                            "extracted_entities": [
+                                {
+                                    "entities": [
+                                        {
+                                            "id": 0,
+                                            "properties": {"foo": "string"},
+                                            "type": "type",
+                                        }
+                                    ],
+                                    "relationships": [
+                                        {
+                                            "source": 0,
+                                            "target": 0,
+                                            "type": "type",
+                                        }
+                                    ],
+                                }
+                            ],
+                            "extraction_criteria": [{"relationship_name": "relationship_name"}],
+                            "formatter_specific": {"image_meta": {"image": "image"}},
+                            "tool_metadata": [
+                                {
+                                    "description": "description",
+                                    "name": "Exit",
+                                    "regex_validator": "regex_validator",
+                                }
+                            ],
+                        },
+                    },
+                    "llm_output": "llm_output",
+                    "step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                }
+            },
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -439,7 +1236,76 @@ class TestAsyncNextAction:
                     ],
                 },
                 "extraction_criteria": [{"relationship_name": "relationship_name"}],
-                "previous_queries": ["string"],
+                "previous_actions": [
+                    {
+                        "selected_step": {
+                            "llm_input": {
+                                "decoding_params": {"parameters": [{"max_tokens": 0}]},
+                                "messages": [
+                                    {
+                                        "content": [{"text": "Text"}],
+                                        "role": "user",
+                                    }
+                                ],
+                                "metadata": {
+                                    "dataset_descriptor": {
+                                        "description": "description",
+                                        "name": "name",
+                                        "relationships": [
+                                            {
+                                                "description": "description",
+                                                "name": "name",
+                                                "source_table": "source_table",
+                                                "target_table": "target_table",
+                                            }
+                                        ],
+                                        "tables": [
+                                            {
+                                                "description": "description",
+                                                "name": "name",
+                                                "properties": [
+                                                    {
+                                                        "description": "description",
+                                                        "name": "name",
+                                                    }
+                                                ],
+                                            }
+                                        ],
+                                    },
+                                    "extracted_entities": [
+                                        {
+                                            "entities": [
+                                                {
+                                                    "id": 0,
+                                                    "properties": {"foo": "string"},
+                                                    "type": "type",
+                                                }
+                                            ],
+                                            "relationships": [
+                                                {
+                                                    "source": 0,
+                                                    "target": 0,
+                                                    "type": "type",
+                                                }
+                                            ],
+                                        }
+                                    ],
+                                    "extraction_criteria": [{"relationship_name": "relationship_name"}],
+                                    "formatter_specific": {"image_meta": {"image": "image"}},
+                                    "tool_metadata": [
+                                        {
+                                            "description": "description",
+                                            "name": "Exit",
+                                            "regex_validator": "regex_validator",
+                                        }
+                                    ],
+                                },
+                            },
+                            "llm_output": "llm_output",
+                            "step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                        }
+                    }
+                ],
                 "seeded_kg": {
                     "entities": [
                         {
@@ -458,7 +1324,74 @@ class TestAsyncNextAction:
                 },
             },
             label="label",
-            output={"selected_step": {"step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}},
+            output={
+                "selected_step": {
+                    "llm_input": {
+                        "decoding_params": {"parameters": [{"max_tokens": 0}]},
+                        "messages": [
+                            {
+                                "content": [{"text": "Text"}],
+                                "role": "user",
+                            }
+                        ],
+                        "metadata": {
+                            "dataset_descriptor": {
+                                "description": "description",
+                                "name": "name",
+                                "relationships": [
+                                    {
+                                        "description": "description",
+                                        "name": "name",
+                                        "source_table": "source_table",
+                                        "target_table": "target_table",
+                                    }
+                                ],
+                                "tables": [
+                                    {
+                                        "description": "description",
+                                        "name": "name",
+                                        "properties": [
+                                            {
+                                                "description": "description",
+                                                "name": "name",
+                                            }
+                                        ],
+                                    }
+                                ],
+                            },
+                            "extracted_entities": [
+                                {
+                                    "entities": [
+                                        {
+                                            "id": 0,
+                                            "properties": {"foo": "string"},
+                                            "type": "type",
+                                        }
+                                    ],
+                                    "relationships": [
+                                        {
+                                            "source": 0,
+                                            "target": 0,
+                                            "type": "type",
+                                        }
+                                    ],
+                                }
+                            ],
+                            "extraction_criteria": [{"relationship_name": "relationship_name"}],
+                            "formatter_specific": {"image_meta": {"image": "image"}},
+                            "tool_metadata": [
+                                {
+                                    "description": "description",
+                                    "name": "Exit",
+                                    "regex_validator": "regex_validator",
+                                }
+                            ],
+                        },
+                    },
+                    "llm_output": "llm_output",
+                    "step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                }
+            },
         )
         assert next_action is None
 
@@ -515,7 +1448,102 @@ class TestAsyncNextAction:
                     "llm_override_field": "llm_override_field",
                 },
                 "extraction_criteria": [{"relationship_name": "relationship_name"}],
-                "previous_queries": ["string"],
+                "previous_actions": [
+                    {
+                        "selected_step": {
+                            "llm_input": {
+                                "decoding_params": {"parameters": [{"max_tokens": 0}]},
+                                "messages": [
+                                    {
+                                        "content": [{"text": "Text"}],
+                                        "role": "user",
+                                    }
+                                ],
+                                "metadata": {
+                                    "dataset_descriptor": {
+                                        "description": "description",
+                                        "name": "name",
+                                        "relationships": [
+                                            {
+                                                "description": "description",
+                                                "name": "name",
+                                                "source_table": "source_table",
+                                                "target_table": "target_table",
+                                                "merge_strategy": {
+                                                    "source_cardinality_given_target_match": 0,
+                                                    "target_cardinality_given_source_match": 0,
+                                                },
+                                                "properties": [
+                                                    {
+                                                        "description": "description",
+                                                        "name": "name",
+                                                        "merge_strategy": "Unique",
+                                                        "prop_type": "String",
+                                                    }
+                                                ],
+                                            }
+                                        ],
+                                        "tables": [
+                                            {
+                                                "description": "description",
+                                                "name": "name",
+                                                "properties": [
+                                                    {
+                                                        "description": "description",
+                                                        "name": "name",
+                                                        "merge_strategy": "Unique",
+                                                        "prop_type": "String",
+                                                    }
+                                                ],
+                                                "expected_cardinality": 0,
+                                                "primary_column": "primary_column",
+                                            }
+                                        ],
+                                        "llm_override_field": "llm_override_field",
+                                    },
+                                    "extracted_entities": [
+                                        {
+                                            "entities": [
+                                                {
+                                                    "id": 0,
+                                                    "properties": {"foo": "string"},
+                                                    "type": "type",
+                                                }
+                                            ],
+                                            "relationships": [
+                                                {
+                                                    "source": 0,
+                                                    "target": 0,
+                                                    "type": "type",
+                                                    "properties": {"foo": "string"},
+                                                }
+                                            ],
+                                        }
+                                    ],
+                                    "extraction_criteria": [{"relationship_name": "relationship_name"}],
+                                    "formatter_specific": {
+                                        "image_meta": {
+                                            "image": "image",
+                                            "document_name": "document_name",
+                                            "document_page": 0,
+                                            "ocr_content": "ocr_content",
+                                        }
+                                    },
+                                    "tool_metadata": [
+                                        {
+                                            "description": "description",
+                                            "name": "Exit",
+                                            "regex_validator": "regex_validator",
+                                        }
+                                    ],
+                                    "qa_potentially_sus_response": "qa_potentially_sus_response",
+                                },
+                            },
+                            "llm_output": "llm_output",
+                            "step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                        }
+                    }
+                ],
                 "seeded_kg": {
                     "entities": [
                         {
@@ -535,7 +1563,100 @@ class TestAsyncNextAction:
                 },
             },
             label="label",
-            output={"selected_step": {"step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}},
+            output={
+                "selected_step": {
+                    "llm_input": {
+                        "decoding_params": {"parameters": [{"max_tokens": 0}]},
+                        "messages": [
+                            {
+                                "content": [{"text": "Text"}],
+                                "role": "user",
+                            }
+                        ],
+                        "metadata": {
+                            "dataset_descriptor": {
+                                "description": "description",
+                                "name": "name",
+                                "relationships": [
+                                    {
+                                        "description": "description",
+                                        "name": "name",
+                                        "source_table": "source_table",
+                                        "target_table": "target_table",
+                                        "merge_strategy": {
+                                            "source_cardinality_given_target_match": 0,
+                                            "target_cardinality_given_source_match": 0,
+                                        },
+                                        "properties": [
+                                            {
+                                                "description": "description",
+                                                "name": "name",
+                                                "merge_strategy": "Unique",
+                                                "prop_type": "String",
+                                            }
+                                        ],
+                                    }
+                                ],
+                                "tables": [
+                                    {
+                                        "description": "description",
+                                        "name": "name",
+                                        "properties": [
+                                            {
+                                                "description": "description",
+                                                "name": "name",
+                                                "merge_strategy": "Unique",
+                                                "prop_type": "String",
+                                            }
+                                        ],
+                                        "expected_cardinality": 0,
+                                        "primary_column": "primary_column",
+                                    }
+                                ],
+                                "llm_override_field": "llm_override_field",
+                            },
+                            "extracted_entities": [
+                                {
+                                    "entities": [
+                                        {
+                                            "id": 0,
+                                            "properties": {"foo": "string"},
+                                            "type": "type",
+                                        }
+                                    ],
+                                    "relationships": [
+                                        {
+                                            "source": 0,
+                                            "target": 0,
+                                            "type": "type",
+                                            "properties": {"foo": "string"},
+                                        }
+                                    ],
+                                }
+                            ],
+                            "extraction_criteria": [{"relationship_name": "relationship_name"}],
+                            "formatter_specific": {
+                                "image_meta": {
+                                    "image": "image",
+                                    "document_name": "document_name",
+                                    "document_page": 0,
+                                    "ocr_content": "ocr_content",
+                                }
+                            },
+                            "tool_metadata": [
+                                {
+                                    "description": "description",
+                                    "name": "Exit",
+                                    "regex_validator": "regex_validator",
+                                }
+                            ],
+                            "qa_potentially_sus_response": "qa_potentially_sus_response",
+                        },
+                    },
+                    "llm_output": "llm_output",
+                    "step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                }
+            },
             job_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert next_action is None
@@ -570,7 +1691,76 @@ class TestAsyncNextAction:
                     ],
                 },
                 "extraction_criteria": [{"relationship_name": "relationship_name"}],
-                "previous_queries": ["string"],
+                "previous_actions": [
+                    {
+                        "selected_step": {
+                            "llm_input": {
+                                "decoding_params": {"parameters": [{"max_tokens": 0}]},
+                                "messages": [
+                                    {
+                                        "content": [{"text": "Text"}],
+                                        "role": "user",
+                                    }
+                                ],
+                                "metadata": {
+                                    "dataset_descriptor": {
+                                        "description": "description",
+                                        "name": "name",
+                                        "relationships": [
+                                            {
+                                                "description": "description",
+                                                "name": "name",
+                                                "source_table": "source_table",
+                                                "target_table": "target_table",
+                                            }
+                                        ],
+                                        "tables": [
+                                            {
+                                                "description": "description",
+                                                "name": "name",
+                                                "properties": [
+                                                    {
+                                                        "description": "description",
+                                                        "name": "name",
+                                                    }
+                                                ],
+                                            }
+                                        ],
+                                    },
+                                    "extracted_entities": [
+                                        {
+                                            "entities": [
+                                                {
+                                                    "id": 0,
+                                                    "properties": {"foo": "string"},
+                                                    "type": "type",
+                                                }
+                                            ],
+                                            "relationships": [
+                                                {
+                                                    "source": 0,
+                                                    "target": 0,
+                                                    "type": "type",
+                                                }
+                                            ],
+                                        }
+                                    ],
+                                    "extraction_criteria": [{"relationship_name": "relationship_name"}],
+                                    "formatter_specific": {"image_meta": {"image": "image"}},
+                                    "tool_metadata": [
+                                        {
+                                            "description": "description",
+                                            "name": "Exit",
+                                            "regex_validator": "regex_validator",
+                                        }
+                                    ],
+                                },
+                            },
+                            "llm_output": "llm_output",
+                            "step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                        }
+                    }
+                ],
                 "seeded_kg": {
                     "entities": [
                         {
@@ -589,7 +1779,74 @@ class TestAsyncNextAction:
                 },
             },
             label="label",
-            output={"selected_step": {"step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}},
+            output={
+                "selected_step": {
+                    "llm_input": {
+                        "decoding_params": {"parameters": [{"max_tokens": 0}]},
+                        "messages": [
+                            {
+                                "content": [{"text": "Text"}],
+                                "role": "user",
+                            }
+                        ],
+                        "metadata": {
+                            "dataset_descriptor": {
+                                "description": "description",
+                                "name": "name",
+                                "relationships": [
+                                    {
+                                        "description": "description",
+                                        "name": "name",
+                                        "source_table": "source_table",
+                                        "target_table": "target_table",
+                                    }
+                                ],
+                                "tables": [
+                                    {
+                                        "description": "description",
+                                        "name": "name",
+                                        "properties": [
+                                            {
+                                                "description": "description",
+                                                "name": "name",
+                                            }
+                                        ],
+                                    }
+                                ],
+                            },
+                            "extracted_entities": [
+                                {
+                                    "entities": [
+                                        {
+                                            "id": 0,
+                                            "properties": {"foo": "string"},
+                                            "type": "type",
+                                        }
+                                    ],
+                                    "relationships": [
+                                        {
+                                            "source": 0,
+                                            "target": 0,
+                                            "type": "type",
+                                        }
+                                    ],
+                                }
+                            ],
+                            "extraction_criteria": [{"relationship_name": "relationship_name"}],
+                            "formatter_specific": {"image_meta": {"image": "image"}},
+                            "tool_metadata": [
+                                {
+                                    "description": "description",
+                                    "name": "Exit",
+                                    "regex_validator": "regex_validator",
+                                }
+                            ],
+                        },
+                    },
+                    "llm_output": "llm_output",
+                    "step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                }
+            },
         )
 
         assert response.is_closed is True
@@ -627,7 +1884,76 @@ class TestAsyncNextAction:
                     ],
                 },
                 "extraction_criteria": [{"relationship_name": "relationship_name"}],
-                "previous_queries": ["string"],
+                "previous_actions": [
+                    {
+                        "selected_step": {
+                            "llm_input": {
+                                "decoding_params": {"parameters": [{"max_tokens": 0}]},
+                                "messages": [
+                                    {
+                                        "content": [{"text": "Text"}],
+                                        "role": "user",
+                                    }
+                                ],
+                                "metadata": {
+                                    "dataset_descriptor": {
+                                        "description": "description",
+                                        "name": "name",
+                                        "relationships": [
+                                            {
+                                                "description": "description",
+                                                "name": "name",
+                                                "source_table": "source_table",
+                                                "target_table": "target_table",
+                                            }
+                                        ],
+                                        "tables": [
+                                            {
+                                                "description": "description",
+                                                "name": "name",
+                                                "properties": [
+                                                    {
+                                                        "description": "description",
+                                                        "name": "name",
+                                                    }
+                                                ],
+                                            }
+                                        ],
+                                    },
+                                    "extracted_entities": [
+                                        {
+                                            "entities": [
+                                                {
+                                                    "id": 0,
+                                                    "properties": {"foo": "string"},
+                                                    "type": "type",
+                                                }
+                                            ],
+                                            "relationships": [
+                                                {
+                                                    "source": 0,
+                                                    "target": 0,
+                                                    "type": "type",
+                                                }
+                                            ],
+                                        }
+                                    ],
+                                    "extraction_criteria": [{"relationship_name": "relationship_name"}],
+                                    "formatter_specific": {"image_meta": {"image": "image"}},
+                                    "tool_metadata": [
+                                        {
+                                            "description": "description",
+                                            "name": "Exit",
+                                            "regex_validator": "regex_validator",
+                                        }
+                                    ],
+                                },
+                            },
+                            "llm_output": "llm_output",
+                            "step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                        }
+                    }
+                ],
                 "seeded_kg": {
                     "entities": [
                         {
@@ -646,7 +1972,74 @@ class TestAsyncNextAction:
                 },
             },
             label="label",
-            output={"selected_step": {"step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}},
+            output={
+                "selected_step": {
+                    "llm_input": {
+                        "decoding_params": {"parameters": [{"max_tokens": 0}]},
+                        "messages": [
+                            {
+                                "content": [{"text": "Text"}],
+                                "role": "user",
+                            }
+                        ],
+                        "metadata": {
+                            "dataset_descriptor": {
+                                "description": "description",
+                                "name": "name",
+                                "relationships": [
+                                    {
+                                        "description": "description",
+                                        "name": "name",
+                                        "source_table": "source_table",
+                                        "target_table": "target_table",
+                                    }
+                                ],
+                                "tables": [
+                                    {
+                                        "description": "description",
+                                        "name": "name",
+                                        "properties": [
+                                            {
+                                                "description": "description",
+                                                "name": "name",
+                                            }
+                                        ],
+                                    }
+                                ],
+                            },
+                            "extracted_entities": [
+                                {
+                                    "entities": [
+                                        {
+                                            "id": 0,
+                                            "properties": {"foo": "string"},
+                                            "type": "type",
+                                        }
+                                    ],
+                                    "relationships": [
+                                        {
+                                            "source": 0,
+                                            "target": 0,
+                                            "type": "type",
+                                        }
+                                    ],
+                                }
+                            ],
+                            "extraction_criteria": [{"relationship_name": "relationship_name"}],
+                            "formatter_specific": {"image_meta": {"image": "image"}},
+                            "tool_metadata": [
+                                {
+                                    "description": "description",
+                                    "name": "Exit",
+                                    "regex_validator": "regex_validator",
+                                }
+                            ],
+                        },
+                    },
+                    "llm_output": "llm_output",
+                    "step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                }
+            },
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -760,7 +2153,74 @@ class TestAsyncNextAction:
         next_action = await async_client.admin.next_action.label_training_datum(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             label="label",
-            output={"selected_step": {"step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}},
+            output={
+                "selected_step": {
+                    "llm_input": {
+                        "decoding_params": {"parameters": [{"max_tokens": 0}]},
+                        "messages": [
+                            {
+                                "content": [{"text": "Text"}],
+                                "role": "user",
+                            }
+                        ],
+                        "metadata": {
+                            "dataset_descriptor": {
+                                "description": "description",
+                                "name": "name",
+                                "relationships": [
+                                    {
+                                        "description": "description",
+                                        "name": "name",
+                                        "source_table": "source_table",
+                                        "target_table": "target_table",
+                                    }
+                                ],
+                                "tables": [
+                                    {
+                                        "description": "description",
+                                        "name": "name",
+                                        "properties": [
+                                            {
+                                                "description": "description",
+                                                "name": "name",
+                                            }
+                                        ],
+                                    }
+                                ],
+                            },
+                            "extracted_entities": [
+                                {
+                                    "entities": [
+                                        {
+                                            "id": 0,
+                                            "properties": {"foo": "string"},
+                                            "type": "type",
+                                        }
+                                    ],
+                                    "relationships": [
+                                        {
+                                            "source": 0,
+                                            "target": 0,
+                                            "type": "type",
+                                        }
+                                    ],
+                                }
+                            ],
+                            "extraction_criteria": [{"relationship_name": "relationship_name"}],
+                            "formatter_specific": {"image_meta": {"image": "image"}},
+                            "tool_metadata": [
+                                {
+                                    "description": "description",
+                                    "name": "Exit",
+                                    "regex_validator": "regex_validator",
+                                }
+                            ],
+                        },
+                    },
+                    "llm_output": "llm_output",
+                    "step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                }
+            },
         )
         assert next_action is None
 
@@ -769,7 +2229,74 @@ class TestAsyncNextAction:
         response = await async_client.admin.next_action.with_raw_response.label_training_datum(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             label="label",
-            output={"selected_step": {"step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}},
+            output={
+                "selected_step": {
+                    "llm_input": {
+                        "decoding_params": {"parameters": [{"max_tokens": 0}]},
+                        "messages": [
+                            {
+                                "content": [{"text": "Text"}],
+                                "role": "user",
+                            }
+                        ],
+                        "metadata": {
+                            "dataset_descriptor": {
+                                "description": "description",
+                                "name": "name",
+                                "relationships": [
+                                    {
+                                        "description": "description",
+                                        "name": "name",
+                                        "source_table": "source_table",
+                                        "target_table": "target_table",
+                                    }
+                                ],
+                                "tables": [
+                                    {
+                                        "description": "description",
+                                        "name": "name",
+                                        "properties": [
+                                            {
+                                                "description": "description",
+                                                "name": "name",
+                                            }
+                                        ],
+                                    }
+                                ],
+                            },
+                            "extracted_entities": [
+                                {
+                                    "entities": [
+                                        {
+                                            "id": 0,
+                                            "properties": {"foo": "string"},
+                                            "type": "type",
+                                        }
+                                    ],
+                                    "relationships": [
+                                        {
+                                            "source": 0,
+                                            "target": 0,
+                                            "type": "type",
+                                        }
+                                    ],
+                                }
+                            ],
+                            "extraction_criteria": [{"relationship_name": "relationship_name"}],
+                            "formatter_specific": {"image_meta": {"image": "image"}},
+                            "tool_metadata": [
+                                {
+                                    "description": "description",
+                                    "name": "Exit",
+                                    "regex_validator": "regex_validator",
+                                }
+                            ],
+                        },
+                    },
+                    "llm_output": "llm_output",
+                    "step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                }
+            },
         )
 
         assert response.is_closed is True
@@ -782,7 +2309,74 @@ class TestAsyncNextAction:
         async with async_client.admin.next_action.with_streaming_response.label_training_datum(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             label="label",
-            output={"selected_step": {"step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}},
+            output={
+                "selected_step": {
+                    "llm_input": {
+                        "decoding_params": {"parameters": [{"max_tokens": 0}]},
+                        "messages": [
+                            {
+                                "content": [{"text": "Text"}],
+                                "role": "user",
+                            }
+                        ],
+                        "metadata": {
+                            "dataset_descriptor": {
+                                "description": "description",
+                                "name": "name",
+                                "relationships": [
+                                    {
+                                        "description": "description",
+                                        "name": "name",
+                                        "source_table": "source_table",
+                                        "target_table": "target_table",
+                                    }
+                                ],
+                                "tables": [
+                                    {
+                                        "description": "description",
+                                        "name": "name",
+                                        "properties": [
+                                            {
+                                                "description": "description",
+                                                "name": "name",
+                                            }
+                                        ],
+                                    }
+                                ],
+                            },
+                            "extracted_entities": [
+                                {
+                                    "entities": [
+                                        {
+                                            "id": 0,
+                                            "properties": {"foo": "string"},
+                                            "type": "type",
+                                        }
+                                    ],
+                                    "relationships": [
+                                        {
+                                            "source": 0,
+                                            "target": 0,
+                                            "type": "type",
+                                        }
+                                    ],
+                                }
+                            ],
+                            "extraction_criteria": [{"relationship_name": "relationship_name"}],
+                            "formatter_specific": {"image_meta": {"image": "image"}},
+                            "tool_metadata": [
+                                {
+                                    "description": "description",
+                                    "name": "Exit",
+                                    "regex_validator": "regex_validator",
+                                }
+                            ],
+                        },
+                    },
+                    "llm_output": "llm_output",
+                    "step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                }
+            },
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

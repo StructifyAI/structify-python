@@ -16,6 +16,8 @@ class Message(BaseModel):
 
     created_at: datetime
 
+    git_commit_hash: str
+
     role: str
 
     timestamp: datetime

@@ -19,14 +19,24 @@ class JobCancelResponse(BaseModel):
 
     job_type: Literal["Web", "Pdf", "Derive", "Scrape"]
 
+    max_steps_without_save: int
+
     selected_next_workflow_step: bool
 
     status: Literal["Queued", "Running", "Completed", "Failed"]
 
     user_id: str
 
+    max_errors: Optional[int] = None
+
+    max_execution_time_secs: Optional[int] = None
+
+    max_total_steps: Optional[int] = None
+
     message: Optional[str] = None
     """A message about the status of the job at completion"""
+
+    node_id: Optional[str] = None
 
     parameters: Optional[object] = None
     """Proto for JobInput"""
@@ -38,6 +48,10 @@ class JobCancelResponse(BaseModel):
     """What time did the job start running?"""
 
     run_time_milliseconds: Optional[int] = None
+
+    seeded_kg_search_term: Optional[str] = None
+
+    session_id: Optional[str] = None
 
     workflow_group_id: Optional[str] = None
 

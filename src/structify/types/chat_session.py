@@ -12,6 +12,10 @@ class ChatSession(BaseModel):
 
     created_at: datetime
 
+    git_branch: str
+
+    git_repo_id: str
+
     project_id: str
 
     updated_at: datetime

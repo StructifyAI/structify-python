@@ -2,10 +2,11 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union, Iterable, Optional
-from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
+from typing import Dict, Union, Iterable, Optional
+from typing_extensions import Required, Annotated, TypeAlias, TypedDict
 
 from ..._utils import PropertyInfo
+from ..chat_prompt_param import ChatPromptParam
 from ..knowledge_graph_param import KnowledgeGraphParam
 from ..save_requirement_param import SaveRequirementParam
 from ..dataset_descriptor_param import DatasetDescriptorParam
@@ -14,6 +15,15 @@ __all__ = [
     "NextActionAddTrainingDatumParams",
     "Input",
     "InputAllStep",
+    "InputPreviousAction",
+    "InputPreviousActionSelectedStep",
+    "InputPreviousActionSelectedStepSelectedStep",
+    "InputPreviousActionSearchStep",
+    "InputPreviousActionSearchStepSearchStep",
+    "InputPreviousActionInvalidAction",
+    "InputPreviousActionInvalidActionInvalidAction",
+    "InputPreviousActionExit",
+    "InputPreviousActionExitExit",
     "Output",
     "OutputSelectedStep",
     "OutputSelectedStepSelectedStep",
@@ -21,6 +31,8 @@ __all__ = [
     "OutputSearchStepSearchStep",
     "OutputInvalidAction",
     "OutputInvalidActionInvalidAction",
+    "OutputExit",
+    "OutputExitExit",
 ]
 
 
@@ -42,6 +54,62 @@ class InputAllStep(TypedDict, total=False):
     metadata: Dict[str, str]
 
 
+class InputPreviousActionSelectedStepSelectedStep(TypedDict, total=False):
+    llm_input: Required[ChatPromptParam]
+
+    llm_output: Required[str]
+
+    step_id: Required[str]
+
+
+class InputPreviousActionSelectedStep(TypedDict, total=False):
+    selected_step: Required[Annotated[InputPreviousActionSelectedStepSelectedStep, PropertyInfo(alias="SelectedStep")]]
+
+
+class InputPreviousActionSearchStepSearchStep(TypedDict, total=False):
+    llm_input: Required[ChatPromptParam]
+
+    llm_output: Required[str]
+
+    search_query: Required[str]
+
+
+class InputPreviousActionSearchStep(TypedDict, total=False):
+    search_step: Required[Annotated[InputPreviousActionSearchStepSearchStep, PropertyInfo(alias="SearchStep")]]
+
+
+class InputPreviousActionInvalidActionInvalidAction(TypedDict, total=False):
+    error: Required[str]
+
+    llm_input: Required[ChatPromptParam]
+
+    llm_output: Required[str]
+
+
+class InputPreviousActionInvalidAction(TypedDict, total=False):
+    invalid_action: Required[
+        Annotated[InputPreviousActionInvalidActionInvalidAction, PropertyInfo(alias="InvalidAction")]
+    ]
+
+
+class InputPreviousActionExitExit(TypedDict, total=False):
+    llm_input: Required[ChatPromptParam]
+
+    llm_output: Required[str]
+
+
+class InputPreviousActionExit(TypedDict, total=False):
+    exit: Required[Annotated[InputPreviousActionExitExit, PropertyInfo(alias="Exit")]]
+
+
+InputPreviousAction: TypeAlias = Union[
+    InputPreviousActionSelectedStep,
+    InputPreviousActionSearchStep,
+    InputPreviousActionInvalidAction,
+    InputPreviousActionExit,
+]
+
+
 class Input(TypedDict, total=False):
     all_steps: Required[Iterable[InputAllStep]]
 
@@ -54,7 +122,7 @@ class Input(TypedDict, total=False):
 
     extraction_criteria: Required[Iterable[SaveRequirementParam]]
 
-    previous_queries: Required[List[str]]
+    previous_actions: Required[Iterable[InputPreviousAction]]
 
     seeded_kg: Required[KnowledgeGraphParam]
     """
@@ -65,6 +133,10 @@ class Input(TypedDict, total=False):
 
 
 class OutputSelectedStepSelectedStep(TypedDict, total=False):
+    llm_input: Required[ChatPromptParam]
+
+    llm_output: Required[str]
+
     step_id: Required[str]
 
 
@@ -73,6 +145,10 @@ class OutputSelectedStep(TypedDict, total=False):
 
 
 class OutputSearchStepSearchStep(TypedDict, total=False):
+    llm_input: Required[ChatPromptParam]
+
+    llm_output: Required[str]
+
     search_query: Required[str]
 
 
@@ -83,6 +159,8 @@ class OutputSearchStep(TypedDict, total=False):
 class OutputInvalidActionInvalidAction(TypedDict, total=False):
     error: Required[str]
 
+    llm_input: Required[ChatPromptParam]
+
     llm_output: Required[str]
 
 
@@ -90,4 +168,14 @@ class OutputInvalidAction(TypedDict, total=False):
     invalid_action: Required[Annotated[OutputInvalidActionInvalidAction, PropertyInfo(alias="InvalidAction")]]
 
 
-Output: TypeAlias = Union[OutputSelectedStep, OutputSearchStep, OutputInvalidAction, Literal["Exit"]]
+class OutputExitExit(TypedDict, total=False):
+    llm_input: Required[ChatPromptParam]
+
+    llm_output: Required[str]
+
+
+class OutputExit(TypedDict, total=False):
+    exit: Required[Annotated[OutputExitExit, PropertyInfo(alias="Exit")]]
+
+
+Output: TypeAlias = Union[OutputSelectedStep, OutputSearchStep, OutputInvalidAction, OutputExit]

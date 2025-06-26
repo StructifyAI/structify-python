@@ -22,6 +22,7 @@ from ...types import (
     dataset_set_primary_column_params,
     dataset_view_relationships_params,
     dataset_enrichment_progress_params,
+    dataset_update_relationship_params,
     dataset_view_tables_with_relationships_params,
 )
 from ..._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
@@ -52,6 +53,7 @@ from ...types.dataset_list_response import DatasetListResponse
 from ...types.knowledge_graph_param import KnowledgeGraphParam
 from ...types.dataset_match_response import DatasetMatchResponse
 from ...types.dataset_view_table_response import DatasetViewTableResponse
+from ...types.relationship_merge_strategy_param import RelationshipMergeStrategyParam
 from ...types.dataset_view_relationships_response import DatasetViewRelationshipsResponse
 from ...types.dataset_enrichment_progress_response import DatasetEnrichmentProgressResponse
 from ...types.dataset_view_tables_with_relationships_response import DatasetViewTablesWithRelationshipsResponse
@@ -596,6 +598,50 @@ class DatasetsResource(SyncAPIResource):
                     "new_property_type": new_property_type,
                 },
                 dataset_update_property_params.DatasetUpdatePropertyParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NoneType,
+        )
+
+    def update_relationship(
+        self,
+        *,
+        dataset_name: str,
+        relationship_name: str,
+        new_description: Optional[str] | NotGiven = NOT_GIVEN,
+        new_merge_strategy: Optional[RelationshipMergeStrategyParam] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> None:
+        """
+        Update a relationship descriptor in the dataset schema
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return self._post(
+            "/dataset/update_relationship",
+            body=maybe_transform(
+                {
+                    "dataset_name": dataset_name,
+                    "relationship_name": relationship_name,
+                    "new_description": new_description,
+                    "new_merge_strategy": new_merge_strategy,
+                },
+                dataset_update_relationship_params.DatasetUpdateRelationshipParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -1308,6 +1354,50 @@ class AsyncDatasetsResource(AsyncAPIResource):
             cast_to=NoneType,
         )
 
+    async def update_relationship(
+        self,
+        *,
+        dataset_name: str,
+        relationship_name: str,
+        new_description: Optional[str] | NotGiven = NOT_GIVEN,
+        new_merge_strategy: Optional[RelationshipMergeStrategyParam] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> None:
+        """
+        Update a relationship descriptor in the dataset schema
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return await self._post(
+            "/dataset/update_relationship",
+            body=await async_maybe_transform(
+                {
+                    "dataset_name": dataset_name,
+                    "relationship_name": relationship_name,
+                    "new_description": new_description,
+                    "new_merge_strategy": new_merge_strategy,
+                },
+                dataset_update_relationship_params.DatasetUpdateRelationshipParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NoneType,
+        )
+
     def view_relationships(
         self,
         *,
@@ -1510,6 +1600,9 @@ class DatasetsResourceWithRawResponse:
         self.update_property = to_raw_response_wrapper(
             datasets.update_property,
         )
+        self.update_relationship = to_raw_response_wrapper(
+            datasets.update_relationship,
+        )
         self.view_relationships = to_raw_response_wrapper(
             datasets.view_relationships,
         )
@@ -1567,6 +1660,9 @@ class AsyncDatasetsResourceWithRawResponse:
         )
         self.update_property = async_to_raw_response_wrapper(
             datasets.update_property,
+        )
+        self.update_relationship = async_to_raw_response_wrapper(
+            datasets.update_relationship,
         )
         self.view_relationships = async_to_raw_response_wrapper(
             datasets.view_relationships,
@@ -1626,6 +1722,9 @@ class DatasetsResourceWithStreamingResponse:
         self.update_property = to_streamed_response_wrapper(
             datasets.update_property,
         )
+        self.update_relationship = to_streamed_response_wrapper(
+            datasets.update_relationship,
+        )
         self.view_relationships = to_streamed_response_wrapper(
             datasets.view_relationships,
         )
@@ -1683,6 +1782,9 @@ class AsyncDatasetsResourceWithStreamingResponse:
         )
         self.update_property = async_to_streamed_response_wrapper(
             datasets.update_property,
+        )
+        self.update_relationship = async_to_streamed_response_wrapper(
+            datasets.update_relationship,
         )
         self.view_relationships = async_to_streamed_response_wrapper(
             datasets.view_relationships,

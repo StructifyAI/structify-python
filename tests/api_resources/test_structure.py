@@ -33,9 +33,20 @@ class TestStructure:
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             property_name="property_name",
             allow_extra_entities=True,
+            banned_domains=["string"],
+            run_metadata={
+                "node_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "session_id": "session_id",
+            },
             special_job_type="HumanLLM",
             starting_searches=["string"],
             starting_urls=["string"],
+            stop_config={
+                "max_steps_without_save": 0,
+                "max_errors": 0,
+                "max_execution_time_secs": 0,
+                "max_total_steps": 0,
+            },
         )
         assert_matches_type(str, structure, path=["response"])
 
@@ -79,9 +90,16 @@ class TestStructure:
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             relationship_name="relationship_name",
             allow_extra_entities=True,
+            banned_domains=["string"],
             special_job_type="HumanLLM",
             starting_searches=["string"],
             starting_urls=["string"],
+            stop_config={
+                "max_steps_without_save": 0,
+                "max_errors": 0,
+                "max_execution_time_secs": 0,
+                "max_total_steps": 0,
+            },
         )
         assert_matches_type(str, structure, path=["response"])
 
@@ -127,9 +145,16 @@ class TestStructure:
             relationship_name="relationship_name",
             to_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             allow_extra_entities=True,
+            banned_domains=["string"],
             special_job_type="HumanLLM",
             starting_searches=["string"],
             starting_urls=["string"],
+            stop_config={
+                "max_steps_without_save": 0,
+                "max_errors": 0,
+                "max_execution_time_secs": 0,
+                "max_total_steps": 0,
+            },
         )
         assert_matches_type(str, structure, path=["response"])
 
@@ -246,6 +271,10 @@ class TestStructure:
         structure = client.structure.run_async(
             dataset="dataset",
             source={"pdf": {"path": "path"}},
+            run_metadata={
+                "node_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "session_id": "session_id",
+            },
             save_requirement=[{"relationship_name": "relationship_name"}],
             seeded_entity={
                 "entities": [
@@ -265,6 +294,12 @@ class TestStructure:
                 ],
             },
             special_job_type="HumanLLM",
+            stop_config={
+                "max_steps_without_save": 0,
+                "max_errors": 0,
+                "max_execution_time_secs": 0,
+                "max_total_steps": 0,
+            },
         )
         assert_matches_type(str, structure, path=["response"])
 
@@ -312,9 +347,20 @@ class TestAsyncStructure:
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             property_name="property_name",
             allow_extra_entities=True,
+            banned_domains=["string"],
+            run_metadata={
+                "node_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "session_id": "session_id",
+            },
             special_job_type="HumanLLM",
             starting_searches=["string"],
             starting_urls=["string"],
+            stop_config={
+                "max_steps_without_save": 0,
+                "max_errors": 0,
+                "max_execution_time_secs": 0,
+                "max_total_steps": 0,
+            },
         )
         assert_matches_type(str, structure, path=["response"])
 
@@ -358,9 +404,16 @@ class TestAsyncStructure:
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             relationship_name="relationship_name",
             allow_extra_entities=True,
+            banned_domains=["string"],
             special_job_type="HumanLLM",
             starting_searches=["string"],
             starting_urls=["string"],
+            stop_config={
+                "max_steps_without_save": 0,
+                "max_errors": 0,
+                "max_execution_time_secs": 0,
+                "max_total_steps": 0,
+            },
         )
         assert_matches_type(str, structure, path=["response"])
 
@@ -406,9 +459,16 @@ class TestAsyncStructure:
             relationship_name="relationship_name",
             to_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             allow_extra_entities=True,
+            banned_domains=["string"],
             special_job_type="HumanLLM",
             starting_searches=["string"],
             starting_urls=["string"],
+            stop_config={
+                "max_steps_without_save": 0,
+                "max_errors": 0,
+                "max_execution_time_secs": 0,
+                "max_total_steps": 0,
+            },
         )
         assert_matches_type(str, structure, path=["response"])
 
@@ -525,6 +585,10 @@ class TestAsyncStructure:
         structure = await async_client.structure.run_async(
             dataset="dataset",
             source={"pdf": {"path": "path"}},
+            run_metadata={
+                "node_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "session_id": "session_id",
+            },
             save_requirement=[{"relationship_name": "relationship_name"}],
             seeded_entity={
                 "entities": [
@@ -544,6 +608,12 @@ class TestAsyncStructure:
                 ],
             },
             special_job_type="HumanLLM",
+            stop_config={
+                "max_steps_without_save": 0,
+                "max_errors": 0,
+                "max_execution_time_secs": 0,
+                "max_total_steps": 0,
+            },
         )
         assert_matches_type(str, structure, path=["response"])
 

@@ -1,6 +1,6 @@
 # Structify Python API library
 
-[![PyPI version](https://img.shields.io/pypi/v/structifyai.svg)](https://pypi.org/project/structifyai/)
+[![PyPI version](<https://img.shields.io/pypi/v/structifyai.svg?label=pypi%20(stable)>)](https://pypi.org/project/structifyai/)
 [![Documentation Status](https://readthedocs.org/projects/structify/badge/?version=latest)](https://structify.readthedocs.io/en/latest/?badge=latest)
 
 The Structify Python library provides convenient access to the Structify REST API from any Python 3.8+
@@ -114,7 +114,76 @@ client.admin.next_action.add_training_datum(
             ],
         },
         "extraction_criteria": [{"relationship_name": "relationship_name"}],
-        "previous_queries": ["string"],
+        "previous_actions": [
+            {
+                "selected_step": {
+                    "llm_input": {
+                        "decoding_params": {"parameters": [{"max_tokens": 0}]},
+                        "messages": [
+                            {
+                                "content": [{"text": "Text"}],
+                                "role": "user",
+                            }
+                        ],
+                        "metadata": {
+                            "dataset_descriptor": {
+                                "description": "description",
+                                "name": "name",
+                                "relationships": [
+                                    {
+                                        "description": "description",
+                                        "name": "name",
+                                        "source_table": "source_table",
+                                        "target_table": "target_table",
+                                    }
+                                ],
+                                "tables": [
+                                    {
+                                        "description": "description",
+                                        "name": "name",
+                                        "properties": [
+                                            {
+                                                "description": "description",
+                                                "name": "name",
+                                            }
+                                        ],
+                                    }
+                                ],
+                            },
+                            "extracted_entities": [
+                                {
+                                    "entities": [
+                                        {
+                                            "id": 0,
+                                            "properties": {"foo": "string"},
+                                            "type": "type",
+                                        }
+                                    ],
+                                    "relationships": [
+                                        {
+                                            "source": 0,
+                                            "target": 0,
+                                            "type": "type",
+                                        }
+                                    ],
+                                }
+                            ],
+                            "extraction_criteria": [{"relationship_name": "relationship_name"}],
+                            "formatter_specific": {"image_meta": {"image": "image"}},
+                            "tool_metadata": [
+                                {
+                                    "description": "description",
+                                    "name": "Exit",
+                                    "regex_validator": "regex_validator",
+                                }
+                            ],
+                        },
+                    },
+                    "llm_output": "llm_output",
+                    "step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                }
+            }
+        ],
         "seeded_kg": {
             "entities": [
                 {
@@ -133,7 +202,74 @@ client.admin.next_action.add_training_datum(
         },
     },
     label="label",
-    output={"selected_step": {"step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}},
+    output={
+        "selected_step": {
+            "llm_input": {
+                "decoding_params": {"parameters": [{"max_tokens": 0}]},
+                "messages": [
+                    {
+                        "content": [{"text": "Text"}],
+                        "role": "user",
+                    }
+                ],
+                "metadata": {
+                    "dataset_descriptor": {
+                        "description": "description",
+                        "name": "name",
+                        "relationships": [
+                            {
+                                "description": "description",
+                                "name": "name",
+                                "source_table": "source_table",
+                                "target_table": "target_table",
+                            }
+                        ],
+                        "tables": [
+                            {
+                                "description": "description",
+                                "name": "name",
+                                "properties": [
+                                    {
+                                        "description": "description",
+                                        "name": "name",
+                                    }
+                                ],
+                            }
+                        ],
+                    },
+                    "extracted_entities": [
+                        {
+                            "entities": [
+                                {
+                                    "id": 0,
+                                    "properties": {"foo": "string"},
+                                    "type": "type",
+                                }
+                            ],
+                            "relationships": [
+                                {
+                                    "source": 0,
+                                    "target": 0,
+                                    "type": "type",
+                                }
+                            ],
+                        }
+                    ],
+                    "extraction_criteria": [{"relationship_name": "relationship_name"}],
+                    "formatter_specific": {"image_meta": {"image": "image"}},
+                    "tool_metadata": [
+                        {
+                            "description": "description",
+                            "name": "Exit",
+                            "regex_validator": "regex_validator",
+                        }
+                    ],
+                },
+            },
+            "llm_output": "llm_output",
+            "step_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        }
+    },
 )
 ```
 
@@ -220,7 +356,7 @@ client.with_options(max_retries=5).server.version()
 ### Timeouts
 
 By default requests time out after 1 minute. You can configure this with a `timeout` option,
-which accepts a float or an [`httpx.Timeout`](https://www.python-httpx.org/advanced/#fine-tuning-the-configuration) object:
+which accepts a float or an [`httpx.Timeout`](https://www.python-httpx.org/advanced/timeouts/#fine-tuning-the-configuration) object:
 
 ```python
 from structify import Structify

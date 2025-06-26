@@ -328,6 +328,8 @@ class WorkflowResource(SyncAPIResource):
         *,
         entity_ids: List[str],
         workflow_id: ID,
+        banned_domains: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        stop_config: Optional[workflow_trigger_params.StopConfig] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -339,6 +341,8 @@ class WorkflowResource(SyncAPIResource):
         Trigger a workflow on a set of entities
 
         Args:
+          stop_config: Configuration parameters for the StopChecker
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -353,6 +357,8 @@ class WorkflowResource(SyncAPIResource):
                 {
                     "entity_ids": entity_ids,
                     "workflow_id": workflow_id,
+                    "banned_domains": banned_domains,
+                    "stop_config": stop_config,
                 },
                 workflow_trigger_params.WorkflowTriggerParams,
             ),
@@ -654,6 +660,8 @@ class AsyncWorkflowResource(AsyncAPIResource):
         *,
         entity_ids: List[str],
         workflow_id: ID,
+        banned_domains: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        stop_config: Optional[workflow_trigger_params.StopConfig] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -665,6 +673,8 @@ class AsyncWorkflowResource(AsyncAPIResource):
         Trigger a workflow on a set of entities
 
         Args:
+          stop_config: Configuration parameters for the StopChecker
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -679,6 +689,8 @@ class AsyncWorkflowResource(AsyncAPIResource):
                 {
                     "entity_ids": entity_ids,
                     "workflow_id": workflow_id,
+                    "banned_domains": banned_domains,
+                    "stop_config": stop_config,
                 },
                 workflow_trigger_params.WorkflowTriggerParams,
             ),

@@ -29,8 +29,14 @@ class User(BaseModel):
         ]
     ]
 
+    is_developer: bool
+
     permissions: List[Optional[Literal["labeler", "qa_labeler", "debug", "human_llm", "none"]]]
 
     updated_at: datetime
 
     user_type: Literal["admin", "public", "end_user", "pro"]
+
+    survey_completed_at: Optional[datetime] = None
+
+    survey_response: Optional[object] = None

@@ -3,12 +3,22 @@
 Types:
 
 ```python
-from structify.types import TokenResponse, UserInfo, UserTransactionsResponse, UserUsageResponse
+from structify.types import (
+    SurveySubmissionRequest,
+    SurveySubmissionResponse,
+    TokenResponse,
+    UpdateUserParams,
+    UserInfo,
+    UserTransactionsResponse,
+    UserUsageResponse,
+)
 ```
 
 Methods:
 
+- <code title="put /user/update">client.user.<a href="./src/structify/resources/user/user.py">update</a>(\*\*<a href="src/structify/types/user_update_params.py">params</a>) -> <a href="./src/structify/types/admin/user.py">User</a></code>
 - <code title="get /user/info">client.user.<a href="./src/structify/resources/user/user.py">info</a>() -> <a href="./src/structify/types/user_info.py">UserInfo</a></code>
+- <code title="post /user/survey/submit">client.user.<a href="./src/structify/resources/user/user.py">survey_submit</a>(\*\*<a href="src/structify/types/user_survey_submit_params.py">params</a>) -> <a href="./src/structify/types/survey_submission_response.py">SurveySubmissionResponse</a></code>
 - <code title="get /user/transactions/list">client.user.<a href="./src/structify/resources/user/user.py">transactions</a>() -> <a href="./src/structify/types/user_transactions_response.py">UserTransactionsResponse</a></code>
 - <code title="get /user/usage">client.user.<a href="./src/structify/resources/user/user.py">usage</a>(\*\*<a href="src/structify/types/user_usage_params.py">params</a>) -> <a href="./src/structify/types/user_usage_response.py">UserUsageResponse</a></code>
 
@@ -178,7 +188,6 @@ from structify.types.admin import (
 Methods:
 
 - <code title="post /admin/users/create">client.admin.users.<a href="./src/structify/resources/admin/users.py">create</a>(\*\*<a href="src/structify/types/admin/user_create_params.py">params</a>) -> <a href="./src/structify/types/token_response.py">TokenResponse</a></code>
-- <code title="put /admin/users/update">client.admin.users.<a href="./src/structify/resources/admin/users.py">update</a>(\*\*<a href="src/structify/types/admin/user_update_params.py">params</a>) -> <a href="./src/structify/types/admin/user.py">User</a></code>
 - <code title="get /admin/users/list">client.admin.users.<a href="./src/structify/resources/admin/users.py">list</a>() -> <a href="./src/structify/types/admin/user_list_response.py">UserListResponse</a></code>
 - <code title="post /admin/users/get_credits">client.admin.users.<a href="./src/structify/resources/admin/users.py">get_credits</a>(\*\*<a href="src/structify/types/admin/user_get_credits_params.py">params</a>) -> <a href="./src/structify/types/admin/user_get_credits_response.py">UserGetCreditsResponse</a></code>
 - <code title="post /admin/users/get_stats">client.admin.users.<a href="./src/structify/resources/admin/users.py">get_stats</a>(\*\*<a href="src/structify/types/admin/user_get_stats_params.py">params</a>) -> <a href="./src/structify/types/admin/user_get_stats_response.py">UserGetStatsResponse</a></code>
@@ -287,6 +296,7 @@ Methods:
 - <code title="post /dataset/reorder_properties">client.datasets.<a href="./src/structify/resources/datasets/datasets.py">reorder_properties</a>(\*\*<a href="src/structify/types/dataset_reorder_properties_params.py">params</a>) -> None</code>
 - <code title="post /dataset/set_primary_column">client.datasets.<a href="./src/structify/resources/datasets/datasets.py">set_primary_column</a>(\*\*<a href="src/structify/types/dataset_set_primary_column_params.py">params</a>) -> None</code>
 - <code title="post /dataset/update_property">client.datasets.<a href="./src/structify/resources/datasets/datasets.py">update_property</a>(\*\*<a href="src/structify/types/dataset_update_property_params.py">params</a>) -> None</code>
+- <code title="post /dataset/update_relationship">client.datasets.<a href="./src/structify/resources/datasets/datasets.py">update_relationship</a>(\*\*<a href="src/structify/types/dataset_update_relationship_params.py">params</a>) -> None</code>
 - <code title="get /dataset/view_relationships">client.datasets.<a href="./src/structify/resources/datasets/datasets.py">view_relationships</a>(\*\*<a href="src/structify/types/dataset_view_relationships_params.py">params</a>) -> <a href="./src/structify/types/dataset_view_relationships_response.py">SyncJobsList[DatasetViewRelationshipsResponse]</a></code>
 - <code title="get /dataset/view_table">client.datasets.<a href="./src/structify/resources/datasets/datasets.py">view_table</a>(\*\*<a href="src/structify/types/dataset_view_table_params.py">params</a>) -> <a href="./src/structify/types/dataset_view_table_response.py">SyncJobsList[DatasetViewTableResponse]</a></code>
 - <code title="get /dataset/view_tables_with_relationships">client.datasets.<a href="./src/structify/resources/datasets/datasets.py">view_tables_with_relationships</a>(\*\*<a href="src/structify/types/dataset_view_tables_with_relationships_params.py">params</a>) -> <a href="./src/structify/types/dataset_view_tables_with_relationships_response.py">DatasetViewTablesWithRelationshipsResponse</a></code>
@@ -359,6 +369,18 @@ Methods:
 - <code title="get /jobs/get_steps/{job_id}">client.jobs.<a href="./src/structify/resources/jobs.py">get_steps</a>(job_id) -> <a href="./src/structify/types/job_get_steps_response.py">JobGetStepsResponse</a></code>
 - <code title="post /jobs/schedule">client.jobs.<a href="./src/structify/resources/jobs.py">schedule</a>() -> None</code>
 
+# Sessions
+
+Types:
+
+```python
+from structify.types import GetSessionEventsResponse, JobEventBody
+```
+
+Methods:
+
+- <code title="get /sessions/{session_id}/events">client.sessions.<a href="./src/structify/resources/sessions.py">get_events</a>(session_id, \*\*<a href="src/structify/types/session_get_events_params.py">params</a>) -> <a href="./src/structify/types/get_session_events_response.py">GetSessionEventsResponse</a></code>
+
 # Server
 
 Types:
@@ -376,12 +398,21 @@ Methods:
 Types:
 
 ```python
-from structify.types import Source, SourceListResponse
+from structify.types import (
+    DeleteSourceEntityParams,
+    DeleteSourceEntityResponse,
+    DeleteSourceRelationshipParams,
+    DeleteSourceRelationshipResponse,
+    Source,
+    SourceListResponse,
+)
 ```
 
 Methods:
 
 - <code title="get /source/get_sources">client.sources.<a href="./src/structify/resources/sources.py">list</a>(\*\*<a href="src/structify/types/source_list_params.py">params</a>) -> <a href="./src/structify/types/source_list_response.py">SourceListResponse</a></code>
+- <code title="delete /source/entity">client.sources.<a href="./src/structify/resources/sources.py">delete_entity</a>(\*\*<a href="src/structify/types/source_delete_entity_params.py">params</a>) -> <a href="./src/structify/types/delete_source_entity_response.py">DeleteSourceEntityResponse</a></code>
+- <code title="delete /source/relationship">client.sources.<a href="./src/structify/resources/sources.py">delete_relationship</a>(\*\*<a href="src/structify/types/source_delete_relationship_params.py">params</a>) -> <a href="./src/structify/types/delete_source_relationship_response.py">DeleteSourceRelationshipResponse</a></code>
 
 # Entities
 
@@ -393,6 +424,7 @@ from structify.types import (
     EntityAddResponse,
     EntityAddBatchResponse,
     EntityAddRelationshipResponse,
+    EntityAgentMergeResponse,
     EntityDeriveResponse,
     EntityGetResponse,
     EntityGetLocalSubgraphResponse,
@@ -414,6 +446,7 @@ Methods:
 - <code title="post /entity/add">client.entities.<a href="./src/structify/resources/entities.py">add</a>(\*\*<a href="src/structify/types/entity_add_params.py">params</a>) -> <a href="./src/structify/types/entity_add_response.py">EntityAddResponse</a></code>
 - <code title="post /entity/add_batch">client.entities.<a href="./src/structify/resources/entities.py">add_batch</a>(\*\*<a href="src/structify/types/entity_add_batch_params.py">params</a>) -> <a href="./src/structify/types/entity_add_batch_response.py">EntityAddBatchResponse</a></code>
 - <code title="post /entity/add_relationship">client.entities.<a href="./src/structify/resources/entities.py">add_relationship</a>(\*\*<a href="src/structify/types/entity_add_relationship_params.py">params</a>) -> <a href="./src/structify/types/entity_add_relationship_response.py">EntityAddRelationshipResponse</a></code>
+- <code title="post /entity/agent_merge">client.entities.<a href="./src/structify/resources/entities.py">agent_merge</a>(\*\*<a href="src/structify/types/entity_agent_merge_params.py">params</a>) -> <a href="./src/structify/types/entity_agent_merge_response.py">EntityAgentMergeResponse</a></code>
 - <code title="post /entity/delete_relationship">client.entities.<a href="./src/structify/resources/entities.py">delete_relationship</a>(\*\*<a href="src/structify/types/entity_delete_relationship_params.py">params</a>) -> object</code>
 - <code title="post /entity/derive">client.entities.<a href="./src/structify/resources/entities.py">derive</a>(\*\*<a href="src/structify/types/entity_derive_params.py">params</a>) -> str</code>
 - <code title="get /entity/get">client.entities.<a href="./src/structify/resources/entities.py">get</a>(\*\*<a href="src/structify/types/entity_get_params.py">params</a>) -> <a href="./src/structify/types/entity_get_response.py">EntityGetResponse</a></code>
@@ -448,6 +481,18 @@ Methods:
 - <code title="post /report/relationship/missing">client.report.<a href="./src/structify/resources/report.py">relationship</a>(\*\*<a href="src/structify/types/report_relationship_params.py">params</a>) -> str</code>
 - <code title="post /report/step">client.report.<a href="./src/structify/resources/report.py">step</a>(\*\*<a href="src/structify/types/report_step_params.py">params</a>) -> str</code>
 - <code title="post /report/entity/wrong">client.report.<a href="./src/structify/resources/report.py">wrong</a>(\*\*<a href="src/structify/types/report_wrong_params.py">params</a>) -> str</code>
+
+# Scrape
+
+Types:
+
+```python
+from structify.types import ScrapeListRequest, ScrapeListResponse
+```
+
+Methods:
+
+- <code title="post /scrape/list">client.scrape.<a href="./src/structify/resources/scrape.py">list</a>(\*\*<a href="src/structify/types/scrape_list_params.py">params</a>) -> str</code>
 
 # Structure
 

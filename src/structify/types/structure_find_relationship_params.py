@@ -5,7 +5,7 @@ from __future__ import annotations
 from typing import List, Optional
 from typing_extensions import Literal, Required, TypedDict
 
-__all__ = ["StructureFindRelationshipParams"]
+__all__ = ["StructureFindRelationshipParams", "StopConfig"]
 
 
 class StructureFindRelationshipParams(TypedDict, total=False):
@@ -17,8 +17,23 @@ class StructureFindRelationshipParams(TypedDict, total=False):
 
     allow_extra_entities: bool
 
+    banned_domains: List[str]
+
     special_job_type: Optional[Literal["HumanLLM"]]
 
     starting_searches: List[str]
 
     starting_urls: List[str]
+
+    stop_config: Optional[StopConfig]
+    """Configuration parameters for the StopChecker"""
+
+
+class StopConfig(TypedDict, total=False):
+    max_steps_without_save: Required[int]
+
+    max_errors: Optional[int]
+
+    max_execution_time_secs: Optional[int]
+
+    max_total_steps: Optional[int]

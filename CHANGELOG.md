@@ -1,5 +1,134 @@
 # Changelog
 
+## 1.125.1 (2025-06-26)
+
+Full Changelog: [v1.125.0...v1.125.1](https://github.com/StructifyAI/structify-python/compare/v1.125.0...v1.125.1)
+
+### Bug Fixes
+
+* add run metadata to `run_async` ([23a10b7](https://github.com/StructifyAI/structify-python/commit/23a10b7c8e426d73a4168e6fe7fb82d647d37f0e))
+
+
+### Chores
+
+* **internal:** codegen related update ([5961791](https://github.com/StructifyAI/structify-python/commit/5961791a91bd799f1fc6cc143de06bff51f8f425))
+* **internal:** version bump ([d660aed](https://github.com/StructifyAI/structify-python/commit/d660aede5ea8d95359b11fa61661a4c54e4cc4bc))
+
+## 1.125.0 (2025-06-25)
+
+Full Changelog: [v1.124.0...v1.125.0](https://github.com/StructifyAI/structify-python/compare/v1.124.0...v1.125.0)
+
+### Features
+
+* **api:** manual updates ([ba3300f](https://github.com/StructifyAI/structify-python/commit/ba3300fc884a29ad5781c78812cfeb9721a17e70))
+
+## 1.124.0 (2025-06-25)
+
+Full Changelog: [v1.123.0...v1.124.0](https://github.com/StructifyAI/structify-python/compare/v1.123.0...v1.124.0)
+
+### Features
+
+* **api:** manual updates ([330cf45](https://github.com/StructifyAI/structify-python/commit/330cf45916212011169e68cb8afe87dbc09e3c64))
+* **api:** manual updates ([315c7ce](https://github.com/StructifyAI/structify-python/commit/315c7ce9a96459a4d8bb7712d1191bf94e2c8499))
+* **api:** manual updates ([f8cc146](https://github.com/StructifyAI/structify-python/commit/f8cc146a08a5268e469aa6e6b7d06d6ac879987b))
+
+
+### Bug Fixes
+
+* Implement job events queue functionality ([9d4df9d](https://github.com/StructifyAI/structify-python/commit/9d4df9de501beb85ca4badcf80e01bf160be820e))
+* stainless maybe ([4901947](https://github.com/StructifyAI/structify-python/commit/4901947ded6351e118c32fe9d22d2b482744b463))
+
+
+### Chores
+
+* **internal:** codegen related update ([6c33eab](https://github.com/StructifyAI/structify-python/commit/6c33eab4fdd87470d31b07a936e974b480e50b91))
+* **tests:** skip some failing tests on the latest python versions ([8cf1cff](https://github.com/StructifyAI/structify-python/commit/8cf1cff6ca56f92bddf8394365f76acb6f44a02f))
+
+## 1.123.0 (2025-06-23)
+
+Full Changelog: [v1.122.2...v1.123.0](https://github.com/StructifyAI/structify-python/compare/v1.122.2...v1.123.0)
+
+### Features
+
+* **api:** manual updates ([85a0a95](https://github.com/StructifyAI/structify-python/commit/85a0a956409ecdc3a5e1f88c1c0721378462e273))
+* **api:** manual updates ([861ca4b](https://github.com/StructifyAI/structify-python/commit/861ca4b5a18445ec9bcfb5c3388ac7611f9f43de))
+* **client:** add support for aiohttp ([0401993](https://github.com/StructifyAI/structify-python/commit/0401993858e3124eddaac24cad14c4fb198c5dfc))
+
+## 1.122.2 (2025-06-20)
+
+Full Changelog: [v1.122.1...v1.122.2](https://github.com/StructifyAI/structify-python/compare/v1.122.1...v1.122.2)
+
+### Bug Fixes
+
+* **tests:** fix: tests which call HTTP endpoints directly with the example parameters ([82a415f](https://github.com/StructifyAI/structify-python/commit/82a415fe3e199d4cb4fe4ed7311baea0b80510c4))
+
+
+### Chores
+
+* **ci:** enable for pull requests ([3282eeb](https://github.com/StructifyAI/structify-python/commit/3282eeb23dc564421fe79df5ba6b3f8d390dc5a6))
+* **internal:** codegen related update ([5a5a0de](https://github.com/StructifyAI/structify-python/commit/5a5a0de254381f49dee7c72d1d3fcf24b1a1c04c))
+* **internal:** update conftest.py ([1adddb5](https://github.com/StructifyAI/structify-python/commit/1adddb59688659980051eafa623998517ca8fcc1))
+* **readme:** update badges ([8852234](https://github.com/StructifyAI/structify-python/commit/88522340f265d8b8be20774a44a8c6e8684ede1f))
+* **tests:** add tests for httpx client instantiation & proxies ([b463cb4](https://github.com/StructifyAI/structify-python/commit/b463cb49e6ac0bbba3bea2b81b5ea600fc18afe1))
+
+
+### Documentation
+
+* **client:** fix httpx.Timeout documentation reference ([6c85924](https://github.com/StructifyAI/structify-python/commit/6c85924597395c1be7b5a8d113bebbafb8a184d5))
+
+## 1.122.1 (2025-06-16)
+
+Full Changelog: [v1.122.0...v1.122.1](https://github.com/StructifyAI/structify-python/compare/v1.122.0...v1.122.1)
+
+### Bug Fixes
+
+* Stop parameters shouldn't be required ([539d713](https://github.com/StructifyAI/structify-python/commit/539d71334be44a0c798c088537851b8113349054))
+
+## 1.122.0 (2025-06-16)
+
+Full Changelog: [v1.121.0...v1.122.0](https://github.com/StructifyAI/structify-python/compare/v1.121.0...v1.122.0)
+
+### Features
+
+* **api:** manual updates ([b401c73](https://github.com/StructifyAI/structify-python/commit/b401c73d737f44092bac682a5f6dd14e549f3741))
+* **api:** manual updates ([ea3235b](https://github.com/StructifyAI/structify-python/commit/ea3235b5333c366146f14735c2d55d23f1d0dbbd))
+* **api:** manual updates ([1c42ab3](https://github.com/StructifyAI/structify-python/commit/1c42ab3723f96349b78824f272e8c263637a5d89))
+
+## 1.121.0 (2025-06-13)
+
+Full Changelog: [v1.120.1...v1.121.0](https://github.com/StructifyAI/structify-python/compare/v1.120.1...v1.121.0)
+
+### Features
+
+* **api:** manual updates ([abee051](https://github.com/StructifyAI/structify-python/commit/abee051677d455e4336d5862eb9596b33011ee2a))
+
+## 1.120.1 (2025-06-13)
+
+Full Changelog: [v1.120.0...v1.120.1](https://github.com/StructifyAI/structify-python/compare/v1.120.0...v1.120.1)
+
+### Bug Fixes
+
+* **client:** correctly parse binary response | stream ([4d2364f](https://github.com/StructifyAI/structify-python/commit/4d2364f7fb91ae7315cd074fbcba77f53ff41c3d))
+
+
+### Chores
+
+* **tests:** run tests in parallel ([86f1cb5](https://github.com/StructifyAI/structify-python/commit/86f1cb58135036adac4492ef881a8d1af7597e09))
+
+## 1.120.0 (2025-06-13)
+
+Full Changelog: [v1.119.0...v1.120.0](https://github.com/StructifyAI/structify-python/compare/v1.119.0...v1.120.0)
+
+### Features
+
+* **api:** manual updates ([38a990e](https://github.com/StructifyAI/structify-python/commit/38a990ed1fc3ab0338de9a8115ced79275b05e9f))
+* **api:** manual updates ([49d8242](https://github.com/StructifyAI/structify-python/commit/49d82429d43aac296836db886e3095df27b21370))
+
+
+### Bug Fixes
+
+* add scrapers that somehow went missing ([61fa1ae](https://github.com/StructifyAI/structify-python/commit/61fa1aec5c45c7109bc629969123b7f81750efe4))
+
 ## 1.119.0 (2025-06-06)
 
 Full Changelog: [v1.118.0...v1.119.0](https://github.com/StructifyAI/structify-python/compare/v1.118.0...v1.119.0)

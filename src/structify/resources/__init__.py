@@ -48,6 +48,14 @@ from .report import (
     ReportResourceWithStreamingResponse,
     AsyncReportResourceWithStreamingResponse,
 )
+from .scrape import (
+    ScrapeResource,
+    AsyncScrapeResource,
+    ScrapeResourceWithRawResponse,
+    AsyncScrapeResourceWithRawResponse,
+    ScrapeResourceWithStreamingResponse,
+    AsyncScrapeResourceWithStreamingResponse,
+)
 from .server import (
     ServerResource,
     AsyncServerResource,
@@ -87,6 +95,14 @@ from .projects import (
     AsyncProjectsResourceWithRawResponse,
     ProjectsResourceWithStreamingResponse,
     AsyncProjectsResourceWithStreamingResponse,
+)
+from .sessions import (
+    SessionsResource,
+    AsyncSessionsResource,
+    SessionsResourceWithRawResponse,
+    AsyncSessionsResourceWithRawResponse,
+    SessionsResourceWithStreamingResponse,
+    AsyncSessionsResourceWithStreamingResponse,
 )
 from .workflow import (
     WorkflowResource,
@@ -173,6 +189,12 @@ __all__ = [
     "AsyncJobsResourceWithRawResponse",
     "JobsResourceWithStreamingResponse",
     "AsyncJobsResourceWithStreamingResponse",
+    "SessionsResource",
+    "AsyncSessionsResource",
+    "SessionsResourceWithRawResponse",
+    "AsyncSessionsResourceWithRawResponse",
+    "SessionsResourceWithStreamingResponse",
+    "AsyncSessionsResourceWithStreamingResponse",
     "ServerResource",
     "AsyncServerResource",
     "ServerResourceWithRawResponse",
@@ -197,6 +219,12 @@ __all__ = [
     "AsyncReportResourceWithRawResponse",
     "ReportResourceWithStreamingResponse",
     "AsyncReportResourceWithStreamingResponse",
+    "ScrapeResource",
+    "AsyncScrapeResource",
+    "ScrapeResourceWithRawResponse",
+    "AsyncScrapeResourceWithRawResponse",
+    "ScrapeResourceWithStreamingResponse",
+    "AsyncScrapeResourceWithStreamingResponse",
     "StructureResource",
     "AsyncStructureResource",
     "StructureResourceWithRawResponse",

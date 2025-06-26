@@ -43,6 +43,33 @@ class TestWorkflow:
         assert_matches_type(str, workflow, path=["response"])
 
     @parametrize
+    def test_method_create_with_all_params(self, client: Structify) -> None:
+        workflow = client.workflow.create(
+            dataset_name="dataset_name",
+            workflow={
+                "name": "name",
+                "starting_step": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "starting_table": "starting_table",
+                "steps": [
+                    {
+                        "id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                        "children": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+                        "operation": {"enhance_properties": ["string"]},
+                        "table_name": "table_name",
+                    }
+                ],
+                "default_banned_domains": ["string"],
+                "default_stop_conditions": {
+                    "max_steps_without_save": 0,
+                    "max_errors": 0,
+                    "max_execution_time_secs": 0,
+                    "max_total_steps": 0,
+                },
+            },
+        )
+        assert_matches_type(str, workflow, path=["response"])
+
+    @parametrize
     def test_raw_response_create(self, client: Structify) -> None:
         response = client.workflow.with_raw_response.create(
             dataset_name="dataset_name",
@@ -108,6 +135,34 @@ class TestWorkflow:
                         "table_name": "table_name",
                     }
                 ],
+            },
+            workflow_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(str, workflow, path=["response"])
+
+    @parametrize
+    def test_method_update_with_all_params(self, client: Structify) -> None:
+        workflow = client.workflow.update(
+            dataset_name="dataset_name",
+            workflow={
+                "name": "name",
+                "starting_step": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "starting_table": "starting_table",
+                "steps": [
+                    {
+                        "id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                        "children": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+                        "operation": {"enhance_properties": ["string"]},
+                        "table_name": "table_name",
+                    }
+                ],
+                "default_banned_domains": ["string"],
+                "default_stop_conditions": {
+                    "max_steps_without_save": 0,
+                    "max_errors": 0,
+                    "max_execution_time_secs": 0,
+                    "max_total_steps": 0,
+                },
             },
             workflow_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
@@ -340,6 +395,21 @@ class TestWorkflow:
         assert_matches_type(object, workflow, path=["response"])
 
     @parametrize
+    def test_method_trigger_with_all_params(self, client: Structify) -> None:
+        workflow = client.workflow.trigger(
+            entity_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+            workflow_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            banned_domains=["string"],
+            stop_config={
+                "max_steps_without_save": 0,
+                "max_errors": 0,
+                "max_execution_time_secs": 0,
+                "max_total_steps": 0,
+            },
+        )
+        assert_matches_type(object, workflow, path=["response"])
+
+    @parametrize
     def test_raw_response_trigger(self, client: Structify) -> None:
         response = client.workflow.with_raw_response.trigger(
             entity_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
@@ -385,6 +455,33 @@ class TestAsyncWorkflow:
                         "table_name": "table_name",
                     }
                 ],
+            },
+        )
+        assert_matches_type(str, workflow, path=["response"])
+
+    @parametrize
+    async def test_method_create_with_all_params(self, async_client: AsyncStructify) -> None:
+        workflow = await async_client.workflow.create(
+            dataset_name="dataset_name",
+            workflow={
+                "name": "name",
+                "starting_step": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "starting_table": "starting_table",
+                "steps": [
+                    {
+                        "id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                        "children": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+                        "operation": {"enhance_properties": ["string"]},
+                        "table_name": "table_name",
+                    }
+                ],
+                "default_banned_domains": ["string"],
+                "default_stop_conditions": {
+                    "max_steps_without_save": 0,
+                    "max_errors": 0,
+                    "max_execution_time_secs": 0,
+                    "max_total_steps": 0,
+                },
             },
         )
         assert_matches_type(str, workflow, path=["response"])
@@ -455,6 +552,34 @@ class TestAsyncWorkflow:
                         "table_name": "table_name",
                     }
                 ],
+            },
+            workflow_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(str, workflow, path=["response"])
+
+    @parametrize
+    async def test_method_update_with_all_params(self, async_client: AsyncStructify) -> None:
+        workflow = await async_client.workflow.update(
+            dataset_name="dataset_name",
+            workflow={
+                "name": "name",
+                "starting_step": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "starting_table": "starting_table",
+                "steps": [
+                    {
+                        "id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                        "children": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+                        "operation": {"enhance_properties": ["string"]},
+                        "table_name": "table_name",
+                    }
+                ],
+                "default_banned_domains": ["string"],
+                "default_stop_conditions": {
+                    "max_steps_without_save": 0,
+                    "max_errors": 0,
+                    "max_execution_time_secs": 0,
+                    "max_total_steps": 0,
+                },
             },
             workflow_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
@@ -683,6 +808,21 @@ class TestAsyncWorkflow:
         workflow = await async_client.workflow.trigger(
             entity_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             workflow_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(object, workflow, path=["response"])
+
+    @parametrize
+    async def test_method_trigger_with_all_params(self, async_client: AsyncStructify) -> None:
+        workflow = await async_client.workflow.trigger(
+            entity_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+            workflow_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            banned_domains=["string"],
+            stop_config={
+                "max_steps_without_save": 0,
+                "max_errors": 0,
+                "max_execution_time_secs": 0,
+                "max_total_steps": 0,
+            },
         )
         assert_matches_type(object, workflow, path=["response"])
 

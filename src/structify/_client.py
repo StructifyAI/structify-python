@@ -26,10 +26,12 @@ from .resources import (
     jobs,
     teams,
     report,
+    scrape,
     server,
     sources,
     entities,
     projects,
+    sessions,
     workflow,
     dataframe,
     documents,
@@ -74,10 +76,12 @@ class Structify(SyncAPIClient):
     datasets: datasets.DatasetsResource
     documents: documents.DocumentsResource
     jobs: jobs.JobsResource
+    sessions: sessions.SessionsResource
     server: server.ServerResource
     sources: sources.SourcesResource
     entities: entities.EntitiesResource
     report: report.ReportResource
+    scrape: scrape.ScrapeResource
     structure: structure.StructureResource
     dataframe: dataframe.DataFrameResource
     with_raw_response: StructifyWithRawResponse
@@ -170,10 +174,12 @@ class Structify(SyncAPIClient):
         self.datasets = datasets.DatasetsResource(self)
         self.documents = documents.DocumentsResource(self)
         self.jobs = jobs.JobsResource(self)
+        self.sessions = sessions.SessionsResource(self)
         self.server = server.ServerResource(self)
         self.sources = sources.SourcesResource(self)
         self.entities = entities.EntitiesResource(self)
         self.report = report.ReportResource(self)
+        self.scrape = scrape.ScrapeResource(self)
         self.structure = structure.StructureResource(self)
         self.dataframe = dataframe.DataFrameResource(self)
         self.with_raw_response = StructifyWithRawResponse(self)
@@ -296,10 +302,12 @@ class AsyncStructify(AsyncAPIClient):
     datasets: datasets.AsyncDatasetsResource
     documents: documents.AsyncDocumentsResource
     jobs: jobs.AsyncJobsResource
+    sessions: sessions.AsyncSessionsResource
     server: server.AsyncServerResource
     sources: sources.AsyncSourcesResource
     entities: entities.AsyncEntitiesResource
     report: report.AsyncReportResource
+    scrape: scrape.AsyncScrapeResource
     structure: structure.AsyncStructureResource
     with_raw_response: AsyncStructifyWithRawResponse
     with_streaming_response: AsyncStructifyWithStreamedResponse
@@ -391,10 +399,12 @@ class AsyncStructify(AsyncAPIClient):
         self.datasets = datasets.AsyncDatasetsResource(self)
         self.documents = documents.AsyncDocumentsResource(self)
         self.jobs = jobs.AsyncJobsResource(self)
+        self.sessions = sessions.AsyncSessionsResource(self)
         self.server = server.AsyncServerResource(self)
         self.sources = sources.AsyncSourcesResource(self)
         self.entities = entities.AsyncEntitiesResource(self)
         self.report = report.AsyncReportResource(self)
+        self.scrape = scrape.AsyncScrapeResource(self)
         self.structure = structure.AsyncStructureResource(self)
         self.with_raw_response = AsyncStructifyWithRawResponse(self)
         self.with_streaming_response = AsyncStructifyWithStreamedResponse(self)
@@ -517,10 +527,12 @@ class StructifyWithRawResponse:
         self.datasets = datasets.DatasetsResourceWithRawResponse(client.datasets)
         self.documents = documents.DocumentsResourceWithRawResponse(client.documents)
         self.jobs = jobs.JobsResourceWithRawResponse(client.jobs)
+        self.sessions = sessions.SessionsResourceWithRawResponse(client.sessions)
         self.server = server.ServerResourceWithRawResponse(client.server)
         self.sources = sources.SourcesResourceWithRawResponse(client.sources)
         self.entities = entities.EntitiesResourceWithRawResponse(client.entities)
         self.report = report.ReportResourceWithRawResponse(client.report)
+        self.scrape = scrape.ScrapeResourceWithRawResponse(client.scrape)
         self.structure = structure.StructureResourceWithRawResponse(client.structure)
         self.dataframe = dataframe.DataFrameResourceWithRawResponse(client.dataframe)
 
@@ -536,10 +548,12 @@ class AsyncStructifyWithRawResponse:
         self.datasets = datasets.AsyncDatasetsResourceWithRawResponse(client.datasets)
         self.documents = documents.AsyncDocumentsResourceWithRawResponse(client.documents)
         self.jobs = jobs.AsyncJobsResourceWithRawResponse(client.jobs)
+        self.sessions = sessions.AsyncSessionsResourceWithRawResponse(client.sessions)
         self.server = server.AsyncServerResourceWithRawResponse(client.server)
         self.sources = sources.AsyncSourcesResourceWithRawResponse(client.sources)
         self.entities = entities.AsyncEntitiesResourceWithRawResponse(client.entities)
         self.report = report.AsyncReportResourceWithRawResponse(client.report)
+        self.scrape = scrape.AsyncScrapeResourceWithRawResponse(client.scrape)
         self.structure = structure.AsyncStructureResourceWithRawResponse(client.structure)
 
 
@@ -554,10 +568,12 @@ class StructifyWithStreamedResponse:
         self.datasets = datasets.DatasetsResourceWithStreamingResponse(client.datasets)
         self.documents = documents.DocumentsResourceWithStreamingResponse(client.documents)
         self.jobs = jobs.JobsResourceWithStreamingResponse(client.jobs)
+        self.sessions = sessions.SessionsResourceWithStreamingResponse(client.sessions)
         self.server = server.ServerResourceWithStreamingResponse(client.server)
         self.sources = sources.SourcesResourceWithStreamingResponse(client.sources)
         self.entities = entities.EntitiesResourceWithStreamingResponse(client.entities)
         self.report = report.ReportResourceWithStreamingResponse(client.report)
+        self.scrape = scrape.ScrapeResourceWithStreamingResponse(client.scrape)
         self.structure = structure.StructureResourceWithStreamingResponse(client.structure)
         self.dataframe = dataframe.DataFrameResourceWithStreamingResponse(client.dataframe)
 
@@ -573,10 +589,12 @@ class AsyncStructifyWithStreamedResponse:
         self.datasets = datasets.AsyncDatasetsResourceWithStreamingResponse(client.datasets)
         self.documents = documents.AsyncDocumentsResourceWithStreamingResponse(client.documents)
         self.jobs = jobs.AsyncJobsResourceWithStreamingResponse(client.jobs)
+        self.sessions = sessions.AsyncSessionsResourceWithStreamingResponse(client.sessions)
         self.server = server.AsyncServerResourceWithStreamingResponse(client.server)
         self.sources = sources.AsyncSourcesResourceWithStreamingResponse(client.sources)
         self.entities = entities.AsyncEntitiesResourceWithStreamingResponse(client.entities)
         self.report = report.AsyncReportResourceWithStreamingResponse(client.report)
+        self.scrape = scrape.AsyncScrapeResourceWithStreamingResponse(client.scrape)
         self.structure = structure.AsyncStructureResourceWithStreamingResponse(client.structure)
 
 
