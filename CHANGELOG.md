@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.125.4 (2025-06-27)
+
+Full Changelog: [v1.125.3...v1.125.4](https://github.com/StructifyAI/structify-python/compare/v1.125.3...v1.125.4)
+
+### Bug Fixes
+
+* **ci:** release-doctor — report correct token name ([860896c](https://github.com/StructifyAI/structify-python/commit/860896ca7f329a87ed913ebfb0fb6e3faba3519c))
+
+
+### Chores
+
+* **internal:** codegen related update ([eca6a80](https://github.com/StructifyAI/structify-python/commit/eca6a809d9e2644757a89213c4d39a9f92e2d83f))
+
 ## 1.125.3 (2025-06-26)
 
 Full Changelog: [v1.125.2...v1.125.3](https://github.com/StructifyAI/structify-python/compare/v1.125.2...v1.125.3)
