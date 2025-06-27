@@ -168,7 +168,6 @@ class DataFrameResource(SyncAPIResource):
             relationships=[],
         )
         run_metadata = get_run_metadata(node_metadata)
-
         job_id: str = self._client.scrape.list(  # type: ignore
             url=url,
             table_name=table_name,
@@ -283,8 +282,8 @@ def get_run_metadata(node_metadata: Optional[Any] | NotGiven) -> Optional[RunMet
         return None
     if hasattr(node_metadata, "value"):
         if isinstance(node_metadata.value, dict):  # type: ignore
-            node_id = cast(str | None, node_metadata.value.get("NODE_ID"))  # type: ignore
-            session_id = cast(str | None, node_metadata.value.get("SESSION_ID"))  # type: ignore
+            node_id = cast(str, node_metadata.value.get("NODE_ID"))  # type: ignore
+            session_id = cast(str, node_metadata.value.get("SESSION_ID"))  # type: ignore
             if node_id is None or session_id is None:
                 return None
             return RunMetadata(node_id=node_id, session_id=session_id)
