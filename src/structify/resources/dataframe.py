@@ -282,9 +282,9 @@ def get_run_metadata(node_metadata: Optional[Any] | NotGiven) -> Optional[RunMet
         return None
     if hasattr(node_metadata, "value"):
         if isinstance(node_metadata.value, dict):  # type: ignore
-            node_id = cast(str, node_metadata.value.get("NODE_ID"))  # type: ignore
-            session_id = cast(str, node_metadata.value.get("SESSION_ID"))  # type: ignore
+            node_id = node_metadata.value.get("NODE_ID")  # type: ignore
+            session_id = node_metadata.value.get("SESSION_ID")  # type: ignore
             if node_id is None or session_id is None:
                 return None
-            return RunMetadata(node_id=node_id, session_id=session_id)
+            return RunMetadata(node_id=cast(str, node_id), session_id=cast(str, session_id))
     return None
