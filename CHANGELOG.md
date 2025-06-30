@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.125.5 (2025-06-30)
+
+Full Changelog: [v1.125.4...v1.125.5](https://github.com/StructifyAI/structify-python/compare/v1.125.4...v1.125.5)
+
+### Bug Fixes
+
+* **ci:** correct conditional ([2f911bb](https://github.com/StructifyAI/structify-python/commit/2f911bb48ca305831b70edbc89ebc4f65e4a2997))
+
+
+### Chores
+
+* **ci:** only run for pushes and fork pull requests ([8a992c2](https://github.com/StructifyAI/structify-python/commit/8a992c240b19a80ea4f1d2ae04aa3fd0c037fd4a))
+
 ## 1.125.4 (2025-06-27)
 
 Full Changelog: [v1.125.3...v1.125.4](https://github.com/StructifyAI/structify-python/compare/v1.125.3...v1.125.4)
