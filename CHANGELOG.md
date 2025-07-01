@@ -1,5 +1,26 @@
 # Changelog
 
+## 1.126.0 (2025-07-01)
+
+Full Changelog: [v1.125.4...v1.126.0](https://github.com/StructifyAI/structify-python/compare/v1.125.4...v1.126.0)
+
+### Features
+
+* **api:** manual updates ([318523d](https://github.com/StructifyAI/structify-python/commit/318523d00dbe64fbbaaac9e4cad745289661415b))
+* **api:** manual updates ([e07004b](https://github.com/StructifyAI/structify-python/commit/e07004bb40a29283e93fce52c43b61624988cf6b))
+
+
+### Bug Fixes
+
+* "Job" error ([ab7a8b1](https://github.com/StructifyAI/structify-python/commit/ab7a8b1d378c9fc747fa4264fbd6ce3e135316e8))
+* **ci:** correct conditional ([2f911bb](https://github.com/StructifyAI/structify-python/commit/2f911bb48ca305831b70edbc89ebc4f65e4a2997))
+
+
+### Chores
+
+* **ci:** only run for pushes and fork pull requests ([8a992c2](https://github.com/StructifyAI/structify-python/commit/8a992c240b19a80ea4f1d2ae04aa3fd0c037fd4a))
+* **internal:** codegen related update ([9997860](https://github.com/StructifyAI/structify-python/commit/99978607f5782f225907e6d7a72e00ec3ec04a1a))
+
 ## 1.125.4 (2025-06-27)
 
 Full Changelog: [v1.125.3...v1.125.4](https://github.com/StructifyAI/structify-python/compare/v1.125.3...v1.125.4)
