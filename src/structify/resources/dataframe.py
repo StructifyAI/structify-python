@@ -126,9 +126,9 @@ class DataFrameResource(SyncAPIResource):
         for entity_id in entity_ids:
             run_metadata = get_run_metadata(node_metadata)
 
-            job_id: str = self._client.structure.enhance_property(
+            job_id = self._client.structure.enhance_property(
                 entity_id=entity_id, property_name=column_name, allow_extra_entities=False, run_metadata=run_metadata
-            )  # type: ignore
+            )
             job_ids.append(job_id)
 
         error_message = self._client.jobs.wait_for_jobs(job_ids)
@@ -168,12 +168,12 @@ class DataFrameResource(SyncAPIResource):
             relationships=[],
         )
         run_metadata = get_run_metadata(node_metadata)
-        job_id: str = self._client.scrape.list(  # type: ignore
+        job_id = self._client.scrape.list(  # type: ignore
             url=url,
             table_name=table_name,
             dataset_descriptor=dataset_descriptor,
             run_metadata=run_metadata,  # type: ignore
-        )  # type: ignore
+        ).job_id
         error_message = self._client.jobs.wait_for_jobs([job_id])  # type: ignore
         if error_message:
             raise Exception(error_message)
@@ -231,11 +231,11 @@ class DataFrameResource(SyncAPIResource):
 
         run_metadata = get_run_metadata(node_metadata)
 
-        job_id: str = self._client.structure.run_async(  # type: ignore
+        job_id = self._client.structure.run_async(
             dataset=dataset_name,
             source=SourcePdf(pdf={"path": f"{dataset_name}.pdf"}),
             run_metadata=run_metadata,  # type: ignore
-        )  # type: ignore
+        )
         error_message = self._client.jobs.wait_for_jobs([job_id])  # type: ignore
         if error_message:
             raise Exception(error_message)
