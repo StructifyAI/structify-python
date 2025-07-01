@@ -17,7 +17,6 @@ jobs:
     timeout-minutes: 10
     name: lint
     runs-on: ${{ github.repository == 'stainless-sdks/structify-python' && 'depot-ubuntu-24.04' || 'ubuntu-latest' }}
-    if: github.event_name == 'push' || github.event.pull_request.head.repo.fork
     steps:
       - uses: actions/checkout@v4
 
@@ -36,7 +35,7 @@ jobs:
         run: ./scripts/lint
 
   upload:
-    if: github.repository == 'stainless-sdks/structify-python' && (github.event_name == 'push' || github.event.pull_request.head.repo.fork)
+    if: github.repository == 'stainless-sdks/structify-python'
     timeout-minutes: 10
     name: upload
     permissions:
@@ -63,7 +62,6 @@ jobs:
     timeout-minutes: 10
     name: test
     runs-on: ${{ github.repository == 'stainless-sdks/structify-python' && 'depot-ubuntu-24.04' || 'ubuntu-latest' }}
-    if: github.event_name == 'push' || github.event.pull_request.head.repo.fork
     steps:
       - uses: actions/checkout@v4
 
