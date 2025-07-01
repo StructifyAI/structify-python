@@ -494,7 +494,7 @@ from structify.types import ScrapeListRequest, ScrapeListResponse
 
 Methods:
 
-- <code title="post /scrape/list">client.scrape.<a href="./src/structify/resources/scrape.py">list</a>(\*\*<a href="src/structify/types/scrape_list_params.py">params</a>) -> str</code>
+- <code title="post /scrape/list">client.scrape.<a href="./src/structify/resources/scrape.py">list</a>(\*\*<a href="src/structify/types/scrape_list_params.py">params</a>) -> <a href="./src/structify/types/scrape_list_response.py">ScrapeListResponse</a></code>
 
 # Structure
 

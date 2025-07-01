@@ -9,6 +9,7 @@ import pytest
 
 from structify import Structify, AsyncStructify
 from tests.utils import assert_matches_type
+from structify.types import ScrapeListResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -46,7 +47,7 @@ class TestScrape:
             table_name="table_name",
             url="url",
         )
-        assert_matches_type(str, scrape, path=["response"])
+        assert_matches_type(ScrapeListResponse, scrape, path=["response"])
 
     @parametrize
     def test_method_list_with_all_params(self, client: Structify) -> None:
@@ -105,7 +106,7 @@ class TestScrape:
                 "max_total_steps": 0,
             },
         )
-        assert_matches_type(str, scrape, path=["response"])
+        assert_matches_type(ScrapeListResponse, scrape, path=["response"])
 
     @parametrize
     def test_raw_response_list(self, client: Structify) -> None:
@@ -141,7 +142,7 @@ class TestScrape:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         scrape = response.parse()
-        assert_matches_type(str, scrape, path=["response"])
+        assert_matches_type(ScrapeListResponse, scrape, path=["response"])
 
     @parametrize
     def test_streaming_response_list(self, client: Structify) -> None:
@@ -177,7 +178,7 @@ class TestScrape:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             scrape = response.parse()
-            assert_matches_type(str, scrape, path=["response"])
+            assert_matches_type(ScrapeListResponse, scrape, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -217,7 +218,7 @@ class TestAsyncScrape:
             table_name="table_name",
             url="url",
         )
-        assert_matches_type(str, scrape, path=["response"])
+        assert_matches_type(ScrapeListResponse, scrape, path=["response"])
 
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncStructify) -> None:
@@ -276,7 +277,7 @@ class TestAsyncScrape:
                 "max_total_steps": 0,
             },
         )
-        assert_matches_type(str, scrape, path=["response"])
+        assert_matches_type(ScrapeListResponse, scrape, path=["response"])
 
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncStructify) -> None:
@@ -312,7 +313,7 @@ class TestAsyncScrape:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         scrape = await response.parse()
-        assert_matches_type(str, scrape, path=["response"])
+        assert_matches_type(ScrapeListResponse, scrape, path=["response"])
 
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncStructify) -> None:
@@ -348,6 +349,6 @@ class TestAsyncScrape:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             scrape = await response.parse()
-            assert_matches_type(str, scrape, path=["response"])
+            assert_matches_type(ScrapeListResponse, scrape, path=["response"])
 
         assert cast(Any, response.is_closed) is True

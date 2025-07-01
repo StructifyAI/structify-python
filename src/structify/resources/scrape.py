@@ -18,6 +18,7 @@ from .._response import (
     async_to_streamed_response_wrapper,
 )
 from .._base_client import make_request_options
+from ..types.scrape_list_response import ScrapeListResponse
 from ..types.dataset_descriptor_param import DatasetDescriptorParam
 
 __all__ = ["ScrapeResource", "AsyncScrapeResource"]
@@ -57,7 +58,7 @@ class ScrapeResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> str:
+    ) -> ScrapeListResponse:
         """
         Scrape a list from a URL and return a knowledge graph
 
@@ -92,7 +93,7 @@ class ScrapeResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=str,
+            cast_to=ScrapeListResponse,
         )
 
 
@@ -130,7 +131,7 @@ class AsyncScrapeResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> str:
+    ) -> ScrapeListResponse:
         """
         Scrape a list from a URL and return a knowledge graph
 
@@ -165,7 +166,7 @@ class AsyncScrapeResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=str,
+            cast_to=ScrapeListResponse,
         )
 
 
