@@ -64,6 +64,14 @@ from .server import (
     ServerResourceWithStreamingResponse,
     AsyncServerResourceWithStreamingResponse,
 )
+from .secrets import (
+    SecretsResource,
+    AsyncSecretsResource,
+    SecretsResourceWithRawResponse,
+    AsyncSecretsResourceWithRawResponse,
+    SecretsResourceWithStreamingResponse,
+    AsyncSecretsResourceWithStreamingResponse,
+)
 from .sources import (
     SourcesResource,
     AsyncSourcesResource,
@@ -154,6 +162,12 @@ __all__ = [
     "AsyncProjectsResourceWithRawResponse",
     "ProjectsResourceWithStreamingResponse",
     "AsyncProjectsResourceWithStreamingResponse",
+    "SecretsResource",
+    "AsyncSecretsResource",
+    "SecretsResourceWithRawResponse",
+    "AsyncSecretsResourceWithRawResponse",
+    "SecretsResourceWithStreamingResponse",
+    "AsyncSecretsResourceWithStreamingResponse",
     "AdminResource",
     "AsyncAdminResource",
     "AdminResourceWithRawResponse",

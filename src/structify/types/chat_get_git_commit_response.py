@@ -4,22 +4,18 @@ from datetime import datetime
 
 from .._models import BaseModel
 
-__all__ = ["AddChatMessageResponse", "Message"]
+__all__ = ["ChatGetGitCommitResponse", "Commit"]
 
 
-class Message(BaseModel):
+class Commit(BaseModel):
     id: str
 
     chat_session_id: str
 
-    content: str
+    commit_hash: str
 
     created_at: datetime
 
-    role: str
 
-    timestamp: datetime
-
-
-class AddChatMessageResponse(BaseModel):
-    message: Message
+class ChatGetGitCommitResponse(BaseModel):
+    commit: Commit
