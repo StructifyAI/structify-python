@@ -17,8 +17,6 @@ class Message(BaseModel):
 
     created_at: datetime
 
-    git_commit_hash: str
-
     role: str
 
     timestamp: datetime
@@ -28,8 +26,6 @@ class ChatSessionWithMessages(BaseModel):
     id: str
 
     created_at: datetime
-
-    git_branch: str
 
     git_repo_id: str
 

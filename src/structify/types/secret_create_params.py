@@ -4,10 +4,10 @@ from __future__ import annotations
 
 from typing_extensions import Required, TypedDict
 
-__all__ = ["ChatAddMessageParams"]
+__all__ = ["SecretCreateParams"]
 
 
-class ChatAddMessageParams(TypedDict, total=False):
-    content: Required[str]
+class SecretCreateParams(TypedDict, total=False):
+    secret_name: Required[str]
 
-    role: Required[str]
+    secret_value: Required[str]

@@ -4,20 +4,14 @@ from datetime import datetime
 
 from .._models import BaseModel
 
-__all__ = ["ChatSession"]
+__all__ = ["ProjectSecretSummary"]
 
 
-class ChatSession(BaseModel):
+class ProjectSecretSummary(BaseModel):
     id: str
 
     created_at: datetime
 
-    git_branch: str
-
-    git_repo_id: str
-
-    project_id: str
+    secret_name: str
 
     updated_at: datetime
-
-    user_id: str
