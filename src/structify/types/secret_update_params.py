@@ -4,12 +4,11 @@ from __future__ import annotations
 
 from typing_extensions import Required, TypedDict
 
-__all__ = ["ChatCreateSessionParams"]
+__all__ = ["SecretUpdateParams"]
 
 
-class ChatCreateSessionParams(TypedDict, total=False):
-    git_repo_id: Required[str]
-
-    initial_message: Required[str]
-
+class SecretUpdateParams(TypedDict, total=False):
     project_id: Required[str]
+
+    secret_value: Required[str]
+    """The new secret value to encrypt and store"""

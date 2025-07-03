@@ -28,6 +28,7 @@ from .resources import (
     report,
     scrape,
     server,
+    secrets,
     sources,
     entities,
     projects,
@@ -71,6 +72,7 @@ class Structify(SyncAPIClient):
     chat: chat.ChatResource
     teams: teams.TeamsResource
     projects: projects.ProjectsResource
+    secrets: secrets.SecretsResource
     admin: admin.AdminResource
     workflow: workflow.WorkflowResource
     datasets: datasets.DatasetsResource
@@ -169,6 +171,7 @@ class Structify(SyncAPIClient):
         self.chat = chat.ChatResource(self)
         self.teams = teams.TeamsResource(self)
         self.projects = projects.ProjectsResource(self)
+        self.secrets = secrets.SecretsResource(self)
         self.admin = admin.AdminResource(self)
         self.workflow = workflow.WorkflowResource(self)
         self.datasets = datasets.DatasetsResource(self)
@@ -297,6 +300,7 @@ class AsyncStructify(AsyncAPIClient):
     chat: chat.AsyncChatResource
     teams: teams.AsyncTeamsResource
     projects: projects.AsyncProjectsResource
+    secrets: secrets.AsyncSecretsResource
     admin: admin.AsyncAdminResource
     workflow: workflow.AsyncWorkflowResource
     datasets: datasets.AsyncDatasetsResource
@@ -394,6 +398,7 @@ class AsyncStructify(AsyncAPIClient):
         self.chat = chat.AsyncChatResource(self)
         self.teams = teams.AsyncTeamsResource(self)
         self.projects = projects.AsyncProjectsResource(self)
+        self.secrets = secrets.AsyncSecretsResource(self)
         self.admin = admin.AsyncAdminResource(self)
         self.workflow = workflow.AsyncWorkflowResource(self)
         self.datasets = datasets.AsyncDatasetsResource(self)
@@ -522,6 +527,7 @@ class StructifyWithRawResponse:
         self.chat = chat.ChatResourceWithRawResponse(client.chat)
         self.teams = teams.TeamsResourceWithRawResponse(client.teams)
         self.projects = projects.ProjectsResourceWithRawResponse(client.projects)
+        self.secrets = secrets.SecretsResourceWithRawResponse(client.secrets)
         self.admin = admin.AdminResourceWithRawResponse(client.admin)
         self.workflow = workflow.WorkflowResourceWithRawResponse(client.workflow)
         self.datasets = datasets.DatasetsResourceWithRawResponse(client.datasets)
@@ -543,6 +549,7 @@ class AsyncStructifyWithRawResponse:
         self.chat = chat.AsyncChatResourceWithRawResponse(client.chat)
         self.teams = teams.AsyncTeamsResourceWithRawResponse(client.teams)
         self.projects = projects.AsyncProjectsResourceWithRawResponse(client.projects)
+        self.secrets = secrets.AsyncSecretsResourceWithRawResponse(client.secrets)
         self.admin = admin.AsyncAdminResourceWithRawResponse(client.admin)
         self.workflow = workflow.AsyncWorkflowResourceWithRawResponse(client.workflow)
         self.datasets = datasets.AsyncDatasetsResourceWithRawResponse(client.datasets)
@@ -563,6 +570,7 @@ class StructifyWithStreamedResponse:
         self.chat = chat.ChatResourceWithStreamingResponse(client.chat)
         self.teams = teams.TeamsResourceWithStreamingResponse(client.teams)
         self.projects = projects.ProjectsResourceWithStreamingResponse(client.projects)
+        self.secrets = secrets.SecretsResourceWithStreamingResponse(client.secrets)
         self.admin = admin.AdminResourceWithStreamingResponse(client.admin)
         self.workflow = workflow.WorkflowResourceWithStreamingResponse(client.workflow)
         self.datasets = datasets.DatasetsResourceWithStreamingResponse(client.datasets)
@@ -584,6 +592,7 @@ class AsyncStructifyWithStreamedResponse:
         self.chat = chat.AsyncChatResourceWithStreamingResponse(client.chat)
         self.teams = teams.AsyncTeamsResourceWithStreamingResponse(client.teams)
         self.projects = projects.AsyncProjectsResourceWithStreamingResponse(client.projects)
+        self.secrets = secrets.AsyncSecretsResourceWithStreamingResponse(client.secrets)
         self.admin = admin.AsyncAdminResourceWithStreamingResponse(client.admin)
         self.workflow = workflow.AsyncWorkflowResourceWithStreamingResponse(client.workflow)
         self.datasets = datasets.AsyncDatasetsResourceWithStreamingResponse(client.datasets)

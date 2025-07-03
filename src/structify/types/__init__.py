@@ -16,7 +16,6 @@ from .user_info import UserInfo as UserInfo
 from .user_team import UserTeam as UserTeam
 from .chat_prompt import ChatPrompt as ChatPrompt
 from .table_param import TableParam as TableParam
-from .chat_session import ChatSession as ChatSession
 from .entity_match import EntityMatch as EntityMatch
 from .entity_param import EntityParam as EntityParam
 from .merge_config import MergeConfig as MergeConfig
@@ -55,6 +54,7 @@ from .add_member_response import AddMemberResponse as AddMemberResponse
 from .entity_add_response import EntityAddResponse as EntityAddResponse
 from .entity_get_response import EntityGetResponse as EntityGetResponse
 from .entity_merge_params import EntityMergeParams as EntityMergeParams
+from .get_secret_response import GetSecretResponse as GetSecretResponse
 from .job_cancel_response import JobCancelResponse as JobCancelResponse
 from .job_delete_response import JobDeleteResponse as JobDeleteResponse
 from .list_teams_response import ListTeamsResponse as ListTeamsResponse
@@ -76,6 +76,9 @@ from .entity_view_response import EntityViewResponse as EntityViewResponse
 from .get_project_response import GetProjectResponse as GetProjectResponse
 from .report_step_response import ReportStepResponse as ReportStepResponse
 from .scrape_list_response import ScrapeListResponse as ScrapeListResponse
+from .secret_create_params import SecretCreateParams as SecretCreateParams
+from .secret_list_response import SecretListResponse as SecretListResponse
+from .secret_update_params import SecretUpdateParams as SecretUpdateParams
 from .source_list_response import SourceListResponse as SourceListResponse
 from .update_team_response import UpdateTeamResponse as UpdateTeamResponse
 from .workflow_jobs_params import WorkflowJobsParams as WorkflowJobsParams
@@ -98,9 +101,11 @@ from .entity_derive_response import EntityDeriveResponse as EntityDeriveResponse
 from .entity_search_response import EntitySearchResponse as EntitySearchResponse
 from .job_get_steps_response import JobGetStepsResponse as JobGetStepsResponse
 from .list_projects_response import ListProjectsResponse as ListProjectsResponse
+from .project_secret_summary import ProjectSecretSummary as ProjectSecretSummary
 from .remove_member_response import RemoveMemberResponse as RemoveMemberResponse
 from .save_requirement_param import SaveRequirementParam as SaveRequirementParam
 from .team_add_member_params import TeamAddMemberParams as TeamAddMemberParams
+from .update_secret_response import UpdateSecretResponse as UpdateSecretResponse
 from .workflow_create_params import WorkflowCreateParams as WorkflowCreateParams
 from .workflow_delete_params import WorkflowDeleteParams as WorkflowDeleteParams
 from .workflow_jobs_response import WorkflowJobsResponse as WorkflowJobsResponse
@@ -130,6 +135,7 @@ from .get_chat_session_response import GetChatSessionResponse as GetChatSessionR
 from .job_get_scrapers_response import JobGetScrapersResponse as JobGetScrapersResponse
 from .session_get_events_params import SessionGetEventsParams as SessionGetEventsParams
 from .user_survey_submit_params import UserSurveySubmitParams as UserSurveySubmitParams
+from .chat_add_git_commit_params import ChatAddGitCommitParams as ChatAddGitCommitParams
 from .chat_create_session_params import ChatCreateSessionParams as ChatCreateSessionParams
 from .chat_session_with_messages import ChatSessionWithMessages as ChatSessionWithMessages
 from .document_download_response import DocumentDownloadResponse as DocumentDownloadResponse
@@ -150,6 +156,8 @@ from .list_chat_sessions_response import ListChatSessionsResponse as ListChatSes
 from .relationship_merge_strategy import RelationshipMergeStrategy as RelationshipMergeStrategy
 from .source_delete_entity_params import SourceDeleteEntityParams as SourceDeleteEntityParams
 from .structure_job_status_params import StructureJobStatusParams as StructureJobStatusParams
+from .chat_add_git_commit_response import ChatAddGitCommitResponse as ChatAddGitCommitResponse
+from .chat_get_git_commit_response import ChatGetGitCommitResponse as ChatGetGitCommitResponse
 from .create_chat_session_response import CreateChatSessionResponse as CreateChatSessionResponse
 from .dataset_export_to_csv_params import DatasetExportToCsvParams as DatasetExportToCsvParams
 from .delete_chat_session_response import DeleteChatSessionResponse as DeleteChatSessionResponse
@@ -178,6 +186,7 @@ from .entity_get_source_entities_params import EntityGetSourceEntitiesParams as 
 from .relationship_merge_strategy_param import RelationshipMergeStrategyParam as RelationshipMergeStrategyParam
 from .source_delete_relationship_params import SourceDeleteRelationshipParams as SourceDeleteRelationshipParams
 from .structure_enhance_property_params import StructureEnhancePropertyParams as StructureEnhancePropertyParams
+from .chat_get_session_timeline_response import ChatGetSessionTimelineResponse as ChatGetSessionTimelineResponse
 from .dataset_enrichment_progress_params import DatasetEnrichmentProgressParams as DatasetEnrichmentProgressParams
 from .dataset_update_relationship_params import DatasetUpdateRelationshipParams as DatasetUpdateRelationshipParams
 from .entity_get_local_subgraph_response import EntityGetLocalSubgraphResponse as EntityGetLocalSubgraphResponse
