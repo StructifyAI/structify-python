@@ -149,6 +149,7 @@ client.admin.next_action.add_training_datum(
         "previous_actions": [
             {
                 "selected_step": {
+                    "info": {"id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"},
                     "llm_input": {
                         "decoding_params": {"parameters": [{"max_tokens": 0}]},
                         "messages": [
@@ -236,6 +237,7 @@ client.admin.next_action.add_training_datum(
     label="label",
     output={
         "selected_step": {
+            "info": {"id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"},
             "llm_input": {
                 "decoding_params": {"parameters": [{"max_tokens": 0}]},
                 "messages": [

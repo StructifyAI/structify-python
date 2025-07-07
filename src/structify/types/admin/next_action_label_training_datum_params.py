@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union
+from typing import Dict, Union
 from typing_extensions import Required, Annotated, TypeAlias, TypedDict
 
 from ..._utils import PropertyInfo
@@ -13,6 +13,7 @@ __all__ = [
     "Output",
     "OutputSelectedStep",
     "OutputSelectedStepSelectedStep",
+    "OutputSelectedStepSelectedStepInfo",
     "OutputSearchStep",
     "OutputSearchStepSearchStep",
     "OutputInvalidAction",
@@ -30,7 +31,17 @@ class NextActionLabelTrainingDatumParams(TypedDict, total=False):
     output: Required[Output]
 
 
+class OutputSelectedStepSelectedStepInfo(TypedDict, total=False):
+    id: Required[str]
+
+    action_name: str
+
+    metadata: Dict[str, str]
+
+
 class OutputSelectedStepSelectedStep(TypedDict, total=False):
+    info: Required[OutputSelectedStepSelectedStepInfo]
+
     llm_input: Required[ChatPromptParam]
 
     llm_output: Required[str]

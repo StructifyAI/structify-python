@@ -190,7 +190,7 @@ class JobsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> JobGetResponse:
         """
-        Retrieve a job from structify.
+        Retrieve a job from structify using a job_id.
 
         Args:
           extra_headers: Send extra headers
@@ -523,7 +523,7 @@ class AsyncJobsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> JobGetResponse:
         """
-        Retrieve a job from structify.
+        Retrieve a job from structify using a job_id.
 
         Args:
           extra_headers: Send extra headers

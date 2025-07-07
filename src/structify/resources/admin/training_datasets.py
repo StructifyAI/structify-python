@@ -870,7 +870,9 @@ class TrainingDatasetsResource(SyncAPIResource):
     def verify_datum(
         self,
         *,
-        body: object,
+        id: str,
+        status: DatumStatus,
+        verified_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -893,7 +895,14 @@ class TrainingDatasetsResource(SyncAPIResource):
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._put(
             "/admin/training_datasets/verify_datum",
-            body=maybe_transform(body, training_dataset_verify_datum_params.TrainingDatasetVerifyDatumParams),
+            body=maybe_transform(
+                {
+                    "id": id,
+                    "status": status,
+                    "verified_id": verified_id,
+                },
+                training_dataset_verify_datum_params.TrainingDatasetVerifyDatumParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1711,7 +1720,9 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
     async def verify_datum(
         self,
         *,
-        body: object,
+        id: str,
+        status: DatumStatus,
+        verified_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1735,7 +1746,12 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
         return await self._put(
             "/admin/training_datasets/verify_datum",
             body=await async_maybe_transform(
-                body, training_dataset_verify_datum_params.TrainingDatasetVerifyDatumParams
+                {
+                    "id": id,
+                    "status": status,
+                    "verified_id": verified_id,
+                },
+                training_dataset_verify_datum_params.TrainingDatasetVerifyDatumParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout

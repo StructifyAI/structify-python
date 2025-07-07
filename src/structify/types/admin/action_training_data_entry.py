@@ -19,6 +19,7 @@ __all__ = [
     "InputPreviousAction",
     "InputPreviousActionSelectedStep",
     "InputPreviousActionSelectedStepSelectedStep",
+    "InputPreviousActionSelectedStepSelectedStepInfo",
     "InputPreviousActionSearchStep",
     "InputPreviousActionSearchStepSearchStep",
     "InputPreviousActionInvalidAction",
@@ -29,6 +30,7 @@ __all__ = [
     "OutputOutput",
     "OutputOutputSelectedStep",
     "OutputOutputSelectedStepSelectedStep",
+    "OutputOutputSelectedStepSelectedStepInfo",
     "OutputOutputSearchStep",
     "OutputOutputSearchStepSearchStep",
     "OutputOutputInvalidAction",
@@ -46,7 +48,17 @@ class InputAllStep(BaseModel):
     metadata: Optional[Dict[str, str]] = None
 
 
+class InputPreviousActionSelectedStepSelectedStepInfo(BaseModel):
+    id: str
+
+    action_name: Optional[str] = None
+
+    metadata: Optional[Dict[str, str]] = None
+
+
 class InputPreviousActionSelectedStepSelectedStep(BaseModel):
+    info: InputPreviousActionSelectedStepSelectedStepInfo
+
     llm_input: ChatPrompt
 
     llm_output: str
@@ -122,7 +134,17 @@ class Input(BaseModel):
     """
 
 
+class OutputOutputSelectedStepSelectedStepInfo(BaseModel):
+    id: str
+
+    action_name: Optional[str] = None
+
+    metadata: Optional[Dict[str, str]] = None
+
+
 class OutputOutputSelectedStepSelectedStep(BaseModel):
+    info: OutputOutputSelectedStepSelectedStepInfo
+
     llm_input: ChatPrompt
 
     llm_output: str

@@ -18,6 +18,7 @@ __all__ = [
     "InputPreviousAction",
     "InputPreviousActionSelectedStep",
     "InputPreviousActionSelectedStepSelectedStep",
+    "InputPreviousActionSelectedStepSelectedStepInfo",
     "InputPreviousActionSearchStep",
     "InputPreviousActionSearchStepSearchStep",
     "InputPreviousActionInvalidAction",
@@ -27,6 +28,7 @@ __all__ = [
     "Output",
     "OutputSelectedStep",
     "OutputSelectedStepSelectedStep",
+    "OutputSelectedStepSelectedStepInfo",
     "OutputSearchStep",
     "OutputSearchStepSearchStep",
     "OutputInvalidAction",
@@ -54,7 +56,17 @@ class InputAllStep(TypedDict, total=False):
     metadata: Dict[str, str]
 
 
+class InputPreviousActionSelectedStepSelectedStepInfo(TypedDict, total=False):
+    id: Required[str]
+
+    action_name: str
+
+    metadata: Dict[str, str]
+
+
 class InputPreviousActionSelectedStepSelectedStep(TypedDict, total=False):
+    info: Required[InputPreviousActionSelectedStepSelectedStepInfo]
+
     llm_input: Required[ChatPromptParam]
 
     llm_output: Required[str]
@@ -132,7 +144,17 @@ class Input(TypedDict, total=False):
     """
 
 
+class OutputSelectedStepSelectedStepInfo(TypedDict, total=False):
+    id: Required[str]
+
+    action_name: str
+
+    metadata: Dict[str, str]
+
+
 class OutputSelectedStepSelectedStep(TypedDict, total=False):
+    info: Required[OutputSelectedStepSelectedStepInfo]
+
     llm_input: Required[ChatPromptParam]
 
     llm_output: Required[str]
