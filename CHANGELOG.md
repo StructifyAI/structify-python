@@ -1,5 +1,26 @@
 # Changelog
 
+## 1.127.0 (2025-07-07)
+
+Full Changelog: [v1.126.0...v1.127.0](https://github.com/StructifyAI/structify-python/compare/v1.126.0...v1.127.0)
+
+### Features
+
+* **api:** manual updates ([17425f9](https://github.com/StructifyAI/structify-python/commit/17425f98d66df2488e5af3e751063c951ee1d0a8))
+* CRUD endpoints for secrets ([28b6669](https://github.com/StructifyAI/structify-python/commit/28b66695d4cc73c94ad569e811b3e7c3336fae49))
+
+
+### Bug Fixes
+
+* use correct job_id ([72e1d8f](https://github.com/StructifyAI/structify-python/commit/72e1d8fc7bb4d1a5133158ba9b8936c26d8cfa9c))
+
+
+### Chores
+
+* **ci:** change upload type ([9d5552c](https://github.com/StructifyAI/structify-python/commit/9d5552c3b6210c5ec1c4568543756608d1be1cb8))
+* **internal:** codegen related update ([bcaf980](https://github.com/StructifyAI/structify-python/commit/bcaf980d5322d813cfc21b12db87c3609547c805))
+* **internal:** codegen related update ([f50ae9c](https://github.com/StructifyAI/structify-python/commit/f50ae9c53ae095ef1366fc539fdb825a416641ba))
+
 ## 1.126.0 (2025-07-01)
 
 Full Changelog: [v1.125.4...v1.126.0](https://github.com/StructifyAI/structify-python/compare/v1.125.4...v1.126.0)
