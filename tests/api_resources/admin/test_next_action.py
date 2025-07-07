@@ -55,6 +55,7 @@ class TestNextAction:
                 "previous_actions": [
                     {
                         "selected_step": {
+                            "info": {"id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"},
                             "llm_input": {
                                 "decoding_params": {"parameters": [{"max_tokens": 0}]},
                                 "messages": [
@@ -142,6 +143,7 @@ class TestNextAction:
             label="label",
             output={
                 "selected_step": {
+                    "info": {"id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"},
                     "llm_input": {
                         "decoding_params": {"parameters": [{"max_tokens": 0}]},
                         "messages": [
@@ -267,6 +269,11 @@ class TestNextAction:
                 "previous_actions": [
                     {
                         "selected_step": {
+                            "info": {
+                                "id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                                "action_name": "action_name",
+                                "metadata": {"foo": "string"},
+                            },
                             "llm_input": {
                                 "decoding_params": {"parameters": [{"max_tokens": 0}]},
                                 "messages": [
@@ -381,6 +388,11 @@ class TestNextAction:
             label="label",
             output={
                 "selected_step": {
+                    "info": {
+                        "id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                        "action_name": "action_name",
+                        "metadata": {"foo": "string"},
+                    },
                     "llm_input": {
                         "decoding_params": {"parameters": [{"max_tokens": 0}]},
                         "messages": [
@@ -510,6 +522,7 @@ class TestNextAction:
                 "previous_actions": [
                     {
                         "selected_step": {
+                            "info": {"id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"},
                             "llm_input": {
                                 "decoding_params": {"parameters": [{"max_tokens": 0}]},
                                 "messages": [
@@ -597,6 +610,7 @@ class TestNextAction:
             label="label",
             output={
                 "selected_step": {
+                    "info": {"id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"},
                     "llm_input": {
                         "decoding_params": {"parameters": [{"max_tokens": 0}]},
                         "messages": [
@@ -703,6 +717,7 @@ class TestNextAction:
                 "previous_actions": [
                     {
                         "selected_step": {
+                            "info": {"id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"},
                             "llm_input": {
                                 "decoding_params": {"parameters": [{"max_tokens": 0}]},
                                 "messages": [
@@ -790,6 +805,7 @@ class TestNextAction:
             label="label",
             output={
                 "selected_step": {
+                    "info": {"id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"},
                     "llm_input": {
                         "decoding_params": {"parameters": [{"max_tokens": 0}]},
                         "messages": [
@@ -971,6 +987,7 @@ class TestNextAction:
             label="label",
             output={
                 "selected_step": {
+                    "info": {"id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"},
                     "llm_input": {
                         "decoding_params": {"parameters": [{"max_tokens": 0}]},
                         "messages": [
@@ -1047,6 +1064,7 @@ class TestNextAction:
             label="label",
             output={
                 "selected_step": {
+                    "info": {"id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"},
                     "llm_input": {
                         "decoding_params": {"parameters": [{"max_tokens": 0}]},
                         "messages": [
@@ -1127,6 +1145,7 @@ class TestNextAction:
             label="label",
             output={
                 "selected_step": {
+                    "info": {"id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"},
                     "llm_input": {
                         "decoding_params": {"parameters": [{"max_tokens": 0}]},
                         "messages": [
@@ -1241,6 +1260,7 @@ class TestAsyncNextAction:
                 "previous_actions": [
                     {
                         "selected_step": {
+                            "info": {"id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"},
                             "llm_input": {
                                 "decoding_params": {"parameters": [{"max_tokens": 0}]},
                                 "messages": [
@@ -1328,6 +1348,7 @@ class TestAsyncNextAction:
             label="label",
             output={
                 "selected_step": {
+                    "info": {"id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"},
                     "llm_input": {
                         "decoding_params": {"parameters": [{"max_tokens": 0}]},
                         "messages": [
@@ -1453,6 +1474,11 @@ class TestAsyncNextAction:
                 "previous_actions": [
                     {
                         "selected_step": {
+                            "info": {
+                                "id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                                "action_name": "action_name",
+                                "metadata": {"foo": "string"},
+                            },
                             "llm_input": {
                                 "decoding_params": {"parameters": [{"max_tokens": 0}]},
                                 "messages": [
@@ -1567,6 +1593,11 @@ class TestAsyncNextAction:
             label="label",
             output={
                 "selected_step": {
+                    "info": {
+                        "id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                        "action_name": "action_name",
+                        "metadata": {"foo": "string"},
+                    },
                     "llm_input": {
                         "decoding_params": {"parameters": [{"max_tokens": 0}]},
                         "messages": [
@@ -1696,6 +1727,7 @@ class TestAsyncNextAction:
                 "previous_actions": [
                     {
                         "selected_step": {
+                            "info": {"id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"},
                             "llm_input": {
                                 "decoding_params": {"parameters": [{"max_tokens": 0}]},
                                 "messages": [
@@ -1783,6 +1815,7 @@ class TestAsyncNextAction:
             label="label",
             output={
                 "selected_step": {
+                    "info": {"id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"},
                     "llm_input": {
                         "decoding_params": {"parameters": [{"max_tokens": 0}]},
                         "messages": [
@@ -1889,6 +1922,7 @@ class TestAsyncNextAction:
                 "previous_actions": [
                     {
                         "selected_step": {
+                            "info": {"id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"},
                             "llm_input": {
                                 "decoding_params": {"parameters": [{"max_tokens": 0}]},
                                 "messages": [
@@ -1976,6 +2010,7 @@ class TestAsyncNextAction:
             label="label",
             output={
                 "selected_step": {
+                    "info": {"id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"},
                     "llm_input": {
                         "decoding_params": {"parameters": [{"max_tokens": 0}]},
                         "messages": [
@@ -2157,6 +2192,7 @@ class TestAsyncNextAction:
             label="label",
             output={
                 "selected_step": {
+                    "info": {"id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"},
                     "llm_input": {
                         "decoding_params": {"parameters": [{"max_tokens": 0}]},
                         "messages": [
@@ -2233,6 +2269,7 @@ class TestAsyncNextAction:
             label="label",
             output={
                 "selected_step": {
+                    "info": {"id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"},
                     "llm_input": {
                         "decoding_params": {"parameters": [{"max_tokens": 0}]},
                         "messages": [
@@ -2313,6 +2350,7 @@ class TestAsyncNextAction:
             label="label",
             output={
                 "selected_step": {
+                    "info": {"id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"},
                     "llm_input": {
                         "decoding_params": {"parameters": [{"max_tokens": 0}]},
                         "messages": [
