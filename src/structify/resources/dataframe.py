@@ -168,17 +168,17 @@ class DataFrameResource(SyncAPIResource):
             relationships=[],
         )
         run_metadata = get_run_metadata(node_metadata)
-        job_id = self._client.scrape.list(  # type: ignore
+        list_result = self._client.scrape.list(  # type: ignore
             url=url,
             table_name=table_name,
             dataset_descriptor=dataset_descriptor,
             run_metadata=run_metadata,  # type: ignore
-        ).job_id
-        error_message = self._client.jobs.wait_for_jobs([job_id])  # type: ignore
+        )
+        error_message = self._client.jobs.wait_for_jobs([list_result.job_id])  # type: ignore
         if error_message:
             raise Exception(error_message)
 
-        entities_result = self._client.datasets.view_table(dataset=dataset_descriptor["name"], name=table_name)
+        entities_result = self._client.datasets.view_table(dataset=list_result.dataset_name, name=table_name)
         data = [
             {col["name"]: entity.properties.get(col["name"]) for col in schema["properties"]}
             for entity in entities_result
