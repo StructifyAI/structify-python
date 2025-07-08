@@ -124,10 +124,10 @@ class DataFrameResource(SyncAPIResource):
 
         job_ids: list[str] = []
         for entity_id in entity_ids:
-            run_metadata = get_run_metadata(node_metadata)
+            node_id = get_node_id(node_metadata)
 
             job_id = self._client.structure.enhance_property(
-                entity_id=entity_id, property_name=column_name, allow_extra_entities=False, run_metadata=run_metadata
+                entity_id=entity_id, property_name=column_name, allow_extra_entities=False, node_id=node_id
             )
             job_ids.append(job_id)
 
@@ -167,12 +167,12 @@ class DataFrameResource(SyncAPIResource):
             tables=[schema],
             relationships=[],
         )
-        run_metadata = get_run_metadata(node_metadata)
+        node_id = get_node_id(node_metadata)
         job_id = self._client.scrape.list(  # type: ignore
             url=url,
             table_name=table_name,
             dataset_descriptor=dataset_descriptor,
-            run_metadata=run_metadata,  # type: ignore
+            node_id=node_id,  # type: ignore
         ).job_id
         error_message = self._client.jobs.wait_for_jobs([job_id])  # type: ignore
         if error_message:
@@ -229,12 +229,12 @@ class DataFrameResource(SyncAPIResource):
             path=f"{dataset_name}.pdf".encode(),
         )
 
-        run_metadata = get_run_metadata(node_metadata)
+        node_id = get_node_id(node_metadata)
 
         job_id = self._client.structure.run_async(
             dataset=dataset_name,
             source=SourcePdf(pdf={"path": f"{dataset_name}.pdf"}),
-            run_metadata=run_metadata,  # type: ignore
+            node_id=node_id,
         )
         error_message = self._client.jobs.wait_for_jobs([job_id])  # type: ignore
         if error_message:
@@ -268,9 +268,9 @@ class DataFrameResourceWithStreamingResponse:
         )
 
 
-def get_run_metadata(node_metadata: Optional[Any] | NotGiven) -> Optional[RunMetadata]:
+def get_node_id(node_metadata: Optional[Any] | NotGiven) -> Optional[str]:
     """
-    Helper function to cast node_metadata to run_metadata.
+    Helper function to cast node_metadata to node_id.
 
     Args:
       node_metadata: Optional node metadata to group related jobs.
@@ -286,5 +286,5 @@ def get_run_metadata(node_metadata: Optional[Any] | NotGiven) -> Optional[RunMet
             session_id = node_metadata.value.get("SESSION_ID")  # type: ignore
             if node_id is None or session_id is None:
                 return None
-            return RunMetadata(node_id=cast(str, node_id), session_id=cast(str, session_id))
+            return node_id
     return None
