@@ -117,7 +117,7 @@ class TestChat:
     @parametrize
     def test_method_create_session(self, client: Structify) -> None:
         chat = client.chat.create_session(
-            git_repo_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            git_application_token="git_application_token",
             initial_message="initial_message",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
@@ -126,7 +126,7 @@ class TestChat:
     @parametrize
     def test_raw_response_create_session(self, client: Structify) -> None:
         response = client.chat.with_raw_response.create_session(
-            git_repo_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            git_application_token="git_application_token",
             initial_message="initial_message",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
@@ -139,7 +139,7 @@ class TestChat:
     @parametrize
     def test_streaming_response_create_session(self, client: Structify) -> None:
         with client.chat.with_streaming_response.create_session(
-            git_repo_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            git_application_token="git_application_token",
             initial_message="initial_message",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
@@ -442,7 +442,7 @@ class TestAsyncChat:
     @parametrize
     async def test_method_create_session(self, async_client: AsyncStructify) -> None:
         chat = await async_client.chat.create_session(
-            git_repo_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            git_application_token="git_application_token",
             initial_message="initial_message",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
@@ -451,7 +451,7 @@ class TestAsyncChat:
     @parametrize
     async def test_raw_response_create_session(self, async_client: AsyncStructify) -> None:
         response = await async_client.chat.with_raw_response.create_session(
-            git_repo_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            git_application_token="git_application_token",
             initial_message="initial_message",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
@@ -464,7 +464,7 @@ class TestAsyncChat:
     @parametrize
     async def test_streaming_response_create_session(self, async_client: AsyncStructify) -> None:
         async with async_client.chat.with_streaming_response.create_session(
-            git_repo_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            git_application_token="git_application_token",
             initial_message="initial_message",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
