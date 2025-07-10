@@ -11,7 +11,9 @@ from structify import Structify, AsyncStructify
 from tests.utils import assert_matches_type
 from structify.types import (
     WorkflowSession,
+    WorkflowSessionEdge,
     WorkflowSessionNode,
+    GetWorkflowDagResponse,
     GetSessionEventsResponse,
 )
 
@@ -22,16 +24,76 @@ class TestSessions:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @parametrize
+    def test_method_create_edge(self, client: Structify) -> None:
+        session = client.sessions.create_edge(
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            source_node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            target_node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(WorkflowSessionEdge, session, path=["response"])
+
+    @parametrize
+    def test_raw_response_create_edge(self, client: Structify) -> None:
+        response = client.sessions.with_raw_response.create_edge(
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            source_node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            target_node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        session = response.parse()
+        assert_matches_type(WorkflowSessionEdge, session, path=["response"])
+
+    @parametrize
+    def test_streaming_response_create_edge(self, client: Structify) -> None:
+        with client.sessions.with_streaming_response.create_edge(
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            source_node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            target_node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            session = response.parse()
+            assert_matches_type(WorkflowSessionEdge, session, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_path_params_create_edge(self, client: Structify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
+            client.sessions.with_raw_response.create_edge(
+                session_id="",
+                source_node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                target_node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            )
+
+    @parametrize
     def test_method_create_node(self, client: Structify) -> None:
         session = client.sessions.create_node(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            docstring="docstring",
+            function_name="function_name",
+        )
+        assert_matches_type(WorkflowSessionNode, session, path=["response"])
+
+    @parametrize
+    def test_method_create_node_with_all_params(self, client: Structify) -> None:
+        session = client.sessions.create_node(
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            docstring="docstring",
+            function_name="function_name",
+            output_schema={},
         )
         assert_matches_type(WorkflowSessionNode, session, path=["response"])
 
     @parametrize
     def test_raw_response_create_node(self, client: Structify) -> None:
         response = client.sessions.with_raw_response.create_node(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            docstring="docstring",
+            function_name="function_name",
         )
 
         assert response.is_closed is True
@@ -42,7 +104,9 @@ class TestSessions:
     @parametrize
     def test_streaming_response_create_node(self, client: Structify) -> None:
         with client.sessions.with_streaming_response.create_node(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            docstring="docstring",
+            function_name="function_name",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -56,7 +120,9 @@ class TestSessions:
     def test_path_params_create_node(self, client: Structify) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
             client.sessions.with_raw_response.create_node(
-                "",
+                session_id="",
+                docstring="docstring",
+                function_name="function_name",
             )
 
     @parametrize
@@ -89,6 +155,44 @@ class TestSessions:
             assert_matches_type(WorkflowSession, session, path=["response"])
 
         assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_method_get_dag(self, client: Structify) -> None:
+        session = client.sessions.get_dag(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(GetWorkflowDagResponse, session, path=["response"])
+
+    @parametrize
+    def test_raw_response_get_dag(self, client: Structify) -> None:
+        response = client.sessions.with_raw_response.get_dag(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        session = response.parse()
+        assert_matches_type(GetWorkflowDagResponse, session, path=["response"])
+
+    @parametrize
+    def test_streaming_response_get_dag(self, client: Structify) -> None:
+        with client.sessions.with_streaming_response.get_dag(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            session = response.parse()
+            assert_matches_type(GetWorkflowDagResponse, session, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_path_params_get_dag(self, client: Structify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
+            client.sessions.with_raw_response.get_dag(
+                "",
+            )
 
     @parametrize
     def test_method_get_events(self, client: Structify) -> None:
@@ -136,6 +240,58 @@ class TestSessions:
                 session_id="",
             )
 
+    @parametrize
+    def test_method_update_node(self, client: Structify) -> None:
+        session = client.sessions.update_node(
+            node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            execution_status="Unexecuted",
+        )
+        assert_matches_type(WorkflowSessionNode, session, path=["response"])
+
+    @parametrize
+    def test_method_update_node_with_all_params(self, client: Structify) -> None:
+        session = client.sessions.update_node(
+            node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            execution_status="Unexecuted",
+            error_message="error_message",
+            output_data={},
+        )
+        assert_matches_type(WorkflowSessionNode, session, path=["response"])
+
+    @parametrize
+    def test_raw_response_update_node(self, client: Structify) -> None:
+        response = client.sessions.with_raw_response.update_node(
+            node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            execution_status="Unexecuted",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        session = response.parse()
+        assert_matches_type(WorkflowSessionNode, session, path=["response"])
+
+    @parametrize
+    def test_streaming_response_update_node(self, client: Structify) -> None:
+        with client.sessions.with_streaming_response.update_node(
+            node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            execution_status="Unexecuted",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            session = response.parse()
+            assert_matches_type(WorkflowSessionNode, session, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_path_params_update_node(self, client: Structify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `node_id` but received ''"):
+            client.sessions.with_raw_response.update_node(
+                node_id="",
+                execution_status="Unexecuted",
+            )
+
 
 class TestAsyncSessions:
     parametrize = pytest.mark.parametrize(
@@ -143,16 +299,76 @@ class TestAsyncSessions:
     )
 
     @parametrize
+    async def test_method_create_edge(self, async_client: AsyncStructify) -> None:
+        session = await async_client.sessions.create_edge(
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            source_node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            target_node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(WorkflowSessionEdge, session, path=["response"])
+
+    @parametrize
+    async def test_raw_response_create_edge(self, async_client: AsyncStructify) -> None:
+        response = await async_client.sessions.with_raw_response.create_edge(
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            source_node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            target_node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        session = await response.parse()
+        assert_matches_type(WorkflowSessionEdge, session, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_create_edge(self, async_client: AsyncStructify) -> None:
+        async with async_client.sessions.with_streaming_response.create_edge(
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            source_node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            target_node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            session = await response.parse()
+            assert_matches_type(WorkflowSessionEdge, session, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_create_edge(self, async_client: AsyncStructify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
+            await async_client.sessions.with_raw_response.create_edge(
+                session_id="",
+                source_node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                target_node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            )
+
+    @parametrize
     async def test_method_create_node(self, async_client: AsyncStructify) -> None:
         session = await async_client.sessions.create_node(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            docstring="docstring",
+            function_name="function_name",
+        )
+        assert_matches_type(WorkflowSessionNode, session, path=["response"])
+
+    @parametrize
+    async def test_method_create_node_with_all_params(self, async_client: AsyncStructify) -> None:
+        session = await async_client.sessions.create_node(
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            docstring="docstring",
+            function_name="function_name",
+            output_schema={},
         )
         assert_matches_type(WorkflowSessionNode, session, path=["response"])
 
     @parametrize
     async def test_raw_response_create_node(self, async_client: AsyncStructify) -> None:
         response = await async_client.sessions.with_raw_response.create_node(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            docstring="docstring",
+            function_name="function_name",
         )
 
         assert response.is_closed is True
@@ -163,7 +379,9 @@ class TestAsyncSessions:
     @parametrize
     async def test_streaming_response_create_node(self, async_client: AsyncStructify) -> None:
         async with async_client.sessions.with_streaming_response.create_node(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            docstring="docstring",
+            function_name="function_name",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -177,7 +395,9 @@ class TestAsyncSessions:
     async def test_path_params_create_node(self, async_client: AsyncStructify) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
             await async_client.sessions.with_raw_response.create_node(
-                "",
+                session_id="",
+                docstring="docstring",
+                function_name="function_name",
             )
 
     @parametrize
@@ -210,6 +430,44 @@ class TestAsyncSessions:
             assert_matches_type(WorkflowSession, session, path=["response"])
 
         assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_method_get_dag(self, async_client: AsyncStructify) -> None:
+        session = await async_client.sessions.get_dag(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(GetWorkflowDagResponse, session, path=["response"])
+
+    @parametrize
+    async def test_raw_response_get_dag(self, async_client: AsyncStructify) -> None:
+        response = await async_client.sessions.with_raw_response.get_dag(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        session = await response.parse()
+        assert_matches_type(GetWorkflowDagResponse, session, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_get_dag(self, async_client: AsyncStructify) -> None:
+        async with async_client.sessions.with_streaming_response.get_dag(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            session = await response.parse()
+            assert_matches_type(GetWorkflowDagResponse, session, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_get_dag(self, async_client: AsyncStructify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
+            await async_client.sessions.with_raw_response.get_dag(
+                "",
+            )
 
     @parametrize
     async def test_method_get_events(self, async_client: AsyncStructify) -> None:
@@ -255,4 +513,56 @@ class TestAsyncSessions:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
             await async_client.sessions.with_raw_response.get_events(
                 session_id="",
+            )
+
+    @parametrize
+    async def test_method_update_node(self, async_client: AsyncStructify) -> None:
+        session = await async_client.sessions.update_node(
+            node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            execution_status="Unexecuted",
+        )
+        assert_matches_type(WorkflowSessionNode, session, path=["response"])
+
+    @parametrize
+    async def test_method_update_node_with_all_params(self, async_client: AsyncStructify) -> None:
+        session = await async_client.sessions.update_node(
+            node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            execution_status="Unexecuted",
+            error_message="error_message",
+            output_data={},
+        )
+        assert_matches_type(WorkflowSessionNode, session, path=["response"])
+
+    @parametrize
+    async def test_raw_response_update_node(self, async_client: AsyncStructify) -> None:
+        response = await async_client.sessions.with_raw_response.update_node(
+            node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            execution_status="Unexecuted",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        session = await response.parse()
+        assert_matches_type(WorkflowSessionNode, session, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_update_node(self, async_client: AsyncStructify) -> None:
+        async with async_client.sessions.with_streaming_response.update_node(
+            node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            execution_status="Unexecuted",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            session = await response.parse()
+            assert_matches_type(WorkflowSessionNode, session, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_update_node(self, async_client: AsyncStructify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `node_id` but received ''"):
+            await async_client.sessions.with_raw_response.update_node(
+                node_id="",
+                execution_status="Unexecuted",
             )

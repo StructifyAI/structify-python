@@ -4,12 +4,19 @@ from typing import Optional
 from datetime import datetime
 
 from .._models import BaseModel
+from .workflow_node_execution_status import WorkflowNodeExecutionStatus
 
 __all__ = ["WorkflowSessionNode"]
 
 
 class WorkflowSessionNode(BaseModel):
     id: str
+
+    docstring: str
+
+    execution_status: WorkflowNodeExecutionStatus
+
+    function_name: str
 
     node_index: int
 
@@ -18,3 +25,9 @@ class WorkflowSessionNode(BaseModel):
     session_id: str
 
     created_at: Optional[datetime] = None
+
+    error_message: Optional[str] = None
+
+    output_data: Optional[object] = None
+
+    output_schema: Optional[object] = None

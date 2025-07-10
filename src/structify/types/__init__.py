@@ -93,6 +93,7 @@ from .knowledge_graph_param import KnowledgeGraphParam as KnowledgeGraphParam
 from .list_members_response import ListMembersResponse as ListMembersResponse
 from .report_missing_params import ReportMissingParams as ReportMissingParams
 from .report_wrong_response import ReportWrongResponse as ReportWrongResponse
+from .workflow_session_edge import WorkflowSessionEdge as WorkflowSessionEdge
 from .workflow_session_node import WorkflowSessionNode as WorkflowSessionNode
 from .dataset_match_response import DatasetMatchResponse as DatasetMatchResponse
 from .document_delete_params import DocumentDeleteParams as DocumentDeleteParams
@@ -134,6 +135,7 @@ from .entity_agent_merge_params import EntityAgentMergeParams as EntityAgentMerg
 from .entity_list_jobs_response import EntityListJobsResponse as EntityListJobsResponse
 from .entity_summarize_response import EntitySummarizeResponse as EntitySummarizeResponse
 from .get_chat_session_response import GetChatSessionResponse as GetChatSessionResponse
+from .get_workflow_dag_response import GetWorkflowDagResponse as GetWorkflowDagResponse
 from .job_get_scrapers_response import JobGetScrapersResponse as JobGetScrapersResponse
 from .session_get_events_params import SessionGetEventsParams as SessionGetEventsParams
 from .user_survey_submit_params import UserSurveySubmitParams as UserSurveySubmitParams
@@ -143,6 +145,9 @@ from .chat_session_with_messages import ChatSessionWithMessages as ChatSessionWi
 from .document_download_response import DocumentDownloadResponse as DocumentDownloadResponse
 from .entity_get_merges_response import EntityGetMergesResponse as EntityGetMergesResponse
 from .report_relationship_params import ReportRelationshipParams as ReportRelationshipParams
+from .session_create_edge_params import SessionCreateEdgeParams as SessionCreateEdgeParams
+from .session_create_node_params import SessionCreateNodeParams as SessionCreateNodeParams
+from .session_update_node_params import SessionUpdateNodeParams as SessionUpdateNodeParams
 from .structure_run_async_params import StructureRunAsyncParams as StructureRunAsyncParams
 from .survey_submission_response import SurveySubmissionResponse as SurveySubmissionResponse
 from .team_create_project_params import TeamCreateProjectParams as TeamCreateProjectParams
@@ -178,6 +183,7 @@ from .dataset_update_property_params import DatasetUpdatePropertyParams as Datas
 from .entity_add_relationship_params import EntityAddRelationshipParams as EntityAddRelationshipParams
 from .structure_is_complete_response import StructureIsCompleteResponse as StructureIsCompleteResponse
 from .workflow_job_progress_response import WorkflowJobProgressResponse as WorkflowJobProgressResponse
+from .workflow_node_execution_status import WorkflowNodeExecutionStatus as WorkflowNodeExecutionStatus
 from .entity_update_property_response import EntityUpdatePropertyResponse as EntityUpdatePropertyResponse
 from .entity_add_relationship_response import EntityAddRelationshipResponse as EntityAddRelationshipResponse
 from .entity_get_local_subgraph_params import EntityGetLocalSubgraphParams as EntityGetLocalSubgraphParams
