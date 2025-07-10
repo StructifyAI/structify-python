@@ -31,6 +31,7 @@ from .job_list_params import JobListParams as JobListParams
 from .knowledge_graph import KnowledgeGraph as KnowledgeGraph
 from .job_get_response import JobGetResponse as JobGetResponse
 from .save_requirement import SaveRequirement as SaveRequirement
+from .workflow_session import WorkflowSession as WorkflowSession
 from .chat_prompt_param import ChatPromptParam as ChatPromptParam
 from .entity_add_params import EntityAddParams as EntityAddParams
 from .entity_get_params import EntityGetParams as EntityGetParams
@@ -92,6 +93,7 @@ from .knowledge_graph_param import KnowledgeGraphParam as KnowledgeGraphParam
 from .list_members_response import ListMembersResponse as ListMembersResponse
 from .report_missing_params import ReportMissingParams as ReportMissingParams
 from .report_wrong_response import ReportWrongResponse as ReportWrongResponse
+from .workflow_session_node import WorkflowSessionNode as WorkflowSessionNode
 from .dataset_match_response import DatasetMatchResponse as DatasetMatchResponse
 from .document_delete_params import DocumentDeleteParams as DocumentDeleteParams
 from .document_list_response import DocumentListResponse as DocumentListResponse
@@ -168,6 +170,7 @@ from .workflow_job_progress_params import WorkflowJobProgressParams as WorkflowJ
 from .delete_source_entity_response import DeleteSourceEntityResponse as DeleteSourceEntityResponse
 from .entity_trigger_merge_response import EntityTriggerMergeResponse as EntityTriggerMergeResponse
 from .entity_update_property_params import EntityUpdatePropertyParams as EntityUpdatePropertyParams
+from .session_create_session_params import SessionCreateSessionParams as SessionCreateSessionParams
 from .structure_job_status_response import StructureJobStatusResponse as StructureJobStatusResponse
 from .dataset_export_to_excel_params import DatasetExportToExcelParams as DatasetExportToExcelParams
 from .dataset_remove_property_params import DatasetRemovePropertyParams as DatasetRemovePropertyParams
@@ -178,6 +181,7 @@ from .workflow_job_progress_response import WorkflowJobProgressResponse as Workf
 from .entity_update_property_response import EntityUpdatePropertyResponse as EntityUpdatePropertyResponse
 from .entity_add_relationship_response import EntityAddRelationshipResponse as EntityAddRelationshipResponse
 from .entity_get_local_subgraph_params import EntityGetLocalSubgraphParams as EntityGetLocalSubgraphParams
+from .job_get_source_entities_response import JobGetSourceEntitiesResponse as JobGetSourceEntitiesResponse
 from .dataset_reorder_properties_params import DatasetReorderPropertiesParams as DatasetReorderPropertiesParams
 from .dataset_set_primary_column_params import DatasetSetPrimaryColumnParams as DatasetSetPrimaryColumnParams
 from .dataset_view_relationships_params import DatasetViewRelationshipsParams as DatasetViewRelationshipsParams
