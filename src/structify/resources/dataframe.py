@@ -195,7 +195,7 @@ class DataFrameResource(SyncAPIResource):
                 node_id=node_id,  # type: ignore
             )
             job_ids.append(scrape_list_response.job_id)
-            url_to_dataset[url] = dataset_descriptor["name"]
+            url_to_dataset[url] = scrape_list_response.dataset_name
         
         # Wait for all jobs to complete
         error_message = self._client.jobs.wait_for_jobs(job_ids)
