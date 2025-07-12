@@ -1,5 +1,6 @@
 # Structify Python API library
 
+<!-- prettier-ignore -->
 [![PyPI version](<https://img.shields.io/pypi/v/structifyai.svg?label=pypi%20(stable)>)](https://pypi.org/project/structifyai/)
 [![Documentation Status](https://readthedocs.org/projects/structify/badge/?version=latest)](https://structify.readthedocs.io/en/latest/?badge=latest)
 

@@ -2,7 +2,7 @@
 from __future__ import annotations
 
 import uuid
-from typing import Any, Optional, cast
+from typing import Any, Optional
 
 import pandas as pd
 
@@ -17,7 +17,6 @@ from .._response import (
 from ..types.table_param import Property
 from ..types.dataset_descriptor_param import DatasetDescriptorParam
 from ..types.structure_run_async_params import SourcePdf
-from ..types.structure_enhance_property_params import RunMetadata
 
 __all__ = ["DataFrameResource"]
 
@@ -124,10 +123,10 @@ class DataFrameResource(SyncAPIResource):
 
         job_ids: list[str] = []
         for entity_id in entity_ids:
-            run_metadata = get_run_metadata(node_metadata)
+            node_id = get_node_id(node_metadata)
 
             job_id = self._client.structure.enhance_property(
-                entity_id=entity_id, property_name=column_name, allow_extra_entities=False, run_metadata=run_metadata
+                entity_id=entity_id, property_name=column_name, allow_extra_entities=False, node_id=node_id
             )
             job_ids.append(job_id)
 
@@ -144,51 +143,83 @@ class DataFrameResource(SyncAPIResource):
         return df_result[column_names]
 
     # type: ignore
-    def scrape_url(
+    def scrape_urls(
         self,
         *,
-        url: str,
+        df: pd.DataFrame,
+        url_column: str,
         table_name: str,
         schema: TableParam,
         node_metadata: Optional[Any] | NotGiven = NOT_GIVEN,
     ) -> pd.DataFrame:
         """
-        Scrape data from a URL and return as a DataFrame.
+        Scrape data from URLs in a DataFrame column and return structured results, with a column `source_url` that contains the original URL.
 
         Args:
-          url: The URL to scrape
+          df: DataFrame containing URLs to scrape
+          url_column: Name of the column containing URLs
           table_name: Name of the table for the structured data
           schema: Schema definition for the data to extract
           node_metadata: Optional node metadata to group related jobs (optional)
         """
-        dataset_descriptor = DatasetDescriptorParam(
-            name=f"scrape_{table_name}_{uuid.uuid4().hex}",
-            description="",
-            tables=[schema],
-            relationships=[],
-        )
-        run_metadata = get_run_metadata(node_metadata)
-        job_id = self._client.scrape.list(  # type: ignore
-            url=url,
-            table_name=table_name,
-            dataset_descriptor=dataset_descriptor,
-            run_metadata=run_metadata,  # type: ignore
-        ).job_id
-        error_message = self._client.jobs.wait_for_jobs([job_id])  # type: ignore
+        if url_column not in df.columns:
+            raise ValueError(f"Column '{url_column}' not found in DataFrame")
+        
+        # Filter out rows with null/empty URLs
+        valid_urls_df = df[df[url_column].notna() & (df[url_column] != "")].copy()
+        
+        if valid_urls_df.empty:
+            # Return empty DataFrame with schema columns plus source_url if no valid URLs
+            column_names = [prop["name"] for prop in schema["properties"]] + ["source_url"]
+            return pd.DataFrame(columns=column_names)
+        
+        all_results: list[dict[str, Any]] = []
+        job_ids: list[str] = []
+        url_to_dataset: dict[str, str] = {}
+        node_id = get_node_id(node_metadata)
+        
+        # Create scraping jobs for each unique URL
+        unique_urls = valid_urls_df[url_column].unique()
+        for url in unique_urls:
+            dataset_descriptor = DatasetDescriptorParam(
+                name=f"scrape_{table_name}_{uuid.uuid4().hex}",
+                description="",
+                tables=[schema],
+                relationships=[],
+            )
+            
+            scrape_list_response = self._client.scrape.list(  # type: ignore
+                url=url,
+                table_name=table_name,
+                dataset_descriptor=dataset_descriptor,
+                node_id=node_id,  # type: ignore
+            )
+            job_ids.append(scrape_list_response.job_id)
+            url_to_dataset[url] = scrape_list_response.dataset_name
+        
+        # Wait for all jobs to complete
+        error_message = self._client.jobs.wait_for_jobs(job_ids)
         if error_message:
             raise Exception(error_message)
 
-        entities_result = self._client.datasets.view_table(dataset=dataset_descriptor["name"], name=table_name)
-        data = [
-            {col["name"]: entity.properties.get(col["name"]) for col in schema["properties"]}
-            for entity in entities_result
-        ]
-        df_result = pd.DataFrame(data)
+        # Collect results from all datasets
+        for url, dataset_name in url_to_dataset.items():
+            entities_result = self._client.datasets.view_table(dataset=dataset_name, name=table_name)
+            
+            for entity in entities_result:
+                result_row = {col["name"]: entity.properties.get(col["name"]) for col in schema["properties"]}
+                result_row["source_url"] = url
+                all_results.append(result_row)
+        
+        # Create DataFrame with all results
+        column_names = [prop["name"] for prop in schema["properties"]] + ["source_url"]
+        df_result = pd.DataFrame(all_results, columns=column_names)
+        
+        # Ensure all schema columns exist even if empty
         for col in schema["properties"]:
             if col["name"] not in df_result.columns:
                 df_result[col["name"]] = None
         return df_result
-
     # type: ignore
     def structure_pdf(
         self,
@@ -229,12 +260,12 @@ class DataFrameResource(SyncAPIResource):
             path=f"{dataset_name}.pdf".encode(),
         )
 
-        run_metadata = get_run_metadata(node_metadata)
+        node_id = get_node_id(node_metadata)
 
         job_id = self._client.structure.run_async(
             dataset=dataset_name,
             source=SourcePdf(pdf={"path": f"{dataset_name}.pdf"}),
-            run_metadata=run_metadata,  # type: ignore
+            node_id=node_id,
         )
         error_message = self._client.jobs.wait_for_jobs([job_id])  # type: ignore
         if error_message:
@@ -268,9 +299,9 @@ class DataFrameResourceWithStreamingResponse:
         )
 
 
-def get_run_metadata(node_metadata: Optional[Any] | NotGiven) -> Optional[RunMetadata]:
+def get_node_id(node_metadata: Optional[Any] | NotGiven) -> Optional[str]:
     """
-    Helper function to cast node_metadata to run_metadata.
+    Helper function to cast node_metadata to node_id.
 
     Args:
       node_metadata: Optional node metadata to group related jobs.
@@ -283,8 +314,7 @@ def get_run_metadata(node_metadata: Optional[Any] | NotGiven) -> Optional[RunMet
     if hasattr(node_metadata, "value"):
         if isinstance(node_metadata.value, dict):  # type: ignore
             node_id = node_metadata.value.get("NODE_ID")  # type: ignore
-            session_id = node_metadata.value.get("SESSION_ID")  # type: ignore
-            if node_id is None or session_id is None:
+            if node_id is None:
                 return None
-            return RunMetadata(node_id=cast(str, node_id), session_id=cast(str, session_id))
+            return node_id  # type: ignore
     return None

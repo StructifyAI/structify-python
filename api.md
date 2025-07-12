@@ -152,6 +152,30 @@ Methods:
 
 # Admin
 
+## Dataset
+
+Types:
+
+```python
+from structify.types.admin import AdminDatasetReturn
+```
+
+Methods:
+
+- <code title="get /admin/dataset/get_by_id">client.admin.dataset.<a href="./src/structify/resources/admin/dataset.py">get_by_id</a>(\*\*<a href="src/structify/types/admin/dataset_get_by_id_params.py">params</a>) -> <a href="./src/structify/types/admin/admin_dataset_return.py">AdminDatasetReturn</a></code>
+
+## Jobs
+
+Types:
+
+```python
+from structify.types.admin import AdminListJobsRequestParams, AdminListJobsResponse
+```
+
+Methods:
+
+- <code title="get /admin/jobs/list">client.admin.jobs.<a href="./src/structify/resources/admin/jobs.py">list</a>(\*\*<a href="src/structify/types/admin/job_list_params.py">params</a>) -> <a href="./src/structify/types/admin/admin_list_jobs_response.py">SyncJobsList[AdminListJobsResponse]</a></code>
+
 ## HumanLlm
 
 Types:
@@ -383,6 +407,7 @@ from structify.types import (
     JobCancelResponse,
     JobGetResponse,
     JobGetScrapersResponse,
+    JobGetSourceEntitiesResponse,
     JobGetStepResponse,
     JobGetStepGraphResponse,
     JobGetStepsResponse,
@@ -396,6 +421,7 @@ Methods:
 - <code title="post /jobs/cancel/{uuid}">client.jobs.<a href="./src/structify/resources/jobs.py">cancel</a>(uuid) -> <a href="./src/structify/types/job_cancel_response.py">JobCancelResponse</a></code>
 - <code title="get /jobs/get/{job_id}">client.jobs.<a href="./src/structify/resources/jobs.py">get</a>(job_id) -> <a href="./src/structify/types/job_get_response.py">JobGetResponse</a></code>
 - <code title="get /jobs/get_scrapers/{job_id}">client.jobs.<a href="./src/structify/resources/jobs.py">get_scrapers</a>(job_id) -> <a href="./src/structify/types/job_get_scrapers_response.py">JobGetScrapersResponse</a></code>
+- <code title="get /jobs/get_source_entities/{job_id}">client.jobs.<a href="./src/structify/resources/jobs.py">get_source_entities</a>(job_id) -> <a href="./src/structify/types/job_get_source_entities_response.py">JobGetSourceEntitiesResponse</a></code>
 - <code title="get /jobs/get_step/{step_id}">client.jobs.<a href="./src/structify/resources/jobs.py">get_step</a>(step_id) -> <a href="./src/structify/types/job_get_step_response.py">JobGetStepResponse</a></code>
 - <code title="get /jobs/get_step_graph/{job_id}">client.jobs.<a href="./src/structify/resources/jobs.py">get_step_graph</a>(job_id) -> <a href="./src/structify/types/job_get_step_graph_response.py">JobGetStepGraphResponse</a></code>
 - <code title="get /jobs/get_steps/{job_id}">client.jobs.<a href="./src/structify/resources/jobs.py">get_steps</a>(job_id) -> <a href="./src/structify/types/job_get_steps_response.py">JobGetStepsResponse</a></code>
@@ -406,12 +432,29 @@ Methods:
 Types:
 
 ```python
-from structify.types import GetSessionEventsResponse, JobEventBody
+from structify.types import (
+    CreateWorkflowEdgeRequest,
+    CreateWorkflowNodeRequest,
+    CreateWorkflowSessionRequest,
+    GetSessionEventsResponse,
+    GetWorkflowDagResponse,
+    JobEventBody,
+    UpdateWorkflowNodeRequest,
+    WorkflowNodeExecutionStatus,
+    WorkflowSession,
+    WorkflowSessionEdge,
+    WorkflowSessionNode,
+)
 ```
 
 Methods:
 
+- <code title="post /sessions/{session_id}/edges">client.sessions.<a href="./src/structify/resources/sessions.py">create_edge</a>(session_id, \*\*<a href="src/structify/types/session_create_edge_params.py">params</a>) -> <a href="./src/structify/types/workflow_session_edge.py">WorkflowSessionEdge</a></code>
+- <code title="post /sessions/{session_id}/nodes">client.sessions.<a href="./src/structify/resources/sessions.py">create_node</a>(session_id, \*\*<a href="src/structify/types/session_create_node_params.py">params</a>) -> <a href="./src/structify/types/workflow_session_node.py">WorkflowSessionNode</a></code>
+- <code title="post /sessions">client.sessions.<a href="./src/structify/resources/sessions.py">create_session</a>(\*\*<a href="src/structify/types/session_create_session_params.py">params</a>) -> <a href="./src/structify/types/workflow_session.py">WorkflowSession</a></code>
+- <code title="get /sessions/{session_id}/dag">client.sessions.<a href="./src/structify/resources/sessions.py">get_dag</a>(session_id) -> <a href="./src/structify/types/get_workflow_dag_response.py">GetWorkflowDagResponse</a></code>
 - <code title="get /sessions/{session_id}/events">client.sessions.<a href="./src/structify/resources/sessions.py">get_events</a>(session_id, \*\*<a href="src/structify/types/session_get_events_params.py">params</a>) -> <a href="./src/structify/types/get_session_events_response.py">GetSessionEventsResponse</a></code>
+- <code title="patch /sessions/nodes/{node_id}">client.sessions.<a href="./src/structify/resources/sessions.py">update_node</a>(node_id, \*\*<a href="src/structify/types/session_update_node_params.py">params</a>) -> <a href="./src/structify/types/workflow_session_node.py">WorkflowSessionNode</a></code>
 
 # Server
 
