@@ -83,7 +83,6 @@ pip install structifyai[aiohttp]
 Then you can enable it by instantiating the client with `http_client=DefaultAioHttpClient()`:
 
 ```python
-import os
 import asyncio
 from structify import DefaultAioHttpClient
 from structify import AsyncStructify
@@ -91,7 +90,7 @@ from structify import AsyncStructify
 
 async def main() -> None:
     async with AsyncStructify(
-        api_key=os.environ.get("STRUCTIFY_API_TOKEN"),  # This is the default and can be omitted
+        api_key="My API Key",
         http_client=DefaultAioHttpClient(),
     ) as client:
         server_information = await client.server.version()
