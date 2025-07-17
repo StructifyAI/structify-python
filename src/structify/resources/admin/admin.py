@@ -2,6 +2,14 @@
 
 from __future__ import annotations
 
+from .jobs import (
+    JobsResource,
+    AsyncJobsResource,
+    JobsResourceWithRawResponse,
+    AsyncJobsResourceWithRawResponse,
+    JobsResourceWithStreamingResponse,
+    AsyncJobsResourceWithStreamingResponse,
+)
 from .users import (
     UsersResource,
     AsyncUsersResource,
@@ -9,6 +17,14 @@ from .users import (
     AsyncUsersResourceWithRawResponse,
     UsersResourceWithStreamingResponse,
     AsyncUsersResourceWithStreamingResponse,
+)
+from .dataset import (
+    DatasetResource,
+    AsyncDatasetResource,
+    DatasetResourceWithRawResponse,
+    AsyncDatasetResourceWithRawResponse,
+    DatasetResourceWithStreamingResponse,
+    AsyncDatasetResourceWithStreamingResponse,
 )
 from ..._compat import cached_property
 from .human_llm import (
@@ -41,6 +57,14 @@ __all__ = ["AdminResource", "AsyncAdminResource"]
 
 
 class AdminResource(SyncAPIResource):
+    @cached_property
+    def dataset(self) -> DatasetResource:
+        return DatasetResource(self._client)
+
+    @cached_property
+    def jobs(self) -> JobsResource:
+        return JobsResource(self._client)
+
     @cached_property
     def human_llm(self) -> HumanLlmResource:
         return HumanLlmResource(self._client)
@@ -78,6 +102,14 @@ class AdminResource(SyncAPIResource):
 
 
 class AsyncAdminResource(AsyncAPIResource):
+    @cached_property
+    def dataset(self) -> AsyncDatasetResource:
+        return AsyncDatasetResource(self._client)
+
+    @cached_property
+    def jobs(self) -> AsyncJobsResource:
+        return AsyncJobsResource(self._client)
+
     @cached_property
     def human_llm(self) -> AsyncHumanLlmResource:
         return AsyncHumanLlmResource(self._client)
@@ -119,6 +151,14 @@ class AdminResourceWithRawResponse:
         self._admin = admin
 
     @cached_property
+    def dataset(self) -> DatasetResourceWithRawResponse:
+        return DatasetResourceWithRawResponse(self._admin.dataset)
+
+    @cached_property
+    def jobs(self) -> JobsResourceWithRawResponse:
+        return JobsResourceWithRawResponse(self._admin.jobs)
+
+    @cached_property
     def human_llm(self) -> HumanLlmResourceWithRawResponse:
         return HumanLlmResourceWithRawResponse(self._admin.human_llm)
 
@@ -138,6 +178,14 @@ class AdminResourceWithRawResponse:
 class AsyncAdminResourceWithRawResponse:
     def __init__(self, admin: AsyncAdminResource) -> None:
         self._admin = admin
+
+    @cached_property
+    def dataset(self) -> AsyncDatasetResourceWithRawResponse:
+        return AsyncDatasetResourceWithRawResponse(self._admin.dataset)
+
+    @cached_property
+    def jobs(self) -> AsyncJobsResourceWithRawResponse:
+        return AsyncJobsResourceWithRawResponse(self._admin.jobs)
 
     @cached_property
     def human_llm(self) -> AsyncHumanLlmResourceWithRawResponse:
@@ -161,6 +209,14 @@ class AdminResourceWithStreamingResponse:
         self._admin = admin
 
     @cached_property
+    def dataset(self) -> DatasetResourceWithStreamingResponse:
+        return DatasetResourceWithStreamingResponse(self._admin.dataset)
+
+    @cached_property
+    def jobs(self) -> JobsResourceWithStreamingResponse:
+        return JobsResourceWithStreamingResponse(self._admin.jobs)
+
+    @cached_property
     def human_llm(self) -> HumanLlmResourceWithStreamingResponse:
         return HumanLlmResourceWithStreamingResponse(self._admin.human_llm)
 
@@ -180,6 +236,14 @@ class AdminResourceWithStreamingResponse:
 class AsyncAdminResourceWithStreamingResponse:
     def __init__(self, admin: AsyncAdminResource) -> None:
         self._admin = admin
+
+    @cached_property
+    def dataset(self) -> AsyncDatasetResourceWithStreamingResponse:
+        return AsyncDatasetResourceWithStreamingResponse(self._admin.dataset)
+
+    @cached_property
+    def jobs(self) -> AsyncJobsResourceWithStreamingResponse:
+        return AsyncJobsResourceWithStreamingResponse(self._admin.jobs)
 
     @cached_property
     def human_llm(self) -> AsyncHumanLlmResourceWithStreamingResponse:

@@ -1,5 +1,13 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+from .jobs import (
+    JobsResource,
+    AsyncJobsResource,
+    JobsResourceWithRawResponse,
+    AsyncJobsResourceWithRawResponse,
+    JobsResourceWithStreamingResponse,
+    AsyncJobsResourceWithStreamingResponse,
+)
 from .admin import (
     AdminResource,
     AsyncAdminResource,
@@ -15,6 +23,14 @@ from .users import (
     AsyncUsersResourceWithRawResponse,
     UsersResourceWithStreamingResponse,
     AsyncUsersResourceWithStreamingResponse,
+)
+from .dataset import (
+    DatasetResource,
+    AsyncDatasetResource,
+    DatasetResourceWithRawResponse,
+    AsyncDatasetResourceWithRawResponse,
+    DatasetResourceWithStreamingResponse,
+    AsyncDatasetResourceWithStreamingResponse,
 )
 from .human_llm import (
     HumanLlmResource,
@@ -42,6 +58,18 @@ from .training_datasets import (
 )
 
 __all__ = [
+    "DatasetResource",
+    "AsyncDatasetResource",
+    "DatasetResourceWithRawResponse",
+    "AsyncDatasetResourceWithRawResponse",
+    "DatasetResourceWithStreamingResponse",
+    "AsyncDatasetResourceWithStreamingResponse",
+    "JobsResource",
+    "AsyncJobsResource",
+    "JobsResourceWithRawResponse",
+    "AsyncJobsResourceWithRawResponse",
+    "JobsResourceWithStreamingResponse",
+    "AsyncJobsResourceWithStreamingResponse",
     "HumanLlmResource",
     "AsyncHumanLlmResource",
     "HumanLlmResourceWithRawResponse",
