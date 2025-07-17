@@ -41,7 +41,6 @@ class DataFrameResource(SyncAPIResource):
         """
         return DataFrameResourceWithStreamingResponse(self)
 
-    # type: ignore
     def enhance_column(
         self,
         *,
@@ -179,7 +178,7 @@ class DataFrameResource(SyncAPIResource):
         node_id = get_node_id(node_metadata)
 
         # Create scraping jobs for each unique URL
-        unique_urls = valid_urls_df[url_column].unique()  # type: ignore
+        unique_urls: list[str] = list(valid_urls_df[url_column].drop_duplicates().astype(str))
         for url in unique_urls:
             dataset_descriptor = DatasetDescriptorParam(
                 name=f"scrape_{table_name}_{uuid.uuid4().hex}",
@@ -188,11 +187,11 @@ class DataFrameResource(SyncAPIResource):
                 relationships=[],
             )
 
-            scrape_list_response = self._client.scrape.list(  # type: ignore
+            scrape_list_response = self._client.scrape.list(
                 url=url,
                 table_name=table_name,
                 dataset_descriptor=dataset_descriptor,
-                node_id=node_id,  # type: ignore
+                node_id=node_id,
             )
             job_ids.append(scrape_list_response.job_id)
             url_to_dataset[url] = scrape_list_response.dataset_name
@@ -221,7 +220,6 @@ class DataFrameResource(SyncAPIResource):
                 df_result[col["name"]] = None
         return df_result
 
-    # type: ignore
     def structure_pdf(
         self,
         *,
@@ -268,7 +266,7 @@ class DataFrameResource(SyncAPIResource):
             source=SourcePdf(pdf={"path": f"{dataset_name}.pdf"}),
             node_id=node_id,
         )
-        error_message = self._client.jobs.wait_for_jobs([job_id])  # type: ignore
+        error_message = self._client.jobs.wait_for_jobs([job_id])
         if error_message:
             raise Exception(error_message)
         entities_result = self._client.datasets.view_table(dataset=dataset_name, name=table_name)
