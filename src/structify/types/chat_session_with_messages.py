@@ -1,11 +1,21 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List
+from typing import List, Optional
 from datetime import datetime
 
 from .._models import BaseModel
 
-__all__ = ["ChatSessionWithMessages", "Message"]
+__all__ = ["ChatSessionWithMessages", "Commit", "Message"]
+
+
+class Commit(BaseModel):
+    id: str
+
+    chat_session_id: str
+
+    commit_hash: str
+
+    created_at: datetime
 
 
 class Message(BaseModel):
@@ -25,9 +35,11 @@ class Message(BaseModel):
 class ChatSessionWithMessages(BaseModel):
     id: str
 
+    commits: List[Commit]
+
     created_at: datetime
 
-    git_repo_id: str
+    git_application_token: str
 
     messages: List[Message]
 
@@ -36,3 +48,5 @@ class ChatSessionWithMessages(BaseModel):
     updated_at: datetime
 
     user_id: str
+
+    latest_workflow_session_id: Optional[str] = None
