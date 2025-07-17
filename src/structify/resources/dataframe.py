@@ -164,22 +164,22 @@ class DataFrameResource(SyncAPIResource):
         """
         if url_column not in df.columns:
             raise ValueError(f"Column '{url_column}' not found in DataFrame")
-        
+
         # Filter out rows with null/empty URLs
         valid_urls_df = df[df[url_column].notna() & (df[url_column] != "")].copy()
-        
+
         if valid_urls_df.empty:
             # Return empty DataFrame with schema columns plus source_url if no valid URLs
             column_names = [prop["name"] for prop in schema["properties"]] + ["source_url"]
             return pd.DataFrame(columns=column_names)
-        
+
         all_results: list[dict[str, Any]] = []
         job_ids: list[str] = []
         url_to_dataset: dict[str, str] = {}
         node_id = get_node_id(node_metadata)
-        
+
         # Create scraping jobs for each unique URL
-        unique_urls = valid_urls_df[url_column].unique()
+        unique_urls = valid_urls_df[url_column].unique()  # type: ignore
         for url in unique_urls:
             dataset_descriptor = DatasetDescriptorParam(
                 name=f"scrape_{table_name}_{uuid.uuid4().hex}",
@@ -187,7 +187,7 @@ class DataFrameResource(SyncAPIResource):
                 tables=[schema],
                 relationships=[],
             )
-            
+
             scrape_list_response = self._client.scrape.list(  # type: ignore
                 url=url,
                 table_name=table_name,
@@ -196,7 +196,7 @@ class DataFrameResource(SyncAPIResource):
             )
             job_ids.append(scrape_list_response.job_id)
             url_to_dataset[url] = scrape_list_response.dataset_name
-        
+
         # Wait for all jobs to complete
         error_message = self._client.jobs.wait_for_jobs(job_ids)
         if error_message:
@@ -205,21 +205,22 @@ class DataFrameResource(SyncAPIResource):
         # Collect results from all datasets
         for url, dataset_name in url_to_dataset.items():
             entities_result = self._client.datasets.view_table(dataset=dataset_name, name=table_name)
-            
+
             for entity in entities_result:
                 result_row = {col["name"]: entity.properties.get(col["name"]) for col in schema["properties"]}
                 result_row["source_url"] = url
                 all_results.append(result_row)
-        
+
         # Create DataFrame with all results
         column_names = [prop["name"] for prop in schema["properties"]] + ["source_url"]
         df_result = pd.DataFrame(all_results, columns=column_names)
-        
+
         # Ensure all schema columns exist even if empty
         for col in schema["properties"]:
             if col["name"] not in df_result.columns:
                 df_result[col["name"]] = None
         return df_result
+
     # type: ignore
     def structure_pdf(
         self,
