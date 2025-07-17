@@ -1,5 +1,26 @@
 # Changelog
 
+## 1.128.0 (2025-07-17)
+
+Full Changelog: [v1.127.0...v1.128.0](https://github.com/StructifyAI/structify-python/compare/v1.127.0...v1.128.0)
+
+### Features
+
+* **api:** manual updates ([39acca0](https://github.com/StructifyAI/structify-python/commit/39acca01018f5578bf559c2fe5098c80805b0987))
+
+
+### Bug Fixes
+
+* **parsing:** correctly handle nested discriminated unions ([127011d](https://github.com/StructifyAI/structify-python/commit/127011d6292e0ae7b82e34e91b15cf38a324c3e6))
+* use dataset name returned from server ([ee6e67d](https://github.com/StructifyAI/structify-python/commit/ee6e67da485e0daa751a3daa7a9fc5567927a45b))
+
+
+### Chores
+
+* **internal:** bump pinned h11 dep ([99102e3](https://github.com/StructifyAI/structify-python/commit/99102e36f941659bd085e759a908136382195989))
+* **internal:** codegen related update ([1fccf8e](https://github.com/StructifyAI/structify-python/commit/1fccf8ec75bd1b4df7292b03f285fbf006757ccf))
+* **package:** mark python 3.13 as supported ([a18c1e1](https://github.com/StructifyAI/structify-python/commit/a18c1e1fcfab48860fbd3b1db2f4fa99c317cb2a))
+
 ## 1.127.0 (2025-07-07)
 
 Full Changelog: [v1.126.0...v1.127.0](https://github.com/StructifyAI/structify-python/compare/v1.126.0...v1.127.0)
