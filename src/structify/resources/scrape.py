@@ -50,7 +50,7 @@ class ScrapeResource(SyncAPIResource):
         dataset_descriptor: DatasetDescriptorParam,
         table_name: str,
         url: str,
-        run_metadata: Optional[scrape_list_params.RunMetadata] | NotGiven = NOT_GIVEN,
+        node_id: Optional[str] | NotGiven = NOT_GIVEN,
         stop_config: Optional[scrape_list_params.StopConfig] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -85,7 +85,7 @@ class ScrapeResource(SyncAPIResource):
                     "dataset_descriptor": dataset_descriptor,
                     "table_name": table_name,
                     "url": url,
-                    "run_metadata": run_metadata,
+                    "node_id": node_id,
                     "stop_config": stop_config,
                 },
                 scrape_list_params.ScrapeListParams,
@@ -123,7 +123,7 @@ class AsyncScrapeResource(AsyncAPIResource):
         dataset_descriptor: DatasetDescriptorParam,
         table_name: str,
         url: str,
-        run_metadata: Optional[scrape_list_params.RunMetadata] | NotGiven = NOT_GIVEN,
+        node_id: Optional[str] | NotGiven = NOT_GIVEN,
         stop_config: Optional[scrape_list_params.StopConfig] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -158,7 +158,7 @@ class AsyncScrapeResource(AsyncAPIResource):
                     "dataset_descriptor": dataset_descriptor,
                     "table_name": table_name,
                     "url": url,
-                    "run_metadata": run_metadata,
+                    "node_id": node_id,
                     "stop_config": stop_config,
                 },
                 scrape_list_params.ScrapeListParams,

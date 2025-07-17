@@ -137,7 +137,7 @@ class ChatResource(SyncAPIResource):
     def create_session(
         self,
         *,
-        git_repo_id: str,
+        git_application_token: str,
         initial_message: str,
         project_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -163,7 +163,7 @@ class ChatResource(SyncAPIResource):
             "/chat/sessions",
             body=maybe_transform(
                 {
-                    "git_repo_id": git_repo_id,
+                    "git_application_token": git_application_token,
                     "initial_message": initial_message,
                     "project_id": project_id,
                 },
@@ -452,7 +452,7 @@ class AsyncChatResource(AsyncAPIResource):
     async def create_session(
         self,
         *,
-        git_repo_id: str,
+        git_application_token: str,
         initial_message: str,
         project_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -478,7 +478,7 @@ class AsyncChatResource(AsyncAPIResource):
             "/chat/sessions",
             body=await async_maybe_transform(
                 {
-                    "git_repo_id": git_repo_id,
+                    "git_application_token": git_application_token,
                     "initial_message": initial_message,
                     "project_id": project_id,
                 },

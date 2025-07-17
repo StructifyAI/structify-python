@@ -8,7 +8,7 @@ __all__ = ["ChatCreateSessionParams"]
 
 
 class ChatCreateSessionParams(TypedDict, total=False):
-    git_repo_id: Required[str]
+    git_application_token: Required[str]
 
     initial_message: Required[str]
 
