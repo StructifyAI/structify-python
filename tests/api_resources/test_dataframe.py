@@ -52,7 +52,10 @@ class TestPolars:
         url_data = {"url": ["https://example.com", "https://test.com"], "id": [1, 2]}
         lazy_df = pl.DataFrame(url_data).lazy()
 
-        schema: pl.Schema = pl.Schema({"company_name": pl.Utf8, "employee_count": pl.Int64})
+        schema = {
+            "company_name": {"description": "Name of the company", "type": pl.Utf8},
+            "employee_count": {"description": "Number of employees", "type": pl.Int64},
+        }
 
         column_map = {"company_name": "name", "employee_count": "employees"}
 
@@ -71,7 +74,10 @@ class TestPolars:
         url_data = {"url": ["https://example.com", "https://test.com"], "id": [1, 2]}
         lazy_df = pl.DataFrame(url_data).lazy()
 
-        schema: pl.Schema = pl.Schema({"company_name": pl.Utf8, "employee_count": pl.Int64})
+        schema = {
+            "company_name": {"description": "Name of the company", "type": pl.Utf8},
+            "employee_count": {"description": "Number of employees", "type": pl.Int64},
+        }
 
         column_map = {"company_name": "name", "employee_count": "employees"}
 
@@ -89,7 +95,10 @@ class TestPolars:
         # Mock PDF content
         pdf_content = b"PDF content here"
 
-        schema: pl.Schema = pl.Schema({"invoice_number": pl.Utf8, "amount": pl.Float64})
+        schema = {
+            "invoice_number": {"description": "The invoice number", "type": pl.Utf8},
+            "amount": {"description": "Invoice amount", "type": pl.Float64},
+        }
 
         dataframe = client.polars.structure_pdf(
             document=pdf_content,
