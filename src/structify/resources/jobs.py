@@ -400,9 +400,13 @@ class JobsResource(SyncAPIResource):
             cast_to=NoneType,
         )
 
-    def wait_for_jobs(self, job_ids: List[str]) -> Optional[str]:
+    def wait_for_jobs(self, job_ids: List[str], stream: bool = False) -> Optional[str]:
         """
         Wait for jobs to complete synchronously.
+
+        Args:
+          job_ids: List of job IDs to wait for
+          stream: Whether to fail the function if any jobs fail. If False, the function will return a summary of the jobs and their statuses.
         """
 
         spinner = ["|", "/", "-", "\\"]
@@ -453,9 +457,12 @@ class JobsResource(SyncAPIResource):
             if result.job.status == "Failed":
                 failed_jobs.append((job_id, result.job.message or "No error message"))
         if failed_jobs:
-            print("\nWARNING: Some jobs failed:")  # noqa: T201
-            for job_id, message in failed_jobs:
-                print(f"  - Job {job_id} failed: {message}")  # noqa: T201
+            if stream:
+                raise Exception(f"{len(failed_jobs)} job(s) failed.")
+            else:
+                print("\nWARNING: Some jobs failed:")  # noqa: T201
+                for job_id, message in failed_jobs:
+                    print(f"  - Job {job_id} failed: {message}")  # noqa: T201
         # Print a summary of all jobs
         print("Job Summary:")  # noqa: T201
         for job_id, result in job_results.items():
