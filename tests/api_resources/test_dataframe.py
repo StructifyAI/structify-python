@@ -8,7 +8,6 @@ import polars as pl
 import pytest
 
 from structify import Structify
-from structify.types import TableParam
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
