@@ -448,10 +448,10 @@ class JobsResource(SyncAPIResource):
         sys.stdout.flush()
 
         # Print a warning and summary of job results
-        failed_jobs = []
+        failed_jobs: list[tuple[str, str]] = []
         for job_id, result in job_results.items():
             if result.job.status == "Failed":
-                failed_jobs.append((job_id, result.job.message))
+                failed_jobs.append((job_id, result.job.message or "No error message"))
         if failed_jobs:
             print("\nWARNING: Some jobs failed:")  # noqa: T201
             for job_id, message in failed_jobs:

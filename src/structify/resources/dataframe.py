@@ -112,7 +112,7 @@ class DataFrameResource(SyncAPIResource):
                 ],
             )
             # 2. Enhance the entities
-            job_ids = []
+            job_ids: list[str] = []
             for entity_id in entity_ids:
                 for col in new_columns:
                     job_ids.append(
