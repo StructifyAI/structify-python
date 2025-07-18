@@ -176,16 +176,7 @@ class PolarsResource(SyncAPIResource):
         dataset_descriptor = DatasetDescriptorParam(
             name=f"scrape_{table_name}_{uuid.uuid4().hex}",
             description="",
-            tables=[
-                TableParam(
-                    name=table_name,
-                    description="",
-                    properties=[
-                        Property(name=col_name, description="", prop_type=dtype_to_structify_type(col_type))
-                        for col_name, col_type in output_schema.items()
-                    ],
-                )
-            ],
+            tables=[as_table_param(table_name, output_schema)],
             relationships=[],
         )
 
@@ -234,7 +225,7 @@ class PolarsResource(SyncAPIResource):
         *,
         document: FileTypes,
         table_name: str,
-        schema: TableParam,
+        schema: pl.Schema,
     ) -> LazyFrame:
         """
         Extract structured data from a PDF document and return as a LazyFrame.
@@ -251,7 +242,7 @@ class PolarsResource(SyncAPIResource):
           LazyFrame: Structured data extracted from the PDF
         """
 
-        column_names = [prop["name"] for prop in schema["properties"]]
+        column_names = list(schema.keys())
         node_id = get_node_id()
 
         def pdf_batch(batch_df: pl.DataFrame) -> pl.DataFrame:
@@ -265,7 +256,7 @@ class PolarsResource(SyncAPIResource):
             self._client.datasets.create(
                 name=dataset_name,
                 description="",
-                tables=[schema],
+                tables=[as_table_param(table_name, schema)],
                 relationships=[],
             )
 
@@ -370,3 +361,14 @@ def structify_type_to_polars_dtype(structify_type: PropertyTypeParam | None) -> 
 
 def properties_to_schema(properties: list[Property]) -> pl.Schema:
     return pl.Schema({prop["name"]: structify_type_to_polars_dtype(prop.get("prop_type")) for prop in properties})
+
+
+def as_table_param(table_name: str, schema: pl.Schema) -> TableParam:
+    return TableParam(
+        name=table_name,
+        description="",
+        properties=[
+            Property(name=col_name, description="", prop_type=dtype_to_structify_type(dtype))
+            for col_name, dtype in schema.items()
+        ],
+    )
