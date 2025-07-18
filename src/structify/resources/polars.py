@@ -6,7 +6,7 @@ import uuid
 from typing import Any, Dict, Optional
 
 import polars as pl
-from polars import Schema, LazyFrame
+from polars import LazyFrame
 
 from structify.types.entity_param import EntityParam
 from structify.types.property_type_param import PropertyTypeParam
