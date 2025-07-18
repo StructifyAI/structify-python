@@ -82,15 +82,23 @@ class PolarsResource(SyncAPIResource):
             ],
             relationships=[],
         )
-        # For new columns, add a null value to the dataframe
+        # For new columns, add a null value to the dataframe with proper types
         missing_new_columns = [
             col for col in new_columns if col["name"] not in {p["name"] for p in pre_existing_properties}
         ]
         if missing_new_columns:
-            df = df.with_columns([pl.lit(None).alias(col["name"]) for col in missing_new_columns])
+            df = df.with_columns(
+                [
+                    pl.lit(None, dtype=structify_type_to_polars_dtype(col.get("prop_type"))).alias(col["name"])
+                    for col in missing_new_columns
+                ]
+            )
 
         # Get the node ID when the function is called, not when the batch is processed
         node_id = get_node_id()
+
+        # Create the expected output schema
+        expected_schema = properties_to_schema(all_properties)
 
         # Apply Structify enrich on the dataframe
         def enhance_batch(batch_df: pl.DataFrame) -> pl.DataFrame:
@@ -131,9 +139,9 @@ class PolarsResource(SyncAPIResource):
                 for entity in self._client.datasets.view_table(dataset=dataset_name, name=dataframe_name)
             ]
             # 5. Return the results
-            return pl.DataFrame(results, schema=properties_to_schema(all_properties))
+            return pl.DataFrame(results, schema=expected_schema)
 
-        return df.map_batches(enhance_batch)
+        return df.map_batches(enhance_batch, schema=expected_schema)
 
     def scrape_urls(
         self,
@@ -248,10 +256,9 @@ class PolarsResource(SyncAPIResource):
         def pdf_batch(batch_df: pl.DataFrame) -> pl.DataFrame:
             # We expect the document to be the same for all rows, so just use the first row if present
             if batch_df.height == 0:
-                return pl.DataFrame({col: [] for col in column_names})
+                # Return an empty DataFrame with correct column names and types
+                return pl.DataFrame({col: pl.Series([], dtype=schema[col]) for col in column_names})
 
-            # Use the document from the first row (or from closure if not in batch_df)
-            # For this API, we expect the document to be passed in via closure, not batch_df
             dataset_name = f"structure_pdf_{table_name}_{uuid.uuid4().hex}"
             self._client.datasets.create(
                 name=dataset_name,
@@ -277,14 +284,19 @@ class PolarsResource(SyncAPIResource):
                 raise Exception(error_message)
             entities_result = self._client.datasets.view_table(dataset=dataset_name, name=table_name)
 
+            # Build the data as a list of dicts, using None for missing properties
             data = [
                 {col_name: entity.properties.get(col_name) for col_name in column_names} for entity in entities_result
             ]
-            return pl.DataFrame(data if data else {col: [] for col in column_names})
+            # If no data, return empty DataFrame with correct dtypes
+            if not data:
+                return pl.DataFrame({col: pl.Series([], dtype=schema[col]) for col in column_names})
+            # Otherwise, construct DataFrame with explicit schema to avoid Null dtypes
+            return pl.DataFrame(data, schema=schema)
 
         # The input LazyFrame is empty, so we just trigger the batch function once.
-        empty_df = pl.DataFrame({col: [] for col in column_names})
-        return empty_df.lazy().map_batches(pdf_batch, schema={col: pl.Utf8 for col in column_names})
+        empty_df = pl.DataFrame({col: pl.Series([], dtype=schema[col]) for col in column_names})
+        return empty_df.lazy().map_batches(pdf_batch, schema=schema)
 
 
 class PolarsResourceWithRawResponse:
