@@ -40,6 +40,11 @@ from .teams import (
     TeamsResourceWithStreamingResponse,
     AsyncTeamsResourceWithStreamingResponse,
 )
+from .polars import (
+    PolarsResource,
+    PolarsResourceWithRawResponse,
+    PolarsResourceWithStreamingResponse,
+)
 from .report import (
     ReportResource,
     AsyncReportResource,
@@ -119,11 +124,6 @@ from .workflow import (
     AsyncWorkflowResourceWithRawResponse,
     WorkflowResourceWithStreamingResponse,
     AsyncWorkflowResourceWithStreamingResponse,
-)
-from .dataframe import (
-    DataFrameResource,
-    DataFrameResourceWithRawResponse,
-    DataFrameResourceWithStreamingResponse,
 )
 from .documents import (
     DocumentsResource,
@@ -245,7 +245,7 @@ __all__ = [
     "AsyncStructureResourceWithRawResponse",
     "StructureResourceWithStreamingResponse",
     "AsyncStructureResourceWithStreamingResponse",
-    "DataFrameResource",
-    "DataFrameResourceWithRawResponse",
-    "DataFrameResourceWithStreamingResponse",
+    "PolarsResource",
+    "PolarsResourceWithRawResponse",
+    "PolarsResourceWithStreamingResponse",
 ]
