@@ -1,10 +1,12 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 from __future__ import annotations
 
+import os
 import uuid
-from typing import Any, Optional
+from typing import Any, Dict, Optional
 
-import pandas as pd
+import polars as pl
+from polars import LazyFrame
 
 from ..types import TableParam, KnowledgeGraph
 from .._types import NOT_GIVEN, NotGiven, FileTypes
@@ -44,25 +46,24 @@ class DataFrameResource(SyncAPIResource):
     def enhance_column(
         self,
         *,
-        df: pd.DataFrame,
+        df: LazyFrame,
         column_name: str,
         column_description: str,
         table_name: Optional[str] | NotGiven = NOT_GIVEN,
         table_description: Optional[str] | NotGiven = NOT_GIVEN,
-        node_metadata: Any | NotGiven = NOT_GIVEN,
-    ) -> pd.DataFrame:
+    ) -> LazyFrame:
         """
-        Enhance a column in a DataFrame using Structify's AI capabilities.
+        Enhance a column in a LazyFrame using Structify's AI capabilities.
 
         Args:
-          df: The pandas DataFrame to enhance
+          df: The polars LazyFrame to enhance
           column_name: Name of the column to enhance
           column_description: Description of what the column should contain
           table_name: Name of the table (optional)
           table_description: Description of the table (optional)
-          node_metadata: Optional node metadata to group related jobs (optional)
         """
-        column_names: list[str] = df.columns.tolist()
+        # Get column names from schema without collecting
+        column_names: list[str] = df.columns
         if column_name not in column_names:
             column_names.append(column_name)
 
@@ -92,19 +93,24 @@ class DataFrameResource(SyncAPIResource):
             relationships=[],
         )
 
+        # Add column if it doesn't exist, then collect only once for processing
+        df_with_column = df
         if column_name not in df.columns:
-            df[column_name] = None
+            df_with_column = df.with_columns(pl.lit(None).alias(column_name))
+
+        # Only collect when we need to iterate for entity creation
+        collected_df = df_with_column.collect()
 
         entities: list[dict[str, Any]] = []
-        for index, row in df.iterrows():  # type: ignore
+        for i, row in enumerate(collected_df.iter_rows(named=True)):
             entity_properties: dict[str, Any] = {}
             for col in column_names:
-                value = row[col]  # type: ignore
-                if pd.notna(value):  # type: ignore
-                    entity_properties[col] = str(value)  # type: ignore
+                value = row.get(col)
+                if value is not None and not (isinstance(value, float) and pl.Float64.is_nan(value)):
+                    entity_properties[col] = str(value)
             entities.append(
                 {
-                    "id": index,
+                    "id": i,
                     "type": table_name_resolved,
                     "properties": entity_properties,
                 }
@@ -122,7 +128,7 @@ class DataFrameResource(SyncAPIResource):
 
         job_ids: list[str] = []
         for entity_id in entity_ids:
-            node_id = get_node_id(node_metadata)
+            node_id = get_node_id()
 
             job_id = self._client.structure.enhance_property(
                 entity_id=entity_id, property_name=column_name, allow_extra_entities=False, node_id=node_id
@@ -135,66 +141,76 @@ class DataFrameResource(SyncAPIResource):
 
         entities_result = self._client.datasets.view_table(dataset=dataset_name, name=table_name_resolved)
         data = [{col: entity.properties.get(col) for col in column_names} for entity in entities_result]
-        df_result = pd.DataFrame(data)
+        df_result = pl.DataFrame(data)
+
+        # Ensure all columns exist
         for col in column_names:
             if col not in df_result.columns:
-                df_result[col] = None
-        return df_result[column_names]
+                df_result = df_result.with_columns(pl.lit(None).alias(col))
 
-    # type: ignore
+        return df_result.select(column_names).lazy()
+
     def scrape_urls(
         self,
         *,
-        df: pd.DataFrame,
+        lazy_df: LazyFrame,
         url_column: str,
         table_name: str,
-        schema: TableParam,
-        node_metadata: Optional[Any] | NotGiven = NOT_GIVEN,
-    ) -> pd.DataFrame:
+        ScrapeSchema: TableParam,
+        original_column_map: Dict[str, str],
+    ) -> LazyFrame:
         """
-        Scrape data from URLs in a DataFrame column and return structured results, with a column `source_url` that contains the original URL.
+        Scrape data from URLs in a LazyFrame column and return structured results, with a column `source_url` that contains the original URL.
 
         Args:
-          df: DataFrame containing URLs to scrape
+          lazy_df: LazyFrame containing URLs to scrape
           url_column: Name of the column containing URLs
           table_name: Name of the table for the structured data
-          schema: Schema definition for the data to extract
-          node_metadata: Optional node metadata to group related jobs (optional)
+          ScrapeSchema: Schema definition for the data to extract
+          original_column_map: Mapping of original column names to new names
         """
-        if url_column not in df.columns:
-            raise ValueError(f"Column '{url_column}' not found in DataFrame")
+        if url_column not in lazy_df.columns:
+            raise ValueError(f"Column '{url_column}' not found in LazyFrame")
 
-        # Filter out rows with null/empty URLs
-        valid_urls_df = df[df[url_column].notna() & (df[url_column] != "")].copy()
+        # Filter out rows with null/empty URLs and get unique URLs without full collect
+        unique_urls_df = (
+            lazy_df.filter(pl.col(url_column).is_not_null() & (pl.col(url_column) != ""))
+            .select(pl.col(url_column))
+            .unique()
+        )
 
-        if valid_urls_df.empty:
-            # Return empty DataFrame with schema columns plus source_url if no valid URLs
-            column_names = [prop["name"] for prop in schema["properties"]] + ["source_url"]
-            return pd.DataFrame(columns=column_names)
+        # Only collect the unique URLs, not the entire dataset
+        unique_urls: list[str] = unique_urls_df.collect().to_series().to_list()
+
+        if not unique_urls:
+            # Return empty LazyFrame with mapped schema columns plus source_url if no valid URLs
+            mapped_column_names = [
+                original_column_map.get(prop["name"], prop["name"]) for prop in ScrapeSchema["properties"]
+            ] + ["source_url"]
+            return pl.DataFrame({col: [] for col in mapped_column_names}).lazy()
 
         all_results: list[dict[str, Any]] = []
         job_ids: list[str] = []
         url_to_dataset: dict[str, str] = {}
-        node_id = get_node_id(node_metadata)
+        node_id = get_node_id()
 
         # Create scraping jobs for each unique URL
-        unique_urls: list[str] = list(valid_urls_df[url_column].drop_duplicates().astype(str))
         for url in unique_urls:
             dataset_descriptor = DatasetDescriptorParam(
                 name=f"scrape_{table_name}_{uuid.uuid4().hex}",
                 description="",
-                tables=[schema],
+                tables=[ScrapeSchema],
                 relationships=[],
             )
 
             scrape_list_response = self._client.scrape.list(
-                url=url,
+                url=str(url),
                 table_name=table_name,
                 dataset_descriptor=dataset_descriptor,
                 node_id=node_id,
             )
             job_ids.append(scrape_list_response.job_id)
-            url_to_dataset[url] = scrape_list_response.dataset_name
+            url_to_dataset[str(url)] = scrape_list_response.dataset_name
 
         # Wait for all jobs to complete
         error_message = self._client.jobs.wait_for_jobs(job_ids)
@@ -206,19 +222,31 @@ class DataFrameResource(SyncAPIResource):
             entities_result = self._client.datasets.view_table(dataset=dataset_name, name=table_name)
 
             for entity in entities_result:
-                result_row = {col["name"]: entity.properties.get(col["name"]) for col in schema["properties"]}
+                # Apply column mapping using original_column_map
+                result_row = {}
+                for col in ScrapeSchema["properties"]:
+                    original_name = col["name"]
+                    mapped_name = original_column_map.get(original_name, original_name)
+                    result_row[mapped_name] = entity.properties.get(original_name)
                 result_row["source_url"] = url
                 all_results.append(result_row)
 
-        # Create DataFrame with all results
-        column_names = [prop["name"] for prop in schema["properties"]] + ["source_url"]
-        df_result = pd.DataFrame(all_results, columns=column_names)
+        # Create LazyFrame with all results using mapped column names
+        mapped_column_names = [
+            original_column_map.get(prop["name"], prop["name"]) for prop in ScrapeSchema["properties"]
+        ] + ["source_url"]
+        if all_results:
+            df_result = pl.DataFrame(all_results)
+        else:
+            df_result = pl.DataFrame({col: [] for col in mapped_column_names})
 
-        # Ensure all schema columns exist even if empty
-        for col in schema["properties"]:
-            if col["name"] not in df_result.columns:
-                df_result[col["name"]] = None
-        return df_result
+        # Ensure all mapped schema columns exist even if empty
+        for col in ScrapeSchema["properties"]:
+            mapped_name = original_column_map.get(col["name"], col["name"])
+            if mapped_name not in df_result.columns:
+                df_result = df_result.with_columns(pl.lit(None).alias(mapped_name))
+
+        return df_result.lazy()
 
     def structure_pdf(
         self,
@@ -226,10 +254,9 @@ class DataFrameResource(SyncAPIResource):
         document: FileTypes,
         table_name: str,
         schema: TableParam,
-        node_metadata: Optional[Any] | NotGiven = NOT_GIVEN,
-    ) -> pd.DataFrame:
+    ) -> LazyFrame:
         """
-        Extract structured data from a PDF document and return as a DataFrame.
+        Extract structured data from a PDF document and return as a LazyFrame.
 
         Args:
           document: The PDF document to process. Can be:
@@ -238,10 +265,9 @@ class DataFrameResource(SyncAPIResource):
                    - Tuple with (filename, content, [content_type], [headers])
           table_name: Name of the table for the structured data
           schema: Schema definition for the data to extract
-          node_metadata: Optional node metadata to group related jobs (optional)
 
         Returns:
-          pd.DataFrame: Structured data extracted from the PDF
+          LazyFrame: Structured data extracted from the PDF
         """
         dataset_name = f"structure_pdf_{table_name}_{uuid.uuid4().hex}"
         self._client.datasets.create(
@@ -259,7 +285,7 @@ class DataFrameResource(SyncAPIResource):
             path=f"{dataset_name}.pdf".encode(),
         )
 
-        node_id = get_node_id(node_metadata)
+        node_id = get_node_id()
 
         job_id = self._client.structure.run_async(
             dataset=dataset_name,
@@ -275,9 +301,9 @@ class DataFrameResource(SyncAPIResource):
 
         data = [{col_name: entity.properties.get(col_name) for col_name in column_names} for entity in entities_result]
 
-        df_result = pd.DataFrame(data, columns=column_names)
+        df_result = pl.DataFrame(data if data else {col: [] for col in column_names})
 
-        return df_result
+        return df_result.lazy()
 
 
 class DataFrameResourceWithRawResponse:
@@ -298,22 +324,11 @@ class DataFrameResourceWithStreamingResponse:
         )
 
 
-def get_node_id(node_metadata: Optional[Any] | NotGiven) -> Optional[str]:
+def get_node_id() -> Optional[str]:
     """
-    Helper function to cast node_metadata to node_id.
-
-    Args:
-      node_metadata: Optional node metadata to group related jobs.
+    Helper function to get node_id from STRUCTIFY_NODE_ID environment variable.
 
     Returns:
-      A dictionary with node_id and session_id if node_metadata is provided, otherwise None.
+      The node ID from environment variable if available, otherwise None.
     """
-    if node_metadata is NOT_GIVEN or node_metadata is None:
-        return None
-    if hasattr(node_metadata, "value"):
-        if isinstance(node_metadata.value, dict):  # type: ignore
-            node_id = node_metadata.value.get("NODE_ID")  # type: ignore
-            if node_id is None:
-                return None
-            return node_id  # type: ignore
-    return None
+    return os.environ.get("STRUCTIFY_NODE_ID")
