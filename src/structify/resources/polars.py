@@ -6,7 +6,7 @@ import uuid
 from typing import Any, Dict, Optional
 
 import polars as pl
-from polars import LazyFrame
+from polars import Schema, LazyFrame
 
 from structify.types.entity_param import EntityParam
 from structify.types.property_type_param import PropertyTypeParam
@@ -23,28 +23,28 @@ from ..types.table_param import Property, TableParam
 from ..types.dataset_descriptor_param import DatasetDescriptorParam
 from ..types.structure_run_async_params import SourcePdf
 
-__all__ = ["DataFrameResource"]
+__all__ = ["PolarsResource"]
 
 
-class DataFrameResource(SyncAPIResource):
+class PolarsResource(SyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> DataFrameResourceWithRawResponse:
+    def with_raw_response(self) -> PolarsResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/StructifyAI/structify-python#accessing-raw-response-data-eg-headers
         """
-        return DataFrameResourceWithRawResponse(self)
+        return PolarsResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> DataFrameResourceWithStreamingResponse:
+    def with_streaming_response(self) -> PolarsResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/StructifyAI/structify-python#with_streaming_response
         """
-        return DataFrameResourceWithStreamingResponse(self)
+        return PolarsResourceWithStreamingResponse(self)
 
     def enhance_columns(
         self,
@@ -61,7 +61,7 @@ class DataFrameResource(SyncAPIResource):
           df: The polars LazyFrame to enhance
           new_columns: List of column schemas to enhance
           dataframe_name: Name of the dataframe (e.g. "Company", "Invoice", …)
-          dataframe_description: Specific description of the dataframe that provides the business context needed for the Structify AI to understand the data to look for. (e.g. "Companies that are in the food industry")
+          dataframe_description: Specific description of the dataframe that provides the context needed for the Structify AI to understand the data to look for. (e.g. "Companies that are in the food industry")
         """
         schema = df.collect_schema()
         pre_existing_properties = [
@@ -141,7 +141,8 @@ class DataFrameResource(SyncAPIResource):
         lazy_df: LazyFrame,
         url_column: str,
         table_name: str,
-        scrape_schema: TableParam,
+        scrape_schema: Schema,
+        scrape_schema_override: TableParam | None = None,
         original_column_map: Dict[str, str] = {},
     ) -> LazyFrame:
         """
@@ -159,22 +160,32 @@ class DataFrameResource(SyncAPIResource):
         if url_column not in input_schema:
             raise ValueError(f"Column '{url_column}' not found in LazyFrame")
 
-        output_schema = pl.Schema()
+        output_schema = input_schema.copy()
 
-        for col_name, col_type in input_schema.items():
-            output_schema[col_name] = col_type
-
-        for prop in scrape_schema["properties"]:
-            prop_type = structify_type_to_polars_dtype(prop.get("prop_type"))
-            if prop["name"] in original_column_map:
-                output_schema[original_column_map[prop["name"]]] = prop_type
-            else:
-                output_schema[prop["name"]] = prop_type
+        if scrape_schema_override:
+            for prop in scrape_schema_override["properties"]:
+                prop_type = structify_type_to_polars_dtype(prop.get("prop_type"))
+                if prop["name"] in original_column_map:
+                    output_schema[original_column_map[prop["name"]]] = prop_type
+                else:
+                    output_schema[prop["name"]] = prop_type
+        else:
+            for col_name, col_type in scrape_schema.items():
+                output_schema[col_name] = col_type
 
         dataset_descriptor = DatasetDescriptorParam(
             name=f"scrape_{table_name}_{uuid.uuid4().hex}",
             description="",
-            tables=[scrape_schema],
+            tables=[
+                TableParam(
+                    name=table_name,
+                    description="",
+                    properties=[
+                        Property(name=col_name, description="", prop_type=dtype_to_structify_type(col_type))
+                        for col_name, col_type in output_schema.items()
+                    ],
+                )
+            ],
             relationships=[],
         )
 
@@ -285,8 +296,8 @@ class DataFrameResource(SyncAPIResource):
         return empty_df.lazy().map_batches(pdf_batch, schema={col: pl.Utf8 for col in column_names})
 
 
-class DataFrameResourceWithRawResponse:
-    def __init__(self, dataframe: DataFrameResource) -> None:
+class PolarsResourceWithRawResponse:
+    def __init__(self, dataframe: PolarsResource) -> None:
         self._dataframe = dataframe
 
         self.enhance_column = to_raw_response_wrapper(
@@ -294,8 +305,8 @@ class DataFrameResourceWithRawResponse:
         )
 
 
-class DataFrameResourceWithStreamingResponse:
-    def __init__(self, dataframe: DataFrameResource) -> None:
+class PolarsResourceWithStreamingResponse:
+    def __init__(self, dataframe: PolarsResource) -> None:
         self._dataframe = dataframe
 
         self.enhance_column = to_streamed_response_wrapper(
