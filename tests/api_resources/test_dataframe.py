@@ -3,10 +3,9 @@
 from __future__ import annotations
 
 import os
-from typing import Any, cast
 
-import pytest
 import polars as pl
+import pytest
 
 from structify import Structify
 from structify.types import TableParam
@@ -18,30 +17,33 @@ class TestDataframe:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @parametrize
-    def test_method_enhance_column(self, client: Structify) -> None:
+    def test_method_enhance_columns(self, client: Structify) -> None:
         # Create test LazyFrame
         data = {"name": ["Alex", "Bob", "Charlie"], "age": [25, 30, 35], "city": ["New York", "London", "Tokyo"]}
         lazy_df = pl.DataFrame(data).lazy()
 
-        dataframe = client.dataframe.enhance_column(
+        dataframe = client.dataframe.enhance_columns(
             df=lazy_df,
-            column_name="occupation",
-            column_description="Person's job title",
+            new_columns=[{"name": "occupation", "description": "Person's job title"}],
+            dataframe_name="people",
+            dataframe_description="People data",
         )
         assert isinstance(dataframe, pl.LazyFrame)
 
     @parametrize
-    def test_method_enhance_column_with_all_params(self, client: Structify) -> None:
+    def test_method_enhance_columns_with_all_params(self, client: Structify) -> None:
         # Create test LazyFrame
         data = {"name": ["Alex", "Bob", "Charlie"], "age": [25, 30, 35], "city": ["New York", "London", "Tokyo"]}
         lazy_df = pl.DataFrame(data).lazy()
 
-        dataframe = client.dataframe.enhance_column(
+        dataframe = client.dataframe.enhance_columns(
             df=lazy_df,
-            column_name="occupation",
-            column_description="Person's job title",
-            table_name="people",
-            table_description="People data",
+            new_columns=[
+                {"name": "occupation", "description": "Person's job title"},
+                {"name": "salary", "description": "Person's annual salary"},
+            ],
+            dataframe_name="people",
+            dataframe_description="People data including employment information",
         )
         assert isinstance(dataframe, pl.LazyFrame)
 
@@ -51,7 +53,7 @@ class TestDataframe:
         url_data = {"url": ["https://example.com", "https://test.com"], "id": [1, 2]}
         lazy_df = pl.DataFrame(url_data).lazy()
 
-        schema = {
+        schema: TableParam = {
             "name": "companies",
             "description": "Company data",
             "properties": [
@@ -66,7 +68,7 @@ class TestDataframe:
             lazy_df=lazy_df,
             url_column="url",
             table_name="companies",
-            ScrapeSchema=schema,
+            scrape_schema=schema,
             original_column_map=column_map,
         )
         assert isinstance(dataframe, pl.LazyFrame)
@@ -92,7 +94,7 @@ class TestDataframe:
             lazy_df=lazy_df,
             url_column="url",
             table_name="companies",
-            ScrapeSchema=schema,
+            scrape_schema=schema,
             original_column_map=column_map,
         )
         assert isinstance(dataframe, pl.LazyFrame)

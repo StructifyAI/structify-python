@@ -447,10 +447,21 @@ class JobsResource(SyncAPIResource):
         sys.stdout.write("\n")
         sys.stdout.flush()
 
-        # Check for any failed jobs and return error message
+        # Print a warning and summary of job results
+        failed_jobs = []
         for job_id, result in job_results.items():
             if result.job.status == "Failed":
-                return f"Job {job_id} failed: {result.job.message}"
+                failed_jobs.append((job_id, result.job.message))
+        if failed_jobs:
+            print("\nWARNING: Some jobs failed:")  # noqa: T201
+            for job_id, message in failed_jobs:
+                print(f"  - Job {job_id} failed: {message}")  # noqa: T201
+        # Print a summary of all jobs
+        print("Job Summary:")  # noqa: T201
+        for job_id, result in job_results.items():
+            print(f"  - Job {job_id}: {result.job.status}")  # noqa: T201
+        if failed_jobs:
+            return f"{len(failed_jobs)} job(s) failed."
         return None
 
 
