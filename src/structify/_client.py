@@ -25,6 +25,7 @@ from .resources import (
     chat,
     jobs,
     teams,
+    polars,
     report,
     scrape,
     server,
@@ -34,7 +35,6 @@ from .resources import (
     projects,
     sessions,
     workflow,
-    dataframe,
     documents,
     structure,
 )
@@ -85,7 +85,7 @@ class Structify(SyncAPIClient):
     report: report.ReportResource
     scrape: scrape.ScrapeResource
     structure: structure.StructureResource
-    dataframe: dataframe.DataFrameResource
+    polars: polars.PolarsResource
     with_raw_response: StructifyWithRawResponse
     with_streaming_response: StructifyWithStreamedResponse
 
@@ -184,7 +184,7 @@ class Structify(SyncAPIClient):
         self.report = report.ReportResource(self)
         self.scrape = scrape.ScrapeResource(self)
         self.structure = structure.StructureResource(self)
-        self.dataframe = dataframe.DataFrameResource(self)
+        self.polars = polars.PolarsResource(self)
         self.with_raw_response = StructifyWithRawResponse(self)
         self.with_streaming_response = StructifyWithStreamedResponse(self)
 
@@ -540,7 +540,7 @@ class StructifyWithRawResponse:
         self.report = report.ReportResourceWithRawResponse(client.report)
         self.scrape = scrape.ScrapeResourceWithRawResponse(client.scrape)
         self.structure = structure.StructureResourceWithRawResponse(client.structure)
-        self.dataframe = dataframe.DataFrameResourceWithRawResponse(client.dataframe)
+        self.polars = polars.PolarsResourceWithRawResponse(client.polars)
 
 
 class AsyncStructifyWithRawResponse:
@@ -583,7 +583,7 @@ class StructifyWithStreamedResponse:
         self.report = report.ReportResourceWithStreamingResponse(client.report)
         self.scrape = scrape.ScrapeResourceWithStreamingResponse(client.scrape)
         self.structure = structure.StructureResourceWithStreamingResponse(client.structure)
-        self.dataframe = dataframe.DataFrameResourceWithStreamingResponse(client.dataframe)
+        self.polars = polars.PolarsResourceWithStreamingResponse(client.polars)
 
 
 class AsyncStructifyWithStreamedResponse:

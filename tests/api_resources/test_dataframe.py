@@ -13,7 +13,7 @@ from structify.types import TableParam
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
 
-class TestDataframe:
+class TestPolars:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @parametrize
@@ -22,7 +22,7 @@ class TestDataframe:
         data = {"name": ["Alex", "Bob", "Charlie"], "age": [25, 30, 35], "city": ["New York", "London", "Tokyo"]}
         lazy_df = pl.DataFrame(data).lazy()
 
-        dataframe = client.dataframe.enhance_columns(
+        dataframe = client.polars.enhance_columns(
             df=lazy_df,
             new_columns=[{"name": "occupation", "description": "Person's job title"}],
             dataframe_name="people",
@@ -36,7 +36,7 @@ class TestDataframe:
         data = {"name": ["Alex", "Bob", "Charlie"], "age": [25, 30, 35], "city": ["New York", "London", "Tokyo"]}
         lazy_df = pl.DataFrame(data).lazy()
 
-        dataframe = client.dataframe.enhance_columns(
+        dataframe = client.polars.enhance_columns(
             df=lazy_df,
             new_columns=[
                 {"name": "occupation", "description": "Person's job title"},
@@ -64,7 +64,7 @@ class TestDataframe:
 
         column_map = {"company_name": "name", "employee_count": "employees"}
 
-        dataframe = client.dataframe.scrape_urls(
+        dataframe = client.polars.scrape_urls(
             lazy_df=lazy_df,
             url_column="url",
             table_name="companies",
@@ -90,7 +90,7 @@ class TestDataframe:
 
         column_map = {"company_name": "name", "employee_count": "employees"}
 
-        dataframe = client.dataframe.scrape_urls(
+        dataframe = client.polars.scrape_urls(
             lazy_df=lazy_df,
             url_column="url",
             table_name="companies",
@@ -113,7 +113,7 @@ class TestDataframe:
             ],
         }
 
-        dataframe = client.dataframe.structure_pdf(
+        dataframe = client.polars.structure_pdf(
             document=pdf_content,
             table_name="invoices",
             schema=schema,
