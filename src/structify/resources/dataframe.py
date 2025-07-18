@@ -8,15 +8,18 @@ from typing import Any, Dict, Optional
 import polars as pl
 from polars import LazyFrame
 
-from ..types import TableParam, KnowledgeGraph
-from .._types import NOT_GIVEN, NotGiven, FileTypes
+from structify.types.entity_param import EntityParam
+from structify.types.property_type_param import PropertyTypeParam
+
+from ..types import TableParam
+from .._types import FileTypes
 from .._compat import cached_property
 from .._resource import SyncAPIResource
 from .._response import (
     to_raw_response_wrapper,
     to_streamed_response_wrapper,
 )
-from ..types.table_param import Property
+from ..types.table_param import Property, TableParam
 from ..types.dataset_descriptor_param import DatasetDescriptorParam
 from ..types.structure_run_async_params import SourcePdf
 
@@ -43,112 +46,94 @@ class DataFrameResource(SyncAPIResource):
         """
         return DataFrameResourceWithStreamingResponse(self)
 
-    def enhance_column(
+    def enhance_columns(
         self,
         *,
         df: LazyFrame,
-        column_name: str,
-        column_description: str,
-        table_name: Optional[str] | NotGiven = NOT_GIVEN,
-        table_description: Optional[str] | NotGiven = NOT_GIVEN,
+        new_columns: list[Property],
+        dataframe_name: str,
+        dataframe_description: str,
     ) -> LazyFrame:
         """
         Enhance a column in a LazyFrame using Structify's AI capabilities.
 
         Args:
           df: The polars LazyFrame to enhance
-          column_name: Name of the column to enhance
-          column_description: Description of what the column should contain
-          table_name: Name of the table (optional)
-          table_description: Description of the table (optional)
+          new_columns: List of column schemas to enhance
+          dataframe_name: Name of the dataframe (e.g. "Company", "Invoice", …)
+          dataframe_description: Specific description of the dataframe that provides the business context needed for the Structify AI to understand the data to look for. (e.g. "Companies that are in the food industry")
         """
-        # Get column names from schema without collecting
-        column_names: list[str] = df.columns
-        if column_name not in column_names:
-            column_names.append(column_name)
-
-        dataset_name = f"enhance_{column_name}_{uuid.uuid4().hex}"
-        table_name_resolved = (
-            str(table_name) if table_name is not NOT_GIVEN and table_name is not None else "No table name provided"
-        )
-        table_description_resolved = (
-            str(table_description)
-            if table_description is not NOT_GIVEN and table_description is not None
-            else "No description provided"
-        )
-
+        schema = df.collect_schema()
+        pre_existing_properties = [
+            Property(name=col_name, description="", prop_type=dtype_to_structify_type(dtype))
+            for col_name, dtype in schema.items()
+        ]
+        all_properties = pre_existing_properties + new_columns
+        dataset_name = f"enhance_{dataframe_name}_{uuid.uuid4().hex}"
         self._client.datasets.create(
             name=dataset_name,
-            description=f"",
+            description="",
             tables=[
                 TableParam(
-                    name=table_name_resolved,
-                    description=table_description_resolved,
-                    properties=[
-                        Property(name=name, description=column_description if name == column_name else f"")
-                        for name in column_names
-                    ],
+                    name=dataframe_name,
+                    description=dataframe_description,
+                    properties=all_properties,
                 )
             ],
             relationships=[],
         )
+        # For new columns, add a null value to the dataframe
+        missing_new_columns = [
+            col for col in new_columns if col["name"] not in {p["name"] for p in pre_existing_properties}
+        ]
+        if missing_new_columns:
+            df = df.with_columns([pl.lit(None).alias(col["name"]) for col in missing_new_columns])
 
-        # Add column if it doesn't exist, then collect only once for processing
-        df_with_column = df
-        if column_name not in df.columns:
-            df_with_column = df.with_columns(pl.lit(None).alias(column_name))
+        # Get the node ID when the function is called, not when the batch is processed
+        node_id = get_node_id()
 
-        # Only collect when we need to iterate for entity creation
-        collected_df = df_with_column.collect()
-
-        entities: list[dict[str, Any]] = []
-        for i, row in enumerate(collected_df.iter_rows(named=True)):
-            entity_properties: dict[str, Any] = {}
-            for col in column_names:
-                value = row.get(col)
-                if value is not None and not (isinstance(value, float) and pl.Float64.is_nan(value)):
-                    entity_properties[col] = str(value)
-            entities.append(
-                {
-                    "id": i,
-                    "type": table_name_resolved,
-                    "properties": entity_properties,
-                }
+        # Apply Structify enrich on the dataframe
+        def enhance_batch(batch_df: pl.DataFrame) -> pl.DataFrame:
+            # 1. Add all the entities to the structify dataset
+            entity_ids = self._client.entities.add_batch(
+                dataset=dataset_name,
+                entity_graphs=[
+                    {
+                        "entities": [
+                            EntityParam(
+                                type=dataframe_name,
+                                id=i,
+                                properties={col["name"]: str(row[col["name"]]) for col in all_properties},
+                            )
+                            for i, row in enumerate(batch_df.to_dicts())
+                        ],
+                        "relationships": [],
+                    }
+                ],
             )
+            # 2. Enhance the entities
+            job_ids = []
+            for entity_id in entity_ids:
+                for col in new_columns:
+                    job_ids.append(
+                        self._client.structure.enhance_property(
+                            entity_id=entity_id,
+                            property_name=col["name"],
+                            allow_extra_entities=False,
+                            node_id=node_id,
+                        )
+                    )
+            # 3. Wait for all jobs to complete
+            self._client.jobs.wait_for_jobs(job_ids)
+            # 4. Collect the results
+            results = [
+                entity.properties
+                for entity in self._client.datasets.view_table(dataset=dataset_name, name=dataframe_name)
+            ]
+            # 5. Return the results
+            return pl.DataFrame(results, schema=properties_to_schema(all_properties))
 
-        entity_ids = self._client.entities.add_batch(
-            dataset=dataset_name,
-            entity_graphs=[
-                KnowledgeGraph(
-                    entities=entities,  # type: ignore
-                    relationships=[],
-                ),
-            ],
-        )
-
-        job_ids: list[str] = []
-        for entity_id in entity_ids:
-            node_id = get_node_id()
-
-            job_id = self._client.structure.enhance_property(
-                entity_id=entity_id, property_name=column_name, allow_extra_entities=False, node_id=node_id
-            )
-            job_ids.append(job_id)
-
-        error_message = self._client.jobs.wait_for_jobs(job_ids)
-        if error_message:
-            raise Exception(error_message)
-
-        entities_result = self._client.datasets.view_table(dataset=dataset_name, name=table_name_resolved)
-        data = [{col: entity.properties.get(col) for col in column_names} for entity in entities_result]
-        df_result = pl.DataFrame(data)
-
-        # Ensure all columns exist
-        for col in column_names:
-            if col not in df_result.columns:
-                df_result = df_result.with_columns(pl.lit(None).alias(col))
-
-        return df_result.select(column_names).lazy()
+        return df.map_batches(enhance_batch)
 
     def scrape_urls(
         self,
@@ -156,97 +141,82 @@ class DataFrameResource(SyncAPIResource):
         lazy_df: LazyFrame,
         url_column: str,
         table_name: str,
-        ScrapeSchema: TableParam,
-        original_column_map: Dict[str, str],
+        scrape_schema: TableParam,
+        original_column_map: Dict[str, str] = {},
     ) -> LazyFrame:
         """
         Scrape data from URLs in a LazyFrame column and return structured results, with a column `source_url` that contains the original URL.
 
         Args:
           lazy_df: LazyFrame containing URLs to scrape
-          url_column: Name of the column containing URLs
+          url_column: Name of the column containing URLs (Must exist in the input LazyFrame)
           table_name: Name of the table for the structured data
-          ScrapeSchema: Schema definition for the data to extract
+          scrape_schema: Schema definition for the data to extract (e.g. Job, Company, etc.)
           original_column_map: Mapping of original column names to new names
         """
-        if url_column not in lazy_df.columns:
+        input_schema = lazy_df.collect_schema()
+
+        if url_column not in input_schema:
             raise ValueError(f"Column '{url_column}' not found in LazyFrame")
 
-        # Filter out rows with null/empty URLs and get unique URLs without full collect
-        unique_urls_df = (
-            lazy_df.filter(pl.col(url_column).is_not_null() & (pl.col(url_column) != ""))
-            .select(pl.col(url_column))
-            .unique()
+        output_schema = pl.Schema()
+
+        for col_name, col_type in input_schema.items():
+            output_schema[col_name] = col_type
+
+        for prop in scrape_schema["properties"]:
+            prop_type = structify_type_to_polars_dtype(prop.get("prop_type"))
+            if prop["name"] in original_column_map:
+                output_schema[original_column_map[prop["name"]]] = prop_type
+            else:
+                output_schema[prop["name"]] = prop_type
+
+        dataset_descriptor = DatasetDescriptorParam(
+            name=f"scrape_{table_name}_{uuid.uuid4().hex}",
+            description="",
+            tables=[scrape_schema],
+            relationships=[],
         )
 
-        # Only collect the unique URLs, not the entire dataset
-        unique_urls: list[str] = unique_urls_df.collect().to_series().to_list()
-
-        if not unique_urls:
-            # Return empty LazyFrame with mapped schema columns plus source_url if no valid URLs
-            mapped_column_names = [
-                original_column_map.get(prop["name"], prop["name"]) for prop in ScrapeSchema["properties"]
-            ] + ["source_url"]
-            return pl.DataFrame({col: [] for col in mapped_column_names}).lazy()
-
-        all_results: list[dict[str, Any]] = []
-        job_ids: list[str] = []
-        url_to_dataset: dict[str, str] = {}
         node_id = get_node_id()
 
-        # Create scraping jobs for each unique URL
-        for url in unique_urls:
-            dataset_descriptor = DatasetDescriptorParam(
-                name=f"scrape_{table_name}_{uuid.uuid4().hex}",
-                description="",
-                tables=[ScrapeSchema],
-                relationships=[],
-            )
+        def scrape_batch(batch_df: pl.DataFrame) -> pl.DataFrame:
+            # 1. Get the unique URLs in the batch
+            batch_urls = batch_df.select(url_column).drop_nulls().unique().to_series().to_list()
 
-            scrape_list_response = self._client.scrape.list(
-                url=str(url),
-                table_name=table_name,
-                dataset_descriptor=dataset_descriptor,
-                node_id=node_id,
-            )
-            job_ids.append(scrape_list_response.job_id)
-            url_to_dataset[str(url)] = scrape_list_response.dataset_name
+            # 2. Scrape the URLs
+            job_ids: list[str] = []  # List of job IDs for the scrape jobs to wait for
+            url_to_dataset: dict[str, str] = {}  # Each URL is scraped into a separate dataset
 
-        # Wait for all jobs to complete
-        error_message = self._client.jobs.wait_for_jobs(job_ids)
-        if error_message:
-            raise Exception(error_message)
+            for url in batch_urls:
+                scrape_list_response = self._client.scrape.list(
+                    url=str(url),
+                    table_name=table_name,
+                    dataset_descriptor=dataset_descriptor,
+                    node_id=node_id,
+                )
+                job_ids.append(scrape_list_response.job_id)
+                url_to_dataset[str(url)] = scrape_list_response.dataset_name
 
-        # Collect results from all datasets
-        for url, dataset_name in url_to_dataset.items():
-            entities_result = self._client.datasets.view_table(dataset=dataset_name, name=table_name)
+            self._client.jobs.wait_for_jobs(job_ids)
 
-            for entity in entities_result:
-                # Apply column mapping using original_column_map
-                result_row = {}
-                for col in ScrapeSchema["properties"]:
-                    original_name = col["name"]
-                    mapped_name = original_column_map.get(original_name, original_name)
-                    result_row[mapped_name] = entity.properties.get(original_name)
-                result_row["source_url"] = url
-                all_results.append(result_row)
+            # 3. Collect the results and join them with the original dataframe using url_column and url
+            all_results: list[dict[str, Any]] = []
+            for url, dataset_name in url_to_dataset.items():
+                entities_result = self._client.datasets.view_table(dataset=dataset_name, name=table_name)
+                for entity in entities_result:
+                    result_row = {**entity.properties, url_column: url}
+                    # Join the result row with the original dataframe
+                    result_row = {
+                        **result_row,
+                        **{k: v for k, v in batch_df.to_dicts()[0].items() if k not in result_row},
+                    }
+                    all_results.append(result_row)
 
-        # Create LazyFrame with all results using mapped column names
-        mapped_column_names = [
-            original_column_map.get(prop["name"], prop["name"]) for prop in ScrapeSchema["properties"]
-        ] + ["source_url"]
-        if all_results:
-            df_result = pl.DataFrame(all_results)
-        else:
-            df_result = pl.DataFrame({col: [] for col in mapped_column_names})
+            # 4. Return the results
+            return pl.DataFrame(all_results, schema=output_schema)
 
-        # Ensure all mapped schema columns exist even if empty
-        for col in ScrapeSchema["properties"]:
-            mapped_name = original_column_map.get(col["name"], col["name"])
-            if mapped_name not in df_result.columns:
-                df_result = df_result.with_columns(pl.lit(None).alias(mapped_name))
-
-        return df_result.lazy()
+        return lazy_df.map_batches(scrape_batch, schema=output_schema)
 
     def structure_pdf(
         self,
@@ -269,41 +239,50 @@ class DataFrameResource(SyncAPIResource):
         Returns:
           LazyFrame: Structured data extracted from the PDF
         """
-        dataset_name = f"structure_pdf_{table_name}_{uuid.uuid4().hex}"
-        self._client.datasets.create(
-            name=dataset_name,
-            description="",
-            tables=[schema],
-            relationships=[],
-        )
-
-        # Upload the PDF document using the FileTypes interface
-        self._client.documents.upload(
-            content=document,
-            file_type="PDF",
-            dataset=dataset_name,
-            path=f"{dataset_name}.pdf".encode(),
-        )
-
-        node_id = get_node_id()
-
-        job_id = self._client.structure.run_async(
-            dataset=dataset_name,
-            source=SourcePdf(pdf={"path": f"{dataset_name}.pdf"}),
-            node_id=node_id,
-        )
-        error_message = self._client.jobs.wait_for_jobs([job_id])
-        if error_message:
-            raise Exception(error_message)
-        entities_result = self._client.datasets.view_table(dataset=dataset_name, name=table_name)
 
         column_names = [prop["name"] for prop in schema["properties"]]
+        node_id = get_node_id()
 
-        data = [{col_name: entity.properties.get(col_name) for col_name in column_names} for entity in entities_result]
+        def pdf_batch(batch_df: pl.DataFrame) -> pl.DataFrame:
+            # We expect the document to be the same for all rows, so just use the first row if present
+            if batch_df.height == 0:
+                return pl.DataFrame({col: [] for col in column_names})
 
-        df_result = pl.DataFrame(data if data else {col: [] for col in column_names})
+            # Use the document from the first row (or from closure if not in batch_df)
+            # For this API, we expect the document to be passed in via closure, not batch_df
+            dataset_name = f"structure_pdf_{table_name}_{uuid.uuid4().hex}"
+            self._client.datasets.create(
+                name=dataset_name,
+                description="",
+                tables=[schema],
+                relationships=[],
+            )
 
-        return df_result.lazy()
+            self._client.documents.upload(
+                content=document,
+                file_type="PDF",
+                dataset=dataset_name,
+                path=f"{dataset_name}.pdf".encode(),
+            )
+
+            job_id = self._client.structure.run_async(
+                dataset=dataset_name,
+                source=SourcePdf(pdf={"path": f"{dataset_name}.pdf"}),
+                node_id=node_id,
+            )
+            error_message = self._client.jobs.wait_for_jobs([job_id])
+            if error_message:
+                raise Exception(error_message)
+            entities_result = self._client.datasets.view_table(dataset=dataset_name, name=table_name)
+
+            data = [
+                {col_name: entity.properties.get(col_name) for col_name in column_names} for entity in entities_result
+            ]
+            return pl.DataFrame(data if data else {col: [] for col in column_names})
+
+        # The input LazyFrame is empty, so we just trigger the batch function once.
+        empty_df = pl.DataFrame({col: [] for col in column_names})
+        return empty_df.lazy().map_batches(pdf_batch, schema={col: pl.Utf8 for col in column_names})
 
 
 class DataFrameResourceWithRawResponse:
@@ -311,7 +290,7 @@ class DataFrameResourceWithRawResponse:
         self._dataframe = dataframe
 
         self.enhance_column = to_raw_response_wrapper(
-            dataframe.enhance_column,
+            dataframe.enhance_columns,
         )
 
 
@@ -320,7 +299,7 @@ class DataFrameResourceWithStreamingResponse:
         self._dataframe = dataframe
 
         self.enhance_column = to_streamed_response_wrapper(
-            dataframe.enhance_column,
+            dataframe.enhance_columns,
         )
 
 
@@ -332,3 +311,51 @@ def get_node_id() -> Optional[str]:
       The node ID from environment variable if available, otherwise None.
     """
     return os.environ.get("STRUCTIFY_NODE_ID")
+
+
+def dtype_to_structify_type(dtype: pl.DataType) -> PropertyTypeParam:
+    """
+    Convert a Polars dtype to a Structify type.
+    Map a Polars dtype to a Structify PropertyTypeParam.
+
+    Args:
+        dtype: The Polars data type to convert.
+
+    Returns:
+        The corresponding Structify PropertyTypeParam value.
+
+    Notes:
+        - Defaults to PropertyTypeParam.STRING for unknown types.
+        - This mapping is intentionally explicit to avoid silent mismatches as Structify and Polars evolve.
+    """
+    if dtype == pl.Int64:
+        return "Integer"
+    elif dtype == pl.Float64:
+        return "Float"
+    elif dtype == pl.Boolean:
+        return "Boolean"
+    elif dtype == pl.String:
+        return "String"
+    elif dtype == pl.Date:
+        return "Date"
+    else:
+        return "String"
+
+
+def structify_type_to_polars_dtype(structify_type: PropertyTypeParam | None) -> pl.DataType:
+    if structify_type == "Integer":
+        return pl.Int64()
+    elif structify_type == "Float":
+        return pl.Float64()
+    elif structify_type == "Boolean":
+        return pl.Boolean()
+    elif structify_type == "String":
+        return pl.String()
+    elif structify_type == "Date":
+        return pl.Date()
+    else:
+        return pl.String()
+
+
+def properties_to_schema(properties: list[Property]) -> pl.Schema:
+    return pl.Schema({prop["name"]: structify_type_to_polars_dtype(prop.get("prop_type")) for prop in properties})
