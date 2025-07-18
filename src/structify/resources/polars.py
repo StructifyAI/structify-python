@@ -183,7 +183,7 @@ class PolarsResource(SyncAPIResource):
                 output_schema[col_name] = col_type
 
         # Create properties with descriptions from the new schema format
-        properties = []
+        properties: list[Property] = []
         for col_name, col_info in scrape_schema.items():
             polars_type = col_info.get("type", pl.String())
             structify_type = dtype_to_structify_type(polars_type)
@@ -281,7 +281,7 @@ class PolarsResource(SyncAPIResource):
         dataset_name = f"structure_pdf_{table_name}_{uuid.uuid4().hex}"
 
         # Create properties with descriptions from the new schema format
-        properties = []
+        properties: list[Property] = []
         for col_name, col_info in schema.items():
             polars_type = col_info.get("type", pl.String())
             structify_type = dtype_to_structify_type(polars_type)
