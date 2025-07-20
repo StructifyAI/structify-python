@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import os
+from unittest.mock import Mock, patch
 
 import polars as pl
 import pytest
@@ -100,9 +101,38 @@ class TestPolars:
             "amount": {"description": "Invoice amount", "type": pl.Float64},
         }
 
-        dataframe = client.polars.structure_pdf(
-            document=pdf_content,
-            table_name="invoices",
-            schema=schema,
-        )
-        assert isinstance(dataframe, pl.LazyFrame)
+        # Mock all the API calls that structure_pdf makes
+        with patch.object(client.datasets, "create") as mock_create, patch.object(
+            client.documents, "upload"
+        ) as mock_upload, patch.object(client.structure, "run_async") as mock_run_async, patch.object(
+            client.jobs, "wait_for_jobs"
+        ) as mock_wait_for_jobs, patch.object(client.datasets, "view_table") as mock_view_table:
+            # Configure mock return values
+            mock_run_async.return_value = "test-job-id"
+            mock_wait_for_jobs.return_value = None  # No error message
+
+            # Mock entity with sample data
+            mock_entity = Mock()
+            mock_entity.properties = {"invoice_number": "INV-001", "amount": 1234.56}
+            mock_view_table.return_value = [mock_entity]
+
+            dataframe = client.polars.structure_pdf(
+                document=pdf_content,
+                table_name="invoices",
+                schema=schema,
+            )
+
+            assert isinstance(dataframe, pl.LazyFrame)
+
+            # Verify the API calls were made with correct parameters
+            mock_create.assert_called_once()
+            mock_upload.assert_called_once()
+            mock_run_async.assert_called_once()
+            mock_wait_for_jobs.assert_called_once_with(["test-job-id"])
+            mock_view_table.assert_called_once()
+
+            # Test that we can collect the LazyFrame and get the expected data
+            result_df = dataframe.collect()
+            assert len(result_df) == 1
+            assert result_df["invoice_number"][0] == "INV-001"
+            assert result_df["amount"][0] == 1234.56
