@@ -92,11 +92,14 @@ class PolarsResource(SyncAPIResource):
                 raise TypeError("Each new column must be a dict with a 'type' key containing a polars.DataType")
             dtype = val["type"]
             desc = val.get("description", "")
-            if isinstance(dtype, pl.DataType):
+            if isinstance(dtype, type) and issubclass(dtype, pl.DataType):
+                pass
+            else:
                 raise TypeError(
                     f"new_columns[{col_name!r}]['type'] must be a **Polars DataType class** (e.g. pl.Int64), "
                     f"not an instance like {dtype!r}."
                 )
+
             new_columns_dict[col_name] = (dtype, desc)
 
         # ------------------------------------------------------------------
