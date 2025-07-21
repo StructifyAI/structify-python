@@ -88,7 +88,7 @@ class PolarsResource(SyncAPIResource):
         # Normalise to Dict[str, Tuple[dtype, description]]
         new_columns_dict: Dict[str, tuple[pl.DataType, str]] = {}
         for col_name, val in new_columns.items():
-            if not isinstance(val, dict) or "type" not in val:
+            if "type" not in val:
                 raise TypeError("Each new column must be a dict with a 'type' key containing a polars.DataType")
             dtype = val["type"]
             desc = val.get("description", "")
