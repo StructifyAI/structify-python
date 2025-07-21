@@ -10,6 +10,12 @@ import pytest
 
 from structify import Structify
 
+# Shared schema & helpers used across multiple tests
+SCRAPE_SCHEMA = {
+    "company_name": {"description": "Name of the company", "type": pl.Utf8},
+    "employee_count": {"description": "Number of employees", "type": pl.Int64},
+}
+
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
 
@@ -24,7 +30,9 @@ class TestPolars:
 
         dataframe = client.polars.enhance_columns(
             df=lazy_df,
-            new_columns=[{"name": "occupation", "description": "Person's job title"}],
+            new_columns={
+                "occupation": {"description": "Person's job title", "type": pl.Utf8},
+            },
             dataframe_name="people",
             dataframe_description="People data",
         )
@@ -38,10 +46,10 @@ class TestPolars:
 
         dataframe = client.polars.enhance_columns(
             df=lazy_df,
-            new_columns=[
-                {"name": "occupation", "description": "Person's job title"},
-                {"name": "salary", "description": "Person's annual salary"},
-            ],
+            new_columns={
+                "occupation": {"description": "Person's job title", "type": pl.Utf8},
+                "salary": {"description": "Person's annual salary", "type": pl.Float64},
+            },
             dataframe_name="people",
             dataframe_description="People data including employment information",
         )
@@ -53,19 +61,11 @@ class TestPolars:
         url_data = {"url": ["https://example.com", "https://test.com"], "id": [1, 2]}
         lazy_df = pl.DataFrame(url_data).lazy()
 
-        schema = {
-            "company_name": {"description": "Name of the company", "type": pl.Utf8},
-            "employee_count": {"description": "Number of employees", "type": pl.Int64},
-        }
-
-        column_map = {"company_name": "name", "employee_count": "employees"}
-
         dataframe = client.polars.scrape_urls(
             lazy_df=lazy_df,
             url_column="url",
             table_name="companies",
-            scrape_schema=schema,
-            original_column_map=column_map,
+            scrape_schema=SCRAPE_SCHEMA,
         )
         assert isinstance(dataframe, pl.LazyFrame)
 
@@ -75,19 +75,11 @@ class TestPolars:
         url_data = {"url": ["https://example.com", "https://test.com"], "id": [1, 2]}
         lazy_df = pl.DataFrame(url_data).lazy()
 
-        schema = {
-            "company_name": {"description": "Name of the company", "type": pl.Utf8},
-            "employee_count": {"description": "Number of employees", "type": pl.Int64},
-        }
-
-        column_map = {"company_name": "name", "employee_count": "employees"}
-
         dataframe = client.polars.scrape_urls(
             lazy_df=lazy_df,
             url_column="url",
             table_name="companies",
-            scrape_schema=schema,
-            original_column_map=column_map,
+            scrape_schema=SCRAPE_SCHEMA,
         )
         assert isinstance(dataframe, pl.LazyFrame)
 

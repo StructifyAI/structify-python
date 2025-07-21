@@ -50,25 +50,65 @@ class PolarsResource(SyncAPIResource):
         self,
         *,
         df: LazyFrame,
-        new_columns: list[Property],
+        new_columns: Dict[str, Dict[str, Any]],
         dataframe_name: str,
         dataframe_description: str,
     ) -> LazyFrame:
         """
-        Enhance a column in a LazyFrame using Structify's AI capabilities.
+        Enhance one or more columns of a `LazyFrame` by letting Structify populate the
+        values.
+
+            • ``"type"`` (required):  a **Polars DataType *class*** (e.g. ``pl.Int64``)
+            • ``"description"`` (optional): a human-readable string
+
+        Example::
+
+            new_cols = {
+                "net_amount": {"type": pl.Float64, "description": "Net amount after tax"},
+                "due_date": {"type": pl.Date},
+            }
+
+        Descriptions are optional but improve Structify's understanding of the
+        data to infer.
 
         Args:
-          df: The polars LazyFrame to enhance
-          new_columns: List of column schemas to enhance
-          dataframe_name: Name of the dataframe (e.g. "Company", "Invoice", …)
-          dataframe_description: Specific description of the dataframe that provides the context needed for the Structify AI to understand the data to look for. (e.g. "Companies that are in the food industry")
+            df: The input `polars.LazyFrame` to enhance.
+            new_columns: Schema describing the *new* columns. Accepts either a
+                `polars.Schema` or a plain mapping from column name to dtype.
+            dataframe_name: Logical name of the dataframe (e.g. "Company",
+                "Invoice", …) – used as the Structify *entity type*.
+            dataframe_description: Free-form description that provides the
+                necessary context for Structify (e.g. "Companies that are in the
+                food industry").
         """
-        schema = df.collect_schema()
+
+        # Existing columns & their dtypes from the LazyFrame
+        existing_schema_dict: Dict[str, pl.DataType] = df.collect_schema()
+
+        # Normalise to Dict[str, Tuple[dtype, description]]
+        new_columns_dict: Dict[str, tuple[pl.DataType, str]] = {}
+        for col_name, val in new_columns.items():
+            if "type" not in val:
+                raise TypeError("Each new column must be a dict with a 'type' key containing a polars.DataType")
+            dtype = val["type"]
+            desc = val.get("description", "")
+            new_columns_dict[col_name] = (dtype, desc)
+
+        # ------------------------------------------------------------------
+        # Build Structify `Property` objects for existing & new columns
+        # ------------------------------------------------------------------
         pre_existing_properties = [
             Property(name=col_name, description="", prop_type=dtype_to_structify_type(dtype))
-            for col_name, dtype in schema.items()
+            for col_name, dtype in existing_schema_dict.items()
         ]
-        all_properties = pre_existing_properties + new_columns
+
+        new_column_properties = [
+            Property(name=col_name, description=desc, prop_type=dtype_to_structify_type(dtype))
+            for col_name, (dtype, desc) in new_columns_dict.items()
+        ]
+
+        all_properties = pre_existing_properties + new_column_properties
+
         dataset_name = f"enhance_{dataframe_name}_{uuid.uuid4().hex}"
         self._client.datasets.create(
             name=dataset_name,
@@ -83,15 +123,10 @@ class PolarsResource(SyncAPIResource):
             relationships=[],
         )
         # For new columns, add a null value to the dataframe with proper types
-        missing_new_columns = [
-            col for col in new_columns if col["name"] not in {p["name"] for p in pre_existing_properties}
-        ]
+        missing_new_columns = [col_name for col_name in new_columns_dict.keys() if col_name not in existing_schema_dict]
         if missing_new_columns:
             df = df.with_columns(
-                [
-                    pl.lit(None, dtype=structify_type_to_polars_dtype(col.get("prop_type"))).alias(col["name"])
-                    for col in missing_new_columns
-                ]
+                [pl.lit(None, dtype=new_columns_dict[col_name][0]).alias(col_name) for col_name in missing_new_columns]
             )
 
         # Get the node ID when the function is called, not when the batch is processed
@@ -122,11 +157,11 @@ class PolarsResource(SyncAPIResource):
             # 2. Enhance the entities
             job_ids: list[str] = []
             for entity_id in entity_ids:
-                for col in new_columns:
+                for col_name in new_columns_dict.keys():
                     job_ids.append(
                         self._client.structure.enhance_property(
                             entity_id=entity_id,
-                            property_name=col["name"],
+                            property_name=col_name,
                             allow_extra_entities=False,
                             node_id=node_id,
                         )
