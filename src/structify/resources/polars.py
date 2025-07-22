@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import os
 import uuid
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, cast
 
 import polars as pl
 from polars import LazyFrame
@@ -238,6 +238,8 @@ class PolarsResource(SyncAPIResource):
                 Property(name=col_name, description=col_info.get("description", ""), prop_type=structify_type)
             )
 
+        _node_id = get_node_id()  # Wait until we update relationship endpoint to use node_id
+
         def enhance_relationship_batch(batch_df: pl.DataFrame) -> pl.DataFrame:
             if batch_df.is_empty():
                 return pl.DataFrame(schema=output_schema)
@@ -313,7 +315,7 @@ class PolarsResource(SyncAPIResource):
 
             response = self._client.datasets.view_tables_with_relationships(dataset=dataset_name, name="source_table")
 
-            result_rows = []
+            result_rows: list[dict[str, Any]] = []
 
             # A little caching to avoid looking up the same entity multiple times
             source_entity_id_to_entity = {entity.id: entity for entity in response.entities}
@@ -325,7 +327,7 @@ class PolarsResource(SyncAPIResource):
                 source_entity = source_entity_id_to_entity.get(relationship.from_id)
 
                 if target_entity and source_entity:
-                    result_row = source_entity.properties.copy()
+                    result_row: dict[str, Any] = cast(dict[str, Any], source_entity.properties.copy())
                     for prop_name in target_schema.keys():
                         result_row[prop_name] = target_entity.properties.get(prop_name)
                     result_rows.append(result_row)
@@ -334,7 +336,7 @@ class PolarsResource(SyncAPIResource):
             source_ids_with_relationships = {rel.from_id for rel in response.relationships}
             for source_id, source_entity in source_entity_id_to_entity.items():
                 if source_id not in source_ids_with_relationships:
-                    result_row = source_entity.properties.copy()
+                    result_row: dict[str, Any] = cast(dict[str, Any], source_entity.properties.copy())
                     for prop_name in target_schema.keys():
                         result_row[prop_name] = None
                     result_rows.append(result_row)
