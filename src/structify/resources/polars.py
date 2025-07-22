@@ -148,7 +148,11 @@ class PolarsResource(SyncAPIResource):
                             EntityParam(
                                 type=dataframe_name,
                                 id=i,
-                                properties={col["name"]: str(row[col["name"]]) for col in all_properties},
+                                properties={
+                                    col["name"]: str(row[col["name"]])
+                                    for col in all_properties
+                                    if row[col["name"]] is not None
+                                },
                             )
                             for i, row in enumerate(batch_df.to_dicts())
                         ],
