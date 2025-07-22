@@ -190,7 +190,6 @@ class PolarsResource(SyncAPIResource):
         self,
         *,
         lazy_df: LazyFrame,
-        source_column: str,
         relationship_name: str,
         relationship_description: str,
         target_table_name: str,
@@ -202,7 +201,6 @@ class PolarsResource(SyncAPIResource):
 
         Args:
             lazy_df: LazyFrame containing source entities
-            source_column: Name of the column to use as the source for finding relationships
             relationship_name: Name of the relationship to create
             relationship_description: Description of the relationship to create
             target_table_name: Name of the target table for related entities
@@ -213,9 +211,6 @@ class PolarsResource(SyncAPIResource):
             LazyFrame with original columns plus new columns from related entities
         """
         input_schema = lazy_df.collect_schema()
-
-        if source_column not in input_schema:
-            raise ValueError(f"Column '{source_column}' not found in LazyFrame")
 
         # Build output schema - original columns plus target schema columns
         output_schema = input_schema.copy()
