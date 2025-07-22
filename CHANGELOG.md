@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.128.5 (2025-07-22)
+
+Full Changelog: [v1.128.4...v1.128.5](https://github.com/StructifyAI/structify-python/compare/v1.128.4...v1.128.5)
+
+### Bug Fixes
+
+* **parsing:** ignore empty metadata ([a62c69f](https://github.com/StructifyAI/structify-python/commit/a62c69fb88c5b37e1462cd128bb4b44a392f826c))
+
 ## 1.128.4 (2025-07-21)
 
 Full Changelog: [v1.128.3...v1.128.4](https://github.com/StructifyAI/structify-python/compare/v1.128.3...v1.128.4)
