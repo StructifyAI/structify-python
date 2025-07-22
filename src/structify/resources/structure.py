@@ -309,7 +309,7 @@ class StructureResource(SyncAPIResource):
 
           seeded_entity: Knowledge graph info structured to deserialize and display in the same format
               that the LLM outputs. Also the first representation of an LLM output in the
-              pipeline from raw tool output to being merged into a Neo4j DB
+              pipeline from raw tool output to being merged into a DB
 
           stop_config: Configuration parameters for the StopChecker
 
@@ -620,7 +620,7 @@ class AsyncStructureResource(AsyncAPIResource):
 
           seeded_entity: Knowledge graph info structured to deserialize and display in the same format
               that the LLM outputs. Also the first representation of an LLM output in the
-              pipeline from raw tool output to being merged into a Neo4j DB
+              pipeline from raw tool output to being merged into a DB
 
           stop_config: Configuration parameters for the StopChecker
 
