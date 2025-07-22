@@ -13,4 +13,10 @@ class WorkflowSession(BaseModel):
 
     chat_session_id: str
 
+    updated_at: datetime
+
     created_at: Optional[datetime] = None
+
+    error_message: Optional[str] = None
+
+    error_traceback: Optional[str] = None
