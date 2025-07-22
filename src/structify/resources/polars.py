@@ -195,6 +195,7 @@ class PolarsResource(SyncAPIResource):
         target_table_name: str,
         target_schema: Dict[str, Dict[str, Any]],
         target_schema_override: TableParam | None = None,
+        source_table_name: str = "source_table",
     ) -> LazyFrame:
         """
         Enhance a LazyFrame by finding related entities and creating a one-to-many relationship.
@@ -205,7 +206,8 @@ class PolarsResource(SyncAPIResource):
             relationship_description: Description of the relationship to create
             target_table_name: Name of the target table for related entities
             target_schema: Schema definition for target entities, format: {"column_name": {"description": "...", "type": polars_dtype}}
-            target_schema_override: Optional override for the target table schema
+            target_schema_override: Optional override for the target table schema (e.g. to add merge criteria)
+            source_table_name: Name of the source table for related entities (e.g. "Company", "Person", etc.) (default: "source_table")
 
         Returns:
             LazyFrame with original columns plus new columns from related entities
@@ -253,7 +255,7 @@ class PolarsResource(SyncAPIResource):
                 description="",
                 tables=[
                     TableParam(
-                        name="source_table",
+                        name=source_table_name,
                         description="Source entities for relationship enhancement",
                         properties=source_properties,
                     ),
@@ -267,7 +269,7 @@ class PolarsResource(SyncAPIResource):
                     Relationship(
                         name=relationship_name,
                         description=relationship_description,
-                        source_table="source_table",
+                        source_table=source_table_name,
                         target_table=target_table_name,
                         properties=[],
                     )
@@ -282,7 +284,7 @@ class PolarsResource(SyncAPIResource):
                     {
                         "entities": [
                             EntityParam(
-                                type="source_table",
+                                type=source_table_name,
                                 id=i,
                                 properties={
                                     col_name: str(row[col_name])
@@ -308,7 +310,9 @@ class PolarsResource(SyncAPIResource):
 
             self._client.jobs.wait_for_jobs(job_ids)
 
-            response = self._client.datasets.view_tables_with_relationships(dataset=dataset_name, name="source_table")
+            response = self._client.datasets.view_tables_with_relationships(
+                dataset=dataset_name, name=source_table_name
+            )
 
             result_rows: list[dict[str, Any]] = []
 
