@@ -142,7 +142,7 @@ class EntitiesResource(SyncAPIResource):
         Args:
           entity_graph: Knowledge graph info structured to deserialize and display in the same format
               that the LLM outputs. Also the first representation of an LLM output in the
-              pipeline from raw tool output to being merged into a Neo4j DB
+              pipeline from raw tool output to being merged into a DB
 
           attempt_merge: If true, attempt to merge with existing entities in the dataset
 
@@ -807,7 +807,7 @@ class EntitiesResource(SyncAPIResource):
         Args:
           entity_graph: Knowledge graph info structured to deserialize and display in the same format
               that the LLM outputs. Also the first representation of an LLM output in the
-              pipeline from raw tool output to being merged into a Neo4j DB
+              pipeline from raw tool output to being merged into a DB
 
           fix: Whether to apply fixes to the dataset
 
@@ -957,7 +957,7 @@ class AsyncEntitiesResource(AsyncAPIResource):
         Args:
           entity_graph: Knowledge graph info structured to deserialize and display in the same format
               that the LLM outputs. Also the first representation of an LLM output in the
-              pipeline from raw tool output to being merged into a Neo4j DB
+              pipeline from raw tool output to being merged into a DB
 
           attempt_merge: If true, attempt to merge with existing entities in the dataset
 
@@ -1628,7 +1628,7 @@ class AsyncEntitiesResource(AsyncAPIResource):
         Args:
           entity_graph: Knowledge graph info structured to deserialize and display in the same format
               that the LLM outputs. Also the first representation of an LLM output in the
-              pipeline from raw tool output to being merged into a Neo4j DB
+              pipeline from raw tool output to being merged into a DB
 
           fix: Whether to apply fixes to the dataset
 

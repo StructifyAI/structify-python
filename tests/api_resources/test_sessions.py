@@ -241,6 +241,57 @@ class TestSessions:
             )
 
     @parametrize
+    def test_method_mark_errored(self, client: Structify) -> None:
+        session = client.sessions.mark_errored(
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            error_message="error_message",
+        )
+        assert_matches_type(WorkflowSession, session, path=["response"])
+
+    @parametrize
+    def test_method_mark_errored_with_all_params(self, client: Structify) -> None:
+        session = client.sessions.mark_errored(
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            error_message="error_message",
+            error_traceback="error_traceback",
+        )
+        assert_matches_type(WorkflowSession, session, path=["response"])
+
+    @parametrize
+    def test_raw_response_mark_errored(self, client: Structify) -> None:
+        response = client.sessions.with_raw_response.mark_errored(
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            error_message="error_message",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        session = response.parse()
+        assert_matches_type(WorkflowSession, session, path=["response"])
+
+    @parametrize
+    def test_streaming_response_mark_errored(self, client: Structify) -> None:
+        with client.sessions.with_streaming_response.mark_errored(
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            error_message="error_message",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            session = response.parse()
+            assert_matches_type(WorkflowSession, session, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_path_params_mark_errored(self, client: Structify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
+            client.sessions.with_raw_response.mark_errored(
+                session_id="",
+                error_message="error_message",
+            )
+
+    @parametrize
     def test_method_update_node(self, client: Structify) -> None:
         session = client.sessions.update_node(
             node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -515,6 +566,57 @@ class TestAsyncSessions:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
             await async_client.sessions.with_raw_response.get_events(
                 session_id="",
+            )
+
+    @parametrize
+    async def test_method_mark_errored(self, async_client: AsyncStructify) -> None:
+        session = await async_client.sessions.mark_errored(
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            error_message="error_message",
+        )
+        assert_matches_type(WorkflowSession, session, path=["response"])
+
+    @parametrize
+    async def test_method_mark_errored_with_all_params(self, async_client: AsyncStructify) -> None:
+        session = await async_client.sessions.mark_errored(
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            error_message="error_message",
+            error_traceback="error_traceback",
+        )
+        assert_matches_type(WorkflowSession, session, path=["response"])
+
+    @parametrize
+    async def test_raw_response_mark_errored(self, async_client: AsyncStructify) -> None:
+        response = await async_client.sessions.with_raw_response.mark_errored(
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            error_message="error_message",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        session = await response.parse()
+        assert_matches_type(WorkflowSession, session, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_mark_errored(self, async_client: AsyncStructify) -> None:
+        async with async_client.sessions.with_streaming_response.mark_errored(
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            error_message="error_message",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            session = await response.parse()
+            assert_matches_type(WorkflowSession, session, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_mark_errored(self, async_client: AsyncStructify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
+            await async_client.sessions.with_raw_response.mark_errored(
+                session_id="",
+                error_message="error_message",
             )
 
     @parametrize
