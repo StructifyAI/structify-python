@@ -10,6 +10,7 @@ from polars import LazyFrame
 
 from structify.types.entity_param import EntityParam
 from structify.types.property_type_param import PropertyTypeParam
+from structify.types.dataset_create_params import Relationship
 
 from ..types import TableParam
 from .._types import FileTypes
@@ -121,6 +122,7 @@ class PolarsResource(SyncAPIResource):
                 )
             ],
             relationships=[],
+            ephemeral=True,
         )
         # For new columns, add a null value to the dataframe with proper types
         missing_new_columns = [col_name for col_name in new_columns_dict.keys() if col_name not in existing_schema_dict]
@@ -184,6 +186,166 @@ class PolarsResource(SyncAPIResource):
 
         return df.map_batches(enhance_batch, schema=expected_schema, no_optimizations=True)
 
+    def enhance_relationships(
+        self,
+        *,
+        lazy_df: LazyFrame,
+        source_column: str,
+        relationship_name: str,
+        relationship_description: str,
+        target_table_name: str,
+        target_schema: Dict[str, Dict[str, Any]],
+        target_schema_override: TableParam | None = None,
+    ) -> LazyFrame:
+        """
+        Enhance a LazyFrame by finding related entities and creating a one-to-many relationship.
+
+        Args:
+            lazy_df: LazyFrame containing source entities
+            source_column: Name of the column to use as the source for finding relationships
+            relationship_name: Name of the relationship to create
+            relationship_description: Description of the relationship to create
+            target_table_name: Name of the target table for related entities
+            target_schema: Schema definition for target entities, format: {"column_name": {"description": "...", "type": polars_dtype}}
+            target_schema_override: Optional override for the target table schema
+
+        Returns:
+            LazyFrame with original columns plus new columns from related entities
+        """
+        input_schema = lazy_df.collect_schema()
+
+        if source_column not in input_schema:
+            raise ValueError(f"Column '{source_column}' not found in LazyFrame")
+
+        # Build output schema - original columns plus target schema columns
+        output_schema = input_schema.copy()
+
+        if target_schema_override:
+            for prop in target_schema_override["properties"]:
+                prop_type = structify_type_to_polars_dtype(prop.get("prop_type"))
+                output_schema[prop["name"]] = prop_type
+        else:
+            for col_name, col_info in target_schema.items():
+                col_type = col_info.get("type", pl.String())
+                output_schema[col_name] = col_type
+
+        # Create properties for target entities
+        target_properties: list[Property] = []
+        for col_name, col_info in target_schema.items():
+            polars_type = col_info.get("type", pl.String())
+            structify_type = dtype_to_structify_type(polars_type)
+            target_properties.append(
+                Property(name=col_name, description=col_info.get("description", ""), prop_type=structify_type)
+            )
+
+        def enhance_relationship_batch(batch_df: pl.DataFrame) -> pl.DataFrame:
+            if batch_df.is_empty():
+                return pl.DataFrame(schema=output_schema)
+
+            # Create dataset for this batch
+            dataset_name = f"enhance_relationships_{relationship_name}_{uuid.uuid4().hex}"
+
+            # Create source table properties from existing schema
+            source_properties = [
+                Property(name=col_name, description="", prop_type=dtype_to_structify_type(dtype))
+                for col_name, dtype in input_schema.items()
+            ]
+
+            self._client.datasets.create(
+                name=dataset_name,
+                description="",
+                tables=[
+                    TableParam(
+                        name="source_table",
+                        description="Source entities for relationship enhancement",
+                        properties=source_properties,
+                    ),
+                    TableParam(
+                        name=target_table_name,
+                        description=f"Target entities for {relationship_name} relationship",
+                        properties=target_properties,
+                    ),
+                ],
+                relationships=[
+                    Relationship(
+                        name=relationship_name,
+                        description=relationship_description,
+                        source_table="source_table",
+                        target_table=target_table_name,
+                        properties=[],
+                    )
+                ],
+                ephemeral=True,
+            )
+
+            # Add source entities to dataset
+            entity_ids = self._client.entities.add_batch(
+                dataset=dataset_name,
+                entity_graphs=[
+                    {
+                        "entities": [
+                            EntityParam(
+                                type="source_table",
+                                id=i,
+                                properties={
+                                    col_name: str(row[col_name])
+                                    for col_name in input_schema.names()
+                                    if row[col_name] is not None
+                                },
+                            )
+                            for i, row in enumerate(batch_df.to_dicts())
+                        ],
+                        "relationships": [],
+                    }
+                ],
+            )
+
+            # Enhance relationships for each entity
+            job_ids: list[str] = []
+            for entity_id in entity_ids:
+                job_id = self._client.structure.enhance_relationship(
+                    entity_id=entity_id,
+                    relationship_name=relationship_name,
+                )
+                job_ids.append(job_id)
+
+            self._client.jobs.wait_for_jobs(job_ids)
+
+            response = self._client.datasets.view_tables_with_relationships(dataset=dataset_name, name="source_table")
+
+            result_rows = []
+
+            # A little caching to avoid looking up the same entity multiple times
+            source_entity_id_to_entity = {entity.id: entity for entity in response.entities}
+
+            for relationship in response.relationships:
+                target_entity = next(
+                    (entity for entity in response.connected_entities if entity.id == relationship.to_id), None
+                )
+                source_entity = source_entity_id_to_entity.get(relationship.from_id)
+
+                if target_entity and source_entity:
+                    result_row = source_entity.properties.copy()
+                    for prop_name in target_schema.keys():
+                        result_row[prop_name] = target_entity.properties.get(prop_name)
+                    result_rows.append(result_row)
+
+            # Handle source rows without relationships
+            source_ids_with_relationships = {rel.from_id for rel in response.relationships}
+            for source_id, source_entity in source_entity_id_to_entity.items():
+                if source_id not in source_ids_with_relationships:
+                    result_row = source_entity.properties.copy()
+                    for prop_name in target_schema.keys():
+                        result_row[prop_name] = None
+                    result_rows.append(result_row)
+
+            if not result_rows:
+                return pl.DataFrame(schema=output_schema)
+
+            return pl.DataFrame(result_rows, schema=output_schema)
+
+        return lazy_df.map_batches(enhance_relationship_batch, schema=output_schema, no_optimizations=True)
+
     def scrape_urls(
         self,
         *,
@@ -223,7 +385,7 @@ class PolarsResource(SyncAPIResource):
                 col_type = col_info.get("type", pl.String())
                 output_schema[col_name] = col_type
 
-        # Create properties with descriptions from the new schema format
+        # Create properties with descriptions only from the scrape schema
         properties: list[Property] = []
         for col_name, col_info in scrape_schema.items():
             polars_type = col_info.get("type", pl.String())
@@ -231,11 +393,6 @@ class PolarsResource(SyncAPIResource):
             properties.append(
                 Property(name=col_name, description=col_info.get("description", ""), prop_type=structify_type)
             )
-
-        # Add existing columns from input schema
-        for col_name, dtype in input_schema.items():
-            if col_name not in scrape_schema:
-                properties.append(Property(name=col_name, description="", prop_type=dtype_to_structify_type(dtype)))
 
         dataset_descriptor = DatasetDescriptorParam(
             name=f"scrape_{table_name}_{uuid.uuid4().hex}",
@@ -272,21 +429,16 @@ class PolarsResource(SyncAPIResource):
 
             self._client.jobs.wait_for_jobs(job_ids)
 
-            # 3. Collect the results and join them with the original dataframe using url_column and url
-            all_results: list[dict[str, Any]] = []
+            # 3. Collect the scraped results first
+            scraped_results: list[dict[str, Any]] = []
             for url, dataset_name in url_to_dataset.items():
                 entities_result = self._client.datasets.view_table(dataset=dataset_name, name=table_name)
                 for entity in entities_result:
                     result_row = {**entity.properties, url_column: url}
-                    # Join the result row with the original dataframe
-                    result_row = {
-                        **result_row,
-                        **{k: v for k, v in batch_df.to_dicts()[0].items() if k not in result_row},
-                    }
-                    all_results.append(result_row)
-
-            # 4. Return the results
-            return pl.DataFrame(all_results, schema=output_schema)
+                    scraped_results.append(result_row)
+            scraped_df = pl.DataFrame(scraped_results)
+            joined_df = batch_df.join(scraped_df, on=url_column, how="left")
+            return joined_df
 
         return lazy_df.map_batches(scrape_batch, schema=output_schema, no_optimizations=True)
 
@@ -341,6 +493,7 @@ class PolarsResource(SyncAPIResource):
                 )
             ],
             relationships=[],
+            ephemeral=True,
         )
 
         self._client.documents.upload(
