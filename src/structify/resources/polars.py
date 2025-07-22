@@ -137,6 +137,8 @@ class PolarsResource(SyncAPIResource):
 
         # Apply Structify enrich on the dataframe
         def enhance_batch(batch_df: pl.DataFrame) -> pl.DataFrame:
+            if batch_df.is_empty():
+                return pl.DataFrame(schema=expected_schema)
             # 1. Add all the entities to the structify dataset
             entity_ids = self._client.entities.add_batch(
                 dataset=dataset_name,
@@ -176,7 +178,7 @@ class PolarsResource(SyncAPIResource):
             # 5. Return the results
             return pl.DataFrame(results, schema=expected_schema)
 
-        return df.map_batches(enhance_batch, schema=expected_schema)
+        return df.map_batches(enhance_batch, schema=expected_schema, no_optimizations=True)
 
     def scrape_urls(
         self,
@@ -282,7 +284,7 @@ class PolarsResource(SyncAPIResource):
             # 4. Return the results
             return pl.DataFrame(all_results, schema=output_schema)
 
-        return lazy_df.map_batches(scrape_batch, schema=output_schema)
+        return lazy_df.map_batches(scrape_batch, schema=output_schema, no_optimizations=True)
 
     def structure_pdf(
         self,
