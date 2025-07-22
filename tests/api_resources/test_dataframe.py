@@ -178,11 +178,11 @@ class TestPolars:
 
             dataframe = client.polars.enhance_relationships(
                 lazy_df=lazy_df,
-                source_column="company_name",
                 relationship_name="employees",
                 relationship_description="Employees working at company",
                 target_table_name="Employee",
                 target_schema=target_schema,
+                source_table_name="Company",
             )
 
             assert isinstance(dataframe, pl.LazyFrame)
