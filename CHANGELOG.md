@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.129.2 (2025-07-23)
+
+Full Changelog: [v1.129.1...v1.129.2](https://github.com/StructifyAI/structify-python/compare/v1.129.1...v1.129.2)
+
+### Bug Fixes
+
+* **parsing:** parse extra field types ([c1417a5](https://github.com/StructifyAI/structify-python/commit/c1417a5b317b7050e5e70eb34039efb2d3a13b3f))
+
 ## 1.129.1 (2025-07-22)
 
 Full Changelog: [v1.129.0...v1.129.1](https://github.com/StructifyAI/structify-python/compare/v1.129.0...v1.129.1)
