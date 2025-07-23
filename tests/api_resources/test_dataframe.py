@@ -128,3 +128,75 @@ class TestPolars:
             assert len(result_df) == 1
             assert result_df["invoice_number"][0] == "INV-001"
             assert result_df["amount"][0] == 1234.56
+
+    @parametrize
+    def test_method_enhance_relationships(self, client: Structify) -> None:
+        # Create test LazyFrame with source data
+        source_data = {"company_name": ["Structify", "Google", "Microsoft"]}
+        lazy_df = pl.DataFrame(source_data).lazy()
+
+        target_schema = {
+            "employee_name": {"description": "Name of the employee", "type": pl.Utf8},
+            "position": {"description": "Employee position", "type": pl.Utf8},
+        }
+
+        # Mock all the API calls that enhance_relationships makes
+        with patch.object(client.datasets, "create") as mock_create, patch.object(
+            client.entities, "add_batch"
+        ) as mock_add_batch, patch.object(
+            client.structure, "enhance_relationship"
+        ) as mock_enhance_relationship, patch.object(client.jobs, "wait_for_jobs") as mock_wait_for_jobs, patch.object(
+            client.datasets, "view_tables_with_relationships"
+        ) as mock_view_tables_with_relationships:
+            # Configure mock return values
+            mock_add_batch.return_value = ["entity-1", "entity-2", "entity-3"]
+            mock_enhance_relationship.return_value = "test-job-id"
+            mock_wait_for_jobs.return_value = None
+
+            # Build mock response mimicking DatasetViewTablesWithRelationshipsResponse
+            # Source entities
+            mock_source_1 = Mock(id="entity-1", properties={"company_name": "Structify"})
+            mock_source_2 = Mock(id="entity-2", properties={"company_name": "Google"})
+            mock_source_3 = Mock(id="entity-3", properties={"company_name": "Microsoft"})
+
+            # Target/connected entities
+            mock_target_1 = Mock(id="target-1", properties={"employee_name": "Alex", "position": "CEO"})
+            mock_target_2 = Mock(id="target-2", properties={"employee_name": "Alex", "position": "SWE"})
+            mock_target_3 = Mock(id="target-3", properties={"employee_name": "Alex", "position": "PM"})
+
+            # Relationships connecting sources to targets
+            rel1 = Mock(from_id="entity-1", to_id="target-1")
+            rel2 = Mock(from_id="entity-2", to_id="target-2")
+            rel3 = Mock(from_id="entity-3", to_id="target-3")
+
+            mock_response = Mock()
+            mock_response.entities = [mock_source_1, mock_source_2, mock_source_3]
+            mock_response.connected_entities = [mock_target_1, mock_target_2, mock_target_3]
+            mock_response.relationships = [rel1, rel2, rel3]
+
+            mock_view_tables_with_relationships.return_value = mock_response
+
+            dataframe = client.polars.enhance_relationships(
+                lazy_df=lazy_df,
+                relationship_name="employees",
+                relationship_description="Employees working at company",
+                target_table_name="Employee",
+                target_schema=target_schema,
+                source_table_name="Company",
+            )
+
+            assert isinstance(dataframe, pl.LazyFrame)
+
+            # Collect the LazyFrame – this triggers the side-effects in the lazy pipeline
+            result_df = dataframe.collect()
+
+            # Verify the API calls were made with correct parameters (after collect)
+            mock_create.assert_called_once()
+            mock_add_batch.assert_called_once()
+            assert mock_enhance_relationship.call_count == 3  # One for each entity
+            mock_wait_for_jobs.assert_called_once()
+
+            assert len(result_df) == 3
+            assert "company_name" in result_df.columns
+            assert "employee_name" in result_df.columns
+            assert "position" in result_df.columns
