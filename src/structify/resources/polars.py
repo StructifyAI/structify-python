@@ -8,12 +8,10 @@ from typing import Any, Dict, Optional, cast
 import polars as pl
 from polars import LazyFrame
 
-from structify._client import Structify
 from structify.types.entity_param import EntityParam
 from structify.types.property_type_param import PropertyTypeParam
 from structify.types.dataset_create_params import Relationship
 from structify.types.knowledge_graph_param import KnowledgeGraphParam
-from structify.types.entity_add_batch_response import EntityAddBatchResponse
 
 from ..types import TableParam
 from .._types import FileTypes
@@ -147,7 +145,10 @@ class PolarsResource(SyncAPIResource):
             # 1. Add all the entities to the structify dataset
             column_schema = {col["name"]: col["name"] for col in all_properties}
             entities = dataframe_to_entities(batch_df, dataframe_name, column_schema)
-            entity_ids = add_entities_parallel(self._client, dataset_name, entities)
+            entity_ids = self._client.entities.add_batch(
+                dataset=dataset_name,
+                entity_graphs=chunk_entities_for_parallel_add(entities),
+            )
             # 2. Enhance the entities
             job_ids: list[str] = []
             for entity_id in entity_ids:
@@ -266,7 +267,10 @@ class PolarsResource(SyncAPIResource):
             # Add source entities to dataset
             column_schema = {col_name: col_name for col_name in input_schema.names()}
             entities = dataframe_to_entities(batch_df, source_table_name, column_schema)
-            entity_ids = add_entities_parallel(self._client, dataset_name, entities)
+            entity_ids = self._client.entities.add_batch(
+                dataset=dataset_name,
+                entity_graphs=chunk_entities_for_parallel_add(entities),
+            )
 
             # Enhance relationships for each entity
             job_ids: list[str] = []
@@ -510,7 +514,7 @@ class PolarsResourceWithRawResponse:
     def __init__(self, dataframe: PolarsResource) -> None:
         self._dataframe = dataframe
 
-        self.enhance_column = to_raw_response_wrapper(
+        self.enhance_columns = to_raw_response_wrapper(
             dataframe.enhance_columns,
         )
 
@@ -519,7 +523,7 @@ class PolarsResourceWithStreamingResponse:
     def __init__(self, dataframe: PolarsResource) -> None:
         self._dataframe = dataframe
 
-        self.enhance_column = to_streamed_response_wrapper(
+        self.enhance_columns = to_streamed_response_wrapper(
             dataframe.enhance_columns,
         )
 
@@ -555,16 +559,6 @@ def dataframe_to_entities(batch_df: pl.DataFrame, entity_type: str, column_schem
         )
         for i, row in enumerate(batch_df.to_dicts())
     ]
-
-
-def add_entities_parallel(client: Structify, dataset_name: str, entities: list[EntityParam]) -> EntityAddBatchResponse:
-    """Add entities using parallel processing via chunked entity graphs."""
-    if not entities:
-        return []
-    return client.entities.add_batch(
-        dataset=dataset_name,
-        entity_graphs=chunk_entities_for_parallel_add(entities),
-    )
 
 
 def dtype_to_structify_type(dtype: pl.DataType) -> PropertyTypeParam:
