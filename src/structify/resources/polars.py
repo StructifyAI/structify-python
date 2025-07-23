@@ -409,7 +409,12 @@ class PolarsResource(SyncAPIResource):
                 for entity in entities_result:
                     result_row = {**entity.properties, url_column: url}
                     scraped_results.append(result_row)
-            scraped_df = pl.DataFrame(scraped_results)
+            for result_row in scraped_results:
+                for col_name in output_schema.names():
+                    if col_name not in result_row:
+                        result_row[col_name] = None
+            scraped_df = pl.DataFrame(scraped_results, schema=output_schema)
+
             joined_df = batch_df.join(scraped_df, on=url_column, how="left")
             return joined_df
 
