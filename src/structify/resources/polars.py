@@ -287,7 +287,6 @@ class PolarsResource(SyncAPIResource):
 
             # A little caching to avoid looking up the same entity multiple times
             source_entity_id_to_entity = {entity.id: entity for entity in response.entities}
-
             for relationship in response.relationships:
                 target_entity = next(
                     (entity for entity in response.connected_entities if entity.id == relationship.to_id), None
@@ -304,10 +303,10 @@ class PolarsResource(SyncAPIResource):
             source_ids_with_relationships = {rel.from_id for rel in response.relationships}
             for source_id, source_entity in source_entity_id_to_entity.items():
                 if source_id not in source_ids_with_relationships:
-                    result_row: dict[str, Any] = cast(dict[str, Any], source_entity.properties.copy())
+                    orphan_row: dict[str, Any] = cast(dict[str, Any], source_entity.properties.copy())
                     for prop_name in target_schema.keys():
-                        result_row[prop_name] = None
-                    result_rows.append(result_row)
+                        orphan_row[prop_name] = None
+                    result_rows.append(orphan_row)
 
             if not result_rows:
                 return pl.DataFrame(schema=output_schema)
