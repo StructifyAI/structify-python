@@ -356,7 +356,6 @@ class PolarsResource(SyncAPIResource):
                 col_name: col_info.get("type", pl.String()) for col_name, col_info in scrape_schema.items()
             }
 
-        suffix_str = f"_{table_name}"
         output_schema = _merge_schema_with_suffix(input_schema, scraped_columns, suffix=table_name)
 
         properties: list[Property] = []
@@ -617,7 +616,7 @@ def structify_type_to_polars_dtype(structify_type: PropertyTypeParam | None) -> 
 
 def properties_to_schema(properties: list[Property]) -> pl.Schema:
     """Convert a list of Structify properties to a Polars schema."""
-    return pl.Schema({prop.name: structify_type_to_polars_dtype(prop.prop_type) for prop in properties})
+    return pl.Schema({prop["name"]: structify_type_to_polars_dtype(prop.get("prop_type")) for prop in properties})
 
 
 def _merge_schema_with_suffix(
