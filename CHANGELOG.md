@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.129.4 (2025-07-24)
+
+Full Changelog: [v1.129.3...v1.129.4](https://github.com/StructifyAI/structify-python/compare/v1.129.3...v1.129.4)
+
 ## 1.129.3 (2025-07-23)
 
 Full Changelog: [v1.129.2...v1.129.3](https://github.com/StructifyAI/structify-python/compare/v1.129.2...v1.129.3)
