@@ -201,26 +201,24 @@ class PolarsResource(SyncAPIResource):
         """
         input_schema = lazy_df.collect_schema()
 
-        # Build output schema - original columns plus target schema columns
-        output_schema = input_schema.copy()
-
+        target_columns: dict[str, pl.DataType] = {}
         if target_schema_override:
             for prop in target_schema_override["properties"]:
-                prop_type = structify_type_to_polars_dtype(prop.get("prop_type"))
-                output_schema[prop["name"]] = prop_type
+                target_columns[prop["name"]] = structify_type_to_polars_dtype(prop.get("prop_type"))
         else:
             for col_name, col_info in target_schema.items():
-                col_type = col_info.get("type", pl.String())
-                output_schema[col_name] = col_type
+                target_columns[col_name] = col_info.get("type", pl.String())
 
-        # Create properties for target entities
-        target_properties: list[Property] = []
-        for col_name, col_info in target_schema.items():
-            polars_type = col_info.get("type", pl.String())
-            structify_type = dtype_to_structify_type(polars_type)
-            target_properties.append(
-                Property(name=col_name, description=col_info.get("description", ""), prop_type=structify_type)
+        output_schema = _merge_schema_with_suffix(input_schema, target_columns, suffix=target_table_name)
+
+        target_properties: list[Property] = [
+            Property(
+                name=col_name,
+                description=col_info.get("description", ""),
+                prop_type=dtype_to_structify_type(col_info.get("type", pl.String())),
             )
+            for col_name, col_info in target_schema.items()
+        ]
 
         _node_id = get_node_id()  # Wait until we update relationship endpoint to use node_id
 
@@ -300,7 +298,10 @@ class PolarsResource(SyncAPIResource):
                 if target_entity and source_entity:
                     result_row: dict[str, Any] = cast(dict[str, Any], source_entity.properties.copy())
                     for prop_name in target_schema.keys():
-                        result_row[prop_name] = target_entity.properties.get(prop_name)
+                        eff = (
+                            prop_name if prop_name not in input_schema else f"{prop_name}_{target_table_name}"
+                        )  # If the column already exists in the input schema, we need to suffix it with the target table name
+                        result_row[eff] = target_entity.properties.get(prop_name)
                     result_rows.append(result_row)
 
             # Handle source rows without relationships
@@ -309,7 +310,8 @@ class PolarsResource(SyncAPIResource):
                 if source_id not in source_ids_with_relationships:
                     orphan_row: dict[str, Any] = cast(dict[str, Any], source_entity.properties.copy())
                     for prop_name in target_schema.keys():
-                        orphan_row[prop_name] = None
+                        eff = prop_name if prop_name not in input_schema else f"{prop_name}_{target_table_name}"
+                        orphan_row[eff] = None
                     result_rows.append(orphan_row)
 
             if not result_rows:
@@ -336,7 +338,7 @@ class PolarsResource(SyncAPIResource):
           lazy_df: LazyFrame containing URLs to scrape
           url_column: Name of the column containing URLs (Must exist in the input LazyFrame)
           table_name: Name of the table for the structured data
-          scrape_schema: Schema definition with descriptions, format: {"column_name": {"description": "...", "type": polars_dtype}}
+          scrape_schema: Schema definition with descriptions, format: {"column_name": {"description": "...", "type": polars_dtype}}. If the column name is the same as the table name, it will be suffixed by the table name, e.g. "name_Person"
           original_column_map: Mapping of original column names to new names
         """
         input_schema = lazy_df.collect_schema()
@@ -344,21 +346,18 @@ class PolarsResource(SyncAPIResource):
         if url_column not in input_schema:
             raise ValueError(f"Column '{url_column}' not found in LazyFrame")
 
-        output_schema = input_schema.copy()
-
         if scrape_schema_override:
+            scraped_columns: dict[str, pl.DataType] = {}
             for prop in scrape_schema_override["properties"]:
-                prop_type = structify_type_to_polars_dtype(prop.get("prop_type"))
-                if prop["name"] in original_column_map:
-                    output_schema[original_column_map[prop["name"]]] = prop_type
-                else:
-                    output_schema[prop["name"]] = prop_type
+                prop_name = original_column_map.get(prop["name"], prop["name"])
+                scraped_columns[prop_name] = structify_type_to_polars_dtype(prop.get("prop_type"))
         else:
-            for col_name, col_info in scrape_schema.items():
-                col_type = col_info.get("type", pl.String())
-                output_schema[col_name] = col_type
+            scraped_columns = {
+                col_name: col_info.get("type", pl.String()) for col_name, col_info in scrape_schema.items()
+            }
 
-        # Create properties with descriptions only from the scrape schema
+        output_schema = _merge_schema_with_suffix(input_schema, scraped_columns, suffix=table_name)
+
         properties: list[Property] = []
         for col_name, col_info in scrape_schema.items():
             polars_type = col_info.get("type", pl.String())
@@ -409,13 +408,18 @@ class PolarsResource(SyncAPIResource):
                 for entity in entities_result:
                     result_row = {**entity.properties, url_column: url}
                     scraped_results.append(result_row)
+
+            # Build scraped schema (pre-join, original names) incl. join column
+            scraped_schema = scraped_columns | {url_column: input_schema[url_column]}
+
+            # Fill missing columns in scraped results
             for result_row in scraped_results:
-                for col_name in output_schema.names():
+                for col_name in scraped_schema.keys():
                     if col_name not in result_row:
                         result_row[col_name] = None
-            scraped_df = pl.DataFrame(scraped_results, schema=output_schema)
+            scraped_df = pl.DataFrame(scraped_results, schema=scraped_schema)
 
-            joined_df = batch_df.join(scraped_df, on=url_column, how="left")
+            joined_df = batch_df.join(scraped_df, on=url_column, how="left", suffix=f"_{table_name}")
             return joined_df
 
         return lazy_df.map_batches(scrape_batch, schema=output_schema, no_optimizations=True)
@@ -611,7 +615,30 @@ def structify_type_to_polars_dtype(structify_type: PropertyTypeParam | None) -> 
 
 
 def properties_to_schema(properties: list[Property]) -> pl.Schema:
+    """Convert a list of Structify properties to a Polars schema."""
     return pl.Schema({prop["name"]: structify_type_to_polars_dtype(prop.get("prop_type")) for prop in properties})
+
+
+def _merge_schema_with_suffix(
+    input_schema: pl.Schema,
+    new_columns: dict[str, pl.DataType],
+    *,
+    suffix: str,
+) -> pl.Schema:
+    """Merge *new_columns* into *input_schema*.
+
+    If a column already exists in *input_schema*, the column name gets
+    `_<suffix>` appended to avoid collisions.
+
+    Returns the merged Polars schema.
+    """
+
+    merged: dict[str, pl.DataType] = dict(input_schema)
+    for col, dtype in new_columns.items():
+        effective = col if (col not in input_schema) else f"{col}_{suffix}"
+        merged[effective] = dtype
+
+    return pl.Schema(merged)
 
 
 def as_table_param(table_name: str, schema: pl.Schema) -> TableParam:
