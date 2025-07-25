@@ -34,6 +34,6 @@ class WorkflowSessionNode(BaseModel):
 
     execution_time_ms: Optional[int] = None
 
-    output_data: Optional[object] = None
+    output_blob_name: Optional[str] = None
 
     output_schema: Optional[object] = None
