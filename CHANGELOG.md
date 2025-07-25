@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.130.0 (2025-07-25)
+
+Full Changelog: [v1.129.4...v1.130.0](https://github.com/StructifyAI/structify-python/compare/v1.129.4...v1.130.0)
+
+### Features
+
+* Rust side of parquet db stuff ([f2a0255](https://github.com/StructifyAI/structify-python/commit/f2a0255a7b056464032753ecf3863d84941f56ca))
+
 ## 1.129.4 (2025-07-24)
 
 Full Changelog: [v1.129.3...v1.129.4](https://github.com/StructifyAI/structify-python/compare/v1.129.3...v1.129.4)
