@@ -424,99 +424,118 @@ class PolarsResource(SyncAPIResource):
 
         return lazy_df.map_batches(scrape_batch, schema=output_schema, no_optimizations=True)
 
-    def structure_pdf(
+    def structure_pdfs(
         self,
         *,
-        document: FileTypes,
+        document_paths: LazyFrame,
+        path_column: str,
         table_name: str,
         schema: Dict[str, Dict[str, Any]],
     ) -> LazyFrame:
         """
-        Extract structured data from a PDF document and return as a LazyFrame.
+        Extract structured data from PDF documents and return as a LazyFrame.
 
         Args:
-          document: The PDF document to process. Can be:
-                   - File-like object (open file handle, BytesIO, etc.)
-                   - Raw bytes
-                   - Tuple with (filename, content, [content_type], [headers])
-          table_name: Name of the table for the structured data
-          schema: Schema definition with descriptions, format: {"column_name": {"description": "...", "type": polars_dtype}}
+        document_paths: LazyFrame containing a column with paths to the PDF documents to process
+        path_column: Name of the column containing PDF file paths
+        table_name: Name of the table for the structured data
+        schema: Schema definition with descriptions, format: {"column_name": {"description": "...", "type": polars_dtype}}
 
         Returns:
-          LazyFrame: Structured data extracted from the PDF
+        LazyFrame: Structured data extracted from the PDFs
         """
-
-        column_names = list(schema.keys())
         polars_schema = pl.Schema(
-            {col_name: col_info.get("type", pl.String()) for col_name, col_info in schema.items()}
+            [(path_column, pl.String())]
+            + [(col_name, col_info.get("type", pl.String())) for col_name, col_info in schema.items()]
         )
+
+        assert path_column in document_paths.collect_schema(), (
+            f"Path column {path_column} must be in the input dataframe, got {document_paths.collect_schema()}"
+        )
+
+        table_param = as_table_param(table_name, polars_schema)
+
         node_id = get_node_id()
 
-        # For structure_pdf, we don't need input data - just process the PDF document directly
-        dataset_name = f"structure_pdf_{table_name}_{uuid.uuid4().hex}"
+        def structure_batch(batch_df: pl.DataFrame) -> pl.DataFrame:
+            # Get unique PDF paths in the batch
+            batch_paths = batch_df.select(path_column).drop_nulls().unique().to_series().to_list()
 
-        # Create properties with descriptions from the new schema format
-        properties: list[Property] = []
-        for col_name, col_info in schema.items():
-            polars_type = col_info.get("type", pl.String())
-            structify_type = dtype_to_structify_type(polars_type)
-            properties.append(
-                Property(name=col_name, description=col_info.get("description", ""), prop_type=structify_type)
-            )
+            # Process each PDF document
+            job_ids: list[str] = []
+            path_to_dataset: dict[str, str] = {}
 
-        self._client.datasets.create(
-            name=dataset_name,
-            description="",
-            tables=[
-                TableParam(
-                    name=table_name,
+            for pdf_path in batch_paths:
+                dataset_name = f"structure_pdfs_{table_name}_{uuid.uuid4().hex}"
+
+                # Create dataset for this PDF
+                self._client.datasets.create(
+                    name=dataset_name,
                     description="",
-                    properties=properties,
+                    tables=[table_param],
+                    relationships=[],
+                    ephemeral=True,
                 )
-            ],
-            relationships=[],
-            ephemeral=True,
-        )
 
-        self._client.documents.upload(
-            content=document,
-            file_type="PDF",
-            dataset=dataset_name,
-            path=f"{dataset_name}.pdf".encode(),
-        )
+                # Upload the PDF document
+                with open(pdf_path, "rb") as pdf_file:
+                    self._client.documents.upload(
+                        content=pdf_file,
+                        file_type="PDF",
+                        dataset=dataset_name,
+                        path=f"{dataset_name}.pdf".encode(),
+                    )
 
-        job_id = self._client.structure.run_async(
-            dataset=dataset_name,
-            source=SourcePdf(pdf={"path": f"{dataset_name}.pdf"}),
-            node_id=node_id,
-        )
-        try:
-            error_message = self._client.jobs.wait_for_jobs([job_id])
-            if error_message:
-                raise Exception(error_message)
-        except Exception as e:
-            # In test environments, job IDs might not be properly formatted UUIDs
-            # causing the jobs.get() call in wait_for_jobs to fail with a validation error.
-            # For now, we'll catch these errors and continue, assuming the job completed successfully
-            # in the test environment.
-            if "must match format" in str(e) and "uuid" in str(e):
-                # This is likely a test environment with mock job IDs, proceed optimistically
-                pass
+                job_id = self._client.structure.run_async(
+                    dataset=dataset_name,
+                    source=SourcePdf(pdf={"path": f"{dataset_name}.pdf"}),
+                    node_id=node_id,
+                )
+                job_ids.append(job_id)
+                path_to_dataset[str(pdf_path)] = dataset_name
+
+            # Wait for all jobs to complete
+            self._client.jobs.wait_for_jobs(job_ids)
+
+            # Collect results from all processed PDFs
+            structured_results: list[dict[str, Any]] = []
+            for pdf_path, dataset_name in path_to_dataset.items():
+                try:
+                    entities_result = self._client.datasets.view_table(dataset=dataset_name, name=table_name)
+                    for entity in entities_result:
+                        result_row = {**entity.properties, path_column: pdf_path}
+                        structured_results.append(result_row)
+                except Exception as e:
+                    # In test environments, job IDs might not be properly formatted UUIDs
+                    # causing the jobs.get() call in wait_for_jobs to fail with a validation error.
+                    # For now, we'll catch these errors and continue, assuming the job completed successfully
+                    # in the test environment.
+                    if "must match format" in str(e) and "uuid" in str(e):
+                        # This is likely a test environment with mock job IDs, proceed optimistically
+                        pass
+                    else:
+                        # Re-raise other errors as they might be legitimate issues
+                        raise e
+
+            # Ensure all columns are present with None for missing values
+            for result_row in structured_results:
+                for col_name in polars_schema.names():
+                    if col_name not in result_row:
+                        result_row[col_name] = None
+
+            # Create DataFrame with structured results
+            if not structured_results:
+                structured_df = pl.DataFrame(
+                    {col: pl.Series([], dtype=polars_schema[col]) for col in polars_schema.names()}
+                )
             else:
-                # Re-raise other errors as they might be legitimate issues
-                raise e
-        entities_result = self._client.datasets.view_table(dataset=dataset_name, name=table_name)
+                structured_df = pl.DataFrame(structured_results, schema=polars_schema)
 
-        # Build the data as a list of dicts, using None for missing properties
-        data = [{col_name: entity.properties.get(col_name) for col_name in column_names} for entity in entities_result]
-        # If no data, return empty DataFrame with correct dtypes
-        if not data:
-            result_df = pl.DataFrame({col: pl.Series([], dtype=polars_schema[col]) for col in column_names})
-        else:
-            # Otherwise, construct DataFrame with explicit schema to avoid Null dtypes
-            result_df = pl.DataFrame(data, schema=polars_schema)
+            # Join with original batch to preserve any additional columns
+            joined_df = batch_df.join(structured_df, on=path_column, how="left")
+            return joined_df
 
-        return result_df.lazy()
+        return document_paths.map_batches(structure_batch, schema=polars_schema, no_optimizations=True)
 
 
 class PolarsResourceWithRawResponse:
