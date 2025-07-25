@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.130.1 (2025-07-25)
+
+Full Changelog: [v1.130.0...v1.130.1](https://github.com/StructifyAI/structify-python/compare/v1.130.0...v1.130.1)
+
+### Chores
+
+* **project:** add settings file for vscode ([2bc94e2](https://github.com/StructifyAI/structify-python/commit/2bc94e29aa579d2b56b93bf0ddd8d4a62efa6c5b))
+
 ## 1.130.0 (2025-07-25)
 
 Full Changelog: [v1.129.4...v1.130.0](https://github.com/StructifyAI/structify-python/compare/v1.129.4...v1.130.0)
