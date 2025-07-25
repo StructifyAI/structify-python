@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import os
-from unittest.mock import Mock, patch
+from unittest.mock import Mock, patch, mock_open
 
 import polars as pl
 import pytest
@@ -93,12 +93,13 @@ class TestPolars:
             "amount": {"description": "Invoice amount", "type": pl.Float64},
         }
 
-        # Mock all the API calls that structure_pdf makes
         with patch.object(client.datasets, "create") as mock_create, patch.object(
             client.documents, "upload"
         ) as mock_upload, patch.object(client.structure, "run_async") as mock_run_async, patch.object(
             client.jobs, "wait_for_jobs"
-        ) as mock_wait_for_jobs, patch.object(client.datasets, "view_table") as mock_view_table:
+        ) as mock_wait_for_jobs, patch.object(client.datasets, "view_table") as mock_view_table, patch(
+            "builtins.open", mock_open(read_data=pdf_content)
+        ):
             # Configure mock return values
             mock_run_async.return_value = "test-job-id"
             mock_wait_for_jobs.return_value = None  # No error message
@@ -108,23 +109,26 @@ class TestPolars:
             mock_entity.properties = {"invoice_number": "INV-001", "amount": 1234.56}
             mock_view_table.return_value = [mock_entity]
 
-            dataframe = client.polars.structure_pdf(
-                document=pdf_content,
+            dataframe = client.polars.structure_pdfs(
+                document_paths=pl.DataFrame({"pdf_path": ["/tmp/fake.pdf"]}).lazy(),
+                path_column="pdf_path",
                 table_name="invoices",
                 schema=schema,
             )
 
             assert isinstance(dataframe, pl.LazyFrame)
 
-            # Verify the API calls were made with correct parameters
+            # Trigger execution so that the mocked API methods are called
+            result_df = dataframe.collect()
+
+            # Verify the API calls were made with correct parameters AFTER execution
             mock_create.assert_called_once()
             mock_upload.assert_called_once()
             mock_run_async.assert_called_once()
             mock_wait_for_jobs.assert_called_once_with(["test-job-id"])
             mock_view_table.assert_called_once()
 
-            # Test that we can collect the LazyFrame and get the expected data
-            result_df = dataframe.collect()
+            # Validate returned data
             assert len(result_df) == 1
             assert result_df["invoice_number"][0] == "INV-001"
             assert result_df["amount"][0] == 1234.56
