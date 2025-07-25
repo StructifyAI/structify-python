@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Optional
+from typing import Mapping, Optional, cast
 
 import httpx
 
@@ -14,16 +14,25 @@ from ..types import (
     session_update_node_params,
     session_mark_errored_params,
     session_create_session_params,
+    session_upload_node_output_data_params,
 )
-from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
-from .._utils import maybe_transform, async_maybe_transform
+from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven, FileTypes
+from .._utils import extract_files, maybe_transform, deepcopy_minimal, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
+    BinaryAPIResponse,
+    AsyncBinaryAPIResponse,
+    StreamedBinaryAPIResponse,
+    AsyncStreamedBinaryAPIResponse,
     to_raw_response_wrapper,
     to_streamed_response_wrapper,
     async_to_raw_response_wrapper,
+    to_custom_raw_response_wrapper,
     async_to_streamed_response_wrapper,
+    to_custom_streamed_response_wrapper,
+    async_to_custom_raw_response_wrapper,
+    async_to_custom_streamed_response_wrapper,
 )
 from .._base_client import make_request_options
 from ..types.workflow_session import WorkflowSession
@@ -241,6 +250,38 @@ class SessionsResource(SyncAPIResource):
             cast_to=GetSessionEventsResponse,
         )
 
+    def get_node_output_data(
+        self,
+        node_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> BinaryAPIResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not node_id:
+            raise ValueError(f"Expected a non-empty value for `node_id` but received {node_id!r}")
+        extra_headers = {"Accept": "application/octet-stream", **(extra_headers or {})}
+        return self._get(
+            f"/sessions/nodes/{node_id}/output_data",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=BinaryAPIResponse,
+        )
+
     def mark_errored(
         self,
         session_id: str,
@@ -289,7 +330,6 @@ class SessionsResource(SyncAPIResource):
         error_message: Optional[str] | NotGiven = NOT_GIVEN,
         error_traceback: Optional[str] | NotGiven = NOT_GIVEN,
         execution_time_ms: Optional[int] | NotGiven = NOT_GIVEN,
-        output_data: object | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -317,10 +357,49 @@ class SessionsResource(SyncAPIResource):
                     "error_message": error_message,
                     "error_traceback": error_traceback,
                     "execution_time_ms": execution_time_ms,
-                    "output_data": output_data,
                 },
                 session_update_node_params.SessionUpdateNodeParams,
             ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=WorkflowSessionNode,
+        )
+
+    def upload_node_output_data(
+        self,
+        node_id: str,
+        *,
+        content: FileTypes,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> WorkflowSessionNode:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not node_id:
+            raise ValueError(f"Expected a non-empty value for `node_id` but received {node_id!r}")
+        body = deepcopy_minimal({"content": content})
+        files = extract_files(cast(Mapping[str, object], body), paths=[["content"]])
+        # It should be noted that the actual Content-Type header that will be
+        # sent to the server will contain a `boundary` parameter, e.g.
+        # multipart/form-data; boundary=---abc--
+        extra_headers = {"Content-Type": "multipart/form-data", **(extra_headers or {})}
+        return self._post(
+            f"/sessions/nodes/{node_id}/output_data",
+            body=maybe_transform(body, session_upload_node_output_data_params.SessionUploadNodeOutputDataParams),
+            files=files,
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -533,6 +612,38 @@ class AsyncSessionsResource(AsyncAPIResource):
             cast_to=GetSessionEventsResponse,
         )
 
+    async def get_node_output_data(
+        self,
+        node_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> AsyncBinaryAPIResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not node_id:
+            raise ValueError(f"Expected a non-empty value for `node_id` but received {node_id!r}")
+        extra_headers = {"Accept": "application/octet-stream", **(extra_headers or {})}
+        return await self._get(
+            f"/sessions/nodes/{node_id}/output_data",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=AsyncBinaryAPIResponse,
+        )
+
     async def mark_errored(
         self,
         session_id: str,
@@ -581,7 +692,6 @@ class AsyncSessionsResource(AsyncAPIResource):
         error_message: Optional[str] | NotGiven = NOT_GIVEN,
         error_traceback: Optional[str] | NotGiven = NOT_GIVEN,
         execution_time_ms: Optional[int] | NotGiven = NOT_GIVEN,
-        output_data: object | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -609,10 +719,51 @@ class AsyncSessionsResource(AsyncAPIResource):
                     "error_message": error_message,
                     "error_traceback": error_traceback,
                     "execution_time_ms": execution_time_ms,
-                    "output_data": output_data,
                 },
                 session_update_node_params.SessionUpdateNodeParams,
             ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=WorkflowSessionNode,
+        )
+
+    async def upload_node_output_data(
+        self,
+        node_id: str,
+        *,
+        content: FileTypes,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> WorkflowSessionNode:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not node_id:
+            raise ValueError(f"Expected a non-empty value for `node_id` but received {node_id!r}")
+        body = deepcopy_minimal({"content": content})
+        files = extract_files(cast(Mapping[str, object], body), paths=[["content"]])
+        # It should be noted that the actual Content-Type header that will be
+        # sent to the server will contain a `boundary` parameter, e.g.
+        # multipart/form-data; boundary=---abc--
+        extra_headers = {"Content-Type": "multipart/form-data", **(extra_headers or {})}
+        return await self._post(
+            f"/sessions/nodes/{node_id}/output_data",
+            body=await async_maybe_transform(
+                body, session_upload_node_output_data_params.SessionUploadNodeOutputDataParams
+            ),
+            files=files,
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -639,11 +790,18 @@ class SessionsResourceWithRawResponse:
         self.get_events = to_raw_response_wrapper(
             sessions.get_events,
         )
+        self.get_node_output_data = to_custom_raw_response_wrapper(
+            sessions.get_node_output_data,
+            BinaryAPIResponse,
+        )
         self.mark_errored = to_raw_response_wrapper(
             sessions.mark_errored,
         )
         self.update_node = to_raw_response_wrapper(
             sessions.update_node,
+        )
+        self.upload_node_output_data = to_raw_response_wrapper(
+            sessions.upload_node_output_data,
         )
 
 
@@ -666,11 +824,18 @@ class AsyncSessionsResourceWithRawResponse:
         self.get_events = async_to_raw_response_wrapper(
             sessions.get_events,
         )
+        self.get_node_output_data = async_to_custom_raw_response_wrapper(
+            sessions.get_node_output_data,
+            AsyncBinaryAPIResponse,
+        )
         self.mark_errored = async_to_raw_response_wrapper(
             sessions.mark_errored,
         )
         self.update_node = async_to_raw_response_wrapper(
             sessions.update_node,
+        )
+        self.upload_node_output_data = async_to_raw_response_wrapper(
+            sessions.upload_node_output_data,
         )
 
 
@@ -693,11 +858,18 @@ class SessionsResourceWithStreamingResponse:
         self.get_events = to_streamed_response_wrapper(
             sessions.get_events,
         )
+        self.get_node_output_data = to_custom_streamed_response_wrapper(
+            sessions.get_node_output_data,
+            StreamedBinaryAPIResponse,
+        )
         self.mark_errored = to_streamed_response_wrapper(
             sessions.mark_errored,
         )
         self.update_node = to_streamed_response_wrapper(
             sessions.update_node,
+        )
+        self.upload_node_output_data = to_streamed_response_wrapper(
+            sessions.upload_node_output_data,
         )
 
 
@@ -720,9 +892,16 @@ class AsyncSessionsResourceWithStreamingResponse:
         self.get_events = async_to_streamed_response_wrapper(
             sessions.get_events,
         )
+        self.get_node_output_data = async_to_custom_streamed_response_wrapper(
+            sessions.get_node_output_data,
+            AsyncStreamedBinaryAPIResponse,
+        )
         self.mark_errored = async_to_streamed_response_wrapper(
             sessions.mark_errored,
         )
         self.update_node = async_to_streamed_response_wrapper(
             sessions.update_node,
+        )
+        self.upload_node_output_data = async_to_streamed_response_wrapper(
+            sessions.upload_node_output_data,
         )

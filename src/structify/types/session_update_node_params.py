@@ -18,5 +18,3 @@ class SessionUpdateNodeParams(TypedDict, total=False):
     error_traceback: Optional[str]
 
     execution_time_ms: Optional[int]
-
-    output_data: object

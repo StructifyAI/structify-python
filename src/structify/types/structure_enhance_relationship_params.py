@@ -17,6 +17,8 @@ class StructureEnhanceRelationshipParams(TypedDict, total=False):
 
     banned_domains: List[str]
 
+    node_id: Optional[str]
+
     special_job_type: Optional[Literal["HumanLLM"]]
 
     starting_searches: List[str]

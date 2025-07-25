@@ -37,6 +37,7 @@ class TestJobs:
     def test_method_list_with_all_params(self, client: Structify) -> None:
         job = client.jobs.list(
             dataset="dataset",
+            job_type="Web",
             limit=0,
             offset=0,
             seeded_kg_search_term="seeded_kg_search_term",
@@ -409,6 +410,7 @@ class TestAsyncJobs:
     async def test_method_list_with_all_params(self, async_client: AsyncStructify) -> None:
         job = await async_client.jobs.list(
             dataset="dataset",
+            job_type="Web",
             limit=0,
             offset=0,
             seeded_kg_search_term="seeded_kg_search_term",

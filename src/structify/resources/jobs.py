@@ -59,6 +59,7 @@ class JobsResource(SyncAPIResource):
         self,
         *,
         dataset: Optional[str] | NotGiven = NOT_GIVEN,
+        job_type: Optional[Literal["Web", "Pdf", "Derive", "Scrape"]] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         offset: int | NotGiven = NOT_GIVEN,
         seeded_kg_search_term: Optional[str] | NotGiven = NOT_GIVEN,
@@ -76,6 +77,8 @@ class JobsResource(SyncAPIResource):
 
         Args:
           dataset: Dataset name to optionally filter jobs by
+
+          job_type: Type of job to optionally filter jobs by
 
           seeded_kg_search_term: seeded kg search term
 
@@ -102,6 +105,7 @@ class JobsResource(SyncAPIResource):
                 query=maybe_transform(
                     {
                         "dataset": dataset,
+                        "job_type": job_type,
                         "limit": limit,
                         "offset": offset,
                         "seeded_kg_search_term": seeded_kg_search_term,
@@ -496,6 +500,7 @@ class AsyncJobsResource(AsyncAPIResource):
         self,
         *,
         dataset: Optional[str] | NotGiven = NOT_GIVEN,
+        job_type: Optional[Literal["Web", "Pdf", "Derive", "Scrape"]] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         offset: int | NotGiven = NOT_GIVEN,
         seeded_kg_search_term: Optional[str] | NotGiven = NOT_GIVEN,
@@ -513,6 +518,8 @@ class AsyncJobsResource(AsyncAPIResource):
 
         Args:
           dataset: Dataset name to optionally filter jobs by
+
+          job_type: Type of job to optionally filter jobs by
 
           seeded_kg_search_term: seeded kg search term
 
@@ -539,6 +546,7 @@ class AsyncJobsResource(AsyncAPIResource):
                 query=maybe_transform(
                     {
                         "dataset": dataset,
+                        "job_type": job_type,
                         "limit": limit,
                         "offset": offset,
                         "seeded_kg_search_term": seeded_kg_search_term,
