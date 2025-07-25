@@ -14,7 +14,6 @@ from structify.types.dataset_create_params import Relationship
 from structify.types.knowledge_graph_param import KnowledgeGraphParam
 
 from ..types import TableParam
-from .._types import FileTypes
 from .._compat import cached_property
 from .._resource import SyncAPIResource
 from .._response import (
