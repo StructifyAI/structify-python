@@ -29,6 +29,7 @@ from .resources import (
     report,
     scrape,
     server,
+    sandbox,
     secrets,
     sources,
     entities,
@@ -83,6 +84,7 @@ class Structify(SyncAPIClient):
     sources: sources.SourcesResource
     entities: entities.EntitiesResource
     report: report.ReportResource
+    sandbox: sandbox.SandboxResource
     scrape: scrape.ScrapeResource
     structure: structure.StructureResource
     polars: polars.PolarsResource
@@ -182,6 +184,7 @@ class Structify(SyncAPIClient):
         self.sources = sources.SourcesResource(self)
         self.entities = entities.EntitiesResource(self)
         self.report = report.ReportResource(self)
+        self.sandbox = sandbox.SandboxResource(self)
         self.scrape = scrape.ScrapeResource(self)
         self.structure = structure.StructureResource(self)
         self.polars = polars.PolarsResource(self)
@@ -311,6 +314,7 @@ class AsyncStructify(AsyncAPIClient):
     sources: sources.AsyncSourcesResource
     entities: entities.AsyncEntitiesResource
     report: report.AsyncReportResource
+    sandbox: sandbox.AsyncSandboxResource
     scrape: scrape.AsyncScrapeResource
     structure: structure.AsyncStructureResource
     with_raw_response: AsyncStructifyWithRawResponse
@@ -409,6 +413,7 @@ class AsyncStructify(AsyncAPIClient):
         self.sources = sources.AsyncSourcesResource(self)
         self.entities = entities.AsyncEntitiesResource(self)
         self.report = report.AsyncReportResource(self)
+        self.sandbox = sandbox.AsyncSandboxResource(self)
         self.scrape = scrape.AsyncScrapeResource(self)
         self.structure = structure.AsyncStructureResource(self)
         self.with_raw_response = AsyncStructifyWithRawResponse(self)
@@ -538,6 +543,7 @@ class StructifyWithRawResponse:
         self.sources = sources.SourcesResourceWithRawResponse(client.sources)
         self.entities = entities.EntitiesResourceWithRawResponse(client.entities)
         self.report = report.ReportResourceWithRawResponse(client.report)
+        self.sandbox = sandbox.SandboxResourceWithRawResponse(client.sandbox)
         self.scrape = scrape.ScrapeResourceWithRawResponse(client.scrape)
         self.structure = structure.StructureResourceWithRawResponse(client.structure)
         self.polars = polars.PolarsResourceWithRawResponse(client.polars)
@@ -560,6 +566,7 @@ class AsyncStructifyWithRawResponse:
         self.sources = sources.AsyncSourcesResourceWithRawResponse(client.sources)
         self.entities = entities.AsyncEntitiesResourceWithRawResponse(client.entities)
         self.report = report.AsyncReportResourceWithRawResponse(client.report)
+        self.sandbox = sandbox.AsyncSandboxResourceWithRawResponse(client.sandbox)
         self.scrape = scrape.AsyncScrapeResourceWithRawResponse(client.scrape)
         self.structure = structure.AsyncStructureResourceWithRawResponse(client.structure)
 
@@ -581,6 +588,7 @@ class StructifyWithStreamedResponse:
         self.sources = sources.SourcesResourceWithStreamingResponse(client.sources)
         self.entities = entities.EntitiesResourceWithStreamingResponse(client.entities)
         self.report = report.ReportResourceWithStreamingResponse(client.report)
+        self.sandbox = sandbox.SandboxResourceWithStreamingResponse(client.sandbox)
         self.scrape = scrape.ScrapeResourceWithStreamingResponse(client.scrape)
         self.structure = structure.StructureResourceWithStreamingResponse(client.structure)
         self.polars = polars.PolarsResourceWithStreamingResponse(client.polars)
@@ -603,6 +611,7 @@ class AsyncStructifyWithStreamedResponse:
         self.sources = sources.AsyncSourcesResourceWithStreamingResponse(client.sources)
         self.entities = entities.AsyncEntitiesResourceWithStreamingResponse(client.entities)
         self.report = report.AsyncReportResourceWithStreamingResponse(client.report)
+        self.sandbox = sandbox.AsyncSandboxResourceWithStreamingResponse(client.sandbox)
         self.scrape = scrape.AsyncScrapeResourceWithStreamingResponse(client.scrape)
         self.structure = structure.AsyncStructureResourceWithStreamingResponse(client.structure)
 
