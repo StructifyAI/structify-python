@@ -561,6 +561,21 @@ Methods:
 - <code title="post /report/step">client.report.<a href="./src/structify/resources/report.py">step</a>(\*\*<a href="src/structify/types/report_step_params.py">params</a>) -> str</code>
 - <code title="post /report/entity/wrong">client.report.<a href="./src/structify/resources/report.py">wrong</a>(\*\*<a href="src/structify/types/report_wrong_params.py">params</a>) -> str</code>
 
+# Sandbox
+
+Types:
+
+```python
+from structify.types import Sandbox, SandboxListChatResponse
+```
+
+Methods:
+
+- <code title="post /sandbox/{chat_id}">client.sandbox.<a href="./src/structify/resources/sandbox.py">create_chat</a>(chat_id) -> <a href="./src/structify/types/sandbox.py">Sandbox</a></code>
+- <code title="get /sandbox/live/{chat_id}">client.sandbox.<a href="./src/structify/resources/sandbox.py">get_live_chat</a>(chat_id) -> <a href="./src/structify/types/sandbox.py">Sandbox</a></code>
+- <code title="get /sandbox/list/{chat_id}">client.sandbox.<a href="./src/structify/resources/sandbox.py">list_chat</a>(chat_id) -> <a href="./src/structify/types/sandbox_list_chat_response.py">SandboxListChatResponse</a></code>
+- <code title="patch /sandbox/{sandbox_id}/status">client.sandbox.<a href="./src/structify/resources/sandbox.py">update_status</a>(sandbox_id, \*\*<a href="src/structify/types/sandbox_update_status_params.py">params</a>) -> <a href="./src/structify/types/sandbox.py">Sandbox</a></code>
+
 # Scrape
 
 Types:
