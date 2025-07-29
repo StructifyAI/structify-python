@@ -10,7 +10,6 @@ import pytest
 
 from structify import Structify
 from structify.resources.polars import dtype_to_structify_type, structify_type_to_polars_dtype
-from structify.types import PropertyTypeParam
 
 # Shared schema & helpers used across multiple tests
 SCRAPE_SCHEMA = {
