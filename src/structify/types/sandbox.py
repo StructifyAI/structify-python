@@ -1,5 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+from typing import Optional
 from datetime import datetime
 from typing_extensions import Literal
 
@@ -22,3 +23,5 @@ class Sandbox(BaseModel):
     status: Literal["alive", "terminated"]
 
     updated_at: datetime
+
+    latest_node: Optional[str] = None

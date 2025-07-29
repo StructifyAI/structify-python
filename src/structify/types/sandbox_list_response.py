@@ -5,6 +5,6 @@ from typing_extensions import TypeAlias
 
 from .sandbox import Sandbox
 
-__all__ = ["SandboxListChatResponse"]
+__all__ = ["SandboxListResponse"]
 
-SandboxListChatResponse: TypeAlias = List[Sandbox]
+SandboxListResponse: TypeAlias = List[Sandbox]

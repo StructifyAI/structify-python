@@ -9,7 +9,7 @@ import pytest
 
 from structify import Structify, AsyncStructify
 from tests.utils import assert_matches_type
-from structify.types import Sandbox, SandboxListChatResponse
+from structify.types import Sandbox, SandboxListResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -18,15 +18,15 @@ class TestSandbox:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @parametrize
-    def test_method_create_chat(self, client: Structify) -> None:
-        sandbox = client.sandbox.create_chat(
+    def test_method_create(self, client: Structify) -> None:
+        sandbox = client.sandbox.create(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(Sandbox, sandbox, path=["response"])
 
     @parametrize
-    def test_raw_response_create_chat(self, client: Structify) -> None:
-        response = client.sandbox.with_raw_response.create_chat(
+    def test_raw_response_create(self, client: Structify) -> None:
+        response = client.sandbox.with_raw_response.create(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
@@ -36,8 +36,8 @@ class TestSandbox:
         assert_matches_type(Sandbox, sandbox, path=["response"])
 
     @parametrize
-    def test_streaming_response_create_chat(self, client: Structify) -> None:
-        with client.sandbox.with_streaming_response.create_chat(
+    def test_streaming_response_create(self, client: Structify) -> None:
+        with client.sandbox.with_streaming_response.create(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
@@ -49,23 +49,69 @@ class TestSandbox:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_create_chat(self, client: Structify) -> None:
+    def test_path_params_create(self, client: Structify) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `chat_id` but received ''"):
-            client.sandbox.with_raw_response.create_chat(
+            client.sandbox.with_raw_response.create(
                 "",
             )
 
     @parametrize
-    def test_method_get_live_chat(self, client: Structify) -> None:
-        sandbox = client.sandbox.get_live_chat(
+    def test_method_list(self, client: Structify) -> None:
+        sandbox = client.sandbox.list(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(SandboxListResponse, sandbox, path=["response"])
+
+    @parametrize
+    def test_raw_response_list(self, client: Structify) -> None:
+        response = client.sandbox.with_raw_response.list(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        sandbox = response.parse()
+        assert_matches_type(SandboxListResponse, sandbox, path=["response"])
+
+    @parametrize
+    def test_streaming_response_list(self, client: Structify) -> None:
+        with client.sandbox.with_streaming_response.list(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            sandbox = response.parse()
+            assert_matches_type(SandboxListResponse, sandbox, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_path_params_list(self, client: Structify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `chat_id` but received ''"):
+            client.sandbox.with_raw_response.list(
+                "",
+            )
+
+    @parametrize
+    def test_method_get(self, client: Structify) -> None:
+        sandbox = client.sandbox.get(
+            chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(Sandbox, sandbox, path=["response"])
 
     @parametrize
-    def test_raw_response_get_live_chat(self, client: Structify) -> None:
-        response = client.sandbox.with_raw_response.get_live_chat(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+    def test_method_get_with_all_params(self, client: Structify) -> None:
+        sandbox = client.sandbox.get(
+            chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            sandbox_url_override="sandbox_url_override",
+        )
+        assert_matches_type(Sandbox, sandbox, path=["response"])
+
+    @parametrize
+    def test_raw_response_get(self, client: Structify) -> None:
+        response = client.sandbox.with_raw_response.get(
+            chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
         assert response.is_closed is True
@@ -74,9 +120,9 @@ class TestSandbox:
         assert_matches_type(Sandbox, sandbox, path=["response"])
 
     @parametrize
-    def test_streaming_response_get_live_chat(self, client: Structify) -> None:
-        with client.sandbox.with_streaming_response.get_live_chat(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+    def test_streaming_response_get(self, client: Structify) -> None:
+        with client.sandbox.with_streaming_response.get(
+            chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -87,48 +133,10 @@ class TestSandbox:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_get_live_chat(self, client: Structify) -> None:
+    def test_path_params_get(self, client: Structify) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `chat_id` but received ''"):
-            client.sandbox.with_raw_response.get_live_chat(
-                "",
-            )
-
-    @parametrize
-    def test_method_list_chat(self, client: Structify) -> None:
-        sandbox = client.sandbox.list_chat(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-        assert_matches_type(SandboxListChatResponse, sandbox, path=["response"])
-
-    @parametrize
-    def test_raw_response_list_chat(self, client: Structify) -> None:
-        response = client.sandbox.with_raw_response.list_chat(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        sandbox = response.parse()
-        assert_matches_type(SandboxListChatResponse, sandbox, path=["response"])
-
-    @parametrize
-    def test_streaming_response_list_chat(self, client: Structify) -> None:
-        with client.sandbox.with_streaming_response.list_chat(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            sandbox = response.parse()
-            assert_matches_type(SandboxListChatResponse, sandbox, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    def test_path_params_list_chat(self, client: Structify) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `chat_id` but received ''"):
-            client.sandbox.with_raw_response.list_chat(
-                "",
+            client.sandbox.with_raw_response.get(
+                chat_id="",
             )
 
     @parametrize
@@ -180,15 +188,15 @@ class TestAsyncSandbox:
     )
 
     @parametrize
-    async def test_method_create_chat(self, async_client: AsyncStructify) -> None:
-        sandbox = await async_client.sandbox.create_chat(
+    async def test_method_create(self, async_client: AsyncStructify) -> None:
+        sandbox = await async_client.sandbox.create(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(Sandbox, sandbox, path=["response"])
 
     @parametrize
-    async def test_raw_response_create_chat(self, async_client: AsyncStructify) -> None:
-        response = await async_client.sandbox.with_raw_response.create_chat(
+    async def test_raw_response_create(self, async_client: AsyncStructify) -> None:
+        response = await async_client.sandbox.with_raw_response.create(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
@@ -198,8 +206,8 @@ class TestAsyncSandbox:
         assert_matches_type(Sandbox, sandbox, path=["response"])
 
     @parametrize
-    async def test_streaming_response_create_chat(self, async_client: AsyncStructify) -> None:
-        async with async_client.sandbox.with_streaming_response.create_chat(
+    async def test_streaming_response_create(self, async_client: AsyncStructify) -> None:
+        async with async_client.sandbox.with_streaming_response.create(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
@@ -211,23 +219,69 @@ class TestAsyncSandbox:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_create_chat(self, async_client: AsyncStructify) -> None:
+    async def test_path_params_create(self, async_client: AsyncStructify) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `chat_id` but received ''"):
-            await async_client.sandbox.with_raw_response.create_chat(
+            await async_client.sandbox.with_raw_response.create(
                 "",
             )
 
     @parametrize
-    async def test_method_get_live_chat(self, async_client: AsyncStructify) -> None:
-        sandbox = await async_client.sandbox.get_live_chat(
+    async def test_method_list(self, async_client: AsyncStructify) -> None:
+        sandbox = await async_client.sandbox.list(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(SandboxListResponse, sandbox, path=["response"])
+
+    @parametrize
+    async def test_raw_response_list(self, async_client: AsyncStructify) -> None:
+        response = await async_client.sandbox.with_raw_response.list(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        sandbox = await response.parse()
+        assert_matches_type(SandboxListResponse, sandbox, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_list(self, async_client: AsyncStructify) -> None:
+        async with async_client.sandbox.with_streaming_response.list(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            sandbox = await response.parse()
+            assert_matches_type(SandboxListResponse, sandbox, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_list(self, async_client: AsyncStructify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `chat_id` but received ''"):
+            await async_client.sandbox.with_raw_response.list(
+                "",
+            )
+
+    @parametrize
+    async def test_method_get(self, async_client: AsyncStructify) -> None:
+        sandbox = await async_client.sandbox.get(
+            chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(Sandbox, sandbox, path=["response"])
 
     @parametrize
-    async def test_raw_response_get_live_chat(self, async_client: AsyncStructify) -> None:
-        response = await async_client.sandbox.with_raw_response.get_live_chat(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+    async def test_method_get_with_all_params(self, async_client: AsyncStructify) -> None:
+        sandbox = await async_client.sandbox.get(
+            chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            sandbox_url_override="sandbox_url_override",
+        )
+        assert_matches_type(Sandbox, sandbox, path=["response"])
+
+    @parametrize
+    async def test_raw_response_get(self, async_client: AsyncStructify) -> None:
+        response = await async_client.sandbox.with_raw_response.get(
+            chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
         assert response.is_closed is True
@@ -236,9 +290,9 @@ class TestAsyncSandbox:
         assert_matches_type(Sandbox, sandbox, path=["response"])
 
     @parametrize
-    async def test_streaming_response_get_live_chat(self, async_client: AsyncStructify) -> None:
-        async with async_client.sandbox.with_streaming_response.get_live_chat(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+    async def test_streaming_response_get(self, async_client: AsyncStructify) -> None:
+        async with async_client.sandbox.with_streaming_response.get(
+            chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -249,48 +303,10 @@ class TestAsyncSandbox:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_get_live_chat(self, async_client: AsyncStructify) -> None:
+    async def test_path_params_get(self, async_client: AsyncStructify) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `chat_id` but received ''"):
-            await async_client.sandbox.with_raw_response.get_live_chat(
-                "",
-            )
-
-    @parametrize
-    async def test_method_list_chat(self, async_client: AsyncStructify) -> None:
-        sandbox = await async_client.sandbox.list_chat(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-        assert_matches_type(SandboxListChatResponse, sandbox, path=["response"])
-
-    @parametrize
-    async def test_raw_response_list_chat(self, async_client: AsyncStructify) -> None:
-        response = await async_client.sandbox.with_raw_response.list_chat(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        sandbox = await response.parse()
-        assert_matches_type(SandboxListChatResponse, sandbox, path=["response"])
-
-    @parametrize
-    async def test_streaming_response_list_chat(self, async_client: AsyncStructify) -> None:
-        async with async_client.sandbox.with_streaming_response.list_chat(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            sandbox = await response.parse()
-            assert_matches_type(SandboxListChatResponse, sandbox, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    async def test_path_params_list_chat(self, async_client: AsyncStructify) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `chat_id` but received ''"):
-            await async_client.sandbox.with_raw_response.list_chat(
-                "",
+            await async_client.sandbox.with_raw_response.get(
+                chat_id="",
             )
 
     @parametrize
