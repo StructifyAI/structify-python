@@ -9,6 +9,8 @@ import polars as pl
 import pytest
 
 from structify import Structify
+from structify.resources.polars import dtype_to_structify_type, structify_type_to_polars_dtype
+from structify.types import PropertyTypeParam
 
 # Shared schema & helpers used across multiple tests
 SCRAPE_SCHEMA = {
@@ -204,3 +206,19 @@ class TestPolars:
             assert "company_name" in result_df.columns
             assert "employee_name" in result_df.columns
             assert "position" in result_df.columns
+
+    def test_enum_dtype(self) -> None:
+        polars_int = pl.Int64()
+        structify_int = dtype_to_structify_type(polars_int)
+        assert structify_int == "Integer"
+        assert structify_type_to_polars_dtype(structify_int) == polars_int
+
+        polars_float = pl.Float64()
+        structify_float = dtype_to_structify_type(polars_float)
+        assert structify_float == "Float"
+        assert structify_type_to_polars_dtype(structify_float) == polars_float
+
+        polars_enum = pl.Enum(categories=["a", "b", "c"])
+        structify_reversed_enum = dtype_to_structify_type(polars_enum)
+        assert structify_reversed_enum == {"enum": ["a", "b", "c"]}
+        assert structify_type_to_polars_dtype(structify_reversed_enum) == polars_enum
