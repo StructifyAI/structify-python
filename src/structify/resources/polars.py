@@ -614,7 +614,7 @@ def dtype_to_structify_type(dtype: pl.DataType) -> PropertyTypeParam:
     elif dtype == pl.Date:
         return "Date"
     elif isinstance(dtype, pl.Enum):
-        return {"enum": dtype.categories}
+        return {"enum": list(dtype.categories)}
     else:
         return "String"
 
