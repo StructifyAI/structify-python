@@ -2,9 +2,11 @@
 
 from __future__ import annotations
 
+from typing import Optional
+
 import httpx
 
-from ..types import sandbox_update_status_params
+from ..types import sandbox_get_params, sandbox_update_status_params
 from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -17,7 +19,7 @@ from .._response import (
 )
 from .._base_client import make_request_options
 from ..types.sandbox import Sandbox
-from ..types.sandbox_list_chat_response import SandboxListChatResponse
+from ..types.sandbox_list_response import SandboxListResponse
 
 __all__ = ["SandboxResource", "AsyncSandboxResource"]
 
@@ -42,7 +44,7 @@ class SandboxResource(SyncAPIResource):
         """
         return SandboxResourceWithStreamingResponse(self)
 
-    def create_chat(
+    def create(
         self,
         chat_id: str,
         *,
@@ -73,10 +75,42 @@ class SandboxResource(SyncAPIResource):
             cast_to=Sandbox,
         )
 
-    def get_live_chat(
+    def list(
         self,
         chat_id: str,
         *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> SandboxListResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not chat_id:
+            raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
+        return self._get(
+            f"/sandbox/list/{chat_id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=SandboxListResponse,
+        )
+
+    def get(
+        self,
+        chat_id: str,
+        *,
+        sandbox_url_override: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -96,43 +130,13 @@ class SandboxResource(SyncAPIResource):
         """
         if not chat_id:
             raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
-        return self._get(
+        return self._post(
             f"/sandbox/live/{chat_id}",
+            body=maybe_transform({"sandbox_url_override": sandbox_url_override}, sandbox_get_params.SandboxGetParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=Sandbox,
-        )
-
-    def list_chat(
-        self,
-        chat_id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> SandboxListChatResponse:
-        """
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not chat_id:
-            raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
-        return self._get(
-            f"/sandbox/list/{chat_id}",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=SandboxListChatResponse,
         )
 
     def update_status(
@@ -189,7 +193,7 @@ class AsyncSandboxResource(AsyncAPIResource):
         """
         return AsyncSandboxResourceWithStreamingResponse(self)
 
-    async def create_chat(
+    async def create(
         self,
         chat_id: str,
         *,
@@ -220,10 +224,42 @@ class AsyncSandboxResource(AsyncAPIResource):
             cast_to=Sandbox,
         )
 
-    async def get_live_chat(
+    async def list(
         self,
         chat_id: str,
         *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> SandboxListResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not chat_id:
+            raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
+        return await self._get(
+            f"/sandbox/list/{chat_id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=SandboxListResponse,
+        )
+
+    async def get(
+        self,
+        chat_id: str,
+        *,
+        sandbox_url_override: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -243,43 +279,15 @@ class AsyncSandboxResource(AsyncAPIResource):
         """
         if not chat_id:
             raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
-        return await self._get(
+        return await self._post(
             f"/sandbox/live/{chat_id}",
+            body=await async_maybe_transform(
+                {"sandbox_url_override": sandbox_url_override}, sandbox_get_params.SandboxGetParams
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=Sandbox,
-        )
-
-    async def list_chat(
-        self,
-        chat_id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> SandboxListChatResponse:
-        """
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not chat_id:
-            raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
-        return await self._get(
-            f"/sandbox/list/{chat_id}",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=SandboxListChatResponse,
         )
 
     async def update_status(
@@ -322,14 +330,14 @@ class SandboxResourceWithRawResponse:
     def __init__(self, sandbox: SandboxResource) -> None:
         self._sandbox = sandbox
 
-        self.create_chat = to_raw_response_wrapper(
-            sandbox.create_chat,
+        self.create = to_raw_response_wrapper(
+            sandbox.create,
         )
-        self.get_live_chat = to_raw_response_wrapper(
-            sandbox.get_live_chat,
+        self.list = to_raw_response_wrapper(
+            sandbox.list,
         )
-        self.list_chat = to_raw_response_wrapper(
-            sandbox.list_chat,
+        self.get = to_raw_response_wrapper(
+            sandbox.get,
         )
         self.update_status = to_raw_response_wrapper(
             sandbox.update_status,
@@ -340,14 +348,14 @@ class AsyncSandboxResourceWithRawResponse:
     def __init__(self, sandbox: AsyncSandboxResource) -> None:
         self._sandbox = sandbox
 
-        self.create_chat = async_to_raw_response_wrapper(
-            sandbox.create_chat,
+        self.create = async_to_raw_response_wrapper(
+            sandbox.create,
         )
-        self.get_live_chat = async_to_raw_response_wrapper(
-            sandbox.get_live_chat,
+        self.list = async_to_raw_response_wrapper(
+            sandbox.list,
         )
-        self.list_chat = async_to_raw_response_wrapper(
-            sandbox.list_chat,
+        self.get = async_to_raw_response_wrapper(
+            sandbox.get,
         )
         self.update_status = async_to_raw_response_wrapper(
             sandbox.update_status,
@@ -358,14 +366,14 @@ class SandboxResourceWithStreamingResponse:
     def __init__(self, sandbox: SandboxResource) -> None:
         self._sandbox = sandbox
 
-        self.create_chat = to_streamed_response_wrapper(
-            sandbox.create_chat,
+        self.create = to_streamed_response_wrapper(
+            sandbox.create,
         )
-        self.get_live_chat = to_streamed_response_wrapper(
-            sandbox.get_live_chat,
+        self.list = to_streamed_response_wrapper(
+            sandbox.list,
         )
-        self.list_chat = to_streamed_response_wrapper(
-            sandbox.list_chat,
+        self.get = to_streamed_response_wrapper(
+            sandbox.get,
         )
         self.update_status = to_streamed_response_wrapper(
             sandbox.update_status,
@@ -376,14 +384,14 @@ class AsyncSandboxResourceWithStreamingResponse:
     def __init__(self, sandbox: AsyncSandboxResource) -> None:
         self._sandbox = sandbox
 
-        self.create_chat = async_to_streamed_response_wrapper(
-            sandbox.create_chat,
+        self.create = async_to_streamed_response_wrapper(
+            sandbox.create,
         )
-        self.get_live_chat = async_to_streamed_response_wrapper(
-            sandbox.get_live_chat,
+        self.list = async_to_streamed_response_wrapper(
+            sandbox.list,
         )
-        self.list_chat = async_to_streamed_response_wrapper(
-            sandbox.list_chat,
+        self.get = async_to_streamed_response_wrapper(
+            sandbox.get,
         )
         self.update_status = async_to_streamed_response_wrapper(
             sandbox.update_status,
