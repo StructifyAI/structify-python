@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Mapping, Optional, cast
+from typing import Dict, Mapping, Optional, cast
 
 import httpx
 
@@ -14,6 +14,7 @@ from ..types import (
     session_update_node_params,
     session_mark_errored_params,
     session_create_session_params,
+    session_update_node_progress_params,
     session_upload_node_output_data_params,
 )
 from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven, FileTypes
@@ -41,6 +42,7 @@ from ..types.workflow_session_node import WorkflowSessionNode
 from ..types.get_workflow_dag_response import GetWorkflowDagResponse
 from ..types.get_session_events_response import GetSessionEventsResponse
 from ..types.workflow_node_execution_status import WorkflowNodeExecutionStatus
+from ..types.session_get_node_progress_response import SessionGetNodeProgressResponse
 
 __all__ = ["SessionsResource", "AsyncSessionsResource"]
 
@@ -282,6 +284,37 @@ class SessionsResource(SyncAPIResource):
             cast_to=BinaryAPIResponse,
         )
 
+    def get_node_progress(
+        self,
+        node_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> SessionGetNodeProgressResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not node_id:
+            raise ValueError(f"Expected a non-empty value for `node_id` but received {node_id!r}")
+        return self._get(
+            f"/sessions/nodes/{node_id}/progress",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=SessionGetNodeProgressResponse,
+        )
+
     def mark_errored(
         self,
         session_id: str,
@@ -359,6 +392,41 @@ class SessionsResource(SyncAPIResource):
                     "execution_time_ms": execution_time_ms,
                 },
                 session_update_node_params.SessionUpdateNodeParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=WorkflowSessionNode,
+        )
+
+    def update_node_progress(
+        self,
+        node_id: str,
+        *,
+        progress: Dict[str, object],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> WorkflowSessionNode:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not node_id:
+            raise ValueError(f"Expected a non-empty value for `node_id` but received {node_id!r}")
+        return self._patch(
+            f"/sessions/nodes/{node_id}/progress",
+            body=maybe_transform(
+                {"progress": progress}, session_update_node_progress_params.SessionUpdateNodeProgressParams
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -644,6 +712,37 @@ class AsyncSessionsResource(AsyncAPIResource):
             cast_to=AsyncBinaryAPIResponse,
         )
 
+    async def get_node_progress(
+        self,
+        node_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> SessionGetNodeProgressResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not node_id:
+            raise ValueError(f"Expected a non-empty value for `node_id` but received {node_id!r}")
+        return await self._get(
+            f"/sessions/nodes/{node_id}/progress",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=SessionGetNodeProgressResponse,
+        )
+
     async def mark_errored(
         self,
         session_id: str,
@@ -728,6 +827,41 @@ class AsyncSessionsResource(AsyncAPIResource):
             cast_to=WorkflowSessionNode,
         )
 
+    async def update_node_progress(
+        self,
+        node_id: str,
+        *,
+        progress: Dict[str, object],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> WorkflowSessionNode:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not node_id:
+            raise ValueError(f"Expected a non-empty value for `node_id` but received {node_id!r}")
+        return await self._patch(
+            f"/sessions/nodes/{node_id}/progress",
+            body=await async_maybe_transform(
+                {"progress": progress}, session_update_node_progress_params.SessionUpdateNodeProgressParams
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=WorkflowSessionNode,
+        )
+
     async def upload_node_output_data(
         self,
         node_id: str,
@@ -794,11 +928,17 @@ class SessionsResourceWithRawResponse:
             sessions.get_node_output_data,
             BinaryAPIResponse,
         )
+        self.get_node_progress = to_raw_response_wrapper(
+            sessions.get_node_progress,
+        )
         self.mark_errored = to_raw_response_wrapper(
             sessions.mark_errored,
         )
         self.update_node = to_raw_response_wrapper(
             sessions.update_node,
+        )
+        self.update_node_progress = to_raw_response_wrapper(
+            sessions.update_node_progress,
         )
         self.upload_node_output_data = to_raw_response_wrapper(
             sessions.upload_node_output_data,
@@ -828,11 +968,17 @@ class AsyncSessionsResourceWithRawResponse:
             sessions.get_node_output_data,
             AsyncBinaryAPIResponse,
         )
+        self.get_node_progress = async_to_raw_response_wrapper(
+            sessions.get_node_progress,
+        )
         self.mark_errored = async_to_raw_response_wrapper(
             sessions.mark_errored,
         )
         self.update_node = async_to_raw_response_wrapper(
             sessions.update_node,
+        )
+        self.update_node_progress = async_to_raw_response_wrapper(
+            sessions.update_node_progress,
         )
         self.upload_node_output_data = async_to_raw_response_wrapper(
             sessions.upload_node_output_data,
@@ -862,11 +1008,17 @@ class SessionsResourceWithStreamingResponse:
             sessions.get_node_output_data,
             StreamedBinaryAPIResponse,
         )
+        self.get_node_progress = to_streamed_response_wrapper(
+            sessions.get_node_progress,
+        )
         self.mark_errored = to_streamed_response_wrapper(
             sessions.mark_errored,
         )
         self.update_node = to_streamed_response_wrapper(
             sessions.update_node,
+        )
+        self.update_node_progress = to_streamed_response_wrapper(
+            sessions.update_node_progress,
         )
         self.upload_node_output_data = to_streamed_response_wrapper(
             sessions.upload_node_output_data,
@@ -896,11 +1048,17 @@ class AsyncSessionsResourceWithStreamingResponse:
             sessions.get_node_output_data,
             AsyncStreamedBinaryAPIResponse,
         )
+        self.get_node_progress = async_to_streamed_response_wrapper(
+            sessions.get_node_progress,
+        )
         self.mark_errored = async_to_streamed_response_wrapper(
             sessions.mark_errored,
         )
         self.update_node = async_to_streamed_response_wrapper(
             sessions.update_node,
+        )
+        self.update_node_progress = async_to_streamed_response_wrapper(
+            sessions.update_node_progress,
         )
         self.upload_node_output_data = async_to_streamed_response_wrapper(
             sessions.upload_node_output_data,

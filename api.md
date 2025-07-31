@@ -440,11 +440,13 @@ from structify.types import (
     GetWorkflowDagResponse,
     JobEventBody,
     MarkWorkflowSessionErroredRequest,
+    UpdateWorkflowNodeProgressRequest,
     UpdateWorkflowNodeRequest,
     WorkflowNodeExecutionStatus,
     WorkflowSession,
     WorkflowSessionEdge,
     WorkflowSessionNode,
+    SessionGetNodeProgressResponse,
 )
 ```
 
@@ -456,8 +458,10 @@ Methods:
 - <code title="get /sessions/{session_id}/dag">client.sessions.<a href="./src/structify/resources/sessions.py">get_dag</a>(session_id) -> <a href="./src/structify/types/get_workflow_dag_response.py">GetWorkflowDagResponse</a></code>
 - <code title="get /sessions/{session_id}/events">client.sessions.<a href="./src/structify/resources/sessions.py">get_events</a>(session_id, \*\*<a href="src/structify/types/session_get_events_params.py">params</a>) -> <a href="./src/structify/types/get_session_events_response.py">GetSessionEventsResponse</a></code>
 - <code title="get /sessions/nodes/{node_id}/output_data">client.sessions.<a href="./src/structify/resources/sessions.py">get_node_output_data</a>(node_id) -> BinaryAPIResponse</code>
+- <code title="get /sessions/nodes/{node_id}/progress">client.sessions.<a href="./src/structify/resources/sessions.py">get_node_progress</a>(node_id) -> <a href="./src/structify/types/session_get_node_progress_response.py">SessionGetNodeProgressResponse</a></code>
 - <code title="patch /sessions/{session_id}/error">client.sessions.<a href="./src/structify/resources/sessions.py">mark_errored</a>(session_id, \*\*<a href="src/structify/types/session_mark_errored_params.py">params</a>) -> <a href="./src/structify/types/workflow_session.py">WorkflowSession</a></code>
 - <code title="patch /sessions/nodes/{node_id}">client.sessions.<a href="./src/structify/resources/sessions.py">update_node</a>(node_id, \*\*<a href="src/structify/types/session_update_node_params.py">params</a>) -> <a href="./src/structify/types/workflow_session_node.py">WorkflowSessionNode</a></code>
+- <code title="patch /sessions/nodes/{node_id}/progress">client.sessions.<a href="./src/structify/resources/sessions.py">update_node_progress</a>(node_id, \*\*<a href="src/structify/types/session_update_node_progress_params.py">params</a>) -> <a href="./src/structify/types/workflow_session_node.py">WorkflowSessionNode</a></code>
 - <code title="post /sessions/nodes/{node_id}/output_data">client.sessions.<a href="./src/structify/resources/sessions.py">upload_node_output_data</a>(node_id, \*\*<a href="src/structify/types/session_upload_node_output_data_params.py">params</a>) -> <a href="./src/structify/types/workflow_session_node.py">WorkflowSessionNode</a></code>
 
 # Server
