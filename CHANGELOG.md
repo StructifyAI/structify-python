@@ -1,5 +1,20 @@
 # Changelog
 
+## 1.133.0 (2025-07-31)
+
+Full Changelog: [v1.132.0...v1.133.0](https://github.com/StructifyAI/structify-python/compare/v1.132.0...v1.133.0)
+
+### Features
+
+* Add progress tracking in the API ([c9855df](https://github.com/StructifyAI/structify-python/commit/c9855df7f9ab1825275eeb8fbec6a02be7db0e36))
+* **client:** support file upload requests ([695339b](https://github.com/StructifyAI/structify-python/commit/695339b157f012abcf7af44b374f1cb5bc0df770))
+
+
+### Bug Fixes
+
+* **client:** don't send Content-Type header on GET requests ([80431ac](https://github.com/StructifyAI/structify-python/commit/80431ac61c602e453d07d5c57179ca7c94750600))
+* Fix test ([2c467dc](https://github.com/StructifyAI/structify-python/commit/2c467dc8baa64ad981870b92d1278a2e5a86ed0a))
+
 ## 1.132.0 (2025-07-31)
 
 Full Changelog: [v1.131.1...v1.132.0](https://github.com/StructifyAI/structify-python/compare/v1.131.1...v1.132.0)
