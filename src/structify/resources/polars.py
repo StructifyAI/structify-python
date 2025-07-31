@@ -161,7 +161,16 @@ class PolarsResource(SyncAPIResource):
                         )
                     )
             # 3. Wait for all jobs to complete
-            self._client.jobs.wait_for_jobs(job_ids)
+            # Create a title for the progress bar
+            property_list = list(new_columns_dict.keys())
+            if len(property_list) == 1:
+                property_names = property_list[0]
+            elif len(property_list) == 2:
+                property_names = f"{property_list[0]} and {property_list[1]}"
+            else:
+                property_names = f"{', '.join(property_list[:-1])}, and {property_list[-1]}"
+            title = f"Enriching {property_names} for {dataframe_name}"
+            self._client.jobs.wait_for_jobs(job_ids, title=title)
             # 4. Collect the results
             results = [
                 entity.properties
@@ -278,7 +287,9 @@ class PolarsResource(SyncAPIResource):
                 )
                 job_ids.append(job_id)
 
-            self._client.jobs.wait_for_jobs(job_ids)
+            # Wait for all relationship enhancement jobs to complete
+            title = f"Finding {relationship_name} for {source_table_name}"
+            self._client.jobs.wait_for_jobs(job_ids, title=title)
 
             response = self._client.datasets.view_tables_with_relationships(
                 dataset=dataset_name, name=source_table_name
@@ -398,7 +409,9 @@ class PolarsResource(SyncAPIResource):
                 job_ids.append(scrape_list_response.job_id)
                 url_to_dataset[str(url)] = scrape_list_response.dataset_name
 
-            self._client.jobs.wait_for_jobs(job_ids)
+            # Wait for all scraping jobs to complete
+            title = f"Scraping websites for {table_name}"
+            self._client.jobs.wait_for_jobs(job_ids, title=title)
 
             # 3. Collect the scraped results first
             scraped_results: list[dict[str, Any]] = []
@@ -493,8 +506,9 @@ class PolarsResource(SyncAPIResource):
                 job_ids.append(job_id)
                 path_to_dataset[str(pdf_path)] = dataset_name
 
-            # Wait for all jobs to complete
-            self._client.jobs.wait_for_jobs(job_ids)
+            # Wait for all PDF processing jobs to complete
+            title = f"Parsing {table_name} from PDFs"
+            self._client.jobs.wait_for_jobs(job_ids, title=title)
 
             # Collect results from all processed PDFs
             structured_results: list[dict[str, Any]] = []
