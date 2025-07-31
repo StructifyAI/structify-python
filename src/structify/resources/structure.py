@@ -265,8 +265,8 @@ class StructureResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> StructureJobStatusResponse:
         """
-        Get status for specified jobs with detailed information similar to websocket
-        endpoint
+        If only dataset_name is provided, up to 1000 of the most recent jobs for that
+        dataset will be returned.
 
         Args:
           extra_headers: Send extra headers
@@ -578,8 +578,8 @@ class AsyncStructureResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> StructureJobStatusResponse:
         """
-        Get status for specified jobs with detailed information similar to websocket
-        endpoint
+        If only dataset_name is provided, up to 1000 of the most recent jobs for that
+        dataset will be returned.
 
         Args:
           extra_headers: Send extra headers
