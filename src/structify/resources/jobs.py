@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import os
 import sys
 import time
 from typing import List, Union, Optional
@@ -404,7 +405,7 @@ class JobsResource(SyncAPIResource):
             cast_to=NoneType,
         )
 
-    def wait_for_jobs(self, job_ids: List[str], stream: bool = False) -> Optional[str]:
+    def wait_for_jobs(self, job_ids: List[str], stream: bool = False, title: Optional[str] = None) -> Optional[str]:
         """
         Wait for jobs to complete synchronously.
 
@@ -418,6 +419,7 @@ class JobsResource(SyncAPIResource):
         remaining: set[str] = set(job_ids)
         statuses: dict[str, str | None] = {job_id: None for job_id in job_ids}
         job_results: dict[str, JobGetResponse] = {}
+        start_time = time.monotonic()
 
         while remaining:
             completed: set[str] = set()
@@ -449,6 +451,20 @@ class JobsResource(SyncAPIResource):
             sys.stdout.write("\r" + status_line)
             sys.stdout.flush()
             spin_idx += 1
+
+            # If we're inside a structify node of a workflow and want to stream progress, show the progress for that node
+            if title:
+                node_id = os.environ.get("STRUCTIFY_NODE_ID")
+                if node_id:
+                    self._client.sessions.update_node_progress(
+                        node_id=node_id,
+                        progress={
+                            "title": title,
+                            "current": counts["Completed"] + counts["Failed"],
+                            "total": len(job_ids),
+                            "elapsed_seconds": time.monotonic() - start_time,
+                        },
+                    )
             if remaining:
                 time.sleep(1)
         # Final status print
