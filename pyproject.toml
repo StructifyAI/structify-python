@@ -1,6 +1,6 @@
 [project]
 name = "structifyai"
-version = "1.132.0"
+version = "1.133.0"
 description = "The official Python library for the structify API"
 dynamic = ["readme"]
 license = "Apache-2.0"
@@ -40,7 +40,7 @@ Homepage = "https://github.com/StructifyAI/structify-python"
 Repository = "https://github.com/StructifyAI/structify-python"
 
 [project.optional-dependencies]
-aiohttp = ["aiohttp", "httpx_aiohttp>=0.1.6"]
+aiohttp = ["aiohttp", "httpx_aiohttp>=0.1.8"]
 
 [tool.rye]
 managed = true
