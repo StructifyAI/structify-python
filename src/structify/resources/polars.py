@@ -331,7 +331,7 @@ class PolarsResource(SyncAPIResource):
         *,
         lazy_df: LazyFrame,
         url_column: str,
-        relationship: Relationship,
+        table_name: str,
         scrape_schema: Dict[str, Dict[str, Any]],
         scrape_schema_override: TableParam | None = None,
         original_column_map: Dict[str, str] = {},
@@ -342,10 +342,15 @@ class PolarsResource(SyncAPIResource):
         Args:
           lazy_df: LazyFrame containing URLs to scrape
           url_column: Name of the column containing URLs (Must exist in the input LazyFrame)
-          relationship: Relationship object with name, description, source_table, and target_table
+          table_name: Name of the table to scrape. This will be the target table for the relationship.
           scrape_schema: Schema definition with descriptions, format: {"column_name": {"description": "...", "type": polars_dtype}}. If the column name is the same as the table name, it will be suffixed by the table name, e.g. "name_Person"
           original_column_map: Mapping of original column names to new names
         """
+        relationship = {
+            "name": "scraped",
+            "source_table": "source",
+            "target_table": table_name,
+        }
         input_schema = lazy_df.collect_schema()
 
         if url_column not in input_schema:
