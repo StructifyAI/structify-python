@@ -8,6 +8,7 @@ from typing import Any, Dict, Optional, cast
 import polars as pl
 from polars import LazyFrame
 
+from structify.types import RelationshipParam
 from structify.types.entity_param import EntityParam
 from structify.types.property_type_param import PropertyTypeParam
 from structify.types.dataset_create_params import Relationship
@@ -336,12 +337,7 @@ class PolarsResource(SyncAPIResource):
         *,
         lazy_df: LazyFrame,
         url_column: str,
-        relationship: {
-            "name": str,
-            "description": Optional[str],
-            "source_table": str,
-            "target_table": str,
-        },
+        relationship: RelationshipParam,
         scrape_schema: Dict[str, Dict[str, Any]],
         scrape_schema_override: TableParam | None = None,
         original_column_map: Dict[str, str] = {},
@@ -394,7 +390,9 @@ class PolarsResource(SyncAPIResource):
                     name=relationship["source_table"],
                     description="Source entities for relationship enhancement",
                     properties=[
-                        Property(name=col_name, description="", prop_type=pl.String())
+                        Property(
+                            name=col_name, description="", prop_type=dtype_to_structify_type(input_schema[col_name])
+                        )
                         for col_name in input_schema.names()
                     ],
                 ),
@@ -402,7 +400,7 @@ class PolarsResource(SyncAPIResource):
             relationships=[
                 Relationship(
                     name=relationship["name"],
-                    description=relationship["description"],
+                    description=relationship.get("description", ""),
                     source_table=relationship["source_table"],
                     target_table=relationship["target_table"],
                     properties=[],
@@ -414,16 +412,17 @@ class PolarsResource(SyncAPIResource):
 
         def scrape_batch(batch_df: pl.DataFrame) -> pl.DataFrame:
             # 1. Get the unique URLs in the batch
-            batch_entities = batch_df.drop_nulls().unique().to_series().to_list()
+            entities = batch_df.drop_nulls().unique().to_series().to_list()
 
             # 2. Scrape the URLs
             job_ids: list[str] = []  # List of job IDs for the scrape jobs to wait for
             url_to_dataset: dict[str, str] = {}  # Each URL is scraped into a separate dataset
 
-            for entity in batch_entities:
+            for entity in entities:
                 scrape_list_response = self._client.scrape.list(
+                    url=entity[url_column],
                     table_name=relationship["target_table"],
-                    dataset_name=dataset_descriptor.name,
+                    dataset_name=dataset_descriptor["name"],
                     input={
                         "relationship_name": relationship["name"],
                         "source_entity": {
