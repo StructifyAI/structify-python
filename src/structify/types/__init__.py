@@ -39,6 +39,7 @@ from .entity_get_params import EntityGetParams as EntityGetParams
 from .existing_workflow import ExistingWorkflow as ExistingWorkflow
 from .get_team_response import GetTeamResponse as GetTeamResponse
 from .job_list_response import JobListResponse as JobListResponse
+from .job_status_params import JobStatusParams as JobStatusParams
 from .user_usage_params import UserUsageParams as UserUsageParams
 from .dataset_descriptor import DatasetDescriptor as DatasetDescriptor
 from .dataset_get_params import DatasetGetParams as DatasetGetParams
@@ -60,6 +61,7 @@ from .entity_merge_params import EntityMergeParams as EntityMergeParams
 from .get_secret_response import GetSecretResponse as GetSecretResponse
 from .job_cancel_response import JobCancelResponse as JobCancelResponse
 from .job_delete_response import JobDeleteResponse as JobDeleteResponse
+from .job_status_response import JobStatusResponse as JobStatusResponse
 from .list_teams_response import ListTeamsResponse as ListTeamsResponse
 from .property_type_param import PropertyTypeParam as PropertyTypeParam
 from .report_wrong_params import ReportWrongParams as ReportWrongParams

@@ -13,6 +13,7 @@ from structify.types import (
     JobGetResponse,
     JobListResponse,
     JobCancelResponse,
+    JobStatusResponse,
     JobGetStepResponse,
     JobGetStepsResponse,
     JobGetScrapersResponse,
@@ -395,6 +396,39 @@ class TestJobs:
 
         assert cast(Any, response.is_closed) is True
 
+    @parametrize
+    def test_method_status(self, client: Structify) -> None:
+        job = client.jobs.status()
+        assert_matches_type(JobStatusResponse, job, path=["response"])
+
+    @parametrize
+    def test_method_status_with_all_params(self, client: Structify) -> None:
+        job = client.jobs.status(
+            dataset_name="dataset_name",
+            job_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+        )
+        assert_matches_type(JobStatusResponse, job, path=["response"])
+
+    @parametrize
+    def test_raw_response_status(self, client: Structify) -> None:
+        response = client.jobs.with_raw_response.status()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        job = response.parse()
+        assert_matches_type(JobStatusResponse, job, path=["response"])
+
+    @parametrize
+    def test_streaming_response_status(self, client: Structify) -> None:
+        with client.jobs.with_streaming_response.status() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            job = response.parse()
+            assert_matches_type(JobStatusResponse, job, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
 
 class TestAsyncJobs:
     parametrize = pytest.mark.parametrize(
@@ -765,5 +799,38 @@ class TestAsyncJobs:
 
             job = await response.parse()
             assert job is None
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_method_status(self, async_client: AsyncStructify) -> None:
+        job = await async_client.jobs.status()
+        assert_matches_type(JobStatusResponse, job, path=["response"])
+
+    @parametrize
+    async def test_method_status_with_all_params(self, async_client: AsyncStructify) -> None:
+        job = await async_client.jobs.status(
+            dataset_name="dataset_name",
+            job_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+        )
+        assert_matches_type(JobStatusResponse, job, path=["response"])
+
+    @parametrize
+    async def test_raw_response_status(self, async_client: AsyncStructify) -> None:
+        response = await async_client.jobs.with_raw_response.status()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        job = await response.parse()
+        assert_matches_type(JobStatusResponse, job, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_status(self, async_client: AsyncStructify) -> None:
+        async with async_client.jobs.with_streaming_response.status() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            job = await response.parse()
+            assert_matches_type(JobStatusResponse, job, path=["response"])
 
         assert cast(Any, response.is_closed) is True
