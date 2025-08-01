@@ -48,8 +48,9 @@ class ScrapeResource(SyncAPIResource):
         self,
         *,
         dataset_descriptor: DatasetDescriptorParam,
+        input: scrape_list_params.Input,
         table_name: str,
-        url: str,
+        dataset_name: Optional[str] | NotGiven = NOT_GIVEN,
         node_id: Optional[str] | NotGiven = NOT_GIVEN,
         stop_config: Optional[scrape_list_params.StopConfig] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -60,8 +61,6 @@ class ScrapeResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> ScrapeListResponse:
         """
-        Scrape a list from a URL and return a knowledge graph
-
         Args:
           dataset_descriptor: A dataset is where you put multiple referential schemas.
 
@@ -83,8 +82,9 @@ class ScrapeResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "dataset_descriptor": dataset_descriptor,
+                    "input": input,
                     "table_name": table_name,
-                    "url": url,
+                    "dataset_name": dataset_name,
                     "node_id": node_id,
                     "stop_config": stop_config,
                 },
@@ -121,8 +121,9 @@ class AsyncScrapeResource(AsyncAPIResource):
         self,
         *,
         dataset_descriptor: DatasetDescriptorParam,
+        input: scrape_list_params.Input,
         table_name: str,
-        url: str,
+        dataset_name: Optional[str] | NotGiven = NOT_GIVEN,
         node_id: Optional[str] | NotGiven = NOT_GIVEN,
         stop_config: Optional[scrape_list_params.StopConfig] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -133,8 +134,6 @@ class AsyncScrapeResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> ScrapeListResponse:
         """
-        Scrape a list from a URL and return a knowledge graph
-
         Args:
           dataset_descriptor: A dataset is where you put multiple referential schemas.
 
@@ -156,8 +155,9 @@ class AsyncScrapeResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "dataset_descriptor": dataset_descriptor,
+                    "input": input,
                     "table_name": table_name,
-                    "url": url,
+                    "dataset_name": dataset_name,
                     "node_id": node_id,
                     "stop_config": stop_config,
                 },

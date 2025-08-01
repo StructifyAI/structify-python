@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.133.1 (2025-08-01)
+
+Full Changelog: [v1.133.0...v1.133.1](https://github.com/StructifyAI/structify-python/compare/v1.133.0...v1.133.1)
+
+### Bug Fixes
+
+* add dataset name as a sdk param ([e43def9](https://github.com/StructifyAI/structify-python/commit/e43def9c45a481d7dc276a34ac82424bf90ade76))
+
 ## 1.133.0 (2025-07-31)
 
 Full Changelog: [v1.132.0...v1.133.0](https://github.com/StructifyAI/structify-python/compare/v1.132.0...v1.133.0)

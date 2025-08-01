@@ -44,8 +44,8 @@ class TestScrape:
                     }
                 ],
             },
+            input={"direct": {"url": "url"}},
             table_name="table_name",
-            url="url",
         )
         assert_matches_type(ScrapeListResponse, scrape, path=["response"])
 
@@ -93,8 +93,9 @@ class TestScrape:
                 ],
                 "llm_override_field": "llm_override_field",
             },
+            input={"direct": {"url": "url"}},
             table_name="table_name",
-            url="url",
+            dataset_name="dataset_name",
             node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             stop_config={
                 "max_steps_without_save": 0,
@@ -132,8 +133,8 @@ class TestScrape:
                     }
                 ],
             },
+            input={"direct": {"url": "url"}},
             table_name="table_name",
-            url="url",
         )
 
         assert response.is_closed is True
@@ -168,8 +169,8 @@ class TestScrape:
                     }
                 ],
             },
+            input={"direct": {"url": "url"}},
             table_name="table_name",
-            url="url",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -212,8 +213,8 @@ class TestAsyncScrape:
                     }
                 ],
             },
+            input={"direct": {"url": "url"}},
             table_name="table_name",
-            url="url",
         )
         assert_matches_type(ScrapeListResponse, scrape, path=["response"])
 
@@ -261,8 +262,9 @@ class TestAsyncScrape:
                 ],
                 "llm_override_field": "llm_override_field",
             },
+            input={"direct": {"url": "url"}},
             table_name="table_name",
-            url="url",
+            dataset_name="dataset_name",
             node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             stop_config={
                 "max_steps_without_save": 0,
@@ -300,8 +302,8 @@ class TestAsyncScrape:
                     }
                 ],
             },
+            input={"direct": {"url": "url"}},
             table_name="table_name",
-            url="url",
         )
 
         assert response.is_closed is True
@@ -336,8 +338,8 @@ class TestAsyncScrape:
                     }
                 ],
             },
+            input={"direct": {"url": "url"}},
             table_name="table_name",
-            url="url",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

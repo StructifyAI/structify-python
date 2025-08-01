@@ -3,14 +3,14 @@ from __future__ import annotations
 
 import os
 import uuid
-from typing import Any, Dict, Optional, cast
+from typing import Any, Dict, Optional, TypedDict, cast
 
 import polars as pl
 from polars import LazyFrame
 
 from structify.types.entity_param import EntityParam
 from structify.types.property_type_param import PropertyTypeParam
-from structify.types.dataset_create_params import Relationship
+from structify.types.dataset_create_params import Relationship as CreateRelationshipParam
 from structify.types.knowledge_graph_param import KnowledgeGraphParam
 
 from ..types import TableParam
@@ -259,7 +259,7 @@ class PolarsResource(SyncAPIResource):
                     ),
                 ],
                 relationships=[
-                    Relationship(
+                    CreateRelationshipParam(
                         name=relationship_name,
                         description=relationship_description,
                         source_table=source_table_name,
@@ -336,7 +336,7 @@ class PolarsResource(SyncAPIResource):
         *,
         lazy_df: LazyFrame,
         url_column: str,
-        table_name: str,
+        relationship: Relationship,
         scrape_schema: Dict[str, Dict[str, Any]],
         scrape_schema_override: TableParam | None = None,
         original_column_map: Dict[str, str] = {},
@@ -347,7 +347,7 @@ class PolarsResource(SyncAPIResource):
         Args:
           lazy_df: LazyFrame containing URLs to scrape
           url_column: Name of the column containing URLs (Must exist in the input LazyFrame)
-          table_name: Name of the table for the structured data
+          relationship: Relationship object with name, description, source_table, and target_table
           scrape_schema: Schema definition with descriptions, format: {"column_name": {"description": "...", "type": polars_dtype}}. If the column name is the same as the table name, it will be suffixed by the table name, e.g. "name_Person"
           original_column_map: Mapping of original column names to new names
         """
@@ -366,7 +366,7 @@ class PolarsResource(SyncAPIResource):
                 col_name: col_info.get("type", pl.String()) for col_name, col_info in scrape_schema.items()
             }
 
-        output_schema = _merge_schema_with_suffix(input_schema, scraped_columns, suffix=table_name)
+        output_schema = _merge_schema_with_suffix(input_schema, scraped_columns, suffix=relationship["target_table"])
 
         properties: list[Property] = []
         for col_name, col_info in scrape_schema.items():
@@ -377,61 +377,111 @@ class PolarsResource(SyncAPIResource):
             )
 
         dataset_descriptor = DatasetDescriptorParam(
-            name=f"scrape_{table_name}_{uuid.uuid4().hex}",
+            name=f"scrape_{relationship['target_table']}_{uuid.uuid4().hex}",
             description="",
             tables=[
                 TableParam(
-                    name=table_name,
+                    name=relationship["target_table"],
                     description="",
                     properties=properties,
+                ),
+                TableParam(
+                    name=relationship["source_table"],
+                    description="Source entities for relationship enhancement",
+                    properties=[
+                        Property(
+                            name=col_name,
+                            description="",
+                            prop_type=dtype_to_structify_type(input_schema[col_name]),
+                        )
+                        for col_name in input_schema.names()
+                    ],
+                ),
+            ],
+            relationships=[
+                CreateRelationshipParam(
+                    name=relationship["name"],
+                    description=relationship.get("description", "") or "",
+                    source_table=relationship["source_table"],
+                    target_table=relationship["target_table"],
+                    properties=[],
                 )
             ],
-            relationships=[],
         )
 
         node_id = get_node_id()
+        relationship_name = relationship["name"]
+        source_table_name = relationship["source_table"]
+        target_table_name = relationship["target_table"]
 
         def scrape_batch(batch_df: pl.DataFrame) -> pl.DataFrame:
             # 1. Get the unique URLs in the batch
-            batch_urls = batch_df.select(url_column).drop_nulls().unique().to_series().to_list()
+            entities = batch_df.drop_nulls().unique().to_series().to_list()
 
             # 2. Scrape the URLs
             job_ids: list[str] = []  # List of job IDs for the scrape jobs to wait for
-            url_to_dataset: dict[str, str] = {}  # Each URL is scraped into a separate dataset
 
-            for url in batch_urls:
+            for entity in entities:
                 scrape_list_response = self._client.scrape.list(
-                    url=str(url),
-                    table_name=table_name,
+                    table_name=target_table_name,
+                    dataset_name=dataset_descriptor["name"],
+                    input={
+                        "related": {
+                            "relationship_name": relationship_name,
+                            "source_entity": {
+                                "id": 1,
+                                "properties": entity,
+                                "type": source_table_name,
+                            },
+                            "source_url_column": url_column,
+                        }
+                    },
                     dataset_descriptor=dataset_descriptor,
                     node_id=node_id,
                 )
                 job_ids.append(scrape_list_response.job_id)
-                url_to_dataset[str(url)] = scrape_list_response.dataset_name
 
             # Wait for all scraping jobs to complete
-            title = f"Scraping websites for {table_name}"
+            title = f"Scraping websites for {target_table_name}"
             self._client.jobs.wait_for_jobs(job_ids, title=title)
 
-            # 3. Collect the scraped results first
-            scraped_results: list[dict[str, Any]] = []
-            for url, dataset_name in url_to_dataset.items():
-                entities_result = self._client.datasets.view_table(dataset=dataset_name, name=table_name)
-                for entity in entities_result:
-                    result_row = {**entity.properties, url_column: url}
-                    scraped_results.append(result_row)
-
+            offset = 0
+            LIMIT = 1000
+            result_rows: list[dict[str, Any]] = []
+            while True:
+                try:
+                    response = self._client.datasets.view_tables_with_relationships(
+                        dataset=dataset_descriptor["name"],
+                        name=target_table_name,
+                        limit=LIMIT,
+                        offset=offset,
+                    )
+                    for entity in response.entities:
+                        relationship = next((rel for rel in response.relationships if rel.from_id == entity.id), None)
+                        if relationship:
+                            related_entity = next(
+                                (entity for entity in response.connected_entities if entity.id == relationship.to_id),
+                            )
+                            if related_entity:
+                                result_row: dict[str, Any] = {
+                                    **entity.properties,
+                                    url_column: related_entity.properties[url_column],
+                                }
+                                result_rows.append(result_row)
+                    offset += LIMIT
+                except Exception:
+                    break
             # Build scraped schema (pre-join, original names) incl. join column
             scraped_schema = scraped_columns | {url_column: input_schema[url_column]}
 
             # Fill missing columns in scraped results
-            for result_row in scraped_results:
+            for result_row in result_rows:
                 for col_name in scraped_schema.keys():
                     if col_name not in result_row:
                         result_row[col_name] = None
-            scraped_df = pl.DataFrame(scraped_results, schema=scraped_schema)
+            scraped_df = pl.DataFrame(result_rows, schema=scraped_schema)
 
-            joined_df = batch_df.join(scraped_df, on=url_column, how="left", suffix=f"_{table_name}")
+            joined_df = batch_df.join(scraped_df, on=url_column, how="left", suffix=f"_{target_table_name}")
             return joined_df
 
         return lazy_df.map_batches(scrape_batch, schema=output_schema, no_optimizations=True)
@@ -686,3 +736,10 @@ def as_table_param(table_name: str, schema: pl.Schema) -> TableParam:
             for col_name, dtype in schema.items()
         ],
     )
+
+
+class Relationship(TypedDict):
+    name: str
+    description: Optional[str]
+    source_table: str
+    target_table: str
