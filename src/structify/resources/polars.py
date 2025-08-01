@@ -447,7 +447,7 @@ class PolarsResource(SyncAPIResource):
 
             offset = 0
             LIMIT = 1000
-            result_rows = []
+            result_rows: list[dict[str, Any]] = []
             while True:
                 try:
                     response = self._client.datasets.view_tables_with_relationships(
@@ -463,7 +463,7 @@ class PolarsResource(SyncAPIResource):
                                 (entity for entity in response.connected_entities if entity.id == relationship.to_id),
                             )
                             if related_entity:
-                                result_row: Dict[str, Any] = {
+                                result_row: dict[str, Any] = {
                                     **entity.properties,
                                     url_column: related_entity.properties[url_column],
                                 }
