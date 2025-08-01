@@ -456,8 +456,10 @@ class PolarsResource(SyncAPIResource):
                         limit=LIMIT,
                         offset=offset,
                     )
-                    for entity in response.entities:
-                        relationship = next((rel for rel in response.relationships if rel.to_id == entity.id), None)
+                    for scraped_entity in response.entities:
+                        relationship = next(
+                            (rel for rel in response.relationships if rel.to_id == scraped_entity.id), None
+                        )
                         if relationship:
                             related_entity = next(
                                 (e for e in response.connected_entities if e.id == relationship.from_id),
@@ -465,7 +467,7 @@ class PolarsResource(SyncAPIResource):
                             )
                             if related_entity:
                                 result_row: dict[str, Any] = {
-                                    **entity.properties,
+                                    **scraped_entity.properties,
                                     url_column: related_entity.properties[url_column],
                                 }
                                 result_rows.append(result_row)
