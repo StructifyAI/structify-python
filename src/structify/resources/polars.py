@@ -423,7 +423,6 @@ class PolarsResource(SyncAPIResource):
 
             for entity in entities:
                 scrape_list_response = self._client.scrape.list(
-                    url=entity[url_column],
                     table_name=target_table_name,
                     dataset_name=dataset_descriptor["name"],
                     input={
