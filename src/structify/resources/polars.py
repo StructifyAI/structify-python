@@ -3,18 +3,15 @@ from __future__ import annotations
 
 import os
 import uuid
-from typing import Any, Dict, Optional, cast
+from typing import Any, Dict, Optional, TypedDict, cast
 
 import polars as pl
 from polars import LazyFrame
 
-from structify.types import DatasetViewTablesWithRelationshipsResponse, Entity, RelationshipParam
-from structify.types.dataset_view_tables_with_relationships_response import ConnectedEntity
 from structify.types.entity_param import EntityParam
 from structify.types.property_type_param import PropertyTypeParam
-from structify.types.dataset_create_params import Relationship
+from structify.types.dataset_create_params import Relationship as CreateRelationshipParam
 from structify.types.knowledge_graph_param import KnowledgeGraphParam
-from typing import TypedDict
 
 from ..types import TableParam
 from .._compat import cached_property
@@ -262,7 +259,7 @@ class PolarsResource(SyncAPIResource):
                     ),
                 ],
                 relationships=[
-                    Relationship(
+                    CreateRelationshipParam(
                         name=relationship_name,
                         description=relationship_description,
                         source_table=source_table_name,
@@ -339,7 +336,7 @@ class PolarsResource(SyncAPIResource):
         *,
         lazy_df: LazyFrame,
         url_column: str,
-        relationship: RelationshipParam,
+        relationship: Relationship,
         scrape_schema: Dict[str, Dict[str, Any]],
         scrape_schema_override: TableParam | None = None,
         original_column_map: Dict[str, str] = {},
@@ -369,7 +366,7 @@ class PolarsResource(SyncAPIResource):
                 col_name: col_info.get("type", pl.String()) for col_name, col_info in scrape_schema.items()
             }
 
-        output_schema = _merge_schema_with_suffix(input_schema, scraped_columns, suffix=relationship["target"])
+        output_schema = _merge_schema_with_suffix(input_schema, scraped_columns, suffix=relationship["target_table"])
 
         properties: list[Property] = []
         for col_name, col_info in scrape_schema.items():
@@ -384,12 +381,12 @@ class PolarsResource(SyncAPIResource):
             description="",
             tables=[
                 TableParam(
-                    name=relationship["target"],
+                    name=relationship["target_table"],
                     description="",
                     properties=properties,
                 ),
                 TableParam(
-                    name=relationship["source"],
+                    name=relationship["source_table"],
                     description="Source entities for relationship enhancement",
                     properties=[
                         Property(
@@ -402,17 +399,20 @@ class PolarsResource(SyncAPIResource):
                 ),
             ],
             relationships=[
-                Relationship(
+                CreateRelationshipParam(
                     name=relationship["name"],
-                    description=relationship.get("description", ""),
-                    source_table=relationship["source"],
-                    target_table=relationship["target"],
+                    description=relationship.get("description", "") or "",
+                    source_table=relationship["source_table"],
+                    target_table=relationship["target_table"],
                     properties=[],
                 )
             ],
         )
 
         node_id = get_node_id()
+        relationship_name = relationship["name"]
+        source_table_name = relationship["source_table"]
+        target_table_name = relationship["target_table"]
 
         def scrape_batch(batch_df: pl.DataFrame) -> pl.DataFrame:
             # 1. Get the unique URLs in the batch
@@ -424,14 +424,14 @@ class PolarsResource(SyncAPIResource):
             for entity in entities:
                 scrape_list_response = self._client.scrape.list(
                     url=entity[url_column],
-                    table_name=relationship["target"],
+                    table_name=target_table_name,
                     dataset_name=dataset_descriptor["name"],
                     input={
-                        "relationship_name": relationship["name"],
+                        "relationship_name": relationship_name,
                         "source_entity": {
                             "id": 1,
                             "properties": entity,
-                            "type": relationship["source"],
+                            "type": source_table_name,
                         },
                         "source_url_column": url_column,
                     },
@@ -441,23 +441,17 @@ class PolarsResource(SyncAPIResource):
                 job_ids.append(scrape_list_response.job_id)
 
             # Wait for all scraping jobs to complete
-            title = f"Scraping websites for {relationship['target_table']}"
+            title = f"Scraping websites for {target_table_name}"
             self._client.jobs.wait_for_jobs(job_ids, title=title)
 
             offset = 0
             LIMIT = 1000
-
-            class EntitiesResult(TypedDict):
-                entities: list[Entity]
-                relationships: list[Relationship]
-                connected_entities: set[ConnectedEntity]
-
             result_rows = []
             while True:
                 try:
                     response = self._client.datasets.view_tables_with_relationships(
                         dataset=dataset_descriptor["name"],
-                        name=relationship["target"],
+                        name=target_table_name,
                         limit=LIMIT,
                         offset=offset,
                     )
@@ -472,7 +466,7 @@ class PolarsResource(SyncAPIResource):
                                     {**entity.properties, url_column: related_entity.properties[url_column]}
                                 )
                     offset += LIMIT
-                except Exception as e:
+                except Exception:
                     break
 
             # Build scraped schema (pre-join, original names) incl. join column
@@ -485,7 +479,7 @@ class PolarsResource(SyncAPIResource):
                         result_row[col_name] = None
             scraped_df = pl.DataFrame(result_rows, schema=scraped_schema)
 
-            joined_df = batch_df.join(scraped_df, on=url_column, how="left", suffix=f"_{relationship['target_table']}")
+            joined_df = batch_df.join(scraped_df, on=url_column, how="left", suffix=f"_{target_table_name}")
             return joined_df
 
         return lazy_df.map_batches(scrape_batch, schema=output_schema, no_optimizations=True)
@@ -740,3 +734,10 @@ def as_table_param(table_name: str, schema: pl.Schema) -> TableParam:
             for col_name, dtype in schema.items()
         ],
     )
+
+
+class Relationship(TypedDict):
+    name: str
+    description: Optional[str]
+    source_table: str
+    target_table: str
