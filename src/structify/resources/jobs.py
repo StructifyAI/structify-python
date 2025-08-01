@@ -2,15 +2,15 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
+from typing import List, Union, Optional
 from datetime import datetime
 from typing_extensions import Literal
 
 import httpx
 
-from ..types import job_list_params
+from ..types import job_list_params, job_status_params
 from .._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
-from .._utils import maybe_transform
+from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -24,6 +24,7 @@ from .._base_client import AsyncPaginator, make_request_options
 from ..types.job_get_response import JobGetResponse
 from ..types.job_list_response import JobListResponse
 from ..types.job_cancel_response import JobCancelResponse
+from ..types.job_status_response import JobStatusResponse
 from ..types.job_get_step_response import JobGetStepResponse
 from ..types.job_get_steps_response import JobGetStepsResponse
 from ..types.job_get_scrapers_response import JobGetScrapersResponse
@@ -402,6 +403,49 @@ class JobsResource(SyncAPIResource):
             cast_to=NoneType,
         )
 
+    def status(
+        self,
+        *,
+        dataset_name: Optional[str] | NotGiven = NOT_GIVEN,
+        job_ids: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> JobStatusResponse:
+        """Returns counts of jobs by status (completed, running, failed, queued).
+
+        Exactly
+        one of job_ids or dataset_name must be provided. This endpoint can handle large
+        numbers of job IDs since it returns aggregated data instead of individual job
+        details.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/jobs/status_aggregated",
+            body=maybe_transform(
+                {
+                    "dataset_name": dataset_name,
+                    "job_ids": job_ids,
+                },
+                job_status_params.JobStatusParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=JobStatusResponse,
+        )
+
 
 class AsyncJobsResource(AsyncAPIResource):
     @cached_property
@@ -772,6 +816,49 @@ class AsyncJobsResource(AsyncAPIResource):
             cast_to=NoneType,
         )
 
+    async def status(
+        self,
+        *,
+        dataset_name: Optional[str] | NotGiven = NOT_GIVEN,
+        job_ids: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> JobStatusResponse:
+        """Returns counts of jobs by status (completed, running, failed, queued).
+
+        Exactly
+        one of job_ids or dataset_name must be provided. This endpoint can handle large
+        numbers of job IDs since it returns aggregated data instead of individual job
+        details.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/jobs/status_aggregated",
+            body=await async_maybe_transform(
+                {
+                    "dataset_name": dataset_name,
+                    "job_ids": job_ids,
+                },
+                job_status_params.JobStatusParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=JobStatusResponse,
+        )
+
 
 class JobsResourceWithRawResponse:
     def __init__(self, jobs: JobsResource) -> None:
@@ -806,6 +893,9 @@ class JobsResourceWithRawResponse:
         )
         self.schedule = to_raw_response_wrapper(
             jobs.schedule,
+        )
+        self.status = to_raw_response_wrapper(
+            jobs.status,
         )
 
 
@@ -843,6 +933,9 @@ class AsyncJobsResourceWithRawResponse:
         self.schedule = async_to_raw_response_wrapper(
             jobs.schedule,
         )
+        self.status = async_to_raw_response_wrapper(
+            jobs.status,
+        )
 
 
 class JobsResourceWithStreamingResponse:
@@ -879,6 +972,9 @@ class JobsResourceWithStreamingResponse:
         self.schedule = to_streamed_response_wrapper(
             jobs.schedule,
         )
+        self.status = to_streamed_response_wrapper(
+            jobs.status,
+        )
 
 
 class AsyncJobsResourceWithStreamingResponse:
@@ -914,4 +1010,7 @@ class AsyncJobsResourceWithStreamingResponse:
         )
         self.schedule = async_to_streamed_response_wrapper(
             jobs.schedule,
+        )
+        self.status = async_to_streamed_response_wrapper(
+            jobs.status,
         )
