@@ -2,12 +2,22 @@
 
 from __future__ import annotations
 
-from typing import Optional
-from typing_extensions import Required, TypedDict
+from typing import Union, Optional
+from typing_extensions import Required, Annotated, TypeAlias, TypedDict
 
+from .._utils import PropertyInfo
+from .entity_param import EntityParam
 from .dataset_descriptor_param import DatasetDescriptorParam
 
-__all__ = ["ScrapeListParams", "StopConfig"]
+__all__ = [
+    "ScrapeListParams",
+    "Input",
+    "InputDirect",
+    "InputDirectDirect",
+    "InputRelated",
+    "InputRelatedRelated",
+    "StopConfig",
+]
 
 
 class ScrapeListParams(TypedDict, total=False):
@@ -18,14 +28,39 @@ class ScrapeListParams(TypedDict, total=False):
     within the dataset.
     """
 
+    input: Required[Input]
+
     table_name: Required[str]
 
-    url: Required[str]
+    dataset_name: Optional[str]
 
     node_id: Optional[str]
 
     stop_config: Optional[StopConfig]
     """Configuration parameters for the StopChecker"""
+
+
+class InputDirectDirect(TypedDict, total=False):
+    url: Required[str]
+
+
+class InputDirect(TypedDict, total=False):
+    direct: Required[Annotated[InputDirectDirect, PropertyInfo(alias="Direct")]]
+
+
+class InputRelatedRelated(TypedDict, total=False):
+    relationship_name: Required[str]
+
+    source_entity: Required[EntityParam]
+
+    source_url_column: Required[str]
+
+
+class InputRelated(TypedDict, total=False):
+    related: Required[Annotated[InputRelatedRelated, PropertyInfo(alias="Related")]]
+
+
+Input: TypeAlias = Union[InputDirect, InputRelated]
 
 
 class StopConfig(TypedDict, total=False):
