@@ -463,13 +463,14 @@ class PolarsResource(SyncAPIResource):
                                 (entity for entity in response.connected_entities if entity.id == relationship.to_id),
                             )
                             if related_entity:
-                                result_rows.append(
-                                    {**entity.properties, url_column: related_entity.properties[url_column]}
-                                )
+                                result_row: Dict[str, Any] = {
+                                    **entity.properties,
+                                    url_column: related_entity.properties[url_column],
+                                }
+                                result_rows.append(result_row)
                     offset += LIMIT
                 except Exception:
                     break
-
             # Build scraped schema (pre-join, original names) incl. join column
             scraped_schema = scraped_columns | {url_column: input_schema[url_column]}
 
