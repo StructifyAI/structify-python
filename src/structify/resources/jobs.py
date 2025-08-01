@@ -449,7 +449,13 @@ class JobsResource(SyncAPIResource):
             cast_to=JobStatusResponse,
         )
 
-    def wait_for_jobs(self, job_ids: List[str], stream: bool = False, title: Optional[str] = None) -> Optional[str]:
+    def wait_for_jobs(
+        self,
+        job_ids: Optional[List[str]] = None,
+        dataset_name: Optional[str] = None,
+        stream: bool = False,
+        title: Optional[str] = None,
+    ) -> None:
         """
         Wait for jobs to complete synchronously.
 
@@ -460,41 +466,10 @@ class JobsResource(SyncAPIResource):
 
         spinner = ["|", "/", "-", "\\"]
         spin_idx = 0
-        remaining: set[str] = set(job_ids)
-        statuses: dict[str, str | None] = {job_id: None for job_id in job_ids}
-        job_results: dict[str, JobGetResponse] = {}
         start_time = time.monotonic()
 
-        while remaining:
-            completed: set[str] = set()
-            for job_id in list(remaining):
-                res = self.get(job_id)
-                status = res.job.status
-                statuses[job_id] = status
-                job_results[job_id] = res
-                if status in ("Completed", "Failed"):
-                    completed.add(job_id)
-            remaining -= completed
-
-            # Count statuses
-            counts = {"Queued": 0, "Running": 0, "Completed": 0, "Failed": 0, "Other": 0}
-            for status in statuses.values():  # type: ignore
-                if status is not None and status in counts:
-                    counts[status] += 1
-                else:
-                    counts["Other"] += 1
-
-            status_line = (
-                f"{spinner[spin_idx % len(spinner)]} "
-                f"Waiting for jobs... "
-                f"Queued: {counts['Queued']}  "
-                f"Running: {counts['Running']}  "
-                f"Completed: {counts['Completed']}  "
-                f"Failed: {counts['Failed']}"
-            )
-            sys.stdout.write("\r" + status_line)
-            sys.stdout.flush()
-            spin_idx += 1
+        while True:
+            statuses = self.status(job_ids=job_ids, dataset_name=dataset_name)
 
             # If we're inside a structify node of a workflow and want to stream progress, show the progress for that node
             if title:
@@ -504,36 +479,37 @@ class JobsResource(SyncAPIResource):
                         node_id=node_id,
                         progress={
                             "title": title,
-                            "current": counts["Completed"] + counts["Failed"],
-                            "total": len(job_ids),
+                            "current": statuses.completed + statuses.failed,
+                            "total": statuses.total,
                             "elapsed_seconds": time.monotonic() - start_time,
                         },
                     )
-            if remaining:
+
+            status_line = (
+                f"{spinner[spin_idx % len(spinner)]} "
+                f"Waiting for jobs... "
+                f"Queued: {statuses.queued}  "
+                f"Running: {statuses.running}  "
+                f"Completed: {statuses.completed}  "
+                f"Failed: {statuses.failed}"
+            )
+            sys.stdout.write("\r" + status_line)
+            sys.stdout.flush()
+            spin_idx += 1
+
+            if statuses.running == 0 and statuses.queued == 0:
+                break
+            else:
                 time.sleep(1)
         # Final status print
         sys.stdout.write("\n")
         sys.stdout.flush()
 
-        # Print a warning and summary of job results
-        failed_jobs: list[tuple[str, str]] = []
-        for job_id, result in job_results.items():
-            if result.job.status == "Failed":
-                failed_jobs.append((job_id, result.job.message or "No error message"))
-        if failed_jobs:
+        if statuses.failed > 0:
             if stream:
-                raise Exception(f"{len(failed_jobs)} job(s) failed.")
+                raise Exception(f"{statuses.failed} job(s) failed.")
             else:
-                print("\nWARNING: Some jobs failed:")  # noqa: T201
-                for job_id, message in failed_jobs:
-                    print(f"  - Job {job_id} failed: {message}")  # noqa: T201
-        # Print a summary of all jobs
-        print("Job Summary:")  # noqa: T201
-        for job_id, result in job_results.items():
-            print(f"  - Job {job_id}: {result.job.status}")  # noqa: T201
-        if failed_jobs:
-            return f"{len(failed_jobs)} job(s) failed."
-        return None
+                print(f"\nWARNING: {statuses.failed} jobs failed")  # noqa: T201
 
 
 class AsyncJobsResource(AsyncAPIResource):

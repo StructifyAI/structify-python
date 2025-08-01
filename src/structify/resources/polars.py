@@ -149,16 +149,13 @@ class PolarsResource(SyncAPIResource):
                 entity_graphs=chunk_entities_for_parallel_add(entities),
             )
             # 2. Enhance the entities
-            job_ids: list[str] = []
             for entity_id in entity_ids:
                 for col_name in new_columns_dict.keys():
-                    job_ids.append(
-                        self._client.structure.enhance_property(
-                            entity_id=entity_id,
-                            property_name=col_name,
-                            allow_extra_entities=False,
-                            node_id=node_id,
-                        )
+                    self._client.structure.enhance_property(
+                        entity_id=entity_id,
+                        property_name=col_name,
+                        allow_extra_entities=False,
+                        node_id=node_id,
                     )
             # 3. Wait for all jobs to complete
             # Create a title for the progress bar
@@ -170,7 +167,7 @@ class PolarsResource(SyncAPIResource):
             else:
                 property_names = f"{', '.join(property_list[:-1])}, and {property_list[-1]}"
             title = f"Enriching {property_names} for {dataframe_name}"
-            self._client.jobs.wait_for_jobs(job_ids, title=title)
+            self._client.jobs.wait_for_jobs(dataset_name=dataset_name, title=title)
             # 4. Collect the results
             results = [
                 entity.properties
@@ -279,17 +276,15 @@ class PolarsResource(SyncAPIResource):
             )
 
             # Enhance relationships for each entity
-            job_ids: list[str] = []
             for entity_id in entity_ids:
-                job_id = self._client.structure.enhance_relationship(
+                self._client.structure.enhance_relationship(
                     entity_id=entity_id,
                     relationship_name=relationship_name,
                 )
-                job_ids.append(job_id)
 
             # Wait for all relationship enhancement jobs to complete
             title = f"Finding {relationship_name} for {source_table_name}"
-            self._client.jobs.wait_for_jobs(job_ids, title=title)
+            self._client.jobs.wait_for_jobs(dataset_name=dataset_name, title=title)
 
             response = self._client.datasets.view_tables_with_relationships(
                 dataset=dataset_name, name=source_table_name
@@ -419,10 +414,8 @@ class PolarsResource(SyncAPIResource):
             entities = batch_df.drop_nulls().unique().to_dicts()
 
             # 2. Scrape the URLs
-            job_ids: list[str] = []  # List of job IDs for the scrape jobs to wait for
-
             for entity in entities:
-                scrape_list_response = self._client.scrape.list(
+                self._client.scrape.list(
                     table_name=target_table_name,
                     dataset_name=dataset_descriptor["name"],
                     input={
@@ -439,11 +432,10 @@ class PolarsResource(SyncAPIResource):
                     dataset_descriptor=dataset_descriptor,
                     node_id=node_id,
                 )
-                job_ids.append(scrape_list_response.job_id)
 
             # Wait for all scraping jobs to complete
             title = f"Scraping websites for {target_table_name}"
-            self._client.jobs.wait_for_jobs(job_ids, title=title)
+            self._client.jobs.wait_for_jobs(dataset_name=dataset_descriptor["name"], title=title)
 
             offset = 0
             LIMIT = 999
@@ -529,8 +521,8 @@ class PolarsResource(SyncAPIResource):
             batch_paths = batch_df.select(path_column).drop_nulls().unique().to_series().to_list()
 
             # Process each PDF document
-            job_ids: list[str] = []
             path_to_dataset: dict[str, str] = {}
+            job_ids: list[str] = []
 
             for pdf_path in batch_paths:
                 dataset_name = f"structure_pdfs_{table_name}_{uuid.uuid4().hex}"
@@ -563,7 +555,7 @@ class PolarsResource(SyncAPIResource):
 
             # Wait for all PDF processing jobs to complete
             title = f"Parsing {table_name} from PDFs"
-            self._client.jobs.wait_for_jobs(job_ids, title=title)
+            self._client.jobs.wait_for_jobs(job_ids=job_ids, title=title)
 
             # Collect results from all processed PDFs
             structured_results: list[dict[str, Any]] = []
