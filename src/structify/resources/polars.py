@@ -416,7 +416,7 @@ class PolarsResource(SyncAPIResource):
 
         def scrape_batch(batch_df: pl.DataFrame) -> pl.DataFrame:
             # 1. Get the unique URLs in the batch
-            entities = batch_df.drop_nulls().unique().to_series().to_list()
+            entities = batch_df.drop_nulls().unique().to_dicts()
 
             # 2. Scrape the URLs
             job_ids: list[str] = []  # List of job IDs for the scrape jobs to wait for
@@ -446,7 +446,7 @@ class PolarsResource(SyncAPIResource):
             self._client.jobs.wait_for_jobs(job_ids, title=title)
 
             offset = 0
-            LIMIT = 1000
+            LIMIT = 999
             result_rows: list[dict[str, Any]] = []
             while True:
                 try:
@@ -456,19 +456,24 @@ class PolarsResource(SyncAPIResource):
                         limit=LIMIT,
                         offset=offset,
                     )
-                    for entity in response.entities:
-                        relationship = next((rel for rel in response.relationships if rel.from_id == entity.id), None)
+                    for scraped_entity in response.entities:
+                        relationship = next(
+                            (rel for rel in response.relationships if rel.to_id == scraped_entity.id), None
+                        )
                         if relationship:
                             related_entity = next(
-                                (entity for entity in response.connected_entities if entity.id == relationship.to_id),
+                                (e for e in response.connected_entities if e.id == relationship.from_id),
+                                None,
                             )
                             if related_entity:
                                 result_row: dict[str, Any] = {
-                                    **entity.properties,
+                                    **scraped_entity.properties,
                                     url_column: related_entity.properties[url_column],
                                 }
                                 result_rows.append(result_row)
                     offset += LIMIT
+                    if len(response.entities) < LIMIT:
+                        break
                 except Exception:
                     break
             # Build scraped schema (pre-join, original names) incl. join column
