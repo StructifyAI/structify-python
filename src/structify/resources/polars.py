@@ -277,7 +277,7 @@ class PolarsResource(SyncAPIResource):
 
             # Enhance relationships for each entity
             for entity_id in entity_ids:
-                job_id = self._client.structure.enhance_relationship(
+                self._client.structure.enhance_relationship(
                     entity_id=entity_id,
                     relationship_name=relationship_name,
                 )
@@ -415,7 +415,7 @@ class PolarsResource(SyncAPIResource):
 
             # 2. Scrape the URLs
             for entity in entities:
-                scrape_list_response = self._client.scrape.list(
+                self._client.scrape.list(
                     table_name=target_table_name,
                     dataset_name=dataset_descriptor["name"],
                     input={
@@ -522,6 +522,7 @@ class PolarsResource(SyncAPIResource):
 
             # Process each PDF document
             path_to_dataset: dict[str, str] = {}
+            job_ids: list[str] = []
 
             for pdf_path in batch_paths:
                 dataset_name = f"structure_pdfs_{table_name}_{uuid.uuid4().hex}"
@@ -549,11 +550,12 @@ class PolarsResource(SyncAPIResource):
                     source=SourcePdf(pdf={"path": f"{dataset_name}.pdf"}),
                     node_id=node_id,
                 )
+                job_ids.append(job_id)
                 path_to_dataset[str(pdf_path)] = dataset_name
 
             # Wait for all PDF processing jobs to complete
             title = f"Parsing {table_name} from PDFs"
-            self._client.jobs.wait_for_jobs(dataset_name=dataset_name, title=title)
+            self._client.jobs.wait_for_jobs(job_ids=job_ids, title=title)
 
             # Collect results from all processed PDFs
             structured_results: list[dict[str, Any]] = []
