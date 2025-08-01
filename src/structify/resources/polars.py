@@ -421,7 +421,7 @@ class PolarsResource(SyncAPIResource):
             # 2. Scrape the URLs
             job_ids: list[str] = []  # List of job IDs for the scrape jobs to wait for
 
-            for entity in entities:
+            for scraped_entity in entities:
                 scrape_list_response = self._client.scrape.list(
                     table_name=target_table_name,
                     dataset_name=dataset_descriptor["name"],
@@ -430,7 +430,7 @@ class PolarsResource(SyncAPIResource):
                             "relationship_name": relationship_name,
                             "source_entity": {
                                 "id": 1,
-                                "properties": entity,
+                                "properties": scraped_entity,
                                 "type": source_table_name,
                             },
                             "source_url_column": url_column,
@@ -456,8 +456,10 @@ class PolarsResource(SyncAPIResource):
                         limit=LIMIT,
                         offset=offset,
                     )
-                    for entity in response.entities:
-                        relationship = next((rel for rel in response.relationships if rel.to_id == entity.id), None)
+                    for scraped_entity in response.entities:
+                        relationship = next(
+                            (rel for rel in response.relationships if rel.to_id == scraped_entity.id), None
+                        )
                         if relationship:
                             related_entity = next(
                                 (e for e in response.connected_entities if e.id == relationship.from_id),
@@ -465,7 +467,7 @@ class PolarsResource(SyncAPIResource):
                             )
                             if related_entity:
                                 result_row: dict[str, Any] = {
-                                    **entity.properties,
+                                    **scraped_entity.properties,
                                     url_column: related_entity.properties[url_column],
                                 }
                                 result_rows.append(result_row)
