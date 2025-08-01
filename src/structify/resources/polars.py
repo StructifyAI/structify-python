@@ -473,7 +473,6 @@ class PolarsResource(SyncAPIResource):
                     if len(response.entities) < LIMIT:
                         break
                 except Exception as e:
-                    print(e)
                     break
             # Build scraped schema (pre-join, original names) incl. join column
             scraped_schema = scraped_columns | {url_column: input_schema[url_column]}
