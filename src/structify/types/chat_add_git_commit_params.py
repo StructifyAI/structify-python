@@ -9,4 +9,4 @@ __all__ = ["ChatAddGitCommitParams"]
 
 class ChatAddGitCommitParams(TypedDict, total=False):
     commit_hash: Required[str]
-    """The git commit hash (must be 40 characters)"""
+    """The git commit hash"""
