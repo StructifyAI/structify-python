@@ -426,13 +426,15 @@ class PolarsResource(SyncAPIResource):
                     table_name=target_table_name,
                     dataset_name=dataset_descriptor["name"],
                     input={
-                        "relationship_name": relationship_name,
-                        "source_entity": {
-                            "id": 1,
-                            "properties": entity,
-                            "type": source_table_name,
-                        },
-                        "source_url_column": url_column,
+                        "related": {
+                            "relationship_name": relationship_name,
+                            "source_entity": {
+                                "id": 1,
+                                "properties": entity,
+                                "type": source_table_name,
+                            },
+                            "source_url_column": url_column,
+                        }
                     },
                     dataset_descriptor=dataset_descriptor,
                     node_id=node_id,
