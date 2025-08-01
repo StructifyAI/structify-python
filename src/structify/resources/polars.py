@@ -472,7 +472,7 @@ class PolarsResource(SyncAPIResource):
                     offset += LIMIT
                     if len(response.entities) < LIMIT:
                         break
-                except Exception as e:
+                except Exception:
                     break
             # Build scraped schema (pre-join, original names) incl. join column
             scraped_schema = scraped_columns | {url_column: input_schema[url_column]}
