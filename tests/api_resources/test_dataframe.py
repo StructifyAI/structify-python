@@ -65,9 +65,12 @@ class TestPolars:
         dataframe = client.polars.scrape_urls(
             lazy_df=lazy_df,
             url_column="url",
-            target_table_name="companies",
-            source_table_name="people",
-            relationship_name="works_at",
+            relationship={
+                "name": "works_at",
+                "description": "Relationship between people and companies",
+                "source_table": "people",
+                "target_table": "companies",
+            },
             scrape_schema=SCRAPE_SCHEMA,
         )
         assert isinstance(dataframe, pl.LazyFrame)
@@ -81,9 +84,12 @@ class TestPolars:
         dataframe = client.polars.scrape_urls(
             lazy_df=lazy_df,
             url_column="url",
-            target_table_name="companies",
-            source_table_name="people",
-            relationship_name="works_at",
+            relationship={
+                "name": "works_at",
+                "description": "Relationship between people and companies",
+                "source_table": "people",
+                "target_table": "companies",
+            },
             scrape_schema=SCRAPE_SCHEMA,
         )
         assert isinstance(dataframe, pl.LazyFrame)
