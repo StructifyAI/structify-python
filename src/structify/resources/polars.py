@@ -421,7 +421,7 @@ class PolarsResource(SyncAPIResource):
             # 2. Scrape the URLs
             job_ids: list[str] = []  # List of job IDs for the scrape jobs to wait for
 
-            for scraped_entity in entities:
+            for entity in entities:
                 scrape_list_response = self._client.scrape.list(
                     table_name=target_table_name,
                     dataset_name=dataset_descriptor["name"],
@@ -430,7 +430,7 @@ class PolarsResource(SyncAPIResource):
                             "relationship_name": relationship_name,
                             "source_entity": {
                                 "id": 1,
-                                "properties": scraped_entity,
+                                "properties": entity,
                                 "type": source_table_name,
                             },
                             "source_url_column": url_column,
