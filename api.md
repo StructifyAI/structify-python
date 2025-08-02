@@ -213,6 +213,7 @@ from structify.types.admin import (
     DeleteActionTrainingDataParams,
     DeleteActionTrainingDataResponse,
     GetActionTrainingDataParams,
+    GetBatchedActionTrainingDataRequest,
     LabelActionTrainingDatumRequest,
 )
 ```
@@ -221,6 +222,7 @@ Methods:
 
 - <code title="post /admin/next_action/add_action_training_datum">client.admin.next_action.<a href="./src/structify/resources/admin/next_action.py">add_training_datum</a>(\*\*<a href="src/structify/types/admin/next_action_add_training_datum_params.py">params</a>) -> None</code>
 - <code title="delete /admin/next_action/delete_action_training_data">client.admin.next_action.<a href="./src/structify/resources/admin/next_action.py">delete_training_data</a>(\*\*<a href="src/structify/types/admin/next_action_delete_training_data_params.py">params</a>) -> <a href="./src/structify/types/admin/delete_action_training_data_response.py">DeleteActionTrainingDataResponse</a></code>
+- <code title="post /admin/next_action/get_batched_action_training_data">client.admin.next_action.<a href="./src/structify/resources/admin/next_action.py">get_batched_training_data</a>(\*\*<a href="src/structify/types/admin/next_action_get_batched_training_data_params.py">params</a>) -> <a href="./src/structify/types/admin/action_training_data_response.py">ActionTrainingDataResponse</a></code>
 - <code title="get /admin/next_action/get_action_training_data">client.admin.next_action.<a href="./src/structify/resources/admin/next_action.py">get_training_data</a>(\*\*<a href="src/structify/types/admin/next_action_get_training_data_params.py">params</a>) -> <a href="./src/structify/types/admin/action_training_data_response.py">ActionTrainingDataResponse</a></code>
 - <code title="get /admin/next_action/get_action_training_datum">client.admin.next_action.<a href="./src/structify/resources/admin/next_action.py">get_training_datum</a>(\*\*<a href="src/structify/types/admin/next_action_get_training_datum_params.py">params</a>) -> <a href="./src/structify/types/admin/action_training_data_entry.py">ActionTrainingDataEntry</a></code>
 - <code title="put /admin/next_action/label_action_training_datum">client.admin.next_action.<a href="./src/structify/resources/admin/next_action.py">label_training_datum</a>(\*\*<a href="src/structify/types/admin/next_action_label_training_datum_params.py">params</a>) -> None</code>

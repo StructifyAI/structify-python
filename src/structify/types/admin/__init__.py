@@ -85,6 +85,9 @@ from .training_dataset_update_datum_status_params import (
 from .training_dataset_upload_labeled_step_params import (
     TrainingDatasetUploadLabeledStepParams as TrainingDatasetUploadLabeledStepParams,
 )
+from .next_action_get_batched_training_data_params import (
+    NextActionGetBatchedTrainingDataParams as NextActionGetBatchedTrainingDataParams,
+)
 from .training_dataset_get_labeller_stats_response import (
     TrainingDatasetGetLabellerStatsResponse as TrainingDatasetGetLabellerStatsResponse,
 )
