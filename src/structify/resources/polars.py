@@ -144,10 +144,16 @@ class PolarsResource(SyncAPIResource):
             # 1. Add all the entities to the structify dataset
             column_schema = {col["name"]: col["name"] for col in all_properties}
             entities = dataframe_to_entities(batch_df, dataframe_name, column_schema)
-            entity_ids = self._client.entities.add_batch(
-                dataset=dataset_name,
-                entity_graphs=chunk_entities_for_parallel_add(entities),
-            )
+
+            # Add entities in batches to avoid JSON payload size issues
+            entity_ids = []
+            entity_batches = chunk_entities_for_parallel_add(entities)
+            for batch in entity_batches:
+                batch_entity_ids = self._client.entities.add_batch(
+                    dataset=dataset_name,
+                    entity_graphs=batch,
+                )
+                entity_ids.extend(batch_entity_ids)
             # 2. Enhance the entities
             for entity_id in entity_ids:
                 for col_name in new_columns_dict.keys():
@@ -270,10 +276,16 @@ class PolarsResource(SyncAPIResource):
             # Add source entities to dataset
             column_schema = {col_name: col_name for col_name in input_schema.names()}
             entities = dataframe_to_entities(batch_df, source_table_name, column_schema)
-            entity_ids = self._client.entities.add_batch(
-                dataset=dataset_name,
-                entity_graphs=chunk_entities_for_parallel_add(entities),
-            )
+
+            # Add entities in batches to avoid JSON payload size issues
+            entity_ids = []
+            entity_batches = chunk_entities_for_parallel_add(entities)
+            for batch in entity_batches:
+                batch_entity_ids = self._client.entities.add_batch(
+                    dataset=dataset_name,
+                    entity_graphs=batch,
+                )
+                entity_ids.extend(batch_entity_ids)
 
             # Enhance relationships for each entity
             for entity_id in entity_ids:
@@ -631,11 +643,37 @@ def get_node_id() -> Optional[str]:
     return os.environ.get("STRUCTIFY_NODE_ID")
 
 
-def chunk_entities_for_parallel_add(entities: list[EntityParam]) -> list[KnowledgeGraphParam]:
-    return [
+def chunk_entities_for_parallel_add(
+    entities: list[EntityParam], batch_size: int = 100
+) -> list[list[KnowledgeGraphParam]]:
+    """
+    Chunk entities into batches to avoid JSON payload size issues.
+    Each entity gets its own KnowledgeGraph, but we group them into batches for API calls.
+
+    Args:
+        entities: List of entities to chunk
+        batch_size: Maximum number of KnowledgeGraphs per batch (default: 100)
+
+    Returns:
+        List of batches, where each batch is a list of KnowledgeGraphParam objects
+    """
+    # Handle empty input
+    if not entities:
+        return []
+
+    # Convert each entity to its own KnowledgeGraph
+    knowledge_graphs = [
         {"entities": [EntityParam(type=entity["type"], id=0, properties=entity["properties"])], "relationships": []}
         for entity in entities
     ]
+
+    # Chunk the KnowledgeGraphs into batches
+    batches = []
+    for i in range(0, len(knowledge_graphs), batch_size):
+        batch = knowledge_graphs[i : i + batch_size]
+        batches.append(batch)
+
+    return batches
 
 
 def dataframe_to_entities(batch_df: pl.DataFrame, entity_type: str, column_schema: Dict[str, str]) -> list[EntityParam]:
