@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import os
 import uuid
-from typing import Any, Dict, Optional, TypedDict, cast
+from typing import Any, Dict, List, Optional, TypedDict, cast
 
 import polars as pl
 from polars import LazyFrame
@@ -146,7 +146,7 @@ class PolarsResource(SyncAPIResource):
             entities = dataframe_to_entities(batch_df, dataframe_name, column_schema)
 
             # Add entities in batches to avoid JSON payload size issues
-            entity_ids = []
+            entity_ids: List[str] = []
             entity_batches = chunk_entities_for_parallel_add(entities)
             for batch in entity_batches:
                 batch_entity_ids = self._client.entities.add_batch(
@@ -278,7 +278,7 @@ class PolarsResource(SyncAPIResource):
             entities = dataframe_to_entities(batch_df, source_table_name, column_schema)
 
             # Add entities in batches to avoid JSON payload size issues
-            entity_ids = []
+            entity_ids: List[str] = []
             entity_batches = chunk_entities_for_parallel_add(entities)
             for batch in entity_batches:
                 batch_entity_ids = self._client.entities.add_batch(
@@ -662,13 +662,13 @@ def chunk_entities_for_parallel_add(
         return []
 
     # Convert each entity to its own KnowledgeGraph
-    knowledge_graphs = [
+    knowledge_graphs: list[KnowledgeGraphParam] = [
         {"entities": [EntityParam(type=entity["type"], id=0, properties=entity["properties"])], "relationships": []}
         for entity in entities
     ]
 
     # Chunk the KnowledgeGraphs into batches
-    batches = []
+    batches: list[list[KnowledgeGraphParam]] = []
     for i in range(0, len(knowledge_graphs), batch_size):
         batch = knowledge_graphs[i : i + batch_size]
         batches.append(batch)
