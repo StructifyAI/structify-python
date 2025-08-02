@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
+from typing import List, Union, Optional
 from datetime import datetime
 from typing_extensions import Literal
 
@@ -24,6 +24,7 @@ from ...types.admin import (
     next_action_get_training_datum_params,
     next_action_delete_training_data_params,
     next_action_label_training_datum_params,
+    next_action_get_batched_training_data_params,
 )
 from ..._base_client import make_request_options
 from ...types.admin.action_training_data_entry import ActionTrainingDataEntry
@@ -132,6 +133,39 @@ class NextActionResource(SyncAPIResource):
                 ),
             ),
             cast_to=DeleteActionTrainingDataResponse,
+        )
+
+    def get_batched_training_data(
+        self,
+        *,
+        job_ids: List[str],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ActionTrainingDataResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/admin/next_action/get_batched_action_training_data",
+            body=maybe_transform(
+                {"job_ids": job_ids},
+                next_action_get_batched_training_data_params.NextActionGetBatchedTrainingDataParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ActionTrainingDataResponse,
         )
 
     def get_training_data(
@@ -364,6 +398,39 @@ class AsyncNextActionResource(AsyncAPIResource):
             cast_to=DeleteActionTrainingDataResponse,
         )
 
+    async def get_batched_training_data(
+        self,
+        *,
+        job_ids: List[str],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ActionTrainingDataResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/admin/next_action/get_batched_action_training_data",
+            body=await async_maybe_transform(
+                {"job_ids": job_ids},
+                next_action_get_batched_training_data_params.NextActionGetBatchedTrainingDataParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ActionTrainingDataResponse,
+        )
+
     async def get_training_data(
         self,
         *,
@@ -503,6 +570,9 @@ class NextActionResourceWithRawResponse:
         self.delete_training_data = to_raw_response_wrapper(
             next_action.delete_training_data,
         )
+        self.get_batched_training_data = to_raw_response_wrapper(
+            next_action.get_batched_training_data,
+        )
         self.get_training_data = to_raw_response_wrapper(
             next_action.get_training_data,
         )
@@ -523,6 +593,9 @@ class AsyncNextActionResourceWithRawResponse:
         )
         self.delete_training_data = async_to_raw_response_wrapper(
             next_action.delete_training_data,
+        )
+        self.get_batched_training_data = async_to_raw_response_wrapper(
+            next_action.get_batched_training_data,
         )
         self.get_training_data = async_to_raw_response_wrapper(
             next_action.get_training_data,
@@ -545,6 +618,9 @@ class NextActionResourceWithStreamingResponse:
         self.delete_training_data = to_streamed_response_wrapper(
             next_action.delete_training_data,
         )
+        self.get_batched_training_data = to_streamed_response_wrapper(
+            next_action.get_batched_training_data,
+        )
         self.get_training_data = to_streamed_response_wrapper(
             next_action.get_training_data,
         )
@@ -565,6 +641,9 @@ class AsyncNextActionResourceWithStreamingResponse:
         )
         self.delete_training_data = async_to_streamed_response_wrapper(
             next_action.delete_training_data,
+        )
+        self.get_batched_training_data = async_to_streamed_response_wrapper(
+            next_action.get_batched_training_data,
         )
         self.get_training_data = async_to_streamed_response_wrapper(
             next_action.get_training_data,
