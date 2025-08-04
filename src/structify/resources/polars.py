@@ -627,24 +627,8 @@ class PolarsResource(SyncAPIResource):
             structured_results: list[dict[str, Any]] = []
 
             def collect_pdf_results(pdf_path, dataset_name):
-                try:
-                    entities_result = self._client.datasets.view_table(dataset=dataset_name, name=table_name)
-                    results = []
-                    for entity in entities_result:
-                        result_row = {**entity.properties, path_column: pdf_path}
-                        results.append(result_row)
-                    return results
-                except Exception as e:
-                    # In test environments, job IDs might not be properly formatted UUIDs
-                    # causing the jobs.get() call in wait_for_jobs to fail with a validation error.
-                    # For now, we'll catch these errors and continue, assuming the job completed successfully
-                    # in the test environment.
-                    if "must match format" in str(e) and "uuid" in str(e):
-                        # This is likely a test environment with mock job IDs, proceed optimistically
-                        return []
-                    else:
-                        # Re-raise other errors as they might be legitimate issues
-                        raise e
+                entities_result = self._client.datasets.view_table(dataset=dataset_name, name=table_name)
+                return [{**entity.properties, path_column: pdf_path} for entity in entities_result]
 
             with ThreadPoolExecutor(max_workers=10) as executor:
                 futures = [
