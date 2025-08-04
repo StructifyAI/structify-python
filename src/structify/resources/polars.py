@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import os
 import uuid
-from typing import Any, Dict, List, Optional, TypedDict, cast
+from typing import Any, Dict, List, Tuple, Optional, TypedDict, cast
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 import polars as pl
@@ -151,7 +151,7 @@ class PolarsResource(SyncAPIResource):
             entity_ids: List[str] = []
             entity_batches = chunk_entities_for_parallel_add(entities)
 
-            def add_batch(batch):
+            def add_batch(batch: List[KnowledgeGraphParam]) -> List[str]:
                 return self._client.entities.add_batch(
                     dataset=dataset_name,
                     entity_graphs=batch,
@@ -164,7 +164,7 @@ class PolarsResource(SyncAPIResource):
                     entity_ids.extend(batch_entity_ids)
 
             # 2. Enhance the entities
-            def enhance_entity_property(entity_id, col_name):
+            def enhance_entity_property(entity_id: str, col_name: str) -> str:
                 return self._client.structure.enhance_property(
                     entity_id=entity_id,
                     property_name=col_name,
@@ -303,7 +303,7 @@ class PolarsResource(SyncAPIResource):
             entity_ids: List[str] = []
             entity_batches = chunk_entities_for_parallel_add(entities)
 
-            def add_batch(batch):
+            def add_batch(batch: List[KnowledgeGraphParam]) -> List[str]:
                 return self._client.entities.add_batch(
                     dataset=dataset_name,
                     entity_graphs=batch,
@@ -316,7 +316,7 @@ class PolarsResource(SyncAPIResource):
                     entity_ids.extend(batch_entity_ids)
 
             # Enhance relationships for each entity
-            def enhance_relationship(entity_id):
+            def enhance_relationship(entity_id: str) -> str:
                 return self._client.structure.enhance_relationship(
                     entity_id=entity_id,
                     relationship_name=relationship_name,
@@ -466,8 +466,8 @@ class PolarsResource(SyncAPIResource):
             entities = batch_df.drop_nulls().unique().to_dicts()
 
             # 2. Scrape the URLs
-            def scrape_entity(entity):
-                return self._client.scrape.list(
+            def scrape_entity(entity: Dict[str, Any]) -> None:
+                self._client.scrape.list(
                     table_name=target_table_name,
                     dataset_name=dataset_descriptor["name"],
                     input={
@@ -585,7 +585,7 @@ class PolarsResource(SyncAPIResource):
             path_to_dataset: dict[str, str] = {}
             job_ids: list[str] = []
 
-            def process_pdf(pdf_path):
+            def process_pdf(pdf_path: str) -> Tuple[str, str, str]:
                 dataset_name = f"structure_pdfs_{table_name}_{uuid.uuid4().hex}"
 
                 # Create dataset for this PDF
@@ -626,7 +626,7 @@ class PolarsResource(SyncAPIResource):
             # Collect results from all processed PDFs
             structured_results: list[dict[str, Any]] = []
 
-            def collect_pdf_results(pdf_path, dataset_name):
+            def collect_pdf_results(pdf_path: str, dataset_name: str) -> List[Dict[str, Any]]:
                 entities_result = self._client.datasets.view_table(dataset=dataset_name, name=table_name)
                 return [{**entity.properties, path_column: pdf_path} for entity in entities_result]
 
