@@ -7,7 +7,7 @@ from typing import Any, Dict, List, Tuple, Optional, TypedDict, cast
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 import polars as pl
-from tqdm import tqdm
+from tqdm import tqdm  # type: ignore
 from polars import LazyFrame
 
 from structify.types.entity_param import EntityParam
@@ -164,7 +164,7 @@ class PolarsResource(SyncAPIResource):
                     entity_ids.extend(batch_entity_ids)
 
             # 2. Enhance the entities
-            def enhance_entity_property(entity_id: str, col_name: str) -> str:
+            def enhance_entity_property(entity_id: str, col_name: str) -> None:
                 return self._client.structure.enhance_property(
                     entity_id=entity_id,
                     property_name=col_name,
@@ -186,7 +186,7 @@ class PolarsResource(SyncAPIResource):
             ]
             with ThreadPoolExecutor(max_workers=10) as executor:
                 futures = [
-                    executor.submit(enhance_entity_property, entity_id, col_name)
+                    executor.submit(enhance_entity_property, entity_id, col_name)  # type: ignore
                     for entity_id, col_name in enhancement_tasks
                 ]
                 for future in tqdm(
@@ -316,14 +316,14 @@ class PolarsResource(SyncAPIResource):
                     entity_ids.extend(batch_entity_ids)
 
             # Enhance relationships for each entity
-            def enhance_relationship(entity_id: str) -> str:
+            def enhance_relationship(entity_id: str) -> None:
                 return self._client.structure.enhance_relationship(
                     entity_id=entity_id,
                     relationship_name=relationship_name,
                 )
 
             with ThreadPoolExecutor(max_workers=10) as executor:
-                futures = [executor.submit(enhance_relationship, entity_id) for entity_id in entity_ids]
+                futures = [executor.submit(enhance_relationship, entity_id) for entity_id in entity_ids]  # type: ignore
                 for future in tqdm(
                     as_completed(futures), total=len(futures), desc=f"Preparing {relationship_name} enrichments"
                 ):
@@ -632,7 +632,7 @@ class PolarsResource(SyncAPIResource):
 
             with ThreadPoolExecutor(max_workers=10) as executor:
                 futures = [
-                    executor.submit(collect_pdf_results, pdf_path, dataset_name)
+                    executor.submit(collect_pdf_results, pdf_path, dataset_name)  # type: ignore
                     for pdf_path, dataset_name in path_to_dataset.items()
                 ]
                 for future in tqdm(as_completed(futures), total=len(futures), desc="Collecting PDF extractions"):
