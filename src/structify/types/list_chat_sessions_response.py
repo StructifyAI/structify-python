@@ -17,6 +17,8 @@ class Session(BaseModel):
 
     title: str
 
+    updated_at: datetime
+
     user_id: str
 
 
