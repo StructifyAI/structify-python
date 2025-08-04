@@ -28,6 +28,8 @@ from ..types.structure_run_async_params import SourcePdf
 
 __all__ = ["PolarsResource"]
 
+MAX_PARALLEL_REQUESTS = 20
+
 
 class PolarsResource(SyncAPIResource):
     @cached_property
@@ -157,7 +159,7 @@ class PolarsResource(SyncAPIResource):
                     entity_graphs=batch,
                 )
 
-            with ThreadPoolExecutor(max_workers=10) as executor:
+            with ThreadPoolExecutor(max_workers=MAX_PARALLEL_REQUESTS) as executor:
                 futures = [executor.submit(add_batch, batch) for batch in entity_batches]
                 for future in tqdm(as_completed(futures), total=len(futures), desc=f"Preparing {dataframe_name}"):
                     batch_entity_ids = future.result()
@@ -184,7 +186,7 @@ class PolarsResource(SyncAPIResource):
             enhancement_tasks = [
                 (entity_id, col_name) for entity_id in entity_ids for col_name in new_columns_dict.keys()
             ]
-            with ThreadPoolExecutor(max_workers=10) as executor:
+            with ThreadPoolExecutor(max_workers=MAX_PARALLEL_REQUESTS) as executor:
                 futures = [
                     executor.submit(enhance_entity_property, entity_id, col_name)  # type: ignore
                     for entity_id, col_name in enhancement_tasks
@@ -309,7 +311,7 @@ class PolarsResource(SyncAPIResource):
                     entity_graphs=batch,
                 )
 
-            with ThreadPoolExecutor(max_workers=10) as executor:
+            with ThreadPoolExecutor(max_workers=MAX_PARALLEL_REQUESTS) as executor:
                 futures = [executor.submit(add_batch, batch) for batch in entity_batches]
                 for future in tqdm(as_completed(futures), total=len(futures), desc=f"Preparing {source_table_name}"):
                     batch_entity_ids = future.result()
@@ -322,7 +324,7 @@ class PolarsResource(SyncAPIResource):
                     relationship_name=relationship_name,
                 )
 
-            with ThreadPoolExecutor(max_workers=10) as executor:
+            with ThreadPoolExecutor(max_workers=MAX_PARALLEL_REQUESTS) as executor:
                 futures = [executor.submit(enhance_relationship, entity_id) for entity_id in entity_ids]  # type: ignore
                 for future in tqdm(
                     as_completed(futures), total=len(futures), desc=f"Preparing {relationship_name} enrichments"
@@ -485,7 +487,7 @@ class PolarsResource(SyncAPIResource):
                     node_id=node_id,
                 )
 
-            with ThreadPoolExecutor(max_workers=10) as executor:
+            with ThreadPoolExecutor(max_workers=MAX_PARALLEL_REQUESTS) as executor:
                 futures = [executor.submit(scrape_entity, entity) for entity in entities]
                 for future in tqdm(
                     as_completed(futures),
@@ -613,7 +615,7 @@ class PolarsResource(SyncAPIResource):
                 )
                 return job_id, str(pdf_path), dataset_name
 
-            with ThreadPoolExecutor(max_workers=10) as executor:
+            with ThreadPoolExecutor(max_workers=MAX_PARALLEL_REQUESTS) as executor:
                 futures = [executor.submit(process_pdf, pdf_path) for pdf_path in batch_paths]
                 for future in tqdm(as_completed(futures), total=len(futures), desc="Preparing PDFs"):
                     job_id, pdf_path, dataset_name = future.result()
@@ -630,7 +632,7 @@ class PolarsResource(SyncAPIResource):
                 entities_result = self._client.datasets.view_table(dataset=dataset_name, name=table_name)
                 return [{**entity.properties, path_column: pdf_path} for entity in entities_result]
 
-            with ThreadPoolExecutor(max_workers=10) as executor:
+            with ThreadPoolExecutor(max_workers=MAX_PARALLEL_REQUESTS) as executor:
                 futures = [
                     executor.submit(collect_pdf_results, pdf_path, dataset_name)  # type: ignore
                     for pdf_path, dataset_name in path_to_dataset.items()
