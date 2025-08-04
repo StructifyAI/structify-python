@@ -3,9 +3,11 @@ from __future__ import annotations
 
 import os
 import uuid
-from typing import Any, Dict, List, Optional, TypedDict, cast
+from typing import Any, Dict, List, Tuple, Optional, TypedDict, cast
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 import polars as pl
+from tqdm import tqdm  # type: ignore
 from polars import LazyFrame
 
 from structify.types.entity_param import EntityParam
@@ -25,6 +27,8 @@ from ..types.dataset_descriptor_param import DatasetDescriptorParam
 from ..types.structure_run_async_params import SourcePdf
 
 __all__ = ["PolarsResource"]
+
+MAX_PARALLEL_REQUESTS = 20
 
 
 class PolarsResource(SyncAPIResource):
@@ -148,23 +152,28 @@ class PolarsResource(SyncAPIResource):
             # Add entities in batches to avoid JSON payload size issues
             entity_ids: List[str] = []
             entity_batches = chunk_entities_for_parallel_add(entities)
-            for batch in entity_batches:
-                batch_entity_ids = self._client.entities.add_batch(
+
+            def add_batch(batch: List[KnowledgeGraphParam]) -> List[str]:
+                return self._client.entities.add_batch(
                     dataset=dataset_name,
                     entity_graphs=batch,
                 )
-                entity_ids.extend(batch_entity_ids)
+
+            with ThreadPoolExecutor(max_workers=MAX_PARALLEL_REQUESTS) as executor:
+                futures = [executor.submit(add_batch, batch) for batch in entity_batches]
+                for future in tqdm(as_completed(futures), total=len(futures), desc=f"Preparing {dataframe_name}"):
+                    batch_entity_ids = future.result()
+                    entity_ids.extend(batch_entity_ids)
+
             # 2. Enhance the entities
-            for entity_id in entity_ids:
-                for col_name in new_columns_dict.keys():
-                    self._client.structure.enhance_property(
-                        entity_id=entity_id,
-                        property_name=col_name,
-                        allow_extra_entities=False,
-                        node_id=node_id,
-                    )
-            # 3. Wait for all jobs to complete
-            # Create a title for the progress bar
+            def enhance_entity_property(entity_id: str, col_name: str) -> None:
+                self._client.structure.enhance_property(
+                    entity_id=entity_id,
+                    property_name=col_name,
+                    allow_extra_entities=False,
+                    node_id=node_id,
+                )
+
             property_list = list(new_columns_dict.keys())
             if len(property_list) == 1:
                 property_names = property_list[0]
@@ -172,6 +181,21 @@ class PolarsResource(SyncAPIResource):
                 property_names = f"{property_list[0]} and {property_list[1]}"
             else:
                 property_names = f"{', '.join(property_list[:-1])}, and {property_list[-1]}"
+
+            # Create all enhancement tasks
+            enhancement_tasks = [
+                (entity_id, col_name) for entity_id in entity_ids for col_name in new_columns_dict.keys()
+            ]
+            with ThreadPoolExecutor(max_workers=MAX_PARALLEL_REQUESTS) as executor:
+                futures = [
+                    executor.submit(enhance_entity_property, entity_id, col_name)  # type: ignore
+                    for entity_id, col_name in enhancement_tasks
+                ]
+                for future in tqdm(
+                    as_completed(futures), total=len(futures), desc="Preparing enrichments for {property_names}"
+                ):
+                    future.result()  # Wait for completion
+            # 3. Wait for all jobs to complete
             title = f"Enriching {property_names} for {dataframe_name}"
             self._client.jobs.wait_for_jobs(dataset_name=dataset_name, title=title)
             # 4. Collect the results
@@ -280,19 +304,32 @@ class PolarsResource(SyncAPIResource):
             # Add entities in batches to avoid JSON payload size issues
             entity_ids: List[str] = []
             entity_batches = chunk_entities_for_parallel_add(entities)
-            for batch in entity_batches:
-                batch_entity_ids = self._client.entities.add_batch(
+
+            def add_batch(batch: List[KnowledgeGraphParam]) -> List[str]:
+                return self._client.entities.add_batch(
                     dataset=dataset_name,
                     entity_graphs=batch,
                 )
-                entity_ids.extend(batch_entity_ids)
+
+            with ThreadPoolExecutor(max_workers=MAX_PARALLEL_REQUESTS) as executor:
+                futures = [executor.submit(add_batch, batch) for batch in entity_batches]
+                for future in tqdm(as_completed(futures), total=len(futures), desc=f"Preparing {source_table_name}"):
+                    batch_entity_ids = future.result()
+                    entity_ids.extend(batch_entity_ids)
 
             # Enhance relationships for each entity
-            for entity_id in entity_ids:
+            def enhance_relationship(entity_id: str) -> None:
                 self._client.structure.enhance_relationship(
                     entity_id=entity_id,
                     relationship_name=relationship_name,
                 )
+
+            with ThreadPoolExecutor(max_workers=MAX_PARALLEL_REQUESTS) as executor:
+                futures = [executor.submit(enhance_relationship, entity_id) for entity_id in entity_ids]  # type: ignore
+                for future in tqdm(
+                    as_completed(futures), total=len(futures), desc=f"Preparing {relationship_name} enrichments"
+                ):
+                    future.result()  # Wait for completion
 
             # Wait for all relationship enhancement jobs to complete
             title = f"Finding {relationship_name} for {source_table_name}"
@@ -431,7 +468,7 @@ class PolarsResource(SyncAPIResource):
             entities = batch_df.drop_nulls().unique().to_dicts()
 
             # 2. Scrape the URLs
-            for entity in entities:
+            def scrape_entity(entity: Dict[str, Any]) -> None:
                 self._client.scrape.list(
                     table_name=target_table_name,
                     dataset_name=dataset_descriptor["name"],
@@ -449,6 +486,15 @@ class PolarsResource(SyncAPIResource):
                     dataset_descriptor=dataset_descriptor,
                     node_id=node_id,
                 )
+
+            with ThreadPoolExecutor(max_workers=MAX_PARALLEL_REQUESTS) as executor:
+                futures = [executor.submit(scrape_entity, entity) for entity in entities]
+                for future in tqdm(
+                    as_completed(futures),
+                    total=len(futures),
+                    desc=f"Preparing to scrape websites for {target_table_name}",
+                ):
+                    future.result()  # Wait for completion
 
             # Wait for all scraping jobs to complete
             title = f"Scraping websites for {target_table_name}"
@@ -541,7 +587,7 @@ class PolarsResource(SyncAPIResource):
             path_to_dataset: dict[str, str] = {}
             job_ids: list[str] = []
 
-            for pdf_path in batch_paths:
+            def process_pdf(pdf_path: str) -> Tuple[str, str, str]:
                 dataset_name = f"structure_pdfs_{table_name}_{uuid.uuid4().hex}"
 
                 # Create dataset for this PDF
@@ -567,32 +613,33 @@ class PolarsResource(SyncAPIResource):
                     source=SourcePdf(pdf={"path": f"{dataset_name}.pdf"}),
                     node_id=node_id,
                 )
-                job_ids.append(job_id)
-                path_to_dataset[str(pdf_path)] = dataset_name
+                return job_id, str(pdf_path), dataset_name
+
+            with ThreadPoolExecutor(max_workers=MAX_PARALLEL_REQUESTS) as executor:
+                futures = [executor.submit(process_pdf, pdf_path) for pdf_path in batch_paths]
+                for future in tqdm(as_completed(futures), total=len(futures), desc="Preparing PDFs"):
+                    job_id, pdf_path, dataset_name = future.result()
+                    job_ids.append(job_id)
+                    path_to_dataset[pdf_path] = dataset_name
 
             # Wait for all PDF processing jobs to complete
-            title = f"Parsing {table_name} from PDFs"
-            self._client.jobs.wait_for_jobs(job_ids=job_ids, title=title)
+            self._client.jobs.wait_for_jobs(job_ids=job_ids, title=f"Parsing {table_name} from PDFs")
 
             # Collect results from all processed PDFs
             structured_results: list[dict[str, Any]] = []
-            for pdf_path, dataset_name in path_to_dataset.items():
-                try:
-                    entities_result = self._client.datasets.view_table(dataset=dataset_name, name=table_name)
-                    for entity in entities_result:
-                        result_row = {**entity.properties, path_column: pdf_path}
-                        structured_results.append(result_row)
-                except Exception as e:
-                    # In test environments, job IDs might not be properly formatted UUIDs
-                    # causing the jobs.get() call in wait_for_jobs to fail with a validation error.
-                    # For now, we'll catch these errors and continue, assuming the job completed successfully
-                    # in the test environment.
-                    if "must match format" in str(e) and "uuid" in str(e):
-                        # This is likely a test environment with mock job IDs, proceed optimistically
-                        pass
-                    else:
-                        # Re-raise other errors as they might be legitimate issues
-                        raise e
+
+            def collect_pdf_results(pdf_path: str, dataset_name: str) -> List[Dict[str, Any]]:
+                entities_result = self._client.datasets.view_table(dataset=dataset_name, name=table_name)
+                return [{**entity.properties, path_column: pdf_path} for entity in entities_result]
+
+            with ThreadPoolExecutor(max_workers=MAX_PARALLEL_REQUESTS) as executor:
+                futures = [
+                    executor.submit(collect_pdf_results, pdf_path, dataset_name)  # type: ignore
+                    for pdf_path, dataset_name in path_to_dataset.items()
+                ]
+                for future in tqdm(as_completed(futures), total=len(futures), desc="Collecting PDF extractions"):
+                    results = future.result()
+                    structured_results.extend(results)
 
             # Ensure all columns are present with None for missing values
             for result_row in structured_results:
