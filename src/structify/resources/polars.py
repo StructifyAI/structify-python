@@ -192,7 +192,7 @@ class PolarsResource(SyncAPIResource):
                     for entity_id, col_name in enhancement_tasks
                 ]
                 for future in tqdm(
-                    as_completed(futures), total=len(futures), desc="Preparing enrichments for {property_names}"
+                    as_completed(futures), total=len(futures), desc=f"Preparing enrichments for {property_names}"
                 ):
                     future.result()  # Wait for completion
             # 3. Wait for all jobs to complete
