@@ -165,7 +165,7 @@ class PolarsResource(SyncAPIResource):
 
             # 2. Enhance the entities
             def enhance_entity_property(entity_id: str, col_name: str) -> None:
-                return self._client.structure.enhance_property(
+                self._client.structure.enhance_property(
                     entity_id=entity_id,
                     property_name=col_name,
                     allow_extra_entities=False,
@@ -317,7 +317,7 @@ class PolarsResource(SyncAPIResource):
 
             # Enhance relationships for each entity
             def enhance_relationship(entity_id: str) -> None:
-                return self._client.structure.enhance_relationship(
+                self._client.structure.enhance_relationship(
                     entity_id=entity_id,
                     relationship_name=relationship_name,
                 )
