@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.135.2 (2025-08-04)
+
+Full Changelog: [v1.135.1...v1.135.2](https://github.com/StructifyAI/structify-python/compare/v1.135.1...v1.135.2)
+
+### Features
+
+* Update from Structify backend changes ([5c14bd7](https://github.com/StructifyAI/structify-python/commit/5c14bd721c1d467a355a5a7285e2f5354187a4dc))
+
+
+### Bug Fixes
+
+* ignore exception ([54438f7](https://github.com/StructifyAI/structify-python/commit/54438f72a3b4b4c70d94af052949fe91d0ee5589))
+* Speed up structify API call workflow portions ([4e7c97f](https://github.com/StructifyAI/structify-python/commit/4e7c97f4a34862b98c4e7d3442998fc8965b7526))
+
 ## 1.135.1 (2025-08-02)
 
 Full Changelog: [v1.135.0...v1.135.1](https://github.com/StructifyAI/structify-python/compare/v1.135.0...v1.135.1)
