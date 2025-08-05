@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.135.3 (2025-08-05)
+
+Full Changelog: [v1.135.2...v1.135.3](https://github.com/StructifyAI/structify-python/compare/v1.135.2...v1.135.3)
+
+### Features
+
+* **api:** manual updates ([133c42f](https://github.com/StructifyAI/structify-python/commit/133c42f3197249cb082859679dbc5b8f4625bad8))
+
+
+### Bug Fixes
+
+* don't drop due to unrelated nulls ([5fd1a01](https://github.com/StructifyAI/structify-python/commit/5fd1a01fbc4f76f23e7f5c5a8d08a5ab007b636e))
+
 ## 1.135.2 (2025-08-04)
 
 Full Changelog: [v1.135.1...v1.135.2](https://github.com/StructifyAI/structify-python/compare/v1.135.1...v1.135.2)
