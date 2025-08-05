@@ -71,7 +71,7 @@ class ChatResource(SyncAPIResource):
         Add a git commit to a chat session
 
         Args:
-          commit_hash: The git commit hash (must be 40 characters)
+          commit_hash: The git commit hash (must be 40 characters).
 
           extra_headers: Send extra headers
 
@@ -384,7 +384,7 @@ class AsyncChatResource(AsyncAPIResource):
         Add a git commit to a chat session
 
         Args:
-          commit_hash: The git commit hash (must be 40 characters)
+          commit_hash: The git commit hash (must be 40 characters).
 
           extra_headers: Send extra headers
 
