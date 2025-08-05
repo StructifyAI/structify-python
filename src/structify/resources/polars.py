@@ -465,7 +465,7 @@ class PolarsResource(SyncAPIResource):
 
         def scrape_batch(batch_df: pl.DataFrame) -> pl.DataFrame:
             # 1. Get the unique URLs in the batch
-            entities = batch_df.drop_nulls().unique().to_dicts()
+            entities = batch_df.drop_nulls(subset=[url_column]).unique().to_dicts()
 
             # 2. Scrape the URLs
             def scrape_entity(entity: Dict[str, Any]) -> None:
@@ -581,7 +581,7 @@ class PolarsResource(SyncAPIResource):
 
         def structure_batch(batch_df: pl.DataFrame) -> pl.DataFrame:
             # Get unique PDF paths in the batch
-            batch_paths = batch_df.select(path_column).drop_nulls().unique().to_series().to_list()
+            batch_paths = batch_df.select(path_column).drop_nulls(subset=[path_column]).unique().to_series().to_list()
 
             # Process each PDF document
             path_to_dataset: dict[str, str] = {}
