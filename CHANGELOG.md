@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.135.5 (2025-08-06)
+
+Full Changelog: [v1.135.4...v1.135.5](https://github.com/StructifyAI/structify-python/compare/v1.135.4...v1.135.5)
+
+### Chores
+
+* **internal:** fix ruff target version ([824ff2c](https://github.com/StructifyAI/structify-python/commit/824ff2c95e0e092a70e8f19327a2138177911023))
+
 ## 1.135.4 (2025-08-06)
 
 Full Changelog: [v1.135.3...v1.135.4](https://github.com/StructifyAI/structify-python/compare/v1.135.3...v1.135.4)
