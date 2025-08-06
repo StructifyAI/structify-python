@@ -473,6 +473,7 @@ class PolarsResource(SyncAPIResource):
 
             # 2. Scrape the URLs
             def scrape_entity(entity: Dict[str, Any]) -> None:
+                entity_clean = {k: v for k, v in entity.items() if v is not None}
                 self._client.scrape.list(
                     table_name=target_table_name,
                     dataset_name=dataset_descriptor["name"],
@@ -481,7 +482,7 @@ class PolarsResource(SyncAPIResource):
                             "relationship_name": relationship_name,
                             "source_entity": {
                                 "id": 1,
-                                "properties": entity,
+                                "properties": entity_clean,
                                 "type": source_table_name,
                             },
                             "source_url_column": url_column,
