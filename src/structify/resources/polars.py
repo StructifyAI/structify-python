@@ -24,7 +24,7 @@ from .._response import (
 )
 from ..types.table_param import Property, TableParam
 from ..types.dataset_descriptor_param import DatasetDescriptorParam
-from ..types.structure_run_async_params import SourcePdf
+from ..types.structure_run_async_params import SourcePdf, StopConfig
 
 __all__ = ["PolarsResource"]
 
@@ -58,6 +58,7 @@ class PolarsResource(SyncAPIResource):
         new_columns: Dict[str, Dict[str, Any]],
         dataframe_name: str,
         dataframe_description: str,
+        max_steps_override: int | None = None,
     ) -> LazyFrame:
         """
         Enhance one or more columns of a `LazyFrame` by letting Structify populate the
@@ -172,6 +173,7 @@ class PolarsResource(SyncAPIResource):
                     property_name=col_name,
                     allow_extra_entities=False,
                     node_id=node_id,
+                    stop_config=StopConfig(max_steps_without_save=max_steps_override) if max_steps_override else None,
                 )
 
             property_list = list(new_columns_dict.keys())
@@ -218,6 +220,7 @@ class PolarsResource(SyncAPIResource):
         target_schema: Dict[str, Dict[str, Any]],
         target_schema_override: TableParam | None = None,
         source_table_name: str = "source_table",
+        max_steps_override: int | None = None,
     ) -> LazyFrame:
         """
         Enhance a LazyFrame by finding related entities and creating a one-to-many relationship.
@@ -322,6 +325,7 @@ class PolarsResource(SyncAPIResource):
                 self._client.structure.enhance_relationship(
                     entity_id=entity_id,
                     relationship_name=relationship_name,
+                    stop_config=StopConfig(max_steps_without_save=max_steps_override) if max_steps_override else None,
                 )
 
             with ThreadPoolExecutor(max_workers=MAX_PARALLEL_REQUESTS) as executor:
