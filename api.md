@@ -48,7 +48,10 @@ Types:
 from structify.types import (
     AddChatMessageRequest,
     AddChatMessageResponse,
+    AddCollaboratorRequest,
     ChatSession,
+    ChatSessionRole,
+    ChatSessionUser,
     ChatSessionWithMessages,
     CreateChatSessionRequest,
     CreateChatSessionResponse,
@@ -56,6 +59,7 @@ from structify.types import (
     ErrorResponse,
     GetChatSessionResponse,
     ListChatSessionsResponse,
+    ListCollaboratorsResponse,
     ChatAddGitCommitResponse,
     ChatGetGitCommitResponse,
     ChatGetSessionTimelineResponse,
@@ -64,6 +68,7 @@ from structify.types import (
 
 Methods:
 
+- <code title="post /chat/sessions/{chat_id}/collaborators">client.chat.<a href="./src/structify/resources/chat.py">add_collaborator</a>(chat_id, \*\*<a href="src/structify/types/chat_add_collaborator_params.py">params</a>) -> None</code>
 - <code title="post /chat/sessions/{session_id}/commits">client.chat.<a href="./src/structify/resources/chat.py">add_git_commit</a>(session_id, \*\*<a href="src/structify/types/chat_add_git_commit_params.py">params</a>) -> <a href="./src/structify/types/chat_add_git_commit_response.py">ChatAddGitCommitResponse</a></code>
 - <code title="post /chat/sessions/{session_id}/messages">client.chat.<a href="./src/structify/resources/chat.py">add_message</a>(session_id, \*\*<a href="src/structify/types/chat_add_message_params.py">params</a>) -> <a href="./src/structify/types/add_chat_message_response.py">AddChatMessageResponse</a></code>
 - <code title="post /chat/sessions">client.chat.<a href="./src/structify/resources/chat.py">create_session</a>(\*\*<a href="src/structify/types/chat_create_session_params.py">params</a>) -> <a href="./src/structify/types/create_chat_session_response.py">CreateChatSessionResponse</a></code>
@@ -71,7 +76,9 @@ Methods:
 - <code title="get /chat/sessions/{chat_id}/commits/{commit_hash}">client.chat.<a href="./src/structify/resources/chat.py">get_git_commit</a>(commit_hash, \*, chat_id) -> <a href="./src/structify/types/chat_get_git_commit_response.py">ChatGetGitCommitResponse</a></code>
 - <code title="get /chat/sessions/{session_id}">client.chat.<a href="./src/structify/resources/chat.py">get_session</a>(session_id) -> <a href="./src/structify/types/get_chat_session_response.py">GetChatSessionResponse</a></code>
 - <code title="get /chat/sessions/{session_id}/timeline">client.chat.<a href="./src/structify/resources/chat.py">get_session_timeline</a>(session_id) -> <a href="./src/structify/types/chat_get_session_timeline_response.py">ChatGetSessionTimelineResponse</a></code>
+- <code title="get /chat/sessions/{chat_id}/collaborators">client.chat.<a href="./src/structify/resources/chat.py">list_collaborators</a>(chat_id) -> <a href="./src/structify/types/list_collaborators_response.py">ListCollaboratorsResponse</a></code>
 - <code title="get /chat/sessions">client.chat.<a href="./src/structify/resources/chat.py">list_sessions</a>(\*\*<a href="src/structify/types/chat_list_sessions_params.py">params</a>) -> <a href="./src/structify/types/list_chat_sessions_response.py">ListChatSessionsResponse</a></code>
+- <code title="delete /chat/sessions/{chat_id}/collaborators/{user_id}">client.chat.<a href="./src/structify/resources/chat.py">remove_collaborator</a>(user_id, \*, chat_id) -> None</code>
 
 # Teams
 
@@ -291,32 +298,6 @@ Methods:
 - <code title="post /admin/training_datasets/upload_labeled_step">client.admin.training_datasets.<a href="./src/structify/resources/admin/training_datasets.py">upload_labeled_step</a>(\*\*<a href="src/structify/types/admin/training_dataset_upload_labeled_step_params.py">params</a>) -> None</code>
 - <code title="put /admin/training_datasets/verify_datum">client.admin.training_datasets.<a href="./src/structify/resources/admin/training_datasets.py">verify_datum</a>(\*\*<a href="src/structify/types/admin/training_dataset_verify_datum_params.py">params</a>) -> None</code>
 
-# Workflow
-
-Types:
-
-```python
-from structify.types import (
-    ExistingWorkflow,
-    ID,
-    Workflow,
-    WorkflowListResponse,
-    WorkflowJobProgressResponse,
-    WorkflowJobsResponse,
-)
-```
-
-Methods:
-
-- <code title="post /workflow/create">client.workflow.<a href="./src/structify/resources/workflow.py">create</a>(\*\*<a href="src/structify/types/workflow_create_params.py">params</a>) -> <a href="./src/structify/types/id.py">str</a></code>
-- <code title="put /workflow/update">client.workflow.<a href="./src/structify/resources/workflow.py">update</a>(\*\*<a href="src/structify/types/workflow_update_params.py">params</a>) -> <a href="./src/structify/types/id.py">str</a></code>
-- <code title="post /workflow/list">client.workflow.<a href="./src/structify/resources/workflow.py">list</a>(\*\*<a href="src/structify/types/workflow_list_params.py">params</a>) -> <a href="./src/structify/types/workflow_list_response.py">WorkflowListResponse</a></code>
-- <code title="delete /workflow/delete">client.workflow.<a href="./src/structify/resources/workflow.py">delete</a>(\*\*<a href="src/structify/types/workflow_delete_params.py">params</a>) -> None</code>
-- <code title="get /workflow/get">client.workflow.<a href="./src/structify/resources/workflow.py">get</a>(\*\*<a href="src/structify/types/workflow_get_params.py">params</a>) -> <a href="./src/structify/types/existing_workflow.py">ExistingWorkflow</a></code>
-- <code title="get /workflow/job_progress">client.workflow.<a href="./src/structify/resources/workflow.py">job_progress</a>(\*\*<a href="src/structify/types/workflow_job_progress_params.py">params</a>) -> <a href="./src/structify/types/workflow_job_progress_response.py">WorkflowJobProgressResponse</a></code>
-- <code title="get /workflow/jobs">client.workflow.<a href="./src/structify/resources/workflow.py">jobs</a>(\*\*<a href="src/structify/types/workflow_jobs_params.py">params</a>) -> <a href="./src/structify/types/workflow_jobs_response.py">WorkflowJobsResponse</a></code>
-- <code title="post /workflow/trigger">client.workflow.<a href="./src/structify/resources/workflow.py">trigger</a>(\*\*<a href="src/structify/types/workflow_trigger_params.py">params</a>) -> object</code>
-
 # Datasets
 
 Types:
@@ -467,6 +448,18 @@ Methods:
 - <code title="patch /sessions/nodes/{node_id}">client.sessions.<a href="./src/structify/resources/sessions.py">update_node</a>(node_id, \*\*<a href="src/structify/types/session_update_node_params.py">params</a>) -> <a href="./src/structify/types/workflow_session_node.py">WorkflowSessionNode</a></code>
 - <code title="patch /sessions/nodes/{node_id}/progress">client.sessions.<a href="./src/structify/resources/sessions.py">update_node_progress</a>(node_id, \*\*<a href="src/structify/types/session_update_node_progress_params.py">params</a>) -> <a href="./src/structify/types/workflow_session_node.py">WorkflowSessionNode</a></code>
 - <code title="post /sessions/nodes/{node_id}/output_data">client.sessions.<a href="./src/structify/resources/sessions.py">upload_node_output_data</a>(node_id, \*\*<a href="src/structify/types/session_upload_node_output_data_params.py">params</a>) -> <a href="./src/structify/types/workflow_session_node.py">WorkflowSessionNode</a></code>
+
+# WorkflowSchedule
+
+Types:
+
+```python
+from structify.types import (
+    CreateWorkflowScheduleRequest,
+    UpdateWorkflowScheduleRequest,
+    WorkflowScheduleInfo,
+)
+```
 
 # Server
 

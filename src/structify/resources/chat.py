@@ -7,12 +7,14 @@ from typing import Optional
 import httpx
 
 from ..types import (
+    ChatSessionRole,
     chat_add_message_params,
     chat_list_sessions_params,
     chat_add_git_commit_params,
     chat_create_session_params,
+    chat_add_collaborator_params,
 )
-from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from .._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -23,9 +25,11 @@ from .._response import (
     async_to_streamed_response_wrapper,
 )
 from .._base_client import make_request_options
+from ..types.chat_session_role import ChatSessionRole
 from ..types.add_chat_message_response import AddChatMessageResponse
 from ..types.get_chat_session_response import GetChatSessionResponse
 from ..types.list_chat_sessions_response import ListChatSessionsResponse
+from ..types.list_collaborators_response import ListCollaboratorsResponse
 from ..types.chat_add_git_commit_response import ChatAddGitCommitResponse
 from ..types.chat_get_git_commit_response import ChatGetGitCommitResponse
 from ..types.create_chat_session_response import CreateChatSessionResponse
@@ -55,6 +59,47 @@ class ChatResource(SyncAPIResource):
         """
         return ChatResourceWithStreamingResponse(self)
 
+    def add_collaborator(
+        self,
+        chat_id: str,
+        *,
+        role: ChatSessionRole,
+        user_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> None:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not chat_id:
+            raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return self._post(
+            f"/chat/sessions/{chat_id}/collaborators",
+            body=maybe_transform(
+                {
+                    "role": role,
+                    "user_id": user_id,
+                },
+                chat_add_collaborator_params.ChatAddCollaboratorParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NoneType,
+        )
+
     def add_git_commit(
         self,
         session_id: str,
@@ -71,7 +116,7 @@ class ChatResource(SyncAPIResource):
         Add a git commit to a chat session
 
         Args:
-          commit_hash: The git commit hash (must be 40 characters).
+          commit_hash: The git commit hash (must be 40 characters)
 
           extra_headers: Send extra headers
 
@@ -310,6 +355,39 @@ class ChatResource(SyncAPIResource):
             cast_to=ChatGetSessionTimelineResponse,
         )
 
+    def list_collaborators(
+        self,
+        chat_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ListCollaboratorsResponse:
+        """
+        List all users who have access to a chat session
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not chat_id:
+            raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
+        return self._get(
+            f"/chat/sessions/{chat_id}/collaborators",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ListCollaboratorsResponse,
+        )
+
     def list_sessions(
         self,
         *,
@@ -347,6 +425,41 @@ class ChatResource(SyncAPIResource):
             cast_to=ListChatSessionsResponse,
         )
 
+    def remove_collaborator(
+        self,
+        user_id: str,
+        *,
+        chat_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> None:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not chat_id:
+            raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
+        if not user_id:
+            raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return self._delete(
+            f"/chat/sessions/{chat_id}/collaborators/{user_id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NoneType,
+        )
+
 
 class AsyncChatResource(AsyncAPIResource):
     @cached_property
@@ -368,6 +481,47 @@ class AsyncChatResource(AsyncAPIResource):
         """
         return AsyncChatResourceWithStreamingResponse(self)
 
+    async def add_collaborator(
+        self,
+        chat_id: str,
+        *,
+        role: ChatSessionRole,
+        user_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> None:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not chat_id:
+            raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return await self._post(
+            f"/chat/sessions/{chat_id}/collaborators",
+            body=await async_maybe_transform(
+                {
+                    "role": role,
+                    "user_id": user_id,
+                },
+                chat_add_collaborator_params.ChatAddCollaboratorParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NoneType,
+        )
+
     async def add_git_commit(
         self,
         session_id: str,
@@ -384,7 +538,7 @@ class AsyncChatResource(AsyncAPIResource):
         Add a git commit to a chat session
 
         Args:
-          commit_hash: The git commit hash (must be 40 characters).
+          commit_hash: The git commit hash (must be 40 characters)
 
           extra_headers: Send extra headers
 
@@ -625,6 +779,39 @@ class AsyncChatResource(AsyncAPIResource):
             cast_to=ChatGetSessionTimelineResponse,
         )
 
+    async def list_collaborators(
+        self,
+        chat_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ListCollaboratorsResponse:
+        """
+        List all users who have access to a chat session
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not chat_id:
+            raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
+        return await self._get(
+            f"/chat/sessions/{chat_id}/collaborators",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ListCollaboratorsResponse,
+        )
+
     async def list_sessions(
         self,
         *,
@@ -662,11 +849,49 @@ class AsyncChatResource(AsyncAPIResource):
             cast_to=ListChatSessionsResponse,
         )
 
+    async def remove_collaborator(
+        self,
+        user_id: str,
+        *,
+        chat_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> None:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not chat_id:
+            raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
+        if not user_id:
+            raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return await self._delete(
+            f"/chat/sessions/{chat_id}/collaborators/{user_id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NoneType,
+        )
+
 
 class ChatResourceWithRawResponse:
     def __init__(self, chat: ChatResource) -> None:
         self._chat = chat
 
+        self.add_collaborator = to_raw_response_wrapper(
+            chat.add_collaborator,
+        )
         self.add_git_commit = to_raw_response_wrapper(
             chat.add_git_commit,
         )
@@ -688,8 +913,14 @@ class ChatResourceWithRawResponse:
         self.get_session_timeline = to_raw_response_wrapper(
             chat.get_session_timeline,
         )
+        self.list_collaborators = to_raw_response_wrapper(
+            chat.list_collaborators,
+        )
         self.list_sessions = to_raw_response_wrapper(
             chat.list_sessions,
+        )
+        self.remove_collaborator = to_raw_response_wrapper(
+            chat.remove_collaborator,
         )
 
 
@@ -697,6 +928,9 @@ class AsyncChatResourceWithRawResponse:
     def __init__(self, chat: AsyncChatResource) -> None:
         self._chat = chat
 
+        self.add_collaborator = async_to_raw_response_wrapper(
+            chat.add_collaborator,
+        )
         self.add_git_commit = async_to_raw_response_wrapper(
             chat.add_git_commit,
         )
@@ -718,8 +952,14 @@ class AsyncChatResourceWithRawResponse:
         self.get_session_timeline = async_to_raw_response_wrapper(
             chat.get_session_timeline,
         )
+        self.list_collaborators = async_to_raw_response_wrapper(
+            chat.list_collaborators,
+        )
         self.list_sessions = async_to_raw_response_wrapper(
             chat.list_sessions,
+        )
+        self.remove_collaborator = async_to_raw_response_wrapper(
+            chat.remove_collaborator,
         )
 
 
@@ -727,6 +967,9 @@ class ChatResourceWithStreamingResponse:
     def __init__(self, chat: ChatResource) -> None:
         self._chat = chat
 
+        self.add_collaborator = to_streamed_response_wrapper(
+            chat.add_collaborator,
+        )
         self.add_git_commit = to_streamed_response_wrapper(
             chat.add_git_commit,
         )
@@ -748,8 +991,14 @@ class ChatResourceWithStreamingResponse:
         self.get_session_timeline = to_streamed_response_wrapper(
             chat.get_session_timeline,
         )
+        self.list_collaborators = to_streamed_response_wrapper(
+            chat.list_collaborators,
+        )
         self.list_sessions = to_streamed_response_wrapper(
             chat.list_sessions,
+        )
+        self.remove_collaborator = to_streamed_response_wrapper(
+            chat.remove_collaborator,
         )
 
 
@@ -757,6 +1006,9 @@ class AsyncChatResourceWithStreamingResponse:
     def __init__(self, chat: AsyncChatResource) -> None:
         self._chat = chat
 
+        self.add_collaborator = async_to_streamed_response_wrapper(
+            chat.add_collaborator,
+        )
         self.add_git_commit = async_to_streamed_response_wrapper(
             chat.add_git_commit,
         )
@@ -778,6 +1030,12 @@ class AsyncChatResourceWithStreamingResponse:
         self.get_session_timeline = async_to_streamed_response_wrapper(
             chat.get_session_timeline,
         )
+        self.list_collaborators = async_to_streamed_response_wrapper(
+            chat.list_collaborators,
+        )
         self.list_sessions = async_to_streamed_response_wrapper(
             chat.list_sessions,
+        )
+        self.remove_collaborator = async_to_streamed_response_wrapper(
+            chat.remove_collaborator,
         )
