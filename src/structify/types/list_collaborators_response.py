@@ -6,22 +6,20 @@ from datetime import datetime
 from .._models import BaseModel
 from .chat_session_role import ChatSessionRole
 
-__all__ = ["ListChatSessionsResponse", "Session"]
+__all__ = ["ListCollaboratorsResponse", "User"]
 
 
-class Session(BaseModel):
-    id: str
-
+class User(BaseModel):
     created_at: datetime
 
-    project_id: str
+    email: str
 
-    title: str
+    role: ChatSessionRole
 
     updated_at: datetime
 
-    user_role: ChatSessionRole
+    user_id: str
 
 
-class ListChatSessionsResponse(BaseModel):
-    sessions: List[Session]
+class ListCollaboratorsResponse(BaseModel):
+    users: List[User]

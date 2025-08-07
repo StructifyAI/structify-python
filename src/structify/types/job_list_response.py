@@ -6,7 +6,6 @@ from typing_extensions import Literal, TypeAlias
 
 from pydantic import Field as FieldInfo
 
-from .id import ID
 from .._models import BaseModel
 from .knowledge_graph import KnowledgeGraph
 from .save_requirement import SaveRequirement
@@ -102,8 +101,6 @@ class JobListResponse(BaseModel):
 
     job_type: Literal["Web", "Pdf", "Derive", "Scrape"]
 
-    selected_next_workflow_step: bool
-
     status: Literal["Queued", "Running", "Completed", "Failed"]
 
     user_id: str
@@ -119,9 +116,3 @@ class JobListResponse(BaseModel):
     run_time_milliseconds: Optional[int] = None
 
     special_job_type: Optional[Literal["HumanLLM"]] = None
-
-    workflow_group_id: Optional[str] = None
-
-    workflow_id: Optional[ID] = None
-
-    workflow_step_id: Optional[str] = None

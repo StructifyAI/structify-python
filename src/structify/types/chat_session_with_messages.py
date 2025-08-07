@@ -4,6 +4,7 @@ from typing import List, Optional
 from datetime import datetime
 
 from .._models import BaseModel
+from .chat_session_role import ChatSessionRole
 
 __all__ = ["ChatSessionWithMessages", "Commit", "Message"]
 
@@ -47,6 +48,6 @@ class ChatSessionWithMessages(BaseModel):
 
     updated_at: datetime
 
-    user_id: str
+    user_role: ChatSessionRole
 
     latest_workflow_session_id: Optional[str] = None

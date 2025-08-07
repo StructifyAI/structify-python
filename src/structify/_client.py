@@ -35,7 +35,6 @@ from .resources import (
     entities,
     projects,
     sessions,
-    workflow,
     documents,
     structure,
 )
@@ -75,7 +74,6 @@ class Structify(SyncAPIClient):
     projects: projects.ProjectsResource
     secrets: secrets.SecretsResource
     admin: admin.AdminResource
-    workflow: workflow.WorkflowResource
     datasets: datasets.DatasetsResource
     documents: documents.DocumentsResource
     jobs: jobs.JobsResource
@@ -175,7 +173,6 @@ class Structify(SyncAPIClient):
         self.projects = projects.ProjectsResource(self)
         self.secrets = secrets.SecretsResource(self)
         self.admin = admin.AdminResource(self)
-        self.workflow = workflow.WorkflowResource(self)
         self.datasets = datasets.DatasetsResource(self)
         self.documents = documents.DocumentsResource(self)
         self.jobs = jobs.JobsResource(self)
@@ -305,7 +302,6 @@ class AsyncStructify(AsyncAPIClient):
     projects: projects.AsyncProjectsResource
     secrets: secrets.AsyncSecretsResource
     admin: admin.AsyncAdminResource
-    workflow: workflow.AsyncWorkflowResource
     datasets: datasets.AsyncDatasetsResource
     documents: documents.AsyncDocumentsResource
     jobs: jobs.AsyncJobsResource
@@ -404,7 +400,6 @@ class AsyncStructify(AsyncAPIClient):
         self.projects = projects.AsyncProjectsResource(self)
         self.secrets = secrets.AsyncSecretsResource(self)
         self.admin = admin.AsyncAdminResource(self)
-        self.workflow = workflow.AsyncWorkflowResource(self)
         self.datasets = datasets.AsyncDatasetsResource(self)
         self.documents = documents.AsyncDocumentsResource(self)
         self.jobs = jobs.AsyncJobsResource(self)
@@ -534,7 +529,6 @@ class StructifyWithRawResponse:
         self.projects = projects.ProjectsResourceWithRawResponse(client.projects)
         self.secrets = secrets.SecretsResourceWithRawResponse(client.secrets)
         self.admin = admin.AdminResourceWithRawResponse(client.admin)
-        self.workflow = workflow.WorkflowResourceWithRawResponse(client.workflow)
         self.datasets = datasets.DatasetsResourceWithRawResponse(client.datasets)
         self.documents = documents.DocumentsResourceWithRawResponse(client.documents)
         self.jobs = jobs.JobsResourceWithRawResponse(client.jobs)
@@ -557,7 +551,6 @@ class AsyncStructifyWithRawResponse:
         self.projects = projects.AsyncProjectsResourceWithRawResponse(client.projects)
         self.secrets = secrets.AsyncSecretsResourceWithRawResponse(client.secrets)
         self.admin = admin.AsyncAdminResourceWithRawResponse(client.admin)
-        self.workflow = workflow.AsyncWorkflowResourceWithRawResponse(client.workflow)
         self.datasets = datasets.AsyncDatasetsResourceWithRawResponse(client.datasets)
         self.documents = documents.AsyncDocumentsResourceWithRawResponse(client.documents)
         self.jobs = jobs.AsyncJobsResourceWithRawResponse(client.jobs)
@@ -579,7 +572,6 @@ class StructifyWithStreamedResponse:
         self.projects = projects.ProjectsResourceWithStreamingResponse(client.projects)
         self.secrets = secrets.SecretsResourceWithStreamingResponse(client.secrets)
         self.admin = admin.AdminResourceWithStreamingResponse(client.admin)
-        self.workflow = workflow.WorkflowResourceWithStreamingResponse(client.workflow)
         self.datasets = datasets.DatasetsResourceWithStreamingResponse(client.datasets)
         self.documents = documents.DocumentsResourceWithStreamingResponse(client.documents)
         self.jobs = jobs.JobsResourceWithStreamingResponse(client.jobs)
@@ -602,7 +594,6 @@ class AsyncStructifyWithStreamedResponse:
         self.projects = projects.AsyncProjectsResourceWithStreamingResponse(client.projects)
         self.secrets = secrets.AsyncSecretsResourceWithStreamingResponse(client.secrets)
         self.admin = admin.AsyncAdminResourceWithStreamingResponse(client.admin)
-        self.workflow = workflow.AsyncWorkflowResourceWithStreamingResponse(client.workflow)
         self.datasets = datasets.AsyncDatasetsResourceWithStreamingResponse(client.datasets)
         self.documents = documents.AsyncDocumentsResourceWithStreamingResponse(client.documents)
         self.jobs = jobs.AsyncJobsResourceWithStreamingResponse(client.jobs)
