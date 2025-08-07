@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-from .id import ID as ID
 from .team import Team as Team
 from .image import Image as Image
 from .table import Table as Table
@@ -11,7 +10,6 @@ from .source import Source as Source
 from .project import Project as Project
 from .sandbox import Sandbox as Sandbox
 from .strategy import Strategy as Strategy
-from .workflow import Workflow as Workflow
 from .team_role import TeamRole as TeamRole
 from .user_info import UserInfo as UserInfo
 from .user_team import UserTeam as UserTeam
@@ -27,16 +25,15 @@ from .execution_step import ExecutionStep as ExecutionStep
 from .strategy_param import StrategyParam as StrategyParam
 from .team_with_role import TeamWithRole as TeamWithRole
 from .token_response import TokenResponse as TokenResponse
-from .workflow_param import WorkflowParam as WorkflowParam
 from .job_list_params import JobListParams as JobListParams
 from .knowledge_graph import KnowledgeGraph as KnowledgeGraph
 from .job_get_response import JobGetResponse as JobGetResponse
 from .save_requirement import SaveRequirement as SaveRequirement
 from .workflow_session import WorkflowSession as WorkflowSession
 from .chat_prompt_param import ChatPromptParam as ChatPromptParam
+from .chat_session_role import ChatSessionRole as ChatSessionRole
 from .entity_add_params import EntityAddParams as EntityAddParams
 from .entity_get_params import EntityGetParams as EntityGetParams
-from .existing_workflow import ExistingWorkflow as ExistingWorkflow
 from .get_team_response import GetTeamResponse as GetTeamResponse
 from .job_list_response import JobListResponse as JobListResponse
 from .job_status_params import JobStatusParams as JobStatusParams
@@ -67,7 +64,6 @@ from .property_type_param import PropertyTypeParam as PropertyTypeParam
 from .report_wrong_params import ReportWrongParams as ReportWrongParams
 from .tool_metadata_param import ToolMetadataParam as ToolMetadataParam
 from .user_usage_response import UserUsageResponse as UserUsageResponse
-from .workflow_get_params import WorkflowGetParams as WorkflowGetParams
 from .create_team_response import CreateTeamResponse as CreateTeamResponse
 from .dataset_get_response import DatasetGetResponse as DatasetGetResponse
 from .dataset_match_params import DatasetMatchParams as DatasetMatchParams
@@ -86,8 +82,6 @@ from .secret_list_response import SecretListResponse as SecretListResponse
 from .secret_update_params import SecretUpdateParams as SecretUpdateParams
 from .source_list_response import SourceListResponse as SourceListResponse
 from .update_team_response import UpdateTeamResponse as UpdateTeamResponse
-from .workflow_jobs_params import WorkflowJobsParams as WorkflowJobsParams
-from .workflow_list_params import WorkflowListParams as WorkflowListParams
 from .dataset_create_params import DatasetCreateParams as DatasetCreateParams
 from .dataset_delete_params import DatasetDeleteParams as DatasetDeleteParams
 from .dataset_list_response import DatasetListResponse as DatasetListResponse
@@ -114,11 +108,6 @@ from .remove_member_response import RemoveMemberResponse as RemoveMemberResponse
 from .save_requirement_param import SaveRequirementParam as SaveRequirementParam
 from .team_add_member_params import TeamAddMemberParams as TeamAddMemberParams
 from .update_secret_response import UpdateSecretResponse as UpdateSecretResponse
-from .workflow_create_params import WorkflowCreateParams as WorkflowCreateParams
-from .workflow_delete_params import WorkflowDeleteParams as WorkflowDeleteParams
-from .workflow_jobs_response import WorkflowJobsResponse as WorkflowJobsResponse
-from .workflow_list_response import WorkflowListResponse as WorkflowListResponse
-from .workflow_update_params import WorkflowUpdateParams as WorkflowUpdateParams
 from .chat_add_message_params import ChatAddMessageParams as ChatAddMessageParams
 from .create_project_response import CreateProjectResponse as CreateProjectResponse
 from .dataset_create_response import DatasetCreateResponse as DatasetCreateResponse
@@ -127,7 +116,6 @@ from .entity_add_batch_params import EntityAddBatchParams as EntityAddBatchParam
 from .entity_list_jobs_params import EntityListJobsParams as EntityListJobsParams
 from .entity_summarize_params import EntitySummarizeParams as EntitySummarizeParams
 from .report_missing_response import ReportMissingResponse as ReportMissingResponse
-from .workflow_trigger_params import WorkflowTriggerParams as WorkflowTriggerParams
 from .dataset_descriptor_param import DatasetDescriptorParam as DatasetDescriptorParam
 from .document_download_params import DocumentDownloadParams as DocumentDownloadParams
 from .entity_get_merges_params import EntityGetMergesParams as EntityGetMergesParams
@@ -165,10 +153,12 @@ from .entity_trigger_merge_params import EntityTriggerMergeParams as EntityTrigg
 from .get_session_events_response import GetSessionEventsResponse as GetSessionEventsResponse
 from .job_get_step_graph_response import JobGetStepGraphResponse as JobGetStepGraphResponse
 from .list_chat_sessions_response import ListChatSessionsResponse as ListChatSessionsResponse
+from .list_collaborators_response import ListCollaboratorsResponse as ListCollaboratorsResponse
 from .relationship_merge_strategy import RelationshipMergeStrategy as RelationshipMergeStrategy
 from .session_mark_errored_params import SessionMarkErroredParams as SessionMarkErroredParams
 from .source_delete_entity_params import SourceDeleteEntityParams as SourceDeleteEntityParams
 from .structure_job_status_params import StructureJobStatusParams as StructureJobStatusParams
+from .chat_add_collaborator_params import ChatAddCollaboratorParams as ChatAddCollaboratorParams
 from .chat_add_git_commit_response import ChatAddGitCommitResponse as ChatAddGitCommitResponse
 from .chat_get_git_commit_response import ChatGetGitCommitResponse as ChatGetGitCommitResponse
 from .create_chat_session_response import CreateChatSessionResponse as CreateChatSessionResponse
@@ -178,7 +168,6 @@ from .report_relationship_response import ReportRelationshipResponse as ReportRe
 from .sandbox_update_status_params import SandboxUpdateStatusParams as SandboxUpdateStatusParams
 from .structure_is_complete_params import StructureIsCompleteParams as StructureIsCompleteParams
 from .structure_run_async_response import StructureRunAsyncResponse as StructureRunAsyncResponse
-from .workflow_job_progress_params import WorkflowJobProgressParams as WorkflowJobProgressParams
 from .delete_source_entity_response import DeleteSourceEntityResponse as DeleteSourceEntityResponse
 from .entity_trigger_merge_response import EntityTriggerMergeResponse as EntityTriggerMergeResponse
 from .entity_update_property_params import EntityUpdatePropertyParams as EntityUpdatePropertyParams
@@ -189,7 +178,6 @@ from .dataset_remove_property_params import DatasetRemovePropertyParams as Datas
 from .dataset_update_property_params import DatasetUpdatePropertyParams as DatasetUpdatePropertyParams
 from .entity_add_relationship_params import EntityAddRelationshipParams as EntityAddRelationshipParams
 from .structure_is_complete_response import StructureIsCompleteResponse as StructureIsCompleteResponse
-from .workflow_job_progress_response import WorkflowJobProgressResponse as WorkflowJobProgressResponse
 from .workflow_node_execution_status import WorkflowNodeExecutionStatus as WorkflowNodeExecutionStatus
 from .entity_update_property_response import EntityUpdatePropertyResponse as EntityUpdatePropertyResponse
 from .entity_add_relationship_response import EntityAddRelationshipResponse as EntityAddRelationshipResponse

@@ -4,7 +4,6 @@ from typing import Optional
 from datetime import datetime
 from typing_extensions import Literal
 
-from .id import ID
 from .._models import BaseModel
 
 __all__ = ["JobCancelResponse"]
@@ -20,8 +19,6 @@ class JobCancelResponse(BaseModel):
     job_type: Literal["Web", "Pdf", "Derive", "Scrape"]
 
     max_steps_without_save: int
-
-    selected_next_workflow_step: bool
 
     status: Literal["Queued", "Running", "Completed", "Failed"]
 
@@ -50,9 +47,3 @@ class JobCancelResponse(BaseModel):
     run_time_milliseconds: Optional[int] = None
 
     seeded_kg_search_term: Optional[str] = None
-
-    workflow_group_id: Optional[str] = None
-
-    workflow_id: Optional[ID] = None
-
-    workflow_step_id: Optional[str] = None

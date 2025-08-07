@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union, Iterable, Optional
+from typing import Union, Iterable
 from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
 from .._utils import PropertyInfo
@@ -22,8 +22,6 @@ class EntityAddBatchParams(TypedDict, total=False):
     skip_malformed_entities: bool
 
     source: Source
-
-    triggering_workflow: Optional[str]
 
 
 class SourceWeb(TypedDict, total=False):
