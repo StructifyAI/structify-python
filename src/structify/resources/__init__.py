@@ -136,6 +136,14 @@ from .structure import (
     StructureResourceWithStreamingResponse,
     AsyncStructureResourceWithStreamingResponse,
 )
+from .workflow_schedule import (
+    WorkflowScheduleResource,
+    AsyncWorkflowScheduleResource,
+    WorkflowScheduleResourceWithRawResponse,
+    AsyncWorkflowScheduleResourceWithRawResponse,
+    WorkflowScheduleResourceWithStreamingResponse,
+    AsyncWorkflowScheduleResourceWithStreamingResponse,
+)
 
 __all__ = [
     "UserResource",
@@ -198,6 +206,12 @@ __all__ = [
     "AsyncSessionsResourceWithRawResponse",
     "SessionsResourceWithStreamingResponse",
     "AsyncSessionsResourceWithStreamingResponse",
+    "WorkflowScheduleResource",
+    "AsyncWorkflowScheduleResource",
+    "WorkflowScheduleResourceWithRawResponse",
+    "AsyncWorkflowScheduleResourceWithRawResponse",
+    "WorkflowScheduleResourceWithStreamingResponse",
+    "AsyncWorkflowScheduleResourceWithStreamingResponse",
     "ServerResource",
     "AsyncServerResource",
     "ServerResourceWithRawResponse",
