@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.135.7 (2025-08-09)
+
+Full Changelog: [v1.135.6...v1.135.7](https://github.com/StructifyAI/structify-python/compare/v1.135.6...v1.135.7)
+
+### Chores
+
+* **internal:** update comment in script ([70956e5](https://github.com/StructifyAI/structify-python/commit/70956e5c54a4739d2ae5826dbce9896416e963be))
+* update @stainless-api/prism-cli to v5.15.0 ([a630719](https://github.com/StructifyAI/structify-python/commit/a630719a6b10896e0f4e95f8941a4e1694ce656d))
+
 ## 1.135.6 (2025-08-08)
 
 Full Changelog: [v1.135.5...v1.135.6](https://github.com/StructifyAI/structify-python/compare/v1.135.5...v1.135.6)
