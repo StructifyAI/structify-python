@@ -211,8 +211,14 @@ from .structure_find_relationship_response import StructureFindRelationshipRespo
 from .structure_enhance_relationship_params import (
     StructureEnhanceRelationshipParams as StructureEnhanceRelationshipParams,
 )
+from .workflow_schedule_get_sessions_params import (
+    WorkflowScheduleGetSessionsParams as WorkflowScheduleGetSessionsParams,
+)
 from .session_upload_node_output_data_params import (
     SessionUploadNodeOutputDataParams as SessionUploadNodeOutputDataParams,
+)
+from .get_workflow_schedule_sessions_response import (
+    GetWorkflowScheduleSessionsResponse as GetWorkflowScheduleSessionsResponse,
 )
 from .structure_enhance_relationship_response import (
     StructureEnhanceRelationshipResponse as StructureEnhanceRelationshipResponse,

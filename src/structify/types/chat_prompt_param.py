@@ -17,6 +17,7 @@ __all__ = [
     "DecodingParams",
     "DecodingParamsParameter",
     "DecodingParamsParameterMaxTokens",
+    "DecodingParamsParameterMaxCompletionTokens",
     "DecodingParamsParameterTopP",
     "DecodingParamsParameterRepeatWindow",
     "DecodingParamsParameterRepeatPenalty",
@@ -50,6 +51,10 @@ __all__ = [
 
 class DecodingParamsParameterMaxTokens(TypedDict, total=False):
     max_tokens: Required[Annotated[int, PropertyInfo(alias="MaxTokens")]]
+
+
+class DecodingParamsParameterMaxCompletionTokens(TypedDict, total=False):
+    max_completion_tokens: Required[Annotated[int, PropertyInfo(alias="MaxCompletionTokens")]]
 
 
 class DecodingParamsParameterTopP(TypedDict, total=False):
@@ -107,6 +112,7 @@ class DecodingParamsParameterThinking(TypedDict, total=False):
 
 DecodingParamsParameter: TypeAlias = Union[
     DecodingParamsParameterMaxTokens,
+    DecodingParamsParameterMaxCompletionTokens,
     DecodingParamsParameterTopP,
     DecodingParamsParameterRepeatWindow,
     DecodingParamsParameterRepeatPenalty,

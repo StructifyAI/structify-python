@@ -29,6 +29,8 @@ class UserInfo(BaseModel):
 
     permissions: List[Literal["labeler", "qa_labeler", "debug", "human_llm", "none"]]
 
+    user_id: str
+
     user_type: Literal["admin", "public", "end_user", "pro"]
 
     username: str
