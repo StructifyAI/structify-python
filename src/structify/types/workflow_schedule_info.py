@@ -12,6 +12,8 @@ class WorkflowScheduleInfo(BaseModel):
 
     git_commit_hash: str
 
+    name: str
+
     cron_schedule: Optional[str] = None
 
     next_run_time: Optional[str] = None

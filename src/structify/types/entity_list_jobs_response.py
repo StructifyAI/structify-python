@@ -22,6 +22,8 @@ class EntityListJobsResponseItem(BaseModel):
 
     status: Literal["Queued", "Running", "Completed", "Failed"]
 
+    updated_at: datetime
+
     user_id: str
 
     max_errors: Optional[int] = None

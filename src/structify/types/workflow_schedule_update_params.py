@@ -12,3 +12,5 @@ class WorkflowScheduleUpdateParams(TypedDict, total=False):
     cron_schedule: Optional[str]
 
     git_commit_hash: Optional[str]
+
+    name: Optional[str]

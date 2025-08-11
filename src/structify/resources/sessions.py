@@ -153,6 +153,7 @@ class SessionsResource(SyncAPIResource):
         self,
         *,
         chat_session_id: str,
+        workflow_schedule_id: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -173,7 +174,11 @@ class SessionsResource(SyncAPIResource):
         return self._post(
             "/sessions",
             body=maybe_transform(
-                {"chat_session_id": chat_session_id}, session_create_session_params.SessionCreateSessionParams
+                {
+                    "chat_session_id": chat_session_id,
+                    "workflow_schedule_id": workflow_schedule_id,
+                },
+                session_create_session_params.SessionCreateSessionParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -581,6 +586,7 @@ class AsyncSessionsResource(AsyncAPIResource):
         self,
         *,
         chat_session_id: str,
+        workflow_schedule_id: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -601,7 +607,11 @@ class AsyncSessionsResource(AsyncAPIResource):
         return await self._post(
             "/sessions",
             body=await async_maybe_transform(
-                {"chat_session_id": chat_session_id}, session_create_session_params.SessionCreateSessionParams
+                {
+                    "chat_session_id": chat_session_id,
+                    "workflow_schedule_id": workflow_schedule_id,
+                },
+                session_create_session_params.SessionCreateSessionParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
