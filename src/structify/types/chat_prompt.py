@@ -16,6 +16,7 @@ __all__ = [
     "DecodingParams",
     "DecodingParamsParameter",
     "DecodingParamsParameterMaxTokens",
+    "DecodingParamsParameterMaxCompletionTokens",
     "DecodingParamsParameterTopP",
     "DecodingParamsParameterRepeatWindow",
     "DecodingParamsParameterRepeatPenalty",
@@ -49,6 +50,10 @@ __all__ = [
 
 class DecodingParamsParameterMaxTokens(BaseModel):
     max_tokens: int = FieldInfo(alias="MaxTokens")
+
+
+class DecodingParamsParameterMaxCompletionTokens(BaseModel):
+    max_completion_tokens: int = FieldInfo(alias="MaxCompletionTokens")
 
 
 class DecodingParamsParameterTopP(BaseModel):
@@ -106,6 +111,7 @@ class DecodingParamsParameterThinking(BaseModel):
 
 DecodingParamsParameter: TypeAlias = Union[
     DecodingParamsParameterMaxTokens,
+    DecodingParamsParameterMaxCompletionTokens,
     DecodingParamsParameterTopP,
     DecodingParamsParameterRepeatWindow,
     DecodingParamsParameterRepeatPenalty,

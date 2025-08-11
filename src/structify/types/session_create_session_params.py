@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from typing import Optional
 from typing_extensions import Required, TypedDict
 
 __all__ = ["SessionCreateSessionParams"]
@@ -9,3 +10,5 @@ __all__ = ["SessionCreateSessionParams"]
 
 class SessionCreateSessionParams(TypedDict, total=False):
     chat_session_id: Required[str]
+
+    workflow_schedule_id: Optional[str]

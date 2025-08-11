@@ -142,6 +142,14 @@ class TestSessions:
         assert_matches_type(WorkflowSession, session, path=["response"])
 
     @parametrize
+    def test_method_create_session_with_all_params(self, client: Structify) -> None:
+        session = client.sessions.create_session(
+            chat_session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            workflow_schedule_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(WorkflowSession, session, path=["response"])
+
+    @parametrize
     def test_raw_response_create_session(self, client: Structify) -> None:
         response = client.sessions.with_raw_response.create_session(
             chat_session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -643,6 +651,14 @@ class TestAsyncSessions:
     async def test_method_create_session(self, async_client: AsyncStructify) -> None:
         session = await async_client.sessions.create_session(
             chat_session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(WorkflowSession, session, path=["response"])
+
+    @parametrize
+    async def test_method_create_session_with_all_params(self, async_client: AsyncStructify) -> None:
+        session = await async_client.sessions.create_session(
+            chat_session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            workflow_schedule_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(WorkflowSession, session, path=["response"])
 

@@ -20,3 +20,5 @@ class WorkflowSession(BaseModel):
     error_message: Optional[str] = None
 
     error_traceback: Optional[str] = None
+
+    workflow_schedule_id: Optional[str] = None
