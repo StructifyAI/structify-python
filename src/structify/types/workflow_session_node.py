@@ -12,6 +12,8 @@ __all__ = ["WorkflowSessionNode"]
 class WorkflowSessionNode(BaseModel):
     id: str
 
+    code_md5_hash: str
+
     docstring: str
 
     execution_status: WorkflowNodeExecutionStatus

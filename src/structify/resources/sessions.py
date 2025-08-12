@@ -111,6 +111,7 @@ class SessionsResource(SyncAPIResource):
         self,
         session_id: str,
         *,
+        code_md5_hash: str,
         docstring: str,
         function_name: str,
         output_schema: object | NotGiven = NOT_GIVEN,
@@ -137,6 +138,7 @@ class SessionsResource(SyncAPIResource):
             f"/sessions/{session_id}/nodes",
             body=maybe_transform(
                 {
+                    "code_md5_hash": code_md5_hash,
                     "docstring": docstring,
                     "function_name": function_name,
                     "output_schema": output_schema,
@@ -544,6 +546,7 @@ class AsyncSessionsResource(AsyncAPIResource):
         self,
         session_id: str,
         *,
+        code_md5_hash: str,
         docstring: str,
         function_name: str,
         output_schema: object | NotGiven = NOT_GIVEN,
@@ -570,6 +573,7 @@ class AsyncSessionsResource(AsyncAPIResource):
             f"/sessions/{session_id}/nodes",
             body=await async_maybe_transform(
                 {
+                    "code_md5_hash": code_md5_hash,
                     "docstring": docstring,
                     "function_name": function_name,
                     "output_schema": output_schema,
