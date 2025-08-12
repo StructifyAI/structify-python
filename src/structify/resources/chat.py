@@ -184,7 +184,8 @@ class ChatResource(SyncAPIResource):
         self,
         session_id: str,
         *,
-        body: object,
+        code_md5_hash: str,
+        new_node_id: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -206,7 +207,13 @@ class ChatResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return self._post(
             f"/chat/sessions/{session_id}/nodes/by_code_hash",
-            body=maybe_transform(body, chat_copy_node_output_by_code_hash_params.ChatCopyNodeOutputByCodeHashParams),
+            body=maybe_transform(
+                {
+                    "code_md5_hash": code_md5_hash,
+                    "new_node_id": new_node_id,
+                },
+                chat_copy_node_output_by_code_hash_params.ChatCopyNodeOutputByCodeHashParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -641,7 +648,8 @@ class AsyncChatResource(AsyncAPIResource):
         self,
         session_id: str,
         *,
-        body: object,
+        code_md5_hash: str,
+        new_node_id: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -664,7 +672,11 @@ class AsyncChatResource(AsyncAPIResource):
         return await self._post(
             f"/chat/sessions/{session_id}/nodes/by_code_hash",
             body=await async_maybe_transform(
-                body, chat_copy_node_output_by_code_hash_params.ChatCopyNodeOutputByCodeHashParams
+                {
+                    "code_md5_hash": code_md5_hash,
+                    "new_node_id": new_node_id,
+                },
+                chat_copy_node_output_by_code_hash_params.ChatCopyNodeOutputByCodeHashParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
