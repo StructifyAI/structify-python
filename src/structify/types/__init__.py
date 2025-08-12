@@ -223,6 +223,12 @@ from .get_workflow_schedule_sessions_response import (
 from .structure_enhance_relationship_response import (
     StructureEnhanceRelationshipResponse as StructureEnhanceRelationshipResponse,
 )
+from .chat_copy_node_output_by_code_hash_params import (
+    ChatCopyNodeOutputByCodeHashParams as ChatCopyNodeOutputByCodeHashParams,
+)
+from .chat_copy_node_output_by_code_hash_response import (
+    ChatCopyNodeOutputByCodeHashResponse as ChatCopyNodeOutputByCodeHashResponse,
+)
 from .dataset_view_tables_with_relationships_params import (
     DatasetViewTablesWithRelationshipsParams as DatasetViewTablesWithRelationshipsParams,
 )

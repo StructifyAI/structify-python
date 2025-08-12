@@ -82,6 +82,7 @@ class TestSessions:
     def test_method_create_node(self, client: Structify) -> None:
         session = client.sessions.create_node(
             session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            code_md5_hash="code_md5_hash",
             docstring="docstring",
             function_name="function_name",
         )
@@ -91,6 +92,7 @@ class TestSessions:
     def test_method_create_node_with_all_params(self, client: Structify) -> None:
         session = client.sessions.create_node(
             session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            code_md5_hash="code_md5_hash",
             docstring="docstring",
             function_name="function_name",
             output_schema={},
@@ -101,6 +103,7 @@ class TestSessions:
     def test_raw_response_create_node(self, client: Structify) -> None:
         response = client.sessions.with_raw_response.create_node(
             session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            code_md5_hash="code_md5_hash",
             docstring="docstring",
             function_name="function_name",
         )
@@ -114,6 +117,7 @@ class TestSessions:
     def test_streaming_response_create_node(self, client: Structify) -> None:
         with client.sessions.with_streaming_response.create_node(
             session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            code_md5_hash="code_md5_hash",
             docstring="docstring",
             function_name="function_name",
         ) as response:
@@ -130,6 +134,7 @@ class TestSessions:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
             client.sessions.with_raw_response.create_node(
                 session_id="",
+                code_md5_hash="code_md5_hash",
                 docstring="docstring",
                 function_name="function_name",
             )
@@ -595,6 +600,7 @@ class TestAsyncSessions:
     async def test_method_create_node(self, async_client: AsyncStructify) -> None:
         session = await async_client.sessions.create_node(
             session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            code_md5_hash="code_md5_hash",
             docstring="docstring",
             function_name="function_name",
         )
@@ -604,6 +610,7 @@ class TestAsyncSessions:
     async def test_method_create_node_with_all_params(self, async_client: AsyncStructify) -> None:
         session = await async_client.sessions.create_node(
             session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            code_md5_hash="code_md5_hash",
             docstring="docstring",
             function_name="function_name",
             output_schema={},
@@ -614,6 +621,7 @@ class TestAsyncSessions:
     async def test_raw_response_create_node(self, async_client: AsyncStructify) -> None:
         response = await async_client.sessions.with_raw_response.create_node(
             session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            code_md5_hash="code_md5_hash",
             docstring="docstring",
             function_name="function_name",
         )
@@ -627,6 +635,7 @@ class TestAsyncSessions:
     async def test_streaming_response_create_node(self, async_client: AsyncStructify) -> None:
         async with async_client.sessions.with_streaming_response.create_node(
             session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            code_md5_hash="code_md5_hash",
             docstring="docstring",
             function_name="function_name",
         ) as response:
@@ -643,6 +652,7 @@ class TestAsyncSessions:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
             await async_client.sessions.with_raw_response.create_node(
                 session_id="",
+                code_md5_hash="code_md5_hash",
                 docstring="docstring",
                 function_name="function_name",
             )

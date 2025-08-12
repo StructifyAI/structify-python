@@ -13,6 +13,7 @@ from ..types import (
     chat_add_git_commit_params,
     chat_create_session_params,
     chat_add_collaborator_params,
+    chat_copy_node_output_by_code_hash_params,
 )
 from .._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
 from .._utils import maybe_transform, async_maybe_transform
@@ -177,6 +178,39 @@ class ChatResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=AddChatMessageResponse,
+        )
+
+    def copy_node_output_by_code_hash(
+        self,
+        session_id: str,
+        *,
+        body: object,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> str:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not session_id:
+            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
+        return self._post(
+            f"/chat/sessions/{session_id}/nodes/by_code_hash",
+            body=maybe_transform(body, chat_copy_node_output_by_code_hash_params.ChatCopyNodeOutputByCodeHashParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=str,
         )
 
     def create_session(
@@ -603,6 +637,41 @@ class AsyncChatResource(AsyncAPIResource):
             cast_to=AddChatMessageResponse,
         )
 
+    async def copy_node_output_by_code_hash(
+        self,
+        session_id: str,
+        *,
+        body: object,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> str:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not session_id:
+            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
+        return await self._post(
+            f"/chat/sessions/{session_id}/nodes/by_code_hash",
+            body=await async_maybe_transform(
+                body, chat_copy_node_output_by_code_hash_params.ChatCopyNodeOutputByCodeHashParams
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=str,
+        )
+
     async def create_session(
         self,
         *,
@@ -898,6 +967,9 @@ class ChatResourceWithRawResponse:
         self.add_message = to_raw_response_wrapper(
             chat.add_message,
         )
+        self.copy_node_output_by_code_hash = to_raw_response_wrapper(
+            chat.copy_node_output_by_code_hash,
+        )
         self.create_session = to_raw_response_wrapper(
             chat.create_session,
         )
@@ -936,6 +1008,9 @@ class AsyncChatResourceWithRawResponse:
         )
         self.add_message = async_to_raw_response_wrapper(
             chat.add_message,
+        )
+        self.copy_node_output_by_code_hash = async_to_raw_response_wrapper(
+            chat.copy_node_output_by_code_hash,
         )
         self.create_session = async_to_raw_response_wrapper(
             chat.create_session,
@@ -976,6 +1051,9 @@ class ChatResourceWithStreamingResponse:
         self.add_message = to_streamed_response_wrapper(
             chat.add_message,
         )
+        self.copy_node_output_by_code_hash = to_streamed_response_wrapper(
+            chat.copy_node_output_by_code_hash,
+        )
         self.create_session = to_streamed_response_wrapper(
             chat.create_session,
         )
@@ -1014,6 +1092,9 @@ class AsyncChatResourceWithStreamingResponse:
         )
         self.add_message = async_to_streamed_response_wrapper(
             chat.add_message,
+        )
+        self.copy_node_output_by_code_hash = async_to_streamed_response_wrapper(
+            chat.copy_node_output_by_code_hash,
         )
         self.create_session = async_to_streamed_response_wrapper(
             chat.create_session,
