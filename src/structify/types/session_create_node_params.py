@@ -8,6 +8,8 @@ __all__ = ["SessionCreateNodeParams"]
 
 
 class SessionCreateNodeParams(TypedDict, total=False):
+    code_md5_hash: Required[str]
+
     docstring: Required[str]
 
     function_name: Required[str]
