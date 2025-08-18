@@ -431,6 +431,7 @@ from structify.types import (
     MarkWorkflowSessionErroredRequest,
     UpdateWorkflowNodeProgressRequest,
     UpdateWorkflowNodeRequest,
+    WorkflowDag,
     WorkflowNodeExecutionStatus,
     WorkflowSession,
     WorkflowSessionEdge,
@@ -635,12 +636,6 @@ Methods:
 - <code title="post /structure/run_async">client.structure.<a href="./src/structify/resources/structure.py">run_async</a>(\*\*<a href="src/structify/types/structure_run_async_params.py">params</a>) -> str</code>
 
 # PublicSessions
-
-Types:
-
-```python
-from structify.types import WorkflowDag
-```
 
 Methods:
 
