@@ -22,7 +22,7 @@ class EntityAddParams(TypedDict, total=False):
     """
 
     attempt_merge: bool
-    """If true, attempt to merge with existing entities in the dataset."""
+    """If true, attempt to merge with existing entities in the dataset"""
 
     source: Source
 

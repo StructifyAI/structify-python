@@ -10,6 +10,8 @@ __all__ = ["WorkflowScheduleInfo"]
 class WorkflowScheduleInfo(BaseModel):
     id: str
 
+    chat_session_id: str
+
     git_commit_hash: str
 
     name: str

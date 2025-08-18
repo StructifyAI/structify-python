@@ -6,10 +6,10 @@ from .._models import BaseModel
 from .workflow_session_edge import WorkflowSessionEdge
 from .workflow_session_node import WorkflowSessionNode
 
-__all__ = ["GetWorkflowDagResponse"]
+__all__ = ["WorkflowDag"]
 
 
-class GetWorkflowDagResponse(BaseModel):
+class WorkflowDag(BaseModel):
     edges: List[WorkflowSessionEdge]
 
     nodes: List[WorkflowSessionNode]

@@ -10,6 +10,7 @@ from ..types import (
     ChatSessionRole,
     chat_add_message_params,
     chat_list_sessions_params,
+    chat_toggle_public_params,
     chat_add_git_commit_params,
     chat_create_session_params,
     chat_add_collaborator_params,
@@ -27,6 +28,7 @@ from .._response import (
 )
 from .._base_client import make_request_options
 from ..types.chat_session_role import ChatSessionRole
+from ..types.toggle_public_response import TogglePublicResponse
 from ..types.add_chat_message_response import AddChatMessageResponse
 from ..types.get_chat_session_response import GetChatSessionResponse
 from ..types.list_chat_sessions_response import ListChatSessionsResponse
@@ -501,6 +503,41 @@ class ChatResource(SyncAPIResource):
             cast_to=NoneType,
         )
 
+    def toggle_public(
+        self,
+        session_id: str,
+        *,
+        is_public: bool,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> TogglePublicResponse:
+        """
+        Toggle public visibility of a chat session
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not session_id:
+            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
+        return self._put(
+            f"/chat/sessions/{session_id}/public",
+            body=maybe_transform({"is_public": is_public}, chat_toggle_public_params.ChatTogglePublicParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=TogglePublicResponse,
+        )
+
 
 class AsyncChatResource(AsyncAPIResource):
     @cached_property
@@ -965,6 +1002,43 @@ class AsyncChatResource(AsyncAPIResource):
             cast_to=NoneType,
         )
 
+    async def toggle_public(
+        self,
+        session_id: str,
+        *,
+        is_public: bool,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> TogglePublicResponse:
+        """
+        Toggle public visibility of a chat session
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not session_id:
+            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
+        return await self._put(
+            f"/chat/sessions/{session_id}/public",
+            body=await async_maybe_transform(
+                {"is_public": is_public}, chat_toggle_public_params.ChatTogglePublicParams
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=TogglePublicResponse,
+        )
+
 
 class ChatResourceWithRawResponse:
     def __init__(self, chat: ChatResource) -> None:
@@ -1005,6 +1079,9 @@ class ChatResourceWithRawResponse:
         )
         self.remove_collaborator = to_raw_response_wrapper(
             chat.remove_collaborator,
+        )
+        self.toggle_public = to_raw_response_wrapper(
+            chat.toggle_public,
         )
 
 
@@ -1048,6 +1125,9 @@ class AsyncChatResourceWithRawResponse:
         self.remove_collaborator = async_to_raw_response_wrapper(
             chat.remove_collaborator,
         )
+        self.toggle_public = async_to_raw_response_wrapper(
+            chat.toggle_public,
+        )
 
 
 class ChatResourceWithStreamingResponse:
@@ -1090,6 +1170,9 @@ class ChatResourceWithStreamingResponse:
         self.remove_collaborator = to_streamed_response_wrapper(
             chat.remove_collaborator,
         )
+        self.toggle_public = to_streamed_response_wrapper(
+            chat.toggle_public,
+        )
 
 
 class AsyncChatResourceWithStreamingResponse:
@@ -1131,4 +1214,7 @@ class AsyncChatResourceWithStreamingResponse:
         )
         self.remove_collaborator = async_to_streamed_response_wrapper(
             chat.remove_collaborator,
+        )
+        self.toggle_public = async_to_streamed_response_wrapper(
+            chat.toggle_public,
         )
