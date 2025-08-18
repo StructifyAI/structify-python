@@ -36,10 +36,10 @@ from .._response import (
     async_to_custom_streamed_response_wrapper,
 )
 from .._base_client import make_request_options
+from ..types.workflow_dag import WorkflowDag
 from ..types.workflow_session import WorkflowSession
 from ..types.workflow_session_edge import WorkflowSessionEdge
 from ..types.workflow_session_node import WorkflowSessionNode
-from ..types.get_workflow_dag_response import GetWorkflowDagResponse
 from ..types.get_session_events_response import GetSessionEventsResponse
 from ..types.workflow_node_execution_status import WorkflowNodeExecutionStatus
 from ..types.session_get_node_progress_response import SessionGetNodeProgressResponse
@@ -198,7 +198,7 @@ class SessionsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> GetWorkflowDagResponse:
+    ) -> WorkflowDag:
         """
         Args:
           extra_headers: Send extra headers
@@ -216,7 +216,7 @@ class SessionsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=GetWorkflowDagResponse,
+            cast_to=WorkflowDag,
         )
 
     def get_events(
@@ -633,7 +633,7 @@ class AsyncSessionsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> GetWorkflowDagResponse:
+    ) -> WorkflowDag:
         """
         Args:
           extra_headers: Send extra headers
@@ -651,7 +651,7 @@ class AsyncSessionsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=GetWorkflowDagResponse,
+            cast_to=WorkflowDag,
         )
 
     async def get_events(

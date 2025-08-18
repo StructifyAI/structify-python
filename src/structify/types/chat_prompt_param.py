@@ -31,6 +31,7 @@ __all__ = [
     "DecodingParamsParameterNumBeams",
     "DecodingParamsParameterCrop",
     "DecodingParamsParameterThinking",
+    "DecodingParamsParameterVerbosity",
     "Message",
     "MessageContent",
     "MessageContentText",
@@ -110,6 +111,10 @@ class DecodingParamsParameterThinking(TypedDict, total=False):
     """Thinking tokens for Claude 3.7. Contains the budget in tokens for thinking."""
 
 
+class DecodingParamsParameterVerbosity(TypedDict, total=False):
+    verbosity: Required[Annotated[Literal["low", "medium", "high"], PropertyInfo(alias="Verbosity")]]
+
+
 DecodingParamsParameter: TypeAlias = Union[
     DecodingParamsParameterMaxTokens,
     DecodingParamsParameterMaxCompletionTokens,
@@ -126,6 +131,7 @@ DecodingParamsParameter: TypeAlias = Union[
     DecodingParamsParameterNumBeams,
     DecodingParamsParameterCrop,
     DecodingParamsParameterThinking,
+    DecodingParamsParameterVerbosity,
 ]
 
 

@@ -141,6 +141,14 @@ from .structure import (
     StructureResourceWithStreamingResponse,
     AsyncStructureResourceWithStreamingResponse,
 )
+from .public_sessions import (
+    PublicSessionsResource,
+    AsyncPublicSessionsResource,
+    PublicSessionsResourceWithRawResponse,
+    AsyncPublicSessionsResourceWithRawResponse,
+    PublicSessionsResourceWithStreamingResponse,
+    AsyncPublicSessionsResourceWithStreamingResponse,
+)
 from .workflow_schedule import (
     WorkflowScheduleResource,
     AsyncWorkflowScheduleResource,
@@ -262,4 +270,10 @@ __all__ = [
     "PolarsResource",
     "PolarsResourceWithRawResponse",
     "PolarsResourceWithStreamingResponse",
+    "PublicSessionsResource",
+    "AsyncPublicSessionsResource",
+    "PublicSessionsResourceWithRawResponse",
+    "AsyncPublicSessionsResourceWithRawResponse",
+    "PublicSessionsResourceWithStreamingResponse",
+    "AsyncPublicSessionsResourceWithStreamingResponse",
 ]

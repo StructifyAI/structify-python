@@ -42,6 +42,9 @@ class ChatSessionWithMessages(BaseModel):
 
     git_application_token: str
 
+    is_public: bool
+    """Whether the chat session is public"""
+
     messages: List[Message]
 
     project_id: str

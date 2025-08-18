@@ -143,7 +143,7 @@ class EntitiesResource(SyncAPIResource):
               that the LLM outputs. Also the first representation of an LLM output in the
               pipeline from raw tool output to being merged into a DB
 
-          attempt_merge: If true, attempt to merge with existing entities in the dataset.
+          attempt_merge: If true, attempt to merge with existing entities in the dataset
 
           extra_headers: Send extra headers
 
@@ -954,7 +954,7 @@ class AsyncEntitiesResource(AsyncAPIResource):
               that the LLM outputs. Also the first representation of an LLM output in the
               pipeline from raw tool output to being merged into a DB
 
-          attempt_merge: If true, attempt to merge with existing entities in the dataset.
+          attempt_merge: If true, attempt to merge with existing entities in the dataset
 
           extra_headers: Send extra headers
 

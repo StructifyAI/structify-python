@@ -30,6 +30,7 @@ __all__ = [
     "DecodingParamsParameterNumBeams",
     "DecodingParamsParameterCrop",
     "DecodingParamsParameterThinking",
+    "DecodingParamsParameterVerbosity",
     "Message",
     "MessageContent",
     "MessageContentText",
@@ -109,6 +110,10 @@ class DecodingParamsParameterThinking(BaseModel):
     """Thinking tokens for Claude 3.7. Contains the budget in tokens for thinking."""
 
 
+class DecodingParamsParameterVerbosity(BaseModel):
+    verbosity: Literal["low", "medium", "high"] = FieldInfo(alias="Verbosity")
+
+
 DecodingParamsParameter: TypeAlias = Union[
     DecodingParamsParameterMaxTokens,
     DecodingParamsParameterMaxCompletionTokens,
@@ -125,6 +130,7 @@ DecodingParamsParameter: TypeAlias = Union[
     DecodingParamsParameterNumBeams,
     DecodingParamsParameterCrop,
     DecodingParamsParameterThinking,
+    DecodingParamsParameterVerbosity,
 ]
 
 
