@@ -19,6 +19,7 @@ from .entity_match import EntityMatch as EntityMatch
 from .entity_param import EntityParam as EntityParam
 from .merge_config import MergeConfig as MergeConfig
 from .relationship import Relationship as Relationship
+from .workflow_dag import WorkflowDag as WorkflowDag
 from .property_type import PropertyType as PropertyType
 from .tool_metadata import ToolMetadata as ToolMetadata
 from .execution_step import ExecutionStep as ExecutionStep
@@ -107,6 +108,7 @@ from .project_secret_summary import ProjectSecretSummary as ProjectSecretSummary
 from .remove_member_response import RemoveMemberResponse as RemoveMemberResponse
 from .save_requirement_param import SaveRequirementParam as SaveRequirementParam
 from .team_add_member_params import TeamAddMemberParams as TeamAddMemberParams
+from .toggle_public_response import TogglePublicResponse as TogglePublicResponse
 from .update_secret_response import UpdateSecretResponse as UpdateSecretResponse
 from .workflow_schedule_info import WorkflowScheduleInfo as WorkflowScheduleInfo
 from .chat_add_message_params import ChatAddMessageParams as ChatAddMessageParams
@@ -122,6 +124,7 @@ from .document_download_params import DocumentDownloadParams as DocumentDownload
 from .entity_get_merges_params import EntityGetMergesParams as EntityGetMergesParams
 from .add_chat_message_response import AddChatMessageResponse as AddChatMessageResponse
 from .chat_list_sessions_params import ChatListSessionsParams as ChatListSessionsParams
+from .chat_toggle_public_params import ChatTogglePublicParams as ChatTogglePublicParams
 from .dataset_view_table_params import DatasetViewTableParams as DatasetViewTableParams
 from .document_structure_params import DocumentStructureParams as DocumentStructureParams
 from .entity_add_batch_response import EntityAddBatchResponse as EntityAddBatchResponse
@@ -129,7 +132,6 @@ from .entity_agent_merge_params import EntityAgentMergeParams as EntityAgentMerg
 from .entity_list_jobs_response import EntityListJobsResponse as EntityListJobsResponse
 from .entity_summarize_response import EntitySummarizeResponse as EntitySummarizeResponse
 from .get_chat_session_response import GetChatSessionResponse as GetChatSessionResponse
-from .get_workflow_dag_response import GetWorkflowDagResponse as GetWorkflowDagResponse
 from .job_get_scrapers_response import JobGetScrapersResponse as JobGetScrapersResponse
 from .session_get_events_params import SessionGetEventsParams as SessionGetEventsParams
 from .user_survey_submit_params import UserSurveySubmitParams as UserSurveySubmitParams
@@ -201,6 +203,7 @@ from .dataset_update_relationship_params import DatasetUpdateRelationshipParams 
 from .entity_get_local_subgraph_response import EntityGetLocalSubgraphResponse as EntityGetLocalSubgraphResponse
 from .session_get_node_progress_response import SessionGetNodeProgressResponse as SessionGetNodeProgressResponse
 from .structure_find_relationship_params import StructureFindRelationshipParams as StructureFindRelationshipParams
+from .workflow_schedule_get_all_response import WorkflowScheduleGetAllResponse as WorkflowScheduleGetAllResponse
 from .dataset_view_relationships_response import DatasetViewRelationshipsResponse as DatasetViewRelationshipsResponse
 from .delete_source_relationship_response import DeleteSourceRelationshipResponse as DeleteSourceRelationshipResponse
 from .entity_get_source_entities_response import EntityGetSourceEntitiesResponse as EntityGetSourceEntitiesResponse

@@ -12,10 +12,10 @@ from respx import MockRouter
 from structify import Structify, AsyncStructify
 from tests.utils import assert_matches_type
 from structify.types import (
+    WorkflowDag,
     WorkflowSession,
     WorkflowSessionEdge,
     WorkflowSessionNode,
-    GetWorkflowDagResponse,
     GetSessionEventsResponse,
     SessionGetNodeProgressResponse,
 )
@@ -183,7 +183,7 @@ class TestSessions:
         session = client.sessions.get_dag(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(GetWorkflowDagResponse, session, path=["response"])
+        assert_matches_type(WorkflowDag, session, path=["response"])
 
     @parametrize
     def test_raw_response_get_dag(self, client: Structify) -> None:
@@ -194,7 +194,7 @@ class TestSessions:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         session = response.parse()
-        assert_matches_type(GetWorkflowDagResponse, session, path=["response"])
+        assert_matches_type(WorkflowDag, session, path=["response"])
 
     @parametrize
     def test_streaming_response_get_dag(self, client: Structify) -> None:
@@ -205,7 +205,7 @@ class TestSessions:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             session = response.parse()
-            assert_matches_type(GetWorkflowDagResponse, session, path=["response"])
+            assert_matches_type(WorkflowDag, session, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -701,7 +701,7 @@ class TestAsyncSessions:
         session = await async_client.sessions.get_dag(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(GetWorkflowDagResponse, session, path=["response"])
+        assert_matches_type(WorkflowDag, session, path=["response"])
 
     @parametrize
     async def test_raw_response_get_dag(self, async_client: AsyncStructify) -> None:
@@ -712,7 +712,7 @@ class TestAsyncSessions:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         session = await response.parse()
-        assert_matches_type(GetWorkflowDagResponse, session, path=["response"])
+        assert_matches_type(WorkflowDag, session, path=["response"])
 
     @parametrize
     async def test_streaming_response_get_dag(self, async_client: AsyncStructify) -> None:
@@ -723,7 +723,7 @@ class TestAsyncSessions:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             session = await response.parse()
-            assert_matches_type(GetWorkflowDagResponse, session, path=["response"])
+            assert_matches_type(WorkflowDag, session, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
