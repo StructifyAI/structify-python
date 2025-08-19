@@ -677,11 +677,27 @@ class PolarsResource(SyncAPIResource):
 
         return lazy_df.map_batches(scrape_batch, schema=output_schema, no_optimizations=True)
 
-    def scrape_urls(self, *args, **kwargs) -> LazyFrame:
+    def scrape_urls(
+        self,
+        *,
+        lazy_df: LazyFrame,
+        url_column: str,
+        table_name: str,
+        scrape_schema: Dict[str, Dict[str, Any]],
+        scrape_schema_override: TableParam | None = None,
+        original_column_map: Dict[str, str] = {},
+    ) -> LazyFrame:
         """
         DEPRECATED: Use `scrape_relationships` instead.
         """
-        return self.scrape_relationships(*args, **kwargs)
+        return self.scrape_relationships(
+            lazy_df=lazy_df,
+            url_column=url_column,
+            table_name=table_name,
+            scrape_schema=scrape_schema,
+            scrape_schema_override=scrape_schema_override,
+            original_column_map=original_column_map,
+        )
 
     def structure_pdfs(
         self,
