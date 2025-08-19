@@ -458,6 +458,14 @@ class PolarsResource(SyncAPIResource):
 
             # 2. Enhance the entities
             def enhance_entity_property(entity: EntityParam) -> None:
+                url = entity["properties"].get(url_column)
+                if url is None:
+                    return
+                if not isinstance(url, str):
+                    raise TypeError(
+                        f"URL column {url_column} must be of string type, got {type(entity['properties'][url_column])}"
+                    )
+
                 self._client.scrape.scrape(
                     dataset_name=dataset_name,
                     extraction_criteria=[
@@ -472,7 +480,7 @@ class PolarsResource(SyncAPIResource):
                     seeded_kg=KnowledgeGraphParam(entities=[entity], relationships=[]),
                     node_id=node_id,
                     stop_config=None,
-                    url=entity["properties"].get(url_column),
+                    url=url,
                 )
 
             property_list = list(new_columns_dict.keys())
