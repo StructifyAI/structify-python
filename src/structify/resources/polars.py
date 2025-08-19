@@ -23,6 +23,7 @@ from .._response import (
     to_streamed_response_wrapper,
 )
 from ..types.table_param import Property, TableParam
+from ..types.save_requirement_param import RequiredEntity, RequiredProperty
 from ..types.dataset_descriptor_param import DatasetDescriptorParam
 from ..types.structure_run_async_params import SourcePdf, StopConfig
 
@@ -378,6 +379,131 @@ class PolarsResource(SyncAPIResource):
             return pl.DataFrame(result_rows, schema=output_schema)
 
         return lazy_df.map_batches(enhance_relationship_batch, schema=output_schema, no_optimizations=True)
+
+    def direct_enhance_columns(
+        self,
+        *,
+        df: LazyFrame,
+        url_column: str,
+        new_columns: Dict[str, Dict[str, Any]],
+        dataframe_name: str,
+        dataframe_description: str,
+    ) -> LazyFrame:
+        """
+        Enhance one or more columns of a `LazyFrame` directly from a URL.
+        """
+
+        # Existing columns & their dtypes from the LazyFrame
+        existing_schema_dict: Dict[str, pl.DataType] = df.collect_schema()
+
+        # Normalise to Dict[str, Tuple[dtype, description]]
+        new_columns_dict: Dict[str, tuple[pl.DataType, str]] = {}
+        for col_name, val in new_columns.items():
+            if "type" not in val:
+                raise TypeError("Each new column must be a dict with a 'type' key containing a polars.DataType")
+            dtype = val["type"]
+            desc = val.get("description", "")
+            new_columns_dict[col_name] = (dtype, desc)
+
+        # ------------------------------------------------------------------
+        # Build Structify `Property` objects for existing & new columns
+        # ------------------------------------------------------------------
+        pre_existing_properties = [
+            Property(name=col_name, description="", prop_type=dtype_to_structify_type(dtype))
+            for col_name, dtype in existing_schema_dict.items()
+        ]
+
+        new_column_properties = [
+            Property(name=col_name, description=desc, prop_type=dtype_to_structify_type(dtype))
+            for col_name, (dtype, desc) in new_columns_dict.items()
+        ]
+
+        all_properties = pre_existing_properties + new_column_properties
+
+        dataset_name = f"enhance_{dataframe_name}_{uuid.uuid4().hex}"
+        self._client.datasets.create(
+            name=dataset_name,
+            description="",
+            tables=[
+                TableParam(
+                    name=dataframe_name,
+                    description=dataframe_description,
+                    properties=all_properties,
+                )
+            ],
+            relationships=[],
+            ephemeral=True,
+        )
+
+        # For new columns, add a null value to the dataframe with proper types
+        missing_new_columns = [col_name for col_name in new_columns_dict.keys() if col_name not in existing_schema_dict]
+        if missing_new_columns:
+            df = df.with_columns(
+                [pl.lit(None, dtype=new_columns_dict[col_name][0]).alias(col_name) for col_name in missing_new_columns]
+            )
+
+        # Get the node ID when the function is called, not when the batch is processed
+        node_id = get_node_id()
+
+        # Create the expected output schema
+        expected_schema = properties_to_schema(all_properties)
+
+        # Apply Structify enrich on the dataframe
+        def enhance_batch(batch_df: pl.DataFrame) -> pl.DataFrame:
+            if batch_df.is_empty():
+                return pl.DataFrame(schema=expected_schema)
+            # 1. Add all the entities to the structify dataset
+            column_schema = {col["name"]: col["name"] for col in all_properties}
+            entities = dataframe_to_entities(batch_df, dataframe_name, column_schema)
+
+            # 2. Enhance the entities
+            def enhance_entity_property(entity: EntityParam) -> None:
+                self._client.scrape.scrape(
+                    dataset_name=dataset_name,
+                    extraction_criteria=[
+                        RequiredProperty(
+                            table_name=dataframe_name,
+                            property_names=[p["name"] for p in new_column_properties],
+                        ),
+                        RequiredEntity(
+                            seeded_entity_id=0,
+                        ),
+                    ],
+                    seeded_kg=KnowledgeGraphParam(entities=[entity], relationships=[]),
+                    node_id=node_id,
+                    stop_config=None,
+                    url=entity["properties"].get(url_column),
+                )
+
+            property_list = list(new_columns_dict.keys())
+            if len(property_list) == 1:
+                property_names = property_list[0]
+            elif len(property_list) == 2:
+                property_names = f"{property_list[0]} and {property_list[1]}"
+            else:
+                property_names = f"{', '.join(property_list[:-1])}, and {property_list[-1]}"
+
+            with ThreadPoolExecutor(max_workers=MAX_PARALLEL_REQUESTS) as executor:
+                futures = [
+                    executor.submit(enhance_entity_property, entity)  # type: ignore
+                    for entity in entities
+                ]
+                for future in tqdm(
+                    as_completed(futures), total=len(futures), desc=f"Preparing enrichments for {property_names}"
+                ):
+                    future.result()  # Wait for completion
+            # 3. Wait for all jobs to complete
+            title = f"Enriching {property_names} for {dataframe_name}"
+            self._client.jobs.wait_for_jobs(dataset_name=dataset_name, title=title)
+            # 4. Collect the results
+            results = [
+                entity.properties
+                for entity in self._client.datasets.view_table(dataset=dataset_name, name=dataframe_name)
+            ]
+            # 5. Return the results
+            return pl.DataFrame(results, schema=expected_schema)
+
+        return df.map_batches(enhance_batch, schema=expected_schema, no_optimizations=True)
 
     def scrape_urls(
         self,
