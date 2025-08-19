@@ -380,7 +380,7 @@ class PolarsResource(SyncAPIResource):
 
         return lazy_df.map_batches(enhance_relationship_batch, schema=output_schema, no_optimizations=True)
 
-    def direct_enhance_columns(
+    def scrape_columns(
         self,
         *,
         df: LazyFrame,
@@ -505,7 +505,7 @@ class PolarsResource(SyncAPIResource):
 
         return df.map_batches(enhance_batch, schema=expected_schema, no_optimizations=True)
 
-    def scrape_urls(
+    def scrape_relationships(
         self,
         *,
         lazy_df: LazyFrame,
@@ -676,6 +676,12 @@ class PolarsResource(SyncAPIResource):
             return joined_df
 
         return lazy_df.map_batches(scrape_batch, schema=output_schema, no_optimizations=True)
+
+    def scrape_urls(self, *args, **kwargs) -> LazyFrame:
+        """
+        DEPRECATED: Use `scrape_relationships` instead.
+        """
+        return self.scrape_relationships(*args, **kwargs)
 
     def structure_pdfs(
         self,
