@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.138.1 (2025-08-19)
+
+Full Changelog: [v1.138.0...v1.138.1](https://github.com/StructifyAI/structify-python/compare/v1.138.0...v1.138.1)
+
+### Features
+
+* Update from Structify backend changes ([d2a741b](https://github.com/StructifyAI/structify-python/commit/d2a741bb139c00dc2874b4a93b34dfcba8defe1a))
+
 ## 1.138.0 (2025-08-18)
 
 Full Changelog: [v1.137.0...v1.138.0](https://github.com/StructifyAI/structify-python/compare/v1.137.0...v1.138.0)
