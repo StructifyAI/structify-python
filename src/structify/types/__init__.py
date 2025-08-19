@@ -78,6 +78,7 @@ from .entity_view_response import EntityViewResponse as EntityViewResponse
 from .get_project_response import GetProjectResponse as GetProjectResponse
 from .report_step_response import ReportStepResponse as ReportStepResponse
 from .scrape_list_response import ScrapeListResponse as ScrapeListResponse
+from .scrape_scrape_params import ScrapeScrapeParams as ScrapeScrapeParams
 from .secret_create_params import SecretCreateParams as SecretCreateParams
 from .secret_list_response import SecretListResponse as SecretListResponse
 from .secret_update_params import SecretUpdateParams as SecretUpdateParams
@@ -107,6 +108,7 @@ from .list_projects_response import ListProjectsResponse as ListProjectsResponse
 from .project_secret_summary import ProjectSecretSummary as ProjectSecretSummary
 from .remove_member_response import RemoveMemberResponse as RemoveMemberResponse
 from .save_requirement_param import SaveRequirementParam as SaveRequirementParam
+from .scrape_scrape_response import ScrapeScrapeResponse as ScrapeScrapeResponse
 from .team_add_member_params import TeamAddMemberParams as TeamAddMemberParams
 from .toggle_public_response import TogglePublicResponse as TogglePublicResponse
 from .update_secret_response import UpdateSecretResponse as UpdateSecretResponse

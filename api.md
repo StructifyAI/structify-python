@@ -600,12 +600,18 @@ Methods:
 Types:
 
 ```python
-from structify.types import ScrapeListRequest, ScrapeListResponse
+from structify.types import (
+    ScrapeListRequest,
+    ScrapeRequest,
+    ScrapeListResponse,
+    ScrapeScrapeResponse,
+)
 ```
 
 Methods:
 
 - <code title="post /scrape/list">client.scrape.<a href="./src/structify/resources/scrape.py">list</a>(\*\*<a href="src/structify/types/scrape_list_params.py">params</a>) -> <a href="./src/structify/types/scrape_list_response.py">ScrapeListResponse</a></code>
+- <code title="post /scrape">client.scrape.<a href="./src/structify/resources/scrape.py">scrape</a>(\*\*<a href="src/structify/types/scrape_scrape_params.py">params</a>) -> <a href="./src/structify/types/scrape_scrape_response.py">ScrapeScrapeResponse</a></code>
 
 # Structure
 

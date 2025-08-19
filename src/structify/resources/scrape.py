@@ -2,11 +2,11 @@
 
 from __future__ import annotations
 
-from typing import Optional
+from typing import Iterable, Optional
 
 import httpx
 
-from ..types import scrape_list_params
+from ..types import scrape_list_params, scrape_scrape_params
 from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -19,6 +19,9 @@ from .._response import (
 )
 from .._base_client import make_request_options
 from ..types.scrape_list_response import ScrapeListResponse
+from ..types.knowledge_graph_param import KnowledgeGraphParam
+from ..types.save_requirement_param import SaveRequirementParam
+from ..types.scrape_scrape_response import ScrapeScrapeResponse
 from ..types.dataset_descriptor_param import DatasetDescriptorParam
 
 __all__ = ["ScrapeResource", "AsyncScrapeResource"]
@@ -96,6 +99,57 @@ class ScrapeResource(SyncAPIResource):
             cast_to=ScrapeListResponse,
         )
 
+    def scrape(
+        self,
+        *,
+        dataset_name: str,
+        extraction_criteria: Iterable[SaveRequirementParam],
+        url: str,
+        node_id: Optional[str] | NotGiven = NOT_GIVEN,
+        seeded_kg: Optional[KnowledgeGraphParam] | NotGiven = NOT_GIVEN,
+        stop_config: Optional[scrape_scrape_params.StopConfig] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ScrapeScrapeResponse:
+        """
+        Args:
+          seeded_kg: Knowledge graph info structured to deserialize and display in the same format
+              that the LLM outputs. Also the first representation of an LLM output in the
+              pipeline from raw tool output to being merged into a DB
+
+          stop_config: Configuration parameters for the StopChecker
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/scrape",
+            body=maybe_transform(
+                {
+                    "dataset_name": dataset_name,
+                    "extraction_criteria": extraction_criteria,
+                    "url": url,
+                    "node_id": node_id,
+                    "seeded_kg": seeded_kg,
+                    "stop_config": stop_config,
+                },
+                scrape_scrape_params.ScrapeScrapeParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ScrapeScrapeResponse,
+        )
+
 
 class AsyncScrapeResource(AsyncAPIResource):
     @cached_property
@@ -169,6 +223,57 @@ class AsyncScrapeResource(AsyncAPIResource):
             cast_to=ScrapeListResponse,
         )
 
+    async def scrape(
+        self,
+        *,
+        dataset_name: str,
+        extraction_criteria: Iterable[SaveRequirementParam],
+        url: str,
+        node_id: Optional[str] | NotGiven = NOT_GIVEN,
+        seeded_kg: Optional[KnowledgeGraphParam] | NotGiven = NOT_GIVEN,
+        stop_config: Optional[scrape_scrape_params.StopConfig] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ScrapeScrapeResponse:
+        """
+        Args:
+          seeded_kg: Knowledge graph info structured to deserialize and display in the same format
+              that the LLM outputs. Also the first representation of an LLM output in the
+              pipeline from raw tool output to being merged into a DB
+
+          stop_config: Configuration parameters for the StopChecker
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/scrape",
+            body=await async_maybe_transform(
+                {
+                    "dataset_name": dataset_name,
+                    "extraction_criteria": extraction_criteria,
+                    "url": url,
+                    "node_id": node_id,
+                    "seeded_kg": seeded_kg,
+                    "stop_config": stop_config,
+                },
+                scrape_scrape_params.ScrapeScrapeParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ScrapeScrapeResponse,
+        )
+
 
 class ScrapeResourceWithRawResponse:
     def __init__(self, scrape: ScrapeResource) -> None:
@@ -176,6 +281,9 @@ class ScrapeResourceWithRawResponse:
 
         self.list = to_raw_response_wrapper(
             scrape.list,
+        )
+        self.scrape = to_raw_response_wrapper(
+            scrape.scrape,
         )
 
 
@@ -186,6 +294,9 @@ class AsyncScrapeResourceWithRawResponse:
         self.list = async_to_raw_response_wrapper(
             scrape.list,
         )
+        self.scrape = async_to_raw_response_wrapper(
+            scrape.scrape,
+        )
 
 
 class ScrapeResourceWithStreamingResponse:
@@ -195,6 +306,9 @@ class ScrapeResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             scrape.list,
         )
+        self.scrape = to_streamed_response_wrapper(
+            scrape.scrape,
+        )
 
 
 class AsyncScrapeResourceWithStreamingResponse:
@@ -203,4 +317,7 @@ class AsyncScrapeResourceWithStreamingResponse:
 
         self.list = async_to_streamed_response_wrapper(
             scrape.list,
+        )
+        self.scrape = async_to_streamed_response_wrapper(
+            scrape.scrape,
         )
