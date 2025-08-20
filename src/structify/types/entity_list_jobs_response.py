@@ -22,6 +22,8 @@ class EntityListJobsResponseItem(BaseModel):
 
     status: Literal["Queued", "Running", "Completed", "Failed"]
 
+    token_id: str
+
     updated_at: datetime
 
     user_id: str
