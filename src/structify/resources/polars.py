@@ -454,7 +454,8 @@ class PolarsResource(SyncAPIResource):
                 return pl.DataFrame(schema=expected_schema)
             # 1. Add all the entities to the structify dataset
             column_schema = {col["name"]: col["name"] for col in all_properties}
-            entities = dataframe_to_entities(batch_df, dataframe_name, column_schema)
+            # Since we're setting the extraction criteria manually, we want this to have id 0
+            entities = dataframe_to_entities(batch_df, dataframe_name, column_schema, zero_ids=True)
 
             # 2. Enhance the entities
             def enhance_entity_property(entity: EntityParam) -> None:
@@ -884,12 +885,14 @@ def chunk_entities_for_parallel_add(
     return batches
 
 
-def dataframe_to_entities(batch_df: pl.DataFrame, entity_type: str, column_schema: Dict[str, str]) -> list[EntityParam]:
+def dataframe_to_entities(
+    batch_df: pl.DataFrame, entity_type: str, column_schema: Dict[str, str], zero_ids: bool = False
+) -> list[EntityParam]:
     """Convert DataFrame rows to EntityParam objects, filtering out null values."""
     return [
         EntityParam(
             type=entity_type,
-            id=i,
+            id=i if not zero_ids else 0,
             properties={
                 prop_name: str(row[col_name])
                 for col_name, prop_name in column_schema.items()
