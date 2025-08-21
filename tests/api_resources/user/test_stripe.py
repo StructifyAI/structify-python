@@ -24,6 +24,7 @@ class TestStripe:
         stripe = client.user.stripe.create_session(
             credits=0,
             origin="origin",
+            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(CreateSessionResponse, stripe, path=["response"])
 
@@ -32,6 +33,7 @@ class TestStripe:
         response = client.user.stripe.with_raw_response.create_session(
             credits=0,
             origin="origin",
+            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
         assert response.is_closed is True
@@ -44,6 +46,7 @@ class TestStripe:
         with client.user.stripe.with_streaming_response.create_session(
             credits=0,
             origin="origin",
+            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -58,6 +61,7 @@ class TestStripe:
         stripe = client.user.stripe.create_subscription(
             origin="origin",
             plan="Pro",
+            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(CreateSessionResponse, stripe, path=["response"])
 
@@ -66,6 +70,7 @@ class TestStripe:
         response = client.user.stripe.with_raw_response.create_subscription(
             origin="origin",
             plan="Pro",
+            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
         assert response.is_closed is True
@@ -78,6 +83,7 @@ class TestStripe:
         with client.user.stripe.with_streaming_response.create_subscription(
             origin="origin",
             plan="Pro",
+            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -98,6 +104,7 @@ class TestAsyncStripe:
         stripe = await async_client.user.stripe.create_session(
             credits=0,
             origin="origin",
+            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(CreateSessionResponse, stripe, path=["response"])
 
@@ -106,6 +113,7 @@ class TestAsyncStripe:
         response = await async_client.user.stripe.with_raw_response.create_session(
             credits=0,
             origin="origin",
+            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
         assert response.is_closed is True
@@ -118,6 +126,7 @@ class TestAsyncStripe:
         async with async_client.user.stripe.with_streaming_response.create_session(
             credits=0,
             origin="origin",
+            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -132,6 +141,7 @@ class TestAsyncStripe:
         stripe = await async_client.user.stripe.create_subscription(
             origin="origin",
             plan="Pro",
+            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(CreateSessionResponse, stripe, path=["response"])
 
@@ -140,6 +150,7 @@ class TestAsyncStripe:
         response = await async_client.user.stripe.with_raw_response.create_subscription(
             origin="origin",
             plan="Pro",
+            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
         assert response.is_closed is True
@@ -152,6 +163,7 @@ class TestAsyncStripe:
         async with async_client.user.stripe.with_streaming_response.create_subscription(
             origin="origin",
             plan="Pro",
+            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
