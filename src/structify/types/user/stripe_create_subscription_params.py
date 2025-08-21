@@ -13,3 +13,5 @@ class StripeCreateSubscriptionParams(TypedDict, total=False):
     origin: Required[str]
 
     plan: Required[SubscriptionPlan]
+
+    team_id: Required[str]

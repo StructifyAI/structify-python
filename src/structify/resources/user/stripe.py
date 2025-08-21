@@ -47,6 +47,7 @@ class StripeResource(SyncAPIResource):
         *,
         credits: int,
         origin: str,
+        team_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -72,6 +73,7 @@ class StripeResource(SyncAPIResource):
                 {
                     "credits": credits,
                     "origin": origin,
+                    "team_id": team_id,
                 },
                 stripe_create_session_params.StripeCreateSessionParams,
             ),
@@ -86,6 +88,7 @@ class StripeResource(SyncAPIResource):
         *,
         origin: str,
         plan: SubscriptionPlan,
+        team_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -109,6 +112,7 @@ class StripeResource(SyncAPIResource):
                 {
                     "origin": origin,
                     "plan": plan,
+                    "team_id": team_id,
                 },
                 stripe_create_subscription_params.StripeCreateSubscriptionParams,
             ),
@@ -144,6 +148,7 @@ class AsyncStripeResource(AsyncAPIResource):
         *,
         credits: int,
         origin: str,
+        team_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -169,6 +174,7 @@ class AsyncStripeResource(AsyncAPIResource):
                 {
                     "credits": credits,
                     "origin": origin,
+                    "team_id": team_id,
                 },
                 stripe_create_session_params.StripeCreateSessionParams,
             ),
@@ -183,6 +189,7 @@ class AsyncStripeResource(AsyncAPIResource):
         *,
         origin: str,
         plan: SubscriptionPlan,
+        team_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -206,6 +213,7 @@ class AsyncStripeResource(AsyncAPIResource):
                 {
                     "origin": origin,
                     "plan": plan,
+                    "team_id": team_id,
                 },
                 stripe_create_subscription_params.StripeCreateSubscriptionParams,
             ),
