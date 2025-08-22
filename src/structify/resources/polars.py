@@ -928,8 +928,10 @@ class PolarsResource(SyncAPIResource):
                 )
 
             with ThreadPoolExecutor(max_workers=MAX_PARALLEL_REQUESTS) as executor:
-                futures = [executor.submit(add_batch, batch) for batch in entity_batches]
-                for future in tqdm(as_completed(futures), total=len(futures), desc=f"Preparing {dataframe_name}"):
+                add_futures = [executor.submit(add_batch, batch) for batch in entity_batches]
+                for future in tqdm(
+                    as_completed(add_futures), total=len(add_futures), desc=f"Preparing {dataframe_name}"
+                ):
                     batch_entity_ids = future.result()
                     entity_ids.extend(batch_entity_ids)
 
