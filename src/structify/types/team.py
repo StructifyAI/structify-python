@@ -11,6 +11,8 @@ __all__ = ["Team"]
 class Team(BaseModel):
     id: str
 
+    balance_id: str
+
     created_at: datetime
 
     name: str

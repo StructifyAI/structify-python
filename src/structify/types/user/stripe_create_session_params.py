@@ -12,3 +12,5 @@ class StripeCreateSessionParams(TypedDict, total=False):
     """Amount in cents (i64)"""
 
     origin: Required[str]
+
+    team_id: Required[str]
