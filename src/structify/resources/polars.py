@@ -458,7 +458,9 @@ class PolarsResource(SyncAPIResource):
             column_schema = {col["name"]: col["name"] for col in all_properties}
             entities = dataframe_to_entities(batch_df, dataframe_name, column_schema, zero_ids=True)
 
-            # Add entities with thread pool and maintain proper mapping
+            # We add individually instead of batched to maintain the mapping between entity and ID
+            # This can be changed later if we make an endpoint for scrape single properties that
+            # just takes in entity id and property names
             entity_id_to_entity: Dict[str, EntityParam] = {}
 
             def add_single_entity(entity: EntityParam) -> Tuple[str, EntityParam]:
