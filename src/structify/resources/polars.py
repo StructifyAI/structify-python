@@ -551,6 +551,9 @@ class PolarsResource(SyncAPIResource):
         scrape_schema: Dict[str, Dict[str, Any]],
         scrape_schema_override: TableParam | None = None,
         original_column_map: Dict[str, str] = {},
+        source_table_name: str = "source_table",
+        relationship_name: str = "scraped",
+        relationship_description: str = "",
     ) -> LazyFrame:
         """
         Scrape data from URLs in a LazyFrame column and return structured results, with a column `source_url` that contains the original URL.
@@ -562,11 +565,14 @@ class PolarsResource(SyncAPIResource):
           scrape_schema: Schema definition with descriptions, format: {"column_name": {"description": "...", "type": polars_dtype}}. If the column name is the same as the table name, it will be suffixed by the table name, e.g. "name_Person"
           original_column_map: Mapping of original column names to new names
         """
-        relationship = {
-            "name": "scraped",
-            "source_table": "source",
-            "target_table": table_name,
-        }
+        relationship = CreateRelationshipParam(
+            name=relationship_name,
+            description=relationship_description,
+            source_table=source_table_name,
+            target_table=table_name,
+            properties=[],
+        )
+
         input_schema = lazy_df.collect_schema()
 
         if url_column not in input_schema:
@@ -614,21 +620,10 @@ class PolarsResource(SyncAPIResource):
                     ],
                 ),
             ],
-            relationships=[
-                CreateRelationshipParam(
-                    name=relationship["name"],
-                    description=relationship.get("description", "") or "",
-                    source_table=relationship["source_table"],
-                    target_table=relationship["target_table"],
-                    properties=[],
-                )
-            ],
+            relationships=[relationship],
         )
 
         node_id = get_node_id()
-        relationship_name = relationship["name"]
-        source_table_name = relationship["source_table"]
-        target_table_name = relationship["target_table"]
 
         def scrape_batch(batch_df: pl.DataFrame) -> pl.DataFrame:
             # 1. Get the unique URLs in the batch
@@ -638,15 +633,15 @@ class PolarsResource(SyncAPIResource):
             def scrape_entity(entity: Dict[str, Any]) -> None:
                 entity_clean = {k: v for k, v in entity.items() if v is not None}
                 self._client.scrape.list(
-                    table_name=target_table_name,
+                    table_name=relationship["target_table"],
                     dataset_name=dataset_descriptor["name"],
                     input={
                         "related": {
-                            "relationship_name": relationship_name,
+                            "relationship_name": relationship["name"],
                             "source_entity": {
                                 "id": 1,
                                 "properties": entity_clean,
-                                "type": source_table_name,
+                                "type": relationship["source_table"],
                             },
                             "source_url_column": url_column,
                         }
@@ -660,12 +655,12 @@ class PolarsResource(SyncAPIResource):
                 for future in tqdm(
                     as_completed(futures),
                     total=len(futures),
-                    desc=f"Preparing to scrape websites for {target_table_name}",
+                    desc=f"Preparing to scrape websites for {relationship['target_table']}",
                 ):
                     future.result()  # Wait for completion
 
             # Wait for all scraping jobs to complete
-            title = f"Scraping websites for {target_table_name}"
+            title = f"Scraping websites for {relationship['target_table']}"
             self._client.jobs.wait_for_jobs(dataset_name=dataset_descriptor["name"], title=title)
 
             offset = 0
@@ -675,17 +670,15 @@ class PolarsResource(SyncAPIResource):
                 try:
                     response = self._client.datasets.view_tables_with_relationships(
                         dataset=dataset_descriptor["name"],
-                        name=target_table_name,
+                        name=relationship["target_table"],
                         limit=LIMIT,
                         offset=offset,
                     )
                     for scraped_entity in response.entities:
-                        relationship = next(
-                            (rel for rel in response.relationships if rel.to_id == scraped_entity.id), None
-                        )
-                        if relationship:
+                        rel = next((rel for rel in response.relationships if rel.to_id == scraped_entity.id), None)
+                        if rel:
                             related_entity = next(
-                                (e for e in response.connected_entities if e.id == relationship.from_id),
+                                (e for e in response.connected_entities if e.id == rel.from_id),
                                 None,
                             )
                             if related_entity:
@@ -709,7 +702,7 @@ class PolarsResource(SyncAPIResource):
                         result_row[col_name] = None
             scraped_df = pl.DataFrame(result_rows, schema=scraped_schema)
 
-            joined_df = batch_df.join(scraped_df, on=url_column, how="left", suffix=f"_{target_table_name}")
+            joined_df = batch_df.join(scraped_df, on=url_column, how="left", suffix=f"_{relationship['target_table']}")
             return joined_df
 
         return lazy_df.map_batches(scrape_batch, schema=output_schema, no_optimizations=True)

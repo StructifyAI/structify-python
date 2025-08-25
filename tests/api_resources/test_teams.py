@@ -17,10 +17,12 @@ from structify.types import (
     DeleteTeamResponse,
     UpdateTeamResponse,
     ListMembersResponse,
+    CreditsUsageResponse,
     ListProjectsResponse,
     RemoveMemberResponse,
     CreateProjectResponse,
 )
+from structify._utils import parse_datetime
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -272,6 +274,67 @@ class TestTeams:
             client.teams.with_raw_response.create_project(
                 team_id="",
                 name="name",
+            )
+
+    @parametrize
+    def test_method_credits_usage(self, client: Structify) -> None:
+        team = client.teams.credits_usage(
+            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            end=parse_datetime("2019-12-27T18:11:19.117Z"),
+            granularity="hour",
+            start=parse_datetime("2019-12-27T18:11:19.117Z"),
+        )
+        assert_matches_type(CreditsUsageResponse, team, path=["response"])
+
+    @parametrize
+    def test_method_credits_usage_with_all_params(self, client: Structify) -> None:
+        team = client.teams.credits_usage(
+            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            end=parse_datetime("2019-12-27T18:11:19.117Z"),
+            granularity="hour",
+            start=parse_datetime("2019-12-27T18:11:19.117Z"),
+            token="token",
+        )
+        assert_matches_type(CreditsUsageResponse, team, path=["response"])
+
+    @parametrize
+    def test_raw_response_credits_usage(self, client: Structify) -> None:
+        response = client.teams.with_raw_response.credits_usage(
+            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            end=parse_datetime("2019-12-27T18:11:19.117Z"),
+            granularity="hour",
+            start=parse_datetime("2019-12-27T18:11:19.117Z"),
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        team = response.parse()
+        assert_matches_type(CreditsUsageResponse, team, path=["response"])
+
+    @parametrize
+    def test_streaming_response_credits_usage(self, client: Structify) -> None:
+        with client.teams.with_streaming_response.credits_usage(
+            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            end=parse_datetime("2019-12-27T18:11:19.117Z"),
+            granularity="hour",
+            start=parse_datetime("2019-12-27T18:11:19.117Z"),
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            team = response.parse()
+            assert_matches_type(CreditsUsageResponse, team, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_path_params_credits_usage(self, client: Structify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `team_id` but received ''"):
+            client.teams.with_raw_response.credits_usage(
+                team_id="",
+                end=parse_datetime("2019-12-27T18:11:19.117Z"),
+                granularity="hour",
+                start=parse_datetime("2019-12-27T18:11:19.117Z"),
             )
 
     @parametrize
@@ -686,6 +749,67 @@ class TestAsyncTeams:
             await async_client.teams.with_raw_response.create_project(
                 team_id="",
                 name="name",
+            )
+
+    @parametrize
+    async def test_method_credits_usage(self, async_client: AsyncStructify) -> None:
+        team = await async_client.teams.credits_usage(
+            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            end=parse_datetime("2019-12-27T18:11:19.117Z"),
+            granularity="hour",
+            start=parse_datetime("2019-12-27T18:11:19.117Z"),
+        )
+        assert_matches_type(CreditsUsageResponse, team, path=["response"])
+
+    @parametrize
+    async def test_method_credits_usage_with_all_params(self, async_client: AsyncStructify) -> None:
+        team = await async_client.teams.credits_usage(
+            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            end=parse_datetime("2019-12-27T18:11:19.117Z"),
+            granularity="hour",
+            start=parse_datetime("2019-12-27T18:11:19.117Z"),
+            token="token",
+        )
+        assert_matches_type(CreditsUsageResponse, team, path=["response"])
+
+    @parametrize
+    async def test_raw_response_credits_usage(self, async_client: AsyncStructify) -> None:
+        response = await async_client.teams.with_raw_response.credits_usage(
+            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            end=parse_datetime("2019-12-27T18:11:19.117Z"),
+            granularity="hour",
+            start=parse_datetime("2019-12-27T18:11:19.117Z"),
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        team = await response.parse()
+        assert_matches_type(CreditsUsageResponse, team, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_credits_usage(self, async_client: AsyncStructify) -> None:
+        async with async_client.teams.with_streaming_response.credits_usage(
+            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            end=parse_datetime("2019-12-27T18:11:19.117Z"),
+            granularity="hour",
+            start=parse_datetime("2019-12-27T18:11:19.117Z"),
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            team = await response.parse()
+            assert_matches_type(CreditsUsageResponse, team, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_credits_usage(self, async_client: AsyncStructify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `team_id` but received ''"):
+            await async_client.teams.with_raw_response.credits_usage(
+                team_id="",
+                end=parse_datetime("2019-12-27T18:11:19.117Z"),
+                granularity="hour",
+                start=parse_datetime("2019-12-27T18:11:19.117Z"),
             )
 
     @parametrize
