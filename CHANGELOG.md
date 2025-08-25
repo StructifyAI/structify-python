@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.138.6 (2025-08-25)
+
+Full Changelog: [v1.138.5...v1.138.6](https://github.com/StructifyAI/structify-python/compare/v1.138.5...v1.138.6)
+
+### Chores
+
+* **internal:** change ci workflow machines ([b078c97](https://github.com/StructifyAI/structify-python/commit/b078c9708475554f5ccca4629eb8791fa40bd33e))
+
 ## 1.138.5 (2025-08-25)
 
 Full Changelog: [v1.138.4...v1.138.5](https://github.com/StructifyAI/structify-python/compare/v1.138.4...v1.138.5)
