@@ -844,6 +844,126 @@ class PolarsResource(SyncAPIResource):
 
         return document_paths.map_batches(structure_batch, schema=polars_schema, no_optimizations=True)
 
+    def tag(
+        self,
+        *,
+        df: LazyFrame,
+        new_property_name: str,
+        dtype: pl.DataType,
+        instructions: str,
+        dataframe_name: str,
+        dataframe_description: str,
+    ) -> LazyFrame:
+        """
+        Tag entities in a LazyFrame by deriving a new property value based on all existing properties.
+
+        This function uses the derive endpoint to generate new property values based on all existing
+        properties in each row, using the provided instructions.
+
+        Args:
+            df: The input `polars.LazyFrame` to tag.
+            new_property_name: Name of the new property to derive.
+            dtype: Polars DataType for the new property (e.g. pl.String(), pl.Int64()).
+            instructions: Instructions for how to derive the new property value.
+            dataframe_name: Logical name of the dataframe (e.g. "Company", "Invoice").
+            dataframe_description: Description providing context for the dataframe.
+
+        Returns:
+            LazyFrame with the original columns plus the new derived property column.
+        """
+        # Existing columns & their dtypes from the LazyFrame
+        existing_schema_dict: Dict[str, pl.DataType] = df.collect_schema()
+
+        # Build Structify `Property` objects for existing columns
+        existing_properties = [
+            Property(name=col_name, description="", prop_type=dtype_to_structify_type(col_dtype))
+            for col_name, col_dtype in existing_schema_dict.items()
+        ]
+
+        # Add the new property to derive
+        new_property = Property(
+            name=new_property_name, description=instructions, prop_type=dtype_to_structify_type(dtype)
+        )
+
+        all_properties = existing_properties + [new_property]
+
+        dataset_name = f"tag_{dataframe_name}_{uuid.uuid4().hex}"
+        self._client.datasets.create(
+            name=dataset_name,
+            description="",
+            tables=[
+                TableParam(
+                    name=dataframe_name,
+                    description=dataframe_description,
+                    properties=all_properties,
+                )
+            ],
+            relationships=[],
+            ephemeral=True,
+        )
+
+        # Add the new column with null values and proper type
+        df = df.with_columns([pl.lit(None, dtype=dtype).alias(new_property_name)])
+
+        # Create the expected output schema
+        expected_schema = properties_to_schema(all_properties)
+
+        # Apply Structify derive on the dataframe
+        def tag_batch(batch_df: pl.DataFrame) -> pl.DataFrame:
+            if batch_df.is_empty():
+                return pl.DataFrame(schema=expected_schema)
+
+            # 1. Add all the entities to the structify dataset
+            column_schema = {col["name"]: col["name"] for col in all_properties}
+            entities = dataframe_to_entities(batch_df, dataframe_name, column_schema)
+
+            # Add entities in batches to avoid JSON payload size issues
+            entity_ids: List[str] = []
+            entity_batches = chunk_entities_for_parallel_add(entities)
+
+            def add_batch(batch: List[KnowledgeGraphParam]) -> List[str]:
+                return self._client.entities.add_batch(
+                    dataset=dataset_name,
+                    entity_graphs=batch,
+                )
+
+            with ThreadPoolExecutor(max_workers=MAX_PARALLEL_REQUESTS) as executor:
+                add_futures = [executor.submit(add_batch, batch) for batch in entity_batches]
+                for future in tqdm(
+                    as_completed(add_futures), total=len(add_futures), desc=f"Preparing {dataframe_name}"
+                ):
+                    batch_entity_ids = future.result()
+                    entity_ids.extend(batch_entity_ids)
+
+            # 2. Derive the new property for each entity
+            def derive_entity_property(entity_id: str) -> None:
+                self._client.entities.derive(
+                    dataset=dataset_name,
+                    entity_id=entity_id,
+                    table_name=dataframe_name,
+                    derived_property=new_property_name,
+                    input_properties=None,  # Use all properties as input
+                    extra_instruction=instructions,
+                )
+
+            with ThreadPoolExecutor(max_workers=MAX_PARALLEL_REQUESTS) as executor:
+                futures = [executor.submit(derive_entity_property, entity_id) for entity_id in entity_ids]
+                for future in tqdm(
+                    as_completed(futures), total=len(futures), desc=f"Deriving {new_property_name} for {dataframe_name}"
+                ):
+                    future.result()  # Wait for completion
+
+            # 3. Collect the results
+            results = [
+                entity.properties
+                for entity in self._client.datasets.view_table(dataset=dataset_name, name=dataframe_name)
+            ]
+
+            # 4. Return the results
+            return pl.DataFrame(results, schema=expected_schema)
+
+        return df.map_batches(tag_batch, schema=expected_schema, no_optimizations=True)
+
 
 class PolarsResourceWithRawResponse:
     def __init__(self, dataframe: PolarsResource) -> None:
@@ -851,6 +971,9 @@ class PolarsResourceWithRawResponse:
 
         self.enhance_columns = to_raw_response_wrapper(
             dataframe.enhance_columns,
+        )
+        self.tag = to_raw_response_wrapper(
+            dataframe.tag,
         )
 
 
@@ -860,6 +983,9 @@ class PolarsResourceWithStreamingResponse:
 
         self.enhance_columns = to_streamed_response_wrapper(
             dataframe.enhance_columns,
+        )
+        self.tag = to_streamed_response_wrapper(
+            dataframe.tag,
         )
 
 
