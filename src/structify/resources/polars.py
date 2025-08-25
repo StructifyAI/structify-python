@@ -675,12 +675,10 @@ class PolarsResource(SyncAPIResource):
                         offset=offset,
                     )
                     for scraped_entity in response.entities:
-                        relationship = next(
-                            (rel for rel in response.relationships if rel.to_id == scraped_entity.id), None
-                        )
-                        if relationship:
+                        rel = next((rel for rel in response.relationships if rel.to_id == scraped_entity.id), None)
+                        if rel:
                             related_entity = next(
-                                (e for e in response.connected_entities if e.id == relationship.from_id),
+                                (e for e in response.connected_entities if e.id == rel.from_id),
                                 None,
                             )
                             if related_entity:
