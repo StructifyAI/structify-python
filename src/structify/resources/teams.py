@@ -2,11 +2,20 @@
 
 from __future__ import annotations
 
-from typing import Optional
+from typing import Union, Optional
+from datetime import datetime
 
 import httpx
 
-from ..types import TeamRole, team_create_params, team_update_params, team_add_member_params, team_create_project_params
+from ..types import (
+    TeamRole,
+    Granularity,
+    team_create_params,
+    team_update_params,
+    team_add_member_params,
+    team_credits_usage_params,
+    team_create_project_params,
+)
 from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -19,6 +28,7 @@ from .._response import (
 )
 from .._base_client import make_request_options
 from ..types.team_role import TeamRole
+from ..types.granularity import Granularity
 from ..types.get_team_response import GetTeamResponse
 from ..types.add_member_response import AddMemberResponse
 from ..types.list_teams_response import ListTeamsResponse
@@ -26,6 +36,7 @@ from ..types.create_team_response import CreateTeamResponse
 from ..types.delete_team_response import DeleteTeamResponse
 from ..types.update_team_response import UpdateTeamResponse
 from ..types.list_members_response import ListMembersResponse
+from ..types.credits_usage_response import CreditsUsageResponse
 from ..types.list_projects_response import ListProjectsResponse
 from ..types.remove_member_response import RemoveMemberResponse
 from ..types.create_project_response import CreateProjectResponse
@@ -257,6 +268,61 @@ class TeamsResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=CreateProjectResponse,
+        )
+
+    def credits_usage(
+        self,
+        team_id: str,
+        *,
+        end: Union[str, datetime],
+        granularity: Granularity,
+        start: Union[str, datetime],
+        token: Optional[str] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> CreditsUsageResponse:
+        """
+        Args:
+          end: End time exclusive (UTC)
+
+          granularity: hour | day | week | month
+
+          start: Start time inclusive (UTC)
+
+          token: Optional token ID to filter by
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not team_id:
+            raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
+        return self._get(
+            f"/team/{team_id}/credits/usage",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "end": end,
+                        "granularity": granularity,
+                        "start": start,
+                        "token": token,
+                    },
+                    team_credits_usage_params.TeamCreditsUsageParams,
+                ),
+            ),
+            cast_to=CreditsUsageResponse,
         )
 
     def get(
@@ -613,6 +679,61 @@ class AsyncTeamsResource(AsyncAPIResource):
             cast_to=CreateProjectResponse,
         )
 
+    async def credits_usage(
+        self,
+        team_id: str,
+        *,
+        end: Union[str, datetime],
+        granularity: Granularity,
+        start: Union[str, datetime],
+        token: Optional[str] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> CreditsUsageResponse:
+        """
+        Args:
+          end: End time exclusive (UTC)
+
+          granularity: hour | day | week | month
+
+          start: Start time inclusive (UTC)
+
+          token: Optional token ID to filter by
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not team_id:
+            raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
+        return await self._get(
+            f"/team/{team_id}/credits/usage",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "end": end,
+                        "granularity": granularity,
+                        "start": start,
+                        "token": token,
+                    },
+                    team_credits_usage_params.TeamCreditsUsageParams,
+                ),
+            ),
+            cast_to=CreditsUsageResponse,
+        )
+
     async def get(
         self,
         team_id: str,
@@ -763,6 +884,9 @@ class TeamsResourceWithRawResponse:
         self.create_project = to_raw_response_wrapper(
             teams.create_project,
         )
+        self.credits_usage = to_raw_response_wrapper(
+            teams.credits_usage,
+        )
         self.get = to_raw_response_wrapper(
             teams.get,
         )
@@ -798,6 +922,9 @@ class AsyncTeamsResourceWithRawResponse:
         )
         self.create_project = async_to_raw_response_wrapper(
             teams.create_project,
+        )
+        self.credits_usage = async_to_raw_response_wrapper(
+            teams.credits_usage,
         )
         self.get = async_to_raw_response_wrapper(
             teams.get,
@@ -835,6 +962,9 @@ class TeamsResourceWithStreamingResponse:
         self.create_project = to_streamed_response_wrapper(
             teams.create_project,
         )
+        self.credits_usage = to_streamed_response_wrapper(
+            teams.credits_usage,
+        )
         self.get = to_streamed_response_wrapper(
             teams.get,
         )
@@ -870,6 +1000,9 @@ class AsyncTeamsResourceWithStreamingResponse:
         )
         self.create_project = async_to_streamed_response_wrapper(
             teams.create_project,
+        )
+        self.credits_usage = async_to_streamed_response_wrapper(
+            teams.credits_usage,
         )
         self.get = async_to_streamed_response_wrapper(
             teams.get,
