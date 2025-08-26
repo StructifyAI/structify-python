@@ -56,6 +56,7 @@ class ScrapeResource(SyncAPIResource):
         dataset_name: Optional[str] | NotGiven = NOT_GIVEN,
         node_id: Optional[str] | NotGiven = NOT_GIVEN,
         stop_config: Optional[scrape_list_params.StopConfig] | NotGiven = NOT_GIVEN,
+        use_proxy: Optional[bool] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -90,6 +91,7 @@ class ScrapeResource(SyncAPIResource):
                     "dataset_name": dataset_name,
                     "node_id": node_id,
                     "stop_config": stop_config,
+                    "use_proxy": use_proxy,
                 },
                 scrape_list_params.ScrapeListParams,
             ),
@@ -108,6 +110,7 @@ class ScrapeResource(SyncAPIResource):
         node_id: Optional[str] | NotGiven = NOT_GIVEN,
         seeded_kg: Optional[KnowledgeGraphParam] | NotGiven = NOT_GIVEN,
         stop_config: Optional[scrape_scrape_params.StopConfig] | NotGiven = NOT_GIVEN,
+        use_proxy: Optional[bool] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -141,6 +144,7 @@ class ScrapeResource(SyncAPIResource):
                     "node_id": node_id,
                     "seeded_kg": seeded_kg,
                     "stop_config": stop_config,
+                    "use_proxy": use_proxy,
                 },
                 scrape_scrape_params.ScrapeScrapeParams,
             ),
@@ -180,6 +184,7 @@ class AsyncScrapeResource(AsyncAPIResource):
         dataset_name: Optional[str] | NotGiven = NOT_GIVEN,
         node_id: Optional[str] | NotGiven = NOT_GIVEN,
         stop_config: Optional[scrape_list_params.StopConfig] | NotGiven = NOT_GIVEN,
+        use_proxy: Optional[bool] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -214,6 +219,7 @@ class AsyncScrapeResource(AsyncAPIResource):
                     "dataset_name": dataset_name,
                     "node_id": node_id,
                     "stop_config": stop_config,
+                    "use_proxy": use_proxy,
                 },
                 scrape_list_params.ScrapeListParams,
             ),
@@ -232,6 +238,7 @@ class AsyncScrapeResource(AsyncAPIResource):
         node_id: Optional[str] | NotGiven = NOT_GIVEN,
         seeded_kg: Optional[KnowledgeGraphParam] | NotGiven = NOT_GIVEN,
         stop_config: Optional[scrape_scrape_params.StopConfig] | NotGiven = NOT_GIVEN,
+        use_proxy: Optional[bool] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -265,6 +272,7 @@ class AsyncScrapeResource(AsyncAPIResource):
                     "node_id": node_id,
                     "seeded_kg": seeded_kg,
                     "stop_config": stop_config,
+                    "use_proxy": use_proxy,
                 },
                 scrape_scrape_params.ScrapeScrapeParams,
             ),

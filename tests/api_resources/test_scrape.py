@@ -106,6 +106,7 @@ class TestScrape:
                 "max_execution_time_secs": 0,
                 "max_total_steps": 0,
             },
+            use_proxy=True,
         )
         assert_matches_type(ScrapeListResponse, scrape, path=["response"])
 
@@ -222,6 +223,7 @@ class TestScrape:
                 "max_execution_time_secs": 0,
                 "max_total_steps": 0,
             },
+            use_proxy=True,
         )
         assert_matches_type(ScrapeScrapeResponse, scrape, path=["response"])
 
@@ -345,6 +347,7 @@ class TestAsyncScrape:
                 "max_execution_time_secs": 0,
                 "max_total_steps": 0,
             },
+            use_proxy=True,
         )
         assert_matches_type(ScrapeListResponse, scrape, path=["response"])
 
@@ -461,6 +464,7 @@ class TestAsyncScrape:
                 "max_execution_time_secs": 0,
                 "max_total_steps": 0,
             },
+            use_proxy=True,
         )
         assert_matches_type(ScrapeScrapeResponse, scrape, path=["response"])
 

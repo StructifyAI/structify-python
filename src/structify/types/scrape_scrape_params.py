@@ -30,6 +30,8 @@ class ScrapeScrapeParams(TypedDict, total=False):
     stop_config: Optional[StopConfig]
     """Configuration parameters for the StopChecker"""
 
+    use_proxy: Optional[bool]
+
 
 class StopConfig(TypedDict, total=False):
     max_steps_without_save: Required[int]
