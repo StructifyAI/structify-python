@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import List, Optional
+from typing import Optional
 from typing_extensions import Required, TypedDict
 
 __all__ = ["EntityDeriveParams"]
@@ -15,8 +15,6 @@ class EntityDeriveParams(TypedDict, total=False):
 
     entity_id: Required[str]
 
-    table_name: Required[str]
+    instructions: Required[str]
 
-    extra_instruction: Optional[str]
-
-    input_properties: Optional[List[str]]
+    node_id: Optional[str]
