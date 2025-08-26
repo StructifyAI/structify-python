@@ -4,7 +4,7 @@ from __future__ import annotations
 import os
 import uuid
 from typing import Any, Dict, List, Tuple, Optional, TypedDict, cast
-from concurrent.futures import ThreadPoolExecutor, as_completed
+from concurrent.futures import Future, ThreadPoolExecutor, as_completed
 
 import polars as pl
 from tqdm import tqdm  # type: ignore
@@ -22,10 +22,10 @@ from .._response import (
     to_raw_response_wrapper,
     to_streamed_response_wrapper,
 )
-from ..types.table_param import Property, TableParam
+from ..types.table_param import Property
 from ..types.save_requirement_param import RequiredEntity, RequiredProperty
 from ..types.dataset_descriptor_param import DatasetDescriptorParam
-from ..types.structure_run_async_params import SourcePdf, StopConfig
+from ..types.structure_run_async_params import SourcePdf, StopConfig, SourceWebWeb
 
 __all__ = ["PolarsResource"]
 
@@ -51,6 +51,21 @@ class PolarsResource(SyncAPIResource):
         For more information, see https://www.github.com/StructifyAI/structify-python#with_streaming_response
         """
         return PolarsResourceWithStreamingResponse(self)
+
+    def _add_single_entity(self, dataset_name: str, entity: EntityParam) -> tuple[str, EntityParam]:
+        """Add a single entity to the given dataset and return (entity_id, entity).
+
+        Always seeds with id=0 in the KnowledgeGraph to ensure consistent server-side ID assignment.
+        """
+        kg_param = KnowledgeGraphParam(
+            entities=[EntityParam(type=entity["type"], id=0, properties=entity["properties"])],
+            relationships=[],
+        )
+        entity_ids = self._client.entities.add_batch(
+            dataset=dataset_name,
+            entity_graphs=[kg_param],
+        )
+        return entity_ids[0], entity
 
     def enhance_columns(
         self,
@@ -151,32 +166,51 @@ class PolarsResource(SyncAPIResource):
             column_schema = {col["name"]: col["name"] for col in all_properties}
             entities = dataframe_to_entities(batch_df, dataframe_name, column_schema)
 
-            # Add entities in batches to avoid JSON payload size issues
-            entity_ids: List[str] = []
-            entity_batches = chunk_entities_for_parallel_add(entities)
-
-            def add_batch(batch: List[KnowledgeGraphParam]) -> List[str]:
-                return self._client.entities.add_batch(
-                    dataset=dataset_name,
-                    entity_graphs=batch,
-                )
+            # We add individually instead of batched to maintain the mapping between entity and ID (Same as in enhance_relationships)
+            entity_id_to_entity: Dict[str, EntityParam] = {}
 
             with ThreadPoolExecutor(max_workers=MAX_PARALLEL_REQUESTS) as executor:
-                futures = [executor.submit(add_batch, batch) for batch in entity_batches]
-                for future in tqdm(as_completed(futures), total=len(futures), desc=f"Preparing {dataframe_name}"):
-                    batch_entity_ids = future.result()
-                    entity_ids.extend(batch_entity_ids)
+                add_futures = [executor.submit(self._add_single_entity, dataset_name, entity) for entity in entities]
+                for future in tqdm(
+                    as_completed(add_futures), total=len(add_futures), desc=f"Adding {dataframe_name} entities"
+                ):
+                    entity_id, entity = future.result()
+                    entity_id_to_entity[entity_id] = entity
 
             # 2. Enhance the entities
-            def enhance_entity_property(entity_id: str, col_name: str) -> None:
-                self._client.structure.enhance_property(
-                    entity_id=entity_id,
-                    property_name=col_name,
-                    allow_extra_entities=False,
+            def enhance_entity_property(structify_entity_id: str, entity_param: EntityParam, col_names: List[str]) -> None:
+                self._client.structure.run_async(
+                    dataset=dataset_name,
+                    source={
+                        "web": SourceWebWeb(
+                            banned_domains=[],
+                            starting_searches=[],
+                            starting_urls=[],
+                        ),
+                    },
                     node_id=node_id,
+                    save_requirement=[
+                        RequiredEntity(
+                            seeded_entity_id=int(0),
+                            entity_id=structify_entity_id,
+                        ),
+                        RequiredProperty(
+                            property_names=col_names,
+                            table_name=dataframe_name,
+                        ),
+                    ],
+                    seeded_entity=KnowledgeGraphParam(
+                        entities=[
+                            EntityParam(
+                                id=int(0),
+                                properties=entity_param["properties"],
+                                type=dataframe_name,
+                            ),
+                        ],
+                        relationships=[],
+                    ),
                     stop_config=StopConfig(max_steps_without_save=max_steps_override) if max_steps_override else None,
                 )
-
             property_list = list(new_columns_dict.keys())
             if len(property_list) == 1:
                 property_names = property_list[0]
@@ -184,15 +218,10 @@ class PolarsResource(SyncAPIResource):
                 property_names = f"{property_list[0]} and {property_list[1]}"
             else:
                 property_names = f"{', '.join(property_list[:-1])}, and {property_list[-1]}"
-
-            # Create all enhancement tasks
-            enhancement_tasks = [
-                (entity_id, col_name) for entity_id in entity_ids for col_name in new_columns_dict.keys()
-            ]
             with ThreadPoolExecutor(max_workers=MAX_PARALLEL_REQUESTS) as executor:
-                futures = [
-                    executor.submit(enhance_entity_property, entity_id, col_name)  # type: ignore
-                    for entity_id, col_name in enhancement_tasks
+                futures: List[Future[None]] = [
+                    executor.submit(enhance_entity_property, entity_id, entity_param, property_list)
+                    for entity_id, entity_param in entity_id_to_entity.items()
                 ]
                 for future in tqdm(
                     as_completed(futures), total=len(futures), desc=f"Preparing enrichments for {property_names}"
@@ -208,7 +237,6 @@ class PolarsResource(SyncAPIResource):
             ]
             # 5. Return the results
             return pl.DataFrame(results, schema=expected_schema)
-
         return df.map_batches(enhance_batch, schema=expected_schema, no_optimizations=True)
 
     def enhance_relationships(
@@ -463,16 +491,8 @@ class PolarsResource(SyncAPIResource):
             # just takes in entity id and property names
             entity_id_to_entity: Dict[str, EntityParam] = {}
 
-            def add_single_entity(entity: EntityParam) -> Tuple[str, EntityParam]:
-                kg_param = KnowledgeGraphParam(entities=[entity], relationships=[])
-                entity_ids = self._client.entities.add_batch(
-                    dataset=dataset_name,
-                    entity_graphs=[kg_param],
-                )
-                return entity_ids[0], entity
-
             with ThreadPoolExecutor(max_workers=MAX_PARALLEL_REQUESTS) as executor:
-                add_futures = [executor.submit(add_single_entity, entity) for entity in entities]
+                add_futures = [executor.submit(self._add_single_entity, dataset_name, entity) for entity in entities]
                 for future in tqdm(
                     as_completed(add_futures), total=len(add_futures), desc=f"Adding {dataframe_name} entities"
                 ):

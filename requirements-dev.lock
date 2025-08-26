@@ -124,6 +124,8 @@ time-machine==2.9.0
 tomli==2.0.2
     # via mypy
     # via pytest
+tqdm==4.66.6
+    # via structifyai
 types-pytz==2025.2.0.20250516
     # via pandas-stubs
 typing-extensions==4.12.2
