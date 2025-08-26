@@ -980,9 +980,8 @@ class PolarsResource(SyncAPIResource):
                     future.result()  # Wait for completion
 
             # 3. Collect the results
-            self._client.jobs.wait_for_jobs(
-                dataset_name=dataset_name, title=f"Tagging {new_property_name} for {dataframe_name}"
-            )
+            title = f"Tagging {new_property_name} for {dataframe_name}"
+            self._client.jobs.wait_for_jobs(dataset_name=dataset_name, title=title)
             results = [
                 entity.properties
                 for entity in self._client.datasets.view_table(dataset=dataset_name, name=dataframe_name)
