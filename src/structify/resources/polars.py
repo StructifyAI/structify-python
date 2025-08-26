@@ -178,7 +178,9 @@ class PolarsResource(SyncAPIResource):
                     entity_id_to_entity[entity_id] = entity
 
             # 2. Enhance the entities
-            def enhance_entity_property(structify_entity_id: str, entity_param: EntityParam, col_names: List[str]) -> None:
+            def enhance_entity_property(
+                structify_entity_id: str, entity_param: EntityParam, col_names: List[str]
+            ) -> None:
                 self._client.structure.run_async(
                     dataset=dataset_name,
                     source={
@@ -211,6 +213,7 @@ class PolarsResource(SyncAPIResource):
                     ),
                     stop_config=StopConfig(max_steps_without_save=max_steps_override) if max_steps_override else None,
                 )
+
             property_list = list(new_columns_dict.keys())
             if len(property_list) == 1:
                 property_names = property_list[0]
@@ -237,6 +240,7 @@ class PolarsResource(SyncAPIResource):
             ]
             # 5. Return the results
             return pl.DataFrame(results, schema=expected_schema)
+
         return df.map_batches(enhance_batch, schema=expected_schema, no_optimizations=True)
 
     def enhance_relationships(
@@ -925,6 +929,8 @@ class PolarsResource(SyncAPIResource):
         # Add the new column with null values and proper type
         df = df.with_columns([pl.lit(None, dtype=dtype).alias(new_property_name)])
 
+        node_id = get_node_id()
+
         # Create the expected output schema
         expected_schema = properties_to_schema(all_properties)
 
@@ -960,10 +966,9 @@ class PolarsResource(SyncAPIResource):
                 self._client.entities.derive(
                     dataset=dataset_name,
                     entity_id=entity_id,
-                    table_name=dataframe_name,
                     derived_property=new_property_name,
-                    input_properties=None,  # Use all properties as input
-                    extra_instruction=instructions,
+                    instructions=instructions,
+                    node_id=node_id,
                 )
 
             with ThreadPoolExecutor(max_workers=MAX_PARALLEL_REQUESTS) as executor:
