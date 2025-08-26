@@ -423,7 +423,7 @@ class TestEntities:
             dataset="dataset",
             derived_property="derived_property",
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            table_name="table_name",
+            instructions="instructions",
         )
         assert_matches_type(str, entity, path=["response"])
 
@@ -433,9 +433,8 @@ class TestEntities:
             dataset="dataset",
             derived_property="derived_property",
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            table_name="table_name",
-            extra_instruction="extra_instruction",
-            input_properties=["string"],
+            instructions="instructions",
+            node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(str, entity, path=["response"])
 
@@ -445,7 +444,7 @@ class TestEntities:
             dataset="dataset",
             derived_property="derived_property",
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            table_name="table_name",
+            instructions="instructions",
         )
 
         assert response.is_closed is True
@@ -459,7 +458,7 @@ class TestEntities:
             dataset="dataset",
             derived_property="derived_property",
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            table_name="table_name",
+            instructions="instructions",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -1389,7 +1388,7 @@ class TestAsyncEntities:
             dataset="dataset",
             derived_property="derived_property",
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            table_name="table_name",
+            instructions="instructions",
         )
         assert_matches_type(str, entity, path=["response"])
 
@@ -1399,9 +1398,8 @@ class TestAsyncEntities:
             dataset="dataset",
             derived_property="derived_property",
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            table_name="table_name",
-            extra_instruction="extra_instruction",
-            input_properties=["string"],
+            instructions="instructions",
+            node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(str, entity, path=["response"])
 
@@ -1411,7 +1409,7 @@ class TestAsyncEntities:
             dataset="dataset",
             derived_property="derived_property",
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            table_name="table_name",
+            instructions="instructions",
         )
 
         assert response.is_closed is True
@@ -1425,7 +1423,7 @@ class TestAsyncEntities:
             dataset="dataset",
             derived_property="derived_property",
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            table_name="table_name",
+            instructions="instructions",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
