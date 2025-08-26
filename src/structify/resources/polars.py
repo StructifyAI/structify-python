@@ -291,7 +291,7 @@ class PolarsResource(SyncAPIResource):
             for col_name, col_info in target_schema.items()
         ]
 
-        _node_id = get_node_id()  # Wait until we update relationship endpoint to use node_id
+        node_id = get_node_id()  # Wait until we update relationship endpoint to use node_id
 
         def enhance_relationship_batch(batch_df: pl.DataFrame) -> pl.DataFrame:
             if batch_df.is_empty():
@@ -359,6 +359,7 @@ class PolarsResource(SyncAPIResource):
                     entity_id=entity_id,
                     relationship_name=relationship_name,
                     stop_config=StopConfig(max_steps_without_save=max_steps_override) if max_steps_override else None,
+                    node_id=node_id,
                 )
 
             with ThreadPoolExecutor(max_workers=MAX_PARALLEL_REQUESTS) as executor:
@@ -974,11 +975,13 @@ class PolarsResource(SyncAPIResource):
             with ThreadPoolExecutor(max_workers=MAX_PARALLEL_REQUESTS) as executor:
                 futures = [executor.submit(derive_entity_property, entity_id) for entity_id in entity_ids]
                 for future in tqdm(
-                    as_completed(futures), total=len(futures), desc=f"Deriving {new_property_name} for {dataframe_name}"
+                    as_completed(futures), total=len(futures), desc=f"Preparing {new_property_name} tags"
                 ):
                     future.result()  # Wait for completion
 
             # 3. Collect the results
+            title = f"Tagging {new_property_name} for {dataframe_name}"
+            self._client.jobs.wait_for_jobs(dataset_name=dataset_name, title=title)
             results = [
                 entity.properties
                 for entity in self._client.datasets.view_table(dataset=dataset_name, name=dataframe_name)
