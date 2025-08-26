@@ -39,6 +39,8 @@ class ScrapeListParams(TypedDict, total=False):
     stop_config: Optional[StopConfig]
     """Configuration parameters for the StopChecker"""
 
+    use_proxy: Optional[bool]
+
 
 class InputDirectDirect(TypedDict, total=False):
     url: Required[str]
