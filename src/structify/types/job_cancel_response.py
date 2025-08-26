@@ -26,6 +26,8 @@ class JobCancelResponse(BaseModel):
 
     updated_at: datetime
 
+    use_proxy: bool
+
     user_id: str
 
     max_errors: Optional[int] = None
