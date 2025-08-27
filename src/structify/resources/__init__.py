@@ -8,6 +8,14 @@ from .chat import (
     ChatResourceWithStreamingResponse,
     AsyncChatResourceWithStreamingResponse,
 )
+from .code import (
+    CodeResource,
+    AsyncCodeResource,
+    CodeResourceWithRawResponse,
+    AsyncCodeResourceWithRawResponse,
+    CodeResourceWithStreamingResponse,
+    AsyncCodeResourceWithStreamingResponse,
+)
 from .jobs import (
     JobsResource,
     AsyncJobsResource,
@@ -256,6 +264,12 @@ __all__ = [
     "AsyncScrapeResourceWithRawResponse",
     "ScrapeResourceWithStreamingResponse",
     "AsyncScrapeResourceWithStreamingResponse",
+    "CodeResource",
+    "AsyncCodeResource",
+    "CodeResourceWithRawResponse",
+    "AsyncCodeResourceWithRawResponse",
+    "CodeResourceWithStreamingResponse",
+    "AsyncCodeResourceWithStreamingResponse",
     "StructureResource",
     "AsyncStructureResource",
     "StructureResourceWithRawResponse",

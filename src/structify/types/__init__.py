@@ -130,6 +130,7 @@ from .entity_get_merges_params import EntityGetMergesParams as EntityGetMergesPa
 from .add_chat_message_response import AddChatMessageResponse as AddChatMessageResponse
 from .chat_list_sessions_params import ChatListSessionsParams as ChatListSessionsParams
 from .chat_toggle_public_params import ChatTogglePublicParams as ChatTogglePublicParams
+from .code_generate_code_params import CodeGenerateCodeParams as CodeGenerateCodeParams
 from .dataset_view_table_params import DatasetViewTableParams as DatasetViewTableParams
 from .document_structure_params import DocumentStructureParams as DocumentStructureParams
 from .entity_add_batch_response import EntityAddBatchResponse as EntityAddBatchResponse

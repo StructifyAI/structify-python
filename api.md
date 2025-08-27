@@ -619,6 +619,18 @@ Methods:
 - <code title="post /scrape/list">client.scrape.<a href="./src/structify/resources/scrape.py">list</a>(\*\*<a href="src/structify/types/scrape_list_params.py">params</a>) -> <a href="./src/structify/types/scrape_list_response.py">ScrapeListResponse</a></code>
 - <code title="post /scrape">client.scrape.<a href="./src/structify/resources/scrape.py">scrape</a>(\*\*<a href="src/structify/types/scrape_scrape_params.py">params</a>) -> <a href="./src/structify/types/scrape_scrape_response.py">ScrapeScrapeResponse</a></code>
 
+# Code
+
+Types:
+
+```python
+from structify.types import GenerateCodeRequest
+```
+
+Methods:
+
+- <code title="post /code/generate-code">client.code.<a href="./src/structify/resources/code.py">generate_code</a>(\*\*<a href="src/structify/types/code_generate_code_params.py">params</a>) -> None</code>
+
 # Structure
 
 Types:
