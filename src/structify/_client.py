@@ -23,6 +23,7 @@ from ._utils import is_given, get_async_library
 from ._version import __version__
 from .resources import (
     chat,
+    code,
     jobs,
     teams,
     polars,
@@ -87,6 +88,7 @@ class Structify(SyncAPIClient):
     report: report.ReportResource
     sandbox: sandbox.SandboxResource
     scrape: scrape.ScrapeResource
+    code: code.CodeResource
     structure: structure.StructureResource
     public_sessions: public_sessions.PublicSessionsResource
     polars: polars.PolarsResource
@@ -188,6 +190,7 @@ class Structify(SyncAPIClient):
         self.report = report.ReportResource(self)
         self.sandbox = sandbox.SandboxResource(self)
         self.scrape = scrape.ScrapeResource(self)
+        self.code = code.CodeResource(self)
         self.structure = structure.StructureResource(self)
         self.public_sessions = public_sessions.PublicSessionsResource(self)
         self.polars = polars.PolarsResource(self)
@@ -319,6 +322,7 @@ class AsyncStructify(AsyncAPIClient):
     report: report.AsyncReportResource
     sandbox: sandbox.AsyncSandboxResource
     scrape: scrape.AsyncScrapeResource
+    code: code.AsyncCodeResource
     structure: structure.AsyncStructureResource
     public_sessions: public_sessions.AsyncPublicSessionsResource
     with_raw_response: AsyncStructifyWithRawResponse
@@ -419,6 +423,7 @@ class AsyncStructify(AsyncAPIClient):
         self.report = report.AsyncReportResource(self)
         self.sandbox = sandbox.AsyncSandboxResource(self)
         self.scrape = scrape.AsyncScrapeResource(self)
+        self.code = code.AsyncCodeResource(self)
         self.structure = structure.AsyncStructureResource(self)
         self.public_sessions = public_sessions.AsyncPublicSessionsResource(self)
         self.with_raw_response = AsyncStructifyWithRawResponse(self)
@@ -550,6 +555,7 @@ class StructifyWithRawResponse:
         self.report = report.ReportResourceWithRawResponse(client.report)
         self.sandbox = sandbox.SandboxResourceWithRawResponse(client.sandbox)
         self.scrape = scrape.ScrapeResourceWithRawResponse(client.scrape)
+        self.code = code.CodeResourceWithRawResponse(client.code)
         self.structure = structure.StructureResourceWithRawResponse(client.structure)
         self.public_sessions = public_sessions.PublicSessionsResourceWithRawResponse(client.public_sessions)
         self.polars = polars.PolarsResourceWithRawResponse(client.polars)
@@ -576,6 +582,7 @@ class AsyncStructifyWithRawResponse:
         self.report = report.AsyncReportResourceWithRawResponse(client.report)
         self.sandbox = sandbox.AsyncSandboxResourceWithRawResponse(client.sandbox)
         self.scrape = scrape.AsyncScrapeResourceWithRawResponse(client.scrape)
+        self.code = code.AsyncCodeResourceWithRawResponse(client.code)
         self.structure = structure.AsyncStructureResourceWithRawResponse(client.structure)
         self.public_sessions = public_sessions.AsyncPublicSessionsResourceWithRawResponse(client.public_sessions)
 
@@ -601,6 +608,7 @@ class StructifyWithStreamedResponse:
         self.report = report.ReportResourceWithStreamingResponse(client.report)
         self.sandbox = sandbox.SandboxResourceWithStreamingResponse(client.sandbox)
         self.scrape = scrape.ScrapeResourceWithStreamingResponse(client.scrape)
+        self.code = code.CodeResourceWithStreamingResponse(client.code)
         self.structure = structure.StructureResourceWithStreamingResponse(client.structure)
         self.public_sessions = public_sessions.PublicSessionsResourceWithStreamingResponse(client.public_sessions)
         self.polars = polars.PolarsResourceWithStreamingResponse(client.polars)
@@ -627,6 +635,7 @@ class AsyncStructifyWithStreamedResponse:
         self.report = report.AsyncReportResourceWithStreamingResponse(client.report)
         self.sandbox = sandbox.AsyncSandboxResourceWithStreamingResponse(client.sandbox)
         self.scrape = scrape.AsyncScrapeResourceWithStreamingResponse(client.scrape)
+        self.code = code.AsyncCodeResourceWithStreamingResponse(client.code)
         self.structure = structure.AsyncStructureResourceWithStreamingResponse(client.structure)
         self.public_sessions = public_sessions.AsyncPublicSessionsResourceWithStreamingResponse(client.public_sessions)
 

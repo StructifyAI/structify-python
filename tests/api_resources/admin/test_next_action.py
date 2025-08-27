@@ -60,7 +60,7 @@ class TestNextAction:
                                 "decoding_params": {"parameters": [{"max_tokens": 0}]},
                                 "messages": [
                                     {
-                                        "content": [{"text": "Text"}],
+                                        "message": "message",
                                         "role": "user",
                                     }
                                 ],
@@ -148,7 +148,7 @@ class TestNextAction:
                         "decoding_params": {"parameters": [{"max_tokens": 0}]},
                         "messages": [
                             {
-                                "content": [{"text": "Text"}],
+                                "message": "message",
                                 "role": "user",
                             }
                         ],
@@ -278,7 +278,7 @@ class TestNextAction:
                                 "decoding_params": {"parameters": [{"max_tokens": 0}]},
                                 "messages": [
                                     {
-                                        "content": [{"text": "Text"}],
+                                        "message": "message",
                                         "role": "user",
                                     }
                                 ],
@@ -397,7 +397,7 @@ class TestNextAction:
                         "decoding_params": {"parameters": [{"max_tokens": 0}]},
                         "messages": [
                             {
-                                "content": [{"text": "Text"}],
+                                "message": "message",
                                 "role": "user",
                             }
                         ],
@@ -527,7 +527,7 @@ class TestNextAction:
                                 "decoding_params": {"parameters": [{"max_tokens": 0}]},
                                 "messages": [
                                     {
-                                        "content": [{"text": "Text"}],
+                                        "message": "message",
                                         "role": "user",
                                     }
                                 ],
@@ -615,7 +615,7 @@ class TestNextAction:
                         "decoding_params": {"parameters": [{"max_tokens": 0}]},
                         "messages": [
                             {
-                                "content": [{"text": "Text"}],
+                                "message": "message",
                                 "role": "user",
                             }
                         ],
@@ -722,7 +722,7 @@ class TestNextAction:
                                 "decoding_params": {"parameters": [{"max_tokens": 0}]},
                                 "messages": [
                                     {
-                                        "content": [{"text": "Text"}],
+                                        "message": "message",
                                         "role": "user",
                                     }
                                 ],
@@ -810,7 +810,7 @@ class TestNextAction:
                         "decoding_params": {"parameters": [{"max_tokens": 0}]},
                         "messages": [
                             {
-                                "content": [{"text": "Text"}],
+                                "message": "message",
                                 "role": "user",
                             }
                         ],
@@ -1023,7 +1023,7 @@ class TestNextAction:
                         "decoding_params": {"parameters": [{"max_tokens": 0}]},
                         "messages": [
                             {
-                                "content": [{"text": "Text"}],
+                                "message": "message",
                                 "role": "user",
                             }
                         ],
@@ -1100,7 +1100,7 @@ class TestNextAction:
                         "decoding_params": {"parameters": [{"max_tokens": 0}]},
                         "messages": [
                             {
-                                "content": [{"text": "Text"}],
+                                "message": "message",
                                 "role": "user",
                             }
                         ],
@@ -1181,7 +1181,7 @@ class TestNextAction:
                         "decoding_params": {"parameters": [{"max_tokens": 0}]},
                         "messages": [
                             {
-                                "content": [{"text": "Text"}],
+                                "message": "message",
                                 "role": "user",
                             }
                         ],
@@ -1296,7 +1296,7 @@ class TestAsyncNextAction:
                                 "decoding_params": {"parameters": [{"max_tokens": 0}]},
                                 "messages": [
                                     {
-                                        "content": [{"text": "Text"}],
+                                        "message": "message",
                                         "role": "user",
                                     }
                                 ],
@@ -1384,7 +1384,7 @@ class TestAsyncNextAction:
                         "decoding_params": {"parameters": [{"max_tokens": 0}]},
                         "messages": [
                             {
-                                "content": [{"text": "Text"}],
+                                "message": "message",
                                 "role": "user",
                             }
                         ],
@@ -1514,7 +1514,7 @@ class TestAsyncNextAction:
                                 "decoding_params": {"parameters": [{"max_tokens": 0}]},
                                 "messages": [
                                     {
-                                        "content": [{"text": "Text"}],
+                                        "message": "message",
                                         "role": "user",
                                     }
                                 ],
@@ -1633,7 +1633,7 @@ class TestAsyncNextAction:
                         "decoding_params": {"parameters": [{"max_tokens": 0}]},
                         "messages": [
                             {
-                                "content": [{"text": "Text"}],
+                                "message": "message",
                                 "role": "user",
                             }
                         ],
@@ -1763,7 +1763,7 @@ class TestAsyncNextAction:
                                 "decoding_params": {"parameters": [{"max_tokens": 0}]},
                                 "messages": [
                                     {
-                                        "content": [{"text": "Text"}],
+                                        "message": "message",
                                         "role": "user",
                                     }
                                 ],
@@ -1851,7 +1851,7 @@ class TestAsyncNextAction:
                         "decoding_params": {"parameters": [{"max_tokens": 0}]},
                         "messages": [
                             {
-                                "content": [{"text": "Text"}],
+                                "message": "message",
                                 "role": "user",
                             }
                         ],
@@ -1958,7 +1958,7 @@ class TestAsyncNextAction:
                                 "decoding_params": {"parameters": [{"max_tokens": 0}]},
                                 "messages": [
                                     {
-                                        "content": [{"text": "Text"}],
+                                        "message": "message",
                                         "role": "user",
                                     }
                                 ],
@@ -2046,7 +2046,7 @@ class TestAsyncNextAction:
                         "decoding_params": {"parameters": [{"max_tokens": 0}]},
                         "messages": [
                             {
-                                "content": [{"text": "Text"}],
+                                "message": "message",
                                 "role": "user",
                             }
                         ],
@@ -2259,7 +2259,7 @@ class TestAsyncNextAction:
                         "decoding_params": {"parameters": [{"max_tokens": 0}]},
                         "messages": [
                             {
-                                "content": [{"text": "Text"}],
+                                "message": "message",
                                 "role": "user",
                             }
                         ],
@@ -2336,7 +2336,7 @@ class TestAsyncNextAction:
                         "decoding_params": {"parameters": [{"max_tokens": 0}]},
                         "messages": [
                             {
-                                "content": [{"text": "Text"}],
+                                "message": "message",
                                 "role": "user",
                             }
                         ],
@@ -2417,7 +2417,7 @@ class TestAsyncNextAction:
                         "decoding_params": {"parameters": [{"max_tokens": 0}]},
                         "messages": [
                             {
-                                "content": [{"text": "Text"}],
+                                "message": "message",
                                 "role": "user",
                             }
                         ],

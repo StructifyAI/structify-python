@@ -32,9 +32,6 @@ __all__ = [
     "DecodingParamsParameterThinking",
     "DecodingParamsParameterVerbosity",
     "Message",
-    "MessageContent",
-    "MessageContentText",
-    "MessageContentImage",
     "Metadata",
     "MetadataFormatterSpecific",
     "MetadataFormatterSpecificImageMeta",
@@ -138,26 +135,8 @@ class DecodingParams(BaseModel):
     parameters: List[DecodingParamsParameter]
 
 
-class MessageContentText(BaseModel):
-    text: str = FieldInfo(alias="Text")
-
-
-class MessageContentImage(BaseModel):
-    image: object = FieldInfo(alias="Image")
-
-
-MessageContent: TypeAlias = Union[MessageContentText, MessageContentImage]
-
-
 class Message(BaseModel):
-    content: List[MessageContent]
-    """
-    We want this to be a vec of contents so we can accurately capture an
-    interleaving of images and text.
-
-    This is meant to be a completely raw, unprocessed representation of the text.
-    Don't take stuff out.
-    """
+    message: str
 
     role: Literal["user", "system", "assistant"]
 
