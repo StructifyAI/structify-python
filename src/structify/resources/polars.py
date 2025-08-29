@@ -1047,22 +1047,16 @@ def merge_column_properties(
     Raises:
         ValueError: If a column exists in both with different types
     """
-    # Create a mapping of existing properties by name
-    existing_by_name = {prop["name"]: prop for prop in existing_properties}
+    # Start with a copy of new properties (they take precedence)
+    merged_properties = new_properties.copy()
+    # Add existing properties that aren't in new properties
+    for existing_prop in existing_properties:
+        col_name = existing_prop["name"]
 
-    # Start with existing properties
-    merged_properties = existing_properties.copy()
-
-    # Process new properties
-    for new_prop in new_properties:
-        col_name = new_prop["name"]
-
-        if col_name in existing_by_name:
-            existing_prop = existing_by_name[col_name]
-            existing_type = existing_prop["prop_type"]
-            new_type = new_prop["prop_type"]
-
-            # Check if types match
+        try:
+            new_prop = next(prop for prop in merged_properties if prop["name"] == col_name)
+            existing_type = existing_prop.get("prop_type")
+            new_type = new_prop.get("prop_type")
             if existing_type != new_type:
                 raise ValueError(
                     f"Column '{col_name}' type mismatch: existing column has type '{existing_type}' "
@@ -1070,15 +1064,9 @@ def merge_column_properties(
                     f"Please ensure the new column type matches the existing column type, "
                     f"or use a different column name."
                 )
-
-            # Replace existing property with new one (to get updated description)
-            for i, prop in enumerate(merged_properties):
-                if prop["name"] == col_name:
-                    merged_properties[i] = new_prop
-                    break
-        else:
-            # Add new property
-            merged_properties.append(new_prop)
+        except StopIteration:
+            # Add existing property since it's not in new properties
+            merged_properties.append(existing_prop)
 
     return merged_properties
 
