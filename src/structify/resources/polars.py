@@ -129,7 +129,7 @@ class PolarsResource(SyncAPIResource):
             for col_name, (dtype, desc) in new_columns_dict.items()
         ]
 
-        all_properties = pre_existing_properties + new_column_properties
+        all_properties = merge_column_properties(pre_existing_properties, new_column_properties)
 
         dataset_name = f"enhance_{dataframe_name}_{uuid.uuid4().hex}"
         self._client.datasets.create(
@@ -451,7 +451,7 @@ class PolarsResource(SyncAPIResource):
             for col_name, (dtype, desc) in new_columns_dict.items()
         ]
 
-        all_properties = pre_existing_properties + new_column_properties
+        all_properties = merge_column_properties(pre_existing_properties, new_column_properties)
 
         dataset_name = f"enhance_{dataframe_name}_{uuid.uuid4().hex}"
         self._client.datasets.create(
@@ -1025,6 +1025,62 @@ def get_node_id() -> Optional[str]:
       The node ID from environment variable if available, otherwise None.
     """
     return os.environ.get("STRUCTIFY_NODE_ID")
+
+
+def merge_column_properties(
+    existing_properties: List[Property],
+    new_properties: List[Property],
+) -> List[Property]:
+    """
+    Merge existing and new column properties, taking the union of columns.
+
+    If a column exists in both existing and new properties with different types,
+    raises a helpful error message indicating the type mismatch.
+
+    Args:
+        existing_properties: Properties from existing DataFrame columns
+        new_properties: Properties for new columns to add
+
+    Returns:
+        List of merged properties with new properties taking precedence for existing columns
+
+    Raises:
+        ValueError: If a column exists in both with different types
+    """
+    # Create a mapping of existing properties by name
+    existing_by_name = {prop["name"]: prop for prop in existing_properties}
+
+    # Start with existing properties
+    merged_properties = existing_properties.copy()
+
+    # Process new properties
+    for new_prop in new_properties:
+        col_name = new_prop["name"]
+
+        if col_name in existing_by_name:
+            existing_prop = existing_by_name[col_name]
+            existing_type = existing_prop["prop_type"]
+            new_type = new_prop["prop_type"]
+
+            # Check if types match
+            if existing_type != new_type:
+                raise ValueError(
+                    f"Column '{col_name}' type mismatch: existing column has type '{existing_type}' "
+                    f"but new column specifies type '{new_type}'. "
+                    f"Please ensure the new column type matches the existing column type, "
+                    f"or use a different column name."
+                )
+
+            # Replace existing property with new one (to get updated description)
+            for i, prop in enumerate(merged_properties):
+                if prop["name"] == col_name:
+                    merged_properties[i] = new_prop
+                    break
+        else:
+            # Add new property
+            merged_properties.append(new_prop)
+
+    return merged_properties
 
 
 def chunk_entities_for_parallel_add(
