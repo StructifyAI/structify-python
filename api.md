@@ -84,6 +84,7 @@ Methods:
 - <code title="get /chat/sessions">client.chat.<a href="./src/structify/resources/chat.py">list_sessions</a>(\*\*<a href="src/structify/types/chat_list_sessions_params.py">params</a>) -> <a href="./src/structify/types/list_chat_sessions_response.py">ListChatSessionsResponse</a></code>
 - <code title="delete /chat/sessions/{chat_id}/collaborators/{user_id}">client.chat.<a href="./src/structify/resources/chat.py">remove_collaborator</a>(user_id, \*, chat_id) -> None</code>
 - <code title="put /chat/sessions/{session_id}/public">client.chat.<a href="./src/structify/resources/chat.py">toggle_public</a>(session_id, \*\*<a href="src/structify/types/chat_toggle_public_params.py">params</a>) -> <a href="./src/structify/types/toggle_public_response.py">TogglePublicResponse</a></code>
+- <code title="patch /chat/sessions/{session_id}">client.chat.<a href="./src/structify/resources/chat.py">update_session</a>(session_id, \*\*<a href="src/structify/types/chat_update_session_params.py">params</a>) -> <a href="./src/structify/types/chat_session.py">ChatSession</a></code>
 
 # Teams
 

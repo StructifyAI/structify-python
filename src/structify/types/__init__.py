@@ -16,6 +16,7 @@ from .user_team import UserTeam as UserTeam
 from .chat_prompt import ChatPrompt as ChatPrompt
 from .granularity import Granularity as Granularity
 from .table_param import TableParam as TableParam
+from .chat_session import ChatSession as ChatSession
 from .entity_match import EntityMatch as EntityMatch
 from .entity_param import EntityParam as EntityParam
 from .merge_config import MergeConfig as MergeConfig
@@ -145,6 +146,7 @@ from .user_survey_submit_params import UserSurveySubmitParams as UserSurveySubmi
 from .chat_add_git_commit_params import ChatAddGitCommitParams as ChatAddGitCommitParams
 from .chat_create_session_params import ChatCreateSessionParams as ChatCreateSessionParams
 from .chat_session_with_messages import ChatSessionWithMessages as ChatSessionWithMessages
+from .chat_update_session_params import ChatUpdateSessionParams as ChatUpdateSessionParams
 from .document_download_response import DocumentDownloadResponse as DocumentDownloadResponse
 from .entity_get_merges_response import EntityGetMergesResponse as EntityGetMergesResponse
 from .report_relationship_params import ReportRelationshipParams as ReportRelationshipParams
