@@ -42,6 +42,8 @@ class ChatSessionWithMessages(BaseModel):
 
     git_application_token: str
 
+    is_favorite: bool
+
     is_public: bool
     """Whether the chat session is public"""
 
@@ -54,3 +56,5 @@ class ChatSessionWithMessages(BaseModel):
     user_role: ChatSessionRole
 
     latest_workflow_session_id: Optional[str] = None
+
+    name: Optional[str] = None
