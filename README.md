@@ -154,7 +154,7 @@ client.admin.next_action.add_training_datum(
                         "decoding_params": {"parameters": [{"max_tokens": 0}]},
                         "messages": [
                             {
-                                "message": "message",
+                                "content": [{"text": "Text"}],
                                 "role": "user",
                             }
                         ],
@@ -242,7 +242,7 @@ client.admin.next_action.add_training_datum(
                 "decoding_params": {"parameters": [{"max_tokens": 0}]},
                 "messages": [
                     {
-                        "message": "message",
+                        "content": [{"text": "Text"}],
                         "role": "user",
                     }
                 ],

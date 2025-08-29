@@ -33,6 +33,9 @@ __all__ = [
     "DecodingParamsParameterThinking",
     "DecodingParamsParameterVerbosity",
     "Message",
+    "MessageContent",
+    "MessageContentText",
+    "MessageContentImage",
     "Metadata",
     "MetadataFormatterSpecific",
     "MetadataFormatterSpecificImageMeta",
@@ -136,8 +139,26 @@ class DecodingParams(TypedDict, total=False):
     parameters: Required[Iterable[DecodingParamsParameter]]
 
 
+class MessageContentText(TypedDict, total=False):
+    text: Required[Annotated[str, PropertyInfo(alias="Text")]]
+
+
+class MessageContentImage(TypedDict, total=False):
+    image: Required[Annotated[FileTypes, PropertyInfo(alias="Image")]]
+
+
+MessageContent: TypeAlias = Union[MessageContentText, MessageContentImage]
+
+
 class Message(TypedDict, total=False):
-    message: Required[str]
+    content: Required[Iterable[MessageContent]]
+    """
+    We want this to be a vec of contents so we can accurately capture an
+    interleaving of images and text.
+
+    This is meant to be a completely raw, unprocessed representation of the text.
+    Don't take stuff out.
+    """
 
     role: Required[Literal["user", "system", "assistant"]]
 
