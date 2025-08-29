@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List
+from typing import List, Optional
 from datetime import datetime
 
 from .._models import BaseModel
@@ -14,6 +14,8 @@ class Session(BaseModel):
 
     created_at: datetime
 
+    is_favorite: bool
+
     project_id: str
 
     title: str
@@ -21,6 +23,8 @@ class Session(BaseModel):
     updated_at: datetime
 
     user_role: ChatSessionRole
+
+    name: Optional[str] = None
 
 
 class ListChatSessionsResponse(BaseModel):
