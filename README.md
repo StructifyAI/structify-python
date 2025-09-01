@@ -191,14 +191,7 @@ client.admin.next_action.add_training_datum(
                                             "properties": {"foo": "string"},
                                             "type": "type",
                                         }
-                                    ],
-                                    "relationships": [
-                                        {
-                                            "source": 0,
-                                            "target": 0,
-                                            "type": "type",
-                                        }
-                                    ],
+                                    ]
                                 }
                             ],
                             "extraction_criteria": [{"relationship_name": "relationship_name"}],
@@ -224,14 +217,7 @@ client.admin.next_action.add_training_datum(
                     "properties": {"foo": "string"},
                     "type": "type",
                 }
-            ],
-            "relationships": [
-                {
-                    "source": 0,
-                    "target": 0,
-                    "type": "type",
-                }
-            ],
+            ]
         },
     },
     label="label",
@@ -279,14 +265,7 @@ client.admin.next_action.add_training_datum(
                                     "properties": {"foo": "string"},
                                     "type": "type",
                                 }
-                            ],
-                            "relationships": [
-                                {
-                                    "source": 0,
-                                    "target": 0,
-                                    "type": "type",
-                                }
-                            ],
+                            ]
                         }
                     ],
                     "extraction_criteria": [{"relationship_name": "relationship_name"}],

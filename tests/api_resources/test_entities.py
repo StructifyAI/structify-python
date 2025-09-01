@@ -80,14 +80,7 @@ class TestEntities:
                         "properties": {"foo": "string"},
                         "type": "type",
                     }
-                ],
-                "relationships": [
-                    {
-                        "source": 0,
-                        "target": 0,
-                        "type": "type",
-                    }
-                ],
+                ]
             },
         )
         assert_matches_type(EntityAddResponse, entity, path=["response"])
@@ -129,14 +122,7 @@ class TestEntities:
                         "properties": {"foo": "string"},
                         "type": "type",
                     }
-                ],
-                "relationships": [
-                    {
-                        "source": 0,
-                        "target": 0,
-                        "type": "type",
-                    }
-                ],
+                ]
             },
         )
 
@@ -156,14 +142,7 @@ class TestEntities:
                         "properties": {"foo": "string"},
                         "type": "type",
                     }
-                ],
-                "relationships": [
-                    {
-                        "source": 0,
-                        "target": 0,
-                        "type": "type",
-                    }
-                ],
+                ]
             },
         ) as response:
             assert not response.is_closed
@@ -186,14 +165,7 @@ class TestEntities:
                             "properties": {"foo": "string"},
                             "type": "type",
                         }
-                    ],
-                    "relationships": [
-                        {
-                            "source": 0,
-                            "target": 0,
-                            "type": "type",
-                        }
-                    ],
+                    ]
                 }
             ],
         )
@@ -240,14 +212,7 @@ class TestEntities:
                             "properties": {"foo": "string"},
                             "type": "type",
                         }
-                    ],
-                    "relationships": [
-                        {
-                            "source": 0,
-                            "target": 0,
-                            "type": "type",
-                        }
-                    ],
+                    ]
                 }
             ],
         )
@@ -269,14 +234,7 @@ class TestEntities:
                             "properties": {"foo": "string"},
                             "type": "type",
                         }
-                    ],
-                    "relationships": [
-                        {
-                            "source": 0,
-                            "target": 0,
-                            "type": "type",
-                        }
-                    ],
+                    ]
                 }
             ],
         ) as response:
@@ -862,14 +820,7 @@ class TestEntities:
                         "properties": {"foo": "string"},
                         "type": "type",
                     }
-                ],
-                "relationships": [
-                    {
-                        "source": 0,
-                        "target": 0,
-                        "type": "type",
-                    }
-                ],
+                ]
             },
         )
         assert_matches_type(KnowledgeGraph, entity, path=["response"])
@@ -910,14 +861,7 @@ class TestEntities:
                         "properties": {"foo": "string"},
                         "type": "type",
                     }
-                ],
-                "relationships": [
-                    {
-                        "source": 0,
-                        "target": 0,
-                        "type": "type",
-                    }
-                ],
+                ]
             },
         )
 
@@ -937,14 +881,7 @@ class TestEntities:
                         "properties": {"foo": "string"},
                         "type": "type",
                     }
-                ],
-                "relationships": [
-                    {
-                        "source": 0,
-                        "target": 0,
-                        "type": "type",
-                    }
-                ],
+                ]
             },
         ) as response:
             assert not response.is_closed
@@ -1045,14 +982,7 @@ class TestAsyncEntities:
                         "properties": {"foo": "string"},
                         "type": "type",
                     }
-                ],
-                "relationships": [
-                    {
-                        "source": 0,
-                        "target": 0,
-                        "type": "type",
-                    }
-                ],
+                ]
             },
         )
         assert_matches_type(EntityAddResponse, entity, path=["response"])
@@ -1094,14 +1024,7 @@ class TestAsyncEntities:
                         "properties": {"foo": "string"},
                         "type": "type",
                     }
-                ],
-                "relationships": [
-                    {
-                        "source": 0,
-                        "target": 0,
-                        "type": "type",
-                    }
-                ],
+                ]
             },
         )
 
@@ -1121,14 +1044,7 @@ class TestAsyncEntities:
                         "properties": {"foo": "string"},
                         "type": "type",
                     }
-                ],
-                "relationships": [
-                    {
-                        "source": 0,
-                        "target": 0,
-                        "type": "type",
-                    }
-                ],
+                ]
             },
         ) as response:
             assert not response.is_closed
@@ -1151,14 +1067,7 @@ class TestAsyncEntities:
                             "properties": {"foo": "string"},
                             "type": "type",
                         }
-                    ],
-                    "relationships": [
-                        {
-                            "source": 0,
-                            "target": 0,
-                            "type": "type",
-                        }
-                    ],
+                    ]
                 }
             ],
         )
@@ -1205,14 +1114,7 @@ class TestAsyncEntities:
                             "properties": {"foo": "string"},
                             "type": "type",
                         }
-                    ],
-                    "relationships": [
-                        {
-                            "source": 0,
-                            "target": 0,
-                            "type": "type",
-                        }
-                    ],
+                    ]
                 }
             ],
         )
@@ -1234,14 +1136,7 @@ class TestAsyncEntities:
                             "properties": {"foo": "string"},
                             "type": "type",
                         }
-                    ],
-                    "relationships": [
-                        {
-                            "source": 0,
-                            "target": 0,
-                            "type": "type",
-                        }
-                    ],
+                    ]
                 }
             ],
         ) as response:
@@ -1827,14 +1722,7 @@ class TestAsyncEntities:
                         "properties": {"foo": "string"},
                         "type": "type",
                     }
-                ],
-                "relationships": [
-                    {
-                        "source": 0,
-                        "target": 0,
-                        "type": "type",
-                    }
-                ],
+                ]
             },
         )
         assert_matches_type(KnowledgeGraph, entity, path=["response"])
@@ -1875,14 +1763,7 @@ class TestAsyncEntities:
                         "properties": {"foo": "string"},
                         "type": "type",
                     }
-                ],
-                "relationships": [
-                    {
-                        "source": 0,
-                        "target": 0,
-                        "type": "type",
-                    }
-                ],
+                ]
             },
         )
 
@@ -1902,14 +1783,7 @@ class TestAsyncEntities:
                         "properties": {"foo": "string"},
                         "type": "type",
                     }
-                ],
-                "relationships": [
-                    {
-                        "source": 0,
-                        "target": 0,
-                        "type": "type",
-                    }
-                ],
+                ]
             },
         ) as response:
             assert not response.is_closed

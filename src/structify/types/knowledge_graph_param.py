@@ -14,4 +14,4 @@ __all__ = ["KnowledgeGraphParam"]
 class KnowledgeGraphParam(TypedDict, total=False):
     entities: Required[Iterable[EntityParam]]
 
-    relationships: Required[Iterable[RelationshipParam]]
+    relationships: Iterable[RelationshipParam]
