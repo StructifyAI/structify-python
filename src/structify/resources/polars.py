@@ -1047,28 +1047,29 @@ def merge_column_properties(
     Raises:
         ValueError: If a column exists in both with different types
     """
-    # Start with a copy of new properties (they take precedence)
-    merged_properties = new_properties.copy()
-    # Add existing properties that aren't in new properties
-    for existing_prop in existing_properties:
-        col_name = existing_prop["name"]
+    # Start with a copy of existing properties (so we add new properties on the right)
+    all_properties = existing_properties.copy()
 
-        try:
-            new_prop = next(prop for prop in merged_properties if prop["name"] == col_name)
-            existing_type = existing_prop.get("prop_type")
-            new_type = new_prop.get("prop_type")
-            if existing_type != new_type:
-                raise ValueError(
-                    f"Column '{col_name}' type mismatch: existing column has type '{existing_type}' "
-                    f"but new column specifies type '{new_type}'. "
-                    f"Please ensure the new column type matches the existing column type, "
-                    f"or use a different column name."
-                )
-        except StopIteration:
-            # Add existing property since it's not in new properties
-            merged_properties.append(existing_prop)
+    # Add new properties that aren't in existing properties
+    for new_prop in new_properties:
+        for prop in all_properties:
+            if prop["name"] == new_prop["name"]:
+                existing_type = prop.get("prop_type")
+                new_type = new_prop.get("prop_type")
+                if existing_type != new_type:
+                    raise ValueError(
+                        f"Column '{prop['name']}' type mismatch: existing column has type '{existing_type}' "
+                        f"but new column specifies type '{new_type}'. "
+                        f"Please ensure the new column type matches the existing column type, "
+                        f"or use a different column name."
+                    )
+                prop["description"] = new_prop["description"]
+                break
+        else:
+            # Add new property since it's not in properties yet
+            all_properties.append(new_prop)
 
-    return merged_properties
+    return all_properties
 
 
 def chunk_entities_for_parallel_add(
