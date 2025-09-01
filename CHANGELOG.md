@@ -1,5 +1,27 @@
 # Changelog
 
+## 1.138.10 (2025-09-01)
+
+Full Changelog: [v1.138.9...v1.138.10](https://github.com/StructifyAI/structify-python/compare/v1.138.9...v1.138.10)
+
+### Features
+
+* Update from Structify backend changes ([e3846bc](https://github.com/StructifyAI/structify-python/commit/e3846bc58ea66e636e07555f6e75b1c9a27793ea))
+* Update from Structify backend changes ([fe38d51](https://github.com/StructifyAI/structify-python/commit/fe38d51c9cb5a6fed7571e5478dd2009f0f0e619))
+* Update from Structify backend changes ([16312ce](https://github.com/StructifyAI/structify-python/commit/16312cea7bc8f94a4440df8752de28575f70fb05))
+* Update from Structify backend changes ([8e40df5](https://github.com/StructifyAI/structify-python/commit/8e40df52947612a5526de15abf1e8a5f1632c84d))
+
+
+### Bug Fixes
+
+* avoid newer type syntax ([1b1bbec](https://github.com/StructifyAI/structify-python/commit/1b1bbec2a7180288ae6cf7c6913a4c67908e13a2))
+
+
+### Chores
+
+* **internal:** add Sequence related utils ([f846a79](https://github.com/StructifyAI/structify-python/commit/f846a798da83af6389f298b2fb098d46a9ce7e70))
+* **internal:** update pyright exclude list ([ee63f55](https://github.com/StructifyAI/structify-python/commit/ee63f5504270dfa90457f8721904d271a8d8e243))
+
 ## 1.138.9 (2025-08-26)
 
 Full Changelog: [v1.138.8...v1.138.9](https://github.com/StructifyAI/structify-python/compare/v1.138.8...v1.138.9)
