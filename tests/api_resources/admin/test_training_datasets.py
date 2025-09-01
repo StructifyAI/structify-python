@@ -416,14 +416,7 @@ class TestTrainingDatasets:
                                     "properties": {"foo": "string"},
                                     "type": "type",
                                 }
-                            ],
-                            "relationships": [
-                                {
-                                    "source": 0,
-                                    "target": 0,
-                                    "type": "type",
-                                }
-                            ],
+                            ]
                         }
                     },
                     "name": "Exit",
@@ -447,14 +440,7 @@ class TestTrainingDatasets:
                                     "properties": {"foo": "string"},
                                     "type": "type",
                                 }
-                            ],
-                            "relationships": [
-                                {
-                                    "source": 0,
-                                    "target": 0,
-                                    "type": "type",
-                                }
-                            ],
+                            ]
                         }
                     },
                     "name": "Exit",
@@ -482,14 +468,7 @@ class TestTrainingDatasets:
                                     "properties": {"foo": "string"},
                                     "type": "type",
                                 }
-                            ],
-                            "relationships": [
-                                {
-                                    "source": 0,
-                                    "target": 0,
-                                    "type": "type",
-                                }
-                            ],
+                            ]
                         }
                     },
                     "name": "Exit",
@@ -1229,14 +1208,7 @@ class TestAsyncTrainingDatasets:
                                     "properties": {"foo": "string"},
                                     "type": "type",
                                 }
-                            ],
-                            "relationships": [
-                                {
-                                    "source": 0,
-                                    "target": 0,
-                                    "type": "type",
-                                }
-                            ],
+                            ]
                         }
                     },
                     "name": "Exit",
@@ -1260,14 +1232,7 @@ class TestAsyncTrainingDatasets:
                                     "properties": {"foo": "string"},
                                     "type": "type",
                                 }
-                            ],
-                            "relationships": [
-                                {
-                                    "source": 0,
-                                    "target": 0,
-                                    "type": "type",
-                                }
-                            ],
+                            ]
                         }
                     },
                     "name": "Exit",
@@ -1295,14 +1260,7 @@ class TestAsyncTrainingDatasets:
                                     "properties": {"foo": "string"},
                                     "type": "type",
                                 }
-                            ],
-                            "relationships": [
-                                {
-                                    "source": 0,
-                                    "target": 0,
-                                    "type": "type",
-                                }
-                            ],
+                            ]
                         }
                     },
                     "name": "Exit",
