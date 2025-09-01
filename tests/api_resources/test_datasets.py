@@ -422,14 +422,7 @@ class TestDatasets:
                         "properties": {"foo": "string"},
                         "type": "type",
                     }
-                ],
-                "relationships": [
-                    {
-                        "source": 0,
-                        "target": 0,
-                        "type": "type",
-                    }
-                ],
+                ]
             },
         )
         assert_matches_type(DatasetMatchResponse, dataset, path=["response"])
@@ -470,14 +463,7 @@ class TestDatasets:
                         "properties": {"foo": "string"},
                         "type": "type",
                     }
-                ],
-                "relationships": [
-                    {
-                        "source": 0,
-                        "target": 0,
-                        "type": "type",
-                    }
-                ],
+                ]
             },
         )
 
@@ -497,14 +483,7 @@ class TestDatasets:
                         "properties": {"foo": "string"},
                         "type": "type",
                     }
-                ],
-                "relationships": [
-                    {
-                        "source": 0,
-                        "target": 0,
-                        "type": "type",
-                    }
-                ],
+                ]
             },
         ) as response:
             assert not response.is_closed
@@ -1273,14 +1252,7 @@ class TestAsyncDatasets:
                         "properties": {"foo": "string"},
                         "type": "type",
                     }
-                ],
-                "relationships": [
-                    {
-                        "source": 0,
-                        "target": 0,
-                        "type": "type",
-                    }
-                ],
+                ]
             },
         )
         assert_matches_type(DatasetMatchResponse, dataset, path=["response"])
@@ -1321,14 +1293,7 @@ class TestAsyncDatasets:
                         "properties": {"foo": "string"},
                         "type": "type",
                     }
-                ],
-                "relationships": [
-                    {
-                        "source": 0,
-                        "target": 0,
-                        "type": "type",
-                    }
-                ],
+                ]
             },
         )
 
@@ -1348,14 +1313,7 @@ class TestAsyncDatasets:
                         "properties": {"foo": "string"},
                         "type": "type",
                     }
-                ],
-                "relationships": [
-                    {
-                        "source": 0,
-                        "target": 0,
-                        "type": "type",
-                    }
-                ],
+                ]
             },
         ) as response:
             assert not response.is_closed

@@ -72,14 +72,7 @@ class TestHumanLlm:
                                     "properties": {"foo": "string"},
                                     "type": "type",
                                 }
-                            ],
-                            "relationships": [
-                                {
-                                    "source": 0,
-                                    "target": 0,
-                                    "type": "type",
-                                }
-                            ],
+                            ]
                         }
                     },
                     "name": "Exit",
@@ -104,14 +97,7 @@ class TestHumanLlm:
                                     "properties": {"foo": "string"},
                                     "type": "type",
                                 }
-                            ],
-                            "relationships": [
-                                {
-                                    "source": 0,
-                                    "target": 0,
-                                    "type": "type",
-                                }
-                            ],
+                            ]
                         }
                     },
                     "name": "Exit",
@@ -140,14 +126,7 @@ class TestHumanLlm:
                                     "properties": {"foo": "string"},
                                     "type": "type",
                                 }
-                            ],
-                            "relationships": [
-                                {
-                                    "source": 0,
-                                    "target": 0,
-                                    "type": "type",
-                                }
-                            ],
+                            ]
                         }
                     },
                     "name": "Exit",
@@ -348,14 +327,7 @@ class TestHumanLlm:
                                     "properties": {"foo": "string"},
                                     "type": "type",
                                 }
-                            ],
-                            "relationships": [
-                                {
-                                    "source": 0,
-                                    "target": 0,
-                                    "type": "type",
-                                }
-                            ],
+                            ]
                         }
                     },
                     "name": "Exit",
@@ -380,14 +352,7 @@ class TestHumanLlm:
                                     "properties": {"foo": "string"},
                                     "type": "type",
                                 }
-                            ],
-                            "relationships": [
-                                {
-                                    "source": 0,
-                                    "target": 0,
-                                    "type": "type",
-                                }
-                            ],
+                            ]
                         }
                     },
                     "name": "Exit",
@@ -416,14 +381,7 @@ class TestHumanLlm:
                                     "properties": {"foo": "string"},
                                     "type": "type",
                                 }
-                            ],
-                            "relationships": [
-                                {
-                                    "source": 0,
-                                    "target": 0,
-                                    "type": "type",
-                                }
-                            ],
+                            ]
                         }
                     },
                     "name": "Exit",
@@ -494,14 +452,7 @@ class TestAsyncHumanLlm:
                                     "properties": {"foo": "string"},
                                     "type": "type",
                                 }
-                            ],
-                            "relationships": [
-                                {
-                                    "source": 0,
-                                    "target": 0,
-                                    "type": "type",
-                                }
-                            ],
+                            ]
                         }
                     },
                     "name": "Exit",
@@ -526,14 +477,7 @@ class TestAsyncHumanLlm:
                                     "properties": {"foo": "string"},
                                     "type": "type",
                                 }
-                            ],
-                            "relationships": [
-                                {
-                                    "source": 0,
-                                    "target": 0,
-                                    "type": "type",
-                                }
-                            ],
+                            ]
                         }
                     },
                     "name": "Exit",
@@ -562,14 +506,7 @@ class TestAsyncHumanLlm:
                                     "properties": {"foo": "string"},
                                     "type": "type",
                                 }
-                            ],
-                            "relationships": [
-                                {
-                                    "source": 0,
-                                    "target": 0,
-                                    "type": "type",
-                                }
-                            ],
+                            ]
                         }
                     },
                     "name": "Exit",
@@ -770,14 +707,7 @@ class TestAsyncHumanLlm:
                                     "properties": {"foo": "string"},
                                     "type": "type",
                                 }
-                            ],
-                            "relationships": [
-                                {
-                                    "source": 0,
-                                    "target": 0,
-                                    "type": "type",
-                                }
-                            ],
+                            ]
                         }
                     },
                     "name": "Exit",
@@ -802,14 +732,7 @@ class TestAsyncHumanLlm:
                                     "properties": {"foo": "string"},
                                     "type": "type",
                                 }
-                            ],
-                            "relationships": [
-                                {
-                                    "source": 0,
-                                    "target": 0,
-                                    "type": "type",
-                                }
-                            ],
+                            ]
                         }
                     },
                     "name": "Exit",
@@ -838,14 +761,7 @@ class TestAsyncHumanLlm:
                                     "properties": {"foo": "string"},
                                     "type": "type",
                                 }
-                            ],
-                            "relationships": [
-                                {
-                                    "source": 0,
-                                    "target": 0,
-                                    "type": "type",
-                                }
-                            ],
+                            ]
                         }
                     },
                     "name": "Exit",
