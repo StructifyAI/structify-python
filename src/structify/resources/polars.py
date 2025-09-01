@@ -222,10 +222,14 @@ class PolarsResource(SyncAPIResource):
             else:
                 property_names = f"{', '.join(property_list[:-1])}, and {property_list[-1]}"
             with ThreadPoolExecutor(max_workers=MAX_PARALLEL_REQUESTS) as executor:
-                futures: List[Future[None]] = [
-                    executor.submit(enhance_entity_property, entity_id, entity_param, property_list)
-                    for entity_id, entity_param in entity_id_to_entity.items()
-                ]
+                futures: List[Future[None]] = []
+                # Iterate through property name at the outer level for queueing so with large requests
+                # we can skip later jobs if the earlier ones get extra properties.
+                for property_name in property_list:
+                    futures += [
+                        executor.submit(enhance_entity_property, entity_id, entity_param, [property_name])
+                        for entity_id, entity_param in entity_id_to_entity.items()
+                    ]
                 for future in tqdm(
                     as_completed(futures), total=len(futures), desc=f"Preparing enrichments for {property_names}"
                 ):
