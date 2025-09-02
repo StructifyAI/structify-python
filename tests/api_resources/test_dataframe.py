@@ -126,7 +126,9 @@ class TestPolars:
             mock_create.assert_called_once()
             mock_upload.assert_called_once()
             mock_run_async.assert_called_once()
-            mock_wait_for_jobs.assert_called_once_with(job_ids=["test-job-id"], title="Parsing invoices from PDFs")
+            mock_wait_for_jobs.assert_called_once_with(
+                job_ids=["test-job-id"], title="Parsing invoices from PDFs", node_id=None
+            )
             mock_view_table.assert_called_once()
 
             # Validate returned data
