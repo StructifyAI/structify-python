@@ -425,6 +425,7 @@ class PolarsResource(SyncAPIResource):
         new_columns: Dict[str, Dict[str, Any]],
         dataframe_name: str,
         dataframe_description: str,
+        use_proxy: bool = False,
     ) -> LazyFrame:
         """
         Enhance one or more columns of a `LazyFrame` directly from a URL.
@@ -534,6 +535,7 @@ class PolarsResource(SyncAPIResource):
                     seeded_kg=KnowledgeGraphParam(entities=[entity], relationships=[]),
                     node_id=node_id,
                     stop_config=None,
+                    use_proxy=use_proxy,
                     url=url,
                 )
 
@@ -583,6 +585,7 @@ class PolarsResource(SyncAPIResource):
         source_table_name: str = "source_table",
         relationship_name: str = "scraped",
         relationship_description: str = "",
+        use_proxy: bool = False,
     ) -> LazyFrame:
         """
         Scrape data from URLs in a LazyFrame column and return structured results, with a column `source_url` that contains the original URL.
@@ -677,6 +680,7 @@ class PolarsResource(SyncAPIResource):
                     },
                     dataset_descriptor=dataset_descriptor,
                     node_id=node_id,
+                    use_proxy=use_proxy,
                 )
 
             with ThreadPoolExecutor(max_workers=MAX_PARALLEL_REQUESTS) as executor:
@@ -745,6 +749,7 @@ class PolarsResource(SyncAPIResource):
         scrape_schema: Dict[str, Dict[str, Any]],
         scrape_schema_override: TableParam | None = None,
         original_column_map: Dict[str, str] = {},
+        use_proxy: bool = False,
     ) -> LazyFrame:
         """
         DEPRECATED: Use `scrape_relationships` instead.
@@ -756,6 +761,7 @@ class PolarsResource(SyncAPIResource):
             scrape_schema=scrape_schema,
             scrape_schema_override=scrape_schema_override,
             original_column_map=original_column_map,
+            use_proxy=use_proxy,
         )
 
     def structure_pdfs(
