@@ -472,6 +472,7 @@ class JobsResource(SyncAPIResource):
             statuses = self.status(job_ids=job_ids, dataset_name=dataset_name)
 
             # If we're inside a structify node of a workflow and want to stream progress, show the progress for that node
+            display_title = "Waiting for jobs... "
             if title:
                 node_id = os.environ.get("STRUCTIFY_NODE_ID")
                 if node_id:
@@ -484,10 +485,13 @@ class JobsResource(SyncAPIResource):
                             "elapsed_seconds": time.monotonic() - start_time,
                         },
                     )
+                    display_title = title + f"(node {node_id})... "
+                else:
+                    display_title = title + "... "
 
             status_line = (
                 f"{spinner[spin_idx % len(spinner)]} "
-                f"Waiting for jobs... "
+                f"{display_title} "
                 f"Queued: {statuses.queued}  "
                 f"Running: {statuses.running}  "
                 f"Completed: {statuses.completed}  "
