@@ -12,6 +12,7 @@ from tests.utils import assert_matches_type
 from structify.types import (
     ChatSession,
     TogglePublicResponse,
+    ChatLoadFilesResponse,
     AddChatMessageResponse,
     GetChatSessionResponse,
     ChatAddGitCommitResponse,
@@ -217,7 +218,6 @@ class TestChat:
     @parametrize
     def test_method_create_session(self, client: Structify) -> None:
         chat = client.chat.create_session(
-            git_application_token="git_application_token",
             initial_message="initial_message",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
@@ -226,7 +226,6 @@ class TestChat:
     @parametrize
     def test_raw_response_create_session(self, client: Structify) -> None:
         response = client.chat.with_raw_response.create_session(
-            git_application_token="git_application_token",
             initial_message="initial_message",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
@@ -239,7 +238,6 @@ class TestChat:
     @parametrize
     def test_streaming_response_create_session(self, client: Structify) -> None:
         with client.chat.with_streaming_response.create_session(
-            git_application_token="git_application_token",
             initial_message="initial_message",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
@@ -480,6 +478,40 @@ class TestChat:
 
             chat = response.parse()
             assert_matches_type(ListChatSessionsResponse, chat, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_method_load_files(self, client: Structify) -> None:
+        chat = client.chat.load_files(
+            chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            commit_hash="commit_hash",
+        )
+        assert_matches_type(ChatLoadFilesResponse, chat, path=["response"])
+
+    @parametrize
+    def test_raw_response_load_files(self, client: Structify) -> None:
+        response = client.chat.with_raw_response.load_files(
+            chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            commit_hash="commit_hash",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        chat = response.parse()
+        assert_matches_type(ChatLoadFilesResponse, chat, path=["response"])
+
+    @parametrize
+    def test_streaming_response_load_files(self, client: Structify) -> None:
+        with client.chat.with_streaming_response.load_files(
+            chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            commit_hash="commit_hash",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            chat = response.parse()
+            assert_matches_type(ChatLoadFilesResponse, chat, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -814,7 +846,6 @@ class TestAsyncChat:
     @parametrize
     async def test_method_create_session(self, async_client: AsyncStructify) -> None:
         chat = await async_client.chat.create_session(
-            git_application_token="git_application_token",
             initial_message="initial_message",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
@@ -823,7 +854,6 @@ class TestAsyncChat:
     @parametrize
     async def test_raw_response_create_session(self, async_client: AsyncStructify) -> None:
         response = await async_client.chat.with_raw_response.create_session(
-            git_application_token="git_application_token",
             initial_message="initial_message",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
@@ -836,7 +866,6 @@ class TestAsyncChat:
     @parametrize
     async def test_streaming_response_create_session(self, async_client: AsyncStructify) -> None:
         async with async_client.chat.with_streaming_response.create_session(
-            git_application_token="git_application_token",
             initial_message="initial_message",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
@@ -1077,6 +1106,40 @@ class TestAsyncChat:
 
             chat = await response.parse()
             assert_matches_type(ListChatSessionsResponse, chat, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_method_load_files(self, async_client: AsyncStructify) -> None:
+        chat = await async_client.chat.load_files(
+            chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            commit_hash="commit_hash",
+        )
+        assert_matches_type(ChatLoadFilesResponse, chat, path=["response"])
+
+    @parametrize
+    async def test_raw_response_load_files(self, async_client: AsyncStructify) -> None:
+        response = await async_client.chat.with_raw_response.load_files(
+            chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            commit_hash="commit_hash",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        chat = await response.parse()
+        assert_matches_type(ChatLoadFilesResponse, chat, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_load_files(self, async_client: AsyncStructify) -> None:
+        async with async_client.chat.with_streaming_response.load_files(
+            chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            commit_hash="commit_hash",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            chat = await response.parse()
+            assert_matches_type(ChatLoadFilesResponse, chat, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

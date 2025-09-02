@@ -8,6 +8,7 @@ import httpx
 
 from ..types import (
     ChatSessionRole,
+    chat_load_files_params,
     chat_add_message_params,
     chat_list_sessions_params,
     chat_toggle_public_params,
@@ -31,6 +32,7 @@ from .._base_client import make_request_options
 from ..types.chat_session import ChatSession
 from ..types.chat_session_role import ChatSessionRole
 from ..types.toggle_public_response import TogglePublicResponse
+from ..types.chat_load_files_response import ChatLoadFilesResponse
 from ..types.add_chat_message_response import AddChatMessageResponse
 from ..types.get_chat_session_response import GetChatSessionResponse
 from ..types.list_chat_sessions_response import ListChatSessionsResponse
@@ -227,7 +229,6 @@ class ChatResource(SyncAPIResource):
     def create_session(
         self,
         *,
-        git_application_token: str,
         initial_message: str,
         project_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -253,7 +254,6 @@ class ChatResource(SyncAPIResource):
             "/chat/sessions",
             body=maybe_transform(
                 {
-                    "git_application_token": git_application_token,
                     "initial_message": initial_message,
                     "project_id": project_id,
                 },
@@ -468,6 +468,45 @@ class ChatResource(SyncAPIResource):
                 query=maybe_transform({"limit": limit}, chat_list_sessions_params.ChatListSessionsParams),
             ),
             cast_to=ListChatSessionsResponse,
+        )
+
+    def load_files(
+        self,
+        *,
+        chat_id: str,
+        commit_hash: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ChatLoadFilesResponse:
+        """
+        Load files from a chat session's git repository
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/chat/files/load",
+            body=maybe_transform(
+                {
+                    "chat_id": chat_id,
+                    "commit_hash": commit_hash,
+                },
+                chat_load_files_params.ChatLoadFilesParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ChatLoadFilesResponse,
         )
 
     def remove_collaborator(
@@ -766,7 +805,6 @@ class AsyncChatResource(AsyncAPIResource):
     async def create_session(
         self,
         *,
-        git_application_token: str,
         initial_message: str,
         project_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -792,7 +830,6 @@ class AsyncChatResource(AsyncAPIResource):
             "/chat/sessions",
             body=await async_maybe_transform(
                 {
-                    "git_application_token": git_application_token,
                     "initial_message": initial_message,
                     "project_id": project_id,
                 },
@@ -1009,6 +1046,45 @@ class AsyncChatResource(AsyncAPIResource):
             cast_to=ListChatSessionsResponse,
         )
 
+    async def load_files(
+        self,
+        *,
+        chat_id: str,
+        commit_hash: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ChatLoadFilesResponse:
+        """
+        Load files from a chat session's git repository
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/chat/files/load",
+            body=await async_maybe_transform(
+                {
+                    "chat_id": chat_id,
+                    "commit_hash": commit_hash,
+                },
+                chat_load_files_params.ChatLoadFilesParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ChatLoadFilesResponse,
+        )
+
     async def remove_collaborator(
         self,
         user_id: str,
@@ -1159,6 +1235,9 @@ class ChatResourceWithRawResponse:
         self.list_sessions = to_raw_response_wrapper(
             chat.list_sessions,
         )
+        self.load_files = to_raw_response_wrapper(
+            chat.load_files,
+        )
         self.remove_collaborator = to_raw_response_wrapper(
             chat.remove_collaborator,
         )
@@ -1206,6 +1285,9 @@ class AsyncChatResourceWithRawResponse:
         )
         self.list_sessions = async_to_raw_response_wrapper(
             chat.list_sessions,
+        )
+        self.load_files = async_to_raw_response_wrapper(
+            chat.load_files,
         )
         self.remove_collaborator = async_to_raw_response_wrapper(
             chat.remove_collaborator,
@@ -1255,6 +1337,9 @@ class ChatResourceWithStreamingResponse:
         self.list_sessions = to_streamed_response_wrapper(
             chat.list_sessions,
         )
+        self.load_files = to_streamed_response_wrapper(
+            chat.load_files,
+        )
         self.remove_collaborator = to_streamed_response_wrapper(
             chat.remove_collaborator,
         )
@@ -1302,6 +1387,9 @@ class AsyncChatResourceWithStreamingResponse:
         )
         self.list_sessions = async_to_streamed_response_wrapper(
             chat.list_sessions,
+        )
+        self.load_files = async_to_streamed_response_wrapper(
+            chat.load_files,
         )
         self.remove_collaborator = async_to_streamed_response_wrapper(
             chat.remove_collaborator,
