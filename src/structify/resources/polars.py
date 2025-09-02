@@ -236,7 +236,7 @@ class PolarsResource(SyncAPIResource):
                     future.result()  # Wait for completion
             # 3. Wait for all jobs to complete
             title = f"Enriching {property_names} for {dataframe_name}"
-            self._client.jobs.wait_for_jobs(dataset_name=dataset_name, title=title)
+            self._client.jobs.wait_for_jobs(dataset_name=dataset_name, title=title, node_id=node_id)
             # 4. Collect the results
             results = [
                 entity.properties
@@ -375,7 +375,7 @@ class PolarsResource(SyncAPIResource):
 
             # Wait for all relationship enhancement jobs to complete
             title = f"Finding {relationship_name} for {source_table_name}"
-            self._client.jobs.wait_for_jobs(dataset_name=dataset_name, title=title)
+            self._client.jobs.wait_for_jobs(dataset_name=dataset_name, title=title, node_id=node_id)
 
             response = self._client.datasets.view_tables_with_relationships(
                 dataset=dataset_name, name=source_table_name
@@ -558,7 +558,7 @@ class PolarsResource(SyncAPIResource):
 
             # 3. Wait for all jobs to complete
             title = f"Scraping {property_names} for {dataframe_name}"
-            self._client.jobs.wait_for_jobs(dataset_name=dataset_name, title=title)
+            self._client.jobs.wait_for_jobs(dataset_name=dataset_name, title=title, node_id=node_id)
 
             # 4. Collect the results
             results = [
@@ -690,7 +690,7 @@ class PolarsResource(SyncAPIResource):
 
             # Wait for all scraping jobs to complete
             title = f"Scraping websites for {relationship['target_table']}"
-            self._client.jobs.wait_for_jobs(dataset_name=dataset_descriptor["name"], title=title)
+            self._client.jobs.wait_for_jobs(dataset_name=dataset_descriptor["name"], title=title, node_id=node_id)
 
             offset = 0
             LIMIT = 999
@@ -835,7 +835,7 @@ class PolarsResource(SyncAPIResource):
                     path_to_dataset[pdf_path] = dataset_name
 
             # Wait for all PDF processing jobs to complete
-            self._client.jobs.wait_for_jobs(job_ids=job_ids, title=f"Parsing {table_name} from PDFs")
+            self._client.jobs.wait_for_jobs(job_ids=job_ids, title=f"Parsing {table_name} from PDFs", node_id=node_id)
 
             # Collect results from all processed PDFs
             structured_results: list[dict[str, Any]] = []
@@ -985,7 +985,7 @@ class PolarsResource(SyncAPIResource):
 
             # 3. Collect the results
             title = f"Tagging {new_property_name} for {dataframe_name}"
-            self._client.jobs.wait_for_jobs(dataset_name=dataset_name, title=title)
+            self._client.jobs.wait_for_jobs(dataset_name=dataset_name, title=title, node_id=node_id)
             results = [
                 entity.properties
                 for entity in self._client.datasets.view_table(dataset=dataset_name, name=dataframe_name)
