@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.138.14 (2025-09-02)
+
+Full Changelog: [v1.138.13...v1.138.14](https://github.com/StructifyAI/structify-python/compare/v1.138.13...v1.138.14)
+
 ## 1.138.13 (2025-09-02)
 
 Full Changelog: [v1.138.12...v1.138.13](https://github.com/StructifyAI/structify-python/compare/v1.138.12...v1.138.13)
