@@ -4,10 +4,10 @@ from __future__ import annotations
 
 from typing_extensions import Required, TypedDict
 
-__all__ = ["ChatCreateSessionParams"]
+__all__ = ["ChatLoadFilesParams"]
 
 
-class ChatCreateSessionParams(TypedDict, total=False):
-    initial_message: Required[str]
+class ChatLoadFilesParams(TypedDict, total=False):
+    chat_id: Required[str]
 
-    project_id: Required[str]
+    commit_hash: Required[str]
