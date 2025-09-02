@@ -99,6 +99,7 @@ from .report_wrong_response import ReportWrongResponse as ReportWrongResponse
 from .sandbox_list_response import SandboxListResponse as SandboxListResponse
 from .workflow_session_edge import WorkflowSessionEdge as WorkflowSessionEdge
 from .workflow_session_node import WorkflowSessionNode as WorkflowSessionNode
+from .chat_load_files_params import ChatLoadFilesParams as ChatLoadFilesParams
 from .credits_usage_response import CreditsUsageResponse as CreditsUsageResponse
 from .dataset_match_response import DatasetMatchResponse as DatasetMatchResponse
 from .document_delete_params import DocumentDeleteParams as DocumentDeleteParams
@@ -125,6 +126,7 @@ from .entity_add_batch_params import EntityAddBatchParams as EntityAddBatchParam
 from .entity_list_jobs_params import EntityListJobsParams as EntityListJobsParams
 from .entity_summarize_params import EntitySummarizeParams as EntitySummarizeParams
 from .report_missing_response import ReportMissingResponse as ReportMissingResponse
+from .chat_load_files_response import ChatLoadFilesResponse as ChatLoadFilesResponse
 from .dataset_descriptor_param import DatasetDescriptorParam as DatasetDescriptorParam
 from .document_download_params import DocumentDownloadParams as DocumentDownloadParams
 from .entity_get_merges_params import EntityGetMergesParams as EntityGetMergesParams

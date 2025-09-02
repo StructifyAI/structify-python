@@ -66,6 +66,7 @@ from structify.types import (
     ChatCopyNodeOutputByCodeHashResponse,
     ChatGetGitCommitResponse,
     ChatGetSessionTimelineResponse,
+    ChatLoadFilesResponse,
 )
 ```
 
@@ -82,6 +83,7 @@ Methods:
 - <code title="get /chat/sessions/{session_id}/timeline">client.chat.<a href="./src/structify/resources/chat.py">get_session_timeline</a>(session_id) -> <a href="./src/structify/types/chat_get_session_timeline_response.py">ChatGetSessionTimelineResponse</a></code>
 - <code title="get /chat/sessions/{chat_id}/collaborators">client.chat.<a href="./src/structify/resources/chat.py">list_collaborators</a>(chat_id) -> <a href="./src/structify/types/list_collaborators_response.py">ListCollaboratorsResponse</a></code>
 - <code title="get /chat/sessions">client.chat.<a href="./src/structify/resources/chat.py">list_sessions</a>(\*\*<a href="src/structify/types/chat_list_sessions_params.py">params</a>) -> <a href="./src/structify/types/list_chat_sessions_response.py">ListChatSessionsResponse</a></code>
+- <code title="post /chat/files/load">client.chat.<a href="./src/structify/resources/chat.py">load_files</a>(\*\*<a href="src/structify/types/chat_load_files_params.py">params</a>) -> <a href="./src/structify/types/chat_load_files_response.py">ChatLoadFilesResponse</a></code>
 - <code title="delete /chat/sessions/{chat_id}/collaborators/{user_id}">client.chat.<a href="./src/structify/resources/chat.py">remove_collaborator</a>(user_id, \*, chat_id) -> None</code>
 - <code title="put /chat/sessions/{session_id}/public">client.chat.<a href="./src/structify/resources/chat.py">toggle_public</a>(session_id, \*\*<a href="src/structify/types/chat_toggle_public_params.py">params</a>) -> <a href="./src/structify/types/toggle_public_response.py">TogglePublicResponse</a></code>
 - <code title="patch /chat/sessions/{session_id}">client.chat.<a href="./src/structify/resources/chat.py">update_session</a>(session_id, \*\*<a href="src/structify/types/chat_update_session_params.py">params</a>) -> <a href="./src/structify/types/chat_session.py">ChatSession</a></code>
