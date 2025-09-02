@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import os
 import sys
 import time
 from typing import List, Union, Optional
@@ -455,6 +454,7 @@ class JobsResource(SyncAPIResource):
         dataset_name: Optional[str] = None,
         stream: bool = False,
         title: Optional[str] = None,
+        node_id: Optional[str] = None,
     ) -> None:
         """
         Wait for jobs to complete synchronously.
@@ -474,7 +474,7 @@ class JobsResource(SyncAPIResource):
             # If we're inside a structify node of a workflow and want to stream progress, show the progress for that node
             display_title = "Waiting for jobs... "
             if title:
-                node_id = os.environ.get("STRUCTIFY_NODE_ID")
+                display_title = title + "... "
                 if node_id:
                     self._client.sessions.update_node_progress(
                         node_id=node_id,
