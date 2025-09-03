@@ -2,8 +2,10 @@
 
 from __future__ import annotations
 
-from typing import List, Optional
+from typing import Optional
 from typing_extensions import TypedDict
+
+from .._types import SequenceNotStr
 
 __all__ = ["JobStatusParams"]
 
@@ -11,4 +13,4 @@ __all__ = ["JobStatusParams"]
 class JobStatusParams(TypedDict, total=False):
     dataset_name: Optional[str]
 
-    job_ids: Optional[List[str]]
+    job_ids: Optional[SequenceNotStr[str]]

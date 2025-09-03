@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union, Iterable, Optional
+from typing import Dict, Union, Iterable, Optional
 
 import httpx
 
@@ -28,7 +28,7 @@ from ..types import (
     entity_delete_relationship_params,
     entity_get_source_entities_params,
 )
-from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven, SequenceNotStr
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -268,7 +268,7 @@ class EntitiesResource(SyncAPIResource):
         *,
         dataset: str,
         entity_id: str,
-        force_consider_entities: List[str] | NotGiven = NOT_GIVEN,
+        force_consider_entities: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         top_k: int | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -664,8 +664,8 @@ class EntitiesResource(SyncAPIResource):
         *,
         dataset: str,
         entity_id: str,
-        properties: List[str],
-        extra_instructions: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        properties: SequenceNotStr[str],
+        extra_instructions: Optional[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1077,7 +1077,7 @@ class AsyncEntitiesResource(AsyncAPIResource):
         *,
         dataset: str,
         entity_id: str,
-        force_consider_entities: List[str] | NotGiven = NOT_GIVEN,
+        force_consider_entities: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         top_k: int | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1477,8 +1477,8 @@ class AsyncEntitiesResource(AsyncAPIResource):
         *,
         dataset: str,
         entity_id: str,
-        properties: List[str],
-        extra_instructions: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        properties: SequenceNotStr[str],
+        extra_instructions: Optional[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
