@@ -2,8 +2,10 @@
 
 from __future__ import annotations
 
-from typing import List, Optional
+from typing import Optional
 from typing_extensions import Required, TypedDict
+
+from .._types import SequenceNotStr
 
 __all__ = ["EntitySummarizeParams"]
 
@@ -13,7 +15,7 @@ class EntitySummarizeParams(TypedDict, total=False):
 
     entity_id: Required[str]
 
-    properties: Required[List[str]]
+    properties: Required[SequenceNotStr[str]]
 
-    extra_instructions: Optional[List[str]]
+    extra_instructions: Optional[SequenceNotStr[str]]
     """A list of instructions for each property to guide the summarization process"""

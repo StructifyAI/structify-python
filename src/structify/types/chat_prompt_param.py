@@ -2,10 +2,10 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union, Iterable, Optional
+from typing import Dict, Union, Iterable, Optional
 from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
-from .._types import FileTypes
+from .._types import FileTypes, SequenceNotStr
 from .._utils import PropertyInfo
 from .tool_metadata_param import ToolMetadataParam
 from .knowledge_graph_param import KnowledgeGraphParam
@@ -75,7 +75,7 @@ class DecodingParamsParameterTemperature(TypedDict, total=False):
 
 
 class DecodingParamsParameterStopTokens(TypedDict, total=False):
-    stop_tokens: Required[Annotated[List[str], PropertyInfo(alias="StopTokens")]]
+    stop_tokens: Required[Annotated[SequenceNotStr[str], PropertyInfo(alias="StopTokens")]]
 
 
 class DecodingParamsParameterLogitBias(TypedDict, total=False):

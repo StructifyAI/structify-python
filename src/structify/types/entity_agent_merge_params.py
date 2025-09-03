@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 
-from typing import List
 from typing_extensions import Required, TypedDict
+
+from .._types import SequenceNotStr
 
 __all__ = ["EntityAgentMergeParams"]
 
@@ -13,6 +14,6 @@ class EntityAgentMergeParams(TypedDict, total=False):
 
     entity_id: Required[str]
 
-    force_consider_entities: List[str]
+    force_consider_entities: SequenceNotStr[str]
 
     top_k: int
