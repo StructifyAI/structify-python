@@ -31,6 +31,7 @@ __all__ = [
     "DecodingParamsParameterCrop",
     "DecodingParamsParameterThinking",
     "DecodingParamsParameterVerbosity",
+    "DecodingParamsParameterReasoningEffort",
     "Message",
     "MessageContent",
     "MessageContentText",
@@ -114,6 +115,10 @@ class DecodingParamsParameterVerbosity(BaseModel):
     verbosity: Literal["low", "medium", "high"] = FieldInfo(alias="Verbosity")
 
 
+class DecodingParamsParameterReasoningEffort(BaseModel):
+    reasoning_effort: Literal["low", "medium", "high", "minimal"] = FieldInfo(alias="ReasoningEffort")
+
+
 DecodingParamsParameter: TypeAlias = Union[
     DecodingParamsParameterMaxTokens,
     DecodingParamsParameterMaxCompletionTokens,
@@ -131,6 +136,7 @@ DecodingParamsParameter: TypeAlias = Union[
     DecodingParamsParameterCrop,
     DecodingParamsParameterThinking,
     DecodingParamsParameterVerbosity,
+    DecodingParamsParameterReasoningEffort,
 ]
 
 
