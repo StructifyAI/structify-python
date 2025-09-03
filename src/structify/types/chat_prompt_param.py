@@ -32,6 +32,7 @@ __all__ = [
     "DecodingParamsParameterCrop",
     "DecodingParamsParameterThinking",
     "DecodingParamsParameterVerbosity",
+    "DecodingParamsParameterReasoningEffort",
     "Message",
     "MessageContent",
     "MessageContentText",
@@ -115,6 +116,12 @@ class DecodingParamsParameterVerbosity(TypedDict, total=False):
     verbosity: Required[Annotated[Literal["low", "medium", "high"], PropertyInfo(alias="Verbosity")]]
 
 
+class DecodingParamsParameterReasoningEffort(TypedDict, total=False):
+    reasoning_effort: Required[
+        Annotated[Literal["low", "medium", "high", "minimal"], PropertyInfo(alias="ReasoningEffort")]
+    ]
+
+
 DecodingParamsParameter: TypeAlias = Union[
     DecodingParamsParameterMaxTokens,
     DecodingParamsParameterMaxCompletionTokens,
@@ -132,6 +139,7 @@ DecodingParamsParameter: TypeAlias = Union[
     DecodingParamsParameterCrop,
     DecodingParamsParameterThinking,
     DecodingParamsParameterVerbosity,
+    DecodingParamsParameterReasoningEffort,
 ]
 
 
