@@ -2,11 +2,12 @@
 
 from __future__ import annotations
 
-from typing import List
 from typing_extensions import Required, TypedDict
+
+from ..._types import SequenceNotStr
 
 __all__ = ["NextActionGetBatchedTrainingDataParams"]
 
 
 class NextActionGetBatchedTrainingDataParams(TypedDict, total=False):
-    job_ids: Required[List[str]]
+    job_ids: Required[SequenceNotStr[str]]
