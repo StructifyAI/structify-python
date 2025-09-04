@@ -70,8 +70,8 @@ class ChatResource(SyncAPIResource):
         self,
         chat_id: str,
         *,
+        email: str,
         role: ChatSessionRole,
-        user_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -96,8 +96,8 @@ class ChatResource(SyncAPIResource):
             f"/chat/sessions/{chat_id}/collaborators",
             body=maybe_transform(
                 {
+                    "email": email,
                     "role": role,
-                    "user_id": user_id,
                 },
                 chat_add_collaborator_params.ChatAddCollaboratorParams,
             ),
@@ -644,8 +644,8 @@ class AsyncChatResource(AsyncAPIResource):
         self,
         chat_id: str,
         *,
+        email: str,
         role: ChatSessionRole,
-        user_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -670,8 +670,8 @@ class AsyncChatResource(AsyncAPIResource):
             f"/chat/sessions/{chat_id}/collaborators",
             body=await async_maybe_transform(
                 {
+                    "email": email,
                     "role": role,
-                    "user_id": user_id,
                 },
                 chat_add_collaborator_params.ChatAddCollaboratorParams,
             ),
