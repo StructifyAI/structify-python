@@ -31,13 +31,13 @@ from .resources import (
     scrape,
     server,
     sandbox,
-    secrets,
     sources,
     entities,
     projects,
     sessions,
     documents,
     structure,
+    connectors,
     public_sessions,
     workflow_schedule,
 )
@@ -75,13 +75,13 @@ class Structify(SyncAPIClient):
     chat: chat.ChatResource
     teams: teams.TeamsResource
     projects: projects.ProjectsResource
-    secrets: secrets.SecretsResource
     admin: admin.AdminResource
     datasets: datasets.DatasetsResource
     documents: documents.DocumentsResource
     jobs: jobs.JobsResource
     sessions: sessions.SessionsResource
     workflow_schedule: workflow_schedule.WorkflowScheduleResource
+    connectors: connectors.ConnectorsResource
     server: server.ServerResource
     sources: sources.SourcesResource
     entities: entities.EntitiesResource
@@ -177,13 +177,13 @@ class Structify(SyncAPIClient):
         self.chat = chat.ChatResource(self)
         self.teams = teams.TeamsResource(self)
         self.projects = projects.ProjectsResource(self)
-        self.secrets = secrets.SecretsResource(self)
         self.admin = admin.AdminResource(self)
         self.datasets = datasets.DatasetsResource(self)
         self.documents = documents.DocumentsResource(self)
         self.jobs = jobs.JobsResource(self)
         self.sessions = sessions.SessionsResource(self)
         self.workflow_schedule = workflow_schedule.WorkflowScheduleResource(self)
+        self.connectors = connectors.ConnectorsResource(self)
         self.server = server.ServerResource(self)
         self.sources = sources.SourcesResource(self)
         self.entities = entities.EntitiesResource(self)
@@ -309,13 +309,13 @@ class AsyncStructify(AsyncAPIClient):
     chat: chat.AsyncChatResource
     teams: teams.AsyncTeamsResource
     projects: projects.AsyncProjectsResource
-    secrets: secrets.AsyncSecretsResource
     admin: admin.AsyncAdminResource
     datasets: datasets.AsyncDatasetsResource
     documents: documents.AsyncDocumentsResource
     jobs: jobs.AsyncJobsResource
     sessions: sessions.AsyncSessionsResource
     workflow_schedule: workflow_schedule.AsyncWorkflowScheduleResource
+    connectors: connectors.AsyncConnectorsResource
     server: server.AsyncServerResource
     sources: sources.AsyncSourcesResource
     entities: entities.AsyncEntitiesResource
@@ -410,13 +410,13 @@ class AsyncStructify(AsyncAPIClient):
         self.chat = chat.AsyncChatResource(self)
         self.teams = teams.AsyncTeamsResource(self)
         self.projects = projects.AsyncProjectsResource(self)
-        self.secrets = secrets.AsyncSecretsResource(self)
         self.admin = admin.AsyncAdminResource(self)
         self.datasets = datasets.AsyncDatasetsResource(self)
         self.documents = documents.AsyncDocumentsResource(self)
         self.jobs = jobs.AsyncJobsResource(self)
         self.sessions = sessions.AsyncSessionsResource(self)
         self.workflow_schedule = workflow_schedule.AsyncWorkflowScheduleResource(self)
+        self.connectors = connectors.AsyncConnectorsResource(self)
         self.server = server.AsyncServerResource(self)
         self.sources = sources.AsyncSourcesResource(self)
         self.entities = entities.AsyncEntitiesResource(self)
@@ -542,13 +542,13 @@ class StructifyWithRawResponse:
         self.chat = chat.ChatResourceWithRawResponse(client.chat)
         self.teams = teams.TeamsResourceWithRawResponse(client.teams)
         self.projects = projects.ProjectsResourceWithRawResponse(client.projects)
-        self.secrets = secrets.SecretsResourceWithRawResponse(client.secrets)
         self.admin = admin.AdminResourceWithRawResponse(client.admin)
         self.datasets = datasets.DatasetsResourceWithRawResponse(client.datasets)
         self.documents = documents.DocumentsResourceWithRawResponse(client.documents)
         self.jobs = jobs.JobsResourceWithRawResponse(client.jobs)
         self.sessions = sessions.SessionsResourceWithRawResponse(client.sessions)
         self.workflow_schedule = workflow_schedule.WorkflowScheduleResourceWithRawResponse(client.workflow_schedule)
+        self.connectors = connectors.ConnectorsResourceWithRawResponse(client.connectors)
         self.server = server.ServerResourceWithRawResponse(client.server)
         self.sources = sources.SourcesResourceWithRawResponse(client.sources)
         self.entities = entities.EntitiesResourceWithRawResponse(client.entities)
@@ -567,7 +567,6 @@ class AsyncStructifyWithRawResponse:
         self.chat = chat.AsyncChatResourceWithRawResponse(client.chat)
         self.teams = teams.AsyncTeamsResourceWithRawResponse(client.teams)
         self.projects = projects.AsyncProjectsResourceWithRawResponse(client.projects)
-        self.secrets = secrets.AsyncSecretsResourceWithRawResponse(client.secrets)
         self.admin = admin.AsyncAdminResourceWithRawResponse(client.admin)
         self.datasets = datasets.AsyncDatasetsResourceWithRawResponse(client.datasets)
         self.documents = documents.AsyncDocumentsResourceWithRawResponse(client.documents)
@@ -576,6 +575,7 @@ class AsyncStructifyWithRawResponse:
         self.workflow_schedule = workflow_schedule.AsyncWorkflowScheduleResourceWithRawResponse(
             client.workflow_schedule
         )
+        self.connectors = connectors.AsyncConnectorsResourceWithRawResponse(client.connectors)
         self.server = server.AsyncServerResourceWithRawResponse(client.server)
         self.sources = sources.AsyncSourcesResourceWithRawResponse(client.sources)
         self.entities = entities.AsyncEntitiesResourceWithRawResponse(client.entities)
@@ -593,7 +593,6 @@ class StructifyWithStreamedResponse:
         self.chat = chat.ChatResourceWithStreamingResponse(client.chat)
         self.teams = teams.TeamsResourceWithStreamingResponse(client.teams)
         self.projects = projects.ProjectsResourceWithStreamingResponse(client.projects)
-        self.secrets = secrets.SecretsResourceWithStreamingResponse(client.secrets)
         self.admin = admin.AdminResourceWithStreamingResponse(client.admin)
         self.datasets = datasets.DatasetsResourceWithStreamingResponse(client.datasets)
         self.documents = documents.DocumentsResourceWithStreamingResponse(client.documents)
@@ -602,6 +601,7 @@ class StructifyWithStreamedResponse:
         self.workflow_schedule = workflow_schedule.WorkflowScheduleResourceWithStreamingResponse(
             client.workflow_schedule
         )
+        self.connectors = connectors.ConnectorsResourceWithStreamingResponse(client.connectors)
         self.server = server.ServerResourceWithStreamingResponse(client.server)
         self.sources = sources.SourcesResourceWithStreamingResponse(client.sources)
         self.entities = entities.EntitiesResourceWithStreamingResponse(client.entities)
@@ -620,7 +620,6 @@ class AsyncStructifyWithStreamedResponse:
         self.chat = chat.AsyncChatResourceWithStreamingResponse(client.chat)
         self.teams = teams.AsyncTeamsResourceWithStreamingResponse(client.teams)
         self.projects = projects.AsyncProjectsResourceWithStreamingResponse(client.projects)
-        self.secrets = secrets.AsyncSecretsResourceWithStreamingResponse(client.secrets)
         self.admin = admin.AsyncAdminResourceWithStreamingResponse(client.admin)
         self.datasets = datasets.AsyncDatasetsResourceWithStreamingResponse(client.datasets)
         self.documents = documents.AsyncDocumentsResourceWithStreamingResponse(client.documents)
@@ -629,6 +628,7 @@ class AsyncStructifyWithStreamedResponse:
         self.workflow_schedule = workflow_schedule.AsyncWorkflowScheduleResourceWithStreamingResponse(
             client.workflow_schedule
         )
+        self.connectors = connectors.AsyncConnectorsResourceWithStreamingResponse(client.connectors)
         self.server = server.AsyncServerResourceWithStreamingResponse(client.server)
         self.sources = sources.AsyncSourcesResourceWithStreamingResponse(client.sources)
         self.entities = entities.AsyncEntitiesResourceWithStreamingResponse(client.entities)

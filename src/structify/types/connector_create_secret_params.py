@@ -4,10 +4,10 @@ from __future__ import annotations
 
 from typing_extensions import Required, TypedDict
 
-__all__ = ["SecretCreateParams"]
+__all__ = ["ConnectorCreateSecretParams"]
 
 
-class SecretCreateParams(TypedDict, total=False):
+class ConnectorCreateSecretParams(TypedDict, total=False):
     secret_name: Required[str]
 
     secret_value: Required[str]
