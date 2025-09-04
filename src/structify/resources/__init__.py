@@ -85,14 +85,6 @@ from .sandbox import (
     SandboxResourceWithStreamingResponse,
     AsyncSandboxResourceWithStreamingResponse,
 )
-from .secrets import (
-    SecretsResource,
-    AsyncSecretsResource,
-    SecretsResourceWithRawResponse,
-    AsyncSecretsResourceWithRawResponse,
-    SecretsResourceWithStreamingResponse,
-    AsyncSecretsResourceWithStreamingResponse,
-)
 from .sources import (
     SourcesResource,
     AsyncSourcesResource,
@@ -149,6 +141,14 @@ from .structure import (
     StructureResourceWithStreamingResponse,
     AsyncStructureResourceWithStreamingResponse,
 )
+from .connectors import (
+    ConnectorsResource,
+    AsyncConnectorsResource,
+    ConnectorsResourceWithRawResponse,
+    AsyncConnectorsResourceWithRawResponse,
+    ConnectorsResourceWithStreamingResponse,
+    AsyncConnectorsResourceWithStreamingResponse,
+)
 from .public_sessions import (
     PublicSessionsResource,
     AsyncPublicSessionsResource,
@@ -191,12 +191,6 @@ __all__ = [
     "AsyncProjectsResourceWithRawResponse",
     "ProjectsResourceWithStreamingResponse",
     "AsyncProjectsResourceWithStreamingResponse",
-    "SecretsResource",
-    "AsyncSecretsResource",
-    "SecretsResourceWithRawResponse",
-    "AsyncSecretsResourceWithRawResponse",
-    "SecretsResourceWithStreamingResponse",
-    "AsyncSecretsResourceWithStreamingResponse",
     "AdminResource",
     "AsyncAdminResource",
     "AdminResourceWithRawResponse",
@@ -233,6 +227,12 @@ __all__ = [
     "AsyncWorkflowScheduleResourceWithRawResponse",
     "WorkflowScheduleResourceWithStreamingResponse",
     "AsyncWorkflowScheduleResourceWithStreamingResponse",
+    "ConnectorsResource",
+    "AsyncConnectorsResource",
+    "ConnectorsResourceWithRawResponse",
+    "AsyncConnectorsResourceWithRawResponse",
+    "ConnectorsResourceWithStreamingResponse",
+    "AsyncConnectorsResourceWithStreamingResponse",
     "ServerResource",
     "AsyncServerResource",
     "ServerResourceWithRawResponse",

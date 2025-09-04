@@ -34,8 +34,8 @@ class TestChat:
     def test_method_add_collaborator(self, client: Structify) -> None:
         chat = client.chat.add_collaborator(
             chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            email="email",
             role="owner",
-            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert chat is None
 
@@ -43,8 +43,8 @@ class TestChat:
     def test_raw_response_add_collaborator(self, client: Structify) -> None:
         response = client.chat.with_raw_response.add_collaborator(
             chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            email="email",
             role="owner",
-            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
         assert response.is_closed is True
@@ -56,8 +56,8 @@ class TestChat:
     def test_streaming_response_add_collaborator(self, client: Structify) -> None:
         with client.chat.with_streaming_response.add_collaborator(
             chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            email="email",
             role="owner",
-            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -72,8 +72,8 @@ class TestChat:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `chat_id` but received ''"):
             client.chat.with_raw_response.add_collaborator(
                 chat_id="",
+                email="email",
                 role="owner",
-                user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
     @parametrize
@@ -662,8 +662,8 @@ class TestAsyncChat:
     async def test_method_add_collaborator(self, async_client: AsyncStructify) -> None:
         chat = await async_client.chat.add_collaborator(
             chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            email="email",
             role="owner",
-            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert chat is None
 
@@ -671,8 +671,8 @@ class TestAsyncChat:
     async def test_raw_response_add_collaborator(self, async_client: AsyncStructify) -> None:
         response = await async_client.chat.with_raw_response.add_collaborator(
             chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            email="email",
             role="owner",
-            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
         assert response.is_closed is True
@@ -684,8 +684,8 @@ class TestAsyncChat:
     async def test_streaming_response_add_collaborator(self, async_client: AsyncStructify) -> None:
         async with async_client.chat.with_streaming_response.add_collaborator(
             chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            email="email",
             role="owner",
-            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -700,8 +700,8 @@ class TestAsyncChat:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `chat_id` but received ''"):
             await async_client.chat.with_raw_response.add_collaborator(
                 chat_id="",
+                email="email",
                 role="owner",
-                user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
     @parametrize
