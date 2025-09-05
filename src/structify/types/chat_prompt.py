@@ -5,6 +5,7 @@ from typing_extensions import Literal, TypeAlias
 
 from pydantic import Field as FieldInfo
 
+from .message import Message
 from .._models import BaseModel
 from .tool_metadata import ToolMetadata
 from .knowledge_graph import KnowledgeGraph
@@ -32,10 +33,6 @@ __all__ = [
     "DecodingParamsParameterThinking",
     "DecodingParamsParameterVerbosity",
     "DecodingParamsParameterReasoningEffort",
-    "Message",
-    "MessageContent",
-    "MessageContentText",
-    "MessageContentImage",
     "Metadata",
     "MetadataFormatterSpecific",
     "MetadataFormatterSpecificImageMeta",
@@ -142,30 +139,6 @@ DecodingParamsParameter: TypeAlias = Union[
 
 class DecodingParams(BaseModel):
     parameters: List[DecodingParamsParameter]
-
-
-class MessageContentText(BaseModel):
-    text: str = FieldInfo(alias="Text")
-
-
-class MessageContentImage(BaseModel):
-    image: object = FieldInfo(alias="Image")
-
-
-MessageContent: TypeAlias = Union[MessageContentText, MessageContentImage]
-
-
-class Message(BaseModel):
-    content: List[MessageContent]
-    """
-    We want this to be a vec of contents so we can accurately capture an
-    interleaving of images and text.
-
-    This is meant to be a completely raw, unprocessed representation of the text.
-    Don't take stuff out.
-    """
-
-    role: Literal["user", "system", "assistant"]
 
 
 class MetadataFormatterSpecificImageMetaImageMeta(BaseModel):

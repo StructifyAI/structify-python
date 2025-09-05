@@ -16,6 +16,8 @@ class Session(BaseModel):
 
     is_favorite: bool
 
+    is_public: bool
+
     project_id: str
 
     title: str
