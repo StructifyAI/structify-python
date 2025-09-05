@@ -7,6 +7,7 @@ from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
 from .._types import FileTypes, SequenceNotStr
 from .._utils import PropertyInfo
+from .message_param import MessageParam
 from .tool_metadata_param import ToolMetadataParam
 from .knowledge_graph_param import KnowledgeGraphParam
 from .save_requirement_param import SaveRequirementParam
@@ -33,10 +34,6 @@ __all__ = [
     "DecodingParamsParameterThinking",
     "DecodingParamsParameterVerbosity",
     "DecodingParamsParameterReasoningEffort",
-    "Message",
-    "MessageContent",
-    "MessageContentText",
-    "MessageContentImage",
     "Metadata",
     "MetadataFormatterSpecific",
     "MetadataFormatterSpecificImageMeta",
@@ -147,30 +144,6 @@ class DecodingParams(TypedDict, total=False):
     parameters: Required[Iterable[DecodingParamsParameter]]
 
 
-class MessageContentText(TypedDict, total=False):
-    text: Required[Annotated[str, PropertyInfo(alias="Text")]]
-
-
-class MessageContentImage(TypedDict, total=False):
-    image: Required[Annotated[FileTypes, PropertyInfo(alias="Image")]]
-
-
-MessageContent: TypeAlias = Union[MessageContentText, MessageContentImage]
-
-
-class Message(TypedDict, total=False):
-    content: Required[Iterable[MessageContent]]
-    """
-    We want this to be a vec of contents so we can accurately capture an
-    interleaving of images and text.
-
-    This is meant to be a completely raw, unprocessed representation of the text.
-    Don't take stuff out.
-    """
-
-    role: Required[Literal["user", "system", "assistant"]]
-
-
 class MetadataFormatterSpecificImageMetaImageMeta(TypedDict, total=False):
     image: Required[Optional[str]]
 
@@ -276,7 +249,7 @@ class Metadata(TypedDict, total=False):
 class ChatPromptParam(TypedDict, total=False):
     decoding_params: Required[DecodingParams]
 
-    messages: Required[Iterable[Message]]
+    messages: Required[Iterable[MessageParam]]
 
     metadata: Required[Metadata]
     """All metadata required to generate a prompt for the LLM"""

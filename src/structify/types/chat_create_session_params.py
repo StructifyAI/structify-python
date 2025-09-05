@@ -2,12 +2,13 @@
 
 from __future__ import annotations
 
+from typing import Optional
 from typing_extensions import Required, TypedDict
 
 __all__ = ["ChatCreateSessionParams"]
 
 
 class ChatCreateSessionParams(TypedDict, total=False):
-    initial_message: Required[str]
-
     project_id: Required[str]
+
+    initial_message: Optional[str]
