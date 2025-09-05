@@ -32,6 +32,7 @@ from .token_response import TokenResponse as TokenResponse
 from .job_list_params import JobListParams as JobListParams
 from .knowledge_graph import KnowledgeGraph as KnowledgeGraph
 from .usage_group_key import UsageGroupKey as UsageGroupKey
+from .chat_copy_params import ChatCopyParams as ChatCopyParams
 from .job_get_response import JobGetResponse as JobGetResponse
 from .save_requirement import SaveRequirement as SaveRequirement
 from .workflow_session import WorkflowSession as WorkflowSession
