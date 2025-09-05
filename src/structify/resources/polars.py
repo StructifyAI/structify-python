@@ -1118,7 +1118,7 @@ def chunk_entities_for_parallel_add(
 def dataframe_to_entities(
     batch_df: pl.DataFrame, entity_type: str, column_schema: Dict[str, str], zero_ids: bool = False
 ) -> list[EntityParam]:
-    """Convert DataFrame rows to EntityParam objects, filtering out null values."""
+    """Convert DataFrame rows to EntityParam objects, filtering out null values and empty strings."""
     return [
         EntityParam(
             type=entity_type,
@@ -1126,7 +1126,7 @@ def dataframe_to_entities(
             properties={
                 prop_name: str(row[col_name])
                 for col_name, prop_name in column_schema.items()
-                if row[col_name] is not None
+                if row[col_name] is not None and str(row[col_name]).strip() != ""
             },
         )
         for i, row in enumerate(batch_df.to_dicts())
