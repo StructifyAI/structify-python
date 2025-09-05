@@ -8,6 +8,7 @@ import httpx
 
 from ..types import (
     ChatSessionRole,
+    chat_copy_params,
     chat_load_files_params,
     chat_add_message_params,
     chat_list_sessions_params,
@@ -35,6 +36,7 @@ from ..types.toggle_public_response import TogglePublicResponse
 from ..types.chat_load_files_response import ChatLoadFilesResponse
 from ..types.add_chat_message_response import AddChatMessageResponse
 from ..types.get_chat_session_response import GetChatSessionResponse
+from ..types.chat_session_with_messages import ChatSessionWithMessages
 from ..types.list_chat_sessions_response import ListChatSessionsResponse
 from ..types.list_collaborators_response import ListCollaboratorsResponse
 from ..types.chat_add_git_commit_response import ChatAddGitCommitResponse
@@ -184,6 +186,45 @@ class ChatResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=AddChatMessageResponse,
+        )
+
+    def copy(
+        self,
+        *,
+        copy_name: str,
+        source_chat_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ChatSessionWithMessages:
+        """
+        Copy a chat session with its workflows and git files
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/chat/copy",
+            body=maybe_transform(
+                {
+                    "copy_name": copy_name,
+                    "source_chat_id": source_chat_id,
+                },
+                chat_copy_params.ChatCopyParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ChatSessionWithMessages,
         )
 
     def copy_node_output_by_code_hash(
@@ -762,6 +803,45 @@ class AsyncChatResource(AsyncAPIResource):
             cast_to=AddChatMessageResponse,
         )
 
+    async def copy(
+        self,
+        *,
+        copy_name: str,
+        source_chat_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ChatSessionWithMessages:
+        """
+        Copy a chat session with its workflows and git files
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/chat/copy",
+            body=await async_maybe_transform(
+                {
+                    "copy_name": copy_name,
+                    "source_chat_id": source_chat_id,
+                },
+                chat_copy_params.ChatCopyParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ChatSessionWithMessages,
+        )
+
     async def copy_node_output_by_code_hash(
         self,
         session_id: str,
@@ -1211,6 +1291,9 @@ class ChatResourceWithRawResponse:
         self.add_message = to_raw_response_wrapper(
             chat.add_message,
         )
+        self.copy = to_raw_response_wrapper(
+            chat.copy,
+        )
         self.copy_node_output_by_code_hash = to_raw_response_wrapper(
             chat.copy_node_output_by_code_hash,
         )
@@ -1261,6 +1344,9 @@ class AsyncChatResourceWithRawResponse:
         )
         self.add_message = async_to_raw_response_wrapper(
             chat.add_message,
+        )
+        self.copy = async_to_raw_response_wrapper(
+            chat.copy,
         )
         self.copy_node_output_by_code_hash = async_to_raw_response_wrapper(
             chat.copy_node_output_by_code_hash,
@@ -1313,6 +1399,9 @@ class ChatResourceWithStreamingResponse:
         self.add_message = to_streamed_response_wrapper(
             chat.add_message,
         )
+        self.copy = to_streamed_response_wrapper(
+            chat.copy,
+        )
         self.copy_node_output_by_code_hash = to_streamed_response_wrapper(
             chat.copy_node_output_by_code_hash,
         )
@@ -1363,6 +1452,9 @@ class AsyncChatResourceWithStreamingResponse:
         )
         self.add_message = async_to_streamed_response_wrapper(
             chat.add_message,
+        )
+        self.copy = async_to_streamed_response_wrapper(
+            chat.copy,
         )
         self.copy_node_output_by_code_hash = async_to_streamed_response_wrapper(
             chat.copy_node_output_by_code_hash,
