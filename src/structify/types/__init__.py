@@ -7,6 +7,7 @@ from .image import Image as Image
 from .table import Table as Table
 from .entity import Entity as Entity
 from .source import Source as Source
+from .message import Message as Message
 from .project import Project as Project
 from .sandbox import Sandbox as Sandbox
 from .strategy import Strategy as Strategy
@@ -14,6 +15,7 @@ from .connector import Connector as Connector
 from .team_role import TeamRole as TeamRole
 from .user_info import UserInfo as UserInfo
 from .user_team import UserTeam as UserTeam
+from .chat_event import ChatEvent as ChatEvent
 from .chat_prompt import ChatPrompt as ChatPrompt
 from .granularity import Granularity as Granularity
 from .table_param import TableParam as TableParam
@@ -23,6 +25,7 @@ from .entity_param import EntityParam as EntityParam
 from .merge_config import MergeConfig as MergeConfig
 from .relationship import Relationship as Relationship
 from .workflow_dag import WorkflowDag as WorkflowDag
+from .message_param import MessageParam as MessageParam
 from .property_type import PropertyType as PropertyType
 from .tool_metadata import ToolMetadata as ToolMetadata
 from .execution_step import ExecutionStep as ExecutionStep

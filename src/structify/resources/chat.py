@@ -270,8 +270,8 @@ class ChatResource(SyncAPIResource):
     def create_session(
         self,
         *,
-        initial_message: str,
         project_id: str,
+        initial_message: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -295,8 +295,8 @@ class ChatResource(SyncAPIResource):
             "/chat/sessions",
             body=maybe_transform(
                 {
-                    "initial_message": initial_message,
                     "project_id": project_id,
+                    "initial_message": initial_message,
                 },
                 chat_create_session_params.ChatCreateSessionParams,
             ),
@@ -885,8 +885,8 @@ class AsyncChatResource(AsyncAPIResource):
     async def create_session(
         self,
         *,
-        initial_message: str,
         project_id: str,
+        initial_message: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -910,8 +910,8 @@ class AsyncChatResource(AsyncAPIResource):
             "/chat/sessions",
             body=await async_maybe_transform(
                 {
-                    "initial_message": initial_message,
                     "project_id": project_id,
+                    "initial_message": initial_message,
                 },
                 chat_create_session_params.ChatCreateSessionParams,
             ),
