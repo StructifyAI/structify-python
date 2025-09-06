@@ -4,10 +4,10 @@ from __future__ import annotations
 
 from typing_extensions import Required, TypedDict
 
-__all__ = ["SecretCreateParams"]
+__all__ = ["ChatLoadFilesParams"]
 
 
-class SecretCreateParams(TypedDict, total=False):
-    secret_name: Required[str]
+class ChatLoadFilesParams(TypedDict, total=False):
+    chat_id: Required[str]
 
-    secret_value: Required[str]
+    commit_hash: Required[str]

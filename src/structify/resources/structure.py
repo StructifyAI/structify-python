@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import List, Iterable, Optional
+from typing import Iterable, Optional
 from typing_extensions import Literal
 
 import httpx
@@ -14,7 +14,7 @@ from ..types import (
     structure_find_relationship_params,
     structure_enhance_relationship_params,
 )
-from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven, SequenceNotStr
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -58,11 +58,11 @@ class StructureResource(SyncAPIResource):
         entity_id: str,
         property_name: str,
         allow_extra_entities: bool | NotGiven = NOT_GIVEN,
-        banned_domains: List[str] | NotGiven = NOT_GIVEN,
+        banned_domains: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         node_id: Optional[str] | NotGiven = NOT_GIVEN,
         special_job_type: Optional[Literal["HumanLLM"]] | NotGiven = NOT_GIVEN,
-        starting_searches: List[str] | NotGiven = NOT_GIVEN,
-        starting_urls: List[str] | NotGiven = NOT_GIVEN,
+        starting_searches: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
+        starting_urls: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         stop_config: Optional[structure_enhance_property_params.StopConfig] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -114,11 +114,11 @@ class StructureResource(SyncAPIResource):
         entity_id: str,
         relationship_name: str,
         allow_extra_entities: bool | NotGiven = NOT_GIVEN,
-        banned_domains: List[str] | NotGiven = NOT_GIVEN,
+        banned_domains: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         node_id: Optional[str] | NotGiven = NOT_GIVEN,
         special_job_type: Optional[Literal["HumanLLM"]] | NotGiven = NOT_GIVEN,
-        starting_searches: List[str] | NotGiven = NOT_GIVEN,
-        starting_urls: List[str] | NotGiven = NOT_GIVEN,
+        starting_searches: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
+        starting_urls: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         stop_config: Optional[structure_enhance_relationship_params.StopConfig] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -171,10 +171,10 @@ class StructureResource(SyncAPIResource):
         relationship_name: str,
         to_id: str,
         allow_extra_entities: bool | NotGiven = NOT_GIVEN,
-        banned_domains: List[str] | NotGiven = NOT_GIVEN,
+        banned_domains: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         special_job_type: Optional[Literal["HumanLLM"]] | NotGiven = NOT_GIVEN,
-        starting_searches: List[str] | NotGiven = NOT_GIVEN,
-        starting_urls: List[str] | NotGiven = NOT_GIVEN,
+        starting_searches: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
+        starting_urls: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         stop_config: Optional[structure_find_relationship_params.StopConfig] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -223,7 +223,7 @@ class StructureResource(SyncAPIResource):
     def is_complete(
         self,
         *,
-        job: List[str],
+        job: SequenceNotStr[str],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -246,7 +246,7 @@ class StructureResource(SyncAPIResource):
         extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
         return self._post(
             "/structure/is_complete",
-            body=maybe_transform(job, List[str]),
+            body=maybe_transform(job, SequenceNotStr[str]),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -371,11 +371,11 @@ class AsyncStructureResource(AsyncAPIResource):
         entity_id: str,
         property_name: str,
         allow_extra_entities: bool | NotGiven = NOT_GIVEN,
-        banned_domains: List[str] | NotGiven = NOT_GIVEN,
+        banned_domains: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         node_id: Optional[str] | NotGiven = NOT_GIVEN,
         special_job_type: Optional[Literal["HumanLLM"]] | NotGiven = NOT_GIVEN,
-        starting_searches: List[str] | NotGiven = NOT_GIVEN,
-        starting_urls: List[str] | NotGiven = NOT_GIVEN,
+        starting_searches: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
+        starting_urls: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         stop_config: Optional[structure_enhance_property_params.StopConfig] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -427,11 +427,11 @@ class AsyncStructureResource(AsyncAPIResource):
         entity_id: str,
         relationship_name: str,
         allow_extra_entities: bool | NotGiven = NOT_GIVEN,
-        banned_domains: List[str] | NotGiven = NOT_GIVEN,
+        banned_domains: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         node_id: Optional[str] | NotGiven = NOT_GIVEN,
         special_job_type: Optional[Literal["HumanLLM"]] | NotGiven = NOT_GIVEN,
-        starting_searches: List[str] | NotGiven = NOT_GIVEN,
-        starting_urls: List[str] | NotGiven = NOT_GIVEN,
+        starting_searches: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
+        starting_urls: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         stop_config: Optional[structure_enhance_relationship_params.StopConfig] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -484,10 +484,10 @@ class AsyncStructureResource(AsyncAPIResource):
         relationship_name: str,
         to_id: str,
         allow_extra_entities: bool | NotGiven = NOT_GIVEN,
-        banned_domains: List[str] | NotGiven = NOT_GIVEN,
+        banned_domains: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         special_job_type: Optional[Literal["HumanLLM"]] | NotGiven = NOT_GIVEN,
-        starting_searches: List[str] | NotGiven = NOT_GIVEN,
-        starting_urls: List[str] | NotGiven = NOT_GIVEN,
+        starting_searches: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
+        starting_urls: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         stop_config: Optional[structure_find_relationship_params.StopConfig] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -536,7 +536,7 @@ class AsyncStructureResource(AsyncAPIResource):
     async def is_complete(
         self,
         *,
-        job: List[str],
+        job: SequenceNotStr[str],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -559,7 +559,7 @@ class AsyncStructureResource(AsyncAPIResource):
         extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
         return await self._post(
             "/structure/is_complete",
-            body=await async_maybe_transform(job, List[str]),
+            body=await async_maybe_transform(job, SequenceNotStr[str]),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),

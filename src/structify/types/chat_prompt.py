@@ -5,6 +5,7 @@ from typing_extensions import Literal, TypeAlias
 
 from pydantic import Field as FieldInfo
 
+from .message import Message
 from .._models import BaseModel
 from .tool_metadata import ToolMetadata
 from .knowledge_graph import KnowledgeGraph
@@ -31,10 +32,7 @@ __all__ = [
     "DecodingParamsParameterCrop",
     "DecodingParamsParameterThinking",
     "DecodingParamsParameterVerbosity",
-    "Message",
-    "MessageContent",
-    "MessageContentText",
-    "MessageContentImage",
+    "DecodingParamsParameterReasoningEffort",
     "Metadata",
     "MetadataFormatterSpecific",
     "MetadataFormatterSpecificImageMeta",
@@ -114,6 +112,10 @@ class DecodingParamsParameterVerbosity(BaseModel):
     verbosity: Literal["low", "medium", "high"] = FieldInfo(alias="Verbosity")
 
 
+class DecodingParamsParameterReasoningEffort(BaseModel):
+    reasoning_effort: Literal["low", "medium", "high", "minimal"] = FieldInfo(alias="ReasoningEffort")
+
+
 DecodingParamsParameter: TypeAlias = Union[
     DecodingParamsParameterMaxTokens,
     DecodingParamsParameterMaxCompletionTokens,
@@ -131,35 +133,12 @@ DecodingParamsParameter: TypeAlias = Union[
     DecodingParamsParameterCrop,
     DecodingParamsParameterThinking,
     DecodingParamsParameterVerbosity,
+    DecodingParamsParameterReasoningEffort,
 ]
 
 
 class DecodingParams(BaseModel):
     parameters: List[DecodingParamsParameter]
-
-
-class MessageContentText(BaseModel):
-    text: str = FieldInfo(alias="Text")
-
-
-class MessageContentImage(BaseModel):
-    image: object = FieldInfo(alias="Image")
-
-
-MessageContent: TypeAlias = Union[MessageContentText, MessageContentImage]
-
-
-class Message(BaseModel):
-    content: List[MessageContent]
-    """
-    We want this to be a vec of contents so we can accurately capture an
-    interleaving of images and text.
-
-    This is meant to be a completely raw, unprocessed representation of the text.
-    Don't take stuff out.
-    """
-
-    role: Literal["user", "system", "assistant"]
 
 
 class MetadataFormatterSpecificImageMetaImageMeta(BaseModel):

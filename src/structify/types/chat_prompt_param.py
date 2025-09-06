@@ -2,11 +2,12 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union, Iterable, Optional
+from typing import Dict, Union, Iterable, Optional
 from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
-from .._types import FileTypes
+from .._types import FileTypes, SequenceNotStr
 from .._utils import PropertyInfo
+from .message_param import MessageParam
 from .tool_metadata_param import ToolMetadataParam
 from .knowledge_graph_param import KnowledgeGraphParam
 from .save_requirement_param import SaveRequirementParam
@@ -32,10 +33,7 @@ __all__ = [
     "DecodingParamsParameterCrop",
     "DecodingParamsParameterThinking",
     "DecodingParamsParameterVerbosity",
-    "Message",
-    "MessageContent",
-    "MessageContentText",
-    "MessageContentImage",
+    "DecodingParamsParameterReasoningEffort",
     "Metadata",
     "MetadataFormatterSpecific",
     "MetadataFormatterSpecificImageMeta",
@@ -75,7 +73,7 @@ class DecodingParamsParameterTemperature(TypedDict, total=False):
 
 
 class DecodingParamsParameterStopTokens(TypedDict, total=False):
-    stop_tokens: Required[Annotated[List[str], PropertyInfo(alias="StopTokens")]]
+    stop_tokens: Required[Annotated[SequenceNotStr[str], PropertyInfo(alias="StopTokens")]]
 
 
 class DecodingParamsParameterLogitBias(TypedDict, total=False):
@@ -115,6 +113,12 @@ class DecodingParamsParameterVerbosity(TypedDict, total=False):
     verbosity: Required[Annotated[Literal["low", "medium", "high"], PropertyInfo(alias="Verbosity")]]
 
 
+class DecodingParamsParameterReasoningEffort(TypedDict, total=False):
+    reasoning_effort: Required[
+        Annotated[Literal["low", "medium", "high", "minimal"], PropertyInfo(alias="ReasoningEffort")]
+    ]
+
+
 DecodingParamsParameter: TypeAlias = Union[
     DecodingParamsParameterMaxTokens,
     DecodingParamsParameterMaxCompletionTokens,
@@ -132,35 +136,12 @@ DecodingParamsParameter: TypeAlias = Union[
     DecodingParamsParameterCrop,
     DecodingParamsParameterThinking,
     DecodingParamsParameterVerbosity,
+    DecodingParamsParameterReasoningEffort,
 ]
 
 
 class DecodingParams(TypedDict, total=False):
     parameters: Required[Iterable[DecodingParamsParameter]]
-
-
-class MessageContentText(TypedDict, total=False):
-    text: Required[Annotated[str, PropertyInfo(alias="Text")]]
-
-
-class MessageContentImage(TypedDict, total=False):
-    image: Required[Annotated[FileTypes, PropertyInfo(alias="Image")]]
-
-
-MessageContent: TypeAlias = Union[MessageContentText, MessageContentImage]
-
-
-class Message(TypedDict, total=False):
-    content: Required[Iterable[MessageContent]]
-    """
-    We want this to be a vec of contents so we can accurately capture an
-    interleaving of images and text.
-
-    This is meant to be a completely raw, unprocessed representation of the text.
-    Don't take stuff out.
-    """
-
-    role: Required[Literal["user", "system", "assistant"]]
 
 
 class MetadataFormatterSpecificImageMetaImageMeta(TypedDict, total=False):
@@ -268,7 +249,7 @@ class Metadata(TypedDict, total=False):
 class ChatPromptParam(TypedDict, total=False):
     decoding_params: Required[DecodingParams]
 
-    messages: Required[Iterable[Message]]
+    messages: Required[Iterable[MessageParam]]
 
     metadata: Required[Metadata]
     """All metadata required to generate a prompt for the LLM"""

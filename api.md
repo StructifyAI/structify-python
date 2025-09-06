@@ -49,10 +49,12 @@ from structify.types import (
     AddChatMessageRequest,
     AddChatMessageResponse,
     AddCollaboratorRequest,
+    ChatEvent,
     ChatSession,
     ChatSessionRole,
     ChatSessionUser,
     ChatSessionWithMessages,
+    CopyChatSessionRequest,
     CreateChatSessionRequest,
     CreateChatSessionResponse,
     DeleteChatSessionResponse,
@@ -60,12 +62,14 @@ from structify.types import (
     GetChatSessionResponse,
     ListChatSessionsResponse,
     ListCollaboratorsResponse,
+    Message,
     TogglePublicRequest,
     TogglePublicResponse,
     ChatAddGitCommitResponse,
     ChatCopyNodeOutputByCodeHashResponse,
     ChatGetGitCommitResponse,
     ChatGetSessionTimelineResponse,
+    ChatLoadFilesResponse,
 )
 ```
 
@@ -74,6 +78,7 @@ Methods:
 - <code title="post /chat/sessions/{chat_id}/collaborators">client.chat.<a href="./src/structify/resources/chat.py">add_collaborator</a>(chat_id, \*\*<a href="src/structify/types/chat_add_collaborator_params.py">params</a>) -> None</code>
 - <code title="post /chat/sessions/{session_id}/commits">client.chat.<a href="./src/structify/resources/chat.py">add_git_commit</a>(session_id, \*\*<a href="src/structify/types/chat_add_git_commit_params.py">params</a>) -> <a href="./src/structify/types/chat_add_git_commit_response.py">ChatAddGitCommitResponse</a></code>
 - <code title="post /chat/sessions/{session_id}/messages">client.chat.<a href="./src/structify/resources/chat.py">add_message</a>(session_id, \*\*<a href="src/structify/types/chat_add_message_params.py">params</a>) -> <a href="./src/structify/types/add_chat_message_response.py">AddChatMessageResponse</a></code>
+- <code title="post /chat/copy">client.chat.<a href="./src/structify/resources/chat.py">copy</a>(\*\*<a href="src/structify/types/chat_copy_params.py">params</a>) -> <a href="./src/structify/types/chat_session_with_messages.py">ChatSessionWithMessages</a></code>
 - <code title="post /chat/sessions/{session_id}/nodes/by_code_hash">client.chat.<a href="./src/structify/resources/chat.py">copy_node_output_by_code_hash</a>(session_id, \*\*<a href="src/structify/types/chat_copy_node_output_by_code_hash_params.py">params</a>) -> str</code>
 - <code title="post /chat/sessions">client.chat.<a href="./src/structify/resources/chat.py">create_session</a>(\*\*<a href="src/structify/types/chat_create_session_params.py">params</a>) -> <a href="./src/structify/types/create_chat_session_response.py">CreateChatSessionResponse</a></code>
 - <code title="delete /chat/sessions/{session_id}">client.chat.<a href="./src/structify/resources/chat.py">delete_session</a>(session_id) -> <a href="./src/structify/types/delete_chat_session_response.py">DeleteChatSessionResponse</a></code>
@@ -82,6 +87,7 @@ Methods:
 - <code title="get /chat/sessions/{session_id}/timeline">client.chat.<a href="./src/structify/resources/chat.py">get_session_timeline</a>(session_id) -> <a href="./src/structify/types/chat_get_session_timeline_response.py">ChatGetSessionTimelineResponse</a></code>
 - <code title="get /chat/sessions/{chat_id}/collaborators">client.chat.<a href="./src/structify/resources/chat.py">list_collaborators</a>(chat_id) -> <a href="./src/structify/types/list_collaborators_response.py">ListCollaboratorsResponse</a></code>
 - <code title="get /chat/sessions">client.chat.<a href="./src/structify/resources/chat.py">list_sessions</a>(\*\*<a href="src/structify/types/chat_list_sessions_params.py">params</a>) -> <a href="./src/structify/types/list_chat_sessions_response.py">ListChatSessionsResponse</a></code>
+- <code title="post /chat/files/load">client.chat.<a href="./src/structify/resources/chat.py">load_files</a>(\*\*<a href="src/structify/types/chat_load_files_params.py">params</a>) -> <a href="./src/structify/types/chat_load_files_response.py">ChatLoadFilesResponse</a></code>
 - <code title="delete /chat/sessions/{chat_id}/collaborators/{user_id}">client.chat.<a href="./src/structify/resources/chat.py">remove_collaborator</a>(user_id, \*, chat_id) -> None</code>
 - <code title="put /chat/sessions/{session_id}/public">client.chat.<a href="./src/structify/resources/chat.py">toggle_public</a>(session_id, \*\*<a href="src/structify/types/chat_toggle_public_params.py">params</a>) -> <a href="./src/structify/types/toggle_public_response.py">TogglePublicResponse</a></code>
 - <code title="patch /chat/sessions/{session_id}">client.chat.<a href="./src/structify/resources/chat.py">update_session</a>(session_id, \*\*<a href="src/structify/types/chat_update_session_params.py">params</a>) -> <a href="./src/structify/types/chat_session.py">ChatSession</a></code>
@@ -144,30 +150,6 @@ Methods:
 
 - <code title="delete /team/{team_id}/project/{project_id}">client.projects.<a href="./src/structify/resources/projects.py">delete</a>(project_id, \*, team_id) -> <a href="./src/structify/types/delete_project_response.py">DeleteProjectResponse</a></code>
 - <code title="get /team/{team_id}/project/{project_id}">client.projects.<a href="./src/structify/resources/projects.py">get</a>(project_id, \*, team_id) -> <a href="./src/structify/types/get_project_response.py">GetProjectResponse</a></code>
-
-# Secrets
-
-Types:
-
-```python
-from structify.types import (
-    CreateSecretRequest,
-    GetSecretResponse,
-    ProjectSecret,
-    ProjectSecretSummary,
-    UpdateSecretRequest,
-    UpdateSecretResponse,
-    SecretListResponse,
-)
-```
-
-Methods:
-
-- <code title="post /project/{project_id}/secrets">client.secrets.<a href="./src/structify/resources/secrets.py">create</a>(project_id, \*\*<a href="src/structify/types/secret_create_params.py">params</a>) -> None</code>
-- <code title="put /project/{project_id}/secrets/{secret_name}">client.secrets.<a href="./src/structify/resources/secrets.py">update</a>(secret_name, \*, project_id, \*\*<a href="src/structify/types/secret_update_params.py">params</a>) -> <a href="./src/structify/types/update_secret_response.py">UpdateSecretResponse</a></code>
-- <code title="get /project/{project_id}/secrets">client.secrets.<a href="./src/structify/resources/secrets.py">list</a>(project_id) -> <a href="./src/structify/types/secret_list_response.py">SecretListResponse</a></code>
-- <code title="delete /project/{project_id}/secrets/{secret_name}">client.secrets.<a href="./src/structify/resources/secrets.py">delete</a>(secret_name, \*, project_id) -> None</code>
-- <code title="get /project/{project_id}/secrets/{secret_name}">client.secrets.<a href="./src/structify/resources/secrets.py">get</a>(secret_name, \*, project_id) -> <a href="./src/structify/types/get_secret_response.py">GetSecretResponse</a></code>
 
 # Admin
 
@@ -485,6 +467,31 @@ Methods:
 - <code title="get /workflow-schedule/{chat_session_id}">client.workflow_schedule.<a href="./src/structify/resources/workflow_schedule.py">get</a>(chat_session_id) -> <a href="./src/structify/types/workflow_schedule_get_response.py">WorkflowScheduleGetResponse</a></code>
 - <code title="get /workflow-schedule">client.workflow_schedule.<a href="./src/structify/resources/workflow_schedule.py">get_all</a>() -> <a href="./src/structify/types/workflow_schedule_get_all_response.py">WorkflowScheduleGetAllResponse</a></code>
 - <code title="post /workflow-schedule/{schedule_id}/sessions">client.workflow_schedule.<a href="./src/structify/resources/workflow_schedule.py">get_sessions</a>(schedule_id, \*\*<a href="src/structify/types/workflow_schedule_get_sessions_params.py">params</a>) -> <a href="./src/structify/types/get_workflow_schedule_sessions_response.py">GetWorkflowScheduleSessionsResponse</a></code>
+
+# Connectors
+
+Types:
+
+```python
+from structify.types import (
+    Connector,
+    ConnectorWithSecrets,
+    CreateConnectorRequest,
+    CreateSecretRequest,
+    UpdateConnectorRequest,
+    ConnectorGetResponse,
+)
+```
+
+Methods:
+
+- <code title="post /connectors">client.connectors.<a href="./src/structify/resources/connectors.py">create</a>(\*\*<a href="src/structify/types/connector_create_params.py">params</a>) -> <a href="./src/structify/types/connector.py">Connector</a></code>
+- <code title="patch /connectors/{connector_id}">client.connectors.<a href="./src/structify/resources/connectors.py">update</a>(connector_id, \*\*<a href="src/structify/types/connector_update_params.py">params</a>) -> None</code>
+- <code title="get /connectors">client.connectors.<a href="./src/structify/resources/connectors.py">list</a>(\*\*<a href="src/structify/types/connector_list_params.py">params</a>) -> <a href="./src/structify/types/connector_with_secrets.py">SyncJobsList[ConnectorWithSecrets]</a></code>
+- <code title="delete /connectors/{connector_id}">client.connectors.<a href="./src/structify/resources/connectors.py">delete</a>(connector_id) -> None</code>
+- <code title="post /connectors/{connector_id}/secrets">client.connectors.<a href="./src/structify/resources/connectors.py">create_secret</a>(connector_id, \*\*<a href="src/structify/types/connector_create_secret_params.py">params</a>) -> None</code>
+- <code title="delete /connectors/{connector_id}/secrets/{secret_name}">client.connectors.<a href="./src/structify/resources/connectors.py">delete_secret</a>(secret_name, \*, connector_id) -> None</code>
+- <code title="get /connectors/{connector_id}">client.connectors.<a href="./src/structify/resources/connectors.py">get</a>(connector_id) -> <a href="./src/structify/types/connector_get_response.py">ConnectorGetResponse</a></code>
 
 # Server
 

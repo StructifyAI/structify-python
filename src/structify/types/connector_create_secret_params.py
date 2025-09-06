@@ -4,10 +4,10 @@ from __future__ import annotations
 
 from typing_extensions import Required, TypedDict
 
-from .._types import SequenceNotStr
-
-__all__ = ["StructureIsCompleteParams"]
+__all__ = ["ConnectorCreateSecretParams"]
 
 
-class StructureIsCompleteParams(TypedDict, total=False):
-    job: Required[SequenceNotStr[str]]
+class ConnectorCreateSecretParams(TypedDict, total=False):
+    secret_name: Required[str]
+
+    secret_value: Required[str]

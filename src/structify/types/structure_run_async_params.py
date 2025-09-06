@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Iterable, Optional
+from typing import Union, Iterable, Optional
 from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
+from .._types import SequenceNotStr
 from .._utils import PropertyInfo
 from .knowledge_graph_param import KnowledgeGraphParam
 from .save_requirement_param import SaveRequirementParam
@@ -45,11 +46,11 @@ class SourcePdf(TypedDict, total=False):
 
 
 class SourceWebWeb(TypedDict, total=False):
-    banned_domains: List[str]
+    banned_domains: SequenceNotStr[str]
 
-    starting_searches: List[str]
+    starting_searches: SequenceNotStr[str]
 
-    starting_urls: List[str]
+    starting_urls: SequenceNotStr[str]
 
 
 class SourceWeb(TypedDict, total=False):

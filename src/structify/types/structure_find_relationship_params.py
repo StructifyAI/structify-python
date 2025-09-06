@@ -2,8 +2,10 @@
 
 from __future__ import annotations
 
-from typing import List, Optional
+from typing import Optional
 from typing_extensions import Literal, Required, TypedDict
+
+from .._types import SequenceNotStr
 
 __all__ = ["StructureFindRelationshipParams", "StopConfig"]
 
@@ -17,13 +19,13 @@ class StructureFindRelationshipParams(TypedDict, total=False):
 
     allow_extra_entities: bool
 
-    banned_domains: List[str]
+    banned_domains: SequenceNotStr[str]
 
     special_job_type: Optional[Literal["HumanLLM"]]
 
-    starting_searches: List[str]
+    starting_searches: SequenceNotStr[str]
 
-    starting_urls: List[str]
+    starting_urls: SequenceNotStr[str]
 
     stop_config: Optional[StopConfig]
     """Configuration parameters for the StopChecker"""

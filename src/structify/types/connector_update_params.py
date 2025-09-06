@@ -5,12 +5,12 @@ from __future__ import annotations
 from typing import Optional
 from typing_extensions import TypedDict
 
-from .._types import SequenceNotStr
-
-__all__ = ["JobStatusParams"]
+__all__ = ["ConnectorUpdateParams"]
 
 
-class JobStatusParams(TypedDict, total=False):
-    dataset_name: Optional[str]
+class ConnectorUpdateParams(TypedDict, total=False):
+    description: Optional[str]
 
-    job_ids: Optional[SequenceNotStr[str]]
+    llm_information_store: Optional[str]
+
+    name: Optional[str]

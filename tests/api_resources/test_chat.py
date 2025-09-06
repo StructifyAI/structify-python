@@ -12,8 +12,10 @@ from tests.utils import assert_matches_type
 from structify.types import (
     ChatSession,
     TogglePublicResponse,
+    ChatLoadFilesResponse,
     AddChatMessageResponse,
     GetChatSessionResponse,
+    ChatSessionWithMessages,
     ChatAddGitCommitResponse,
     ChatGetGitCommitResponse,
     ListChatSessionsResponse,
@@ -33,8 +35,8 @@ class TestChat:
     def test_method_add_collaborator(self, client: Structify) -> None:
         chat = client.chat.add_collaborator(
             chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            email="email",
             role="owner",
-            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert chat is None
 
@@ -42,8 +44,8 @@ class TestChat:
     def test_raw_response_add_collaborator(self, client: Structify) -> None:
         response = client.chat.with_raw_response.add_collaborator(
             chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            email="email",
             role="owner",
-            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
         assert response.is_closed is True
@@ -55,8 +57,8 @@ class TestChat:
     def test_streaming_response_add_collaborator(self, client: Structify) -> None:
         with client.chat.with_streaming_response.add_collaborator(
             chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            email="email",
             role="owner",
-            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -71,8 +73,8 @@ class TestChat:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `chat_id` but received ''"):
             client.chat.with_raw_response.add_collaborator(
                 chat_id="",
+                email="email",
                 role="owner",
-                user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
     @parametrize
@@ -164,6 +166,40 @@ class TestChat:
             )
 
     @parametrize
+    def test_method_copy(self, client: Structify) -> None:
+        chat = client.chat.copy(
+            copy_name="copy_name",
+            source_chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(ChatSessionWithMessages, chat, path=["response"])
+
+    @parametrize
+    def test_raw_response_copy(self, client: Structify) -> None:
+        response = client.chat.with_raw_response.copy(
+            copy_name="copy_name",
+            source_chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        chat = response.parse()
+        assert_matches_type(ChatSessionWithMessages, chat, path=["response"])
+
+    @parametrize
+    def test_streaming_response_copy(self, client: Structify) -> None:
+        with client.chat.with_streaming_response.copy(
+            copy_name="copy_name",
+            source_chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            chat = response.parse()
+            assert_matches_type(ChatSessionWithMessages, chat, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
     def test_method_copy_node_output_by_code_hash(self, client: Structify) -> None:
         chat = client.chat.copy_node_output_by_code_hash(
             session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -217,17 +253,21 @@ class TestChat:
     @parametrize
     def test_method_create_session(self, client: Structify) -> None:
         chat = client.chat.create_session(
-            git_application_token="git_application_token",
-            initial_message="initial_message",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(CreateChatSessionResponse, chat, path=["response"])
+
+    @parametrize
+    def test_method_create_session_with_all_params(self, client: Structify) -> None:
+        chat = client.chat.create_session(
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            initial_message="initial_message",
         )
         assert_matches_type(CreateChatSessionResponse, chat, path=["response"])
 
     @parametrize
     def test_raw_response_create_session(self, client: Structify) -> None:
         response = client.chat.with_raw_response.create_session(
-            git_application_token="git_application_token",
-            initial_message="initial_message",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
@@ -239,8 +279,6 @@ class TestChat:
     @parametrize
     def test_streaming_response_create_session(self, client: Structify) -> None:
         with client.chat.with_streaming_response.create_session(
-            git_application_token="git_application_token",
-            initial_message="initial_message",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
@@ -484,6 +522,40 @@ class TestChat:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
+    def test_method_load_files(self, client: Structify) -> None:
+        chat = client.chat.load_files(
+            chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            commit_hash="commit_hash",
+        )
+        assert_matches_type(ChatLoadFilesResponse, chat, path=["response"])
+
+    @parametrize
+    def test_raw_response_load_files(self, client: Structify) -> None:
+        response = client.chat.with_raw_response.load_files(
+            chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            commit_hash="commit_hash",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        chat = response.parse()
+        assert_matches_type(ChatLoadFilesResponse, chat, path=["response"])
+
+    @parametrize
+    def test_streaming_response_load_files(self, client: Structify) -> None:
+        with client.chat.with_streaming_response.load_files(
+            chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            commit_hash="commit_hash",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            chat = response.parse()
+            assert_matches_type(ChatLoadFilesResponse, chat, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
     def test_method_remove_collaborator(self, client: Structify) -> None:
         chat = client.chat.remove_collaborator(
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -630,8 +702,8 @@ class TestAsyncChat:
     async def test_method_add_collaborator(self, async_client: AsyncStructify) -> None:
         chat = await async_client.chat.add_collaborator(
             chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            email="email",
             role="owner",
-            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert chat is None
 
@@ -639,8 +711,8 @@ class TestAsyncChat:
     async def test_raw_response_add_collaborator(self, async_client: AsyncStructify) -> None:
         response = await async_client.chat.with_raw_response.add_collaborator(
             chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            email="email",
             role="owner",
-            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
         assert response.is_closed is True
@@ -652,8 +724,8 @@ class TestAsyncChat:
     async def test_streaming_response_add_collaborator(self, async_client: AsyncStructify) -> None:
         async with async_client.chat.with_streaming_response.add_collaborator(
             chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            email="email",
             role="owner",
-            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -668,8 +740,8 @@ class TestAsyncChat:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `chat_id` but received ''"):
             await async_client.chat.with_raw_response.add_collaborator(
                 chat_id="",
+                email="email",
                 role="owner",
-                user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
     @parametrize
@@ -761,6 +833,40 @@ class TestAsyncChat:
             )
 
     @parametrize
+    async def test_method_copy(self, async_client: AsyncStructify) -> None:
+        chat = await async_client.chat.copy(
+            copy_name="copy_name",
+            source_chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(ChatSessionWithMessages, chat, path=["response"])
+
+    @parametrize
+    async def test_raw_response_copy(self, async_client: AsyncStructify) -> None:
+        response = await async_client.chat.with_raw_response.copy(
+            copy_name="copy_name",
+            source_chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        chat = await response.parse()
+        assert_matches_type(ChatSessionWithMessages, chat, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_copy(self, async_client: AsyncStructify) -> None:
+        async with async_client.chat.with_streaming_response.copy(
+            copy_name="copy_name",
+            source_chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            chat = await response.parse()
+            assert_matches_type(ChatSessionWithMessages, chat, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
     async def test_method_copy_node_output_by_code_hash(self, async_client: AsyncStructify) -> None:
         chat = await async_client.chat.copy_node_output_by_code_hash(
             session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -814,17 +920,21 @@ class TestAsyncChat:
     @parametrize
     async def test_method_create_session(self, async_client: AsyncStructify) -> None:
         chat = await async_client.chat.create_session(
-            git_application_token="git_application_token",
-            initial_message="initial_message",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(CreateChatSessionResponse, chat, path=["response"])
+
+    @parametrize
+    async def test_method_create_session_with_all_params(self, async_client: AsyncStructify) -> None:
+        chat = await async_client.chat.create_session(
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            initial_message="initial_message",
         )
         assert_matches_type(CreateChatSessionResponse, chat, path=["response"])
 
     @parametrize
     async def test_raw_response_create_session(self, async_client: AsyncStructify) -> None:
         response = await async_client.chat.with_raw_response.create_session(
-            git_application_token="git_application_token",
-            initial_message="initial_message",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
@@ -836,8 +946,6 @@ class TestAsyncChat:
     @parametrize
     async def test_streaming_response_create_session(self, async_client: AsyncStructify) -> None:
         async with async_client.chat.with_streaming_response.create_session(
-            git_application_token="git_application_token",
-            initial_message="initial_message",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
@@ -1077,6 +1185,40 @@ class TestAsyncChat:
 
             chat = await response.parse()
             assert_matches_type(ListChatSessionsResponse, chat, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_method_load_files(self, async_client: AsyncStructify) -> None:
+        chat = await async_client.chat.load_files(
+            chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            commit_hash="commit_hash",
+        )
+        assert_matches_type(ChatLoadFilesResponse, chat, path=["response"])
+
+    @parametrize
+    async def test_raw_response_load_files(self, async_client: AsyncStructify) -> None:
+        response = await async_client.chat.with_raw_response.load_files(
+            chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            commit_hash="commit_hash",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        chat = await response.parse()
+        assert_matches_type(ChatLoadFilesResponse, chat, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_load_files(self, async_client: AsyncStructify) -> None:
+        async with async_client.chat.with_streaming_response.load_files(
+            chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            commit_hash="commit_hash",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            chat = await response.parse()
+            assert_matches_type(ChatLoadFilesResponse, chat, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

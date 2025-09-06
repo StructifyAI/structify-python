@@ -7,12 +7,15 @@ from .image import Image as Image
 from .table import Table as Table
 from .entity import Entity as Entity
 from .source import Source as Source
+from .message import Message as Message
 from .project import Project as Project
 from .sandbox import Sandbox as Sandbox
 from .strategy import Strategy as Strategy
+from .connector import Connector as Connector
 from .team_role import TeamRole as TeamRole
 from .user_info import UserInfo as UserInfo
 from .user_team import UserTeam as UserTeam
+from .chat_event import ChatEvent as ChatEvent
 from .chat_prompt import ChatPrompt as ChatPrompt
 from .granularity import Granularity as Granularity
 from .table_param import TableParam as TableParam
@@ -22,6 +25,7 @@ from .entity_param import EntityParam as EntityParam
 from .merge_config import MergeConfig as MergeConfig
 from .relationship import Relationship as Relationship
 from .workflow_dag import WorkflowDag as WorkflowDag
+from .message_param import MessageParam as MessageParam
 from .property_type import PropertyType as PropertyType
 from .tool_metadata import ToolMetadata as ToolMetadata
 from .execution_step import ExecutionStep as ExecutionStep
@@ -31,6 +35,7 @@ from .token_response import TokenResponse as TokenResponse
 from .job_list_params import JobListParams as JobListParams
 from .knowledge_graph import KnowledgeGraph as KnowledgeGraph
 from .usage_group_key import UsageGroupKey as UsageGroupKey
+from .chat_copy_params import ChatCopyParams as ChatCopyParams
 from .job_get_response import JobGetResponse as JobGetResponse
 from .save_requirement import SaveRequirement as SaveRequirement
 from .workflow_session import WorkflowSession as WorkflowSession
@@ -59,7 +64,6 @@ from .add_member_response import AddMemberResponse as AddMemberResponse
 from .entity_add_response import EntityAddResponse as EntityAddResponse
 from .entity_get_response import EntityGetResponse as EntityGetResponse
 from .entity_merge_params import EntityMergeParams as EntityMergeParams
-from .get_secret_response import GetSecretResponse as GetSecretResponse
 from .job_cancel_response import JobCancelResponse as JobCancelResponse
 from .job_delete_response import JobDeleteResponse as JobDeleteResponse
 from .job_status_response import JobStatusResponse as JobStatusResponse
@@ -82,11 +86,9 @@ from .get_project_response import GetProjectResponse as GetProjectResponse
 from .report_step_response import ReportStepResponse as ReportStepResponse
 from .scrape_list_response import ScrapeListResponse as ScrapeListResponse
 from .scrape_scrape_params import ScrapeScrapeParams as ScrapeScrapeParams
-from .secret_create_params import SecretCreateParams as SecretCreateParams
-from .secret_list_response import SecretListResponse as SecretListResponse
-from .secret_update_params import SecretUpdateParams as SecretUpdateParams
 from .source_list_response import SourceListResponse as SourceListResponse
 from .update_team_response import UpdateTeamResponse as UpdateTeamResponse
+from .connector_list_params import ConnectorListParams as ConnectorListParams
 from .dataset_create_params import DatasetCreateParams as DatasetCreateParams
 from .dataset_delete_params import DatasetDeleteParams as DatasetDeleteParams
 from .dataset_list_response import DatasetListResponse as DatasetListResponse
@@ -99,6 +101,9 @@ from .report_wrong_response import ReportWrongResponse as ReportWrongResponse
 from .sandbox_list_response import SandboxListResponse as SandboxListResponse
 from .workflow_session_edge import WorkflowSessionEdge as WorkflowSessionEdge
 from .workflow_session_node import WorkflowSessionNode as WorkflowSessionNode
+from .chat_load_files_params import ChatLoadFilesParams as ChatLoadFilesParams
+from .connector_get_response import ConnectorGetResponse as ConnectorGetResponse
+from .connector_with_secrets import ConnectorWithSecrets as ConnectorWithSecrets
 from .credits_usage_response import CreditsUsageResponse as CreditsUsageResponse
 from .dataset_match_response import DatasetMatchResponse as DatasetMatchResponse
 from .document_delete_params import DocumentDeleteParams as DocumentDeleteParams
@@ -109,15 +114,15 @@ from .entity_derive_response import EntityDeriveResponse as EntityDeriveResponse
 from .entity_search_response import EntitySearchResponse as EntitySearchResponse
 from .job_get_steps_response import JobGetStepsResponse as JobGetStepsResponse
 from .list_projects_response import ListProjectsResponse as ListProjectsResponse
-from .project_secret_summary import ProjectSecretSummary as ProjectSecretSummary
 from .remove_member_response import RemoveMemberResponse as RemoveMemberResponse
 from .save_requirement_param import SaveRequirementParam as SaveRequirementParam
 from .scrape_scrape_response import ScrapeScrapeResponse as ScrapeScrapeResponse
 from .team_add_member_params import TeamAddMemberParams as TeamAddMemberParams
 from .toggle_public_response import TogglePublicResponse as TogglePublicResponse
-from .update_secret_response import UpdateSecretResponse as UpdateSecretResponse
 from .workflow_schedule_info import WorkflowScheduleInfo as WorkflowScheduleInfo
 from .chat_add_message_params import ChatAddMessageParams as ChatAddMessageParams
+from .connector_create_params import ConnectorCreateParams as ConnectorCreateParams
+from .connector_update_params import ConnectorUpdateParams as ConnectorUpdateParams
 from .create_project_response import CreateProjectResponse as CreateProjectResponse
 from .dataset_create_response import DatasetCreateResponse as DatasetCreateResponse
 from .delete_project_response import DeleteProjectResponse as DeleteProjectResponse
@@ -125,6 +130,7 @@ from .entity_add_batch_params import EntityAddBatchParams as EntityAddBatchParam
 from .entity_list_jobs_params import EntityListJobsParams as EntityListJobsParams
 from .entity_summarize_params import EntitySummarizeParams as EntitySummarizeParams
 from .report_missing_response import ReportMissingResponse as ReportMissingResponse
+from .chat_load_files_response import ChatLoadFilesResponse as ChatLoadFilesResponse
 from .dataset_descriptor_param import DatasetDescriptorParam as DatasetDescriptorParam
 from .document_download_params import DocumentDownloadParams as DocumentDownloadParams
 from .entity_get_merges_params import EntityGetMergesParams as EntityGetMergesParams
@@ -185,6 +191,7 @@ from .entity_trigger_merge_response import EntityTriggerMergeResponse as EntityT
 from .entity_update_property_params import EntityUpdatePropertyParams as EntityUpdatePropertyParams
 from .session_create_session_params import SessionCreateSessionParams as SessionCreateSessionParams
 from .structure_job_status_response import StructureJobStatusResponse as StructureJobStatusResponse
+from .connector_create_secret_params import ConnectorCreateSecretParams as ConnectorCreateSecretParams
 from .credits_usage_timeseries_point import CreditsUsageTimeseriesPoint as CreditsUsageTimeseriesPoint
 from .dataset_export_to_excel_params import DatasetExportToExcelParams as DatasetExportToExcelParams
 from .dataset_remove_property_params import DatasetRemovePropertyParams as DatasetRemovePropertyParams

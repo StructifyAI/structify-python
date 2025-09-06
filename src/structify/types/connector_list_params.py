@@ -4,11 +4,13 @@ from __future__ import annotations
 
 from typing_extensions import Required, TypedDict
 
-__all__ = ["SecretUpdateParams"]
+__all__ = ["ConnectorListParams"]
 
 
-class SecretUpdateParams(TypedDict, total=False):
+class ConnectorListParams(TypedDict, total=False):
     project_id: Required[str]
+    """Project ID to list connectors for"""
 
-    secret_value: Required[str]
-    """The new secret value to encrypt and store"""
+    limit: int
+
+    offset: int

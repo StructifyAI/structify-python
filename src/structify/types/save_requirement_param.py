@@ -2,8 +2,10 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Optional
+from typing import Union, Optional
 from typing_extensions import Required, TypeAlias, TypedDict
+
+from .._types import SequenceNotStr
 
 __all__ = ["SaveRequirementParam", "RequiredRelationship", "RequiredEntity", "RequiredProperty"]
 
@@ -23,7 +25,7 @@ class RequiredEntity(TypedDict, total=False):
 
 
 class RequiredProperty(TypedDict, total=False):
-    property_names: Required[List[str]]
+    property_names: Required[SequenceNotStr[str]]
     """If there are multiple properties, it can match just one of them"""
 
     table_name: Required[str]
