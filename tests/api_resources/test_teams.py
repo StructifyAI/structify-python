@@ -183,8 +183,8 @@ class TestTeams:
     def test_method_add_member(self, client: Structify) -> None:
         team = client.teams.add_member(
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            email="email",
             role="member",
-            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(AddMemberResponse, team, path=["response"])
 
@@ -192,8 +192,8 @@ class TestTeams:
     def test_raw_response_add_member(self, client: Structify) -> None:
         response = client.teams.with_raw_response.add_member(
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            email="email",
             role="member",
-            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
         assert response.is_closed is True
@@ -205,8 +205,8 @@ class TestTeams:
     def test_streaming_response_add_member(self, client: Structify) -> None:
         with client.teams.with_streaming_response.add_member(
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            email="email",
             role="member",
-            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -221,8 +221,8 @@ class TestTeams:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `team_id` but received ''"):
             client.teams.with_raw_response.add_member(
                 team_id="",
+                email="email",
                 role="member",
-                user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
     @parametrize
@@ -658,8 +658,8 @@ class TestAsyncTeams:
     async def test_method_add_member(self, async_client: AsyncStructify) -> None:
         team = await async_client.teams.add_member(
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            email="email",
             role="member",
-            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(AddMemberResponse, team, path=["response"])
 
@@ -667,8 +667,8 @@ class TestAsyncTeams:
     async def test_raw_response_add_member(self, async_client: AsyncStructify) -> None:
         response = await async_client.teams.with_raw_response.add_member(
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            email="email",
             role="member",
-            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
         assert response.is_closed is True
@@ -680,8 +680,8 @@ class TestAsyncTeams:
     async def test_streaming_response_add_member(self, async_client: AsyncStructify) -> None:
         async with async_client.teams.with_streaming_response.add_member(
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            email="email",
             role="member",
-            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -696,8 +696,8 @@ class TestAsyncTeams:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `team_id` but received ''"):
             await async_client.teams.with_raw_response.add_member(
                 team_id="",
+                email="email",
                 role="member",
-                user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
     @parametrize
