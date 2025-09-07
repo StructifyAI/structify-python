@@ -194,8 +194,8 @@ class TeamsResource(SyncAPIResource):
         self,
         team_id: str,
         *,
+        email: str,
         role: TeamRole,
-        user_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -219,8 +219,8 @@ class TeamsResource(SyncAPIResource):
             f"/team/{team_id}/members",
             body=maybe_transform(
                 {
+                    "email": email,
                     "role": role,
-                    "user_id": user_id,
                 },
                 team_add_member_params.TeamAddMemberParams,
             ),
@@ -603,8 +603,8 @@ class AsyncTeamsResource(AsyncAPIResource):
         self,
         team_id: str,
         *,
+        email: str,
         role: TeamRole,
-        user_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -628,8 +628,8 @@ class AsyncTeamsResource(AsyncAPIResource):
             f"/team/{team_id}/members",
             body=await async_maybe_transform(
                 {
+                    "email": email,
                     "role": role,
-                    "user_id": user_id,
                 },
                 team_add_member_params.TeamAddMemberParams,
             ),

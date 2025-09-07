@@ -10,6 +10,6 @@ __all__ = ["TeamAddMemberParams"]
 
 
 class TeamAddMemberParams(TypedDict, total=False):
-    role: Required[TeamRole]
+    email: Required[str]
 
-    user_id: Required[str]
+    role: Required[TeamRole]
