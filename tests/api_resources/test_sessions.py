@@ -544,6 +544,48 @@ class TestSessions:
                 content=b"raw file contents",
             )
 
+    @parametrize
+    def test_method_upload_node_visualization_output(self, client: Structify) -> None:
+        session = client.sessions.upload_node_visualization_output(
+            node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            visualization_output={"foo": "bar"},
+        )
+        assert_matches_type(WorkflowSessionNode, session, path=["response"])
+
+    @parametrize
+    def test_raw_response_upload_node_visualization_output(self, client: Structify) -> None:
+        response = client.sessions.with_raw_response.upload_node_visualization_output(
+            node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            visualization_output={"foo": "bar"},
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        session = response.parse()
+        assert_matches_type(WorkflowSessionNode, session, path=["response"])
+
+    @parametrize
+    def test_streaming_response_upload_node_visualization_output(self, client: Structify) -> None:
+        with client.sessions.with_streaming_response.upload_node_visualization_output(
+            node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            visualization_output={"foo": "bar"},
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            session = response.parse()
+            assert_matches_type(WorkflowSessionNode, session, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_path_params_upload_node_visualization_output(self, client: Structify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `node_id` but received ''"):
+            client.sessions.with_raw_response.upload_node_visualization_output(
+                node_id="",
+                visualization_output={"foo": "bar"},
+            )
+
 
 class TestAsyncSessions:
     parametrize = pytest.mark.parametrize(
@@ -1064,4 +1106,46 @@ class TestAsyncSessions:
             await async_client.sessions.with_raw_response.upload_node_output_data(
                 node_id="",
                 content=b"raw file contents",
+            )
+
+    @parametrize
+    async def test_method_upload_node_visualization_output(self, async_client: AsyncStructify) -> None:
+        session = await async_client.sessions.upload_node_visualization_output(
+            node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            visualization_output={"foo": "bar"},
+        )
+        assert_matches_type(WorkflowSessionNode, session, path=["response"])
+
+    @parametrize
+    async def test_raw_response_upload_node_visualization_output(self, async_client: AsyncStructify) -> None:
+        response = await async_client.sessions.with_raw_response.upload_node_visualization_output(
+            node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            visualization_output={"foo": "bar"},
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        session = await response.parse()
+        assert_matches_type(WorkflowSessionNode, session, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_upload_node_visualization_output(self, async_client: AsyncStructify) -> None:
+        async with async_client.sessions.with_streaming_response.upload_node_visualization_output(
+            node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            visualization_output={"foo": "bar"},
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            session = await response.parse()
+            assert_matches_type(WorkflowSessionNode, session, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_upload_node_visualization_output(self, async_client: AsyncStructify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `node_id` but received ''"):
+            await async_client.sessions.with_raw_response.upload_node_visualization_output(
+                node_id="",
+                visualization_output={"foo": "bar"},
             )
