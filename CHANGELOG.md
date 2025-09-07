@@ -1,5 +1,27 @@
 # Changelog
 
+## 1.139.0 (2025-09-07)
+
+Full Changelog: [v1.138.15...v1.139.0](https://github.com/StructifyAI/structify-python/compare/v1.138.15...v1.139.0)
+
+### Features
+
+* **api:** manual updates ([86a3dc9](https://github.com/StructifyAI/structify-python/commit/86a3dc9b1a8fe60fdfe881ef02113ac7b88896d5))
+* improve future compat with pydantic v3 ([9ead347](https://github.com/StructifyAI/structify-python/commit/9ead3474b651f3afa681728620e8482e7e752c5e))
+* **types:** replace List[str] with SequenceNotStr in params ([faeabbb](https://github.com/StructifyAI/structify-python/commit/faeabbb2ad1d0fe1d1b3b5e82edce13885a86bee))
+* Update from Structify backend changes ([0287074](https://github.com/StructifyAI/structify-python/commit/02870743a54d1706eaf5516e8688d6054866e839))
+* Update from Structify backend changes ([4ef3237](https://github.com/StructifyAI/structify-python/commit/4ef3237471d4ad486acd643ecd96fdd6ee9cf3fe))
+* Update from Structify backend changes ([4a58f9c](https://github.com/StructifyAI/structify-python/commit/4a58f9cccdbcb7751092dd3d59517954b0e89cee))
+* Update from Structify backend changes ([a5dc0e6](https://github.com/StructifyAI/structify-python/commit/a5dc0e661b2a2d699c0fe7bfc9d40b28fdd282b2))
+* Update from Structify backend changes ([399bf68](https://github.com/StructifyAI/structify-python/commit/399bf6860dfd4e296aa4c115073a43174c408c12))
+* Update from Structify backend changes ([787b6c0](https://github.com/StructifyAI/structify-python/commit/787b6c01f9bbb4a20ef04c61e20853f028ce7cef))
+
+
+### Chores
+
+* **internal:** move mypy configurations to `pyproject.toml` file ([90fc299](https://github.com/StructifyAI/structify-python/commit/90fc299658444149d47cbfc341538033a9ad231c))
+* **tests:** simplify `get_platform` test ([497f498](https://github.com/StructifyAI/structify-python/commit/497f4987407fed4a465664bf383d5ae03b2eaf7e))
+
 ## 1.138.15 (2025-09-02)
 
 Full Changelog: [v1.138.14...v1.138.15](https://github.com/StructifyAI/structify-python/compare/v1.138.14...v1.138.15)
