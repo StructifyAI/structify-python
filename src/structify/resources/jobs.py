@@ -450,7 +450,7 @@ class JobsResource(SyncAPIResource):
 
     def wait_for_jobs(
         self,
-        job_ids: Optional[List[str]] = None,
+        job_ids: Optional[SequenceNotStr[str]] = None,
         dataset_name: Optional[str] = None,
         stream: bool = False,
         title: Optional[str] = None,
