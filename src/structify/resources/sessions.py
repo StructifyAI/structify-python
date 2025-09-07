@@ -16,6 +16,7 @@ from ..types import (
     session_create_session_params,
     session_update_node_progress_params,
     session_upload_node_output_data_params,
+    session_upload_node_visualization_output_params,
 )
 from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven, FileTypes
 from .._utils import extract_files, maybe_transform, deepcopy_minimal, async_maybe_transform
@@ -481,6 +482,42 @@ class SessionsResource(SyncAPIResource):
             cast_to=WorkflowSessionNode,
         )
 
+    def upload_node_visualization_output(
+        self,
+        node_id: str,
+        *,
+        visualization_output: Dict[str, object],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> WorkflowSessionNode:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not node_id:
+            raise ValueError(f"Expected a non-empty value for `node_id` but received {node_id!r}")
+        return self._post(
+            f"/sessions/nodes/{node_id}/visualization_output",
+            body=maybe_transform(
+                {"visualization_output": visualization_output},
+                session_upload_node_visualization_output_params.SessionUploadNodeVisualizationOutputParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=WorkflowSessionNode,
+        )
+
 
 class AsyncSessionsResource(AsyncAPIResource):
     @cached_property
@@ -918,6 +955,42 @@ class AsyncSessionsResource(AsyncAPIResource):
             cast_to=WorkflowSessionNode,
         )
 
+    async def upload_node_visualization_output(
+        self,
+        node_id: str,
+        *,
+        visualization_output: Dict[str, object],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> WorkflowSessionNode:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not node_id:
+            raise ValueError(f"Expected a non-empty value for `node_id` but received {node_id!r}")
+        return await self._post(
+            f"/sessions/nodes/{node_id}/visualization_output",
+            body=await async_maybe_transform(
+                {"visualization_output": visualization_output},
+                session_upload_node_visualization_output_params.SessionUploadNodeVisualizationOutputParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=WorkflowSessionNode,
+        )
+
 
 class SessionsResourceWithRawResponse:
     def __init__(self, sessions: SessionsResource) -> None:
@@ -956,6 +1029,9 @@ class SessionsResourceWithRawResponse:
         )
         self.upload_node_output_data = to_raw_response_wrapper(
             sessions.upload_node_output_data,
+        )
+        self.upload_node_visualization_output = to_raw_response_wrapper(
+            sessions.upload_node_visualization_output,
         )
 
 
@@ -997,6 +1073,9 @@ class AsyncSessionsResourceWithRawResponse:
         self.upload_node_output_data = async_to_raw_response_wrapper(
             sessions.upload_node_output_data,
         )
+        self.upload_node_visualization_output = async_to_raw_response_wrapper(
+            sessions.upload_node_visualization_output,
+        )
 
 
 class SessionsResourceWithStreamingResponse:
@@ -1037,6 +1116,9 @@ class SessionsResourceWithStreamingResponse:
         self.upload_node_output_data = to_streamed_response_wrapper(
             sessions.upload_node_output_data,
         )
+        self.upload_node_visualization_output = to_streamed_response_wrapper(
+            sessions.upload_node_visualization_output,
+        )
 
 
 class AsyncSessionsResourceWithStreamingResponse:
@@ -1076,4 +1158,7 @@ class AsyncSessionsResourceWithStreamingResponse:
         )
         self.upload_node_output_data = async_to_streamed_response_wrapper(
             sessions.upload_node_output_data,
+        )
+        self.upload_node_visualization_output = async_to_streamed_response_wrapper(
+            sessions.upload_node_visualization_output,
         )

@@ -41,3 +41,5 @@ class WorkflowSessionNode(BaseModel):
     output_schema: Optional[object] = None
 
     progress: Optional[object] = None
+
+    visualization_output: Optional[object] = None
