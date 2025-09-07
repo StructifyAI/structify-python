@@ -255,3 +255,6 @@ from .dataset_view_tables_with_relationships_params import (
 from .dataset_view_tables_with_relationships_response import (
     DatasetViewTablesWithRelationshipsResponse as DatasetViewTablesWithRelationshipsResponse,
 )
+from .session_upload_node_visualization_output_params import (
+    SessionUploadNodeVisualizationOutputParams as SessionUploadNodeVisualizationOutputParams,
+)
