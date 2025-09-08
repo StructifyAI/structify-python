@@ -30,6 +30,7 @@ class TestDocuments:
     def test_method_list_with_all_params(self, client: Structify) -> None:
         document = client.documents.list(
             dataset="dataset",
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(DocumentListResponse, document, path=["response"])
 
@@ -282,6 +283,7 @@ class TestDocuments:
             file_type="Text",
             path=b"raw file contents",
             dataset="dataset",
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert document is None
 
@@ -328,6 +330,7 @@ class TestAsyncDocuments:
     async def test_method_list_with_all_params(self, async_client: AsyncStructify) -> None:
         document = await async_client.documents.list(
             dataset="dataset",
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(DocumentListResponse, document, path=["response"])
 
@@ -580,6 +583,7 @@ class TestAsyncDocuments:
             file_type="Text",
             path=b"raw file contents",
             dataset="dataset",
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert document is None
 

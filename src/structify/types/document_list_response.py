@@ -26,5 +26,7 @@ class DocumentListResponseItem(BaseModel):
 
     dataset_id: Optional[str] = None
 
+    project_id: Optional[str] = None
+
 
 DocumentListResponse: TypeAlias = List[DocumentListResponseItem]
