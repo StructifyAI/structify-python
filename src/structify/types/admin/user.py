@@ -37,6 +37,8 @@ class User(BaseModel):
 
     user_type: Literal["admin", "public", "end_user", "pro"]
 
+    last_activity: Optional[datetime] = None
+
     survey_completed_at: Optional[datetime] = None
 
     survey_response: Optional[object] = None
