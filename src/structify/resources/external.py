@@ -58,12 +58,12 @@ class ExternalResource(WhitelabelResource):
 
             # Collect results as they complete
             for future in as_completed(future_to_query):
-                query: str = future_to_query[future]
+                current_query: str = future_to_query[future]
                 search_results: List[Dict[str, Any]] = future.result()
 
                 # Add query column to each result
                 for result in search_results:
-                    result["query"] = query
+                    result["query"] = current_query
                     results.append(result)
 
         # Convert to DataFrame
