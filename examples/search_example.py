@@ -7,6 +7,7 @@ Structify Python client.
 """
 
 import os
+
 from structify import Structify
 
 

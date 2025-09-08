@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, cast
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 import polars as pl
@@ -47,10 +47,10 @@ class ExternalResource(WhitelabelResource):
         queries = df[query_column].unique().to_list()
 
         # Execute searches in parallel
-        results = []
+        results: List[Dict[str, Any]] = []
         with ThreadPoolExecutor(max_workers=MAX_PARALLEL_REQUESTS) as executor:
             # Submit all search requests
-            future_to_query = {}
+            future_to_query: Dict[Any, str] = {}
             for query in queries:
                 if query:  # Skip empty queries
                     future = executor.submit(self._execute_single_search, query, num_results, banned_domains)
@@ -58,8 +58,8 @@ class ExternalResource(WhitelabelResource):
 
             # Collect results as they complete
             for future in as_completed(future_to_query):
-                query = future_to_query[future]
-                search_results = future.result()
+                query: str = future_to_query[future]
+                search_results: List[Dict[str, Any]] = future.result()
 
                 # Add query column to each result
                 for result in search_results:
@@ -92,5 +92,5 @@ class ExternalResource(WhitelabelResource):
 
         # Response should be a list of search results
         if isinstance(response, list):
-            return response
+            return cast(List[Dict[str, Any]], response)
         return []

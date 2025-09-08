@@ -6,7 +6,8 @@ This demonstrates how to extend the client with new services using the
 whitelabel infrastructure.
 """
 
-from typing import Dict, List, Any, Optional
+from typing import Any, Dict, List, Optional
+
 from structify.resources.whitelabel import WhitelabelResource, whitelabel_method
 
 

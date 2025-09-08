@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Any, Dict, TypeVar, Callable, Optional
+from typing import Any, Dict, Union, TypeVar, Callable, Optional, cast
 from functools import wraps
 
 from .._compat import cached_property
@@ -41,17 +41,25 @@ def whitelabel_method(
 
     def decorator(func: Callable[..., T]) -> Callable[..., T]:
         @wraps(func)
-        def wrapper(self: WhitelabelResource, *args, **kwargs) -> Any:
+        def wrapper(self: WhitelabelResource, *args: Any, **kwargs: Any) -> Any:
             # Call the original function to get the request payload
-            payload = func(self, *args, **kwargs)
+            raw_payload = func(self, *args, **kwargs)
+            
+            # Ensure payload is a dict
+            payload: Dict[str, Any]
+            if isinstance(raw_payload, dict):
+                payload = cast(Dict[str, Any], raw_payload)
+            else:
+                payload = {}
 
             # If pass_through_params is True, use kwargs directly as payload
             if pass_through_params:
                 payload = kwargs
 
             # Make the API call
+            response: Union[Dict[str, Any], object]
             if method.upper() == "GET":
-                response = self._get(endpoint, cast_to=dict, options=make_request_options(extra_query=payload))
+                response = cast(Dict[str, Any], self._get(endpoint, cast_to=dict, options=make_request_options(extra_query=cast(Dict[str, object], payload))))
             elif method.upper() == "POST":
                 response = self._post(
                     endpoint,
@@ -60,15 +68,16 @@ def whitelabel_method(
                     options=make_request_options(),
                 )
             elif method.upper() == "PUT":
-                response = self._put(endpoint, body=payload, cast_to=dict, options=make_request_options())
+                response = cast(Dict[str, Any], self._put(endpoint, body=payload, cast_to=dict, options=make_request_options()))
             elif method.upper() == "DELETE":
-                response = self._delete(endpoint, cast_to=dict, options=make_request_options())
+                response = cast(Dict[str, Any], self._delete(endpoint, cast_to=dict, options=make_request_options()))
             else:
                 raise ValueError(f"Unsupported HTTP method: {method}")
 
             # Extract response key if specified
             if response_key and isinstance(response, dict):
-                return response.get(response_key, response)
+                response_dict = cast(Dict[str, Any], response)
+                return response_dict.get(response_key, response_dict)
 
             # Check if the resource has a post-processing method
             if endpoint == "/external/search":
@@ -78,18 +87,15 @@ def whitelabel_method(
                 # Use specific post-processing based on the method name
                 method_name = func.__name__
                 if method_name == "search" and hasattr(self, "_post_process_search"):
-                    return self._post_process_search(response, queries)
+                    post_process = getattr(self, "_post_process_search")  # noqa: B009
+                    return post_process(response, queries)
 
             return response
 
         # Store metadata for documentation generation
-        wrapper._whitelabel_metadata = {
-            "endpoint": endpoint,
-            "method": method,
-            "response_key": response_key,
-        }
+        setattr(wrapper, "_whitelabel_metadata", {"endpoint": endpoint, "method": method, "response_key": response_key})  # noqa: B010
 
-        return wrapper
+        return cast(Callable[..., T], wrapper)
 
     return decorator
 
@@ -119,7 +125,7 @@ class WhitelabelResource(SyncAPIResource):
 
     def _build_headers(self, extra_headers: Optional[Dict[str, str]] = None) -> Dict[str, str]:
         """Build headers for API requests, allowing service-specific customization."""
-        headers = {}
+        headers: Dict[str, str] = {}
         if extra_headers:
             headers.update(extra_headers)
         return headers
