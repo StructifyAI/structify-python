@@ -92,7 +92,7 @@ class ExternalResource(WhitelabelResource):
     ) -> List[Dict[str, Any]]:
         """Execute a single search query and return results."""
         # Build request body
-        body = {"query": query}
+        body: Dict[str, Any] = {"query": query}
         if num_results:
             body["num_results"] = num_results
         if banned_domains:
