@@ -53,6 +53,7 @@ from .polars import (
     PolarsResourceWithRawResponse,
     PolarsResourceWithStreamingResponse,
 )
+from .search import SearchResource
 from .report import (
     ReportResource,
     AsyncReportResource,
@@ -284,6 +285,7 @@ __all__ = [
     "PolarsResource",
     "PolarsResourceWithRawResponse",
     "PolarsResourceWithStreamingResponse",
+    "SearchResource",
     "PublicSessionsResource",
     "AsyncPublicSessionsResource",
     "PublicSessionsResourceWithRawResponse",
