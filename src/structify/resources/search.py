@@ -34,7 +34,7 @@ class SearchResource(WhitelabelResource):
             banned_domains: Optional list of domains to exclude from results
             
         Returns:
-            SearchResponse containing the search results
+            Dict with results, query, and count keys for compatibility
             
         Example:
             >>> client = Structify(api_key="...")
@@ -42,17 +42,31 @@ class SearchResource(WhitelabelResource):
             >>> for result in results["results"]:
             ...     print(f"{result['title']}: {result['url']}")
         """
-        request_data = {
-            "query": query,
-            "num_results": num_results,
-        }
+        request_data = {"query": query}
         
-        if banned_domains:
-            request_data["banned_domains"] = banned_domains
-            
+        # Note: The current API doesn't support num_results or banned_domains
+        # but we keep the interface for future compatibility
+        
         return request_data
     
-    @whitelabel_method("/external/search", method="POST", response_key="results")
+    def _post_process_search(self, response, query: str):
+        """Post-process the search response."""
+        if isinstance(response, list):
+            # API returned list directly, format it
+            return {
+                "results": response,
+                "query": query,
+                "count": len(response)
+            }
+        return response
+        
+    def _post_process_search_results_only(self, response, query: str):
+        """Post-process for search_results_only - return list directly."""
+        if isinstance(response, list):
+            return response
+        return response
+    
+    @whitelabel_method("/external/search", method="POST")
     def search_results_only(
         self,
         query: str,
@@ -79,14 +93,7 @@ class SearchResource(WhitelabelResource):
             >>> for result in results:
             ...     print(result["url"])
         """
-        request_data = {
-            "query": query,
-            "num_results": num_results,
-        }
-        
-        if banned_domains:
-            request_data["banned_domains"] = banned_domains
-            
+        request_data = {"query": query}
         return request_data
     
     def search_multiple(
@@ -121,9 +128,10 @@ class SearchResource(WhitelabelResource):
         seen_urls = set()
         
         for query in queries:
-            response = self.search(query, num_results_per_query, banned_domains)
+            # Use search_results_only to get the list directly
+            results = self.search_results_only(query, num_results_per_query, banned_domains)
             
-            for result in response.get("results", []):
+            for result in results:
                 if result["url"] not in seen_urls:
                     seen_urls.add(result["url"])
                     all_results.append(result)

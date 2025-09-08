@@ -11,6 +11,7 @@ from .._response import (
     to_raw_response_wrapper,
     to_streamed_response_wrapper,
 )
+from .._base_client import make_request_options
 
 __all__ = ["WhitelabelResource", "whitelabel_method"]
 
@@ -49,19 +50,48 @@ def whitelabel_method(
             
             # Make the API call
             if method.upper() == "GET":
-                response = self._get(endpoint, params=payload)
+                response = self._get(
+                    endpoint,
+                    cast_to=dict,
+                    options=make_request_options(extra_query=payload)
+                )
             elif method.upper() == "POST":
-                response = self._post(endpoint, body=payload)
+                response = self._post(
+                    endpoint,
+                    body=payload,
+                    cast_to=object,  # Use object to handle any response type
+                    options=make_request_options()
+                )
             elif method.upper() == "PUT":
-                response = self._put(endpoint, body=payload)
+                response = self._put(
+                    endpoint,
+                    body=payload,
+                    cast_to=dict,
+                    options=make_request_options()
+                )
             elif method.upper() == "DELETE":
-                response = self._delete(endpoint)
+                response = self._delete(
+                    endpoint,
+                    cast_to=dict,
+                    options=make_request_options()
+                )
             else:
                 raise ValueError(f"Unsupported HTTP method: {method}")
             
             # Extract response key if specified
             if response_key and isinstance(response, dict):
                 return response.get(response_key, response)
+            
+            # Check if the resource has a post-processing method
+            if endpoint == '/external/search':
+                query = payload.get('query', '') if isinstance(payload, dict) else ''
+                
+                # Use specific post-processing based on the method name
+                method_name = func.__name__
+                if method_name == 'search_results_only' and hasattr(self, '_post_process_search_results_only'):
+                    return self._post_process_search_results_only(response, query)
+                elif hasattr(self, '_post_process_search'):
+                    return self._post_process_search(response, query)
             
             return response
         

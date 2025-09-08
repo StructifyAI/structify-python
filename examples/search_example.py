@@ -25,7 +25,7 @@ def main():
     print("\n1. Basic Search for 'artificial intelligence startups':")
     print("-" * 40)
     
-    response = client.search.search(
+    response = client.external.search.search(
         query="artificial intelligence startups",
         num_results=5
     )
@@ -40,7 +40,7 @@ def main():
     print("\n\n2. Search excluding certain domains:")
     print("-" * 40)
     
-    response = client.search.search(
+    response = client.external.search.search(
         query="machine learning frameworks",
         num_results=5,
         banned_domains=["medium.com", "towardsdatascience.com"]
@@ -54,7 +54,7 @@ def main():
     print("\n\n3. Get results array directly:")
     print("-" * 40)
     
-    results = client.search.search_results_only(
+    results = client.external.search.search_results_only(
         query="deep learning research papers",
         num_results=3
     )
@@ -73,7 +73,7 @@ def main():
         "attention mechanism deep learning"
     ]
     
-    all_results = client.search.search_multiple(
+    all_results = client.external.search.search_multiple(
         queries=queries,
         num_results_per_query=3
     )
@@ -86,7 +86,7 @@ def main():
     print("\n\n5. Access raw HTTP response:")
     print("-" * 40)
     
-    with client.search.with_raw_response.search(
+    with client.external.search.with_raw_response.search(
         query="quantum computing",
         num_results=2
     ) as response:

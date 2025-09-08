@@ -27,7 +27,7 @@ from .resources import (
     jobs,
     teams,
     polars,
-    search,
+    external,
     report,
     scrape,
     server,
@@ -93,7 +93,7 @@ class Structify(SyncAPIClient):
     structure: structure.StructureResource
     public_sessions: public_sessions.PublicSessionsResource
     polars: polars.PolarsResource
-    search: search.SearchResource
+    external: external.ExternalResource
     with_raw_response: StructifyWithRawResponse
     with_streaming_response: StructifyWithStreamedResponse
 
@@ -196,7 +196,7 @@ class Structify(SyncAPIClient):
         self.structure = structure.StructureResource(self)
         self.public_sessions = public_sessions.PublicSessionsResource(self)
         self.polars = polars.PolarsResource(self)
-        self.search = search.SearchResource(self)
+        self.external = external.ExternalResource(self)
         self.with_raw_response = StructifyWithRawResponse(self)
         self.with_streaming_response = StructifyWithStreamedResponse(self)
 
