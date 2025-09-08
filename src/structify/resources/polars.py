@@ -17,6 +17,7 @@ from structify.types.knowledge_graph_param import KnowledgeGraphParam
 
 from ..types import TableParam
 from .._compat import cached_property
+from .external import ExternalResource
 from .._resource import SyncAPIResource
 from .._response import (
     to_raw_response_wrapper,
@@ -26,7 +27,6 @@ from ..types.table_param import Property
 from ..types.save_requirement_param import RequiredEntity, RequiredProperty
 from ..types.dataset_descriptor_param import DatasetDescriptorParam
 from ..types.structure_run_async_params import SourcePdf, StopConfig, SourceWebWeb
-from .external import ExternalResource
 
 __all__ = ["PolarsResource"]
 

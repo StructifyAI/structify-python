@@ -2,11 +2,11 @@
 
 from __future__ import annotations
 
-from typing import Any, Dict, Optional, TypeVar, Callable
+from typing import Any, Dict, TypeVar, Callable, Optional
 from functools import wraps
 
-from .._resource import SyncAPIResource
 from .._compat import cached_property
+from .._resource import SyncAPIResource
 from .._response import (
     to_raw_response_wrapper,
     to_streamed_response_wrapper,

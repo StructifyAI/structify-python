@@ -53,7 +53,6 @@ from .polars import (
     PolarsResourceWithRawResponse,
     PolarsResourceWithStreamingResponse,
 )
-from .external import ExternalResource
 from .report import (
     ReportResource,
     AsyncReportResource,
@@ -110,6 +109,7 @@ from .entities import (
     EntitiesResourceWithStreamingResponse,
     AsyncEntitiesResourceWithStreamingResponse,
 )
+from .external import ExternalResource
 from .projects import (
     ProjectsResource,
     AsyncProjectsResource,
