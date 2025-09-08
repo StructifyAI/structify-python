@@ -3,19 +3,21 @@
 from __future__ import annotations
 
 from typing import List, Optional
-from typing_extensions import Literal, TypedDict
+from typing_extensions import Literal, Required, TypedDict
 
-__all__ = ["UserUpdateParams"]
+__all__ = ["UserUpdateParams", "Updates"]
 
 
 class UserUpdateParams(TypedDict, total=False):
+    updates: Required[Updates]
+
     current_email: Optional[str]
 
-    is_developer: Optional[bool]
 
-    new_email: Optional[str]
+class Updates(TypedDict, total=False):
+    email: Optional[str]
 
-    new_feature_flags: Optional[
+    feature_flags: Optional[
         List[
             Literal[
                 "functional_test",
@@ -28,4 +30,10 @@ class UserUpdateParams(TypedDict, total=False):
         ]
     ]
 
-    new_permissions: Optional[List[Literal["labeler", "qa_labeler", "debug", "human_llm", "none"]]]
+    full_name: Optional[str]
+
+    is_developer: Optional[bool]
+
+    permissions: Optional[List[Literal["labeler", "qa_labeler", "debug", "human_llm", "none"]]]
+
+    user_type: Optional[Literal["admin", "public", "end_user", "pro"]]

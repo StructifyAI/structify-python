@@ -24,6 +24,8 @@ class UserCreateParams(TypedDict, total=False):
         ]
     ]
 
+    full_name: Optional[str]
+
     is_admin: bool
 
     permissions: List[Literal["labeler", "qa_labeler", "debug", "human_llm", "none"]]
