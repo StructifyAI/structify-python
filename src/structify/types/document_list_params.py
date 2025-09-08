@@ -10,3 +10,5 @@ __all__ = ["DocumentListParams"]
 
 class DocumentListParams(TypedDict, total=False):
     dataset: Optional[str]
+
+    project_id: Optional[str]
