@@ -84,14 +84,13 @@ def whitelabel_method(
             
             # Check if the resource has a post-processing method
             if endpoint == '/external/search':
-                query = payload.get('query', '') if isinstance(payload, dict) else ''
+                # Get queries from the original function arguments
+                queries = kwargs.get('queries', [])
                 
                 # Use specific post-processing based on the method name
                 method_name = func.__name__
-                if method_name == 'search_results_only' and hasattr(self, '_post_process_search_results_only'):
-                    return self._post_process_search_results_only(response, query)
-                elif hasattr(self, '_post_process_search'):
-                    return self._post_process_search(response, query)
+                if method_name == 'search' and hasattr(self, '_post_process_search'):
+                    return self._post_process_search(response, queries)
             
             return response
         
