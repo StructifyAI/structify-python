@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Union, Optional
+from typing import List, Union, Optional
 from typing_extensions import Literal, TypeAlias
 
 from pydantic import Field as FieldInfo
@@ -11,6 +11,22 @@ __all__ = [
     "ChatEvent",
     "TextMessage",
     "TextMessageTextMessage",
+    "Thinking",
+    "ThinkingThinking",
+    "File",
+    "FileFile",
+    "Action",
+    "ActionAction",
+    "ActionActionAction",
+    "Connector",
+    "ConnectorConnector",
+    "CodeProject",
+    "CodeProjectCodeProject",
+    "CodeProjectCodeProjectAttributes",
+    "DeleteFile",
+    "DeleteFileDeleteFile",
+    "MoveFile",
+    "MoveFileMoveFile",
     "ToolCall",
     "ToolCallToolCall",
     "ToolCallToolCallUnionMember0",
@@ -28,6 +44,91 @@ class TextMessageTextMessage(BaseModel):
 
 class TextMessage(BaseModel):
     text_message: TextMessageTextMessage = FieldInfo(alias="TextMessage")
+
+
+class ThinkingThinking(BaseModel):
+    content: str
+
+
+class Thinking(BaseModel):
+    thinking: ThinkingThinking = FieldInfo(alias="Thinking")
+
+
+class FileFile(BaseModel):
+    path: str
+
+    content: Optional[str] = None
+
+
+class File(BaseModel):
+    file: FileFile = FieldInfo(alias="File")
+    """
+    The file event can't be serialized to the database safely without the content.
+    When streaming, we start with the path only, then add the content as we go.
+    """
+
+
+class ActionActionAction(BaseModel):
+    description: str
+
+    name: str
+
+
+class ActionAction(BaseModel):
+    actions: List[ActionActionAction]
+
+
+class Action(BaseModel):
+    action: ActionAction = FieldInfo(alias="Action")
+
+
+class ConnectorConnector(BaseModel):
+    env_vars: List[str]
+
+    name: str
+
+    description: Optional[str] = None
+
+
+class Connector(BaseModel):
+    connector: ConnectorConnector = FieldInfo(alias="Connector")
+
+
+class CodeProjectCodeProjectAttributes(BaseModel):
+    id: Optional[str] = None
+
+    badge: Optional[str] = None
+
+    label: Optional[str] = None
+
+    version: Optional[str] = None
+
+
+class CodeProjectCodeProject(BaseModel):
+    attributes: CodeProjectCodeProjectAttributes
+    """CodeProject attributes"""
+
+
+class CodeProject(BaseModel):
+    code_project: CodeProjectCodeProject = FieldInfo(alias="CodeProject")
+
+
+class DeleteFileDeleteFile(BaseModel):
+    file: str
+
+
+class DeleteFile(BaseModel):
+    delete_file: DeleteFileDeleteFile = FieldInfo(alias="DeleteFile")
+
+
+class MoveFileMoveFile(BaseModel):
+    file: str
+
+    new_path: str
+
+
+class MoveFile(BaseModel):
+    move_file: MoveFileMoveFile = FieldInfo(alias="MoveFile")
 
 
 class ToolCallToolCallUnionMember0Input(BaseModel):
@@ -81,4 +182,6 @@ class ToolCall(BaseModel):
     tool_call: ToolCallToolCall = FieldInfo(alias="ToolCall")
 
 
-ChatEvent: TypeAlias = Union[TextMessage, ToolCall]
+ChatEvent: TypeAlias = Union[
+    TextMessage, Thinking, File, Action, Connector, CodeProject, DeleteFile, MoveFile, ToolCall
+]
