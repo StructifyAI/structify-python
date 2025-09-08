@@ -26,6 +26,7 @@ from ..types.table_param import Property
 from ..types.save_requirement_param import RequiredEntity, RequiredProperty
 from ..types.dataset_descriptor_param import DatasetDescriptorParam
 from ..types.structure_run_async_params import SourcePdf, StopConfig, SourceWebWeb
+from .external import ExternalResource
 
 __all__ = ["PolarsResource"]
 
@@ -33,6 +34,11 @@ MAX_PARALLEL_REQUESTS = 20
 
 
 class PolarsResource(SyncAPIResource):
+    @cached_property
+    def external(self) -> ExternalResource:
+        """Access external whitelabel services."""
+        return ExternalResource(self._client)
+    
     @cached_property
     def with_raw_response(self) -> PolarsResourceWithRawResponse:
         """
