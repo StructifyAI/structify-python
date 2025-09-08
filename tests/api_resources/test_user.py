@@ -25,23 +25,31 @@ class TestUser:
 
     @parametrize
     def test_method_update(self, client: Structify) -> None:
-        user = client.user.update()
+        user = client.user.update(
+            updates={},
+        )
         assert_matches_type(User, user, path=["response"])
 
     @parametrize
     def test_method_update_with_all_params(self, client: Structify) -> None:
         user = client.user.update(
+            updates={
+                "email": "email",
+                "feature_flags": ["functional_test"],
+                "full_name": "full_name",
+                "is_developer": True,
+                "permissions": ["labeler"],
+                "user_type": "admin",
+            },
             current_email="current_email",
-            is_developer=True,
-            new_email="new_email",
-            new_feature_flags=["functional_test"],
-            new_permissions=["labeler"],
         )
         assert_matches_type(User, user, path=["response"])
 
     @parametrize
     def test_raw_response_update(self, client: Structify) -> None:
-        response = client.user.with_raw_response.update()
+        response = client.user.with_raw_response.update(
+            updates={},
+        )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -50,7 +58,9 @@ class TestUser:
 
     @parametrize
     def test_streaming_response_update(self, client: Structify) -> None:
-        with client.user.with_streaming_response.update() as response:
+        with client.user.with_streaming_response.update(
+            updates={},
+        ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -180,23 +190,31 @@ class TestAsyncUser:
 
     @parametrize
     async def test_method_update(self, async_client: AsyncStructify) -> None:
-        user = await async_client.user.update()
+        user = await async_client.user.update(
+            updates={},
+        )
         assert_matches_type(User, user, path=["response"])
 
     @parametrize
     async def test_method_update_with_all_params(self, async_client: AsyncStructify) -> None:
         user = await async_client.user.update(
+            updates={
+                "email": "email",
+                "feature_flags": ["functional_test"],
+                "full_name": "full_name",
+                "is_developer": True,
+                "permissions": ["labeler"],
+                "user_type": "admin",
+            },
             current_email="current_email",
-            is_developer=True,
-            new_email="new_email",
-            new_feature_flags=["functional_test"],
-            new_permissions=["labeler"],
         )
         assert_matches_type(User, user, path=["response"])
 
     @parametrize
     async def test_raw_response_update(self, async_client: AsyncStructify) -> None:
-        response = await async_client.user.with_raw_response.update()
+        response = await async_client.user.with_raw_response.update(
+            updates={},
+        )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -205,7 +223,9 @@ class TestAsyncUser:
 
     @parametrize
     async def test_streaming_response_update(self, async_client: AsyncStructify) -> None:
-        async with async_client.user.with_streaming_response.update() as response:
+        async with async_client.user.with_streaming_response.update(
+            updates={},
+        ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 

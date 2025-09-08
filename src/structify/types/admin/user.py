@@ -29,6 +29,8 @@ class User(BaseModel):
         ]
     ]
 
+    full_name: str
+
     is_developer: bool
 
     permissions: List[Optional[Literal["labeler", "qa_labeler", "debug", "human_llm", "none"]]]

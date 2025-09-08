@@ -65,6 +65,7 @@ class UsersResource(SyncAPIResource):
             ]
         ]
         | NotGiven = NOT_GIVEN,
+        full_name: Optional[str] | NotGiven = NOT_GIVEN,
         is_admin: bool | NotGiven = NOT_GIVEN,
         permissions: List[Literal["labeler", "qa_labeler", "debug", "human_llm", "none"]] | NotGiven = NOT_GIVEN,
         test: bool | NotGiven = NOT_GIVEN,
@@ -94,6 +95,7 @@ class UsersResource(SyncAPIResource):
                     "credit_count": credit_count,
                     "email": email,
                     "feature_flags": feature_flags,
+                    "full_name": full_name,
                     "is_admin": is_admin,
                     "permissions": permissions,
                     "test": test,
@@ -284,6 +286,7 @@ class AsyncUsersResource(AsyncAPIResource):
             ]
         ]
         | NotGiven = NOT_GIVEN,
+        full_name: Optional[str] | NotGiven = NOT_GIVEN,
         is_admin: bool | NotGiven = NOT_GIVEN,
         permissions: List[Literal["labeler", "qa_labeler", "debug", "human_llm", "none"]] | NotGiven = NOT_GIVEN,
         test: bool | NotGiven = NOT_GIVEN,
@@ -313,6 +316,7 @@ class AsyncUsersResource(AsyncAPIResource):
                     "credit_count": credit_count,
                     "email": email,
                     "feature_flags": feature_flags,
+                    "full_name": full_name,
                     "is_admin": is_admin,
                     "permissions": permissions,
                     "test": test,
