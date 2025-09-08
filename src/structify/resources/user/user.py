@@ -2,8 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Optional
-from typing_extensions import Literal
+from typing import Dict, Optional
 
 import httpx
 
@@ -63,24 +62,8 @@ class UserResource(SyncAPIResource):
     def update(
         self,
         *,
+        updates: user_update_params.Updates,
         current_email: Optional[str] | NotGiven = NOT_GIVEN,
-        is_developer: Optional[bool] | NotGiven = NOT_GIVEN,
-        new_email: Optional[str] | NotGiven = NOT_GIVEN,
-        new_feature_flags: Optional[
-            List[
-                Literal[
-                    "functional_test",
-                    "pdf_parsing",
-                    "boredm_construction_model",
-                    "generic_suspicious_queue",
-                    "new_use_case_preview",
-                    "none",
-                ]
-            ]
-        ]
-        | NotGiven = NOT_GIVEN,
-        new_permissions: Optional[List[Literal["labeler", "qa_labeler", "debug", "human_llm", "none"]]]
-        | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -104,11 +87,8 @@ class UserResource(SyncAPIResource):
             "/user/update",
             body=maybe_transform(
                 {
+                    "updates": updates,
                     "current_email": current_email,
-                    "is_developer": is_developer,
-                    "new_email": new_email,
-                    "new_feature_flags": new_feature_flags,
-                    "new_permissions": new_permissions,
                 },
                 user_update_params.UserUpdateParams,
             ),
@@ -252,24 +232,8 @@ class AsyncUserResource(AsyncAPIResource):
     async def update(
         self,
         *,
+        updates: user_update_params.Updates,
         current_email: Optional[str] | NotGiven = NOT_GIVEN,
-        is_developer: Optional[bool] | NotGiven = NOT_GIVEN,
-        new_email: Optional[str] | NotGiven = NOT_GIVEN,
-        new_feature_flags: Optional[
-            List[
-                Literal[
-                    "functional_test",
-                    "pdf_parsing",
-                    "boredm_construction_model",
-                    "generic_suspicious_queue",
-                    "new_use_case_preview",
-                    "none",
-                ]
-            ]
-        ]
-        | NotGiven = NOT_GIVEN,
-        new_permissions: Optional[List[Literal["labeler", "qa_labeler", "debug", "human_llm", "none"]]]
-        | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -293,11 +257,8 @@ class AsyncUserResource(AsyncAPIResource):
             "/user/update",
             body=await async_maybe_transform(
                 {
+                    "updates": updates,
                     "current_email": current_email,
-                    "is_developer": is_developer,
-                    "new_email": new_email,
-                    "new_feature_flags": new_feature_flags,
-                    "new_permissions": new_permissions,
                 },
                 user_update_params.UserUpdateParams,
             ),
