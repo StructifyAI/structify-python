@@ -38,7 +38,7 @@ class PolarsResource(SyncAPIResource):
     def external(self) -> ExternalResource:
         """Access external whitelabel services."""
         return ExternalResource(self._client)
-    
+
     @cached_property
     def with_raw_response(self) -> PolarsResourceWithRawResponse:
         """

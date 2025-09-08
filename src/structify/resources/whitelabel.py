@@ -26,94 +26,82 @@ def whitelabel_method(
 ) -> Callable[[Callable[..., T]], Callable[..., T]]:
     """
     Decorator for creating whitelabel service methods that proxy to API endpoints.
-    
+
     Args:
         endpoint: The API endpoint to call (e.g., "/external/search")
         method: HTTP method to use (GET, POST, etc.)
         response_key: If set, extract this key from the response object
         pass_through_params: If True, pass all kwargs directly to the API call
-    
+
     Example:
         @whitelabel_method("/external/search", response_key="results")
         def search(self, query: str, num_results: int = 10) -> list:
             return {"query": query, "num_results": num_results}
     """
+
     def decorator(func: Callable[..., T]) -> Callable[..., T]:
         @wraps(func)
         def wrapper(self: WhitelabelResource, *args, **kwargs) -> Any:
             # Call the original function to get the request payload
             payload = func(self, *args, **kwargs)
-            
+
             # If pass_through_params is True, use kwargs directly as payload
             if pass_through_params:
                 payload = kwargs
-            
+
             # Make the API call
             if method.upper() == "GET":
-                response = self._get(
-                    endpoint,
-                    cast_to=dict,
-                    options=make_request_options(extra_query=payload)
-                )
+                response = self._get(endpoint, cast_to=dict, options=make_request_options(extra_query=payload))
             elif method.upper() == "POST":
                 response = self._post(
                     endpoint,
                     body=payload,
                     cast_to=object,  # Use object to handle any response type
-                    options=make_request_options()
+                    options=make_request_options(),
                 )
             elif method.upper() == "PUT":
-                response = self._put(
-                    endpoint,
-                    body=payload,
-                    cast_to=dict,
-                    options=make_request_options()
-                )
+                response = self._put(endpoint, body=payload, cast_to=dict, options=make_request_options())
             elif method.upper() == "DELETE":
-                response = self._delete(
-                    endpoint,
-                    cast_to=dict,
-                    options=make_request_options()
-                )
+                response = self._delete(endpoint, cast_to=dict, options=make_request_options())
             else:
                 raise ValueError(f"Unsupported HTTP method: {method}")
-            
+
             # Extract response key if specified
             if response_key and isinstance(response, dict):
                 return response.get(response_key, response)
-            
+
             # Check if the resource has a post-processing method
-            if endpoint == '/external/search':
+            if endpoint == "/external/search":
                 # Get queries from the original function arguments
-                queries = kwargs.get('queries', [])
-                
+                queries = kwargs.get("queries", [])
+
                 # Use specific post-processing based on the method name
                 method_name = func.__name__
-                if method_name == 'search' and hasattr(self, '_post_process_search'):
+                if method_name == "search" and hasattr(self, "_post_process_search"):
                     return self._post_process_search(response, queries)
-            
+
             return response
-        
+
         # Store metadata for documentation generation
         wrapper._whitelabel_metadata = {
             "endpoint": endpoint,
             "method": method,
             "response_key": response_key,
         }
-        
+
         return wrapper
-    
+
     return decorator
 
 
 class WhitelabelResource(SyncAPIResource):
     """
     Base class for whitelabel service resources.
-    
+
     This provides a foundation for creating service-specific resources
     that proxy to backend APIs while maintaining a clean client interface.
     """
-    
+
     @cached_property
     def with_raw_response(self) -> WhitelabelResourceWithRawResponse:
         """
@@ -128,7 +116,7 @@ class WhitelabelResource(SyncAPIResource):
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
         """
         return WhitelabelResourceWithStreamingResponse(self)
-    
+
     def _build_headers(self, extra_headers: Optional[Dict[str, str]] = None) -> Dict[str, str]:
         """Build headers for API requests, allowing service-specific customization."""
         headers = {}
@@ -140,7 +128,7 @@ class WhitelabelResource(SyncAPIResource):
 class WhitelabelResourceWithRawResponse:
     def __init__(self, resource: WhitelabelResource) -> None:
         self._resource = resource
-        
+
         # Dynamically wrap all whitelabel methods
         for attr_name in dir(resource):
             if not attr_name.startswith("_"):
@@ -152,7 +140,7 @@ class WhitelabelResourceWithRawResponse:
 class WhitelabelResourceWithStreamingResponse:
     def __init__(self, resource: WhitelabelResource) -> None:
         self._resource = resource
-        
+
         # Dynamically wrap all whitelabel methods
         for attr_name in dir(resource):
             if not attr_name.startswith("_"):
