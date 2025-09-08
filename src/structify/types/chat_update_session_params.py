@@ -12,3 +12,5 @@ class ChatUpdateSessionParams(TypedDict, total=False):
     is_favorite: Optional[bool]
 
     name: Optional[str]
+
+    project_id: Optional[str]

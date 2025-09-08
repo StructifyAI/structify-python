@@ -658,6 +658,7 @@ class TestChat:
             session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             is_favorite=True,
             name="name",
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(ChatSession, chat, path=["response"])
 
@@ -1325,6 +1326,7 @@ class TestAsyncChat:
             session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             is_favorite=True,
             name="name",
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(ChatSession, chat, path=["response"])
 
