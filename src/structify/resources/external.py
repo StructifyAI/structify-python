@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
-from typing import List, Optional, Dict, Any
-import polars as pl
+from typing import Any, Dict, List, Optional
 from concurrent.futures import ThreadPoolExecutor, as_completed
+
+import polars as pl
 
 from .whitelabel import WhitelabelResource
 from .._base_client import make_request_options
@@ -90,10 +91,17 @@ class ExternalResource(WhitelabelResource):
         banned_domains: Optional[List[str]] = None
     ) -> List[Dict[str, Any]]:
         """Execute a single search query and return results."""
+        # Build request body
+        body = {"query": query}
+        if num_results:
+            body["num_results"] = num_results
+        if banned_domains:
+            body["banned_domains"] = banned_domains
+        
         # Make the API call
         response = self._post(
             "/external/search",
-            body={"query": query},
+            body=body,
             cast_to=object,
             options=make_request_options()
         )
