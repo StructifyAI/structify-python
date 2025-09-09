@@ -34,7 +34,6 @@ class TestCode:
                     "path": "path",
                 }
             ],
-            model={},
         )
         assert code is None
 
@@ -89,7 +88,6 @@ class TestAsyncCode:
                     "path": "path",
                 }
             ],
-            model={},
         )
         assert code is None
 
