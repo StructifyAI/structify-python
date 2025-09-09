@@ -28,6 +28,8 @@ class Session(BaseModel):
 
     name: Optional[str] = None
 
+    owner_email: Optional[str] = None
+
 
 class ListChatSessionsResponse(BaseModel):
     sessions: List[Session]
