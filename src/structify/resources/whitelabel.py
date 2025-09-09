@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 
-from typing import Any, Dict, Union, TypeVar, Callable, Optional, cast
+from typing import Any, Dict, List, Union, TypeVar, Callable, Optional, cast
 from functools import wraps
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 from .._compat import cached_property
 from .._resource import SyncAPIResource
@@ -79,16 +80,20 @@ def whitelabel_method(
                 response_dict = cast(Dict[str, Any], response)
                 return response_dict.get(response_key, response_dict)
 
-            # Check if the resource has a post-processing method
-            if endpoint == "/external/search":
-                # Get queries from the original function arguments
-                queries = kwargs.get("queries", [])
-
-                # Use specific post-processing based on the method name
-                method_name = func.__name__
-                if method_name == "search" and hasattr(self, "_post_process_search"):
-                    post_process = getattr(self, "_post_process_search")  # noqa: B009
-                    return post_process(response, queries)
+            # Check if the request contains queries for parallel processing
+            if "queries" in payload:
+                queries = cast(List[str], payload["queries"])
+                if queries:
+                    # Execute parallel requests for each query
+                    parallel_response = self._execute_parallel_requests(endpoint, queries, payload, method)
+                    
+                    # Check if there's a post-processing method
+                    post_process_method = f"_post_process_{func.__name__}"
+                    if hasattr(self, post_process_method):
+                        post_process = getattr(self, post_process_method)  # noqa: B009
+                        return post_process(parallel_response, queries)
+                    
+                    return parallel_response
 
             return response
 
@@ -129,6 +134,57 @@ class WhitelabelResource(SyncAPIResource):
         if extra_headers:
             headers.update(extra_headers)
         return headers
+
+    def _execute_parallel_requests(
+        self, endpoint: str, queries: List[str], payload: Dict[str, Any], method: str, max_workers: int = 20
+    ) -> List[Dict[str, Any]]:
+        """Execute parallel requests for multiple queries."""
+        results: List[Dict[str, Any]] = []
+        
+        with ThreadPoolExecutor(max_workers=max_workers) as executor:
+            # Submit all requests
+            future_to_query: Dict[Any, str] = {}
+            for query in queries:
+                if query:  # Skip empty queries
+                    # Create individual payload for this query
+                    single_payload = payload.copy()
+                    single_payload["query"] = query
+                    single_payload.pop("queries", None)  # Remove queries list
+                    
+                    future = executor.submit(self._execute_single_request, endpoint, single_payload, method)
+                    future_to_query[future] = query
+
+            # Collect results as they complete
+            for future in as_completed(future_to_query):
+                current_query: str = future_to_query[future]
+                single_result = future.result()
+                
+                # Add query column to each result if it's a list
+                if isinstance(single_result, list):
+                    for result in cast(List[Any], single_result):
+                        if isinstance(result, dict):
+                            result_dict = cast(Dict[str, Any], result)
+                            result_dict["query"] = current_query
+                            results.append(result_dict)
+                elif isinstance(single_result, dict):
+                    single_result_dict = cast(Dict[str, Any], single_result)
+                    single_result_dict["query"] = current_query
+                    results.append(single_result_dict)
+        
+        return results
+
+    def _execute_single_request(self, endpoint: str, payload: Dict[str, Any], method: str) -> Any:
+        """Execute a single request to the API."""
+        if method.upper() == "GET":
+            return self._get(endpoint, cast_to=object, options=make_request_options(extra_query=cast(Dict[str, object], payload)))
+        elif method.upper() == "POST":
+            return self._post(endpoint, body=payload, cast_to=object, options=make_request_options())
+        elif method.upper() == "PUT":
+            return self._put(endpoint, body=payload, cast_to=object, options=make_request_options())
+        elif method.upper() == "DELETE":
+            return self._delete(endpoint, cast_to=object, options=make_request_options())
+        else:
+            raise ValueError(f"Unsupported HTTP method: {method}")
 
 
 class WhitelabelResourceWithRawResponse:

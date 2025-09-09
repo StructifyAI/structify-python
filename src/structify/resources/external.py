@@ -3,16 +3,12 @@
 from __future__ import annotations
 
 from typing import Any, Dict, List, Optional, cast
-from concurrent.futures import ThreadPoolExecutor, as_completed
 
 import polars as pl
 
-from .whitelabel import WhitelabelResource
-from .._base_client import make_request_options
+from .whitelabel import WhitelabelResource, whitelabel_method
 
 __all__ = ["ExternalResource"]
-
-MAX_PARALLEL_REQUESTS = 20
 
 
 class ExternalResource(WhitelabelResource):
@@ -23,6 +19,7 @@ class ExternalResource(WhitelabelResource):
     separate from the core Structify functionality.
     """
 
+    @whitelabel_method("/external/search")
     def search(
         self,
         *,
@@ -46,51 +43,24 @@ class ExternalResource(WhitelabelResource):
         # Extract unique queries from the DataFrame
         queries = df[query_column].unique().to_list()
 
-        # Execute searches in parallel
+        # Return the parameters for the whitelabel decorator to process  
+        return {"queries": queries, "num_results": num_results, "banned_domains": banned_domains}  # type: ignore[return-value]
+
+    def _post_process_search(self, response: Any, queries: List[str]) -> pl.DataFrame:  # noqa: ARG002
+        """Post-process search results into DataFrame format."""
         results: List[Dict[str, Any]] = []
-        with ThreadPoolExecutor(max_workers=MAX_PARALLEL_REQUESTS) as executor:
-            # Submit all search requests
-            future_to_query: Dict[Any, str] = {}
-            for query in queries:
-                if query:  # Skip empty queries
-                    future = executor.submit(self._execute_single_search, query, num_results, banned_domains)
-                    future_to_query[future] = query
-
-            # Collect results as they complete
-            for future in as_completed(future_to_query):
-                current_query: str = future_to_query[future]
-                search_results: List[Dict[str, Any]] = future.result()
-
-                # Add query column to each result
-                for result in search_results:
-                    result["query"] = current_query
-                    results.append(result)
-
-        # Convert to DataFrame
+        
+        if isinstance(response, list):
+            # If response is already a list, it's the processed results
+            results = cast(List[Dict[str, Any]], response)
+        elif isinstance(response, dict) and "results" in response:
+            # If response is wrapped in a results key
+            results = cast(List[Dict[str, Any]], response["results"])
+        
+        # Convert to DataFrame with proper schema
         if results:
-            # Define schema for consistent output
             return pl.DataFrame(
                 results, schema={"query": pl.Utf8, "url": pl.Utf8, "title": pl.Utf8, "description": pl.Utf8}
             )
         else:
-            # Return empty DataFrame with correct schema
             return pl.DataFrame(schema={"query": pl.Utf8, "url": pl.Utf8, "title": pl.Utf8, "description": pl.Utf8})
-
-    def _execute_single_search(
-        self, query: str, num_results: int = 10, banned_domains: Optional[List[str]] = None
-    ) -> List[Dict[str, Any]]:
-        """Execute a single search query and return results."""
-        # Build request body
-        body: Dict[str, Any] = {"query": query}
-        if num_results:
-            body["num_results"] = num_results
-        if banned_domains:
-            body["banned_domains"] = banned_domains
-
-        # Make the API call
-        response = self._post("/external/search", body=body, cast_to=object, options=make_request_options())
-
-        # Response should be a list of search results
-        if isinstance(response, list):
-            return cast(List[Dict[str, Any]], response)
-        return []
