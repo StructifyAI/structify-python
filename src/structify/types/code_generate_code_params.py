@@ -17,8 +17,6 @@ class CodeGenerateCodeParams(TypedDict, total=False):
 
     file_contents: Annotated[Iterable[FileContent], PropertyInfo(alias="fileContents")]
 
-    model: object
-
 
 class FileContent(TypedDict, total=False):
     content: Required[str]
