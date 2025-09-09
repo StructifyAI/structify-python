@@ -33,6 +33,7 @@ from .resources import (
     sandbox,
     sources,
     entities,
+    external,
     projects,
     sessions,
     documents,
@@ -92,6 +93,7 @@ class Structify(SyncAPIClient):
     structure: structure.StructureResource
     public_sessions: public_sessions.PublicSessionsResource
     polars: polars.PolarsResource
+    external: external.ExternalResource
     with_raw_response: StructifyWithRawResponse
     with_streaming_response: StructifyWithStreamedResponse
 
@@ -194,6 +196,7 @@ class Structify(SyncAPIClient):
         self.structure = structure.StructureResource(self)
         self.public_sessions = public_sessions.PublicSessionsResource(self)
         self.polars = polars.PolarsResource(self)
+        self.external = external.ExternalResource(self)
         self.with_raw_response = StructifyWithRawResponse(self)
         self.with_streaming_response = StructifyWithStreamedResponse(self)
 

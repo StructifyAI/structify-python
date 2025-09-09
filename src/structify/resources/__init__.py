@@ -109,6 +109,7 @@ from .entities import (
     EntitiesResourceWithStreamingResponse,
     AsyncEntitiesResourceWithStreamingResponse,
 )
+from .external import ExternalResource
 from .projects import (
     ProjectsResource,
     AsyncProjectsResource,
@@ -284,6 +285,7 @@ __all__ = [
     "PolarsResource",
     "PolarsResourceWithRawResponse",
     "PolarsResourceWithStreamingResponse",
+    "ExternalResource",
     "PublicSessionsResource",
     "AsyncPublicSessionsResource",
     "PublicSessionsResourceWithRawResponse",
