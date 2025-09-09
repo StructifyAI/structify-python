@@ -1,5 +1,28 @@
 # Changelog
 
+## 1.140.0 (2025-09-09)
+
+Full Changelog: [v1.139.0...v1.140.0](https://github.com/StructifyAI/structify-python/compare/v1.139.0...v1.140.0)
+
+### Features
+
+* Add generic whitelabel service infrastructure with external.search ([c85242b](https://github.com/StructifyAI/structify-python/commit/c85242b719e311fdba4ce4bf8afd65e89797f59d))
+* Add generic whitelabel service infrastructure with search service ([3e70518](https://github.com/StructifyAI/structify-python/commit/3e70518f93584d55d7e40c63194f4377a1baa003))
+* **api:** manual updates ([4cedc5c](https://github.com/StructifyAI/structify-python/commit/4cedc5c2fe1ca18a275fc2ea094057a2938b5da8))
+* Update from Structify backend changes ([eecb0af](https://github.com/StructifyAI/structify-python/commit/eecb0afc22b6b8e6ab06bb0e511c39c68b6b0a78))
+* Update from Structify backend changes ([c636103](https://github.com/StructifyAI/structify-python/commit/c636103581029f38b116de019c621577af47d2c2))
+* Update from Structify backend changes ([554e178](https://github.com/StructifyAI/structify-python/commit/554e1787447de6476137f471b16fbab171cc2308))
+* Update from Structify backend changes ([45d5cc3](https://github.com/StructifyAI/structify-python/commit/45d5cc3246aaba2c2d2bc49fabe8145de49893b6))
+* Update from Structify backend changes ([e273b24](https://github.com/StructifyAI/structify-python/commit/e273b2404c5cfd6fca54c476e96e3104d932dbeb))
+* Update from Structify backend changes ([d5ede70](https://github.com/StructifyAI/structify-python/commit/d5ede70f040c333b1b5ae3d625a1c4eecc3c933a))
+* Update from Structify backend changes ([e1b5901](https://github.com/StructifyAI/structify-python/commit/e1b5901b1f298d85dd726746929de1e6d2d324e8))
+* Update from Structify backend changes ([dfbdebc](https://github.com/StructifyAI/structify-python/commit/dfbdebce1e5e9dead7c2b51218aae694146991ec))
+
+
+### Refactors
+
+* Single endpoint at client.polars.external.search ([d263848](https://github.com/StructifyAI/structify-python/commit/d2638485b16dcf056e578b46a1ba8620f4bfa617))
+
 ## 1.139.0 (2025-09-07)
 
 Full Changelog: [v1.138.15...v1.139.0](https://github.com/StructifyAI/structify-python/compare/v1.138.15...v1.139.0)
