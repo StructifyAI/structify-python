@@ -11,4 +11,6 @@ __all__ = ["ChatCreateSessionParams"]
 class ChatCreateSessionParams(TypedDict, total=False):
     project_id: Required[str]
 
+    ephemeral: Optional[bool]
+
     initial_message: Optional[str]
