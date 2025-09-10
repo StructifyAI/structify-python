@@ -271,6 +271,7 @@ class ChatResource(SyncAPIResource):
         self,
         *,
         project_id: str,
+        ephemeral: Optional[bool] | NotGiven = NOT_GIVEN,
         initial_message: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -296,6 +297,7 @@ class ChatResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "project_id": project_id,
+                    "ephemeral": ephemeral,
                     "initial_message": initial_message,
                 },
                 chat_create_session_params.ChatCreateSessionParams,
@@ -548,6 +550,40 @@ class ChatResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=ChatLoadFilesResponse,
+        )
+
+    def make_permanent(
+        self,
+        session_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> None:
+        """
+        Make an ephemeral chat session permanent
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not session_id:
+            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return self._patch(
+            f"/chat/sessions/{session_id}/make-permanent",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NoneType,
         )
 
     def remove_collaborator(
@@ -888,6 +924,7 @@ class AsyncChatResource(AsyncAPIResource):
         self,
         *,
         project_id: str,
+        ephemeral: Optional[bool] | NotGiven = NOT_GIVEN,
         initial_message: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -913,6 +950,7 @@ class AsyncChatResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "project_id": project_id,
+                    "ephemeral": ephemeral,
                     "initial_message": initial_message,
                 },
                 chat_create_session_params.ChatCreateSessionParams,
@@ -1167,6 +1205,40 @@ class AsyncChatResource(AsyncAPIResource):
             cast_to=ChatLoadFilesResponse,
         )
 
+    async def make_permanent(
+        self,
+        session_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> None:
+        """
+        Make an ephemeral chat session permanent
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not session_id:
+            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return await self._patch(
+            f"/chat/sessions/{session_id}/make-permanent",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NoneType,
+        )
+
     async def remove_collaborator(
         self,
         user_id: str,
@@ -1325,6 +1397,9 @@ class ChatResourceWithRawResponse:
         self.load_files = to_raw_response_wrapper(
             chat.load_files,
         )
+        self.make_permanent = to_raw_response_wrapper(
+            chat.make_permanent,
+        )
         self.remove_collaborator = to_raw_response_wrapper(
             chat.remove_collaborator,
         )
@@ -1378,6 +1453,9 @@ class AsyncChatResourceWithRawResponse:
         )
         self.load_files = async_to_raw_response_wrapper(
             chat.load_files,
+        )
+        self.make_permanent = async_to_raw_response_wrapper(
+            chat.make_permanent,
         )
         self.remove_collaborator = async_to_raw_response_wrapper(
             chat.remove_collaborator,
@@ -1433,6 +1511,9 @@ class ChatResourceWithStreamingResponse:
         self.load_files = to_streamed_response_wrapper(
             chat.load_files,
         )
+        self.make_permanent = to_streamed_response_wrapper(
+            chat.make_permanent,
+        )
         self.remove_collaborator = to_streamed_response_wrapper(
             chat.remove_collaborator,
         )
@@ -1486,6 +1567,9 @@ class AsyncChatResourceWithStreamingResponse:
         )
         self.load_files = async_to_streamed_response_wrapper(
             chat.load_files,
+        )
+        self.make_permanent = async_to_streamed_response_wrapper(
+            chat.make_permanent,
         )
         self.remove_collaborator = async_to_streamed_response_wrapper(
             chat.remove_collaborator,
