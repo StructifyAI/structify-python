@@ -35,6 +35,12 @@ __all__ = [
     "ToolCallToolCallUnionMember1Input",
     "ToolCallToolCallUnionMember2",
     "ToolCallToolCallUnionMember2Input",
+    "ToolCallToolCallUnionMember3",
+    "ToolCallToolCallUnionMember3Input",
+    "ToolCallToolCallUnionMember4",
+    "ToolCallToolCallUnionMember4Input",
+    "ToolCallToolCallUnionMember5",
+    "ToolCallToolCallUnionMember5Input",
 ]
 
 
@@ -138,7 +144,7 @@ class ToolCallToolCallUnionMember0Input(BaseModel):
 class ToolCallToolCallUnionMember0(BaseModel):
     input: ToolCallToolCallUnionMember0Input
 
-    name: Literal["web_search"]
+    name: Literal["WebSearch"]
 
     result_id: Optional[str] = None
 
@@ -152,7 +158,7 @@ class ToolCallToolCallUnionMember1Input(BaseModel):
 class ToolCallToolCallUnionMember1(BaseModel):
     input: ToolCallToolCallUnionMember1Input
 
-    name: Literal["web_navigate"]
+    name: Literal["WebNavigate"]
 
     result_id: Optional[str] = None
 
@@ -166,7 +172,55 @@ class ToolCallToolCallUnionMember2Input(BaseModel):
 class ToolCallToolCallUnionMember2(BaseModel):
     input: ToolCallToolCallUnionMember2Input
 
-    name: Literal["inspect_dag"]
+    name: Literal["InspectDAG"]
+
+    result_id: Optional[str] = None
+
+    result_text: Optional[str] = None
+
+
+class ToolCallToolCallUnionMember3Input(BaseModel):
+    env_vars: List[str]
+
+    name: str
+
+    description: Optional[str] = None
+
+
+class ToolCallToolCallUnionMember3(BaseModel):
+    input: ToolCallToolCallUnionMember3Input
+
+    name: Literal["Connector"]
+
+    result_id: Optional[str] = None
+
+    result_text: Optional[str] = None
+
+
+class ToolCallToolCallUnionMember4Input(BaseModel):
+    file: str
+
+
+class ToolCallToolCallUnionMember4(BaseModel):
+    input: ToolCallToolCallUnionMember4Input
+
+    name: Literal["DeleteFile"]
+
+    result_id: Optional[str] = None
+
+    result_text: Optional[str] = None
+
+
+class ToolCallToolCallUnionMember5Input(BaseModel):
+    file: str
+
+    new_path: str
+
+
+class ToolCallToolCallUnionMember5(BaseModel):
+    input: ToolCallToolCallUnionMember5Input
+
+    name: Literal["MoveFile"]
 
     result_id: Optional[str] = None
 
@@ -174,7 +228,12 @@ class ToolCallToolCallUnionMember2(BaseModel):
 
 
 ToolCallToolCall: TypeAlias = Union[
-    ToolCallToolCallUnionMember0, ToolCallToolCallUnionMember1, ToolCallToolCallUnionMember2
+    ToolCallToolCallUnionMember0,
+    ToolCallToolCallUnionMember1,
+    ToolCallToolCallUnionMember2,
+    ToolCallToolCallUnionMember3,
+    ToolCallToolCallUnionMember4,
+    ToolCallToolCallUnionMember5,
 ]
 
 

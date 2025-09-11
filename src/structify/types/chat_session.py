@@ -13,6 +13,8 @@ class ChatSession(BaseModel):
 
     created_at: datetime
 
+    ephemeral: bool
+
     git_application_token: str
 
     is_public: bool

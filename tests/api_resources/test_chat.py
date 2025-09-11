@@ -261,6 +261,7 @@ class TestChat:
     def test_method_create_session_with_all_params(self, client: Structify) -> None:
         chat = client.chat.create_session(
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            ephemeral=True,
             initial_message="initial_message",
         )
         assert_matches_type(CreateChatSessionResponse, chat, path=["response"])
@@ -929,6 +930,7 @@ class TestAsyncChat:
     async def test_method_create_session_with_all_params(self, async_client: AsyncStructify) -> None:
         chat = await async_client.chat.create_session(
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            ephemeral=True,
             initial_message="initial_message",
         )
         assert_matches_type(CreateChatSessionResponse, chat, path=["response"])
