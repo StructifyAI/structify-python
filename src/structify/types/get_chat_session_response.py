@@ -38,6 +38,8 @@ class SessionMessage(BaseModel):
 
     timestamp: datetime
 
+    commit_hash: Optional[str] = None
+
 
 class Session(BaseModel):
     id: str

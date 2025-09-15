@@ -1,5 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+from typing import Optional
 from datetime import datetime
 
 from .._models import BaseModel
@@ -19,6 +20,8 @@ class Message(BaseModel):
     role: str
 
     timestamp: datetime
+
+    git_commit_id: Optional[str] = None
 
 
 class AddChatMessageResponse(BaseModel):
