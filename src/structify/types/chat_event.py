@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Union, Optional
+from typing import Dict, List, Union, Optional
 from typing_extensions import Literal, TypeAlias
 
 from pydantic import Field as FieldInfo
@@ -41,6 +41,10 @@ __all__ = [
     "ToolCallToolCallUnionMember4Input",
     "ToolCallToolCallUnionMember5",
     "ToolCallToolCallUnionMember5Input",
+    "ToolCallToolCallUnionMember6",
+    "ToolCallToolCallUnionMember6Input",
+    "ToolCallToolCallUnionMember7",
+    "ToolCallToolCallUnionMember7Input",
 ]
 
 
@@ -227,6 +231,42 @@ class ToolCallToolCallUnionMember5(BaseModel):
     result_text: Optional[str] = None
 
 
+class ToolCallToolCallUnionMember6Input(BaseModel):
+    command: str
+
+    env: Optional[Dict[str, str]] = None
+
+    working_dir: Optional[str] = None
+
+
+class ToolCallToolCallUnionMember6(BaseModel):
+    input: ToolCallToolCallUnionMember6Input
+
+    name: Literal["RunBash"]
+
+    result_id: Optional[str] = None
+
+    result_text: Optional[str] = None
+
+
+class ToolCallToolCallUnionMember7Input(BaseModel):
+    code: str
+
+    env: Optional[Dict[str, str]] = None
+
+    working_dir: Optional[str] = None
+
+
+class ToolCallToolCallUnionMember7(BaseModel):
+    input: ToolCallToolCallUnionMember7Input
+
+    name: Literal["RunPython"]
+
+    result_id: Optional[str] = None
+
+    result_text: Optional[str] = None
+
+
 ToolCallToolCall: TypeAlias = Union[
     ToolCallToolCallUnionMember0,
     ToolCallToolCallUnionMember1,
@@ -234,6 +274,8 @@ ToolCallToolCall: TypeAlias = Union[
     ToolCallToolCallUnionMember3,
     ToolCallToolCallUnionMember4,
     ToolCallToolCallUnionMember5,
+    ToolCallToolCallUnionMember6,
+    ToolCallToolCallUnionMember7,
 ]
 
 

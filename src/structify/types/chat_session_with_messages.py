@@ -32,6 +32,8 @@ class Message(BaseModel):
 
     timestamp: datetime
 
+    git_commit_id: Optional[str] = None
+
 
 class ChatSessionWithMessages(BaseModel):
     id: str
