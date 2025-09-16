@@ -22,6 +22,7 @@ class UserInfo(BaseModel):
             "generic_suspicious_queue",
             "new_use_case_preview",
             "bedrock_codegen",
+            "cerebras_codegen",
             "none",
         ]
     ]
