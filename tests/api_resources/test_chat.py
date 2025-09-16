@@ -169,6 +169,7 @@ class TestChat:
     def test_method_copy(self, client: Structify) -> None:
         chat = client.chat.copy(
             copy_name="copy_name",
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             source_chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(ChatSessionWithMessages, chat, path=["response"])
@@ -177,6 +178,7 @@ class TestChat:
     def test_raw_response_copy(self, client: Structify) -> None:
         response = client.chat.with_raw_response.copy(
             copy_name="copy_name",
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             source_chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
@@ -189,6 +191,7 @@ class TestChat:
     def test_streaming_response_copy(self, client: Structify) -> None:
         with client.chat.with_streaming_response.copy(
             copy_name="copy_name",
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             source_chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
@@ -881,6 +884,7 @@ class TestAsyncChat:
     async def test_method_copy(self, async_client: AsyncStructify) -> None:
         chat = await async_client.chat.copy(
             copy_name="copy_name",
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             source_chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(ChatSessionWithMessages, chat, path=["response"])
@@ -889,6 +893,7 @@ class TestAsyncChat:
     async def test_raw_response_copy(self, async_client: AsyncStructify) -> None:
         response = await async_client.chat.with_raw_response.copy(
             copy_name="copy_name",
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             source_chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
@@ -901,6 +906,7 @@ class TestAsyncChat:
     async def test_streaming_response_copy(self, async_client: AsyncStructify) -> None:
         async with async_client.chat.with_streaming_response.copy(
             copy_name="copy_name",
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             source_chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
