@@ -192,6 +192,7 @@ class ChatResource(SyncAPIResource):
         self,
         *,
         copy_name: str,
+        project_id: str,
         source_chat_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -217,6 +218,7 @@ class ChatResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "copy_name": copy_name,
+                    "project_id": project_id,
                     "source_chat_id": source_chat_id,
                 },
                 chat_copy_params.ChatCopyParams,
@@ -845,6 +847,7 @@ class AsyncChatResource(AsyncAPIResource):
         self,
         *,
         copy_name: str,
+        project_id: str,
         source_chat_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -870,6 +873,7 @@ class AsyncChatResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "copy_name": copy_name,
+                    "project_id": project_id,
                     "source_chat_id": source_chat_id,
                 },
                 chat_copy_params.ChatCopyParams,
