@@ -526,6 +526,13 @@ class TestChat:
     def test_method_load_files(self, client: Structify) -> None:
         chat = client.chat.load_files(
             chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(ChatLoadFilesResponse, chat, path=["response"])
+
+    @parametrize
+    def test_method_load_files_with_all_params(self, client: Structify) -> None:
+        chat = client.chat.load_files(
+            chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             commit_hash="commit_hash",
         )
         assert_matches_type(ChatLoadFilesResponse, chat, path=["response"])
@@ -534,7 +541,6 @@ class TestChat:
     def test_raw_response_load_files(self, client: Structify) -> None:
         response = client.chat.with_raw_response.load_files(
             chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            commit_hash="commit_hash",
         )
 
         assert response.is_closed is True
@@ -546,7 +552,6 @@ class TestChat:
     def test_streaming_response_load_files(self, client: Structify) -> None:
         with client.chat.with_streaming_response.load_files(
             chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            commit_hash="commit_hash",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -1233,6 +1238,13 @@ class TestAsyncChat:
     async def test_method_load_files(self, async_client: AsyncStructify) -> None:
         chat = await async_client.chat.load_files(
             chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(ChatLoadFilesResponse, chat, path=["response"])
+
+    @parametrize
+    async def test_method_load_files_with_all_params(self, async_client: AsyncStructify) -> None:
+        chat = await async_client.chat.load_files(
+            chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             commit_hash="commit_hash",
         )
         assert_matches_type(ChatLoadFilesResponse, chat, path=["response"])
@@ -1241,7 +1253,6 @@ class TestAsyncChat:
     async def test_raw_response_load_files(self, async_client: AsyncStructify) -> None:
         response = await async_client.chat.with_raw_response.load_files(
             chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            commit_hash="commit_hash",
         )
 
         assert response.is_closed is True
@@ -1253,7 +1264,6 @@ class TestAsyncChat:
     async def test_streaming_response_load_files(self, async_client: AsyncStructify) -> None:
         async with async_client.chat.with_streaming_response.load_files(
             chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            commit_hash="commit_hash",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
