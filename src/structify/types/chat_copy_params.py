@@ -10,4 +10,6 @@ __all__ = ["ChatCopyParams"]
 class ChatCopyParams(TypedDict, total=False):
     copy_name: Required[str]
 
+    project_id: Required[str]
+
     source_chat_id: Required[str]
