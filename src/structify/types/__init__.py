@@ -134,6 +134,7 @@ from .chat_load_files_response import ChatLoadFilesResponse as ChatLoadFilesResp
 from .dataset_descriptor_param import DatasetDescriptorParam as DatasetDescriptorParam
 from .document_download_params import DocumentDownloadParams as DocumentDownloadParams
 from .entity_get_merges_params import EntityGetMergesParams as EntityGetMergesParams
+from .session_kill_jobs_params import SessionKillJobsParams as SessionKillJobsParams
 from .add_chat_message_response import AddChatMessageResponse as AddChatMessageResponse
 from .chat_list_sessions_params import ChatListSessionsParams as ChatListSessionsParams
 from .chat_toggle_public_params import ChatTogglePublicParams as ChatTogglePublicParams
@@ -158,6 +159,7 @@ from .entity_get_merges_response import EntityGetMergesResponse as EntityGetMerg
 from .report_relationship_params import ReportRelationshipParams as ReportRelationshipParams
 from .session_create_edge_params import SessionCreateEdgeParams as SessionCreateEdgeParams
 from .session_create_node_params import SessionCreateNodeParams as SessionCreateNodeParams
+from .session_kill_jobs_response import SessionKillJobsResponse as SessionKillJobsResponse
 from .session_update_node_params import SessionUpdateNodeParams as SessionUpdateNodeParams
 from .structure_run_async_params import StructureRunAsyncParams as StructureRunAsyncParams
 from .survey_submission_response import SurveySubmissionResponse as SurveySubmissionResponse
