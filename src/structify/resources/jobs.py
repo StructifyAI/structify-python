@@ -60,6 +60,7 @@ class JobsResource(SyncAPIResource):
         dataset: Optional[str] | NotGiven = NOT_GIVEN,
         job_type: Optional[Literal["Web", "Pdf", "Derive", "Scrape"]] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
+        node_id: Optional[str] | NotGiven = NOT_GIVEN,
         offset: int | NotGiven = NOT_GIVEN,
         seeded_kg_search_term: Optional[str] | NotGiven = NOT_GIVEN,
         since: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
@@ -78,6 +79,8 @@ class JobsResource(SyncAPIResource):
           dataset: Dataset name to optionally filter jobs by
 
           job_type: Type of job to optionally filter jobs by
+
+          node_id: Node ID to optionally filter jobs by
 
           seeded_kg_search_term: seeded kg search term
 
@@ -106,6 +109,7 @@ class JobsResource(SyncAPIResource):
                         "dataset": dataset,
                         "job_type": job_type,
                         "limit": limit,
+                        "node_id": node_id,
                         "offset": offset,
                         "seeded_kg_search_term": seeded_kg_search_term,
                         "since": since,
@@ -473,6 +477,7 @@ class AsyncJobsResource(AsyncAPIResource):
         dataset: Optional[str] | NotGiven = NOT_GIVEN,
         job_type: Optional[Literal["Web", "Pdf", "Derive", "Scrape"]] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
+        node_id: Optional[str] | NotGiven = NOT_GIVEN,
         offset: int | NotGiven = NOT_GIVEN,
         seeded_kg_search_term: Optional[str] | NotGiven = NOT_GIVEN,
         since: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
@@ -491,6 +496,8 @@ class AsyncJobsResource(AsyncAPIResource):
           dataset: Dataset name to optionally filter jobs by
 
           job_type: Type of job to optionally filter jobs by
+
+          node_id: Node ID to optionally filter jobs by
 
           seeded_kg_search_term: seeded kg search term
 
@@ -519,6 +526,7 @@ class AsyncJobsResource(AsyncAPIResource):
                         "dataset": dataset,
                         "job_type": job_type,
                         "limit": limit,
+                        "node_id": node_id,
                         "offset": offset,
                         "seeded_kg_search_term": seeded_kg_search_term,
                         "since": since,

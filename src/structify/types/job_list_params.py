@@ -20,6 +20,9 @@ class JobListParams(TypedDict, total=False):
 
     limit: int
 
+    node_id: Optional[str]
+    """Node ID to optionally filter jobs by"""
+
     offset: int
 
     seeded_kg_search_term: Optional[str]
