@@ -16,6 +16,7 @@ from structify.types import (
     WorkflowSession,
     WorkflowSessionEdge,
     WorkflowSessionNode,
+    SessionKillJobsResponse,
     GetSessionEventsResponse,
     SessionGetNodeProgressResponse,
 )
@@ -354,6 +355,52 @@ class TestSessions:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `node_id` but received ''"):
             client.sessions.with_raw_response.get_node_progress(
                 "",
+            )
+
+    @parametrize
+    def test_method_kill_jobs(self, client: Structify) -> None:
+        session = client.sessions.kill_jobs(
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(SessionKillJobsResponse, session, path=["response"])
+
+    @parametrize
+    def test_method_kill_jobs_with_all_params(self, client: Structify) -> None:
+        session = client.sessions.kill_jobs(
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            message="message",
+        )
+        assert_matches_type(SessionKillJobsResponse, session, path=["response"])
+
+    @parametrize
+    def test_raw_response_kill_jobs(self, client: Structify) -> None:
+        response = client.sessions.with_raw_response.kill_jobs(
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        session = response.parse()
+        assert_matches_type(SessionKillJobsResponse, session, path=["response"])
+
+    @parametrize
+    def test_streaming_response_kill_jobs(self, client: Structify) -> None:
+        with client.sessions.with_streaming_response.kill_jobs(
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            session = response.parse()
+            assert_matches_type(SessionKillJobsResponse, session, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_path_params_kill_jobs(self, client: Structify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
+            client.sessions.with_raw_response.kill_jobs(
+                session_id="",
             )
 
     @parametrize
@@ -918,6 +965,52 @@ class TestAsyncSessions:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `node_id` but received ''"):
             await async_client.sessions.with_raw_response.get_node_progress(
                 "",
+            )
+
+    @parametrize
+    async def test_method_kill_jobs(self, async_client: AsyncStructify) -> None:
+        session = await async_client.sessions.kill_jobs(
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(SessionKillJobsResponse, session, path=["response"])
+
+    @parametrize
+    async def test_method_kill_jobs_with_all_params(self, async_client: AsyncStructify) -> None:
+        session = await async_client.sessions.kill_jobs(
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            message="message",
+        )
+        assert_matches_type(SessionKillJobsResponse, session, path=["response"])
+
+    @parametrize
+    async def test_raw_response_kill_jobs(self, async_client: AsyncStructify) -> None:
+        response = await async_client.sessions.with_raw_response.kill_jobs(
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        session = await response.parse()
+        assert_matches_type(SessionKillJobsResponse, session, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_kill_jobs(self, async_client: AsyncStructify) -> None:
+        async with async_client.sessions.with_streaming_response.kill_jobs(
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            session = await response.parse()
+            assert_matches_type(SessionKillJobsResponse, session, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_kill_jobs(self, async_client: AsyncStructify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
+            await async_client.sessions.with_raw_response.kill_jobs(
+                session_id="",
             )
 
     @parametrize

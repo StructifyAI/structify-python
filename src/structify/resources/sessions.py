@@ -8,6 +8,7 @@ import httpx
 
 from ..types import (
     WorkflowNodeExecutionStatus,
+    session_kill_jobs_params,
     session_get_events_params,
     session_create_edge_params,
     session_create_node_params,
@@ -41,6 +42,7 @@ from ..types.workflow_dag import WorkflowDag
 from ..types.workflow_session import WorkflowSession
 from ..types.workflow_session_edge import WorkflowSessionEdge
 from ..types.workflow_session_node import WorkflowSessionNode
+from ..types.session_kill_jobs_response import SessionKillJobsResponse
 from ..types.get_session_events_response import GetSessionEventsResponse
 from ..types.workflow_node_execution_status import WorkflowNodeExecutionStatus
 from ..types.session_get_node_progress_response import SessionGetNodeProgressResponse
@@ -321,6 +323,39 @@ class SessionsResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=SessionGetNodeProgressResponse,
+        )
+
+    def kill_jobs(
+        self,
+        session_id: str,
+        *,
+        message: Optional[str] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> SessionKillJobsResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not session_id:
+            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
+        return self._post(
+            f"/sessions/{session_id}/kill_jobs",
+            body=maybe_transform({"message": message}, session_kill_jobs_params.SessionKillJobsParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=SessionKillJobsResponse,
         )
 
     def mark_errored(
@@ -794,6 +829,39 @@ class AsyncSessionsResource(AsyncAPIResource):
             cast_to=SessionGetNodeProgressResponse,
         )
 
+    async def kill_jobs(
+        self,
+        session_id: str,
+        *,
+        message: Optional[str] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> SessionKillJobsResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not session_id:
+            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
+        return await self._post(
+            f"/sessions/{session_id}/kill_jobs",
+            body=await async_maybe_transform({"message": message}, session_kill_jobs_params.SessionKillJobsParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=SessionKillJobsResponse,
+        )
+
     async def mark_errored(
         self,
         session_id: str,
@@ -1018,6 +1086,9 @@ class SessionsResourceWithRawResponse:
         self.get_node_progress = to_raw_response_wrapper(
             sessions.get_node_progress,
         )
+        self.kill_jobs = to_raw_response_wrapper(
+            sessions.kill_jobs,
+        )
         self.mark_errored = to_raw_response_wrapper(
             sessions.mark_errored,
         )
@@ -1060,6 +1131,9 @@ class AsyncSessionsResourceWithRawResponse:
         )
         self.get_node_progress = async_to_raw_response_wrapper(
             sessions.get_node_progress,
+        )
+        self.kill_jobs = async_to_raw_response_wrapper(
+            sessions.kill_jobs,
         )
         self.mark_errored = async_to_raw_response_wrapper(
             sessions.mark_errored,
@@ -1104,6 +1178,9 @@ class SessionsResourceWithStreamingResponse:
         self.get_node_progress = to_streamed_response_wrapper(
             sessions.get_node_progress,
         )
+        self.kill_jobs = to_streamed_response_wrapper(
+            sessions.kill_jobs,
+        )
         self.mark_errored = to_streamed_response_wrapper(
             sessions.mark_errored,
         )
@@ -1146,6 +1223,9 @@ class AsyncSessionsResourceWithStreamingResponse:
         )
         self.get_node_progress = async_to_streamed_response_wrapper(
             sessions.get_node_progress,
+        )
+        self.kill_jobs = async_to_streamed_response_wrapper(
+            sessions.kill_jobs,
         )
         self.mark_errored = async_to_streamed_response_wrapper(
             sessions.mark_errored,
