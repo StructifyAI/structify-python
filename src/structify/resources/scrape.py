@@ -7,7 +7,7 @@ from typing import Iterable, Optional
 import httpx
 
 from ..types import scrape_list_params, scrape_scrape_params
-from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -53,16 +53,16 @@ class ScrapeResource(SyncAPIResource):
         dataset_descriptor: DatasetDescriptorParam,
         input: scrape_list_params.Input,
         table_name: str,
-        dataset_name: Optional[str] | NotGiven = NOT_GIVEN,
-        node_id: Optional[str] | NotGiven = NOT_GIVEN,
-        stop_config: Optional[scrape_list_params.StopConfig] | NotGiven = NOT_GIVEN,
-        use_proxy: Optional[bool] | NotGiven = NOT_GIVEN,
+        dataset_name: Optional[str] | Omit = omit,
+        node_id: Optional[str] | Omit = omit,
+        stop_config: Optional[scrape_list_params.StopConfig] | Omit = omit,
+        use_proxy: Optional[bool] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ScrapeListResponse:
         """
         Args:
@@ -107,16 +107,16 @@ class ScrapeResource(SyncAPIResource):
         dataset_name: str,
         extraction_criteria: Iterable[SaveRequirementParam],
         url: str,
-        node_id: Optional[str] | NotGiven = NOT_GIVEN,
-        seeded_kg: Optional[KnowledgeGraphParam] | NotGiven = NOT_GIVEN,
-        stop_config: Optional[scrape_scrape_params.StopConfig] | NotGiven = NOT_GIVEN,
-        use_proxy: Optional[bool] | NotGiven = NOT_GIVEN,
+        node_id: Optional[str] | Omit = omit,
+        seeded_kg: Optional[KnowledgeGraphParam] | Omit = omit,
+        stop_config: Optional[scrape_scrape_params.StopConfig] | Omit = omit,
+        use_proxy: Optional[bool] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ScrapeScrapeResponse:
         """
         Args:
@@ -181,16 +181,16 @@ class AsyncScrapeResource(AsyncAPIResource):
         dataset_descriptor: DatasetDescriptorParam,
         input: scrape_list_params.Input,
         table_name: str,
-        dataset_name: Optional[str] | NotGiven = NOT_GIVEN,
-        node_id: Optional[str] | NotGiven = NOT_GIVEN,
-        stop_config: Optional[scrape_list_params.StopConfig] | NotGiven = NOT_GIVEN,
-        use_proxy: Optional[bool] | NotGiven = NOT_GIVEN,
+        dataset_name: Optional[str] | Omit = omit,
+        node_id: Optional[str] | Omit = omit,
+        stop_config: Optional[scrape_list_params.StopConfig] | Omit = omit,
+        use_proxy: Optional[bool] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ScrapeListResponse:
         """
         Args:
@@ -235,16 +235,16 @@ class AsyncScrapeResource(AsyncAPIResource):
         dataset_name: str,
         extraction_criteria: Iterable[SaveRequirementParam],
         url: str,
-        node_id: Optional[str] | NotGiven = NOT_GIVEN,
-        seeded_kg: Optional[KnowledgeGraphParam] | NotGiven = NOT_GIVEN,
-        stop_config: Optional[scrape_scrape_params.StopConfig] | NotGiven = NOT_GIVEN,
-        use_proxy: Optional[bool] | NotGiven = NOT_GIVEN,
+        node_id: Optional[str] | Omit = omit,
+        seeded_kg: Optional[KnowledgeGraphParam] | Omit = omit,
+        stop_config: Optional[scrape_scrape_params.StopConfig] | Omit = omit,
+        use_proxy: Optional[bool] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ScrapeScrapeResponse:
         """
         Args:

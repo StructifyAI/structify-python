@@ -9,7 +9,7 @@ from typing_extensions import Literal
 import httpx
 
 from ..types import job_list_params, job_status_params
-from .._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven, SequenceNotStr
+from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -57,20 +57,20 @@ class JobsResource(SyncAPIResource):
     def list(
         self,
         *,
-        dataset: Optional[str] | NotGiven = NOT_GIVEN,
-        job_type: Optional[Literal["Web", "Pdf", "Derive", "Scrape"]] | NotGiven = NOT_GIVEN,
-        limit: int | NotGiven = NOT_GIVEN,
-        node_id: Optional[str] | NotGiven = NOT_GIVEN,
-        offset: int | NotGiven = NOT_GIVEN,
-        seeded_kg_search_term: Optional[str] | NotGiven = NOT_GIVEN,
-        since: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
-        status: Optional[Literal["Queued", "Running", "Completed", "Failed"]] | NotGiven = NOT_GIVEN,
+        dataset: Optional[str] | Omit = omit,
+        job_type: Optional[Literal["Web", "Pdf", "Derive", "Scrape"]] | Omit = omit,
+        limit: int | Omit = omit,
+        node_id: Optional[str] | Omit = omit,
+        offset: int | Omit = omit,
+        seeded_kg_search_term: Optional[str] | Omit = omit,
+        since: Union[str, datetime, None] | Omit = omit,
+        status: Optional[Literal["Queued", "Running", "Completed", "Failed"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncJobsList[JobListResponse]:
         """
         List all the executions
@@ -130,7 +130,7 @@ class JobsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> str:
         """
         Delete a job
@@ -164,7 +164,7 @@ class JobsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> JobCancelResponse:
         """
         You successfully cancelled a job.
@@ -197,7 +197,7 @@ class JobsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> JobGetResponse:
         """
         Retrieve a job from structify using a job_id.
@@ -230,7 +230,7 @@ class JobsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> JobGetScrapersResponse:
         """
         Retrieve scrapers associated with a job from structify.
@@ -263,7 +263,7 @@ class JobsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> JobGetSourceEntitiesResponse:
         """
         Get all source entities and their associated sources for a specific job
@@ -296,7 +296,7 @@ class JobsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> JobGetStepResponse:
         """
         Retrieve a step from structify.
@@ -329,7 +329,7 @@ class JobsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> JobGetStepGraphResponse:
         """
         Args:
@@ -360,7 +360,7 @@ class JobsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> JobGetStepsResponse:
         """
         Retrieve a job from structify.
@@ -392,7 +392,7 @@ class JobsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         One example use case is every single day check the news websites and pull them
@@ -410,14 +410,14 @@ class JobsResource(SyncAPIResource):
     def status(
         self,
         *,
-        dataset_name: Optional[str] | NotGiven = NOT_GIVEN,
-        job_ids: Optional[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
+        dataset_name: Optional[str] | Omit = omit,
+        job_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> JobStatusResponse:
         """Returns counts of jobs by status (completed, running, failed, queued).
 
@@ -474,20 +474,20 @@ class AsyncJobsResource(AsyncAPIResource):
     def list(
         self,
         *,
-        dataset: Optional[str] | NotGiven = NOT_GIVEN,
-        job_type: Optional[Literal["Web", "Pdf", "Derive", "Scrape"]] | NotGiven = NOT_GIVEN,
-        limit: int | NotGiven = NOT_GIVEN,
-        node_id: Optional[str] | NotGiven = NOT_GIVEN,
-        offset: int | NotGiven = NOT_GIVEN,
-        seeded_kg_search_term: Optional[str] | NotGiven = NOT_GIVEN,
-        since: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
-        status: Optional[Literal["Queued", "Running", "Completed", "Failed"]] | NotGiven = NOT_GIVEN,
+        dataset: Optional[str] | Omit = omit,
+        job_type: Optional[Literal["Web", "Pdf", "Derive", "Scrape"]] | Omit = omit,
+        limit: int | Omit = omit,
+        node_id: Optional[str] | Omit = omit,
+        offset: int | Omit = omit,
+        seeded_kg_search_term: Optional[str] | Omit = omit,
+        since: Union[str, datetime, None] | Omit = omit,
+        status: Optional[Literal["Queued", "Running", "Completed", "Failed"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[JobListResponse, AsyncJobsList[JobListResponse]]:
         """
         List all the executions
@@ -547,7 +547,7 @@ class AsyncJobsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> str:
         """
         Delete a job
@@ -581,7 +581,7 @@ class AsyncJobsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> JobCancelResponse:
         """
         You successfully cancelled a job.
@@ -614,7 +614,7 @@ class AsyncJobsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> JobGetResponse:
         """
         Retrieve a job from structify using a job_id.
@@ -647,7 +647,7 @@ class AsyncJobsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> JobGetScrapersResponse:
         """
         Retrieve scrapers associated with a job from structify.
@@ -680,7 +680,7 @@ class AsyncJobsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> JobGetSourceEntitiesResponse:
         """
         Get all source entities and their associated sources for a specific job
@@ -713,7 +713,7 @@ class AsyncJobsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> JobGetStepResponse:
         """
         Retrieve a step from structify.
@@ -746,7 +746,7 @@ class AsyncJobsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> JobGetStepGraphResponse:
         """
         Args:
@@ -777,7 +777,7 @@ class AsyncJobsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> JobGetStepsResponse:
         """
         Retrieve a job from structify.
@@ -809,7 +809,7 @@ class AsyncJobsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         One example use case is every single day check the news websites and pull them
@@ -827,14 +827,14 @@ class AsyncJobsResource(AsyncAPIResource):
     async def status(
         self,
         *,
-        dataset_name: Optional[str] | NotGiven = NOT_GIVEN,
-        job_ids: Optional[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
+        dataset_name: Optional[str] | Omit = omit,
+        job_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> JobStatusResponse:
         """Returns counts of jobs by status (completed, running, failed, queued).
 
