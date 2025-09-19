@@ -29,6 +29,7 @@ from .message_param import MessageParam as MessageParam
 from .property_type import PropertyType as PropertyType
 from .tool_metadata import ToolMetadata as ToolMetadata
 from .execution_step import ExecutionStep as ExecutionStep
+from .job_event_body import JobEventBody as JobEventBody
 from .strategy_param import StrategyParam as StrategyParam
 from .team_with_role import TeamWithRole as TeamWithRole
 from .token_response import TokenResponse as TokenResponse
@@ -170,11 +171,11 @@ from .dataset_view_table_response import DatasetViewTableResponse as DatasetView
 from .document_structure_response import DocumentStructureResponse as DocumentStructureResponse
 from .entity_agent_merge_response import EntityAgentMergeResponse as EntityAgentMergeResponse
 from .entity_trigger_merge_params import EntityTriggerMergeParams as EntityTriggerMergeParams
-from .get_session_events_response import GetSessionEventsResponse as GetSessionEventsResponse
 from .job_get_step_graph_response import JobGetStepGraphResponse as JobGetStepGraphResponse
 from .list_chat_sessions_response import ListChatSessionsResponse as ListChatSessionsResponse
 from .list_collaborators_response import ListCollaboratorsResponse as ListCollaboratorsResponse
 from .relationship_merge_strategy import RelationshipMergeStrategy as RelationshipMergeStrategy
+from .session_get_events_response import SessionGetEventsResponse as SessionGetEventsResponse
 from .session_mark_errored_params import SessionMarkErroredParams as SessionMarkErroredParams
 from .source_delete_entity_params import SourceDeleteEntityParams as SourceDeleteEntityParams
 from .structure_job_status_params import StructureJobStatusParams as StructureJobStatusParams

@@ -416,7 +416,6 @@ from structify.types import (
     CreateWorkflowEdgeRequest,
     CreateWorkflowNodeRequest,
     CreateWorkflowSessionRequest,
-    GetSessionEventsResponse,
     JobEventBody,
     MarkWorkflowSessionErroredRequest,
     UpdateWorkflowNodeProgressRequest,
@@ -427,6 +426,7 @@ from structify.types import (
     WorkflowSession,
     WorkflowSessionEdge,
     WorkflowSessionNode,
+    SessionGetEventsResponse,
     SessionGetNodeProgressResponse,
     SessionKillJobsResponse,
 )
@@ -438,7 +438,7 @@ Methods:
 - <code title="post /sessions/{session_id}/nodes">client.sessions.<a href="./src/structify/resources/sessions.py">create_node</a>(session_id, \*\*<a href="src/structify/types/session_create_node_params.py">params</a>) -> <a href="./src/structify/types/workflow_session_node.py">WorkflowSessionNode</a></code>
 - <code title="post /sessions">client.sessions.<a href="./src/structify/resources/sessions.py">create_session</a>(\*\*<a href="src/structify/types/session_create_session_params.py">params</a>) -> <a href="./src/structify/types/workflow_session.py">WorkflowSession</a></code>
 - <code title="get /sessions/{session_id}/dag">client.sessions.<a href="./src/structify/resources/sessions.py">get_dag</a>(session_id) -> <a href="./src/structify/types/workflow_dag.py">WorkflowDag</a></code>
-- <code title="get /sessions/{session_id}/events">client.sessions.<a href="./src/structify/resources/sessions.py">get_events</a>(session_id, \*\*<a href="src/structify/types/session_get_events_params.py">params</a>) -> <a href="./src/structify/types/get_session_events_response.py">GetSessionEventsResponse</a></code>
+- <code title="get /sessions/nodes/{node_id}/events">client.sessions.<a href="./src/structify/resources/sessions.py">get_events</a>(node_id, \*\*<a href="src/structify/types/session_get_events_params.py">params</a>) -> <a href="./src/structify/types/session_get_events_response.py">SessionGetEventsResponse</a></code>
 - <code title="get /sessions/nodes/{node_id}/output_data">client.sessions.<a href="./src/structify/resources/sessions.py">get_node_output_data</a>(node_id) -> BinaryAPIResponse</code>
 - <code title="get /sessions/nodes/{node_id}/progress">client.sessions.<a href="./src/structify/resources/sessions.py">get_node_progress</a>(node_id) -> <a href="./src/structify/types/session_get_node_progress_response.py">SessionGetNodeProgressResponse</a></code>
 - <code title="post /sessions/{session_id}/kill_jobs">client.sessions.<a href="./src/structify/resources/sessions.py">kill_jobs</a>(session_id, \*\*<a href="src/structify/types/session_kill_jobs_params.py">params</a>) -> <a href="./src/structify/types/session_kill_jobs_response.py">SessionKillJobsResponse</a></code>
