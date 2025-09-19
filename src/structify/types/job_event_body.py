@@ -1,16 +1,29 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, Union, Optional
+from typing import Dict, List, Union, Optional
 from typing_extensions import Literal, Annotated, TypeAlias
 
 from .._utils import PropertyInfo
 from .._models import BaseModel
+from .knowledge_graph import KnowledgeGraph
 
-__all__ = ["JobEventBody", "AgentNavigated", "AgentSearched", "AgentSaved", "Completed", "Scraped", "Custom"]
+__all__ = [
+    "JobEventBody",
+    "AgentNavigated",
+    "AgentSearched",
+    "AgentSaved",
+    "AgentExited",
+    "Failed",
+    "Completed",
+    "Scraped",
+    "Custom",
+]
 
 
 class AgentNavigated(BaseModel):
     event_type: Literal["agent_navigated"]
+
+    mode: Literal["visual", "text"]
 
     url: str
 
@@ -20,15 +33,36 @@ class AgentSearched(BaseModel):
 
     query: str
 
+    results: List[List[str]]
+
 
 class AgentSaved(BaseModel):
     event_type: Literal["agent_saved"]
 
-    n_entities: int
+    kg: KnowledgeGraph
+    """
+    Knowledge graph info structured to deserialize and display in the same format
+    that the LLM outputs. Also the first representation of an LLM output in the
+    pipeline from raw tool output to being merged into a DB
+    """
 
-    n_relationships: int
+    sources: List[str]
 
-    url: str
+    reason: Optional[str] = None
+
+
+class AgentExited(BaseModel):
+    event_type: Literal["agent_exited"]
+
+    reason: Optional[str] = None
+
+
+class Failed(BaseModel):
+    error: str
+
+    event_type: Literal["failed"]
+
+    summary: Optional[str] = None
 
 
 class Completed(BaseModel):
@@ -56,6 +90,6 @@ class Custom(BaseModel):
 
 
 JobEventBody: TypeAlias = Annotated[
-    Union[AgentNavigated, AgentSearched, AgentSaved, Completed, Scraped, Custom],
+    Union[AgentNavigated, AgentSearched, AgentSaved, AgentExited, Failed, Completed, Scraped, Custom],
     PropertyInfo(discriminator="event_type"),
 ]
