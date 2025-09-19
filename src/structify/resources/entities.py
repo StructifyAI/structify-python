@@ -28,7 +28,7 @@ from ..types import (
     entity_delete_relationship_params,
     entity_get_source_entities_params,
 )
-from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven, SequenceNotStr
+from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -91,7 +91,7 @@ class EntitiesResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> EntityDeleteResponse:
         """
         Delete an entity manually
@@ -125,14 +125,14 @@ class EntitiesResource(SyncAPIResource):
         *,
         dataset: str,
         entity_graph: KnowledgeGraphParam,
-        attempt_merge: bool | NotGiven = NOT_GIVEN,
-        source: entity_add_params.Source | NotGiven = NOT_GIVEN,
+        attempt_merge: bool | Omit = omit,
+        source: entity_add_params.Source | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> EntityAddResponse:
         """
         Add an entity (or entities) to a dataset given a graph representation of the
@@ -175,15 +175,15 @@ class EntitiesResource(SyncAPIResource):
         *,
         dataset: str,
         entity_graphs: Iterable[KnowledgeGraphParam],
-        attempt_merge: bool | NotGiven = NOT_GIVEN,
-        skip_malformed_entities: bool | NotGiven = NOT_GIVEN,
-        source: entity_add_batch_params.Source | NotGiven = NOT_GIVEN,
+        attempt_merge: bool | Omit = omit,
+        skip_malformed_entities: bool | Omit = omit,
+        source: entity_add_batch_params.Source | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> EntityAddBatchResponse:
         """
         Add a batch of entities to a dataset given a list of graph representations of
@@ -225,13 +225,13 @@ class EntitiesResource(SyncAPIResource):
         from_id: str,
         relationship_type: str,
         to_id: str,
-        properties: Dict[str, Union[str, bool, float]] | NotGiven = NOT_GIVEN,
+        properties: Dict[str, Union[str, bool, float]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> EntityAddRelationshipResponse:
         """
         Add a relationship between two entities in a dataset
@@ -268,14 +268,14 @@ class EntitiesResource(SyncAPIResource):
         *,
         dataset: str,
         entity_id: str,
-        force_consider_entities: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
-        top_k: int | NotGiven = NOT_GIVEN,
+        force_consider_entities: SequenceNotStr[str] | Omit = omit,
+        top_k: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> EntityAgentMergeResponse:
         """
         Use LLM to analyze and automatically merge entities based on sources and
@@ -317,7 +317,7 @@ class EntitiesResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> object:
         """
         delete a relationship between two entities in a dataset
@@ -353,13 +353,13 @@ class EntitiesResource(SyncAPIResource):
         derived_property: str,
         entity_id: str,
         instructions: str,
-        node_id: Optional[str] | NotGiven = NOT_GIVEN,
+        node_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> str:
         """
         Derive a new property value based on existing source properties
@@ -396,13 +396,13 @@ class EntitiesResource(SyncAPIResource):
         self,
         *,
         id: str,
-        resolve_id: bool | NotGiven = NOT_GIVEN,
+        resolve_id: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> EntityGetResponse:
         """
         Get entity with a given id
@@ -438,13 +438,13 @@ class EntitiesResource(SyncAPIResource):
         self,
         *,
         id: str,
-        radius: int | NotGiven = NOT_GIVEN,
+        radius: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> EntityGetLocalSubgraphResponse:
         """
         Args:
@@ -483,7 +483,7 @@ class EntitiesResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> EntityGetMergesResponse:
         """
         Get all historical merges for a given entity
@@ -518,7 +518,7 @@ class EntitiesResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> EntityGetSourceEntitiesResponse:
         """
         Args:
@@ -551,7 +551,7 @@ class EntitiesResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> EntityListJobsResponse:
         """
         list jobs for a given entity
@@ -582,13 +582,13 @@ class EntitiesResource(SyncAPIResource):
         *,
         entity_1_id: str,
         entity_2_id: str,
-        debug: bool | NotGiven = NOT_GIVEN,
+        debug: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> EntityMergeResponse:
         """
         merge an entity manually
@@ -629,7 +629,7 @@ class EntitiesResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> EntitySearchResponse:
         """
         Search for entities based on the given query
@@ -665,13 +665,13 @@ class EntitiesResource(SyncAPIResource):
         dataset: str,
         entity_id: str,
         properties: SequenceNotStr[str],
-        extra_instructions: Optional[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
+        extra_instructions: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> EntitySummarizeResponse:
         """
         Search for entities based on the given query
@@ -713,7 +713,7 @@ class EntitiesResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> EntityTriggerMergeResponse:
         """
         Trigger our merge process for a given entity
@@ -745,13 +745,13 @@ class EntitiesResource(SyncAPIResource):
         dataset: str,
         entity_id: str,
         properties: Dict[str, Union[str, bool, float]],
-        source: entity_update_property_params.Source | NotGiven = NOT_GIVEN,
+        source: entity_update_property_params.Source | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> EntityUpdatePropertyResponse:
         """
         update an entity manually
@@ -787,13 +787,13 @@ class EntitiesResource(SyncAPIResource):
         *,
         dataset: str,
         entity_graph: KnowledgeGraphParam,
-        fix: bool | NotGiven = NOT_GIVEN,
+        fix: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> KnowledgeGraph:
         """
         verify a kg against the dataset
@@ -833,13 +833,13 @@ class EntitiesResource(SyncAPIResource):
         self,
         *,
         id: str,
-        resolve_id: bool | NotGiven = NOT_GIVEN,
+        resolve_id: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> EntityViewResponse:
         """
         Args:
@@ -900,7 +900,7 @@ class AsyncEntitiesResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> EntityDeleteResponse:
         """
         Delete an entity manually
@@ -934,14 +934,14 @@ class AsyncEntitiesResource(AsyncAPIResource):
         *,
         dataset: str,
         entity_graph: KnowledgeGraphParam,
-        attempt_merge: bool | NotGiven = NOT_GIVEN,
-        source: entity_add_params.Source | NotGiven = NOT_GIVEN,
+        attempt_merge: bool | Omit = omit,
+        source: entity_add_params.Source | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> EntityAddResponse:
         """
         Add an entity (or entities) to a dataset given a graph representation of the
@@ -984,15 +984,15 @@ class AsyncEntitiesResource(AsyncAPIResource):
         *,
         dataset: str,
         entity_graphs: Iterable[KnowledgeGraphParam],
-        attempt_merge: bool | NotGiven = NOT_GIVEN,
-        skip_malformed_entities: bool | NotGiven = NOT_GIVEN,
-        source: entity_add_batch_params.Source | NotGiven = NOT_GIVEN,
+        attempt_merge: bool | Omit = omit,
+        skip_malformed_entities: bool | Omit = omit,
+        source: entity_add_batch_params.Source | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> EntityAddBatchResponse:
         """
         Add a batch of entities to a dataset given a list of graph representations of
@@ -1034,13 +1034,13 @@ class AsyncEntitiesResource(AsyncAPIResource):
         from_id: str,
         relationship_type: str,
         to_id: str,
-        properties: Dict[str, Union[str, bool, float]] | NotGiven = NOT_GIVEN,
+        properties: Dict[str, Union[str, bool, float]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> EntityAddRelationshipResponse:
         """
         Add a relationship between two entities in a dataset
@@ -1077,14 +1077,14 @@ class AsyncEntitiesResource(AsyncAPIResource):
         *,
         dataset: str,
         entity_id: str,
-        force_consider_entities: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
-        top_k: int | NotGiven = NOT_GIVEN,
+        force_consider_entities: SequenceNotStr[str] | Omit = omit,
+        top_k: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> EntityAgentMergeResponse:
         """
         Use LLM to analyze and automatically merge entities based on sources and
@@ -1126,7 +1126,7 @@ class AsyncEntitiesResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> object:
         """
         delete a relationship between two entities in a dataset
@@ -1162,13 +1162,13 @@ class AsyncEntitiesResource(AsyncAPIResource):
         derived_property: str,
         entity_id: str,
         instructions: str,
-        node_id: Optional[str] | NotGiven = NOT_GIVEN,
+        node_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> str:
         """
         Derive a new property value based on existing source properties
@@ -1205,13 +1205,13 @@ class AsyncEntitiesResource(AsyncAPIResource):
         self,
         *,
         id: str,
-        resolve_id: bool | NotGiven = NOT_GIVEN,
+        resolve_id: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> EntityGetResponse:
         """
         Get entity with a given id
@@ -1247,13 +1247,13 @@ class AsyncEntitiesResource(AsyncAPIResource):
         self,
         *,
         id: str,
-        radius: int | NotGiven = NOT_GIVEN,
+        radius: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> EntityGetLocalSubgraphResponse:
         """
         Args:
@@ -1292,7 +1292,7 @@ class AsyncEntitiesResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> EntityGetMergesResponse:
         """
         Get all historical merges for a given entity
@@ -1329,7 +1329,7 @@ class AsyncEntitiesResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> EntityGetSourceEntitiesResponse:
         """
         Args:
@@ -1364,7 +1364,7 @@ class AsyncEntitiesResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> EntityListJobsResponse:
         """
         list jobs for a given entity
@@ -1395,13 +1395,13 @@ class AsyncEntitiesResource(AsyncAPIResource):
         *,
         entity_1_id: str,
         entity_2_id: str,
-        debug: bool | NotGiven = NOT_GIVEN,
+        debug: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> EntityMergeResponse:
         """
         merge an entity manually
@@ -1442,7 +1442,7 @@ class AsyncEntitiesResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> EntitySearchResponse:
         """
         Search for entities based on the given query
@@ -1478,13 +1478,13 @@ class AsyncEntitiesResource(AsyncAPIResource):
         dataset: str,
         entity_id: str,
         properties: SequenceNotStr[str],
-        extra_instructions: Optional[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
+        extra_instructions: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> EntitySummarizeResponse:
         """
         Search for entities based on the given query
@@ -1526,7 +1526,7 @@ class AsyncEntitiesResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> EntityTriggerMergeResponse:
         """
         Trigger our merge process for a given entity
@@ -1560,13 +1560,13 @@ class AsyncEntitiesResource(AsyncAPIResource):
         dataset: str,
         entity_id: str,
         properties: Dict[str, Union[str, bool, float]],
-        source: entity_update_property_params.Source | NotGiven = NOT_GIVEN,
+        source: entity_update_property_params.Source | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> EntityUpdatePropertyResponse:
         """
         update an entity manually
@@ -1602,13 +1602,13 @@ class AsyncEntitiesResource(AsyncAPIResource):
         *,
         dataset: str,
         entity_graph: KnowledgeGraphParam,
-        fix: bool | NotGiven = NOT_GIVEN,
+        fix: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> KnowledgeGraph:
         """
         verify a kg against the dataset
@@ -1648,13 +1648,13 @@ class AsyncEntitiesResource(AsyncAPIResource):
         self,
         *,
         id: str,
-        resolve_id: bool | NotGiven = NOT_GIVEN,
+        resolve_id: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> EntityViewResponse:
         """
         Args:

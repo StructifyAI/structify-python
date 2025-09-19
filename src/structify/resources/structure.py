@@ -14,7 +14,7 @@ from ..types import (
     structure_find_relationship_params,
     structure_enhance_relationship_params,
 )
-from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven, SequenceNotStr
+from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -57,19 +57,19 @@ class StructureResource(SyncAPIResource):
         *,
         entity_id: str,
         property_name: str,
-        allow_extra_entities: bool | NotGiven = NOT_GIVEN,
-        banned_domains: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
-        node_id: Optional[str] | NotGiven = NOT_GIVEN,
-        special_job_type: Optional[Literal["HumanLLM"]] | NotGiven = NOT_GIVEN,
-        starting_searches: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
-        starting_urls: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
-        stop_config: Optional[structure_enhance_property_params.StopConfig] | NotGiven = NOT_GIVEN,
+        allow_extra_entities: bool | Omit = omit,
+        banned_domains: SequenceNotStr[str] | Omit = omit,
+        node_id: Optional[str] | Omit = omit,
+        special_job_type: Optional[Literal["HumanLLM"]] | Omit = omit,
+        starting_searches: SequenceNotStr[str] | Omit = omit,
+        starting_urls: SequenceNotStr[str] | Omit = omit,
+        stop_config: Optional[structure_enhance_property_params.StopConfig] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> str:
         """
         Returns a job id that can be waited on until the request is finished.
@@ -113,19 +113,19 @@ class StructureResource(SyncAPIResource):
         *,
         entity_id: str,
         relationship_name: str,
-        allow_extra_entities: bool | NotGiven = NOT_GIVEN,
-        banned_domains: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
-        node_id: Optional[str] | NotGiven = NOT_GIVEN,
-        special_job_type: Optional[Literal["HumanLLM"]] | NotGiven = NOT_GIVEN,
-        starting_searches: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
-        starting_urls: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
-        stop_config: Optional[structure_enhance_relationship_params.StopConfig] | NotGiven = NOT_GIVEN,
+        allow_extra_entities: bool | Omit = omit,
+        banned_domains: SequenceNotStr[str] | Omit = omit,
+        node_id: Optional[str] | Omit = omit,
+        special_job_type: Optional[Literal["HumanLLM"]] | Omit = omit,
+        starting_searches: SequenceNotStr[str] | Omit = omit,
+        starting_urls: SequenceNotStr[str] | Omit = omit,
+        stop_config: Optional[structure_enhance_relationship_params.StopConfig] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> str:
         """
         Returns a job id that can be waited on until the request is finished.
@@ -170,18 +170,18 @@ class StructureResource(SyncAPIResource):
         from_id: str,
         relationship_name: str,
         to_id: str,
-        allow_extra_entities: bool | NotGiven = NOT_GIVEN,
-        banned_domains: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
-        special_job_type: Optional[Literal["HumanLLM"]] | NotGiven = NOT_GIVEN,
-        starting_searches: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
-        starting_urls: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
-        stop_config: Optional[structure_find_relationship_params.StopConfig] | NotGiven = NOT_GIVEN,
+        allow_extra_entities: bool | Omit = omit,
+        banned_domains: SequenceNotStr[str] | Omit = omit,
+        special_job_type: Optional[Literal["HumanLLM"]] | Omit = omit,
+        starting_searches: SequenceNotStr[str] | Omit = omit,
+        starting_urls: SequenceNotStr[str] | Omit = omit,
+        stop_config: Optional[structure_find_relationship_params.StopConfig] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> str:
         """
         Attempt to find the given relation between two entities.
@@ -229,7 +229,7 @@ class StructureResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> str:
         """
         Wait for all specified async tasks to be completed.
@@ -262,7 +262,7 @@ class StructureResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> StructureJobStatusResponse:
         """
         If only dataset_name is provided, up to 1000 of the most recent jobs for that
@@ -291,17 +291,17 @@ class StructureResource(SyncAPIResource):
         *,
         dataset: str,
         source: structure_run_async_params.Source,
-        node_id: Optional[str] | NotGiven = NOT_GIVEN,
-        save_requirement: Iterable[SaveRequirementParam] | NotGiven = NOT_GIVEN,
-        seeded_entity: KnowledgeGraphParam | NotGiven = NOT_GIVEN,
-        special_job_type: Optional[Literal["HumanLLM"]] | NotGiven = NOT_GIVEN,
-        stop_config: Optional[structure_run_async_params.StopConfig] | NotGiven = NOT_GIVEN,
+        node_id: Optional[str] | Omit = omit,
+        save_requirement: Iterable[SaveRequirementParam] | Omit = omit,
+        seeded_entity: KnowledgeGraphParam | Omit = omit,
+        special_job_type: Optional[Literal["HumanLLM"]] | Omit = omit,
+        stop_config: Optional[structure_run_async_params.StopConfig] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> str:
         """
         Returns a token that can be waited on until the request is finished.
@@ -370,19 +370,19 @@ class AsyncStructureResource(AsyncAPIResource):
         *,
         entity_id: str,
         property_name: str,
-        allow_extra_entities: bool | NotGiven = NOT_GIVEN,
-        banned_domains: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
-        node_id: Optional[str] | NotGiven = NOT_GIVEN,
-        special_job_type: Optional[Literal["HumanLLM"]] | NotGiven = NOT_GIVEN,
-        starting_searches: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
-        starting_urls: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
-        stop_config: Optional[structure_enhance_property_params.StopConfig] | NotGiven = NOT_GIVEN,
+        allow_extra_entities: bool | Omit = omit,
+        banned_domains: SequenceNotStr[str] | Omit = omit,
+        node_id: Optional[str] | Omit = omit,
+        special_job_type: Optional[Literal["HumanLLM"]] | Omit = omit,
+        starting_searches: SequenceNotStr[str] | Omit = omit,
+        starting_urls: SequenceNotStr[str] | Omit = omit,
+        stop_config: Optional[structure_enhance_property_params.StopConfig] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> str:
         """
         Returns a job id that can be waited on until the request is finished.
@@ -426,19 +426,19 @@ class AsyncStructureResource(AsyncAPIResource):
         *,
         entity_id: str,
         relationship_name: str,
-        allow_extra_entities: bool | NotGiven = NOT_GIVEN,
-        banned_domains: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
-        node_id: Optional[str] | NotGiven = NOT_GIVEN,
-        special_job_type: Optional[Literal["HumanLLM"]] | NotGiven = NOT_GIVEN,
-        starting_searches: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
-        starting_urls: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
-        stop_config: Optional[structure_enhance_relationship_params.StopConfig] | NotGiven = NOT_GIVEN,
+        allow_extra_entities: bool | Omit = omit,
+        banned_domains: SequenceNotStr[str] | Omit = omit,
+        node_id: Optional[str] | Omit = omit,
+        special_job_type: Optional[Literal["HumanLLM"]] | Omit = omit,
+        starting_searches: SequenceNotStr[str] | Omit = omit,
+        starting_urls: SequenceNotStr[str] | Omit = omit,
+        stop_config: Optional[structure_enhance_relationship_params.StopConfig] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> str:
         """
         Returns a job id that can be waited on until the request is finished.
@@ -483,18 +483,18 @@ class AsyncStructureResource(AsyncAPIResource):
         from_id: str,
         relationship_name: str,
         to_id: str,
-        allow_extra_entities: bool | NotGiven = NOT_GIVEN,
-        banned_domains: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
-        special_job_type: Optional[Literal["HumanLLM"]] | NotGiven = NOT_GIVEN,
-        starting_searches: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
-        starting_urls: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
-        stop_config: Optional[structure_find_relationship_params.StopConfig] | NotGiven = NOT_GIVEN,
+        allow_extra_entities: bool | Omit = omit,
+        banned_domains: SequenceNotStr[str] | Omit = omit,
+        special_job_type: Optional[Literal["HumanLLM"]] | Omit = omit,
+        starting_searches: SequenceNotStr[str] | Omit = omit,
+        starting_urls: SequenceNotStr[str] | Omit = omit,
+        stop_config: Optional[structure_find_relationship_params.StopConfig] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> str:
         """
         Attempt to find the given relation between two entities.
@@ -542,7 +542,7 @@ class AsyncStructureResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> str:
         """
         Wait for all specified async tasks to be completed.
@@ -575,7 +575,7 @@ class AsyncStructureResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> StructureJobStatusResponse:
         """
         If only dataset_name is provided, up to 1000 of the most recent jobs for that
@@ -604,17 +604,17 @@ class AsyncStructureResource(AsyncAPIResource):
         *,
         dataset: str,
         source: structure_run_async_params.Source,
-        node_id: Optional[str] | NotGiven = NOT_GIVEN,
-        save_requirement: Iterable[SaveRequirementParam] | NotGiven = NOT_GIVEN,
-        seeded_entity: KnowledgeGraphParam | NotGiven = NOT_GIVEN,
-        special_job_type: Optional[Literal["HumanLLM"]] | NotGiven = NOT_GIVEN,
-        stop_config: Optional[structure_run_async_params.StopConfig] | NotGiven = NOT_GIVEN,
+        node_id: Optional[str] | Omit = omit,
+        save_requirement: Iterable[SaveRequirementParam] | Omit = omit,
+        seeded_entity: KnowledgeGraphParam | Omit = omit,
+        special_job_type: Optional[Literal["HumanLLM"]] | Omit = omit,
+        stop_config: Optional[structure_run_async_params.StopConfig] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> str:
         """
         Returns a token that can be waited on until the request is finished.

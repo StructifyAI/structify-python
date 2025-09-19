@@ -19,7 +19,7 @@ from ..types import (
     chat_add_collaborator_params,
     chat_copy_node_output_by_code_hash_params,
 )
-from .._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
+from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -79,7 +79,7 @@ class ChatResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Args:
@@ -119,7 +119,7 @@ class ChatResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ChatAddGitCommitResponse:
         """
         Add a git commit to a chat session
@@ -157,7 +157,7 @@ class ChatResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AddChatMessageResponse:
         """
         Add a message to a chat session
@@ -199,7 +199,7 @@ class ChatResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ChatSessionWithMessages:
         """
         Copy a chat session with its workflows and git files
@@ -234,13 +234,13 @@ class ChatResource(SyncAPIResource):
         session_id: str,
         *,
         code_md5_hash: str,
-        new_node_id: Optional[str] | NotGiven = NOT_GIVEN,
+        new_node_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> str:
         """
         Args:
@@ -273,14 +273,14 @@ class ChatResource(SyncAPIResource):
         self,
         *,
         project_id: str,
-        ephemeral: Optional[bool] | NotGiven = NOT_GIVEN,
-        initial_message: Optional[str] | NotGiven = NOT_GIVEN,
+        ephemeral: Optional[bool] | Omit = omit,
+        initial_message: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CreateChatSessionResponse:
         """
         Create a new chat session with an initial message
@@ -319,7 +319,7 @@ class ChatResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DeleteChatSessionResponse:
         """
         Delete a chat session
@@ -353,7 +353,7 @@ class ChatResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ChatGetGitCommitResponse:
         """
         Get a specific git commit by its hash for a chat session
@@ -388,7 +388,7 @@ class ChatResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> GetChatSessionResponse:
         """
         Get a chat session with all its messages
@@ -421,7 +421,7 @@ class ChatResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ChatGetSessionTimelineResponse:
         """
         Get chronological timeline of messages and commits for a chat session
@@ -454,7 +454,7 @@ class ChatResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ListCollaboratorsResponse:
         """
         List all users who have access to a chat session
@@ -481,13 +481,13 @@ class ChatResource(SyncAPIResource):
     def list_sessions(
         self,
         *,
-        limit: Optional[int] | NotGiven = NOT_GIVEN,
+        limit: Optional[int] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ListChatSessionsResponse:
         """
         List all chat sessions for the authenticated user.
@@ -519,13 +519,13 @@ class ChatResource(SyncAPIResource):
         self,
         *,
         chat_id: str,
-        commit_hash: Optional[str] | NotGiven = NOT_GIVEN,
+        commit_hash: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ChatLoadFilesResponse:
         """
         Load files from a chat session's git repository
@@ -563,7 +563,7 @@ class ChatResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Make an ephemeral chat session permanent
@@ -598,7 +598,7 @@ class ChatResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Args:
@@ -633,7 +633,7 @@ class ChatResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TogglePublicResponse:
         """
         Toggle public visibility of a chat session
@@ -662,15 +662,15 @@ class ChatResource(SyncAPIResource):
         self,
         session_id: str,
         *,
-        is_favorite: Optional[bool] | NotGiven = NOT_GIVEN,
-        name: Optional[str] | NotGiven = NOT_GIVEN,
-        project_id: Optional[str] | NotGiven = NOT_GIVEN,
+        is_favorite: Optional[bool] | Omit = omit,
+        name: Optional[str] | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ChatSession:
         """
         Args:
@@ -732,7 +732,7 @@ class AsyncChatResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Args:
@@ -772,7 +772,7 @@ class AsyncChatResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ChatAddGitCommitResponse:
         """
         Add a git commit to a chat session
@@ -812,7 +812,7 @@ class AsyncChatResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AddChatMessageResponse:
         """
         Add a message to a chat session
@@ -854,7 +854,7 @@ class AsyncChatResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ChatSessionWithMessages:
         """
         Copy a chat session with its workflows and git files
@@ -889,13 +889,13 @@ class AsyncChatResource(AsyncAPIResource):
         session_id: str,
         *,
         code_md5_hash: str,
-        new_node_id: Optional[str] | NotGiven = NOT_GIVEN,
+        new_node_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> str:
         """
         Args:
@@ -928,14 +928,14 @@ class AsyncChatResource(AsyncAPIResource):
         self,
         *,
         project_id: str,
-        ephemeral: Optional[bool] | NotGiven = NOT_GIVEN,
-        initial_message: Optional[str] | NotGiven = NOT_GIVEN,
+        ephemeral: Optional[bool] | Omit = omit,
+        initial_message: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CreateChatSessionResponse:
         """
         Create a new chat session with an initial message
@@ -974,7 +974,7 @@ class AsyncChatResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DeleteChatSessionResponse:
         """
         Delete a chat session
@@ -1008,7 +1008,7 @@ class AsyncChatResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ChatGetGitCommitResponse:
         """
         Get a specific git commit by its hash for a chat session
@@ -1043,7 +1043,7 @@ class AsyncChatResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> GetChatSessionResponse:
         """
         Get a chat session with all its messages
@@ -1076,7 +1076,7 @@ class AsyncChatResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ChatGetSessionTimelineResponse:
         """
         Get chronological timeline of messages and commits for a chat session
@@ -1109,7 +1109,7 @@ class AsyncChatResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ListCollaboratorsResponse:
         """
         List all users who have access to a chat session
@@ -1136,13 +1136,13 @@ class AsyncChatResource(AsyncAPIResource):
     async def list_sessions(
         self,
         *,
-        limit: Optional[int] | NotGiven = NOT_GIVEN,
+        limit: Optional[int] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ListChatSessionsResponse:
         """
         List all chat sessions for the authenticated user.
@@ -1174,13 +1174,13 @@ class AsyncChatResource(AsyncAPIResource):
         self,
         *,
         chat_id: str,
-        commit_hash: Optional[str] | NotGiven = NOT_GIVEN,
+        commit_hash: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ChatLoadFilesResponse:
         """
         Load files from a chat session's git repository
@@ -1218,7 +1218,7 @@ class AsyncChatResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Make an ephemeral chat session permanent
@@ -1253,7 +1253,7 @@ class AsyncChatResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Args:
@@ -1288,7 +1288,7 @@ class AsyncChatResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TogglePublicResponse:
         """
         Toggle public visibility of a chat session
@@ -1319,15 +1319,15 @@ class AsyncChatResource(AsyncAPIResource):
         self,
         session_id: str,
         *,
-        is_favorite: Optional[bool] | NotGiven = NOT_GIVEN,
-        name: Optional[str] | NotGiven = NOT_GIVEN,
-        project_id: Optional[str] | NotGiven = NOT_GIVEN,
+        is_favorite: Optional[bool] | Omit = omit,
+        name: Optional[str] | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ChatSession:
         """
         Args:

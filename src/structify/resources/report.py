@@ -7,7 +7,7 @@ from typing import Optional
 import httpx
 
 from ..types import report_step_params, report_wrong_params, report_missing_params, report_relationship_params
-from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -46,14 +46,14 @@ class ReportResource(SyncAPIResource):
         self,
         *,
         id: str,
-        property: Optional[str] | NotGiven = NOT_GIVEN,
-        source_url: Optional[str] | NotGiven = NOT_GIVEN,
+        property: Optional[str] | Omit = omit,
+        source_url: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> str:
         """
         Returns a success message if the report was added successfully Throws an error
@@ -93,15 +93,15 @@ class ReportResource(SyncAPIResource):
         self,
         *,
         label: str,
-        from_id: Optional[str] | NotGiven = NOT_GIVEN,
-        source_url: Optional[str] | NotGiven = NOT_GIVEN,
-        to_id: Optional[str] | NotGiven = NOT_GIVEN,
+        from_id: Optional[str] | Omit = omit,
+        source_url: Optional[str] | Omit = omit,
+        to_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> str:
         """
         Reports a missing relationship between entities
@@ -137,13 +137,13 @@ class ReportResource(SyncAPIResource):
         self,
         *,
         step_id: str,
-        message: Optional[str] | NotGiven = NOT_GIVEN,
+        message: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> str:
         """
         Report a step
@@ -179,14 +179,14 @@ class ReportResource(SyncAPIResource):
         self,
         *,
         id: str,
-        property: Optional[str] | NotGiven = NOT_GIVEN,
-        source_url: Optional[str] | NotGiven = NOT_GIVEN,
+        property: Optional[str] | Omit = omit,
+        source_url: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> str:
         """
         Reports a wrong property for an entity
@@ -246,14 +246,14 @@ class AsyncReportResource(AsyncAPIResource):
         self,
         *,
         id: str,
-        property: Optional[str] | NotGiven = NOT_GIVEN,
-        source_url: Optional[str] | NotGiven = NOT_GIVEN,
+        property: Optional[str] | Omit = omit,
+        source_url: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> str:
         """
         Returns a success message if the report was added successfully Throws an error
@@ -293,15 +293,15 @@ class AsyncReportResource(AsyncAPIResource):
         self,
         *,
         label: str,
-        from_id: Optional[str] | NotGiven = NOT_GIVEN,
-        source_url: Optional[str] | NotGiven = NOT_GIVEN,
-        to_id: Optional[str] | NotGiven = NOT_GIVEN,
+        from_id: Optional[str] | Omit = omit,
+        source_url: Optional[str] | Omit = omit,
+        to_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> str:
         """
         Reports a missing relationship between entities
@@ -337,13 +337,13 @@ class AsyncReportResource(AsyncAPIResource):
         self,
         *,
         step_id: str,
-        message: Optional[str] | NotGiven = NOT_GIVEN,
+        message: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> str:
         """
         Report a step
@@ -379,14 +379,14 @@ class AsyncReportResource(AsyncAPIResource):
         self,
         *,
         id: str,
-        property: Optional[str] | NotGiven = NOT_GIVEN,
-        source_url: Optional[str] | NotGiven = NOT_GIVEN,
+        property: Optional[str] | Omit = omit,
+        source_url: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> str:
         """
         Reports a wrong property for an entity

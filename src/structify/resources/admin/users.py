@@ -8,7 +8,7 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from ..._utils import maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
@@ -52,8 +52,8 @@ class UsersResource(SyncAPIResource):
     def create(
         self,
         *,
-        credit_count: Optional[int] | NotGiven = NOT_GIVEN,
-        email: Optional[str] | NotGiven = NOT_GIVEN,
+        credit_count: Optional[int] | Omit = omit,
+        email: Optional[str] | Omit = omit,
         feature_flags: List[
             Literal[
                 "functional_test",
@@ -66,17 +66,17 @@ class UsersResource(SyncAPIResource):
                 "none",
             ]
         ]
-        | NotGiven = NOT_GIVEN,
-        full_name: Optional[str] | NotGiven = NOT_GIVEN,
-        is_admin: bool | NotGiven = NOT_GIVEN,
-        permissions: List[Literal["labeler", "qa_labeler", "debug", "human_llm", "none"]] | NotGiven = NOT_GIVEN,
-        test: bool | NotGiven = NOT_GIVEN,
+        | Omit = omit,
+        full_name: Optional[str] | Omit = omit,
+        is_admin: bool | Omit = omit,
+        permissions: List[Literal["labeler", "qa_labeler", "debug", "human_llm", "none"]] | Omit = omit,
+        test: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TokenResponse:
         """
         Create a user, returing their API token.
@@ -118,7 +118,7 @@ class UsersResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> UserListResponse:
         """Lists all the users in the system along with their associated API tokens."""
         return self._get(
@@ -132,14 +132,14 @@ class UsersResource(SyncAPIResource):
     def get_credits(
         self,
         *,
-        user_email: Optional[str] | NotGiven = NOT_GIVEN,
-        user_token: Optional[str] | NotGiven = NOT_GIVEN,
+        user_email: Optional[str] | Omit = omit,
+        user_token: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> UserGetCreditsResponse:
         """
         get the credit balance of a user by email.
@@ -171,18 +171,17 @@ class UsersResource(SyncAPIResource):
     def get_stats(
         self,
         *,
-        bucket: Literal["Second", "Minute", "Hour", "Day", "Week", "Month", "Quarter", "Year", "Decade"]
-        | NotGiven = NOT_GIVEN,
-        end_date: Union[str, datetime] | NotGiven = NOT_GIVEN,
-        start_date: Union[str, datetime] | NotGiven = NOT_GIVEN,
-        user_email: Optional[str] | NotGiven = NOT_GIVEN,
-        user_token: Optional[str] | NotGiven = NOT_GIVEN,
+        bucket: Literal["Second", "Minute", "Hour", "Day", "Week", "Month", "Quarter", "Year", "Decade"] | Omit = omit,
+        end_date: Union[str, datetime] | Omit = omit,
+        start_date: Union[str, datetime] | Omit = omit,
+        user_email: Optional[str] | Omit = omit,
+        user_token: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> UserGetStatsResponse:
         """
         Args:
@@ -222,7 +221,7 @@ class UsersResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> UserSetCreditsResponse:
         """
         set the credit balance of a user, returing that new credit balance.
@@ -275,8 +274,8 @@ class AsyncUsersResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        credit_count: Optional[int] | NotGiven = NOT_GIVEN,
-        email: Optional[str] | NotGiven = NOT_GIVEN,
+        credit_count: Optional[int] | Omit = omit,
+        email: Optional[str] | Omit = omit,
         feature_flags: List[
             Literal[
                 "functional_test",
@@ -289,17 +288,17 @@ class AsyncUsersResource(AsyncAPIResource):
                 "none",
             ]
         ]
-        | NotGiven = NOT_GIVEN,
-        full_name: Optional[str] | NotGiven = NOT_GIVEN,
-        is_admin: bool | NotGiven = NOT_GIVEN,
-        permissions: List[Literal["labeler", "qa_labeler", "debug", "human_llm", "none"]] | NotGiven = NOT_GIVEN,
-        test: bool | NotGiven = NOT_GIVEN,
+        | Omit = omit,
+        full_name: Optional[str] | Omit = omit,
+        is_admin: bool | Omit = omit,
+        permissions: List[Literal["labeler", "qa_labeler", "debug", "human_llm", "none"]] | Omit = omit,
+        test: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TokenResponse:
         """
         Create a user, returing their API token.
@@ -341,7 +340,7 @@ class AsyncUsersResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> UserListResponse:
         """Lists all the users in the system along with their associated API tokens."""
         return await self._get(
@@ -355,14 +354,14 @@ class AsyncUsersResource(AsyncAPIResource):
     async def get_credits(
         self,
         *,
-        user_email: Optional[str] | NotGiven = NOT_GIVEN,
-        user_token: Optional[str] | NotGiven = NOT_GIVEN,
+        user_email: Optional[str] | Omit = omit,
+        user_token: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> UserGetCreditsResponse:
         """
         get the credit balance of a user by email.
@@ -394,18 +393,17 @@ class AsyncUsersResource(AsyncAPIResource):
     async def get_stats(
         self,
         *,
-        bucket: Literal["Second", "Minute", "Hour", "Day", "Week", "Month", "Quarter", "Year", "Decade"]
-        | NotGiven = NOT_GIVEN,
-        end_date: Union[str, datetime] | NotGiven = NOT_GIVEN,
-        start_date: Union[str, datetime] | NotGiven = NOT_GIVEN,
-        user_email: Optional[str] | NotGiven = NOT_GIVEN,
-        user_token: Optional[str] | NotGiven = NOT_GIVEN,
+        bucket: Literal["Second", "Minute", "Hour", "Day", "Week", "Month", "Quarter", "Year", "Decade"] | Omit = omit,
+        end_date: Union[str, datetime] | Omit = omit,
+        start_date: Union[str, datetime] | Omit = omit,
+        user_email: Optional[str] | Omit = omit,
+        user_token: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> UserGetStatsResponse:
         """
         Args:
@@ -445,7 +443,7 @@ class AsyncUsersResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> UserSetCreditsResponse:
         """
         set the credit balance of a user, returing that new credit balance.
