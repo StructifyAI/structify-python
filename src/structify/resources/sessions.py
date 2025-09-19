@@ -43,7 +43,7 @@ from ..types.workflow_session import WorkflowSession
 from ..types.workflow_session_edge import WorkflowSessionEdge
 from ..types.workflow_session_node import WorkflowSessionNode
 from ..types.session_kill_jobs_response import SessionKillJobsResponse
-from ..types.get_session_events_response import GetSessionEventsResponse
+from ..types.session_get_events_response import SessionGetEventsResponse
 from ..types.workflow_node_execution_status import WorkflowNodeExecutionStatus
 from ..types.session_get_node_progress_response import SessionGetNodeProgressResponse
 
@@ -224,7 +224,7 @@ class SessionsResource(SyncAPIResource):
 
     def get_events(
         self,
-        session_id: str,
+        node_id: str,
         *,
         limit: Optional[int] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -233,9 +233,9 @@ class SessionsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> GetSessionEventsResponse:
+    ) -> SessionGetEventsResponse:
         """
-        Get events from all jobs in a session's event queue (without removing them).
+        Get events from all jobs for a specific workflow node.
 
         Args:
           limit: Maximum number of events to fetch (default: 100).
@@ -248,10 +248,10 @@ class SessionsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not session_id:
-            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
+        if not node_id:
+            raise ValueError(f"Expected a non-empty value for `node_id` but received {node_id!r}")
         return self._get(
-            f"/sessions/{session_id}/events",
+            f"/sessions/nodes/{node_id}/events",
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -259,7 +259,7 @@ class SessionsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform({"limit": limit}, session_get_events_params.SessionGetEventsParams),
             ),
-            cast_to=GetSessionEventsResponse,
+            cast_to=SessionGetEventsResponse,
         )
 
     def get_node_output_data(
@@ -728,7 +728,7 @@ class AsyncSessionsResource(AsyncAPIResource):
 
     async def get_events(
         self,
-        session_id: str,
+        node_id: str,
         *,
         limit: Optional[int] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -737,9 +737,9 @@ class AsyncSessionsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> GetSessionEventsResponse:
+    ) -> SessionGetEventsResponse:
         """
-        Get events from all jobs in a session's event queue (without removing them).
+        Get events from all jobs for a specific workflow node.
 
         Args:
           limit: Maximum number of events to fetch (default: 100).
@@ -752,10 +752,10 @@ class AsyncSessionsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not session_id:
-            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
+        if not node_id:
+            raise ValueError(f"Expected a non-empty value for `node_id` but received {node_id!r}")
         return await self._get(
-            f"/sessions/{session_id}/events",
+            f"/sessions/nodes/{node_id}/events",
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -763,7 +763,7 @@ class AsyncSessionsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=await async_maybe_transform({"limit": limit}, session_get_events_params.SessionGetEventsParams),
             ),
-            cast_to=GetSessionEventsResponse,
+            cast_to=SessionGetEventsResponse,
         )
 
     async def get_node_output_data(
