@@ -8,7 +8,7 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven, FileTypes
+from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, FileTypes, omit, not_given
 from ..._utils import extract_files, maybe_transform, deepcopy_minimal, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
@@ -88,7 +88,7 @@ class TrainingDatasetsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TrainingDatasetListResponse:
         """Lists all training datasets."""
         return self._get(
@@ -108,7 +108,7 @@ class TrainingDatasetsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Args:
@@ -144,7 +144,7 @@ class TrainingDatasetsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Creates a new training dataset with the given name.
@@ -185,7 +185,7 @@ class TrainingDatasetsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Adds a new training datum to the specified dataset.
@@ -219,13 +219,13 @@ class TrainingDatasetsResource(SyncAPIResource):
         self,
         *,
         datum_id: str,
-        require_labels: bool | NotGiven = NOT_GIVEN,
+        require_labels: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> BinaryAPIResponse:
         """
         Lists all training datums for a dataset.
@@ -267,7 +267,7 @@ class TrainingDatasetsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TrainingDatumResponse:
         """This includes the status, step, last updated time, and all updates.
 
@@ -300,18 +300,18 @@ class TrainingDatasetsResource(SyncAPIResource):
     def get_labeller_stats(
         self,
         *,
-        end_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
-        labeled_status: Literal["None", "SuspiciousOnly", "VerifiedOnly"] | NotGiven = NOT_GIVEN,
-        max_prop_count: Optional[int] | NotGiven = NOT_GIVEN,
-        start_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
+        end_date: Union[str, datetime, None] | Omit = omit,
+        labeled_status: Literal["None", "SuspiciousOnly", "VerifiedOnly"] | Omit = omit,
+        max_prop_count: Optional[int] | Omit = omit,
+        start_date: Union[str, datetime, None] | Omit = omit,
         time_bucket: Literal["Second", "Minute", "Hour", "Day", "Week", "Month", "Quarter", "Year", "Decade"]
-        | NotGiven = NOT_GIVEN,
+        | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TrainingDatasetGetLabellerStatsResponse:
         """
         Gets statistics about labellers' work on a dataset.
@@ -356,7 +356,7 @@ class TrainingDatasetsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Optional[TrainingDatumResponse]:
         """
         Returns None if no datum is available.
@@ -393,13 +393,13 @@ class TrainingDatasetsResource(SyncAPIResource):
         *,
         is_final_qa: bool,
         status: DatumStatus,
-        dataset_name: Optional[str] | NotGiven = NOT_GIVEN,
+        dataset_name: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Optional[TrainingDatumResponse]:
         """
         Returns None if no datum is available.
@@ -436,14 +436,14 @@ class TrainingDatasetsResource(SyncAPIResource):
         self,
         *,
         status: DatumStatus,
-        dataset_name: Optional[str] | NotGiven = NOT_GIVEN,
-        user_restriction: bool | NotGiven = NOT_GIVEN,
+        dataset_name: Optional[str] | Omit = omit,
+        user_restriction: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Optional[TrainingDatumResponse]:
         """
         Returns None if no datum is available.
@@ -491,7 +491,7 @@ class TrainingDatasetsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Updates the status and content of an existing training datum.
@@ -526,13 +526,13 @@ class TrainingDatasetsResource(SyncAPIResource):
         self,
         *,
         dataset_name: str,
-        last_updated: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
+        last_updated: Union[str, datetime, None] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TrainingDatasetListDatumsResponse:
         """
         Lists all training datums for a dataset.
@@ -576,7 +576,7 @@ class TrainingDatasetsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Marks a training datum update as suspicious.
@@ -617,7 +617,7 @@ class TrainingDatasetsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Removes a training datum from the specified dataset.
@@ -649,15 +649,15 @@ class TrainingDatasetsResource(SyncAPIResource):
     def size(
         self,
         *,
-        dataset_name: Optional[str] | NotGiven = NOT_GIVEN,
-        end_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
-        start_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
+        dataset_name: Optional[str] | Omit = omit,
+        end_date: Union[str, datetime, None] | Omit = omit,
+        start_date: Union[str, datetime, None] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TrainingDatasetSizeResponse:
         """
         Returns the number of training data in the specified dataset, filtered by
@@ -692,14 +692,14 @@ class TrainingDatasetsResource(SyncAPIResource):
         self,
         *,
         status: DatumStatus,
-        dataset_name: Optional[str] | NotGiven = NOT_GIVEN,
-        user_restriction: bool | NotGiven = NOT_GIVEN,
+        dataset_name: Optional[str] | Omit = omit,
+        user_restriction: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TrainingDatasetSuspiciousCountResponse:
         """
         Returns the number of suspicious training datums for the current user's labels.
@@ -746,7 +746,7 @@ class TrainingDatasetsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Switches a training datum to a new dataset.
@@ -784,13 +784,13 @@ class TrainingDatasetsResource(SyncAPIResource):
         *,
         id: str,
         status: DatumStatus,
-        review_message: Optional[str] | NotGiven = NOT_GIVEN,
+        review_message: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Args:
@@ -829,7 +829,7 @@ class TrainingDatasetsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Uploads a new training datum to the specified dataset.
@@ -878,7 +878,7 @@ class TrainingDatasetsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Verifies a training datum update.
@@ -938,7 +938,7 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TrainingDatasetListResponse:
         """Lists all training datasets."""
         return await self._get(
@@ -958,7 +958,7 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Args:
@@ -994,7 +994,7 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Creates a new training dataset with the given name.
@@ -1035,7 +1035,7 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Adds a new training datum to the specified dataset.
@@ -1069,13 +1069,13 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
         self,
         *,
         datum_id: str,
-        require_labels: bool | NotGiven = NOT_GIVEN,
+        require_labels: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncBinaryAPIResponse:
         """
         Lists all training datums for a dataset.
@@ -1117,7 +1117,7 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TrainingDatumResponse:
         """This includes the status, step, last updated time, and all updates.
 
@@ -1150,18 +1150,18 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
     async def get_labeller_stats(
         self,
         *,
-        end_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
-        labeled_status: Literal["None", "SuspiciousOnly", "VerifiedOnly"] | NotGiven = NOT_GIVEN,
-        max_prop_count: Optional[int] | NotGiven = NOT_GIVEN,
-        start_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
+        end_date: Union[str, datetime, None] | Omit = omit,
+        labeled_status: Literal["None", "SuspiciousOnly", "VerifiedOnly"] | Omit = omit,
+        max_prop_count: Optional[int] | Omit = omit,
+        start_date: Union[str, datetime, None] | Omit = omit,
         time_bucket: Literal["Second", "Minute", "Hour", "Day", "Week", "Month", "Quarter", "Year", "Decade"]
-        | NotGiven = NOT_GIVEN,
+        | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TrainingDatasetGetLabellerStatsResponse:
         """
         Gets statistics about labellers' work on a dataset.
@@ -1206,7 +1206,7 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Optional[TrainingDatumResponse]:
         """
         Returns None if no datum is available.
@@ -1243,13 +1243,13 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
         *,
         is_final_qa: bool,
         status: DatumStatus,
-        dataset_name: Optional[str] | NotGiven = NOT_GIVEN,
+        dataset_name: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Optional[TrainingDatumResponse]:
         """
         Returns None if no datum is available.
@@ -1286,14 +1286,14 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
         self,
         *,
         status: DatumStatus,
-        dataset_name: Optional[str] | NotGiven = NOT_GIVEN,
-        user_restriction: bool | NotGiven = NOT_GIVEN,
+        dataset_name: Optional[str] | Omit = omit,
+        user_restriction: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Optional[TrainingDatumResponse]:
         """
         Returns None if no datum is available.
@@ -1341,7 +1341,7 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Updates the status and content of an existing training datum.
@@ -1376,13 +1376,13 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
         self,
         *,
         dataset_name: str,
-        last_updated: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
+        last_updated: Union[str, datetime, None] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TrainingDatasetListDatumsResponse:
         """
         Lists all training datums for a dataset.
@@ -1426,7 +1426,7 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Marks a training datum update as suspicious.
@@ -1467,7 +1467,7 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Removes a training datum from the specified dataset.
@@ -1499,15 +1499,15 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
     async def size(
         self,
         *,
-        dataset_name: Optional[str] | NotGiven = NOT_GIVEN,
-        end_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
-        start_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
+        dataset_name: Optional[str] | Omit = omit,
+        end_date: Union[str, datetime, None] | Omit = omit,
+        start_date: Union[str, datetime, None] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TrainingDatasetSizeResponse:
         """
         Returns the number of training data in the specified dataset, filtered by
@@ -1542,14 +1542,14 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
         self,
         *,
         status: DatumStatus,
-        dataset_name: Optional[str] | NotGiven = NOT_GIVEN,
-        user_restriction: bool | NotGiven = NOT_GIVEN,
+        dataset_name: Optional[str] | Omit = omit,
+        user_restriction: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TrainingDatasetSuspiciousCountResponse:
         """
         Returns the number of suspicious training datums for the current user's labels.
@@ -1596,7 +1596,7 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Switches a training datum to a new dataset.
@@ -1634,13 +1634,13 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
         *,
         id: str,
         status: DatumStatus,
-        review_message: Optional[str] | NotGiven = NOT_GIVEN,
+        review_message: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Args:
@@ -1679,7 +1679,7 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Uploads a new training datum to the specified dataset.
@@ -1728,7 +1728,7 @@ class AsyncTrainingDatasetsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Verifies a training datum update.

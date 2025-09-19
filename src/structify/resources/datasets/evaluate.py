@@ -6,7 +6,7 @@ from typing import Optional
 
 import httpx
 
-from ..._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
+from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
 from ..._utils import maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
@@ -62,7 +62,7 @@ class EvaluateResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncJobsList[EvaluateListResponse]:
         """
         List all dataset evaluation results with pagination
@@ -104,7 +104,7 @@ class EvaluateResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Delete a dataset evaluation result by ID
@@ -140,7 +140,7 @@ class EvaluateResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> EvaluateGetResponse:
         """
         Get a dataset evaluation result by ID
@@ -172,13 +172,13 @@ class EvaluateResource(SyncAPIResource):
         dataset_1: str,
         dataset_2: str,
         dataset_2_is_ground_truth: bool,
-        merge_threshold_override: Optional[float] | NotGiven = NOT_GIVEN,
+        merge_threshold_override: Optional[float] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> str:
         """
         Evaluate two datasets
@@ -221,7 +221,7 @@ class EvaluateResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> EvaluateStatusResponse:
         """
         Get the status of a dataset evaluation
@@ -278,7 +278,7 @@ class AsyncEvaluateResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[EvaluateListResponse, AsyncJobsList[EvaluateListResponse]]:
         """
         List all dataset evaluation results with pagination
@@ -320,7 +320,7 @@ class AsyncEvaluateResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Delete a dataset evaluation result by ID
@@ -356,7 +356,7 @@ class AsyncEvaluateResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> EvaluateGetResponse:
         """
         Get a dataset evaluation result by ID
@@ -388,13 +388,13 @@ class AsyncEvaluateResource(AsyncAPIResource):
         dataset_1: str,
         dataset_2: str,
         dataset_2_is_ground_truth: bool,
-        merge_threshold_override: Optional[float] | NotGiven = NOT_GIVEN,
+        merge_threshold_override: Optional[float] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> str:
         """
         Evaluate two datasets
@@ -437,7 +437,7 @@ class AsyncEvaluateResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> EvaluateStatusResponse:
         """
         Get the status of a dataset evaluation

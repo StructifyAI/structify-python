@@ -8,7 +8,7 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from ..._utils import maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
@@ -52,16 +52,16 @@ class JobsResource(SyncAPIResource):
         filter_test_users: bool,
         limit: int,
         offset: int,
-        dataset_id: Optional[str] | NotGiven = NOT_GIVEN,
-        seeded_kg_search_term: Optional[str] | NotGiven = NOT_GIVEN,
-        since: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
-        status: Optional[Literal["Queued", "Running", "Completed", "Failed"]] | NotGiven = NOT_GIVEN,
+        dataset_id: Optional[str] | Omit = omit,
+        seeded_kg_search_term: Optional[str] | Omit = omit,
+        since: Union[str, datetime, None] | Omit = omit,
+        status: Optional[Literal["Queued", "Running", "Completed", "Failed"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncJobsList[AdminListJobsResponse]:
         """
         This endpoint allows admins to list jobs from all users without user ownership
@@ -143,16 +143,16 @@ class AsyncJobsResource(AsyncAPIResource):
         filter_test_users: bool,
         limit: int,
         offset: int,
-        dataset_id: Optional[str] | NotGiven = NOT_GIVEN,
-        seeded_kg_search_term: Optional[str] | NotGiven = NOT_GIVEN,
-        since: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
-        status: Optional[Literal["Queued", "Running", "Completed", "Failed"]] | NotGiven = NOT_GIVEN,
+        dataset_id: Optional[str] | Omit = omit,
+        seeded_kg_search_term: Optional[str] | Omit = omit,
+        since: Union[str, datetime, None] | Omit = omit,
+        status: Optional[Literal["Queued", "Running", "Completed", "Failed"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[AdminListJobsResponse, AsyncJobsList[AdminListJobsResponse]]:
         """
         This endpoint allows admins to list jobs from all users without user ownership
