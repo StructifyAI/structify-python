@@ -14,3 +14,5 @@ class JobStatusParams(TypedDict, total=False):
     dataset_name: Optional[str]
 
     job_ids: Optional[SequenceNotStr[str]]
+
+    node_id: Optional[str]
