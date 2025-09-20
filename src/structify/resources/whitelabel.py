@@ -45,7 +45,7 @@ def whitelabel_method(
         def wrapper(self: WhitelabelResource, *args: Any, **kwargs: Any) -> Any:
             # Call the original function to get the request payload
             raw_payload = func(self, *args, **kwargs)
-            
+
             # Ensure payload is a dict
             payload: Dict[str, Any]
             if isinstance(raw_payload, dict):
@@ -60,7 +60,14 @@ def whitelabel_method(
             # Make the API call
             response: Union[Dict[str, Any], object]
             if method.upper() == "GET":
-                response = cast(Dict[str, Any], self._get(endpoint, cast_to=dict, options=make_request_options(extra_query=cast(Dict[str, object], payload))))
+                response = cast(
+                    Dict[str, Any],
+                    self._get(
+                        endpoint,
+                        cast_to=dict,
+                        options=make_request_options(extra_query=cast(Dict[str, object], payload)),
+                    ),
+                )
             elif method.upper() == "POST":
                 response = self._post(
                     endpoint,
@@ -69,7 +76,9 @@ def whitelabel_method(
                     options=make_request_options(),
                 )
             elif method.upper() == "PUT":
-                response = cast(Dict[str, Any], self._put(endpoint, body=payload, cast_to=dict, options=make_request_options()))
+                response = cast(
+                    Dict[str, Any], self._put(endpoint, body=payload, cast_to=dict, options=make_request_options())
+                )
             elif method.upper() == "DELETE":
                 response = cast(Dict[str, Any], self._delete(endpoint, cast_to=dict, options=make_request_options()))
             else:
@@ -86,13 +95,13 @@ def whitelabel_method(
                 if queries:
                     # Execute parallel requests for each query
                     parallel_response = self._execute_parallel_requests(endpoint, queries, payload, method)
-                    
+
                     # Check if there's a post-processing method
                     post_process_method = f"_post_process_{func.__name__}"
                     if hasattr(self, post_process_method):
                         post_process = getattr(self, post_process_method)  # noqa: B009
                         return post_process(parallel_response, queries)
-                    
+
                     return parallel_response
 
             return response
@@ -140,7 +149,7 @@ class WhitelabelResource(SyncAPIResource):
     ) -> List[Dict[str, Any]]:
         """Execute parallel requests for multiple queries."""
         results: List[Dict[str, Any]] = []
-        
+
         with ThreadPoolExecutor(max_workers=max_workers) as executor:
             # Submit all requests
             future_to_query: Dict[Any, str] = {}
@@ -150,7 +159,7 @@ class WhitelabelResource(SyncAPIResource):
                     single_payload = payload.copy()
                     single_payload["query"] = query
                     single_payload.pop("queries", None)  # Remove queries list
-                    
+
                     future = executor.submit(self._execute_single_request, endpoint, single_payload, method)
                     future_to_query[future] = query
 
@@ -158,7 +167,7 @@ class WhitelabelResource(SyncAPIResource):
             for future in as_completed(future_to_query):
                 current_query: str = future_to_query[future]
                 single_result = future.result()
-                
+
                 # Add query column to each result if it's a list
                 if isinstance(single_result, list):
                     for result in cast(List[Any], single_result):
@@ -170,13 +179,15 @@ class WhitelabelResource(SyncAPIResource):
                     single_result_dict = cast(Dict[str, Any], single_result)
                     single_result_dict["query"] = current_query
                     results.append(single_result_dict)
-        
+
         return results
 
     def _execute_single_request(self, endpoint: str, payload: Dict[str, Any], method: str) -> Any:
         """Execute a single request to the API."""
         if method.upper() == "GET":
-            return self._get(endpoint, cast_to=object, options=make_request_options(extra_query=cast(Dict[str, object], payload)))
+            return self._get(
+                endpoint, cast_to=object, options=make_request_options(extra_query=cast(Dict[str, object], payload))
+            )
         elif method.upper() == "POST":
             return self._post(endpoint, body=payload, cast_to=object, options=make_request_options())
         elif method.upper() == "PUT":

@@ -43,20 +43,20 @@ class ExternalResource(WhitelabelResource):
         # Extract unique queries from the DataFrame
         queries = df[query_column].unique().to_list()
 
-        # Return the parameters for the whitelabel decorator to process  
+        # Return the parameters for the whitelabel decorator to process
         return {"queries": queries, "num_results": num_results, "banned_domains": banned_domains}  # type: ignore[return-value]
 
     def _post_process_search(self, response: Any, queries: List[str]) -> pl.DataFrame:  # noqa: ARG002
         """Post-process search results into DataFrame format."""
         results: List[Dict[str, Any]] = []
-        
+
         if isinstance(response, list):
             # If response is already a list, it's the processed results
             results = cast(List[Dict[str, Any]], response)
         elif isinstance(response, dict) and "results" in response:
             # If response is wrapped in a results key
             results = cast(List[Dict[str, Any]], response["results"])
-        
+
         # Convert to DataFrame with proper schema
         if results:
             return pl.DataFrame(
