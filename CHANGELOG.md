@@ -1,5 +1,34 @@
 # Changelog
 
+## 1.141.0 (2025-09-20)
+
+Full Changelog: [v1.140.0...v1.141.0](https://github.com/StructifyAI/structify-python/compare/v1.140.0...v1.141.0)
+
+### Features
+
+* Update from Structify backend changes ([66b917a](https://github.com/StructifyAI/structify-python/commit/66b917a340dd602dd4d93c97aea5bb14bc97efff))
+* Update from Structify backend changes ([c931b3a](https://github.com/StructifyAI/structify-python/commit/c931b3acb17f29f1e665e609fcd818c0b4d5b641))
+* Update from Structify backend changes ([4f6d8e5](https://github.com/StructifyAI/structify-python/commit/4f6d8e553c3f6377a1db63162f04c878bcc9d213))
+* Update from Structify backend changes ([02b21bc](https://github.com/StructifyAI/structify-python/commit/02b21bc1e2190909caa1e7411ebb88eadddcb901))
+* Update from Structify backend changes ([533d3b0](https://github.com/StructifyAI/structify-python/commit/533d3b0a9f45580cfcb6ab18a55d0ebf0edde0c7))
+* Update from Structify backend changes ([0670ffb](https://github.com/StructifyAI/structify-python/commit/0670ffb7a25c61916d1d5e5ec3f92330b6163bf6))
+* Update from Structify backend changes ([2363fbd](https://github.com/StructifyAI/structify-python/commit/2363fbd2d9ecf946db09dc277ea8908cef7bf967))
+* Update from Structify backend changes ([c0e318d](https://github.com/StructifyAI/structify-python/commit/c0e318d4c72c663fb948362396d7d86277762246))
+* Update from Structify backend changes ([7f28da3](https://github.com/StructifyAI/structify-python/commit/7f28da3ba9cb1147187214edd1b10883e2becd1e))
+* Update from Structify backend changes ([63d033e](https://github.com/StructifyAI/structify-python/commit/63d033e521caafe3d5bde6e5b555fad19a1dca8f))
+* Update from Structify backend changes ([eff6777](https://github.com/StructifyAI/structify-python/commit/eff6777052c979895426cf20b50c952037da7314))
+* Update from Structify backend changes ([f20cc74](https://github.com/StructifyAI/structify-python/commit/f20cc7482bbd226fd4bc10d3fc617c246b543893))
+* Update from Structify backend changes ([5f21f75](https://github.com/StructifyAI/structify-python/commit/5f21f758b63ae0bced7e2bd073062cc933d4b2a8))
+* Update from Structify backend changes ([1fbb1f6](https://github.com/StructifyAI/structify-python/commit/1fbb1f65a8bf42f48fcb587fdb23f5478486a1f9))
+* Update from Structify backend changes ([a973cc4](https://github.com/StructifyAI/structify-python/commit/a973cc425ae361d9c70a22a9e6faad426a359e16))
+
+
+### Chores
+
+* do not install brew dependencies in ./scripts/bootstrap by default ([b002935](https://github.com/StructifyAI/structify-python/commit/b0029353b9b9f0323a15a3de4ef56fee3b27d000))
+* **internal:** update pydantic dependency ([3d4620e](https://github.com/StructifyAI/structify-python/commit/3d4620ec6bd7626427feda6dcfb3298986b36a66))
+* **types:** change optional parameter type from NotGiven to Omit ([28199ad](https://github.com/StructifyAI/structify-python/commit/28199ad23027da0bd400f90651f7135c3e66378e))
+
 ## 1.140.0 (2025-09-09)
 
 Full Changelog: [v1.139.0...v1.140.0](https://github.com/StructifyAI/structify-python/compare/v1.139.0...v1.140.0)
