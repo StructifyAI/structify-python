@@ -229,6 +229,9 @@ class TestSessions:
         session = client.sessions.get_events(
             node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             limit=0,
+            offset=0,
+            search_term="search_term",
+            status="Queued",
         )
         assert_matches_type(SessionGetEventsResponse, session, path=["response"])
 
@@ -835,6 +838,9 @@ class TestAsyncSessions:
         session = await async_client.sessions.get_events(
             node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             limit=0,
+            offset=0,
+            search_term="search_term",
+            status="Queued",
         )
         assert_matches_type(SessionGetEventsResponse, session, path=["response"])
 

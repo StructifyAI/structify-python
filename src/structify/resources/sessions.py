@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from typing import Dict, Mapping, Optional, cast
+from typing_extensions import Literal
 
 import httpx
 
@@ -226,7 +227,10 @@ class SessionsResource(SyncAPIResource):
         self,
         node_id: str,
         *,
-        limit: Optional[int] | Omit = omit,
+        limit: int | Omit = omit,
+        offset: int | Omit = omit,
+        search_term: Optional[str] | Omit = omit,
+        status: Optional[Literal["Queued", "Running", "Completed", "Failed"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -238,8 +242,6 @@ class SessionsResource(SyncAPIResource):
         Get events from all jobs for a specific workflow node.
 
         Args:
-          limit: Maximum number of events to fetch (default: 100).
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -257,7 +259,15 @@ class SessionsResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform({"limit": limit}, session_get_events_params.SessionGetEventsParams),
+                query=maybe_transform(
+                    {
+                        "limit": limit,
+                        "offset": offset,
+                        "search_term": search_term,
+                        "status": status,
+                    },
+                    session_get_events_params.SessionGetEventsParams,
+                ),
             ),
             cast_to=SessionGetEventsResponse,
         )
@@ -730,7 +740,10 @@ class AsyncSessionsResource(AsyncAPIResource):
         self,
         node_id: str,
         *,
-        limit: Optional[int] | Omit = omit,
+        limit: int | Omit = omit,
+        offset: int | Omit = omit,
+        search_term: Optional[str] | Omit = omit,
+        status: Optional[Literal["Queued", "Running", "Completed", "Failed"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -742,8 +755,6 @@ class AsyncSessionsResource(AsyncAPIResource):
         Get events from all jobs for a specific workflow node.
 
         Args:
-          limit: Maximum number of events to fetch (default: 100).
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -761,7 +772,15 @@ class AsyncSessionsResource(AsyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform({"limit": limit}, session_get_events_params.SessionGetEventsParams),
+                query=await async_maybe_transform(
+                    {
+                        "limit": limit,
+                        "offset": offset,
+                        "search_term": search_term,
+                        "status": status,
+                    },
+                    session_get_events_params.SessionGetEventsParams,
+                ),
             ),
             cast_to=SessionGetEventsResponse,
         )
