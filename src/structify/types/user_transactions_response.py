@@ -18,6 +18,8 @@ class UserTransactionsResponseItem(BaseModel):
 
     token_id: str
 
+    credit_grant_id: Optional[str] = None
+
     job_id: Optional[str] = None
 
 

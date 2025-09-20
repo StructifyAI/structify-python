@@ -39,7 +39,7 @@ class User(BaseModel):
 
     updated_at: datetime
 
-    user_type: Literal["admin", "public", "end_user", "pro"]
+    user_type: Literal["admin", "public", "end_user"]
 
     last_activity: Optional[datetime] = None
 
