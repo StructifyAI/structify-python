@@ -113,6 +113,7 @@ from .document_upload_params import DocumentUploadParams as DocumentUploadParams
 from .entity_delete_response import EntityDeleteResponse as EntityDeleteResponse
 from .entity_derive_response import EntityDeriveResponse as EntityDeriveResponse
 from .entity_search_response import EntitySearchResponse as EntitySearchResponse
+from .external_search_params import ExternalSearchParams as ExternalSearchParams
 from .job_get_steps_response import JobGetStepsResponse as JobGetStepsResponse
 from .list_projects_response import ListProjectsResponse as ListProjectsResponse
 from .remove_member_response import RemoveMemberResponse as RemoveMemberResponse
@@ -135,6 +136,7 @@ from .chat_load_files_response import ChatLoadFilesResponse as ChatLoadFilesResp
 from .dataset_descriptor_param import DatasetDescriptorParam as DatasetDescriptorParam
 from .document_download_params import DocumentDownloadParams as DocumentDownloadParams
 from .entity_get_merges_params import EntityGetMergesParams as EntityGetMergesParams
+from .external_search_response import ExternalSearchResponse as ExternalSearchResponse
 from .session_kill_jobs_params import SessionKillJobsParams as SessionKillJobsParams
 from .team_subscription_status import TeamSubscriptionStatus as TeamSubscriptionStatus
 from .add_chat_message_response import AddChatMessageResponse as AddChatMessageResponse

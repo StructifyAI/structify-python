@@ -292,4 +292,5 @@ __all__ = [
     "AsyncPublicSessionsResourceWithRawResponse",
     "PublicSessionsResourceWithStreamingResponse",
     "AsyncPublicSessionsResourceWithStreamingResponse",
+    "ExternalResource",
 ]

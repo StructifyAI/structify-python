@@ -696,3 +696,124 @@ from structify.types import (
     Table,
 )
 ```
+
+# External
+
+Types:
+
+```python
+from structify.types import SearchRequest, ExternalSearchResponse
+```
+
+Methods:
+
+- <code title="post /external/search">client.external.<a href="./src/structify/resources/external/external.py">search</a>(\*\*<a href="src/structify/types/external_search_params.py">params</a>) -> <a href="./src/structify/types/external_search_response.py">ExternalSearchResponse</a></code>
+
+## Newsapi
+
+Types:
+
+```python
+from structify.types.external import (
+    EverythingQuery,
+    EverythingResponse,
+    NewsArticle,
+    NewsSource,
+    NewsSourceDetail,
+    SourcesQuery,
+    SourcesResponse,
+    TopHeadlinesQuery,
+    TopHeadlinesResponse,
+)
+```
+
+Methods:
+
+- <code title="get /external/newsapi/everything">client.external.newsapi.<a href="./src/structify/resources/external/newsapi.py">everything</a>(\*\*<a href="src/structify/types/external/newsapi_everything_params.py">params</a>) -> <a href="./src/structify/types/external/everything_response.py">EverythingResponse</a></code>
+- <code title="get /external/newsapi/sources">client.external.newsapi.<a href="./src/structify/resources/external/newsapi.py">sources</a>(\*\*<a href="src/structify/types/external/newsapi_sources_params.py">params</a>) -> <a href="./src/structify/types/external/sources_response.py">SourcesResponse</a></code>
+- <code title="get /external/newsapi/top-headlines">client.external.newsapi.<a href="./src/structify/resources/external/newsapi.py">top_headlines</a>(\*\*<a href="src/structify/types/external/newsapi_top_headlines_params.py">params</a>) -> <a href="./src/structify/types/external/top_headlines_response.py">TopHeadlinesResponse</a></code>
+
+## Searchapi
+
+Types:
+
+```python
+from structify.types.external import (
+    FlightCalendarRequest,
+    FlightLocationSearchRequest,
+    GoogleFlightsSearchRequest,
+    GoogleMapsResult,
+    GoogleMapsSearchRequest,
+    GoogleScholarSearchRequest,
+    GoogleSearchRequest,
+    GoogleSearchResponse,
+    GoogleSearchResult,
+    LocationCoordinates,
+    LocationResponse,
+    LocationResult,
+    LocationSearchRequest,
+    PlaceDetailsRequest,
+    PlacePhotosRequest,
+    PlaceReviewsRequest,
+    ScholarAuthorSearchRequest,
+    ScholarCiteRequest,
+    SearchapiGoogleFlightsCalendarResponse,
+    SearchapiGoogleFlightsLocationSearchResponse,
+    SearchapiGoogleFlightsSearchResponse,
+    SearchapiGoogleMapsPlaceDetailsResponse,
+    SearchapiGoogleMapsPlacePhotosResponse,
+    SearchapiGoogleMapsPlaceReviewsResponse,
+    SearchapiGoogleMapsSearchResponse,
+    SearchapiGoogleScholarAuthorSearchResponse,
+    SearchapiGoogleScholarCitationsResponse,
+    SearchapiGoogleScholarSearchResponse,
+)
+```
+
+Methods:
+
+- <code title="post /external/searchapi/flights/calendar">client.external.searchapi.<a href="./src/structify/resources/external/searchapi.py">google_flights_calendar</a>(\*\*<a href="src/structify/types/external/searchapi_google_flights_calendar_params.py">params</a>) -> <a href="./src/structify/types/external/searchapi_google_flights_calendar_response.py">SearchapiGoogleFlightsCalendarResponse</a></code>
+- <code title="post /external/searchapi/flights/location_search">client.external.searchapi.<a href="./src/structify/resources/external/searchapi.py">google_flights_location_search</a>(\*\*<a href="src/structify/types/external/searchapi_google_flights_location_search_params.py">params</a>) -> <a href="./src/structify/types/external/searchapi_google_flights_location_search_response.py">SearchapiGoogleFlightsLocationSearchResponse</a></code>
+- <code title="post /external/searchapi/flights/search">client.external.searchapi.<a href="./src/structify/resources/external/searchapi.py">google_flights_search</a>(\*\*<a href="src/structify/types/external/searchapi_google_flights_search_params.py">params</a>) -> <a href="./src/structify/types/external/searchapi_google_flights_search_response.py">SearchapiGoogleFlightsSearchResponse</a></code>
+- <code title="post /external/searchapi/maps/place">client.external.searchapi.<a href="./src/structify/resources/external/searchapi.py">google_maps_place_details</a>(\*\*<a href="src/structify/types/external/searchapi_google_maps_place_details_params.py">params</a>) -> <a href="./src/structify/types/external/searchapi_google_maps_place_details_response.py">SearchapiGoogleMapsPlaceDetailsResponse</a></code>
+- <code title="post /external/searchapi/maps/photos">client.external.searchapi.<a href="./src/structify/resources/external/searchapi.py">google_maps_place_photos</a>(\*\*<a href="src/structify/types/external/searchapi_google_maps_place_photos_params.py">params</a>) -> <a href="./src/structify/types/external/searchapi_google_maps_place_photos_response.py">SearchapiGoogleMapsPlacePhotosResponse</a></code>
+- <code title="post /external/searchapi/maps/reviews">client.external.searchapi.<a href="./src/structify/resources/external/searchapi.py">google_maps_place_reviews</a>(\*\*<a href="src/structify/types/external/searchapi_google_maps_place_reviews_params.py">params</a>) -> <a href="./src/structify/types/external/searchapi_google_maps_place_reviews_response.py">SearchapiGoogleMapsPlaceReviewsResponse</a></code>
+- <code title="post /external/searchapi/maps/search">client.external.searchapi.<a href="./src/structify/resources/external/searchapi.py">google_maps_search</a>(\*\*<a href="src/structify/types/external/searchapi_google_maps_search_params.py">params</a>) -> <a href="./src/structify/types/external/searchapi_google_maps_search_response.py">SearchapiGoogleMapsSearchResponse</a></code>
+- <code title="post /external/searchapi/scholar/author">client.external.searchapi.<a href="./src/structify/resources/external/searchapi.py">google_scholar_author_search</a>(\*\*<a href="src/structify/types/external/searchapi_google_scholar_author_search_params.py">params</a>) -> <a href="./src/structify/types/external/searchapi_google_scholar_author_search_response.py">SearchapiGoogleScholarAuthorSearchResponse</a></code>
+- <code title="post /external/searchapi/scholar/cite">client.external.searchapi.<a href="./src/structify/resources/external/searchapi.py">google_scholar_citations</a>(\*\*<a href="src/structify/types/external/searchapi_google_scholar_citations_params.py">params</a>) -> <a href="./src/structify/types/external/searchapi_google_scholar_citations_response.py">SearchapiGoogleScholarCitationsResponse</a></code>
+- <code title="post /external/searchapi/scholar/search">client.external.searchapi.<a href="./src/structify/resources/external/searchapi.py">google_scholar_search</a>(\*\*<a href="src/structify/types/external/searchapi_google_scholar_search_params.py">params</a>) -> <a href="./src/structify/types/external/searchapi_google_scholar_search_response.py">SearchapiGoogleScholarSearchResponse</a></code>
+- <code title="post /external/searchapi/search">client.external.searchapi.<a href="./src/structify/resources/external/searchapi.py">google_search</a>(\*\*<a href="src/structify/types/external/searchapi_google_search_params.py">params</a>) -> <a href="./src/structify/types/external/google_search_response.py">GoogleSearchResponse</a></code>
+- <code title="post /external/searchapi/locations">client.external.searchapi.<a href="./src/structify/resources/external/searchapi.py">location_search</a>(\*\*<a href="src/structify/types/external/searchapi_location_search_params.py">params</a>) -> <a href="./src/structify/types/external/location_response.py">LocationResponse</a></code>
+
+## Apollo
+
+Types:
+
+```python
+from structify.types.external import (
+    CompaniesSearchRequest,
+    CompaniesSearchResponse,
+    CompanySearchResult,
+    EnrichedOrganization,
+    JobPosting,
+    JobPostingsQuery,
+    JobPostingsResponse,
+    OrganizationDetail,
+    OrganizationEnrichQuery,
+    PeopleMatchRequest,
+    PeopleMatchResponse,
+    PeopleSearchRequest,
+    PeopleSearchResponse,
+    PersonMatch,
+    PersonSearchResult,
+)
+```
+
+Methods:
+
+- <code title="post /external/apollo/mixed_companies/search">client.external.apollo.<a href="./src/structify/resources/external/apollo.py">companies_search</a>(\*\*<a href="src/structify/types/external/apollo_companies_search_params.py">params</a>) -> <a href="./src/structify/types/external/companies_search_response.py">CompaniesSearchResponse</a></code>
+- <code title="get /external/apollo/organizations/{id}">client.external.apollo.<a href="./src/structify/resources/external/apollo.py">organization_detail</a>(id) -> <a href="./src/structify/types/external/organization_detail.py">OrganizationDetail</a></code>
+- <code title="get /external/apollo/organizations/{organization_id}/job_postings">client.external.apollo.<a href="./src/structify/resources/external/apollo.py">organization_job_postings</a>(organization_id, \*\*<a href="src/structify/types/external/apollo_organization_job_postings_params.py">params</a>) -> <a href="./src/structify/types/external/job_postings_response.py">JobPostingsResponse</a></code>
+- <code title="get /external/apollo/organizations/enrich">client.external.apollo.<a href="./src/structify/resources/external/apollo.py">organizations_enrich</a>(\*\*<a href="src/structify/types/external/apollo_organizations_enrich_params.py">params</a>) -> <a href="./src/structify/types/external/enriched_organization.py">EnrichedOrganization</a></code>
+- <code title="post /external/apollo/people/match">client.external.apollo.<a href="./src/structify/resources/external/apollo.py">people_match</a>(\*\*<a href="src/structify/types/external/apollo_people_match_params.py">params</a>) -> <a href="./src/structify/types/external/people_match_response.py">PeopleMatchResponse</a></code>
+- <code title="post /external/apollo/mixed_people/search">client.external.apollo.<a href="./src/structify/resources/external/apollo.py">people_search</a>(\*\*<a href="src/structify/types/external/apollo_people_search_params.py">params</a>) -> <a href="./src/structify/types/external/people_search_response.py">PeopleSearchResponse</a></code>
