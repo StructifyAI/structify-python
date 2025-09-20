@@ -8,7 +8,7 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven, SequenceNotStr
+from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, SequenceNotStr, omit, not_given
 from ..._utils import maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
@@ -60,13 +60,13 @@ class NextActionResource(SyncAPIResource):
         input: next_action_add_training_datum_params.Input,
         label: str,
         output: next_action_add_training_datum_params.Output,
-        job_id: Optional[str] | NotGiven = NOT_GIVEN,
+        job_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Add a new action training datum
@@ -107,7 +107,7 @@ class NextActionResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DeleteActionTrainingDataResponse:
         """
         Args:
@@ -144,7 +144,7 @@ class NextActionResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ActionTrainingDataResponse:
         """
         Args:
@@ -171,19 +171,19 @@ class NextActionResource(SyncAPIResource):
     def get_training_data(
         self,
         *,
-        from_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
-        job_id: Optional[str] | NotGiven = NOT_GIVEN,
-        limit: int | NotGiven = NOT_GIVEN,
-        offset: int | NotGiven = NOT_GIVEN,
+        from_date: Union[str, datetime, None] | Omit = omit,
+        job_id: Optional[str] | Omit = omit,
+        limit: int | Omit = omit,
+        offset: int | Omit = omit,
         status: Optional[Literal["HumanLLMLabel", "LLMOutput", "Pending", "Reviewed", "Verified", "Others"]]
-        | NotGiven = NOT_GIVEN,
-        to_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
+        | Omit = omit,
+        to_date: Union[str, datetime, None] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ActionTrainingDataResponse:
         """
         Args:
@@ -226,7 +226,7 @@ class NextActionResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ActionTrainingDataEntry:
         """
         Args:
@@ -265,7 +265,7 @@ class NextActionResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Label an existing action training datum
@@ -323,13 +323,13 @@ class AsyncNextActionResource(AsyncAPIResource):
         input: next_action_add_training_datum_params.Input,
         label: str,
         output: next_action_add_training_datum_params.Output,
-        job_id: Optional[str] | NotGiven = NOT_GIVEN,
+        job_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Add a new action training datum
@@ -370,7 +370,7 @@ class AsyncNextActionResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DeleteActionTrainingDataResponse:
         """
         Args:
@@ -407,7 +407,7 @@ class AsyncNextActionResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ActionTrainingDataResponse:
         """
         Args:
@@ -434,19 +434,19 @@ class AsyncNextActionResource(AsyncAPIResource):
     async def get_training_data(
         self,
         *,
-        from_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
-        job_id: Optional[str] | NotGiven = NOT_GIVEN,
-        limit: int | NotGiven = NOT_GIVEN,
-        offset: int | NotGiven = NOT_GIVEN,
+        from_date: Union[str, datetime, None] | Omit = omit,
+        job_id: Optional[str] | Omit = omit,
+        limit: int | Omit = omit,
+        offset: int | Omit = omit,
         status: Optional[Literal["HumanLLMLabel", "LLMOutput", "Pending", "Reviewed", "Verified", "Others"]]
-        | NotGiven = NOT_GIVEN,
-        to_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
+        | Omit = omit,
+        to_date: Union[str, datetime, None] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ActionTrainingDataResponse:
         """
         Args:
@@ -489,7 +489,7 @@ class AsyncNextActionResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ActionTrainingDataEntry:
         """
         Args:
@@ -528,7 +528,7 @@ class AsyncNextActionResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Label an existing action training datum

@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Union
+from typing import List, Union, Optional
 from datetime import datetime
 from typing_extensions import Literal, Annotated, TypeAlias
 
@@ -24,6 +24,8 @@ class TimelineMessage(BaseModel):
     timestamp: datetime
 
     type: Literal["Message"]
+
+    git_commit_id: Optional[str] = None
 
 
 class TimelineGitCommit(BaseModel):

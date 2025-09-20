@@ -25,7 +25,7 @@ from ...types import (
     dataset_update_relationship_params,
     dataset_view_tables_with_relationships_params,
 )
-from ..._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven, SequenceNotStr
+from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, SequenceNotStr, omit, not_given
 from ..._utils import maybe_transform, async_maybe_transform
 from .evaluate import (
     EvaluateResource,
@@ -92,15 +92,15 @@ class DatasetsResource(SyncAPIResource):
         name: str,
         relationships: Iterable[dataset_create_params.Relationship],
         tables: Iterable[TableParam],
-        ephemeral: bool | NotGiven = NOT_GIVEN,
-        generate_merge_criteria: bool | NotGiven = NOT_GIVEN,
-        llm_override_field: Optional[str] | NotGiven = NOT_GIVEN,
+        ephemeral: bool | Omit = omit,
+        generate_merge_criteria: bool | Omit = omit,
+        llm_override_field: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> str:
         """
         Creates a dataset.
@@ -142,7 +142,7 @@ class DatasetsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DatasetListResponse:
         """Gets all datasets owned by the current user"""
         return self._get(
@@ -162,7 +162,7 @@ class DatasetsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Permanently delete a dataset and all its contents
@@ -202,7 +202,7 @@ class DatasetsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Add a property descriptor to a table in the dataset schema
@@ -242,7 +242,7 @@ class DatasetsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DatasetEnrichmentProgressResponse:
         """
         Get the enrichment progress for a dataset
@@ -282,7 +282,7 @@ class DatasetsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         You need to specify a dataset and a table_name
@@ -324,7 +324,7 @@ class DatasetsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Each table and relationship type will be in its own sheet
@@ -360,7 +360,7 @@ class DatasetsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DatasetGetResponse:
         """
         Grab a dataset by its name.
@@ -393,13 +393,13 @@ class DatasetsResource(SyncAPIResource):
         *,
         dataset: str,
         query_kg: KnowledgeGraphParam,
-        match_threshold: float | NotGiven = NOT_GIVEN,
+        match_threshold: float | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DatasetMatchResponse:
         """
         Returns: The matched subgraph and a score for the match.
@@ -446,7 +446,7 @@ class DatasetsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Remove a property descriptor from a table in the dataset schema
@@ -488,7 +488,7 @@ class DatasetsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Args:
@@ -528,7 +528,7 @@ class DatasetsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Args:
@@ -563,15 +563,15 @@ class DatasetsResource(SyncAPIResource):
         dataset_name: str,
         property_name: str,
         table_name: str,
-        new_property_description: Optional[str] | NotGiven = NOT_GIVEN,
-        new_property_merge_strategy: Optional[StrategyParam] | NotGiven = NOT_GIVEN,
-        new_property_type: Optional[PropertyTypeParam] | NotGiven = NOT_GIVEN,
+        new_property_description: Optional[str] | Omit = omit,
+        new_property_merge_strategy: Optional[StrategyParam] | Omit = omit,
+        new_property_type: Optional[PropertyTypeParam] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Update a property descriptor in a table in the dataset schema
@@ -610,14 +610,14 @@ class DatasetsResource(SyncAPIResource):
         *,
         dataset_name: str,
         relationship_name: str,
-        new_description: Optional[str] | NotGiven = NOT_GIVEN,
-        new_merge_strategy: Optional[RelationshipMergeStrategyParam] | NotGiven = NOT_GIVEN,
+        new_description: Optional[str] | Omit = omit,
+        new_merge_strategy: Optional[RelationshipMergeStrategyParam] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Update a relationship descriptor in the dataset schema
@@ -654,17 +654,17 @@ class DatasetsResource(SyncAPIResource):
         *,
         dataset: str,
         name: str,
-        job_id: Optional[str] | NotGiven = NOT_GIVEN,
-        last_updated: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
-        limit: int | NotGiven = NOT_GIVEN,
-        offset: int | NotGiven = NOT_GIVEN,
-        sort_by: dataset_view_relationships_params.SortBy | NotGiven = NOT_GIVEN,
+        job_id: Optional[str] | Omit = omit,
+        last_updated: Union[str, datetime, None] | Omit = omit,
+        limit: int | Omit = omit,
+        offset: int | Omit = omit,
+        sort_by: dataset_view_relationships_params.SortBy | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncJobsList[DatasetViewRelationshipsResponse]:
         """
         You need to specify a dataset and the name of the relationship
@@ -707,17 +707,17 @@ class DatasetsResource(SyncAPIResource):
         *,
         dataset: str,
         name: str,
-        job_id: Optional[str] | NotGiven = NOT_GIVEN,
-        last_updated: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
-        limit: int | NotGiven = NOT_GIVEN,
-        offset: int | NotGiven = NOT_GIVEN,
-        sort_by: dataset_view_table_params.SortBy | NotGiven = NOT_GIVEN,
+        job_id: Optional[str] | Omit = omit,
+        last_updated: Union[str, datetime, None] | Omit = omit,
+        limit: int | Omit = omit,
+        offset: int | Omit = omit,
+        sort_by: dataset_view_table_params.SortBy | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncJobsList[DatasetViewTableResponse]:
         """
         You need to specify a dataset and a table_name
@@ -760,17 +760,17 @@ class DatasetsResource(SyncAPIResource):
         *,
         dataset: str,
         name: str,
-        job_id: Optional[str] | NotGiven = NOT_GIVEN,
-        last_updated: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
-        limit: int | NotGiven = NOT_GIVEN,
-        offset: int | NotGiven = NOT_GIVEN,
-        sort_by: dataset_view_tables_with_relationships_params.SortBy | NotGiven = NOT_GIVEN,
+        job_id: Optional[str] | Omit = omit,
+        last_updated: Union[str, datetime, None] | Omit = omit,
+        limit: int | Omit = omit,
+        offset: int | Omit = omit,
+        sort_by: dataset_view_tables_with_relationships_params.SortBy | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DatasetViewTablesWithRelationshipsResponse:
         """
         the relationships for each entity and the targets for each relationship.
@@ -839,15 +839,15 @@ class AsyncDatasetsResource(AsyncAPIResource):
         name: str,
         relationships: Iterable[dataset_create_params.Relationship],
         tables: Iterable[TableParam],
-        ephemeral: bool | NotGiven = NOT_GIVEN,
-        generate_merge_criteria: bool | NotGiven = NOT_GIVEN,
-        llm_override_field: Optional[str] | NotGiven = NOT_GIVEN,
+        ephemeral: bool | Omit = omit,
+        generate_merge_criteria: bool | Omit = omit,
+        llm_override_field: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> str:
         """
         Creates a dataset.
@@ -889,7 +889,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DatasetListResponse:
         """Gets all datasets owned by the current user"""
         return await self._get(
@@ -909,7 +909,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Permanently delete a dataset and all its contents
@@ -949,7 +949,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Add a property descriptor to a table in the dataset schema
@@ -989,7 +989,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DatasetEnrichmentProgressResponse:
         """
         Get the enrichment progress for a dataset
@@ -1029,7 +1029,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         You need to specify a dataset and a table_name
@@ -1071,7 +1071,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Each table and relationship type will be in its own sheet
@@ -1109,7 +1109,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DatasetGetResponse:
         """
         Grab a dataset by its name.
@@ -1142,13 +1142,13 @@ class AsyncDatasetsResource(AsyncAPIResource):
         *,
         dataset: str,
         query_kg: KnowledgeGraphParam,
-        match_threshold: float | NotGiven = NOT_GIVEN,
+        match_threshold: float | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DatasetMatchResponse:
         """
         Returns: The matched subgraph and a score for the match.
@@ -1195,7 +1195,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Remove a property descriptor from a table in the dataset schema
@@ -1237,7 +1237,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Args:
@@ -1277,7 +1277,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Args:
@@ -1312,15 +1312,15 @@ class AsyncDatasetsResource(AsyncAPIResource):
         dataset_name: str,
         property_name: str,
         table_name: str,
-        new_property_description: Optional[str] | NotGiven = NOT_GIVEN,
-        new_property_merge_strategy: Optional[StrategyParam] | NotGiven = NOT_GIVEN,
-        new_property_type: Optional[PropertyTypeParam] | NotGiven = NOT_GIVEN,
+        new_property_description: Optional[str] | Omit = omit,
+        new_property_merge_strategy: Optional[StrategyParam] | Omit = omit,
+        new_property_type: Optional[PropertyTypeParam] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Update a property descriptor in a table in the dataset schema
@@ -1359,14 +1359,14 @@ class AsyncDatasetsResource(AsyncAPIResource):
         *,
         dataset_name: str,
         relationship_name: str,
-        new_description: Optional[str] | NotGiven = NOT_GIVEN,
-        new_merge_strategy: Optional[RelationshipMergeStrategyParam] | NotGiven = NOT_GIVEN,
+        new_description: Optional[str] | Omit = omit,
+        new_merge_strategy: Optional[RelationshipMergeStrategyParam] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Update a relationship descriptor in the dataset schema
@@ -1403,17 +1403,17 @@ class AsyncDatasetsResource(AsyncAPIResource):
         *,
         dataset: str,
         name: str,
-        job_id: Optional[str] | NotGiven = NOT_GIVEN,
-        last_updated: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
-        limit: int | NotGiven = NOT_GIVEN,
-        offset: int | NotGiven = NOT_GIVEN,
-        sort_by: dataset_view_relationships_params.SortBy | NotGiven = NOT_GIVEN,
+        job_id: Optional[str] | Omit = omit,
+        last_updated: Union[str, datetime, None] | Omit = omit,
+        limit: int | Omit = omit,
+        offset: int | Omit = omit,
+        sort_by: dataset_view_relationships_params.SortBy | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[DatasetViewRelationshipsResponse, AsyncJobsList[DatasetViewRelationshipsResponse]]:
         """
         You need to specify a dataset and the name of the relationship
@@ -1456,17 +1456,17 @@ class AsyncDatasetsResource(AsyncAPIResource):
         *,
         dataset: str,
         name: str,
-        job_id: Optional[str] | NotGiven = NOT_GIVEN,
-        last_updated: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
-        limit: int | NotGiven = NOT_GIVEN,
-        offset: int | NotGiven = NOT_GIVEN,
-        sort_by: dataset_view_table_params.SortBy | NotGiven = NOT_GIVEN,
+        job_id: Optional[str] | Omit = omit,
+        last_updated: Union[str, datetime, None] | Omit = omit,
+        limit: int | Omit = omit,
+        offset: int | Omit = omit,
+        sort_by: dataset_view_table_params.SortBy | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[DatasetViewTableResponse, AsyncJobsList[DatasetViewTableResponse]]:
         """
         You need to specify a dataset and a table_name
@@ -1509,17 +1509,17 @@ class AsyncDatasetsResource(AsyncAPIResource):
         *,
         dataset: str,
         name: str,
-        job_id: Optional[str] | NotGiven = NOT_GIVEN,
-        last_updated: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
-        limit: int | NotGiven = NOT_GIVEN,
-        offset: int | NotGiven = NOT_GIVEN,
-        sort_by: dataset_view_tables_with_relationships_params.SortBy | NotGiven = NOT_GIVEN,
+        job_id: Optional[str] | Omit = omit,
+        last_updated: Union[str, datetime, None] | Omit = omit,
+        limit: int | Omit = omit,
+        offset: int | Omit = omit,
+        sort_by: dataset_view_tables_with_relationships_params.SortBy | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DatasetViewTablesWithRelationshipsResponse:
         """
         the relationships for each entity and the targets for each relationship.

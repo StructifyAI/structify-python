@@ -40,6 +40,7 @@ class TestJobs:
             dataset="dataset",
             job_type="Web",
             limit=0,
+            node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             offset=0,
             seeded_kg_search_term="seeded_kg_search_term",
             since=parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -406,6 +407,7 @@ class TestJobs:
         job = client.jobs.status(
             dataset_name="dataset_name",
             job_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+            node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(JobStatusResponse, job, path=["response"])
 
@@ -446,6 +448,7 @@ class TestAsyncJobs:
             dataset="dataset",
             job_type="Web",
             limit=0,
+            node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             offset=0,
             seeded_kg_search_term="seeded_kg_search_term",
             since=parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -812,6 +815,7 @@ class TestAsyncJobs:
         job = await async_client.jobs.status(
             dataset_name="dataset_name",
             job_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+            node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(JobStatusResponse, job, path=["response"])
 

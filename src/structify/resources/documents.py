@@ -14,7 +14,7 @@ from ..types import (
     document_download_params,
     document_structure_params,
 )
-from .._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven, FileTypes
+from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, FileTypes, omit, not_given
 from .._utils import extract_files, maybe_transform, deepcopy_minimal, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -56,14 +56,14 @@ class DocumentsResource(SyncAPIResource):
     def list(
         self,
         *,
-        dataset: Optional[str] | NotGiven = NOT_GIVEN,
-        project_id: Optional[str] | NotGiven = NOT_GIVEN,
+        dataset: Optional[str] | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DocumentListResponse:
         """
         List all files for your user account in the database.
@@ -104,7 +104,7 @@ class DocumentsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Delete a file from the database
@@ -139,7 +139,7 @@ class DocumentsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DocumentDownloadResponse:
         """
         Download a file from the database
@@ -174,7 +174,7 @@ class DocumentsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DocumentStructureResponse:
         """
         Returns the structured data as JSON.
@@ -221,14 +221,14 @@ class DocumentsResource(SyncAPIResource):
         content: FileTypes,
         file_type: Literal["Text", "PDF", "SEC"],
         path: FileTypes,
-        dataset: Optional[str] | NotGiven = NOT_GIVEN,
-        project_id: Optional[str] | NotGiven = NOT_GIVEN,
+        dataset: Optional[str] | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Add a new file to the database
@@ -299,14 +299,14 @@ class AsyncDocumentsResource(AsyncAPIResource):
     async def list(
         self,
         *,
-        dataset: Optional[str] | NotGiven = NOT_GIVEN,
-        project_id: Optional[str] | NotGiven = NOT_GIVEN,
+        dataset: Optional[str] | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DocumentListResponse:
         """
         List all files for your user account in the database.
@@ -347,7 +347,7 @@ class AsyncDocumentsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Delete a file from the database
@@ -382,7 +382,7 @@ class AsyncDocumentsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DocumentDownloadResponse:
         """
         Download a file from the database
@@ -417,7 +417,7 @@ class AsyncDocumentsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DocumentStructureResponse:
         """
         Returns the structured data as JSON.
@@ -464,14 +464,14 @@ class AsyncDocumentsResource(AsyncAPIResource):
         content: FileTypes,
         file_type: Literal["Text", "PDF", "SEC"],
         path: FileTypes,
-        dataset: Optional[str] | NotGiven = NOT_GIVEN,
-        project_id: Optional[str] | NotGiven = NOT_GIVEN,
+        dataset: Optional[str] | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Add a new file to the database

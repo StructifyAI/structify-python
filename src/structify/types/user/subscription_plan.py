@@ -4,4 +4,4 @@ from typing_extensions import Literal, TypeAlias
 
 __all__ = ["SubscriptionPlan"]
 
-SubscriptionPlan: TypeAlias = Literal["Pro"]
+SubscriptionPlan: TypeAlias = Literal["Pro", "Team"]

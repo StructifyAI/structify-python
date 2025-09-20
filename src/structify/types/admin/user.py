@@ -24,6 +24,8 @@ class User(BaseModel):
                 "boredm_construction_model",
                 "generic_suspicious_queue",
                 "new_use_case_preview",
+                "bedrock_codegen",
+                "cerebras_codegen",
                 "none",
             ]
         ]
@@ -37,7 +39,7 @@ class User(BaseModel):
 
     updated_at: datetime
 
-    user_type: Literal["admin", "public", "end_user", "pro"]
+    user_type: Literal["admin", "public", "end_user"]
 
     last_activity: Optional[datetime] = None
 

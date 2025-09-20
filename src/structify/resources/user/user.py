@@ -15,7 +15,7 @@ from .stripe import (
     AsyncStripeResourceWithStreamingResponse,
 )
 from ...types import user_usage_params, user_update_params, user_survey_submit_params
-from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from ..._utils import maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
@@ -63,13 +63,13 @@ class UserResource(SyncAPIResource):
         self,
         *,
         updates: user_update_params.Updates,
-        current_email: Optional[str] | NotGiven = NOT_GIVEN,
+        current_email: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> User:
         """
         Update a user's permissions and type.
@@ -106,7 +106,7 @@ class UserResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> UserInfo:
         """Enable a source"""
         return self._get(
@@ -126,7 +126,7 @@ class UserResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SurveySubmissionResponse:
         """
         Submit user onboarding survey
@@ -159,7 +159,7 @@ class UserResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> UserTransactionsResponse:
         return self._get(
             "/user/transactions/list",
@@ -172,13 +172,13 @@ class UserResource(SyncAPIResource):
     def usage(
         self,
         *,
-        dataset: Optional[str] | NotGiven = NOT_GIVEN,
+        dataset: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> UserUsageResponse:
         """
         Returns usage statistics for the user.
@@ -233,13 +233,13 @@ class AsyncUserResource(AsyncAPIResource):
         self,
         *,
         updates: user_update_params.Updates,
-        current_email: Optional[str] | NotGiven = NOT_GIVEN,
+        current_email: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> User:
         """
         Update a user's permissions and type.
@@ -276,7 +276,7 @@ class AsyncUserResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> UserInfo:
         """Enable a source"""
         return await self._get(
@@ -296,7 +296,7 @@ class AsyncUserResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SurveySubmissionResponse:
         """
         Submit user onboarding survey
@@ -329,7 +329,7 @@ class AsyncUserResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> UserTransactionsResponse:
         return await self._get(
             "/user/transactions/list",
@@ -342,13 +342,13 @@ class AsyncUserResource(AsyncAPIResource):
     async def usage(
         self,
         *,
-        dataset: Optional[str] | NotGiven = NOT_GIVEN,
+        dataset: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> UserUsageResponse:
         """
         Returns usage statistics for the user.

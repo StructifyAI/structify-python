@@ -21,6 +21,8 @@ class UserInfo(BaseModel):
             "boredm_construction_model",
             "generic_suspicious_queue",
             "new_use_case_preview",
+            "bedrock_codegen",
+            "cerebras_codegen",
             "none",
         ]
     ]
@@ -33,7 +35,7 @@ class UserInfo(BaseModel):
 
     user_id: str
 
-    user_type: Literal["admin", "public", "end_user", "pro"]
+    user_type: Literal["admin", "public", "end_user"]
 
     username: str
 

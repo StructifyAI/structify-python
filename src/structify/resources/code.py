@@ -2,12 +2,10 @@
 
 from __future__ import annotations
 
-from typing import Iterable
-
 import httpx
 
 from ..types import code_generate_code_params
-from .._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
+from .._types import Body, Query, Headers, NoneType, NotGiven, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -47,13 +45,12 @@ class CodeResource(SyncAPIResource):
         *,
         chat_session_id: str,
         prompt: str,
-        file_contents: Iterable[code_generate_code_params.FileContent] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Protocol:
@@ -61,6 +58,10 @@ class CodeResource(SyncAPIResource):
         - event: `chat_event` — data is a JSON object, one of (serde external-tagged
           enum):
         - `{ "TextMessage": { "message": string } }`
+        - `{ "Connector": { "name": string, "description"?: string, "env_vars": string[] } }`
+        - `{ "Thinking": { "content": string } }`
+        - `{ "File": { "path": string, "content"?: string } }`
+        - `{ "Action": { "actions": Array<{ name: string, description: string }> } }`
         - `{ "ToolCall": { "name": string, "input": any, "result_id"?: string, "result_text"?: string } }`
         - event: `error` — data is a JSON object: `{ "message": string }` describing the
           error.
@@ -81,7 +82,6 @@ class CodeResource(SyncAPIResource):
                 {
                     "chat_session_id": chat_session_id,
                     "prompt": prompt,
-                    "file_contents": file_contents,
                 },
                 code_generate_code_params.CodeGenerateCodeParams,
             ),
@@ -117,13 +117,12 @@ class AsyncCodeResource(AsyncAPIResource):
         *,
         chat_session_id: str,
         prompt: str,
-        file_contents: Iterable[code_generate_code_params.FileContent] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Protocol:
@@ -131,6 +130,10 @@ class AsyncCodeResource(AsyncAPIResource):
         - event: `chat_event` — data is a JSON object, one of (serde external-tagged
           enum):
         - `{ "TextMessage": { "message": string } }`
+        - `{ "Connector": { "name": string, "description"?: string, "env_vars": string[] } }`
+        - `{ "Thinking": { "content": string } }`
+        - `{ "File": { "path": string, "content"?: string } }`
+        - `{ "Action": { "actions": Array<{ name: string, description: string }> } }`
         - `{ "ToolCall": { "name": string, "input": any, "result_id"?: string, "result_text"?: string } }`
         - event: `error` — data is a JSON object: `{ "message": string }` describing the
           error.
@@ -151,7 +154,6 @@ class AsyncCodeResource(AsyncAPIResource):
                 {
                     "chat_session_id": chat_session_id,
                     "prompt": prompt,
-                    "file_contents": file_contents,
                 },
                 code_generate_code_params.CodeGenerateCodeParams,
             ),
