@@ -50,6 +50,7 @@ from ._base_client import (
 from .resources.user import user
 from .resources.admin import admin
 from .resources.datasets import datasets
+from .resources.external import external
 
 __all__ = [
     "ENVIRONMENTS",
@@ -90,6 +91,7 @@ class Structify(SyncAPIClient):
     code: code.CodeResource
     structure: structure.StructureResource
     public_sessions: public_sessions.PublicSessionsResource
+    external: external.ExternalResource
     with_raw_response: StructifyWithRawResponse
     with_streaming_response: StructifyWithStreamedResponse
 
@@ -191,6 +193,7 @@ class Structify(SyncAPIClient):
         self.code = code.CodeResource(self)
         self.structure = structure.StructureResource(self)
         self.public_sessions = public_sessions.PublicSessionsResource(self)
+        self.external = external.ExternalResource(self)
         self.with_raw_response = StructifyWithRawResponse(self)
         self.with_streaming_response = StructifyWithStreamedResponse(self)
 
@@ -322,6 +325,7 @@ class AsyncStructify(AsyncAPIClient):
     code: code.AsyncCodeResource
     structure: structure.AsyncStructureResource
     public_sessions: public_sessions.AsyncPublicSessionsResource
+    external: external.AsyncExternalResource
     with_raw_response: AsyncStructifyWithRawResponse
     with_streaming_response: AsyncStructifyWithStreamedResponse
 
@@ -423,6 +427,7 @@ class AsyncStructify(AsyncAPIClient):
         self.code = code.AsyncCodeResource(self)
         self.structure = structure.AsyncStructureResource(self)
         self.public_sessions = public_sessions.AsyncPublicSessionsResource(self)
+        self.external = external.AsyncExternalResource(self)
         self.with_raw_response = AsyncStructifyWithRawResponse(self)
         self.with_streaming_response = AsyncStructifyWithStreamedResponse(self)
 
@@ -555,6 +560,7 @@ class StructifyWithRawResponse:
         self.code = code.CodeResourceWithRawResponse(client.code)
         self.structure = structure.StructureResourceWithRawResponse(client.structure)
         self.public_sessions = public_sessions.PublicSessionsResourceWithRawResponse(client.public_sessions)
+        self.external = external.ExternalResourceWithRawResponse(client.external)
 
 
 class AsyncStructifyWithRawResponse:
@@ -581,6 +587,7 @@ class AsyncStructifyWithRawResponse:
         self.code = code.AsyncCodeResourceWithRawResponse(client.code)
         self.structure = structure.AsyncStructureResourceWithRawResponse(client.structure)
         self.public_sessions = public_sessions.AsyncPublicSessionsResourceWithRawResponse(client.public_sessions)
+        self.external = external.AsyncExternalResourceWithRawResponse(client.external)
 
 
 class StructifyWithStreamedResponse:
@@ -607,6 +614,7 @@ class StructifyWithStreamedResponse:
         self.code = code.CodeResourceWithStreamingResponse(client.code)
         self.structure = structure.StructureResourceWithStreamingResponse(client.structure)
         self.public_sessions = public_sessions.PublicSessionsResourceWithStreamingResponse(client.public_sessions)
+        self.external = external.ExternalResourceWithStreamingResponse(client.external)
 
 
 class AsyncStructifyWithStreamedResponse:
@@ -633,6 +641,7 @@ class AsyncStructifyWithStreamedResponse:
         self.code = code.AsyncCodeResourceWithStreamingResponse(client.code)
         self.structure = structure.AsyncStructureResourceWithStreamingResponse(client.structure)
         self.public_sessions = public_sessions.AsyncPublicSessionsResourceWithStreamingResponse(client.public_sessions)
+        self.external = external.AsyncExternalResourceWithStreamingResponse(client.external)
 
 
 Client = Structify
