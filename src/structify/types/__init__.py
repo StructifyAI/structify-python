@@ -136,6 +136,7 @@ from .dataset_descriptor_param import DatasetDescriptorParam as DatasetDescripto
 from .document_download_params import DocumentDownloadParams as DocumentDownloadParams
 from .entity_get_merges_params import EntityGetMergesParams as EntityGetMergesParams
 from .session_kill_jobs_params import SessionKillJobsParams as SessionKillJobsParams
+from .team_subscription_status import TeamSubscriptionStatus as TeamSubscriptionStatus
 from .add_chat_message_response import AddChatMessageResponse as AddChatMessageResponse
 from .chat_list_sessions_params import ChatListSessionsParams as ChatListSessionsParams
 from .chat_toggle_public_params import ChatTogglePublicParams as ChatTogglePublicParams
