@@ -117,6 +117,7 @@ from structify.types import (
     RemoveMemberResponse,
     Team,
     TeamRole,
+    TeamSubscriptionStatus,
     TeamWithRole,
     UpdateTeamRequest,
     UpdateTeamResponse,

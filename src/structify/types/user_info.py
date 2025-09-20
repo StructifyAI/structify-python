@@ -35,7 +35,7 @@ class UserInfo(BaseModel):
 
     user_id: str
 
-    user_type: Literal["admin", "public", "end_user", "pro"]
+    user_type: Literal["admin", "public", "end_user"]
 
     username: str
 
