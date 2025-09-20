@@ -25,8 +25,6 @@ class ExternalResource(WhitelabelResource):
         *,
         df: pl.DataFrame,
         query_column: str = "query",
-        num_results: int = 10,
-        banned_domains: Optional[List[str]] = None,
     ) -> pl.DataFrame:
         """
         Search for information using external search service.
@@ -34,8 +32,6 @@ class ExternalResource(WhitelabelResource):
         Args:
             df: DataFrame containing search queries
             query_column: Name of the column containing search queries (default: "query")
-            num_results: Number of results per query (default: 10)
-            banned_domains: Optional list of domains to exclude from results
 
         Returns:
             DataFrame with search results, including a 'query' column to track which search produced each result
@@ -44,7 +40,7 @@ class ExternalResource(WhitelabelResource):
         queries = df[query_column].unique().to_list()
 
         # Return the parameters for the whitelabel decorator to process  
-        return {"queries": queries, "num_results": num_results, "banned_domains": banned_domains}  # type: ignore[return-value]
+        return {"queries": queries}  # type: ignore[return-value]
 
     def _post_process_search(self, response: Any, queries: List[str]) -> pl.DataFrame:  # noqa: ARG002
         """Post-process search results into DataFrame format."""

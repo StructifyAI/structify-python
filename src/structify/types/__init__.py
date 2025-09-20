@@ -29,6 +29,7 @@ from .message_param import MessageParam as MessageParam
 from .property_type import PropertyType as PropertyType
 from .tool_metadata import ToolMetadata as ToolMetadata
 from .execution_step import ExecutionStep as ExecutionStep
+from .job_event_body import JobEventBody as JobEventBody
 from .strategy_param import StrategyParam as StrategyParam
 from .team_with_role import TeamWithRole as TeamWithRole
 from .token_response import TokenResponse as TokenResponse
@@ -134,6 +135,8 @@ from .chat_load_files_response import ChatLoadFilesResponse as ChatLoadFilesResp
 from .dataset_descriptor_param import DatasetDescriptorParam as DatasetDescriptorParam
 from .document_download_params import DocumentDownloadParams as DocumentDownloadParams
 from .entity_get_merges_params import EntityGetMergesParams as EntityGetMergesParams
+from .session_kill_jobs_params import SessionKillJobsParams as SessionKillJobsParams
+from .team_subscription_status import TeamSubscriptionStatus as TeamSubscriptionStatus
 from .add_chat_message_response import AddChatMessageResponse as AddChatMessageResponse
 from .chat_list_sessions_params import ChatListSessionsParams as ChatListSessionsParams
 from .chat_toggle_public_params import ChatTogglePublicParams as ChatTogglePublicParams
@@ -158,6 +161,7 @@ from .entity_get_merges_response import EntityGetMergesResponse as EntityGetMerg
 from .report_relationship_params import ReportRelationshipParams as ReportRelationshipParams
 from .session_create_edge_params import SessionCreateEdgeParams as SessionCreateEdgeParams
 from .session_create_node_params import SessionCreateNodeParams as SessionCreateNodeParams
+from .session_kill_jobs_response import SessionKillJobsResponse as SessionKillJobsResponse
 from .session_update_node_params import SessionUpdateNodeParams as SessionUpdateNodeParams
 from .structure_run_async_params import StructureRunAsyncParams as StructureRunAsyncParams
 from .survey_submission_response import SurveySubmissionResponse as SurveySubmissionResponse
@@ -168,11 +172,11 @@ from .dataset_view_table_response import DatasetViewTableResponse as DatasetView
 from .document_structure_response import DocumentStructureResponse as DocumentStructureResponse
 from .entity_agent_merge_response import EntityAgentMergeResponse as EntityAgentMergeResponse
 from .entity_trigger_merge_params import EntityTriggerMergeParams as EntityTriggerMergeParams
-from .get_session_events_response import GetSessionEventsResponse as GetSessionEventsResponse
 from .job_get_step_graph_response import JobGetStepGraphResponse as JobGetStepGraphResponse
 from .list_chat_sessions_response import ListChatSessionsResponse as ListChatSessionsResponse
 from .list_collaborators_response import ListCollaboratorsResponse as ListCollaboratorsResponse
 from .relationship_merge_strategy import RelationshipMergeStrategy as RelationshipMergeStrategy
+from .session_get_events_response import SessionGetEventsResponse as SessionGetEventsResponse
 from .session_mark_errored_params import SessionMarkErroredParams as SessionMarkErroredParams
 from .source_delete_entity_params import SourceDeleteEntityParams as SourceDeleteEntityParams
 from .structure_job_status_params import StructureJobStatusParams as StructureJobStatusParams

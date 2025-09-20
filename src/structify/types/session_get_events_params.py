@@ -3,11 +3,16 @@
 from __future__ import annotations
 
 from typing import Optional
-from typing_extensions import TypedDict
+from typing_extensions import Literal, TypedDict
 
 __all__ = ["SessionGetEventsParams"]
 
 
 class SessionGetEventsParams(TypedDict, total=False):
-    limit: Optional[int]
-    """Maximum number of events to fetch (default: 100)."""
+    limit: int
+
+    offset: int
+
+    search_term: Optional[str]
+
+    status: Optional[Literal["Queued", "Running", "Completed", "Failed"]]

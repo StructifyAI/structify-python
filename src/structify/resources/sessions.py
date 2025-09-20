@@ -3,11 +3,13 @@
 from __future__ import annotations
 
 from typing import Dict, Mapping, Optional, cast
+from typing_extensions import Literal
 
 import httpx
 
 from ..types import (
     WorkflowNodeExecutionStatus,
+    session_kill_jobs_params,
     session_get_events_params,
     session_create_edge_params,
     session_create_node_params,
@@ -18,7 +20,7 @@ from ..types import (
     session_upload_node_output_data_params,
     session_upload_node_visualization_output_params,
 )
-from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven, FileTypes
+from .._types import Body, Omit, Query, Headers, NotGiven, FileTypes, omit, not_given
 from .._utils import extract_files, maybe_transform, deepcopy_minimal, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -41,7 +43,8 @@ from ..types.workflow_dag import WorkflowDag
 from ..types.workflow_session import WorkflowSession
 from ..types.workflow_session_edge import WorkflowSessionEdge
 from ..types.workflow_session_node import WorkflowSessionNode
-from ..types.get_session_events_response import GetSessionEventsResponse
+from ..types.session_kill_jobs_response import SessionKillJobsResponse
+from ..types.session_get_events_response import SessionGetEventsResponse
 from ..types.workflow_node_execution_status import WorkflowNodeExecutionStatus
 from ..types.session_get_node_progress_response import SessionGetNodeProgressResponse
 
@@ -79,7 +82,7 @@ class SessionsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> WorkflowSessionEdge:
         """
         Args:
@@ -115,13 +118,13 @@ class SessionsResource(SyncAPIResource):
         code_md5_hash: str,
         docstring: str,
         function_name: str,
-        output_schema: object | NotGiven = NOT_GIVEN,
+        output_schema: object | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> WorkflowSessionNode:
         """
         Args:
@@ -156,13 +159,13 @@ class SessionsResource(SyncAPIResource):
         self,
         *,
         chat_session_id: str,
-        workflow_schedule_id: Optional[str] | NotGiven = NOT_GIVEN,
+        workflow_schedule_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> WorkflowSession:
         """
         Args:
@@ -198,7 +201,7 @@ class SessionsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> WorkflowDag:
         """
         Args:
@@ -222,22 +225,23 @@ class SessionsResource(SyncAPIResource):
 
     def get_events(
         self,
-        session_id: str,
+        node_id: str,
         *,
-        limit: Optional[int] | NotGiven = NOT_GIVEN,
+        limit: int | Omit = omit,
+        offset: int | Omit = omit,
+        search_term: Optional[str] | Omit = omit,
+        status: Optional[Literal["Queued", "Running", "Completed", "Failed"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> GetSessionEventsResponse:
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> SessionGetEventsResponse:
         """
-        Get events from all jobs in a session's event queue (without removing them).
+        Get events from all jobs for a specific workflow node.
 
         Args:
-          limit: Maximum number of events to fetch (default: 100).
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -246,18 +250,26 @@ class SessionsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not session_id:
-            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
+        if not node_id:
+            raise ValueError(f"Expected a non-empty value for `node_id` but received {node_id!r}")
         return self._get(
-            f"/sessions/{session_id}/events",
+            f"/sessions/nodes/{node_id}/events",
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform({"limit": limit}, session_get_events_params.SessionGetEventsParams),
+                query=maybe_transform(
+                    {
+                        "limit": limit,
+                        "offset": offset,
+                        "search_term": search_term,
+                        "status": status,
+                    },
+                    session_get_events_params.SessionGetEventsParams,
+                ),
             ),
-            cast_to=GetSessionEventsResponse,
+            cast_to=SessionGetEventsResponse,
         )
 
     def get_node_output_data(
@@ -269,7 +281,7 @@ class SessionsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> BinaryAPIResponse:
         """
         Args:
@@ -301,7 +313,7 @@ class SessionsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SessionGetNodeProgressResponse:
         """
         Args:
@@ -323,18 +335,51 @@ class SessionsResource(SyncAPIResource):
             cast_to=SessionGetNodeProgressResponse,
         )
 
-    def mark_errored(
+    def kill_jobs(
         self,
         session_id: str,
         *,
-        error_message: str,
-        error_traceback: Optional[str] | NotGiven = NOT_GIVEN,
+        message: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> SessionKillJobsResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not session_id:
+            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
+        return self._post(
+            f"/sessions/{session_id}/kill_jobs",
+            body=maybe_transform({"message": message}, session_kill_jobs_params.SessionKillJobsParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=SessionKillJobsResponse,
+        )
+
+    def mark_errored(
+        self,
+        session_id: str,
+        *,
+        error_message: str,
+        error_traceback: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> WorkflowSession:
         """
         Args:
@@ -368,15 +413,15 @@ class SessionsResource(SyncAPIResource):
         node_id: str,
         *,
         execution_status: WorkflowNodeExecutionStatus,
-        error_message: Optional[str] | NotGiven = NOT_GIVEN,
-        error_traceback: Optional[str] | NotGiven = NOT_GIVEN,
-        execution_time_ms: Optional[int] | NotGiven = NOT_GIVEN,
+        error_message: Optional[str] | Omit = omit,
+        error_traceback: Optional[str] | Omit = omit,
+        execution_time_ms: Optional[int] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> WorkflowSessionNode:
         """
         Args:
@@ -417,7 +462,7 @@ class SessionsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> WorkflowSessionNode:
         """
         Args:
@@ -452,7 +497,7 @@ class SessionsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> WorkflowSessionNode:
         """
         Args:
@@ -492,7 +537,7 @@ class SessionsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> WorkflowSessionNode:
         """
         Args:
@@ -550,7 +595,7 @@ class AsyncSessionsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> WorkflowSessionEdge:
         """
         Args:
@@ -586,13 +631,13 @@ class AsyncSessionsResource(AsyncAPIResource):
         code_md5_hash: str,
         docstring: str,
         function_name: str,
-        output_schema: object | NotGiven = NOT_GIVEN,
+        output_schema: object | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> WorkflowSessionNode:
         """
         Args:
@@ -627,13 +672,13 @@ class AsyncSessionsResource(AsyncAPIResource):
         self,
         *,
         chat_session_id: str,
-        workflow_schedule_id: Optional[str] | NotGiven = NOT_GIVEN,
+        workflow_schedule_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> WorkflowSession:
         """
         Args:
@@ -669,7 +714,7 @@ class AsyncSessionsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> WorkflowDag:
         """
         Args:
@@ -693,22 +738,23 @@ class AsyncSessionsResource(AsyncAPIResource):
 
     async def get_events(
         self,
-        session_id: str,
+        node_id: str,
         *,
-        limit: Optional[int] | NotGiven = NOT_GIVEN,
+        limit: int | Omit = omit,
+        offset: int | Omit = omit,
+        search_term: Optional[str] | Omit = omit,
+        status: Optional[Literal["Queued", "Running", "Completed", "Failed"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> GetSessionEventsResponse:
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> SessionGetEventsResponse:
         """
-        Get events from all jobs in a session's event queue (without removing them).
+        Get events from all jobs for a specific workflow node.
 
         Args:
-          limit: Maximum number of events to fetch (default: 100).
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -717,18 +763,26 @@ class AsyncSessionsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not session_id:
-            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
+        if not node_id:
+            raise ValueError(f"Expected a non-empty value for `node_id` but received {node_id!r}")
         return await self._get(
-            f"/sessions/{session_id}/events",
+            f"/sessions/nodes/{node_id}/events",
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform({"limit": limit}, session_get_events_params.SessionGetEventsParams),
+                query=await async_maybe_transform(
+                    {
+                        "limit": limit,
+                        "offset": offset,
+                        "search_term": search_term,
+                        "status": status,
+                    },
+                    session_get_events_params.SessionGetEventsParams,
+                ),
             ),
-            cast_to=GetSessionEventsResponse,
+            cast_to=SessionGetEventsResponse,
         )
 
     async def get_node_output_data(
@@ -740,7 +794,7 @@ class AsyncSessionsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncBinaryAPIResponse:
         """
         Args:
@@ -772,7 +826,7 @@ class AsyncSessionsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SessionGetNodeProgressResponse:
         """
         Args:
@@ -794,18 +848,51 @@ class AsyncSessionsResource(AsyncAPIResource):
             cast_to=SessionGetNodeProgressResponse,
         )
 
-    async def mark_errored(
+    async def kill_jobs(
         self,
         session_id: str,
         *,
-        error_message: str,
-        error_traceback: Optional[str] | NotGiven = NOT_GIVEN,
+        message: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> SessionKillJobsResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not session_id:
+            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
+        return await self._post(
+            f"/sessions/{session_id}/kill_jobs",
+            body=await async_maybe_transform({"message": message}, session_kill_jobs_params.SessionKillJobsParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=SessionKillJobsResponse,
+        )
+
+    async def mark_errored(
+        self,
+        session_id: str,
+        *,
+        error_message: str,
+        error_traceback: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> WorkflowSession:
         """
         Args:
@@ -839,15 +926,15 @@ class AsyncSessionsResource(AsyncAPIResource):
         node_id: str,
         *,
         execution_status: WorkflowNodeExecutionStatus,
-        error_message: Optional[str] | NotGiven = NOT_GIVEN,
-        error_traceback: Optional[str] | NotGiven = NOT_GIVEN,
-        execution_time_ms: Optional[int] | NotGiven = NOT_GIVEN,
+        error_message: Optional[str] | Omit = omit,
+        error_traceback: Optional[str] | Omit = omit,
+        execution_time_ms: Optional[int] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> WorkflowSessionNode:
         """
         Args:
@@ -888,7 +975,7 @@ class AsyncSessionsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> WorkflowSessionNode:
         """
         Args:
@@ -923,7 +1010,7 @@ class AsyncSessionsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> WorkflowSessionNode:
         """
         Args:
@@ -965,7 +1052,7 @@ class AsyncSessionsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> WorkflowSessionNode:
         """
         Args:
@@ -1018,6 +1105,9 @@ class SessionsResourceWithRawResponse:
         self.get_node_progress = to_raw_response_wrapper(
             sessions.get_node_progress,
         )
+        self.kill_jobs = to_raw_response_wrapper(
+            sessions.kill_jobs,
+        )
         self.mark_errored = to_raw_response_wrapper(
             sessions.mark_errored,
         )
@@ -1060,6 +1150,9 @@ class AsyncSessionsResourceWithRawResponse:
         )
         self.get_node_progress = async_to_raw_response_wrapper(
             sessions.get_node_progress,
+        )
+        self.kill_jobs = async_to_raw_response_wrapper(
+            sessions.kill_jobs,
         )
         self.mark_errored = async_to_raw_response_wrapper(
             sessions.mark_errored,
@@ -1104,6 +1197,9 @@ class SessionsResourceWithStreamingResponse:
         self.get_node_progress = to_streamed_response_wrapper(
             sessions.get_node_progress,
         )
+        self.kill_jobs = to_streamed_response_wrapper(
+            sessions.kill_jobs,
+        )
         self.mark_errored = to_streamed_response_wrapper(
             sessions.mark_errored,
         )
@@ -1146,6 +1242,9 @@ class AsyncSessionsResourceWithStreamingResponse:
         )
         self.get_node_progress = async_to_streamed_response_wrapper(
             sessions.get_node_progress,
+        )
+        self.kill_jobs = async_to_streamed_response_wrapper(
+            sessions.kill_jobs,
         )
         self.mark_errored = async_to_streamed_response_wrapper(
             sessions.mark_errored,
