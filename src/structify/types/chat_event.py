@@ -234,6 +234,8 @@ class ToolCallToolCallUnionMember5(BaseModel):
 class ToolCallToolCallUnionMember6Input(BaseModel):
     command: str
 
+    connectors: List[str]
+
     env: Optional[Dict[str, str]] = None
 
     working_dir: Optional[str] = None
@@ -251,6 +253,8 @@ class ToolCallToolCallUnionMember6(BaseModel):
 
 class ToolCallToolCallUnionMember7Input(BaseModel):
     code: str
+
+    connectors: List[str]
 
     env: Optional[Dict[str, str]] = None
 
