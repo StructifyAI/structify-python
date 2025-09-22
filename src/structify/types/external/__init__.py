@@ -12,6 +12,7 @@ from .location_response import LocationResponse as LocationResponse
 from .google_maps_result import GoogleMapsResult as GoogleMapsResult
 from .news_source_detail import NewsSourceDetail as NewsSourceDetail
 from .everything_response import EverythingResponse as EverythingResponse
+from .news_sources_params import NewsSourcesParams as NewsSourcesParams
 from .organization_detail import OrganizationDetail as OrganizationDetail
 from .google_search_result import GoogleSearchResult as GoogleSearchResult
 from .location_coordinates import LocationCoordinates as LocationCoordinates
@@ -21,76 +22,75 @@ from .enriched_organization import EnrichedOrganization as EnrichedOrganization
 from .job_postings_response import JobPostingsResponse as JobPostingsResponse
 from .people_match_response import PeopleMatchResponse as PeopleMatchResponse
 from .google_search_response import GoogleSearchResponse as GoogleSearchResponse
-from .newsapi_sources_params import NewsapiSourcesParams as NewsapiSourcesParams
+from .news_everything_params import NewsEverythingParams as NewsEverythingParams
 from .people_search_response import PeopleSearchResponse as PeopleSearchResponse
 from .top_headlines_response import TopHeadlinesResponse as TopHeadlinesResponse
 from .companies_search_response import CompaniesSearchResponse as CompaniesSearchResponse
-from .newsapi_everything_params import NewsapiEverythingParams as NewsapiEverythingParams
-from .apollo_people_match_params import ApolloPeopleMatchParams as ApolloPeopleMatchParams
-from .apollo_people_search_params import ApolloPeopleSearchParams as ApolloPeopleSearchParams
-from .newsapi_top_headlines_params import NewsapiTopHeadlinesParams as NewsapiTopHeadlinesParams
-from .apollo_companies_search_params import ApolloCompaniesSearchParams as ApolloCompaniesSearchParams
-from .searchapi_google_search_params import SearchapiGoogleSearchParams as SearchapiGoogleSearchParams
-from .searchapi_location_search_params import SearchapiLocationSearchParams as SearchapiLocationSearchParams
-from .apollo_organizations_enrich_params import ApolloOrganizationsEnrichParams as ApolloOrganizationsEnrichParams
-from .searchapi_google_maps_search_params import SearchapiGoogleMapsSearchParams as SearchapiGoogleMapsSearchParams
-from .searchapi_google_maps_search_response import (
-    SearchapiGoogleMapsSearchResponse as SearchapiGoogleMapsSearchResponse,
+from .news_top_headlines_params import NewsTopHeadlinesParams as NewsTopHeadlinesParams
+from .person_people_match_params import PersonPeopleMatchParams as PersonPeopleMatchParams
+from .person_people_search_params import PersonPeopleSearchParams as PersonPeopleSearchParams
+from .person_companies_search_params import PersonCompaniesSearchParams as PersonCompaniesSearchParams
+from .search_api_google_search_params import SearchAPIGoogleSearchParams as SearchAPIGoogleSearchParams
+from .search_api_location_search_params import SearchAPILocationSearchParams as SearchAPILocationSearchParams
+from .person_organizations_enrich_params import PersonOrganizationsEnrichParams as PersonOrganizationsEnrichParams
+from .search_api_google_maps_search_params import SearchAPIGoogleMapsSearchParams as SearchAPIGoogleMapsSearchParams
+from .search_api_google_maps_search_response import (
+    SearchAPIGoogleMapsSearchResponse as SearchAPIGoogleMapsSearchResponse,
 )
-from .searchapi_google_flights_search_params import (
-    SearchapiGoogleFlightsSearchParams as SearchapiGoogleFlightsSearchParams,
+from .person_organization_job_postings_params import (
+    PersonOrganizationJobPostingsParams as PersonOrganizationJobPostingsParams,
 )
-from .searchapi_google_scholar_search_params import (
-    SearchapiGoogleScholarSearchParams as SearchapiGoogleScholarSearchParams,
+from .search_api_google_flights_search_params import (
+    SearchAPIGoogleFlightsSearchParams as SearchAPIGoogleFlightsSearchParams,
 )
-from .apollo_organization_job_postings_params import (
-    ApolloOrganizationJobPostingsParams as ApolloOrganizationJobPostingsParams,
+from .search_api_google_scholar_search_params import (
+    SearchAPIGoogleScholarSearchParams as SearchAPIGoogleScholarSearchParams,
 )
-from .searchapi_google_flights_calendar_params import (
-    SearchapiGoogleFlightsCalendarParams as SearchapiGoogleFlightsCalendarParams,
+from .search_api_google_flights_calendar_params import (
+    SearchAPIGoogleFlightsCalendarParams as SearchAPIGoogleFlightsCalendarParams,
 )
-from .searchapi_google_flights_search_response import (
-    SearchapiGoogleFlightsSearchResponse as SearchapiGoogleFlightsSearchResponse,
+from .search_api_google_flights_search_response import (
+    SearchAPIGoogleFlightsSearchResponse as SearchAPIGoogleFlightsSearchResponse,
 )
-from .searchapi_google_scholar_search_response import (
-    SearchapiGoogleScholarSearchResponse as SearchapiGoogleScholarSearchResponse,
+from .search_api_google_scholar_search_response import (
+    SearchAPIGoogleScholarSearchResponse as SearchAPIGoogleScholarSearchResponse,
 )
-from .searchapi_google_maps_place_photos_params import (
-    SearchapiGoogleMapsPlacePhotosParams as SearchapiGoogleMapsPlacePhotosParams,
+from .search_api_google_maps_place_photos_params import (
+    SearchAPIGoogleMapsPlacePhotosParams as SearchAPIGoogleMapsPlacePhotosParams,
 )
-from .searchapi_google_scholar_citations_params import (
-    SearchapiGoogleScholarCitationsParams as SearchapiGoogleScholarCitationsParams,
+from .search_api_google_scholar_citations_params import (
+    SearchAPIGoogleScholarCitationsParams as SearchAPIGoogleScholarCitationsParams,
 )
-from .searchapi_google_flights_calendar_response import (
-    SearchapiGoogleFlightsCalendarResponse as SearchapiGoogleFlightsCalendarResponse,
+from .search_api_google_flights_calendar_response import (
+    SearchAPIGoogleFlightsCalendarResponse as SearchAPIGoogleFlightsCalendarResponse,
 )
-from .searchapi_google_maps_place_details_params import (
-    SearchapiGoogleMapsPlaceDetailsParams as SearchapiGoogleMapsPlaceDetailsParams,
+from .search_api_google_maps_place_details_params import (
+    SearchAPIGoogleMapsPlaceDetailsParams as SearchAPIGoogleMapsPlaceDetailsParams,
 )
-from .searchapi_google_maps_place_reviews_params import (
-    SearchapiGoogleMapsPlaceReviewsParams as SearchapiGoogleMapsPlaceReviewsParams,
+from .search_api_google_maps_place_reviews_params import (
+    SearchAPIGoogleMapsPlaceReviewsParams as SearchAPIGoogleMapsPlaceReviewsParams,
 )
-from .searchapi_google_maps_place_photos_response import (
-    SearchapiGoogleMapsPlacePhotosResponse as SearchapiGoogleMapsPlacePhotosResponse,
+from .search_api_google_maps_place_photos_response import (
+    SearchAPIGoogleMapsPlacePhotosResponse as SearchAPIGoogleMapsPlacePhotosResponse,
 )
-from .searchapi_google_scholar_citations_response import (
-    SearchapiGoogleScholarCitationsResponse as SearchapiGoogleScholarCitationsResponse,
+from .search_api_google_scholar_citations_response import (
+    SearchAPIGoogleScholarCitationsResponse as SearchAPIGoogleScholarCitationsResponse,
 )
-from .searchapi_google_maps_place_details_response import (
-    SearchapiGoogleMapsPlaceDetailsResponse as SearchapiGoogleMapsPlaceDetailsResponse,
+from .search_api_google_maps_place_details_response import (
+    SearchAPIGoogleMapsPlaceDetailsResponse as SearchAPIGoogleMapsPlaceDetailsResponse,
 )
-from .searchapi_google_maps_place_reviews_response import (
-    SearchapiGoogleMapsPlaceReviewsResponse as SearchapiGoogleMapsPlaceReviewsResponse,
+from .search_api_google_maps_place_reviews_response import (
+    SearchAPIGoogleMapsPlaceReviewsResponse as SearchAPIGoogleMapsPlaceReviewsResponse,
 )
-from .searchapi_google_scholar_author_search_params import (
-    SearchapiGoogleScholarAuthorSearchParams as SearchapiGoogleScholarAuthorSearchParams,
+from .search_api_google_scholar_author_search_params import (
+    SearchAPIGoogleScholarAuthorSearchParams as SearchAPIGoogleScholarAuthorSearchParams,
 )
-from .searchapi_google_flights_location_search_params import (
-    SearchapiGoogleFlightsLocationSearchParams as SearchapiGoogleFlightsLocationSearchParams,
+from .search_api_google_flights_location_search_params import (
+    SearchAPIGoogleFlightsLocationSearchParams as SearchAPIGoogleFlightsLocationSearchParams,
 )
-from .searchapi_google_scholar_author_search_response import (
-    SearchapiGoogleScholarAuthorSearchResponse as SearchapiGoogleScholarAuthorSearchResponse,
+from .search_api_google_scholar_author_search_response import (
+    SearchAPIGoogleScholarAuthorSearchResponse as SearchAPIGoogleScholarAuthorSearchResponse,
 )
-from .searchapi_google_flights_location_search_response import (
-    SearchapiGoogleFlightsLocationSearchResponse as SearchapiGoogleFlightsLocationSearchResponse,
+from .search_api_google_flights_location_search_response import (
+    SearchAPIGoogleFlightsLocationSearchResponse as SearchAPIGoogleFlightsLocationSearchResponse,
 )
