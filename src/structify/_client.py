@@ -33,7 +33,6 @@ from .resources import (
     sandbox,
     sources,
     entities,
-    external,
     projects,
     sessions,
     documents,
