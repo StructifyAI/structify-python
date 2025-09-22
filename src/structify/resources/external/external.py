@@ -33,7 +33,7 @@ class ExternalResource(WhitelabelResource):
     separate from the core Structify functionality.
     """
 
-    @whitelabel_method("/external/search", dataframe_mode=True)
+    @whitelabel_method("/external/search")
     def search(
         self,
         df: pl.DataFrame,
@@ -50,10 +50,10 @@ class ExternalResource(WhitelabelResource):
         Returns:
             DataFrame with search results from all queries
         """
-        # DataFrame mode automatically processes each row as a parallel API call
+        # Each row automatically becomes a parallel API call
         return df
 
-    @whitelabel_method("/external/validate", dataframe_mode=True)
+    @whitelabel_method("/external/validate")
     def validate_emails(self, df: pl.DataFrame) -> pl.DataFrame:
         """
         Validate email addresses using external validation service.
@@ -69,7 +69,7 @@ class ExternalResource(WhitelabelResource):
         """
         return df
 
-    @whitelabel_method("/external/enrich", dataframe_mode=True)
+    @whitelabel_method("/external/enrich")
     def enrich_companies(self, df: pl.DataFrame) -> pl.DataFrame:
         """
         Enrich company information using external enrichment service.
@@ -85,7 +85,7 @@ class ExternalResource(WhitelabelResource):
         """
         return df
 
-    @whitelabel_method("/external/geocode", dataframe_mode=True)
+    @whitelabel_method("/external/geocode")
     def geocode_addresses(self, df: pl.DataFrame) -> pl.DataFrame:
         """
         Geocode addresses using external geocoding service.

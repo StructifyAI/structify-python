@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Any, Dict, List, Union, TypeVar, Callable, Optional, cast
+from typing import Any, Dict, List, TypeVar, Callable, Optional, cast
 from functools import wraps
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
@@ -28,118 +28,63 @@ def whitelabel_method(
     endpoint: str,
     method: str = "POST",
     response_key: Optional[str] = None,
-    pass_through_params: bool = False,
-    dataframe_mode: bool = False,
 ) -> Callable[[Callable[..., T]], Callable[..., T]]:
     """
     Decorator for creating whitelabel service methods that proxy to API endpoints.
+    
+    Automatically processes DataFrame inputs as parallel API calls - each row becomes
+    one API call, and results are returned as a DataFrame.
 
     Args:
         endpoint: The API endpoint to call (e.g., "/external/search")
         method: HTTP method to use (GET, POST, etc.)
         response_key: If set, extract this key from the response object
-        pass_through_params: If True, pass all kwargs directly to the API call
-        dataframe_mode: If True, process DataFrame rows as parallel API calls
 
     Example:
-        @whitelabel_method("/external/search", response_key="results")
-        def search(self, query: str, num_results: int = 10) -> list:
-            return {"query": query, "num_results": num_results}
-            
-        @whitelabel_method("/external/search", dataframe_mode=True)
-        def search_dataframe(self, df: pl.DataFrame) -> pl.DataFrame:
-            return df  # Each row becomes a parallel API call
+        @whitelabel_method("/external/search")
+        def search(self, df: pl.DataFrame) -> pl.DataFrame:
+            return df  # Each row becomes a parallel API call automatically
     """
 
     def decorator(func: Callable[..., T]) -> Callable[..., T]:
         @wraps(func)
         def wrapper(self: WhitelabelResource, *args: Any, **kwargs: Any) -> Any:
-            # DataFrame mode: process each row as a parallel API call
-            if dataframe_mode:
-                if pl is None:
-                    raise ImportError("polars is required for dataframe_mode but is not installed")
-                
-                # Find the DataFrame in the arguments
-                df = None
-                for arg in args:
-                    if hasattr(arg, "__class__") and arg.__class__.__name__ == "DataFrame":
-                        df = arg
-                        break
-                
-                if df is None:
-                    for value in kwargs.values():
-                        if hasattr(value, "__class__") and value.__class__.__name__ == "DataFrame":
-                            df = value
-                            break
-                
-                if df is None:
-                    raise ValueError("DataFrame not found in arguments when dataframe_mode=True")
-                
-                # Convert DataFrame rows to parallel API calls
-                rows = df.to_dicts()
-                if not rows:
-                    # Return empty DataFrame with same schema
-                    return df.clear()
-                
-                # Execute parallel requests
-                with ThreadPoolExecutor(max_workers=20) as executor:
-                    futures = [
-                        executor.submit(self._execute_single_request, endpoint, row, method)
-                        for row in rows
-                    ]
-                    results = [future.result() for future in futures]
-                
-                # Convert results back to DataFrame
-                return pl.DataFrame(results) if results else pl.DataFrame()
+            # Always process DataFrame inputs as parallel API calls
+            if pl is None:
+                raise ImportError("polars is required for whitelabel methods but is not installed")
             
-            # Standard mode: original functionality
-            # Call the original function to get the request payload
-            raw_payload = func(self, *args, **kwargs)
-
-            # Ensure payload is a dict
-            payload: Dict[str, Any]
-            if isinstance(raw_payload, dict):
-                payload = cast(Dict[str, Any], raw_payload)
-            else:
-                payload = {}
-
-            # If pass_through_params is True, use kwargs directly as payload
-            if pass_through_params:
-                payload = kwargs
-
-            # Make the API call
-            response: Union[Dict[str, Any], object]
-            if method.upper() == "GET":
-                response = cast(
-                    Dict[str, Any],
-                    self._get(
-                        endpoint,
-                        cast_to=dict,
-                        options=make_request_options(extra_query=cast(Dict[str, object], payload)),
-                    ),
-                )
-            elif method.upper() == "POST":
-                response = self._post(
-                    endpoint,
-                    body=payload,
-                    cast_to=object,  # Use object to handle any response type
-                    options=make_request_options(),
-                )
-            elif method.upper() == "PUT":
-                response = cast(
-                    Dict[str, Any], self._put(endpoint, body=payload, cast_to=dict, options=make_request_options())
-                )
-            elif method.upper() == "DELETE":
-                response = cast(Dict[str, Any], self._delete(endpoint, cast_to=dict, options=make_request_options()))
-            else:
-                raise ValueError(f"Unsupported HTTP method: {method}")
-
-            # Extract response key if specified
-            if response_key and isinstance(response, dict):
-                response_dict = cast(Dict[str, Any], response)
-                return response_dict.get(response_key, response_dict)
-
-            return response
+            # Find the DataFrame in the arguments
+            df = None
+            for arg in args:
+                if hasattr(arg, "__class__") and arg.__class__.__name__ == "DataFrame":
+                    df = arg
+                    break
+            
+            if df is None:
+                for value in kwargs.values():
+                    if hasattr(value, "__class__") and value.__class__.__name__ == "DataFrame":
+                        df = value
+                        break
+            
+            if df is None:
+                raise ValueError("DataFrame not found in arguments - whitelabel methods require DataFrame input")
+            
+            # Convert DataFrame rows to parallel API calls
+            rows = df.to_dicts()
+            if not rows:
+                # Return empty DataFrame with same schema
+                return df.clear()
+            
+            # Execute parallel requests
+            with ThreadPoolExecutor(max_workers=20) as executor:
+                futures = [
+                    executor.submit(self._execute_single_request, endpoint, row, method)
+                    for row in rows
+                ]
+                results = [future.result() for future in futures]
+            
+            # Convert results back to DataFrame
+            return pl.DataFrame(results) if results else pl.DataFrame()
 
         # Store metadata for documentation generation
         setattr(wrapper, "_whitelabel_metadata", {"endpoint": endpoint, "method": method, "response_key": response_key})  # noqa: B010
