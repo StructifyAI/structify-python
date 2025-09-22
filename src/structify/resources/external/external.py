@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Any, Dict, List, cast
+from typing import List
 
 import polars as pl
 
