@@ -24,9 +24,8 @@ class DataFrameBatchProxy:
     processing each row as a parallel API call.
     """
     
-    def __init__(self, resource: Any, endpoint_prefix: str = ""):
+    def __init__(self, resource: Any):
         self._resource = resource
-        self._endpoint_prefix = endpoint_prefix
         self._client = getattr(resource, '_client', None)
     
     def __getattr__(self, name: str) -> Any:
@@ -58,16 +57,16 @@ class DataFrameBatchProxy:
         if df.is_empty():
             return df.clear()
         
-        # Determine the endpoint path
-        endpoint = f"{self._endpoint_prefix}/{self._convert_method_name_to_endpoint(method_name)}"
-        
         rows = df.to_dicts()
+        
+        # Get the original method once
+        original_method = getattr(self._resource, method_name)
         
         # Execute parallel requests
         with ThreadPoolExecutor(max_workers=20) as executor:
             futures = []
             for row in rows:
-                future = executor.submit(self._execute_single_request, endpoint, row)
+                future = executor.submit(self._execute_single_request, original_method, row)
                 futures.append(future)
             
             results = []
@@ -89,20 +88,11 @@ class DataFrameBatchProxy:
         
         return pl.DataFrame(results) if results else pl.DataFrame()
     
-    def _execute_single_request(self, endpoint: str, payload: Dict[str, Any]) -> Any:
+    def _execute_single_request(self, original_method, payload: Dict[str, Any]) -> Any:
         """Execute a single API request."""
-        # Use POST by default, but could be enhanced to detect GET endpoints
-        return self._client._post(
-            endpoint, 
-            body=payload, 
-            cast_to=object, 
-            options=make_request_options()
-        )
+        # Call the original method with the payload as keyword arguments
+        return original_method(**payload)
     
-    def _convert_method_name_to_endpoint(self, method_name: str) -> str:
-        """Convert Python method name to API endpoint path."""
-        # Convert snake_case to kebab-case for API endpoints
-        return method_name.replace('_', '-')
 
 
 class ExternalResourceProxy:
@@ -118,26 +108,17 @@ class ExternalResourceProxy:
     @property
     def news(self):
         """News API with DataFrame batch processing."""
-        return DataFrameBatchProxy(
-            self._external_resource.news,
-            endpoint_prefix="/external/news"
-        )
+        return DataFrameBatchProxy(self._external_resource.news)
     
     @property  
     def people(self):
         """People/Apollo API with DataFrame batch processing."""
-        return DataFrameBatchProxy(
-            self._external_resource.people,
-            endpoint_prefix="/external/people"
-        )
+        return DataFrameBatchProxy(self._external_resource.people)
     
     @property
     def search_api(self):
         """Search API with DataFrame batch processing.""" 
-        return DataFrameBatchProxy(
-            self._external_resource.search_api,
-            endpoint_prefix="/external/search-api"
-        )
+        return DataFrameBatchProxy(self._external_resource.search_api)
     
     def __getattr__(self, name: str):
         """Delegate any other attributes to the original external resource."""
