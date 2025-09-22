@@ -9,7 +9,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 try:
     import polars as pl
 except ImportError:
-    pl = None
+    pl = None  # type: ignore[assignment]
 
 from .._compat import cached_property
 from .._resource import SyncAPIResource
