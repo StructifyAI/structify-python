@@ -17,7 +17,7 @@ from structify.types.knowledge_graph_param import KnowledgeGraphParam
 
 from ..types import TableParam
 from .._compat import cached_property
-from .external import ExternalResource
+from .polars_external import PolarsExternalResource
 from .._resource import SyncAPIResource
 from .._response import (
     to_raw_response_wrapper,
@@ -35,9 +35,9 @@ MAX_PARALLEL_REQUESTS = 20
 
 class PolarsResource(SyncAPIResource):
     @cached_property
-    def external(self) -> ExternalResource:
-        """Access external whitelabel services."""
-        return ExternalResource(self._client)
+    def external(self) -> PolarsExternalResource:
+        """Access external whitelabel services with DataFrame batch processing."""
+        return PolarsExternalResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> PolarsResourceWithRawResponse:
