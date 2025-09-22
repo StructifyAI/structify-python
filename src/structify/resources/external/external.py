@@ -33,51 +33,74 @@ class ExternalResource(WhitelabelResource):
     separate from the core Structify functionality.
     """
 
-    @whitelabel_method("/external/search")
+    @whitelabel_method("/external/search", dataframe_mode=True)
     def search(
         self,
-        *,
         df: pl.DataFrame,
-        query_column: str = "query",
-        num_results: int = 10,
-        banned_domains: List[str] | None = None,
     ) -> pl.DataFrame:
         """
         Search for information using external search service.
 
         Args:
-            df: DataFrame containing search queries
-            query_column: Name of the column containing search queries (default: "query")
-            num_results: Number of results to return per query (default: 10)
-            banned_domains: List of domains to exclude from results (optional)
+            df: DataFrame where each row contains search parameters:
+                - query: The search query (required)
+                - num_results: Number of results (optional, defaults to 10)
+                - banned_domains: List of domains to exclude (optional)
 
         Returns:
-            DataFrame with search results, including a 'query' column to track which search produced each result
+            DataFrame with search results from all queries
         """
-        # Extract unique queries from the DataFrame
-        queries = df[query_column].unique().to_list()
+        # DataFrame mode automatically processes each row as a parallel API call
+        return df
 
-        # Return the parameters for the whitelabel decorator to process
-        return {"queries": queries, "num_results": num_results, "banned_domains": banned_domains or []}  # type: ignore[return-value]
+    @whitelabel_method("/external/validate", dataframe_mode=True)
+    def validate_emails(self, df: pl.DataFrame) -> pl.DataFrame:
+        """
+        Validate email addresses using external validation service.
 
-    def _post_process_search(self, response: Any, queries: List[str]) -> pl.DataFrame:  # noqa: ARG002
-        """Post-process search results into DataFrame format."""
-        results: List[Dict[str, Any]] = []
+        Args:
+            df: DataFrame where each row contains validation parameters:
+                - email: Email address to validate (required)
+                - check_mx: Whether to check MX records (optional, defaults to True)
+                - timeout: Request timeout in seconds (optional)
 
-        if isinstance(response, list):
-            # If response is already a list, it's the processed results
-            results = cast(List[Dict[str, Any]], response)
-        elif isinstance(response, dict) and "results" in response:
-            # If response is wrapped in a results key
-            results = cast(List[Dict[str, Any]], response["results"])
+        Returns:
+            DataFrame with email validation results
+        """
+        return df
 
-        # Convert to DataFrame with proper schema
-        if results:
-            return pl.DataFrame(
-                results, schema={"query": pl.Utf8, "url": pl.Utf8, "title": pl.Utf8, "description": pl.Utf8}
-            )
-        else:
-            return pl.DataFrame(schema={"query": pl.Utf8, "url": pl.Utf8, "title": pl.Utf8, "description": pl.Utf8})
+    @whitelabel_method("/external/enrich", dataframe_mode=True)
+    def enrich_companies(self, df: pl.DataFrame) -> pl.DataFrame:
+        """
+        Enrich company information using external enrichment service.
+
+        Args:
+            df: DataFrame where each row contains enrichment parameters:
+                - company: Company name to enrich (required)
+                - data_points: List of data points to retrieve (optional)
+                - include_subsidiaries: Include subsidiary data (optional, defaults to False)
+
+        Returns:
+            DataFrame with company enrichment results
+        """
+        return df
+
+    @whitelabel_method("/external/geocode", dataframe_mode=True)
+    def geocode_addresses(self, df: pl.DataFrame) -> pl.DataFrame:
+        """
+        Geocode addresses using external geocoding service.
+
+        Args:
+            df: DataFrame where each row contains geocoding parameters:
+                - address: Address to geocode (required)
+                - country: Country code for better accuracy (optional)
+                - include_timezone: Include timezone data (optional, defaults to False)
+
+        Returns:
+            DataFrame with coordinates and location data
+        """
+        return df
+
 
 
 class AsyncExternalResource(AsyncAPIResource):

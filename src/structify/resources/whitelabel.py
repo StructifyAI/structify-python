@@ -6,6 +6,11 @@ from typing import Any, Dict, List, Union, TypeVar, Callable, Optional, cast
 from functools import wraps
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
+try:
+    import polars as pl
+except ImportError:
+    pl = None
+
 from .._compat import cached_property
 from .._resource import SyncAPIResource
 from .._response import (
@@ -24,6 +29,7 @@ def whitelabel_method(
     method: str = "POST",
     response_key: Optional[str] = None,
     pass_through_params: bool = False,
+    dataframe_mode: bool = False,
 ) -> Callable[[Callable[..., T]], Callable[..., T]]:
     """
     Decorator for creating whitelabel service methods that proxy to API endpoints.
@@ -33,16 +39,60 @@ def whitelabel_method(
         method: HTTP method to use (GET, POST, etc.)
         response_key: If set, extract this key from the response object
         pass_through_params: If True, pass all kwargs directly to the API call
+        dataframe_mode: If True, process DataFrame rows as parallel API calls
 
     Example:
         @whitelabel_method("/external/search", response_key="results")
         def search(self, query: str, num_results: int = 10) -> list:
             return {"query": query, "num_results": num_results}
+            
+        @whitelabel_method("/external/search", dataframe_mode=True)
+        def search_dataframe(self, df: pl.DataFrame) -> pl.DataFrame:
+            return df  # Each row becomes a parallel API call
     """
 
     def decorator(func: Callable[..., T]) -> Callable[..., T]:
         @wraps(func)
         def wrapper(self: WhitelabelResource, *args: Any, **kwargs: Any) -> Any:
+            # DataFrame mode: process each row as a parallel API call
+            if dataframe_mode:
+                if pl is None:
+                    raise ImportError("polars is required for dataframe_mode but is not installed")
+                
+                # Find the DataFrame in the arguments
+                df = None
+                for arg in args:
+                    if hasattr(arg, "__class__") and arg.__class__.__name__ == "DataFrame":
+                        df = arg
+                        break
+                
+                if df is None:
+                    for value in kwargs.values():
+                        if hasattr(value, "__class__") and value.__class__.__name__ == "DataFrame":
+                            df = value
+                            break
+                
+                if df is None:
+                    raise ValueError("DataFrame not found in arguments when dataframe_mode=True")
+                
+                # Convert DataFrame rows to parallel API calls
+                rows = df.to_dicts()
+                if not rows:
+                    # Return empty DataFrame with same schema
+                    return df.clear()
+                
+                # Execute parallel requests
+                with ThreadPoolExecutor(max_workers=20) as executor:
+                    futures = [
+                        executor.submit(self._execute_single_request, endpoint, row, method)
+                        for row in rows
+                    ]
+                    results = [future.result() for future in futures]
+                
+                # Convert results back to DataFrame
+                return pl.DataFrame(results) if results else pl.DataFrame()
+            
+            # Standard mode: original functionality
             # Call the original function to get the request payload
             raw_payload = func(self, *args, **kwargs)
 
@@ -88,21 +138,6 @@ def whitelabel_method(
             if response_key and isinstance(response, dict):
                 response_dict = cast(Dict[str, Any], response)
                 return response_dict.get(response_key, response_dict)
-
-            # Check if the request contains queries for parallel processing
-            if "queries" in payload:
-                queries = cast(List[str], payload["queries"])
-                if queries:
-                    # Execute parallel requests for each query
-                    parallel_response = self._execute_parallel_requests(endpoint, queries, payload, method)
-
-                    # Check if there's a post-processing method
-                    post_process_method = f"_post_process_{func.__name__}"
-                    if hasattr(self, post_process_method):
-                        post_process = getattr(self, post_process_method)  # noqa: B009
-                        return post_process(parallel_response, queries)
-
-                    return parallel_response
 
             return response
 
