@@ -33,6 +33,7 @@ from .resources import (
     sandbox,
     sources,
     entities,
+    external,
     projects,
     sessions,
     documents,
@@ -51,7 +52,6 @@ from ._base_client import (
 from .resources.user import user
 from .resources.admin import admin
 from .resources.datasets import datasets
-from .resources.external import external
 
 __all__ = [
     "ENVIRONMENTS",
