@@ -13,9 +13,13 @@ class WorkflowSession(BaseModel):
 
     chat_session_id: str
 
+    dag_ready: bool
+
     updated_at: datetime
 
     created_at: Optional[datetime] = None
+
+    dag_ready_at: Optional[datetime] = None
 
     error_message: Optional[str] = None
 
