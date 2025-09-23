@@ -19,7 +19,7 @@ __all__ = ["ServicesProxy"]
 class EndpointConfig:
     """Configuration for how to process API responses into DataFrames"""
     expand_path: Optional[str] = None  # Path to list to expand (e.g., 'organic_results')
-    properties: List[str] = field(default_factory=list)  # Properties to extract (relative to expanded items)
+    properties: List[str] = field(default_factory=lambda: [])  # Properties to extract (relative to expanded items)
 
 
 # Configuration for each endpoint - how to transform responses into clean DataFrames
