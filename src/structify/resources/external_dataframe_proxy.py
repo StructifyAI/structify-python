@@ -7,6 +7,7 @@ from dataclasses import dataclass, field
 from concurrent.futures import ThreadPoolExecutor
 
 import polars as pl
+from pydantic import BaseModel
 
 from .external import ExternalResource
 
@@ -186,7 +187,7 @@ class EndpointProxy:
         # Call the original method with the payload as keyword arguments
         return original_method(**payload)
     
-    def _process_response(self, method_name: str, result: Any, original_query_row: Dict[str, Any]) -> List[Dict[str, Any]]:
+    def _process_response(self, method_name: str, result: BaseModel, original_query_row: Dict[str, Any]) -> List[Dict[str, Any]]:
         """Process API response using endpoint configuration to create clean DataFrame rows."""
         
         # Build endpoint key (e.g., 'search_api.google_search')
