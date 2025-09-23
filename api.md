@@ -28,6 +28,7 @@ Types:
 
 ```python
 from structify.types.user import (
+    CreatePortalRequest,
     CreateSessionRequest,
     CreateSessionResponse,
     CreateSubscriptionRequest,
@@ -37,6 +38,7 @@ from structify.types.user import (
 
 Methods:
 
+- <code title="post /user/transactions/stripe/create_portal_session">client.user.stripe.<a href="./src/structify/resources/user/stripe.py">create_portal_session</a>(\*\*<a href="src/structify/types/user/stripe_create_portal_session_params.py">params</a>) -> <a href="./src/structify/types/user/create_session_response.py">CreateSessionResponse</a></code>
 - <code title="post /user/transactions/stripe/create_session">client.user.stripe.<a href="./src/structify/resources/user/stripe.py">create_session</a>(\*\*<a href="src/structify/types/user/stripe_create_session_params.py">params</a>) -> <a href="./src/structify/types/user/create_session_response.py">CreateSessionResponse</a></code>
 - <code title="post /user/transactions/stripe/create_subscription">client.user.stripe.<a href="./src/structify/resources/user/stripe.py">create_subscription</a>(\*\*<a href="src/structify/types/user/stripe_create_subscription_params.py">params</a>) -> <a href="./src/structify/types/user/create_session_response.py">CreateSessionResponse</a></code>
 
