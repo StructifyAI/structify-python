@@ -224,7 +224,6 @@ class EndpointProxy:
         
         # Extract properties from each item
         processed_rows: List[Dict[str, Any]] = []
-        item: Dict[str, Any]
         for item in items:
             if config.properties:
                 # Extract only specified properties
