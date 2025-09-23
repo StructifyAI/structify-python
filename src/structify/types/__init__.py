@@ -27,7 +27,6 @@ from .workflow_dag import WorkflowDag as WorkflowDag
 from .message_param import MessageParam as MessageParam
 from .property_type import PropertyType as PropertyType
 from .tool_metadata import ToolMetadata as ToolMetadata
-from .chat_ws_params import ChatWsParams as ChatWsParams
 from .execution_step import ExecutionStep as ExecutionStep
 from .job_event_body import JobEventBody as JobEventBody
 from .strategy_param import StrategyParam as StrategyParam

@@ -740,37 +740,6 @@ class TestChat:
                 session_id="",
             )
 
-    @parametrize
-    def test_method_ws(self, client: Structify) -> None:
-        chat = client.chat.ws(
-            chat_session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-        assert chat is None
-
-    @parametrize
-    def test_raw_response_ws(self, client: Structify) -> None:
-        response = client.chat.with_raw_response.ws(
-            chat_session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        chat = response.parse()
-        assert chat is None
-
-    @parametrize
-    def test_streaming_response_ws(self, client: Structify) -> None:
-        with client.chat.with_streaming_response.ws(
-            chat_session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            chat = response.parse()
-            assert chat is None
-
-        assert cast(Any, response.is_closed) is True
-
 
 class TestAsyncChat:
     parametrize = pytest.mark.parametrize(
@@ -1485,34 +1454,3 @@ class TestAsyncChat:
             await async_client.chat.with_raw_response.update_session(
                 session_id="",
             )
-
-    @parametrize
-    async def test_method_ws(self, async_client: AsyncStructify) -> None:
-        chat = await async_client.chat.ws(
-            chat_session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-        assert chat is None
-
-    @parametrize
-    async def test_raw_response_ws(self, async_client: AsyncStructify) -> None:
-        response = await async_client.chat.with_raw_response.ws(
-            chat_session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        chat = await response.parse()
-        assert chat is None
-
-    @parametrize
-    async def test_streaming_response_ws(self, async_client: AsyncStructify) -> None:
-        async with async_client.chat.with_streaming_response.ws(
-            chat_session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            chat = await response.parse()
-            assert chat is None
-
-        assert cast(Any, response.is_closed) is True
