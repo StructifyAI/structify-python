@@ -15,7 +15,6 @@ from .connector import Connector as Connector
 from .team_role import TeamRole as TeamRole
 from .user_info import UserInfo as UserInfo
 from .user_team import UserTeam as UserTeam
-from .chat_event import ChatEvent as ChatEvent
 from .chat_prompt import ChatPrompt as ChatPrompt
 from .granularity import Granularity as Granularity
 from .table_param import TableParam as TableParam
@@ -28,6 +27,7 @@ from .workflow_dag import WorkflowDag as WorkflowDag
 from .message_param import MessageParam as MessageParam
 from .property_type import PropertyType as PropertyType
 from .tool_metadata import ToolMetadata as ToolMetadata
+from .chat_ws_params import ChatWsParams as ChatWsParams
 from .execution_step import ExecutionStep as ExecutionStep
 from .job_event_body import JobEventBody as JobEventBody
 from .strategy_param import StrategyParam as StrategyParam
@@ -99,6 +99,7 @@ from .knowledge_graph_param import KnowledgeGraphParam as KnowledgeGraphParam
 from .list_members_response import ListMembersResponse as ListMembersResponse
 from .report_missing_params import ReportMissingParams as ReportMissingParams
 from .report_wrong_response import ReportWrongResponse as ReportWrongResponse
+from .sandbox_create_params import SandboxCreateParams as SandboxCreateParams
 from .sandbox_list_response import SandboxListResponse as SandboxListResponse
 from .workflow_session_edge import WorkflowSessionEdge as WorkflowSessionEdge
 from .workflow_session_node import WorkflowSessionNode as WorkflowSessionNode
