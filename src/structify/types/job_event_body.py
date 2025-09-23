@@ -48,6 +48,8 @@ class AgentSaved(BaseModel):
 
     sources: List[str]
 
+    page: Optional[int] = None
+
     reason: Optional[str] = None
 
 
