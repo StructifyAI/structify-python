@@ -10,7 +10,7 @@ import polars as pl
 
 from .external import ExternalResource
 
-__all__ = ["ExternalResourceProxy"]
+__all__ = ["ServicesProxy"]
 
 
 @dataclass
@@ -111,21 +111,21 @@ ENDPOINT_CONFIGS = {
 }
 
 
-class DataFrameBatchProxy:
+class EndpointProxy:
     """
-    Dynamic proxy that adds DataFrame batch processing to any resource object.
+    Proxy for individual service endpoints (e.g., news, people, search_api).
     
-    Intercepts all method calls and automatically detects DataFrame inputs,
+    Intercepts method calls and automatically detects DataFrame inputs,
     processing each row as a parallel API call.
     """
     
-    def __init__(self, resource: Any):
-        self._resource = resource
-        self._client = getattr(resource, '_client', None)
+    def __init__(self, service: Any):
+        self._service = service
+        self._client = getattr(service, '_client', None)
     
     def __getattr__(self, name: str) -> Any:
         # Get the original method/attribute
-        original_attr = getattr(self._resource, name)
+        original_attr = getattr(self._service, name)
         
         # If it's not callable, return as-is
         if not callable(original_attr):
@@ -138,7 +138,7 @@ class DataFrameBatchProxy:
         # Return a wrapped version that supports DataFrame batch processing
         def wrapped_method(*args, **kwargs):
             # Check if first argument is a DataFrame
-            if args and pl is not None and hasattr(args[0], '__class__') and args[0].__class__.__name__ == 'DataFrame':
+            if args and isinstance(args[0], pl.DataFrame):
                 df = args[0]
                 return self._batch_process_dataframe(name, df)
             else:
@@ -155,7 +155,7 @@ class DataFrameBatchProxy:
         rows = df.to_dicts()
         
         # Get the original method once
-        original_method = getattr(self._resource, method_name)
+        original_method = getattr(self._service, method_name)
         
         # Execute parallel requests
         with ThreadPoolExecutor(max_workers=20) as executor:
@@ -188,33 +188,28 @@ class DataFrameBatchProxy:
         """Process API response using endpoint configuration to create clean DataFrame rows."""
         
         # Build endpoint key (e.g., 'search_api.google_search')
-        # Convert class name like 'SearchAPIResource' to 'search_api'
-        class_name = self._resource.__class__.__name__
-        # Handle special case of 'API' in the name
-        if 'API' in class_name:
-            resource_name = class_name.replace('APIResource', '_api').replace('API', '_api')
-        else:
-            resource_name = class_name.replace('Resource', '')
-        
-        # Convert to lowercase and clean up
-        resource_name = resource_name.lower().replace('__', '_').strip('_')
+        # Convert class name to resource name by removing 'Resource' suffix and converting to snake_case
+        class_name = self._service.__class__.__name__
+        resource_name = class_name.replace('Resource', '')
+        # Convert from PascalCase to snake_case
+        import re
+        resource_name = re.sub('([A-Z]+)([A-Z][a-z])', r'\1_\2', resource_name)
+        resource_name = re.sub('([a-z\d])([A-Z])', r'\1_\2', resource_name)
+        resource_name = resource_name.lower()
         endpoint_key = f"{resource_name}.{method_name}"
         
         # Get configuration for this endpoint
         config = ENDPOINT_CONFIGS.get(endpoint_key, EndpointConfig())
         
-        # Convert Pydantic model to dict if needed
-        if hasattr(result, 'model_dump'):
-            data = result.model_dump()
-        else:
-            data = result
+        # Convert Pydantic model to dict
+        data = result.model_dump()
         
         # Determine what to iterate over
         if config.expand_path:
             # Extract list from the specified path
             items = self._get_by_path(data, config.expand_path)
             if not isinstance(items, list):
-                items = [items] if items else []
+                raise ValueError(f"Expected list at path '{config.expand_path}', got {type(items).__name__}")
         elif isinstance(data, list):
             # Direct list response
             items = data
@@ -225,10 +220,7 @@ class DataFrameBatchProxy:
         # Extract properties from each item
         processed_rows = []
         for item in items:
-            if not isinstance(item, dict):
-                # Handle non-dict items
-                row = {"result": item}
-            elif config.properties:
+            if config.properties:
                 # Extract only specified properties
                 row = {}
                 for prop_path in config.properties:
@@ -263,9 +255,9 @@ class DataFrameBatchProxy:
     
 
 
-class ExternalResourceProxy:
+class ServicesProxy:
     """
-    Proxy for the main ExternalResource that wraps all sub-resources
+    Proxy for the main ExternalResource that wraps all service endpoints
     with DataFrame batch processing capability.
     """
     
@@ -276,17 +268,17 @@ class ExternalResourceProxy:
     @property
     def news(self):
         """News API with DataFrame batch processing."""
-        return DataFrameBatchProxy(self._external_resource.news)
+        return EndpointProxy(self._external_resource.news)
     
     @property  
     def people(self):
         """People/Apollo API with DataFrame batch processing."""
-        return DataFrameBatchProxy(self._external_resource.people)
+        return EndpointProxy(self._external_resource.people)
     
     @property
     def search_api(self):
         """Search API with DataFrame batch processing.""" 
-        return DataFrameBatchProxy(self._external_resource.search_api)
+        return EndpointProxy(self._external_resource.search_api)
     
     def __getattr__(self, name: str):
         """Delegate any other attributes to the original external resource."""
