@@ -149,6 +149,8 @@ class EndpointProxy:
     
     def _batch_process_dataframe(self, method_name: str, df: pl.DataFrame) -> pl.DataFrame:
         """Process DataFrame rows as parallel API calls."""
+        THREAD_POOL_SIZE = 20
+
         if df.is_empty():
             return df.clear()
         
@@ -158,7 +160,7 @@ class EndpointProxy:
         original_method = getattr(self._service, method_name)
         
         # Execute parallel requests
-        with ThreadPoolExecutor(max_workers=20) as executor:
+        with ThreadPoolExecutor(max_workers=THREAD_POOL_SIZE) as executor:
             futures = []
             for row in rows:
                 future = executor.submit(self._execute_single_request, original_method, row)
