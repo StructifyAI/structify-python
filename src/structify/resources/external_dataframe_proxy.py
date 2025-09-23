@@ -205,7 +205,7 @@ class EndpointProxy:
         config = ENDPOINT_CONFIGS.get(endpoint_key, EndpointConfig())
         
         # Convert Pydantic model to dict
-        data = result.model_dump()
+        data: Any = result.model_dump()
         
         # Determine what to iterate over
         items: List[Dict[str, Any]]
