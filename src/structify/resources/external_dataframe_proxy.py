@@ -26,17 +26,10 @@ class EndpointConfig:
 
 # Configuration for each endpoint - how to transform responses into clean DataFrames
 ENDPOINT_CONFIGS = {
-    'search_api.google_search': EndpointConfig(
-        expand_path='organic_results',
-        properties=['link', 'title', 'snippet', 'display_link']
-    ),
-    'search_api.google_maps_search': EndpointConfig(
-        # Direct list response - no expand_path needed
-        properties=['name', 'address', 'rating', 'place_id', 'types']
-    ),
-    'search_api.google_scholar_search': EndpointConfig(
-        expand_path='organic_results',
-        properties=['title', 'link', 'snippet', 'publication_info']
+    # News endpoints
+    'news.top_headlines': EndpointConfig(
+        expand_path='articles',
+        properties=['title', 'url', 'content', 'publishedAt', 'source.name', 'author']
     ),
     'news.everything': EndpointConfig(
         expand_path='articles',
@@ -46,17 +39,78 @@ ENDPOINT_CONFIGS = {
         expand_path='sources',
         properties=['id', 'name', 'description', 'url', 'category', 'country', 'language']
     ),
-    'news.top_headlines': EndpointConfig(
-        expand_path='articles',
-        properties=['title', 'url', 'content', 'publishedAt', 'source.name', 'author']
+    
+    # Search API endpoints
+    'search_api.google_search': EndpointConfig(
+        expand_path='organic_results',
+        properties=['link', 'title', 'snippet', 'display_link']
     ),
-    'people.search': EndpointConfig(
+    'search_api.google_maps_search': EndpointConfig(
+        # Direct list response - no expand_path needed
+        properties=['name', 'address', 'rating', 'place_id', 'types']
+    ),
+    'search_api.google_maps_place_details': EndpointConfig(
+        properties=['name', 'formatted_address', 'rating', 'user_ratings_total', 'price_level', 'website']
+    ),
+    'search_api.google_maps_place_reviews': EndpointConfig(
+        expand_path='reviews',
+        properties=['author_name', 'rating', 'text', 'time', 'relative_time_description']
+    ),
+    'search_api.google_maps_place_photos': EndpointConfig(
+        expand_path='photos',
+        properties=['photo_reference', 'height', 'width', 'html_attributions']
+    ),
+    'search_api.google_flights_search': EndpointConfig(
+        expand_path='flights',
+        properties=['price', 'departure_time', 'arrival_time', 'airline', 'flight_number', 'duration']
+    ),
+    'search_api.google_flights_calendar': EndpointConfig(
+        expand_path='calendar_results',
+        properties=['date', 'price', 'departure_time', 'arrival_time']
+    ),
+    'search_api.google_flights_location_search': EndpointConfig(
+        expand_path='locations',
+        properties=['name', 'code', 'city', 'country']
+    ),
+    'search_api.google_scholar_search': EndpointConfig(
+        expand_path='organic_results',
+        properties=['title', 'link', 'snippet', 'publication_info', 'citation_count']
+    ),
+    'search_api.google_scholar_author_search': EndpointConfig(
+        expand_path='authors',
+        properties=['name', 'affiliation', 'citations', 'h_index', 'i10_index']
+    ),
+    'search_api.google_scholar_citations': EndpointConfig(
+        expand_path='citations',
+        properties=['title', 'authors', 'publication', 'year', 'citation_count']
+    ),
+    'search_api.location_search': EndpointConfig(
+        expand_path='locations',
+        properties=['name', 'display_name', 'lat', 'lon', 'country', 'state']
+    ),
+    
+    # People endpoints
+    'people.people_search': EndpointConfig(
         expand_path='people',
         properties=['name', 'title', 'company', 'location', 'linkedin_url']
     ),
-    'people.enrich': EndpointConfig(
-        # Single person response - no expand_path
-        properties=['name', 'title', 'company', 'emails', 'phone_numbers', 'linkedin_url']
+    'people.people_match': EndpointConfig(
+        expand_path='matches',
+        properties=['name', 'confidence_score', 'linkedin_url', 'company', 'title']
+    ),
+    'people.companies_search': EndpointConfig(
+        expand_path='companies',
+        properties=['name', 'domain', 'industry', 'size', 'linkedin_url', 'description']
+    ),
+    'people.organizations_enrich': EndpointConfig(
+        properties=['name', 'domain', 'industry', 'employee_count', 'description', 'linkedin_url']
+    ),
+    'people.organization_detail': EndpointConfig(
+        properties=['name', 'domain', 'industry', 'employee_count', 'description', 'founded']
+    ),
+    'people.organization_job_postings': EndpointConfig(
+        expand_path='job_postings',
+        properties=['title', 'company', 'location', 'description', 'posted_date', 'url']
     ),
 }
 
