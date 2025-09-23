@@ -3,9 +3,9 @@
 from __future__ import annotations
 
 import re
+from typing import Any, Dict, List, Callable, Optional
+from dataclasses import field, dataclass
 from concurrent.futures import Future, ThreadPoolExecutor
-from dataclasses import dataclass, field
-from typing import Any, Callable, Dict, List, Optional
 
 import polars as pl
 from pydantic import BaseModel
