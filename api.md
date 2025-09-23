@@ -72,6 +72,7 @@ from structify.types import (
     ChatGetGitCommitResponse,
     ChatGetSessionTimelineResponse,
     ChatLoadFilesResponse,
+    ChatRevertToCommitResponse,
 )
 ```
 
@@ -92,6 +93,7 @@ Methods:
 - <code title="post /chat/files/load">client.chat.<a href="./src/structify/resources/chat.py">load_files</a>(\*\*<a href="src/structify/types/chat_load_files_params.py">params</a>) -> <a href="./src/structify/types/chat_load_files_response.py">ChatLoadFilesResponse</a></code>
 - <code title="patch /chat/sessions/{session_id}/make-permanent">client.chat.<a href="./src/structify/resources/chat.py">make_permanent</a>(session_id) -> None</code>
 - <code title="delete /chat/sessions/{chat_id}/collaborators/{user_id}">client.chat.<a href="./src/structify/resources/chat.py">remove_collaborator</a>(user_id, \*, chat_id) -> None</code>
+- <code title="post /chat/sessions/{session_id}/revert">client.chat.<a href="./src/structify/resources/chat.py">revert_to_commit</a>(session_id, \*\*<a href="src/structify/types/chat_revert_to_commit_params.py">params</a>) -> <a href="./src/structify/types/chat_revert_to_commit_response.py">ChatRevertToCommitResponse</a></code>
 - <code title="put /chat/sessions/{session_id}/public">client.chat.<a href="./src/structify/resources/chat.py">toggle_public</a>(session_id, \*\*<a href="src/structify/types/chat_toggle_public_params.py">params</a>) -> <a href="./src/structify/types/toggle_public_response.py">TogglePublicResponse</a></code>
 - <code title="patch /chat/sessions/{session_id}">client.chat.<a href="./src/structify/resources/chat.py">update_session</a>(session_id, \*\*<a href="src/structify/types/chat_update_session_params.py">params</a>) -> <a href="./src/structify/types/chat_session.py">ChatSession</a></code>
 
