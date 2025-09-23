@@ -208,11 +208,13 @@ class EndpointProxy:
         data = result.model_dump()
         
         # Determine what to iterate over
+        items: List[Dict[str, Any]]
         if config.expand_path:
             # Extract list from the specified path
-            items = self._get_by_path(data, config.expand_path)
-            if not isinstance(items, list):
-                raise ValueError(f"Expected list at path '{config.expand_path}', got {type(items).__name__}")
+            extracted = self._get_by_path(data, config.expand_path)
+            if not isinstance(extracted, list):
+                raise ValueError(f"Expected list at path '{config.expand_path}', got {type(extracted).__name__}")
+            items = extracted
         elif isinstance(data, list):
             # Direct list response
             items = data
@@ -222,6 +224,7 @@ class EndpointProxy:
         
         # Extract properties from each item
         processed_rows: List[Dict[str, Any]] = []
+        item: Dict[str, Any]
         for item in items:
             if config.properties:
                 # Extract only specified properties
@@ -264,25 +267,25 @@ class ServicesProxy:
     with DataFrame batch processing capability.
     """
     
-    def __init__(self, client):
+    def __init__(self, client: Any) -> None:
         self._client = client
         self._external_resource = ExternalResource(client)
     
     @property
-    def news(self):
+    def news(self) -> EndpointProxy:
         """News API with DataFrame batch processing."""
         return EndpointProxy(self._external_resource.news)
     
     @property  
-    def people(self):
+    def people(self) -> EndpointProxy:
         """People/Apollo API with DataFrame batch processing."""
         return EndpointProxy(self._external_resource.people)
     
     @property
-    def search_api(self):
+    def search_api(self) -> EndpointProxy:
         """Search API with DataFrame batch processing.""" 
         return EndpointProxy(self._external_resource.search_api)
     
-    def __getattr__(self, name: str):
+    def __getattr__(self, name: str) -> Any:
         """Delegate any other attributes to the original external resource."""
         return getattr(self._external_resource, name)
