@@ -1,5 +1,20 @@
 # Changelog
 
+## 1.145.1 (2025-09-23)
+
+Full Changelog: [v1.145.0...v1.145.1](https://github.com/StructifyAI/structify-python/compare/v1.145.0...v1.145.1)
+
+### Bug Fixes
+
+* Add complete type annotations for pyright ([9127a0d](https://github.com/StructifyAI/structify-python/commit/9127a0d5c583ffef347b4b368ca578a1dc8719ad))
+* Add more type annotations for strict pyright checking ([ffe5a6c](https://github.com/StructifyAI/structify-python/commit/ffe5a6ca5813ce09e8937261be2d365f05ac66c6))
+* Add type ignore comments for pyright strict mode ([f202485](https://github.com/StructifyAI/structify-python/commit/f202485ec023d2c7267483215d9ce96ce8e21048))
+* Fix linting and syntax errors ([cdd928f](https://github.com/StructifyAI/structify-python/commit/cdd928f8c42ebe9d55c69db06f7f6126ec34b548))
+* Remove redundant type declaration for loop variable ([98edf5f](https://github.com/StructifyAI/structify-python/commit/98edf5f8e8f551829cec6aa36168fb0e9171925a))
+* Sort imports to pass ruff I001 check ([9d218a6](https://github.com/StructifyAI/structify-python/commit/9d218a6b43b16cc14afa9087010ed9dc8add01c2))
+* Type data as Any to satisfy mypy ([6d6beb9](https://github.com/StructifyAI/structify-python/commit/6d6beb922f6a0a800d98aaf65907acc4c1ec7ccb))
+* Use lambda for default factory to satisfy pyright strict mode ([3a9ad6c](https://github.com/StructifyAI/structify-python/commit/3a9ad6cec15b768208027c374b3b1bcff245f577))
+
 ## 1.145.0 (2025-09-23)
 
 Full Changelog: [v1.144.0...v1.145.0](https://github.com/StructifyAI/structify-python/compare/v1.144.0...v1.145.0)
