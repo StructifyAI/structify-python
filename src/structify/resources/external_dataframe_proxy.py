@@ -3,9 +3,9 @@
 from __future__ import annotations
 
 import re
-from typing import Any, Dict, List, Optional
-from dataclasses import field, dataclass
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import Future, ThreadPoolExecutor
+from dataclasses import dataclass, field
+from typing import Any, Callable, Dict, List, Optional
 
 import polars as pl
 from pydantic import BaseModel
@@ -138,7 +138,7 @@ class EndpointProxy:
             return original_attr
         
         # Return a wrapped version that supports DataFrame batch processing
-        def wrapped_method(*args, **kwargs):
+        def wrapped_method(*args: Any, **kwargs: Any) -> Any:
             # Check if first argument is a DataFrame
             if args and isinstance(args[0], pl.DataFrame):
                 df = args[0]
@@ -163,13 +163,13 @@ class EndpointProxy:
         
         # Execute parallel requests
         with ThreadPoolExecutor(max_workers=THREAD_POOL_SIZE) as executor:
-            futures = []
+            futures: List[Future[Any]] = []
             for row in rows:
                 future = executor.submit(self._execute_single_request, original_method, row)
                 futures.append(future)
             
             # Process results using endpoint configuration
-            all_results = []
+            all_results: List[Dict[str, Any]] = []
             for i, future in enumerate(futures):
                 try:
                     result = future.result()
@@ -177,13 +177,13 @@ class EndpointProxy:
                     all_results.extend(processed_rows)
                 except Exception as e:
                     # Add error row with query context
-                    error_row = {"error": str(e)}
+                    error_row: Dict[str, Any] = {"error": str(e)}
                     error_row.update({f"query_{k}": v for k, v in rows[i].items()})
                     all_results.append(error_row)
         
         return pl.DataFrame(all_results) if all_results else pl.DataFrame()
     
-    def _execute_single_request(self, original_method, payload: Dict[str, Any]) -> Any:
+    def _execute_single_request(self, original_method: Callable[..., Any], payload: Dict[str, Any]) -> Any:
         """Execute a single API request."""
         # Call the original method with the payload as keyword arguments
         return original_method(**payload)
@@ -221,11 +221,11 @@ class EndpointProxy:
             items = [data]
         
         # Extract properties from each item
-        processed_rows = []
+        processed_rows: List[Dict[str, Any]] = []
         for item in items:
             if config.properties:
                 # Extract only specified properties
-                row = {}
+                row: Dict[str, Any] = {}
                 for prop_path in config.properties:
                     value = self._get_by_path(item, prop_path)
                     # Use last part of path as column name (e.g., 'source.name' -> 'name')
