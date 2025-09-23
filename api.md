@@ -28,6 +28,7 @@ Types:
 
 ```python
 from structify.types.user import (
+    CreatePortalRequest,
     CreateSessionRequest,
     CreateSessionResponse,
     CreateSubscriptionRequest,
@@ -37,6 +38,7 @@ from structify.types.user import (
 
 Methods:
 
+- <code title="post /user/transactions/stripe/create_portal_session">client.user.stripe.<a href="./src/structify/resources/user/stripe.py">create_portal_session</a>(\*\*<a href="src/structify/types/user/stripe_create_portal_session_params.py">params</a>) -> <a href="./src/structify/types/user/create_session_response.py">CreateSessionResponse</a></code>
 - <code title="post /user/transactions/stripe/create_session">client.user.stripe.<a href="./src/structify/resources/user/stripe.py">create_session</a>(\*\*<a href="src/structify/types/user/stripe_create_session_params.py">params</a>) -> <a href="./src/structify/types/user/create_session_response.py">CreateSessionResponse</a></code>
 - <code title="post /user/transactions/stripe/create_subscription">client.user.stripe.<a href="./src/structify/resources/user/stripe.py">create_subscription</a>(\*\*<a href="src/structify/types/user/stripe_create_subscription_params.py">params</a>) -> <a href="./src/structify/types/user/create_session_response.py">CreateSessionResponse</a></code>
 
@@ -49,7 +51,6 @@ from structify.types import (
     AddChatMessageRequest,
     AddChatMessageResponse,
     AddCollaboratorRequest,
-    ChatEvent,
     ChatSession,
     ChatSessionRole,
     ChatSessionUser,
@@ -438,6 +439,7 @@ Methods:
 - <code title="post /sessions/{session_id}/edges">client.sessions.<a href="./src/structify/resources/sessions.py">create_edge</a>(session_id, \*\*<a href="src/structify/types/session_create_edge_params.py">params</a>) -> <a href="./src/structify/types/workflow_session_edge.py">WorkflowSessionEdge</a></code>
 - <code title="post /sessions/{session_id}/nodes">client.sessions.<a href="./src/structify/resources/sessions.py">create_node</a>(session_id, \*\*<a href="src/structify/types/session_create_node_params.py">params</a>) -> <a href="./src/structify/types/workflow_session_node.py">WorkflowSessionNode</a></code>
 - <code title="post /sessions">client.sessions.<a href="./src/structify/resources/sessions.py">create_session</a>(\*\*<a href="src/structify/types/session_create_session_params.py">params</a>) -> <a href="./src/structify/types/workflow_session.py">WorkflowSession</a></code>
+- <code title="post /sessions/{session_id}/dag_ready">client.sessions.<a href="./src/structify/resources/sessions.py">finalize_dag</a>(session_id) -> None</code>
 - <code title="get /sessions/{session_id}/dag">client.sessions.<a href="./src/structify/resources/sessions.py">get_dag</a>(session_id) -> <a href="./src/structify/types/workflow_dag.py">WorkflowDag</a></code>
 - <code title="get /sessions/nodes/{node_id}/events">client.sessions.<a href="./src/structify/resources/sessions.py">get_events</a>(node_id, \*\*<a href="src/structify/types/session_get_events_params.py">params</a>) -> <a href="./src/structify/types/session_get_events_response.py">SessionGetEventsResponse</a></code>
 - <code title="get /sessions/nodes/{node_id}/output_data">client.sessions.<a href="./src/structify/resources/sessions.py">get_node_output_data</a>(node_id) -> BinaryAPIResponse</code>
@@ -610,7 +612,7 @@ from structify.types import GetSandboxRequest, Sandbox, SandboxListResponse
 
 Methods:
 
-- <code title="post /sandbox/{chat_id}">client.sandbox.<a href="./src/structify/resources/sandbox.py">create</a>(chat_id) -> <a href="./src/structify/types/sandbox.py">Sandbox</a></code>
+- <code title="post /sandbox/{chat_id}">client.sandbox.<a href="./src/structify/resources/sandbox.py">create</a>(chat_id, \*\*<a href="src/structify/types/sandbox_create_params.py">params</a>) -> <a href="./src/structify/types/sandbox.py">Sandbox</a></code>
 - <code title="get /sandbox/list/{chat_id}">client.sandbox.<a href="./src/structify/resources/sandbox.py">list</a>(chat_id) -> <a href="./src/structify/types/sandbox_list_response.py">SandboxListResponse</a></code>
 - <code title="post /sandbox/live/{chat_id}">client.sandbox.<a href="./src/structify/resources/sandbox.py">get</a>(chat_id, \*\*<a href="src/structify/types/sandbox_get_params.py">params</a>) -> <a href="./src/structify/types/sandbox.py">Sandbox</a></code>
 - <code title="patch /sandbox/{sandbox_id}/status">client.sandbox.<a href="./src/structify/resources/sandbox.py">update_status</a>(sandbox_id, \*\*<a href="src/structify/types/sandbox_update_status_params.py">params</a>) -> <a href="./src/structify/types/sandbox.py">Sandbox</a></code>

@@ -3,10 +3,11 @@
 from __future__ import annotations
 
 from typing import Optional
+from typing_extensions import Literal
 
 import httpx
 
-from ..types import sandbox_get_params, sandbox_update_status_params
+from ..types import sandbox_get_params, sandbox_create_params, sandbox_update_status_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -48,6 +49,11 @@ class SandboxResource(SyncAPIResource):
         self,
         chat_id: str,
         *,
+        chat_session_id: str,
+        modal_id: str,
+        modal_url: str,
+        status: Literal["alive", "terminated"],
+        latest_node: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -69,6 +75,16 @@ class SandboxResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
         return self._post(
             f"/sandbox/{chat_id}",
+            body=maybe_transform(
+                {
+                    "chat_session_id": chat_session_id,
+                    "modal_id": modal_id,
+                    "modal_url": modal_url,
+                    "status": status,
+                    "latest_node": latest_node,
+                },
+                sandbox_create_params.SandboxCreateParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -197,6 +213,11 @@ class AsyncSandboxResource(AsyncAPIResource):
         self,
         chat_id: str,
         *,
+        chat_session_id: str,
+        modal_id: str,
+        modal_url: str,
+        status: Literal["alive", "terminated"],
+        latest_node: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -218,6 +239,16 @@ class AsyncSandboxResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
         return await self._post(
             f"/sandbox/{chat_id}",
+            body=await async_maybe_transform(
+                {
+                    "chat_session_id": chat_session_id,
+                    "modal_id": modal_id,
+                    "modal_url": modal_url,
+                    "status": status,
+                    "latest_node": latest_node,
+                },
+                sandbox_create_params.SandboxCreateParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),

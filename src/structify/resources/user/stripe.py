@@ -14,7 +14,12 @@ from ..._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ...types.user import SubscriptionPlan, stripe_create_session_params, stripe_create_subscription_params
+from ...types.user import (
+    SubscriptionPlan,
+    stripe_create_session_params,
+    stripe_create_subscription_params,
+    stripe_create_portal_session_params,
+)
 from ..._base_client import make_request_options
 from ...types.user.subscription_plan import SubscriptionPlan
 from ...types.user.create_session_response import CreateSessionResponse
@@ -41,6 +46,43 @@ class StripeResource(SyncAPIResource):
         For more information, see https://www.github.com/StructifyAI/structify-python#with_streaming_response
         """
         return StripeResourceWithStreamingResponse(self)
+
+    def create_portal_session(
+        self,
+        *,
+        return_url: str,
+        team_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> CreateSessionResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/user/transactions/stripe/create_portal_session",
+            body=maybe_transform(
+                {
+                    "return_url": return_url,
+                    "team_id": team_id,
+                },
+                stripe_create_portal_session_params.StripeCreatePortalSessionParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=CreateSessionResponse,
+        )
 
     def create_session(
         self,
@@ -143,6 +185,43 @@ class AsyncStripeResource(AsyncAPIResource):
         """
         return AsyncStripeResourceWithStreamingResponse(self)
 
+    async def create_portal_session(
+        self,
+        *,
+        return_url: str,
+        team_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> CreateSessionResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/user/transactions/stripe/create_portal_session",
+            body=await async_maybe_transform(
+                {
+                    "return_url": return_url,
+                    "team_id": team_id,
+                },
+                stripe_create_portal_session_params.StripeCreatePortalSessionParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=CreateSessionResponse,
+        )
+
     async def create_session(
         self,
         *,
@@ -228,6 +307,9 @@ class StripeResourceWithRawResponse:
     def __init__(self, stripe: StripeResource) -> None:
         self._stripe = stripe
 
+        self.create_portal_session = to_raw_response_wrapper(
+            stripe.create_portal_session,
+        )
         self.create_session = to_raw_response_wrapper(
             stripe.create_session,
         )
@@ -240,6 +322,9 @@ class AsyncStripeResourceWithRawResponse:
     def __init__(self, stripe: AsyncStripeResource) -> None:
         self._stripe = stripe
 
+        self.create_portal_session = async_to_raw_response_wrapper(
+            stripe.create_portal_session,
+        )
         self.create_session = async_to_raw_response_wrapper(
             stripe.create_session,
         )
@@ -252,6 +337,9 @@ class StripeResourceWithStreamingResponse:
     def __init__(self, stripe: StripeResource) -> None:
         self._stripe = stripe
 
+        self.create_portal_session = to_streamed_response_wrapper(
+            stripe.create_portal_session,
+        )
         self.create_session = to_streamed_response_wrapper(
             stripe.create_session,
         )
@@ -264,6 +352,9 @@ class AsyncStripeResourceWithStreamingResponse:
     def __init__(self, stripe: AsyncStripeResource) -> None:
         self._stripe = stripe
 
+        self.create_portal_session = async_to_streamed_response_wrapper(
+            stripe.create_portal_session,
+        )
         self.create_session = async_to_streamed_response_wrapper(
             stripe.create_session,
         )
