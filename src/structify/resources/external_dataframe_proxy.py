@@ -214,10 +214,10 @@ class EndpointProxy:
             extracted = self._get_by_path(data, config.expand_path)
             if not isinstance(extracted, list):
                 raise ValueError(f"Expected list at path '{config.expand_path}', got {type(extracted).__name__}")
-            items = extracted
+            items = extracted  # type: ignore[assignment]
         elif isinstance(data, list):
             # Direct list response
-            items = data
+            items = data  # type: ignore[assignment]
         else:
             # Single dict response
             items = [data]
@@ -235,7 +235,7 @@ class EndpointProxy:
                     row[col_name] = value
             else:
                 # No properties specified - use whole item
-                row = item
+                row = item  # type: ignore[assignment]
             
             # Add original query data with 'query_' prefix
             row.update({f"query_{k}": v for k, v in original_query_row.items()})
@@ -251,12 +251,12 @@ class EndpointProxy:
         current = data
         for key in path.split('.'):
             if isinstance(current, dict):
-                current = current.get(key)
+                current = current.get(key)  # type: ignore[union-attr]
             else:
                 return None
             if current is None:
                 return None
-        return current
+        return current  # type: ignore[return-value]
     
 
 
