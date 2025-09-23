@@ -51,6 +51,7 @@ from structify.types import (
     AddChatMessageRequest,
     AddChatMessageResponse,
     AddCollaboratorRequest,
+    ChatEvent,
     ChatSession,
     ChatSessionRole,
     ChatSessionUser,
