@@ -6,12 +6,8 @@ from typing import Any, Dict, List, Optional
 from dataclasses import dataclass, field
 from concurrent.futures import ThreadPoolExecutor
 
-try:
-    import polars as pl
-except ImportError:
-    pl = None  # type: ignore[assignment]
+import polars as pl
 
-from .._base_client import make_request_options
 from .external import ExternalResource
 
 __all__ = ["ExternalResourceProxy"]
