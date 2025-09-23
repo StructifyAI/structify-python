@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 
+import re
 from typing import Any, Dict, List, Optional
-from dataclasses import dataclass, field
+from dataclasses import field, dataclass
 from concurrent.futures import ThreadPoolExecutor
 
 import polars as pl
@@ -195,9 +196,8 @@ class EndpointProxy:
         class_name = self._service.__class__.__name__
         resource_name = class_name.replace('Resource', '')
         # Convert from PascalCase to snake_case
-        import re
-        resource_name = re.sub('([A-Z]+)([A-Z][a-z])', r'\1_\2', resource_name)
-        resource_name = re.sub('([a-z\d])([A-Z])', r'\1_\2', resource_name)
+        resource_name = re.sub(r'([A-Z]+)([A-Z][a-z])', r'\1_\2', resource_name)
+        resource_name = re.sub(r'([a-z\d])([A-Z])', r'\1_\2', resource_name)
         resource_name = resource_name.lower()
         endpoint_key = f"{resource_name}.{method_name}"
         
