@@ -17,6 +17,7 @@ from ..types import (
     chat_create_session_params,
     chat_update_session_params,
     chat_add_collaborator_params,
+    chat_revert_to_commit_params,
     chat_copy_node_output_by_code_hash_params,
 )
 from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
@@ -43,6 +44,7 @@ from ..types.chat_add_git_commit_response import ChatAddGitCommitResponse
 from ..types.chat_get_git_commit_response import ChatGetGitCommitResponse
 from ..types.create_chat_session_response import CreateChatSessionResponse
 from ..types.delete_chat_session_response import DeleteChatSessionResponse
+from ..types.chat_revert_to_commit_response import ChatRevertToCommitResponse
 from ..types.chat_get_session_timeline_response import ChatGetSessionTimelineResponse
 
 __all__ = ["ChatResource", "AsyncChatResource"]
@@ -621,6 +623,43 @@ class ChatResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=NoneType,
+        )
+
+    def revert_to_commit(
+        self,
+        session_id: str,
+        *,
+        commit_hash: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ChatRevertToCommitResponse:
+        """
+        Revert a chat session to a specific commit
+
+        Args:
+          commit_hash: The git commit hash to revert to (must be 40 characters)
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not session_id:
+            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
+        return self._post(
+            f"/chat/sessions/{session_id}/revert",
+            body=maybe_transform({"commit_hash": commit_hash}, chat_revert_to_commit_params.ChatRevertToCommitParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ChatRevertToCommitResponse,
         )
 
     def toggle_public(
@@ -1278,6 +1317,45 @@ class AsyncChatResource(AsyncAPIResource):
             cast_to=NoneType,
         )
 
+    async def revert_to_commit(
+        self,
+        session_id: str,
+        *,
+        commit_hash: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ChatRevertToCommitResponse:
+        """
+        Revert a chat session to a specific commit
+
+        Args:
+          commit_hash: The git commit hash to revert to (must be 40 characters)
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not session_id:
+            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
+        return await self._post(
+            f"/chat/sessions/{session_id}/revert",
+            body=await async_maybe_transform(
+                {"commit_hash": commit_hash}, chat_revert_to_commit_params.ChatRevertToCommitParams
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ChatRevertToCommitResponse,
+        )
+
     async def toggle_public(
         self,
         session_id: str,
@@ -1407,6 +1485,9 @@ class ChatResourceWithRawResponse:
         self.remove_collaborator = to_raw_response_wrapper(
             chat.remove_collaborator,
         )
+        self.revert_to_commit = to_raw_response_wrapper(
+            chat.revert_to_commit,
+        )
         self.toggle_public = to_raw_response_wrapper(
             chat.toggle_public,
         )
@@ -1463,6 +1544,9 @@ class AsyncChatResourceWithRawResponse:
         )
         self.remove_collaborator = async_to_raw_response_wrapper(
             chat.remove_collaborator,
+        )
+        self.revert_to_commit = async_to_raw_response_wrapper(
+            chat.revert_to_commit,
         )
         self.toggle_public = async_to_raw_response_wrapper(
             chat.toggle_public,
@@ -1521,6 +1605,9 @@ class ChatResourceWithStreamingResponse:
         self.remove_collaborator = to_streamed_response_wrapper(
             chat.remove_collaborator,
         )
+        self.revert_to_commit = to_streamed_response_wrapper(
+            chat.revert_to_commit,
+        )
         self.toggle_public = to_streamed_response_wrapper(
             chat.toggle_public,
         )
@@ -1577,6 +1664,9 @@ class AsyncChatResourceWithStreamingResponse:
         )
         self.remove_collaborator = async_to_streamed_response_wrapper(
             chat.remove_collaborator,
+        )
+        self.revert_to_commit = async_to_streamed_response_wrapper(
+            chat.revert_to_commit,
         )
         self.toggle_public = async_to_streamed_response_wrapper(
             chat.toggle_public,
