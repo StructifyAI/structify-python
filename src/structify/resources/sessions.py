@@ -43,6 +43,7 @@ from ..types.workflow_dag import WorkflowDag
 from ..types.workflow_session import WorkflowSession
 from ..types.workflow_session_edge import WorkflowSessionEdge
 from ..types.workflow_session_node import WorkflowSessionNode
+from ..types.get_node_logs_response import GetNodeLogsResponse
 from ..types.session_kill_jobs_response import SessionKillJobsResponse
 from ..types.session_get_events_response import SessionGetEventsResponse
 from ..types.workflow_node_execution_status import WorkflowNodeExecutionStatus
@@ -304,6 +305,39 @@ class SessionsResource(SyncAPIResource):
                 ),
             ),
             cast_to=SessionGetEventsResponse,
+        )
+
+    def get_node_logs(
+        self,
+        node_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> GetNodeLogsResponse:
+        """
+        Get terminal logs for a workflow node
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not node_id:
+            raise ValueError(f"Expected a non-empty value for `node_id` but received {node_id!r}")
+        return self._get(
+            f"/sessions/node/{node_id}/logs",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=GetNodeLogsResponse,
         )
 
     def get_node_output_data(
@@ -853,6 +887,39 @@ class AsyncSessionsResource(AsyncAPIResource):
             cast_to=SessionGetEventsResponse,
         )
 
+    async def get_node_logs(
+        self,
+        node_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> GetNodeLogsResponse:
+        """
+        Get terminal logs for a workflow node
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not node_id:
+            raise ValueError(f"Expected a non-empty value for `node_id` but received {node_id!r}")
+        return await self._get(
+            f"/sessions/node/{node_id}/logs",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=GetNodeLogsResponse,
+        )
+
     async def get_node_output_data(
         self,
         node_id: str,
@@ -1169,6 +1236,9 @@ class SessionsResourceWithRawResponse:
         self.get_events = to_raw_response_wrapper(
             sessions.get_events,
         )
+        self.get_node_logs = to_raw_response_wrapper(
+            sessions.get_node_logs,
+        )
         self.get_node_output_data = to_custom_raw_response_wrapper(
             sessions.get_node_output_data,
             BinaryAPIResponse,
@@ -1217,6 +1287,9 @@ class AsyncSessionsResourceWithRawResponse:
         )
         self.get_events = async_to_raw_response_wrapper(
             sessions.get_events,
+        )
+        self.get_node_logs = async_to_raw_response_wrapper(
+            sessions.get_node_logs,
         )
         self.get_node_output_data = async_to_custom_raw_response_wrapper(
             sessions.get_node_output_data,
@@ -1267,6 +1340,9 @@ class SessionsResourceWithStreamingResponse:
         self.get_events = to_streamed_response_wrapper(
             sessions.get_events,
         )
+        self.get_node_logs = to_streamed_response_wrapper(
+            sessions.get_node_logs,
+        )
         self.get_node_output_data = to_custom_streamed_response_wrapper(
             sessions.get_node_output_data,
             StreamedBinaryAPIResponse,
@@ -1315,6 +1391,9 @@ class AsyncSessionsResourceWithStreamingResponse:
         )
         self.get_events = async_to_streamed_response_wrapper(
             sessions.get_events,
+        )
+        self.get_node_logs = async_to_streamed_response_wrapper(
+            sessions.get_node_logs,
         )
         self.get_node_output_data = async_to_custom_streamed_response_wrapper(
             sessions.get_node_output_data,

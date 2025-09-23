@@ -47,6 +47,7 @@ from .get_team_response import GetTeamResponse as GetTeamResponse
 from .job_list_response import JobListResponse as JobListResponse
 from .job_status_params import JobStatusParams as JobStatusParams
 from .user_usage_params import UserUsageParams as UserUsageParams
+from .workflow_node_log import WorkflowNodeLog as WorkflowNodeLog
 from .dataset_descriptor import DatasetDescriptor as DatasetDescriptor
 from .dataset_get_params import DatasetGetParams as DatasetGetParams
 from .entity_view_params import EntityViewParams as EntityViewParams
@@ -113,6 +114,7 @@ from .document_upload_params import DocumentUploadParams as DocumentUploadParams
 from .entity_delete_response import EntityDeleteResponse as EntityDeleteResponse
 from .entity_derive_response import EntityDeriveResponse as EntityDeriveResponse
 from .entity_search_response import EntitySearchResponse as EntitySearchResponse
+from .get_node_logs_response import GetNodeLogsResponse as GetNodeLogsResponse
 from .job_get_steps_response import JobGetStepsResponse as JobGetStepsResponse
 from .list_projects_response import ListProjectsResponse as ListProjectsResponse
 from .remove_member_response import RemoveMemberResponse as RemoveMemberResponse
