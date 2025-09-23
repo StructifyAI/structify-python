@@ -15,6 +15,7 @@ from .connector import Connector as Connector
 from .team_role import TeamRole as TeamRole
 from .user_info import UserInfo as UserInfo
 from .user_team import UserTeam as UserTeam
+from .chat_event import ChatEvent as ChatEvent
 from .chat_prompt import ChatPrompt as ChatPrompt
 from .granularity import Granularity as Granularity
 from .table_param import TableParam as TableParam
