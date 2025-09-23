@@ -17,13 +17,13 @@ from structify.types.knowledge_graph_param import KnowledgeGraphParam
 
 from ..types import TableParam
 from .._compat import cached_property
-from .external import ExternalResource
 from .._resource import SyncAPIResource
 from .._response import (
     to_raw_response_wrapper,
     to_streamed_response_wrapper,
 )
 from ..types.table_param import Property
+from .external_dataframe_proxy import ServicesProxy
 from ..types.save_requirement_param import RequiredEntity, RequiredProperty
 from ..types.dataset_descriptor_param import DatasetDescriptorParam
 from ..types.structure_run_async_params import SourcePdf, StopConfig, SourceWebWeb
@@ -35,9 +35,9 @@ MAX_PARALLEL_REQUESTS = 20
 
 class PolarsResource(SyncAPIResource):
     @cached_property
-    def external(self) -> ExternalResource:
-        """Access external whitelabel services."""
-        return ExternalResource(self._client)
+    def external(self) -> ServicesProxy:
+        """Access external whitelabel services with DataFrame batch processing."""
+        return ServicesProxy(self._client)
 
     @cached_property
     def with_raw_response(self) -> PolarsResourceWithRawResponse:
