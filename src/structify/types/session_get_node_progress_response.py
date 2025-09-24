@@ -1,8 +1,22 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import Dict
+from datetime import datetime
 from typing_extensions import TypeAlias
 
-__all__ = ["SessionGetNodeProgressResponse"]
+from .._models import BaseModel
 
-SessionGetNodeProgressResponse: TypeAlias = Dict[str, object]
+__all__ = ["SessionGetNodeProgressResponse", "SessionGetNodeProgressResponseItem"]
+
+
+class SessionGetNodeProgressResponseItem(BaseModel):
+    current: int
+
+    elapsed_seconds: float
+
+    started_at: datetime
+
+    total: int
+
+
+SessionGetNodeProgressResponse: TypeAlias = Dict[str, SessionGetNodeProgressResponseItem]

@@ -524,7 +524,10 @@ class SessionsResource(SyncAPIResource):
         self,
         node_id: str,
         *,
-        progress: Dict[str, object],
+        current: int,
+        elapsed_seconds: float,
+        title: str,
+        total: int,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -547,7 +550,13 @@ class SessionsResource(SyncAPIResource):
         return self._patch(
             f"/sessions/nodes/{node_id}/progress",
             body=maybe_transform(
-                {"progress": progress}, session_update_node_progress_params.SessionUpdateNodeProgressParams
+                {
+                    "current": current,
+                    "elapsed_seconds": elapsed_seconds,
+                    "title": title,
+                    "total": total,
+                },
+                session_update_node_progress_params.SessionUpdateNodeProgressParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -1104,7 +1113,10 @@ class AsyncSessionsResource(AsyncAPIResource):
         self,
         node_id: str,
         *,
-        progress: Dict[str, object],
+        current: int,
+        elapsed_seconds: float,
+        title: str,
+        total: int,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1127,7 +1139,13 @@ class AsyncSessionsResource(AsyncAPIResource):
         return await self._patch(
             f"/sessions/nodes/{node_id}/progress",
             body=await async_maybe_transform(
-                {"progress": progress}, session_update_node_progress_params.SessionUpdateNodeProgressParams
+                {
+                    "current": current,
+                    "elapsed_seconds": elapsed_seconds,
+                    "title": title,
+                    "total": total,
+                },
+                session_update_node_progress_params.SessionUpdateNodeProgressParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
