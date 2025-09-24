@@ -7,4 +7,6 @@ __all__ = ["AddMemberResponse"]
 
 
 class AddMemberResponse(BaseModel):
+    invitation_sent: bool
+
     membership: UserTeam

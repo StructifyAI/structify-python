@@ -16,6 +16,14 @@ from .admin import (
     AdminResourceWithStreamingResponse,
     AsyncAdminResourceWithStreamingResponse,
 )
+from .teams import (
+    TeamsResource,
+    AsyncTeamsResource,
+    TeamsResourceWithRawResponse,
+    AsyncTeamsResourceWithRawResponse,
+    TeamsResourceWithStreamingResponse,
+    AsyncTeamsResourceWithStreamingResponse,
+)
 from .users import (
     UsersResource,
     AsyncUsersResource,
@@ -58,6 +66,12 @@ from .training_datasets import (
 )
 
 __all__ = [
+    "TeamsResource",
+    "AsyncTeamsResource",
+    "TeamsResourceWithRawResponse",
+    "AsyncTeamsResourceWithRawResponse",
+    "TeamsResourceWithStreamingResponse",
+    "AsyncTeamsResourceWithStreamingResponse",
     "DatasetResource",
     "AsyncDatasetResource",
     "DatasetResourceWithRawResponse",
