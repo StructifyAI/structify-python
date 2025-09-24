@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Union, Optional
+from typing import List, Union, Optional
 from typing_extensions import Literal, Annotated, TypeAlias
 
 from .._utils import PropertyInfo
@@ -13,10 +13,9 @@ __all__ = [
     "AgentSearched",
     "AgentSaved",
     "AgentExited",
+    "DerivedProperty",
     "Failed",
     "Completed",
-    "Scraped",
-    "Custom",
 ]
 
 
@@ -59,6 +58,14 @@ class AgentExited(BaseModel):
     reason: Optional[str] = None
 
 
+class DerivedProperty(BaseModel):
+    event_type: Literal["derived_property"]
+
+    property: str
+
+    value: str
+
+
 class Failed(BaseModel):
     error: str
 
@@ -73,25 +80,7 @@ class Completed(BaseModel):
     message: Optional[str] = None
 
 
-class Scraped(BaseModel):
-    count: int
-
-    event_type: Literal["scraped"]
-
-    page: int
-
-    url: str
-
-
-class Custom(BaseModel):
-    data: Dict[str, object]
-
-    event_name: str
-
-    event_type: Literal["custom"]
-
-
 JobEventBody: TypeAlias = Annotated[
-    Union[AgentNavigated, AgentSearched, AgentSaved, AgentExited, Failed, Completed, Scraped, Custom],
+    Union[AgentNavigated, AgentSearched, AgentSaved, AgentExited, DerivedProperty, Failed, Completed],
     PropertyInfo(discriminator="event_type"),
 ]
