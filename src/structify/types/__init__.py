@@ -134,6 +134,7 @@ from .entity_add_batch_params import EntityAddBatchParams as EntityAddBatchParam
 from .entity_list_jobs_params import EntityListJobsParams as EntityListJobsParams
 from .entity_summarize_params import EntitySummarizeParams as EntitySummarizeParams
 from .report_missing_response import ReportMissingResponse as ReportMissingResponse
+from .chat_delete_files_params import ChatDeleteFilesParams as ChatDeleteFilesParams
 from .chat_load_files_response import ChatLoadFilesResponse as ChatLoadFilesResponse
 from .dataset_descriptor_param import DatasetDescriptorParam as DatasetDescriptorParam
 from .document_download_params import DocumentDownloadParams as DocumentDownloadParams
@@ -158,6 +159,7 @@ from .user_survey_submit_params import UserSurveySubmitParams as UserSurveySubmi
 from .accept_invitation_response import AcceptInvitationResponse as AcceptInvitationResponse
 from .chat_add_git_commit_params import ChatAddGitCommitParams as ChatAddGitCommitParams
 from .chat_create_session_params import ChatCreateSessionParams as ChatCreateSessionParams
+from .chat_delete_files_response import ChatDeleteFilesResponse as ChatDeleteFilesResponse
 from .chat_session_with_messages import ChatSessionWithMessages as ChatSessionWithMessages
 from .chat_update_session_params import ChatUpdateSessionParams as ChatUpdateSessionParams
 from .document_download_response import DocumentDownloadResponse as DocumentDownloadResponse

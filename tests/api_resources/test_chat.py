@@ -15,6 +15,7 @@ from structify.types import (
     ChatLoadFilesResponse,
     AddChatMessageResponse,
     GetChatSessionResponse,
+    ChatDeleteFilesResponse,
     ChatSessionWithMessages,
     ChatAddGitCommitResponse,
     ChatGetGitCommitResponse,
@@ -293,6 +294,48 @@ class TestChat:
             assert_matches_type(CreateChatSessionResponse, chat, path=["response"])
 
         assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_method_delete_files(self, client: Structify) -> None:
+        chat = client.chat.delete_files(
+            chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            paths=["string"],
+        )
+        assert_matches_type(ChatDeleteFilesResponse, chat, path=["response"])
+
+    @parametrize
+    def test_raw_response_delete_files(self, client: Structify) -> None:
+        response = client.chat.with_raw_response.delete_files(
+            chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            paths=["string"],
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        chat = response.parse()
+        assert_matches_type(ChatDeleteFilesResponse, chat, path=["response"])
+
+    @parametrize
+    def test_streaming_response_delete_files(self, client: Structify) -> None:
+        with client.chat.with_streaming_response.delete_files(
+            chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            paths=["string"],
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            chat = response.parse()
+            assert_matches_type(ChatDeleteFilesResponse, chat, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_path_params_delete_files(self, client: Structify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `chat_id` but received ''"):
+            client.chat.with_raw_response.delete_files(
+                chat_id="",
+                paths=["string"],
+            )
 
     @parametrize
     def test_method_delete_session(self, client: Structify) -> None:
@@ -1050,6 +1093,48 @@ class TestAsyncChat:
             assert_matches_type(CreateChatSessionResponse, chat, path=["response"])
 
         assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_method_delete_files(self, async_client: AsyncStructify) -> None:
+        chat = await async_client.chat.delete_files(
+            chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            paths=["string"],
+        )
+        assert_matches_type(ChatDeleteFilesResponse, chat, path=["response"])
+
+    @parametrize
+    async def test_raw_response_delete_files(self, async_client: AsyncStructify) -> None:
+        response = await async_client.chat.with_raw_response.delete_files(
+            chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            paths=["string"],
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        chat = await response.parse()
+        assert_matches_type(ChatDeleteFilesResponse, chat, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_delete_files(self, async_client: AsyncStructify) -> None:
+        async with async_client.chat.with_streaming_response.delete_files(
+            chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            paths=["string"],
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            chat = await response.parse()
+            assert_matches_type(ChatDeleteFilesResponse, chat, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_delete_files(self, async_client: AsyncStructify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `chat_id` but received ''"):
+            await async_client.chat.with_raw_response.delete_files(
+                chat_id="",
+                paths=["string"],
+            )
 
     @parametrize
     async def test_method_delete_session(self, async_client: AsyncStructify) -> None:

@@ -11,6 +11,7 @@ from ..types import (
     chat_copy_params,
     chat_load_files_params,
     chat_add_message_params,
+    chat_delete_files_params,
     chat_list_sessions_params,
     chat_toggle_public_params,
     chat_add_git_commit_params,
@@ -20,7 +21,7 @@ from ..types import (
     chat_revert_to_commit_params,
     chat_copy_node_output_by_code_hash_params,
 )
-from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
+from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -37,6 +38,7 @@ from ..types.toggle_public_response import TogglePublicResponse
 from ..types.chat_load_files_response import ChatLoadFilesResponse
 from ..types.add_chat_message_response import AddChatMessageResponse
 from ..types.get_chat_session_response import GetChatSessionResponse
+from ..types.chat_delete_files_response import ChatDeleteFilesResponse
 from ..types.chat_session_with_messages import ChatSessionWithMessages
 from ..types.list_chat_sessions_response import ListChatSessionsResponse
 from ..types.list_collaborators_response import ListCollaboratorsResponse
@@ -310,6 +312,41 @@ class ChatResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=CreateChatSessionResponse,
+        )
+
+    def delete_files(
+        self,
+        chat_id: str,
+        *,
+        paths: SequenceNotStr[str],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ChatDeleteFilesResponse:
+        """
+        Delete files from a chat session's git repository
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not chat_id:
+            raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
+        return self._post(
+            f"/chat/files/delete/{chat_id}",
+            body=maybe_transform({"paths": paths}, chat_delete_files_params.ChatDeleteFilesParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ChatDeleteFilesResponse,
         )
 
     def delete_session(
@@ -1004,6 +1041,41 @@ class AsyncChatResource(AsyncAPIResource):
             cast_to=CreateChatSessionResponse,
         )
 
+    async def delete_files(
+        self,
+        chat_id: str,
+        *,
+        paths: SequenceNotStr[str],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ChatDeleteFilesResponse:
+        """
+        Delete files from a chat session's git repository
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not chat_id:
+            raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
+        return await self._post(
+            f"/chat/files/delete/{chat_id}",
+            body=await async_maybe_transform({"paths": paths}, chat_delete_files_params.ChatDeleteFilesParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ChatDeleteFilesResponse,
+        )
+
     async def delete_session(
         self,
         session_id: str,
@@ -1458,6 +1530,9 @@ class ChatResourceWithRawResponse:
         self.create_session = to_raw_response_wrapper(
             chat.create_session,
         )
+        self.delete_files = to_raw_response_wrapper(
+            chat.delete_files,
+        )
         self.delete_session = to_raw_response_wrapper(
             chat.delete_session,
         )
@@ -1517,6 +1592,9 @@ class AsyncChatResourceWithRawResponse:
         )
         self.create_session = async_to_raw_response_wrapper(
             chat.create_session,
+        )
+        self.delete_files = async_to_raw_response_wrapper(
+            chat.delete_files,
         )
         self.delete_session = async_to_raw_response_wrapper(
             chat.delete_session,
@@ -1578,6 +1656,9 @@ class ChatResourceWithStreamingResponse:
         self.create_session = to_streamed_response_wrapper(
             chat.create_session,
         )
+        self.delete_files = to_streamed_response_wrapper(
+            chat.delete_files,
+        )
         self.delete_session = to_streamed_response_wrapper(
             chat.delete_session,
         )
@@ -1637,6 +1718,9 @@ class AsyncChatResourceWithStreamingResponse:
         )
         self.create_session = async_to_streamed_response_wrapper(
             chat.create_session,
+        )
+        self.delete_files = async_to_streamed_response_wrapper(
+            chat.delete_files,
         )
         self.delete_session = async_to_streamed_response_wrapper(
             chat.delete_session,
