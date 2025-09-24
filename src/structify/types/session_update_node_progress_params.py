@@ -2,11 +2,16 @@
 
 from __future__ import annotations
 
-from typing import Dict
 from typing_extensions import Required, TypedDict
 
 __all__ = ["SessionUpdateNodeProgressParams"]
 
 
 class SessionUpdateNodeProgressParams(TypedDict, total=False):
-    progress: Required[Dict[str, object]]
+    current: Required[int]
+
+    elapsed_seconds: Required[float]
+
+    title: Required[str]
+
+    total: Required[int]
