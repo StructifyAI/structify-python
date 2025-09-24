@@ -103,6 +103,8 @@ Types:
 
 ```python
 from structify.types import (
+    AcceptInvitationRequest,
+    AcceptInvitationResponse,
     AddMemberRequest,
     AddMemberResponse,
     CreateProjectRequest,
@@ -136,6 +138,7 @@ Methods:
 - <code title="put /team/{team_id}">client.teams.<a href="./src/structify/resources/teams.py">update</a>(team_id, \*\*<a href="src/structify/types/team_update_params.py">params</a>) -> <a href="./src/structify/types/update_team_response.py">UpdateTeamResponse</a></code>
 - <code title="get /team/list">client.teams.<a href="./src/structify/resources/teams.py">list</a>() -> <a href="./src/structify/types/list_teams_response.py">ListTeamsResponse</a></code>
 - <code title="delete /team/{team_id}">client.teams.<a href="./src/structify/resources/teams.py">delete</a>(team_id) -> <a href="./src/structify/types/delete_team_response.py">DeleteTeamResponse</a></code>
+- <code title="post /team/invitations/accept">client.teams.<a href="./src/structify/resources/teams.py">accept_invitation</a>(\*\*<a href="src/structify/types/team_accept_invitation_params.py">params</a>) -> <a href="./src/structify/types/accept_invitation_response.py">AcceptInvitationResponse</a></code>
 - <code title="post /team/{team_id}/members">client.teams.<a href="./src/structify/resources/teams.py">add_member</a>(team_id, \*\*<a href="src/structify/types/team_add_member_params.py">params</a>) -> <a href="./src/structify/types/add_member_response.py">AddMemberResponse</a></code>
 - <code title="post /team/{team_id}/projects">client.teams.<a href="./src/structify/resources/teams.py">create_project</a>(team_id, \*\*<a href="src/structify/types/team_create_project_params.py">params</a>) -> <a href="./src/structify/types/create_project_response.py">CreateProjectResponse</a></code>
 - <code title="get /team/{team_id}/credits/usage">client.teams.<a href="./src/structify/resources/teams.py">credits_usage</a>(team_id, \*\*<a href="src/structify/types/team_credits_usage_params.py">params</a>) -> <a href="./src/structify/types/credits_usage_response.py">CreditsUsageResponse</a></code>
@@ -158,6 +161,18 @@ Methods:
 - <code title="get /team/{team_id}/project/{project_id}">client.projects.<a href="./src/structify/resources/projects.py">get</a>(project_id, \*, team_id) -> <a href="./src/structify/types/get_project_response.py">GetProjectResponse</a></code>
 
 # Admin
+
+## Teams
+
+Types:
+
+```python
+from structify.types.admin import AdminTeamsListResponse, TeamListResponse
+```
+
+Methods:
+
+- <code title="get /admin/teams/list">client.admin.teams.<a href="./src/structify/resources/admin/teams.py">list</a>() -> <a href="./src/structify/types/admin/team_list_response.py">TeamListResponse</a></code>
 
 ## Dataset
 

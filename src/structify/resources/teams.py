@@ -15,6 +15,7 @@ from ..types import (
     team_add_member_params,
     team_credits_usage_params,
     team_create_project_params,
+    team_accept_invitation_params,
 )
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
@@ -40,6 +41,7 @@ from ..types.credits_usage_response import CreditsUsageResponse
 from ..types.list_projects_response import ListProjectsResponse
 from ..types.remove_member_response import RemoveMemberResponse
 from ..types.create_project_response import CreateProjectResponse
+from ..types.accept_invitation_response import AcceptInvitationResponse
 
 __all__ = ["TeamsResource", "AsyncTeamsResource"]
 
@@ -188,6 +190,43 @@ class TeamsResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=DeleteTeamResponse,
+        )
+
+    def accept_invitation(
+        self,
+        *,
+        token: str,
+        supabase_user_id: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AcceptInvitationResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/team/invitations/accept",
+            body=maybe_transform(
+                {
+                    "token": token,
+                    "supabase_user_id": supabase_user_id,
+                },
+                team_accept_invitation_params.TeamAcceptInvitationParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=AcceptInvitationResponse,
         )
 
     def add_member(
@@ -599,6 +638,43 @@ class AsyncTeamsResource(AsyncAPIResource):
             cast_to=DeleteTeamResponse,
         )
 
+    async def accept_invitation(
+        self,
+        *,
+        token: str,
+        supabase_user_id: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AcceptInvitationResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/team/invitations/accept",
+            body=await async_maybe_transform(
+                {
+                    "token": token,
+                    "supabase_user_id": supabase_user_id,
+                },
+                team_accept_invitation_params.TeamAcceptInvitationParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=AcceptInvitationResponse,
+        )
+
     async def add_member(
         self,
         team_id: str,
@@ -878,6 +954,9 @@ class TeamsResourceWithRawResponse:
         self.delete = to_raw_response_wrapper(
             teams.delete,
         )
+        self.accept_invitation = to_raw_response_wrapper(
+            teams.accept_invitation,
+        )
         self.add_member = to_raw_response_wrapper(
             teams.add_member,
         )
@@ -916,6 +995,9 @@ class AsyncTeamsResourceWithRawResponse:
         )
         self.delete = async_to_raw_response_wrapper(
             teams.delete,
+        )
+        self.accept_invitation = async_to_raw_response_wrapper(
+            teams.accept_invitation,
         )
         self.add_member = async_to_raw_response_wrapper(
             teams.add_member,
@@ -956,6 +1038,9 @@ class TeamsResourceWithStreamingResponse:
         self.delete = to_streamed_response_wrapper(
             teams.delete,
         )
+        self.accept_invitation = to_streamed_response_wrapper(
+            teams.accept_invitation,
+        )
         self.add_member = to_streamed_response_wrapper(
             teams.add_member,
         )
@@ -994,6 +1079,9 @@ class AsyncTeamsResourceWithStreamingResponse:
         )
         self.delete = async_to_streamed_response_wrapper(
             teams.delete,
+        )
+        self.accept_invitation = async_to_streamed_response_wrapper(
+            teams.accept_invitation,
         )
         self.add_member = async_to_streamed_response_wrapper(
             teams.add_member,

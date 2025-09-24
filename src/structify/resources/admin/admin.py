@@ -10,6 +10,14 @@ from .jobs import (
     JobsResourceWithStreamingResponse,
     AsyncJobsResourceWithStreamingResponse,
 )
+from .teams import (
+    TeamsResource,
+    AsyncTeamsResource,
+    TeamsResourceWithRawResponse,
+    AsyncTeamsResourceWithRawResponse,
+    TeamsResourceWithStreamingResponse,
+    AsyncTeamsResourceWithStreamingResponse,
+)
 from .users import (
     UsersResource,
     AsyncUsersResource,
@@ -58,6 +66,10 @@ __all__ = ["AdminResource", "AsyncAdminResource"]
 
 class AdminResource(SyncAPIResource):
     @cached_property
+    def teams(self) -> TeamsResource:
+        return TeamsResource(self._client)
+
+    @cached_property
     def dataset(self) -> DatasetResource:
         return DatasetResource(self._client)
 
@@ -102,6 +114,10 @@ class AdminResource(SyncAPIResource):
 
 
 class AsyncAdminResource(AsyncAPIResource):
+    @cached_property
+    def teams(self) -> AsyncTeamsResource:
+        return AsyncTeamsResource(self._client)
+
     @cached_property
     def dataset(self) -> AsyncDatasetResource:
         return AsyncDatasetResource(self._client)
@@ -151,6 +167,10 @@ class AdminResourceWithRawResponse:
         self._admin = admin
 
     @cached_property
+    def teams(self) -> TeamsResourceWithRawResponse:
+        return TeamsResourceWithRawResponse(self._admin.teams)
+
+    @cached_property
     def dataset(self) -> DatasetResourceWithRawResponse:
         return DatasetResourceWithRawResponse(self._admin.dataset)
 
@@ -178,6 +198,10 @@ class AdminResourceWithRawResponse:
 class AsyncAdminResourceWithRawResponse:
     def __init__(self, admin: AsyncAdminResource) -> None:
         self._admin = admin
+
+    @cached_property
+    def teams(self) -> AsyncTeamsResourceWithRawResponse:
+        return AsyncTeamsResourceWithRawResponse(self._admin.teams)
 
     @cached_property
     def dataset(self) -> AsyncDatasetResourceWithRawResponse:
@@ -209,6 +233,10 @@ class AdminResourceWithStreamingResponse:
         self._admin = admin
 
     @cached_property
+    def teams(self) -> TeamsResourceWithStreamingResponse:
+        return TeamsResourceWithStreamingResponse(self._admin.teams)
+
+    @cached_property
     def dataset(self) -> DatasetResourceWithStreamingResponse:
         return DatasetResourceWithStreamingResponse(self._admin.dataset)
 
@@ -236,6 +264,10 @@ class AdminResourceWithStreamingResponse:
 class AsyncAdminResourceWithStreamingResponse:
     def __init__(self, admin: AsyncAdminResource) -> None:
         self._admin = admin
+
+    @cached_property
+    def teams(self) -> AsyncTeamsResourceWithStreamingResponse:
+        return AsyncTeamsResourceWithStreamingResponse(self._admin.teams)
 
     @cached_property
     def dataset(self) -> AsyncDatasetResourceWithStreamingResponse:

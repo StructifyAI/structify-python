@@ -24,6 +24,15 @@ class TestCode:
         assert code is None
 
     @parametrize
+    def test_method_generate_code_with_all_params(self, client: Structify) -> None:
+        code = client.code.generate_code(
+            chat_session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            prompt="prompt",
+            message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert code is None
+
+    @parametrize
     def test_raw_response_generate_code(self, client: Structify) -> None:
         response = client.code.with_raw_response.generate_code(
             chat_session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -60,6 +69,15 @@ class TestAsyncCode:
         code = await async_client.code.generate_code(
             chat_session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             prompt="prompt",
+        )
+        assert code is None
+
+    @parametrize
+    async def test_method_generate_code_with_all_params(self, async_client: AsyncStructify) -> None:
+        code = await async_client.code.generate_code(
+            chat_session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            prompt="prompt",
+            message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert code is None
 
