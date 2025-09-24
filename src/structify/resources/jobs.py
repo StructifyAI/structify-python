@@ -484,12 +484,10 @@ class JobsResource(SyncAPIResource):
                 if node_id:
                     self._client.sessions.update_node_progress(
                         node_id=node_id,
-                        progress={
-                            "title": title,
-                            "current": statuses.completed + statuses.failed,
-                            "total": statuses.total,
-                            "elapsed_seconds": time.monotonic() - start_time,
-                        },
+                        current=statuses.completed + statuses.failed,
+                        total=statuses.total,
+                        title=title,
+                        elapsed_seconds=time.monotonic() - start_time,
                     )
                     display_title = title + f"(node {node_id})... "
                 else:
