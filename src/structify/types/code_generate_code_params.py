@@ -15,4 +15,6 @@ class CodeGenerateCodeParams(TypedDict, total=False):
 
     prompt: Required[str]
 
-    message_id: Annotated[Optional[str], PropertyInfo(alias="messageId")]
+    assistant_message_id: Annotated[Optional[str], PropertyInfo(alias="assistantMessageId")]
+
+    user_message_id: Annotated[Optional[str], PropertyInfo(alias="userMessageId")]
