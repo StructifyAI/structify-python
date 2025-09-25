@@ -3,13 +3,37 @@
 from __future__ import annotations
 
 from typing import Optional
-from typing_extensions import TypedDict
+from typing_extensions import Literal, TypedDict
 
 __all__ = ["ConnectorUpdateParams"]
 
 
 class ConnectorUpdateParams(TypedDict, total=False):
     description: Optional[str]
+
+    known_connector_type: Optional[
+        Literal[
+            "Slack",
+            "Confluence",
+            "GoogleDrive",
+            "Snowflake",
+            "Hubspot",
+            "Salesforce",
+            "Supabase",
+            "Sharepoint",
+            "Notion",
+            "Jira",
+            "Linear",
+            "Intercom",
+            "Gmail",
+            "Airtable",
+            "Trello",
+            "Postgresql",
+            "Sap",
+            "Oracle",
+            "Manual",
+        ]
+    ]
 
     llm_information_store: Optional[str]
 

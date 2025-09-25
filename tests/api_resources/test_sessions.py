@@ -594,6 +594,16 @@ class TestSessions:
             current=0,
             elapsed_seconds=0,
             title="title",
+        )
+        assert_matches_type(WorkflowSessionNode, session, path=["response"])
+
+    @parametrize
+    def test_method_update_node_progress_with_all_params(self, client: Structify) -> None:
+        session = client.sessions.update_node_progress(
+            node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            current=0,
+            elapsed_seconds=0,
+            title="title",
             total=0,
         )
         assert_matches_type(WorkflowSessionNode, session, path=["response"])
@@ -605,7 +615,6 @@ class TestSessions:
             current=0,
             elapsed_seconds=0,
             title="title",
-            total=0,
         )
 
         assert response.is_closed is True
@@ -620,7 +629,6 @@ class TestSessions:
             current=0,
             elapsed_seconds=0,
             title="title",
-            total=0,
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -638,7 +646,6 @@ class TestSessions:
                 current=0,
                 elapsed_seconds=0,
                 title="title",
-                total=0,
             )
 
     @parametrize
@@ -1295,6 +1302,16 @@ class TestAsyncSessions:
             current=0,
             elapsed_seconds=0,
             title="title",
+        )
+        assert_matches_type(WorkflowSessionNode, session, path=["response"])
+
+    @parametrize
+    async def test_method_update_node_progress_with_all_params(self, async_client: AsyncStructify) -> None:
+        session = await async_client.sessions.update_node_progress(
+            node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            current=0,
+            elapsed_seconds=0,
+            title="title",
             total=0,
         )
         assert_matches_type(WorkflowSessionNode, session, path=["response"])
@@ -1306,7 +1323,6 @@ class TestAsyncSessions:
             current=0,
             elapsed_seconds=0,
             title="title",
-            total=0,
         )
 
         assert response.is_closed is True
@@ -1321,7 +1337,6 @@ class TestAsyncSessions:
             current=0,
             elapsed_seconds=0,
             title="title",
-            total=0,
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -1339,7 +1354,6 @@ class TestAsyncSessions:
                 current=0,
                 elapsed_seconds=0,
                 title="title",
-                total=0,
             )
 
     @parametrize
