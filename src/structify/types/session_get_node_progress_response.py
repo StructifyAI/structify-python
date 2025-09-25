@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict
+from typing import Dict, Optional
 from datetime import datetime
 from typing_extensions import TypeAlias
 
@@ -16,7 +16,7 @@ class SessionGetNodeProgressResponseItem(BaseModel):
 
     started_at: datetime
 
-    total: int
+    total: Optional[int] = None
 
 
 SessionGetNodeProgressResponse: TypeAlias = Dict[str, SessionGetNodeProgressResponseItem]
