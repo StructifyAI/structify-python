@@ -22,6 +22,8 @@ class UserCreateParams(TypedDict, total=False):
             "new_use_case_preview",
             "bedrock_codegen",
             "cerebras_codegen",
+            "gemini25pro",
+            "claude_sonnet4",
             "none",
         ]
     ]

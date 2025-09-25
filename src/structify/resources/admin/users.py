@@ -63,6 +63,8 @@ class UsersResource(SyncAPIResource):
                 "new_use_case_preview",
                 "bedrock_codegen",
                 "cerebras_codegen",
+                "gemini25pro",
+                "claude_sonnet4",
                 "none",
             ]
         ]
@@ -285,6 +287,8 @@ class AsyncUsersResource(AsyncAPIResource):
                 "new_use_case_preview",
                 "bedrock_codegen",
                 "cerebras_codegen",
+                "gemini25pro",
+                "claude_sonnet4",
                 "none",
             ]
         ]
