@@ -501,8 +501,10 @@ class JobsResource(SyncAPIResource):
                 f"Completed: {statuses.completed}  "
                 f"Failed: {statuses.failed}"
             )
-            sys.stdout.write("\r" + status_line)
-            sys.stdout.flush()
+            # If we're in a node, we delegate progress bars to our node progress tracker
+            if node_id is None:
+                sys.stdout.write("\r" + status_line)
+                sys.stdout.flush()
             spin_idx += 1
 
             if statuses.running == 0 and statuses.queued == 0:
