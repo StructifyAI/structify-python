@@ -28,7 +28,8 @@ class TestCode:
         code = client.code.generate_code(
             chat_session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             prompt="prompt",
-            message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            assistant_message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            user_message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert code is None
 
@@ -77,7 +78,8 @@ class TestAsyncCode:
         code = await async_client.code.generate_code(
             chat_session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             prompt="prompt",
-            message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            assistant_message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            user_message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert code is None
 

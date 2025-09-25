@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from typing import Optional
 from typing_extensions import Required, TypedDict
 
 __all__ = ["SessionUpdateNodeProgressParams"]
@@ -14,4 +15,4 @@ class SessionUpdateNodeProgressParams(TypedDict, total=False):
 
     title: Required[str]
 
-    total: Required[int]
+    total: Optional[int]

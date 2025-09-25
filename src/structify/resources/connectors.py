@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from typing import Dict, Optional
+from typing_extensions import Literal
 
 import httpx
 
@@ -54,6 +55,27 @@ class ConnectorsResource(SyncAPIResource):
     def create(
         self,
         *,
+        known_connector_type: Literal[
+            "Slack",
+            "Confluence",
+            "GoogleDrive",
+            "Snowflake",
+            "Hubspot",
+            "Salesforce",
+            "Supabase",
+            "Sharepoint",
+            "Notion",
+            "Jira",
+            "Linear",
+            "Intercom",
+            "Gmail",
+            "Airtable",
+            "Trello",
+            "Postgresql",
+            "Sap",
+            "Oracle",
+            "Manual",
+        ],
         llm_information_store: str,
         name: str,
         project_id: str,
@@ -82,6 +104,7 @@ class ConnectorsResource(SyncAPIResource):
             "/connectors",
             body=maybe_transform(
                 {
+                    "known_connector_type": known_connector_type,
                     "llm_information_store": llm_information_store,
                     "name": name,
                     "project_id": project_id,
@@ -101,6 +124,30 @@ class ConnectorsResource(SyncAPIResource):
         connector_id: str,
         *,
         description: Optional[str] | Omit = omit,
+        known_connector_type: Optional[
+            Literal[
+                "Slack",
+                "Confluence",
+                "GoogleDrive",
+                "Snowflake",
+                "Hubspot",
+                "Salesforce",
+                "Supabase",
+                "Sharepoint",
+                "Notion",
+                "Jira",
+                "Linear",
+                "Intercom",
+                "Gmail",
+                "Airtable",
+                "Trello",
+                "Postgresql",
+                "Sap",
+                "Oracle",
+                "Manual",
+            ]
+        ]
+        | Omit = omit,
         llm_information_store: Optional[str] | Omit = omit,
         name: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -128,6 +175,7 @@ class ConnectorsResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "description": description,
+                    "known_connector_type": known_connector_type,
                     "llm_information_store": llm_information_store,
                     "name": name,
                 },
@@ -347,6 +395,27 @@ class AsyncConnectorsResource(AsyncAPIResource):
     async def create(
         self,
         *,
+        known_connector_type: Literal[
+            "Slack",
+            "Confluence",
+            "GoogleDrive",
+            "Snowflake",
+            "Hubspot",
+            "Salesforce",
+            "Supabase",
+            "Sharepoint",
+            "Notion",
+            "Jira",
+            "Linear",
+            "Intercom",
+            "Gmail",
+            "Airtable",
+            "Trello",
+            "Postgresql",
+            "Sap",
+            "Oracle",
+            "Manual",
+        ],
         llm_information_store: str,
         name: str,
         project_id: str,
@@ -375,6 +444,7 @@ class AsyncConnectorsResource(AsyncAPIResource):
             "/connectors",
             body=await async_maybe_transform(
                 {
+                    "known_connector_type": known_connector_type,
                     "llm_information_store": llm_information_store,
                     "name": name,
                     "project_id": project_id,
@@ -394,6 +464,30 @@ class AsyncConnectorsResource(AsyncAPIResource):
         connector_id: str,
         *,
         description: Optional[str] | Omit = omit,
+        known_connector_type: Optional[
+            Literal[
+                "Slack",
+                "Confluence",
+                "GoogleDrive",
+                "Snowflake",
+                "Hubspot",
+                "Salesforce",
+                "Supabase",
+                "Sharepoint",
+                "Notion",
+                "Jira",
+                "Linear",
+                "Intercom",
+                "Gmail",
+                "Airtable",
+                "Trello",
+                "Postgresql",
+                "Sap",
+                "Oracle",
+                "Manual",
+            ]
+        ]
+        | Omit = omit,
         llm_information_store: Optional[str] | Omit = omit,
         name: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -421,6 +515,7 @@ class AsyncConnectorsResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "description": description,
+                    "known_connector_type": known_connector_type,
                     "llm_information_store": llm_information_store,
                     "name": name,
                 },
