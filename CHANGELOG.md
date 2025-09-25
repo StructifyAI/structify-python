@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.146.1 (2025-09-25)
+
+Full Changelog: [v1.146.0...v1.146.1](https://github.com/StructifyAI/structify-python/compare/v1.146.0...v1.146.1)
+
+### Features
+
+* Only write to stdout if not in nodes ([83ad09d](https://github.com/StructifyAI/structify-python/commit/83ad09dc1a8b27d20c8344e43528944e10fca573))
+* Update from Structify backend changes ([2c4c7de](https://github.com/StructifyAI/structify-python/commit/2c4c7deb4f3a5b9339b1811dacaa468d70b02a80))
+* Update from Structify backend changes ([4520c23](https://github.com/StructifyAI/structify-python/commit/4520c23da17826772a2a19d006c6b2ce19946d1a))
+
 ## 1.146.0 (2025-09-24)
 
 Full Changelog: [v1.145.1...v1.146.0](https://github.com/StructifyAI/structify-python/compare/v1.145.1...v1.146.0)
