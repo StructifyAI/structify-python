@@ -6,6 +6,4 @@ __all__ = ["ChatDeleteFilesResponse"]
 
 
 class ChatDeleteFilesResponse(BaseModel):
-    commit_hash: str
-
     files_deleted: int
