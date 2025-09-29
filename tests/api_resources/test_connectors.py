@@ -40,6 +40,7 @@ class TestConnectors:
             name="name",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             description="description",
+            refresh_script="refresh_script",
             secrets={"foo": "string"},
         )
         assert_matches_type(Connector, connector, path=["response"])
@@ -89,6 +90,7 @@ class TestConnectors:
             known_connector_type="Slack",
             llm_information_store="llm_information_store",
             name="name",
+            refresh_script="refresh_script",
         )
         assert connector is None
 
@@ -357,6 +359,7 @@ class TestAsyncConnectors:
             name="name",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             description="description",
+            refresh_script="refresh_script",
             secrets={"foo": "string"},
         )
         assert_matches_type(Connector, connector, path=["response"])
@@ -406,6 +409,7 @@ class TestAsyncConnectors:
             known_connector_type="Slack",
             llm_information_store="llm_information_store",
             name="name",
+            refresh_script="refresh_script",
         )
         assert connector is None
 

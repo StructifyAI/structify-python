@@ -80,6 +80,7 @@ class ConnectorsResource(SyncAPIResource):
         name: str,
         project_id: str,
         description: Optional[str] | Omit = omit,
+        refresh_script: Optional[str] | Omit = omit,
         secrets: Dict[str, str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -109,6 +110,7 @@ class ConnectorsResource(SyncAPIResource):
                     "name": name,
                     "project_id": project_id,
                     "description": description,
+                    "refresh_script": refresh_script,
                     "secrets": secrets,
                 },
                 connector_create_params.ConnectorCreateParams,
@@ -150,6 +152,7 @@ class ConnectorsResource(SyncAPIResource):
         | Omit = omit,
         llm_information_store: Optional[str] | Omit = omit,
         name: Optional[str] | Omit = omit,
+        refresh_script: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -178,6 +181,7 @@ class ConnectorsResource(SyncAPIResource):
                     "known_connector_type": known_connector_type,
                     "llm_information_store": llm_information_store,
                     "name": name,
+                    "refresh_script": refresh_script,
                 },
                 connector_update_params.ConnectorUpdateParams,
             ),
@@ -420,6 +424,7 @@ class AsyncConnectorsResource(AsyncAPIResource):
         name: str,
         project_id: str,
         description: Optional[str] | Omit = omit,
+        refresh_script: Optional[str] | Omit = omit,
         secrets: Dict[str, str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -449,6 +454,7 @@ class AsyncConnectorsResource(AsyncAPIResource):
                     "name": name,
                     "project_id": project_id,
                     "description": description,
+                    "refresh_script": refresh_script,
                     "secrets": secrets,
                 },
                 connector_create_params.ConnectorCreateParams,
@@ -490,6 +496,7 @@ class AsyncConnectorsResource(AsyncAPIResource):
         | Omit = omit,
         llm_information_store: Optional[str] | Omit = omit,
         name: Optional[str] | Omit = omit,
+        refresh_script: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -518,6 +525,7 @@ class AsyncConnectorsResource(AsyncAPIResource):
                     "known_connector_type": known_connector_type,
                     "llm_information_store": llm_information_store,
                     "name": name,
+                    "refresh_script": refresh_script,
                 },
                 connector_update_params.ConnectorUpdateParams,
             ),
