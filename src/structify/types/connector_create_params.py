@@ -41,5 +41,7 @@ class ConnectorCreateParams(TypedDict, total=False):
 
     description: Optional[str]
 
+    refresh_script: Optional[str]
+
     secrets: Dict[str, str]
     """Optional secrets/environment variables for the connector"""

@@ -45,3 +45,5 @@ class Connector(BaseModel):
     updated_at: datetime
 
     description: Optional[str] = None
+
+    refresh_script: Optional[str] = None
