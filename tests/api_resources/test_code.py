@@ -29,6 +29,7 @@ class TestCode:
             chat_session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             prompt="prompt",
             assistant_message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            system_prompt="systemPrompt",
             user_message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert code is None
@@ -79,6 +80,7 @@ class TestAsyncCode:
             chat_session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             prompt="prompt",
             assistant_message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            system_prompt="systemPrompt",
             user_message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert code is None
