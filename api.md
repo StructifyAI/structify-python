@@ -259,6 +259,7 @@ Types:
 from structify.types.admin import (
     User,
     UserListResponse,
+    UserAddCreditsResponse,
     UserGetCreditsResponse,
     UserGetStatsResponse,
     UserSetCreditsResponse,
@@ -269,6 +270,7 @@ Methods:
 
 - <code title="post /admin/users/create">client.admin.users.<a href="./src/structify/resources/admin/users.py">create</a>(\*\*<a href="src/structify/types/admin/user_create_params.py">params</a>) -> <a href="./src/structify/types/token_response.py">TokenResponse</a></code>
 - <code title="get /admin/users/list">client.admin.users.<a href="./src/structify/resources/admin/users.py">list</a>() -> <a href="./src/structify/types/admin/user_list_response.py">UserListResponse</a></code>
+- <code title="post /admin/users/add_credits">client.admin.users.<a href="./src/structify/resources/admin/users.py">add_credits</a>(\*\*<a href="src/structify/types/admin/user_add_credits_params.py">params</a>) -> <a href="./src/structify/types/admin/user_add_credits_response.py">UserAddCreditsResponse</a></code>
 - <code title="post /admin/users/get_credits">client.admin.users.<a href="./src/structify/resources/admin/users.py">get_credits</a>(\*\*<a href="src/structify/types/admin/user_get_credits_params.py">params</a>) -> <a href="./src/structify/types/admin/user_get_credits_response.py">UserGetCreditsResponse</a></code>
 - <code title="post /admin/users/get_stats">client.admin.users.<a href="./src/structify/resources/admin/users.py">get_stats</a>(\*\*<a href="src/structify/types/admin/user_get_stats_params.py">params</a>) -> <a href="./src/structify/types/admin/user_get_stats_response.py">UserGetStatsResponse</a></code>
 - <code title="post /admin/users/set_credits">client.admin.users.<a href="./src/structify/resources/admin/users.py">set_credits</a>(\*\*<a href="src/structify/types/admin/user_set_credits_params.py">params</a>) -> <a href="./src/structify/types/admin/user_set_credits_response.py">UserSetCreditsResponse</a></code>
