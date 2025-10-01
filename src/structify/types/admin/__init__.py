@@ -14,6 +14,7 @@ from .user_list_response import UserListResponse as UserListResponse
 from .admin_dataset_return import AdminDatasetReturn as AdminDatasetReturn
 from .user_get_stats_params import UserGetStatsParams as UserGetStatsParams
 from .training_datum_response import TrainingDatumResponse as TrainingDatumResponse
+from .user_add_credits_params import UserAddCreditsParams as UserAddCreditsParams
 from .user_get_credits_params import UserGetCreditsParams as UserGetCreditsParams
 from .user_get_stats_response import UserGetStatsResponse as UserGetStatsResponse
 from .user_set_credits_params import UserSetCreditsParams as UserSetCreditsParams
@@ -21,6 +22,7 @@ from .admin_list_jobs_response import AdminListJobsResponse as AdminListJobsResp
 from .dataset_get_by_id_params import DatasetGetByIDParams as DatasetGetByIDParams
 from .admin_teams_list_response import AdminTeamsListResponse as AdminTeamsListResponse
 from .human_llm_get_jobs_params import HumanLlmGetJobsParams as HumanLlmGetJobsParams
+from .user_add_credits_response import UserAddCreditsResponse as UserAddCreditsResponse
 from .user_get_credits_response import UserGetCreditsResponse as UserGetCreditsResponse
 from .user_set_credits_response import UserSetCreditsResponse as UserSetCreditsResponse
 from .action_training_data_entry import ActionTrainingDataEntry as ActionTrainingDataEntry
