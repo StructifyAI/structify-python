@@ -36,6 +36,7 @@ from .resources import (
     external,
     projects,
     sessions,
+    workflow,
     documents,
     structure,
     connectors,
@@ -82,6 +83,7 @@ class Structify(SyncAPIClient):
     jobs: jobs.JobsResource
     sessions: sessions.SessionsResource
     workflow_schedule: workflow_schedule.WorkflowScheduleResource
+    workflow: workflow.WorkflowResource
     connectors: connectors.ConnectorsResource
     server: server.ServerResource
     sources: sources.SourcesResource
@@ -185,6 +187,7 @@ class Structify(SyncAPIClient):
         self.jobs = jobs.JobsResource(self)
         self.sessions = sessions.SessionsResource(self)
         self.workflow_schedule = workflow_schedule.WorkflowScheduleResource(self)
+        self.workflow = workflow.WorkflowResource(self)
         self.connectors = connectors.ConnectorsResource(self)
         self.server = server.ServerResource(self)
         self.sources = sources.SourcesResource(self)
@@ -318,6 +321,7 @@ class AsyncStructify(AsyncAPIClient):
     jobs: jobs.AsyncJobsResource
     sessions: sessions.AsyncSessionsResource
     workflow_schedule: workflow_schedule.AsyncWorkflowScheduleResource
+    workflow: workflow.AsyncWorkflowResource
     connectors: connectors.AsyncConnectorsResource
     server: server.AsyncServerResource
     sources: sources.AsyncSourcesResource
@@ -420,6 +424,7 @@ class AsyncStructify(AsyncAPIClient):
         self.jobs = jobs.AsyncJobsResource(self)
         self.sessions = sessions.AsyncSessionsResource(self)
         self.workflow_schedule = workflow_schedule.AsyncWorkflowScheduleResource(self)
+        self.workflow = workflow.AsyncWorkflowResource(self)
         self.connectors = connectors.AsyncConnectorsResource(self)
         self.server = server.AsyncServerResource(self)
         self.sources = sources.AsyncSourcesResource(self)
@@ -553,6 +558,7 @@ class StructifyWithRawResponse:
         self.jobs = jobs.JobsResourceWithRawResponse(client.jobs)
         self.sessions = sessions.SessionsResourceWithRawResponse(client.sessions)
         self.workflow_schedule = workflow_schedule.WorkflowScheduleResourceWithRawResponse(client.workflow_schedule)
+        self.workflow = workflow.WorkflowResourceWithRawResponse(client.workflow)
         self.connectors = connectors.ConnectorsResourceWithRawResponse(client.connectors)
         self.server = server.ServerResourceWithRawResponse(client.server)
         self.sources = sources.SourcesResourceWithRawResponse(client.sources)
@@ -581,6 +587,7 @@ class AsyncStructifyWithRawResponse:
         self.workflow_schedule = workflow_schedule.AsyncWorkflowScheduleResourceWithRawResponse(
             client.workflow_schedule
         )
+        self.workflow = workflow.AsyncWorkflowResourceWithRawResponse(client.workflow)
         self.connectors = connectors.AsyncConnectorsResourceWithRawResponse(client.connectors)
         self.server = server.AsyncServerResourceWithRawResponse(client.server)
         self.sources = sources.AsyncSourcesResourceWithRawResponse(client.sources)
@@ -608,6 +615,7 @@ class StructifyWithStreamedResponse:
         self.workflow_schedule = workflow_schedule.WorkflowScheduleResourceWithStreamingResponse(
             client.workflow_schedule
         )
+        self.workflow = workflow.WorkflowResourceWithStreamingResponse(client.workflow)
         self.connectors = connectors.ConnectorsResourceWithStreamingResponse(client.connectors)
         self.server = server.ServerResourceWithStreamingResponse(client.server)
         self.sources = sources.SourcesResourceWithStreamingResponse(client.sources)
@@ -636,6 +644,7 @@ class AsyncStructifyWithStreamedResponse:
         self.workflow_schedule = workflow_schedule.AsyncWorkflowScheduleResourceWithStreamingResponse(
             client.workflow_schedule
         )
+        self.workflow = workflow.AsyncWorkflowResourceWithStreamingResponse(client.workflow)
         self.connectors = connectors.AsyncConnectorsResourceWithStreamingResponse(client.connectors)
         self.server = server.AsyncServerResourceWithStreamingResponse(client.server)
         self.sources = sources.AsyncSourcesResourceWithStreamingResponse(client.sources)

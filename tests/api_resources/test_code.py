@@ -30,6 +30,7 @@ class TestCode:
             prompt="prompt",
             assistant_message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             system_prompt="systemPrompt",
+            trigger_workflow_execution=True,
             user_message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert code is None
@@ -81,6 +82,7 @@ class TestAsyncCode:
             prompt="prompt",
             assistant_message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             system_prompt="systemPrompt",
+            trigger_workflow_execution=True,
             user_message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert code is None
