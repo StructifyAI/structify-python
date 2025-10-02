@@ -2,7 +2,7 @@
 
 from typing import List, Optional
 from datetime import datetime
-from typing_extensions import TypeAlias
+from typing_extensions import Literal, TypeAlias
 
 from .._models import BaseModel
 
@@ -19,6 +19,8 @@ class UserTransactionsResponseItem(BaseModel):
     token_id: str
 
     credit_grant_id: Optional[str] = None
+
+    external_service: Optional[Literal["People", "Search", "News"]] = None
 
     job_id: Optional[str] = None
 
