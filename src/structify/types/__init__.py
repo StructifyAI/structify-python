@@ -74,6 +74,7 @@ from .property_type_param import PropertyTypeParam as PropertyTypeParam
 from .report_wrong_params import ReportWrongParams as ReportWrongParams
 from .tool_metadata_param import ToolMetadataParam as ToolMetadataParam
 from .user_usage_response import UserUsageResponse as UserUsageResponse
+from .workflow_run_params import WorkflowRunParams as WorkflowRunParams
 from .create_team_response import CreateTeamResponse as CreateTeamResponse
 from .dataset_get_response import DatasetGetResponse as DatasetGetResponse
 from .dataset_match_params import DatasetMatchParams as DatasetMatchParams
@@ -90,6 +91,7 @@ from .scrape_list_response import ScrapeListResponse as ScrapeListResponse
 from .scrape_scrape_params import ScrapeScrapeParams as ScrapeScrapeParams
 from .source_list_response import SourceListResponse as SourceListResponse
 from .update_team_response import UpdateTeamResponse as UpdateTeamResponse
+from .workflow_stop_params import WorkflowStopParams as WorkflowStopParams
 from .connector_list_params import ConnectorListParams as ConnectorListParams
 from .dataset_create_params import DatasetCreateParams as DatasetCreateParams
 from .dataset_delete_params import DatasetDeleteParams as DatasetDeleteParams

@@ -525,6 +525,19 @@ Methods:
 - <code title="get /workflow-schedule">client.workflow_schedule.<a href="./src/structify/resources/workflow_schedule.py">get_all</a>() -> <a href="./src/structify/types/workflow_schedule_get_all_response.py">WorkflowScheduleGetAllResponse</a></code>
 - <code title="post /workflow-schedule/{schedule_id}/sessions">client.workflow_schedule.<a href="./src/structify/resources/workflow_schedule.py">get_sessions</a>(schedule_id, \*\*<a href="src/structify/types/workflow_schedule_get_sessions_params.py">params</a>) -> <a href="./src/structify/types/get_workflow_schedule_sessions_response.py">GetWorkflowScheduleSessionsResponse</a></code>
 
+# Workflow
+
+Types:
+
+```python
+from structify.types import RunWorkflowRequest, StopWorkflowRequest
+```
+
+Methods:
+
+- <code title="post /workflow/run">client.workflow.<a href="./src/structify/resources/workflow.py">run</a>(\*\*<a href="src/structify/types/workflow_run_params.py">params</a>) -> None</code>
+- <code title="post /workflow/stop">client.workflow.<a href="./src/structify/resources/workflow.py">stop</a>(\*\*<a href="src/structify/types/workflow_stop_params.py">params</a>) -> None</code>
+
 # Connectors
 
 Types:
