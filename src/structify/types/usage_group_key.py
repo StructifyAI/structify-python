@@ -4,4 +4,4 @@ from typing_extensions import Literal, TypeAlias
 
 __all__ = ["UsageGroupKey"]
 
-UsageGroupKey: TypeAlias = Literal["web", "pdf", "derive", "scrape", "other"]
+UsageGroupKey: TypeAlias = Literal["web", "pdf", "derive", "scrape", "apollo", "searchapi", "newsapi", "other"]
