@@ -225,6 +225,30 @@ Methods:
 - <code title="post /admin/human_llm/start_next_job">client.admin.human_llm.<a href="./src/structify/resources/admin/human_llm.py">start_next_job</a>(\*\*<a href="src/structify/types/admin/human_llm_start_next_job_params.py">params</a>) -> <a href="./src/structify/types/admin/step_choices.py">StepChoices</a></code>
 - <code title="post /admin/human_llm/update_step">client.admin.human_llm.<a href="./src/structify/resources/admin/human_llm.py">update_step</a>(\*\*<a href="src/structify/types/admin/human_llm_update_step_params.py">params</a>) -> <a href="./src/structify/types/admin/step_choices.py">StepChoices</a></code>
 
+## FunctionalTests
+
+Types:
+
+```python
+from structify.types.admin import (
+    CreateFunctionalTestRequest,
+    FunctionalTest,
+    FunctionalTestResultsResponse,
+    GetResultsQuery,
+    LinkChatToFunctionalTestRequest,
+    UpdateFunctionalTestResultsRequest,
+    FunctionalTestListResponse,
+)
+```
+
+Methods:
+
+- <code title="post /admin/functional_tests/create">client.admin.functional_tests.<a href="./src/structify/resources/admin/functional_tests.py">create</a>(\*\*<a href="src/structify/types/admin/functional_test_create_params.py">params</a>) -> <a href="./src/structify/types/admin/functional_test.py">FunctionalTest</a></code>
+- <code title="get /admin/functional_tests/list">client.admin.functional_tests.<a href="./src/structify/resources/admin/functional_tests.py">list</a>() -> <a href="./src/structify/types/admin/functional_test_list_response.py">FunctionalTestListResponse</a></code>
+- <code title="get /admin/functional_tests/results">client.admin.functional_tests.<a href="./src/structify/resources/admin/functional_tests.py">get_results</a>(\*\*<a href="src/structify/types/admin/functional_test_get_results_params.py">params</a>) -> <a href="./src/structify/types/admin/functional_test_results_response.py">FunctionalTestResultsResponse</a></code>
+- <code title="post /admin/functional_tests/link">client.admin.functional_tests.<a href="./src/structify/resources/admin/functional_tests.py">link_chat</a>(\*\*<a href="src/structify/types/admin/functional_test_link_chat_params.py">params</a>) -> None</code>
+- <code title="put /admin/functional_tests/update_results">client.admin.functional_tests.<a href="./src/structify/resources/admin/functional_tests.py">update_results</a>(\*\*<a href="src/structify/types/admin/functional_test_update_results_params.py">params</a>) -> None</code>
+
 ## NextAction
 
 Types:
