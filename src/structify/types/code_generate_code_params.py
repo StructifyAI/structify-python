@@ -19,4 +19,6 @@ class CodeGenerateCodeParams(TypedDict, total=False):
 
     system_prompt: Annotated[Optional[str], PropertyInfo(alias="systemPrompt")]
 
+    trigger_workflow_execution: Annotated[bool, PropertyInfo(alias="triggerWorkflowExecution")]
+
     user_message_id: Annotated[Optional[str], PropertyInfo(alias="userMessageId")]

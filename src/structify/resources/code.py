@@ -49,6 +49,7 @@ class CodeResource(SyncAPIResource):
         prompt: str,
         assistant_message_id: Optional[str] | Omit = omit,
         system_prompt: Optional[str] | Omit = omit,
+        trigger_workflow_execution: bool | Omit = omit,
         user_message_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -89,6 +90,7 @@ class CodeResource(SyncAPIResource):
                     "prompt": prompt,
                     "assistant_message_id": assistant_message_id,
                     "system_prompt": system_prompt,
+                    "trigger_workflow_execution": trigger_workflow_execution,
                     "user_message_id": user_message_id,
                 },
                 code_generate_code_params.CodeGenerateCodeParams,
@@ -127,6 +129,7 @@ class AsyncCodeResource(AsyncAPIResource):
         prompt: str,
         assistant_message_id: Optional[str] | Omit = omit,
         system_prompt: Optional[str] | Omit = omit,
+        trigger_workflow_execution: bool | Omit = omit,
         user_message_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -167,6 +170,7 @@ class AsyncCodeResource(AsyncAPIResource):
                     "prompt": prompt,
                     "assistant_message_id": assistant_message_id,
                     "system_prompt": system_prompt,
+                    "trigger_workflow_execution": trigger_workflow_execution,
                     "user_message_id": user_message_id,
                 },
                 code_generate_code_params.CodeGenerateCodeParams,

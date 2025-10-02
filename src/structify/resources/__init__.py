@@ -133,6 +133,14 @@ from .sessions import (
     SessionsResourceWithStreamingResponse,
     AsyncSessionsResourceWithStreamingResponse,
 )
+from .workflow import (
+    WorkflowResource,
+    AsyncWorkflowResource,
+    WorkflowResourceWithRawResponse,
+    AsyncWorkflowResourceWithRawResponse,
+    WorkflowResourceWithStreamingResponse,
+    AsyncWorkflowResourceWithStreamingResponse,
+)
 from .documents import (
     DocumentsResource,
     AsyncDocumentsResource,
@@ -235,6 +243,12 @@ __all__ = [
     "AsyncWorkflowScheduleResourceWithRawResponse",
     "WorkflowScheduleResourceWithStreamingResponse",
     "AsyncWorkflowScheduleResourceWithStreamingResponse",
+    "WorkflowResource",
+    "AsyncWorkflowResource",
+    "WorkflowResourceWithRawResponse",
+    "AsyncWorkflowResourceWithRawResponse",
+    "WorkflowResourceWithStreamingResponse",
+    "AsyncWorkflowResourceWithStreamingResponse",
     "ConnectorsResource",
     "AsyncConnectorsResource",
     "ConnectorsResourceWithRawResponse",
