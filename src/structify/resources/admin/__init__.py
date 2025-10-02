@@ -56,6 +56,14 @@ from .next_action import (
     NextActionResourceWithStreamingResponse,
     AsyncNextActionResourceWithStreamingResponse,
 )
+from .functional_tests import (
+    FunctionalTestsResource,
+    AsyncFunctionalTestsResource,
+    FunctionalTestsResourceWithRawResponse,
+    AsyncFunctionalTestsResourceWithRawResponse,
+    FunctionalTestsResourceWithStreamingResponse,
+    AsyncFunctionalTestsResourceWithStreamingResponse,
+)
 from .training_datasets import (
     TrainingDatasetsResource,
     AsyncTrainingDatasetsResource,
@@ -90,6 +98,12 @@ __all__ = [
     "AsyncHumanLlmResourceWithRawResponse",
     "HumanLlmResourceWithStreamingResponse",
     "AsyncHumanLlmResourceWithStreamingResponse",
+    "FunctionalTestsResource",
+    "AsyncFunctionalTestsResource",
+    "FunctionalTestsResourceWithRawResponse",
+    "AsyncFunctionalTestsResourceWithRawResponse",
+    "FunctionalTestsResourceWithStreamingResponse",
+    "AsyncFunctionalTestsResourceWithStreamingResponse",
     "NextActionResource",
     "AsyncNextActionResource",
     "NextActionResourceWithRawResponse",
