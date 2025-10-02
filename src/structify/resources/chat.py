@@ -520,6 +520,8 @@ class ChatResource(SyncAPIResource):
     def list_sessions(
         self,
         *,
+        project_id: str,
+        team_id: str,
         limit: Optional[int] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -529,9 +531,14 @@ class ChatResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ListChatSessionsResponse:
         """
-        List all chat sessions for the authenticated user.
+        List all chat sessions for the authenticated user within a specific team and
+        project.
 
         Args:
+          project_id: Project ID to filter chat sessions
+
+          team_id: Team ID to filter chat sessions
+
           limit: Maximum number of sessions to return (default: 50)
 
           extra_headers: Send extra headers
@@ -549,7 +556,14 @@ class ChatResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform({"limit": limit}, chat_list_sessions_params.ChatListSessionsParams),
+                query=maybe_transform(
+                    {
+                        "project_id": project_id,
+                        "team_id": team_id,
+                        "limit": limit,
+                    },
+                    chat_list_sessions_params.ChatListSessionsParams,
+                ),
             ),
             cast_to=ListChatSessionsResponse,
         )
@@ -1247,6 +1261,8 @@ class AsyncChatResource(AsyncAPIResource):
     async def list_sessions(
         self,
         *,
+        project_id: str,
+        team_id: str,
         limit: Optional[int] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1256,9 +1272,14 @@ class AsyncChatResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ListChatSessionsResponse:
         """
-        List all chat sessions for the authenticated user.
+        List all chat sessions for the authenticated user within a specific team and
+        project.
 
         Args:
+          project_id: Project ID to filter chat sessions
+
+          team_id: Team ID to filter chat sessions
+
           limit: Maximum number of sessions to return (default: 50)
 
           extra_headers: Send extra headers
@@ -1276,7 +1297,14 @@ class AsyncChatResource(AsyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform({"limit": limit}, chat_list_sessions_params.ChatListSessionsParams),
+                query=await async_maybe_transform(
+                    {
+                        "project_id": project_id,
+                        "team_id": team_id,
+                        "limit": limit,
+                    },
+                    chat_list_sessions_params.ChatListSessionsParams,
+                ),
             ),
             cast_to=ListChatSessionsResponse,
         )

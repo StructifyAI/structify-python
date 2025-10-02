@@ -539,19 +539,27 @@ class TestChat:
 
     @parametrize
     def test_method_list_sessions(self, client: Structify) -> None:
-        chat = client.chat.list_sessions()
+        chat = client.chat.list_sessions(
+            project_id="project_id",
+            team_id="team_id",
+        )
         assert_matches_type(ListChatSessionsResponse, chat, path=["response"])
 
     @parametrize
     def test_method_list_sessions_with_all_params(self, client: Structify) -> None:
         chat = client.chat.list_sessions(
+            project_id="project_id",
+            team_id="team_id",
             limit=0,
         )
         assert_matches_type(ListChatSessionsResponse, chat, path=["response"])
 
     @parametrize
     def test_raw_response_list_sessions(self, client: Structify) -> None:
-        response = client.chat.with_raw_response.list_sessions()
+        response = client.chat.with_raw_response.list_sessions(
+            project_id="project_id",
+            team_id="team_id",
+        )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -560,7 +568,10 @@ class TestChat:
 
     @parametrize
     def test_streaming_response_list_sessions(self, client: Structify) -> None:
-        with client.chat.with_streaming_response.list_sessions() as response:
+        with client.chat.with_streaming_response.list_sessions(
+            project_id="project_id",
+            team_id="team_id",
+        ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -1338,19 +1349,27 @@ class TestAsyncChat:
 
     @parametrize
     async def test_method_list_sessions(self, async_client: AsyncStructify) -> None:
-        chat = await async_client.chat.list_sessions()
+        chat = await async_client.chat.list_sessions(
+            project_id="project_id",
+            team_id="team_id",
+        )
         assert_matches_type(ListChatSessionsResponse, chat, path=["response"])
 
     @parametrize
     async def test_method_list_sessions_with_all_params(self, async_client: AsyncStructify) -> None:
         chat = await async_client.chat.list_sessions(
+            project_id="project_id",
+            team_id="team_id",
             limit=0,
         )
         assert_matches_type(ListChatSessionsResponse, chat, path=["response"])
 
     @parametrize
     async def test_raw_response_list_sessions(self, async_client: AsyncStructify) -> None:
-        response = await async_client.chat.with_raw_response.list_sessions()
+        response = await async_client.chat.with_raw_response.list_sessions(
+            project_id="project_id",
+            team_id="team_id",
+        )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -1359,7 +1378,10 @@ class TestAsyncChat:
 
     @parametrize
     async def test_streaming_response_list_sessions(self, async_client: AsyncStructify) -> None:
-        async with async_client.chat.with_streaming_response.list_sessions() as response:
+        async with async_client.chat.with_streaming_response.list_sessions(
+            project_id="project_id",
+            team_id="team_id",
+        ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
