@@ -198,6 +198,7 @@ class ChatResource(SyncAPIResource):
         copy_name: str,
         project_id: str,
         source_chat_id: str,
+        copy_inputs: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -224,6 +225,7 @@ class ChatResource(SyncAPIResource):
                     "copy_name": copy_name,
                     "project_id": project_id,
                     "source_chat_id": source_chat_id,
+                    "copy_inputs": copy_inputs,
                 },
                 chat_copy_params.ChatCopyParams,
             ),
@@ -939,6 +941,7 @@ class AsyncChatResource(AsyncAPIResource):
         copy_name: str,
         project_id: str,
         source_chat_id: str,
+        copy_inputs: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -965,6 +968,7 @@ class AsyncChatResource(AsyncAPIResource):
                     "copy_name": copy_name,
                     "project_id": project_id,
                     "source_chat_id": source_chat_id,
+                    "copy_inputs": copy_inputs,
                 },
                 chat_copy_params.ChatCopyParams,
             ),
