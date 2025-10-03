@@ -4,4 +4,4 @@ from typing_extensions import Literal, TypeAlias
 
 __all__ = ["WorkflowNodeExecutionStatus"]
 
-WorkflowNodeExecutionStatus: TypeAlias = Literal["Unexecuted", "Success", "Failure", "Running"]
+WorkflowNodeExecutionStatus: TypeAlias = Literal["Unexecuted", "Success", "Failure", "Running", "Aborted"]

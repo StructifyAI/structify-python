@@ -11,6 +11,8 @@ __all__ = ["WorkflowSession"]
 class WorkflowSession(BaseModel):
     id: str
 
+    aborted: bool
+
     chat_session_id: str
 
     dag_ready: bool
