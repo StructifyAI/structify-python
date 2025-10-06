@@ -15,6 +15,8 @@ class FunctionalTest(BaseModel):
 
     created_at: datetime
 
+    created_by: str
+
     api_model_override: Optional[str] = FieldInfo(alias="model_override", default=None)
 
     prompt_override: Optional[str] = None
