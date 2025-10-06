@@ -88,7 +88,7 @@ class TestFunctionalTests:
     def test_method_get_results_with_all_params(self, client: Structify) -> None:
         functional_test = client.admin.functional_tests.get_results(
             functional_test_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            sample_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            sample_name="sample_name",
         )
         assert_matches_type(FunctionalTestResultsResponse, functional_test, path=["response"])
 
@@ -118,7 +118,7 @@ class TestFunctionalTests:
             chat_session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             functional_test_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             results={"foo": "bar"},
-            sample_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            sample_name="sample_name",
         )
         assert functional_test is None
 
@@ -128,7 +128,7 @@ class TestFunctionalTests:
             chat_session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             functional_test_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             results={"foo": "bar"},
-            sample_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            sample_name="sample_name",
         )
 
         assert response.is_closed is True
@@ -142,7 +142,7 @@ class TestFunctionalTests:
             chat_session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             functional_test_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             results={"foo": "bar"},
-            sample_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            sample_name="sample_name",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -158,7 +158,7 @@ class TestFunctionalTests:
             chat_session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             functional_test_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             results={"foo": "bar"},
-            sample_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            sample_name="sample_name",
         )
         assert functional_test is None
 
@@ -168,7 +168,7 @@ class TestFunctionalTests:
             chat_session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             functional_test_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             results={"foo": "bar"},
-            sample_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            sample_name="sample_name",
         )
 
         assert response.is_closed is True
@@ -182,7 +182,7 @@ class TestFunctionalTests:
             chat_session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             functional_test_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             results={"foo": "bar"},
-            sample_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            sample_name="sample_name",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -265,7 +265,7 @@ class TestAsyncFunctionalTests:
     async def test_method_get_results_with_all_params(self, async_client: AsyncStructify) -> None:
         functional_test = await async_client.admin.functional_tests.get_results(
             functional_test_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            sample_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            sample_name="sample_name",
         )
         assert_matches_type(FunctionalTestResultsResponse, functional_test, path=["response"])
 
@@ -295,7 +295,7 @@ class TestAsyncFunctionalTests:
             chat_session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             functional_test_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             results={"foo": "bar"},
-            sample_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            sample_name="sample_name",
         )
         assert functional_test is None
 
@@ -305,7 +305,7 @@ class TestAsyncFunctionalTests:
             chat_session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             functional_test_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             results={"foo": "bar"},
-            sample_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            sample_name="sample_name",
         )
 
         assert response.is_closed is True
@@ -319,7 +319,7 @@ class TestAsyncFunctionalTests:
             chat_session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             functional_test_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             results={"foo": "bar"},
-            sample_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            sample_name="sample_name",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -335,7 +335,7 @@ class TestAsyncFunctionalTests:
             chat_session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             functional_test_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             results={"foo": "bar"},
-            sample_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            sample_name="sample_name",
         )
         assert functional_test is None
 
@@ -345,7 +345,7 @@ class TestAsyncFunctionalTests:
             chat_session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             functional_test_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             results={"foo": "bar"},
-            sample_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            sample_name="sample_name",
         )
 
         assert response.is_closed is True
@@ -359,7 +359,7 @@ class TestAsyncFunctionalTests:
             chat_session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             functional_test_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             results={"foo": "bar"},
-            sample_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            sample_name="sample_name",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

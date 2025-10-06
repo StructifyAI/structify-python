@@ -1,10 +1,28 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List
+from typing import List, Optional
+from datetime import datetime
 from typing_extensions import TypeAlias
 
-from .functional_test import FunctionalTest
+from pydantic import Field as FieldInfo
 
-__all__ = ["FunctionalTestListResponse"]
+from ..._models import BaseModel
 
-FunctionalTestListResponse: TypeAlias = List[FunctionalTest]
+__all__ = ["FunctionalTestListResponse", "FunctionalTestListResponseItem"]
+
+
+class FunctionalTestListResponseItem(BaseModel):
+    id: str
+
+    created_at: datetime
+
+    created_by: str
+
+    created_by_email: str
+
+    api_model_override: Optional[str] = FieldInfo(alias="model_override", default=None)
+
+    prompt_override: Optional[str] = None
+
+
+FunctionalTestListResponse: TypeAlias = List[FunctionalTestListResponseItem]

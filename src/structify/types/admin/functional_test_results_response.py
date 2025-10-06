@@ -12,7 +12,7 @@ class Result(BaseModel):
 
     results: Dict[str, object]
 
-    sample_id: str
+    sample_name: str
 
 
 class FunctionalTestResultsResponse(BaseModel):
@@ -20,4 +20,4 @@ class FunctionalTestResultsResponse(BaseModel):
 
     functional_test_id: Optional[str] = None
 
-    sample_id: Optional[str] = None
+    sample_name: Optional[str] = None

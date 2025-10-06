@@ -15,4 +15,4 @@ class FunctionalTestUpdateResultsParams(TypedDict, total=False):
 
     results: Required[Dict[str, object]]
 
-    sample_id: Required[str]
+    sample_name: Required[str]

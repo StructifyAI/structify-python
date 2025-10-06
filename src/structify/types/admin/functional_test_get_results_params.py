@@ -11,4 +11,4 @@ __all__ = ["FunctionalTestGetResultsParams"]
 class FunctionalTestGetResultsParams(TypedDict, total=False):
     functional_test_id: Optional[str]
 
-    sample_id: Optional[str]
+    sample_name: Optional[str]

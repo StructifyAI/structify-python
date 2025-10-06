@@ -115,7 +115,7 @@ class FunctionalTestsResource(SyncAPIResource):
         self,
         *,
         functional_test_id: Optional[str] | Omit = omit,
-        sample_id: Optional[str] | Omit = omit,
+        sample_name: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -125,8 +125,8 @@ class FunctionalTestsResource(SyncAPIResource):
     ) -> FunctionalTestResultsResponse:
         """
         Gets all results and chat IDs for either a specific functional test or a
-        specific sample ID. Must provide either functional_test_id or sample_id, but not
-        both.
+        specific sample name. Must provide either functional_test_id or sample_name, but
+        not both.
 
         Args:
           extra_headers: Send extra headers
@@ -147,7 +147,7 @@ class FunctionalTestsResource(SyncAPIResource):
                 query=maybe_transform(
                     {
                         "functional_test_id": functional_test_id,
-                        "sample_id": sample_id,
+                        "sample_name": sample_name,
                     },
                     functional_test_get_results_params.FunctionalTestGetResultsParams,
                 ),
@@ -161,7 +161,7 @@ class FunctionalTestsResource(SyncAPIResource):
         chat_session_id: str,
         functional_test_id: str,
         results: Dict[str, object],
-        sample_id: str,
+        sample_name: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -170,8 +170,8 @@ class FunctionalTestsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
-        Links a chat session to a functional test with a specific sample ID and initial
-        results.
+        Links a chat session to a functional test with a specific sample name and
+        initial results.
 
         Args:
           extra_headers: Send extra headers
@@ -190,7 +190,7 @@ class FunctionalTestsResource(SyncAPIResource):
                     "chat_session_id": chat_session_id,
                     "functional_test_id": functional_test_id,
                     "results": results,
-                    "sample_id": sample_id,
+                    "sample_name": sample_name,
                 },
                 functional_test_link_chat_params.FunctionalTestLinkChatParams,
             ),
@@ -206,7 +206,7 @@ class FunctionalTestsResource(SyncAPIResource):
         chat_session_id: str,
         functional_test_id: str,
         results: Dict[str, object],
-        sample_id: str,
+        sample_name: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -234,7 +234,7 @@ class FunctionalTestsResource(SyncAPIResource):
                     "chat_session_id": chat_session_id,
                     "functional_test_id": functional_test_id,
                     "results": results,
-                    "sample_id": sample_id,
+                    "sample_name": sample_name,
                 },
                 functional_test_update_results_params.FunctionalTestUpdateResultsParams,
             ),
@@ -330,7 +330,7 @@ class AsyncFunctionalTestsResource(AsyncAPIResource):
         self,
         *,
         functional_test_id: Optional[str] | Omit = omit,
-        sample_id: Optional[str] | Omit = omit,
+        sample_name: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -340,8 +340,8 @@ class AsyncFunctionalTestsResource(AsyncAPIResource):
     ) -> FunctionalTestResultsResponse:
         """
         Gets all results and chat IDs for either a specific functional test or a
-        specific sample ID. Must provide either functional_test_id or sample_id, but not
-        both.
+        specific sample name. Must provide either functional_test_id or sample_name, but
+        not both.
 
         Args:
           extra_headers: Send extra headers
@@ -362,7 +362,7 @@ class AsyncFunctionalTestsResource(AsyncAPIResource):
                 query=await async_maybe_transform(
                     {
                         "functional_test_id": functional_test_id,
-                        "sample_id": sample_id,
+                        "sample_name": sample_name,
                     },
                     functional_test_get_results_params.FunctionalTestGetResultsParams,
                 ),
@@ -376,7 +376,7 @@ class AsyncFunctionalTestsResource(AsyncAPIResource):
         chat_session_id: str,
         functional_test_id: str,
         results: Dict[str, object],
-        sample_id: str,
+        sample_name: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -385,8 +385,8 @@ class AsyncFunctionalTestsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
-        Links a chat session to a functional test with a specific sample ID and initial
-        results.
+        Links a chat session to a functional test with a specific sample name and
+        initial results.
 
         Args:
           extra_headers: Send extra headers
@@ -405,7 +405,7 @@ class AsyncFunctionalTestsResource(AsyncAPIResource):
                     "chat_session_id": chat_session_id,
                     "functional_test_id": functional_test_id,
                     "results": results,
-                    "sample_id": sample_id,
+                    "sample_name": sample_name,
                 },
                 functional_test_link_chat_params.FunctionalTestLinkChatParams,
             ),
@@ -421,7 +421,7 @@ class AsyncFunctionalTestsResource(AsyncAPIResource):
         chat_session_id: str,
         functional_test_id: str,
         results: Dict[str, object],
-        sample_id: str,
+        sample_name: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -449,7 +449,7 @@ class AsyncFunctionalTestsResource(AsyncAPIResource):
                     "chat_session_id": chat_session_id,
                     "functional_test_id": functional_test_id,
                     "results": results,
-                    "sample_id": sample_id,
+                    "sample_name": sample_name,
                 },
                 functional_test_update_results_params.FunctionalTestUpdateResultsParams,
             ),
