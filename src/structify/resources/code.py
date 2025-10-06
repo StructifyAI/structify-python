@@ -58,19 +58,10 @@ class CodeResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
-        """
-        Protocol:
+        """Events are streamed via WebSocket connection.
 
-        - event: `chat_event` — data is a JSON object, one of (serde external-tagged
-          enum):
-        - `{ "TextMessage": { "message": string } }`
-        - `{ "Connector": { "name": string, "description"?: string, "env_vars": string[] } }`
-        - `{ "Thinking": { "content": string } }`
-        - `{ "File": { "path": string, "content"?: string } }`
-        - `{ "Action": { "actions": Array<{ name: string, description: string }> } }`
-        - `{ "ToolCall": { "name": string, "input": any, "result_id"?: string, "result_text"?: string } }`
-        - event: `error` — data is a JSON object: `{ "message": string }` describing the
-          error.
+        This endpoint returns immediately
+        after starting the generation process.
 
         Args:
           extra_headers: Send extra headers
@@ -138,19 +129,10 @@ class AsyncCodeResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
-        """
-        Protocol:
+        """Events are streamed via WebSocket connection.
 
-        - event: `chat_event` — data is a JSON object, one of (serde external-tagged
-          enum):
-        - `{ "TextMessage": { "message": string } }`
-        - `{ "Connector": { "name": string, "description"?: string, "env_vars": string[] } }`
-        - `{ "Thinking": { "content": string } }`
-        - `{ "File": { "path": string, "content"?: string } }`
-        - `{ "Action": { "actions": Array<{ name: string, description: string }> } }`
-        - `{ "ToolCall": { "name": string, "input": any, "result_id"?: string, "result_text"?: string } }`
-        - event: `error` — data is a JSON object: `{ "message": string }` describing the
-          error.
+        This endpoint returns immediately
+        after starting the generation process.
 
         Args:
           extra_headers: Send extra headers
