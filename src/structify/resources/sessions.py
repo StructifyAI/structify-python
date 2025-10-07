@@ -8,6 +8,7 @@ from typing_extensions import Literal
 import httpx
 
 from ..types import (
+    AutofixContext,
     WorkflowNodeExecutionStatus,
     session_kill_jobs_params,
     session_get_events_params,
@@ -40,6 +41,7 @@ from .._response import (
 )
 from .._base_client import make_request_options
 from ..types.workflow_dag import WorkflowDag
+from ..types.autofix_context import AutofixContext
 from ..types.workflow_session import WorkflowSession
 from ..types.workflow_session_edge import WorkflowSessionEdge
 from ..types.workflow_session_node import WorkflowSessionNode
@@ -441,6 +443,8 @@ class SessionsResource(SyncAPIResource):
         session_id: str,
         *,
         error_message: str,
+        autofix: bool | Omit = omit,
+        autofix_context: Optional[AutofixContext] | Omit = omit,
         error_traceback: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -466,6 +470,8 @@ class SessionsResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "error_message": error_message,
+                    "autofix": autofix,
+                    "autofix_context": autofix_context,
                     "error_traceback": error_traceback,
                 },
                 session_mark_errored_params.SessionMarkErroredParams,
@@ -1030,6 +1036,8 @@ class AsyncSessionsResource(AsyncAPIResource):
         session_id: str,
         *,
         error_message: str,
+        autofix: bool | Omit = omit,
+        autofix_context: Optional[AutofixContext] | Omit = omit,
         error_traceback: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1055,6 +1063,8 @@ class AsyncSessionsResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "error_message": error_message,
+                    "autofix": autofix,
+                    "autofix_context": autofix_context,
                     "error_traceback": error_traceback,
                 },
                 session_mark_errored_params.SessionMarkErroredParams,

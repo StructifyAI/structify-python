@@ -461,6 +461,7 @@ Types:
 
 ```python
 from structify.types import (
+    AutofixContext,
     CreateWorkflowEdgeRequest,
     CreateWorkflowNodeRequest,
     CreateWorkflowSessionRequest,
