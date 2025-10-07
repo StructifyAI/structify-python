@@ -33,6 +33,7 @@ from .job_event_body import JobEventBody as JobEventBody
 from .strategy_param import StrategyParam as StrategyParam
 from .team_with_role import TeamWithRole as TeamWithRole
 from .token_response import TokenResponse as TokenResponse
+from .autofix_context import AutofixContext as AutofixContext
 from .job_list_params import JobListParams as JobListParams
 from .knowledge_graph import KnowledgeGraph as KnowledgeGraph
 from .usage_group_key import UsageGroupKey as UsageGroupKey
