@@ -496,6 +496,8 @@ class TestSessions:
         session = client.sessions.mark_errored(
             session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             error_message="error_message",
+            autofix=True,
+            autofix_context="creation",
             error_traceback="error_traceback",
         )
         assert_matches_type(WorkflowSession, session, path=["response"])
@@ -1204,6 +1206,8 @@ class TestAsyncSessions:
         session = await async_client.sessions.mark_errored(
             session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             error_message="error_message",
+            autofix=True,
+            autofix_context="creation",
             error_traceback="error_traceback",
         )
         assert_matches_type(WorkflowSession, session, path=["response"])
