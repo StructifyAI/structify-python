@@ -893,14 +893,13 @@ from structify.types import (
     SlackAPIResponse,
     SlackConnectionStatus,
     SlackEventPayload,
-    SlackOAuthCallbackRequest,
-    SlackOAuthResponse,
+    SlackUserMappingRequest,
+    SlackUserMappingResponse,
 )
 ```
 
 Methods:
 
-- <code title="delete /slack/disconnect">client.slack.<a href="./src/structify/resources/slack.py">disconnect</a>() -> <a href="./src/structify/types/slack_oauth_response.py">SlackOAuthResponse</a></code>
 - <code title="post /slack/events">client.slack.<a href="./src/structify/resources/slack.py">events</a>(\*\*<a href="src/structify/types/slack_events_params.py">params</a>) -> <a href="./src/structify/types/slack_api_response.py">SlackAPIResponse</a></code>
-- <code title="post /slack/oauth/callback">client.slack.<a href="./src/structify/resources/slack.py">oauth_callback</a>(\*\*<a href="src/structify/types/slack_oauth_callback_params.py">params</a>) -> <a href="./src/structify/types/slack_oauth_response.py">SlackOAuthResponse</a></code>
 - <code title="get /slack/status">client.slack.<a href="./src/structify/resources/slack.py">status</a>() -> <a href="./src/structify/types/slack_connection_status.py">SlackConnectionStatus</a></code>
+- <code title="post /slack/user-mapping">client.slack.<a href="./src/structify/resources/slack.py">user_mapping</a>(\*\*<a href="src/structify/types/slack_user_mapping_params.py">params</a>) -> <a href="./src/structify/types/slack_user_mapping_response.py">SlackUserMappingResponse</a></code>

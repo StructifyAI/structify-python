@@ -7,7 +7,7 @@ from typing_extensions import Literal, overload
 
 import httpx
 
-from ..types import slack_events_params, slack_oauth_callback_params
+from ..types import slack_events_params, slack_user_mapping_params
 from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import required_args, maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -20,8 +20,8 @@ from .._response import (
 )
 from .._base_client import make_request_options
 from ..types.slack_api_response import SlackAPIResponse
-from ..types.slack_oauth_response import SlackOAuthResponse
 from ..types.slack_connection_status import SlackConnectionStatus
+from ..types.slack_user_mapping_response import SlackUserMappingResponse
 
 __all__ = ["SlackResource", "AsyncSlackResource"]
 
@@ -45,25 +45,6 @@ class SlackResource(SyncAPIResource):
         For more information, see https://www.github.com/StructifyAI/structify-python#with_streaming_response
         """
         return SlackResourceWithStreamingResponse(self)
-
-    def disconnect(
-        self,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SlackOAuthResponse:
-        """Disconnect user's Slack account"""
-        return self._delete(
-            "/slack/disconnect",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=SlackOAuthResponse,
-        )
 
     @overload
     def events(
@@ -179,46 +160,6 @@ class SlackResource(SyncAPIResource):
             ),
         )
 
-    def oauth_callback(
-        self,
-        *,
-        code: str,
-        redirect_uri: Optional[str] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SlackOAuthResponse:
-        """
-        This endpoint receives the authorization code from Slack OAuth flow, exchanges
-        it for user information, and creates a user mapping.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return self._post(
-            "/slack/oauth/callback",
-            body=maybe_transform(
-                {
-                    "code": code,
-                    "redirect_uri": redirect_uri,
-                },
-                slack_oauth_callback_params.SlackOAuthCallbackParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=SlackOAuthResponse,
-        )
-
     def status(
         self,
         *,
@@ -236,6 +177,47 @@ class SlackResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=SlackConnectionStatus,
+        )
+
+    def user_mapping(
+        self,
+        *,
+        slack_team_id: str,
+        slack_user_id: str,
+        slack_username: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> SlackUserMappingResponse:
+        """
+        Create Slack user mapping directly from token data
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/slack/user-mapping",
+            body=maybe_transform(
+                {
+                    "slack_team_id": slack_team_id,
+                    "slack_user_id": slack_user_id,
+                    "slack_username": slack_username,
+                },
+                slack_user_mapping_params.SlackUserMappingParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=SlackUserMappingResponse,
         )
 
 
@@ -258,25 +240,6 @@ class AsyncSlackResource(AsyncAPIResource):
         For more information, see https://www.github.com/StructifyAI/structify-python#with_streaming_response
         """
         return AsyncSlackResourceWithStreamingResponse(self)
-
-    async def disconnect(
-        self,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SlackOAuthResponse:
-        """Disconnect user's Slack account"""
-        return await self._delete(
-            "/slack/disconnect",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=SlackOAuthResponse,
-        )
 
     @overload
     async def events(
@@ -392,46 +355,6 @@ class AsyncSlackResource(AsyncAPIResource):
             ),
         )
 
-    async def oauth_callback(
-        self,
-        *,
-        code: str,
-        redirect_uri: Optional[str] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SlackOAuthResponse:
-        """
-        This endpoint receives the authorization code from Slack OAuth flow, exchanges
-        it for user information, and creates a user mapping.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return await self._post(
-            "/slack/oauth/callback",
-            body=await async_maybe_transform(
-                {
-                    "code": code,
-                    "redirect_uri": redirect_uri,
-                },
-                slack_oauth_callback_params.SlackOAuthCallbackParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=SlackOAuthResponse,
-        )
-
     async def status(
         self,
         *,
@@ -451,22 +374,60 @@ class AsyncSlackResource(AsyncAPIResource):
             cast_to=SlackConnectionStatus,
         )
 
+    async def user_mapping(
+        self,
+        *,
+        slack_team_id: str,
+        slack_user_id: str,
+        slack_username: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> SlackUserMappingResponse:
+        """
+        Create Slack user mapping directly from token data
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/slack/user-mapping",
+            body=await async_maybe_transform(
+                {
+                    "slack_team_id": slack_team_id,
+                    "slack_user_id": slack_user_id,
+                    "slack_username": slack_username,
+                },
+                slack_user_mapping_params.SlackUserMappingParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=SlackUserMappingResponse,
+        )
+
 
 class SlackResourceWithRawResponse:
     def __init__(self, slack: SlackResource) -> None:
         self._slack = slack
 
-        self.disconnect = to_raw_response_wrapper(
-            slack.disconnect,
-        )
         self.events = to_raw_response_wrapper(
             slack.events,
         )
-        self.oauth_callback = to_raw_response_wrapper(
-            slack.oauth_callback,
-        )
         self.status = to_raw_response_wrapper(
             slack.status,
+        )
+        self.user_mapping = to_raw_response_wrapper(
+            slack.user_mapping,
         )
 
 
@@ -474,17 +435,14 @@ class AsyncSlackResourceWithRawResponse:
     def __init__(self, slack: AsyncSlackResource) -> None:
         self._slack = slack
 
-        self.disconnect = async_to_raw_response_wrapper(
-            slack.disconnect,
-        )
         self.events = async_to_raw_response_wrapper(
             slack.events,
         )
-        self.oauth_callback = async_to_raw_response_wrapper(
-            slack.oauth_callback,
-        )
         self.status = async_to_raw_response_wrapper(
             slack.status,
+        )
+        self.user_mapping = async_to_raw_response_wrapper(
+            slack.user_mapping,
         )
 
 
@@ -492,17 +450,14 @@ class SlackResourceWithStreamingResponse:
     def __init__(self, slack: SlackResource) -> None:
         self._slack = slack
 
-        self.disconnect = to_streamed_response_wrapper(
-            slack.disconnect,
-        )
         self.events = to_streamed_response_wrapper(
             slack.events,
         )
-        self.oauth_callback = to_streamed_response_wrapper(
-            slack.oauth_callback,
-        )
         self.status = to_streamed_response_wrapper(
             slack.status,
+        )
+        self.user_mapping = to_streamed_response_wrapper(
+            slack.user_mapping,
         )
 
 
@@ -510,15 +465,12 @@ class AsyncSlackResourceWithStreamingResponse:
     def __init__(self, slack: AsyncSlackResource) -> None:
         self._slack = slack
 
-        self.disconnect = async_to_streamed_response_wrapper(
-            slack.disconnect,
-        )
         self.events = async_to_streamed_response_wrapper(
             slack.events,
         )
-        self.oauth_callback = async_to_streamed_response_wrapper(
-            slack.oauth_callback,
-        )
         self.status = async_to_streamed_response_wrapper(
             slack.status,
+        )
+        self.user_mapping = async_to_streamed_response_wrapper(
+            slack.user_mapping,
         )
