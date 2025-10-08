@@ -59,6 +59,7 @@ from .report_step_params import ReportStepParams as ReportStepParams
 from .sandbox_get_params import SandboxGetParams as SandboxGetParams
 from .scrape_list_params import ScrapeListParams as ScrapeListParams
 from .server_information import ServerInformation as ServerInformation
+from .slack_api_response import SlackAPIResponse as SlackAPIResponse
 from .source_list_params import SourceListParams as SourceListParams
 from .team_create_params import TeamCreateParams as TeamCreateParams
 from .team_update_params import TeamUpdateParams as TeamUpdateParams
@@ -73,6 +74,7 @@ from .job_status_response import JobStatusResponse as JobStatusResponse
 from .list_teams_response import ListTeamsResponse as ListTeamsResponse
 from .property_type_param import PropertyTypeParam as PropertyTypeParam
 from .report_wrong_params import ReportWrongParams as ReportWrongParams
+from .slack_events_params import SlackEventsParams as SlackEventsParams
 from .tool_metadata_param import ToolMetadataParam as ToolMetadataParam
 from .user_usage_response import UserUsageResponse as UserUsageResponse
 from .workflow_run_params import WorkflowRunParams as WorkflowRunParams
@@ -90,6 +92,7 @@ from .get_project_response import GetProjectResponse as GetProjectResponse
 from .report_step_response import ReportStepResponse as ReportStepResponse
 from .scrape_list_response import ScrapeListResponse as ScrapeListResponse
 from .scrape_scrape_params import ScrapeScrapeParams as ScrapeScrapeParams
+from .slack_oauth_response import SlackOAuthResponse as SlackOAuthResponse
 from .source_list_response import SourceListResponse as SourceListResponse
 from .update_team_response import UpdateTeamResponse as UpdateTeamResponse
 from .workflow_stop_params import WorkflowStopParams as WorkflowStopParams
@@ -137,6 +140,7 @@ from .entity_add_batch_params import EntityAddBatchParams as EntityAddBatchParam
 from .entity_list_jobs_params import EntityListJobsParams as EntityListJobsParams
 from .entity_summarize_params import EntitySummarizeParams as EntitySummarizeParams
 from .report_missing_response import ReportMissingResponse as ReportMissingResponse
+from .slack_connection_status import SlackConnectionStatus as SlackConnectionStatus
 from .chat_delete_files_params import ChatDeleteFilesParams as ChatDeleteFilesParams
 from .chat_load_files_response import ChatLoadFilesResponse as ChatLoadFilesResponse
 from .dataset_descriptor_param import DatasetDescriptorParam as DatasetDescriptorParam
@@ -157,6 +161,7 @@ from .entity_summarize_response import EntitySummarizeResponse as EntitySummariz
 from .get_chat_session_response import GetChatSessionResponse as GetChatSessionResponse
 from .job_get_scrapers_response import JobGetScrapersResponse as JobGetScrapersResponse
 from .session_get_events_params import SessionGetEventsParams as SessionGetEventsParams
+from .slack_event_payload_param import SlackEventPayloadParam as SlackEventPayloadParam
 from .team_credits_usage_params import TeamCreditsUsageParams as TeamCreditsUsageParams
 from .user_survey_submit_params import UserSurveySubmitParams as UserSurveySubmitParams
 from .accept_invitation_response import AcceptInvitationResponse as AcceptInvitationResponse
@@ -187,6 +192,7 @@ from .list_collaborators_response import ListCollaboratorsResponse as ListCollab
 from .relationship_merge_strategy import RelationshipMergeStrategy as RelationshipMergeStrategy
 from .session_get_events_response import SessionGetEventsResponse as SessionGetEventsResponse
 from .session_mark_errored_params import SessionMarkErroredParams as SessionMarkErroredParams
+from .slack_oauth_callback_params import SlackOAuthCallbackParams as SlackOAuthCallbackParams
 from .source_delete_entity_params import SourceDeleteEntityParams as SourceDeleteEntityParams
 from .structure_job_status_params import StructureJobStatusParams as StructureJobStatusParams
 from .chat_add_collaborator_params import ChatAddCollaboratorParams as ChatAddCollaboratorParams

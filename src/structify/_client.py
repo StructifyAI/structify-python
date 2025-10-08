@@ -25,6 +25,7 @@ from .resources import (
     chat,
     code,
     jobs,
+    slack,
     teams,
     polars,
     report,
@@ -96,6 +97,7 @@ class Structify(SyncAPIClient):
     public_sessions: public_sessions.PublicSessionsResource
     polars: polars.PolarsResource
     external: external.ExternalResource
+    slack: slack.SlackResource
     with_raw_response: StructifyWithRawResponse
     with_streaming_response: StructifyWithStreamedResponse
 
@@ -200,6 +202,7 @@ class Structify(SyncAPIClient):
         self.public_sessions = public_sessions.PublicSessionsResource(self)
         self.polars = polars.PolarsResource(self)
         self.external = external.ExternalResource(self)
+        self.slack = slack.SlackResource(self)
         self.with_raw_response = StructifyWithRawResponse(self)
         self.with_streaming_response = StructifyWithStreamedResponse(self)
 
@@ -333,6 +336,7 @@ class AsyncStructify(AsyncAPIClient):
     structure: structure.AsyncStructureResource
     public_sessions: public_sessions.AsyncPublicSessionsResource
     external: external.AsyncExternalResource
+    slack: slack.AsyncSlackResource
     with_raw_response: AsyncStructifyWithRawResponse
     with_streaming_response: AsyncStructifyWithStreamedResponse
 
@@ -436,6 +440,7 @@ class AsyncStructify(AsyncAPIClient):
         self.structure = structure.AsyncStructureResource(self)
         self.public_sessions = public_sessions.AsyncPublicSessionsResource(self)
         self.external = external.AsyncExternalResource(self)
+        self.slack = slack.AsyncSlackResource(self)
         self.with_raw_response = AsyncStructifyWithRawResponse(self)
         self.with_streaming_response = AsyncStructifyWithStreamedResponse(self)
 
@@ -571,6 +576,7 @@ class StructifyWithRawResponse:
         self.public_sessions = public_sessions.PublicSessionsResourceWithRawResponse(client.public_sessions)
         self.polars = polars.PolarsResourceWithRawResponse(client.polars)
         self.external = external.ExternalResourceWithRawResponse(client.external)
+        self.slack = slack.SlackResourceWithRawResponse(client.slack)
 
 
 class AsyncStructifyWithRawResponse:
@@ -599,6 +605,7 @@ class AsyncStructifyWithRawResponse:
         self.structure = structure.AsyncStructureResourceWithRawResponse(client.structure)
         self.public_sessions = public_sessions.AsyncPublicSessionsResourceWithRawResponse(client.public_sessions)
         self.external = external.AsyncExternalResourceWithRawResponse(client.external)
+        self.slack = slack.AsyncSlackResourceWithRawResponse(client.slack)
 
 
 class StructifyWithStreamedResponse:
@@ -628,6 +635,7 @@ class StructifyWithStreamedResponse:
         self.public_sessions = public_sessions.PublicSessionsResourceWithStreamingResponse(client.public_sessions)
         self.polars = polars.PolarsResourceWithStreamingResponse(client.polars)
         self.external = external.ExternalResourceWithStreamingResponse(client.external)
+        self.slack = slack.SlackResourceWithStreamingResponse(client.slack)
 
 
 class AsyncStructifyWithStreamedResponse:
@@ -656,6 +664,7 @@ class AsyncStructifyWithStreamedResponse:
         self.structure = structure.AsyncStructureResourceWithStreamingResponse(client.structure)
         self.public_sessions = public_sessions.AsyncPublicSessionsResourceWithStreamingResponse(client.public_sessions)
         self.external = external.AsyncExternalResourceWithStreamingResponse(client.external)
+        self.slack = slack.AsyncSlackResourceWithStreamingResponse(client.slack)
 
 
 Client = Structify

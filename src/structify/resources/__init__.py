@@ -40,6 +40,14 @@ from .admin import (
     AdminResourceWithStreamingResponse,
     AsyncAdminResourceWithStreamingResponse,
 )
+from .slack import (
+    SlackResource,
+    AsyncSlackResource,
+    SlackResourceWithRawResponse,
+    AsyncSlackResourceWithRawResponse,
+    SlackResourceWithStreamingResponse,
+    AsyncSlackResourceWithStreamingResponse,
+)
 from .teams import (
     TeamsResource,
     AsyncTeamsResource,
@@ -318,4 +326,10 @@ __all__ = [
     "AsyncPublicSessionsResourceWithRawResponse",
     "PublicSessionsResourceWithStreamingResponse",
     "AsyncPublicSessionsResourceWithStreamingResponse",
+    "SlackResource",
+    "AsyncSlackResource",
+    "SlackResourceWithRawResponse",
+    "AsyncSlackResourceWithRawResponse",
+    "SlackResourceWithStreamingResponse",
+    "AsyncSlackResourceWithStreamingResponse",
 ]
