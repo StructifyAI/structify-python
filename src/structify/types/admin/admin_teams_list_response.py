@@ -1,13 +1,35 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Optional
+from typing import List, Optional
 from datetime import datetime
 from typing_extensions import Literal
 
 from ..team import Team
 from ..._models import BaseModel
 
-__all__ = ["AdminTeamsListResponse", "AdminTeamsListResponseSubscription"]
+__all__ = ["AdminTeamsListResponse", "AdminTeamsListResponseGrant", "AdminTeamsListResponseSubscription"]
+
+
+class AdminTeamsListResponseGrant(BaseModel):
+    id: str
+
+    amount: int
+
+    amount_remaining: int
+
+    created_at: datetime
+
+    source_type: str
+
+    team_id: str
+
+    updated_at: datetime
+
+    expires_at: Optional[datetime] = None
+
+    source_ref: Optional[str] = None
+
+    starts_at: Optional[datetime] = None
 
 
 class AdminTeamsListResponseSubscription(BaseModel):
@@ -24,6 +46,8 @@ class AdminTeamsListResponseSubscription(BaseModel):
 
 
 class AdminTeamsListResponse(Team):
+    grants: List[AdminTeamsListResponseGrant]
+
     member_count: int
 
     subscription: AdminTeamsListResponseSubscription

@@ -169,12 +169,23 @@ Methods:
 Types:
 
 ```python
-from structify.types.admin import AdminTeamsListResponse, TeamListResponse
+from structify.types.admin import (
+    AdminTeamsListResponse,
+    CancelSubscriptionRequest,
+    CancelSubscriptionResponse,
+    CreateSubscriptionResponse,
+    CreateTeamSubscriptionRequest,
+    GrantCreditsRequest,
+    GrantCreditsResponse,
+)
 ```
 
 Methods:
 
-- <code title="get /admin/teams/list">client.admin.teams.<a href="./src/structify/resources/admin/teams.py">list</a>() -> <a href="./src/structify/types/admin/team_list_response.py">TeamListResponse</a></code>
+- <code title="get /admin/team/list">client.admin.teams.<a href="./src/structify/resources/admin/teams.py">list</a>(\*\*<a href="src/structify/types/admin/team_list_params.py">params</a>) -> <a href="./src/structify/types/admin/admin_teams_list_response.py">SyncJobsList[AdminTeamsListResponse]</a></code>
+- <code title="post /admin/team/cancel_subscription">client.admin.teams.<a href="./src/structify/resources/admin/teams.py">cancel_subscription</a>(\*\*<a href="src/structify/types/admin/team_cancel_subscription_params.py">params</a>) -> <a href="./src/structify/types/admin/cancel_subscription_response.py">CancelSubscriptionResponse</a></code>
+- <code title="post /admin/team/create_subscription">client.admin.teams.<a href="./src/structify/resources/admin/teams.py">create_subscription</a>(\*\*<a href="src/structify/types/admin/team_create_subscription_params.py">params</a>) -> <a href="./src/structify/types/admin/create_subscription_response.py">CreateSubscriptionResponse</a></code>
+- <code title="post /admin/team/grant_credits">client.admin.teams.<a href="./src/structify/resources/admin/teams.py">grant_credits</a>(\*\*<a href="src/structify/types/admin/team_grant_credits_params.py">params</a>) -> <a href="./src/structify/types/admin/grant_credits_response.py">GrantCreditsResponse</a></code>
 
 ## Dataset
 
