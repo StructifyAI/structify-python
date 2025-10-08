@@ -48,7 +48,7 @@ class CodeResource(SyncAPIResource):
         chat_session_id: str,
         prompt: str,
         assistant_message_id: Optional[str] | Omit = omit,
-        config: Optional[code_generate_code_params.Config] | Omit = omit,
+        system_prompt: Optional[str] | Omit = omit,
         trigger_workflow_execution: bool | Omit = omit,
         user_message_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -64,8 +64,6 @@ class CodeResource(SyncAPIResource):
         after starting the generation process.
 
         Args:
-          config: Configuration for chat session with system prompt and LLM key
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -82,7 +80,7 @@ class CodeResource(SyncAPIResource):
                     "chat_session_id": chat_session_id,
                     "prompt": prompt,
                     "assistant_message_id": assistant_message_id,
-                    "config": config,
+                    "system_prompt": system_prompt,
                     "trigger_workflow_execution": trigger_workflow_execution,
                     "user_message_id": user_message_id,
                 },
@@ -121,7 +119,7 @@ class AsyncCodeResource(AsyncAPIResource):
         chat_session_id: str,
         prompt: str,
         assistant_message_id: Optional[str] | Omit = omit,
-        config: Optional[code_generate_code_params.Config] | Omit = omit,
+        system_prompt: Optional[str] | Omit = omit,
         trigger_workflow_execution: bool | Omit = omit,
         user_message_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -137,8 +135,6 @@ class AsyncCodeResource(AsyncAPIResource):
         after starting the generation process.
 
         Args:
-          config: Configuration for chat session with system prompt and LLM key
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -155,7 +151,7 @@ class AsyncCodeResource(AsyncAPIResource):
                     "chat_session_id": chat_session_id,
                     "prompt": prompt,
                     "assistant_message_id": assistant_message_id,
-                    "config": config,
+                    "system_prompt": system_prompt,
                     "trigger_workflow_execution": trigger_workflow_execution,
                     "user_message_id": user_message_id,
                 },

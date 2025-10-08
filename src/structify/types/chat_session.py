@@ -23,6 +23,4 @@ class ChatSession(BaseModel):
 
     updated_at: datetime
 
-    config_proto: Optional[object] = None
-
     name: Optional[str] = None
