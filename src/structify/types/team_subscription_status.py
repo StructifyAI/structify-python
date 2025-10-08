@@ -19,4 +19,6 @@ class TeamSubscriptionStatus(BaseModel):
     subscription_tier: Literal["free", "free_trial", "pro", "team", "enterprise"]
     """Represents the different subscription tiers available"""
 
+    payment_provider: Optional[str] = None
+
     trial_expires_at: Optional[datetime] = None
