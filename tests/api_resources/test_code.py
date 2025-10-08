@@ -29,10 +29,7 @@ class TestCode:
             chat_session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             prompt="prompt",
             assistant_message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            config={
-                "llm_key": "vllm.gpt-5-mini-2025-08-07",
-                "system_prompt": "system_prompt",
-            },
+            system_prompt="systemPrompt",
             trigger_workflow_execution=True,
             user_message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
@@ -84,10 +81,7 @@ class TestAsyncCode:
             chat_session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             prompt="prompt",
             assistant_message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            config={
-                "llm_key": "vllm.gpt-5-mini-2025-08-07",
-                "system_prompt": "system_prompt",
-            },
+            system_prompt="systemPrompt",
             trigger_workflow_execution=True,
             user_message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
