@@ -5,10 +5,12 @@ from __future__ import annotations
 from typing import Optional
 from typing_extensions import Required, TypedDict
 
-__all__ = ["SlackOAuthCallbackParams"]
+__all__ = ["SlackUserMappingParams"]
 
 
-class SlackOAuthCallbackParams(TypedDict, total=False):
-    code: Required[str]
+class SlackUserMappingParams(TypedDict, total=False):
+    slack_team_id: Required[str]
 
-    redirect_uri: Optional[str]
+    slack_user_id: Required[str]
+
+    slack_username: Optional[str]
