@@ -11,8 +11,8 @@ from structify import Structify, AsyncStructify
 from tests.utils import assert_matches_type
 from structify.types import (
     SlackAPIResponse,
-    SlackOAuthResponse,
     SlackConnectionStatus,
+    SlackUserMappingResponse,
 )
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
@@ -20,31 +20,6 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
 class TestSlack:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
-
-    @parametrize
-    def test_method_disconnect(self, client: Structify) -> None:
-        slack = client.slack.disconnect()
-        assert_matches_type(SlackOAuthResponse, slack, path=["response"])
-
-    @parametrize
-    def test_raw_response_disconnect(self, client: Structify) -> None:
-        response = client.slack.with_raw_response.disconnect()
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        slack = response.parse()
-        assert_matches_type(SlackOAuthResponse, slack, path=["response"])
-
-    @parametrize
-    def test_streaming_response_disconnect(self, client: Structify) -> None:
-        with client.slack.with_streaming_response.disconnect() as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            slack = response.parse()
-            assert_matches_type(SlackOAuthResponse, slack, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
 
     @parametrize
     def test_method_events_overload_1(self, client: Structify) -> None:
@@ -170,45 +145,6 @@ class TestSlack:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_method_oauth_callback(self, client: Structify) -> None:
-        slack = client.slack.oauth_callback(
-            code="code",
-        )
-        assert_matches_type(SlackOAuthResponse, slack, path=["response"])
-
-    @parametrize
-    def test_method_oauth_callback_with_all_params(self, client: Structify) -> None:
-        slack = client.slack.oauth_callback(
-            code="code",
-            redirect_uri="redirect_uri",
-        )
-        assert_matches_type(SlackOAuthResponse, slack, path=["response"])
-
-    @parametrize
-    def test_raw_response_oauth_callback(self, client: Structify) -> None:
-        response = client.slack.with_raw_response.oauth_callback(
-            code="code",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        slack = response.parse()
-        assert_matches_type(SlackOAuthResponse, slack, path=["response"])
-
-    @parametrize
-    def test_streaming_response_oauth_callback(self, client: Structify) -> None:
-        with client.slack.with_streaming_response.oauth_callback(
-            code="code",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            slack = response.parse()
-            assert_matches_type(SlackOAuthResponse, slack, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
     def test_method_status(self, client: Structify) -> None:
         slack = client.slack.status()
         assert_matches_type(SlackConnectionStatus, slack, path=["response"])
@@ -233,36 +169,54 @@ class TestSlack:
 
         assert cast(Any, response.is_closed) is True
 
+    @parametrize
+    def test_method_user_mapping(self, client: Structify) -> None:
+        slack = client.slack.user_mapping(
+            slack_team_id="slack_team_id",
+            slack_user_id="slack_user_id",
+        )
+        assert_matches_type(SlackUserMappingResponse, slack, path=["response"])
+
+    @parametrize
+    def test_method_user_mapping_with_all_params(self, client: Structify) -> None:
+        slack = client.slack.user_mapping(
+            slack_team_id="slack_team_id",
+            slack_user_id="slack_user_id",
+            slack_username="slack_username",
+        )
+        assert_matches_type(SlackUserMappingResponse, slack, path=["response"])
+
+    @parametrize
+    def test_raw_response_user_mapping(self, client: Structify) -> None:
+        response = client.slack.with_raw_response.user_mapping(
+            slack_team_id="slack_team_id",
+            slack_user_id="slack_user_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        slack = response.parse()
+        assert_matches_type(SlackUserMappingResponse, slack, path=["response"])
+
+    @parametrize
+    def test_streaming_response_user_mapping(self, client: Structify) -> None:
+        with client.slack.with_streaming_response.user_mapping(
+            slack_team_id="slack_team_id",
+            slack_user_id="slack_user_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            slack = response.parse()
+            assert_matches_type(SlackUserMappingResponse, slack, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
 
 class TestAsyncSlack:
     parametrize = pytest.mark.parametrize(
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
-
-    @parametrize
-    async def test_method_disconnect(self, async_client: AsyncStructify) -> None:
-        slack = await async_client.slack.disconnect()
-        assert_matches_type(SlackOAuthResponse, slack, path=["response"])
-
-    @parametrize
-    async def test_raw_response_disconnect(self, async_client: AsyncStructify) -> None:
-        response = await async_client.slack.with_raw_response.disconnect()
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        slack = await response.parse()
-        assert_matches_type(SlackOAuthResponse, slack, path=["response"])
-
-    @parametrize
-    async def test_streaming_response_disconnect(self, async_client: AsyncStructify) -> None:
-        async with async_client.slack.with_streaming_response.disconnect() as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            slack = await response.parse()
-            assert_matches_type(SlackOAuthResponse, slack, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
 
     @parametrize
     async def test_method_events_overload_1(self, async_client: AsyncStructify) -> None:
@@ -388,45 +342,6 @@ class TestAsyncSlack:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_method_oauth_callback(self, async_client: AsyncStructify) -> None:
-        slack = await async_client.slack.oauth_callback(
-            code="code",
-        )
-        assert_matches_type(SlackOAuthResponse, slack, path=["response"])
-
-    @parametrize
-    async def test_method_oauth_callback_with_all_params(self, async_client: AsyncStructify) -> None:
-        slack = await async_client.slack.oauth_callback(
-            code="code",
-            redirect_uri="redirect_uri",
-        )
-        assert_matches_type(SlackOAuthResponse, slack, path=["response"])
-
-    @parametrize
-    async def test_raw_response_oauth_callback(self, async_client: AsyncStructify) -> None:
-        response = await async_client.slack.with_raw_response.oauth_callback(
-            code="code",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        slack = await response.parse()
-        assert_matches_type(SlackOAuthResponse, slack, path=["response"])
-
-    @parametrize
-    async def test_streaming_response_oauth_callback(self, async_client: AsyncStructify) -> None:
-        async with async_client.slack.with_streaming_response.oauth_callback(
-            code="code",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            slack = await response.parse()
-            assert_matches_type(SlackOAuthResponse, slack, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
     async def test_method_status(self, async_client: AsyncStructify) -> None:
         slack = await async_client.slack.status()
         assert_matches_type(SlackConnectionStatus, slack, path=["response"])
@@ -448,5 +363,48 @@ class TestAsyncSlack:
 
             slack = await response.parse()
             assert_matches_type(SlackConnectionStatus, slack, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_method_user_mapping(self, async_client: AsyncStructify) -> None:
+        slack = await async_client.slack.user_mapping(
+            slack_team_id="slack_team_id",
+            slack_user_id="slack_user_id",
+        )
+        assert_matches_type(SlackUserMappingResponse, slack, path=["response"])
+
+    @parametrize
+    async def test_method_user_mapping_with_all_params(self, async_client: AsyncStructify) -> None:
+        slack = await async_client.slack.user_mapping(
+            slack_team_id="slack_team_id",
+            slack_user_id="slack_user_id",
+            slack_username="slack_username",
+        )
+        assert_matches_type(SlackUserMappingResponse, slack, path=["response"])
+
+    @parametrize
+    async def test_raw_response_user_mapping(self, async_client: AsyncStructify) -> None:
+        response = await async_client.slack.with_raw_response.user_mapping(
+            slack_team_id="slack_team_id",
+            slack_user_id="slack_user_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        slack = await response.parse()
+        assert_matches_type(SlackUserMappingResponse, slack, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_user_mapping(self, async_client: AsyncStructify) -> None:
+        async with async_client.slack.with_streaming_response.user_mapping(
+            slack_team_id="slack_team_id",
+            slack_user_id="slack_user_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            slack = await response.parse()
+            assert_matches_type(SlackUserMappingResponse, slack, path=["response"])
 
         assert cast(Any, response.is_closed) is True

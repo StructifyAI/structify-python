@@ -92,7 +92,6 @@ from .get_project_response import GetProjectResponse as GetProjectResponse
 from .report_step_response import ReportStepResponse as ReportStepResponse
 from .scrape_list_response import ScrapeListResponse as ScrapeListResponse
 from .scrape_scrape_params import ScrapeScrapeParams as ScrapeScrapeParams
-from .slack_oauth_response import SlackOAuthResponse as SlackOAuthResponse
 from .source_list_response import SourceListResponse as SourceListResponse
 from .update_team_response import UpdateTeamResponse as UpdateTeamResponse
 from .workflow_stop_params import WorkflowStopParams as WorkflowStopParams
@@ -162,6 +161,7 @@ from .get_chat_session_response import GetChatSessionResponse as GetChatSessionR
 from .job_get_scrapers_response import JobGetScrapersResponse as JobGetScrapersResponse
 from .session_get_events_params import SessionGetEventsParams as SessionGetEventsParams
 from .slack_event_payload_param import SlackEventPayloadParam as SlackEventPayloadParam
+from .slack_user_mapping_params import SlackUserMappingParams as SlackUserMappingParams
 from .team_credits_usage_params import TeamCreditsUsageParams as TeamCreditsUsageParams
 from .user_survey_submit_params import UserSurveySubmitParams as UserSurveySubmitParams
 from .accept_invitation_response import AcceptInvitationResponse as AcceptInvitationResponse
@@ -192,7 +192,7 @@ from .list_collaborators_response import ListCollaboratorsResponse as ListCollab
 from .relationship_merge_strategy import RelationshipMergeStrategy as RelationshipMergeStrategy
 from .session_get_events_response import SessionGetEventsResponse as SessionGetEventsResponse
 from .session_mark_errored_params import SessionMarkErroredParams as SessionMarkErroredParams
-from .slack_oauth_callback_params import SlackOAuthCallbackParams as SlackOAuthCallbackParams
+from .slack_user_mapping_response import SlackUserMappingResponse as SlackUserMappingResponse
 from .source_delete_entity_params import SourceDeleteEntityParams as SourceDeleteEntityParams
 from .structure_job_status_params import StructureJobStatusParams as StructureJobStatusParams
 from .chat_add_collaborator_params import ChatAddCollaboratorParams as ChatAddCollaboratorParams
