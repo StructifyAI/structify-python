@@ -872,3 +872,24 @@ Methods:
 - <code title="get /external/people/organizations/enrich">client.external.people.<a href="./src/structify/resources/external/people.py">organizations_enrich</a>(\*\*<a href="src/structify/types/external/person_organizations_enrich_params.py">params</a>) -> <a href="./src/structify/types/external/enriched_organization.py">EnrichedOrganization</a></code>
 - <code title="post /external/people/people/match">client.external.people.<a href="./src/structify/resources/external/people.py">people_match</a>(\*\*<a href="src/structify/types/external/person_people_match_params.py">params</a>) -> <a href="./src/structify/types/external/people_match_response.py">PeopleMatchResponse</a></code>
 - <code title="post /external/people/mixed_people/search">client.external.people.<a href="./src/structify/resources/external/people.py">people_search</a>(\*\*<a href="src/structify/types/external/person_people_search_params.py">params</a>) -> <a href="./src/structify/types/external/people_search_response.py">PeopleSearchResponse</a></code>
+
+# Slack
+
+Types:
+
+```python
+from structify.types import (
+    SlackAPIResponse,
+    SlackConnectionStatus,
+    SlackEventPayload,
+    SlackOAuthCallbackRequest,
+    SlackOAuthResponse,
+)
+```
+
+Methods:
+
+- <code title="delete /slack/disconnect">client.slack.<a href="./src/structify/resources/slack.py">disconnect</a>() -> <a href="./src/structify/types/slack_oauth_response.py">SlackOAuthResponse</a></code>
+- <code title="post /slack/events">client.slack.<a href="./src/structify/resources/slack.py">events</a>(\*\*<a href="src/structify/types/slack_events_params.py">params</a>) -> <a href="./src/structify/types/slack_api_response.py">SlackAPIResponse</a></code>
+- <code title="post /slack/oauth/callback">client.slack.<a href="./src/structify/resources/slack.py">oauth_callback</a>(\*\*<a href="src/structify/types/slack_oauth_callback_params.py">params</a>) -> <a href="./src/structify/types/slack_oauth_response.py">SlackOAuthResponse</a></code>
+- <code title="get /slack/status">client.slack.<a href="./src/structify/resources/slack.py">status</a>() -> <a href="./src/structify/types/slack_connection_status.py">SlackConnectionStatus</a></code>
