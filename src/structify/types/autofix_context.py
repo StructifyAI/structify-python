@@ -4,4 +4,4 @@ from typing_extensions import Literal, TypeAlias
 
 __all__ = ["AutofixContext"]
 
-AutofixContext: TypeAlias = Literal["creation", "execution"]
+AutofixContext: TypeAlias = Literal["creation", "execution", "visualization"]

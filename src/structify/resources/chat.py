@@ -279,6 +279,7 @@ class ChatResource(SyncAPIResource):
         self,
         *,
         project_id: str,
+        config: Optional[chat_create_session_params.Config] | Omit = omit,
         ephemeral: Optional[bool] | Omit = omit,
         initial_message: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -292,6 +293,8 @@ class ChatResource(SyncAPIResource):
         Create a new chat session with an initial message
 
         Args:
+          config: Configuration for chat session with system prompt and LLM key
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -305,6 +308,7 @@ class ChatResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "project_id": project_id,
+                    "config": config,
                     "ephemeral": ephemeral,
                     "initial_message": initial_message,
                 },
@@ -1022,6 +1026,7 @@ class AsyncChatResource(AsyncAPIResource):
         self,
         *,
         project_id: str,
+        config: Optional[chat_create_session_params.Config] | Omit = omit,
         ephemeral: Optional[bool] | Omit = omit,
         initial_message: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -1035,6 +1040,8 @@ class AsyncChatResource(AsyncAPIResource):
         Create a new chat session with an initial message
 
         Args:
+          config: Configuration for chat session with system prompt and LLM key
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -1048,6 +1055,7 @@ class AsyncChatResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "project_id": project_id,
+                    "config": config,
                     "ephemeral": ephemeral,
                     "initial_message": initial_message,
                 },
