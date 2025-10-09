@@ -51,6 +51,7 @@ from structify.types import (
     AddChatMessageRequest,
     AddChatMessageResponse,
     AddCollaboratorRequest,
+    AdminGrantAccessResponse,
     ChatEvent,
     ChatSession,
     ChatSessionRole,
@@ -62,6 +63,7 @@ from structify.types import (
     DeleteChatSessionResponse,
     ErrorResponse,
     GetChatSessionResponse,
+    GrantAdminAccessRequest,
     ListChatSessionsResponse,
     ListCollaboratorsResponse,
     Message,
@@ -90,6 +92,7 @@ Methods:
 - <code title="get /chat/sessions/{chat_id}/commits/{commit_hash}">client.chat.<a href="./src/structify/resources/chat.py">get_git_commit</a>(commit_hash, \*, chat_id) -> <a href="./src/structify/types/chat_get_git_commit_response.py">ChatGetGitCommitResponse</a></code>
 - <code title="get /chat/sessions/{session_id}">client.chat.<a href="./src/structify/resources/chat.py">get_session</a>(session_id) -> <a href="./src/structify/types/get_chat_session_response.py">GetChatSessionResponse</a></code>
 - <code title="get /chat/sessions/{session_id}/timeline">client.chat.<a href="./src/structify/resources/chat.py">get_session_timeline</a>(session_id) -> <a href="./src/structify/types/chat_get_session_timeline_response.py">ChatGetSessionTimelineResponse</a></code>
+- <code title="post /chat/sessions/{chat_id}/admin_override">client.chat.<a href="./src/structify/resources/chat.py">grant_admin_override</a>(chat_id, \*\*<a href="src/structify/types/chat_grant_admin_override_params.py">params</a>) -> <a href="./src/structify/types/admin_grant_access_response.py">AdminGrantAccessResponse</a></code>
 - <code title="get /chat/sessions/{chat_id}/collaborators">client.chat.<a href="./src/structify/resources/chat.py">list_collaborators</a>(chat_id) -> <a href="./src/structify/types/list_collaborators_response.py">ListCollaboratorsResponse</a></code>
 - <code title="get /chat/sessions">client.chat.<a href="./src/structify/resources/chat.py">list_sessions</a>(\*\*<a href="src/structify/types/chat_list_sessions_params.py">params</a>) -> <a href="./src/structify/types/list_chat_sessions_response.py">ListChatSessionsResponse</a></code>
 - <code title="post /chat/files/load">client.chat.<a href="./src/structify/resources/chat.py">load_files</a>(\*\*<a href="src/structify/types/chat_load_files_params.py">params</a>) -> <a href="./src/structify/types/chat_load_files_response.py">ChatLoadFilesResponse</a></code>
@@ -714,12 +717,13 @@ Methods:
 Types:
 
 ```python
-from structify.types import GenerateCodeRequest
+from structify.types import GenerateCodeRequest, InterruptGenerationRequest
 ```
 
 Methods:
 
 - <code title="post /code/generate-code">client.code.<a href="./src/structify/resources/code.py">generate_code</a>(\*\*<a href="src/structify/types/code_generate_code_params.py">params</a>) -> None</code>
+- <code title="post /code/interrupt-generation">client.code.<a href="./src/structify/resources/code.py">interrupt_generation</a>(\*\*<a href="src/structify/types/code_interrupt_generation_params.py">params</a>) -> None</code>
 
 # Structure
 
