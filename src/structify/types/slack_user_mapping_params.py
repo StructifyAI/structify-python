@@ -9,6 +9,8 @@ __all__ = ["SlackUserMappingParams"]
 
 
 class SlackUserMappingParams(TypedDict, total=False):
+    slack_bot_token: Required[str]
+
     slack_team_id: Required[str]
 
     slack_user_id: Required[str]

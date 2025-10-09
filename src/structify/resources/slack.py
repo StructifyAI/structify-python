@@ -182,6 +182,7 @@ class SlackResource(SyncAPIResource):
     def user_mapping(
         self,
         *,
+        slack_bot_token: str,
         slack_team_id: str,
         slack_user_id: str,
         slack_username: Optional[str] | Omit = omit,
@@ -208,6 +209,7 @@ class SlackResource(SyncAPIResource):
             "/slack/user-mapping",
             body=maybe_transform(
                 {
+                    "slack_bot_token": slack_bot_token,
                     "slack_team_id": slack_team_id,
                     "slack_user_id": slack_user_id,
                     "slack_username": slack_username,
@@ -377,6 +379,7 @@ class AsyncSlackResource(AsyncAPIResource):
     async def user_mapping(
         self,
         *,
+        slack_bot_token: str,
         slack_team_id: str,
         slack_user_id: str,
         slack_username: Optional[str] | Omit = omit,
@@ -403,6 +406,7 @@ class AsyncSlackResource(AsyncAPIResource):
             "/slack/user-mapping",
             body=await async_maybe_transform(
                 {
+                    "slack_bot_token": slack_bot_token,
                     "slack_team_id": slack_team_id,
                     "slack_user_id": slack_user_id,
                     "slack_username": slack_username,

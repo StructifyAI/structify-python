@@ -26,7 +26,7 @@ class CodeGenerateCodeParams(TypedDict, total=False):
 
 
 class Config(TypedDict, total=False):
-    llm_key: Required[
+    llm_key: Optional[
         Literal[
             "vllm.gpt-5-mini-2025-08-07",
             "vllm.gpt-4.1-mini-2025-04-14",
