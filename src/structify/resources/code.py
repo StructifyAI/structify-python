@@ -6,7 +6,7 @@ from typing import Optional
 
 import httpx
 
-from ..types import code_generate_code_params, code_interrupt_generation_params
+from ..types import code_generate_code_params
 from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -94,42 +94,6 @@ class CodeResource(SyncAPIResource):
             cast_to=NoneType,
         )
 
-    def interrupt_generation(
-        self,
-        *,
-        chat_session_id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> None:
-        """
-        This sets an interrupt flag that will cause the generation to stop gracefully at
-        the next checkpoint (before publishing the next event).
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
-        return self._post(
-            "/code/interrupt-generation",
-            body=maybe_transform(
-                {"chat_session_id": chat_session_id}, code_interrupt_generation_params.CodeInterruptGenerationParams
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=NoneType,
-        )
-
 
 class AsyncCodeResource(AsyncAPIResource):
     @cached_property
@@ -203,42 +167,6 @@ class AsyncCodeResource(AsyncAPIResource):
             cast_to=NoneType,
         )
 
-    async def interrupt_generation(
-        self,
-        *,
-        chat_session_id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> None:
-        """
-        This sets an interrupt flag that will cause the generation to stop gracefully at
-        the next checkpoint (before publishing the next event).
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
-        return await self._post(
-            "/code/interrupt-generation",
-            body=await async_maybe_transform(
-                {"chat_session_id": chat_session_id}, code_interrupt_generation_params.CodeInterruptGenerationParams
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=NoneType,
-        )
-
 
 class CodeResourceWithRawResponse:
     def __init__(self, code: CodeResource) -> None:
@@ -246,9 +174,6 @@ class CodeResourceWithRawResponse:
 
         self.generate_code = to_raw_response_wrapper(
             code.generate_code,
-        )
-        self.interrupt_generation = to_raw_response_wrapper(
-            code.interrupt_generation,
         )
 
 
@@ -259,9 +184,6 @@ class AsyncCodeResourceWithRawResponse:
         self.generate_code = async_to_raw_response_wrapper(
             code.generate_code,
         )
-        self.interrupt_generation = async_to_raw_response_wrapper(
-            code.interrupt_generation,
-        )
 
 
 class CodeResourceWithStreamingResponse:
@@ -271,9 +193,6 @@ class CodeResourceWithStreamingResponse:
         self.generate_code = to_streamed_response_wrapper(
             code.generate_code,
         )
-        self.interrupt_generation = to_streamed_response_wrapper(
-            code.interrupt_generation,
-        )
 
 
 class AsyncCodeResourceWithStreamingResponse:
@@ -282,7 +201,4 @@ class AsyncCodeResourceWithStreamingResponse:
 
         self.generate_code = async_to_streamed_response_wrapper(
             code.generate_code,
-        )
-        self.interrupt_generation = async_to_streamed_response_wrapper(
-            code.interrupt_generation,
         )
