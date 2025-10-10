@@ -252,6 +252,7 @@ from structify.types.admin import (
     LinkChatToFunctionalTestRequest,
     UpdateFunctionalTestResultsRequest,
     FunctionalTestListResponse,
+    FunctionalTestSystemPromptResponse,
 )
 ```
 
@@ -261,6 +262,7 @@ Methods:
 - <code title="get /admin/functional_tests/list">client.admin.functional_tests.<a href="./src/structify/resources/admin/functional_tests.py">list</a>() -> <a href="./src/structify/types/admin/functional_test_list_response.py">FunctionalTestListResponse</a></code>
 - <code title="get /admin/functional_tests/results">client.admin.functional_tests.<a href="./src/structify/resources/admin/functional_tests.py">get_results</a>(\*\*<a href="src/structify/types/admin/functional_test_get_results_params.py">params</a>) -> <a href="./src/structify/types/admin/functional_test_results_response.py">FunctionalTestResultsResponse</a></code>
 - <code title="post /admin/functional_tests/link">client.admin.functional_tests.<a href="./src/structify/resources/admin/functional_tests.py">link_chat</a>(\*\*<a href="src/structify/types/admin/functional_test_link_chat_params.py">params</a>) -> None</code>
+- <code title="get /admin/functional_tests/system_prompt">client.admin.functional_tests.<a href="./src/structify/resources/admin/functional_tests.py">system_prompt</a>() -> str</code>
 - <code title="put /admin/functional_tests/update_results">client.admin.functional_tests.<a href="./src/structify/resources/admin/functional_tests.py">update_results</a>(\*\*<a href="src/structify/types/admin/functional_test_update_results_params.py">params</a>) -> None</code>
 
 ## NextAction
