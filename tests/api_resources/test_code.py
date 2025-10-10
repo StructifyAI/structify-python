@@ -64,37 +64,6 @@ class TestCode:
 
         assert cast(Any, response.is_closed) is True
 
-    @parametrize
-    def test_method_interrupt_generation(self, client: Structify) -> None:
-        code = client.code.interrupt_generation(
-            chat_session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-        assert code is None
-
-    @parametrize
-    def test_raw_response_interrupt_generation(self, client: Structify) -> None:
-        response = client.code.with_raw_response.interrupt_generation(
-            chat_session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        code = response.parse()
-        assert code is None
-
-    @parametrize
-    def test_streaming_response_interrupt_generation(self, client: Structify) -> None:
-        with client.code.with_streaming_response.interrupt_generation(
-            chat_session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            code = response.parse()
-            assert code is None
-
-        assert cast(Any, response.is_closed) is True
-
 
 class TestAsyncCode:
     parametrize = pytest.mark.parametrize(
@@ -141,37 +110,6 @@ class TestAsyncCode:
         async with async_client.code.with_streaming_response.generate_code(
             chat_session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             prompt="prompt",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            code = await response.parse()
-            assert code is None
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    async def test_method_interrupt_generation(self, async_client: AsyncStructify) -> None:
-        code = await async_client.code.interrupt_generation(
-            chat_session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-        assert code is None
-
-    @parametrize
-    async def test_raw_response_interrupt_generation(self, async_client: AsyncStructify) -> None:
-        response = await async_client.code.with_raw_response.interrupt_generation(
-            chat_session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        code = await response.parse()
-        assert code is None
-
-    @parametrize
-    async def test_streaming_response_interrupt_generation(self, async_client: AsyncStructify) -> None:
-        async with async_client.code.with_streaming_response.interrupt_generation(
-            chat_session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
