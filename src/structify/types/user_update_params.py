@@ -34,6 +34,8 @@ class Updates(TypedDict, total=False):
         ]
     ]
 
+    feature_overrides: object
+
     full_name: Optional[str]
 
     is_developer: Optional[bool]
