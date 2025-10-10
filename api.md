@@ -719,12 +719,13 @@ Methods:
 Types:
 
 ```python
-from structify.types import GenerateCodeRequest
+from structify.types import GenerateCodeRequest, InterruptGenerationRequest
 ```
 
 Methods:
 
 - <code title="post /code/generate-code">client.code.<a href="./src/structify/resources/code.py">generate_code</a>(\*\*<a href="src/structify/types/code_generate_code_params.py">params</a>) -> None</code>
+- <code title="post /code/interrupt-generation">client.code.<a href="./src/structify/resources/code.py">interrupt_generation</a>(\*\*<a href="src/structify/types/code_interrupt_generation_params.py">params</a>) -> None</code>
 
 # Structure
 
