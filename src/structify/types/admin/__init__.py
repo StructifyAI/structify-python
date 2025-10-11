@@ -68,6 +68,9 @@ from .next_action_get_training_datum_params import NextActionGetTrainingDatumPar
 from .training_dataset_list_datums_response import (
     TrainingDatasetListDatumsResponse as TrainingDatasetListDatumsResponse,
 )
+from .functional_test_system_prompt_response import (
+    FunctionalTestSystemPromptResponse as FunctionalTestSystemPromptResponse,
+)
 from .training_dataset_download_datum_params import (
     TrainingDatasetDownloadDatumParams as TrainingDatasetDownloadDatumParams,
 )

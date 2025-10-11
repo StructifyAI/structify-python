@@ -172,6 +172,7 @@ class TestSlack:
     @parametrize
     def test_method_user_mapping(self, client: Structify) -> None:
         slack = client.slack.user_mapping(
+            slack_bot_token="slack_bot_token",
             slack_team_id="slack_team_id",
             slack_user_id="slack_user_id",
         )
@@ -180,6 +181,7 @@ class TestSlack:
     @parametrize
     def test_method_user_mapping_with_all_params(self, client: Structify) -> None:
         slack = client.slack.user_mapping(
+            slack_bot_token="slack_bot_token",
             slack_team_id="slack_team_id",
             slack_user_id="slack_user_id",
             slack_username="slack_username",
@@ -189,6 +191,7 @@ class TestSlack:
     @parametrize
     def test_raw_response_user_mapping(self, client: Structify) -> None:
         response = client.slack.with_raw_response.user_mapping(
+            slack_bot_token="slack_bot_token",
             slack_team_id="slack_team_id",
             slack_user_id="slack_user_id",
         )
@@ -201,6 +204,7 @@ class TestSlack:
     @parametrize
     def test_streaming_response_user_mapping(self, client: Structify) -> None:
         with client.slack.with_streaming_response.user_mapping(
+            slack_bot_token="slack_bot_token",
             slack_team_id="slack_team_id",
             slack_user_id="slack_user_id",
         ) as response:
@@ -369,6 +373,7 @@ class TestAsyncSlack:
     @parametrize
     async def test_method_user_mapping(self, async_client: AsyncStructify) -> None:
         slack = await async_client.slack.user_mapping(
+            slack_bot_token="slack_bot_token",
             slack_team_id="slack_team_id",
             slack_user_id="slack_user_id",
         )
@@ -377,6 +382,7 @@ class TestAsyncSlack:
     @parametrize
     async def test_method_user_mapping_with_all_params(self, async_client: AsyncStructify) -> None:
         slack = await async_client.slack.user_mapping(
+            slack_bot_token="slack_bot_token",
             slack_team_id="slack_team_id",
             slack_user_id="slack_user_id",
             slack_username="slack_username",
@@ -386,6 +392,7 @@ class TestAsyncSlack:
     @parametrize
     async def test_raw_response_user_mapping(self, async_client: AsyncStructify) -> None:
         response = await async_client.slack.with_raw_response.user_mapping(
+            slack_bot_token="slack_bot_token",
             slack_team_id="slack_team_id",
             slack_user_id="slack_user_id",
         )
@@ -398,6 +405,7 @@ class TestAsyncSlack:
     @parametrize
     async def test_streaming_response_user_mapping(self, async_client: AsyncStructify) -> None:
         async with async_client.slack.with_streaming_response.user_mapping(
+            slack_bot_token="slack_bot_token",
             slack_team_id="slack_team_id",
             slack_user_id="slack_user_id",
         ) as response:
