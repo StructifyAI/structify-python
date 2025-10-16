@@ -53,6 +53,7 @@ from .workflow_node_log import WorkflowNodeLog as WorkflowNodeLog
 from .dataset_descriptor import DatasetDescriptor as DatasetDescriptor
 from .dataset_get_params import DatasetGetParams as DatasetGetParams
 from .entity_view_params import EntityViewParams as EntityViewParams
+from .exploration_status import ExplorationStatus as ExplorationStatus
 from .merge_config_param import MergeConfigParam as MergeConfigParam
 from .relationship_param import RelationshipParam as RelationshipParam
 from .report_step_params import ReportStepParams as ReportStepParams
@@ -138,6 +139,7 @@ from .delete_project_response import DeleteProjectResponse as DeleteProjectRespo
 from .entity_add_batch_params import EntityAddBatchParams as EntityAddBatchParams
 from .entity_list_jobs_params import EntityListJobsParams as EntityListJobsParams
 from .entity_summarize_params import EntitySummarizeParams as EntitySummarizeParams
+from .explore_status_response import ExploreStatusResponse as ExploreStatusResponse
 from .report_missing_response import ReportMissingResponse as ReportMissingResponse
 from .slack_connection_status import SlackConnectionStatus as SlackConnectionStatus
 from .chat_delete_files_params import ChatDeleteFilesParams as ChatDeleteFilesParams
