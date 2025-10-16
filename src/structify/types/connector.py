@@ -5,6 +5,7 @@ from datetime import datetime
 from typing_extensions import Literal
 
 from .._models import BaseModel
+from .exploration_status import ExplorationStatus
 
 __all__ = ["Connector"]
 
@@ -45,5 +46,11 @@ class Connector(BaseModel):
     updated_at: datetime
 
     description: Optional[str] = None
+
+    exploration_error: Optional[str] = None
+
+    exploration_started_at: Optional[datetime] = None
+
+    exploration_status: Optional[ExplorationStatus] = None
 
     refresh_script: Optional[str] = None

@@ -566,6 +566,8 @@ from structify.types import (
     ConnectorWithSecrets,
     CreateConnectorRequest,
     CreateSecretRequest,
+    ExplorationStatus,
+    ExploreStatusResponse,
     UpdateConnectorRequest,
     ConnectorGetResponse,
 )
@@ -579,7 +581,9 @@ Methods:
 - <code title="delete /connectors/{connector_id}">client.connectors.<a href="./src/structify/resources/connectors.py">delete</a>(connector_id) -> None</code>
 - <code title="post /connectors/{connector_id}/secrets">client.connectors.<a href="./src/structify/resources/connectors.py">create_secret</a>(connector_id, \*\*<a href="src/structify/types/connector_create_secret_params.py">params</a>) -> None</code>
 - <code title="delete /connectors/{connector_id}/secrets/{secret_name}">client.connectors.<a href="./src/structify/resources/connectors.py">delete_secret</a>(secret_name, \*, connector_id) -> None</code>
+- <code title="post /connectors/{connector_id}/explore">client.connectors.<a href="./src/structify/resources/connectors.py">explore</a>(connector_id) -> None</code>
 - <code title="get /connectors/{connector_id}">client.connectors.<a href="./src/structify/resources/connectors.py">get</a>(connector_id) -> <a href="./src/structify/types/connector_get_response.py">ConnectorGetResponse</a></code>
+- <code title="get /connectors/{connector_id}/explore/status">client.connectors.<a href="./src/structify/resources/connectors.py">get_exploration_status</a>(connector_id) -> <a href="./src/structify/types/explore_status_response.py">ExploreStatusResponse</a></code>
 
 # Server
 
