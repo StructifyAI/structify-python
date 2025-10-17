@@ -104,6 +104,7 @@ from .entity_merge_response import EntityMergeResponse as EntityMergeResponse
 from .job_get_step_response import JobGetStepResponse as JobGetStepResponse
 from .knowledge_graph_param import KnowledgeGraphParam as KnowledgeGraphParam
 from .list_members_response import ListMembersResponse as ListMembersResponse
+from .llm_information_store import LlmInformationStore as LlmInformationStore
 from .report_missing_params import ReportMissingParams as ReportMissingParams
 from .report_wrong_response import ReportWrongResponse as ReportWrongResponse
 from .sandbox_create_params import SandboxCreateParams as SandboxCreateParams
@@ -172,6 +173,7 @@ from .chat_create_session_params import ChatCreateSessionParams as ChatCreateSes
 from .chat_delete_files_response import ChatDeleteFilesResponse as ChatDeleteFilesResponse
 from .chat_session_with_messages import ChatSessionWithMessages as ChatSessionWithMessages
 from .chat_update_session_params import ChatUpdateSessionParams as ChatUpdateSessionParams
+from .connector_table_descriptor import ConnectorTableDescriptor as ConnectorTableDescriptor
 from .document_download_response import DocumentDownloadResponse as DocumentDownloadResponse
 from .entity_get_merges_response import EntityGetMergesResponse as EntityGetMergesResponse
 from .report_relationship_params import ReportRelationshipParams as ReportRelationshipParams
@@ -184,6 +186,7 @@ from .survey_submission_response import SurveySubmissionResponse as SurveySubmis
 from .team_create_project_params import TeamCreateProjectParams as TeamCreateProjectParams
 from .user_transactions_response import UserTransactionsResponse as UserTransactionsResponse
 from .admin_grant_access_response import AdminGrantAccessResponse as AdminGrantAccessResponse
+from .connector_column_descriptor import ConnectorColumnDescriptor as ConnectorColumnDescriptor
 from .dataset_add_property_params import DatasetAddPropertyParams as DatasetAddPropertyParams
 from .dataset_view_table_response import DatasetViewTableResponse as DatasetViewTableResponse
 from .document_structure_response import DocumentStructureResponse as DocumentStructureResponse
@@ -269,6 +272,9 @@ from .get_workflow_schedule_sessions_response import (
 )
 from .structure_enhance_relationship_response import (
     StructureEnhanceRelationshipResponse as StructureEnhanceRelationshipResponse,
+)
+from .connector_relational_database_descriptor import (
+    ConnectorRelationalDatabaseDescriptor as ConnectorRelationalDatabaseDescriptor,
 )
 from .chat_copy_node_output_by_code_hash_params import (
     ChatCopyNodeOutputByCodeHashParams as ChatCopyNodeOutputByCodeHashParams,

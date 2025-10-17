@@ -563,11 +563,15 @@ Types:
 ```python
 from structify.types import (
     Connector,
+    ConnectorColumnDescriptor,
+    ConnectorRelationalDatabaseDescriptor,
+    ConnectorTableDescriptor,
     ConnectorWithSecrets,
     CreateConnectorRequest,
     CreateSecretRequest,
     ExplorationStatus,
     ExploreStatusResponse,
+    LlmInformationStore,
     UpdateConnectorRequest,
     ConnectorGetResponse,
 )
