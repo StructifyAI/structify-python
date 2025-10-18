@@ -26,3 +26,9 @@ class ChatSession(BaseModel):
     config_proto: Optional[object] = None
 
     name: Optional[str] = None
+
+    slack_channel_id: Optional[str] = None
+
+    slack_team_id: Optional[str] = None
+
+    slack_thread_ts: Optional[str] = None

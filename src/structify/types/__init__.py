@@ -53,6 +53,7 @@ from .workflow_node_log import WorkflowNodeLog as WorkflowNodeLog
 from .dataset_descriptor import DatasetDescriptor as DatasetDescriptor
 from .dataset_get_params import DatasetGetParams as DatasetGetParams
 from .entity_view_params import EntityViewParams as EntityViewParams
+from .exploration_status import ExplorationStatus as ExplorationStatus
 from .merge_config_param import MergeConfigParam as MergeConfigParam
 from .relationship_param import RelationshipParam as RelationshipParam
 from .report_step_params import ReportStepParams as ReportStepParams
@@ -103,6 +104,7 @@ from .entity_merge_response import EntityMergeResponse as EntityMergeResponse
 from .job_get_step_response import JobGetStepResponse as JobGetStepResponse
 from .knowledge_graph_param import KnowledgeGraphParam as KnowledgeGraphParam
 from .list_members_response import ListMembersResponse as ListMembersResponse
+from .llm_information_store import LlmInformationStore as LlmInformationStore
 from .report_missing_params import ReportMissingParams as ReportMissingParams
 from .report_wrong_response import ReportWrongResponse as ReportWrongResponse
 from .sandbox_create_params import SandboxCreateParams as SandboxCreateParams
@@ -138,6 +140,7 @@ from .delete_project_response import DeleteProjectResponse as DeleteProjectRespo
 from .entity_add_batch_params import EntityAddBatchParams as EntityAddBatchParams
 from .entity_list_jobs_params import EntityListJobsParams as EntityListJobsParams
 from .entity_summarize_params import EntitySummarizeParams as EntitySummarizeParams
+from .explore_status_response import ExploreStatusResponse as ExploreStatusResponse
 from .report_missing_response import ReportMissingResponse as ReportMissingResponse
 from .slack_connection_status import SlackConnectionStatus as SlackConnectionStatus
 from .chat_delete_files_params import ChatDeleteFilesParams as ChatDeleteFilesParams
@@ -170,6 +173,7 @@ from .chat_create_session_params import ChatCreateSessionParams as ChatCreateSes
 from .chat_delete_files_response import ChatDeleteFilesResponse as ChatDeleteFilesResponse
 from .chat_session_with_messages import ChatSessionWithMessages as ChatSessionWithMessages
 from .chat_update_session_params import ChatUpdateSessionParams as ChatUpdateSessionParams
+from .connector_table_descriptor import ConnectorTableDescriptor as ConnectorTableDescriptor
 from .document_download_response import DocumentDownloadResponse as DocumentDownloadResponse
 from .entity_get_merges_response import EntityGetMergesResponse as EntityGetMergesResponse
 from .report_relationship_params import ReportRelationshipParams as ReportRelationshipParams
@@ -181,6 +185,8 @@ from .structure_run_async_params import StructureRunAsyncParams as StructureRunA
 from .survey_submission_response import SurveySubmissionResponse as SurveySubmissionResponse
 from .team_create_project_params import TeamCreateProjectParams as TeamCreateProjectParams
 from .user_transactions_response import UserTransactionsResponse as UserTransactionsResponse
+from .admin_grant_access_response import AdminGrantAccessResponse as AdminGrantAccessResponse
+from .connector_column_descriptor import ConnectorColumnDescriptor as ConnectorColumnDescriptor
 from .dataset_add_property_params import DatasetAddPropertyParams as DatasetAddPropertyParams
 from .dataset_view_table_response import DatasetViewTableResponse as DatasetViewTableResponse
 from .document_structure_response import DocumentStructureResponse as DocumentStructureResponse
@@ -225,6 +231,8 @@ from .workflow_schedule_get_response import WorkflowScheduleGetResponse as Workf
 from .entity_update_property_response import EntityUpdatePropertyResponse as EntityUpdatePropertyResponse
 from .workflow_schedule_create_params import WorkflowScheduleCreateParams as WorkflowScheduleCreateParams
 from .workflow_schedule_update_params import WorkflowScheduleUpdateParams as WorkflowScheduleUpdateParams
+from .chat_grant_admin_override_params import ChatGrantAdminOverrideParams as ChatGrantAdminOverrideParams
+from .code_interrupt_generation_params import CodeInterruptGenerationParams as CodeInterruptGenerationParams
 from .entity_add_relationship_response import EntityAddRelationshipResponse as EntityAddRelationshipResponse
 from .entity_get_local_subgraph_params import EntityGetLocalSubgraphParams as EntityGetLocalSubgraphParams
 from .job_get_source_entities_response import JobGetSourceEntitiesResponse as JobGetSourceEntitiesResponse
@@ -264,6 +272,9 @@ from .get_workflow_schedule_sessions_response import (
 )
 from .structure_enhance_relationship_response import (
     StructureEnhanceRelationshipResponse as StructureEnhanceRelationshipResponse,
+)
+from .connector_relational_database_descriptor import (
+    ConnectorRelationalDatabaseDescriptor as ConnectorRelationalDatabaseDescriptor,
 )
 from .chat_copy_node_output_by_code_hash_params import (
     ChatCopyNodeOutputByCodeHashParams as ChatCopyNodeOutputByCodeHashParams,

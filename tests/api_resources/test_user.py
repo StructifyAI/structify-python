@@ -36,6 +36,7 @@ class TestUser:
             updates={
                 "email": "email",
                 "feature_flags": ["functional_test"],
+                "feature_overrides": {},
                 "full_name": "full_name",
                 "is_developer": True,
                 "permissions": ["labeler"],
@@ -201,6 +202,7 @@ class TestAsyncUser:
             updates={
                 "email": "email",
                 "feature_flags": ["functional_test"],
+                "feature_overrides": {},
                 "full_name": "full_name",
                 "is_developer": True,
                 "permissions": ["labeler"],

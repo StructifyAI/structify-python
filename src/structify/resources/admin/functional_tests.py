@@ -200,6 +200,26 @@ class FunctionalTestsResource(SyncAPIResource):
             cast_to=NoneType,
         )
 
+    def system_prompt(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> str:
+        """Returns the current system prompt template used by the code agent."""
+        extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
+        return self._get(
+            "/admin/functional_tests/system_prompt",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=str,
+        )
+
     def update_results(
         self,
         *,
@@ -415,6 +435,26 @@ class AsyncFunctionalTestsResource(AsyncAPIResource):
             cast_to=NoneType,
         )
 
+    async def system_prompt(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> str:
+        """Returns the current system prompt template used by the code agent."""
+        extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
+        return await self._get(
+            "/admin/functional_tests/system_prompt",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=str,
+        )
+
     async def update_results(
         self,
         *,
@@ -476,6 +516,9 @@ class FunctionalTestsResourceWithRawResponse:
         self.link_chat = to_raw_response_wrapper(
             functional_tests.link_chat,
         )
+        self.system_prompt = to_raw_response_wrapper(
+            functional_tests.system_prompt,
+        )
         self.update_results = to_raw_response_wrapper(
             functional_tests.update_results,
         )
@@ -496,6 +539,9 @@ class AsyncFunctionalTestsResourceWithRawResponse:
         )
         self.link_chat = async_to_raw_response_wrapper(
             functional_tests.link_chat,
+        )
+        self.system_prompt = async_to_raw_response_wrapper(
+            functional_tests.system_prompt,
         )
         self.update_results = async_to_raw_response_wrapper(
             functional_tests.update_results,
@@ -518,6 +564,9 @@ class FunctionalTestsResourceWithStreamingResponse:
         self.link_chat = to_streamed_response_wrapper(
             functional_tests.link_chat,
         )
+        self.system_prompt = to_streamed_response_wrapper(
+            functional_tests.system_prompt,
+        )
         self.update_results = to_streamed_response_wrapper(
             functional_tests.update_results,
         )
@@ -538,6 +587,9 @@ class AsyncFunctionalTestsResourceWithStreamingResponse:
         )
         self.link_chat = async_to_streamed_response_wrapper(
             functional_tests.link_chat,
+        )
+        self.system_prompt = async_to_streamed_response_wrapper(
+            functional_tests.system_prompt,
         )
         self.update_results = async_to_streamed_response_wrapper(
             functional_tests.update_results,

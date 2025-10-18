@@ -13,6 +13,7 @@ from structify.types import (
     Connector,
     ConnectorGetResponse,
     ConnectorWithSecrets,
+    ExploreStatusResponse,
 )
 from structify.pagination import SyncJobsList, AsyncJobsList
 
@@ -298,6 +299,44 @@ class TestConnectors:
             )
 
     @parametrize
+    def test_method_explore(self, client: Structify) -> None:
+        connector = client.connectors.explore(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert connector is None
+
+    @parametrize
+    def test_raw_response_explore(self, client: Structify) -> None:
+        response = client.connectors.with_raw_response.explore(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        connector = response.parse()
+        assert connector is None
+
+    @parametrize
+    def test_streaming_response_explore(self, client: Structify) -> None:
+        with client.connectors.with_streaming_response.explore(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            connector = response.parse()
+            assert connector is None
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_path_params_explore(self, client: Structify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `connector_id` but received ''"):
+            client.connectors.with_raw_response.explore(
+                "",
+            )
+
+    @parametrize
     def test_method_get(self, client: Structify) -> None:
         connector = client.connectors.get(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -332,6 +371,44 @@ class TestConnectors:
     def test_path_params_get(self, client: Structify) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `connector_id` but received ''"):
             client.connectors.with_raw_response.get(
+                "",
+            )
+
+    @parametrize
+    def test_method_get_exploration_status(self, client: Structify) -> None:
+        connector = client.connectors.get_exploration_status(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(ExploreStatusResponse, connector, path=["response"])
+
+    @parametrize
+    def test_raw_response_get_exploration_status(self, client: Structify) -> None:
+        response = client.connectors.with_raw_response.get_exploration_status(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        connector = response.parse()
+        assert_matches_type(ExploreStatusResponse, connector, path=["response"])
+
+    @parametrize
+    def test_streaming_response_get_exploration_status(self, client: Structify) -> None:
+        with client.connectors.with_streaming_response.get_exploration_status(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            connector = response.parse()
+            assert_matches_type(ExploreStatusResponse, connector, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_path_params_get_exploration_status(self, client: Structify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `connector_id` but received ''"):
+            client.connectors.with_raw_response.get_exploration_status(
                 "",
             )
 
@@ -617,6 +694,44 @@ class TestAsyncConnectors:
             )
 
     @parametrize
+    async def test_method_explore(self, async_client: AsyncStructify) -> None:
+        connector = await async_client.connectors.explore(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert connector is None
+
+    @parametrize
+    async def test_raw_response_explore(self, async_client: AsyncStructify) -> None:
+        response = await async_client.connectors.with_raw_response.explore(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        connector = await response.parse()
+        assert connector is None
+
+    @parametrize
+    async def test_streaming_response_explore(self, async_client: AsyncStructify) -> None:
+        async with async_client.connectors.with_streaming_response.explore(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            connector = await response.parse()
+            assert connector is None
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_explore(self, async_client: AsyncStructify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `connector_id` but received ''"):
+            await async_client.connectors.with_raw_response.explore(
+                "",
+            )
+
+    @parametrize
     async def test_method_get(self, async_client: AsyncStructify) -> None:
         connector = await async_client.connectors.get(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -651,5 +766,43 @@ class TestAsyncConnectors:
     async def test_path_params_get(self, async_client: AsyncStructify) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `connector_id` but received ''"):
             await async_client.connectors.with_raw_response.get(
+                "",
+            )
+
+    @parametrize
+    async def test_method_get_exploration_status(self, async_client: AsyncStructify) -> None:
+        connector = await async_client.connectors.get_exploration_status(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(ExploreStatusResponse, connector, path=["response"])
+
+    @parametrize
+    async def test_raw_response_get_exploration_status(self, async_client: AsyncStructify) -> None:
+        response = await async_client.connectors.with_raw_response.get_exploration_status(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        connector = await response.parse()
+        assert_matches_type(ExploreStatusResponse, connector, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_get_exploration_status(self, async_client: AsyncStructify) -> None:
+        async with async_client.connectors.with_streaming_response.get_exploration_status(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            connector = await response.parse()
+            assert_matches_type(ExploreStatusResponse, connector, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_get_exploration_status(self, async_client: AsyncStructify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `connector_id` but received ''"):
+            await async_client.connectors.with_raw_response.get_exploration_status(
                 "",
             )

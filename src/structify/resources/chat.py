@@ -19,6 +19,7 @@ from ..types import (
     chat_update_session_params,
     chat_add_collaborator_params,
     chat_revert_to_commit_params,
+    chat_grant_admin_override_params,
     chat_copy_node_output_by_code_hash_params,
 )
 from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, SequenceNotStr, omit, not_given
@@ -32,6 +33,7 @@ from .._response import (
     async_to_streamed_response_wrapper,
 )
 from .._base_client import make_request_options
+from ..types.chat_prompt import ChatPrompt
 from ..types.chat_session import ChatSession
 from ..types.chat_session_role import ChatSessionRole
 from ..types.toggle_public_response import TogglePublicResponse
@@ -40,6 +42,7 @@ from ..types.add_chat_message_response import AddChatMessageResponse
 from ..types.get_chat_session_response import GetChatSessionResponse
 from ..types.chat_delete_files_response import ChatDeleteFilesResponse
 from ..types.chat_session_with_messages import ChatSessionWithMessages
+from ..types.admin_grant_access_response import AdminGrantAccessResponse
 from ..types.list_chat_sessions_response import ListChatSessionsResponse
 from ..types.list_collaborators_response import ListCollaboratorsResponse
 from ..types.chat_add_git_commit_response import ChatAddGitCommitResponse
@@ -190,6 +193,40 @@ class ChatResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=AddChatMessageResponse,
+        )
+
+    def admin_get_chat_prompt(
+        self,
+        session_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ChatPrompt:
+        """
+        Get the actual chat prompt that the LLM will see on its next message (admin
+        only)
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not session_id:
+            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
+        return self._get(
+            f"/chat/sessions/{session_id}/admin/chat_prompt",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ChatPrompt,
         )
 
     def copy(
@@ -488,6 +525,50 @@ class ChatResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=ChatGetSessionTimelineResponse,
+        )
+
+    def grant_admin_override(
+        self,
+        chat_id: str,
+        *,
+        duration_hours: int,
+        role: ChatSessionRole,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AdminGrantAccessResponse:
+        """
+        Grant temporary admin override access for the calling admin to a chat session
+
+        Args:
+          duration_hours: Duration in hours for the temporary access
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not chat_id:
+            raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
+        return self._post(
+            f"/chat/sessions/{chat_id}/admin_override",
+            body=maybe_transform(
+                {
+                    "duration_hours": duration_hours,
+                    "role": role,
+                },
+                chat_grant_admin_override_params.ChatGrantAdminOverrideParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=AdminGrantAccessResponse,
         )
 
     def list_collaborators(
@@ -939,6 +1020,40 @@ class AsyncChatResource(AsyncAPIResource):
             cast_to=AddChatMessageResponse,
         )
 
+    async def admin_get_chat_prompt(
+        self,
+        session_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ChatPrompt:
+        """
+        Get the actual chat prompt that the LLM will see on its next message (admin
+        only)
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not session_id:
+            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
+        return await self._get(
+            f"/chat/sessions/{session_id}/admin/chat_prompt",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ChatPrompt,
+        )
+
     async def copy(
         self,
         *,
@@ -1235,6 +1350,50 @@ class AsyncChatResource(AsyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=ChatGetSessionTimelineResponse,
+        )
+
+    async def grant_admin_override(
+        self,
+        chat_id: str,
+        *,
+        duration_hours: int,
+        role: ChatSessionRole,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AdminGrantAccessResponse:
+        """
+        Grant temporary admin override access for the calling admin to a chat session
+
+        Args:
+          duration_hours: Duration in hours for the temporary access
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not chat_id:
+            raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
+        return await self._post(
+            f"/chat/sessions/{chat_id}/admin_override",
+            body=await async_maybe_transform(
+                {
+                    "duration_hours": duration_hours,
+                    "role": role,
+                },
+                chat_grant_admin_override_params.ChatGrantAdminOverrideParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=AdminGrantAccessResponse,
         )
 
     async def list_collaborators(
@@ -1561,6 +1720,9 @@ class ChatResourceWithRawResponse:
         self.add_message = to_raw_response_wrapper(
             chat.add_message,
         )
+        self.admin_get_chat_prompt = to_raw_response_wrapper(
+            chat.admin_get_chat_prompt,
+        )
         self.copy = to_raw_response_wrapper(
             chat.copy,
         )
@@ -1584,6 +1746,9 @@ class ChatResourceWithRawResponse:
         )
         self.get_session_timeline = to_raw_response_wrapper(
             chat.get_session_timeline,
+        )
+        self.grant_admin_override = to_raw_response_wrapper(
+            chat.grant_admin_override,
         )
         self.list_collaborators = to_raw_response_wrapper(
             chat.list_collaborators,
@@ -1624,6 +1789,9 @@ class AsyncChatResourceWithRawResponse:
         self.add_message = async_to_raw_response_wrapper(
             chat.add_message,
         )
+        self.admin_get_chat_prompt = async_to_raw_response_wrapper(
+            chat.admin_get_chat_prompt,
+        )
         self.copy = async_to_raw_response_wrapper(
             chat.copy,
         )
@@ -1647,6 +1815,9 @@ class AsyncChatResourceWithRawResponse:
         )
         self.get_session_timeline = async_to_raw_response_wrapper(
             chat.get_session_timeline,
+        )
+        self.grant_admin_override = async_to_raw_response_wrapper(
+            chat.grant_admin_override,
         )
         self.list_collaborators = async_to_raw_response_wrapper(
             chat.list_collaborators,
@@ -1687,6 +1858,9 @@ class ChatResourceWithStreamingResponse:
         self.add_message = to_streamed_response_wrapper(
             chat.add_message,
         )
+        self.admin_get_chat_prompt = to_streamed_response_wrapper(
+            chat.admin_get_chat_prompt,
+        )
         self.copy = to_streamed_response_wrapper(
             chat.copy,
         )
@@ -1710,6 +1884,9 @@ class ChatResourceWithStreamingResponse:
         )
         self.get_session_timeline = to_streamed_response_wrapper(
             chat.get_session_timeline,
+        )
+        self.grant_admin_override = to_streamed_response_wrapper(
+            chat.grant_admin_override,
         )
         self.list_collaborators = to_streamed_response_wrapper(
             chat.list_collaborators,
@@ -1750,6 +1927,9 @@ class AsyncChatResourceWithStreamingResponse:
         self.add_message = async_to_streamed_response_wrapper(
             chat.add_message,
         )
+        self.admin_get_chat_prompt = async_to_streamed_response_wrapper(
+            chat.admin_get_chat_prompt,
+        )
         self.copy = async_to_streamed_response_wrapper(
             chat.copy,
         )
@@ -1773,6 +1953,9 @@ class AsyncChatResourceWithStreamingResponse:
         )
         self.get_session_timeline = async_to_streamed_response_wrapper(
             chat.get_session_timeline,
+        )
+        self.grant_admin_override = async_to_streamed_response_wrapper(
+            chat.grant_admin_override,
         )
         self.list_collaborators = async_to_streamed_response_wrapper(
             chat.list_collaborators,
