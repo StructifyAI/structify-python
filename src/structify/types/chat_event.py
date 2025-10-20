@@ -49,6 +49,8 @@ __all__ = [
     "ToolCallToolCallUnionMember8Input",
     "ToolCallToolCallUnionMember9",
     "ToolCallToolCallUnionMember9Input",
+    "ToolCallToolCallUnionMember10",
+    "ToolCallToolCallUnionMember10Input",
 ]
 
 
@@ -276,6 +278,22 @@ class ToolCallToolCallUnionMember7(BaseModel):
 
 
 class ToolCallToolCallUnionMember8Input(BaseModel):
+    description: str
+
+    title: str
+
+
+class ToolCallToolCallUnionMember8(BaseModel):
+    input: ToolCallToolCallUnionMember8Input
+
+    name: Literal["IssueFound"]
+
+    result_id: Optional[str] = None
+
+    result_text: Optional[str] = None
+
+
+class ToolCallToolCallUnionMember9Input(BaseModel):
     name: str
 
     description: Optional[str] = None
@@ -283,8 +301,8 @@ class ToolCallToolCallUnionMember8Input(BaseModel):
     notes: Optional[str] = None
 
 
-class ToolCallToolCallUnionMember8(BaseModel):
-    input: ToolCallToolCallUnionMember8Input
+class ToolCallToolCallUnionMember9(BaseModel):
+    input: ToolCallToolCallUnionMember9Input
 
     name: Literal["CreateTable"]
 
@@ -293,7 +311,7 @@ class ToolCallToolCallUnionMember8(BaseModel):
     result_text: Optional[str] = None
 
 
-class ToolCallToolCallUnionMember9Input(BaseModel):
+class ToolCallToolCallUnionMember10Input(BaseModel):
     column_name: str
 
     column_type: str
@@ -303,8 +321,8 @@ class ToolCallToolCallUnionMember9Input(BaseModel):
     notes: Optional[str] = None
 
 
-class ToolCallToolCallUnionMember9(BaseModel):
-    input: ToolCallToolCallUnionMember9Input
+class ToolCallToolCallUnionMember10(BaseModel):
+    input: ToolCallToolCallUnionMember10Input
 
     name: Literal["AddColumn"]
 
@@ -324,6 +342,7 @@ ToolCallToolCall: TypeAlias = Union[
     ToolCallToolCallUnionMember7,
     ToolCallToolCallUnionMember8,
     ToolCallToolCallUnionMember9,
+    ToolCallToolCallUnionMember10,
 ]
 
 
