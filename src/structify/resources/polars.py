@@ -912,13 +912,15 @@ class PolarsResource(SyncAPIResource):
         Returns:
             LazyFrame with the original columns plus the new derived property column.
         """
-        # Existing columns & their dtypes from the LazyFrame
-        existing_schema_dict: Dict[str, pl.DataType] = df.collect_schema()
+        # Add the new column with null values and proper type
+
+        # We need to collect the DataFrame in order to guarantee starting all jobs doesn't double dip
+        collected_df = df.collect()
 
         # Build Structify `Property` objects for existing columns
         existing_properties = [
             Property(name=col_name, description="", prop_type=dtype_to_structify_type(col_dtype))
-            for col_name, col_dtype in existing_schema_dict.items()
+            for col_name, col_dtype in collected_df.schema.items()
         ]
 
         # Add the new property to derive
@@ -928,7 +930,10 @@ class PolarsResource(SyncAPIResource):
 
         all_properties = existing_properties + [new_property]
 
+        collected_df = collected_df.with_columns([pl.lit(None, dtype=dtype).alias(new_property_name)])
+
         dataset_name = f"tag_{dataframe_name}_{uuid.uuid4().hex}"
+
         self._client.datasets.create(
             name=dataset_name,
             description="",
@@ -943,70 +948,53 @@ class PolarsResource(SyncAPIResource):
             ephemeral=True,
         )
 
-        # Add the new column with null values and proper type
-        df = df.with_columns([pl.lit(None, dtype=dtype).alias(new_property_name)])
-
         node_id = get_node_id()
 
         # Create the expected output schema
         expected_schema = properties_to_schema(all_properties)
 
         # Apply Structify derive on the dataframe
-        def tag_batch(batch_df: pl.DataFrame) -> pl.DataFrame:
-            if batch_df.is_empty():
-                return pl.DataFrame(schema=expected_schema)
+        if collected_df.is_empty():
+            return pl.DataFrame(schema=expected_schema).lazy()
 
-            # 1. Add all the entities to the structify dataset
-            column_schema = {col["name"]: col["name"] for col in all_properties}
-            entities = dataframe_to_entities(batch_df, dataframe_name, column_schema)
+        # 1. Add all the entities to the structify dataset
+        column_schema = {col["name"]: col["name"] for col in all_properties}
+        entities = dataframe_to_entities(collected_df, dataframe_name, column_schema)
 
-            # Add entities in batches to avoid JSON payload size issues
-            entity_ids: List[str] = []
-            entity_batches = chunk_entities_for_parallel_add(entities)
+        # Add entities in batches to avoid JSON payload size issues
+        entity_ids: List[str] = []
+        entity_batches = chunk_entities_for_parallel_add(entities)
 
-            def add_batch(batch: List[KnowledgeGraphParam]) -> List[str]:
-                return self._client.entities.add_batch(
-                    dataset=dataset_name,
-                    entity_graphs=batch,
-                )
+        def add_batch(batch: List[KnowledgeGraphParam]) -> List[str]:
+            return self._client.entities.add_batch(
+                dataset=dataset_name,
+                entity_graphs=batch,
+            )
 
-            with ThreadPoolExecutor(max_workers=MAX_PARALLEL_REQUESTS) as executor:
-                add_futures = [executor.submit(add_batch, batch) for batch in entity_batches]
-                for future in tqdm(
-                    as_completed(add_futures), total=len(add_futures), desc=f"Preparing {dataframe_name}"
-                ):
-                    batch_entity_ids = future.result()
-                    entity_ids.extend(batch_entity_ids)
+        with ThreadPoolExecutor(max_workers=MAX_PARALLEL_REQUESTS) as executor:
+            add_futures = [executor.submit(add_batch, batch) for batch in entity_batches]
+            for future in tqdm(as_completed(add_futures), total=len(add_futures), desc=f"Preparing {dataframe_name}"):
+                batch_entity_ids = future.result()
+                entity_ids.extend(batch_entity_ids)
 
-            # 2. Derive the new property for each entity
-            def derive_entity_property(entity_id: str) -> None:
-                self._client.entities.derive(
-                    dataset=dataset_name,
-                    entity_id=entity_id,
-                    derived_property=new_property_name,
-                    instructions=instructions,
-                    node_id=node_id,
-                )
+        # 2. Derive the new property for each entity in the dataset
+        self._client.entities.derive_all(
+            dataset=dataset_name,
+            derived_property=new_property_name,
+            instructions=instructions,
+            table_name=dataframe_name,
+            node_id=node_id,
+        )
 
-            with ThreadPoolExecutor(max_workers=MAX_PARALLEL_REQUESTS) as executor:
-                futures = [executor.submit(derive_entity_property, entity_id) for entity_id in entity_ids]
-                for future in tqdm(
-                    as_completed(futures), total=len(futures), desc=f"Preparing {new_property_name} tags"
-                ):
-                    future.result()  # Wait for completion
+        # 3. Collect the results
+        title = f"Tagging {new_property_name} for {dataframe_name}"
+        self._client.jobs.wait_for_jobs(dataset_name=dataset_name, title=title, node_id=node_id)
+        results = [
+            entity.properties for entity in self._client.datasets.view_table(dataset=dataset_name, name=dataframe_name)
+        ]
 
-            # 3. Collect the results
-            title = f"Tagging {new_property_name} for {dataframe_name}"
-            self._client.jobs.wait_for_jobs(dataset_name=dataset_name, title=title, node_id=node_id)
-            results = [
-                entity.properties
-                for entity in self._client.datasets.view_table(dataset=dataset_name, name=dataframe_name)
-            ]
-
-            # 4. Return the results
-            return pl.DataFrame(results, schema=expected_schema)
-
-        return df.map_batches(tag_batch, schema=expected_schema, no_optimizations=True)
+        # 4. Return the results
+        return pl.DataFrame(results, schema=expected_schema).lazy()
 
 
 class PolarsResourceWithRawResponse:
