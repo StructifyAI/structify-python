@@ -19,6 +19,7 @@ from ..types import (
     entity_add_batch_params,
     entity_list_jobs_params,
     entity_summarize_params,
+    entity_derive_all_params,
     entity_get_merges_params,
     entity_agent_merge_params,
     entity_trigger_merge_params,
@@ -50,6 +51,7 @@ from ..types.entity_search_response import EntitySearchResponse
 from ..types.entity_add_batch_response import EntityAddBatchResponse
 from ..types.entity_list_jobs_response import EntityListJobsResponse
 from ..types.entity_summarize_response import EntitySummarizeResponse
+from ..types.entity_derive_all_response import EntityDeriveAllResponse
 from ..types.entity_get_merges_response import EntityGetMergesResponse
 from ..types.entity_agent_merge_response import EntityAgentMergeResponse
 from ..types.entity_trigger_merge_response import EntityTriggerMergeResponse
@@ -390,6 +392,52 @@ class EntitiesResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=str,
+        )
+
+    def derive_all(
+        self,
+        *,
+        dataset: str,
+        derived_property: str,
+        instructions: str,
+        table_name: str,
+        node_id: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> EntityDeriveAllResponse:
+        """
+        Derive a new property value based on existing source properties for all entities
+        in a table
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/entity/derive_all",
+            body=maybe_transform(
+                {
+                    "dataset": dataset,
+                    "derived_property": derived_property,
+                    "instructions": instructions,
+                    "table_name": table_name,
+                    "node_id": node_id,
+                },
+                entity_derive_all_params.EntityDeriveAllParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=EntityDeriveAllResponse,
         )
 
     def get(
@@ -1201,6 +1249,52 @@ class AsyncEntitiesResource(AsyncAPIResource):
             cast_to=str,
         )
 
+    async def derive_all(
+        self,
+        *,
+        dataset: str,
+        derived_property: str,
+        instructions: str,
+        table_name: str,
+        node_id: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> EntityDeriveAllResponse:
+        """
+        Derive a new property value based on existing source properties for all entities
+        in a table
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/entity/derive_all",
+            body=await async_maybe_transform(
+                {
+                    "dataset": dataset,
+                    "derived_property": derived_property,
+                    "instructions": instructions,
+                    "table_name": table_name,
+                    "node_id": node_id,
+                },
+                entity_derive_all_params.EntityDeriveAllParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=EntityDeriveAllResponse,
+        )
+
     async def get(
         self,
         *,
@@ -1710,6 +1804,9 @@ class EntitiesResourceWithRawResponse:
         self.derive = to_raw_response_wrapper(
             entities.derive,
         )
+        self.derive_all = to_raw_response_wrapper(
+            entities.derive_all,
+        )
         self.get = to_raw_response_wrapper(
             entities.get,
         )
@@ -1772,6 +1869,9 @@ class AsyncEntitiesResourceWithRawResponse:
         )
         self.derive = async_to_raw_response_wrapper(
             entities.derive,
+        )
+        self.derive_all = async_to_raw_response_wrapper(
+            entities.derive_all,
         )
         self.get = async_to_raw_response_wrapper(
             entities.get,
@@ -1836,6 +1936,9 @@ class EntitiesResourceWithStreamingResponse:
         self.derive = to_streamed_response_wrapper(
             entities.derive,
         )
+        self.derive_all = to_streamed_response_wrapper(
+            entities.derive_all,
+        )
         self.get = to_streamed_response_wrapper(
             entities.get,
         )
@@ -1898,6 +2001,9 @@ class AsyncEntitiesResourceWithStreamingResponse:
         )
         self.derive = async_to_streamed_response_wrapper(
             entities.derive,
+        )
+        self.derive_all = async_to_streamed_response_wrapper(
+            entities.derive_all,
         )
         self.get = async_to_streamed_response_wrapper(
             entities.get,

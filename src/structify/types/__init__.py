@@ -150,6 +150,7 @@ from .chat_delete_files_params import ChatDeleteFilesParams as ChatDeleteFilesPa
 from .chat_load_files_response import ChatLoadFilesResponse as ChatLoadFilesResponse
 from .dataset_descriptor_param import DatasetDescriptorParam as DatasetDescriptorParam
 from .document_download_params import DocumentDownloadParams as DocumentDownloadParams
+from .entity_derive_all_params import EntityDeriveAllParams as EntityDeriveAllParams
 from .entity_get_merges_params import EntityGetMergesParams as EntityGetMergesParams
 from .session_kill_jobs_params import SessionKillJobsParams as SessionKillJobsParams
 from .team_subscription_status import TeamSubscriptionStatus as TeamSubscriptionStatus
@@ -179,6 +180,7 @@ from .chat_session_with_messages import ChatSessionWithMessages as ChatSessionWi
 from .chat_update_session_params import ChatUpdateSessionParams as ChatUpdateSessionParams
 from .connector_table_descriptor import ConnectorTableDescriptor as ConnectorTableDescriptor
 from .document_download_response import DocumentDownloadResponse as DocumentDownloadResponse
+from .entity_derive_all_response import EntityDeriveAllResponse as EntityDeriveAllResponse
 from .entity_get_merges_response import EntityGetMergesResponse as EntityGetMergesResponse
 from .report_relationship_params import ReportRelationshipParams as ReportRelationshipParams
 from .session_create_edge_params import SessionCreateEdgeParams as SessionCreateEdgeParams
