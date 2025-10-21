@@ -640,6 +640,7 @@ from structify.types import (
     EntityAddRelationshipResponse,
     EntityAgentMergeResponse,
     EntityDeriveResponse,
+    EntityDeriveAllResponse,
     EntityGetResponse,
     EntityGetLocalSubgraphResponse,
     EntityGetMergesResponse,
@@ -663,6 +664,7 @@ Methods:
 - <code title="post /entity/agent_merge">client.entities.<a href="./src/structify/resources/entities.py">agent_merge</a>(\*\*<a href="src/structify/types/entity_agent_merge_params.py">params</a>) -> <a href="./src/structify/types/entity_agent_merge_response.py">EntityAgentMergeResponse</a></code>
 - <code title="post /entity/delete_relationship">client.entities.<a href="./src/structify/resources/entities.py">delete_relationship</a>(\*\*<a href="src/structify/types/entity_delete_relationship_params.py">params</a>) -> object</code>
 - <code title="post /entity/derive">client.entities.<a href="./src/structify/resources/entities.py">derive</a>(\*\*<a href="src/structify/types/entity_derive_params.py">params</a>) -> str</code>
+- <code title="post /entity/derive_all">client.entities.<a href="./src/structify/resources/entities.py">derive_all</a>(\*\*<a href="src/structify/types/entity_derive_all_params.py">params</a>) -> <a href="./src/structify/types/entity_derive_all_response.py">EntityDeriveAllResponse</a></code>
 - <code title="get /entity/get">client.entities.<a href="./src/structify/resources/entities.py">get</a>(\*\*<a href="src/structify/types/entity_get_params.py">params</a>) -> <a href="./src/structify/types/entity_get_response.py">EntityGetResponse</a></code>
 - <code title="get /entity/get_local_subgraph">client.entities.<a href="./src/structify/resources/entities.py">get_local_subgraph</a>(\*\*<a href="src/structify/types/entity_get_local_subgraph_params.py">params</a>) -> <a href="./src/structify/types/entity_get_local_subgraph_response.py">EntityGetLocalSubgraphResponse</a></code>
 - <code title="get /entity/get_merges">client.entities.<a href="./src/structify/resources/entities.py">get_merges</a>(\*\*<a href="src/structify/types/entity_get_merges_params.py">params</a>) -> <a href="./src/structify/types/entity_get_merges_response.py">EntityGetMergesResponse</a></code>
