@@ -34,6 +34,7 @@ from .strategy_param import StrategyParam as StrategyParam
 from .team_with_role import TeamWithRole as TeamWithRole
 from .token_response import TokenResponse as TokenResponse
 from .autofix_context import AutofixContext as AutofixContext
+from .exploration_run import ExplorationRun as ExplorationRun
 from .job_list_params import JobListParams as JobListParams
 from .knowledge_graph import KnowledgeGraph as KnowledgeGraph
 from .usage_group_key import UsageGroupKey as UsageGroupKey
@@ -122,6 +123,7 @@ from .document_upload_params import DocumentUploadParams as DocumentUploadParams
 from .entity_delete_response import EntityDeleteResponse as EntityDeleteResponse
 from .entity_derive_response import EntityDeriveResponse as EntityDeriveResponse
 from .entity_search_response import EntitySearchResponse as EntitySearchResponse
+from .explorer_chat_response import ExplorerChatResponse as ExplorerChatResponse
 from .get_node_logs_response import GetNodeLogsResponse as GetNodeLogsResponse
 from .job_get_steps_response import JobGetStepsResponse as JobGetStepsResponse
 from .list_projects_response import ListProjectsResponse as ListProjectsResponse
@@ -133,6 +135,7 @@ from .toggle_public_response import TogglePublicResponse as TogglePublicResponse
 from .workflow_schedule_info import WorkflowScheduleInfo as WorkflowScheduleInfo
 from .chat_add_message_params import ChatAddMessageParams as ChatAddMessageParams
 from .connector_create_params import ConnectorCreateParams as ConnectorCreateParams
+from .connector_explorer_chat import ConnectorExplorerChat as ConnectorExplorerChat
 from .connector_update_params import ConnectorUpdateParams as ConnectorUpdateParams
 from .create_project_response import CreateProjectResponse as CreateProjectResponse
 from .dataset_create_response import DatasetCreateResponse as DatasetCreateResponse
@@ -160,6 +163,7 @@ from .entity_add_batch_response import EntityAddBatchResponse as EntityAddBatchR
 from .entity_agent_merge_params import EntityAgentMergeParams as EntityAgentMergeParams
 from .entity_list_jobs_response import EntityListJobsResponse as EntityListJobsResponse
 from .entity_summarize_response import EntitySummarizeResponse as EntitySummarizeResponse
+from .exploration_runs_response import ExplorationRunsResponse as ExplorationRunsResponse
 from .get_chat_session_response import GetChatSessionResponse as GetChatSessionResponse
 from .job_get_scrapers_response import JobGetScrapersResponse as JobGetScrapersResponse
 from .session_get_events_params import SessionGetEventsParams as SessionGetEventsParams
@@ -245,6 +249,7 @@ from .relationship_merge_strategy_param import RelationshipMergeStrategyParam as
 from .source_delete_relationship_params import SourceDeleteRelationshipParams as SourceDeleteRelationshipParams
 from .structure_enhance_property_params import StructureEnhancePropertyParams as StructureEnhancePropertyParams
 from .chat_get_session_timeline_response import ChatGetSessionTimelineResponse as ChatGetSessionTimelineResponse
+from .connector_get_explorer_chat_params import ConnectorGetExplorerChatParams as ConnectorGetExplorerChatParams
 from .dataset_enrichment_progress_params import DatasetEnrichmentProgressParams as DatasetEnrichmentProgressParams
 from .dataset_update_relationship_params import DatasetUpdateRelationshipParams as DatasetUpdateRelationshipParams
 from .entity_get_local_subgraph_response import EntityGetLocalSubgraphResponse as EntityGetLocalSubgraphResponse

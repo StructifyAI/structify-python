@@ -13,7 +13,9 @@ from structify.types import (
     Connector,
     ConnectorGetResponse,
     ConnectorWithSecrets,
+    ExplorerChatResponse,
     ExploreStatusResponse,
+    ExplorationRunsResponse,
 )
 from structify.pagination import SyncJobsList, AsyncJobsList
 
@@ -375,6 +377,44 @@ class TestConnectors:
             )
 
     @parametrize
+    def test_method_get_exploration_runs(self, client: Structify) -> None:
+        connector = client.connectors.get_exploration_runs(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(ExplorationRunsResponse, connector, path=["response"])
+
+    @parametrize
+    def test_raw_response_get_exploration_runs(self, client: Structify) -> None:
+        response = client.connectors.with_raw_response.get_exploration_runs(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        connector = response.parse()
+        assert_matches_type(ExplorationRunsResponse, connector, path=["response"])
+
+    @parametrize
+    def test_streaming_response_get_exploration_runs(self, client: Structify) -> None:
+        with client.connectors.with_streaming_response.get_exploration_runs(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            connector = response.parse()
+            assert_matches_type(ExplorationRunsResponse, connector, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_path_params_get_exploration_runs(self, client: Structify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `connector_id` but received ''"):
+            client.connectors.with_raw_response.get_exploration_runs(
+                "",
+            )
+
+    @parametrize
     def test_method_get_exploration_status(self, client: Structify) -> None:
         connector = client.connectors.get_exploration_status(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -410,6 +450,48 @@ class TestConnectors:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `connector_id` but received ''"):
             client.connectors.with_raw_response.get_exploration_status(
                 "",
+            )
+
+    @parametrize
+    def test_method_get_explorer_chat(self, client: Structify) -> None:
+        connector = client.connectors.get_explorer_chat(
+            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            run_id="run_id",
+        )
+        assert_matches_type(ExplorerChatResponse, connector, path=["response"])
+
+    @parametrize
+    def test_raw_response_get_explorer_chat(self, client: Structify) -> None:
+        response = client.connectors.with_raw_response.get_explorer_chat(
+            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            run_id="run_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        connector = response.parse()
+        assert_matches_type(ExplorerChatResponse, connector, path=["response"])
+
+    @parametrize
+    def test_streaming_response_get_explorer_chat(self, client: Structify) -> None:
+        with client.connectors.with_streaming_response.get_explorer_chat(
+            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            run_id="run_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            connector = response.parse()
+            assert_matches_type(ExplorerChatResponse, connector, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_path_params_get_explorer_chat(self, client: Structify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `connector_id` but received ''"):
+            client.connectors.with_raw_response.get_explorer_chat(
+                connector_id="",
+                run_id="run_id",
             )
 
 
@@ -770,6 +852,44 @@ class TestAsyncConnectors:
             )
 
     @parametrize
+    async def test_method_get_exploration_runs(self, async_client: AsyncStructify) -> None:
+        connector = await async_client.connectors.get_exploration_runs(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(ExplorationRunsResponse, connector, path=["response"])
+
+    @parametrize
+    async def test_raw_response_get_exploration_runs(self, async_client: AsyncStructify) -> None:
+        response = await async_client.connectors.with_raw_response.get_exploration_runs(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        connector = await response.parse()
+        assert_matches_type(ExplorationRunsResponse, connector, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_get_exploration_runs(self, async_client: AsyncStructify) -> None:
+        async with async_client.connectors.with_streaming_response.get_exploration_runs(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            connector = await response.parse()
+            assert_matches_type(ExplorationRunsResponse, connector, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_get_exploration_runs(self, async_client: AsyncStructify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `connector_id` but received ''"):
+            await async_client.connectors.with_raw_response.get_exploration_runs(
+                "",
+            )
+
+    @parametrize
     async def test_method_get_exploration_status(self, async_client: AsyncStructify) -> None:
         connector = await async_client.connectors.get_exploration_status(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -805,4 +925,46 @@ class TestAsyncConnectors:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `connector_id` but received ''"):
             await async_client.connectors.with_raw_response.get_exploration_status(
                 "",
+            )
+
+    @parametrize
+    async def test_method_get_explorer_chat(self, async_client: AsyncStructify) -> None:
+        connector = await async_client.connectors.get_explorer_chat(
+            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            run_id="run_id",
+        )
+        assert_matches_type(ExplorerChatResponse, connector, path=["response"])
+
+    @parametrize
+    async def test_raw_response_get_explorer_chat(self, async_client: AsyncStructify) -> None:
+        response = await async_client.connectors.with_raw_response.get_explorer_chat(
+            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            run_id="run_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        connector = await response.parse()
+        assert_matches_type(ExplorerChatResponse, connector, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_get_explorer_chat(self, async_client: AsyncStructify) -> None:
+        async with async_client.connectors.with_streaming_response.get_explorer_chat(
+            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            run_id="run_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            connector = await response.parse()
+            assert_matches_type(ExplorerChatResponse, connector, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_get_explorer_chat(self, async_client: AsyncStructify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `connector_id` but received ''"):
+            await async_client.connectors.with_raw_response.get_explorer_chat(
+                connector_id="",
+                run_id="run_id",
             )
