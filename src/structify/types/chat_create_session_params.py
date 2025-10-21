@@ -44,4 +44,6 @@ class Config(TypedDict, total=False):
     ]
     """LLM model keys available in the system. Format: <provider>.<model-name>"""
 
+    reminder_message: Optional[str]
+
     system_prompt: Optional[str]
