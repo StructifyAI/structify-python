@@ -12,6 +12,7 @@ from ..types import (
     connector_create_params,
     connector_update_params,
     connector_create_secret_params,
+    connector_get_explorer_chat_params,
 )
 from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
@@ -28,7 +29,9 @@ from .._base_client import AsyncPaginator, make_request_options
 from ..types.connector import Connector
 from ..types.connector_get_response import ConnectorGetResponse
 from ..types.connector_with_secrets import ConnectorWithSecrets
+from ..types.explorer_chat_response import ExplorerChatResponse
 from ..types.explore_status_response import ExploreStatusResponse
+from ..types.exploration_runs_response import ExplorationRunsResponse
 
 __all__ = ["ConnectorsResource", "AsyncConnectorsResource"]
 
@@ -408,6 +411,39 @@ class ConnectorsResource(SyncAPIResource):
             cast_to=ConnectorGetResponse,
         )
 
+    def get_exploration_runs(
+        self,
+        connector_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ExplorationRunsResponse:
+        """
+        Get all exploration runs for a connector (admin only)
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not connector_id:
+            raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
+        return self._get(
+            f"/connectors/{connector_id}/explore/runs",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ExplorationRunsResponse,
+        )
+
     def get_exploration_status(
         self,
         connector_id: str,
@@ -437,6 +473,48 @@ class ConnectorsResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=ExploreStatusResponse,
+        )
+
+    def get_explorer_chat(
+        self,
+        connector_id: str,
+        *,
+        run_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ExplorerChatResponse:
+        """
+        Get chat from a connector exploration run (admin only)
+
+        Args:
+          run_id: Exploration run ID (required)
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not connector_id:
+            raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
+        return self._get(
+            f"/connectors/{connector_id}/explore/chat",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {"run_id": run_id}, connector_get_explorer_chat_params.ConnectorGetExplorerChatParams
+                ),
+            ),
+            cast_to=ExplorerChatResponse,
         )
 
 
@@ -815,6 +893,39 @@ class AsyncConnectorsResource(AsyncAPIResource):
             cast_to=ConnectorGetResponse,
         )
 
+    async def get_exploration_runs(
+        self,
+        connector_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ExplorationRunsResponse:
+        """
+        Get all exploration runs for a connector (admin only)
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not connector_id:
+            raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
+        return await self._get(
+            f"/connectors/{connector_id}/explore/runs",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ExplorationRunsResponse,
+        )
+
     async def get_exploration_status(
         self,
         connector_id: str,
@@ -846,6 +957,48 @@ class AsyncConnectorsResource(AsyncAPIResource):
             cast_to=ExploreStatusResponse,
         )
 
+    async def get_explorer_chat(
+        self,
+        connector_id: str,
+        *,
+        run_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ExplorerChatResponse:
+        """
+        Get chat from a connector exploration run (admin only)
+
+        Args:
+          run_id: Exploration run ID (required)
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not connector_id:
+            raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
+        return await self._get(
+            f"/connectors/{connector_id}/explore/chat",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"run_id": run_id}, connector_get_explorer_chat_params.ConnectorGetExplorerChatParams
+                ),
+            ),
+            cast_to=ExplorerChatResponse,
+        )
+
 
 class ConnectorsResourceWithRawResponse:
     def __init__(self, connectors: ConnectorsResource) -> None:
@@ -875,8 +1028,14 @@ class ConnectorsResourceWithRawResponse:
         self.get = to_raw_response_wrapper(
             connectors.get,
         )
+        self.get_exploration_runs = to_raw_response_wrapper(
+            connectors.get_exploration_runs,
+        )
         self.get_exploration_status = to_raw_response_wrapper(
             connectors.get_exploration_status,
+        )
+        self.get_explorer_chat = to_raw_response_wrapper(
+            connectors.get_explorer_chat,
         )
 
 
@@ -908,8 +1067,14 @@ class AsyncConnectorsResourceWithRawResponse:
         self.get = async_to_raw_response_wrapper(
             connectors.get,
         )
+        self.get_exploration_runs = async_to_raw_response_wrapper(
+            connectors.get_exploration_runs,
+        )
         self.get_exploration_status = async_to_raw_response_wrapper(
             connectors.get_exploration_status,
+        )
+        self.get_explorer_chat = async_to_raw_response_wrapper(
+            connectors.get_explorer_chat,
         )
 
 
@@ -941,8 +1106,14 @@ class ConnectorsResourceWithStreamingResponse:
         self.get = to_streamed_response_wrapper(
             connectors.get,
         )
+        self.get_exploration_runs = to_streamed_response_wrapper(
+            connectors.get_exploration_runs,
+        )
         self.get_exploration_status = to_streamed_response_wrapper(
             connectors.get_exploration_status,
+        )
+        self.get_explorer_chat = to_streamed_response_wrapper(
+            connectors.get_explorer_chat,
         )
 
 
@@ -974,6 +1145,12 @@ class AsyncConnectorsResourceWithStreamingResponse:
         self.get = async_to_streamed_response_wrapper(
             connectors.get,
         )
+        self.get_exploration_runs = async_to_streamed_response_wrapper(
+            connectors.get_exploration_runs,
+        )
         self.get_exploration_status = async_to_streamed_response_wrapper(
             connectors.get_exploration_status,
+        )
+        self.get_explorer_chat = async_to_streamed_response_wrapper(
+            connectors.get_explorer_chat,
         )
