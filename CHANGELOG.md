@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.152.1 (2025-10-21)
+
+Full Changelog: [v1.152.0...v1.152.1](https://github.com/StructifyAI/structify-python/compare/v1.152.0...v1.152.1)
+
 ## 1.152.0 (2025-10-21)
 
 Full Changelog: [v1.151.0...v1.152.0](https://github.com/StructifyAI/structify-python/compare/v1.151.0...v1.152.0)
