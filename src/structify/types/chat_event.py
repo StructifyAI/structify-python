@@ -71,6 +71,8 @@ class Thinking(BaseModel):
 
 
 class FileFile(BaseModel):
+    complete: bool
+
     path: str
 
     content: Optional[str] = None
