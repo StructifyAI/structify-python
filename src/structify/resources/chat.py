@@ -50,6 +50,7 @@ from ..types.chat_get_git_commit_response import ChatGetGitCommitResponse
 from ..types.create_chat_session_response import CreateChatSessionResponse
 from ..types.delete_chat_session_response import DeleteChatSessionResponse
 from ..types.chat_revert_to_commit_response import ChatRevertToCommitResponse
+from ..types.chat_get_partial_chats_response import ChatGetPartialChatsResponse
 from ..types.chat_get_session_timeline_response import ChatGetSessionTimelineResponse
 
 __all__ = ["ChatResource", "AsyncChatResource"]
@@ -459,6 +460,39 @@ class ChatResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=ChatGetGitCommitResponse,
+        )
+
+    def get_partial_chats(
+        self,
+        chat_session_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ChatGetPartialChatsResponse:
+        """
+        Get all partial chats for a chat session
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not chat_session_id:
+            raise ValueError(f"Expected a non-empty value for `chat_session_id` but received {chat_session_id!r}")
+        return self._get(
+            f"/chat/{chat_session_id}/partial-chats",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ChatGetPartialChatsResponse,
         )
 
     def get_session(
@@ -1286,6 +1320,39 @@ class AsyncChatResource(AsyncAPIResource):
             cast_to=ChatGetGitCommitResponse,
         )
 
+    async def get_partial_chats(
+        self,
+        chat_session_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ChatGetPartialChatsResponse:
+        """
+        Get all partial chats for a chat session
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not chat_session_id:
+            raise ValueError(f"Expected a non-empty value for `chat_session_id` but received {chat_session_id!r}")
+        return await self._get(
+            f"/chat/{chat_session_id}/partial-chats",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ChatGetPartialChatsResponse,
+        )
+
     async def get_session(
         self,
         session_id: str,
@@ -1741,6 +1808,9 @@ class ChatResourceWithRawResponse:
         self.get_git_commit = to_raw_response_wrapper(
             chat.get_git_commit,
         )
+        self.get_partial_chats = to_raw_response_wrapper(
+            chat.get_partial_chats,
+        )
         self.get_session = to_raw_response_wrapper(
             chat.get_session,
         )
@@ -1809,6 +1879,9 @@ class AsyncChatResourceWithRawResponse:
         )
         self.get_git_commit = async_to_raw_response_wrapper(
             chat.get_git_commit,
+        )
+        self.get_partial_chats = async_to_raw_response_wrapper(
+            chat.get_partial_chats,
         )
         self.get_session = async_to_raw_response_wrapper(
             chat.get_session,
@@ -1879,6 +1952,9 @@ class ChatResourceWithStreamingResponse:
         self.get_git_commit = to_streamed_response_wrapper(
             chat.get_git_commit,
         )
+        self.get_partial_chats = to_streamed_response_wrapper(
+            chat.get_partial_chats,
+        )
         self.get_session = to_streamed_response_wrapper(
             chat.get_session,
         )
@@ -1947,6 +2023,9 @@ class AsyncChatResourceWithStreamingResponse:
         )
         self.get_git_commit = async_to_streamed_response_wrapper(
             chat.get_git_commit,
+        )
+        self.get_partial_chats = async_to_streamed_response_wrapper(
+            chat.get_partial_chats,
         )
         self.get_session = async_to_streamed_response_wrapper(
             chat.get_session,
