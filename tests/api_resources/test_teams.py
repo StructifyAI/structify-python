@@ -224,7 +224,7 @@ class TestTeams:
         team = client.teams.add_member(
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             email="email",
-            role="member",
+            role="read_only",
         )
         assert_matches_type(AddMemberResponse, team, path=["response"])
 
@@ -233,7 +233,7 @@ class TestTeams:
         response = client.teams.with_raw_response.add_member(
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             email="email",
-            role="member",
+            role="read_only",
         )
 
         assert response.is_closed is True
@@ -246,7 +246,7 @@ class TestTeams:
         with client.teams.with_streaming_response.add_member(
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             email="email",
-            role="member",
+            role="read_only",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -262,7 +262,7 @@ class TestTeams:
             client.teams.with_raw_response.add_member(
                 team_id="",
                 email="email",
-                role="member",
+                role="read_only",
             )
 
     @parametrize
@@ -738,7 +738,7 @@ class TestAsyncTeams:
         team = await async_client.teams.add_member(
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             email="email",
-            role="member",
+            role="read_only",
         )
         assert_matches_type(AddMemberResponse, team, path=["response"])
 
@@ -747,7 +747,7 @@ class TestAsyncTeams:
         response = await async_client.teams.with_raw_response.add_member(
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             email="email",
-            role="member",
+            role="read_only",
         )
 
         assert response.is_closed is True
@@ -760,7 +760,7 @@ class TestAsyncTeams:
         async with async_client.teams.with_streaming_response.add_member(
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             email="email",
-            role="member",
+            role="read_only",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -776,7 +776,7 @@ class TestAsyncTeams:
             await async_client.teams.with_raw_response.add_member(
                 team_id="",
                 email="email",
-                role="member",
+                role="read_only",
             )
 
     @parametrize
