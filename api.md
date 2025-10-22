@@ -73,6 +73,7 @@ from structify.types import (
     ChatCopyNodeOutputByCodeHashResponse,
     ChatDeleteFilesResponse,
     ChatGetGitCommitResponse,
+    ChatGetPartialChatsResponse,
     ChatGetSessionTimelineResponse,
     ChatLoadFilesResponse,
     ChatRevertToCommitResponse,
@@ -91,6 +92,7 @@ Methods:
 - <code title="post /chat/files/delete/{chat_id}">client.chat.<a href="./src/structify/resources/chat.py">delete_files</a>(chat_id, \*\*<a href="src/structify/types/chat_delete_files_params.py">params</a>) -> <a href="./src/structify/types/chat_delete_files_response.py">ChatDeleteFilesResponse</a></code>
 - <code title="delete /chat/sessions/{session_id}">client.chat.<a href="./src/structify/resources/chat.py">delete_session</a>(session_id) -> <a href="./src/structify/types/delete_chat_session_response.py">DeleteChatSessionResponse</a></code>
 - <code title="get /chat/sessions/{chat_id}/commits/{commit_hash}">client.chat.<a href="./src/structify/resources/chat.py">get_git_commit</a>(commit_hash, \*, chat_id) -> <a href="./src/structify/types/chat_get_git_commit_response.py">ChatGetGitCommitResponse</a></code>
+- <code title="get /chat/{chat_session_id}/partial-chats">client.chat.<a href="./src/structify/resources/chat.py">get_partial_chats</a>(chat_session_id) -> <a href="./src/structify/types/chat_get_partial_chats_response.py">ChatGetPartialChatsResponse</a></code>
 - <code title="get /chat/sessions/{session_id}">client.chat.<a href="./src/structify/resources/chat.py">get_session</a>(session_id) -> <a href="./src/structify/types/get_chat_session_response.py">GetChatSessionResponse</a></code>
 - <code title="get /chat/sessions/{session_id}/timeline">client.chat.<a href="./src/structify/resources/chat.py">get_session_timeline</a>(session_id) -> <a href="./src/structify/types/chat_get_session_timeline_response.py">ChatGetSessionTimelineResponse</a></code>
 - <code title="post /chat/sessions/{chat_id}/admin_override">client.chat.<a href="./src/structify/resources/chat.py">grant_admin_override</a>(chat_id, \*\*<a href="src/structify/types/chat_grant_admin_override_params.py">params</a>) -> <a href="./src/structify/types/admin_grant_access_response.py">AdminGrantAccessResponse</a></code>

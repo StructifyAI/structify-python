@@ -26,6 +26,7 @@ from structify.types import (
     DeleteChatSessionResponse,
     ListCollaboratorsResponse,
     ChatRevertToCommitResponse,
+    ChatGetPartialChatsResponse,
     ChatGetSessionTimelineResponse,
 )
 
@@ -476,6 +477,44 @@ class TestChat:
             client.chat.with_raw_response.get_git_commit(
                 commit_hash="",
                 chat_id="chat_id",
+            )
+
+    @parametrize
+    def test_method_get_partial_chats(self, client: Structify) -> None:
+        chat = client.chat.get_partial_chats(
+            "chat_session_id",
+        )
+        assert_matches_type(ChatGetPartialChatsResponse, chat, path=["response"])
+
+    @parametrize
+    def test_raw_response_get_partial_chats(self, client: Structify) -> None:
+        response = client.chat.with_raw_response.get_partial_chats(
+            "chat_session_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        chat = response.parse()
+        assert_matches_type(ChatGetPartialChatsResponse, chat, path=["response"])
+
+    @parametrize
+    def test_streaming_response_get_partial_chats(self, client: Structify) -> None:
+        with client.chat.with_streaming_response.get_partial_chats(
+            "chat_session_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            chat = response.parse()
+            assert_matches_type(ChatGetPartialChatsResponse, chat, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_path_params_get_partial_chats(self, client: Structify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `chat_session_id` but received ''"):
+            client.chat.with_raw_response.get_partial_chats(
+                "",
             )
 
     @parametrize
@@ -1385,6 +1424,44 @@ class TestAsyncChat:
             await async_client.chat.with_raw_response.get_git_commit(
                 commit_hash="",
                 chat_id="chat_id",
+            )
+
+    @parametrize
+    async def test_method_get_partial_chats(self, async_client: AsyncStructify) -> None:
+        chat = await async_client.chat.get_partial_chats(
+            "chat_session_id",
+        )
+        assert_matches_type(ChatGetPartialChatsResponse, chat, path=["response"])
+
+    @parametrize
+    async def test_raw_response_get_partial_chats(self, async_client: AsyncStructify) -> None:
+        response = await async_client.chat.with_raw_response.get_partial_chats(
+            "chat_session_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        chat = await response.parse()
+        assert_matches_type(ChatGetPartialChatsResponse, chat, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_get_partial_chats(self, async_client: AsyncStructify) -> None:
+        async with async_client.chat.with_streaming_response.get_partial_chats(
+            "chat_session_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            chat = await response.parse()
+            assert_matches_type(ChatGetPartialChatsResponse, chat, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_get_partial_chats(self, async_client: AsyncStructify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `chat_session_id` but received ''"):
+            await async_client.chat.with_raw_response.get_partial_chats(
+                "",
             )
 
     @parametrize
