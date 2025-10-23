@@ -20,6 +20,13 @@ __all__ = [
     "ActionActionAction",
     "Connector",
     "ConnectorConnector",
+    "CodeProject",
+    "CodeProjectCodeProject",
+    "CodeProjectCodeProjectAttributes",
+    "DeleteFile",
+    "DeleteFileDeleteFile",
+    "MoveFile",
+    "MoveFileMoveFile",
     "ToolCall",
     "ToolCallToolCall",
     "ToolCallToolCallUnionMember0",
@@ -42,6 +49,8 @@ __all__ = [
     "ToolCallToolCallUnionMember8Input",
     "ToolCallToolCallUnionMember9",
     "ToolCallToolCallUnionMember9Input",
+    "ToolCallToolCallUnionMember10",
+    "ToolCallToolCallUnionMember10Input",
 ]
 
 
@@ -103,6 +112,43 @@ class Connector(BaseModel):
     connector: ConnectorConnector = FieldInfo(alias="Connector")
 
 
+class CodeProjectCodeProjectAttributes(BaseModel):
+    id: Optional[str] = None
+
+    badge: Optional[str] = None
+
+    label: Optional[str] = None
+
+    version: Optional[str] = None
+
+
+class CodeProjectCodeProject(BaseModel):
+    attributes: CodeProjectCodeProjectAttributes
+    """CodeProject attributes"""
+
+
+class CodeProject(BaseModel):
+    code_project: CodeProjectCodeProject = FieldInfo(alias="CodeProject")
+
+
+class DeleteFileDeleteFile(BaseModel):
+    file: str
+
+
+class DeleteFile(BaseModel):
+    delete_file: DeleteFileDeleteFile = FieldInfo(alias="DeleteFile")
+
+
+class MoveFileMoveFile(BaseModel):
+    file: str
+
+    new_path: str
+
+
+class MoveFile(BaseModel):
+    move_file: MoveFileMoveFile = FieldInfo(alias="MoveFile")
+
+
 class ToolCallToolCallUnionMember0Input(BaseModel):
     query: str
 
@@ -146,13 +192,17 @@ class ToolCallToolCallUnionMember2(BaseModel):
 
 
 class ToolCallToolCallUnionMember3Input(BaseModel):
-    file: str
+    env_vars: List[str]
+
+    name: str
+
+    description: Optional[str] = None
 
 
 class ToolCallToolCallUnionMember3(BaseModel):
     input: ToolCallToolCallUnionMember3Input
 
-    name: Literal["DeleteFile"]
+    name: Literal["Connector"]
 
     result_id: Optional[str] = None
 
@@ -162,11 +212,25 @@ class ToolCallToolCallUnionMember3(BaseModel):
 class ToolCallToolCallUnionMember4Input(BaseModel):
     file: str
 
-    new_path: str
-
 
 class ToolCallToolCallUnionMember4(BaseModel):
     input: ToolCallToolCallUnionMember4Input
+
+    name: Literal["DeleteFile"]
+
+    result_id: Optional[str] = None
+
+    result_text: Optional[str] = None
+
+
+class ToolCallToolCallUnionMember5Input(BaseModel):
+    file: str
+
+    new_path: str
+
+
+class ToolCallToolCallUnionMember5(BaseModel):
+    input: ToolCallToolCallUnionMember5Input
 
     name: Literal["MoveFile"]
 
@@ -175,28 +239,8 @@ class ToolCallToolCallUnionMember4(BaseModel):
     result_text: Optional[str] = None
 
 
-class ToolCallToolCallUnionMember5Input(BaseModel):
-    command: str
-
-    connectors: List[str]
-
-    env: Optional[Dict[str, str]] = None
-
-    working_dir: Optional[str] = None
-
-
-class ToolCallToolCallUnionMember5(BaseModel):
-    input: ToolCallToolCallUnionMember5Input
-
-    name: Literal["RunBash"]
-
-    result_id: Optional[str] = None
-
-    result_text: Optional[str] = None
-
-
 class ToolCallToolCallUnionMember6Input(BaseModel):
-    code: str
+    command: str
 
     connectors: List[str]
 
@@ -208,7 +252,7 @@ class ToolCallToolCallUnionMember6Input(BaseModel):
 class ToolCallToolCallUnionMember6(BaseModel):
     input: ToolCallToolCallUnionMember6Input
 
-    name: Literal["RunPython"]
+    name: Literal["RunBash"]
 
     result_id: Optional[str] = None
 
@@ -216,13 +260,33 @@ class ToolCallToolCallUnionMember6(BaseModel):
 
 
 class ToolCallToolCallUnionMember7Input(BaseModel):
+    code: str
+
+    connectors: List[str]
+
+    env: Optional[Dict[str, str]] = None
+
+    working_dir: Optional[str] = None
+
+
+class ToolCallToolCallUnionMember7(BaseModel):
+    input: ToolCallToolCallUnionMember7Input
+
+    name: Literal["RunPython"]
+
+    result_id: Optional[str] = None
+
+    result_text: Optional[str] = None
+
+
+class ToolCallToolCallUnionMember8Input(BaseModel):
     description: str
 
     title: str
 
 
-class ToolCallToolCallUnionMember7(BaseModel):
-    input: ToolCallToolCallUnionMember7Input
+class ToolCallToolCallUnionMember8(BaseModel):
+    input: ToolCallToolCallUnionMember8Input
 
     name: Literal["IssueFound"]
 
@@ -231,7 +295,7 @@ class ToolCallToolCallUnionMember7(BaseModel):
     result_text: Optional[str] = None
 
 
-class ToolCallToolCallUnionMember8Input(BaseModel):
+class ToolCallToolCallUnionMember9Input(BaseModel):
     name: str
 
     description: Optional[str] = None
@@ -239,8 +303,8 @@ class ToolCallToolCallUnionMember8Input(BaseModel):
     notes: Optional[str] = None
 
 
-class ToolCallToolCallUnionMember8(BaseModel):
-    input: ToolCallToolCallUnionMember8Input
+class ToolCallToolCallUnionMember9(BaseModel):
+    input: ToolCallToolCallUnionMember9Input
 
     name: Literal["CreateTable"]
 
@@ -249,7 +313,7 @@ class ToolCallToolCallUnionMember8(BaseModel):
     result_text: Optional[str] = None
 
 
-class ToolCallToolCallUnionMember9Input(BaseModel):
+class ToolCallToolCallUnionMember10Input(BaseModel):
     column_name: str
 
     column_type: str
@@ -259,8 +323,8 @@ class ToolCallToolCallUnionMember9Input(BaseModel):
     notes: Optional[str] = None
 
 
-class ToolCallToolCallUnionMember9(BaseModel):
-    input: ToolCallToolCallUnionMember9Input
+class ToolCallToolCallUnionMember10(BaseModel):
+    input: ToolCallToolCallUnionMember10Input
 
     name: Literal["AddColumn"]
 
@@ -280,6 +344,7 @@ ToolCallToolCall: TypeAlias = Union[
     ToolCallToolCallUnionMember7,
     ToolCallToolCallUnionMember8,
     ToolCallToolCallUnionMember9,
+    ToolCallToolCallUnionMember10,
 ]
 
 
@@ -287,4 +352,6 @@ class ToolCall(BaseModel):
     tool_call: ToolCallToolCall = FieldInfo(alias="ToolCall")
 
 
-ChatEvent: TypeAlias = Union[TextMessage, Thinking, File, Action, Connector, ToolCall]
+ChatEvent: TypeAlias = Union[
+    TextMessage, Thinking, File, Action, Connector, CodeProject, DeleteFile, MoveFile, ToolCall
+]

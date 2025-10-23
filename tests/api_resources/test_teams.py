@@ -10,6 +10,7 @@ import pytest
 from structify import Structify, AsyncStructify
 from tests.utils import assert_matches_type
 from structify.types import (
+    Project,
     GetTeamResponse,
     AddMemberResponse,
     ListTeamsResponse,
@@ -20,8 +21,8 @@ from structify.types import (
     CreditsUsageResponse,
     ListProjectsResponse,
     RemoveMemberResponse,
-    CreateProjectResponse,
     AcceptInvitationResponse,
+    UpdateMemberRoleResponse,
 )
 from structify._utils import parse_datetime
 
@@ -271,7 +272,7 @@ class TestTeams:
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             name="name",
         )
-        assert_matches_type(CreateProjectResponse, team, path=["response"])
+        assert_matches_type(Project, team, path=["response"])
 
     @parametrize
     def test_method_create_project_with_all_params(self, client: Structify) -> None:
@@ -280,7 +281,7 @@ class TestTeams:
             name="name",
             description="description",
         )
-        assert_matches_type(CreateProjectResponse, team, path=["response"])
+        assert_matches_type(Project, team, path=["response"])
 
     @parametrize
     def test_raw_response_create_project(self, client: Structify) -> None:
@@ -292,7 +293,7 @@ class TestTeams:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         team = response.parse()
-        assert_matches_type(CreateProjectResponse, team, path=["response"])
+        assert_matches_type(Project, team, path=["response"])
 
     @parametrize
     def test_streaming_response_create_project(self, client: Structify) -> None:
@@ -304,7 +305,7 @@ class TestTeams:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             team = response.parse()
-            assert_matches_type(CreateProjectResponse, team, path=["response"])
+            assert_matches_type(Project, team, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -537,6 +538,59 @@ class TestTeams:
             client.teams.with_raw_response.remove_member(
                 user_id="",
                 team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            )
+
+    @parametrize
+    def test_method_update_member_role(self, client: Structify) -> None:
+        team = client.teams.update_member_role(
+            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            role="read_only",
+        )
+        assert_matches_type(UpdateMemberRoleResponse, team, path=["response"])
+
+    @parametrize
+    def test_raw_response_update_member_role(self, client: Structify) -> None:
+        response = client.teams.with_raw_response.update_member_role(
+            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            role="read_only",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        team = response.parse()
+        assert_matches_type(UpdateMemberRoleResponse, team, path=["response"])
+
+    @parametrize
+    def test_streaming_response_update_member_role(self, client: Structify) -> None:
+        with client.teams.with_streaming_response.update_member_role(
+            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            role="read_only",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            team = response.parse()
+            assert_matches_type(UpdateMemberRoleResponse, team, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_path_params_update_member_role(self, client: Structify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `team_id` but received ''"):
+            client.teams.with_raw_response.update_member_role(
+                user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                team_id="",
+                role="read_only",
+            )
+
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `user_id` but received ''"):
+            client.teams.with_raw_response.update_member_role(
+                user_id="",
+                team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                role="read_only",
             )
 
 
@@ -785,7 +839,7 @@ class TestAsyncTeams:
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             name="name",
         )
-        assert_matches_type(CreateProjectResponse, team, path=["response"])
+        assert_matches_type(Project, team, path=["response"])
 
     @parametrize
     async def test_method_create_project_with_all_params(self, async_client: AsyncStructify) -> None:
@@ -794,7 +848,7 @@ class TestAsyncTeams:
             name="name",
             description="description",
         )
-        assert_matches_type(CreateProjectResponse, team, path=["response"])
+        assert_matches_type(Project, team, path=["response"])
 
     @parametrize
     async def test_raw_response_create_project(self, async_client: AsyncStructify) -> None:
@@ -806,7 +860,7 @@ class TestAsyncTeams:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         team = await response.parse()
-        assert_matches_type(CreateProjectResponse, team, path=["response"])
+        assert_matches_type(Project, team, path=["response"])
 
     @parametrize
     async def test_streaming_response_create_project(self, async_client: AsyncStructify) -> None:
@@ -818,7 +872,7 @@ class TestAsyncTeams:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             team = await response.parse()
-            assert_matches_type(CreateProjectResponse, team, path=["response"])
+            assert_matches_type(Project, team, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -1051,4 +1105,57 @@ class TestAsyncTeams:
             await async_client.teams.with_raw_response.remove_member(
                 user_id="",
                 team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            )
+
+    @parametrize
+    async def test_method_update_member_role(self, async_client: AsyncStructify) -> None:
+        team = await async_client.teams.update_member_role(
+            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            role="read_only",
+        )
+        assert_matches_type(UpdateMemberRoleResponse, team, path=["response"])
+
+    @parametrize
+    async def test_raw_response_update_member_role(self, async_client: AsyncStructify) -> None:
+        response = await async_client.teams.with_raw_response.update_member_role(
+            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            role="read_only",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        team = await response.parse()
+        assert_matches_type(UpdateMemberRoleResponse, team, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_update_member_role(self, async_client: AsyncStructify) -> None:
+        async with async_client.teams.with_streaming_response.update_member_role(
+            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            role="read_only",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            team = await response.parse()
+            assert_matches_type(UpdateMemberRoleResponse, team, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_update_member_role(self, async_client: AsyncStructify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `team_id` but received ''"):
+            await async_client.teams.with_raw_response.update_member_role(
+                user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                team_id="",
+                role="read_only",
+            )
+
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `user_id` but received ''"):
+            await async_client.teams.with_raw_response.update_member_role(
+                user_id="",
+                team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                role="read_only",
             )

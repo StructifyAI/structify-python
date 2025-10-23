@@ -21,8 +21,6 @@ class Message(BaseModel):
 
     timestamp: datetime
 
-    content_proto: Optional[object] = None
-
     git_commit_id: Optional[str] = None
 
 
