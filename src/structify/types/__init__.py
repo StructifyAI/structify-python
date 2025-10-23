@@ -90,7 +90,6 @@ from .entity_derive_params import EntityDeriveParams as EntityDeriveParams
 from .entity_search_params import EntitySearchParams as EntitySearchParams
 from .entity_verify_params import EntityVerifyParams as EntityVerifyParams
 from .entity_view_response import EntityViewResponse as EntityViewResponse
-from .get_project_response import GetProjectResponse as GetProjectResponse
 from .report_step_response import ReportStepResponse as ReportStepResponse
 from .scrape_list_response import ScrapeListResponse as ScrapeListResponse
 from .scrape_scrape_params import ScrapeScrapeParams as ScrapeScrapeParams
@@ -106,6 +105,7 @@ from .job_get_step_response import JobGetStepResponse as JobGetStepResponse
 from .knowledge_graph_param import KnowledgeGraphParam as KnowledgeGraphParam
 from .list_members_response import ListMembersResponse as ListMembersResponse
 from .llm_information_store import LlmInformationStore as LlmInformationStore
+from .project_update_params import ProjectUpdateParams as ProjectUpdateParams
 from .report_missing_params import ReportMissingParams as ReportMissingParams
 from .report_wrong_response import ReportWrongResponse as ReportWrongResponse
 from .sandbox_create_params import SandboxCreateParams as SandboxCreateParams
@@ -137,7 +137,6 @@ from .chat_add_message_params import ChatAddMessageParams as ChatAddMessageParam
 from .connector_create_params import ConnectorCreateParams as ConnectorCreateParams
 from .connector_explorer_chat import ConnectorExplorerChat as ConnectorExplorerChat
 from .connector_update_params import ConnectorUpdateParams as ConnectorUpdateParams
-from .create_project_response import CreateProjectResponse as CreateProjectResponse
 from .dataset_create_response import DatasetCreateResponse as DatasetCreateResponse
 from .delete_project_response import DeleteProjectResponse as DeleteProjectResponse
 from .entity_add_batch_params import EntityAddBatchParams as EntityAddBatchParams
@@ -207,6 +206,7 @@ from .session_mark_errored_params import SessionMarkErroredParams as SessionMark
 from .slack_user_mapping_response import SlackUserMappingResponse as SlackUserMappingResponse
 from .source_delete_entity_params import SourceDeleteEntityParams as SourceDeleteEntityParams
 from .structure_job_status_params import StructureJobStatusParams as StructureJobStatusParams
+from .update_member_role_response import UpdateMemberRoleResponse as UpdateMemberRoleResponse
 from .chat_add_collaborator_params import ChatAddCollaboratorParams as ChatAddCollaboratorParams
 from .chat_add_git_commit_response import ChatAddGitCommitResponse as ChatAddGitCommitResponse
 from .chat_get_git_commit_response import ChatGetGitCommitResponse as ChatGetGitCommitResponse
@@ -232,6 +232,7 @@ from .dataset_remove_property_params import DatasetRemovePropertyParams as Datas
 from .dataset_update_property_params import DatasetUpdatePropertyParams as DatasetUpdatePropertyParams
 from .entity_add_relationship_params import EntityAddRelationshipParams as EntityAddRelationshipParams
 from .structure_is_complete_response import StructureIsCompleteResponse as StructureIsCompleteResponse
+from .team_update_member_role_params import TeamUpdateMemberRoleParams as TeamUpdateMemberRoleParams
 from .workflow_node_execution_status import WorkflowNodeExecutionStatus as WorkflowNodeExecutionStatus
 from .workflow_schedule_get_response import WorkflowScheduleGetResponse as WorkflowScheduleGetResponse
 from .chat_get_partial_chats_response import ChatGetPartialChatsResponse as ChatGetPartialChatsResponse

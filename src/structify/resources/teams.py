@@ -16,6 +16,7 @@ from ..types import (
     team_credits_usage_params,
     team_create_project_params,
     team_accept_invitation_params,
+    team_update_member_role_params,
 )
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
@@ -28,6 +29,7 @@ from .._response import (
     async_to_streamed_response_wrapper,
 )
 from .._base_client import make_request_options
+from ..types.project import Project
 from ..types.team_role import TeamRole
 from ..types.granularity import Granularity
 from ..types.get_team_response import GetTeamResponse
@@ -40,8 +42,8 @@ from ..types.list_members_response import ListMembersResponse
 from ..types.credits_usage_response import CreditsUsageResponse
 from ..types.list_projects_response import ListProjectsResponse
 from ..types.remove_member_response import RemoveMemberResponse
-from ..types.create_project_response import CreateProjectResponse
 from ..types.accept_invitation_response import AcceptInvitationResponse
+from ..types.update_member_role_response import UpdateMemberRoleResponse
 
 __all__ = ["TeamsResource", "AsyncTeamsResource"]
 
@@ -281,7 +283,7 @@ class TeamsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> CreateProjectResponse:
+    ) -> Project:
         """
         Args:
           extra_headers: Send extra headers
@@ -306,7 +308,7 @@ class TeamsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=CreateProjectResponse,
+            cast_to=Project,
         )
 
     def credits_usage(
@@ -489,6 +491,42 @@ class TeamsResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=RemoveMemberResponse,
+        )
+
+    def update_member_role(
+        self,
+        user_id: str,
+        *,
+        team_id: str,
+        role: TeamRole,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> UpdateMemberRoleResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not team_id:
+            raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
+        if not user_id:
+            raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
+        return self._patch(
+            f"/team/{team_id}/members/{user_id}/role",
+            body=maybe_transform({"role": role}, team_update_member_role_params.TeamUpdateMemberRoleParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=UpdateMemberRoleResponse,
         )
 
 
@@ -727,7 +765,7 @@ class AsyncTeamsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> CreateProjectResponse:
+    ) -> Project:
         """
         Args:
           extra_headers: Send extra headers
@@ -752,7 +790,7 @@ class AsyncTeamsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=CreateProjectResponse,
+            cast_to=Project,
         )
 
     async def credits_usage(
@@ -937,6 +975,42 @@ class AsyncTeamsResource(AsyncAPIResource):
             cast_to=RemoveMemberResponse,
         )
 
+    async def update_member_role(
+        self,
+        user_id: str,
+        *,
+        team_id: str,
+        role: TeamRole,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> UpdateMemberRoleResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not team_id:
+            raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
+        if not user_id:
+            raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
+        return await self._patch(
+            f"/team/{team_id}/members/{user_id}/role",
+            body=await async_maybe_transform({"role": role}, team_update_member_role_params.TeamUpdateMemberRoleParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=UpdateMemberRoleResponse,
+        )
+
 
 class TeamsResourceWithRawResponse:
     def __init__(self, teams: TeamsResource) -> None:
@@ -977,6 +1051,9 @@ class TeamsResourceWithRawResponse:
         )
         self.remove_member = to_raw_response_wrapper(
             teams.remove_member,
+        )
+        self.update_member_role = to_raw_response_wrapper(
+            teams.update_member_role,
         )
 
 
@@ -1020,6 +1097,9 @@ class AsyncTeamsResourceWithRawResponse:
         self.remove_member = async_to_raw_response_wrapper(
             teams.remove_member,
         )
+        self.update_member_role = async_to_raw_response_wrapper(
+            teams.update_member_role,
+        )
 
 
 class TeamsResourceWithStreamingResponse:
@@ -1062,6 +1142,9 @@ class TeamsResourceWithStreamingResponse:
         self.remove_member = to_streamed_response_wrapper(
             teams.remove_member,
         )
+        self.update_member_role = to_streamed_response_wrapper(
+            teams.update_member_role,
+        )
 
 
 class AsyncTeamsResourceWithStreamingResponse:
@@ -1103,4 +1186,7 @@ class AsyncTeamsResourceWithStreamingResponse:
         )
         self.remove_member = async_to_streamed_response_wrapper(
             teams.remove_member,
+        )
+        self.update_member_role = async_to_streamed_response_wrapper(
+            teams.update_member_role,
         )

@@ -116,7 +116,6 @@ from structify.types import (
     AddMemberRequest,
     AddMemberResponse,
     CreateProjectRequest,
-    CreateProjectResponse,
     CreateTeamRequest,
     CreateTeamResponse,
     CreditsUsageRequest,
@@ -133,6 +132,8 @@ from structify.types import (
     TeamRole,
     TeamSubscriptionStatus,
     TeamWithRole,
+    UpdateMemberRoleRequest,
+    UpdateMemberRoleResponse,
     UpdateTeamRequest,
     UpdateTeamResponse,
     UsageGroupKey,
@@ -148,25 +149,27 @@ Methods:
 - <code title="delete /team/{team_id}">client.teams.<a href="./src/structify/resources/teams.py">delete</a>(team_id) -> <a href="./src/structify/types/delete_team_response.py">DeleteTeamResponse</a></code>
 - <code title="post /team/invitations/accept">client.teams.<a href="./src/structify/resources/teams.py">accept_invitation</a>(\*\*<a href="src/structify/types/team_accept_invitation_params.py">params</a>) -> <a href="./src/structify/types/accept_invitation_response.py">AcceptInvitationResponse</a></code>
 - <code title="post /team/{team_id}/members">client.teams.<a href="./src/structify/resources/teams.py">add_member</a>(team_id, \*\*<a href="src/structify/types/team_add_member_params.py">params</a>) -> <a href="./src/structify/types/add_member_response.py">AddMemberResponse</a></code>
-- <code title="post /team/{team_id}/projects">client.teams.<a href="./src/structify/resources/teams.py">create_project</a>(team_id, \*\*<a href="src/structify/types/team_create_project_params.py">params</a>) -> <a href="./src/structify/types/create_project_response.py">CreateProjectResponse</a></code>
+- <code title="post /team/{team_id}/projects">client.teams.<a href="./src/structify/resources/teams.py">create_project</a>(team_id, \*\*<a href="src/structify/types/team_create_project_params.py">params</a>) -> <a href="./src/structify/types/project.py">Project</a></code>
 - <code title="get /team/{team_id}/credits/usage">client.teams.<a href="./src/structify/resources/teams.py">credits_usage</a>(team_id, \*\*<a href="src/structify/types/team_credits_usage_params.py">params</a>) -> <a href="./src/structify/types/credits_usage_response.py">CreditsUsageResponse</a></code>
 - <code title="get /team/{team_id}">client.teams.<a href="./src/structify/resources/teams.py">get</a>(team_id) -> <a href="./src/structify/types/get_team_response.py">GetTeamResponse</a></code>
 - <code title="get /team/{team_id}/members">client.teams.<a href="./src/structify/resources/teams.py">list_members</a>(team_id) -> <a href="./src/structify/types/list_members_response.py">ListMembersResponse</a></code>
 - <code title="get /team/{team_id}/projects">client.teams.<a href="./src/structify/resources/teams.py">list_projects</a>(team_id) -> <a href="./src/structify/types/list_projects_response.py">ListProjectsResponse</a></code>
 - <code title="delete /team/{team_id}/members/{user_id}">client.teams.<a href="./src/structify/resources/teams.py">remove_member</a>(user_id, \*, team_id) -> <a href="./src/structify/types/remove_member_response.py">RemoveMemberResponse</a></code>
+- <code title="patch /team/{team_id}/members/{user_id}/role">client.teams.<a href="./src/structify/resources/teams.py">update_member_role</a>(user_id, \*, team_id, \*\*<a href="src/structify/types/team_update_member_role_params.py">params</a>) -> <a href="./src/structify/types/update_member_role_response.py">UpdateMemberRoleResponse</a></code>
 
 # Projects
 
 Types:
 
 ```python
-from structify.types import DeleteProjectResponse, GetProjectResponse, Project
+from structify.types import DeleteProjectResponse, Project, UpdateProjectRequest
 ```
 
 Methods:
 
+- <code title="patch /team/{team_id}/project/{project_id}">client.projects.<a href="./src/structify/resources/projects.py">update</a>(project_id, \*, team_id, \*\*<a href="src/structify/types/project_update_params.py">params</a>) -> <a href="./src/structify/types/project.py">Project</a></code>
 - <code title="delete /team/{team_id}/project/{project_id}">client.projects.<a href="./src/structify/resources/projects.py">delete</a>(project_id, \*, team_id) -> <a href="./src/structify/types/delete_project_response.py">DeleteProjectResponse</a></code>
-- <code title="get /team/{team_id}/project/{project_id}">client.projects.<a href="./src/structify/resources/projects.py">get</a>(project_id, \*, team_id) -> <a href="./src/structify/types/get_project_response.py">GetProjectResponse</a></code>
+- <code title="get /team/{team_id}/project/{project_id}">client.projects.<a href="./src/structify/resources/projects.py">get</a>(project_id, \*, team_id) -> <a href="./src/structify/types/project.py">Project</a></code>
 
 # Admin
 
