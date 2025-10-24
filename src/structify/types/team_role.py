@@ -4,4 +4,4 @@ from typing_extensions import Literal, TypeAlias
 
 __all__ = ["TeamRole"]
 
-TeamRole: TypeAlias = Literal["member", "admin", "owner"]
+TeamRole: TypeAlias = Literal["read_only", "member", "admin", "owner"]

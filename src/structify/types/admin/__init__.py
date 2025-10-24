@@ -13,6 +13,7 @@ from .team_list_params import TeamListParams as TeamListParams
 from .user_create_params import UserCreateParams as UserCreateParams
 from .user_list_response import UserListResponse as UserListResponse
 from .admin_dataset_return import AdminDatasetReturn as AdminDatasetReturn
+from .extend_trial_response import ExtendTrialResponse as ExtendTrialResponse
 from .user_get_stats_params import UserGetStatsParams as UserGetStatsParams
 from .grant_credits_response import GrantCreditsResponse as GrantCreditsResponse
 from .training_datum_response import TrainingDatumResponse as TrainingDatumResponse
@@ -22,6 +23,7 @@ from .user_get_stats_response import UserGetStatsResponse as UserGetStatsRespons
 from .user_set_credits_params import UserSetCreditsParams as UserSetCreditsParams
 from .admin_list_jobs_response import AdminListJobsResponse as AdminListJobsResponse
 from .dataset_get_by_id_params import DatasetGetByIDParams as DatasetGetByIDParams
+from .team_extend_trial_params import TeamExtendTrialParams as TeamExtendTrialParams
 from .admin_teams_list_response import AdminTeamsListResponse as AdminTeamsListResponse
 from .human_llm_get_jobs_params import HumanLlmGetJobsParams as HumanLlmGetJobsParams
 from .team_grant_credits_params import TeamGrantCreditsParams as TeamGrantCreditsParams

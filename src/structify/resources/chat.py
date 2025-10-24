@@ -20,6 +20,7 @@ from ..types import (
     chat_add_collaborator_params,
     chat_revert_to_commit_params,
     chat_grant_admin_override_params,
+    chat_update_session_favorite_params,
     chat_copy_node_output_by_code_hash_params,
 )
 from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, SequenceNotStr, omit, not_given
@@ -50,6 +51,7 @@ from ..types.chat_get_git_commit_response import ChatGetGitCommitResponse
 from ..types.create_chat_session_response import CreateChatSessionResponse
 from ..types.delete_chat_session_response import DeleteChatSessionResponse
 from ..types.chat_revert_to_commit_response import ChatRevertToCommitResponse
+from ..types.chat_get_partial_chats_response import ChatGetPartialChatsResponse
 from ..types.chat_get_session_timeline_response import ChatGetSessionTimelineResponse
 
 __all__ = ["ChatResource", "AsyncChatResource"]
@@ -461,6 +463,39 @@ class ChatResource(SyncAPIResource):
             cast_to=ChatGetGitCommitResponse,
         )
 
+    def get_partial_chats(
+        self,
+        chat_session_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ChatGetPartialChatsResponse:
+        """
+        Get all partial chats for a chat session
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not chat_session_id:
+            raise ValueError(f"Expected a non-empty value for `chat_session_id` but received {chat_session_id!r}")
+        return self._get(
+            f"/chat/{chat_session_id}/partial-chats",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ChatGetPartialChatsResponse,
+        )
+
     def get_session(
         self,
         session_id: str,
@@ -839,7 +874,6 @@ class ChatResource(SyncAPIResource):
         self,
         session_id: str,
         *,
-        is_favorite: Optional[bool] | Omit = omit,
         name: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -865,11 +899,45 @@ class ChatResource(SyncAPIResource):
             f"/chat/sessions/{session_id}",
             body=maybe_transform(
                 {
-                    "is_favorite": is_favorite,
                     "name": name,
                     "project_id": project_id,
                 },
                 chat_update_session_params.ChatUpdateSessionParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ChatSession,
+        )
+
+    def update_session_favorite(
+        self,
+        session_id: str,
+        *,
+        is_favorite: bool,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ChatSession:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not session_id:
+            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
+        return self._patch(
+            f"/chat/sessions/{session_id}/favorite",
+            body=maybe_transform(
+                {"is_favorite": is_favorite}, chat_update_session_favorite_params.ChatUpdateSessionFavoriteParams
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -1286,6 +1354,39 @@ class AsyncChatResource(AsyncAPIResource):
             cast_to=ChatGetGitCommitResponse,
         )
 
+    async def get_partial_chats(
+        self,
+        chat_session_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ChatGetPartialChatsResponse:
+        """
+        Get all partial chats for a chat session
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not chat_session_id:
+            raise ValueError(f"Expected a non-empty value for `chat_session_id` but received {chat_session_id!r}")
+        return await self._get(
+            f"/chat/{chat_session_id}/partial-chats",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ChatGetPartialChatsResponse,
+        )
+
     async def get_session(
         self,
         session_id: str,
@@ -1668,7 +1769,6 @@ class AsyncChatResource(AsyncAPIResource):
         self,
         session_id: str,
         *,
-        is_favorite: Optional[bool] | Omit = omit,
         name: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -1694,11 +1794,45 @@ class AsyncChatResource(AsyncAPIResource):
             f"/chat/sessions/{session_id}",
             body=await async_maybe_transform(
                 {
-                    "is_favorite": is_favorite,
                     "name": name,
                     "project_id": project_id,
                 },
                 chat_update_session_params.ChatUpdateSessionParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ChatSession,
+        )
+
+    async def update_session_favorite(
+        self,
+        session_id: str,
+        *,
+        is_favorite: bool,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ChatSession:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not session_id:
+            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
+        return await self._patch(
+            f"/chat/sessions/{session_id}/favorite",
+            body=await async_maybe_transform(
+                {"is_favorite": is_favorite}, chat_update_session_favorite_params.ChatUpdateSessionFavoriteParams
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -1741,6 +1875,9 @@ class ChatResourceWithRawResponse:
         self.get_git_commit = to_raw_response_wrapper(
             chat.get_git_commit,
         )
+        self.get_partial_chats = to_raw_response_wrapper(
+            chat.get_partial_chats,
+        )
         self.get_session = to_raw_response_wrapper(
             chat.get_session,
         )
@@ -1773,6 +1910,9 @@ class ChatResourceWithRawResponse:
         )
         self.update_session = to_raw_response_wrapper(
             chat.update_session,
+        )
+        self.update_session_favorite = to_raw_response_wrapper(
+            chat.update_session_favorite,
         )
 
 
@@ -1810,6 +1950,9 @@ class AsyncChatResourceWithRawResponse:
         self.get_git_commit = async_to_raw_response_wrapper(
             chat.get_git_commit,
         )
+        self.get_partial_chats = async_to_raw_response_wrapper(
+            chat.get_partial_chats,
+        )
         self.get_session = async_to_raw_response_wrapper(
             chat.get_session,
         )
@@ -1842,6 +1985,9 @@ class AsyncChatResourceWithRawResponse:
         )
         self.update_session = async_to_raw_response_wrapper(
             chat.update_session,
+        )
+        self.update_session_favorite = async_to_raw_response_wrapper(
+            chat.update_session_favorite,
         )
 
 
@@ -1879,6 +2025,9 @@ class ChatResourceWithStreamingResponse:
         self.get_git_commit = to_streamed_response_wrapper(
             chat.get_git_commit,
         )
+        self.get_partial_chats = to_streamed_response_wrapper(
+            chat.get_partial_chats,
+        )
         self.get_session = to_streamed_response_wrapper(
             chat.get_session,
         )
@@ -1911,6 +2060,9 @@ class ChatResourceWithStreamingResponse:
         )
         self.update_session = to_streamed_response_wrapper(
             chat.update_session,
+        )
+        self.update_session_favorite = to_streamed_response_wrapper(
+            chat.update_session_favorite,
         )
 
 
@@ -1948,6 +2100,9 @@ class AsyncChatResourceWithStreamingResponse:
         self.get_git_commit = async_to_streamed_response_wrapper(
             chat.get_git_commit,
         )
+        self.get_partial_chats = async_to_streamed_response_wrapper(
+            chat.get_partial_chats,
+        )
         self.get_session = async_to_streamed_response_wrapper(
             chat.get_session,
         )
@@ -1980,4 +2135,7 @@ class AsyncChatResourceWithStreamingResponse:
         )
         self.update_session = async_to_streamed_response_wrapper(
             chat.update_session,
+        )
+        self.update_session_favorite = async_to_streamed_response_wrapper(
+            chat.update_session_favorite,
         )

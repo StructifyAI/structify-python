@@ -21,6 +21,8 @@ class ChatSession(BaseModel):
 
     project_id: str
 
+    slack_completion_notified: bool
+
     updated_at: datetime
 
     config_proto: Optional[object] = None

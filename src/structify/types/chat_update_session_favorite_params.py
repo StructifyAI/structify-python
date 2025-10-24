@@ -4,8 +4,8 @@ from __future__ import annotations
 
 from typing_extensions import Required, TypedDict
 
-__all__ = ["TeamAcceptInvitationParams"]
+__all__ = ["ChatUpdateSessionFavoriteParams"]
 
 
-class TeamAcceptInvitationParams(TypedDict, total=False):
-    token: Required[str]
+class ChatUpdateSessionFavoriteParams(TypedDict, total=False):
+    is_favorite: Required[bool]

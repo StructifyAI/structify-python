@@ -21,11 +21,13 @@ from ..._response import (
 from ...pagination import SyncJobsList, AsyncJobsList
 from ...types.admin import (
     team_list_params,
+    team_extend_trial_params,
     team_grant_credits_params,
     team_cancel_subscription_params,
     team_create_subscription_params,
 )
 from ..._base_client import AsyncPaginator, make_request_options
+from ...types.admin.extend_trial_response import ExtendTrialResponse
 from ...types.admin.grant_credits_response import GrantCreditsResponse
 from ...types.admin.admin_teams_list_response import AdminTeamsListResponse
 from ...types.admin.cancel_subscription_response import CancelSubscriptionResponse
@@ -176,6 +178,43 @@ class TeamsResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=CreateSubscriptionResponse,
+        )
+
+    def extend_trial(
+        self,
+        *,
+        new_expires_at: Union[str, datetime],
+        team_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ExtendTrialResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/admin/team/extend_trial",
+            body=maybe_transform(
+                {
+                    "new_expires_at": new_expires_at,
+                    "team_id": team_id,
+                },
+                team_extend_trial_params.TeamExtendTrialParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ExtendTrialResponse,
         )
 
     def grant_credits(
@@ -370,6 +409,43 @@ class AsyncTeamsResource(AsyncAPIResource):
             cast_to=CreateSubscriptionResponse,
         )
 
+    async def extend_trial(
+        self,
+        *,
+        new_expires_at: Union[str, datetime],
+        team_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ExtendTrialResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/admin/team/extend_trial",
+            body=await async_maybe_transform(
+                {
+                    "new_expires_at": new_expires_at,
+                    "team_id": team_id,
+                },
+                team_extend_trial_params.TeamExtendTrialParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ExtendTrialResponse,
+        )
+
     async def grant_credits(
         self,
         *,
@@ -429,6 +505,9 @@ class TeamsResourceWithRawResponse:
         self.create_subscription = to_raw_response_wrapper(
             teams.create_subscription,
         )
+        self.extend_trial = to_raw_response_wrapper(
+            teams.extend_trial,
+        )
         self.grant_credits = to_raw_response_wrapper(
             teams.grant_credits,
         )
@@ -446,6 +525,9 @@ class AsyncTeamsResourceWithRawResponse:
         )
         self.create_subscription = async_to_raw_response_wrapper(
             teams.create_subscription,
+        )
+        self.extend_trial = async_to_raw_response_wrapper(
+            teams.extend_trial,
         )
         self.grant_credits = async_to_raw_response_wrapper(
             teams.grant_credits,
@@ -465,6 +547,9 @@ class TeamsResourceWithStreamingResponse:
         self.create_subscription = to_streamed_response_wrapper(
             teams.create_subscription,
         )
+        self.extend_trial = to_streamed_response_wrapper(
+            teams.extend_trial,
+        )
         self.grant_credits = to_streamed_response_wrapper(
             teams.grant_credits,
         )
@@ -482,6 +567,9 @@ class AsyncTeamsResourceWithStreamingResponse:
         )
         self.create_subscription = async_to_streamed_response_wrapper(
             teams.create_subscription,
+        )
+        self.extend_trial = async_to_streamed_response_wrapper(
+            teams.extend_trial,
         )
         self.grant_credits = async_to_streamed_response_wrapper(
             teams.grant_credits,

@@ -2,12 +2,12 @@
 
 from .._models import BaseModel
 
-__all__ = ["AcceptInvitationResponse"]
+__all__ = ["InvitationDetailsResponse"]
 
 
-class AcceptInvitationResponse(BaseModel):
-    success: bool
-
-    team_id: str
+class InvitationDetailsResponse(BaseModel):
+    invitee_email: str
 
     team_name: str
+
+    user_exists: bool

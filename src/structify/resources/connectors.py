@@ -488,7 +488,8 @@ class ConnectorsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ExplorerChatResponse:
         """
-        Get chat from a connector exploration run (admin only)
+        Returns chats for all phases (table discovery, column discovery for each table,
+        etc.)
 
         Args:
           run_id: Exploration run ID (required)
@@ -970,7 +971,8 @@ class AsyncConnectorsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ExplorerChatResponse:
         """
-        Get chat from a connector exploration run (admin only)
+        Returns chats for all phases (table discovery, column discovery for each table,
+        etc.)
 
         Args:
           run_id: Exploration run ID (required)
