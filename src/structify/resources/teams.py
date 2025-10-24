@@ -43,6 +43,7 @@ from ..types.credits_usage_response import CreditsUsageResponse
 from ..types.list_projects_response import ListProjectsResponse
 from ..types.remove_member_response import RemoveMemberResponse
 from ..types.accept_invitation_response import AcceptInvitationResponse
+from ..types.invitation_details_response import InvitationDetailsResponse
 from ..types.update_member_role_response import UpdateMemberRoleResponse
 
 __all__ = ["TeamsResource", "AsyncTeamsResource"]
@@ -198,7 +199,6 @@ class TeamsResource(SyncAPIResource):
         self,
         *,
         token: str,
-        supabase_user_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -218,13 +218,7 @@ class TeamsResource(SyncAPIResource):
         """
         return self._post(
             "/team/invitations/accept",
-            body=maybe_transform(
-                {
-                    "token": token,
-                    "supabase_user_id": supabase_user_id,
-                },
-                team_accept_invitation_params.TeamAcceptInvitationParams,
-            ),
+            body=maybe_transform({"token": token}, team_accept_invitation_params.TeamAcceptInvitationParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -395,6 +389,37 @@ class TeamsResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=GetTeamResponse,
+        )
+
+    def invitation_details(
+        self,
+        token: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> InvitationDetailsResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not token:
+            raise ValueError(f"Expected a non-empty value for `token` but received {token!r}")
+        return self._get(
+            f"/team/invitations/details/{token}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=InvitationDetailsResponse,
         )
 
     def list_members(
@@ -680,7 +705,6 @@ class AsyncTeamsResource(AsyncAPIResource):
         self,
         *,
         token: str,
-        supabase_user_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -701,11 +725,7 @@ class AsyncTeamsResource(AsyncAPIResource):
         return await self._post(
             "/team/invitations/accept",
             body=await async_maybe_transform(
-                {
-                    "token": token,
-                    "supabase_user_id": supabase_user_id,
-                },
-                team_accept_invitation_params.TeamAcceptInvitationParams,
+                {"token": token}, team_accept_invitation_params.TeamAcceptInvitationParams
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -879,6 +899,37 @@ class AsyncTeamsResource(AsyncAPIResource):
             cast_to=GetTeamResponse,
         )
 
+    async def invitation_details(
+        self,
+        token: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> InvitationDetailsResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not token:
+            raise ValueError(f"Expected a non-empty value for `token` but received {token!r}")
+        return await self._get(
+            f"/team/invitations/details/{token}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=InvitationDetailsResponse,
+        )
+
     async def list_members(
         self,
         team_id: str,
@@ -1043,6 +1094,9 @@ class TeamsResourceWithRawResponse:
         self.get = to_raw_response_wrapper(
             teams.get,
         )
+        self.invitation_details = to_raw_response_wrapper(
+            teams.invitation_details,
+        )
         self.list_members = to_raw_response_wrapper(
             teams.list_members,
         )
@@ -1087,6 +1141,9 @@ class AsyncTeamsResourceWithRawResponse:
         )
         self.get = async_to_raw_response_wrapper(
             teams.get,
+        )
+        self.invitation_details = async_to_raw_response_wrapper(
+            teams.invitation_details,
         )
         self.list_members = async_to_raw_response_wrapper(
             teams.list_members,
@@ -1133,6 +1190,9 @@ class TeamsResourceWithStreamingResponse:
         self.get = to_streamed_response_wrapper(
             teams.get,
         )
+        self.invitation_details = to_streamed_response_wrapper(
+            teams.invitation_details,
+        )
         self.list_members = to_streamed_response_wrapper(
             teams.list_members,
         )
@@ -1177,6 +1237,9 @@ class AsyncTeamsResourceWithStreamingResponse:
         )
         self.get = async_to_streamed_response_wrapper(
             teams.get,
+        )
+        self.invitation_details = async_to_streamed_response_wrapper(
+            teams.invitation_details,
         )
         self.list_members = async_to_streamed_response_wrapper(
             teams.list_members,

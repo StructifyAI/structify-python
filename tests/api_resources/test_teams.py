@@ -23,6 +23,7 @@ from structify.types import (
     RemoveMemberResponse,
     AcceptInvitationResponse,
     UpdateMemberRoleResponse,
+    InvitationDetailsResponse,
 )
 from structify._utils import parse_datetime
 
@@ -185,14 +186,6 @@ class TestTeams:
     def test_method_accept_invitation(self, client: Structify) -> None:
         team = client.teams.accept_invitation(
             token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-        assert_matches_type(AcceptInvitationResponse, team, path=["response"])
-
-    @parametrize
-    def test_method_accept_invitation_with_all_params(self, client: Structify) -> None:
-        team = client.teams.accept_invitation(
-            token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            supabase_user_id="supabase_user_id",
         )
         assert_matches_type(AcceptInvitationResponse, team, path=["response"])
 
@@ -413,6 +406,44 @@ class TestTeams:
     def test_path_params_get(self, client: Structify) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `team_id` but received ''"):
             client.teams.with_raw_response.get(
+                "",
+            )
+
+    @parametrize
+    def test_method_invitation_details(self, client: Structify) -> None:
+        team = client.teams.invitation_details(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(InvitationDetailsResponse, team, path=["response"])
+
+    @parametrize
+    def test_raw_response_invitation_details(self, client: Structify) -> None:
+        response = client.teams.with_raw_response.invitation_details(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        team = response.parse()
+        assert_matches_type(InvitationDetailsResponse, team, path=["response"])
+
+    @parametrize
+    def test_streaming_response_invitation_details(self, client: Structify) -> None:
+        with client.teams.with_streaming_response.invitation_details(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            team = response.parse()
+            assert_matches_type(InvitationDetailsResponse, team, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_path_params_invitation_details(self, client: Structify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `token` but received ''"):
+            client.teams.with_raw_response.invitation_details(
                 "",
             )
 
@@ -756,14 +787,6 @@ class TestAsyncTeams:
         assert_matches_type(AcceptInvitationResponse, team, path=["response"])
 
     @parametrize
-    async def test_method_accept_invitation_with_all_params(self, async_client: AsyncStructify) -> None:
-        team = await async_client.teams.accept_invitation(
-            token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            supabase_user_id="supabase_user_id",
-        )
-        assert_matches_type(AcceptInvitationResponse, team, path=["response"])
-
-    @parametrize
     async def test_raw_response_accept_invitation(self, async_client: AsyncStructify) -> None:
         response = await async_client.teams.with_raw_response.accept_invitation(
             token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -980,6 +1003,44 @@ class TestAsyncTeams:
     async def test_path_params_get(self, async_client: AsyncStructify) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `team_id` but received ''"):
             await async_client.teams.with_raw_response.get(
+                "",
+            )
+
+    @parametrize
+    async def test_method_invitation_details(self, async_client: AsyncStructify) -> None:
+        team = await async_client.teams.invitation_details(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(InvitationDetailsResponse, team, path=["response"])
+
+    @parametrize
+    async def test_raw_response_invitation_details(self, async_client: AsyncStructify) -> None:
+        response = await async_client.teams.with_raw_response.invitation_details(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        team = await response.parse()
+        assert_matches_type(InvitationDetailsResponse, team, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_invitation_details(self, async_client: AsyncStructify) -> None:
+        async with async_client.teams.with_streaming_response.invitation_details(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            team = await response.parse()
+            assert_matches_type(InvitationDetailsResponse, team, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_invitation_details(self, async_client: AsyncStructify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `token` but received ''"):
+            await async_client.teams.with_raw_response.invitation_details(
                 "",
             )
 
