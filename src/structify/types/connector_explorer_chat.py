@@ -8,7 +8,14 @@ from .._utils import PropertyInfo
 from .._models import BaseModel
 from .chat_prompt import ChatPrompt
 
-__all__ = ["ConnectorExplorerChat", "PhaseID", "PhaseIDDiscoverTables", "PhaseIDDiscoverColumns"]
+__all__ = [
+    "ConnectorExplorerChat",
+    "PhaseID",
+    "PhaseIDDiscoverTables",
+    "PhaseIDDiscoverColumns",
+    "PhaseIDDiscoverAPIResources",
+    "PhaseIDDiscoverAPIFields",
+]
 
 
 class PhaseIDDiscoverTables(BaseModel):
@@ -21,7 +28,64 @@ class PhaseIDDiscoverColumns(BaseModel):
     type: Literal["discover_columns"]
 
 
-PhaseID: TypeAlias = Annotated[Union[PhaseIDDiscoverTables, PhaseIDDiscoverColumns], PropertyInfo(discriminator="type")]
+class PhaseIDDiscoverAPIResources(BaseModel):
+    known_connector_type: Literal[
+        "Slack",
+        "Confluence",
+        "GoogleDrive",
+        "Snowflake",
+        "Hubspot",
+        "Salesforce",
+        "Supabase",
+        "Sharepoint",
+        "Notion",
+        "Jira",
+        "Linear",
+        "Intercom",
+        "Gmail",
+        "Airtable",
+        "Trello",
+        "Postgresql",
+        "Sap",
+        "Oracle",
+        "Manual",
+    ]
+
+    type: Literal["discover_api_resources"]
+
+
+class PhaseIDDiscoverAPIFields(BaseModel):
+    known_connector_type: Literal[
+        "Slack",
+        "Confluence",
+        "GoogleDrive",
+        "Snowflake",
+        "Hubspot",
+        "Salesforce",
+        "Supabase",
+        "Sharepoint",
+        "Notion",
+        "Jira",
+        "Linear",
+        "Intercom",
+        "Gmail",
+        "Airtable",
+        "Trello",
+        "Postgresql",
+        "Sap",
+        "Oracle",
+        "Manual",
+    ]
+
+    resource_name: str
+
+    type: Literal["discover_api_fields"]
+
+
+PhaseID: TypeAlias = Annotated[
+    Union[PhaseIDDiscoverTables, PhaseIDDiscoverColumns, PhaseIDDiscoverAPIResources, PhaseIDDiscoverAPIFields],
+    PropertyInfo(discriminator="type"),
+]
 
 
 class ConnectorExplorerChat(BaseModel):
