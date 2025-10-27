@@ -42,6 +42,8 @@ __all__ = [
     "ToolCallToolCallUnionMember8Input",
     "ToolCallToolCallUnionMember9",
     "ToolCallToolCallUnionMember9Input",
+    "ToolCallToolCallUnionMember10",
+    "ToolCallToolCallUnionMember10Input",
     "InternalError",
     "InternalErrorInternalError",
 ]
@@ -271,6 +273,26 @@ class ToolCallToolCallUnionMember9(BaseModel):
     result_text: Optional[str] = None
 
 
+class ToolCallToolCallUnionMember10Input(BaseModel):
+    endpoint: str
+
+    name: str
+
+    description: Optional[str] = None
+
+    notes: Optional[str] = None
+
+
+class ToolCallToolCallUnionMember10(BaseModel):
+    input: ToolCallToolCallUnionMember10Input
+
+    name: Literal["CreateApiResource"]
+
+    result_id: Optional[str] = None
+
+    result_text: Optional[str] = None
+
+
 ToolCallToolCall: TypeAlias = Union[
     ToolCallToolCallUnionMember0,
     ToolCallToolCallUnionMember1,
@@ -282,6 +304,7 @@ ToolCallToolCall: TypeAlias = Union[
     ToolCallToolCallUnionMember7,
     ToolCallToolCallUnionMember8,
     ToolCallToolCallUnionMember9,
+    ToolCallToolCallUnionMember10,
 ]
 
 
