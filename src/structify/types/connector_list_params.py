@@ -8,8 +8,8 @@ __all__ = ["ConnectorListParams"]
 
 
 class ConnectorListParams(TypedDict, total=False):
-    project_id: Required[str]
-    """Project ID to list connectors for"""
+    team_id: Required[str]
+    """Team ID to list connectors for"""
 
     limit: int
 

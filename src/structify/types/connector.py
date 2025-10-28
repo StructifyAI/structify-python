@@ -41,7 +41,7 @@ class Connector(BaseModel):
 
     name: str
 
-    project_id: str
+    team_id: str
 
     updated_at: datetime
 

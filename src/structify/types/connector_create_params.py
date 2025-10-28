@@ -37,7 +37,7 @@ class ConnectorCreateParams(TypedDict, total=False):
 
     name: Required[str]
 
-    project_id: Required[str]
+    team_id: Required[str]
 
     description: Optional[str]
 
