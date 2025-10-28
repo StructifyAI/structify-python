@@ -82,7 +82,7 @@ class ConnectorsResource(SyncAPIResource):
         ],
         llm_information_store: str,
         name: str,
-        project_id: str,
+        team_id: str,
         description: Optional[str] | Omit = omit,
         refresh_script: Optional[str] | Omit = omit,
         secrets: Dict[str, str] | Omit = omit,
@@ -112,7 +112,7 @@ class ConnectorsResource(SyncAPIResource):
                     "known_connector_type": known_connector_type,
                     "llm_information_store": llm_information_store,
                     "name": name,
-                    "project_id": project_id,
+                    "team_id": team_id,
                     "description": description,
                     "refresh_script": refresh_script,
                     "secrets": secrets,
@@ -198,7 +198,7 @@ class ConnectorsResource(SyncAPIResource):
     def list(
         self,
         *,
-        project_id: str,
+        team_id: str,
         limit: int | Omit = omit,
         offset: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -210,7 +210,7 @@ class ConnectorsResource(SyncAPIResource):
     ) -> SyncJobsList[ConnectorWithSecrets]:
         """
         Args:
-          project_id: Project ID to list connectors for
+          team_id: Team ID to list connectors for
 
           extra_headers: Send extra headers
 
@@ -230,7 +230,7 @@ class ConnectorsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "project_id": project_id,
+                        "team_id": team_id,
                         "limit": limit,
                         "offset": offset,
                     },
@@ -565,7 +565,7 @@ class AsyncConnectorsResource(AsyncAPIResource):
         ],
         llm_information_store: str,
         name: str,
-        project_id: str,
+        team_id: str,
         description: Optional[str] | Omit = omit,
         refresh_script: Optional[str] | Omit = omit,
         secrets: Dict[str, str] | Omit = omit,
@@ -595,7 +595,7 @@ class AsyncConnectorsResource(AsyncAPIResource):
                     "known_connector_type": known_connector_type,
                     "llm_information_store": llm_information_store,
                     "name": name,
-                    "project_id": project_id,
+                    "team_id": team_id,
                     "description": description,
                     "refresh_script": refresh_script,
                     "secrets": secrets,
@@ -681,7 +681,7 @@ class AsyncConnectorsResource(AsyncAPIResource):
     def list(
         self,
         *,
-        project_id: str,
+        team_id: str,
         limit: int | Omit = omit,
         offset: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -693,7 +693,7 @@ class AsyncConnectorsResource(AsyncAPIResource):
     ) -> AsyncPaginator[ConnectorWithSecrets, AsyncJobsList[ConnectorWithSecrets]]:
         """
         Args:
-          project_id: Project ID to list connectors for
+          team_id: Team ID to list connectors for
 
           extra_headers: Send extra headers
 
@@ -713,7 +713,7 @@ class AsyncConnectorsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "project_id": project_id,
+                        "team_id": team_id,
                         "limit": limit,
                         "offset": offset,
                     },
