@@ -10,3 +10,4 @@ class AddMemberResponse(BaseModel):
     invitation_sent: bool
 
     membership: UserTeam
+    """Contains membership information and API token"""
