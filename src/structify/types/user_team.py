@@ -20,6 +20,8 @@ class UserTeam(BaseModel):
 
     team_id: str
 
+    value: object
+
     invitation_expires_at: Optional[datetime] = None
 
     invitation_token: Optional[str] = None
