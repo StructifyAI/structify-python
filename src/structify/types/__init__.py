@@ -68,6 +68,7 @@ from .source_list_params import SourceListParams as SourceListParams
 from .team_create_params import TeamCreateParams as TeamCreateParams
 from .team_update_params import TeamUpdateParams as TeamUpdateParams
 from .user_update_params import UserUpdateParams as UserUpdateParams
+from .active_version_data import ActiveVersionData as ActiveVersionData
 from .add_member_response import AddMemberResponse as AddMemberResponse
 from .dashboard_component import DashboardComponent as DashboardComponent
 from .entity_add_response import EntityAddResponse as EntityAddResponse
@@ -136,6 +137,7 @@ from .save_requirement_param import SaveRequirementParam as SaveRequirementParam
 from .scrape_scrape_response import ScrapeScrapeResponse as ScrapeScrapeResponse
 from .team_add_member_params import TeamAddMemberParams as TeamAddMemberParams
 from .workflow_schedule_info import WorkflowScheduleInfo as WorkflowScheduleInfo
+from .active_version_response import ActiveVersionResponse as ActiveVersionResponse
 from .chat_add_message_params import ChatAddMessageParams as ChatAddMessageParams
 from .connector_create_params import ConnectorCreateParams as ConnectorCreateParams
 from .connector_explorer_chat import ConnectorExplorerChat as ConnectorExplorerChat
@@ -154,6 +156,7 @@ from .dataset_descriptor_param import DatasetDescriptorParam as DatasetDescripto
 from .document_download_params import DocumentDownloadParams as DocumentDownloadParams
 from .entity_derive_all_params import EntityDeriveAllParams as EntityDeriveAllParams
 from .entity_get_merges_params import EntityGetMergesParams as EntityGetMergesParams
+from .pending_version_response import PendingVersionResponse as PendingVersionResponse
 from .session_kill_jobs_params import SessionKillJobsParams as SessionKillJobsParams
 from .team_subscription_status import TeamSubscriptionStatus as TeamSubscriptionStatus
 from .add_chat_message_response import AddChatMessageResponse as AddChatMessageResponse
@@ -247,6 +250,7 @@ from .workflow_schedule_create_params import WorkflowScheduleCreateParams as Wor
 from .workflow_schedule_update_params import WorkflowScheduleUpdateParams as WorkflowScheduleUpdateParams
 from .chat_grant_admin_override_params import ChatGrantAdminOverrideParams as ChatGrantAdminOverrideParams
 from .code_interrupt_generation_params import CodeInterruptGenerationParams as CodeInterruptGenerationParams
+from .connector_approve_version_params import ConnectorApproveVersionParams as ConnectorApproveVersionParams
 from .entity_add_relationship_response import EntityAddRelationshipResponse as EntityAddRelationshipResponse
 from .entity_get_local_subgraph_params import EntityGetLocalSubgraphParams as EntityGetLocalSubgraphParams
 from .job_get_source_entities_response import JobGetSourceEntitiesResponse as JobGetSourceEntitiesResponse

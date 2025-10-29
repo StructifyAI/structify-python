@@ -35,8 +35,6 @@ class ConnectorUpdateParams(TypedDict, total=False):
         ]
     ]
 
-    llm_information_store: Optional[str]
-
     name: Optional[str]
 
     refresh_script: Optional[str]
