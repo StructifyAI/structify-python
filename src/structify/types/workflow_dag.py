@@ -4,6 +4,7 @@ from typing import List, Optional
 from datetime import datetime
 
 from .._models import BaseModel
+from .dashboard_layout import DashboardLayout
 from .workflow_session_edge import WorkflowSessionEdge
 from .workflow_session_node import WorkflowSessionNode
 
@@ -20,6 +21,8 @@ class WorkflowDag(BaseModel):
     session_id: str
 
     dag_ready_at: Optional[datetime] = None
+
+    dashboard_layout: Optional[DashboardLayout] = None
 
     error: Optional[str] = None
 

@@ -40,6 +40,7 @@ from .job_list_params import JobListParams as JobListParams
 from .knowledge_graph import KnowledgeGraph as KnowledgeGraph
 from .usage_group_key import UsageGroupKey as UsageGroupKey
 from .chat_copy_params import ChatCopyParams as ChatCopyParams
+from .dashboard_layout import DashboardLayout as DashboardLayout
 from .job_get_response import JobGetResponse as JobGetResponse
 from .save_requirement import SaveRequirement as SaveRequirement
 from .workflow_session import WorkflowSession as WorkflowSession
@@ -68,6 +69,7 @@ from .team_create_params import TeamCreateParams as TeamCreateParams
 from .team_update_params import TeamUpdateParams as TeamUpdateParams
 from .user_update_params import UserUpdateParams as UserUpdateParams
 from .add_member_response import AddMemberResponse as AddMemberResponse
+from .dashboard_component import DashboardComponent as DashboardComponent
 from .entity_add_response import EntityAddResponse as EntityAddResponse
 from .entity_get_response import EntityGetResponse as EntityGetResponse
 from .entity_merge_params import EntityMergeParams as EntityMergeParams
@@ -117,6 +119,7 @@ from .chat_load_files_params import ChatLoadFilesParams as ChatLoadFilesParams
 from .connector_get_response import ConnectorGetResponse as ConnectorGetResponse
 from .connector_with_secrets import ConnectorWithSecrets as ConnectorWithSecrets
 from .credits_usage_response import CreditsUsageResponse as CreditsUsageResponse
+from .dashboard_layout_param import DashboardLayoutParam as DashboardLayoutParam
 from .dataset_match_response import DatasetMatchResponse as DatasetMatchResponse
 from .document_delete_params import DocumentDeleteParams as DocumentDeleteParams
 from .document_list_response import DocumentListResponse as DocumentListResponse
@@ -156,6 +159,7 @@ from .team_subscription_status import TeamSubscriptionStatus as TeamSubscription
 from .add_chat_message_response import AddChatMessageResponse as AddChatMessageResponse
 from .chat_list_sessions_params import ChatListSessionsParams as ChatListSessionsParams
 from .code_generate_code_params import CodeGenerateCodeParams as CodeGenerateCodeParams
+from .dashboard_component_param import DashboardComponentParam as DashboardComponentParam
 from .dataset_view_table_params import DatasetViewTableParams as DatasetViewTableParams
 from .document_structure_params import DocumentStructureParams as DocumentStructureParams
 from .entity_add_batch_response import EntityAddBatchResponse as EntityAddBatchResponse
@@ -275,6 +279,9 @@ from .structure_enhance_relationship_params import (
 )
 from .workflow_schedule_get_sessions_params import (
     WorkflowScheduleGetSessionsParams as WorkflowScheduleGetSessionsParams,
+)
+from .session_upload_dashboard_layout_params import (
+    SessionUploadDashboardLayoutParams as SessionUploadDashboardLayoutParams,
 )
 from .session_upload_node_output_data_params import (
     SessionUploadNodeOutputDataParams as SessionUploadNodeOutputDataParams,
