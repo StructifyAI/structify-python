@@ -17,7 +17,7 @@ class Session(BaseModel):
 
     is_favorite: bool
 
-    project_id: str
+    team_id: str
 
     title: str
 
@@ -30,6 +30,8 @@ class Session(BaseModel):
     name: Optional[str] = None
 
     owner_email: Optional[str] = None
+
+    project_id: Optional[str] = None
 
 
 class ListChatSessionsResponse(BaseModel):

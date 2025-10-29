@@ -9,7 +9,7 @@ __all__ = ["ChatCreateSessionParams", "Config"]
 
 
 class ChatCreateSessionParams(TypedDict, total=False):
-    project_id: Required[str]
+    team_id: Required[str]
 
     config: Optional[Config]
     """Configuration for chat session with system prompt and LLM key"""
@@ -17,6 +17,8 @@ class ChatCreateSessionParams(TypedDict, total=False):
     ephemeral: Optional[bool]
 
     initial_message: Optional[str]
+
+    project_id: Optional[str]
 
 
 class Config(TypedDict, total=False):
