@@ -37,13 +37,13 @@ class Connector(BaseModel):
         "Manual",
     ]
 
-    llm_information_store: str
-
     name: str
 
     team_id: str
 
     updated_at: datetime
+
+    active_store_version_id: Optional[str] = None
 
     description: Optional[str] = None
 
