@@ -4,6 +4,7 @@ from typing import List, Optional
 from datetime import datetime
 
 from .._models import BaseModel
+from .chat_visibility import ChatVisibility
 from .chat_session_role import ChatSessionRole
 
 __all__ = ["ListChatSessionsResponse", "Session"]
@@ -16,8 +17,6 @@ class Session(BaseModel):
 
     is_favorite: bool
 
-    is_public: bool
-
     project_id: str
 
     title: str
@@ -25,6 +24,8 @@ class Session(BaseModel):
     updated_at: datetime
 
     user_role: ChatSessionRole
+
+    visibility: ChatVisibility
 
     name: Optional[str] = None
 
