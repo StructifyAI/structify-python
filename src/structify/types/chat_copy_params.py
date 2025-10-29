@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from typing import Optional
 from typing_extensions import Required, TypedDict
 
 __all__ = ["ChatCopyParams"]
@@ -10,8 +11,10 @@ __all__ = ["ChatCopyParams"]
 class ChatCopyParams(TypedDict, total=False):
     copy_name: Required[str]
 
-    project_id: Required[str]
-
     source_chat_id: Required[str]
 
+    team_id: Required[str]
+
     copy_inputs: bool
+
+    project_id: Optional[str]

@@ -55,7 +55,7 @@ class Session(BaseModel):
 
     messages: List[SessionMessage]
 
-    project_id: str
+    team_id: str
 
     title: str
 
@@ -68,6 +68,8 @@ class Session(BaseModel):
     latest_workflow_session_id: Optional[str] = None
 
     name: Optional[str] = None
+
+    project_id: Optional[str] = None
 
 
 class GetChatSessionResponse(BaseModel):

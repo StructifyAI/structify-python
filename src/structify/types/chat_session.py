@@ -18,9 +18,9 @@ class ChatSession(BaseModel):
 
     git_application_token: str
 
-    project_id: str
-
     slack_completion_notified: bool
+
+    team_id: str
 
     updated_at: datetime
 
@@ -29,6 +29,8 @@ class ChatSession(BaseModel):
     config_proto: Optional[object] = None
 
     name: Optional[str] = None
+
+    project_id: Optional[str] = None
 
     slack_channel_id: Optional[str] = None
 
