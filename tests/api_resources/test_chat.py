@@ -12,7 +12,6 @@ from tests.utils import assert_matches_type
 from structify.types import (
     ChatPrompt,
     ChatSession,
-    TogglePublicResponse,
     ChatLoadFilesResponse,
     AddChatMessageResponse,
     GetChatSessionResponse,
@@ -22,6 +21,7 @@ from structify.types import (
     ChatAddGitCommitResponse,
     ChatGetGitCommitResponse,
     ListChatSessionsResponse,
+    UpdateVisibilityResponse,
     CreateChatSessionResponse,
     DeleteChatSessionResponse,
     ListCollaboratorsResponse,
@@ -888,48 +888,6 @@ class TestChat:
             )
 
     @parametrize
-    def test_method_toggle_public(self, client: Structify) -> None:
-        chat = client.chat.toggle_public(
-            session_id="session_id",
-            is_public=True,
-        )
-        assert_matches_type(TogglePublicResponse, chat, path=["response"])
-
-    @parametrize
-    def test_raw_response_toggle_public(self, client: Structify) -> None:
-        response = client.chat.with_raw_response.toggle_public(
-            session_id="session_id",
-            is_public=True,
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        chat = response.parse()
-        assert_matches_type(TogglePublicResponse, chat, path=["response"])
-
-    @parametrize
-    def test_streaming_response_toggle_public(self, client: Structify) -> None:
-        with client.chat.with_streaming_response.toggle_public(
-            session_id="session_id",
-            is_public=True,
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            chat = response.parse()
-            assert_matches_type(TogglePublicResponse, chat, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    def test_path_params_toggle_public(self, client: Structify) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
-            client.chat.with_raw_response.toggle_public(
-                session_id="",
-                is_public=True,
-            )
-
-    @parametrize
     def test_method_update_session(self, client: Structify) -> None:
         chat = client.chat.update_session(
             session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -1016,6 +974,48 @@ class TestChat:
             client.chat.with_raw_response.update_session_favorite(
                 session_id="",
                 is_favorite=True,
+            )
+
+    @parametrize
+    def test_method_update_visibility(self, client: Structify) -> None:
+        chat = client.chat.update_visibility(
+            session_id="session_id",
+            visibility="private",
+        )
+        assert_matches_type(UpdateVisibilityResponse, chat, path=["response"])
+
+    @parametrize
+    def test_raw_response_update_visibility(self, client: Structify) -> None:
+        response = client.chat.with_raw_response.update_visibility(
+            session_id="session_id",
+            visibility="private",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        chat = response.parse()
+        assert_matches_type(UpdateVisibilityResponse, chat, path=["response"])
+
+    @parametrize
+    def test_streaming_response_update_visibility(self, client: Structify) -> None:
+        with client.chat.with_streaming_response.update_visibility(
+            session_id="session_id",
+            visibility="private",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            chat = response.parse()
+            assert_matches_type(UpdateVisibilityResponse, chat, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_path_params_update_visibility(self, client: Structify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
+            client.chat.with_raw_response.update_visibility(
+                session_id="",
+                visibility="private",
             )
 
 
@@ -1876,48 +1876,6 @@ class TestAsyncChat:
             )
 
     @parametrize
-    async def test_method_toggle_public(self, async_client: AsyncStructify) -> None:
-        chat = await async_client.chat.toggle_public(
-            session_id="session_id",
-            is_public=True,
-        )
-        assert_matches_type(TogglePublicResponse, chat, path=["response"])
-
-    @parametrize
-    async def test_raw_response_toggle_public(self, async_client: AsyncStructify) -> None:
-        response = await async_client.chat.with_raw_response.toggle_public(
-            session_id="session_id",
-            is_public=True,
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        chat = await response.parse()
-        assert_matches_type(TogglePublicResponse, chat, path=["response"])
-
-    @parametrize
-    async def test_streaming_response_toggle_public(self, async_client: AsyncStructify) -> None:
-        async with async_client.chat.with_streaming_response.toggle_public(
-            session_id="session_id",
-            is_public=True,
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            chat = await response.parse()
-            assert_matches_type(TogglePublicResponse, chat, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    async def test_path_params_toggle_public(self, async_client: AsyncStructify) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
-            await async_client.chat.with_raw_response.toggle_public(
-                session_id="",
-                is_public=True,
-            )
-
-    @parametrize
     async def test_method_update_session(self, async_client: AsyncStructify) -> None:
         chat = await async_client.chat.update_session(
             session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -2004,4 +1962,46 @@ class TestAsyncChat:
             await async_client.chat.with_raw_response.update_session_favorite(
                 session_id="",
                 is_favorite=True,
+            )
+
+    @parametrize
+    async def test_method_update_visibility(self, async_client: AsyncStructify) -> None:
+        chat = await async_client.chat.update_visibility(
+            session_id="session_id",
+            visibility="private",
+        )
+        assert_matches_type(UpdateVisibilityResponse, chat, path=["response"])
+
+    @parametrize
+    async def test_raw_response_update_visibility(self, async_client: AsyncStructify) -> None:
+        response = await async_client.chat.with_raw_response.update_visibility(
+            session_id="session_id",
+            visibility="private",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        chat = await response.parse()
+        assert_matches_type(UpdateVisibilityResponse, chat, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_update_visibility(self, async_client: AsyncStructify) -> None:
+        async with async_client.chat.with_streaming_response.update_visibility(
+            session_id="session_id",
+            visibility="private",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            chat = await response.parse()
+            assert_matches_type(UpdateVisibilityResponse, chat, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_update_visibility(self, async_client: AsyncStructify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
+            await async_client.chat.with_raw_response.update_visibility(
+                session_id="",
+                visibility="private",
             )

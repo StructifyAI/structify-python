@@ -4,6 +4,7 @@ from typing import List, Optional
 from datetime import datetime
 
 from .._models import BaseModel
+from .chat_visibility import ChatVisibility
 from .chat_session_role import ChatSessionRole
 
 __all__ = ["ChatSessionWithMessages", "Commit", "Message"]
@@ -48,9 +49,6 @@ class ChatSessionWithMessages(BaseModel):
 
     is_favorite: bool
 
-    is_public: bool
-    """Whether the chat session is public"""
-
     messages: List[Message]
 
     project_id: str
@@ -58,6 +56,8 @@ class ChatSessionWithMessages(BaseModel):
     updated_at: datetime
 
     user_role: ChatSessionRole
+
+    visibility: ChatVisibility
 
     latest_workflow_session_id: Optional[str] = None
 
