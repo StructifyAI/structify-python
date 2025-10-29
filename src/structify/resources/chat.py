@@ -237,9 +237,10 @@ class ChatResource(SyncAPIResource):
         self,
         *,
         copy_name: str,
-        project_id: str,
         source_chat_id: str,
+        team_id: str,
         copy_inputs: bool | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -264,9 +265,10 @@ class ChatResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "copy_name": copy_name,
-                    "project_id": project_id,
                     "source_chat_id": source_chat_id,
+                    "team_id": team_id,
                     "copy_inputs": copy_inputs,
+                    "project_id": project_id,
                 },
                 chat_copy_params.ChatCopyParams,
             ),
@@ -319,10 +321,11 @@ class ChatResource(SyncAPIResource):
     def create_session(
         self,
         *,
-        project_id: str,
+        team_id: str,
         config: Optional[chat_create_session_params.Config] | Omit = omit,
         ephemeral: Optional[bool] | Omit = omit,
         initial_message: Optional[str] | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -348,10 +351,11 @@ class ChatResource(SyncAPIResource):
             "/chat/sessions",
             body=maybe_transform(
                 {
-                    "project_id": project_id,
+                    "team_id": team_id,
                     "config": config,
                     "ephemeral": ephemeral,
                     "initial_message": initial_message,
+                    "project_id": project_id,
                 },
                 chat_create_session_params.ChatCreateSessionParams,
             ),
@@ -1128,9 +1132,10 @@ class AsyncChatResource(AsyncAPIResource):
         self,
         *,
         copy_name: str,
-        project_id: str,
         source_chat_id: str,
+        team_id: str,
         copy_inputs: bool | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1155,9 +1160,10 @@ class AsyncChatResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "copy_name": copy_name,
-                    "project_id": project_id,
                     "source_chat_id": source_chat_id,
+                    "team_id": team_id,
                     "copy_inputs": copy_inputs,
+                    "project_id": project_id,
                 },
                 chat_copy_params.ChatCopyParams,
             ),
@@ -1210,10 +1216,11 @@ class AsyncChatResource(AsyncAPIResource):
     async def create_session(
         self,
         *,
-        project_id: str,
+        team_id: str,
         config: Optional[chat_create_session_params.Config] | Omit = omit,
         ephemeral: Optional[bool] | Omit = omit,
         initial_message: Optional[str] | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1239,10 +1246,11 @@ class AsyncChatResource(AsyncAPIResource):
             "/chat/sessions",
             body=await async_maybe_transform(
                 {
-                    "project_id": project_id,
+                    "team_id": team_id,
                     "config": config,
                     "ephemeral": ephemeral,
                     "initial_message": initial_message,
+                    "project_id": project_id,
                 },
                 chat_create_session_params.ChatCreateSessionParams,
             ),
