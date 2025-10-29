@@ -651,6 +651,99 @@ class TestSessions:
             )
 
     @parametrize
+    def test_method_upload_dashboard_layout(self, client: Structify) -> None:
+        session = client.sessions.upload_dashboard_layout(
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            layout={
+                "components": [
+                    {
+                        "node_name": "node_name",
+                        "title": "title",
+                    }
+                ],
+                "title": "title",
+            },
+        )
+        assert_matches_type(WorkflowSession, session, path=["response"])
+
+    @parametrize
+    def test_method_upload_dashboard_layout_with_all_params(self, client: Structify) -> None:
+        session = client.sessions.upload_dashboard_layout(
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            layout={
+                "components": [
+                    {
+                        "node_name": "node_name",
+                        "title": "title",
+                        "description": "description",
+                        "span": 0,
+                    }
+                ],
+                "title": "title",
+                "description": "description",
+            },
+        )
+        assert_matches_type(WorkflowSession, session, path=["response"])
+
+    @parametrize
+    def test_raw_response_upload_dashboard_layout(self, client: Structify) -> None:
+        response = client.sessions.with_raw_response.upload_dashboard_layout(
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            layout={
+                "components": [
+                    {
+                        "node_name": "node_name",
+                        "title": "title",
+                    }
+                ],
+                "title": "title",
+            },
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        session = response.parse()
+        assert_matches_type(WorkflowSession, session, path=["response"])
+
+    @parametrize
+    def test_streaming_response_upload_dashboard_layout(self, client: Structify) -> None:
+        with client.sessions.with_streaming_response.upload_dashboard_layout(
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            layout={
+                "components": [
+                    {
+                        "node_name": "node_name",
+                        "title": "title",
+                    }
+                ],
+                "title": "title",
+            },
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            session = response.parse()
+            assert_matches_type(WorkflowSession, session, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_path_params_upload_dashboard_layout(self, client: Structify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
+            client.sessions.with_raw_response.upload_dashboard_layout(
+                session_id="",
+                layout={
+                    "components": [
+                        {
+                            "node_name": "node_name",
+                            "title": "title",
+                        }
+                    ],
+                    "title": "title",
+                },
+            )
+
+    @parametrize
     def test_method_upload_node_output_data(self, client: Structify) -> None:
         session = client.sessions.upload_node_output_data(
             node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -1358,6 +1451,99 @@ class TestAsyncSessions:
                 current=0,
                 elapsed_seconds=0,
                 title="title",
+            )
+
+    @parametrize
+    async def test_method_upload_dashboard_layout(self, async_client: AsyncStructify) -> None:
+        session = await async_client.sessions.upload_dashboard_layout(
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            layout={
+                "components": [
+                    {
+                        "node_name": "node_name",
+                        "title": "title",
+                    }
+                ],
+                "title": "title",
+            },
+        )
+        assert_matches_type(WorkflowSession, session, path=["response"])
+
+    @parametrize
+    async def test_method_upload_dashboard_layout_with_all_params(self, async_client: AsyncStructify) -> None:
+        session = await async_client.sessions.upload_dashboard_layout(
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            layout={
+                "components": [
+                    {
+                        "node_name": "node_name",
+                        "title": "title",
+                        "description": "description",
+                        "span": 0,
+                    }
+                ],
+                "title": "title",
+                "description": "description",
+            },
+        )
+        assert_matches_type(WorkflowSession, session, path=["response"])
+
+    @parametrize
+    async def test_raw_response_upload_dashboard_layout(self, async_client: AsyncStructify) -> None:
+        response = await async_client.sessions.with_raw_response.upload_dashboard_layout(
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            layout={
+                "components": [
+                    {
+                        "node_name": "node_name",
+                        "title": "title",
+                    }
+                ],
+                "title": "title",
+            },
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        session = await response.parse()
+        assert_matches_type(WorkflowSession, session, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_upload_dashboard_layout(self, async_client: AsyncStructify) -> None:
+        async with async_client.sessions.with_streaming_response.upload_dashboard_layout(
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            layout={
+                "components": [
+                    {
+                        "node_name": "node_name",
+                        "title": "title",
+                    }
+                ],
+                "title": "title",
+            },
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            session = await response.parse()
+            assert_matches_type(WorkflowSession, session, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_upload_dashboard_layout(self, async_client: AsyncStructify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
+            await async_client.sessions.with_raw_response.upload_dashboard_layout(
+                session_id="",
+                layout={
+                    "components": [
+                        {
+                            "node_name": "node_name",
+                            "title": "title",
+                        }
+                    ],
+                    "title": "title",
+                },
             )
 
     @parametrize

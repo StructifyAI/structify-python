@@ -12,6 +12,7 @@ from ..types import (
     connector_create_params,
     connector_update_params,
     connector_create_secret_params,
+    connector_approve_version_params,
     connector_get_explorer_chat_params,
 )
 from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
@@ -30,7 +31,9 @@ from ..types.connector import Connector
 from ..types.connector_get_response import ConnectorGetResponse
 from ..types.connector_with_secrets import ConnectorWithSecrets
 from ..types.explorer_chat_response import ExplorerChatResponse
+from ..types.active_version_response import ActiveVersionResponse
 from ..types.explore_status_response import ExploreStatusResponse
+from ..types.pending_version_response import PendingVersionResponse
 from ..types.exploration_runs_response import ExplorationRunsResponse
 
 __all__ = ["ConnectorsResource", "AsyncConnectorsResource"]
@@ -80,7 +83,6 @@ class ConnectorsResource(SyncAPIResource):
             "Oracle",
             "Manual",
         ],
-        llm_information_store: str,
         name: str,
         team_id: str,
         description: Optional[str] | Omit = omit,
@@ -110,7 +112,6 @@ class ConnectorsResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "known_connector_type": known_connector_type,
-                    "llm_information_store": llm_information_store,
                     "name": name,
                     "team_id": team_id,
                     "description": description,
@@ -154,7 +155,6 @@ class ConnectorsResource(SyncAPIResource):
             ]
         ]
         | Omit = omit,
-        llm_information_store: Optional[str] | Omit = omit,
         name: Optional[str] | Omit = omit,
         refresh_script: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -183,7 +183,6 @@ class ConnectorsResource(SyncAPIResource):
                 {
                     "description": description,
                     "known_connector_type": known_connector_type,
-                    "llm_information_store": llm_information_store,
                     "name": name,
                     "refresh_script": refresh_script,
                 },
@@ -266,6 +265,42 @@ class ConnectorsResource(SyncAPIResource):
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._delete(
             f"/connectors/{connector_id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NoneType,
+        )
+
+    def approve_version(
+        self,
+        connector_id: str,
+        *,
+        version_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> None:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not connector_id:
+            raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return self._post(
+            f"/connectors/{connector_id}/approve-version",
+            body=maybe_transform(
+                {"version_id": version_id}, connector_approve_version_params.ConnectorApproveVersionParams
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -411,6 +446,37 @@ class ConnectorsResource(SyncAPIResource):
             cast_to=ConnectorGetResponse,
         )
 
+    def get_active_version(
+        self,
+        connector_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ActiveVersionResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not connector_id:
+            raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
+        return self._get(
+            f"/connectors/{connector_id}/active-version",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ActiveVersionResponse,
+        )
+
     def get_exploration_runs(
         self,
         connector_id: str,
@@ -518,6 +584,37 @@ class ConnectorsResource(SyncAPIResource):
             cast_to=ExplorerChatResponse,
         )
 
+    def get_pending_version(
+        self,
+        connector_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> PendingVersionResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not connector_id:
+            raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
+        return self._get(
+            f"/connectors/{connector_id}/pending-version",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=PendingVersionResponse,
+        )
+
 
 class AsyncConnectorsResource(AsyncAPIResource):
     @cached_property
@@ -563,7 +660,6 @@ class AsyncConnectorsResource(AsyncAPIResource):
             "Oracle",
             "Manual",
         ],
-        llm_information_store: str,
         name: str,
         team_id: str,
         description: Optional[str] | Omit = omit,
@@ -593,7 +689,6 @@ class AsyncConnectorsResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "known_connector_type": known_connector_type,
-                    "llm_information_store": llm_information_store,
                     "name": name,
                     "team_id": team_id,
                     "description": description,
@@ -637,7 +732,6 @@ class AsyncConnectorsResource(AsyncAPIResource):
             ]
         ]
         | Omit = omit,
-        llm_information_store: Optional[str] | Omit = omit,
         name: Optional[str] | Omit = omit,
         refresh_script: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -666,7 +760,6 @@ class AsyncConnectorsResource(AsyncAPIResource):
                 {
                     "description": description,
                     "known_connector_type": known_connector_type,
-                    "llm_information_store": llm_information_store,
                     "name": name,
                     "refresh_script": refresh_script,
                 },
@@ -749,6 +842,42 @@ class AsyncConnectorsResource(AsyncAPIResource):
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._delete(
             f"/connectors/{connector_id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NoneType,
+        )
+
+    async def approve_version(
+        self,
+        connector_id: str,
+        *,
+        version_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> None:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not connector_id:
+            raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return await self._post(
+            f"/connectors/{connector_id}/approve-version",
+            body=await async_maybe_transform(
+                {"version_id": version_id}, connector_approve_version_params.ConnectorApproveVersionParams
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -894,6 +1023,37 @@ class AsyncConnectorsResource(AsyncAPIResource):
             cast_to=ConnectorGetResponse,
         )
 
+    async def get_active_version(
+        self,
+        connector_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ActiveVersionResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not connector_id:
+            raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
+        return await self._get(
+            f"/connectors/{connector_id}/active-version",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ActiveVersionResponse,
+        )
+
     async def get_exploration_runs(
         self,
         connector_id: str,
@@ -1001,6 +1161,37 @@ class AsyncConnectorsResource(AsyncAPIResource):
             cast_to=ExplorerChatResponse,
         )
 
+    async def get_pending_version(
+        self,
+        connector_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> PendingVersionResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not connector_id:
+            raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
+        return await self._get(
+            f"/connectors/{connector_id}/pending-version",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=PendingVersionResponse,
+        )
+
 
 class ConnectorsResourceWithRawResponse:
     def __init__(self, connectors: ConnectorsResource) -> None:
@@ -1018,6 +1209,9 @@ class ConnectorsResourceWithRawResponse:
         self.delete = to_raw_response_wrapper(
             connectors.delete,
         )
+        self.approve_version = to_raw_response_wrapper(
+            connectors.approve_version,
+        )
         self.create_secret = to_raw_response_wrapper(
             connectors.create_secret,
         )
@@ -1030,6 +1224,9 @@ class ConnectorsResourceWithRawResponse:
         self.get = to_raw_response_wrapper(
             connectors.get,
         )
+        self.get_active_version = to_raw_response_wrapper(
+            connectors.get_active_version,
+        )
         self.get_exploration_runs = to_raw_response_wrapper(
             connectors.get_exploration_runs,
         )
@@ -1038,6 +1235,9 @@ class ConnectorsResourceWithRawResponse:
         )
         self.get_explorer_chat = to_raw_response_wrapper(
             connectors.get_explorer_chat,
+        )
+        self.get_pending_version = to_raw_response_wrapper(
+            connectors.get_pending_version,
         )
 
 
@@ -1057,6 +1257,9 @@ class AsyncConnectorsResourceWithRawResponse:
         self.delete = async_to_raw_response_wrapper(
             connectors.delete,
         )
+        self.approve_version = async_to_raw_response_wrapper(
+            connectors.approve_version,
+        )
         self.create_secret = async_to_raw_response_wrapper(
             connectors.create_secret,
         )
@@ -1069,6 +1272,9 @@ class AsyncConnectorsResourceWithRawResponse:
         self.get = async_to_raw_response_wrapper(
             connectors.get,
         )
+        self.get_active_version = async_to_raw_response_wrapper(
+            connectors.get_active_version,
+        )
         self.get_exploration_runs = async_to_raw_response_wrapper(
             connectors.get_exploration_runs,
         )
@@ -1077,6 +1283,9 @@ class AsyncConnectorsResourceWithRawResponse:
         )
         self.get_explorer_chat = async_to_raw_response_wrapper(
             connectors.get_explorer_chat,
+        )
+        self.get_pending_version = async_to_raw_response_wrapper(
+            connectors.get_pending_version,
         )
 
 
@@ -1096,6 +1305,9 @@ class ConnectorsResourceWithStreamingResponse:
         self.delete = to_streamed_response_wrapper(
             connectors.delete,
         )
+        self.approve_version = to_streamed_response_wrapper(
+            connectors.approve_version,
+        )
         self.create_secret = to_streamed_response_wrapper(
             connectors.create_secret,
         )
@@ -1108,6 +1320,9 @@ class ConnectorsResourceWithStreamingResponse:
         self.get = to_streamed_response_wrapper(
             connectors.get,
         )
+        self.get_active_version = to_streamed_response_wrapper(
+            connectors.get_active_version,
+        )
         self.get_exploration_runs = to_streamed_response_wrapper(
             connectors.get_exploration_runs,
         )
@@ -1116,6 +1331,9 @@ class ConnectorsResourceWithStreamingResponse:
         )
         self.get_explorer_chat = to_streamed_response_wrapper(
             connectors.get_explorer_chat,
+        )
+        self.get_pending_version = to_streamed_response_wrapper(
+            connectors.get_pending_version,
         )
 
 
@@ -1135,6 +1353,9 @@ class AsyncConnectorsResourceWithStreamingResponse:
         self.delete = async_to_streamed_response_wrapper(
             connectors.delete,
         )
+        self.approve_version = async_to_streamed_response_wrapper(
+            connectors.approve_version,
+        )
         self.create_secret = async_to_streamed_response_wrapper(
             connectors.create_secret,
         )
@@ -1147,6 +1368,9 @@ class AsyncConnectorsResourceWithStreamingResponse:
         self.get = async_to_streamed_response_wrapper(
             connectors.get,
         )
+        self.get_active_version = async_to_streamed_response_wrapper(
+            connectors.get_active_version,
+        )
         self.get_exploration_runs = async_to_streamed_response_wrapper(
             connectors.get_exploration_runs,
         )
@@ -1155,4 +1379,7 @@ class AsyncConnectorsResourceWithStreamingResponse:
         )
         self.get_explorer_chat = async_to_streamed_response_wrapper(
             connectors.get_explorer_chat,
+        )
+        self.get_pending_version = async_to_streamed_response_wrapper(
+            connectors.get_pending_version,
         )

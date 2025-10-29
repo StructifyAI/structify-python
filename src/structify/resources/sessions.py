@@ -18,6 +18,7 @@ from ..types import (
     session_mark_errored_params,
     session_create_session_params,
     session_update_node_progress_params,
+    session_upload_dashboard_layout_params,
     session_upload_node_output_data_params,
     session_upload_node_visualization_output_params,
 )
@@ -45,6 +46,7 @@ from ..types.autofix_context import AutofixContext
 from ..types.workflow_session import WorkflowSession
 from ..types.workflow_session_edge import WorkflowSessionEdge
 from ..types.workflow_session_node import WorkflowSessionNode
+from ..types.dashboard_layout_param import DashboardLayoutParam
 from ..types.get_node_logs_response import GetNodeLogsResponse
 from ..types.session_kill_jobs_response import SessionKillJobsResponse
 from ..types.session_get_events_response import SessionGetEventsResponse
@@ -568,6 +570,41 @@ class SessionsResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=WorkflowSessionNode,
+        )
+
+    def upload_dashboard_layout(
+        self,
+        session_id: str,
+        *,
+        layout: DashboardLayoutParam,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> WorkflowSession:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not session_id:
+            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
+        return self._post(
+            f"/sessions/{session_id}/dashboard_layout",
+            body=maybe_transform(
+                {"layout": layout}, session_upload_dashboard_layout_params.SessionUploadDashboardLayoutParams
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=WorkflowSession,
         )
 
     def upload_node_output_data(
@@ -1163,6 +1200,41 @@ class AsyncSessionsResource(AsyncAPIResource):
             cast_to=WorkflowSessionNode,
         )
 
+    async def upload_dashboard_layout(
+        self,
+        session_id: str,
+        *,
+        layout: DashboardLayoutParam,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> WorkflowSession:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not session_id:
+            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
+        return await self._post(
+            f"/sessions/{session_id}/dashboard_layout",
+            body=await async_maybe_transform(
+                {"layout": layout}, session_upload_dashboard_layout_params.SessionUploadDashboardLayoutParams
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=WorkflowSession,
+        )
+
     async def upload_node_output_data(
         self,
         node_id: str,
@@ -1286,6 +1358,9 @@ class SessionsResourceWithRawResponse:
         self.update_node_progress = to_raw_response_wrapper(
             sessions.update_node_progress,
         )
+        self.upload_dashboard_layout = to_raw_response_wrapper(
+            sessions.upload_dashboard_layout,
+        )
         self.upload_node_output_data = to_raw_response_wrapper(
             sessions.upload_node_output_data,
         )
@@ -1337,6 +1412,9 @@ class AsyncSessionsResourceWithRawResponse:
         )
         self.update_node_progress = async_to_raw_response_wrapper(
             sessions.update_node_progress,
+        )
+        self.upload_dashboard_layout = async_to_raw_response_wrapper(
+            sessions.upload_dashboard_layout,
         )
         self.upload_node_output_data = async_to_raw_response_wrapper(
             sessions.upload_node_output_data,
@@ -1390,6 +1468,9 @@ class SessionsResourceWithStreamingResponse:
         self.update_node_progress = to_streamed_response_wrapper(
             sessions.update_node_progress,
         )
+        self.upload_dashboard_layout = to_streamed_response_wrapper(
+            sessions.upload_dashboard_layout,
+        )
         self.upload_node_output_data = to_streamed_response_wrapper(
             sessions.upload_node_output_data,
         )
@@ -1441,6 +1522,9 @@ class AsyncSessionsResourceWithStreamingResponse:
         )
         self.update_node_progress = async_to_streamed_response_wrapper(
             sessions.update_node_progress,
+        )
+        self.upload_dashboard_layout = async_to_streamed_response_wrapper(
+            sessions.upload_dashboard_layout,
         )
         self.upload_node_output_data = async_to_streamed_response_wrapper(
             sessions.upload_node_output_data,

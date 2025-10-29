@@ -33,8 +33,6 @@ class ConnectorCreateParams(TypedDict, total=False):
         ]
     ]
 
-    llm_information_store: Required[str]
-
     name: Required[str]
 
     team_id: Required[str]

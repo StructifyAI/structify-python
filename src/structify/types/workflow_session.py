@@ -23,6 +23,8 @@ class WorkflowSession(BaseModel):
 
     dag_ready_at: Optional[datetime] = None
 
+    dashboard_layout_proto: Optional[object] = None
+
     error_message: Optional[str] = None
 
     error_traceback: Optional[str] = None
