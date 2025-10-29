@@ -6,6 +6,7 @@ from typing_extensions import Literal
 
 from .._models import BaseModel
 from .chat_event import ChatEvent
+from .chat_visibility import ChatVisibility
 from .chat_session_role import ChatSessionRole
 
 __all__ = ["GetChatSessionResponse", "Session", "SessionCommit", "SessionMessage"]
@@ -52,8 +53,6 @@ class Session(BaseModel):
 
     is_favorite: bool
 
-    is_public: bool
-
     messages: List[SessionMessage]
 
     project_id: str
@@ -63,6 +62,8 @@ class Session(BaseModel):
     updated_at: datetime
 
     user_role: ChatSessionRole
+
+    visibility: ChatVisibility
 
     latest_workflow_session_id: Optional[str] = None
 

@@ -34,6 +34,7 @@ from .strategy_param import StrategyParam as StrategyParam
 from .team_with_role import TeamWithRole as TeamWithRole
 from .token_response import TokenResponse as TokenResponse
 from .autofix_context import AutofixContext as AutofixContext
+from .chat_visibility import ChatVisibility as ChatVisibility
 from .exploration_run import ExplorationRun as ExplorationRun
 from .job_list_params import JobListParams as JobListParams
 from .knowledge_graph import KnowledgeGraph as KnowledgeGraph
@@ -131,7 +132,6 @@ from .remove_member_response import RemoveMemberResponse as RemoveMemberResponse
 from .save_requirement_param import SaveRequirementParam as SaveRequirementParam
 from .scrape_scrape_response import ScrapeScrapeResponse as ScrapeScrapeResponse
 from .team_add_member_params import TeamAddMemberParams as TeamAddMemberParams
-from .toggle_public_response import TogglePublicResponse as TogglePublicResponse
 from .workflow_schedule_info import WorkflowScheduleInfo as WorkflowScheduleInfo
 from .chat_add_message_params import ChatAddMessageParams as ChatAddMessageParams
 from .connector_create_params import ConnectorCreateParams as ConnectorCreateParams
@@ -155,7 +155,6 @@ from .session_kill_jobs_params import SessionKillJobsParams as SessionKillJobsPa
 from .team_subscription_status import TeamSubscriptionStatus as TeamSubscriptionStatus
 from .add_chat_message_response import AddChatMessageResponse as AddChatMessageResponse
 from .chat_list_sessions_params import ChatListSessionsParams as ChatListSessionsParams
-from .chat_toggle_public_params import ChatTogglePublicParams as ChatTogglePublicParams
 from .code_generate_code_params import CodeGenerateCodeParams as CodeGenerateCodeParams
 from .dataset_view_table_params import DatasetViewTableParams as DatasetViewTableParams
 from .document_structure_params import DocumentStructureParams as DocumentStructureParams
@@ -189,6 +188,7 @@ from .session_update_node_params import SessionUpdateNodeParams as SessionUpdate
 from .structure_run_async_params import StructureRunAsyncParams as StructureRunAsyncParams
 from .survey_submission_response import SurveySubmissionResponse as SurveySubmissionResponse
 from .team_create_project_params import TeamCreateProjectParams as TeamCreateProjectParams
+from .update_visibility_response import UpdateVisibilityResponse as UpdateVisibilityResponse
 from .user_transactions_response import UserTransactionsResponse as UserTransactionsResponse
 from .admin_grant_access_response import AdminGrantAccessResponse as AdminGrantAccessResponse
 from .connector_column_descriptor import ConnectorColumnDescriptor as ConnectorColumnDescriptor
@@ -219,6 +219,7 @@ from .report_relationship_response import ReportRelationshipResponse as ReportRe
 from .sandbox_update_status_params import SandboxUpdateStatusParams as SandboxUpdateStatusParams
 from .structure_is_complete_params import StructureIsCompleteParams as StructureIsCompleteParams
 from .structure_run_async_response import StructureRunAsyncResponse as StructureRunAsyncResponse
+from .chat_update_visibility_params import ChatUpdateVisibilityParams as ChatUpdateVisibilityParams
 from .delete_source_entity_response import DeleteSourceEntityResponse as DeleteSourceEntityResponse
 from .entity_trigger_merge_response import EntityTriggerMergeResponse as EntityTriggerMergeResponse
 from .entity_update_property_params import EntityUpdatePropertyParams as EntityUpdatePropertyParams

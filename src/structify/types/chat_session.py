@@ -4,6 +4,7 @@ from typing import Optional
 from datetime import datetime
 
 from .._models import BaseModel
+from .chat_visibility import ChatVisibility
 
 __all__ = ["ChatSession"]
 
@@ -17,13 +18,13 @@ class ChatSession(BaseModel):
 
     git_application_token: str
 
-    is_public: bool
-
     project_id: str
 
     slack_completion_notified: bool
 
     updated_at: datetime
+
+    visibility: ChatVisibility
 
     config_proto: Optional[object] = None
 

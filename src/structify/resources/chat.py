@@ -7,18 +7,19 @@ from typing import Optional
 import httpx
 
 from ..types import (
+    ChatVisibility,
     ChatSessionRole,
     chat_copy_params,
     chat_load_files_params,
     chat_add_message_params,
     chat_delete_files_params,
     chat_list_sessions_params,
-    chat_toggle_public_params,
     chat_add_git_commit_params,
     chat_create_session_params,
     chat_update_session_params,
     chat_add_collaborator_params,
     chat_revert_to_commit_params,
+    chat_update_visibility_params,
     chat_grant_admin_override_params,
     chat_update_session_favorite_params,
     chat_copy_node_output_by_code_hash_params,
@@ -36,13 +37,14 @@ from .._response import (
 from .._base_client import make_request_options
 from ..types.chat_prompt import ChatPrompt
 from ..types.chat_session import ChatSession
+from ..types.chat_visibility import ChatVisibility
 from ..types.chat_session_role import ChatSessionRole
-from ..types.toggle_public_response import TogglePublicResponse
 from ..types.chat_load_files_response import ChatLoadFilesResponse
 from ..types.add_chat_message_response import AddChatMessageResponse
 from ..types.get_chat_session_response import GetChatSessionResponse
 from ..types.chat_delete_files_response import ChatDeleteFilesResponse
 from ..types.chat_session_with_messages import ChatSessionWithMessages
+from ..types.update_visibility_response import UpdateVisibilityResponse
 from ..types.admin_grant_access_response import AdminGrantAccessResponse
 from ..types.list_chat_sessions_response import ListChatSessionsResponse
 from ..types.list_collaborators_response import ListCollaboratorsResponse
@@ -835,41 +837,6 @@ class ChatResource(SyncAPIResource):
             cast_to=ChatRevertToCommitResponse,
         )
 
-    def toggle_public(
-        self,
-        session_id: str,
-        *,
-        is_public: bool,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> TogglePublicResponse:
-        """
-        Toggle public visibility of a chat session
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not session_id:
-            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
-        return self._put(
-            f"/chat/sessions/{session_id}/public",
-            body=maybe_transform({"is_public": is_public}, chat_toggle_public_params.ChatTogglePublicParams),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=TogglePublicResponse,
-        )
-
     def update_session(
         self,
         session_id: str,
@@ -943,6 +910,41 @@ class ChatResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=ChatSession,
+        )
+
+    def update_visibility(
+        self,
+        session_id: str,
+        *,
+        visibility: ChatVisibility,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> UpdateVisibilityResponse:
+        """
+        Update visibility of a chat session
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not session_id:
+            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
+        return self._put(
+            f"/chat/sessions/{session_id}/visibility",
+            body=maybe_transform({"visibility": visibility}, chat_update_visibility_params.ChatUpdateVisibilityParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=UpdateVisibilityResponse,
         )
 
 
@@ -1728,43 +1730,6 @@ class AsyncChatResource(AsyncAPIResource):
             cast_to=ChatRevertToCommitResponse,
         )
 
-    async def toggle_public(
-        self,
-        session_id: str,
-        *,
-        is_public: bool,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> TogglePublicResponse:
-        """
-        Toggle public visibility of a chat session
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not session_id:
-            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
-        return await self._put(
-            f"/chat/sessions/{session_id}/public",
-            body=await async_maybe_transform(
-                {"is_public": is_public}, chat_toggle_public_params.ChatTogglePublicParams
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=TogglePublicResponse,
-        )
-
     async def update_session(
         self,
         session_id: str,
@@ -1840,6 +1805,43 @@ class AsyncChatResource(AsyncAPIResource):
             cast_to=ChatSession,
         )
 
+    async def update_visibility(
+        self,
+        session_id: str,
+        *,
+        visibility: ChatVisibility,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> UpdateVisibilityResponse:
+        """
+        Update visibility of a chat session
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not session_id:
+            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
+        return await self._put(
+            f"/chat/sessions/{session_id}/visibility",
+            body=await async_maybe_transform(
+                {"visibility": visibility}, chat_update_visibility_params.ChatUpdateVisibilityParams
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=UpdateVisibilityResponse,
+        )
+
 
 class ChatResourceWithRawResponse:
     def __init__(self, chat: ChatResource) -> None:
@@ -1905,14 +1907,14 @@ class ChatResourceWithRawResponse:
         self.revert_to_commit = to_raw_response_wrapper(
             chat.revert_to_commit,
         )
-        self.toggle_public = to_raw_response_wrapper(
-            chat.toggle_public,
-        )
         self.update_session = to_raw_response_wrapper(
             chat.update_session,
         )
         self.update_session_favorite = to_raw_response_wrapper(
             chat.update_session_favorite,
+        )
+        self.update_visibility = to_raw_response_wrapper(
+            chat.update_visibility,
         )
 
 
@@ -1980,14 +1982,14 @@ class AsyncChatResourceWithRawResponse:
         self.revert_to_commit = async_to_raw_response_wrapper(
             chat.revert_to_commit,
         )
-        self.toggle_public = async_to_raw_response_wrapper(
-            chat.toggle_public,
-        )
         self.update_session = async_to_raw_response_wrapper(
             chat.update_session,
         )
         self.update_session_favorite = async_to_raw_response_wrapper(
             chat.update_session_favorite,
+        )
+        self.update_visibility = async_to_raw_response_wrapper(
+            chat.update_visibility,
         )
 
 
@@ -2055,14 +2057,14 @@ class ChatResourceWithStreamingResponse:
         self.revert_to_commit = to_streamed_response_wrapper(
             chat.revert_to_commit,
         )
-        self.toggle_public = to_streamed_response_wrapper(
-            chat.toggle_public,
-        )
         self.update_session = to_streamed_response_wrapper(
             chat.update_session,
         )
         self.update_session_favorite = to_streamed_response_wrapper(
             chat.update_session_favorite,
+        )
+        self.update_visibility = to_streamed_response_wrapper(
+            chat.update_visibility,
         )
 
 
@@ -2130,12 +2132,12 @@ class AsyncChatResourceWithStreamingResponse:
         self.revert_to_commit = async_to_streamed_response_wrapper(
             chat.revert_to_commit,
         )
-        self.toggle_public = async_to_streamed_response_wrapper(
-            chat.toggle_public,
-        )
         self.update_session = async_to_streamed_response_wrapper(
             chat.update_session,
         )
         self.update_session_favorite = async_to_streamed_response_wrapper(
             chat.update_session_favorite,
+        )
+        self.update_visibility = async_to_streamed_response_wrapper(
+            chat.update_visibility,
         )
