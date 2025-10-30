@@ -40,6 +40,8 @@ class Updates(TypedDict, total=False):
 
     is_developer: Optional[bool]
 
+    last_selected_team_id: Optional[str]
+
     permissions: Optional[List[Literal["labeler", "qa_labeler", "debug", "human_llm", "none"]]]
 
     user_type: Optional[Literal["admin", "public", "end_user"]]

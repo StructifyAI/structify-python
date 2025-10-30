@@ -97,6 +97,7 @@ from .entity_view_response import EntityViewResponse as EntityViewResponse
 from .report_step_response import ReportStepResponse as ReportStepResponse
 from .scrape_list_response import ScrapeListResponse as ScrapeListResponse
 from .scrape_scrape_params import ScrapeScrapeParams as ScrapeScrapeParams
+from .select_team_response import SelectTeamResponse as SelectTeamResponse
 from .source_list_response import SourceListResponse as SourceListResponse
 from .update_team_response import UpdateTeamResponse as UpdateTeamResponse
 from .workflow_stop_params import WorkflowStopParams as WorkflowStopParams
