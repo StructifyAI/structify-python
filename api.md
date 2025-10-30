@@ -133,6 +133,7 @@ from structify.types import (
     ListProjectsResponse,
     ListTeamsResponse,
     RemoveMemberResponse,
+    SelectTeamResponse,
     Team,
     TeamRole,
     TeamSubscriptionStatus,
@@ -161,6 +162,7 @@ Methods:
 - <code title="get /team/{team_id}/members">client.teams.<a href="./src/structify/resources/teams.py">list_members</a>(team_id) -> <a href="./src/structify/types/list_members_response.py">ListMembersResponse</a></code>
 - <code title="get /team/{team_id}/projects">client.teams.<a href="./src/structify/resources/teams.py">list_projects</a>(team_id) -> <a href="./src/structify/types/list_projects_response.py">ListProjectsResponse</a></code>
 - <code title="delete /team/{team_id}/members/{user_id}">client.teams.<a href="./src/structify/resources/teams.py">remove_member</a>(user_id, \*, team_id) -> <a href="./src/structify/types/remove_member_response.py">RemoveMemberResponse</a></code>
+- <code title="post /team/{team_id}/select">client.teams.<a href="./src/structify/resources/teams.py">select</a>(team_id) -> <a href="./src/structify/types/select_team_response.py">SelectTeamResponse</a></code>
 - <code title="patch /team/{team_id}/members/{user_id}/role">client.teams.<a href="./src/structify/resources/teams.py">update_member_role</a>(user_id, \*, team_id, \*\*<a href="src/structify/types/team_update_member_role_params.py">params</a>) -> <a href="./src/structify/types/update_member_role_response.py">UpdateMemberRoleResponse</a></code>
 
 # Projects

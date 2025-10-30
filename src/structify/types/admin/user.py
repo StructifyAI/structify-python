@@ -47,6 +47,8 @@ class User(BaseModel):
 
     last_activity: Optional[datetime] = None
 
+    last_selected_team_id: Optional[str] = None
+
     survey_completed_at: Optional[datetime] = None
 
     survey_response: Optional[object] = None
