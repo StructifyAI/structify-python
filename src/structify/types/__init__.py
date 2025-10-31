@@ -58,6 +58,7 @@ from .dataset_get_params import DatasetGetParams as DatasetGetParams
 from .entity_view_params import EntityViewParams as EntityViewParams
 from .exploration_status import ExplorationStatus as ExplorationStatus
 from .merge_config_param import MergeConfigParam as MergeConfigParam
+from .project_visibility import ProjectVisibility as ProjectVisibility
 from .relationship_param import RelationshipParam as RelationshipParam
 from .report_step_params import ReportStepParams as ReportStepParams
 from .sandbox_get_params import SandboxGetParams as SandboxGetParams
@@ -255,6 +256,7 @@ from .connector_approve_version_params import ConnectorApproveVersionParams as C
 from .entity_add_relationship_response import EntityAddRelationshipResponse as EntityAddRelationshipResponse
 from .entity_get_local_subgraph_params import EntityGetLocalSubgraphParams as EntityGetLocalSubgraphParams
 from .job_get_source_entities_response import JobGetSourceEntitiesResponse as JobGetSourceEntitiesResponse
+from .project_collaborator_input_param import ProjectCollaboratorInputParam as ProjectCollaboratorInputParam
 from .dataset_reorder_properties_params import DatasetReorderPropertiesParams as DatasetReorderPropertiesParams
 from .dataset_set_primary_column_params import DatasetSetPrimaryColumnParams as DatasetSetPrimaryColumnParams
 from .dataset_view_relationships_params import DatasetViewRelationshipsParams as DatasetViewRelationshipsParams
