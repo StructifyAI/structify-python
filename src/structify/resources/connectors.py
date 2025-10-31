@@ -65,6 +65,7 @@ class ConnectorsResource(SyncAPIResource):
         known_connector_type: Literal[
             "Slack",
             "Confluence",
+            "Dropbox",
             "GoogleDrive",
             "Snowflake",
             "Hubspot",
@@ -135,6 +136,7 @@ class ConnectorsResource(SyncAPIResource):
             Literal[
                 "Slack",
                 "Confluence",
+                "Dropbox",
                 "GoogleDrive",
                 "Snowflake",
                 "Hubspot",
@@ -642,6 +644,7 @@ class AsyncConnectorsResource(AsyncAPIResource):
         known_connector_type: Literal[
             "Slack",
             "Confluence",
+            "Dropbox",
             "GoogleDrive",
             "Snowflake",
             "Hubspot",
@@ -712,6 +715,7 @@ class AsyncConnectorsResource(AsyncAPIResource):
             Literal[
                 "Slack",
                 "Confluence",
+                "Dropbox",
                 "GoogleDrive",
                 "Snowflake",
                 "Hubspot",
