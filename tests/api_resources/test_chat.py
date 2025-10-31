@@ -41,7 +41,7 @@ class TestChat:
         chat = client.chat.add_collaborator(
             chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             email="email",
-            role="owner",
+            role="viewer",
         )
         assert chat is None
 
@@ -50,7 +50,7 @@ class TestChat:
         response = client.chat.with_raw_response.add_collaborator(
             chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             email="email",
-            role="owner",
+            role="viewer",
         )
 
         assert response.is_closed is True
@@ -63,7 +63,7 @@ class TestChat:
         with client.chat.with_streaming_response.add_collaborator(
             chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             email="email",
-            role="owner",
+            role="viewer",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -79,7 +79,7 @@ class TestChat:
             client.chat.with_raw_response.add_collaborator(
                 chat_id="",
                 email="email",
-                role="owner",
+                role="viewer",
             )
 
     @parametrize
@@ -600,7 +600,7 @@ class TestChat:
         chat = client.chat.grant_admin_override(
             chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             duration_hours=0,
-            role="owner",
+            role="viewer",
         )
         assert_matches_type(AdminGrantAccessResponse, chat, path=["response"])
 
@@ -609,7 +609,7 @@ class TestChat:
         response = client.chat.with_raw_response.grant_admin_override(
             chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             duration_hours=0,
-            role="owner",
+            role="viewer",
         )
 
         assert response.is_closed is True
@@ -622,7 +622,7 @@ class TestChat:
         with client.chat.with_streaming_response.grant_admin_override(
             chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             duration_hours=0,
-            role="owner",
+            role="viewer",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -638,7 +638,7 @@ class TestChat:
             client.chat.with_raw_response.grant_admin_override(
                 chat_id="",
                 duration_hours=0,
-                role="owner",
+                role="viewer",
             )
 
     @parametrize
@@ -1028,7 +1028,7 @@ class TestAsyncChat:
         chat = await async_client.chat.add_collaborator(
             chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             email="email",
-            role="owner",
+            role="viewer",
         )
         assert chat is None
 
@@ -1037,7 +1037,7 @@ class TestAsyncChat:
         response = await async_client.chat.with_raw_response.add_collaborator(
             chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             email="email",
-            role="owner",
+            role="viewer",
         )
 
         assert response.is_closed is True
@@ -1050,7 +1050,7 @@ class TestAsyncChat:
         async with async_client.chat.with_streaming_response.add_collaborator(
             chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             email="email",
-            role="owner",
+            role="viewer",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -1066,7 +1066,7 @@ class TestAsyncChat:
             await async_client.chat.with_raw_response.add_collaborator(
                 chat_id="",
                 email="email",
-                role="owner",
+                role="viewer",
             )
 
     @parametrize
@@ -1587,7 +1587,7 @@ class TestAsyncChat:
         chat = await async_client.chat.grant_admin_override(
             chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             duration_hours=0,
-            role="owner",
+            role="viewer",
         )
         assert_matches_type(AdminGrantAccessResponse, chat, path=["response"])
 
@@ -1596,7 +1596,7 @@ class TestAsyncChat:
         response = await async_client.chat.with_raw_response.grant_admin_override(
             chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             duration_hours=0,
-            role="owner",
+            role="viewer",
         )
 
         assert response.is_closed is True
@@ -1609,7 +1609,7 @@ class TestAsyncChat:
         async with async_client.chat.with_streaming_response.grant_admin_override(
             chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             duration_hours=0,
-            role="owner",
+            role="viewer",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -1625,7 +1625,7 @@ class TestAsyncChat:
             await async_client.chat.with_raw_response.grant_admin_override(
                 chat_id="",
                 duration_hours=0,
-                role="owner",
+                role="viewer",
             )
 
     @parametrize

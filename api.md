@@ -170,7 +170,14 @@ Methods:
 Types:
 
 ```python
-from structify.types import DeleteProjectResponse, Project, UpdateProjectRequest
+from structify.types import (
+    DeleteProjectResponse,
+    Project,
+    ProjectCollaboratorInput,
+    ProjectMember,
+    ProjectVisibility,
+    UpdateProjectRequest,
+)
 ```
 
 Methods:

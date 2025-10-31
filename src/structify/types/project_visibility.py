@@ -2,6 +2,6 @@
 
 from typing_extensions import Literal, TypeAlias
 
-__all__ = ["ChatSessionRole"]
+__all__ = ["ProjectVisibility"]
 
-ChatSessionRole: TypeAlias = Literal["viewer", "editor", "owner"]
+ProjectVisibility: TypeAlias = Literal["private", "shared_with_team"]
