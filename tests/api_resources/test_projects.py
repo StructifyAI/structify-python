@@ -30,8 +30,15 @@ class TestProjects:
         project = client.projects.update(
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            collaborators=[
+                {
+                    "email": "email",
+                    "role": "viewer",
+                }
+            ],
             description="description",
             name="name",
+            visibility="private",
         )
         assert_matches_type(Project, project, path=["response"])
 
@@ -190,8 +197,15 @@ class TestAsyncProjects:
         project = await async_client.projects.update(
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            collaborators=[
+                {
+                    "email": "email",
+                    "role": "viewer",
+                }
+            ],
             description="description",
             name="name",
+            visibility="private",
         )
         assert_matches_type(Project, project, path=["response"])
 
