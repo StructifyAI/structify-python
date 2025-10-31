@@ -41,4 +41,6 @@ class UserInfo(BaseModel):
 
     username: str
 
+    last_selected_team_id: Optional[str] = None
+
     survey_completed_at: Optional[datetime] = None

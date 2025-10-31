@@ -4,6 +4,7 @@ from typing import Optional
 from datetime import datetime
 
 from .._models import BaseModel
+from .project_visibility import ProjectVisibility
 
 __all__ = ["Project"]
 
@@ -18,5 +19,7 @@ class Project(BaseModel):
     team_id: str
 
     updated_at: datetime
+
+    visibility: ProjectVisibility
 
     description: Optional[str] = None

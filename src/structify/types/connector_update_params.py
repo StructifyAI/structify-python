@@ -15,6 +15,7 @@ class ConnectorUpdateParams(TypedDict, total=False):
         Literal[
             "Slack",
             "Confluence",
+            "Dropbox",
             "GoogleDrive",
             "Snowflake",
             "Hubspot",

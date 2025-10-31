@@ -648,9 +648,9 @@ class ChatResource(SyncAPIResource):
     def list_sessions(
         self,
         *,
-        project_id: str,
         team_id: str,
         limit: Optional[int] | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -663,11 +663,11 @@ class ChatResource(SyncAPIResource):
         project.
 
         Args:
-          project_id: Project ID to filter chat sessions
-
           team_id: Team ID to filter chat sessions
 
           limit: Maximum number of sessions to return (default: 50)
+
+          project_id: Project ID to filter chat sessions
 
           extra_headers: Send extra headers
 
@@ -686,9 +686,9 @@ class ChatResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "project_id": project_id,
                         "team_id": team_id,
                         "limit": limit,
+                        "project_id": project_id,
                     },
                     chat_list_sessions_params.ChatListSessionsParams,
                 ),
@@ -1543,9 +1543,9 @@ class AsyncChatResource(AsyncAPIResource):
     async def list_sessions(
         self,
         *,
-        project_id: str,
         team_id: str,
         limit: Optional[int] | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1558,11 +1558,11 @@ class AsyncChatResource(AsyncAPIResource):
         project.
 
         Args:
-          project_id: Project ID to filter chat sessions
-
           team_id: Team ID to filter chat sessions
 
           limit: Maximum number of sessions to return (default: 50)
+
+          project_id: Project ID to filter chat sessions
 
           extra_headers: Send extra headers
 
@@ -1581,9 +1581,9 @@ class AsyncChatResource(AsyncAPIResource):
                 timeout=timeout,
                 query=await async_maybe_transform(
                     {
-                        "project_id": project_id,
                         "team_id": team_id,
                         "limit": limit,
+                        "project_id": project_id,
                     },
                     chat_list_sessions_params.ChatListSessionsParams,
                 ),

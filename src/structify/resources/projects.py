@@ -2,11 +2,11 @@
 
 from __future__ import annotations
 
-from typing import Optional
+from typing import Iterable, Optional
 
 import httpx
 
-from ..types import project_update_params
+from ..types import ProjectVisibility, project_update_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -19,7 +19,9 @@ from .._response import (
 )
 from .._base_client import make_request_options
 from ..types.project import Project
+from ..types.project_visibility import ProjectVisibility
 from ..types.delete_project_response import DeleteProjectResponse
+from ..types.project_collaborator_input_param import ProjectCollaboratorInputParam
 
 __all__ = ["ProjectsResource", "AsyncProjectsResource"]
 
@@ -49,8 +51,10 @@ class ProjectsResource(SyncAPIResource):
         project_id: str,
         *,
         team_id: str,
+        collaborators: Optional[Iterable[ProjectCollaboratorInputParam]] | Omit = omit,
         description: Optional[str] | Omit = omit,
         name: Optional[str] | Omit = omit,
+        visibility: Optional[ProjectVisibility] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -76,8 +80,10 @@ class ProjectsResource(SyncAPIResource):
             f"/team/{team_id}/project/{project_id}",
             body=maybe_transform(
                 {
+                    "collaborators": collaborators,
                     "description": description,
                     "name": name,
+                    "visibility": visibility,
                 },
                 project_update_params.ProjectUpdateParams,
             ),
@@ -181,8 +187,10 @@ class AsyncProjectsResource(AsyncAPIResource):
         project_id: str,
         *,
         team_id: str,
+        collaborators: Optional[Iterable[ProjectCollaboratorInputParam]] | Omit = omit,
         description: Optional[str] | Omit = omit,
         name: Optional[str] | Omit = omit,
+        visibility: Optional[ProjectVisibility] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -208,8 +216,10 @@ class AsyncProjectsResource(AsyncAPIResource):
             f"/team/{team_id}/project/{project_id}",
             body=await async_maybe_transform(
                 {
+                    "collaborators": collaborators,
                     "description": description,
                     "name": name,
+                    "visibility": visibility,
                 },
                 project_update_params.ProjectUpdateParams,
             ),

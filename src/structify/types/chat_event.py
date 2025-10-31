@@ -44,6 +44,8 @@ __all__ = [
     "ToolCallToolCallUnionMember9Input",
     "ToolCallToolCallUnionMember10",
     "ToolCallToolCallUnionMember10Input",
+    "Question",
+    "QuestionQuestion",
     "InternalError",
     "InternalErrorInternalError",
 ]
@@ -312,6 +314,16 @@ class ToolCall(BaseModel):
     tool_call: ToolCallToolCall = FieldInfo(alias="ToolCall")
 
 
+class QuestionQuestion(BaseModel):
+    complete: bool
+
+    content: str
+
+
+class Question(BaseModel):
+    question: QuestionQuestion = FieldInfo(alias="Question")
+
+
 class InternalErrorInternalError(BaseModel):
     message: str
 
@@ -320,4 +332,4 @@ class InternalError(BaseModel):
     internal_error: InternalErrorInternalError = FieldInfo(alias="InternalError")
 
 
-ChatEvent: TypeAlias = Union[TextMessage, Thinking, File, Action, Connector, ToolCall, InternalError]
+ChatEvent: TypeAlias = Union[TextMessage, Thinking, File, Action, Connector, ToolCall, Question, InternalError]
