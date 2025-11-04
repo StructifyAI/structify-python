@@ -23,12 +23,15 @@ class TestFunctionalTests:
 
     @parametrize
     def test_method_create(self, client: Structify) -> None:
-        functional_test = client.admin.functional_tests.create()
+        functional_test = client.admin.functional_tests.create(
+            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
         assert_matches_type(FunctionalTest, functional_test, path=["response"])
 
     @parametrize
     def test_method_create_with_all_params(self, client: Structify) -> None:
         functional_test = client.admin.functional_tests.create(
+            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             model_override="model_override",
             prompt_override="prompt_override",
         )
@@ -36,7 +39,9 @@ class TestFunctionalTests:
 
     @parametrize
     def test_raw_response_create(self, client: Structify) -> None:
-        response = client.admin.functional_tests.with_raw_response.create()
+        response = client.admin.functional_tests.with_raw_response.create(
+            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -45,7 +50,9 @@ class TestFunctionalTests:
 
     @parametrize
     def test_streaming_response_create(self, client: Structify) -> None:
-        with client.admin.functional_tests.with_streaming_response.create() as response:
+        with client.admin.functional_tests.with_streaming_response.create(
+            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -225,12 +232,15 @@ class TestAsyncFunctionalTests:
 
     @parametrize
     async def test_method_create(self, async_client: AsyncStructify) -> None:
-        functional_test = await async_client.admin.functional_tests.create()
+        functional_test = await async_client.admin.functional_tests.create(
+            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
         assert_matches_type(FunctionalTest, functional_test, path=["response"])
 
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncStructify) -> None:
         functional_test = await async_client.admin.functional_tests.create(
+            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             model_override="model_override",
             prompt_override="prompt_override",
         )
@@ -238,7 +248,9 @@ class TestAsyncFunctionalTests:
 
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncStructify) -> None:
-        response = await async_client.admin.functional_tests.with_raw_response.create()
+        response = await async_client.admin.functional_tests.with_raw_response.create(
+            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -247,7 +259,9 @@ class TestAsyncFunctionalTests:
 
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncStructify) -> None:
-        async with async_client.admin.functional_tests.with_streaming_response.create() as response:
+        async with async_client.admin.functional_tests.with_streaming_response.create(
+            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
