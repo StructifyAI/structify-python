@@ -53,6 +53,7 @@ class FunctionalTestsResource(SyncAPIResource):
     def create(
         self,
         *,
+        team_id: str,
         model_override: Optional[str] | Omit = omit,
         prompt_override: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -78,6 +79,7 @@ class FunctionalTestsResource(SyncAPIResource):
             "/admin/functional_tests/create",
             body=maybe_transform(
                 {
+                    "team_id": team_id,
                     "model_override": model_override,
                     "prompt_override": prompt_override,
                 },
@@ -288,6 +290,7 @@ class AsyncFunctionalTestsResource(AsyncAPIResource):
     async def create(
         self,
         *,
+        team_id: str,
         model_override: Optional[str] | Omit = omit,
         prompt_override: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -313,6 +316,7 @@ class AsyncFunctionalTestsResource(AsyncAPIResource):
             "/admin/functional_tests/create",
             body=await async_maybe_transform(
                 {
+                    "team_id": team_id,
                     "model_override": model_override,
                     "prompt_override": prompt_override,
                 },
