@@ -140,7 +140,6 @@ from .scrape_scrape_response import ScrapeScrapeResponse as ScrapeScrapeResponse
 from .team_add_member_params import TeamAddMemberParams as TeamAddMemberParams
 from .workflow_schedule_info import WorkflowScheduleInfo as WorkflowScheduleInfo
 from .active_version_response import ActiveVersionResponse as ActiveVersionResponse
-from .chat_add_message_params import ChatAddMessageParams as ChatAddMessageParams
 from .connector_create_params import ConnectorCreateParams as ConnectorCreateParams
 from .connector_explorer_chat import ConnectorExplorerChat as ConnectorExplorerChat
 from .connector_update_params import ConnectorUpdateParams as ConnectorUpdateParams
@@ -161,7 +160,6 @@ from .entity_get_merges_params import EntityGetMergesParams as EntityGetMergesPa
 from .pending_version_response import PendingVersionResponse as PendingVersionResponse
 from .session_kill_jobs_params import SessionKillJobsParams as SessionKillJobsParams
 from .team_subscription_status import TeamSubscriptionStatus as TeamSubscriptionStatus
-from .add_chat_message_response import AddChatMessageResponse as AddChatMessageResponse
 from .chat_list_sessions_params import ChatListSessionsParams as ChatListSessionsParams
 from .code_generate_code_params import CodeGenerateCodeParams as CodeGenerateCodeParams
 from .dashboard_component_param import DashboardComponentParam as DashboardComponentParam
