@@ -13,7 +13,6 @@ from structify.types import (
     ChatPrompt,
     ChatSession,
     ChatLoadFilesResponse,
-    AddChatMessageResponse,
     GetChatSessionResponse,
     ChatDeleteFilesResponse,
     ChatSessionWithMessages,
@@ -122,52 +121,6 @@ class TestChat:
             client.chat.with_raw_response.add_git_commit(
                 session_id="",
                 commit_hash="commit_hash",
-            )
-
-    @parametrize
-    def test_method_add_message(self, client: Structify) -> None:
-        chat = client.chat.add_message(
-            session_id="session_id",
-            content="content",
-            role="role",
-        )
-        assert_matches_type(AddChatMessageResponse, chat, path=["response"])
-
-    @parametrize
-    def test_raw_response_add_message(self, client: Structify) -> None:
-        response = client.chat.with_raw_response.add_message(
-            session_id="session_id",
-            content="content",
-            role="role",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        chat = response.parse()
-        assert_matches_type(AddChatMessageResponse, chat, path=["response"])
-
-    @parametrize
-    def test_streaming_response_add_message(self, client: Structify) -> None:
-        with client.chat.with_streaming_response.add_message(
-            session_id="session_id",
-            content="content",
-            role="role",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            chat = response.parse()
-            assert_matches_type(AddChatMessageResponse, chat, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    def test_path_params_add_message(self, client: Structify) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
-            client.chat.with_raw_response.add_message(
-                session_id="",
-                content="content",
-                role="role",
             )
 
     @parametrize
@@ -1109,52 +1062,6 @@ class TestAsyncChat:
             await async_client.chat.with_raw_response.add_git_commit(
                 session_id="",
                 commit_hash="commit_hash",
-            )
-
-    @parametrize
-    async def test_method_add_message(self, async_client: AsyncStructify) -> None:
-        chat = await async_client.chat.add_message(
-            session_id="session_id",
-            content="content",
-            role="role",
-        )
-        assert_matches_type(AddChatMessageResponse, chat, path=["response"])
-
-    @parametrize
-    async def test_raw_response_add_message(self, async_client: AsyncStructify) -> None:
-        response = await async_client.chat.with_raw_response.add_message(
-            session_id="session_id",
-            content="content",
-            role="role",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        chat = await response.parse()
-        assert_matches_type(AddChatMessageResponse, chat, path=["response"])
-
-    @parametrize
-    async def test_streaming_response_add_message(self, async_client: AsyncStructify) -> None:
-        async with async_client.chat.with_streaming_response.add_message(
-            session_id="session_id",
-            content="content",
-            role="role",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            chat = await response.parse()
-            assert_matches_type(AddChatMessageResponse, chat, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    async def test_path_params_add_message(self, async_client: AsyncStructify) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
-            await async_client.chat.with_raw_response.add_message(
-                session_id="",
-                content="content",
-                role="role",
             )
 
     @parametrize
