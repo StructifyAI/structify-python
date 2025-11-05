@@ -20,6 +20,7 @@ from .._response import (
 from .._base_client import make_request_options
 from ..types.project import Project
 from ..types.project_visibility import ProjectVisibility
+from ..types.project_get_response import ProjectGetResponse
 from ..types.delete_project_response import DeleteProjectResponse
 from ..types.project_collaborator_input_param import ProjectCollaboratorInputParam
 
@@ -138,7 +139,7 @@ class ProjectsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Project:
+    ) -> ProjectGetResponse:
         """
         Args:
           extra_headers: Send extra headers
@@ -158,7 +159,7 @@ class ProjectsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Project,
+            cast_to=ProjectGetResponse,
         )
 
 
@@ -274,7 +275,7 @@ class AsyncProjectsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Project:
+    ) -> ProjectGetResponse:
         """
         Args:
           extra_headers: Send extra headers
@@ -294,7 +295,7 @@ class AsyncProjectsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Project,
+            cast_to=ProjectGetResponse,
         )
 
 
