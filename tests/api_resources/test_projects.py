@@ -9,7 +9,7 @@ import pytest
 
 from structify import Structify, AsyncStructify
 from tests.utils import assert_matches_type
-from structify.types import Project, DeleteProjectResponse
+from structify.types import Project, ProjectGetResponse, DeleteProjectResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -136,7 +136,7 @@ class TestProjects:
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(Project, project, path=["response"])
+        assert_matches_type(ProjectGetResponse, project, path=["response"])
 
     @parametrize
     def test_raw_response_get(self, client: Structify) -> None:
@@ -148,7 +148,7 @@ class TestProjects:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         project = response.parse()
-        assert_matches_type(Project, project, path=["response"])
+        assert_matches_type(ProjectGetResponse, project, path=["response"])
 
     @parametrize
     def test_streaming_response_get(self, client: Structify) -> None:
@@ -160,7 +160,7 @@ class TestProjects:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             project = response.parse()
-            assert_matches_type(Project, project, path=["response"])
+            assert_matches_type(ProjectGetResponse, project, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -303,7 +303,7 @@ class TestAsyncProjects:
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(Project, project, path=["response"])
+        assert_matches_type(ProjectGetResponse, project, path=["response"])
 
     @parametrize
     async def test_raw_response_get(self, async_client: AsyncStructify) -> None:
@@ -315,7 +315,7 @@ class TestAsyncProjects:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         project = await response.parse()
-        assert_matches_type(Project, project, path=["response"])
+        assert_matches_type(ProjectGetResponse, project, path=["response"])
 
     @parametrize
     async def test_streaming_response_get(self, async_client: AsyncStructify) -> None:
@@ -327,7 +327,7 @@ class TestAsyncProjects:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             project = await response.parse()
-            assert_matches_type(Project, project, path=["response"])
+            assert_matches_type(ProjectGetResponse, project, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

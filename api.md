@@ -174,6 +174,7 @@ from structify.types import (
     ProjectMember,
     ProjectVisibility,
     UpdateProjectRequest,
+    ProjectGetResponse,
 )
 ```
 
@@ -181,7 +182,7 @@ Methods:
 
 - <code title="patch /team/{team_id}/project/{project_id}">client.projects.<a href="./src/structify/resources/projects.py">update</a>(project_id, \*, team_id, \*\*<a href="src/structify/types/project_update_params.py">params</a>) -> <a href="./src/structify/types/project.py">Project</a></code>
 - <code title="delete /team/{team_id}/project/{project_id}">client.projects.<a href="./src/structify/resources/projects.py">delete</a>(project_id, \*, team_id) -> <a href="./src/structify/types/delete_project_response.py">DeleteProjectResponse</a></code>
-- <code title="get /team/{team_id}/project/{project_id}">client.projects.<a href="./src/structify/resources/projects.py">get</a>(project_id, \*, team_id) -> <a href="./src/structify/types/project.py">Project</a></code>
+- <code title="get /team/{team_id}/project/{project_id}">client.projects.<a href="./src/structify/resources/projects.py">get</a>(project_id, \*, team_id) -> <a href="./src/structify/types/project_get_response.py">ProjectGetResponse</a></code>
 
 # Admin
 
