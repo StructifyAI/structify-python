@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, Union, Iterable, Optional
+from typing import Dict, Union, Mapping, Iterable, Optional, cast
 
 import httpx
 
@@ -23,14 +23,15 @@ from ..types import (
     entity_get_merges_params,
     entity_agent_merge_params,
     entity_trigger_merge_params,
+    entity_upload_parquet_params,
     entity_update_property_params,
     entity_add_relationship_params,
     entity_get_local_subgraph_params,
     entity_delete_relationship_params,
     entity_get_source_entities_params,
 )
-from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
-from .._utils import maybe_transform, async_maybe_transform
+from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, FileTypes, SequenceNotStr, omit, not_given
+from .._utils import extract_files, maybe_transform, deepcopy_minimal, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -828,6 +829,58 @@ class EntitiesResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=EntityUpdatePropertyResponse,
+        )
+
+    def upload_parquet(
+        self,
+        *,
+        dataset: str,
+        table_name: str,
+        content: FileTypes,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> None:
+        """
+        Add multiple entities to a dataset from a Parquet file with fast batch insert
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        body = deepcopy_minimal({"content": content})
+        files = extract_files(cast(Mapping[str, object], body), paths=[["content"]])
+        # It should be noted that the actual Content-Type header that will be
+        # sent to the server will contain a `boundary` parameter, e.g.
+        # multipart/form-data; boundary=---abc--
+        extra_headers["Content-Type"] = "multipart/form-data"
+        return self._post(
+            "/entity/upload_parquet",
+            body=maybe_transform(body, entity_upload_parquet_params.EntityUploadParquetParams),
+            files=files,
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "dataset": dataset,
+                        "table_name": table_name,
+                    },
+                    entity_upload_parquet_params.EntityUploadParquetParams,
+                ),
+            ),
+            cast_to=NoneType,
         )
 
     def verify(
@@ -1691,6 +1744,58 @@ class AsyncEntitiesResource(AsyncAPIResource):
             cast_to=EntityUpdatePropertyResponse,
         )
 
+    async def upload_parquet(
+        self,
+        *,
+        dataset: str,
+        table_name: str,
+        content: FileTypes,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> None:
+        """
+        Add multiple entities to a dataset from a Parquet file with fast batch insert
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        body = deepcopy_minimal({"content": content})
+        files = extract_files(cast(Mapping[str, object], body), paths=[["content"]])
+        # It should be noted that the actual Content-Type header that will be
+        # sent to the server will contain a `boundary` parameter, e.g.
+        # multipart/form-data; boundary=---abc--
+        extra_headers["Content-Type"] = "multipart/form-data"
+        return await self._post(
+            "/entity/upload_parquet",
+            body=await async_maybe_transform(body, entity_upload_parquet_params.EntityUploadParquetParams),
+            files=files,
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "dataset": dataset,
+                        "table_name": table_name,
+                    },
+                    entity_upload_parquet_params.EntityUploadParquetParams,
+                ),
+            ),
+            cast_to=NoneType,
+        )
+
     async def verify(
         self,
         *,
@@ -1837,6 +1942,9 @@ class EntitiesResourceWithRawResponse:
         self.update_property = to_raw_response_wrapper(
             entities.update_property,
         )
+        self.upload_parquet = to_raw_response_wrapper(
+            entities.upload_parquet,
+        )
         self.verify = to_raw_response_wrapper(
             entities.verify,
         )
@@ -1902,6 +2010,9 @@ class AsyncEntitiesResourceWithRawResponse:
         )
         self.update_property = async_to_raw_response_wrapper(
             entities.update_property,
+        )
+        self.upload_parquet = async_to_raw_response_wrapper(
+            entities.upload_parquet,
         )
         self.verify = async_to_raw_response_wrapper(
             entities.verify,
@@ -1969,6 +2080,9 @@ class EntitiesResourceWithStreamingResponse:
         self.update_property = to_streamed_response_wrapper(
             entities.update_property,
         )
+        self.upload_parquet = to_streamed_response_wrapper(
+            entities.upload_parquet,
+        )
         self.verify = to_streamed_response_wrapper(
             entities.verify,
         )
@@ -2034,6 +2148,9 @@ class AsyncEntitiesResourceWithStreamingResponse:
         )
         self.update_property = async_to_streamed_response_wrapper(
             entities.update_property,
+        )
+        self.upload_parquet = async_to_streamed_response_wrapper(
+            entities.upload_parquet,
         )
         self.verify = async_to_streamed_response_wrapper(
             entities.verify,
