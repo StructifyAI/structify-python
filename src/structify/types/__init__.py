@@ -30,6 +30,7 @@ from .property_type import PropertyType as PropertyType
 from .tool_metadata import ToolMetadata as ToolMetadata
 from .execution_step import ExecutionStep as ExecutionStep
 from .job_event_body import JobEventBody as JobEventBody
+from .project_member import ProjectMember as ProjectMember
 from .strategy_param import StrategyParam as StrategyParam
 from .team_with_role import TeamWithRole as TeamWithRole
 from .token_response import TokenResponse as TokenResponse
@@ -95,6 +96,7 @@ from .entity_derive_params import EntityDeriveParams as EntityDeriveParams
 from .entity_search_params import EntitySearchParams as EntitySearchParams
 from .entity_verify_params import EntityVerifyParams as EntityVerifyParams
 from .entity_view_response import EntityViewResponse as EntityViewResponse
+from .project_get_response import ProjectGetResponse as ProjectGetResponse
 from .report_step_response import ReportStepResponse as ReportStepResponse
 from .scrape_list_response import ScrapeListResponse as ScrapeListResponse
 from .scrape_scrape_params import ScrapeScrapeParams as ScrapeScrapeParams
