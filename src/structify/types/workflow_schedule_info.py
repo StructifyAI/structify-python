@@ -16,6 +16,8 @@ class WorkflowScheduleInfo(BaseModel):
 
     name: str
 
+    paused: bool
+
     cron_schedule: Optional[str] = None
 
     next_run_time: Optional[str] = None
