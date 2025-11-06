@@ -791,6 +791,10 @@ class PolarsResource(SyncAPIResource):
         Returns:
         LazyFrame: Structured data extracted from the PDFs
         """
+        for key, value in schema.items():
+            if "type" not in value:
+                raise ValueError(f"Missing 'type' for column '{key}' in schema")
+
         polars_schema = pl.Schema(
             [(path_column, pl.String())]
             + [(col_name, col_info.get("type", pl.String())) for col_name, col_info in schema.items()]
@@ -800,7 +804,7 @@ class PolarsResource(SyncAPIResource):
             f"Path column {path_column} must be in the input dataframe, got {document_paths.collect_schema()}"
         )
 
-        table_param = as_table_param(table_name, polars_schema)
+        table_param = as_table_param(table_name, schema)
 
         node_id = get_node_id()
 
@@ -1203,13 +1207,17 @@ def _merge_schema_with_suffix(
     return pl.Schema(merged)
 
 
-def as_table_param(table_name: str, schema: pl.Schema) -> TableParam:
+def as_table_param(table_name: str, schema: Dict[str, Dict[str, Any]]) -> TableParam:
     return TableParam(
         name=table_name,
         description="",
         properties=[
-            Property(name=col_name, description="", prop_type=dtype_to_structify_type(dtype))
-            for col_name, dtype in schema.items()
+            Property(
+                name=col_name,
+                description=type_and_desc.get("description", ""),
+                prop_type=dtype_to_structify_type(type_and_desc["type"]),
+            )
+            for col_name, type_and_desc in schema.items()
         ],
     )
 
