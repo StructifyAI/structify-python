@@ -7,6 +7,7 @@ from typing import Optional
 import httpx
 
 from ..types import (
+    workflow_schedule_pause_params,
     workflow_schedule_create_params,
     workflow_schedule_update_params,
     workflow_schedule_get_sessions_params,
@@ -54,9 +55,9 @@ class WorkflowScheduleResource(SyncAPIResource):
         self,
         chat_session_id: str,
         *,
-        git_commit_hash: str,
         name: str,
         cron_schedule: Optional[str] | Omit = omit,
+        git_commit_hash: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -80,9 +81,9 @@ class WorkflowScheduleResource(SyncAPIResource):
             f"/workflow-schedule/{chat_session_id}",
             body=maybe_transform(
                 {
-                    "git_commit_hash": git_commit_hash,
                     "name": name,
                     "cron_schedule": cron_schedule,
+                    "git_commit_hash": git_commit_hash,
                 },
                 workflow_schedule_create_params.WorkflowScheduleCreateParams,
             ),
@@ -99,6 +100,7 @@ class WorkflowScheduleResource(SyncAPIResource):
         cron_schedule: Optional[str] | Omit = omit,
         git_commit_hash: Optional[str] | Omit = omit,
         name: Optional[str] | Omit = omit,
+        paused: Optional[bool] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -125,6 +127,7 @@ class WorkflowScheduleResource(SyncAPIResource):
                     "cron_schedule": cron_schedule,
                     "git_commit_hash": git_commit_hash,
                     "name": name,
+                    "paused": paused,
                 },
                 workflow_schedule_update_params.WorkflowScheduleUpdateParams,
             ),
@@ -255,6 +258,71 @@ class WorkflowScheduleResource(SyncAPIResource):
             cast_to=GetWorkflowScheduleSessionsResponse,
         )
 
+    def pause(
+        self,
+        schedule_id: str,
+        *,
+        paused: bool,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> WorkflowScheduleInfo:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not schedule_id:
+            raise ValueError(f"Expected a non-empty value for `schedule_id` but received {schedule_id!r}")
+        return self._patch(
+            f"/workflow-schedule/{schedule_id}/pause",
+            body=maybe_transform({"paused": paused}, workflow_schedule_pause_params.WorkflowSchedulePauseParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=WorkflowScheduleInfo,
+        )
+
+    def run(
+        self,
+        schedule_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> None:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not schedule_id:
+            raise ValueError(f"Expected a non-empty value for `schedule_id` but received {schedule_id!r}")
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return self._post(
+            f"/workflow-schedule/{schedule_id}/run",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NoneType,
+        )
+
 
 class AsyncWorkflowScheduleResource(AsyncAPIResource):
     @cached_property
@@ -280,9 +348,9 @@ class AsyncWorkflowScheduleResource(AsyncAPIResource):
         self,
         chat_session_id: str,
         *,
-        git_commit_hash: str,
         name: str,
         cron_schedule: Optional[str] | Omit = omit,
+        git_commit_hash: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -306,9 +374,9 @@ class AsyncWorkflowScheduleResource(AsyncAPIResource):
             f"/workflow-schedule/{chat_session_id}",
             body=await async_maybe_transform(
                 {
-                    "git_commit_hash": git_commit_hash,
                     "name": name,
                     "cron_schedule": cron_schedule,
+                    "git_commit_hash": git_commit_hash,
                 },
                 workflow_schedule_create_params.WorkflowScheduleCreateParams,
             ),
@@ -325,6 +393,7 @@ class AsyncWorkflowScheduleResource(AsyncAPIResource):
         cron_schedule: Optional[str] | Omit = omit,
         git_commit_hash: Optional[str] | Omit = omit,
         name: Optional[str] | Omit = omit,
+        paused: Optional[bool] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -351,6 +420,7 @@ class AsyncWorkflowScheduleResource(AsyncAPIResource):
                     "cron_schedule": cron_schedule,
                     "git_commit_hash": git_commit_hash,
                     "name": name,
+                    "paused": paused,
                 },
                 workflow_schedule_update_params.WorkflowScheduleUpdateParams,
             ),
@@ -481,6 +551,73 @@ class AsyncWorkflowScheduleResource(AsyncAPIResource):
             cast_to=GetWorkflowScheduleSessionsResponse,
         )
 
+    async def pause(
+        self,
+        schedule_id: str,
+        *,
+        paused: bool,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> WorkflowScheduleInfo:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not schedule_id:
+            raise ValueError(f"Expected a non-empty value for `schedule_id` but received {schedule_id!r}")
+        return await self._patch(
+            f"/workflow-schedule/{schedule_id}/pause",
+            body=await async_maybe_transform(
+                {"paused": paused}, workflow_schedule_pause_params.WorkflowSchedulePauseParams
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=WorkflowScheduleInfo,
+        )
+
+    async def run(
+        self,
+        schedule_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> None:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not schedule_id:
+            raise ValueError(f"Expected a non-empty value for `schedule_id` but received {schedule_id!r}")
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return await self._post(
+            f"/workflow-schedule/{schedule_id}/run",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NoneType,
+        )
+
 
 class WorkflowScheduleResourceWithRawResponse:
     def __init__(self, workflow_schedule: WorkflowScheduleResource) -> None:
@@ -503,6 +640,12 @@ class WorkflowScheduleResourceWithRawResponse:
         )
         self.get_sessions = to_raw_response_wrapper(
             workflow_schedule.get_sessions,
+        )
+        self.pause = to_raw_response_wrapper(
+            workflow_schedule.pause,
+        )
+        self.run = to_raw_response_wrapper(
+            workflow_schedule.run,
         )
 
 
@@ -528,6 +671,12 @@ class AsyncWorkflowScheduleResourceWithRawResponse:
         self.get_sessions = async_to_raw_response_wrapper(
             workflow_schedule.get_sessions,
         )
+        self.pause = async_to_raw_response_wrapper(
+            workflow_schedule.pause,
+        )
+        self.run = async_to_raw_response_wrapper(
+            workflow_schedule.run,
+        )
 
 
 class WorkflowScheduleResourceWithStreamingResponse:
@@ -552,6 +701,12 @@ class WorkflowScheduleResourceWithStreamingResponse:
         self.get_sessions = to_streamed_response_wrapper(
             workflow_schedule.get_sessions,
         )
+        self.pause = to_streamed_response_wrapper(
+            workflow_schedule.pause,
+        )
+        self.run = to_streamed_response_wrapper(
+            workflow_schedule.run,
+        )
 
 
 class AsyncWorkflowScheduleResourceWithStreamingResponse:
@@ -575,4 +730,10 @@ class AsyncWorkflowScheduleResourceWithStreamingResponse:
         )
         self.get_sessions = async_to_streamed_response_wrapper(
             workflow_schedule.get_sessions,
+        )
+        self.pause = async_to_streamed_response_wrapper(
+            workflow_schedule.pause,
+        )
+        self.run = async_to_streamed_response_wrapper(
+            workflow_schedule.run,
         )

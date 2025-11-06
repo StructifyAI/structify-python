@@ -14,3 +14,5 @@ class WorkflowScheduleUpdateParams(TypedDict, total=False):
     git_commit_hash: Optional[str]
 
     name: Optional[str]
+
+    paused: Optional[bool]

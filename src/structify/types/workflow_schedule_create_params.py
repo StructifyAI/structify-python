@@ -9,8 +9,8 @@ __all__ = ["WorkflowScheduleCreateParams"]
 
 
 class WorkflowScheduleCreateParams(TypedDict, total=False):
-    git_commit_hash: Required[str]
-
     name: Required[str]
 
     cron_schedule: Optional[str]
+
+    git_commit_hash: Optional[str]
