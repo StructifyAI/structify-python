@@ -567,6 +567,8 @@ Methods:
 - <code title="get /workflow-schedule/{chat_session_id}">client.workflow_schedule.<a href="./src/structify/resources/workflow_schedule.py">get</a>(chat_session_id) -> <a href="./src/structify/types/workflow_schedule_get_response.py">WorkflowScheduleGetResponse</a></code>
 - <code title="get /workflow-schedule">client.workflow_schedule.<a href="./src/structify/resources/workflow_schedule.py">get_all</a>() -> <a href="./src/structify/types/workflow_schedule_get_all_response.py">WorkflowScheduleGetAllResponse</a></code>
 - <code title="post /workflow-schedule/{schedule_id}/sessions">client.workflow_schedule.<a href="./src/structify/resources/workflow_schedule.py">get_sessions</a>(schedule_id, \*\*<a href="src/structify/types/workflow_schedule_get_sessions_params.py">params</a>) -> <a href="./src/structify/types/get_workflow_schedule_sessions_response.py">GetWorkflowScheduleSessionsResponse</a></code>
+- <code title="patch /workflow-schedule/{schedule_id}/pause">client.workflow_schedule.<a href="./src/structify/resources/workflow_schedule.py">pause</a>(schedule_id, \*\*<a href="src/structify/types/workflow_schedule_pause_params.py">params</a>) -> <a href="./src/structify/types/workflow_schedule_info.py">WorkflowScheduleInfo</a></code>
+- <code title="post /workflow-schedule/{schedule_id}/run">client.workflow_schedule.<a href="./src/structify/resources/workflow_schedule.py">run</a>(schedule_id) -> None</code>
 
 # Workflow
 
