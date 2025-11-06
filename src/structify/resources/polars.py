@@ -777,6 +777,7 @@ class PolarsResource(SyncAPIResource):
         path_column: str,
         table_name: str,
         schema: Dict[str, Dict[str, Any]],
+        conditioning: str = "",
     ) -> LazyFrame:
         """
         Extract structured data from PDF documents and return as a LazyFrame.
@@ -817,7 +818,7 @@ class PolarsResource(SyncAPIResource):
                 # Create dataset for this PDF
                 self._client.datasets.create(
                     name=dataset_name,
-                    description="",
+                    description=conditioning,
                     tables=[table_param],
                     relationships=[],
                     ephemeral=True,
