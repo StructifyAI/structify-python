@@ -1,5 +1,33 @@
 # Changelog
 
+## 1.155.0 (2025-11-06)
+
+Full Changelog: [v1.154.0...v1.155.0](https://github.com/StructifyAI/structify-python/compare/v1.154.0...v1.155.0)
+
+### Features
+
+* Update from Structify backend changes ([1cbe746](https://github.com/StructifyAI/structify-python/commit/1cbe7462e969352548dea7ed8fba05c78ffedab2))
+* Update from Structify backend changes ([956a879](https://github.com/StructifyAI/structify-python/commit/956a87946c85368a4d9617bc11c6d95309108982))
+* Update from Structify backend changes ([eceae07](https://github.com/StructifyAI/structify-python/commit/eceae07f08932b6bbd3bad42f06601ea948889b3))
+* Update from Structify backend changes ([f7b3940](https://github.com/StructifyAI/structify-python/commit/f7b394080aa8135c2cbd69dc870b4bf44ab8ee56))
+* Update from Structify backend changes ([272c1a6](https://github.com/StructifyAI/structify-python/commit/272c1a67ddf1f86aae559a308eeedac5cd4261ac))
+* Update from Structify backend changes ([97ea4f9](https://github.com/StructifyAI/structify-python/commit/97ea4f99adee47923f3fb2271508fb63cd19a4d5))
+* Update from Structify backend changes ([23105f4](https://github.com/StructifyAI/structify-python/commit/23105f48dfe2c8045841ea3922fa507cd39e4654))
+* Update from Structify backend changes ([e554827](https://github.com/StructifyAI/structify-python/commit/e5548271e512cf55b25112ae6ab82a0e7f04ae8f))
+* Update from Structify backend changes ([e1e33f2](https://github.com/StructifyAI/structify-python/commit/e1e33f2ea9169826423d6855854f61d959cf4c20))
+* Update from Structify backend changes ([6cd0672](https://github.com/StructifyAI/structify-python/commit/6cd06728be1bd5ee7a37967e5c039a2477e45d5d))
+
+
+### Bug Fixes
+
+* **client:** close streams without requiring full consumption ([5272247](https://github.com/StructifyAI/structify-python/commit/5272247dab3a50a083b73252f63ceaec4d05a1f9))
+
+
+### Chores
+
+* **internal/tests:** avoid race condition with implicit client cleanup ([a1529f5](https://github.com/StructifyAI/structify-python/commit/a1529f55dba497515a8889a886ce81e3de7cd9a3))
+* **internal:** grammar fix (it's -&gt; its) ([2e6bf86](https://github.com/StructifyAI/structify-python/commit/2e6bf86860ad0d7698150e558a55c4553665d0a2))
+
 ## 1.154.0 (2025-10-29)
 
 Full Changelog: [v1.153.0...v1.154.0](https://github.com/StructifyAI/structify-python/compare/v1.153.0...v1.154.0)
