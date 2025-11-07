@@ -15,7 +15,7 @@ class JobListParams(TypedDict, total=False):
     dataset: Optional[str]
     """Dataset name to optionally filter jobs by"""
 
-    job_type: Optional[Literal["Web", "Pdf", "Derive", "Scrape"]]
+    job_type: Optional[Literal["Web", "Pdf", "Derive", "Scrape", "Match"]]
     """Type of job to optionally filter jobs by"""
 
     limit: int

@@ -17,7 +17,7 @@ class Job(BaseModel):
 
     dataset_id: str
 
-    job_type: Literal["Web", "Pdf", "Derive", "Scrape"]
+    job_type: Literal["Web", "Pdf", "Derive", "Scrape", "Match"]
 
     max_steps_without_save: int
 

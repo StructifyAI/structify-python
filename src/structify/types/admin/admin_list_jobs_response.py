@@ -116,7 +116,7 @@ class AdminListJobsResponse(BaseModel):
 
     dataset_id: str
 
-    job_type: Literal["Web", "Pdf", "Derive", "Scrape"]
+    job_type: Literal["Web", "Pdf", "Derive", "Scrape", "Match"]
 
     status: Literal["Queued", "Running", "Completed", "Failed"]
 
