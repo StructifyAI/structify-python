@@ -25,6 +25,7 @@ from .resources import (
     chat,
     code,
     jobs,
+    match,
     slack,
     teams,
     polars,
@@ -82,6 +83,7 @@ class Structify(SyncAPIClient):
     datasets: datasets.DatasetsResource
     documents: documents.DocumentsResource
     jobs: jobs.JobsResource
+    match: match.MatchResource
     sessions: sessions.SessionsResource
     workflow_schedule: workflow_schedule.WorkflowScheduleResource
     workflow: workflow.WorkflowResource
@@ -187,6 +189,7 @@ class Structify(SyncAPIClient):
         self.datasets = datasets.DatasetsResource(self)
         self.documents = documents.DocumentsResource(self)
         self.jobs = jobs.JobsResource(self)
+        self.match = match.MatchResource(self)
         self.sessions = sessions.SessionsResource(self)
         self.workflow_schedule = workflow_schedule.WorkflowScheduleResource(self)
         self.workflow = workflow.WorkflowResource(self)
@@ -322,6 +325,7 @@ class AsyncStructify(AsyncAPIClient):
     datasets: datasets.AsyncDatasetsResource
     documents: documents.AsyncDocumentsResource
     jobs: jobs.AsyncJobsResource
+    match: match.AsyncMatchResource
     sessions: sessions.AsyncSessionsResource
     workflow_schedule: workflow_schedule.AsyncWorkflowScheduleResource
     workflow: workflow.AsyncWorkflowResource
@@ -426,6 +430,7 @@ class AsyncStructify(AsyncAPIClient):
         self.datasets = datasets.AsyncDatasetsResource(self)
         self.documents = documents.AsyncDocumentsResource(self)
         self.jobs = jobs.AsyncJobsResource(self)
+        self.match = match.AsyncMatchResource(self)
         self.sessions = sessions.AsyncSessionsResource(self)
         self.workflow_schedule = workflow_schedule.AsyncWorkflowScheduleResource(self)
         self.workflow = workflow.AsyncWorkflowResource(self)
@@ -561,6 +566,7 @@ class StructifyWithRawResponse:
         self.datasets = datasets.DatasetsResourceWithRawResponse(client.datasets)
         self.documents = documents.DocumentsResourceWithRawResponse(client.documents)
         self.jobs = jobs.JobsResourceWithRawResponse(client.jobs)
+        self.match = match.MatchResourceWithRawResponse(client.match)
         self.sessions = sessions.SessionsResourceWithRawResponse(client.sessions)
         self.workflow_schedule = workflow_schedule.WorkflowScheduleResourceWithRawResponse(client.workflow_schedule)
         self.workflow = workflow.WorkflowResourceWithRawResponse(client.workflow)
@@ -589,6 +595,7 @@ class AsyncStructifyWithRawResponse:
         self.datasets = datasets.AsyncDatasetsResourceWithRawResponse(client.datasets)
         self.documents = documents.AsyncDocumentsResourceWithRawResponse(client.documents)
         self.jobs = jobs.AsyncJobsResourceWithRawResponse(client.jobs)
+        self.match = match.AsyncMatchResourceWithRawResponse(client.match)
         self.sessions = sessions.AsyncSessionsResourceWithRawResponse(client.sessions)
         self.workflow_schedule = workflow_schedule.AsyncWorkflowScheduleResourceWithRawResponse(
             client.workflow_schedule
@@ -618,6 +625,7 @@ class StructifyWithStreamedResponse:
         self.datasets = datasets.DatasetsResourceWithStreamingResponse(client.datasets)
         self.documents = documents.DocumentsResourceWithStreamingResponse(client.documents)
         self.jobs = jobs.JobsResourceWithStreamingResponse(client.jobs)
+        self.match = match.MatchResourceWithStreamingResponse(client.match)
         self.sessions = sessions.SessionsResourceWithStreamingResponse(client.sessions)
         self.workflow_schedule = workflow_schedule.WorkflowScheduleResourceWithStreamingResponse(
             client.workflow_schedule
@@ -648,6 +656,7 @@ class AsyncStructifyWithStreamedResponse:
         self.datasets = datasets.AsyncDatasetsResourceWithStreamingResponse(client.datasets)
         self.documents = documents.AsyncDocumentsResourceWithStreamingResponse(client.documents)
         self.jobs = jobs.AsyncJobsResourceWithStreamingResponse(client.jobs)
+        self.match = match.AsyncMatchResourceWithStreamingResponse(client.match)
         self.sessions = sessions.AsyncSessionsResourceWithStreamingResponse(client.sessions)
         self.workflow_schedule = workflow_schedule.AsyncWorkflowScheduleResourceWithStreamingResponse(
             client.workflow_schedule
