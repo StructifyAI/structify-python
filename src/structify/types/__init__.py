@@ -22,6 +22,7 @@ from .table_param import TableParam as TableParam
 from .chat_session import ChatSession as ChatSession
 from .entity_match import EntityMatch as EntityMatch
 from .entity_param import EntityParam as EntityParam
+from .match_result import MatchResult as MatchResult
 from .merge_config import MergeConfig as MergeConfig
 from .relationship import Relationship as Relationship
 from .workflow_dag import WorkflowDag as WorkflowDag
@@ -159,6 +160,7 @@ from .dataset_descriptor_param import DatasetDescriptorParam as DatasetDescripto
 from .document_download_params import DocumentDownloadParams as DocumentDownloadParams
 from .entity_derive_all_params import EntityDeriveAllParams as EntityDeriveAllParams
 from .entity_get_merges_params import EntityGetMergesParams as EntityGetMergesParams
+from .match_create_jobs_params import MatchCreateJobsParams as MatchCreateJobsParams
 from .pending_version_response import PendingVersionResponse as PendingVersionResponse
 from .session_kill_jobs_params import SessionKillJobsParams as SessionKillJobsParams
 from .team_subscription_status import TeamSubscriptionStatus as TeamSubscriptionStatus
@@ -174,6 +176,7 @@ from .entity_summarize_response import EntitySummarizeResponse as EntitySummariz
 from .exploration_runs_response import ExplorationRunsResponse as ExplorationRunsResponse
 from .get_chat_session_response import GetChatSessionResponse as GetChatSessionResponse
 from .job_get_scrapers_response import JobGetScrapersResponse as JobGetScrapersResponse
+from .match_list_results_params import MatchListResultsParams as MatchListResultsParams
 from .session_get_events_params import SessionGetEventsParams as SessionGetEventsParams
 from .slack_event_payload_param import SlackEventPayloadParam as SlackEventPayloadParam
 from .slack_user_mapping_params import SlackUserMappingParams as SlackUserMappingParams
@@ -186,6 +189,7 @@ from .chat_delete_files_response import ChatDeleteFilesResponse as ChatDeleteFil
 from .chat_session_with_messages import ChatSessionWithMessages as ChatSessionWithMessages
 from .chat_update_session_params import ChatUpdateSessionParams as ChatUpdateSessionParams
 from .connector_table_descriptor import ConnectorTableDescriptor as ConnectorTableDescriptor
+from .create_match_jobs_response import CreateMatchJobsResponse as CreateMatchJobsResponse
 from .document_download_response import DocumentDownloadResponse as DocumentDownloadResponse
 from .entity_derive_all_response import EntityDeriveAllResponse as EntityDeriveAllResponse
 from .entity_get_merges_response import EntityGetMergesResponse as EntityGetMergesResponse

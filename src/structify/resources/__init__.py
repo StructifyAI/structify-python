@@ -40,6 +40,14 @@ from .admin import (
     AdminResourceWithStreamingResponse,
     AsyncAdminResourceWithStreamingResponse,
 )
+from .match import (
+    MatchResource,
+    AsyncMatchResource,
+    MatchResourceWithRawResponse,
+    AsyncMatchResourceWithRawResponse,
+    MatchResourceWithStreamingResponse,
+    AsyncMatchResourceWithStreamingResponse,
+)
 from .slack import (
     SlackResource,
     AsyncSlackResource,
@@ -234,6 +242,12 @@ __all__ = [
     "AsyncJobsResourceWithRawResponse",
     "JobsResourceWithStreamingResponse",
     "AsyncJobsResourceWithStreamingResponse",
+    "MatchResource",
+    "AsyncMatchResource",
+    "MatchResourceWithRawResponse",
+    "AsyncMatchResourceWithRawResponse",
+    "MatchResourceWithStreamingResponse",
+    "AsyncMatchResourceWithStreamingResponse",
     "SessionsResource",
     "AsyncSessionsResource",
     "SessionsResourceWithRawResponse",

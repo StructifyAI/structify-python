@@ -493,6 +493,24 @@ Methods:
 - <code title="post /jobs/schedule">client.jobs.<a href="./src/structify/resources/jobs.py">schedule</a>() -> None</code>
 - <code title="post /jobs/status_aggregated">client.jobs.<a href="./src/structify/resources/jobs.py">status</a>(\*\*<a href="src/structify/types/job_status_params.py">params</a>) -> <a href="./src/structify/types/job_status_response.py">JobStatusResponse</a></code>
 
+# Match
+
+Types:
+
+```python
+from structify.types import (
+    CreateMatchJobsRequest,
+    CreateMatchJobsResponse,
+    ListMatchResultsParams,
+    MatchResult,
+)
+```
+
+Methods:
+
+- <code title="post /match/create_jobs">client.match.<a href="./src/structify/resources/match.py">create_jobs</a>(\*\*<a href="src/structify/types/match_create_jobs_params.py">params</a>) -> <a href="./src/structify/types/create_match_jobs_response.py">CreateMatchJobsResponse</a></code>
+- <code title="get /match/list_results">client.match.<a href="./src/structify/resources/match.py">list_results</a>(\*\*<a href="src/structify/types/match_list_results_params.py">params</a>) -> <a href="./src/structify/types/match_result.py">SyncJobsList[MatchResult]</a></code>
+
 # Sessions
 
 Types:
