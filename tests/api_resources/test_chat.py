@@ -214,14 +214,6 @@ class TestChat:
         chat = client.chat.copy_node_output_by_code_hash(
             session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             code_md5_hash="code_md5_hash",
-        )
-        assert_matches_type(str, chat, path=["response"])
-
-    @parametrize
-    def test_method_copy_node_output_by_code_hash_with_all_params(self, client: Structify) -> None:
-        chat = client.chat.copy_node_output_by_code_hash(
-            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            code_md5_hash="code_md5_hash",
             new_node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(str, chat, path=["response"])
@@ -231,6 +223,7 @@ class TestChat:
         response = client.chat.with_raw_response.copy_node_output_by_code_hash(
             session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             code_md5_hash="code_md5_hash",
+            new_node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
         assert response.is_closed is True
@@ -243,6 +236,7 @@ class TestChat:
         with client.chat.with_streaming_response.copy_node_output_by_code_hash(
             session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             code_md5_hash="code_md5_hash",
+            new_node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -258,6 +252,7 @@ class TestChat:
             client.chat.with_raw_response.copy_node_output_by_code_hash(
                 session_id="",
                 code_md5_hash="code_md5_hash",
+                new_node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
     @parametrize
@@ -1155,14 +1150,6 @@ class TestAsyncChat:
         chat = await async_client.chat.copy_node_output_by_code_hash(
             session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             code_md5_hash="code_md5_hash",
-        )
-        assert_matches_type(str, chat, path=["response"])
-
-    @parametrize
-    async def test_method_copy_node_output_by_code_hash_with_all_params(self, async_client: AsyncStructify) -> None:
-        chat = await async_client.chat.copy_node_output_by_code_hash(
-            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            code_md5_hash="code_md5_hash",
             new_node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(str, chat, path=["response"])
@@ -1172,6 +1159,7 @@ class TestAsyncChat:
         response = await async_client.chat.with_raw_response.copy_node_output_by_code_hash(
             session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             code_md5_hash="code_md5_hash",
+            new_node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
         assert response.is_closed is True
@@ -1184,6 +1172,7 @@ class TestAsyncChat:
         async with async_client.chat.with_streaming_response.copy_node_output_by_code_hash(
             session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             code_md5_hash="code_md5_hash",
+            new_node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -1199,6 +1188,7 @@ class TestAsyncChat:
             await async_client.chat.with_raw_response.copy_node_output_by_code_hash(
                 session_id="",
                 code_md5_hash="code_md5_hash",
+                new_node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
     @parametrize
