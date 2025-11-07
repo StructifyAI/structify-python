@@ -6,4 +6,6 @@ __all__ = ["SelectTeamResponse"]
 
 
 class SelectTeamResponse(BaseModel):
+    api_token: str
+
     success: bool
