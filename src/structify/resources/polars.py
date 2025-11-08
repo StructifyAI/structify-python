@@ -1,9 +1,11 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 from __future__ import annotations
 
+import io
 import os
+import time
 import uuid
-from typing import Any, Dict, List, Tuple, Optional, TypedDict, cast
+from typing import Any, Dict, List, Tuple, Optional, cast
 from concurrent.futures import Future, ThreadPoolExecutor, as_completed
 
 import polars as pl
@@ -917,16 +919,11 @@ class PolarsResource(SyncAPIResource):
         Returns:
             LazyFrame with the original columns plus the new derived property column.
         """
-        # Add the new column with null values and proper type
-
         # We need to collect the DataFrame in order to guarantee starting all jobs doesn't double dip
         collected_df = df.collect()
 
         # Build Structify `Property` objects for existing columns
-        existing_properties = [
-            Property(name=col_name, description="", prop_type=dtype_to_structify_type(col_dtype))
-            for col_name, col_dtype in collected_df.schema.items()
-        ]
+        existing_properties = schema_to_properties(collected_df.schema)
 
         # Add the new property to derive
         new_property = Property(
@@ -934,6 +931,10 @@ class PolarsResource(SyncAPIResource):
         )
 
         all_properties = existing_properties + [new_property]
+
+        expected_schema = properties_to_schema(all_properties)
+        if collected_df.is_empty():
+            return pl.DataFrame(schema=expected_schema).lazy()
 
         collected_df = collected_df.with_columns([pl.lit(None, dtype=dtype).alias(new_property_name)])
 
@@ -956,31 +957,7 @@ class PolarsResource(SyncAPIResource):
         node_id = get_node_id()
 
         # Create the expected output schema
-        expected_schema = properties_to_schema(all_properties)
-
-        # Apply Structify derive on the dataframe
-        if collected_df.is_empty():
-            return pl.DataFrame(schema=expected_schema).lazy()
-
-        # 1. Add all the entities to the structify dataset
-        column_schema = {col["name"]: col["name"] for col in all_properties}
-        entities = dataframe_to_entities(collected_df, dataframe_name, column_schema)
-
-        # Add entities in batches to avoid JSON payload size issues
-        entity_ids: List[str] = []
-        entity_batches = chunk_entities_for_parallel_add(entities)
-
-        def add_batch(batch: List[KnowledgeGraphParam]) -> List[str]:
-            return self._client.entities.add_batch(
-                dataset=dataset_name,
-                entity_graphs=batch,
-            )
-
-        with ThreadPoolExecutor(max_workers=MAX_PARALLEL_REQUESTS) as executor:
-            add_futures = [executor.submit(add_batch, batch) for batch in entity_batches]
-            for future in tqdm(as_completed(add_futures), total=len(add_futures), desc=f"Preparing {dataframe_name}"):
-                batch_entity_ids = future.result()
-                entity_ids.extend(batch_entity_ids)
+        self._upload_df(collected_df, dataset_name, dataframe_name)
 
         # 2. Derive the new property for each entity in the dataset
         self._client.entities.derive_all(
@@ -1000,6 +977,93 @@ class PolarsResource(SyncAPIResource):
 
         # 4. Return the results
         return pl.DataFrame(results, schema=expected_schema).lazy()
+
+    def match(
+        self,
+        *,
+        df: LazyFrame,
+        reference_df: LazyFrame,
+        conditioning: str,
+    ) -> LazyFrame:
+        collected_df = df.collect()
+        collected_reference_df = reference_df.collect()
+        table1_properties = schema_to_properties(collected_df.schema)
+        table2_properties = schema_to_properties(collected_reference_df.schema)
+
+        dataset_name = f"match_{uuid.uuid4().hex}"
+
+        self._client.datasets.create(
+            name=dataset_name,
+            description="",
+            tables=[
+                TableParam(
+                    name="table1",
+                    description="",
+                    properties=table1_properties,
+                ),
+                TableParam(
+                    name="table2",
+                    description="",
+                    properties=table2_properties,
+                ),
+            ],
+            relationships=[],
+            ephemeral=True,
+        )
+
+        self._upload_df(collected_df, dataset_name, "table1")
+        self._upload_df(collected_reference_df, dataset_name, "table2")
+
+        # Wait for all entities to be added
+        TIMEOUT_SECONDS = 30
+        start_time = time.monotonic()
+
+        while time.monotonic() - start_time < TIMEOUT_SECONDS:
+            remaining_embeddings = self._client.datasets.count_missing_embeddings(name=dataset_name).count
+            if remaining_embeddings == 0:
+                break
+            time.sleep(0.5)
+
+        node_id = get_node_id()
+
+        self._client.match.create_jobs(
+            dataset=dataset_name,
+            source_table="table1",
+            target_table="table2",
+            conditioning=conditioning,
+        )
+
+        self._client.jobs.wait_for_jobs(dataset_name=dataset_name, title="Matching tables", node_id=node_id)
+
+        matches = self._client.match.list_results(dataset=dataset_name, source_table="table1")
+
+        matches_in_schema = {
+            "idx": [match.source_entity_index for match in matches],
+            "reference_idx": [match.target_entity_index for match in matches],
+            "match_reason": [match.match_reason for match in matches],
+        }
+
+        return pl.DataFrame(matches_in_schema).lazy()
+
+    def _upload_df(
+        self,
+        df: pl.DataFrame,
+        dataset_name: str,
+        table_name: str,
+    ) -> None:
+        parquet_bytes = io.BytesIO()
+        df.write_parquet(parquet_bytes)
+        parquet_bytes.seek(0)
+
+        response = self._client._client.post(
+            "/entity/upload_parquet",
+            params={"dataset": dataset_name, "table_name": table_name},
+            files={"file": ("people.parquet", parquet_bytes.getvalue(), "application/octet-stream")},
+            headers={"api_key": self._client.api_key},
+        )
+        response.raise_for_status()
+
+        pass
 
 
 class PolarsResourceWithRawResponse:
@@ -1185,6 +1249,14 @@ def properties_to_schema(properties: list[Property]) -> pl.Schema:
     return pl.Schema({prop["name"]: structify_type_to_polars_dtype(prop.get("prop_type")) for prop in properties})
 
 
+def schema_to_properties(schema: pl.Schema) -> list[Property]:
+    """Convert a Polars schema to a list of Structify properties."""
+    return [
+        Property(name=col_name, description="", prop_type=dtype_to_structify_type(dtype))
+        for col_name, dtype in schema.items()
+    ]
+
+
 def _merge_schema_with_suffix(
     input_schema: pl.Schema,
     new_columns: dict[str, pl.DataType],
@@ -1220,10 +1292,3 @@ def as_table_param(table_name: str, schema: Dict[str, Dict[str, Any]]) -> TableP
             for col_name, type_and_desc in schema.items()
         ],
     )
-
-
-class Relationship(TypedDict):
-    name: str
-    description: Optional[str]
-    source_table: str
-    target_table: str
