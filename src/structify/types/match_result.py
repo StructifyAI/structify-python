@@ -22,3 +22,7 @@ class MatchResult(BaseModel):
     target_entity_id: str
 
     confidence_score: Optional[float] = None
+
+    source_entity_index: Optional[int] = None
+
+    target_entity_index: Optional[int] = None
