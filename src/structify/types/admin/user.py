@@ -45,9 +45,21 @@ class User(BaseModel):
 
     user_type: Literal["admin", "public", "end_user"]
 
+    apollo_data: Optional[object] = None
+
+    company_description: Optional[str] = None
+
+    company_name: Optional[str] = None
+
+    cufinder_data: Optional[object] = None
+
+    job_title: Optional[str] = None
+
     last_activity: Optional[datetime] = None
 
     last_selected_team_id: Optional[str] = None
+
+    linkedin_url: Optional[str] = None
 
     survey_completed_at: Optional[datetime] = None
 
