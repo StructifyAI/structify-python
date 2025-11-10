@@ -390,6 +390,7 @@ from structify.types import (
     Strategy,
     DatasetCreateResponse,
     DatasetListResponse,
+    DatasetCountMissingEmbeddingsResponse,
     DatasetEnrichmentProgressResponse,
     DatasetGetResponse,
     DatasetMatchResponse,
@@ -405,6 +406,7 @@ Methods:
 - <code title="get /dataset/list">client.datasets.<a href="./src/structify/resources/datasets/datasets.py">list</a>() -> <a href="./src/structify/types/dataset_list_response.py">DatasetListResponse</a></code>
 - <code title="delete /dataset/delete">client.datasets.<a href="./src/structify/resources/datasets/datasets.py">delete</a>(\*\*<a href="src/structify/types/dataset_delete_params.py">params</a>) -> None</code>
 - <code title="post /dataset/add_property">client.datasets.<a href="./src/structify/resources/datasets/datasets.py">add_property</a>(\*\*<a href="src/structify/types/dataset_add_property_params.py">params</a>) -> None</code>
+- <code title="get /dataset/count_missing_embeddings">client.datasets.<a href="./src/structify/resources/datasets/datasets.py">count_missing_embeddings</a>(\*\*<a href="src/structify/types/dataset_count_missing_embeddings_params.py">params</a>) -> <a href="./src/structify/types/dataset_count_missing_embeddings_response.py">DatasetCountMissingEmbeddingsResponse</a></code>
 - <code title="get /dataset/enrichment_progress">client.datasets.<a href="./src/structify/resources/datasets/datasets.py">enrichment_progress</a>(\*\*<a href="src/structify/types/dataset_enrichment_progress_params.py">params</a>) -> <a href="./src/structify/types/dataset_enrichment_progress_response.py">DatasetEnrichmentProgressResponse</a></code>
 - <code title="get /dataset/export_to_csv">client.datasets.<a href="./src/structify/resources/datasets/datasets.py">export_to_csv</a>(\*\*<a href="src/structify/types/dataset_export_to_csv_params.py">params</a>) -> None</code>
 - <code title="get /dataset/export_to_excel">client.datasets.<a href="./src/structify/resources/datasets/datasets.py">export_to_excel</a>(\*\*<a href="src/structify/types/dataset_export_to_excel_params.py">params</a>) -> None</code>
