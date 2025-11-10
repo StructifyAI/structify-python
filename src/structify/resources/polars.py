@@ -1014,8 +1014,8 @@ class PolarsResource(SyncAPIResource):
         self._upload_df(collected_df, dataset_name, "table1")
         self._upload_df(collected_reference_df, dataset_name, "table2")
 
-        # Wait for all entities to be added
-        TIMEOUT_SECONDS = 30
+        # Wait for all embeddings to be added
+        TIMEOUT_SECONDS = 60
         start_time = time.monotonic()
 
         while time.monotonic() - start_time < TIMEOUT_SECONDS:
@@ -1058,7 +1058,7 @@ class PolarsResource(SyncAPIResource):
         response = self._client._client.post(
             "/entity/upload_parquet",
             params={"dataset": dataset_name, "table_name": table_name},
-            files={"file": ("people.parquet", parquet_bytes.getvalue(), "application/octet-stream")},
+            files={"file": ("data.parquet", parquet_bytes.getvalue(), "application/octet-stream")},
             headers={"api_key": self._client.api_key},
         )
         response.raise_for_status()
