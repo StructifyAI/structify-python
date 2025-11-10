@@ -15,6 +15,14 @@ class UserUpdateParams(TypedDict, total=False):
 
 
 class Updates(TypedDict, total=False):
+    apollo_data: object
+
+    company_description: Optional[str]
+
+    company_name: Optional[str]
+
+    cufinder_data: object
+
     email: Optional[str]
 
     feature_flags: Optional[
@@ -40,7 +48,11 @@ class Updates(TypedDict, total=False):
 
     is_developer: Optional[bool]
 
+    job_title: Optional[str]
+
     last_selected_team_id: Optional[str]
+
+    linkedin_url: Optional[str]
 
     permissions: Optional[List[Literal["labeler", "qa_labeler", "debug", "human_llm", "none"]]]
 
