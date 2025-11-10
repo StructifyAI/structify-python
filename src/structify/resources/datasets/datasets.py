@@ -23,6 +23,7 @@ from ...types import (
     dataset_view_relationships_params,
     dataset_enrichment_progress_params,
     dataset_update_relationship_params,
+    dataset_count_missing_embeddings_params,
     dataset_view_tables_with_relationships_params,
 )
 from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, SequenceNotStr, omit, not_given
@@ -56,6 +57,7 @@ from ...types.dataset_view_table_response import DatasetViewTableResponse
 from ...types.relationship_merge_strategy_param import RelationshipMergeStrategyParam
 from ...types.dataset_view_relationships_response import DatasetViewRelationshipsResponse
 from ...types.dataset_enrichment_progress_response import DatasetEnrichmentProgressResponse
+from ...types.dataset_count_missing_embeddings_response import DatasetCountMissingEmbeddingsResponse
 from ...types.dataset_view_tables_with_relationships_response import DatasetViewTablesWithRelationshipsResponse
 
 __all__ = ["DatasetsResource", "AsyncDatasetsResource"]
@@ -231,6 +233,41 @@ class DatasetsResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=NoneType,
+        )
+
+    def count_missing_embeddings(
+        self,
+        *,
+        name: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> DatasetCountMissingEmbeddingsResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._get(
+            "/dataset/count_missing_embeddings",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {"name": name}, dataset_count_missing_embeddings_params.DatasetCountMissingEmbeddingsParams
+                ),
+            ),
+            cast_to=DatasetCountMissingEmbeddingsResponse,
         )
 
     def enrichment_progress(
@@ -980,6 +1017,41 @@ class AsyncDatasetsResource(AsyncAPIResource):
             cast_to=NoneType,
         )
 
+    async def count_missing_embeddings(
+        self,
+        *,
+        name: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> DatasetCountMissingEmbeddingsResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._get(
+            "/dataset/count_missing_embeddings",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"name": name}, dataset_count_missing_embeddings_params.DatasetCountMissingEmbeddingsParams
+                ),
+            ),
+            cast_to=DatasetCountMissingEmbeddingsResponse,
+        )
+
     async def enrichment_progress(
         self,
         *,
@@ -1573,6 +1645,9 @@ class DatasetsResourceWithRawResponse:
         self.add_property = to_raw_response_wrapper(
             datasets.add_property,
         )
+        self.count_missing_embeddings = to_raw_response_wrapper(
+            datasets.count_missing_embeddings,
+        )
         self.enrichment_progress = to_raw_response_wrapper(
             datasets.enrichment_progress,
         )
@@ -1633,6 +1708,9 @@ class AsyncDatasetsResourceWithRawResponse:
         )
         self.add_property = async_to_raw_response_wrapper(
             datasets.add_property,
+        )
+        self.count_missing_embeddings = async_to_raw_response_wrapper(
+            datasets.count_missing_embeddings,
         )
         self.enrichment_progress = async_to_raw_response_wrapper(
             datasets.enrichment_progress,
@@ -1695,6 +1773,9 @@ class DatasetsResourceWithStreamingResponse:
         self.add_property = to_streamed_response_wrapper(
             datasets.add_property,
         )
+        self.count_missing_embeddings = to_streamed_response_wrapper(
+            datasets.count_missing_embeddings,
+        )
         self.enrichment_progress = to_streamed_response_wrapper(
             datasets.enrichment_progress,
         )
@@ -1755,6 +1836,9 @@ class AsyncDatasetsResourceWithStreamingResponse:
         )
         self.add_property = async_to_streamed_response_wrapper(
             datasets.add_property,
+        )
+        self.count_missing_embeddings = async_to_streamed_response_wrapper(
+            datasets.count_missing_embeddings,
         )
         self.enrichment_progress = async_to_streamed_response_wrapper(
             datasets.enrichment_progress,
