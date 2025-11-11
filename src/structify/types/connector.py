@@ -54,4 +54,6 @@ class Connector(BaseModel):
 
     exploration_status: Optional[ExplorationStatus] = None
 
+    pipedream_account_id: Optional[str] = None
+
     refresh_script: Optional[str] = None
