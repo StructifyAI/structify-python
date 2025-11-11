@@ -3,7 +3,7 @@
 [![PyPI version](<https://img.shields.io/pypi/v/structifyai.svg?label=pypi%20(stable)>)](https://pypi.org/project/structifyai/)
 [![Documentation Status](https://readthedocs.org/projects/structify/badge/?version=latest)](https://structify.readthedocs.io/en/latest/?badge=latest)
 
-The Structify Python library provides convenient access to the Structify REST API from any Python 3.8+
+The Structify Python library provides convenient access to the Structify REST API from any Python 3.9+
 application. The library includes type definitions for all request params and response fields,
 and offers both synchronous and asynchronous clients powered by [httpx](https://github.com/encode/httpx).
 
@@ -393,7 +393,7 @@ print(structify.__version__)
 
 ## Requirements
 
-Python 3.8 or higher.
+Python 3.9 or higher.
 
 ## Contributing
 
