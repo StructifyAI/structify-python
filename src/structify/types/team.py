@@ -18,3 +18,5 @@ class Team(BaseModel):
     updated_at: datetime
 
     description: Optional[str] = None
+
+    pipedream_project_id: Optional[str] = None
