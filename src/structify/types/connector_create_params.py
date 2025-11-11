@@ -40,6 +40,10 @@ class ConnectorCreateParams(TypedDict, total=False):
 
     description: Optional[str]
 
+    pipedream_account_id: Optional[str]
+
+    pipedream_project_id: Optional[str]
+
     refresh_script: Optional[str]
 
     secrets: Dict[str, str]
