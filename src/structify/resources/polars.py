@@ -984,7 +984,30 @@ class PolarsResource(SyncAPIResource):
         df1: LazyFrame,
         df2: LazyFrame,
         conditioning: str,
+        df1_columns: Optional[List[str]] = None,
+        df2_columns: Optional[List[str]] = None,
     ) -> LazyFrame:
+        """Match rows between two DataFrames based on the provided instructions.
+
+        NOTE: This will match the smaller dataframe to the larger one.
+
+        Args:
+            df1: First LazyFrame to match
+            df2: Second LazyFrame to match
+            conditioning: Natural language instructions describing how to match rows
+            df1_columns: Optional list of columns to use from df1 to consider matching
+            df2_columns: Optional list of columns to use from df2 to consider matching
+
+        Returns:
+            LazyFrame with three columns:
+            - `idx1`: Row index from df1
+            - `idx2`: Row index from df2
+            - `match_reason`: AI-generated explanation of why the rows match
+        """
+        if df1_columns:
+            df1 = df1.select(df1_columns)
+        if df2_columns:
+            df2 = df2.select(df2_columns)
         collected_df1 = df1.collect()
         collected_df2 = df2.collect()
 
