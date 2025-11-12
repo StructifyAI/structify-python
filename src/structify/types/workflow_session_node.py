@@ -24,6 +24,8 @@ class WorkflowSessionNode(BaseModel):
 
     node_name: str
 
+    reviewed: bool
+
     session_id: str
 
     updated_at: datetime

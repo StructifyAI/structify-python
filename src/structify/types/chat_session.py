@@ -18,6 +18,8 @@ class ChatSession(BaseModel):
 
     git_application_token: str
 
+    review_required: bool
+
     slack_completion_notified: bool
 
     team_id: str
