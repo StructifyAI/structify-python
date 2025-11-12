@@ -1,5 +1,25 @@
 # Changelog
 
+## 1.157.1 (2025-11-12)
+
+Full Changelog: [v1.157.0...v1.157.1](https://github.com/StructifyAI/structify-python/compare/v1.157.0...v1.157.1)
+
+### Features
+
+* **api:** manual updates ([5681636](https://github.com/StructifyAI/structify-python/commit/5681636e1edb871551010cdfb5f5224602ed1bd7))
+* Update from Structify backend changes ([87ee4e2](https://github.com/StructifyAI/structify-python/commit/87ee4e22c32b1310973f06630fe7996241029496))
+
+
+### Bug Fixes
+
+* compat with Python 3.14 ([8334d44](https://github.com/StructifyAI/structify-python/commit/8334d44376c15767e4482e7e4ace4f1f717d9448))
+* **compat:** update signatures of `model_dump` and `model_dump_json` for Pydantic v1 ([f463fcd](https://github.com/StructifyAI/structify-python/commit/f463fcdb242cd0c5a497298f181311c5ecd92c2f))
+
+
+### Chores
+
+* **package:** drop Python 3.8 support ([ea6ff94](https://github.com/StructifyAI/structify-python/commit/ea6ff944710fc2fe8d2786ace2605c0335910a4d))
+
 ## 1.157.0 (2025-11-11)
 
 Full Changelog: [v1.156.2...v1.157.0](https://github.com/StructifyAI/structify-python/compare/v1.156.2...v1.157.0)
