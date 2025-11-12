@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Union, Optional
+from typing import List, Union, Optional
 from typing_extensions import Literal, TypeAlias
 
 from pydantic import Field as FieldInfo
@@ -188,8 +188,6 @@ class ToolCallToolCallUnionMember5Input(BaseModel):
 
     connectors: List[str]
 
-    env: Optional[Dict[str, str]] = None
-
     working_dir: Optional[str] = None
 
 
@@ -207,8 +205,6 @@ class ToolCallToolCallUnionMember6Input(BaseModel):
     code: str
 
     connectors: List[str]
-
-    env: Optional[Dict[str, str]] = None
 
     working_dir: Optional[str] = None
 
