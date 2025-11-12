@@ -29,6 +29,17 @@ class TestMatch:
         assert_matches_type(CreateMatchJobsResponse, match, path=["response"])
 
     @parametrize
+    def test_method_create_jobs_with_all_params(self, client: Structify) -> None:
+        match = client.match.create_jobs(
+            conditioning="conditioning",
+            dataset="dataset",
+            source_table="source_table",
+            target_table="target_table",
+            node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(CreateMatchJobsResponse, match, path=["response"])
+
+    @parametrize
     def test_raw_response_create_jobs(self, client: Structify) -> None:
         response = client.match.with_raw_response.create_jobs(
             conditioning="conditioning",
@@ -115,6 +126,17 @@ class TestAsyncMatch:
             dataset="dataset",
             source_table="source_table",
             target_table="target_table",
+        )
+        assert_matches_type(CreateMatchJobsResponse, match, path=["response"])
+
+    @parametrize
+    async def test_method_create_jobs_with_all_params(self, async_client: AsyncStructify) -> None:
+        match = await async_client.match.create_jobs(
+            conditioning="conditioning",
+            dataset="dataset",
+            source_table="source_table",
+            target_table="target_table",
+            node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(CreateMatchJobsResponse, match, path=["response"])
 
