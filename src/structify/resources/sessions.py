@@ -123,6 +123,7 @@ class SessionsResource(SyncAPIResource):
         code_md5_hash: str,
         docstring: str,
         function_name: str,
+        connector_id: Optional[str] | Omit = omit,
         output_schema: object | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -150,6 +151,7 @@ class SessionsResource(SyncAPIResource):
                     "code_md5_hash": code_md5_hash,
                     "docstring": docstring,
                     "function_name": function_name,
+                    "connector_id": connector_id,
                     "output_schema": output_schema,
                 },
                 session_create_node_params.SessionCreateNodeParams,
@@ -751,6 +753,7 @@ class AsyncSessionsResource(AsyncAPIResource):
         code_md5_hash: str,
         docstring: str,
         function_name: str,
+        connector_id: Optional[str] | Omit = omit,
         output_schema: object | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -778,6 +781,7 @@ class AsyncSessionsResource(AsyncAPIResource):
                     "code_md5_hash": code_md5_hash,
                     "docstring": docstring,
                     "function_name": function_name,
+                    "connector_id": connector_id,
                     "output_schema": output_schema,
                 },
                 session_create_node_params.SessionCreateNodeParams,
