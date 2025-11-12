@@ -97,6 +97,7 @@ class TestSessions:
             code_md5_hash="code_md5_hash",
             docstring="docstring",
             function_name="function_name",
+            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             output_schema={},
         )
         assert_matches_type(WorkflowSessionNode, session, path=["response"])
@@ -896,6 +897,7 @@ class TestAsyncSessions:
             code_md5_hash="code_md5_hash",
             docstring="docstring",
             function_name="function_name",
+            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             output_schema={},
         )
         assert_matches_type(WorkflowSessionNode, session, path=["response"])

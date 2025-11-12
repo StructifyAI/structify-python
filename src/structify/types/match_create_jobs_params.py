@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-from typing import Optional
 from typing_extensions import Required, TypedDict
 
 __all__ = ["MatchCreateJobsParams"]
@@ -20,5 +19,3 @@ class MatchCreateJobsParams(TypedDict, total=False):
 
     target_table: Required[str]
     """Target table name (entities to match to)"""
-
-    node_id: Optional[str]
