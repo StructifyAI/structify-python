@@ -28,6 +28,8 @@ class WorkflowSessionNode(BaseModel):
 
     updated_at: datetime
 
+    connector_id: Optional[str] = None
+
     created_at: Optional[datetime] = None
 
     error_message: Optional[str] = None
