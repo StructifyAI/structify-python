@@ -981,14 +981,28 @@ class PolarsResource(SyncAPIResource):
     def match(
         self,
         *,
-        df: LazyFrame,
-        reference_df: LazyFrame,
+        df1: LazyFrame,
+        df2: LazyFrame,
         conditioning: str,
     ) -> LazyFrame:
-        collected_df = df.collect()
-        collected_reference_df = reference_df.collect()
-        table1_properties = schema_to_properties(collected_df.schema)
-        table2_properties = schema_to_properties(collected_reference_df.schema)
+        collected_df1 = df1.collect()
+        collected_df2 = df2.collect()
+
+        # Determine which dataframe is bigger (more rows)
+        # Use the smaller one as source (table1) for cost optimization
+        if len(collected_df1) > len(collected_df2):
+            # df1 is bigger, so use it as reference (table2/target)
+            df = collected_df2
+            reference_df = collected_df1
+            swapped = True
+        else:
+            # df2 is bigger or equal, so use it as reference (table2/target)
+            df = collected_df1
+            reference_df = collected_df2
+            swapped = False
+
+        table1_properties = schema_to_properties(df.schema)
+        table2_properties = schema_to_properties(reference_df.schema)
 
         dataset_name = f"match_{uuid.uuid4().hex}"
 
@@ -1011,8 +1025,8 @@ class PolarsResource(SyncAPIResource):
             ephemeral=True,
         )
 
-        self._upload_df(collected_df, dataset_name, "table1")
-        self._upload_df(collected_reference_df, dataset_name, "table2")
+        self._upload_df(df, dataset_name, "table1")
+        self._upload_df(reference_df, dataset_name, "table2")
 
         # Wait for all embeddings to be added
         TIMEOUT_SECONDS = 60
@@ -1038,11 +1052,22 @@ class PolarsResource(SyncAPIResource):
 
         matches = self._client.match.list_results(dataset=dataset_name, source_table="table1")
 
-        matches_in_schema = {
-            "idx": [match.source_entity_index for match in matches],
-            "reference_idx": [match.target_entity_index for match in matches],
-            "match_reason": [match.match_reason for match in matches],
-        }
+        if swapped:
+            # If we swapped inputs, swap the results back
+            # idx was from table1 (which was df2), reference_idx was from table2 (which was df1)
+            # We want idx → df1, reference_idx → df2
+            matches_in_schema = {
+                "idx": [match.target_entity_index for match in matches],
+                "reference_idx": [match.source_entity_index for match in matches],
+                "match_reason": [match.match_reason for match in matches],
+            }
+        else:
+            # No swap, return as normal
+            matches_in_schema = {
+                "idx": [match.source_entity_index for match in matches],
+                "reference_idx": [match.target_entity_index for match in matches],
+                "match_reason": [match.match_reason for match in matches],
+            }
 
         return pl.DataFrame(matches_in_schema).lazy()
 
