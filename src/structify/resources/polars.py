@@ -1031,6 +1031,7 @@ class PolarsResource(SyncAPIResource):
             source_table="table1",
             target_table="table2",
             conditioning=conditioning,
+            node_id=node_id,
         )
 
         self._client.jobs.wait_for_jobs(dataset_name=dataset_name, title="Matching tables", node_id=node_id)
