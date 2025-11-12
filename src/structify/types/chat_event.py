@@ -50,6 +50,8 @@ __all__ = [
     "QuestionQuestion",
     "InternalError",
     "InternalErrorInternalError",
+    "ReviewRequest",
+    "ReviewRequestReviewRequest",
 ]
 
 
@@ -347,4 +349,14 @@ class InternalError(BaseModel):
     internal_error: InternalErrorInternalError = FieldInfo(alias="InternalError")
 
 
-ChatEvent: TypeAlias = Union[TextMessage, Thinking, File, Action, Connector, ToolCall, Question, InternalError]
+class ReviewRequestReviewRequest(BaseModel):
+    message: str
+
+
+class ReviewRequest(BaseModel):
+    review_request: ReviewRequestReviewRequest = FieldInfo(alias="ReviewRequest")
+
+
+ChatEvent: TypeAlias = Union[
+    TextMessage, Thinking, File, Action, Connector, ToolCall, Question, InternalError, ReviewRequest
+]
