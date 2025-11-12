@@ -1054,18 +1054,18 @@ class PolarsResource(SyncAPIResource):
 
         if swapped:
             # If we swapped inputs, swap the results back
-            # idx was from table1 (which was df2), reference_idx was from table2 (which was df1)
-            # We want idx → df1, reference_idx → df2
+            # table1 was df2, table2 was df1
+            # We want idx1 → df1, idx2 → df2
             matches_in_schema = {
-                "idx": [match.target_entity_index for match in matches],
-                "reference_idx": [match.source_entity_index for match in matches],
+                "idx1": [match.target_entity_index for match in matches],
+                "idx2": [match.source_entity_index for match in matches],
                 "match_reason": [match.match_reason for match in matches],
             }
         else:
             # No swap, return as normal
             matches_in_schema = {
-                "idx": [match.source_entity_index for match in matches],
-                "reference_idx": [match.target_entity_index for match in matches],
+                "idx1": [match.source_entity_index for match in matches],
+                "idx2": [match.target_entity_index for match in matches],
                 "match_reason": [match.match_reason for match in matches],
             }
 
