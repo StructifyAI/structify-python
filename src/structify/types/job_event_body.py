@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Union, Optional
+from typing import Dict, List, Union, Optional
 from typing_extensions import Literal, Annotated, TypeAlias
 
 from .._utils import PropertyInfo
@@ -16,6 +16,7 @@ __all__ = [
     "DerivedProperty",
     "Failed",
     "Completed",
+    "AttemptedMatch",
 ]
 
 
@@ -80,7 +81,19 @@ class Completed(BaseModel):
     message: Optional[str] = None
 
 
+class AttemptedMatch(BaseModel):
+    candidates: List[Dict[str, Union[str, bool, float]]]
+
+    event_type: Literal["attempted_match"]
+
+    reason: str
+
+    target: Dict[str, Union[str, bool, float]]
+
+    match_idx: Optional[int] = None
+
+
 JobEventBody: TypeAlias = Annotated[
-    Union[AgentNavigated, AgentSearched, AgentSaved, AgentExited, DerivedProperty, Failed, Completed],
+    Union[AgentNavigated, AgentSearched, AgentSaved, AgentExited, DerivedProperty, Failed, Completed, AttemptedMatch],
     PropertyInfo(discriminator="event_type"),
 ]
