@@ -7,7 +7,14 @@ from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
 from .._types import SequenceNotStr
 
-__all__ = ["SlackEventPayloadParam", "URLVerification", "EventCallback", "EventCallbackEvent"]
+__all__ = [
+    "SlackEventPayloadParam",
+    "URLVerification",
+    "EventCallback",
+    "EventCallbackEvent",
+    "EventCallbackEventAppMention",
+    "EventCallbackEventMessage",
+]
 
 
 class URLVerification(TypedDict, total=False):
@@ -18,7 +25,7 @@ class URLVerification(TypedDict, total=False):
     token: Optional[str]
 
 
-class EventCallbackEvent(TypedDict, total=False):
+class EventCallbackEventAppMention(TypedDict, total=False):
     channel: Required[str]
 
     text: Required[str]
@@ -38,6 +45,33 @@ class EventCallbackEvent(TypedDict, total=False):
     team: Optional[str]
 
     thread_ts: Optional[str]
+
+
+class EventCallbackEventMessage(TypedDict, total=False):
+    channel: Required[str]
+
+    ts: Required[str]
+
+    type: Required[Literal["message"]]
+
+    bot_id: Optional[str]
+
+    channel_type: Optional[str]
+
+    client_msg_id: Optional[str]
+
+    event_ts: Optional[str]
+
+    team: Optional[str]
+
+    text: Optional[str]
+
+    thread_ts: Optional[str]
+
+    user: Optional[str]
+
+
+EventCallbackEvent: TypeAlias = Union[EventCallbackEventAppMention, EventCallbackEventMessage]
 
 
 class EventCallback(TypedDict, total=False):
