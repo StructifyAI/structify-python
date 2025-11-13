@@ -55,6 +55,8 @@ class ChatSessionWithMessages(BaseModel):
 
     updated_at: datetime
 
+    user_message_needed: bool
+
     user_role: ChatSessionRole
 
     visibility: ChatVisibility
