@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 from typing import Dict, Optional
-from typing_extensions import Literal
 
 import httpx
 
@@ -62,28 +61,7 @@ class ConnectorsResource(SyncAPIResource):
     def create(
         self,
         *,
-        known_connector_type: Literal[
-            "Slack",
-            "Confluence",
-            "Dropbox",
-            "GoogleDrive",
-            "Snowflake",
-            "Hubspot",
-            "Salesforce",
-            "Supabase",
-            "Sharepoint",
-            "Notion",
-            "Jira",
-            "Linear",
-            "Intercom",
-            "Gmail",
-            "Airtable",
-            "Trello",
-            "Postgresql",
-            "Sap",
-            "Oracle",
-            "Manual",
-        ],
+        known_connector_type: str,
         name: str,
         team_id: str,
         description: Optional[str] | Omit = omit,
@@ -136,31 +114,7 @@ class ConnectorsResource(SyncAPIResource):
         connector_id: str,
         *,
         description: Optional[str] | Omit = omit,
-        known_connector_type: Optional[
-            Literal[
-                "Slack",
-                "Confluence",
-                "Dropbox",
-                "GoogleDrive",
-                "Snowflake",
-                "Hubspot",
-                "Salesforce",
-                "Supabase",
-                "Sharepoint",
-                "Notion",
-                "Jira",
-                "Linear",
-                "Intercom",
-                "Gmail",
-                "Airtable",
-                "Trello",
-                "Postgresql",
-                "Sap",
-                "Oracle",
-                "Manual",
-            ]
-        ]
-        | Omit = omit,
+        known_connector_type: Optional[str] | Omit = omit,
         name: Optional[str] | Omit = omit,
         refresh_script: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -645,28 +599,7 @@ class AsyncConnectorsResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        known_connector_type: Literal[
-            "Slack",
-            "Confluence",
-            "Dropbox",
-            "GoogleDrive",
-            "Snowflake",
-            "Hubspot",
-            "Salesforce",
-            "Supabase",
-            "Sharepoint",
-            "Notion",
-            "Jira",
-            "Linear",
-            "Intercom",
-            "Gmail",
-            "Airtable",
-            "Trello",
-            "Postgresql",
-            "Sap",
-            "Oracle",
-            "Manual",
-        ],
+        known_connector_type: str,
         name: str,
         team_id: str,
         description: Optional[str] | Omit = omit,
@@ -719,31 +652,7 @@ class AsyncConnectorsResource(AsyncAPIResource):
         connector_id: str,
         *,
         description: Optional[str] | Omit = omit,
-        known_connector_type: Optional[
-            Literal[
-                "Slack",
-                "Confluence",
-                "Dropbox",
-                "GoogleDrive",
-                "Snowflake",
-                "Hubspot",
-                "Salesforce",
-                "Supabase",
-                "Sharepoint",
-                "Notion",
-                "Jira",
-                "Linear",
-                "Intercom",
-                "Gmail",
-                "Airtable",
-                "Trello",
-                "Postgresql",
-                "Sap",
-                "Oracle",
-                "Manual",
-            ]
-        ]
-        | Omit = omit,
+        known_connector_type: Optional[str] | Omit = omit,
         name: Optional[str] | Omit = omit,
         refresh_script: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.

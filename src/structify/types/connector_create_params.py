@@ -3,36 +3,13 @@
 from __future__ import annotations
 
 from typing import Dict, Optional
-from typing_extensions import Literal, Required, TypedDict
+from typing_extensions import Required, TypedDict
 
 __all__ = ["ConnectorCreateParams"]
 
 
 class ConnectorCreateParams(TypedDict, total=False):
-    known_connector_type: Required[
-        Literal[
-            "Slack",
-            "Confluence",
-            "Dropbox",
-            "GoogleDrive",
-            "Snowflake",
-            "Hubspot",
-            "Salesforce",
-            "Supabase",
-            "Sharepoint",
-            "Notion",
-            "Jira",
-            "Linear",
-            "Intercom",
-            "Gmail",
-            "Airtable",
-            "Trello",
-            "Postgresql",
-            "Sap",
-            "Oracle",
-            "Manual",
-        ]
-    ]
+    known_connector_type: Required[str]
 
     name: Required[str]
 

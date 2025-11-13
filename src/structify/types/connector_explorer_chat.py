@@ -29,55 +29,13 @@ class PhaseIDDiscoverColumns(BaseModel):
 
 
 class PhaseIDDiscoverAPIResources(BaseModel):
-    known_connector_type: Literal[
-        "Slack",
-        "Confluence",
-        "Dropbox",
-        "GoogleDrive",
-        "Snowflake",
-        "Hubspot",
-        "Salesforce",
-        "Supabase",
-        "Sharepoint",
-        "Notion",
-        "Jira",
-        "Linear",
-        "Intercom",
-        "Gmail",
-        "Airtable",
-        "Trello",
-        "Postgresql",
-        "Sap",
-        "Oracle",
-        "Manual",
-    ]
+    known_connector_type: str
 
     type: Literal["discover_api_resources"]
 
 
 class PhaseIDDiscoverAPIFields(BaseModel):
-    known_connector_type: Literal[
-        "Slack",
-        "Confluence",
-        "Dropbox",
-        "GoogleDrive",
-        "Snowflake",
-        "Hubspot",
-        "Salesforce",
-        "Supabase",
-        "Sharepoint",
-        "Notion",
-        "Jira",
-        "Linear",
-        "Intercom",
-        "Gmail",
-        "Airtable",
-        "Trello",
-        "Postgresql",
-        "Sap",
-        "Oracle",
-        "Manual",
-    ]
+    known_connector_type: str
 
     resource_name: str
 
