@@ -26,6 +26,8 @@ class ChatSession(BaseModel):
 
     updated_at: datetime
 
+    user_message_needed: bool
+
     visibility: ChatVisibility
 
     config_proto: Optional[object] = None
