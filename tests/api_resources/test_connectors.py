@@ -30,7 +30,7 @@ class TestConnectors:
     @parametrize
     def test_method_create(self, client: Structify) -> None:
         connector = client.connectors.create(
-            known_connector_type="Slack",
+            known_connector_type="known_connector_type",
             name="name",
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
@@ -39,7 +39,7 @@ class TestConnectors:
     @parametrize
     def test_method_create_with_all_params(self, client: Structify) -> None:
         connector = client.connectors.create(
-            known_connector_type="Slack",
+            known_connector_type="known_connector_type",
             name="name",
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             description="description",
@@ -53,7 +53,7 @@ class TestConnectors:
     @parametrize
     def test_raw_response_create(self, client: Structify) -> None:
         response = client.connectors.with_raw_response.create(
-            known_connector_type="Slack",
+            known_connector_type="known_connector_type",
             name="name",
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
@@ -66,7 +66,7 @@ class TestConnectors:
     @parametrize
     def test_streaming_response_create(self, client: Structify) -> None:
         with client.connectors.with_streaming_response.create(
-            known_connector_type="Slack",
+            known_connector_type="known_connector_type",
             name="name",
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
@@ -90,7 +90,7 @@ class TestConnectors:
         connector = client.connectors.update(
             connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             description="description",
-            known_connector_type="Slack",
+            known_connector_type="known_connector_type",
             name="name",
             refresh_script="refresh_script",
         )
@@ -620,7 +620,7 @@ class TestAsyncConnectors:
     @parametrize
     async def test_method_create(self, async_client: AsyncStructify) -> None:
         connector = await async_client.connectors.create(
-            known_connector_type="Slack",
+            known_connector_type="known_connector_type",
             name="name",
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
@@ -629,7 +629,7 @@ class TestAsyncConnectors:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncStructify) -> None:
         connector = await async_client.connectors.create(
-            known_connector_type="Slack",
+            known_connector_type="known_connector_type",
             name="name",
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             description="description",
@@ -643,7 +643,7 @@ class TestAsyncConnectors:
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncStructify) -> None:
         response = await async_client.connectors.with_raw_response.create(
-            known_connector_type="Slack",
+            known_connector_type="known_connector_type",
             name="name",
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
@@ -656,7 +656,7 @@ class TestAsyncConnectors:
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncStructify) -> None:
         async with async_client.connectors.with_streaming_response.create(
-            known_connector_type="Slack",
+            known_connector_type="known_connector_type",
             name="name",
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
@@ -680,7 +680,7 @@ class TestAsyncConnectors:
         connector = await async_client.connectors.update(
             connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             description="description",
-            known_connector_type="Slack",
+            known_connector_type="known_connector_type",
             name="name",
             refresh_script="refresh_script",
         )

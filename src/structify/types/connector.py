@@ -2,7 +2,6 @@
 
 from typing import Optional
 from datetime import datetime
-from typing_extensions import Literal
 
 from .._models import BaseModel
 from .exploration_status import ExplorationStatus
@@ -15,28 +14,7 @@ class Connector(BaseModel):
 
     created_at: datetime
 
-    known_connector_type: Literal[
-        "Slack",
-        "Confluence",
-        "Dropbox",
-        "GoogleDrive",
-        "Snowflake",
-        "Hubspot",
-        "Salesforce",
-        "Supabase",
-        "Sharepoint",
-        "Notion",
-        "Jira",
-        "Linear",
-        "Intercom",
-        "Gmail",
-        "Airtable",
-        "Trello",
-        "Postgresql",
-        "Sap",
-        "Oracle",
-        "Manual",
-    ]
+    known_connector_type: str
 
     name: str
 
