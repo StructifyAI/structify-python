@@ -7,7 +7,14 @@ from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
 from .._types import SequenceNotStr
 
-__all__ = ["SlackEventsParams", "Variant0", "Variant1", "Variant1Event"]
+__all__ = [
+    "SlackEventsParams",
+    "Variant0",
+    "Variant1",
+    "Variant1Event",
+    "Variant1EventAppMention",
+    "Variant1EventMessage",
+]
 
 
 class Variant0(TypedDict, total=False):
@@ -36,7 +43,7 @@ class Variant1(TypedDict, total=False):
     event_time: Optional[int]
 
 
-class Variant1Event(TypedDict, total=False):
+class Variant1EventAppMention(TypedDict, total=False):
     channel: Required[str]
 
     text: Required[str]
@@ -57,5 +64,31 @@ class Variant1Event(TypedDict, total=False):
 
     thread_ts: Optional[str]
 
+
+class Variant1EventMessage(TypedDict, total=False):
+    channel: Required[str]
+
+    ts: Required[str]
+
+    type: Required[Literal["message"]]
+
+    bot_id: Optional[str]
+
+    channel_type: Optional[str]
+
+    client_msg_id: Optional[str]
+
+    event_ts: Optional[str]
+
+    team: Optional[str]
+
+    text: Optional[str]
+
+    thread_ts: Optional[str]
+
+    user: Optional[str]
+
+
+Variant1Event: TypeAlias = Union[Variant1EventAppMention, Variant1EventMessage]
 
 SlackEventsParams: TypeAlias = Union[Variant0, Variant1]
