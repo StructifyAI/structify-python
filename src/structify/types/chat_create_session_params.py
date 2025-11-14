@@ -22,6 +22,8 @@ class ChatCreateSessionParams(TypedDict, total=False):
 
 
 class Config(TypedDict, total=False):
+    is_onboarding_session: Required[bool]
+
     llm_key: Optional[
         Literal[
             "vllm.gpt-5-mini-2025-08-07",

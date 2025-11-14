@@ -4,6 +4,7 @@ Types:
 
 ```python
 from structify.types import (
+    JwtToAPITokenRequest,
     SurveySubmissionRequest,
     SurveySubmissionResponse,
     TokenResponse,
