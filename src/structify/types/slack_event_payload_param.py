@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
+from typing import Union, Iterable, Optional
 from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
 from .._types import SequenceNotStr
@@ -13,6 +13,7 @@ __all__ = [
     "EventCallback",
     "EventCallbackEvent",
     "EventCallbackEventAppMention",
+    "EventCallbackEventAppMentionFile",
     "EventCallbackEventMessage",
 ]
 
@@ -23,6 +24,20 @@ class URLVerification(TypedDict, total=False):
     type: Required[Literal["url_verification"]]
 
     token: Optional[str]
+
+
+class EventCallbackEventAppMentionFile(TypedDict, total=False):
+    id: Required[str]
+
+    name: Required[str]
+
+    filetype: Optional[str]
+
+    mimetype: Optional[str]
+
+    url_private: Optional[str]
+
+    url_private_download: Optional[str]
 
 
 class EventCallbackEventAppMention(TypedDict, total=False):
@@ -41,6 +56,8 @@ class EventCallbackEventAppMention(TypedDict, total=False):
     client_msg_id: Optional[str]
 
     event_ts: Optional[str]
+
+    files: Optional[Iterable[EventCallbackEventAppMentionFile]]
 
     team: Optional[str]
 

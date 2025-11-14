@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
+from typing import Union, Iterable, Optional
 from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
 from .._types import SequenceNotStr
@@ -13,6 +13,7 @@ __all__ = [
     "Variant1",
     "Variant1Event",
     "Variant1EventAppMention",
+    "Variant1EventAppMentionFile",
     "Variant1EventMessage",
 ]
 
@@ -43,6 +44,20 @@ class Variant1(TypedDict, total=False):
     event_time: Optional[int]
 
 
+class Variant1EventAppMentionFile(TypedDict, total=False):
+    id: Required[str]
+
+    name: Required[str]
+
+    filetype: Optional[str]
+
+    mimetype: Optional[str]
+
+    url_private: Optional[str]
+
+    url_private_download: Optional[str]
+
+
 class Variant1EventAppMention(TypedDict, total=False):
     channel: Required[str]
 
@@ -59,6 +74,8 @@ class Variant1EventAppMention(TypedDict, total=False):
     client_msg_id: Optional[str]
 
     event_ts: Optional[str]
+
+    files: Optional[Iterable[Variant1EventAppMentionFile]]
 
     team: Optional[str]
 
