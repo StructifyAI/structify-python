@@ -12,8 +12,6 @@ __all__ = ["User"]
 class User(BaseModel):
     id: str
 
-    completed_onboarding: bool
-
     created_at: datetime
 
     email: str
@@ -62,8 +60,6 @@ class User(BaseModel):
     last_selected_team_id: Optional[str] = None
 
     linkedin_url: Optional[str] = None
-
-    onboarding_session_id: Optional[str] = None
 
     survey_completed_at: Optional[datetime] = None
 

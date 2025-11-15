@@ -21,8 +21,6 @@ class Updates(TypedDict, total=False):
 
     company_name: Optional[str]
 
-    completed_onboarding: Optional[bool]
-
     cufinder_data: object
 
     email: Optional[str]
@@ -56,10 +54,6 @@ class Updates(TypedDict, total=False):
 
     linkedin_url: Optional[str]
 
-    onboarding_session_id: Optional[str]
-
     permissions: Optional[List[Literal["labeler", "qa_labeler", "debug", "human_llm", "none"]]]
-
-    survey_response: object
 
     user_type: Optional[Literal["admin", "public", "end_user"]]

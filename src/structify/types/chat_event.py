@@ -336,8 +336,6 @@ class QuestionQuestion(BaseModel):
 
     content: str
 
-    options: List[str]
-
 
 class Question(BaseModel):
     question: QuestionQuestion = FieldInfo(alias="Question")
