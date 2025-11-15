@@ -29,14 +29,10 @@ class PhaseIDDiscoverColumns(BaseModel):
 
 
 class PhaseIDDiscoverAPIResources(BaseModel):
-    known_connector_type: str
-
     type: Literal["discover_api_resources"]
 
 
 class PhaseIDDiscoverAPIFields(BaseModel):
-    known_connector_type: str
-
     resource_name: str
 
     type: Literal["discover_api_fields"]

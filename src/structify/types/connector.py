@@ -24,6 +24,8 @@ class Connector(BaseModel):
 
     active_store_version_id: Optional[str] = None
 
+    datahub_urn: Optional[str] = None
+
     description: Optional[str] = None
 
     exploration_error: Optional[str] = None

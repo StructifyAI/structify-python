@@ -2,19 +2,12 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
+from typing import Union, Iterable, Optional
 from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
 from .._types import SequenceNotStr
 
-__all__ = [
-    "SlackEventsParams",
-    "Variant0",
-    "Variant1",
-    "Variant1Event",
-    "Variant1EventAppMention",
-    "Variant1EventMessage",
-]
+__all__ = ["SlackEventsParams", "Variant0", "Variant1", "Variant1Event", "Variant1EventFile"]
 
 
 class Variant0(TypedDict, total=False):
@@ -43,7 +36,21 @@ class Variant1(TypedDict, total=False):
     event_time: Optional[int]
 
 
-class Variant1EventAppMention(TypedDict, total=False):
+class Variant1EventFile(TypedDict, total=False):
+    id: Required[str]
+
+    name: Required[str]
+
+    filetype: Optional[str]
+
+    mimetype: Optional[str]
+
+    url_private: Optional[str]
+
+    url_private_download: Optional[str]
+
+
+class Variant1Event(TypedDict, total=False):
     channel: Required[str]
 
     text: Required[str]
@@ -60,35 +67,11 @@ class Variant1EventAppMention(TypedDict, total=False):
 
     event_ts: Optional[str]
 
+    files: Optional[Iterable[Variant1EventFile]]
+
     team: Optional[str]
 
     thread_ts: Optional[str]
 
-
-class Variant1EventMessage(TypedDict, total=False):
-    channel: Required[str]
-
-    ts: Required[str]
-
-    type: Required[Literal["message"]]
-
-    bot_id: Optional[str]
-
-    channel_type: Optional[str]
-
-    client_msg_id: Optional[str]
-
-    event_ts: Optional[str]
-
-    team: Optional[str]
-
-    text: Optional[str]
-
-    thread_ts: Optional[str]
-
-    user: Optional[str]
-
-
-Variant1Event: TypeAlias = Union[Variant1EventAppMention, Variant1EventMessage]
 
 SlackEventsParams: TypeAlias = Union[Variant0, Variant1]
