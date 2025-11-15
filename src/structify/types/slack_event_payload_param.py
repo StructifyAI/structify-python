@@ -7,15 +7,7 @@ from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
 from .._types import SequenceNotStr
 
-__all__ = [
-    "SlackEventPayloadParam",
-    "URLVerification",
-    "EventCallback",
-    "EventCallbackEvent",
-    "EventCallbackEventAppMention",
-    "EventCallbackEventAppMentionFile",
-    "EventCallbackEventMessage",
-]
+__all__ = ["SlackEventPayloadParam", "URLVerification", "EventCallback", "EventCallbackEvent", "EventCallbackEventFile"]
 
 
 class URLVerification(TypedDict, total=False):
@@ -26,7 +18,7 @@ class URLVerification(TypedDict, total=False):
     token: Optional[str]
 
 
-class EventCallbackEventAppMentionFile(TypedDict, total=False):
+class EventCallbackEventFile(TypedDict, total=False):
     id: Required[str]
 
     name: Required[str]
@@ -40,7 +32,7 @@ class EventCallbackEventAppMentionFile(TypedDict, total=False):
     url_private_download: Optional[str]
 
 
-class EventCallbackEventAppMention(TypedDict, total=False):
+class EventCallbackEvent(TypedDict, total=False):
     channel: Required[str]
 
     text: Required[str]
@@ -57,38 +49,11 @@ class EventCallbackEventAppMention(TypedDict, total=False):
 
     event_ts: Optional[str]
 
-    files: Optional[Iterable[EventCallbackEventAppMentionFile]]
+    files: Optional[Iterable[EventCallbackEventFile]]
 
     team: Optional[str]
 
     thread_ts: Optional[str]
-
-
-class EventCallbackEventMessage(TypedDict, total=False):
-    channel: Required[str]
-
-    ts: Required[str]
-
-    type: Required[Literal["message"]]
-
-    bot_id: Optional[str]
-
-    channel_type: Optional[str]
-
-    client_msg_id: Optional[str]
-
-    event_ts: Optional[str]
-
-    team: Optional[str]
-
-    text: Optional[str]
-
-    thread_ts: Optional[str]
-
-    user: Optional[str]
-
-
-EventCallbackEvent: TypeAlias = Union[EventCallbackEventAppMention, EventCallbackEventMessage]
 
 
 class EventCallback(TypedDict, total=False):
