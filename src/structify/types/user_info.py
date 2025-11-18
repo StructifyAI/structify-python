@@ -10,6 +10,8 @@ __all__ = ["UserInfo"]
 
 
 class UserInfo(BaseModel):
+    completed_onboarding: bool
+
     credits_remaining: int
 
     credits_used: int
@@ -42,5 +44,7 @@ class UserInfo(BaseModel):
     username: str
 
     last_selected_team_id: Optional[str] = None
+
+    onboarding_session_id: Optional[str] = None
 
     survey_completed_at: Optional[datetime] = None
