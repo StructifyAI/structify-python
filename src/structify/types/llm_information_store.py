@@ -1,53 +1,68 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Union, Optional
-from typing_extensions import Literal, Annotated, TypeAlias
+from typing import List, Optional
 
-from .._utils import PropertyInfo
 from .._models import BaseModel
-from .connector_column_descriptor import ConnectorColumnDescriptor
-from .connector_relational_database_descriptor import ConnectorRelationalDatabaseDescriptor
 
-__all__ = ["LlmInformationStore", "RelationalDatabase", "APITabular", "APITabularResource", "Other"]
+__all__ = ["LlmInformationStore", "Database", "DatabaseSchema", "DatabaseSchemaTable", "DatabaseSchemaTableColumn"]
 
 
-class RelationalDatabase(ConnectorRelationalDatabaseDescriptor):
-    type: Literal["relational_database"]
+class DatabaseSchemaTableColumn(BaseModel):
+    name: str
+    """Name of the column"""
+
+    type: str
+    """SQL type of the column (e.g., "VARCHAR(255)", "INTEGER") or API field type"""
+
+    notes: Optional[str] = None
+    """Additional notes about the column"""
 
 
-class APITabularResource(BaseModel):
-    columns: List[ConnectorColumnDescriptor]
-    """List of columns (properties/fields in the API resource)"""
-
-    endpoint: str
-    """
-    API endpoint for this resource (e.g., "/crm/v3/objects/contacts",
-    "/rest/api/3/issue")
-    """
+class DatabaseSchemaTable(BaseModel):
+    columns: List[DatabaseSchemaTableColumn]
+    """List of columns in this table/resource"""
 
     name: str
-    """API name of the resource (e.g., "contacts", "issues", "records")"""
+    """Name of the table or resource"""
 
     description: Optional[str] = None
     """Optional description"""
 
+    endpoint: Optional[str] = None
+    """API endpoint (None for relational DB tables, Some for API resources)"""
+
     notes: Optional[str] = None
-    """Optional notes (associations, usage patterns, etc.)"""
+    """Optional notes"""
 
 
-class APITabular(BaseModel):
-    resources: List[APITabularResource]
-    """List of resources (similar to tables/objects)"""
+class DatabaseSchema(BaseModel):
+    name: str
 
-    type: Literal["api_tabular"]
+    tables: List[DatabaseSchemaTable]
 
+    description: Optional[str] = None
 
-class Other(BaseModel):
-    data: str
-
-    type: Literal["other"]
+    notes: Optional[str] = None
 
 
-LlmInformationStore: TypeAlias = Annotated[
-    Union[RelationalDatabase, APITabular, Other], PropertyInfo(discriminator="type")
-]
+class Database(BaseModel):
+    name: str
+
+    schemas: List[DatabaseSchema]
+
+    description: Optional[str] = None
+
+    notes: Optional[str] = None
+
+
+class LlmInformationStore(BaseModel):
+    databases: List[Database]
+    """List of databases in this connector"""
+
+    uses_default_hierarchy: bool
+    """
+    Whether this store uses default auto-generated database/schema names (i.e.,
+    database and schema names match the connector name). When true, UIs should hide
+    the database/schema hierarchy. When false, UIs should show the full database →
+    schema → table hierarchy.
+    """

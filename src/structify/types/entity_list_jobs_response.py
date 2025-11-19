@@ -16,7 +16,7 @@ class EntityListJobsResponseItem(BaseModel):
 
     dataset_id: str
 
-    job_type: Literal["Web", "Pdf", "Derive", "Scrape", "Match"]
+    job_type: Literal["Web", "Pdf", "Derive", "Scrape", "Match", "ConnectorExplore"]
 
     max_steps_without_save: int
 

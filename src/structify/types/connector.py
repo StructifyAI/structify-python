@@ -4,6 +4,7 @@ from typing import Optional
 from datetime import datetime
 
 from .._models import BaseModel
+from .connector_category import ConnectorCategory
 from .exploration_status import ExplorationStatus
 
 __all__ = ["Connector"]
@@ -14,6 +15,8 @@ class Connector(BaseModel):
 
     created_at: datetime
 
+    exploration_status: ExplorationStatus
+
     known_connector_type: str
 
     name: str
@@ -22,7 +25,7 @@ class Connector(BaseModel):
 
     updated_at: datetime
 
-    active_store_version_id: Optional[str] = None
+    connector_category: Optional[ConnectorCategory] = None
 
     datahub_urn: Optional[str] = None
 
@@ -31,8 +34,6 @@ class Connector(BaseModel):
     exploration_error: Optional[str] = None
 
     exploration_started_at: Optional[datetime] = None
-
-    exploration_status: Optional[ExplorationStatus] = None
 
     pipedream_account_id: Optional[str] = None
 
