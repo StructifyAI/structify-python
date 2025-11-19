@@ -19,6 +19,8 @@ class Team(BaseModel):
 
     datahub_host: Optional[str] = None
 
+    datahub_token: Optional[str] = None
+
     description: Optional[str] = None
 
     pipedream_project_id: Optional[str] = None
