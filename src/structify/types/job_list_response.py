@@ -142,7 +142,7 @@ class JobListResponse(BaseModel):
 
     dataset_id: str
 
-    job_type: Literal["Web", "Pdf", "Derive", "Scrape", "Match", "ConnectorExplore"]
+    job_type: Literal["Web", "Pdf", "Derive", "Scrape", "Match", "ConnectorExplore", "DatahubIngestion"]
 
     status: Literal["Queued", "Running", "Completed", "Failed"]
 
