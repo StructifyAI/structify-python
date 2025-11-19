@@ -85,6 +85,7 @@ class TestTeams:
         team = client.teams.update(
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             datahub_host="datahub_host",
+            datahub_token="datahub_token",
             description="description",
             name="name",
         )
@@ -721,6 +722,7 @@ class TestAsyncTeams:
         team = await async_client.teams.update(
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             datahub_host="datahub_host",
+            datahub_token="datahub_token",
             description="description",
             name="name",
         )

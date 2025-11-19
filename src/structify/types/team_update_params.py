@@ -11,6 +11,8 @@ __all__ = ["TeamUpdateParams"]
 class TeamUpdateParams(TypedDict, total=False):
     datahub_host: Optional[str]
 
+    datahub_token: Optional[str]
+
     description: Optional[str]
 
     name: Optional[str]
