@@ -55,6 +55,7 @@ from .job_list_response import JobListResponse as JobListResponse
 from .job_status_params import JobStatusParams as JobStatusParams
 from .user_usage_params import UserUsageParams as UserUsageParams
 from .workflow_node_log import WorkflowNodeLog as WorkflowNodeLog
+from .connector_category import ConnectorCategory as ConnectorCategory
 from .dataset_descriptor import DatasetDescriptor as DatasetDescriptor
 from .dataset_get_params import DatasetGetParams as DatasetGetParams
 from .entity_view_params import EntityViewParams as EntityViewParams
@@ -71,7 +72,6 @@ from .source_list_params import SourceListParams as SourceListParams
 from .team_create_params import TeamCreateParams as TeamCreateParams
 from .team_update_params import TeamUpdateParams as TeamUpdateParams
 from .user_update_params import UserUpdateParams as UserUpdateParams
-from .active_version_data import ActiveVersionData as ActiveVersionData
 from .add_member_response import AddMemberResponse as AddMemberResponse
 from .dashboard_component import DashboardComponent as DashboardComponent
 from .entity_add_response import EntityAddResponse as EntityAddResponse
@@ -97,6 +97,7 @@ from .entity_derive_params import EntityDeriveParams as EntityDeriveParams
 from .entity_search_params import EntitySearchParams as EntitySearchParams
 from .entity_verify_params import EntityVerifyParams as EntityVerifyParams
 from .entity_view_response import EntityViewResponse as EntityViewResponse
+from .exploration_phase_id import ExplorationPhaseID as ExplorationPhaseID
 from .project_get_response import ProjectGetResponse as ProjectGetResponse
 from .report_step_response import ReportStepResponse as ReportStepResponse
 from .scrape_list_response import ScrapeListResponse as ScrapeListResponse
@@ -142,7 +143,6 @@ from .save_requirement_param import SaveRequirementParam as SaveRequirementParam
 from .scrape_scrape_response import ScrapeScrapeResponse as ScrapeScrapeResponse
 from .team_add_member_params import TeamAddMemberParams as TeamAddMemberParams
 from .workflow_schedule_info import WorkflowScheduleInfo as WorkflowScheduleInfo
-from .active_version_response import ActiveVersionResponse as ActiveVersionResponse
 from .connector_create_params import ConnectorCreateParams as ConnectorCreateParams
 from .connector_explorer_chat import ConnectorExplorerChat as ConnectorExplorerChat
 from .connector_update_params import ConnectorUpdateParams as ConnectorUpdateParams
@@ -156,12 +156,12 @@ from .report_missing_response import ReportMissingResponse as ReportMissingRespo
 from .slack_connection_status import SlackConnectionStatus as SlackConnectionStatus
 from .chat_delete_files_params import ChatDeleteFilesParams as ChatDeleteFilesParams
 from .chat_load_files_response import ChatLoadFilesResponse as ChatLoadFilesResponse
+from .connector_store_response import ConnectorStoreResponse as ConnectorStoreResponse
 from .dataset_descriptor_param import DatasetDescriptorParam as DatasetDescriptorParam
 from .document_download_params import DocumentDownloadParams as DocumentDownloadParams
 from .entity_derive_all_params import EntityDeriveAllParams as EntityDeriveAllParams
 from .entity_get_merges_params import EntityGetMergesParams as EntityGetMergesParams
 from .match_create_jobs_params import MatchCreateJobsParams as MatchCreateJobsParams
-from .pending_version_response import PendingVersionResponse as PendingVersionResponse
 from .session_kill_jobs_params import SessionKillJobsParams as SessionKillJobsParams
 from .team_subscription_status import TeamSubscriptionStatus as TeamSubscriptionStatus
 from .chat_list_sessions_params import ChatListSessionsParams as ChatListSessionsParams
@@ -188,7 +188,6 @@ from .chat_create_session_params import ChatCreateSessionParams as ChatCreateSes
 from .chat_delete_files_response import ChatDeleteFilesResponse as ChatDeleteFilesResponse
 from .chat_session_with_messages import ChatSessionWithMessages as ChatSessionWithMessages
 from .chat_update_session_params import ChatUpdateSessionParams as ChatUpdateSessionParams
-from .connector_table_descriptor import ConnectorTableDescriptor as ConnectorTableDescriptor
 from .create_match_jobs_response import CreateMatchJobsResponse as CreateMatchJobsResponse
 from .document_download_response import DocumentDownloadResponse as DocumentDownloadResponse
 from .entity_derive_all_response import EntityDeriveAllResponse as EntityDeriveAllResponse
@@ -204,7 +203,6 @@ from .team_create_project_params import TeamCreateProjectParams as TeamCreatePro
 from .update_visibility_response import UpdateVisibilityResponse as UpdateVisibilityResponse
 from .user_transactions_response import UserTransactionsResponse as UserTransactionsResponse
 from .admin_grant_access_response import AdminGrantAccessResponse as AdminGrantAccessResponse
-from .connector_column_descriptor import ConnectorColumnDescriptor as ConnectorColumnDescriptor
 from .dataset_add_property_params import DatasetAddPropertyParams as DatasetAddPropertyParams
 from .dataset_view_table_response import DatasetViewTableResponse as DatasetViewTableResponse
 from .document_structure_response import DocumentStructureResponse as DocumentStructureResponse
@@ -254,11 +252,11 @@ from .workflow_schedule_get_response import WorkflowScheduleGetResponse as Workf
 from .workflow_schedule_pause_params import WorkflowSchedulePauseParams as WorkflowSchedulePauseParams
 from .chat_get_partial_chats_response import ChatGetPartialChatsResponse as ChatGetPartialChatsResponse
 from .entity_update_property_response import EntityUpdatePropertyResponse as EntityUpdatePropertyResponse
+from .explore_datahub_tables_response import ExploreDatahubTablesResponse as ExploreDatahubTablesResponse
 from .workflow_schedule_create_params import WorkflowScheduleCreateParams as WorkflowScheduleCreateParams
 from .workflow_schedule_update_params import WorkflowScheduleUpdateParams as WorkflowScheduleUpdateParams
 from .chat_grant_admin_override_params import ChatGrantAdminOverrideParams as ChatGrantAdminOverrideParams
 from .code_interrupt_generation_params import CodeInterruptGenerationParams as CodeInterruptGenerationParams
-from .connector_approve_version_params import ConnectorApproveVersionParams as ConnectorApproveVersionParams
 from .entity_add_relationship_response import EntityAddRelationshipResponse as EntityAddRelationshipResponse
 from .entity_get_local_subgraph_params import EntityGetLocalSubgraphParams as EntityGetLocalSubgraphParams
 from .job_get_source_entities_response import JobGetSourceEntitiesResponse as JobGetSourceEntitiesResponse
@@ -286,6 +284,7 @@ from .entity_get_source_entities_response import EntityGetSourceEntitiesResponse
 from .session_update_node_progress_params import SessionUpdateNodeProgressParams as SessionUpdateNodeProgressParams
 from .structure_enhance_property_response import StructureEnhancePropertyResponse as StructureEnhancePropertyResponse
 from .dataset_enrichment_progress_response import DatasetEnrichmentProgressResponse as DatasetEnrichmentProgressResponse
+from .explore_datahub_tables_request_param import ExploreDatahubTablesRequestParam as ExploreDatahubTablesRequestParam
 from .structure_find_relationship_response import StructureFindRelationshipResponse as StructureFindRelationshipResponse
 from .structure_enhance_relationship_params import (
     StructureEnhanceRelationshipParams as StructureEnhanceRelationshipParams,
@@ -299,6 +298,9 @@ from .session_upload_dashboard_layout_params import (
 from .session_upload_node_output_data_params import (
     SessionUploadNodeOutputDataParams as SessionUploadNodeOutputDataParams,
 )
+from .connector_explore_datahub_tables_params import (
+    ConnectorExploreDatahubTablesParams as ConnectorExploreDatahubTablesParams,
+)
 from .dataset_count_missing_embeddings_params import (
     DatasetCountMissingEmbeddingsParams as DatasetCountMissingEmbeddingsParams,
 )
@@ -307,9 +309,6 @@ from .get_workflow_schedule_sessions_response import (
 )
 from .structure_enhance_relationship_response import (
     StructureEnhanceRelationshipResponse as StructureEnhanceRelationshipResponse,
-)
-from .connector_relational_database_descriptor import (
-    ConnectorRelationalDatabaseDescriptor as ConnectorRelationalDatabaseDescriptor,
 )
 from .chat_copy_node_output_by_code_hash_params import (
     ChatCopyNodeOutputByCodeHashParams as ChatCopyNodeOutputByCodeHashParams,

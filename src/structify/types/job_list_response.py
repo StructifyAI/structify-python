@@ -9,6 +9,7 @@ from pydantic import Field as FieldInfo
 from .._models import BaseModel
 from .knowledge_graph import KnowledgeGraph
 from .save_requirement import SaveRequirement
+from .exploration_phase_id import ExplorationPhaseID
 
 __all__ = [
     "JobListResponse",
@@ -25,6 +26,8 @@ __all__ = [
     "ParametersStructuringInputScrapeFromURLPropertyScrapeFromURLProperty",
     "ParametersStructuringInputScrapeURL",
     "ParametersStructuringInputScrapeURLScrapeURL",
+    "ParametersStructuringInputConnectorExploration",
+    "ParametersStructuringInputConnectorExplorationConnectorExploration",
 ]
 
 
@@ -89,11 +92,31 @@ class ParametersStructuringInputScrapeURL(BaseModel):
     scrape_url: ParametersStructuringInputScrapeURLScrapeURL = FieldInfo(alias="ScrapeUrl")
 
 
+class ParametersStructuringInputConnectorExplorationConnectorExploration(BaseModel):
+    connector_id: str
+
+    exploration_phase_id: ExplorationPhaseID
+    """Identifies the phase of connector exploration
+
+    This enum is used to track which phase of exploration a chat session belongs to.
+    It's stored as JSONB in the database to allow for flexible phase identification.
+    """
+
+    exploration_run_id: str
+
+
+class ParametersStructuringInputConnectorExploration(BaseModel):
+    connector_exploration: ParametersStructuringInputConnectorExplorationConnectorExploration = FieldInfo(
+        alias="ConnectorExploration"
+    )
+
+
 ParametersStructuringInput: TypeAlias = Union[
     ParametersStructuringInputAgent,
     ParametersStructuringInputTransformationPrompt,
     ParametersStructuringInputScrapeFromURLProperty,
     ParametersStructuringInputScrapeURL,
+    ParametersStructuringInputConnectorExploration,
 ]
 
 
@@ -119,7 +142,7 @@ class JobListResponse(BaseModel):
 
     dataset_id: str
 
-    job_type: Literal["Web", "Pdf", "Derive", "Scrape", "Match"]
+    job_type: Literal["Web", "Pdf", "Derive", "Scrape", "Match", "ConnectorExplore"]
 
     status: Literal["Queued", "Running", "Completed", "Failed"]
 

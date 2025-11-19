@@ -84,6 +84,7 @@ class TestTeams:
     def test_method_update_with_all_params(self, client: Structify) -> None:
         team = client.teams.update(
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            datahub_host="datahub_host",
             description="description",
             name="name",
         )
@@ -719,6 +720,7 @@ class TestAsyncTeams:
     async def test_method_update_with_all_params(self, async_client: AsyncStructify) -> None:
         team = await async_client.teams.update(
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            datahub_host="datahub_host",
             description="description",
             name="name",
         )
