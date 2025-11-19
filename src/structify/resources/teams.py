@@ -111,6 +111,7 @@ class TeamsResource(SyncAPIResource):
         self,
         team_id: str,
         *,
+        datahub_host: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
         name: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -136,6 +137,7 @@ class TeamsResource(SyncAPIResource):
             f"/team/{team_id}",
             body=maybe_transform(
                 {
+                    "datahub_host": datahub_host,
                     "description": description,
                     "name": name,
                 },
@@ -648,6 +650,7 @@ class AsyncTeamsResource(AsyncAPIResource):
         self,
         team_id: str,
         *,
+        datahub_host: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
         name: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -673,6 +676,7 @@ class AsyncTeamsResource(AsyncAPIResource):
             f"/team/{team_id}",
             body=await async_maybe_transform(
                 {
+                    "datahub_host": datahub_host,
                     "description": description,
                     "name": name,
                 },
