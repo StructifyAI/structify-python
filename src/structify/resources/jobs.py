@@ -58,7 +58,8 @@ class JobsResource(SyncAPIResource):
         self,
         *,
         dataset: Optional[str] | Omit = omit,
-        job_type: Optional[Literal["Web", "Pdf", "Derive", "Scrape", "Match", "ConnectorExplore"]] | Omit = omit,
+        job_type: Optional[Literal["Web", "Pdf", "Derive", "Scrape", "Match", "ConnectorExplore", "DatahubIngestion"]]
+        | Omit = omit,
         limit: int | Omit = omit,
         node_id: Optional[str] | Omit = omit,
         offset: int | Omit = omit,
@@ -477,7 +478,8 @@ class AsyncJobsResource(AsyncAPIResource):
         self,
         *,
         dataset: Optional[str] | Omit = omit,
-        job_type: Optional[Literal["Web", "Pdf", "Derive", "Scrape", "Match", "ConnectorExplore"]] | Omit = omit,
+        job_type: Optional[Literal["Web", "Pdf", "Derive", "Scrape", "Match", "ConnectorExplore", "DatahubIngestion"]]
+        | Omit = omit,
         limit: int | Omit = omit,
         node_id: Optional[str] | Omit = omit,
         offset: int | Omit = omit,

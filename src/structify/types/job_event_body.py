@@ -17,6 +17,11 @@ __all__ = [
     "Failed",
     "Completed",
     "AttemptedMatch",
+    "DatahubPageFetched",
+    "DatahubDatabasesCreated",
+    "DatahubSchemasCreated",
+    "DatahubTablesProcessed",
+    "DatahubEmbeddingBatch",
 ]
 
 
@@ -93,7 +98,63 @@ class AttemptedMatch(BaseModel):
     match_idx: Optional[int] = None
 
 
+class DatahubPageFetched(BaseModel):
+    datasets_in_page: int
+
+    event_type: Literal["datahub_page_fetched"]
+
+    page_num: int
+
+    total_datasets: int
+
+
+class DatahubDatabasesCreated(BaseModel):
+    count: int
+
+    event_type: Literal["datahub_databases_created"]
+
+
+class DatahubSchemasCreated(BaseModel):
+    count: int
+
+    event_type: Literal["datahub_schemas_created"]
+
+
+class DatahubTablesProcessed(BaseModel):
+    event_type: Literal["datahub_tables_processed"]
+
+    tables_created: int
+
+    tables_failed: int
+
+    tables_updated: int
+
+
+class DatahubEmbeddingBatch(BaseModel):
+    batch_num: int
+
+    event_type: Literal["datahub_embedding_batch"]
+
+    tables_in_batch: int
+
+    total_batches: int
+
+
 JobEventBody: TypeAlias = Annotated[
-    Union[AgentNavigated, AgentSearched, AgentSaved, AgentExited, DerivedProperty, Failed, Completed, AttemptedMatch],
+    Union[
+        AgentNavigated,
+        AgentSearched,
+        AgentSaved,
+        AgentExited,
+        DerivedProperty,
+        Failed,
+        Completed,
+        AttemptedMatch,
+        DatahubPageFetched,
+        DatahubDatabasesCreated,
+        DatahubSchemasCreated,
+        DatahubTablesProcessed,
+        DatahubEmbeddingBatch,
+    ],
     PropertyInfo(discriminator="event_type"),
 ]
