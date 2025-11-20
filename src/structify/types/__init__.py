@@ -319,6 +319,9 @@ from .dataset_count_missing_embeddings_response import (
 from .chat_copy_node_output_by_code_hash_response import (
     ChatCopyNodeOutputByCodeHashResponse as ChatCopyNodeOutputByCodeHashResponse,
 )
+from .connector_get_clarification_requests_response import (
+    ConnectorGetClarificationRequestsResponse as ConnectorGetClarificationRequestsResponse,
+)
 from .dataset_view_tables_with_relationships_params import (
     DatasetViewTablesWithRelationshipsParams as DatasetViewTablesWithRelationshipsParams,
 )

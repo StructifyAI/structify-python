@@ -628,6 +628,7 @@ from structify.types import (
     LlmInformationStore,
     UpdateConnectorRequest,
     ConnectorGetResponse,
+    ConnectorGetClarificationRequestsResponse,
 )
 ```
 
@@ -642,6 +643,7 @@ Methods:
 - <code title="post /connectors/{connector_id}/explore">client.connectors.<a href="./src/structify/resources/connectors.py">explore</a>(connector_id) -> None</code>
 - <code title="post /{connector_id}/explore_datahub_tables">client.connectors.<a href="./src/structify/resources/connectors.py">explore_datahub_tables</a>(connector_id, \*\*<a href="src/structify/types/connector_explore_datahub_tables_params.py">params</a>) -> <a href="./src/structify/types/explore_datahub_tables_response.py">ExploreDatahubTablesResponse</a></code>
 - <code title="get /connectors/{connector_id}">client.connectors.<a href="./src/structify/resources/connectors.py">get</a>(connector_id) -> <a href="./src/structify/types/connector_get_response.py">ConnectorGetResponse</a></code>
+- <code title="get /connectors/{connector_id}/clarification-requests">client.connectors.<a href="./src/structify/resources/connectors.py">get_clarification_requests</a>(connector_id) -> <a href="./src/structify/types/connector_get_clarification_requests_response.py">ConnectorGetClarificationRequestsResponse</a></code>
 - <code title="get /connectors/{connector_id}/explore/runs">client.connectors.<a href="./src/structify/resources/connectors.py">get_exploration_runs</a>(connector_id) -> <a href="./src/structify/types/exploration_runs_response.py">ExplorationRunsResponse</a></code>
 - <code title="get /connectors/{connector_id}/explore/status">client.connectors.<a href="./src/structify/resources/connectors.py">get_exploration_status</a>(connector_id) -> <a href="./src/structify/types/explore_status_response.py">ExploreStatusResponse</a></code>
 - <code title="get /connectors/{connector_id}/explore/chat">client.connectors.<a href="./src/structify/resources/connectors.py">get_explorer_chat</a>(connector_id, \*\*<a href="src/structify/types/connector_get_explorer_chat_params.py">params</a>) -> <a href="./src/structify/types/explorer_chat_response.py">ExplorerChatResponse</a></code>
