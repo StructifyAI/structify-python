@@ -52,6 +52,8 @@ __all__ = [
     "ToolCallToolCallUnionMember13Input",
     "ToolCallToolCallUnionMember14",
     "ToolCallToolCallUnionMember14Input",
+    "ToolCallToolCallUnionMember15",
+    "ToolCallToolCallUnionMember15Input",
     "Question",
     "QuestionQuestion",
     "InternalError",
@@ -365,6 +367,24 @@ class ToolCallToolCallUnionMember14(BaseModel):
     result_text: Optional[str] = None
 
 
+class ToolCallToolCallUnionMember15Input(BaseModel):
+    question: str
+
+    table_name: str
+
+    column_name: Optional[str] = None
+
+
+class ToolCallToolCallUnionMember15(BaseModel):
+    input: ToolCallToolCallUnionMember15Input
+
+    name: Literal["RequestClarification"]
+
+    result_id: Optional[str] = None
+
+    result_text: Optional[str] = None
+
+
 ToolCallToolCall: TypeAlias = Union[
     ToolCallToolCallUnionMember0,
     ToolCallToolCallUnionMember1,
@@ -381,6 +401,7 @@ ToolCallToolCall: TypeAlias = Union[
     ToolCallToolCallUnionMember12,
     ToolCallToolCallUnionMember13,
     ToolCallToolCallUnionMember14,
+    ToolCallToolCallUnionMember15,
 ]
 
 
