@@ -35,6 +35,7 @@ from ..types.connector_store_response import ConnectorStoreResponse
 from ..types.exploration_runs_response import ExplorationRunsResponse
 from ..types.explore_datahub_tables_response import ExploreDatahubTablesResponse
 from ..types.explore_datahub_tables_request_param import ExploreDatahubTablesRequestParam
+from ..types.connector_get_clarification_requests_response import ConnectorGetClarificationRequestsResponse
 
 __all__ = ["ConnectorsResource", "AsyncConnectorsResource"]
 
@@ -409,6 +410,39 @@ class ConnectorsResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=ConnectorGetResponse,
+        )
+
+    def get_clarification_requests(
+        self,
+        connector_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ConnectorGetClarificationRequestsResponse:
+        """
+        Get all clarification requests for a connector
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not connector_id:
+            raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
+        return self._get(
+            f"/connectors/{connector_id}/clarification-requests",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ConnectorGetClarificationRequestsResponse,
         )
 
     def get_exploration_runs(
@@ -922,6 +956,39 @@ class AsyncConnectorsResource(AsyncAPIResource):
             cast_to=ConnectorGetResponse,
         )
 
+    async def get_clarification_requests(
+        self,
+        connector_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ConnectorGetClarificationRequestsResponse:
+        """
+        Get all clarification requests for a connector
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not connector_id:
+            raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
+        return await self._get(
+            f"/connectors/{connector_id}/clarification-requests",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ConnectorGetClarificationRequestsResponse,
+        )
+
     async def get_exploration_runs(
         self,
         connector_id: str,
@@ -1092,6 +1159,9 @@ class ConnectorsResourceWithRawResponse:
         self.get = to_raw_response_wrapper(
             connectors.get,
         )
+        self.get_clarification_requests = to_raw_response_wrapper(
+            connectors.get_clarification_requests,
+        )
         self.get_exploration_runs = to_raw_response_wrapper(
             connectors.get_exploration_runs,
         )
@@ -1136,6 +1206,9 @@ class AsyncConnectorsResourceWithRawResponse:
         )
         self.get = async_to_raw_response_wrapper(
             connectors.get,
+        )
+        self.get_clarification_requests = async_to_raw_response_wrapper(
+            connectors.get_clarification_requests,
         )
         self.get_exploration_runs = async_to_raw_response_wrapper(
             connectors.get_exploration_runs,
@@ -1182,6 +1255,9 @@ class ConnectorsResourceWithStreamingResponse:
         self.get = to_streamed_response_wrapper(
             connectors.get,
         )
+        self.get_clarification_requests = to_streamed_response_wrapper(
+            connectors.get_clarification_requests,
+        )
         self.get_exploration_runs = to_streamed_response_wrapper(
             connectors.get_exploration_runs,
         )
@@ -1226,6 +1302,9 @@ class AsyncConnectorsResourceWithStreamingResponse:
         )
         self.get = async_to_streamed_response_wrapper(
             connectors.get,
+        )
+        self.get_clarification_requests = async_to_streamed_response_wrapper(
+            connectors.get_clarification_requests,
         )
         self.get_exploration_runs = async_to_streamed_response_wrapper(
             connectors.get_exploration_runs,
