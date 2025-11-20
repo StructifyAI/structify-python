@@ -152,6 +152,7 @@ from .entity_add_batch_params import EntityAddBatchParams as EntityAddBatchParam
 from .entity_list_jobs_params import EntityListJobsParams as EntityListJobsParams
 from .entity_summarize_params import EntitySummarizeParams as EntitySummarizeParams
 from .explore_status_response import ExploreStatusResponse as ExploreStatusResponse
+from .get_job_events_response import GetJobEventsResponse as GetJobEventsResponse
 from .ingest_datahub_response import IngestDatahubResponse as IngestDatahubResponse
 from .report_missing_response import ReportMissingResponse as ReportMissingResponse
 from .slack_connection_status import SlackConnectionStatus as SlackConnectionStatus

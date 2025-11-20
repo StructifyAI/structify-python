@@ -469,6 +469,7 @@ Types:
 
 ```python
 from structify.types import (
+    GetJobEventsResponse,
     JobListResponse,
     JobDeleteResponse,
     JobCancelResponse,
@@ -488,6 +489,7 @@ Methods:
 - <code title="post /jobs/delete/{job_id}">client.jobs.<a href="./src/structify/resources/jobs.py">delete</a>(job_id) -> str</code>
 - <code title="post /jobs/cancel/{uuid}">client.jobs.<a href="./src/structify/resources/jobs.py">cancel</a>(uuid) -> <a href="./src/structify/types/job_cancel_response.py">JobCancelResponse</a></code>
 - <code title="get /jobs/get/{job_id}">client.jobs.<a href="./src/structify/resources/jobs.py">get</a>(job_id) -> <a href="./src/structify/types/job_get_response.py">JobGetResponse</a></code>
+- <code title="get /jobs/{job_id}/events">client.jobs.<a href="./src/structify/resources/jobs.py">get_events</a>(job_id) -> <a href="./src/structify/types/get_job_events_response.py">GetJobEventsResponse</a></code>
 - <code title="get /jobs/get_scrapers/{job_id}">client.jobs.<a href="./src/structify/resources/jobs.py">get_scrapers</a>(job_id) -> <a href="./src/structify/types/job_get_scrapers_response.py">JobGetScrapersResponse</a></code>
 - <code title="get /jobs/get_source_entities/{job_id}">client.jobs.<a href="./src/structify/resources/jobs.py">get_source_entities</a>(job_id) -> <a href="./src/structify/types/job_get_source_entities_response.py">JobGetSourceEntitiesResponse</a></code>
 - <code title="get /jobs/get_step/{step_id}">client.jobs.<a href="./src/structify/resources/jobs.py">get_step</a>(step_id) -> <a href="./src/structify/types/job_get_step_response.py">JobGetStepResponse</a></code>
