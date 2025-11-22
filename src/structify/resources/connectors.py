@@ -11,8 +11,9 @@ from ..types import (
     connector_create_params,
     connector_update_params,
     connector_create_secret_params,
-    connector_approve_version_params,
+    connector_ingest_datahub_params,
     connector_get_explorer_chat_params,
+    connector_explore_datahub_tables_params,
 )
 from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
@@ -30,10 +31,13 @@ from ..types.connector import Connector
 from ..types.connector_get_response import ConnectorGetResponse
 from ..types.connector_with_secrets import ConnectorWithSecrets
 from ..types.explorer_chat_response import ExplorerChatResponse
-from ..types.active_version_response import ActiveVersionResponse
 from ..types.explore_status_response import ExploreStatusResponse
-from ..types.pending_version_response import PendingVersionResponse
+from ..types.ingest_datahub_response import IngestDatahubResponse
+from ..types.connector_store_response import ConnectorStoreResponse
 from ..types.exploration_runs_response import ExplorationRunsResponse
+from ..types.explore_datahub_tables_response import ExploreDatahubTablesResponse
+from ..types.explore_datahub_tables_request_param import ExploreDatahubTablesRequestParam
+from ..types.connector_get_clarification_requests_response import ConnectorGetClarificationRequestsResponse
 
 __all__ = ["ConnectorsResource", "AsyncConnectorsResource"]
 
@@ -231,42 +235,6 @@ class ConnectorsResource(SyncAPIResource):
             cast_to=NoneType,
         )
 
-    def approve_version(
-        self,
-        connector_id: str,
-        *,
-        version_id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> None:
-        """
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not connector_id:
-            raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
-        return self._post(
-            f"/connectors/{connector_id}/approve-version",
-            body=maybe_transform(
-                {"version_id": version_id}, connector_approve_version_params.ConnectorApproveVersionParams
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=NoneType,
-        )
-
     def create_secret(
         self,
         connector_id: str,
@@ -375,6 +343,46 @@ class ConnectorsResource(SyncAPIResource):
             cast_to=NoneType,
         )
 
+    def explore_datahub_tables(
+        self,
+        connector_id: str,
+        *,
+        explore_datahub_tables_request: ExploreDatahubTablesRequestParam,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ExploreDatahubTablesResponse:
+        """
+        This endpoint queues DiscoverColumns jobs for all tables in a DataHub connector.
+        It's designed for DataHub connectors where tables are pre-populated from DataHub
+        metadata.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not connector_id:
+            raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
+        return self._post(
+            f"/{connector_id}/explore_datahub_tables",
+            body=maybe_transform(
+                explore_datahub_tables_request,
+                connector_explore_datahub_tables_params.ConnectorExploreDatahubTablesParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ExploreDatahubTablesResponse,
+        )
+
     def get(
         self,
         connector_id: str,
@@ -406,7 +414,7 @@ class ConnectorsResource(SyncAPIResource):
             cast_to=ConnectorGetResponse,
         )
 
-    def get_active_version(
+    def get_clarification_requests(
         self,
         connector_id: str,
         *,
@@ -416,8 +424,10 @@ class ConnectorsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ActiveVersionResponse:
+    ) -> ConnectorGetClarificationRequestsResponse:
         """
+        Get all clarification requests for a connector
+
         Args:
           extra_headers: Send extra headers
 
@@ -430,11 +440,11 @@ class ConnectorsResource(SyncAPIResource):
         if not connector_id:
             raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
         return self._get(
-            f"/connectors/{connector_id}/active-version",
+            f"/connectors/{connector_id}/clarification-requests",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ActiveVersionResponse,
+            cast_to=ConnectorGetClarificationRequestsResponse,
         )
 
     def get_exploration_runs(
@@ -449,7 +459,7 @@ class ConnectorsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ExplorationRunsResponse:
         """
-        Get all exploration runs for a connector (admin only)
+        Get all exploration runs for a connector (requires debug permission)
 
         Args:
           extra_headers: Send extra headers
@@ -544,7 +554,7 @@ class ConnectorsResource(SyncAPIResource):
             cast_to=ExplorerChatResponse,
         )
 
-    def get_pending_version(
+    def get_store(
         self,
         connector_id: str,
         *,
@@ -554,7 +564,7 @@ class ConnectorsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> PendingVersionResponse:
+    ) -> ConnectorStoreResponse:
         """
         Args:
           extra_headers: Send extra headers
@@ -568,11 +578,43 @@ class ConnectorsResource(SyncAPIResource):
         if not connector_id:
             raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
         return self._get(
-            f"/connectors/{connector_id}/pending-version",
+            f"/connectors/{connector_id}/store",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=PendingVersionResponse,
+            cast_to=ConnectorStoreResponse,
+        )
+
+    def ingest_datahub(
+        self,
+        *,
+        connector_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> IngestDatahubResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/connectors/ingest-datahub",
+            body=maybe_transform(
+                {"connector_id": connector_id}, connector_ingest_datahub_params.ConnectorIngestDatahubParams
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=IngestDatahubResponse,
         )
 
 
@@ -769,42 +811,6 @@ class AsyncConnectorsResource(AsyncAPIResource):
             cast_to=NoneType,
         )
 
-    async def approve_version(
-        self,
-        connector_id: str,
-        *,
-        version_id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> None:
-        """
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not connector_id:
-            raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
-        return await self._post(
-            f"/connectors/{connector_id}/approve-version",
-            body=await async_maybe_transform(
-                {"version_id": version_id}, connector_approve_version_params.ConnectorApproveVersionParams
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=NoneType,
-        )
-
     async def create_secret(
         self,
         connector_id: str,
@@ -913,6 +919,46 @@ class AsyncConnectorsResource(AsyncAPIResource):
             cast_to=NoneType,
         )
 
+    async def explore_datahub_tables(
+        self,
+        connector_id: str,
+        *,
+        explore_datahub_tables_request: ExploreDatahubTablesRequestParam,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ExploreDatahubTablesResponse:
+        """
+        This endpoint queues DiscoverColumns jobs for all tables in a DataHub connector.
+        It's designed for DataHub connectors where tables are pre-populated from DataHub
+        metadata.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not connector_id:
+            raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
+        return await self._post(
+            f"/{connector_id}/explore_datahub_tables",
+            body=await async_maybe_transform(
+                explore_datahub_tables_request,
+                connector_explore_datahub_tables_params.ConnectorExploreDatahubTablesParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ExploreDatahubTablesResponse,
+        )
+
     async def get(
         self,
         connector_id: str,
@@ -944,7 +990,7 @@ class AsyncConnectorsResource(AsyncAPIResource):
             cast_to=ConnectorGetResponse,
         )
 
-    async def get_active_version(
+    async def get_clarification_requests(
         self,
         connector_id: str,
         *,
@@ -954,8 +1000,10 @@ class AsyncConnectorsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ActiveVersionResponse:
+    ) -> ConnectorGetClarificationRequestsResponse:
         """
+        Get all clarification requests for a connector
+
         Args:
           extra_headers: Send extra headers
 
@@ -968,11 +1016,11 @@ class AsyncConnectorsResource(AsyncAPIResource):
         if not connector_id:
             raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
         return await self._get(
-            f"/connectors/{connector_id}/active-version",
+            f"/connectors/{connector_id}/clarification-requests",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ActiveVersionResponse,
+            cast_to=ConnectorGetClarificationRequestsResponse,
         )
 
     async def get_exploration_runs(
@@ -987,7 +1035,7 @@ class AsyncConnectorsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ExplorationRunsResponse:
         """
-        Get all exploration runs for a connector (admin only)
+        Get all exploration runs for a connector (requires debug permission)
 
         Args:
           extra_headers: Send extra headers
@@ -1082,7 +1130,7 @@ class AsyncConnectorsResource(AsyncAPIResource):
             cast_to=ExplorerChatResponse,
         )
 
-    async def get_pending_version(
+    async def get_store(
         self,
         connector_id: str,
         *,
@@ -1092,7 +1140,7 @@ class AsyncConnectorsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> PendingVersionResponse:
+    ) -> ConnectorStoreResponse:
         """
         Args:
           extra_headers: Send extra headers
@@ -1106,11 +1154,43 @@ class AsyncConnectorsResource(AsyncAPIResource):
         if not connector_id:
             raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
         return await self._get(
-            f"/connectors/{connector_id}/pending-version",
+            f"/connectors/{connector_id}/store",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=PendingVersionResponse,
+            cast_to=ConnectorStoreResponse,
+        )
+
+    async def ingest_datahub(
+        self,
+        *,
+        connector_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> IngestDatahubResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/connectors/ingest-datahub",
+            body=await async_maybe_transform(
+                {"connector_id": connector_id}, connector_ingest_datahub_params.ConnectorIngestDatahubParams
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=IngestDatahubResponse,
         )
 
 
@@ -1130,9 +1210,6 @@ class ConnectorsResourceWithRawResponse:
         self.delete = to_raw_response_wrapper(
             connectors.delete,
         )
-        self.approve_version = to_raw_response_wrapper(
-            connectors.approve_version,
-        )
         self.create_secret = to_raw_response_wrapper(
             connectors.create_secret,
         )
@@ -1142,11 +1219,14 @@ class ConnectorsResourceWithRawResponse:
         self.explore = to_raw_response_wrapper(
             connectors.explore,
         )
+        self.explore_datahub_tables = to_raw_response_wrapper(
+            connectors.explore_datahub_tables,
+        )
         self.get = to_raw_response_wrapper(
             connectors.get,
         )
-        self.get_active_version = to_raw_response_wrapper(
-            connectors.get_active_version,
+        self.get_clarification_requests = to_raw_response_wrapper(
+            connectors.get_clarification_requests,
         )
         self.get_exploration_runs = to_raw_response_wrapper(
             connectors.get_exploration_runs,
@@ -1157,8 +1237,11 @@ class ConnectorsResourceWithRawResponse:
         self.get_explorer_chat = to_raw_response_wrapper(
             connectors.get_explorer_chat,
         )
-        self.get_pending_version = to_raw_response_wrapper(
-            connectors.get_pending_version,
+        self.get_store = to_raw_response_wrapper(
+            connectors.get_store,
+        )
+        self.ingest_datahub = to_raw_response_wrapper(
+            connectors.ingest_datahub,
         )
 
 
@@ -1178,9 +1261,6 @@ class AsyncConnectorsResourceWithRawResponse:
         self.delete = async_to_raw_response_wrapper(
             connectors.delete,
         )
-        self.approve_version = async_to_raw_response_wrapper(
-            connectors.approve_version,
-        )
         self.create_secret = async_to_raw_response_wrapper(
             connectors.create_secret,
         )
@@ -1190,11 +1270,14 @@ class AsyncConnectorsResourceWithRawResponse:
         self.explore = async_to_raw_response_wrapper(
             connectors.explore,
         )
+        self.explore_datahub_tables = async_to_raw_response_wrapper(
+            connectors.explore_datahub_tables,
+        )
         self.get = async_to_raw_response_wrapper(
             connectors.get,
         )
-        self.get_active_version = async_to_raw_response_wrapper(
-            connectors.get_active_version,
+        self.get_clarification_requests = async_to_raw_response_wrapper(
+            connectors.get_clarification_requests,
         )
         self.get_exploration_runs = async_to_raw_response_wrapper(
             connectors.get_exploration_runs,
@@ -1205,8 +1288,11 @@ class AsyncConnectorsResourceWithRawResponse:
         self.get_explorer_chat = async_to_raw_response_wrapper(
             connectors.get_explorer_chat,
         )
-        self.get_pending_version = async_to_raw_response_wrapper(
-            connectors.get_pending_version,
+        self.get_store = async_to_raw_response_wrapper(
+            connectors.get_store,
+        )
+        self.ingest_datahub = async_to_raw_response_wrapper(
+            connectors.ingest_datahub,
         )
 
 
@@ -1226,9 +1312,6 @@ class ConnectorsResourceWithStreamingResponse:
         self.delete = to_streamed_response_wrapper(
             connectors.delete,
         )
-        self.approve_version = to_streamed_response_wrapper(
-            connectors.approve_version,
-        )
         self.create_secret = to_streamed_response_wrapper(
             connectors.create_secret,
         )
@@ -1238,11 +1321,14 @@ class ConnectorsResourceWithStreamingResponse:
         self.explore = to_streamed_response_wrapper(
             connectors.explore,
         )
+        self.explore_datahub_tables = to_streamed_response_wrapper(
+            connectors.explore_datahub_tables,
+        )
         self.get = to_streamed_response_wrapper(
             connectors.get,
         )
-        self.get_active_version = to_streamed_response_wrapper(
-            connectors.get_active_version,
+        self.get_clarification_requests = to_streamed_response_wrapper(
+            connectors.get_clarification_requests,
         )
         self.get_exploration_runs = to_streamed_response_wrapper(
             connectors.get_exploration_runs,
@@ -1253,8 +1339,11 @@ class ConnectorsResourceWithStreamingResponse:
         self.get_explorer_chat = to_streamed_response_wrapper(
             connectors.get_explorer_chat,
         )
-        self.get_pending_version = to_streamed_response_wrapper(
-            connectors.get_pending_version,
+        self.get_store = to_streamed_response_wrapper(
+            connectors.get_store,
+        )
+        self.ingest_datahub = to_streamed_response_wrapper(
+            connectors.ingest_datahub,
         )
 
 
@@ -1274,9 +1363,6 @@ class AsyncConnectorsResourceWithStreamingResponse:
         self.delete = async_to_streamed_response_wrapper(
             connectors.delete,
         )
-        self.approve_version = async_to_streamed_response_wrapper(
-            connectors.approve_version,
-        )
         self.create_secret = async_to_streamed_response_wrapper(
             connectors.create_secret,
         )
@@ -1286,11 +1372,14 @@ class AsyncConnectorsResourceWithStreamingResponse:
         self.explore = async_to_streamed_response_wrapper(
             connectors.explore,
         )
+        self.explore_datahub_tables = async_to_streamed_response_wrapper(
+            connectors.explore_datahub_tables,
+        )
         self.get = async_to_streamed_response_wrapper(
             connectors.get,
         )
-        self.get_active_version = async_to_streamed_response_wrapper(
-            connectors.get_active_version,
+        self.get_clarification_requests = async_to_streamed_response_wrapper(
+            connectors.get_clarification_requests,
         )
         self.get_exploration_runs = async_to_streamed_response_wrapper(
             connectors.get_exploration_runs,
@@ -1301,6 +1390,9 @@ class AsyncConnectorsResourceWithStreamingResponse:
         self.get_explorer_chat = async_to_streamed_response_wrapper(
             connectors.get_explorer_chat,
         )
-        self.get_pending_version = async_to_streamed_response_wrapper(
-            connectors.get_pending_version,
+        self.get_store = async_to_streamed_response_wrapper(
+            connectors.get_store,
+        )
+        self.ingest_datahub = async_to_streamed_response_wrapper(
+            connectors.ingest_datahub,
         )

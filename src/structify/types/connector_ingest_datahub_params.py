@@ -4,8 +4,8 @@ from __future__ import annotations
 
 from typing_extensions import Required, TypedDict
 
-__all__ = ["ConnectorApproveVersionParams"]
+__all__ = ["ConnectorIngestDatahubParams"]
 
 
-class ConnectorApproveVersionParams(TypedDict, total=False):
-    version_id: Required[str]
+class ConnectorIngestDatahubParams(TypedDict, total=False):
+    connector_id: Required[str]

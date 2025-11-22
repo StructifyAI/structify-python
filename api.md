@@ -4,6 +4,7 @@ Types:
 
 ```python
 from structify.types import (
+    JwtToAPITokenRequest,
     SurveySubmissionRequest,
     SurveySubmissionResponse,
     TokenResponse,
@@ -468,6 +469,7 @@ Types:
 
 ```python
 from structify.types import (
+    GetJobEventsResponse,
     JobListResponse,
     JobDeleteResponse,
     JobCancelResponse,
@@ -487,6 +489,7 @@ Methods:
 - <code title="post /jobs/delete/{job_id}">client.jobs.<a href="./src/structify/resources/jobs.py">delete</a>(job_id) -> str</code>
 - <code title="post /jobs/cancel/{uuid}">client.jobs.<a href="./src/structify/resources/jobs.py">cancel</a>(uuid) -> <a href="./src/structify/types/job_cancel_response.py">JobCancelResponse</a></code>
 - <code title="get /jobs/get/{job_id}">client.jobs.<a href="./src/structify/resources/jobs.py">get</a>(job_id) -> <a href="./src/structify/types/job_get_response.py">JobGetResponse</a></code>
+- <code title="get /jobs/{job_id}/events">client.jobs.<a href="./src/structify/resources/jobs.py">get_events</a>(job_id) -> <a href="./src/structify/types/get_job_events_response.py">GetJobEventsResponse</a></code>
 - <code title="get /jobs/get_scrapers/{job_id}">client.jobs.<a href="./src/structify/resources/jobs.py">get_scrapers</a>(job_id) -> <a href="./src/structify/types/job_get_scrapers_response.py">JobGetScrapersResponse</a></code>
 - <code title="get /jobs/get_source_entities/{job_id}">client.jobs.<a href="./src/structify/resources/jobs.py">get_source_entities</a>(job_id) -> <a href="./src/structify/types/job_get_source_entities_response.py">JobGetSourceEntitiesResponse</a></code>
 - <code title="get /jobs/get_step/{step_id}">client.jobs.<a href="./src/structify/resources/jobs.py">get_step</a>(step_id) -> <a href="./src/structify/types/job_get_step_response.py">JobGetStepResponse</a></code>
@@ -609,26 +612,27 @@ Types:
 
 ```python
 from structify.types import (
-    ActiveVersionData,
-    ActiveVersionResponse,
-    ApproveVersionRequest,
     Connector,
-    ConnectorColumnDescriptor,
+    ConnectorCategory,
     ConnectorExplorerChat,
-    ConnectorRelationalDatabaseDescriptor,
-    ConnectorTableDescriptor,
+    ConnectorStoreResponse,
     ConnectorWithSecrets,
     CreateConnectorRequest,
     CreateSecretRequest,
+    ExplorationPhaseID,
     ExplorationRun,
     ExplorationRunsResponse,
     ExplorationStatus,
+    ExploreDatahubTablesRequest,
+    ExploreDatahubTablesResponse,
     ExploreStatusResponse,
     ExplorerChatResponse,
+    IngestDatahubRequest,
+    IngestDatahubResponse,
     LlmInformationStore,
-    PendingVersionResponse,
     UpdateConnectorRequest,
     ConnectorGetResponse,
+    ConnectorGetClarificationRequestsResponse,
 )
 ```
 
@@ -638,16 +642,17 @@ Methods:
 - <code title="patch /connectors/{connector_id}">client.connectors.<a href="./src/structify/resources/connectors.py">update</a>(connector_id, \*\*<a href="src/structify/types/connector_update_params.py">params</a>) -> None</code>
 - <code title="get /connectors">client.connectors.<a href="./src/structify/resources/connectors.py">list</a>(\*\*<a href="src/structify/types/connector_list_params.py">params</a>) -> <a href="./src/structify/types/connector_with_secrets.py">SyncJobsList[ConnectorWithSecrets]</a></code>
 - <code title="delete /connectors/{connector_id}">client.connectors.<a href="./src/structify/resources/connectors.py">delete</a>(connector_id) -> None</code>
-- <code title="post /connectors/{connector_id}/approve-version">client.connectors.<a href="./src/structify/resources/connectors.py">approve_version</a>(connector_id, \*\*<a href="src/structify/types/connector_approve_version_params.py">params</a>) -> None</code>
 - <code title="post /connectors/{connector_id}/secrets">client.connectors.<a href="./src/structify/resources/connectors.py">create_secret</a>(connector_id, \*\*<a href="src/structify/types/connector_create_secret_params.py">params</a>) -> None</code>
 - <code title="delete /connectors/{connector_id}/secrets/{secret_name}">client.connectors.<a href="./src/structify/resources/connectors.py">delete_secret</a>(secret_name, \*, connector_id) -> None</code>
 - <code title="post /connectors/{connector_id}/explore">client.connectors.<a href="./src/structify/resources/connectors.py">explore</a>(connector_id) -> None</code>
+- <code title="post /{connector_id}/explore_datahub_tables">client.connectors.<a href="./src/structify/resources/connectors.py">explore_datahub_tables</a>(connector_id, \*\*<a href="src/structify/types/connector_explore_datahub_tables_params.py">params</a>) -> <a href="./src/structify/types/explore_datahub_tables_response.py">ExploreDatahubTablesResponse</a></code>
 - <code title="get /connectors/{connector_id}">client.connectors.<a href="./src/structify/resources/connectors.py">get</a>(connector_id) -> <a href="./src/structify/types/connector_get_response.py">ConnectorGetResponse</a></code>
-- <code title="get /connectors/{connector_id}/active-version">client.connectors.<a href="./src/structify/resources/connectors.py">get_active_version</a>(connector_id) -> <a href="./src/structify/types/active_version_response.py">ActiveVersionResponse</a></code>
+- <code title="get /connectors/{connector_id}/clarification-requests">client.connectors.<a href="./src/structify/resources/connectors.py">get_clarification_requests</a>(connector_id) -> <a href="./src/structify/types/connector_get_clarification_requests_response.py">ConnectorGetClarificationRequestsResponse</a></code>
 - <code title="get /connectors/{connector_id}/explore/runs">client.connectors.<a href="./src/structify/resources/connectors.py">get_exploration_runs</a>(connector_id) -> <a href="./src/structify/types/exploration_runs_response.py">ExplorationRunsResponse</a></code>
 - <code title="get /connectors/{connector_id}/explore/status">client.connectors.<a href="./src/structify/resources/connectors.py">get_exploration_status</a>(connector_id) -> <a href="./src/structify/types/explore_status_response.py">ExploreStatusResponse</a></code>
 - <code title="get /connectors/{connector_id}/explore/chat">client.connectors.<a href="./src/structify/resources/connectors.py">get_explorer_chat</a>(connector_id, \*\*<a href="src/structify/types/connector_get_explorer_chat_params.py">params</a>) -> <a href="./src/structify/types/explorer_chat_response.py">ExplorerChatResponse</a></code>
-- <code title="get /connectors/{connector_id}/pending-version">client.connectors.<a href="./src/structify/resources/connectors.py">get_pending_version</a>(connector_id) -> <a href="./src/structify/types/pending_version_response.py">PendingVersionResponse</a></code>
+- <code title="get /connectors/{connector_id}/store">client.connectors.<a href="./src/structify/resources/connectors.py">get_store</a>(connector_id) -> <a href="./src/structify/types/connector_store_response.py">ConnectorStoreResponse</a></code>
+- <code title="post /connectors/ingest-datahub">client.connectors.<a href="./src/structify/resources/connectors.py">ingest_datahub</a>(\*\*<a href="src/structify/types/connector_ingest_datahub_params.py">params</a>) -> <a href="./src/structify/types/ingest_datahub_response.py">IngestDatahubResponse</a></code>
 
 # Server
 

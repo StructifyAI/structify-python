@@ -16,6 +16,7 @@ from structify.types import (
     JobStatusResponse,
     JobGetStepResponse,
     JobGetStepsResponse,
+    GetJobEventsResponse,
     JobGetScrapersResponse,
     JobGetStepGraphResponse,
     JobGetSourceEntitiesResponse,
@@ -179,6 +180,44 @@ class TestJobs:
     def test_path_params_get(self, client: Structify) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `job_id` but received ''"):
             client.jobs.with_raw_response.get(
+                "",
+            )
+
+    @parametrize
+    def test_method_get_events(self, client: Structify) -> None:
+        job = client.jobs.get_events(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(GetJobEventsResponse, job, path=["response"])
+
+    @parametrize
+    def test_raw_response_get_events(self, client: Structify) -> None:
+        response = client.jobs.with_raw_response.get_events(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        job = response.parse()
+        assert_matches_type(GetJobEventsResponse, job, path=["response"])
+
+    @parametrize
+    def test_streaming_response_get_events(self, client: Structify) -> None:
+        with client.jobs.with_streaming_response.get_events(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            job = response.parse()
+            assert_matches_type(GetJobEventsResponse, job, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_path_params_get_events(self, client: Structify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `job_id` but received ''"):
+            client.jobs.with_raw_response.get_events(
                 "",
             )
 
@@ -587,6 +626,44 @@ class TestAsyncJobs:
     async def test_path_params_get(self, async_client: AsyncStructify) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `job_id` but received ''"):
             await async_client.jobs.with_raw_response.get(
+                "",
+            )
+
+    @parametrize
+    async def test_method_get_events(self, async_client: AsyncStructify) -> None:
+        job = await async_client.jobs.get_events(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(GetJobEventsResponse, job, path=["response"])
+
+    @parametrize
+    async def test_raw_response_get_events(self, async_client: AsyncStructify) -> None:
+        response = await async_client.jobs.with_raw_response.get_events(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        job = await response.parse()
+        assert_matches_type(GetJobEventsResponse, job, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_get_events(self, async_client: AsyncStructify) -> None:
+        async with async_client.jobs.with_streaming_response.get_events(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            job = await response.parse()
+            assert_matches_type(GetJobEventsResponse, job, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_get_events(self, async_client: AsyncStructify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `job_id` but received ''"):
+            await async_client.jobs.with_raw_response.get_events(
                 "",
             )
 

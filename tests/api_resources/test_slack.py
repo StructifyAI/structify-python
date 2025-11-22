@@ -91,6 +91,16 @@ class TestSlack:
                 "channel_type": "channel_type",
                 "client_msg_id": "client_msg_id",
                 "event_ts": "event_ts",
+                "files": [
+                    {
+                        "id": "id",
+                        "name": "name",
+                        "filetype": "filetype",
+                        "mimetype": "mimetype",
+                        "url_private": "url_private",
+                        "url_private_download": "url_private_download",
+                    }
+                ],
                 "team": "team",
                 "thread_ts": "thread_ts",
             },
@@ -292,6 +302,16 @@ class TestAsyncSlack:
                 "channel_type": "channel_type",
                 "client_msg_id": "client_msg_id",
                 "event_ts": "event_ts",
+                "files": [
+                    {
+                        "id": "id",
+                        "name": "name",
+                        "filetype": "filetype",
+                        "mimetype": "mimetype",
+                        "url_private": "url_private",
+                        "url_private_download": "url_private_download",
+                    }
+                ],
                 "team": "team",
                 "thread_ts": "thread_ts",
             },

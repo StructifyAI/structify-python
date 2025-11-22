@@ -46,6 +46,14 @@ __all__ = [
     "ToolCallToolCallUnionMember10Input",
     "ToolCallToolCallUnionMember11",
     "ToolCallToolCallUnionMember11Input",
+    "ToolCallToolCallUnionMember12",
+    "ToolCallToolCallUnionMember12Input",
+    "ToolCallToolCallUnionMember13",
+    "ToolCallToolCallUnionMember13Input",
+    "ToolCallToolCallUnionMember14",
+    "ToolCallToolCallUnionMember14Input",
+    "ToolCallToolCallUnionMember15",
+    "ToolCallToolCallUnionMember15Input",
     "Question",
     "QuestionQuestion",
     "InternalError",
@@ -248,7 +256,7 @@ class ToolCallToolCallUnionMember8Input(BaseModel):
 class ToolCallToolCallUnionMember8(BaseModel):
     input: ToolCallToolCallUnionMember8Input
 
-    name: Literal["CreateTable"]
+    name: Literal["SaveDatabase"]
 
     result_id: Optional[str] = None
 
@@ -256,11 +264,9 @@ class ToolCallToolCallUnionMember8(BaseModel):
 
 
 class ToolCallToolCallUnionMember9Input(BaseModel):
-    column_name: str
+    name: str
 
-    column_type: str
-
-    table_name: str
+    description: Optional[str] = None
 
     notes: Optional[str] = None
 
@@ -268,7 +274,7 @@ class ToolCallToolCallUnionMember9Input(BaseModel):
 class ToolCallToolCallUnionMember9(BaseModel):
     input: ToolCallToolCallUnionMember9Input
 
-    name: Literal["AddColumn"]
+    name: Literal["SaveSchema"]
 
     result_id: Optional[str] = None
 
@@ -276,8 +282,6 @@ class ToolCallToolCallUnionMember9(BaseModel):
 
 
 class ToolCallToolCallUnionMember10Input(BaseModel):
-    endpoint: str
-
     name: str
 
     description: Optional[str] = None
@@ -288,7 +292,7 @@ class ToolCallToolCallUnionMember10Input(BaseModel):
 class ToolCallToolCallUnionMember10(BaseModel):
     input: ToolCallToolCallUnionMember10Input
 
-    name: Literal["CreateApiResource"]
+    name: Literal["SaveTable"]
 
     result_id: Optional[str] = None
 
@@ -296,15 +300,85 @@ class ToolCallToolCallUnionMember10(BaseModel):
 
 
 class ToolCallToolCallUnionMember11Input(BaseModel):
-    key: str
+    column_name: str
 
-    value: str
+    column_type: str
+
+    notes: Optional[str] = None
 
 
 class ToolCallToolCallUnionMember11(BaseModel):
     input: ToolCallToolCallUnionMember11Input
 
+    name: Literal["SaveColumn"]
+
+    result_id: Optional[str] = None
+
+    result_text: Optional[str] = None
+
+
+class ToolCallToolCallUnionMember12Input(BaseModel):
+    endpoint: str
+
+    name: str
+
+    description: Optional[str] = None
+
+    notes: Optional[str] = None
+
+
+class ToolCallToolCallUnionMember12(BaseModel):
+    input: ToolCallToolCallUnionMember12Input
+
+    name: Literal["SaveApiResource"]
+
+    result_id: Optional[str] = None
+
+    result_text: Optional[str] = None
+
+
+class ToolCallToolCallUnionMember13Input(BaseModel):
+    key: str
+
+    value: str
+
+
+class ToolCallToolCallUnionMember13(BaseModel):
+    input: ToolCallToolCallUnionMember13Input
+
     name: Literal["SaveMemory"]
+
+    result_id: Optional[str] = None
+
+    result_text: Optional[str] = None
+
+
+class ToolCallToolCallUnionMember14Input(BaseModel):
+    query: str
+
+
+class ToolCallToolCallUnionMember14(BaseModel):
+    input: ToolCallToolCallUnionMember14Input
+
+    name: Literal["SearchConnectorTables"]
+
+    result_id: Optional[str] = None
+
+    result_text: Optional[str] = None
+
+
+class ToolCallToolCallUnionMember15Input(BaseModel):
+    question: str
+
+    table_name: str
+
+    column_name: Optional[str] = None
+
+
+class ToolCallToolCallUnionMember15(BaseModel):
+    input: ToolCallToolCallUnionMember15Input
+
+    name: Literal["RequestClarification"]
 
     result_id: Optional[str] = None
 
@@ -324,6 +398,10 @@ ToolCallToolCall: TypeAlias = Union[
     ToolCallToolCallUnionMember9,
     ToolCallToolCallUnionMember10,
     ToolCallToolCallUnionMember11,
+    ToolCallToolCallUnionMember12,
+    ToolCallToolCallUnionMember13,
+    ToolCallToolCallUnionMember14,
+    ToolCallToolCallUnionMember15,
 ]
 
 
@@ -335,6 +413,8 @@ class QuestionQuestion(BaseModel):
     complete: bool
 
     content: str
+
+    options: List[str]
 
 
 class Question(BaseModel):
