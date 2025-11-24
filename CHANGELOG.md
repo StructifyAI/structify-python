@@ -1,5 +1,30 @@
 # Changelog
 
+## 1.161.0 (2025-11-24)
+
+Full Changelog: [v1.160.0...v1.161.0](https://github.com/StructifyAI/structify-python/compare/v1.160.0...v1.161.0)
+
+### Features
+
+* Update from Structify backend changes ([a97173d](https://github.com/StructifyAI/structify-python/commit/a97173dd3b33fa83871edb2df787e8b508e2be79))
+* Update from Structify backend changes ([554256f](https://github.com/StructifyAI/structify-python/commit/554256fd22c416da53543b313d0b117f5197136d))
+* Update from Structify backend changes ([3430453](https://github.com/StructifyAI/structify-python/commit/3430453fb8d5d8aeb955fe98d4fcd45b6d01a82f))
+* Update from Structify backend changes ([05f3024](https://github.com/StructifyAI/structify-python/commit/05f3024f7d6b7caacd5cbea2e3e2e88499474caa))
+* Update from Structify backend changes ([d25295d](https://github.com/StructifyAI/structify-python/commit/d25295d6c8e60978139ea77f04aaace2207bde3a))
+* Update from Structify backend changes ([2d9784f](https://github.com/StructifyAI/structify-python/commit/2d9784f2b99e6bd100bf8a0aa93c1cde121006cf))
+* Update from Structify backend changes ([22a395a](https://github.com/StructifyAI/structify-python/commit/22a395a5c8450824e283591345494548cb2f230f))
+* Update from Structify backend changes ([64e3f43](https://github.com/StructifyAI/structify-python/commit/64e3f439948e81757d1adc80dd9aa19d34813375))
+* Update from Structify backend changes ([761700b](https://github.com/StructifyAI/structify-python/commit/761700b0937b7750a14310eb2411f6fbb07f3623))
+* Update from Structify backend changes ([f3a59b0](https://github.com/StructifyAI/structify-python/commit/f3a59b05d4be9d8faf7f340a76d31701869a4175))
+* Update from Structify backend changes ([7e83627](https://github.com/StructifyAI/structify-python/commit/7e83627a2d5f71e80dc57c35b489f53717cc5fb0))
+* Update from Structify backend changes ([4f82fe6](https://github.com/StructifyAI/structify-python/commit/4f82fe68a62cdf1b497ffb37abe3126c402ceb44))
+* Update from Structify backend changes ([6942dba](https://github.com/StructifyAI/structify-python/commit/6942dba7a57418f29f198c613f8717c106663041))
+
+
+### Chores
+
+* add Python 3.14 classifier and testing ([821bd87](https://github.com/StructifyAI/structify-python/commit/821bd875084249831ea48ff6c7d095588b28fb8b))
+
 ## 1.160.0 (2025-11-13)
 
 Full Changelog: [v1.159.1...v1.160.0](https://github.com/StructifyAI/structify-python/compare/v1.159.1...v1.160.0)
