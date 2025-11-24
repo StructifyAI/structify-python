@@ -41,7 +41,6 @@ from .resources import (
     workflow,
     documents,
     structure,
-    connectors,
     public_sessions,
     workflow_schedule,
 )
@@ -55,6 +54,7 @@ from ._base_client import (
 from .resources.user import user
 from .resources.admin import admin
 from .resources.datasets import datasets
+from .resources.connectors import connectors
 
 __all__ = [
     "ENVIRONMENTS",

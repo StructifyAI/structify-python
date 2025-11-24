@@ -16,3 +16,5 @@ class ConnectorUpdateParams(TypedDict, total=False):
     name: Optional[str]
 
     refresh_script: Optional[str]
+
+    usage_snippet_override: Optional[str]
