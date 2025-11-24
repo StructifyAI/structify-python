@@ -1,8 +1,10 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+from typing import List
 from datetime import datetime
 
 from .._models import BaseModel
+from .chat_event import ChatEvent
 from .chat_prompt import ChatPrompt
 from .exploration_phase_id import ExplorationPhaseID
 
@@ -11,6 +13,8 @@ __all__ = ["ConnectorExplorerChat"]
 
 class ConnectorExplorerChat(BaseModel):
     id: str
+
+    chat_events: List[ChatEvent]
 
     chat_prompt: ChatPrompt
 

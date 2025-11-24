@@ -6,43 +6,57 @@ from typing import Dict, Optional
 
 import httpx
 
-from ..types import (
+from ...types import (
     connector_list_params,
     connector_create_params,
     connector_update_params,
     connector_create_secret_params,
     connector_ingest_datahub_params,
     connector_get_explorer_chat_params,
+    connector_list_with_snippets_params,
     connector_explore_datahub_tables_params,
 )
-from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
-from .._utils import maybe_transform, async_maybe_transform
-from .._compat import cached_property
-from .._resource import SyncAPIResource, AsyncAPIResource
-from .._response import (
+from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
+from ..._utils import maybe_transform, async_maybe_transform
+from ..._compat import cached_property
+from ..._resource import SyncAPIResource, AsyncAPIResource
+from ..._response import (
     to_raw_response_wrapper,
     to_streamed_response_wrapper,
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ..pagination import SyncJobsList, AsyncJobsList
-from .._base_client import AsyncPaginator, make_request_options
-from ..types.connector import Connector
-from ..types.connector_get_response import ConnectorGetResponse
-from ..types.connector_with_secrets import ConnectorWithSecrets
-from ..types.explorer_chat_response import ExplorerChatResponse
-from ..types.explore_status_response import ExploreStatusResponse
-from ..types.ingest_datahub_response import IngestDatahubResponse
-from ..types.connector_store_response import ConnectorStoreResponse
-from ..types.exploration_runs_response import ExplorationRunsResponse
-from ..types.explore_datahub_tables_response import ExploreDatahubTablesResponse
-from ..types.explore_datahub_tables_request_param import ExploreDatahubTablesRequestParam
-from ..types.connector_get_clarification_requests_response import ConnectorGetClarificationRequestsResponse
+from ...pagination import SyncJobsList, AsyncJobsList
+from .type_snippets import (
+    TypeSnippetsResource,
+    AsyncTypeSnippetsResource,
+    TypeSnippetsResourceWithRawResponse,
+    AsyncTypeSnippetsResourceWithRawResponse,
+    TypeSnippetsResourceWithStreamingResponse,
+    AsyncTypeSnippetsResourceWithStreamingResponse,
+)
+from ..._base_client import AsyncPaginator, make_request_options
+from ...types.connector import Connector
+from ...types.connector_get_response import ConnectorGetResponse
+from ...types.connector_with_secrets import ConnectorWithSecrets
+from ...types.explorer_chat_response import ExplorerChatResponse
+from ...types.explore_status_response import ExploreStatusResponse
+from ...types.ingest_datahub_response import IngestDatahubResponse
+from ...types.connector_store_response import ConnectorStoreResponse
+from ...types.exploration_runs_response import ExplorationRunsResponse
+from ...types.explore_datahub_tables_response import ExploreDatahubTablesResponse
+from ...types.explore_datahub_tables_request_param import ExploreDatahubTablesRequestParam
+from ...types.connector_list_with_snippets_response import ConnectorListWithSnippetsResponse
+from ...types.connector_get_clarification_requests_response import ConnectorGetClarificationRequestsResponse
 
 __all__ = ["ConnectorsResource", "AsyncConnectorsResource"]
 
 
 class ConnectorsResource(SyncAPIResource):
+    @cached_property
+    def type_snippets(self) -> TypeSnippetsResource:
+        return TypeSnippetsResource(self._client)
+
     @cached_property
     def with_raw_response(self) -> ConnectorsResourceWithRawResponse:
         """
@@ -121,6 +135,7 @@ class ConnectorsResource(SyncAPIResource):
         known_connector_type: Optional[str] | Omit = omit,
         name: Optional[str] | Omit = omit,
         refresh_script: Optional[str] | Omit = omit,
+        usage_snippet_override: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -149,6 +164,7 @@ class ConnectorsResource(SyncAPIResource):
                     "known_connector_type": known_connector_type,
                     "name": name,
                     "refresh_script": refresh_script,
+                    "usage_snippet_override": usage_snippet_override,
                 },
                 connector_update_params.ConnectorUpdateParams,
             ),
@@ -617,8 +633,49 @@ class ConnectorsResource(SyncAPIResource):
             cast_to=IngestDatahubResponse,
         )
 
+    def list_with_snippets(
+        self,
+        *,
+        team_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ConnectorListWithSnippetsResponse:
+        """
+        Args:
+          team_id: Team ID to list connectors for
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._get(
+            "/connectors/with-snippets",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {"team_id": team_id}, connector_list_with_snippets_params.ConnectorListWithSnippetsParams
+                ),
+            ),
+            cast_to=ConnectorListWithSnippetsResponse,
+        )
+
 
 class AsyncConnectorsResource(AsyncAPIResource):
+    @cached_property
+    def type_snippets(self) -> AsyncTypeSnippetsResource:
+        return AsyncTypeSnippetsResource(self._client)
+
     @cached_property
     def with_raw_response(self) -> AsyncConnectorsResourceWithRawResponse:
         """
@@ -697,6 +754,7 @@ class AsyncConnectorsResource(AsyncAPIResource):
         known_connector_type: Optional[str] | Omit = omit,
         name: Optional[str] | Omit = omit,
         refresh_script: Optional[str] | Omit = omit,
+        usage_snippet_override: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -725,6 +783,7 @@ class AsyncConnectorsResource(AsyncAPIResource):
                     "known_connector_type": known_connector_type,
                     "name": name,
                     "refresh_script": refresh_script,
+                    "usage_snippet_override": usage_snippet_override,
                 },
                 connector_update_params.ConnectorUpdateParams,
             ),
@@ -1193,6 +1252,43 @@ class AsyncConnectorsResource(AsyncAPIResource):
             cast_to=IngestDatahubResponse,
         )
 
+    async def list_with_snippets(
+        self,
+        *,
+        team_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ConnectorListWithSnippetsResponse:
+        """
+        Args:
+          team_id: Team ID to list connectors for
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._get(
+            "/connectors/with-snippets",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"team_id": team_id}, connector_list_with_snippets_params.ConnectorListWithSnippetsParams
+                ),
+            ),
+            cast_to=ConnectorListWithSnippetsResponse,
+        )
+
 
 class ConnectorsResourceWithRawResponse:
     def __init__(self, connectors: ConnectorsResource) -> None:
@@ -1243,6 +1339,13 @@ class ConnectorsResourceWithRawResponse:
         self.ingest_datahub = to_raw_response_wrapper(
             connectors.ingest_datahub,
         )
+        self.list_with_snippets = to_raw_response_wrapper(
+            connectors.list_with_snippets,
+        )
+
+    @cached_property
+    def type_snippets(self) -> TypeSnippetsResourceWithRawResponse:
+        return TypeSnippetsResourceWithRawResponse(self._connectors.type_snippets)
 
 
 class AsyncConnectorsResourceWithRawResponse:
@@ -1294,6 +1397,13 @@ class AsyncConnectorsResourceWithRawResponse:
         self.ingest_datahub = async_to_raw_response_wrapper(
             connectors.ingest_datahub,
         )
+        self.list_with_snippets = async_to_raw_response_wrapper(
+            connectors.list_with_snippets,
+        )
+
+    @cached_property
+    def type_snippets(self) -> AsyncTypeSnippetsResourceWithRawResponse:
+        return AsyncTypeSnippetsResourceWithRawResponse(self._connectors.type_snippets)
 
 
 class ConnectorsResourceWithStreamingResponse:
@@ -1345,6 +1455,13 @@ class ConnectorsResourceWithStreamingResponse:
         self.ingest_datahub = to_streamed_response_wrapper(
             connectors.ingest_datahub,
         )
+        self.list_with_snippets = to_streamed_response_wrapper(
+            connectors.list_with_snippets,
+        )
+
+    @cached_property
+    def type_snippets(self) -> TypeSnippetsResourceWithStreamingResponse:
+        return TypeSnippetsResourceWithStreamingResponse(self._connectors.type_snippets)
 
 
 class AsyncConnectorsResourceWithStreamingResponse:
@@ -1396,3 +1513,10 @@ class AsyncConnectorsResourceWithStreamingResponse:
         self.ingest_datahub = async_to_streamed_response_wrapper(
             connectors.ingest_datahub,
         )
+        self.list_with_snippets = async_to_streamed_response_wrapper(
+            connectors.list_with_snippets,
+        )
+
+    @cached_property
+    def type_snippets(self) -> AsyncTypeSnippetsResourceWithStreamingResponse:
+        return AsyncTypeSnippetsResourceWithStreamingResponse(self._connectors.type_snippets)
