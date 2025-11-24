@@ -284,6 +284,8 @@ class ToolCallToolCallUnionMember9(BaseModel):
 class ToolCallToolCallUnionMember10Input(BaseModel):
     name: str
 
+    deprioritization_reason: Optional[str] = None
+
     description: Optional[str] = None
 
     notes: Optional[str] = None
