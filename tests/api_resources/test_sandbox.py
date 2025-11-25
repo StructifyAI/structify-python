@@ -135,7 +135,7 @@ class TestSandbox:
     def test_method_get_with_all_params(self, client: Structify) -> None:
         sandbox = client.sandbox.get(
             chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            sandbox_url_override="sandbox_url_override",
+            modal_control_service_url_override="modal_control_service_url_override",
         )
         assert_matches_type(Sandbox, sandbox, path=["response"])
 
@@ -333,7 +333,7 @@ class TestAsyncSandbox:
     async def test_method_get_with_all_params(self, async_client: AsyncStructify) -> None:
         sandbox = await async_client.sandbox.get(
             chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            sandbox_url_override="sandbox_url_override",
+            modal_control_service_url_override="modal_control_service_url_override",
         )
         assert_matches_type(Sandbox, sandbox, path=["response"])
 
