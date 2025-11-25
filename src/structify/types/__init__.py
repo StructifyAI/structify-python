@@ -28,11 +28,13 @@ from .relationship import Relationship as Relationship
 from .workflow_dag import WorkflowDag as WorkflowDag
 from .message_param import MessageParam as MessageParam
 from .property_type import PropertyType as PropertyType
+from .table_mention import TableMention as TableMention
 from .tool_metadata import ToolMetadata as ToolMetadata
 from .execution_step import ExecutionStep as ExecutionStep
 from .job_event_body import JobEventBody as JobEventBody
 from .project_member import ProjectMember as ProjectMember
 from .strategy_param import StrategyParam as StrategyParam
+from .team_wiki_page import TeamWikiPage as TeamWikiPage
 from .team_with_role import TeamWithRole as TeamWithRole
 from .token_response import TokenResponse as TokenResponse
 from .autofix_context import AutofixContext as AutofixContext
@@ -72,6 +74,9 @@ from .source_list_params import SourceListParams as SourceListParams
 from .team_create_params import TeamCreateParams as TeamCreateParams
 from .team_update_params import TeamUpdateParams as TeamUpdateParams
 from .user_update_params import UserUpdateParams as UserUpdateParams
+from .wiki_create_params import WikiCreateParams as WikiCreateParams
+from .wiki_list_response import WikiListResponse as WikiListResponse
+from .wiki_update_params import WikiUpdateParams as WikiUpdateParams
 from .add_member_response import AddMemberResponse as AddMemberResponse
 from .dashboard_component import DashboardComponent as DashboardComponent
 from .entity_add_response import EntityAddResponse as EntityAddResponse
@@ -141,6 +146,7 @@ from .list_projects_response import ListProjectsResponse as ListProjectsResponse
 from .remove_member_response import RemoveMemberResponse as RemoveMemberResponse
 from .save_requirement_param import SaveRequirementParam as SaveRequirementParam
 from .scrape_scrape_response import ScrapeScrapeResponse as ScrapeScrapeResponse
+from .search_tables_response import SearchTablesResponse as SearchTablesResponse
 from .team_add_member_params import TeamAddMemberParams as TeamAddMemberParams
 from .workflow_schedule_info import WorkflowScheduleInfo as WorkflowScheduleInfo
 from .connector_create_params import ConnectorCreateParams as ConnectorCreateParams
@@ -167,6 +173,7 @@ from .entity_get_merges_params import EntityGetMergesParams as EntityGetMergesPa
 from .match_create_jobs_params import MatchCreateJobsParams as MatchCreateJobsParams
 from .session_kill_jobs_params import SessionKillJobsParams as SessionKillJobsParams
 from .team_subscription_status import TeamSubscriptionStatus as TeamSubscriptionStatus
+from .wiki_connector_reference import WikiConnectorReference as WikiConnectorReference
 from .chat_list_sessions_params import ChatListSessionsParams as ChatListSessionsParams
 from .code_generate_code_params import CodeGenerateCodeParams as CodeGenerateCodeParams
 from .dashboard_component_param import DashboardComponentParam as DashboardComponentParam
@@ -185,6 +192,7 @@ from .slack_event_payload_param import SlackEventPayloadParam as SlackEventPaylo
 from .slack_user_mapping_params import SlackUserMappingParams as SlackUserMappingParams
 from .team_credits_usage_params import TeamCreditsUsageParams as TeamCreditsUsageParams
 from .user_survey_submit_params import UserSurveySubmitParams as UserSurveySubmitParams
+from .wiki_page_with_references import WikiPageWithReferences as WikiPageWithReferences
 from .accept_invitation_response import AcceptInvitationResponse as AcceptInvitationResponse
 from .chat_add_git_commit_params import ChatAddGitCommitParams as ChatAddGitCommitParams
 from .chat_create_session_params import ChatCreateSessionParams as ChatCreateSessionParams
@@ -243,6 +251,7 @@ from .structure_job_status_response import StructureJobStatusResponse as Structu
 from .team_accept_invitation_params import TeamAcceptInvitationParams as TeamAcceptInvitationParams
 from .chat_revert_to_commit_response import ChatRevertToCommitResponse as ChatRevertToCommitResponse
 from .connector_create_secret_params import ConnectorCreateSecretParams as ConnectorCreateSecretParams
+from .connector_search_tables_params import ConnectorSearchTablesParams as ConnectorSearchTablesParams
 from .credits_usage_timeseries_point import CreditsUsageTimeseriesPoint as CreditsUsageTimeseriesPoint
 from .dataset_export_to_excel_params import DatasetExportToExcelParams as DatasetExportToExcelParams
 from .dataset_remove_property_params import DatasetRemovePropertyParams as DatasetRemovePropertyParams

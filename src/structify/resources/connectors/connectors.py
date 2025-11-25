@@ -11,6 +11,7 @@ from ...types import (
     connector_create_params,
     connector_update_params,
     connector_create_secret_params,
+    connector_search_tables_params,
     connector_ingest_datahub_params,
     connector_get_explorer_chat_params,
     connector_list_with_snippets_params,
@@ -40,6 +41,7 @@ from ...types.connector import Connector
 from ...types.connector_get_response import ConnectorGetResponse
 from ...types.connector_with_secrets import ConnectorWithSecrets
 from ...types.explorer_chat_response import ExplorerChatResponse
+from ...types.search_tables_response import SearchTablesResponse
 from ...types.explore_status_response import ExploreStatusResponse
 from ...types.ingest_datahub_response import IngestDatahubResponse
 from ...types.connector_store_response import ConnectorStoreResponse
@@ -670,6 +672,54 @@ class ConnectorsResource(SyncAPIResource):
             cast_to=ConnectorListWithSnippetsResponse,
         )
 
+    def search_tables(
+        self,
+        *,
+        query: str,
+        team_id: str,
+        limit: int | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> SearchTablesResponse:
+        """
+        Args:
+          query: Search query string
+
+          team_id: Team ID to search tables for
+
+          limit: Maximum number of results to return
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._get(
+            "/connectors/search-tables",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "query": query,
+                        "team_id": team_id,
+                        "limit": limit,
+                    },
+                    connector_search_tables_params.ConnectorSearchTablesParams,
+                ),
+            ),
+            cast_to=SearchTablesResponse,
+        )
+
 
 class AsyncConnectorsResource(AsyncAPIResource):
     @cached_property
@@ -1289,6 +1339,54 @@ class AsyncConnectorsResource(AsyncAPIResource):
             cast_to=ConnectorListWithSnippetsResponse,
         )
 
+    async def search_tables(
+        self,
+        *,
+        query: str,
+        team_id: str,
+        limit: int | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> SearchTablesResponse:
+        """
+        Args:
+          query: Search query string
+
+          team_id: Team ID to search tables for
+
+          limit: Maximum number of results to return
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._get(
+            "/connectors/search-tables",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "query": query,
+                        "team_id": team_id,
+                        "limit": limit,
+                    },
+                    connector_search_tables_params.ConnectorSearchTablesParams,
+                ),
+            ),
+            cast_to=SearchTablesResponse,
+        )
+
 
 class ConnectorsResourceWithRawResponse:
     def __init__(self, connectors: ConnectorsResource) -> None:
@@ -1341,6 +1439,9 @@ class ConnectorsResourceWithRawResponse:
         )
         self.list_with_snippets = to_raw_response_wrapper(
             connectors.list_with_snippets,
+        )
+        self.search_tables = to_raw_response_wrapper(
+            connectors.search_tables,
         )
 
     @cached_property
@@ -1400,6 +1501,9 @@ class AsyncConnectorsResourceWithRawResponse:
         self.list_with_snippets = async_to_raw_response_wrapper(
             connectors.list_with_snippets,
         )
+        self.search_tables = async_to_raw_response_wrapper(
+            connectors.search_tables,
+        )
 
     @cached_property
     def type_snippets(self) -> AsyncTypeSnippetsResourceWithRawResponse:
@@ -1458,6 +1562,9 @@ class ConnectorsResourceWithStreamingResponse:
         self.list_with_snippets = to_streamed_response_wrapper(
             connectors.list_with_snippets,
         )
+        self.search_tables = to_streamed_response_wrapper(
+            connectors.search_tables,
+        )
 
     @cached_property
     def type_snippets(self) -> TypeSnippetsResourceWithStreamingResponse:
@@ -1515,6 +1622,9 @@ class AsyncConnectorsResourceWithStreamingResponse:
         )
         self.list_with_snippets = async_to_streamed_response_wrapper(
             connectors.list_with_snippets,
+        )
+        self.search_tables = async_to_streamed_response_wrapper(
+            connectors.search_tables,
         )
 
     @cached_property
