@@ -92,6 +92,7 @@ from .slack_events_params import SlackEventsParams as SlackEventsParams
 from .tool_metadata_param import ToolMetadataParam as ToolMetadataParam
 from .user_usage_response import UserUsageResponse as UserUsageResponse
 from .workflow_run_params import WorkflowRunParams as WorkflowRunParams
+from .connector_table_info import ConnectorTableInfo as ConnectorTableInfo
 from .create_team_response import CreateTeamResponse as CreateTeamResponse
 from .dataset_get_response import DatasetGetResponse as DatasetGetResponse
 from .dataset_match_params import DatasetMatchParams as DatasetMatchParams
@@ -103,6 +104,7 @@ from .entity_search_params import EntitySearchParams as EntitySearchParams
 from .entity_verify_params import EntityVerifyParams as EntityVerifyParams
 from .entity_view_response import EntityViewResponse as EntityViewResponse
 from .exploration_phase_id import ExplorationPhaseID as ExplorationPhaseID
+from .list_tables_response import ListTablesResponse as ListTablesResponse
 from .project_get_response import ProjectGetResponse as ProjectGetResponse
 from .report_step_response import ReportStepResponse as ReportStepResponse
 from .scrape_list_response import ScrapeListResponse as ScrapeListResponse
@@ -165,6 +167,7 @@ from .report_missing_response import ReportMissingResponse as ReportMissingRespo
 from .slack_connection_status import SlackConnectionStatus as SlackConnectionStatus
 from .chat_delete_files_params import ChatDeleteFilesParams as ChatDeleteFilesParams
 from .chat_load_files_response import ChatLoadFilesResponse as ChatLoadFilesResponse
+from .connector_explore_params import ConnectorExploreParams as ConnectorExploreParams
 from .connector_store_response import ConnectorStoreResponse as ConnectorStoreResponse
 from .dataset_descriptor_param import DatasetDescriptorParam as DatasetDescriptorParam
 from .document_download_params import DocumentDownloadParams as DocumentDownloadParams
@@ -265,7 +268,6 @@ from .workflow_schedule_pause_params import WorkflowSchedulePauseParams as Workf
 from .chat_get_partial_chats_response import ChatGetPartialChatsResponse as ChatGetPartialChatsResponse
 from .connector_ingest_datahub_params import ConnectorIngestDatahubParams as ConnectorIngestDatahubParams
 from .entity_update_property_response import EntityUpdatePropertyResponse as EntityUpdatePropertyResponse
-from .explore_datahub_tables_response import ExploreDatahubTablesResponse as ExploreDatahubTablesResponse
 from .workflow_schedule_create_params import WorkflowScheduleCreateParams as WorkflowScheduleCreateParams
 from .workflow_schedule_update_params import WorkflowScheduleUpdateParams as WorkflowScheduleUpdateParams
 from .chat_grant_admin_override_params import ChatGrantAdminOverrideParams as ChatGrantAdminOverrideParams
@@ -298,7 +300,6 @@ from .entity_get_source_entities_response import EntityGetSourceEntitiesResponse
 from .session_update_node_progress_params import SessionUpdateNodeProgressParams as SessionUpdateNodeProgressParams
 from .structure_enhance_property_response import StructureEnhancePropertyResponse as StructureEnhancePropertyResponse
 from .dataset_enrichment_progress_response import DatasetEnrichmentProgressResponse as DatasetEnrichmentProgressResponse
-from .explore_datahub_tables_request_param import ExploreDatahubTablesRequestParam as ExploreDatahubTablesRequestParam
 from .structure_find_relationship_response import StructureFindRelationshipResponse as StructureFindRelationshipResponse
 from .connector_list_with_snippets_response import (
     ConnectorListWithSnippetsResponse as ConnectorListWithSnippetsResponse,
@@ -314,9 +315,6 @@ from .session_upload_dashboard_layout_params import (
 )
 from .session_upload_node_output_data_params import (
     SessionUploadNodeOutputDataParams as SessionUploadNodeOutputDataParams,
-)
-from .connector_explore_datahub_tables_params import (
-    ConnectorExploreDatahubTablesParams as ConnectorExploreDatahubTablesParams,
 )
 from .dataset_count_missing_embeddings_params import (
     DatasetCountMissingEmbeddingsParams as DatasetCountMissingEmbeddingsParams,

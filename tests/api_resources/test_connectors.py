@@ -11,6 +11,7 @@ from structify import Structify, AsyncStructify
 from tests.utils import assert_matches_type
 from structify.types import (
     Connector,
+    ListTablesResponse,
     ConnectorGetResponse,
     ConnectorWithSecrets,
     ExplorerChatResponse,
@@ -19,7 +20,6 @@ from structify.types import (
     IngestDatahubResponse,
     ConnectorStoreResponse,
     ExplorationRunsResponse,
-    ExploreDatahubTablesResponse,
     ConnectorListWithSnippetsResponse,
     ConnectorGetClarificationRequestsResponse,
 )
@@ -307,14 +307,22 @@ class TestConnectors:
     @parametrize
     def test_method_explore(self, client: Structify) -> None:
         connector = client.connectors.explore(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert connector is None
+
+    @parametrize
+    def test_method_explore_with_all_params(self, client: Structify) -> None:
+        connector = client.connectors.explore(
+            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert connector is None
 
     @parametrize
     def test_raw_response_explore(self, client: Structify) -> None:
         response = client.connectors.with_raw_response.explore(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
         assert response.is_closed is True
@@ -325,7 +333,7 @@ class TestConnectors:
     @parametrize
     def test_streaming_response_explore(self, client: Structify) -> None:
         with client.connectors.with_streaming_response.explore(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -339,49 +347,7 @@ class TestConnectors:
     def test_path_params_explore(self, client: Structify) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `connector_id` but received ''"):
             client.connectors.with_raw_response.explore(
-                "",
-            )
-
-    @parametrize
-    def test_method_explore_datahub_tables(self, client: Structify) -> None:
-        connector = client.connectors.explore_datahub_tables(
-            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            explore_datahub_tables_request={},
-        )
-        assert_matches_type(ExploreDatahubTablesResponse, connector, path=["response"])
-
-    @parametrize
-    def test_raw_response_explore_datahub_tables(self, client: Structify) -> None:
-        response = client.connectors.with_raw_response.explore_datahub_tables(
-            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            explore_datahub_tables_request={},
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        connector = response.parse()
-        assert_matches_type(ExploreDatahubTablesResponse, connector, path=["response"])
-
-    @parametrize
-    def test_streaming_response_explore_datahub_tables(self, client: Structify) -> None:
-        with client.connectors.with_streaming_response.explore_datahub_tables(
-            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            explore_datahub_tables_request={},
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            connector = response.parse()
-            assert_matches_type(ExploreDatahubTablesResponse, connector, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    def test_path_params_explore_datahub_tables(self, client: Structify) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `connector_id` but received ''"):
-            client.connectors.with_raw_response.explore_datahub_tables(
                 connector_id="",
-                explore_datahub_tables_request={},
             )
 
     @parametrize
@@ -646,6 +612,44 @@ class TestConnectors:
             assert_matches_type(IngestDatahubResponse, connector, path=["response"])
 
         assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_method_list_tables(self, client: Structify) -> None:
+        connector = client.connectors.list_tables(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(ListTablesResponse, connector, path=["response"])
+
+    @parametrize
+    def test_raw_response_list_tables(self, client: Structify) -> None:
+        response = client.connectors.with_raw_response.list_tables(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        connector = response.parse()
+        assert_matches_type(ListTablesResponse, connector, path=["response"])
+
+    @parametrize
+    def test_streaming_response_list_tables(self, client: Structify) -> None:
+        with client.connectors.with_streaming_response.list_tables(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            connector = response.parse()
+            assert_matches_type(ListTablesResponse, connector, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_path_params_list_tables(self, client: Structify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `connector_id` but received ''"):
+            client.connectors.with_raw_response.list_tables(
+                "",
+            )
 
     @parametrize
     def test_method_list_with_snippets(self, client: Structify) -> None:
@@ -1003,14 +1007,22 @@ class TestAsyncConnectors:
     @parametrize
     async def test_method_explore(self, async_client: AsyncStructify) -> None:
         connector = await async_client.connectors.explore(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert connector is None
+
+    @parametrize
+    async def test_method_explore_with_all_params(self, async_client: AsyncStructify) -> None:
+        connector = await async_client.connectors.explore(
+            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert connector is None
 
     @parametrize
     async def test_raw_response_explore(self, async_client: AsyncStructify) -> None:
         response = await async_client.connectors.with_raw_response.explore(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
         assert response.is_closed is True
@@ -1021,7 +1033,7 @@ class TestAsyncConnectors:
     @parametrize
     async def test_streaming_response_explore(self, async_client: AsyncStructify) -> None:
         async with async_client.connectors.with_streaming_response.explore(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -1035,49 +1047,7 @@ class TestAsyncConnectors:
     async def test_path_params_explore(self, async_client: AsyncStructify) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `connector_id` but received ''"):
             await async_client.connectors.with_raw_response.explore(
-                "",
-            )
-
-    @parametrize
-    async def test_method_explore_datahub_tables(self, async_client: AsyncStructify) -> None:
-        connector = await async_client.connectors.explore_datahub_tables(
-            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            explore_datahub_tables_request={},
-        )
-        assert_matches_type(ExploreDatahubTablesResponse, connector, path=["response"])
-
-    @parametrize
-    async def test_raw_response_explore_datahub_tables(self, async_client: AsyncStructify) -> None:
-        response = await async_client.connectors.with_raw_response.explore_datahub_tables(
-            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            explore_datahub_tables_request={},
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        connector = await response.parse()
-        assert_matches_type(ExploreDatahubTablesResponse, connector, path=["response"])
-
-    @parametrize
-    async def test_streaming_response_explore_datahub_tables(self, async_client: AsyncStructify) -> None:
-        async with async_client.connectors.with_streaming_response.explore_datahub_tables(
-            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            explore_datahub_tables_request={},
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            connector = await response.parse()
-            assert_matches_type(ExploreDatahubTablesResponse, connector, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    async def test_path_params_explore_datahub_tables(self, async_client: AsyncStructify) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `connector_id` but received ''"):
-            await async_client.connectors.with_raw_response.explore_datahub_tables(
                 connector_id="",
-                explore_datahub_tables_request={},
             )
 
     @parametrize
@@ -1342,6 +1312,44 @@ class TestAsyncConnectors:
             assert_matches_type(IngestDatahubResponse, connector, path=["response"])
 
         assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_method_list_tables(self, async_client: AsyncStructify) -> None:
+        connector = await async_client.connectors.list_tables(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(ListTablesResponse, connector, path=["response"])
+
+    @parametrize
+    async def test_raw_response_list_tables(self, async_client: AsyncStructify) -> None:
+        response = await async_client.connectors.with_raw_response.list_tables(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        connector = await response.parse()
+        assert_matches_type(ListTablesResponse, connector, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_list_tables(self, async_client: AsyncStructify) -> None:
+        async with async_client.connectors.with_streaming_response.list_tables(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            connector = await response.parse()
+            assert_matches_type(ListTablesResponse, connector, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_list_tables(self, async_client: AsyncStructify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `connector_id` but received ''"):
+            await async_client.connectors.with_raw_response.list_tables(
+                "",
+            )
 
     @parametrize
     async def test_method_list_with_snippets(self, async_client: AsyncStructify) -> None:
