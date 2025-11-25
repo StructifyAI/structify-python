@@ -13,7 +13,6 @@ from ...types import (
     connector_explore_params,
     connector_create_secret_params,
     connector_search_tables_params,
-    connector_ingest_datahub_params,
     connector_get_explorer_chat_params,
     connector_list_with_snippets_params,
 )
@@ -44,7 +43,6 @@ from ...types.connector_with_secrets import ConnectorWithSecrets
 from ...types.explorer_chat_response import ExplorerChatResponse
 from ...types.search_tables_response import SearchTablesResponse
 from ...types.explore_status_response import ExploreStatusResponse
-from ...types.ingest_datahub_response import IngestDatahubResponse
 from ...types.connector_store_response import ConnectorStoreResponse
 from ...types.exploration_runs_response import ExplorationRunsResponse
 from ...types.connector_list_with_snippets_response import ConnectorListWithSnippetsResponse
@@ -562,38 +560,6 @@ class ConnectorsResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=ConnectorStoreResponse,
-        )
-
-    def ingest_datahub(
-        self,
-        *,
-        connector_id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> IngestDatahubResponse:
-        """
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return self._post(
-            "/connectors/ingest-datahub",
-            body=maybe_transform(
-                {"connector_id": connector_id}, connector_ingest_datahub_params.ConnectorIngestDatahubParams
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=IngestDatahubResponse,
         )
 
     def list_tables(
@@ -1228,38 +1194,6 @@ class AsyncConnectorsResource(AsyncAPIResource):
             cast_to=ConnectorStoreResponse,
         )
 
-    async def ingest_datahub(
-        self,
-        *,
-        connector_id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> IngestDatahubResponse:
-        """
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return await self._post(
-            "/connectors/ingest-datahub",
-            body=await async_maybe_transform(
-                {"connector_id": connector_id}, connector_ingest_datahub_params.ConnectorIngestDatahubParams
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=IngestDatahubResponse,
-        )
-
     async def list_tables(
         self,
         connector_id: str,
@@ -1424,9 +1358,6 @@ class ConnectorsResourceWithRawResponse:
         self.get_store = to_raw_response_wrapper(
             connectors.get_store,
         )
-        self.ingest_datahub = to_raw_response_wrapper(
-            connectors.ingest_datahub,
-        )
         self.list_tables = to_raw_response_wrapper(
             connectors.list_tables,
         )
@@ -1484,9 +1415,6 @@ class AsyncConnectorsResourceWithRawResponse:
         )
         self.get_store = async_to_raw_response_wrapper(
             connectors.get_store,
-        )
-        self.ingest_datahub = async_to_raw_response_wrapper(
-            connectors.ingest_datahub,
         )
         self.list_tables = async_to_raw_response_wrapper(
             connectors.list_tables,
@@ -1546,9 +1474,6 @@ class ConnectorsResourceWithStreamingResponse:
         self.get_store = to_streamed_response_wrapper(
             connectors.get_store,
         )
-        self.ingest_datahub = to_streamed_response_wrapper(
-            connectors.ingest_datahub,
-        )
         self.list_tables = to_streamed_response_wrapper(
             connectors.list_tables,
         )
@@ -1606,9 +1531,6 @@ class AsyncConnectorsResourceWithStreamingResponse:
         )
         self.get_store = async_to_streamed_response_wrapper(
             connectors.get_store,
-        )
-        self.ingest_datahub = async_to_streamed_response_wrapper(
-            connectors.ingest_datahub,
         )
         self.list_tables = async_to_streamed_response_wrapper(
             connectors.list_tables,
