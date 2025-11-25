@@ -290,6 +290,8 @@ class ToolCallToolCallUnionMember10Input(BaseModel):
 
     notes: Optional[str] = None
 
+    tag: Optional[str] = None
+
 
 class ToolCallToolCallUnionMember10(BaseModel):
     input: ToolCallToolCallUnionMember10Input
@@ -357,6 +359,8 @@ class ToolCallToolCallUnionMember13(BaseModel):
 
 class ToolCallToolCallUnionMember14Input(BaseModel):
     query: str
+
+    wiki_tag: Optional[str] = None
 
 
 class ToolCallToolCallUnionMember14(BaseModel):
