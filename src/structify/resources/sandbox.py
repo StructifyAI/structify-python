@@ -126,7 +126,7 @@ class SandboxResource(SyncAPIResource):
         self,
         chat_id: str,
         *,
-        sandbox_url_override: Optional[str] | Omit = omit,
+        modal_control_service_url_override: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -136,6 +136,8 @@ class SandboxResource(SyncAPIResource):
     ) -> Sandbox:
         """
         Args:
+          modal_control_service_url_override: Override URL for the modal control service (for testing/development)
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -148,7 +150,10 @@ class SandboxResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
         return self._post(
             f"/sandbox/live/{chat_id}",
-            body=maybe_transform({"sandbox_url_override": sandbox_url_override}, sandbox_get_params.SandboxGetParams),
+            body=maybe_transform(
+                {"modal_control_service_url_override": modal_control_service_url_override},
+                sandbox_get_params.SandboxGetParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -290,7 +295,7 @@ class AsyncSandboxResource(AsyncAPIResource):
         self,
         chat_id: str,
         *,
-        sandbox_url_override: Optional[str] | Omit = omit,
+        modal_control_service_url_override: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -300,6 +305,8 @@ class AsyncSandboxResource(AsyncAPIResource):
     ) -> Sandbox:
         """
         Args:
+          modal_control_service_url_override: Override URL for the modal control service (for testing/development)
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -313,7 +320,8 @@ class AsyncSandboxResource(AsyncAPIResource):
         return await self._post(
             f"/sandbox/live/{chat_id}",
             body=await async_maybe_transform(
-                {"sandbox_url_override": sandbox_url_override}, sandbox_get_params.SandboxGetParams
+                {"modal_control_service_url_override": modal_control_service_url_override},
+                sandbox_get_params.SandboxGetParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
