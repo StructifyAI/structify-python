@@ -19,6 +19,8 @@ class DatabaseSchemaTableColumn(BaseModel):
 
 
 class DatabaseSchemaTable(BaseModel):
+    id: str
+
     columns: List[DatabaseSchemaTableColumn]
     """List of columns in this table/resource"""
 
