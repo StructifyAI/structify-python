@@ -651,8 +651,6 @@ from structify.types import (
     ExploreConnectorRequest,
     ExploreStatusResponse,
     ExplorerChatResponse,
-    IngestDatahubRequest,
-    IngestDatahubResponse,
     ListTablesResponse,
     LlmInformationStore,
     SearchTablesResponse,
@@ -679,7 +677,6 @@ Methods:
 - <code title="get /connectors/{connector_id}/explore/status">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">get_exploration_status</a>(connector_id) -> <a href="./src/structify/types/explore_status_response.py">ExploreStatusResponse</a></code>
 - <code title="get /connectors/{connector_id}/explore/chat">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">get_explorer_chat</a>(connector_id, \*\*<a href="src/structify/types/connector_get_explorer_chat_params.py">params</a>) -> <a href="./src/structify/types/explorer_chat_response.py">ExplorerChatResponse</a></code>
 - <code title="get /connectors/{connector_id}/store">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">get_store</a>(connector_id) -> <a href="./src/structify/types/connector_store_response.py">ConnectorStoreResponse</a></code>
-- <code title="post /connectors/ingest-datahub">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">ingest_datahub</a>(\*\*<a href="src/structify/types/connector_ingest_datahub_params.py">params</a>) -> <a href="./src/structify/types/ingest_datahub_response.py">IngestDatahubResponse</a></code>
 - <code title="get /connectors/{connector_id}/tables">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">list_tables</a>(connector_id) -> <a href="./src/structify/types/list_tables_response.py">ListTablesResponse</a></code>
 - <code title="get /connectors/with-snippets">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">list_with_snippets</a>(\*\*<a href="src/structify/types/connector_list_with_snippets_params.py">params</a>) -> <a href="./src/structify/types/connector_list_with_snippets_response.py">ConnectorListWithSnippetsResponse</a></code>
 - <code title="get /connectors/search-tables">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">search_tables</a>(\*\*<a href="src/structify/types/connector_search_tables_params.py">params</a>) -> <a href="./src/structify/types/search_tables_response.py">SearchTablesResponse</a></code>
