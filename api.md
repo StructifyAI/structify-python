@@ -163,6 +163,29 @@ Methods:
 - <code title="post /team/{team_id}/select">client.teams.<a href="./src/structify/resources/teams.py">select</a>(team_id) -> <a href="./src/structify/types/select_team_response.py">SelectTeamResponse</a></code>
 - <code title="patch /team/{team_id}/members/{user_id}/role">client.teams.<a href="./src/structify/resources/teams.py">update_member_role</a>(user_id, \*, team_id, \*\*<a href="src/structify/types/team_update_member_role_params.py">params</a>) -> <a href="./src/structify/types/update_member_role_response.py">UpdateMemberRoleResponse</a></code>
 
+# Wiki
+
+Types:
+
+```python
+from structify.types import (
+    CreateWikiPageRequest,
+    TeamWikiPage,
+    UpdateWikiPageRequest,
+    WikiConnectorReference,
+    WikiPageWithReferences,
+    WikiListResponse,
+)
+```
+
+Methods:
+
+- <code title="post /team/{team_id}/wiki">client.wiki.<a href="./src/structify/resources/wiki.py">create</a>(team_id, \*\*<a href="src/structify/types/wiki_create_params.py">params</a>) -> <a href="./src/structify/types/team_wiki_page.py">TeamWikiPage</a></code>
+- <code title="put /team/{team_id}/wiki/{slug}">client.wiki.<a href="./src/structify/resources/wiki.py">update</a>(slug, \*, team_id, \*\*<a href="src/structify/types/wiki_update_params.py">params</a>) -> <a href="./src/structify/types/team_wiki_page.py">TeamWikiPage</a></code>
+- <code title="get /team/{team_id}/wiki">client.wiki.<a href="./src/structify/resources/wiki.py">list</a>(team_id) -> <a href="./src/structify/types/wiki_list_response.py">WikiListResponse</a></code>
+- <code title="delete /team/{team_id}/wiki/{slug}">client.wiki.<a href="./src/structify/resources/wiki.py">delete</a>(slug, \*, team_id) -> None</code>
+- <code title="get /team/{team_id}/wiki/{slug}">client.wiki.<a href="./src/structify/resources/wiki.py">get</a>(slug, \*, team_id) -> <a href="./src/structify/types/wiki_page_with_references.py">WikiPageWithReferences</a></code>
+
 # Projects
 
 Types:
@@ -631,6 +654,8 @@ from structify.types import (
     IngestDatahubRequest,
     IngestDatahubResponse,
     LlmInformationStore,
+    SearchTablesResponse,
+    TableMention,
     UpdateConnectorRequest,
     ConnectorGetResponse,
     ConnectorGetClarificationRequestsResponse,
@@ -656,6 +681,7 @@ Methods:
 - <code title="get /connectors/{connector_id}/store">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">get_store</a>(connector_id) -> <a href="./src/structify/types/connector_store_response.py">ConnectorStoreResponse</a></code>
 - <code title="post /connectors/ingest-datahub">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">ingest_datahub</a>(\*\*<a href="src/structify/types/connector_ingest_datahub_params.py">params</a>) -> <a href="./src/structify/types/ingest_datahub_response.py">IngestDatahubResponse</a></code>
 - <code title="get /connectors/with-snippets">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">list_with_snippets</a>(\*\*<a href="src/structify/types/connector_list_with_snippets_params.py">params</a>) -> <a href="./src/structify/types/connector_list_with_snippets_response.py">ConnectorListWithSnippetsResponse</a></code>
+- <code title="get /connectors/search-tables">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">search_tables</a>(\*\*<a href="src/structify/types/connector_search_tables_params.py">params</a>) -> <a href="./src/structify/types/search_tables_response.py">SearchTablesResponse</a></code>
 
 ## TypeSnippets
 
