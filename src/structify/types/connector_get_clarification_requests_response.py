@@ -23,6 +23,14 @@ class Request(BaseModel):
 
     column_id: Optional[str] = None
 
+    column_name: Optional[str] = None
+
+    database_name: Optional[str] = None
+
+    schema_name: Optional[str] = None
+
+    table_name: Optional[str] = None
+
 
 class ConnectorGetClarificationRequestsResponse(BaseModel):
     requests: List[Request]
