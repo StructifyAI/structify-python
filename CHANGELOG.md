@@ -1,5 +1,29 @@
 # Changelog
 
+## 1.162.0 (2025-11-28)
+
+Full Changelog: [v1.161.0...v1.162.0](https://github.com/StructifyAI/structify-python/compare/v1.161.0...v1.162.0)
+
+### Features
+
+* Update from Structify backend changes ([ac23086](https://github.com/StructifyAI/structify-python/commit/ac23086628d9542735f260477f29b4df87b1aed2))
+* Update from Structify backend changes ([2fc2d23](https://github.com/StructifyAI/structify-python/commit/2fc2d23e648566366cf742b4b828693712e27474))
+* Update from Structify backend changes ([87a04d0](https://github.com/StructifyAI/structify-python/commit/87a04d0743df7c74595ac5a6a9d2195f68265c71))
+* Update from Structify backend changes ([1ee747a](https://github.com/StructifyAI/structify-python/commit/1ee747aa1c87d98389eb367b87ae47408d6fd0e1))
+* Update from Structify backend changes ([f65e2ca](https://github.com/StructifyAI/structify-python/commit/f65e2ca8ceff9fb25e68824df041c4186ee54ea9))
+* Update from Structify backend changes ([79891ba](https://github.com/StructifyAI/structify-python/commit/79891bab25d2451d6faa5ff58f8e50d81baea23f))
+* Update from Structify backend changes ([22293df](https://github.com/StructifyAI/structify-python/commit/22293dff5469ace13c5f9ceb5aeec429bc01094f))
+* Update from Structify backend changes ([02695fd](https://github.com/StructifyAI/structify-python/commit/02695fd4f10a26bddd8f94d850a3ab715c7e1755))
+* Update from Structify backend changes ([4d4d39a](https://github.com/StructifyAI/structify-python/commit/4d4d39a4d3192b956285c7783a4c35af7da98e66))
+* Update from Structify backend changes ([d9a7123](https://github.com/StructifyAI/structify-python/commit/d9a7123fbf6cc1708c82a8493f046748b181f077))
+* Update from Structify backend changes ([c9bba1f](https://github.com/StructifyAI/structify-python/commit/c9bba1fb4ccda691442e31a2eea6b82d1ce99521))
+* Update from Structify backend changes ([1716d15](https://github.com/StructifyAI/structify-python/commit/1716d1545addc7fec98c466a0dc50401bc914ce1))
+
+
+### Bug Fixes
+
+* ensure streams are always closed ([bdc97a3](https://github.com/StructifyAI/structify-python/commit/bdc97a3985878aea5a44b48e2fbd26a3c8509952))
+
 ## 1.161.0 (2025-11-24)
 
 Full Changelog: [v1.160.0...v1.161.0](https://github.com/StructifyAI/structify-python/compare/v1.160.0...v1.161.0)

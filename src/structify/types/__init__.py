@@ -28,11 +28,13 @@ from .relationship import Relationship as Relationship
 from .workflow_dag import WorkflowDag as WorkflowDag
 from .message_param import MessageParam as MessageParam
 from .property_type import PropertyType as PropertyType
+from .table_mention import TableMention as TableMention
 from .tool_metadata import ToolMetadata as ToolMetadata
 from .execution_step import ExecutionStep as ExecutionStep
 from .job_event_body import JobEventBody as JobEventBody
 from .project_member import ProjectMember as ProjectMember
 from .strategy_param import StrategyParam as StrategyParam
+from .team_wiki_page import TeamWikiPage as TeamWikiPage
 from .team_with_role import TeamWithRole as TeamWithRole
 from .token_response import TokenResponse as TokenResponse
 from .autofix_context import AutofixContext as AutofixContext
@@ -72,6 +74,9 @@ from .source_list_params import SourceListParams as SourceListParams
 from .team_create_params import TeamCreateParams as TeamCreateParams
 from .team_update_params import TeamUpdateParams as TeamUpdateParams
 from .user_update_params import UserUpdateParams as UserUpdateParams
+from .wiki_create_params import WikiCreateParams as WikiCreateParams
+from .wiki_list_response import WikiListResponse as WikiListResponse
+from .wiki_update_params import WikiUpdateParams as WikiUpdateParams
 from .add_member_response import AddMemberResponse as AddMemberResponse
 from .dashboard_component import DashboardComponent as DashboardComponent
 from .entity_add_response import EntityAddResponse as EntityAddResponse
@@ -87,6 +92,7 @@ from .slack_events_params import SlackEventsParams as SlackEventsParams
 from .tool_metadata_param import ToolMetadataParam as ToolMetadataParam
 from .user_usage_response import UserUsageResponse as UserUsageResponse
 from .workflow_run_params import WorkflowRunParams as WorkflowRunParams
+from .connector_table_info import ConnectorTableInfo as ConnectorTableInfo
 from .create_team_response import CreateTeamResponse as CreateTeamResponse
 from .dataset_get_response import DatasetGetResponse as DatasetGetResponse
 from .dataset_match_params import DatasetMatchParams as DatasetMatchParams
@@ -98,6 +104,7 @@ from .entity_search_params import EntitySearchParams as EntitySearchParams
 from .entity_verify_params import EntityVerifyParams as EntityVerifyParams
 from .entity_view_response import EntityViewResponse as EntityViewResponse
 from .exploration_phase_id import ExplorationPhaseID as ExplorationPhaseID
+from .list_tables_response import ListTablesResponse as ListTablesResponse
 from .project_get_response import ProjectGetResponse as ProjectGetResponse
 from .report_step_response import ReportStepResponse as ReportStepResponse
 from .scrape_list_response import ScrapeListResponse as ScrapeListResponse
@@ -141,6 +148,7 @@ from .list_projects_response import ListProjectsResponse as ListProjectsResponse
 from .remove_member_response import RemoveMemberResponse as RemoveMemberResponse
 from .save_requirement_param import SaveRequirementParam as SaveRequirementParam
 from .scrape_scrape_response import ScrapeScrapeResponse as ScrapeScrapeResponse
+from .search_tables_response import SearchTablesResponse as SearchTablesResponse
 from .team_add_member_params import TeamAddMemberParams as TeamAddMemberParams
 from .workflow_schedule_info import WorkflowScheduleInfo as WorkflowScheduleInfo
 from .connector_create_params import ConnectorCreateParams as ConnectorCreateParams
@@ -154,11 +162,11 @@ from .entity_list_jobs_params import EntityListJobsParams as EntityListJobsParam
 from .entity_summarize_params import EntitySummarizeParams as EntitySummarizeParams
 from .explore_status_response import ExploreStatusResponse as ExploreStatusResponse
 from .get_job_events_response import GetJobEventsResponse as GetJobEventsResponse
-from .ingest_datahub_response import IngestDatahubResponse as IngestDatahubResponse
 from .report_missing_response import ReportMissingResponse as ReportMissingResponse
 from .slack_connection_status import SlackConnectionStatus as SlackConnectionStatus
 from .chat_delete_files_params import ChatDeleteFilesParams as ChatDeleteFilesParams
 from .chat_load_files_response import ChatLoadFilesResponse as ChatLoadFilesResponse
+from .connector_explore_params import ConnectorExploreParams as ConnectorExploreParams
 from .connector_store_response import ConnectorStoreResponse as ConnectorStoreResponse
 from .dataset_descriptor_param import DatasetDescriptorParam as DatasetDescriptorParam
 from .document_download_params import DocumentDownloadParams as DocumentDownloadParams
@@ -167,6 +175,7 @@ from .entity_get_merges_params import EntityGetMergesParams as EntityGetMergesPa
 from .match_create_jobs_params import MatchCreateJobsParams as MatchCreateJobsParams
 from .session_kill_jobs_params import SessionKillJobsParams as SessionKillJobsParams
 from .team_subscription_status import TeamSubscriptionStatus as TeamSubscriptionStatus
+from .wiki_connector_reference import WikiConnectorReference as WikiConnectorReference
 from .chat_list_sessions_params import ChatListSessionsParams as ChatListSessionsParams
 from .code_generate_code_params import CodeGenerateCodeParams as CodeGenerateCodeParams
 from .dashboard_component_param import DashboardComponentParam as DashboardComponentParam
@@ -185,6 +194,7 @@ from .slack_event_payload_param import SlackEventPayloadParam as SlackEventPaylo
 from .slack_user_mapping_params import SlackUserMappingParams as SlackUserMappingParams
 from .team_credits_usage_params import TeamCreditsUsageParams as TeamCreditsUsageParams
 from .user_survey_submit_params import UserSurveySubmitParams as UserSurveySubmitParams
+from .wiki_page_with_references import WikiPageWithReferences as WikiPageWithReferences
 from .accept_invitation_response import AcceptInvitationResponse as AcceptInvitationResponse
 from .chat_add_git_commit_params import ChatAddGitCommitParams as ChatAddGitCommitParams
 from .chat_create_session_params import ChatCreateSessionParams as ChatCreateSessionParams
@@ -243,6 +253,7 @@ from .structure_job_status_response import StructureJobStatusResponse as Structu
 from .team_accept_invitation_params import TeamAcceptInvitationParams as TeamAcceptInvitationParams
 from .chat_revert_to_commit_response import ChatRevertToCommitResponse as ChatRevertToCommitResponse
 from .connector_create_secret_params import ConnectorCreateSecretParams as ConnectorCreateSecretParams
+from .connector_search_tables_params import ConnectorSearchTablesParams as ConnectorSearchTablesParams
 from .credits_usage_timeseries_point import CreditsUsageTimeseriesPoint as CreditsUsageTimeseriesPoint
 from .dataset_export_to_excel_params import DatasetExportToExcelParams as DatasetExportToExcelParams
 from .dataset_remove_property_params import DatasetRemovePropertyParams as DatasetRemovePropertyParams
@@ -254,9 +265,7 @@ from .workflow_node_execution_status import WorkflowNodeExecutionStatus as Workf
 from .workflow_schedule_get_response import WorkflowScheduleGetResponse as WorkflowScheduleGetResponse
 from .workflow_schedule_pause_params import WorkflowSchedulePauseParams as WorkflowSchedulePauseParams
 from .chat_get_partial_chats_response import ChatGetPartialChatsResponse as ChatGetPartialChatsResponse
-from .connector_ingest_datahub_params import ConnectorIngestDatahubParams as ConnectorIngestDatahubParams
 from .entity_update_property_response import EntityUpdatePropertyResponse as EntityUpdatePropertyResponse
-from .explore_datahub_tables_response import ExploreDatahubTablesResponse as ExploreDatahubTablesResponse
 from .workflow_schedule_create_params import WorkflowScheduleCreateParams as WorkflowScheduleCreateParams
 from .workflow_schedule_update_params import WorkflowScheduleUpdateParams as WorkflowScheduleUpdateParams
 from .chat_grant_admin_override_params import ChatGrantAdminOverrideParams as ChatGrantAdminOverrideParams
@@ -289,7 +298,6 @@ from .entity_get_source_entities_response import EntityGetSourceEntitiesResponse
 from .session_update_node_progress_params import SessionUpdateNodeProgressParams as SessionUpdateNodeProgressParams
 from .structure_enhance_property_response import StructureEnhancePropertyResponse as StructureEnhancePropertyResponse
 from .dataset_enrichment_progress_response import DatasetEnrichmentProgressResponse as DatasetEnrichmentProgressResponse
-from .explore_datahub_tables_request_param import ExploreDatahubTablesRequestParam as ExploreDatahubTablesRequestParam
 from .structure_find_relationship_response import StructureFindRelationshipResponse as StructureFindRelationshipResponse
 from .connector_list_with_snippets_response import (
     ConnectorListWithSnippetsResponse as ConnectorListWithSnippetsResponse,
@@ -305,9 +313,6 @@ from .session_upload_dashboard_layout_params import (
 )
 from .session_upload_node_output_data_params import (
     SessionUploadNodeOutputDataParams as SessionUploadNodeOutputDataParams,
-)
-from .connector_explore_datahub_tables_params import (
-    ConnectorExploreDatahubTablesParams as ConnectorExploreDatahubTablesParams,
 )
 from .dataset_count_missing_embeddings_params import (
     DatasetCountMissingEmbeddingsParams as DatasetCountMissingEmbeddingsParams,

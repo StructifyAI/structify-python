@@ -32,6 +32,14 @@ from .user import (
     UserResourceWithStreamingResponse,
     AsyncUserResourceWithStreamingResponse,
 )
+from .wiki import (
+    WikiResource,
+    AsyncWikiResource,
+    WikiResourceWithRawResponse,
+    AsyncWikiResourceWithRawResponse,
+    WikiResourceWithStreamingResponse,
+    AsyncWikiResourceWithStreamingResponse,
+)
 from .admin import (
     AdminResource,
     AsyncAdminResource,
@@ -217,6 +225,12 @@ __all__ = [
     "AsyncTeamsResourceWithRawResponse",
     "TeamsResourceWithStreamingResponse",
     "AsyncTeamsResourceWithStreamingResponse",
+    "WikiResource",
+    "AsyncWikiResource",
+    "WikiResourceWithRawResponse",
+    "AsyncWikiResourceWithRawResponse",
+    "WikiResourceWithStreamingResponse",
+    "AsyncWikiResourceWithStreamingResponse",
     "ProjectsResource",
     "AsyncProjectsResource",
     "ProjectsResourceWithRawResponse",

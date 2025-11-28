@@ -121,7 +121,11 @@ class DatahubSchemasCreated(BaseModel):
 
 
 class DatahubTablesProcessed(BaseModel):
+    column_lineage_count: int
+
     event_type: Literal["datahub_tables_processed"]
+
+    table_lineage_count: int
 
     tables_created: int
 

@@ -9,4 +9,5 @@ __all__ = ["SandboxGetParams"]
 
 
 class SandboxGetParams(TypedDict, total=False):
-    sandbox_url_override: Optional[str]
+    modal_control_service_url_override: Optional[str]
+    """Override URL for the modal control service (for testing/development)"""

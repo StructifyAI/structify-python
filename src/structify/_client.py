@@ -25,6 +25,7 @@ from .resources import (
     chat,
     code,
     jobs,
+    wiki,
     match,
     slack,
     teams,
@@ -78,6 +79,7 @@ class Structify(SyncAPIClient):
     user: user.UserResource
     chat: chat.ChatResource
     teams: teams.TeamsResource
+    wiki: wiki.WikiResource
     projects: projects.ProjectsResource
     admin: admin.AdminResource
     datasets: datasets.DatasetsResource
@@ -184,6 +186,7 @@ class Structify(SyncAPIClient):
         self.user = user.UserResource(self)
         self.chat = chat.ChatResource(self)
         self.teams = teams.TeamsResource(self)
+        self.wiki = wiki.WikiResource(self)
         self.projects = projects.ProjectsResource(self)
         self.admin = admin.AdminResource(self)
         self.datasets = datasets.DatasetsResource(self)
@@ -320,6 +323,7 @@ class AsyncStructify(AsyncAPIClient):
     user: user.AsyncUserResource
     chat: chat.AsyncChatResource
     teams: teams.AsyncTeamsResource
+    wiki: wiki.AsyncWikiResource
     projects: projects.AsyncProjectsResource
     admin: admin.AsyncAdminResource
     datasets: datasets.AsyncDatasetsResource
@@ -425,6 +429,7 @@ class AsyncStructify(AsyncAPIClient):
         self.user = user.AsyncUserResource(self)
         self.chat = chat.AsyncChatResource(self)
         self.teams = teams.AsyncTeamsResource(self)
+        self.wiki = wiki.AsyncWikiResource(self)
         self.projects = projects.AsyncProjectsResource(self)
         self.admin = admin.AsyncAdminResource(self)
         self.datasets = datasets.AsyncDatasetsResource(self)
@@ -561,6 +566,7 @@ class StructifyWithRawResponse:
         self.user = user.UserResourceWithRawResponse(client.user)
         self.chat = chat.ChatResourceWithRawResponse(client.chat)
         self.teams = teams.TeamsResourceWithRawResponse(client.teams)
+        self.wiki = wiki.WikiResourceWithRawResponse(client.wiki)
         self.projects = projects.ProjectsResourceWithRawResponse(client.projects)
         self.admin = admin.AdminResourceWithRawResponse(client.admin)
         self.datasets = datasets.DatasetsResourceWithRawResponse(client.datasets)
@@ -590,6 +596,7 @@ class AsyncStructifyWithRawResponse:
         self.user = user.AsyncUserResourceWithRawResponse(client.user)
         self.chat = chat.AsyncChatResourceWithRawResponse(client.chat)
         self.teams = teams.AsyncTeamsResourceWithRawResponse(client.teams)
+        self.wiki = wiki.AsyncWikiResourceWithRawResponse(client.wiki)
         self.projects = projects.AsyncProjectsResourceWithRawResponse(client.projects)
         self.admin = admin.AsyncAdminResourceWithRawResponse(client.admin)
         self.datasets = datasets.AsyncDatasetsResourceWithRawResponse(client.datasets)
@@ -620,6 +627,7 @@ class StructifyWithStreamedResponse:
         self.user = user.UserResourceWithStreamingResponse(client.user)
         self.chat = chat.ChatResourceWithStreamingResponse(client.chat)
         self.teams = teams.TeamsResourceWithStreamingResponse(client.teams)
+        self.wiki = wiki.WikiResourceWithStreamingResponse(client.wiki)
         self.projects = projects.ProjectsResourceWithStreamingResponse(client.projects)
         self.admin = admin.AdminResourceWithStreamingResponse(client.admin)
         self.datasets = datasets.DatasetsResourceWithStreamingResponse(client.datasets)
@@ -651,6 +659,7 @@ class AsyncStructifyWithStreamedResponse:
         self.user = user.AsyncUserResourceWithStreamingResponse(client.user)
         self.chat = chat.AsyncChatResourceWithStreamingResponse(client.chat)
         self.teams = teams.AsyncTeamsResourceWithStreamingResponse(client.teams)
+        self.wiki = wiki.AsyncWikiResourceWithStreamingResponse(client.wiki)
         self.projects = projects.AsyncProjectsResourceWithStreamingResponse(client.projects)
         self.admin = admin.AsyncAdminResourceWithStreamingResponse(client.admin)
         self.datasets = datasets.AsyncDatasetsResourceWithStreamingResponse(client.datasets)

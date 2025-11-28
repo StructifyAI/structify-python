@@ -284,9 +284,13 @@ class ToolCallToolCallUnionMember9(BaseModel):
 class ToolCallToolCallUnionMember10Input(BaseModel):
     name: str
 
+    deprioritization_reason: Optional[str] = None
+
     description: Optional[str] = None
 
     notes: Optional[str] = None
+
+    tag: Optional[str] = None
 
 
 class ToolCallToolCallUnionMember10(BaseModel):
@@ -355,6 +359,8 @@ class ToolCallToolCallUnionMember13(BaseModel):
 
 class ToolCallToolCallUnionMember14Input(BaseModel):
     query: str
+
+    wiki_tag: Optional[str] = None
 
 
 class ToolCallToolCallUnionMember14(BaseModel):

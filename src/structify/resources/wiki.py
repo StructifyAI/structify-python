@@ -2,13 +2,12 @@
 
 from __future__ import annotations
 
-from typing import Optional
-from typing_extensions import Literal
+from typing import Dict, Optional
 
 import httpx
 
-from ..types import sandbox_get_params, sandbox_create_params, sandbox_update_status_params
-from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from ..types import wiki_create_params, wiki_update_params
+from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -19,48 +18,47 @@ from .._response import (
     async_to_streamed_response_wrapper,
 )
 from .._base_client import make_request_options
-from ..types.sandbox import Sandbox
-from ..types.sandbox_list_response import SandboxListResponse
+from ..types.team_wiki_page import TeamWikiPage
+from ..types.wiki_list_response import WikiListResponse
+from ..types.wiki_page_with_references import WikiPageWithReferences
 
-__all__ = ["SandboxResource", "AsyncSandboxResource"]
+__all__ = ["WikiResource", "AsyncWikiResource"]
 
 
-class SandboxResource(SyncAPIResource):
+class WikiResource(SyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> SandboxResourceWithRawResponse:
+    def with_raw_response(self) -> WikiResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/StructifyAI/structify-python#accessing-raw-response-data-eg-headers
         """
-        return SandboxResourceWithRawResponse(self)
+        return WikiResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> SandboxResourceWithStreamingResponse:
+    def with_streaming_response(self) -> WikiResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/StructifyAI/structify-python#with_streaming_response
         """
-        return SandboxResourceWithStreamingResponse(self)
+        return WikiResourceWithStreamingResponse(self)
 
     def create(
         self,
-        chat_id: str,
+        team_id: str,
         *,
-        chat_session_id: str,
-        modal_id: str,
-        modal_url: str,
-        status: Literal["alive", "terminated"],
-        latest_node: Optional[str] | Omit = omit,
+        content: Dict[str, object],
+        slug: str,
+        title: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Sandbox:
+    ) -> TeamWikiPage:
         """
         Args:
           extra_headers: Send extra headers
@@ -71,29 +69,70 @@ class SandboxResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not chat_id:
-            raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
+        if not team_id:
+            raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
         return self._post(
-            f"/sandbox/{chat_id}",
+            f"/team/{team_id}/wiki",
             body=maybe_transform(
                 {
-                    "chat_session_id": chat_session_id,
-                    "modal_id": modal_id,
-                    "modal_url": modal_url,
-                    "status": status,
-                    "latest_node": latest_node,
+                    "content": content,
+                    "slug": slug,
+                    "title": title,
                 },
-                sandbox_create_params.SandboxCreateParams,
+                wiki_create_params.WikiCreateParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Sandbox,
+            cast_to=TeamWikiPage,
+        )
+
+    def update(
+        self,
+        slug: str,
+        *,
+        team_id: str,
+        content: Dict[str, object],
+        title: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> TeamWikiPage:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not team_id:
+            raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
+        if not slug:
+            raise ValueError(f"Expected a non-empty value for `slug` but received {slug!r}")
+        return self._put(
+            f"/team/{team_id}/wiki/{slug}",
+            body=maybe_transform(
+                {
+                    "content": content,
+                    "title": title,
+                },
+                wiki_update_params.WikiUpdateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=TeamWikiPage,
         )
 
     def list(
         self,
-        chat_id: str,
+        team_id: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -101,7 +140,7 @@ class SandboxResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SandboxListResponse:
+    ) -> WikiListResponse:
         """
         Args:
           extra_headers: Send extra headers
@@ -112,66 +151,63 @@ class SandboxResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not chat_id:
-            raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
+        if not team_id:
+            raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
         return self._get(
-            f"/sandbox/list/{chat_id}",
+            f"/team/{team_id}/wiki",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=SandboxListResponse,
+            cast_to=WikiListResponse,
+        )
+
+    def delete(
+        self,
+        slug: str,
+        *,
+        team_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> None:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not team_id:
+            raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
+        if not slug:
+            raise ValueError(f"Expected a non-empty value for `slug` but received {slug!r}")
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return self._delete(
+            f"/team/{team_id}/wiki/{slug}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NoneType,
         )
 
     def get(
         self,
-        chat_id: str,
+        slug: str,
         *,
-        modal_control_service_url_override: Optional[str] | Omit = omit,
+        team_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Sandbox:
-        """
-        Args:
-          modal_control_service_url_override: Override URL for the modal control service (for testing/development)
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not chat_id:
-            raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
-        return self._post(
-            f"/sandbox/live/{chat_id}",
-            body=maybe_transform(
-                {"modal_control_service_url_override": modal_control_service_url_override},
-                sandbox_get_params.SandboxGetParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=Sandbox,
-        )
-
-    def update_status(
-        self,
-        sandbox_id: str,
-        *,
-        status: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Sandbox:
+    ) -> WikiPageWithReferences:
         """
         Args:
           extra_headers: Send extra headers
@@ -182,54 +218,53 @@ class SandboxResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not sandbox_id:
-            raise ValueError(f"Expected a non-empty value for `sandbox_id` but received {sandbox_id!r}")
-        return self._patch(
-            f"/sandbox/{sandbox_id}/status",
-            body=maybe_transform({"status": status}, sandbox_update_status_params.SandboxUpdateStatusParams),
+        if not team_id:
+            raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
+        if not slug:
+            raise ValueError(f"Expected a non-empty value for `slug` but received {slug!r}")
+        return self._get(
+            f"/team/{team_id}/wiki/{slug}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Sandbox,
+            cast_to=WikiPageWithReferences,
         )
 
 
-class AsyncSandboxResource(AsyncAPIResource):
+class AsyncWikiResource(AsyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> AsyncSandboxResourceWithRawResponse:
+    def with_raw_response(self) -> AsyncWikiResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/StructifyAI/structify-python#accessing-raw-response-data-eg-headers
         """
-        return AsyncSandboxResourceWithRawResponse(self)
+        return AsyncWikiResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> AsyncSandboxResourceWithStreamingResponse:
+    def with_streaming_response(self) -> AsyncWikiResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/StructifyAI/structify-python#with_streaming_response
         """
-        return AsyncSandboxResourceWithStreamingResponse(self)
+        return AsyncWikiResourceWithStreamingResponse(self)
 
     async def create(
         self,
-        chat_id: str,
+        team_id: str,
         *,
-        chat_session_id: str,
-        modal_id: str,
-        modal_url: str,
-        status: Literal["alive", "terminated"],
-        latest_node: Optional[str] | Omit = omit,
+        content: Dict[str, object],
+        slug: str,
+        title: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Sandbox:
+    ) -> TeamWikiPage:
         """
         Args:
           extra_headers: Send extra headers
@@ -240,29 +275,70 @@ class AsyncSandboxResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not chat_id:
-            raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
+        if not team_id:
+            raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
         return await self._post(
-            f"/sandbox/{chat_id}",
+            f"/team/{team_id}/wiki",
             body=await async_maybe_transform(
                 {
-                    "chat_session_id": chat_session_id,
-                    "modal_id": modal_id,
-                    "modal_url": modal_url,
-                    "status": status,
-                    "latest_node": latest_node,
+                    "content": content,
+                    "slug": slug,
+                    "title": title,
                 },
-                sandbox_create_params.SandboxCreateParams,
+                wiki_create_params.WikiCreateParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Sandbox,
+            cast_to=TeamWikiPage,
+        )
+
+    async def update(
+        self,
+        slug: str,
+        *,
+        team_id: str,
+        content: Dict[str, object],
+        title: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> TeamWikiPage:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not team_id:
+            raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
+        if not slug:
+            raise ValueError(f"Expected a non-empty value for `slug` but received {slug!r}")
+        return await self._put(
+            f"/team/{team_id}/wiki/{slug}",
+            body=await async_maybe_transform(
+                {
+                    "content": content,
+                    "title": title,
+                },
+                wiki_update_params.WikiUpdateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=TeamWikiPage,
         )
 
     async def list(
         self,
-        chat_id: str,
+        team_id: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -270,7 +346,7 @@ class AsyncSandboxResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SandboxListResponse:
+    ) -> WikiListResponse:
         """
         Args:
           extra_headers: Send extra headers
@@ -281,66 +357,63 @@ class AsyncSandboxResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not chat_id:
-            raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
+        if not team_id:
+            raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
         return await self._get(
-            f"/sandbox/list/{chat_id}",
+            f"/team/{team_id}/wiki",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=SandboxListResponse,
+            cast_to=WikiListResponse,
+        )
+
+    async def delete(
+        self,
+        slug: str,
+        *,
+        team_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> None:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not team_id:
+            raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
+        if not slug:
+            raise ValueError(f"Expected a non-empty value for `slug` but received {slug!r}")
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return await self._delete(
+            f"/team/{team_id}/wiki/{slug}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NoneType,
         )
 
     async def get(
         self,
-        chat_id: str,
+        slug: str,
         *,
-        modal_control_service_url_override: Optional[str] | Omit = omit,
+        team_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Sandbox:
-        """
-        Args:
-          modal_control_service_url_override: Override URL for the modal control service (for testing/development)
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not chat_id:
-            raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
-        return await self._post(
-            f"/sandbox/live/{chat_id}",
-            body=await async_maybe_transform(
-                {"modal_control_service_url_override": modal_control_service_url_override},
-                sandbox_get_params.SandboxGetParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=Sandbox,
-        )
-
-    async def update_status(
-        self,
-        sandbox_id: str,
-        *,
-        status: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Sandbox:
+    ) -> WikiPageWithReferences:
         """
         Args:
           extra_headers: Send extra headers
@@ -351,87 +424,98 @@ class AsyncSandboxResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not sandbox_id:
-            raise ValueError(f"Expected a non-empty value for `sandbox_id` but received {sandbox_id!r}")
-        return await self._patch(
-            f"/sandbox/{sandbox_id}/status",
-            body=await async_maybe_transform(
-                {"status": status}, sandbox_update_status_params.SandboxUpdateStatusParams
-            ),
+        if not team_id:
+            raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
+        if not slug:
+            raise ValueError(f"Expected a non-empty value for `slug` but received {slug!r}")
+        return await self._get(
+            f"/team/{team_id}/wiki/{slug}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Sandbox,
+            cast_to=WikiPageWithReferences,
         )
 
 
-class SandboxResourceWithRawResponse:
-    def __init__(self, sandbox: SandboxResource) -> None:
-        self._sandbox = sandbox
+class WikiResourceWithRawResponse:
+    def __init__(self, wiki: WikiResource) -> None:
+        self._wiki = wiki
 
         self.create = to_raw_response_wrapper(
-            sandbox.create,
+            wiki.create,
+        )
+        self.update = to_raw_response_wrapper(
+            wiki.update,
         )
         self.list = to_raw_response_wrapper(
-            sandbox.list,
+            wiki.list,
+        )
+        self.delete = to_raw_response_wrapper(
+            wiki.delete,
         )
         self.get = to_raw_response_wrapper(
-            sandbox.get,
-        )
-        self.update_status = to_raw_response_wrapper(
-            sandbox.update_status,
+            wiki.get,
         )
 
 
-class AsyncSandboxResourceWithRawResponse:
-    def __init__(self, sandbox: AsyncSandboxResource) -> None:
-        self._sandbox = sandbox
+class AsyncWikiResourceWithRawResponse:
+    def __init__(self, wiki: AsyncWikiResource) -> None:
+        self._wiki = wiki
 
         self.create = async_to_raw_response_wrapper(
-            sandbox.create,
+            wiki.create,
+        )
+        self.update = async_to_raw_response_wrapper(
+            wiki.update,
         )
         self.list = async_to_raw_response_wrapper(
-            sandbox.list,
+            wiki.list,
+        )
+        self.delete = async_to_raw_response_wrapper(
+            wiki.delete,
         )
         self.get = async_to_raw_response_wrapper(
-            sandbox.get,
-        )
-        self.update_status = async_to_raw_response_wrapper(
-            sandbox.update_status,
+            wiki.get,
         )
 
 
-class SandboxResourceWithStreamingResponse:
-    def __init__(self, sandbox: SandboxResource) -> None:
-        self._sandbox = sandbox
+class WikiResourceWithStreamingResponse:
+    def __init__(self, wiki: WikiResource) -> None:
+        self._wiki = wiki
 
         self.create = to_streamed_response_wrapper(
-            sandbox.create,
+            wiki.create,
+        )
+        self.update = to_streamed_response_wrapper(
+            wiki.update,
         )
         self.list = to_streamed_response_wrapper(
-            sandbox.list,
+            wiki.list,
+        )
+        self.delete = to_streamed_response_wrapper(
+            wiki.delete,
         )
         self.get = to_streamed_response_wrapper(
-            sandbox.get,
-        )
-        self.update_status = to_streamed_response_wrapper(
-            sandbox.update_status,
+            wiki.get,
         )
 
 
-class AsyncSandboxResourceWithStreamingResponse:
-    def __init__(self, sandbox: AsyncSandboxResource) -> None:
-        self._sandbox = sandbox
+class AsyncWikiResourceWithStreamingResponse:
+    def __init__(self, wiki: AsyncWikiResource) -> None:
+        self._wiki = wiki
 
         self.create = async_to_streamed_response_wrapper(
-            sandbox.create,
+            wiki.create,
+        )
+        self.update = async_to_streamed_response_wrapper(
+            wiki.update,
         )
         self.list = async_to_streamed_response_wrapper(
-            sandbox.list,
+            wiki.list,
+        )
+        self.delete = async_to_streamed_response_wrapper(
+            wiki.delete,
         )
         self.get = async_to_streamed_response_wrapper(
-            sandbox.get,
-        )
-        self.update_status = async_to_streamed_response_wrapper(
-            sandbox.update_status,
+            wiki.get,
         )

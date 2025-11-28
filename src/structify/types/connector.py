@@ -29,6 +29,8 @@ class Connector(BaseModel):
 
     datahub_urn: Optional[str] = None
 
+    deleted_at: Optional[datetime] = None
+
     description: Optional[str] = None
 
     exploration_error: Optional[str] = None
