@@ -44,10 +44,10 @@ from ...types.update_table_response import UpdateTableResponse
 from ...types.connector_get_response import ConnectorGetResponse
 from ...types.connector_with_secrets import ConnectorWithSecrets
 from ...types.explorer_chat_response import ExplorerChatResponse
-from ...types.search_tables_response import SearchTablesResponse
 from ...types.explore_status_response import ExploreStatusResponse
 from ...types.connector_store_response import ConnectorStoreResponse
 from ...types.exploration_runs_response import ExplorationRunsResponse
+from ...types.connector_search_tables_response import ConnectorSearchTablesResponse
 from ...types.connector_list_with_snippets_response import ConnectorListWithSnippetsResponse
 from ...types.connector_get_clarification_requests_response import ConnectorGetClarificationRequestsResponse
 
@@ -676,21 +676,18 @@ class ConnectorsResource(SyncAPIResource):
         *,
         query: str,
         team_id: str,
-        limit: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SearchTablesResponse:
+    ) -> ConnectorSearchTablesResponse:
         """
         Args:
           query: Search query string
 
           team_id: Team ID to search tables for
-
-          limit: Maximum number of results to return
 
           extra_headers: Send extra headers
 
@@ -711,12 +708,11 @@ class ConnectorsResource(SyncAPIResource):
                     {
                         "query": query,
                         "team_id": team_id,
-                        "limit": limit,
                     },
                     connector_search_tables_params.ConnectorSearchTablesParams,
                 ),
             ),
-            cast_to=SearchTablesResponse,
+            cast_to=ConnectorSearchTablesResponse,
         )
 
     def update_column(
@@ -1420,21 +1416,18 @@ class AsyncConnectorsResource(AsyncAPIResource):
         *,
         query: str,
         team_id: str,
-        limit: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SearchTablesResponse:
+    ) -> ConnectorSearchTablesResponse:
         """
         Args:
           query: Search query string
 
           team_id: Team ID to search tables for
-
-          limit: Maximum number of results to return
 
           extra_headers: Send extra headers
 
@@ -1455,12 +1448,11 @@ class AsyncConnectorsResource(AsyncAPIResource):
                     {
                         "query": query,
                         "team_id": team_id,
-                        "limit": limit,
                     },
                     connector_search_tables_params.ConnectorSearchTablesParams,
                 ),
             ),
-            cast_to=SearchTablesResponse,
+            cast_to=ConnectorSearchTablesResponse,
         )
 
     async def update_column(
