@@ -655,7 +655,10 @@ from structify.types import (
     LlmInformationStore,
     SearchTablesResponse,
     TableMention,
+    UpdateColumnRequest,
     UpdateConnectorRequest,
+    UpdateTableRequest,
+    UpdateTableResponse,
     ConnectorGetResponse,
     ConnectorGetClarificationRequestsResponse,
     ConnectorListWithSnippetsResponse,
@@ -679,7 +682,10 @@ Methods:
 - <code title="get /connectors/{connector_id}/store">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">get_store</a>(connector_id) -> <a href="./src/structify/types/connector_store_response.py">ConnectorStoreResponse</a></code>
 - <code title="get /connectors/{connector_id}/tables">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">list_tables</a>(connector_id) -> <a href="./src/structify/types/list_tables_response.py">ListTablesResponse</a></code>
 - <code title="get /connectors/with-snippets">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">list_with_snippets</a>(\*\*<a href="src/structify/types/connector_list_with_snippets_params.py">params</a>) -> <a href="./src/structify/types/connector_list_with_snippets_response.py">ConnectorListWithSnippetsResponse</a></code>
+- <code title="patch /connectors/clarification-requests/{clarification_id}/resolve">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">resolve_clarification</a>(clarification_id) -> None</code>
 - <code title="get /connectors/search-tables">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">search_tables</a>(\*\*<a href="src/structify/types/connector_search_tables_params.py">params</a>) -> <a href="./src/structify/types/search_tables_response.py">SearchTablesResponse</a></code>
+- <code title="patch /connectors/columns/{column_id}">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">update_column</a>(column_id, \*\*<a href="src/structify/types/connector_update_column_params.py">params</a>) -> None</code>
+- <code title="patch /connectors/tables/{table_id}">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">update_table</a>(table_id, \*\*<a href="src/structify/types/connector_update_table_params.py">params</a>) -> <a href="./src/structify/types/update_table_response.py">UpdateTableResponse</a></code>
 
 ## TypeSnippets
 
