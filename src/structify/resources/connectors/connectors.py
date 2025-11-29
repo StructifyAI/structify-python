@@ -11,8 +11,10 @@ from ...types import (
     connector_create_params,
     connector_update_params,
     connector_explore_params,
+    connector_update_table_params,
     connector_create_secret_params,
     connector_search_tables_params,
+    connector_update_column_params,
     connector_get_explorer_chat_params,
     connector_list_with_snippets_params,
 )
@@ -38,6 +40,7 @@ from .type_snippets import (
 from ..._base_client import AsyncPaginator, make_request_options
 from ...types.connector import Connector
 from ...types.list_tables_response import ListTablesResponse
+from ...types.update_table_response import UpdateTableResponse
 from ...types.connector_get_response import ConnectorGetResponse
 from ...types.connector_with_secrets import ConnectorWithSecrets
 from ...types.explorer_chat_response import ExplorerChatResponse
@@ -634,6 +637,40 @@ class ConnectorsResource(SyncAPIResource):
             cast_to=ConnectorListWithSnippetsResponse,
         )
 
+    def resolve_clarification(
+        self,
+        clarification_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> None:
+        """
+        Mark a clarification request as resolved
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not clarification_id:
+            raise ValueError(f"Expected a non-empty value for `clarification_id` but received {clarification_id!r}")
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return self._patch(
+            f"/connectors/clarification-requests/{clarification_id}/resolve",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NoneType,
+        )
+
     def search_tables(
         self,
         *,
@@ -680,6 +717,84 @@ class ConnectorsResource(SyncAPIResource):
                 ),
             ),
             cast_to=SearchTablesResponse,
+        )
+
+    def update_column(
+        self,
+        column_id: str,
+        *,
+        notes: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> None:
+        """
+        Update column metadata (notes)
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not column_id:
+            raise ValueError(f"Expected a non-empty value for `column_id` but received {column_id!r}")
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return self._patch(
+            f"/connectors/columns/{column_id}",
+            body=maybe_transform({"notes": notes}, connector_update_column_params.ConnectorUpdateColumnParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NoneType,
+        )
+
+    def update_table(
+        self,
+        table_id: str,
+        *,
+        description: Optional[str] | Omit = omit,
+        notes: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> UpdateTableResponse:
+        """
+        Update table metadata (description or notes)
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not table_id:
+            raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
+        return self._patch(
+            f"/connectors/tables/{table_id}",
+            body=maybe_transform(
+                {
+                    "description": description,
+                    "notes": notes,
+                },
+                connector_update_table_params.ConnectorUpdateTableParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=UpdateTableResponse,
         )
 
 
@@ -1266,6 +1381,40 @@ class AsyncConnectorsResource(AsyncAPIResource):
             cast_to=ConnectorListWithSnippetsResponse,
         )
 
+    async def resolve_clarification(
+        self,
+        clarification_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> None:
+        """
+        Mark a clarification request as resolved
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not clarification_id:
+            raise ValueError(f"Expected a non-empty value for `clarification_id` but received {clarification_id!r}")
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return await self._patch(
+            f"/connectors/clarification-requests/{clarification_id}/resolve",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NoneType,
+        )
+
     async def search_tables(
         self,
         *,
@@ -1312,6 +1461,86 @@ class AsyncConnectorsResource(AsyncAPIResource):
                 ),
             ),
             cast_to=SearchTablesResponse,
+        )
+
+    async def update_column(
+        self,
+        column_id: str,
+        *,
+        notes: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> None:
+        """
+        Update column metadata (notes)
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not column_id:
+            raise ValueError(f"Expected a non-empty value for `column_id` but received {column_id!r}")
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return await self._patch(
+            f"/connectors/columns/{column_id}",
+            body=await async_maybe_transform(
+                {"notes": notes}, connector_update_column_params.ConnectorUpdateColumnParams
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NoneType,
+        )
+
+    async def update_table(
+        self,
+        table_id: str,
+        *,
+        description: Optional[str] | Omit = omit,
+        notes: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> UpdateTableResponse:
+        """
+        Update table metadata (description or notes)
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not table_id:
+            raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
+        return await self._patch(
+            f"/connectors/tables/{table_id}",
+            body=await async_maybe_transform(
+                {
+                    "description": description,
+                    "notes": notes,
+                },
+                connector_update_table_params.ConnectorUpdateTableParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=UpdateTableResponse,
         )
 
 
@@ -1364,8 +1593,17 @@ class ConnectorsResourceWithRawResponse:
         self.list_with_snippets = to_raw_response_wrapper(
             connectors.list_with_snippets,
         )
+        self.resolve_clarification = to_raw_response_wrapper(
+            connectors.resolve_clarification,
+        )
         self.search_tables = to_raw_response_wrapper(
             connectors.search_tables,
+        )
+        self.update_column = to_raw_response_wrapper(
+            connectors.update_column,
+        )
+        self.update_table = to_raw_response_wrapper(
+            connectors.update_table,
         )
 
     @cached_property
@@ -1422,8 +1660,17 @@ class AsyncConnectorsResourceWithRawResponse:
         self.list_with_snippets = async_to_raw_response_wrapper(
             connectors.list_with_snippets,
         )
+        self.resolve_clarification = async_to_raw_response_wrapper(
+            connectors.resolve_clarification,
+        )
         self.search_tables = async_to_raw_response_wrapper(
             connectors.search_tables,
+        )
+        self.update_column = async_to_raw_response_wrapper(
+            connectors.update_column,
+        )
+        self.update_table = async_to_raw_response_wrapper(
+            connectors.update_table,
         )
 
     @cached_property
@@ -1480,8 +1727,17 @@ class ConnectorsResourceWithStreamingResponse:
         self.list_with_snippets = to_streamed_response_wrapper(
             connectors.list_with_snippets,
         )
+        self.resolve_clarification = to_streamed_response_wrapper(
+            connectors.resolve_clarification,
+        )
         self.search_tables = to_streamed_response_wrapper(
             connectors.search_tables,
+        )
+        self.update_column = to_streamed_response_wrapper(
+            connectors.update_column,
+        )
+        self.update_table = to_streamed_response_wrapper(
+            connectors.update_table,
         )
 
     @cached_property
@@ -1538,8 +1794,17 @@ class AsyncConnectorsResourceWithStreamingResponse:
         self.list_with_snippets = async_to_streamed_response_wrapper(
             connectors.list_with_snippets,
         )
+        self.resolve_clarification = async_to_streamed_response_wrapper(
+            connectors.resolve_clarification,
+        )
         self.search_tables = async_to_streamed_response_wrapper(
             connectors.search_tables,
+        )
+        self.update_column = async_to_streamed_response_wrapper(
+            connectors.update_column,
+        )
+        self.update_table = async_to_streamed_response_wrapper(
+            connectors.update_table,
         )
 
     @cached_property
