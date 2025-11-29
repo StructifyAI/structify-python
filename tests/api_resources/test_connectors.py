@@ -16,10 +16,10 @@ from structify.types import (
     ConnectorGetResponse,
     ConnectorWithSecrets,
     ExplorerChatResponse,
-    SearchTablesResponse,
     ExploreStatusResponse,
     ConnectorStoreResponse,
     ExplorationRunsResponse,
+    ConnectorSearchTablesResponse,
     ConnectorListWithSnippetsResponse,
     ConnectorGetClarificationRequestsResponse,
 )
@@ -695,16 +695,7 @@ class TestConnectors:
             query="query",
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(SearchTablesResponse, connector, path=["response"])
-
-    @parametrize
-    def test_method_search_tables_with_all_params(self, client: Structify) -> None:
-        connector = client.connectors.search_tables(
-            query="query",
-            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            limit=0,
-        )
-        assert_matches_type(SearchTablesResponse, connector, path=["response"])
+        assert_matches_type(ConnectorSearchTablesResponse, connector, path=["response"])
 
     @parametrize
     def test_raw_response_search_tables(self, client: Structify) -> None:
@@ -716,7 +707,7 @@ class TestConnectors:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         connector = response.parse()
-        assert_matches_type(SearchTablesResponse, connector, path=["response"])
+        assert_matches_type(ConnectorSearchTablesResponse, connector, path=["response"])
 
     @parametrize
     def test_streaming_response_search_tables(self, client: Structify) -> None:
@@ -728,7 +719,7 @@ class TestConnectors:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             connector = response.parse()
-            assert_matches_type(SearchTablesResponse, connector, path=["response"])
+            assert_matches_type(ConnectorSearchTablesResponse, connector, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -1495,16 +1486,7 @@ class TestAsyncConnectors:
             query="query",
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(SearchTablesResponse, connector, path=["response"])
-
-    @parametrize
-    async def test_method_search_tables_with_all_params(self, async_client: AsyncStructify) -> None:
-        connector = await async_client.connectors.search_tables(
-            query="query",
-            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            limit=0,
-        )
-        assert_matches_type(SearchTablesResponse, connector, path=["response"])
+        assert_matches_type(ConnectorSearchTablesResponse, connector, path=["response"])
 
     @parametrize
     async def test_raw_response_search_tables(self, async_client: AsyncStructify) -> None:
@@ -1516,7 +1498,7 @@ class TestAsyncConnectors:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         connector = await response.parse()
-        assert_matches_type(SearchTablesResponse, connector, path=["response"])
+        assert_matches_type(ConnectorSearchTablesResponse, connector, path=["response"])
 
     @parametrize
     async def test_streaming_response_search_tables(self, async_client: AsyncStructify) -> None:
@@ -1528,7 +1510,7 @@ class TestAsyncConnectors:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             connector = await response.parse()
-            assert_matches_type(SearchTablesResponse, connector, path=["response"])
+            assert_matches_type(ConnectorSearchTablesResponse, connector, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
