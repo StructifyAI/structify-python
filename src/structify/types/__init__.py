@@ -28,7 +28,6 @@ from .relationship import Relationship as Relationship
 from .workflow_dag import WorkflowDag as WorkflowDag
 from .message_param import MessageParam as MessageParam
 from .property_type import PropertyType as PropertyType
-from .table_mention import TableMention as TableMention
 from .tool_metadata import ToolMetadata as ToolMetadata
 from .execution_step import ExecutionStep as ExecutionStep
 from .job_event_body import JobEventBody as JobEventBody
@@ -149,7 +148,6 @@ from .list_projects_response import ListProjectsResponse as ListProjectsResponse
 from .remove_member_response import RemoveMemberResponse as RemoveMemberResponse
 from .save_requirement_param import SaveRequirementParam as SaveRequirementParam
 from .scrape_scrape_response import ScrapeScrapeResponse as ScrapeScrapeResponse
-from .search_tables_response import SearchTablesResponse as SearchTablesResponse
 from .team_add_member_params import TeamAddMemberParams as TeamAddMemberParams
 from .workflow_schedule_info import WorkflowScheduleInfo as WorkflowScheduleInfo
 from .connector_create_params import ConnectorCreateParams as ConnectorCreateParams
@@ -273,6 +271,7 @@ from .workflow_schedule_create_params import WorkflowScheduleCreateParams as Wor
 from .workflow_schedule_update_params import WorkflowScheduleUpdateParams as WorkflowScheduleUpdateParams
 from .chat_grant_admin_override_params import ChatGrantAdminOverrideParams as ChatGrantAdminOverrideParams
 from .code_interrupt_generation_params import CodeInterruptGenerationParams as CodeInterruptGenerationParams
+from .connector_search_tables_response import ConnectorSearchTablesResponse as ConnectorSearchTablesResponse
 from .entity_add_relationship_response import EntityAddRelationshipResponse as EntityAddRelationshipResponse
 from .entity_get_local_subgraph_params import EntityGetLocalSubgraphParams as EntityGetLocalSubgraphParams
 from .job_get_source_entities_response import JobGetSourceEntitiesResponse as JobGetSourceEntitiesResponse

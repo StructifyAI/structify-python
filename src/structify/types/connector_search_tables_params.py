@@ -13,6 +13,3 @@ class ConnectorSearchTablesParams(TypedDict, total=False):
 
     team_id: Required[str]
     """Team ID to search tables for"""
-
-    limit: int
-    """Maximum number of results to return"""
