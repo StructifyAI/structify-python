@@ -72,6 +72,7 @@ from .slack_api_response import SlackAPIResponse as SlackAPIResponse
 from .source_list_params import SourceListParams as SourceListParams
 from .team_create_params import TeamCreateParams as TeamCreateParams
 from .team_update_params import TeamUpdateParams as TeamUpdateParams
+from .user_enrich_params import UserEnrichParams as UserEnrichParams
 from .user_update_params import UserUpdateParams as UserUpdateParams
 from .wiki_create_params import WikiCreateParams as WikiCreateParams
 from .wiki_list_response import WikiListResponse as WikiListResponse
