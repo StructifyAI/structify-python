@@ -81,6 +81,37 @@ class TestUser:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
+    def test_method_enrich(self, client: Structify) -> None:
+        user = client.user.enrich(
+            email="email",
+        )
+        assert user is None
+
+    @parametrize
+    def test_raw_response_enrich(self, client: Structify) -> None:
+        response = client.user.with_raw_response.enrich(
+            email="email",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        user = response.parse()
+        assert user is None
+
+    @parametrize
+    def test_streaming_response_enrich(self, client: Structify) -> None:
+        with client.user.with_streaming_response.enrich(
+            email="email",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            user = response.parse()
+            assert user is None
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
     def test_method_info(self, client: Structify) -> None:
         user = client.user.info()
         assert_matches_type(UserInfo, user, path=["response"])
@@ -253,6 +284,37 @@ class TestAsyncUser:
 
             user = await response.parse()
             assert_matches_type(User, user, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_method_enrich(self, async_client: AsyncStructify) -> None:
+        user = await async_client.user.enrich(
+            email="email",
+        )
+        assert user is None
+
+    @parametrize
+    async def test_raw_response_enrich(self, async_client: AsyncStructify) -> None:
+        response = await async_client.user.with_raw_response.enrich(
+            email="email",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        user = await response.parse()
+        assert user is None
+
+    @parametrize
+    async def test_streaming_response_enrich(self, async_client: AsyncStructify) -> None:
+        async with async_client.user.with_streaming_response.enrich(
+            email="email",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            user = await response.parse()
+            assert user is None
 
         assert cast(Any, response.is_closed) is True
 
