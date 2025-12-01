@@ -4,6 +4,7 @@ Types:
 
 ```python
 from structify.types import (
+    EnrichUserParams,
     JwtToAPITokenRequest,
     SurveySubmissionRequest,
     SurveySubmissionResponse,
@@ -18,6 +19,7 @@ from structify.types import (
 Methods:
 
 - <code title="put /user/update">client.user.<a href="./src/structify/resources/user/user.py">update</a>(\*\*<a href="src/structify/types/user_update_params.py">params</a>) -> <a href="./src/structify/types/admin/user.py">User</a></code>
+- <code title="post /user/enrich">client.user.<a href="./src/structify/resources/user/user.py">enrich</a>(\*\*<a href="src/structify/types/user_enrich_params.py">params</a>) -> None</code>
 - <code title="get /user/info">client.user.<a href="./src/structify/resources/user/user.py">info</a>() -> <a href="./src/structify/types/user_info.py">UserInfo</a></code>
 - <code title="post /user/survey/submit">client.user.<a href="./src/structify/resources/user/user.py">survey_submit</a>(\*\*<a href="src/structify/types/user_survey_submit_params.py">params</a>) -> <a href="./src/structify/types/survey_submission_response.py">SurveySubmissionResponse</a></code>
 - <code title="get /user/transactions/list">client.user.<a href="./src/structify/resources/user/user.py">transactions</a>() -> <a href="./src/structify/types/user_transactions_response.py">UserTransactionsResponse</a></code>
