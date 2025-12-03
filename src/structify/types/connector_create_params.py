@@ -19,6 +19,9 @@ class ConnectorCreateParams(TypedDict, total=False):
 
     pipedream_account_id: Optional[str]
 
+    pipedream_external_id: Optional[str]
+    """Unique external ID for Pipedream routing (required for Pipedream connectors)"""
+
     pipedream_project_id: Optional[str]
 
     refresh_script: Optional[str]

@@ -86,6 +86,7 @@ class ConnectorsResource(SyncAPIResource):
         team_id: str,
         description: Optional[str] | Omit = omit,
         pipedream_account_id: Optional[str] | Omit = omit,
+        pipedream_external_id: Optional[str] | Omit = omit,
         pipedream_project_id: Optional[str] | Omit = omit,
         refresh_script: Optional[str] | Omit = omit,
         secrets: Dict[str, str] | Omit = omit,
@@ -98,6 +99,8 @@ class ConnectorsResource(SyncAPIResource):
     ) -> Connector:
         """
         Args:
+          pipedream_external_id: Unique external ID for Pipedream routing (required for Pipedream connectors)
+
           secrets: Optional secrets/environment variables for the connector
 
           extra_headers: Send extra headers
@@ -117,6 +120,7 @@ class ConnectorsResource(SyncAPIResource):
                     "team_id": team_id,
                     "description": description,
                     "pipedream_account_id": pipedream_account_id,
+                    "pipedream_external_id": pipedream_external_id,
                     "pipedream_project_id": pipedream_project_id,
                     "refresh_script": refresh_script,
                     "secrets": secrets,
@@ -826,6 +830,7 @@ class AsyncConnectorsResource(AsyncAPIResource):
         team_id: str,
         description: Optional[str] | Omit = omit,
         pipedream_account_id: Optional[str] | Omit = omit,
+        pipedream_external_id: Optional[str] | Omit = omit,
         pipedream_project_id: Optional[str] | Omit = omit,
         refresh_script: Optional[str] | Omit = omit,
         secrets: Dict[str, str] | Omit = omit,
@@ -838,6 +843,8 @@ class AsyncConnectorsResource(AsyncAPIResource):
     ) -> Connector:
         """
         Args:
+          pipedream_external_id: Unique external ID for Pipedream routing (required for Pipedream connectors)
+
           secrets: Optional secrets/environment variables for the connector
 
           extra_headers: Send extra headers
@@ -857,6 +864,7 @@ class AsyncConnectorsResource(AsyncAPIResource):
                     "team_id": team_id,
                     "description": description,
                     "pipedream_account_id": pipedream_account_id,
+                    "pipedream_external_id": pipedream_external_id,
                     "pipedream_project_id": pipedream_project_id,
                     "refresh_script": refresh_script,
                     "secrets": secrets,
