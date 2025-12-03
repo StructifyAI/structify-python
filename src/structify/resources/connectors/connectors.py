@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from typing import Dict, Optional
+from typing_extensions import Literal
 
 import httpx
 
@@ -337,6 +338,9 @@ class ConnectorsResource(SyncAPIResource):
         self,
         connector_id: str,
         *,
+        database_id: Optional[str] | Omit = omit,
+        schema_id: Optional[str] | Omit = omit,
+        stage: Optional[Literal["both", "ingestion", "annotation"]] | Omit = omit,
         table_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -347,6 +351,8 @@ class ConnectorsResource(SyncAPIResource):
     ) -> None:
         """
         Args:
+          stage: Which exploration stage to run
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -360,7 +366,15 @@ class ConnectorsResource(SyncAPIResource):
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
             f"/connectors/{connector_id}/explore",
-            body=maybe_transform({"table_id": table_id}, connector_explore_params.ConnectorExploreParams),
+            body=maybe_transform(
+                {
+                    "database_id": database_id,
+                    "schema_id": schema_id,
+                    "stage": stage,
+                    "table_id": table_id,
+                },
+                connector_explore_params.ConnectorExploreParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1081,6 +1095,9 @@ class AsyncConnectorsResource(AsyncAPIResource):
         self,
         connector_id: str,
         *,
+        database_id: Optional[str] | Omit = omit,
+        schema_id: Optional[str] | Omit = omit,
+        stage: Optional[Literal["both", "ingestion", "annotation"]] | Omit = omit,
         table_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1091,6 +1108,8 @@ class AsyncConnectorsResource(AsyncAPIResource):
     ) -> None:
         """
         Args:
+          stage: Which exploration stage to run
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -1104,7 +1123,15 @@ class AsyncConnectorsResource(AsyncAPIResource):
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
             f"/connectors/{connector_id}/explore",
-            body=await async_maybe_transform({"table_id": table_id}, connector_explore_params.ConnectorExploreParams),
+            body=await async_maybe_transform(
+                {
+                    "database_id": database_id,
+                    "schema_id": schema_id,
+                    "stage": stage,
+                    "table_id": table_id,
+                },
+                connector_explore_params.ConnectorExploreParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),

@@ -104,6 +104,9 @@ class ParametersStructuringInputConnectorExplorationConnectorExploration(BaseMod
 
     exploration_run_id: str
 
+    stage: Literal["both", "ingestion", "annotation"]
+    """Which exploration stage to run"""
+
 
 class ParametersStructuringInputConnectorExploration(BaseModel):
     connector_exploration: ParametersStructuringInputConnectorExplorationConnectorExploration = FieldInfo(
