@@ -262,6 +262,18 @@ Methods:
 
 - <code title="get /admin/jobs/list">client.admin.jobs.<a href="./src/structify/resources/admin/jobs.py">list</a>(\*\*<a href="src/structify/types/admin/job_list_params.py">params</a>) -> <a href="./src/structify/types/admin/admin_list_jobs_response.py">SyncJobsList[AdminListJobsResponse]</a></code>
 
+## Sandbox
+
+Types:
+
+```python
+from structify.types.admin import AdminSandboxResponse
+```
+
+Methods:
+
+- <code title="get /admin/sandbox/list">client.admin.sandbox.<a href="./src/structify/resources/admin/sandbox.py">list</a>(\*\*<a href="src/structify/types/admin/sandbox_list_params.py">params</a>) -> <a href="./src/structify/types/admin/admin_sandbox_response.py">SyncJobsList[AdminSandboxResponse]</a></code>
+
 ## HumanLlm
 
 Types:
