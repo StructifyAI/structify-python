@@ -34,6 +34,14 @@ from .dataset import (
     DatasetResourceWithStreamingResponse,
     AsyncDatasetResourceWithStreamingResponse,
 )
+from .sandbox import (
+    SandboxResource,
+    AsyncSandboxResource,
+    SandboxResourceWithRawResponse,
+    AsyncSandboxResourceWithRawResponse,
+    SandboxResourceWithStreamingResponse,
+    AsyncSandboxResourceWithStreamingResponse,
+)
 from ..._compat import cached_property
 from .human_llm import (
     HumanLlmResource,
@@ -84,6 +92,10 @@ class AdminResource(SyncAPIResource):
     @cached_property
     def jobs(self) -> JobsResource:
         return JobsResource(self._client)
+
+    @cached_property
+    def sandbox(self) -> SandboxResource:
+        return SandboxResource(self._client)
 
     @cached_property
     def human_llm(self) -> HumanLlmResource:
@@ -137,6 +149,10 @@ class AsyncAdminResource(AsyncAPIResource):
     @cached_property
     def jobs(self) -> AsyncJobsResource:
         return AsyncJobsResource(self._client)
+
+    @cached_property
+    def sandbox(self) -> AsyncSandboxResource:
+        return AsyncSandboxResource(self._client)
 
     @cached_property
     def human_llm(self) -> AsyncHumanLlmResource:
@@ -195,6 +211,10 @@ class AdminResourceWithRawResponse:
         return JobsResourceWithRawResponse(self._admin.jobs)
 
     @cached_property
+    def sandbox(self) -> SandboxResourceWithRawResponse:
+        return SandboxResourceWithRawResponse(self._admin.sandbox)
+
+    @cached_property
     def human_llm(self) -> HumanLlmResourceWithRawResponse:
         return HumanLlmResourceWithRawResponse(self._admin.human_llm)
 
@@ -230,6 +250,10 @@ class AsyncAdminResourceWithRawResponse:
     @cached_property
     def jobs(self) -> AsyncJobsResourceWithRawResponse:
         return AsyncJobsResourceWithRawResponse(self._admin.jobs)
+
+    @cached_property
+    def sandbox(self) -> AsyncSandboxResourceWithRawResponse:
+        return AsyncSandboxResourceWithRawResponse(self._admin.sandbox)
 
     @cached_property
     def human_llm(self) -> AsyncHumanLlmResourceWithRawResponse:
@@ -269,6 +293,10 @@ class AdminResourceWithStreamingResponse:
         return JobsResourceWithStreamingResponse(self._admin.jobs)
 
     @cached_property
+    def sandbox(self) -> SandboxResourceWithStreamingResponse:
+        return SandboxResourceWithStreamingResponse(self._admin.sandbox)
+
+    @cached_property
     def human_llm(self) -> HumanLlmResourceWithStreamingResponse:
         return HumanLlmResourceWithStreamingResponse(self._admin.human_llm)
 
@@ -304,6 +332,10 @@ class AsyncAdminResourceWithStreamingResponse:
     @cached_property
     def jobs(self) -> AsyncJobsResourceWithStreamingResponse:
         return AsyncJobsResourceWithStreamingResponse(self._admin.jobs)
+
+    @cached_property
+    def sandbox(self) -> AsyncSandboxResourceWithStreamingResponse:
+        return AsyncSandboxResourceWithStreamingResponse(self._admin.sandbox)
 
     @cached_property
     def human_llm(self) -> AsyncHumanLlmResourceWithStreamingResponse:
