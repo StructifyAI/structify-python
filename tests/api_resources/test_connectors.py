@@ -316,6 +316,9 @@ class TestConnectors:
     def test_method_explore_with_all_params(self, client: Structify) -> None:
         connector = client.connectors.explore(
             connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            database_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            schema_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            stage="both",
             table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert connector is None
@@ -1108,6 +1111,9 @@ class TestAsyncConnectors:
     async def test_method_explore_with_all_params(self, async_client: AsyncStructify) -> None:
         connector = await async_client.connectors.explore(
             connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            database_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            schema_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            stage="both",
             table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert connector is None

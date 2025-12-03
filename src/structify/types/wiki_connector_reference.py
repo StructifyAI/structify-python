@@ -1,11 +1,14 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import List, Union
+from typing_extensions import Literal, Annotated, TypeAlias
 
+from .._utils import PropertyInfo
 from .._models import BaseModel
 
 __all__ = [
     "WikiConnectorReference",
+    "ReferenceID",
     "ReferenceIDConnector",
     "ReferenceIDDatabase",
     "ReferenceIDSchema",
@@ -14,24 +17,40 @@ __all__ = [
 ]
 
 
-class ReferenceIDConnector:
-    pass
+class ReferenceIDConnector(BaseModel):
+    id: str
+
+    reference_type: Literal["connector"]
 
 
-class ReferenceIDDatabase:
-    pass
+class ReferenceIDDatabase(BaseModel):
+    id: str
+
+    reference_type: Literal["database"]
 
 
-class ReferenceIDSchema:
-    pass
+class ReferenceIDSchema(BaseModel):
+    id: str
+
+    reference_type: Literal["schema"]
 
 
-class ReferenceIDTable:
-    pass
+class ReferenceIDTable(BaseModel):
+    id: str
+
+    reference_type: Literal["table"]
 
 
-class ReferenceIDColumn:
-    pass
+class ReferenceIDColumn(BaseModel):
+    id: str
+
+    reference_type: Literal["column"]
+
+
+ReferenceID: TypeAlias = Annotated[
+    Union[ReferenceIDConnector, ReferenceIDDatabase, ReferenceIDSchema, ReferenceIDTable, ReferenceIDColumn],
+    PropertyInfo(discriminator="reference_type"),
+]
 
 
 class WikiConnectorReference(BaseModel):
@@ -41,6 +60,4 @@ class WikiConnectorReference(BaseModel):
 
     path: List[str]
 
-    reference_id: Union[
-        ReferenceIDConnector, ReferenceIDDatabase, ReferenceIDSchema, ReferenceIDTable, ReferenceIDColumn
-    ]
+    reference_id: ReferenceID
