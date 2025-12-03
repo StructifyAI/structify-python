@@ -12,12 +12,12 @@ class WorkflowScheduleInfo(BaseModel):
 
     chat_session_id: str
 
-    git_commit_hash: str
-
     name: str
 
     paused: bool
 
     cron_schedule: Optional[str] = None
+
+    git_commit_hash: Optional[str] = None
 
     next_run_time: Optional[str] = None
