@@ -39,6 +39,8 @@ class Connector(BaseModel):
 
     pipedream_account_id: Optional[str] = None
 
+    pipedream_external_id: Optional[str] = None
+
     refresh_script: Optional[str] = None
 
     usage_snippet_override: Optional[str] = None
