@@ -132,8 +132,6 @@ class ToolCallToolCallUnionMember0(BaseModel):
 
     name: Literal["WebSearch"]
 
-    result_id: Optional[str] = None
-
     result_text: Optional[str] = None
 
 
@@ -145,8 +143,6 @@ class ToolCallToolCallUnionMember1(BaseModel):
     input: ToolCallToolCallUnionMember1Input
 
     name: Literal["WebNavigate"]
-
-    result_id: Optional[str] = None
 
     result_text: Optional[str] = None
 
@@ -160,8 +156,6 @@ class ToolCallToolCallUnionMember2(BaseModel):
 
     name: Literal["InspectDAG"]
 
-    result_id: Optional[str] = None
-
     result_text: Optional[str] = None
 
 
@@ -173,8 +167,6 @@ class ToolCallToolCallUnionMember3(BaseModel):
     input: ToolCallToolCallUnionMember3Input
 
     name: Literal["DeleteFile"]
-
-    result_id: Optional[str] = None
 
     result_text: Optional[str] = None
 
@@ -189,8 +181,6 @@ class ToolCallToolCallUnionMember4(BaseModel):
     input: ToolCallToolCallUnionMember4Input
 
     name: Literal["MoveFile"]
-
-    result_id: Optional[str] = None
 
     result_text: Optional[str] = None
 
@@ -208,8 +198,6 @@ class ToolCallToolCallUnionMember5(BaseModel):
 
     name: Literal["RunBash"]
 
-    result_id: Optional[str] = None
-
     result_text: Optional[str] = None
 
 
@@ -226,8 +214,6 @@ class ToolCallToolCallUnionMember6(BaseModel):
 
     name: Literal["RunPython"]
 
-    result_id: Optional[str] = None
-
     result_text: Optional[str] = None
 
 
@@ -241,8 +227,6 @@ class ToolCallToolCallUnionMember7(BaseModel):
     input: ToolCallToolCallUnionMember7Input
 
     name: Literal["IssueFound"]
-
-    result_id: Optional[str] = None
 
     result_text: Optional[str] = None
 
@@ -260,8 +244,6 @@ class ToolCallToolCallUnionMember8(BaseModel):
 
     name: Literal["SaveDatabase"]
 
-    result_id: Optional[str] = None
-
     result_text: Optional[str] = None
 
 
@@ -277,8 +259,6 @@ class ToolCallToolCallUnionMember9(BaseModel):
     input: ToolCallToolCallUnionMember9Input
 
     name: Literal["SaveSchema"]
-
-    result_id: Optional[str] = None
 
     result_text: Optional[str] = None
 
@@ -300,8 +280,6 @@ class ToolCallToolCallUnionMember10(BaseModel):
 
     name: Literal["SaveTable"]
 
-    result_id: Optional[str] = None
-
     result_text: Optional[str] = None
 
 
@@ -317,8 +295,6 @@ class ToolCallToolCallUnionMember11(BaseModel):
     input: ToolCallToolCallUnionMember11Input
 
     name: Literal["SaveColumn"]
-
-    result_id: Optional[str] = None
 
     result_text: Optional[str] = None
 
@@ -338,8 +314,6 @@ class ToolCallToolCallUnionMember12(BaseModel):
 
     name: Literal["SaveApiResource"]
 
-    result_id: Optional[str] = None
-
     result_text: Optional[str] = None
 
 
@@ -354,8 +328,6 @@ class ToolCallToolCallUnionMember13(BaseModel):
 
     name: Literal["SaveMemory"]
 
-    result_id: Optional[str] = None
-
     result_text: Optional[str] = None
 
 
@@ -369,8 +341,6 @@ class ToolCallToolCallUnionMember14(BaseModel):
     input: ToolCallToolCallUnionMember14Input
 
     name: Literal["SearchConnectorTables"]
-
-    result_id: Optional[str] = None
 
     result_text: Optional[str] = None
 
@@ -388,8 +358,6 @@ class ToolCallToolCallUnionMember15(BaseModel):
 
     name: Literal["RequestClarification"]
 
-    result_id: Optional[str] = None
-
     result_text: Optional[str] = None
 
 
@@ -403,8 +371,6 @@ class ToolCallToolCallUnionMember16(BaseModel):
     input: ToolCallToolCallUnionMember16Input
 
     name: Literal["AddDependency"]
-
-    result_id: Optional[str] = None
 
     result_text: Optional[str] = None
 
