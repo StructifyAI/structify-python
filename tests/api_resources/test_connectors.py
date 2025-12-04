@@ -19,6 +19,7 @@ from structify.types import (
     ExploreStatusResponse,
     ConnectorStoreResponse,
     ExplorationRunsResponse,
+    DeleteSchemaObjectResponse,
     ConnectorSearchTablesResponse,
     ConnectorListWithSnippetsResponse,
     ConnectorGetClarificationRequestsResponse,
@@ -255,6 +256,190 @@ class TestConnectors:
                 connector_id="",
                 secret_name="secret_name",
                 secret_value="secret_value",
+            )
+
+    @parametrize
+    def test_method_delete_schema_object_overload_1(self, client: Structify) -> None:
+        connector = client.connectors.delete_schema_object(
+            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            type="column",
+        )
+        assert_matches_type(DeleteSchemaObjectResponse, connector, path=["response"])
+
+    @parametrize
+    def test_raw_response_delete_schema_object_overload_1(self, client: Structify) -> None:
+        response = client.connectors.with_raw_response.delete_schema_object(
+            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            type="column",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        connector = response.parse()
+        assert_matches_type(DeleteSchemaObjectResponse, connector, path=["response"])
+
+    @parametrize
+    def test_streaming_response_delete_schema_object_overload_1(self, client: Structify) -> None:
+        with client.connectors.with_streaming_response.delete_schema_object(
+            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            type="column",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            connector = response.parse()
+            assert_matches_type(DeleteSchemaObjectResponse, connector, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_path_params_delete_schema_object_overload_1(self, client: Structify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `connector_id` but received ''"):
+            client.connectors.with_raw_response.delete_schema_object(
+                connector_id="",
+                id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                type="column",
+            )
+
+    @parametrize
+    def test_method_delete_schema_object_overload_2(self, client: Structify) -> None:
+        connector = client.connectors.delete_schema_object(
+            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            type="table",
+        )
+        assert_matches_type(DeleteSchemaObjectResponse, connector, path=["response"])
+
+    @parametrize
+    def test_raw_response_delete_schema_object_overload_2(self, client: Structify) -> None:
+        response = client.connectors.with_raw_response.delete_schema_object(
+            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            type="table",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        connector = response.parse()
+        assert_matches_type(DeleteSchemaObjectResponse, connector, path=["response"])
+
+    @parametrize
+    def test_streaming_response_delete_schema_object_overload_2(self, client: Structify) -> None:
+        with client.connectors.with_streaming_response.delete_schema_object(
+            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            type="table",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            connector = response.parse()
+            assert_matches_type(DeleteSchemaObjectResponse, connector, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_path_params_delete_schema_object_overload_2(self, client: Structify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `connector_id` but received ''"):
+            client.connectors.with_raw_response.delete_schema_object(
+                connector_id="",
+                id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                type="table",
+            )
+
+    @parametrize
+    def test_method_delete_schema_object_overload_3(self, client: Structify) -> None:
+        connector = client.connectors.delete_schema_object(
+            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            type="schema",
+        )
+        assert_matches_type(DeleteSchemaObjectResponse, connector, path=["response"])
+
+    @parametrize
+    def test_raw_response_delete_schema_object_overload_3(self, client: Structify) -> None:
+        response = client.connectors.with_raw_response.delete_schema_object(
+            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            type="schema",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        connector = response.parse()
+        assert_matches_type(DeleteSchemaObjectResponse, connector, path=["response"])
+
+    @parametrize
+    def test_streaming_response_delete_schema_object_overload_3(self, client: Structify) -> None:
+        with client.connectors.with_streaming_response.delete_schema_object(
+            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            type="schema",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            connector = response.parse()
+            assert_matches_type(DeleteSchemaObjectResponse, connector, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_path_params_delete_schema_object_overload_3(self, client: Structify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `connector_id` but received ''"):
+            client.connectors.with_raw_response.delete_schema_object(
+                connector_id="",
+                id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                type="schema",
+            )
+
+    @parametrize
+    def test_method_delete_schema_object_overload_4(self, client: Structify) -> None:
+        connector = client.connectors.delete_schema_object(
+            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            type="database",
+        )
+        assert_matches_type(DeleteSchemaObjectResponse, connector, path=["response"])
+
+    @parametrize
+    def test_raw_response_delete_schema_object_overload_4(self, client: Structify) -> None:
+        response = client.connectors.with_raw_response.delete_schema_object(
+            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            type="database",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        connector = response.parse()
+        assert_matches_type(DeleteSchemaObjectResponse, connector, path=["response"])
+
+    @parametrize
+    def test_streaming_response_delete_schema_object_overload_4(self, client: Structify) -> None:
+        with client.connectors.with_streaming_response.delete_schema_object(
+            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            type="database",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            connector = response.parse()
+            assert_matches_type(DeleteSchemaObjectResponse, connector, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_path_params_delete_schema_object_overload_4(self, client: Structify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `connector_id` but received ''"):
+            client.connectors.with_raw_response.delete_schema_object(
+                connector_id="",
+                id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                type="database",
             )
 
     @parametrize
@@ -1050,6 +1235,190 @@ class TestAsyncConnectors:
                 connector_id="",
                 secret_name="secret_name",
                 secret_value="secret_value",
+            )
+
+    @parametrize
+    async def test_method_delete_schema_object_overload_1(self, async_client: AsyncStructify) -> None:
+        connector = await async_client.connectors.delete_schema_object(
+            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            type="column",
+        )
+        assert_matches_type(DeleteSchemaObjectResponse, connector, path=["response"])
+
+    @parametrize
+    async def test_raw_response_delete_schema_object_overload_1(self, async_client: AsyncStructify) -> None:
+        response = await async_client.connectors.with_raw_response.delete_schema_object(
+            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            type="column",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        connector = await response.parse()
+        assert_matches_type(DeleteSchemaObjectResponse, connector, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_delete_schema_object_overload_1(self, async_client: AsyncStructify) -> None:
+        async with async_client.connectors.with_streaming_response.delete_schema_object(
+            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            type="column",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            connector = await response.parse()
+            assert_matches_type(DeleteSchemaObjectResponse, connector, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_delete_schema_object_overload_1(self, async_client: AsyncStructify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `connector_id` but received ''"):
+            await async_client.connectors.with_raw_response.delete_schema_object(
+                connector_id="",
+                id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                type="column",
+            )
+
+    @parametrize
+    async def test_method_delete_schema_object_overload_2(self, async_client: AsyncStructify) -> None:
+        connector = await async_client.connectors.delete_schema_object(
+            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            type="table",
+        )
+        assert_matches_type(DeleteSchemaObjectResponse, connector, path=["response"])
+
+    @parametrize
+    async def test_raw_response_delete_schema_object_overload_2(self, async_client: AsyncStructify) -> None:
+        response = await async_client.connectors.with_raw_response.delete_schema_object(
+            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            type="table",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        connector = await response.parse()
+        assert_matches_type(DeleteSchemaObjectResponse, connector, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_delete_schema_object_overload_2(self, async_client: AsyncStructify) -> None:
+        async with async_client.connectors.with_streaming_response.delete_schema_object(
+            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            type="table",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            connector = await response.parse()
+            assert_matches_type(DeleteSchemaObjectResponse, connector, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_delete_schema_object_overload_2(self, async_client: AsyncStructify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `connector_id` but received ''"):
+            await async_client.connectors.with_raw_response.delete_schema_object(
+                connector_id="",
+                id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                type="table",
+            )
+
+    @parametrize
+    async def test_method_delete_schema_object_overload_3(self, async_client: AsyncStructify) -> None:
+        connector = await async_client.connectors.delete_schema_object(
+            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            type="schema",
+        )
+        assert_matches_type(DeleteSchemaObjectResponse, connector, path=["response"])
+
+    @parametrize
+    async def test_raw_response_delete_schema_object_overload_3(self, async_client: AsyncStructify) -> None:
+        response = await async_client.connectors.with_raw_response.delete_schema_object(
+            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            type="schema",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        connector = await response.parse()
+        assert_matches_type(DeleteSchemaObjectResponse, connector, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_delete_schema_object_overload_3(self, async_client: AsyncStructify) -> None:
+        async with async_client.connectors.with_streaming_response.delete_schema_object(
+            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            type="schema",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            connector = await response.parse()
+            assert_matches_type(DeleteSchemaObjectResponse, connector, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_delete_schema_object_overload_3(self, async_client: AsyncStructify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `connector_id` but received ''"):
+            await async_client.connectors.with_raw_response.delete_schema_object(
+                connector_id="",
+                id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                type="schema",
+            )
+
+    @parametrize
+    async def test_method_delete_schema_object_overload_4(self, async_client: AsyncStructify) -> None:
+        connector = await async_client.connectors.delete_schema_object(
+            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            type="database",
+        )
+        assert_matches_type(DeleteSchemaObjectResponse, connector, path=["response"])
+
+    @parametrize
+    async def test_raw_response_delete_schema_object_overload_4(self, async_client: AsyncStructify) -> None:
+        response = await async_client.connectors.with_raw_response.delete_schema_object(
+            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            type="database",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        connector = await response.parse()
+        assert_matches_type(DeleteSchemaObjectResponse, connector, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_delete_schema_object_overload_4(self, async_client: AsyncStructify) -> None:
+        async with async_client.connectors.with_streaming_response.delete_schema_object(
+            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            type="database",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            connector = await response.parse()
+            assert_matches_type(DeleteSchemaObjectResponse, connector, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_delete_schema_object_overload_4(self, async_client: AsyncStructify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `connector_id` but received ''"):
+            await async_client.connectors.with_raw_response.delete_schema_object(
+                connector_id="",
+                id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                type="database",
             )
 
     @parametrize
