@@ -40,6 +40,7 @@ from ..types.chat_visibility import ChatVisibility
 from ..types.chat_session_role import ChatSessionRole
 from ..types.chat_load_files_response import ChatLoadFilesResponse
 from ..types.get_chat_session_response import GetChatSessionResponse
+from ..types.get_dependencies_response import GetDependenciesResponse
 from ..types.chat_delete_files_response import ChatDeleteFilesResponse
 from ..types.chat_session_with_messages import ChatSessionWithMessages
 from ..types.update_visibility_response import UpdateVisibilityResponse
@@ -205,7 +206,7 @@ class ChatResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ChatSessionWithMessages:
         """
-        Copy a chat session with its latest workflow and all files
+        Copy a chat session with its workflows and git files
 
         Args:
           extra_headers: Send extra headers
@@ -387,6 +388,39 @@ class ChatResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=DeleteChatSessionResponse,
+        )
+
+    def get_dependencies(
+        self,
+        session_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> GetDependenciesResponse:
+        """
+        Get all dependencies for a chat session
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not session_id:
+            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
+        return self._get(
+            f"/chat/sessions/{session_id}/dependencies",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=GetDependenciesResponse,
         )
 
     def get_git_commit(
@@ -1058,7 +1092,7 @@ class AsyncChatResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ChatSessionWithMessages:
         """
-        Copy a chat session with its latest workflow and all files
+        Copy a chat session with its workflows and git files
 
         Args:
           extra_headers: Send extra headers
@@ -1240,6 +1274,39 @@ class AsyncChatResource(AsyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=DeleteChatSessionResponse,
+        )
+
+    async def get_dependencies(
+        self,
+        session_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> GetDependenciesResponse:
+        """
+        Get all dependencies for a chat session
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not session_id:
+            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
+        return await self._get(
+            f"/chat/sessions/{session_id}/dependencies",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=GetDependenciesResponse,
         )
 
     async def get_git_commit(
@@ -1793,6 +1860,9 @@ class ChatResourceWithRawResponse:
         self.delete_session = to_raw_response_wrapper(
             chat.delete_session,
         )
+        self.get_dependencies = to_raw_response_wrapper(
+            chat.get_dependencies,
+        )
         self.get_git_commit = to_raw_response_wrapper(
             chat.get_git_commit,
         )
@@ -1864,6 +1934,9 @@ class AsyncChatResourceWithRawResponse:
         )
         self.delete_session = async_to_raw_response_wrapper(
             chat.delete_session,
+        )
+        self.get_dependencies = async_to_raw_response_wrapper(
+            chat.get_dependencies,
         )
         self.get_git_commit = async_to_raw_response_wrapper(
             chat.get_git_commit,
@@ -1937,6 +2010,9 @@ class ChatResourceWithStreamingResponse:
         self.delete_session = to_streamed_response_wrapper(
             chat.delete_session,
         )
+        self.get_dependencies = to_streamed_response_wrapper(
+            chat.get_dependencies,
+        )
         self.get_git_commit = to_streamed_response_wrapper(
             chat.get_git_commit,
         )
@@ -2008,6 +2084,9 @@ class AsyncChatResourceWithStreamingResponse:
         )
         self.delete_session = async_to_streamed_response_wrapper(
             chat.delete_session,
+        )
+        self.get_dependencies = async_to_streamed_response_wrapper(
+            chat.get_dependencies,
         )
         self.get_git_commit = async_to_streamed_response_wrapper(
             chat.get_git_commit,
