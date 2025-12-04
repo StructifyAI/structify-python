@@ -658,6 +658,8 @@ from structify.types import (
     ConnectorWithSnippets,
     CreateConnectorRequest,
     CreateSecretRequest,
+    DeleteSchemaObjectRequest,
+    DeleteSchemaObjectResponse,
     ExplorationPhaseID,
     ExplorationRun,
     ExplorationRunsResponse,
@@ -667,6 +669,7 @@ from structify.types import (
     ExplorerChatResponse,
     ListTablesResponse,
     LlmInformationStore,
+    SchemaObjectID,
     UpdateColumnRequest,
     UpdateConnectorRequest,
     UpdateTableRequest,
@@ -685,6 +688,7 @@ Methods:
 - <code title="get /connectors">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">list</a>(\*\*<a href="src/structify/types/connector_list_params.py">params</a>) -> <a href="./src/structify/types/connector_with_secrets.py">SyncJobsList[ConnectorWithSecrets]</a></code>
 - <code title="delete /connectors/{connector_id}">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">delete</a>(connector_id) -> None</code>
 - <code title="post /connectors/{connector_id}/secrets">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">create_secret</a>(connector_id, \*\*<a href="src/structify/types/connector_create_secret_params.py">params</a>) -> None</code>
+- <code title="delete /connectors/{connector_id}/schema_object">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">delete_schema_object</a>(connector_id, \*\*<a href="src/structify/types/connector_delete_schema_object_params.py">params</a>) -> <a href="./src/structify/types/delete_schema_object_response.py">DeleteSchemaObjectResponse</a></code>
 - <code title="delete /connectors/{connector_id}/secrets/{secret_name}">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">delete_secret</a>(secret_name, \*, connector_id) -> None</code>
 - <code title="post /connectors/{connector_id}/explore">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">explore</a>(connector_id, \*\*<a href="src/structify/types/connector_explore_params.py">params</a>) -> None</code>
 - <code title="get /connectors/{connector_id}">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">get</a>(connector_id) -> <a href="./src/structify/types/connector_get_response.py">ConnectorGetResponse</a></code>

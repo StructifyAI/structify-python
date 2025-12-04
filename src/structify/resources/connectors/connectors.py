@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from typing import Dict, Optional
-from typing_extensions import Literal
+from typing_extensions import Literal, overload
 
 import httpx
 
@@ -18,9 +18,10 @@ from ...types import (
     connector_update_column_params,
     connector_get_explorer_chat_params,
     connector_list_with_snippets_params,
+    connector_delete_schema_object_params,
 )
 from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
-from ..._utils import maybe_transform, async_maybe_transform
+from ..._utils import required_args, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -48,6 +49,7 @@ from ...types.explorer_chat_response import ExplorerChatResponse
 from ...types.explore_status_response import ExploreStatusResponse
 from ...types.connector_store_response import ConnectorStoreResponse
 from ...types.exploration_runs_response import ExplorationRunsResponse
+from ...types.delete_schema_object_response import DeleteSchemaObjectResponse
 from ...types.connector_search_tables_response import ConnectorSearchTablesResponse
 from ...types.connector_list_with_snippets_response import ConnectorListWithSnippetsResponse
 from ...types.connector_get_clarification_requests_response import ConnectorGetClarificationRequestsResponse
@@ -297,6 +299,141 @@ class ConnectorsResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=NoneType,
+        )
+
+    @overload
+    def delete_schema_object(
+        self,
+        connector_id: str,
+        *,
+        id: str,
+        type: Literal["column"],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> DeleteSchemaObjectResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @overload
+    def delete_schema_object(
+        self,
+        connector_id: str,
+        *,
+        id: str,
+        type: Literal["table"],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> DeleteSchemaObjectResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @overload
+    def delete_schema_object(
+        self,
+        connector_id: str,
+        *,
+        id: str,
+        type: Literal["schema"],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> DeleteSchemaObjectResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @overload
+    def delete_schema_object(
+        self,
+        connector_id: str,
+        *,
+        id: str,
+        type: Literal["database"],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> DeleteSchemaObjectResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @required_args(["id", "type"])
+    def delete_schema_object(
+        self,
+        connector_id: str,
+        *,
+        id: str,
+        type: Literal["column"] | Literal["table"] | Literal["schema"] | Literal["database"],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> DeleteSchemaObjectResponse:
+        if not connector_id:
+            raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
+        return self._delete(
+            f"/connectors/{connector_id}/schema_object",
+            body=maybe_transform(
+                {
+                    "id": id,
+                    "type": type,
+                },
+                connector_delete_schema_object_params.ConnectorDeleteSchemaObjectParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=DeleteSchemaObjectResponse,
         )
 
     def delete_secret(
@@ -1056,6 +1193,141 @@ class AsyncConnectorsResource(AsyncAPIResource):
             cast_to=NoneType,
         )
 
+    @overload
+    async def delete_schema_object(
+        self,
+        connector_id: str,
+        *,
+        id: str,
+        type: Literal["column"],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> DeleteSchemaObjectResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @overload
+    async def delete_schema_object(
+        self,
+        connector_id: str,
+        *,
+        id: str,
+        type: Literal["table"],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> DeleteSchemaObjectResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @overload
+    async def delete_schema_object(
+        self,
+        connector_id: str,
+        *,
+        id: str,
+        type: Literal["schema"],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> DeleteSchemaObjectResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @overload
+    async def delete_schema_object(
+        self,
+        connector_id: str,
+        *,
+        id: str,
+        type: Literal["database"],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> DeleteSchemaObjectResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @required_args(["id", "type"])
+    async def delete_schema_object(
+        self,
+        connector_id: str,
+        *,
+        id: str,
+        type: Literal["column"] | Literal["table"] | Literal["schema"] | Literal["database"],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> DeleteSchemaObjectResponse:
+        if not connector_id:
+            raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
+        return await self._delete(
+            f"/connectors/{connector_id}/schema_object",
+            body=await async_maybe_transform(
+                {
+                    "id": id,
+                    "type": type,
+                },
+                connector_delete_schema_object_params.ConnectorDeleteSchemaObjectParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=DeleteSchemaObjectResponse,
+        )
+
     async def delete_secret(
         self,
         secret_name: str,
@@ -1590,6 +1862,9 @@ class ConnectorsResourceWithRawResponse:
         self.create_secret = to_raw_response_wrapper(
             connectors.create_secret,
         )
+        self.delete_schema_object = to_raw_response_wrapper(
+            connectors.delete_schema_object,
+        )
         self.delete_secret = to_raw_response_wrapper(
             connectors.delete_secret,
         )
@@ -1656,6 +1931,9 @@ class AsyncConnectorsResourceWithRawResponse:
         )
         self.create_secret = async_to_raw_response_wrapper(
             connectors.create_secret,
+        )
+        self.delete_schema_object = async_to_raw_response_wrapper(
+            connectors.delete_schema_object,
         )
         self.delete_secret = async_to_raw_response_wrapper(
             connectors.delete_secret,
@@ -1724,6 +2002,9 @@ class ConnectorsResourceWithStreamingResponse:
         self.create_secret = to_streamed_response_wrapper(
             connectors.create_secret,
         )
+        self.delete_schema_object = to_streamed_response_wrapper(
+            connectors.delete_schema_object,
+        )
         self.delete_secret = to_streamed_response_wrapper(
             connectors.delete_secret,
         )
@@ -1790,6 +2071,9 @@ class AsyncConnectorsResourceWithStreamingResponse:
         )
         self.create_secret = async_to_streamed_response_wrapper(
             connectors.create_secret,
+        )
+        self.delete_schema_object = async_to_streamed_response_wrapper(
+            connectors.delete_schema_object,
         )
         self.delete_secret = async_to_streamed_response_wrapper(
             connectors.delete_secret,
