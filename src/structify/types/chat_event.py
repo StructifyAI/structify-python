@@ -54,6 +54,8 @@ __all__ = [
     "ToolCallToolCallUnionMember14Input",
     "ToolCallToolCallUnionMember15",
     "ToolCallToolCallUnionMember15Input",
+    "ToolCallToolCallUnionMember16",
+    "ToolCallToolCallUnionMember16Input",
     "Question",
     "QuestionQuestion",
     "InternalError",
@@ -391,6 +393,22 @@ class ToolCallToolCallUnionMember15(BaseModel):
     result_text: Optional[str] = None
 
 
+class ToolCallToolCallUnionMember16Input(BaseModel):
+    package_name: str
+
+    version_spec: Optional[str] = None
+
+
+class ToolCallToolCallUnionMember16(BaseModel):
+    input: ToolCallToolCallUnionMember16Input
+
+    name: Literal["AddDependency"]
+
+    result_id: Optional[str] = None
+
+    result_text: Optional[str] = None
+
+
 ToolCallToolCall: TypeAlias = Union[
     ToolCallToolCallUnionMember0,
     ToolCallToolCallUnionMember1,
@@ -408,6 +426,7 @@ ToolCallToolCall: TypeAlias = Union[
     ToolCallToolCallUnionMember13,
     ToolCallToolCallUnionMember14,
     ToolCallToolCallUnionMember15,
+    ToolCallToolCallUnionMember16,
 ]
 
 
