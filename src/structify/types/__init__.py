@@ -37,7 +37,6 @@ from .team_wiki_page import TeamWikiPage as TeamWikiPage
 from .team_with_role import TeamWithRole as TeamWithRole
 from .token_response import TokenResponse as TokenResponse
 from .autofix_context import AutofixContext as AutofixContext
-from .chat_dependency import ChatDependency as ChatDependency
 from .chat_visibility import ChatVisibility as ChatVisibility
 from .exploration_run import ExplorationRun as ExplorationRun
 from .job_list_params import JobListParams as JobListParams
@@ -188,7 +187,6 @@ from .entity_list_jobs_response import EntityListJobsResponse as EntityListJobsR
 from .entity_summarize_response import EntitySummarizeResponse as EntitySummarizeResponse
 from .exploration_runs_response import ExplorationRunsResponse as ExplorationRunsResponse
 from .get_chat_session_response import GetChatSessionResponse as GetChatSessionResponse
-from .get_dependencies_response import GetDependenciesResponse as GetDependenciesResponse
 from .job_get_scrapers_response import JobGetScrapersResponse as JobGetScrapersResponse
 from .match_list_results_params import MatchListResultsParams as MatchListResultsParams
 from .session_get_events_params import SessionGetEventsParams as SessionGetEventsParams
