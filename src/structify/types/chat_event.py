@@ -62,6 +62,7 @@ __all__ = [
     "InternalErrorInternalError",
     "ReviewRequest",
     "ReviewRequestReviewRequest",
+    "ReviewRequestReviewRequestNodeSummary",
 ]
 
 
@@ -418,8 +419,16 @@ class InternalError(BaseModel):
     internal_error: InternalErrorInternalError = FieldInfo(alias="InternalError")
 
 
+class ReviewRequestReviewRequestNodeSummary(BaseModel):
+    name: str
+
+    data_preview: Optional[str] = None
+
+    image: Optional[object] = None
+
+
 class ReviewRequestReviewRequest(BaseModel):
-    message: str
+    node_summaries: List[ReviewRequestReviewRequestNodeSummary]
 
 
 class ReviewRequest(BaseModel):
