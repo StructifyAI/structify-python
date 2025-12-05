@@ -88,6 +88,7 @@ class TestTeams:
             datahub_token="datahub_token",
             description="description",
             name="name",
+            pipedream_project_id="pipedream_project_id",
         )
         assert_matches_type(UpdateTeamResponse, team, path=["response"])
 
@@ -725,6 +726,7 @@ class TestAsyncTeams:
             datahub_token="datahub_token",
             description="description",
             name="name",
+            pipedream_project_id="pipedream_project_id",
         )
         assert_matches_type(UpdateTeamResponse, team, path=["response"])
 
