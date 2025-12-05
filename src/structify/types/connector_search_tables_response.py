@@ -66,6 +66,9 @@ class RankedResult(BaseModel):
 
     schema_name: str
 
+    score: float
+    """Search relevance score (0 = exact match, higher = less relevant)"""
+
     table: RankedResultTable
     """Represents a table (for relational databases) or resource (for APIs)"""
 
@@ -117,6 +120,9 @@ class RawResult(BaseModel):
     database_name: str
 
     schema_name: str
+
+    score: float
+    """Search relevance score (0 = exact match, higher = less relevant)"""
 
     table: RawResultTable
     """Represents a table (for relational databases) or resource (for APIs)"""
