@@ -16,3 +16,5 @@ class TeamUpdateParams(TypedDict, total=False):
     description: Optional[str]
 
     name: Optional[str]
+
+    pipedream_project_id: Optional[str]
