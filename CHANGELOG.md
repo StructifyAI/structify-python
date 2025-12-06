@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.164.0 (2025-12-06)
+
+Full Changelog: [v1.163.0...v1.164.0](https://github.com/StructifyAI/structify-python/compare/v1.163.0...v1.164.0)
+
+### Features
+
+* Update from Structify backend changes ([19ad017](https://github.com/StructifyAI/structify-python/commit/19ad017848318286bcb348288256ca8bd267e034))
+* Update from Structify backend changes ([beca95f](https://github.com/StructifyAI/structify-python/commit/beca95fbec7d218ce283c6339b0de314a937df35))
+* Update from Structify backend changes ([c4da6a3](https://github.com/StructifyAI/structify-python/commit/c4da6a3521337cabf988cbfb2aac3fac4fef376f))
+* Update from Structify backend changes ([85844a0](https://github.com/StructifyAI/structify-python/commit/85844a01676e50ef11f53c8d05757863913b672e))
+* Update from Structify backend changes ([2215cfc](https://github.com/StructifyAI/structify-python/commit/2215cfcbe11da959d329ece949ee1f42ed16845a))
+* Update from Structify backend changes ([6737cd3](https://github.com/StructifyAI/structify-python/commit/6737cd37dff7f2fd13e10286773f5f57e2a25140))
+
 ## 1.163.0 (2025-12-04)
 
 Full Changelog: [v1.162.0...v1.163.0](https://github.com/StructifyAI/structify-python/compare/v1.162.0...v1.163.0)
