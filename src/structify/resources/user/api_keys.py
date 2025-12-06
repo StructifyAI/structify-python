@@ -2,66 +2,63 @@
 
 from __future__ import annotations
 
-from typing import Optional
-from typing_extensions import Literal
+from typing import Union, Optional
+from datetime import datetime
 
 import httpx
 
-from ..types import sandbox_get_params, sandbox_create_params, sandbox_update_status_params
-from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import maybe_transform, async_maybe_transform
-from .._compat import cached_property
-from .._resource import SyncAPIResource, AsyncAPIResource
-from .._response import (
+from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
+from ..._utils import maybe_transform, async_maybe_transform
+from ..._compat import cached_property
+from ..._resource import SyncAPIResource, AsyncAPIResource
+from ..._response import (
     to_raw_response_wrapper,
     to_streamed_response_wrapper,
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from .._base_client import make_request_options
-from ..types.sandbox import Sandbox
-from ..types.sandbox_list_response import SandboxListResponse
+from ...types.user import api_key_create_params
+from ..._base_client import make_request_options
+from ...types.user.api_key_info import APIKeyInfo
+from ...types.user.list_api_keys_response import ListAPIKeysResponse
+from ...types.user.create_api_key_response import CreateAPIKeyResponse
 
-__all__ = ["SandboxResource", "AsyncSandboxResource"]
+__all__ = ["APIKeysResource", "AsyncAPIKeysResource"]
 
 
-class SandboxResource(SyncAPIResource):
+class APIKeysResource(SyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> SandboxResourceWithRawResponse:
+    def with_raw_response(self) -> APIKeysResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/StructifyAI/structify-python#accessing-raw-response-data-eg-headers
         """
-        return SandboxResourceWithRawResponse(self)
+        return APIKeysResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> SandboxResourceWithStreamingResponse:
+    def with_streaming_response(self) -> APIKeysResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/StructifyAI/structify-python#with_streaming_response
         """
-        return SandboxResourceWithStreamingResponse(self)
+        return APIKeysResourceWithStreamingResponse(self)
 
     def create(
         self,
-        chat_id: str,
         *,
-        chat_session_id: str,
-        modal_id: str,
-        modal_url: str,
-        status: Literal["alive", "terminated"],
-        latest_node: Optional[str] | Omit = omit,
-        session_id: Optional[str] | Omit = omit,
+        expires_at: Union[str, datetime, None] | Omit = omit,
+        membership_id: Optional[str] | Omit = omit,
+        name: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Sandbox:
+    ) -> CreateAPIKeyResponse:
         """
         Args:
           extra_headers: Send extra headers
@@ -72,30 +69,24 @@ class SandboxResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not chat_id:
-            raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
         return self._post(
-            f"/sandbox/{chat_id}",
+            "/user/api_keys",
             body=maybe_transform(
                 {
-                    "chat_session_id": chat_session_id,
-                    "modal_id": modal_id,
-                    "modal_url": modal_url,
-                    "status": status,
-                    "latest_node": latest_node,
-                    "session_id": session_id,
+                    "expires_at": expires_at,
+                    "membership_id": membership_id,
+                    "name": name,
                 },
-                sandbox_create_params.SandboxCreateParams,
+                api_key_create_params.APIKeyCreateParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Sandbox,
+            cast_to=CreateAPIKeyResponse,
         )
 
     def list(
         self,
-        chat_id: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -103,43 +94,28 @@ class SandboxResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SandboxListResponse:
-        """
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not chat_id:
-            raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
+    ) -> ListAPIKeysResponse:
         return self._get(
-            f"/sandbox/list/{chat_id}",
+            "/user/api_keys",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=SandboxListResponse,
+            cast_to=ListAPIKeysResponse,
         )
 
     def get(
         self,
-        chat_id: str,
+        id: str,
         *,
-        modal_control_service_url_override: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Sandbox:
+    ) -> APIKeyInfo:
         """
         Args:
-          modal_control_service_url_override: Override URL for the modal control service (for testing/development)
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -148,32 +124,27 @@ class SandboxResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not chat_id:
-            raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
-        return self._post(
-            f"/sandbox/live/{chat_id}",
-            body=maybe_transform(
-                {"modal_control_service_url_override": modal_control_service_url_override},
-                sandbox_get_params.SandboxGetParams,
-            ),
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._get(
+            f"/user/api_keys/{id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Sandbox,
+            cast_to=APIKeyInfo,
         )
 
-    def update_status(
+    def revoke(
         self,
-        sandbox_id: str,
+        id: str,
         *,
-        status: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Sandbox:
+    ) -> None:
         """
         Args:
           extra_headers: Send extra headers
@@ -184,55 +155,51 @@ class SandboxResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not sandbox_id:
-            raise ValueError(f"Expected a non-empty value for `sandbox_id` but received {sandbox_id!r}")
-        return self._patch(
-            f"/sandbox/{sandbox_id}/status",
-            body=maybe_transform({"status": status}, sandbox_update_status_params.SandboxUpdateStatusParams),
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return self._delete(
+            f"/user/api_keys/{id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Sandbox,
+            cast_to=NoneType,
         )
 
 
-class AsyncSandboxResource(AsyncAPIResource):
+class AsyncAPIKeysResource(AsyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> AsyncSandboxResourceWithRawResponse:
+    def with_raw_response(self) -> AsyncAPIKeysResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/StructifyAI/structify-python#accessing-raw-response-data-eg-headers
         """
-        return AsyncSandboxResourceWithRawResponse(self)
+        return AsyncAPIKeysResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> AsyncSandboxResourceWithStreamingResponse:
+    def with_streaming_response(self) -> AsyncAPIKeysResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/StructifyAI/structify-python#with_streaming_response
         """
-        return AsyncSandboxResourceWithStreamingResponse(self)
+        return AsyncAPIKeysResourceWithStreamingResponse(self)
 
     async def create(
         self,
-        chat_id: str,
         *,
-        chat_session_id: str,
-        modal_id: str,
-        modal_url: str,
-        status: Literal["alive", "terminated"],
-        latest_node: Optional[str] | Omit = omit,
-        session_id: Optional[str] | Omit = omit,
+        expires_at: Union[str, datetime, None] | Omit = omit,
+        membership_id: Optional[str] | Omit = omit,
+        name: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Sandbox:
+    ) -> CreateAPIKeyResponse:
         """
         Args:
           extra_headers: Send extra headers
@@ -243,30 +210,24 @@ class AsyncSandboxResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not chat_id:
-            raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
         return await self._post(
-            f"/sandbox/{chat_id}",
+            "/user/api_keys",
             body=await async_maybe_transform(
                 {
-                    "chat_session_id": chat_session_id,
-                    "modal_id": modal_id,
-                    "modal_url": modal_url,
-                    "status": status,
-                    "latest_node": latest_node,
-                    "session_id": session_id,
+                    "expires_at": expires_at,
+                    "membership_id": membership_id,
+                    "name": name,
                 },
-                sandbox_create_params.SandboxCreateParams,
+                api_key_create_params.APIKeyCreateParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Sandbox,
+            cast_to=CreateAPIKeyResponse,
         )
 
     async def list(
         self,
-        chat_id: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -274,43 +235,28 @@ class AsyncSandboxResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SandboxListResponse:
-        """
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not chat_id:
-            raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
+    ) -> ListAPIKeysResponse:
         return await self._get(
-            f"/sandbox/list/{chat_id}",
+            "/user/api_keys",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=SandboxListResponse,
+            cast_to=ListAPIKeysResponse,
         )
 
     async def get(
         self,
-        chat_id: str,
+        id: str,
         *,
-        modal_control_service_url_override: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Sandbox:
+    ) -> APIKeyInfo:
         """
         Args:
-          modal_control_service_url_override: Override URL for the modal control service (for testing/development)
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -319,32 +265,27 @@ class AsyncSandboxResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not chat_id:
-            raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
-        return await self._post(
-            f"/sandbox/live/{chat_id}",
-            body=await async_maybe_transform(
-                {"modal_control_service_url_override": modal_control_service_url_override},
-                sandbox_get_params.SandboxGetParams,
-            ),
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._get(
+            f"/user/api_keys/{id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Sandbox,
+            cast_to=APIKeyInfo,
         )
 
-    async def update_status(
+    async def revoke(
         self,
-        sandbox_id: str,
+        id: str,
         *,
-        status: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Sandbox:
+    ) -> None:
         """
         Args:
           extra_headers: Send extra headers
@@ -355,87 +296,85 @@ class AsyncSandboxResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not sandbox_id:
-            raise ValueError(f"Expected a non-empty value for `sandbox_id` but received {sandbox_id!r}")
-        return await self._patch(
-            f"/sandbox/{sandbox_id}/status",
-            body=await async_maybe_transform(
-                {"status": status}, sandbox_update_status_params.SandboxUpdateStatusParams
-            ),
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return await self._delete(
+            f"/user/api_keys/{id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Sandbox,
+            cast_to=NoneType,
         )
 
 
-class SandboxResourceWithRawResponse:
-    def __init__(self, sandbox: SandboxResource) -> None:
-        self._sandbox = sandbox
+class APIKeysResourceWithRawResponse:
+    def __init__(self, api_keys: APIKeysResource) -> None:
+        self._api_keys = api_keys
 
         self.create = to_raw_response_wrapper(
-            sandbox.create,
+            api_keys.create,
         )
         self.list = to_raw_response_wrapper(
-            sandbox.list,
+            api_keys.list,
         )
         self.get = to_raw_response_wrapper(
-            sandbox.get,
+            api_keys.get,
         )
-        self.update_status = to_raw_response_wrapper(
-            sandbox.update_status,
+        self.revoke = to_raw_response_wrapper(
+            api_keys.revoke,
         )
 
 
-class AsyncSandboxResourceWithRawResponse:
-    def __init__(self, sandbox: AsyncSandboxResource) -> None:
-        self._sandbox = sandbox
+class AsyncAPIKeysResourceWithRawResponse:
+    def __init__(self, api_keys: AsyncAPIKeysResource) -> None:
+        self._api_keys = api_keys
 
         self.create = async_to_raw_response_wrapper(
-            sandbox.create,
+            api_keys.create,
         )
         self.list = async_to_raw_response_wrapper(
-            sandbox.list,
+            api_keys.list,
         )
         self.get = async_to_raw_response_wrapper(
-            sandbox.get,
+            api_keys.get,
         )
-        self.update_status = async_to_raw_response_wrapper(
-            sandbox.update_status,
+        self.revoke = async_to_raw_response_wrapper(
+            api_keys.revoke,
         )
 
 
-class SandboxResourceWithStreamingResponse:
-    def __init__(self, sandbox: SandboxResource) -> None:
-        self._sandbox = sandbox
+class APIKeysResourceWithStreamingResponse:
+    def __init__(self, api_keys: APIKeysResource) -> None:
+        self._api_keys = api_keys
 
         self.create = to_streamed_response_wrapper(
-            sandbox.create,
+            api_keys.create,
         )
         self.list = to_streamed_response_wrapper(
-            sandbox.list,
+            api_keys.list,
         )
         self.get = to_streamed_response_wrapper(
-            sandbox.get,
+            api_keys.get,
         )
-        self.update_status = to_streamed_response_wrapper(
-            sandbox.update_status,
+        self.revoke = to_streamed_response_wrapper(
+            api_keys.revoke,
         )
 
 
-class AsyncSandboxResourceWithStreamingResponse:
-    def __init__(self, sandbox: AsyncSandboxResource) -> None:
-        self._sandbox = sandbox
+class AsyncAPIKeysResourceWithStreamingResponse:
+    def __init__(self, api_keys: AsyncAPIKeysResource) -> None:
+        self._api_keys = api_keys
 
         self.create = async_to_streamed_response_wrapper(
-            sandbox.create,
+            api_keys.create,
         )
         self.list = async_to_streamed_response_wrapper(
-            sandbox.list,
+            api_keys.list,
         )
         self.get = async_to_streamed_response_wrapper(
-            sandbox.get,
+            api_keys.get,
         )
-        self.update_status = async_to_streamed_response_wrapper(
-            sandbox.update_status,
+        self.revoke = async_to_streamed_response_wrapper(
+            api_keys.revoke,
         )

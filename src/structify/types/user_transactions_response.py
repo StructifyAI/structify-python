@@ -14,9 +14,9 @@ class UserTransactionsResponseItem(BaseModel):
 
     amount: int
 
-    timestamp: datetime
+    membership_id: str
 
-    token_id: str
+    timestamp: datetime
 
     credit_grant_id: Optional[str] = None
 

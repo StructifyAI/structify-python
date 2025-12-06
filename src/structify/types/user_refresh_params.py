@@ -4,10 +4,10 @@ from __future__ import annotations
 
 from typing_extensions import Required, TypedDict
 
-__all__ = ["UserSetCreditsParams"]
+__all__ = ["UserRefreshParams"]
 
 
-class UserSetCreditsParams(TypedDict, total=False):
-    credit_count: Required[int]
+class UserRefreshParams(TypedDict, total=False):
+    refresh_token: Required[str]
 
-    user_email: Required[str]
+    session_token: Required[str]

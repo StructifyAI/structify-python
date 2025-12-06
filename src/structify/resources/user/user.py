@@ -14,9 +14,23 @@ from .stripe import (
     StripeResourceWithStreamingResponse,
     AsyncStripeResourceWithStreamingResponse,
 )
-from ...types import user_usage_params, user_enrich_params, user_update_params, user_survey_submit_params
+from ...types import (
+    user_usage_params,
+    user_enrich_params,
+    user_update_params,
+    user_refresh_params,
+    user_survey_submit_params,
+)
 from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
 from ..._utils import maybe_transform, async_maybe_transform
+from .api_keys import (
+    APIKeysResource,
+    AsyncAPIKeysResource,
+    APIKeysResourceWithRawResponse,
+    AsyncAPIKeysResourceWithRawResponse,
+    APIKeysResourceWithStreamingResponse,
+    AsyncAPIKeysResourceWithStreamingResponse,
+)
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -29,6 +43,7 @@ from ..._base_client import make_request_options
 from ...types.user_info import UserInfo
 from ...types.admin.user import User
 from ...types.user_usage_response import UserUsageResponse
+from ...types.refresh_session_response import RefreshSessionResponse
 from ...types.survey_submission_response import SurveySubmissionResponse
 from ...types.user_transactions_response import UserTransactionsResponse
 
@@ -39,6 +54,10 @@ class UserResource(SyncAPIResource):
     @cached_property
     def stripe(self) -> StripeResource:
         return StripeResource(self._client)
+
+    @cached_property
+    def api_keys(self) -> APIKeysResource:
+        return APIKeysResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> UserResourceWithRawResponse:
@@ -148,6 +167,47 @@ class UserResource(SyncAPIResource):
             cast_to=UserInfo,
         )
 
+    def refresh(
+        self,
+        *,
+        refresh_token: str,
+        session_token: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> RefreshSessionResponse:
+        """
+        This endpoint allows clients to extend their session by providing both the
+        current session token and refresh token. Upon successful refresh, a new session
+        token is issued and the old session is revoked.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/user/refresh",
+            body=maybe_transform(
+                {
+                    "refresh_token": refresh_token,
+                    "session_token": session_token,
+                },
+                user_refresh_params.UserRefreshParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=RefreshSessionResponse,
+        )
+
     def survey_submit(
         self,
         *,
@@ -240,6 +300,10 @@ class AsyncUserResource(AsyncAPIResource):
     @cached_property
     def stripe(self) -> AsyncStripeResource:
         return AsyncStripeResource(self._client)
+
+    @cached_property
+    def api_keys(self) -> AsyncAPIKeysResource:
+        return AsyncAPIKeysResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> AsyncUserResourceWithRawResponse:
@@ -349,6 +413,47 @@ class AsyncUserResource(AsyncAPIResource):
             cast_to=UserInfo,
         )
 
+    async def refresh(
+        self,
+        *,
+        refresh_token: str,
+        session_token: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> RefreshSessionResponse:
+        """
+        This endpoint allows clients to extend their session by providing both the
+        current session token and refresh token. Upon successful refresh, a new session
+        token is issued and the old session is revoked.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/user/refresh",
+            body=await async_maybe_transform(
+                {
+                    "refresh_token": refresh_token,
+                    "session_token": session_token,
+                },
+                user_refresh_params.UserRefreshParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=RefreshSessionResponse,
+        )
+
     async def survey_submit(
         self,
         *,
@@ -450,6 +555,9 @@ class UserResourceWithRawResponse:
         self.info = to_raw_response_wrapper(
             user.info,
         )
+        self.refresh = to_raw_response_wrapper(
+            user.refresh,
+        )
         self.survey_submit = to_raw_response_wrapper(
             user.survey_submit,
         )
@@ -463,6 +571,10 @@ class UserResourceWithRawResponse:
     @cached_property
     def stripe(self) -> StripeResourceWithRawResponse:
         return StripeResourceWithRawResponse(self._user.stripe)
+
+    @cached_property
+    def api_keys(self) -> APIKeysResourceWithRawResponse:
+        return APIKeysResourceWithRawResponse(self._user.api_keys)
 
 
 class AsyncUserResourceWithRawResponse:
@@ -478,6 +590,9 @@ class AsyncUserResourceWithRawResponse:
         self.info = async_to_raw_response_wrapper(
             user.info,
         )
+        self.refresh = async_to_raw_response_wrapper(
+            user.refresh,
+        )
         self.survey_submit = async_to_raw_response_wrapper(
             user.survey_submit,
         )
@@ -491,6 +606,10 @@ class AsyncUserResourceWithRawResponse:
     @cached_property
     def stripe(self) -> AsyncStripeResourceWithRawResponse:
         return AsyncStripeResourceWithRawResponse(self._user.stripe)
+
+    @cached_property
+    def api_keys(self) -> AsyncAPIKeysResourceWithRawResponse:
+        return AsyncAPIKeysResourceWithRawResponse(self._user.api_keys)
 
 
 class UserResourceWithStreamingResponse:
@@ -506,6 +625,9 @@ class UserResourceWithStreamingResponse:
         self.info = to_streamed_response_wrapper(
             user.info,
         )
+        self.refresh = to_streamed_response_wrapper(
+            user.refresh,
+        )
         self.survey_submit = to_streamed_response_wrapper(
             user.survey_submit,
         )
@@ -519,6 +641,10 @@ class UserResourceWithStreamingResponse:
     @cached_property
     def stripe(self) -> StripeResourceWithStreamingResponse:
         return StripeResourceWithStreamingResponse(self._user.stripe)
+
+    @cached_property
+    def api_keys(self) -> APIKeysResourceWithStreamingResponse:
+        return APIKeysResourceWithStreamingResponse(self._user.api_keys)
 
 
 class AsyncUserResourceWithStreamingResponse:
@@ -534,6 +660,9 @@ class AsyncUserResourceWithStreamingResponse:
         self.info = async_to_streamed_response_wrapper(
             user.info,
         )
+        self.refresh = async_to_streamed_response_wrapper(
+            user.refresh,
+        )
         self.survey_submit = async_to_streamed_response_wrapper(
             user.survey_submit,
         )
@@ -547,3 +676,7 @@ class AsyncUserResourceWithStreamingResponse:
     @cached_property
     def stripe(self) -> AsyncStripeResourceWithStreamingResponse:
         return AsyncStripeResourceWithStreamingResponse(self._user.stripe)
+
+    @cached_property
+    def api_keys(self) -> AsyncAPIKeysResourceWithStreamingResponse:
+        return AsyncAPIKeysResourceWithStreamingResponse(self._user.api_keys)

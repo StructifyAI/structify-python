@@ -12,6 +12,7 @@ from tests.utils import assert_matches_type
 from structify.types import (
     UserInfo,
     UserUsageResponse,
+    RefreshSessionResponse,
     SurveySubmissionResponse,
     UserTransactionsResponse,
 )
@@ -133,6 +134,40 @@ class TestUser:
 
             user = response.parse()
             assert_matches_type(UserInfo, user, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_method_refresh(self, client: Structify) -> None:
+        user = client.user.refresh(
+            refresh_token="refresh_token",
+            session_token="session_token",
+        )
+        assert_matches_type(RefreshSessionResponse, user, path=["response"])
+
+    @parametrize
+    def test_raw_response_refresh(self, client: Structify) -> None:
+        response = client.user.with_raw_response.refresh(
+            refresh_token="refresh_token",
+            session_token="session_token",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        user = response.parse()
+        assert_matches_type(RefreshSessionResponse, user, path=["response"])
+
+    @parametrize
+    def test_streaming_response_refresh(self, client: Structify) -> None:
+        with client.user.with_streaming_response.refresh(
+            refresh_token="refresh_token",
+            session_token="session_token",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            user = response.parse()
+            assert_matches_type(RefreshSessionResponse, user, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -340,6 +375,40 @@ class TestAsyncUser:
 
             user = await response.parse()
             assert_matches_type(UserInfo, user, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_method_refresh(self, async_client: AsyncStructify) -> None:
+        user = await async_client.user.refresh(
+            refresh_token="refresh_token",
+            session_token="session_token",
+        )
+        assert_matches_type(RefreshSessionResponse, user, path=["response"])
+
+    @parametrize
+    async def test_raw_response_refresh(self, async_client: AsyncStructify) -> None:
+        response = await async_client.user.with_raw_response.refresh(
+            refresh_token="refresh_token",
+            session_token="session_token",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        user = await response.parse()
+        assert_matches_type(RefreshSessionResponse, user, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_refresh(self, async_client: AsyncStructify) -> None:
+        async with async_client.user.with_streaming_response.refresh(
+            refresh_token="refresh_token",
+            session_token="session_token",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            user = await response.parse()
+            assert_matches_type(RefreshSessionResponse, user, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
