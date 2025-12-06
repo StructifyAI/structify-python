@@ -20,9 +20,9 @@ class EntityListJobsResponseItem(BaseModel):
 
     max_steps_without_save: int
 
-    status: Literal["Queued", "Running", "Completed", "Failed"]
+    membership_id: str
 
-    token_id: str
+    status: Literal["Queued", "Running", "Completed", "Failed"]
 
     updated_at: datetime
 

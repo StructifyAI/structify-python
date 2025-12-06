@@ -40,6 +40,7 @@ class TestSandbox:
             modal_url="modal_url",
             status="alive",
             latest_node="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(Sandbox, sandbox, path=["response"])
 
@@ -238,6 +239,7 @@ class TestAsyncSandbox:
             modal_url="modal_url",
             status="alive",
             latest_node="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(Sandbox, sandbox, path=["response"])
 

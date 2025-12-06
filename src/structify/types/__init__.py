@@ -14,7 +14,6 @@ from .strategy import Strategy as Strategy
 from .connector import Connector as Connector
 from .team_role import TeamRole as TeamRole
 from .user_info import UserInfo as UserInfo
-from .user_team import UserTeam as UserTeam
 from .chat_event import ChatEvent as ChatEvent
 from .chat_prompt import ChatPrompt as ChatPrompt
 from .granularity import Granularity as Granularity
@@ -91,6 +90,7 @@ from .property_type_param import PropertyTypeParam as PropertyTypeParam
 from .report_wrong_params import ReportWrongParams as ReportWrongParams
 from .slack_events_params import SlackEventsParams as SlackEventsParams
 from .tool_metadata_param import ToolMetadataParam as ToolMetadataParam
+from .user_refresh_params import UserRefreshParams as UserRefreshParams
 from .user_usage_response import UserUsageResponse as UserUsageResponse
 from .workflow_run_params import WorkflowRunParams as WorkflowRunParams
 from .connector_table_info import ConnectorTableInfo as ConnectorTableInfo
@@ -174,6 +174,7 @@ from .document_download_params import DocumentDownloadParams as DocumentDownload
 from .entity_derive_all_params import EntityDeriveAllParams as EntityDeriveAllParams
 from .entity_get_merges_params import EntityGetMergesParams as EntityGetMergesParams
 from .match_create_jobs_params import MatchCreateJobsParams as MatchCreateJobsParams
+from .refresh_session_response import RefreshSessionResponse as RefreshSessionResponse
 from .session_kill_jobs_params import SessionKillJobsParams as SessionKillJobsParams
 from .team_subscription_status import TeamSubscriptionStatus as TeamSubscriptionStatus
 from .wiki_connector_reference import WikiConnectorReference as WikiConnectorReference

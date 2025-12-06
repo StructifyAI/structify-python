@@ -25,3 +25,5 @@ class Sandbox(BaseModel):
     updated_at: datetime
 
     latest_node: Optional[str] = None
+
+    session_id: Optional[str] = None

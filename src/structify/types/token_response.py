@@ -9,6 +9,10 @@ __all__ = ["TokenResponse"]
 
 
 class TokenResponse(BaseModel):
-    token: str
-
     permissions: List[Literal["labeler", "qa_labeler", "debug", "human_llm", "none"]]
+
+    refresh_token: str
+
+    session_expires_at: str
+
+    session_token: str

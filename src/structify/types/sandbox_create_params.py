@@ -18,3 +18,5 @@ class SandboxCreateParams(TypedDict, total=False):
     status: Required[Literal["alive", "terminated"]]
 
     latest_node: Optional[str]
+
+    session_id: Optional[str]

@@ -6,6 +6,8 @@ Types:
 from structify.types import (
     EnrichUserParams,
     JwtToAPITokenRequest,
+    RefreshSessionRequest,
+    RefreshSessionResponse,
     SurveySubmissionRequest,
     SurveySubmissionResponse,
     TokenResponse,
@@ -21,6 +23,7 @@ Methods:
 - <code title="put /user/update">client.user.<a href="./src/structify/resources/user/user.py">update</a>(\*\*<a href="src/structify/types/user_update_params.py">params</a>) -> <a href="./src/structify/types/admin/user.py">User</a></code>
 - <code title="post /user/enrich">client.user.<a href="./src/structify/resources/user/user.py">enrich</a>(\*\*<a href="src/structify/types/user_enrich_params.py">params</a>) -> None</code>
 - <code title="get /user/info">client.user.<a href="./src/structify/resources/user/user.py">info</a>() -> <a href="./src/structify/types/user_info.py">UserInfo</a></code>
+- <code title="post /user/refresh">client.user.<a href="./src/structify/resources/user/user.py">refresh</a>(\*\*<a href="src/structify/types/user_refresh_params.py">params</a>) -> <a href="./src/structify/types/refresh_session_response.py">RefreshSessionResponse</a></code>
 - <code title="post /user/survey/submit">client.user.<a href="./src/structify/resources/user/user.py">survey_submit</a>(\*\*<a href="src/structify/types/user_survey_submit_params.py">params</a>) -> <a href="./src/structify/types/survey_submission_response.py">SurveySubmissionResponse</a></code>
 - <code title="get /user/transactions/list">client.user.<a href="./src/structify/resources/user/user.py">transactions</a>() -> <a href="./src/structify/types/user_transactions_response.py">UserTransactionsResponse</a></code>
 - <code title="get /user/usage">client.user.<a href="./src/structify/resources/user/user.py">usage</a>(\*\*<a href="src/structify/types/user_usage_params.py">params</a>) -> <a href="./src/structify/types/user_usage_response.py">UserUsageResponse</a></code>
@@ -44,6 +47,26 @@ Methods:
 - <code title="post /user/transactions/stripe/create_portal_session">client.user.stripe.<a href="./src/structify/resources/user/stripe.py">create_portal_session</a>(\*\*<a href="src/structify/types/user/stripe_create_portal_session_params.py">params</a>) -> <a href="./src/structify/types/user/create_session_response.py">CreateSessionResponse</a></code>
 - <code title="post /user/transactions/stripe/create_session">client.user.stripe.<a href="./src/structify/resources/user/stripe.py">create_session</a>(\*\*<a href="src/structify/types/user/stripe_create_session_params.py">params</a>) -> <a href="./src/structify/types/user/create_session_response.py">CreateSessionResponse</a></code>
 - <code title="post /user/transactions/stripe/create_subscription">client.user.stripe.<a href="./src/structify/resources/user/stripe.py">create_subscription</a>(\*\*<a href="src/structify/types/user/stripe_create_subscription_params.py">params</a>) -> <a href="./src/structify/types/user/create_session_response.py">CreateSessionResponse</a></code>
+
+## APIKeys
+
+Types:
+
+```python
+from structify.types.user import (
+    APIKeyInfo,
+    CreateAPIKeyRequest,
+    CreateAPIKeyResponse,
+    ListAPIKeysResponse,
+)
+```
+
+Methods:
+
+- <code title="post /user/api_keys">client.user.api_keys.<a href="./src/structify/resources/user/api_keys.py">create</a>(\*\*<a href="src/structify/types/user/api_key_create_params.py">params</a>) -> <a href="./src/structify/types/user/create_api_key_response.py">CreateAPIKeyResponse</a></code>
+- <code title="get /user/api_keys">client.user.api_keys.<a href="./src/structify/resources/user/api_keys.py">list</a>() -> <a href="./src/structify/types/user/list_api_keys_response.py">ListAPIKeysResponse</a></code>
+- <code title="get /user/api_keys/{id}">client.user.api_keys.<a href="./src/structify/resources/user/api_keys.py">get</a>(id) -> <a href="./src/structify/types/user/api_key_info.py">APIKeyInfo</a></code>
+- <code title="delete /user/api_keys/{id}">client.user.api_keys.<a href="./src/structify/resources/user/api_keys.py">revoke</a>(id) -> None</code>
 
 # Chat
 
@@ -146,7 +169,6 @@ from structify.types import (
     UpdateTeamRequest,
     UpdateTeamResponse,
     UsageGroupKey,
-    UserTeam,
 )
 ```
 
@@ -359,24 +381,14 @@ Methods:
 Types:
 
 ```python
-from structify.types.admin import (
-    User,
-    UserListResponse,
-    UserAddCreditsResponse,
-    UserGetCreditsResponse,
-    UserGetStatsResponse,
-    UserSetCreditsResponse,
-)
+from structify.types.admin import User, UserListResponse, UserGetStatsResponse
 ```
 
 Methods:
 
 - <code title="post /admin/users/create">client.admin.users.<a href="./src/structify/resources/admin/users.py">create</a>(\*\*<a href="src/structify/types/admin/user_create_params.py">params</a>) -> <a href="./src/structify/types/token_response.py">TokenResponse</a></code>
 - <code title="get /admin/users/list">client.admin.users.<a href="./src/structify/resources/admin/users.py">list</a>() -> <a href="./src/structify/types/admin/user_list_response.py">UserListResponse</a></code>
-- <code title="post /admin/users/add_credits">client.admin.users.<a href="./src/structify/resources/admin/users.py">add_credits</a>(\*\*<a href="src/structify/types/admin/user_add_credits_params.py">params</a>) -> <a href="./src/structify/types/admin/user_add_credits_response.py">UserAddCreditsResponse</a></code>
-- <code title="post /admin/users/get_credits">client.admin.users.<a href="./src/structify/resources/admin/users.py">get_credits</a>(\*\*<a href="src/structify/types/admin/user_get_credits_params.py">params</a>) -> <a href="./src/structify/types/admin/user_get_credits_response.py">UserGetCreditsResponse</a></code>
 - <code title="post /admin/users/get_stats">client.admin.users.<a href="./src/structify/resources/admin/users.py">get_stats</a>(\*\*<a href="src/structify/types/admin/user_get_stats_params.py">params</a>) -> <a href="./src/structify/types/admin/user_get_stats_response.py">UserGetStatsResponse</a></code>
-- <code title="post /admin/users/set_credits">client.admin.users.<a href="./src/structify/resources/admin/users.py">set_credits</a>(\*\*<a href="src/structify/types/admin/user_set_credits_params.py">params</a>) -> <a href="./src/structify/types/admin/user_set_credits_response.py">UserSetCreditsResponse</a></code>
 
 ## TrainingDatasets
 
