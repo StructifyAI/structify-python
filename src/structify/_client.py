@@ -12,6 +12,7 @@ from . import _exceptions
 from ._qs import Querystring
 from ._types import (
     Omit,
+    Headers,
     Timeout,
     NotGiven,
     Transport,
@@ -44,7 +45,7 @@ from .resources import (
     workflow_schedule,
 )
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
-from ._exceptions import APIStatusError, StructifyError
+from ._exceptions import APIStatusError
 from ._base_client import (
     DEFAULT_MAX_RETRIES,
     SyncAPIClient,
@@ -104,7 +105,8 @@ class Structify(SyncAPIClient):
     with_streaming_response: StructifyWithStreamedResponse
 
     # client options
-    api_key: str
+    api_key: str | None
+    session_token: str | None
 
     _environment: Literal["production", "development"] | NotGiven
 
@@ -112,6 +114,7 @@ class Structify(SyncAPIClient):
         self,
         *,
         api_key: str | None = None,
+        session_token: str | None = None,
         environment: Literal["production", "development"] | NotGiven = not_given,
         base_url: str | httpx.URL | None | NotGiven = not_given,
         timeout: float | Timeout | None | NotGiven = not_given,
@@ -134,15 +137,17 @@ class Structify(SyncAPIClient):
     ) -> None:
         """Construct a new synchronous Structify client instance.
 
-        This automatically infers the `api_key` argument from the `STRUCTIFY_API_TOKEN` environment variable if it is not provided.
+        This automatically infers the following arguments from their corresponding environment variables if they are not provided:
+        - `api_key` from `STRUCTIFY_API_TOKEN`
+        - `session_token` from `STRUCTIFY_SESSION_TOKEN`
         """
         if api_key is None:
             api_key = os.environ.get("STRUCTIFY_API_TOKEN")
-        if api_key is None:
-            raise StructifyError(
-                "The api_key client option must be set either by passing api_key to the client or by setting the STRUCTIFY_API_TOKEN environment variable"
-            )
         self.api_key = api_key
+
+        if session_token is None:
+            session_token = os.environ.get("STRUCTIFY_SESSION_TOKEN")
+        self.session_token = session_token
 
         self._environment = environment
 
@@ -217,8 +222,21 @@ class Structify(SyncAPIClient):
     @property
     @override
     def auth_headers(self) -> dict[str, str]:
+        return {**self._api_key, **self._session_token}
+
+    @property
+    def _api_key(self) -> dict[str, str]:
         api_key = self.api_key
+        if api_key is None:
+            return {}
         return {"api_key": api_key}
+
+    @property
+    def _session_token(self) -> dict[str, str]:
+        session_token = self.session_token
+        if session_token is None:
+            return {}
+        return {"Authorization": f"Bearer {session_token}"}
 
     @property
     @override
@@ -229,10 +247,27 @@ class Structify(SyncAPIClient):
             **self._custom_headers,
         }
 
+    @override
+    def _validate_headers(self, headers: Headers, custom_headers: Headers) -> None:
+        if self.api_key and headers.get("api_key"):
+            return
+        if isinstance(custom_headers.get("api_key"), Omit):
+            return
+
+        if self.session_token and headers.get("Authorization"):
+            return
+        if isinstance(custom_headers.get("Authorization"), Omit):
+            return
+
+        raise TypeError(
+            '"Could not resolve authentication method. Expected either api_key or session_token to be set. Or for one of the `api_key` or `Authorization` headers to be explicitly omitted"'
+        )
+
     def copy(
         self,
         *,
         api_key: str | None = None,
+        session_token: str | None = None,
         environment: Literal["production", "development"] | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: float | Timeout | None | NotGiven = not_given,
@@ -268,6 +303,7 @@ class Structify(SyncAPIClient):
         http_client = http_client or self._client
         return self.__class__(
             api_key=api_key or self.api_key,
+            session_token=session_token or self.session_token,
             base_url=base_url or self.base_url,
             environment=environment or self._environment,
             timeout=self.timeout if isinstance(timeout, NotGiven) else timeout,
@@ -346,7 +382,8 @@ class AsyncStructify(AsyncAPIClient):
     with_streaming_response: AsyncStructifyWithStreamedResponse
 
     # client options
-    api_key: str
+    api_key: str | None
+    session_token: str | None
 
     _environment: Literal["production", "development"] | NotGiven
 
@@ -354,6 +391,7 @@ class AsyncStructify(AsyncAPIClient):
         self,
         *,
         api_key: str | None = None,
+        session_token: str | None = None,
         environment: Literal["production", "development"] | NotGiven = not_given,
         base_url: str | httpx.URL | None | NotGiven = not_given,
         timeout: float | Timeout | None | NotGiven = not_given,
@@ -376,15 +414,17 @@ class AsyncStructify(AsyncAPIClient):
     ) -> None:
         """Construct a new async AsyncStructify client instance.
 
-        This automatically infers the `api_key` argument from the `STRUCTIFY_API_TOKEN` environment variable if it is not provided.
+        This automatically infers the following arguments from their corresponding environment variables if they are not provided:
+        - `api_key` from `STRUCTIFY_API_TOKEN`
+        - `session_token` from `STRUCTIFY_SESSION_TOKEN`
         """
         if api_key is None:
             api_key = os.environ.get("STRUCTIFY_API_TOKEN")
-        if api_key is None:
-            raise StructifyError(
-                "The api_key client option must be set either by passing api_key to the client or by setting the STRUCTIFY_API_TOKEN environment variable"
-            )
         self.api_key = api_key
+
+        if session_token is None:
+            session_token = os.environ.get("STRUCTIFY_SESSION_TOKEN")
+        self.session_token = session_token
 
         self._environment = environment
 
@@ -459,8 +499,21 @@ class AsyncStructify(AsyncAPIClient):
     @property
     @override
     def auth_headers(self) -> dict[str, str]:
+        return {**self._api_key, **self._session_token}
+
+    @property
+    def _api_key(self) -> dict[str, str]:
         api_key = self.api_key
+        if api_key is None:
+            return {}
         return {"api_key": api_key}
+
+    @property
+    def _session_token(self) -> dict[str, str]:
+        session_token = self.session_token
+        if session_token is None:
+            return {}
+        return {"Authorization": f"Bearer {session_token}"}
 
     @property
     @override
@@ -471,10 +524,27 @@ class AsyncStructify(AsyncAPIClient):
             **self._custom_headers,
         }
 
+    @override
+    def _validate_headers(self, headers: Headers, custom_headers: Headers) -> None:
+        if self.api_key and headers.get("api_key"):
+            return
+        if isinstance(custom_headers.get("api_key"), Omit):
+            return
+
+        if self.session_token and headers.get("Authorization"):
+            return
+        if isinstance(custom_headers.get("Authorization"), Omit):
+            return
+
+        raise TypeError(
+            '"Could not resolve authentication method. Expected either api_key or session_token to be set. Or for one of the `api_key` or `Authorization` headers to be explicitly omitted"'
+        )
+
     def copy(
         self,
         *,
         api_key: str | None = None,
+        session_token: str | None = None,
         environment: Literal["production", "development"] | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: float | Timeout | None | NotGiven = not_given,
@@ -510,6 +580,7 @@ class AsyncStructify(AsyncAPIClient):
         http_client = http_client or self._client
         return self.__class__(
             api_key=api_key or self.api_key,
+            session_token=session_token or self.session_token,
             base_url=base_url or self.base_url,
             environment=environment or self._environment,
             timeout=self.timeout if isinstance(timeout, NotGiven) else timeout,
