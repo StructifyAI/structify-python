@@ -18,10 +18,11 @@ from ..._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ...types.admin import user_create_params, user_get_stats_params
+from ...types.admin import user_create_params, user_get_stats_params, user_impersonate_params
 from ..._base_client import make_request_options
 from ...types.token_response import TokenResponse
 from ...types.admin.user_list_response import UserListResponse
+from ...types.admin.impersonate_response import ImpersonateResponse
 from ...types.admin.user_get_stats_response import UserGetStatsResponse
 
 __all__ = ["UsersResource", "AsyncUsersResource"]
@@ -120,7 +121,7 @@ class UsersResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> UserListResponse:
-        """Lists all the users in the system along with their associated API tokens."""
+        """Lists all users with their team memberships."""
         return self._get(
             "/admin/users/list",
             options=make_request_options(
@@ -170,6 +171,36 @@ class UsersResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=UserGetStatsResponse,
+        )
+
+    def impersonate(
+        self,
+        *,
+        membership_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ImpersonateResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/admin/users/impersonate",
+            body=maybe_transform({"membership_id": membership_id}, user_impersonate_params.UserImpersonateParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ImpersonateResponse,
         )
 
 
@@ -266,7 +297,7 @@ class AsyncUsersResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> UserListResponse:
-        """Lists all the users in the system along with their associated API tokens."""
+        """Lists all users with their team memberships."""
         return await self._get(
             "/admin/users/list",
             options=make_request_options(
@@ -318,6 +349,38 @@ class AsyncUsersResource(AsyncAPIResource):
             cast_to=UserGetStatsResponse,
         )
 
+    async def impersonate(
+        self,
+        *,
+        membership_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ImpersonateResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/admin/users/impersonate",
+            body=await async_maybe_transform(
+                {"membership_id": membership_id}, user_impersonate_params.UserImpersonateParams
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ImpersonateResponse,
+        )
+
 
 class UsersResourceWithRawResponse:
     def __init__(self, users: UsersResource) -> None:
@@ -331,6 +394,9 @@ class UsersResourceWithRawResponse:
         )
         self.get_stats = to_raw_response_wrapper(
             users.get_stats,
+        )
+        self.impersonate = to_raw_response_wrapper(
+            users.impersonate,
         )
 
 
@@ -347,6 +413,9 @@ class AsyncUsersResourceWithRawResponse:
         self.get_stats = async_to_raw_response_wrapper(
             users.get_stats,
         )
+        self.impersonate = async_to_raw_response_wrapper(
+            users.impersonate,
+        )
 
 
 class UsersResourceWithStreamingResponse:
@@ -362,6 +431,9 @@ class UsersResourceWithStreamingResponse:
         self.get_stats = to_streamed_response_wrapper(
             users.get_stats,
         )
+        self.impersonate = to_streamed_response_wrapper(
+            users.impersonate,
+        )
 
 
 class AsyncUsersResourceWithStreamingResponse:
@@ -376,4 +448,7 @@ class AsyncUsersResourceWithStreamingResponse:
         )
         self.get_stats = async_to_streamed_response_wrapper(
             users.get_stats,
+        )
+        self.impersonate = async_to_streamed_response_wrapper(
+            users.impersonate,
         )
