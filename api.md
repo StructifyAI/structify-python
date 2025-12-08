@@ -381,7 +381,13 @@ Methods:
 Types:
 
 ```python
-from structify.types.admin import User, UserListResponse, UserGetStatsResponse
+from structify.types.admin import (
+    ImpersonateRequest,
+    ImpersonateResponse,
+    User,
+    UserListResponse,
+    UserGetStatsResponse,
+)
 ```
 
 Methods:
@@ -389,6 +395,7 @@ Methods:
 - <code title="post /admin/users/create">client.admin.users.<a href="./src/structify/resources/admin/users.py">create</a>(\*\*<a href="src/structify/types/admin/user_create_params.py">params</a>) -> <a href="./src/structify/types/token_response.py">TokenResponse</a></code>
 - <code title="get /admin/users/list">client.admin.users.<a href="./src/structify/resources/admin/users.py">list</a>() -> <a href="./src/structify/types/admin/user_list_response.py">UserListResponse</a></code>
 - <code title="post /admin/users/get_stats">client.admin.users.<a href="./src/structify/resources/admin/users.py">get_stats</a>(\*\*<a href="src/structify/types/admin/user_get_stats_params.py">params</a>) -> <a href="./src/structify/types/admin/user_get_stats_response.py">UserGetStatsResponse</a></code>
+- <code title="post /admin/users/impersonate">client.admin.users.<a href="./src/structify/resources/admin/users.py">impersonate</a>(\*\*<a href="src/structify/types/admin/user_impersonate_params.py">params</a>) -> <a href="./src/structify/types/admin/impersonate_response.py">ImpersonateResponse</a></code>
 
 ## TrainingDatasets
 
