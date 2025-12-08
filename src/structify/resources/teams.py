@@ -116,6 +116,10 @@ class TeamsResource(SyncAPIResource):
         description: Optional[str] | Omit = omit,
         name: Optional[str] | Omit = omit,
         pipedream_project_id: Optional[str] | Omit = omit,
+        slack_bot_token: Optional[str] | Omit = omit,
+        slack_team_icon: Optional[str] | Omit = omit,
+        slack_team_id: Optional[str] | Omit = omit,
+        slack_team_name: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -144,6 +148,10 @@ class TeamsResource(SyncAPIResource):
                     "description": description,
                     "name": name,
                     "pipedream_project_id": pipedream_project_id,
+                    "slack_bot_token": slack_bot_token,
+                    "slack_team_icon": slack_team_icon,
+                    "slack_team_id": slack_team_id,
+                    "slack_team_name": slack_team_name,
                 },
                 team_update_params.TeamUpdateParams,
             ),
@@ -659,6 +667,10 @@ class AsyncTeamsResource(AsyncAPIResource):
         description: Optional[str] | Omit = omit,
         name: Optional[str] | Omit = omit,
         pipedream_project_id: Optional[str] | Omit = omit,
+        slack_bot_token: Optional[str] | Omit = omit,
+        slack_team_icon: Optional[str] | Omit = omit,
+        slack_team_id: Optional[str] | Omit = omit,
+        slack_team_name: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -687,6 +699,10 @@ class AsyncTeamsResource(AsyncAPIResource):
                     "description": description,
                     "name": name,
                     "pipedream_project_id": pipedream_project_id,
+                    "slack_bot_token": slack_bot_token,
+                    "slack_team_icon": slack_team_icon,
+                    "slack_team_id": slack_team_id,
+                    "slack_team_name": slack_team_name,
                 },
                 team_update_params.TeamUpdateParams,
             ),

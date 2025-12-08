@@ -47,4 +47,8 @@ class UserInfo(BaseModel):
 
     onboarding_session_id: Optional[str] = None
 
+    slack_user_id: Optional[str] = None
+
+    slack_username: Optional[str] = None
+
     survey_completed_at: Optional[datetime] = None

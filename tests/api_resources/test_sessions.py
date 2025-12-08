@@ -14,8 +14,8 @@ from tests.utils import assert_matches_type
 from structify.types import (
     WorkflowDag,
     WorkflowSession,
-    FinalizeDagResponse,
     GetNodeLogsResponse,
+    WorkflowSessionEdge,
     WorkflowSessionNode,
     SessionKillJobsResponse,
     SessionGetEventsResponse,
@@ -33,6 +33,114 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
 class TestSessions:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
+
+    @parametrize
+    def test_method_create_edge(self, client: Structify) -> None:
+        session = client.sessions.create_edge(
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            source_node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            target_node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(WorkflowSessionEdge, session, path=["response"])
+
+    @parametrize
+    def test_raw_response_create_edge(self, client: Structify) -> None:
+        response = client.sessions.with_raw_response.create_edge(
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            source_node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            target_node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        session = response.parse()
+        assert_matches_type(WorkflowSessionEdge, session, path=["response"])
+
+    @parametrize
+    def test_streaming_response_create_edge(self, client: Structify) -> None:
+        with client.sessions.with_streaming_response.create_edge(
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            source_node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            target_node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            session = response.parse()
+            assert_matches_type(WorkflowSessionEdge, session, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_path_params_create_edge(self, client: Structify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
+            client.sessions.with_raw_response.create_edge(
+                session_id="",
+                source_node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                target_node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            )
+
+    @parametrize
+    def test_method_create_node(self, client: Structify) -> None:
+        session = client.sessions.create_node(
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            code_md5_hash="code_md5_hash",
+            docstring="docstring",
+            function_name="function_name",
+        )
+        assert_matches_type(WorkflowSessionNode, session, path=["response"])
+
+    @parametrize
+    def test_method_create_node_with_all_params(self, client: Structify) -> None:
+        session = client.sessions.create_node(
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            code_md5_hash="code_md5_hash",
+            docstring="docstring",
+            function_name="function_name",
+            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            output_schema={},
+        )
+        assert_matches_type(WorkflowSessionNode, session, path=["response"])
+
+    @parametrize
+    def test_raw_response_create_node(self, client: Structify) -> None:
+        response = client.sessions.with_raw_response.create_node(
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            code_md5_hash="code_md5_hash",
+            docstring="docstring",
+            function_name="function_name",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        session = response.parse()
+        assert_matches_type(WorkflowSessionNode, session, path=["response"])
+
+    @parametrize
+    def test_streaming_response_create_node(self, client: Structify) -> None:
+        with client.sessions.with_streaming_response.create_node(
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            code_md5_hash="code_md5_hash",
+            docstring="docstring",
+            function_name="function_name",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            session = response.parse()
+            assert_matches_type(WorkflowSessionNode, session, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_path_params_create_node(self, client: Structify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
+            client.sessions.with_raw_response.create_node(
+                session_id="",
+                code_md5_hash="code_md5_hash",
+                docstring="docstring",
+                function_name="function_name",
+            )
 
     @parametrize
     def test_method_create_session(self, client: Structify) -> None:
@@ -76,103 +184,31 @@ class TestSessions:
     @parametrize
     def test_method_finalize_dag(self, client: Structify) -> None:
         session = client.sessions.finalize_dag(
-            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            edges=[
-                {
-                    "source_node_index": 0,
-                    "target_node_index": 0,
-                }
-            ],
-            nodes=[
-                {
-                    "code_md5_hash": "code_md5_hash",
-                    "docstring": "docstring",
-                    "function_name": "function_name",
-                }
-            ],
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(FinalizeDagResponse, session, path=["response"])
-
-    @parametrize
-    def test_method_finalize_dag_with_all_params(self, client: Structify) -> None:
-        session = client.sessions.finalize_dag(
-            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            edges=[
-                {
-                    "source_node_index": 0,
-                    "target_node_index": 0,
-                }
-            ],
-            nodes=[
-                {
-                    "code_md5_hash": "code_md5_hash",
-                    "docstring": "docstring",
-                    "function_name": "function_name",
-                    "connector_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                }
-            ],
-            dashboard_layout={
-                "components": [
-                    {
-                        "node_name": "node_name",
-                        "title": "title",
-                        "description": "description",
-                        "span": 0,
-                    }
-                ],
-                "title": "title",
-                "description": "description",
-            },
-        )
-        assert_matches_type(FinalizeDagResponse, session, path=["response"])
+        assert session is None
 
     @parametrize
     def test_raw_response_finalize_dag(self, client: Structify) -> None:
         response = client.sessions.with_raw_response.finalize_dag(
-            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            edges=[
-                {
-                    "source_node_index": 0,
-                    "target_node_index": 0,
-                }
-            ],
-            nodes=[
-                {
-                    "code_md5_hash": "code_md5_hash",
-                    "docstring": "docstring",
-                    "function_name": "function_name",
-                }
-            ],
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         session = response.parse()
-        assert_matches_type(FinalizeDagResponse, session, path=["response"])
+        assert session is None
 
     @parametrize
     def test_streaming_response_finalize_dag(self, client: Structify) -> None:
         with client.sessions.with_streaming_response.finalize_dag(
-            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            edges=[
-                {
-                    "source_node_index": 0,
-                    "target_node_index": 0,
-                }
-            ],
-            nodes=[
-                {
-                    "code_md5_hash": "code_md5_hash",
-                    "docstring": "docstring",
-                    "function_name": "function_name",
-                }
-            ],
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             session = response.parse()
-            assert_matches_type(FinalizeDagResponse, session, path=["response"])
+            assert session is None
 
         assert cast(Any, response.is_closed) is True
 
@@ -180,20 +216,7 @@ class TestSessions:
     def test_path_params_finalize_dag(self, client: Structify) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
             client.sessions.with_raw_response.finalize_dag(
-                session_id="",
-                edges=[
-                    {
-                        "source_node_index": 0,
-                        "target_node_index": 0,
-                    }
-                ],
-                nodes=[
-                    {
-                        "code_md5_hash": "code_md5_hash",
-                        "docstring": "docstring",
-                        "function_name": "function_name",
-                    }
-                ],
+                "",
             )
 
     @parametrize
@@ -812,6 +835,114 @@ class TestAsyncSessions:
     )
 
     @parametrize
+    async def test_method_create_edge(self, async_client: AsyncStructify) -> None:
+        session = await async_client.sessions.create_edge(
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            source_node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            target_node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(WorkflowSessionEdge, session, path=["response"])
+
+    @parametrize
+    async def test_raw_response_create_edge(self, async_client: AsyncStructify) -> None:
+        response = await async_client.sessions.with_raw_response.create_edge(
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            source_node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            target_node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        session = await response.parse()
+        assert_matches_type(WorkflowSessionEdge, session, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_create_edge(self, async_client: AsyncStructify) -> None:
+        async with async_client.sessions.with_streaming_response.create_edge(
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            source_node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            target_node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            session = await response.parse()
+            assert_matches_type(WorkflowSessionEdge, session, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_create_edge(self, async_client: AsyncStructify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
+            await async_client.sessions.with_raw_response.create_edge(
+                session_id="",
+                source_node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                target_node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            )
+
+    @parametrize
+    async def test_method_create_node(self, async_client: AsyncStructify) -> None:
+        session = await async_client.sessions.create_node(
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            code_md5_hash="code_md5_hash",
+            docstring="docstring",
+            function_name="function_name",
+        )
+        assert_matches_type(WorkflowSessionNode, session, path=["response"])
+
+    @parametrize
+    async def test_method_create_node_with_all_params(self, async_client: AsyncStructify) -> None:
+        session = await async_client.sessions.create_node(
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            code_md5_hash="code_md5_hash",
+            docstring="docstring",
+            function_name="function_name",
+            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            output_schema={},
+        )
+        assert_matches_type(WorkflowSessionNode, session, path=["response"])
+
+    @parametrize
+    async def test_raw_response_create_node(self, async_client: AsyncStructify) -> None:
+        response = await async_client.sessions.with_raw_response.create_node(
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            code_md5_hash="code_md5_hash",
+            docstring="docstring",
+            function_name="function_name",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        session = await response.parse()
+        assert_matches_type(WorkflowSessionNode, session, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_create_node(self, async_client: AsyncStructify) -> None:
+        async with async_client.sessions.with_streaming_response.create_node(
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            code_md5_hash="code_md5_hash",
+            docstring="docstring",
+            function_name="function_name",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            session = await response.parse()
+            assert_matches_type(WorkflowSessionNode, session, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_create_node(self, async_client: AsyncStructify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
+            await async_client.sessions.with_raw_response.create_node(
+                session_id="",
+                code_md5_hash="code_md5_hash",
+                docstring="docstring",
+                function_name="function_name",
+            )
+
+    @parametrize
     async def test_method_create_session(self, async_client: AsyncStructify) -> None:
         session = await async_client.sessions.create_session(
             chat_session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -853,103 +984,31 @@ class TestAsyncSessions:
     @parametrize
     async def test_method_finalize_dag(self, async_client: AsyncStructify) -> None:
         session = await async_client.sessions.finalize_dag(
-            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            edges=[
-                {
-                    "source_node_index": 0,
-                    "target_node_index": 0,
-                }
-            ],
-            nodes=[
-                {
-                    "code_md5_hash": "code_md5_hash",
-                    "docstring": "docstring",
-                    "function_name": "function_name",
-                }
-            ],
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(FinalizeDagResponse, session, path=["response"])
-
-    @parametrize
-    async def test_method_finalize_dag_with_all_params(self, async_client: AsyncStructify) -> None:
-        session = await async_client.sessions.finalize_dag(
-            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            edges=[
-                {
-                    "source_node_index": 0,
-                    "target_node_index": 0,
-                }
-            ],
-            nodes=[
-                {
-                    "code_md5_hash": "code_md5_hash",
-                    "docstring": "docstring",
-                    "function_name": "function_name",
-                    "connector_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                }
-            ],
-            dashboard_layout={
-                "components": [
-                    {
-                        "node_name": "node_name",
-                        "title": "title",
-                        "description": "description",
-                        "span": 0,
-                    }
-                ],
-                "title": "title",
-                "description": "description",
-            },
-        )
-        assert_matches_type(FinalizeDagResponse, session, path=["response"])
+        assert session is None
 
     @parametrize
     async def test_raw_response_finalize_dag(self, async_client: AsyncStructify) -> None:
         response = await async_client.sessions.with_raw_response.finalize_dag(
-            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            edges=[
-                {
-                    "source_node_index": 0,
-                    "target_node_index": 0,
-                }
-            ],
-            nodes=[
-                {
-                    "code_md5_hash": "code_md5_hash",
-                    "docstring": "docstring",
-                    "function_name": "function_name",
-                }
-            ],
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         session = await response.parse()
-        assert_matches_type(FinalizeDagResponse, session, path=["response"])
+        assert session is None
 
     @parametrize
     async def test_streaming_response_finalize_dag(self, async_client: AsyncStructify) -> None:
         async with async_client.sessions.with_streaming_response.finalize_dag(
-            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            edges=[
-                {
-                    "source_node_index": 0,
-                    "target_node_index": 0,
-                }
-            ],
-            nodes=[
-                {
-                    "code_md5_hash": "code_md5_hash",
-                    "docstring": "docstring",
-                    "function_name": "function_name",
-                }
-            ],
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             session = await response.parse()
-            assert_matches_type(FinalizeDagResponse, session, path=["response"])
+            assert session is None
 
         assert cast(Any, response.is_closed) is True
 
@@ -957,20 +1016,7 @@ class TestAsyncSessions:
     async def test_path_params_finalize_dag(self, async_client: AsyncStructify) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
             await async_client.sessions.with_raw_response.finalize_dag(
-                session_id="",
-                edges=[
-                    {
-                        "source_node_index": 0,
-                        "target_node_index": 0,
-                    }
-                ],
-                nodes=[
-                    {
-                        "code_md5_hash": "code_md5_hash",
-                        "docstring": "docstring",
-                        "function_name": "function_name",
-                    }
-                ],
+                "",
             )
 
     @parametrize
