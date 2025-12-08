@@ -29,6 +29,10 @@ class TimelineMessage(BaseModel):
 
     git_commit_id: Optional[str] = None
 
+    slack_channel_id: Optional[str] = None
+
+    slack_thread_ts: Optional[str] = None
+
 
 class TimelineGitCommit(BaseModel):
     id: str

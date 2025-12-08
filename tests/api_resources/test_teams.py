@@ -89,6 +89,10 @@ class TestTeams:
             description="description",
             name="name",
             pipedream_project_id="pipedream_project_id",
+            slack_bot_token="slack_bot_token",
+            slack_team_icon="slack_team_icon",
+            slack_team_id="slack_team_id",
+            slack_team_name="slack_team_name",
         )
         assert_matches_type(UpdateTeamResponse, team, path=["response"])
 
@@ -727,6 +731,10 @@ class TestAsyncTeams:
             description="description",
             name="name",
             pipedream_project_id="pipedream_project_id",
+            slack_bot_token="slack_bot_token",
+            slack_team_icon="slack_team_icon",
+            slack_team_id="slack_team_id",
+            slack_team_name="slack_team_name",
         )
         assert_matches_type(UpdateTeamResponse, team, path=["response"])
 

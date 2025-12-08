@@ -5,10 +5,10 @@ from __future__ import annotations
 from typing import Optional
 from typing_extensions import Required, TypedDict
 
-__all__ = ["NodeSpecParam"]
+__all__ = ["SessionCreateNodeParams"]
 
 
-class NodeSpecParam(TypedDict, total=False):
+class SessionCreateNodeParams(TypedDict, total=False):
     code_md5_hash: Required[str]
 
     docstring: Required[str]
@@ -16,3 +16,5 @@ class NodeSpecParam(TypedDict, total=False):
     function_name: Required[str]
 
     connector_id: Optional[str]
+
+    output_schema: object
