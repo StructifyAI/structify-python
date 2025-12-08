@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, Mapping, Iterable, Optional, cast
+from typing import Dict, Mapping, Optional, cast
 from typing_extensions import Literal
 
 import httpx
@@ -12,8 +12,9 @@ from ..types import (
     WorkflowNodeExecutionStatus,
     session_kill_jobs_params,
     session_get_events_params,
+    session_create_edge_params,
+    session_create_node_params,
     session_update_node_params,
-    session_finalize_dag_params,
     session_mark_errored_params,
     session_create_session_params,
     session_update_node_progress_params,
@@ -21,7 +22,7 @@ from ..types import (
     session_upload_node_output_data_params,
     session_upload_node_visualization_output_params,
 )
-from .._types import Body, Omit, Query, Headers, NotGiven, FileTypes, omit, not_given
+from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, FileTypes, omit, not_given
 from .._utils import extract_files, maybe_transform, deepcopy_minimal, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -42,10 +43,8 @@ from .._response import (
 from .._base_client import make_request_options
 from ..types.workflow_dag import WorkflowDag
 from ..types.autofix_context import AutofixContext
-from ..types.edge_spec_param import EdgeSpecParam
-from ..types.node_spec_param import NodeSpecParam
 from ..types.workflow_session import WorkflowSession
-from ..types.finalize_dag_response import FinalizeDagResponse
+from ..types.workflow_session_edge import WorkflowSessionEdge
 from ..types.workflow_session_node import WorkflowSessionNode
 from ..types.dashboard_layout_param import DashboardLayoutParam
 from ..types.get_node_logs_response import GetNodeLogsResponse
@@ -76,6 +75,92 @@ class SessionsResource(SyncAPIResource):
         For more information, see https://www.github.com/StructifyAI/structify-python#with_streaming_response
         """
         return SessionsResourceWithStreamingResponse(self)
+
+    def create_edge(
+        self,
+        session_id: str,
+        *,
+        source_node_id: str,
+        target_node_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> WorkflowSessionEdge:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not session_id:
+            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
+        return self._post(
+            f"/sessions/{session_id}/edges",
+            body=maybe_transform(
+                {
+                    "source_node_id": source_node_id,
+                    "target_node_id": target_node_id,
+                },
+                session_create_edge_params.SessionCreateEdgeParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=WorkflowSessionEdge,
+        )
+
+    def create_node(
+        self,
+        session_id: str,
+        *,
+        code_md5_hash: str,
+        docstring: str,
+        function_name: str,
+        connector_id: Optional[str] | Omit = omit,
+        output_schema: object | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> WorkflowSessionNode:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not session_id:
+            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
+        return self._post(
+            f"/sessions/{session_id}/nodes",
+            body=maybe_transform(
+                {
+                    "code_md5_hash": code_md5_hash,
+                    "docstring": docstring,
+                    "function_name": function_name,
+                    "connector_id": connector_id,
+                    "output_schema": output_schema,
+                },
+                session_create_node_params.SessionCreateNodeParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=WorkflowSessionNode,
+        )
 
     def create_session(
         self,
@@ -118,19 +203,15 @@ class SessionsResource(SyncAPIResource):
         self,
         session_id: str,
         *,
-        edges: Iterable[EdgeSpecParam],
-        nodes: Iterable[NodeSpecParam],
-        dashboard_layout: Optional[DashboardLayoutParam] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> FinalizeDagResponse:
+    ) -> None:
         """
-        Finalize a workflow session DAG by creating all nodes/edges and marking it as
-        ready
+        Finalize a workflow session DAG by validating and marking it as ready
 
         Args:
           extra_headers: Send extra headers
@@ -143,20 +224,13 @@ class SessionsResource(SyncAPIResource):
         """
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
             f"/sessions/{session_id}/dag_ready",
-            body=maybe_transform(
-                {
-                    "edges": edges,
-                    "nodes": nodes,
-                    "dashboard_layout": dashboard_layout,
-                },
-                session_finalize_dag_params.SessionFinalizeDagParams,
-            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=FinalizeDagResponse,
+            cast_to=NoneType,
         )
 
     def get_dag(
@@ -632,6 +706,92 @@ class AsyncSessionsResource(AsyncAPIResource):
         """
         return AsyncSessionsResourceWithStreamingResponse(self)
 
+    async def create_edge(
+        self,
+        session_id: str,
+        *,
+        source_node_id: str,
+        target_node_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> WorkflowSessionEdge:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not session_id:
+            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
+        return await self._post(
+            f"/sessions/{session_id}/edges",
+            body=await async_maybe_transform(
+                {
+                    "source_node_id": source_node_id,
+                    "target_node_id": target_node_id,
+                },
+                session_create_edge_params.SessionCreateEdgeParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=WorkflowSessionEdge,
+        )
+
+    async def create_node(
+        self,
+        session_id: str,
+        *,
+        code_md5_hash: str,
+        docstring: str,
+        function_name: str,
+        connector_id: Optional[str] | Omit = omit,
+        output_schema: object | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> WorkflowSessionNode:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not session_id:
+            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
+        return await self._post(
+            f"/sessions/{session_id}/nodes",
+            body=await async_maybe_transform(
+                {
+                    "code_md5_hash": code_md5_hash,
+                    "docstring": docstring,
+                    "function_name": function_name,
+                    "connector_id": connector_id,
+                    "output_schema": output_schema,
+                },
+                session_create_node_params.SessionCreateNodeParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=WorkflowSessionNode,
+        )
+
     async def create_session(
         self,
         *,
@@ -673,19 +833,15 @@ class AsyncSessionsResource(AsyncAPIResource):
         self,
         session_id: str,
         *,
-        edges: Iterable[EdgeSpecParam],
-        nodes: Iterable[NodeSpecParam],
-        dashboard_layout: Optional[DashboardLayoutParam] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> FinalizeDagResponse:
+    ) -> None:
         """
-        Finalize a workflow session DAG by creating all nodes/edges and marking it as
-        ready
+        Finalize a workflow session DAG by validating and marking it as ready
 
         Args:
           extra_headers: Send extra headers
@@ -698,20 +854,13 @@ class AsyncSessionsResource(AsyncAPIResource):
         """
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
             f"/sessions/{session_id}/dag_ready",
-            body=await async_maybe_transform(
-                {
-                    "edges": edges,
-                    "nodes": nodes,
-                    "dashboard_layout": dashboard_layout,
-                },
-                session_finalize_dag_params.SessionFinalizeDagParams,
-            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=FinalizeDagResponse,
+            cast_to=NoneType,
         )
 
     async def get_dag(
@@ -1173,6 +1322,12 @@ class SessionsResourceWithRawResponse:
     def __init__(self, sessions: SessionsResource) -> None:
         self._sessions = sessions
 
+        self.create_edge = to_raw_response_wrapper(
+            sessions.create_edge,
+        )
+        self.create_node = to_raw_response_wrapper(
+            sessions.create_node,
+        )
         self.create_session = to_raw_response_wrapper(
             sessions.create_session,
         )
@@ -1222,6 +1377,12 @@ class AsyncSessionsResourceWithRawResponse:
     def __init__(self, sessions: AsyncSessionsResource) -> None:
         self._sessions = sessions
 
+        self.create_edge = async_to_raw_response_wrapper(
+            sessions.create_edge,
+        )
+        self.create_node = async_to_raw_response_wrapper(
+            sessions.create_node,
+        )
         self.create_session = async_to_raw_response_wrapper(
             sessions.create_session,
         )
@@ -1271,6 +1432,12 @@ class SessionsResourceWithStreamingResponse:
     def __init__(self, sessions: SessionsResource) -> None:
         self._sessions = sessions
 
+        self.create_edge = to_streamed_response_wrapper(
+            sessions.create_edge,
+        )
+        self.create_node = to_streamed_response_wrapper(
+            sessions.create_node,
+        )
         self.create_session = to_streamed_response_wrapper(
             sessions.create_session,
         )
@@ -1320,6 +1487,12 @@ class AsyncSessionsResourceWithStreamingResponse:
     def __init__(self, sessions: AsyncSessionsResource) -> None:
         self._sessions = sessions
 
+        self.create_edge = async_to_streamed_response_wrapper(
+            sessions.create_edge,
+        )
+        self.create_node = async_to_streamed_response_wrapper(
+            sessions.create_node,
+        )
         self.create_session = async_to_streamed_response_wrapper(
             sessions.create_session,
         )

@@ -4,10 +4,10 @@ from __future__ import annotations
 
 from typing_extensions import Required, TypedDict
 
-__all__ = ["EdgeSpecParam"]
+__all__ = ["SessionCreateEdgeParams"]
 
 
-class EdgeSpecParam(TypedDict, total=False):
-    source_node_index: Required[int]
+class SessionCreateEdgeParams(TypedDict, total=False):
+    source_node_id: Required[str]
 
-    target_node_index: Required[int]
+    target_node_id: Required[str]

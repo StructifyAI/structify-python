@@ -24,3 +24,9 @@ class Team(BaseModel):
     description: Optional[str] = None
 
     pipedream_project_id: Optional[str] = None
+
+    slack_team_icon: Optional[str] = None
+
+    slack_team_id: Optional[str] = None
+
+    slack_team_name: Optional[str] = None

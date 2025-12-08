@@ -60,6 +60,10 @@ class Updates(TypedDict, total=False):
 
     permissions: Optional[List[Literal["labeler", "qa_labeler", "debug", "human_llm", "none"]]]
 
+    slack_user_id: Optional[str]
+
+    slack_username: Optional[str]
+
     survey_response: object
 
     user_type: Optional[Literal["admin", "public", "end_user"]]

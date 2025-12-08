@@ -7,7 +7,7 @@ from typing_extensions import Literal, overload
 
 import httpx
 
-from ..types import slack_events_params, slack_user_mapping_params
+from ..types import slack_events_params
 from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import required_args, maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -20,8 +20,6 @@ from .._response import (
 )
 from .._base_client import make_request_options
 from ..types.slack_api_response import SlackAPIResponse
-from ..types.slack_connection_status import SlackConnectionStatus
-from ..types.slack_user_mapping_response import SlackUserMappingResponse
 
 __all__ = ["SlackResource", "AsyncSlackResource"]
 
@@ -160,68 +158,6 @@ class SlackResource(SyncAPIResource):
             ),
         )
 
-    def status(
-        self,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SlackConnectionStatus:
-        """Get current user's Slack connection status"""
-        return self._get(
-            "/slack/status",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=SlackConnectionStatus,
-        )
-
-    def user_mapping(
-        self,
-        *,
-        slack_bot_token: str,
-        slack_team_id: str,
-        slack_user_id: str,
-        slack_username: Optional[str] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SlackUserMappingResponse:
-        """
-        Create Slack user mapping directly from token data
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return self._post(
-            "/slack/user-mapping",
-            body=maybe_transform(
-                {
-                    "slack_bot_token": slack_bot_token,
-                    "slack_team_id": slack_team_id,
-                    "slack_user_id": slack_user_id,
-                    "slack_username": slack_username,
-                },
-                slack_user_mapping_params.SlackUserMappingParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=SlackUserMappingResponse,
-        )
-
 
 class AsyncSlackResource(AsyncAPIResource):
     @cached_property
@@ -357,68 +293,6 @@ class AsyncSlackResource(AsyncAPIResource):
             ),
         )
 
-    async def status(
-        self,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SlackConnectionStatus:
-        """Get current user's Slack connection status"""
-        return await self._get(
-            "/slack/status",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=SlackConnectionStatus,
-        )
-
-    async def user_mapping(
-        self,
-        *,
-        slack_bot_token: str,
-        slack_team_id: str,
-        slack_user_id: str,
-        slack_username: Optional[str] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SlackUserMappingResponse:
-        """
-        Create Slack user mapping directly from token data
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return await self._post(
-            "/slack/user-mapping",
-            body=await async_maybe_transform(
-                {
-                    "slack_bot_token": slack_bot_token,
-                    "slack_team_id": slack_team_id,
-                    "slack_user_id": slack_user_id,
-                    "slack_username": slack_username,
-                },
-                slack_user_mapping_params.SlackUserMappingParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=SlackUserMappingResponse,
-        )
-
 
 class SlackResourceWithRawResponse:
     def __init__(self, slack: SlackResource) -> None:
@@ -426,12 +300,6 @@ class SlackResourceWithRawResponse:
 
         self.events = to_raw_response_wrapper(
             slack.events,
-        )
-        self.status = to_raw_response_wrapper(
-            slack.status,
-        )
-        self.user_mapping = to_raw_response_wrapper(
-            slack.user_mapping,
         )
 
 
@@ -442,12 +310,6 @@ class AsyncSlackResourceWithRawResponse:
         self.events = async_to_raw_response_wrapper(
             slack.events,
         )
-        self.status = async_to_raw_response_wrapper(
-            slack.status,
-        )
-        self.user_mapping = async_to_raw_response_wrapper(
-            slack.user_mapping,
-        )
 
 
 class SlackResourceWithStreamingResponse:
@@ -457,12 +319,6 @@ class SlackResourceWithStreamingResponse:
         self.events = to_streamed_response_wrapper(
             slack.events,
         )
-        self.status = to_streamed_response_wrapper(
-            slack.status,
-        )
-        self.user_mapping = to_streamed_response_wrapper(
-            slack.user_mapping,
-        )
 
 
 class AsyncSlackResourceWithStreamingResponse:
@@ -471,10 +327,4 @@ class AsyncSlackResourceWithStreamingResponse:
 
         self.events = async_to_streamed_response_wrapper(
             slack.events,
-        )
-        self.status = async_to_streamed_response_wrapper(
-            slack.status,
-        )
-        self.user_mapping = async_to_streamed_response_wrapper(
-            slack.user_mapping,
         )
