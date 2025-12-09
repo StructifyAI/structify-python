@@ -437,14 +437,9 @@ Types:
 from structify.types import (
     GetJobEventsResponse,
     JobListResponse,
-    JobDeleteResponse,
     JobCancelResponse,
-    JobGetResponse,
     JobGetScrapersResponse,
     JobGetSourceEntitiesResponse,
-    JobGetStepResponse,
-    JobGetStepGraphResponse,
-    JobGetStepsResponse,
     JobStatusResponse,
 )
 ```
@@ -452,15 +447,10 @@ from structify.types import (
 Methods:
 
 - <code title="get /jobs/list">client.jobs.<a href="./src/structify/resources/jobs.py">list</a>(\*\*<a href="src/structify/types/job_list_params.py">params</a>) -> <a href="./src/structify/types/job_list_response.py">SyncJobsList[JobListResponse]</a></code>
-- <code title="post /jobs/delete/{job_id}">client.jobs.<a href="./src/structify/resources/jobs.py">delete</a>(job_id) -> str</code>
 - <code title="post /jobs/cancel/{uuid}">client.jobs.<a href="./src/structify/resources/jobs.py">cancel</a>(uuid) -> <a href="./src/structify/types/job_cancel_response.py">JobCancelResponse</a></code>
-- <code title="get /jobs/get/{job_id}">client.jobs.<a href="./src/structify/resources/jobs.py">get</a>(job_id) -> <a href="./src/structify/types/job_get_response.py">JobGetResponse</a></code>
 - <code title="get /jobs/{job_id}/events">client.jobs.<a href="./src/structify/resources/jobs.py">get_events</a>(job_id) -> <a href="./src/structify/types/get_job_events_response.py">GetJobEventsResponse</a></code>
 - <code title="get /jobs/get_scrapers/{job_id}">client.jobs.<a href="./src/structify/resources/jobs.py">get_scrapers</a>(job_id) -> <a href="./src/structify/types/job_get_scrapers_response.py">JobGetScrapersResponse</a></code>
 - <code title="get /jobs/get_source_entities/{job_id}">client.jobs.<a href="./src/structify/resources/jobs.py">get_source_entities</a>(job_id) -> <a href="./src/structify/types/job_get_source_entities_response.py">JobGetSourceEntitiesResponse</a></code>
-- <code title="get /jobs/get_step/{step_id}">client.jobs.<a href="./src/structify/resources/jobs.py">get_step</a>(step_id) -> <a href="./src/structify/types/job_get_step_response.py">JobGetStepResponse</a></code>
-- <code title="get /jobs/get_step_graph/{job_id}">client.jobs.<a href="./src/structify/resources/jobs.py">get_step_graph</a>(job_id) -> <a href="./src/structify/types/job_get_step_graph_response.py">JobGetStepGraphResponse</a></code>
-- <code title="get /jobs/get_steps/{job_id}">client.jobs.<a href="./src/structify/resources/jobs.py">get_steps</a>(job_id) -> <a href="./src/structify/types/job_get_steps_response.py">JobGetStepsResponse</a></code>
 - <code title="post /jobs/schedule">client.jobs.<a href="./src/structify/resources/jobs.py">schedule</a>() -> None</code>
 - <code title="post /jobs/status_aggregated">client.jobs.<a href="./src/structify/resources/jobs.py">status</a>(\*\*<a href="src/structify/types/job_status_params.py">params</a>) -> <a href="./src/structify/types/job_status_response.py">JobStatusResponse</a></code>
 
@@ -782,7 +772,6 @@ Types:
 ```python
 from structify.types import (
     ChatPrompt,
-    ExecutionStep,
     SaveRequirement,
     ToolMetadata,
     StructureEnhancePropertyResponse,

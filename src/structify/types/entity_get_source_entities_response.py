@@ -165,8 +165,6 @@ class SourceEntity(BaseModel):
 
     scraper_id: Optional[str] = None
 
-    step_id: Optional[str] = None
-
 
 class EntityGetSourceEntitiesResponse(BaseModel):
     source_entities: List[List[SourceEntity]]

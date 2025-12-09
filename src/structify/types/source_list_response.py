@@ -68,7 +68,5 @@ class SourceListResponseItem(BaseModel):
 
     scraper_id: Optional[str] = None
 
-    step_id: Optional[str] = None
-
 
 SourceListResponse: TypeAlias = List[SourceListResponseItem]

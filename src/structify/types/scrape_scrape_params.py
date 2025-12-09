@@ -8,7 +8,7 @@ from typing_extensions import Required, TypedDict
 from .knowledge_graph_param import KnowledgeGraphParam
 from .save_requirement_param import SaveRequirementParam
 
-__all__ = ["ScrapeScrapeParams", "StopConfig"]
+__all__ = ["ScrapeScrapeParams"]
 
 
 class ScrapeScrapeParams(TypedDict, total=False):
@@ -27,19 +27,4 @@ class ScrapeScrapeParams(TypedDict, total=False):
     pipeline from raw tool output to being merged into a DB
     """
 
-    stop_config: Optional[StopConfig]
-    """Configuration parameters for the StopChecker"""
-
     use_proxy: Optional[bool]
-
-
-class StopConfig(TypedDict, total=False):
-    """Configuration parameters for the StopChecker"""
-
-    max_steps_without_save: Required[int]
-
-    max_errors: Optional[int]
-
-    max_execution_time_secs: Optional[int]
-
-    max_total_steps: Optional[int]

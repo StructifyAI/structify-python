@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 from typing import Iterable, Optional
-from typing_extensions import Literal
 
 import httpx
 
@@ -60,10 +59,8 @@ class StructureResource(SyncAPIResource):
         allow_extra_entities: bool | Omit = omit,
         banned_domains: SequenceNotStr[str] | Omit = omit,
         node_id: Optional[str] | Omit = omit,
-        special_job_type: Optional[Literal["HumanLLM"]] | Omit = omit,
         starting_searches: SequenceNotStr[str] | Omit = omit,
         starting_urls: SequenceNotStr[str] | Omit = omit,
-        stop_config: Optional[structure_enhance_property_params.StopConfig] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -75,8 +72,6 @@ class StructureResource(SyncAPIResource):
         Returns a job id that can be waited on until the request is finished.
 
         Args:
-          stop_config: Configuration parameters for the StopChecker
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -95,10 +90,8 @@ class StructureResource(SyncAPIResource):
                     "allow_extra_entities": allow_extra_entities,
                     "banned_domains": banned_domains,
                     "node_id": node_id,
-                    "special_job_type": special_job_type,
                     "starting_searches": starting_searches,
                     "starting_urls": starting_urls,
-                    "stop_config": stop_config,
                 },
                 structure_enhance_property_params.StructureEnhancePropertyParams,
             ),
@@ -116,10 +109,8 @@ class StructureResource(SyncAPIResource):
         allow_extra_entities: bool | Omit = omit,
         banned_domains: SequenceNotStr[str] | Omit = omit,
         node_id: Optional[str] | Omit = omit,
-        special_job_type: Optional[Literal["HumanLLM"]] | Omit = omit,
         starting_searches: SequenceNotStr[str] | Omit = omit,
         starting_urls: SequenceNotStr[str] | Omit = omit,
-        stop_config: Optional[structure_enhance_relationship_params.StopConfig] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -131,8 +122,6 @@ class StructureResource(SyncAPIResource):
         Returns a job id that can be waited on until the request is finished.
 
         Args:
-          stop_config: Configuration parameters for the StopChecker
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -151,10 +140,8 @@ class StructureResource(SyncAPIResource):
                     "allow_extra_entities": allow_extra_entities,
                     "banned_domains": banned_domains,
                     "node_id": node_id,
-                    "special_job_type": special_job_type,
                     "starting_searches": starting_searches,
                     "starting_urls": starting_urls,
-                    "stop_config": stop_config,
                 },
                 structure_enhance_relationship_params.StructureEnhanceRelationshipParams,
             ),
@@ -172,10 +159,8 @@ class StructureResource(SyncAPIResource):
         to_id: str,
         allow_extra_entities: bool | Omit = omit,
         banned_domains: SequenceNotStr[str] | Omit = omit,
-        special_job_type: Optional[Literal["HumanLLM"]] | Omit = omit,
         starting_searches: SequenceNotStr[str] | Omit = omit,
         starting_urls: SequenceNotStr[str] | Omit = omit,
-        stop_config: Optional[structure_find_relationship_params.StopConfig] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -187,8 +172,6 @@ class StructureResource(SyncAPIResource):
         Attempt to find the given relation between two entities.
 
         Args:
-          stop_config: Configuration parameters for the StopChecker
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -207,10 +190,8 @@ class StructureResource(SyncAPIResource):
                     "to_id": to_id,
                     "allow_extra_entities": allow_extra_entities,
                     "banned_domains": banned_domains,
-                    "special_job_type": special_job_type,
                     "starting_searches": starting_searches,
                     "starting_urls": starting_urls,
-                    "stop_config": stop_config,
                 },
                 structure_find_relationship_params.StructureFindRelationshipParams,
             ),
@@ -294,8 +275,6 @@ class StructureResource(SyncAPIResource):
         node_id: Optional[str] | Omit = omit,
         save_requirement: Iterable[SaveRequirementParam] | Omit = omit,
         seeded_entity: KnowledgeGraphParam | Omit = omit,
-        special_job_type: Optional[Literal["HumanLLM"]] | Omit = omit,
-        stop_config: Optional[structure_run_async_params.StopConfig] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -312,8 +291,6 @@ class StructureResource(SyncAPIResource):
           seeded_entity: Knowledge graph info structured to deserialize and display in the same format
               that the LLM outputs. Also the first representation of an LLM output in the
               pipeline from raw tool output to being merged into a DB
-
-          stop_config: Configuration parameters for the StopChecker
 
           extra_headers: Send extra headers
 
@@ -333,8 +310,6 @@ class StructureResource(SyncAPIResource):
                     "node_id": node_id,
                     "save_requirement": save_requirement,
                     "seeded_entity": seeded_entity,
-                    "special_job_type": special_job_type,
-                    "stop_config": stop_config,
                 },
                 structure_run_async_params.StructureRunAsyncParams,
             ),
@@ -373,10 +348,8 @@ class AsyncStructureResource(AsyncAPIResource):
         allow_extra_entities: bool | Omit = omit,
         banned_domains: SequenceNotStr[str] | Omit = omit,
         node_id: Optional[str] | Omit = omit,
-        special_job_type: Optional[Literal["HumanLLM"]] | Omit = omit,
         starting_searches: SequenceNotStr[str] | Omit = omit,
         starting_urls: SequenceNotStr[str] | Omit = omit,
-        stop_config: Optional[structure_enhance_property_params.StopConfig] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -388,8 +361,6 @@ class AsyncStructureResource(AsyncAPIResource):
         Returns a job id that can be waited on until the request is finished.
 
         Args:
-          stop_config: Configuration parameters for the StopChecker
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -408,10 +379,8 @@ class AsyncStructureResource(AsyncAPIResource):
                     "allow_extra_entities": allow_extra_entities,
                     "banned_domains": banned_domains,
                     "node_id": node_id,
-                    "special_job_type": special_job_type,
                     "starting_searches": starting_searches,
                     "starting_urls": starting_urls,
-                    "stop_config": stop_config,
                 },
                 structure_enhance_property_params.StructureEnhancePropertyParams,
             ),
@@ -429,10 +398,8 @@ class AsyncStructureResource(AsyncAPIResource):
         allow_extra_entities: bool | Omit = omit,
         banned_domains: SequenceNotStr[str] | Omit = omit,
         node_id: Optional[str] | Omit = omit,
-        special_job_type: Optional[Literal["HumanLLM"]] | Omit = omit,
         starting_searches: SequenceNotStr[str] | Omit = omit,
         starting_urls: SequenceNotStr[str] | Omit = omit,
-        stop_config: Optional[structure_enhance_relationship_params.StopConfig] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -444,8 +411,6 @@ class AsyncStructureResource(AsyncAPIResource):
         Returns a job id that can be waited on until the request is finished.
 
         Args:
-          stop_config: Configuration parameters for the StopChecker
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -464,10 +429,8 @@ class AsyncStructureResource(AsyncAPIResource):
                     "allow_extra_entities": allow_extra_entities,
                     "banned_domains": banned_domains,
                     "node_id": node_id,
-                    "special_job_type": special_job_type,
                     "starting_searches": starting_searches,
                     "starting_urls": starting_urls,
-                    "stop_config": stop_config,
                 },
                 structure_enhance_relationship_params.StructureEnhanceRelationshipParams,
             ),
@@ -485,10 +448,8 @@ class AsyncStructureResource(AsyncAPIResource):
         to_id: str,
         allow_extra_entities: bool | Omit = omit,
         banned_domains: SequenceNotStr[str] | Omit = omit,
-        special_job_type: Optional[Literal["HumanLLM"]] | Omit = omit,
         starting_searches: SequenceNotStr[str] | Omit = omit,
         starting_urls: SequenceNotStr[str] | Omit = omit,
-        stop_config: Optional[structure_find_relationship_params.StopConfig] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -500,8 +461,6 @@ class AsyncStructureResource(AsyncAPIResource):
         Attempt to find the given relation between two entities.
 
         Args:
-          stop_config: Configuration parameters for the StopChecker
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -520,10 +479,8 @@ class AsyncStructureResource(AsyncAPIResource):
                     "to_id": to_id,
                     "allow_extra_entities": allow_extra_entities,
                     "banned_domains": banned_domains,
-                    "special_job_type": special_job_type,
                     "starting_searches": starting_searches,
                     "starting_urls": starting_urls,
-                    "stop_config": stop_config,
                 },
                 structure_find_relationship_params.StructureFindRelationshipParams,
             ),
@@ -607,8 +564,6 @@ class AsyncStructureResource(AsyncAPIResource):
         node_id: Optional[str] | Omit = omit,
         save_requirement: Iterable[SaveRequirementParam] | Omit = omit,
         seeded_entity: KnowledgeGraphParam | Omit = omit,
-        special_job_type: Optional[Literal["HumanLLM"]] | Omit = omit,
-        stop_config: Optional[structure_run_async_params.StopConfig] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -625,8 +580,6 @@ class AsyncStructureResource(AsyncAPIResource):
           seeded_entity: Knowledge graph info structured to deserialize and display in the same format
               that the LLM outputs. Also the first representation of an LLM output in the
               pipeline from raw tool output to being merged into a DB
-
-          stop_config: Configuration parameters for the StopChecker
 
           extra_headers: Send extra headers
 
@@ -646,8 +599,6 @@ class AsyncStructureResource(AsyncAPIResource):
                     "node_id": node_id,
                     "save_requirement": save_requirement,
                     "seeded_entity": seeded_entity,
-                    "special_job_type": special_job_type,
-                    "stop_config": stop_config,
                 },
                 structure_run_async_params.StructureRunAsyncParams,
             ),
