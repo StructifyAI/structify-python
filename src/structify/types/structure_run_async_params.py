@@ -37,6 +37,8 @@ class StructureRunAsyncParams(TypedDict, total=False):
 
 
 class SourcePdfPdf(TypedDict, total=False):
+    """Ingest all pages of a PDF and process them independently."""
+
     path: Required[str]
 
 
@@ -61,6 +63,8 @@ Source: TypeAlias = Union[SourcePdf, SourceWeb]
 
 
 class StopConfig(TypedDict, total=False):
+    """Configuration parameters for the StopChecker"""
+
     max_steps_without_save: Required[int]
 
     max_errors: Optional[int]

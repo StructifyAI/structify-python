@@ -23,6 +23,8 @@ class SessionCommit(BaseModel):
 
 
 class SessionMessage(BaseModel):
+    """Model-layer message representation - streamlined for LLM transmission"""
+
     id: str
 
     chat_session_id: str
@@ -75,4 +77,6 @@ class Session(BaseModel):
 
 
 class GetChatSessionResponse(BaseModel):
+    """Response for getting a chat session"""
+
     session: Session

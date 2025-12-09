@@ -49,6 +49,8 @@ class ToolCallInputSave(BaseModel):
 
 
 class ToolCallInputScrollScroll(BaseModel):
+    """For tools with no inputs."""
+
     reason: str
     """Dummy argument"""
 
@@ -59,6 +61,8 @@ class ToolCallInputScroll(BaseModel):
 
 
 class ToolCallInputScrollToBottomScrollToBottom(BaseModel):
+    """For tools with no inputs."""
+
     reason: str
     """Dummy argument"""
 
@@ -69,6 +73,8 @@ class ToolCallInputScrollToBottom(BaseModel):
 
 
 class ToolCallInputExitExit(BaseModel):
+    """For tools with no inputs."""
+
     reason: str
     """Dummy argument"""
 

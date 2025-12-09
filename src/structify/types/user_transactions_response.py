@@ -10,6 +10,8 @@ __all__ = ["UserTransactionsResponse", "UserTransactionsResponseItem"]
 
 
 class UserTransactionsResponseItem(BaseModel):
+    """Represents a transaction in our database."""
+
     id: str
 
     amount: int

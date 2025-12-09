@@ -8,6 +8,8 @@ __all__ = ["LlmInformationStore", "Database", "DatabaseSchema", "DatabaseSchemaT
 
 
 class DatabaseSchemaTableColumn(BaseModel):
+    """Represents a column in a table or API resource"""
+
     name: str
     """Name of the column"""
 
@@ -19,6 +21,8 @@ class DatabaseSchemaTableColumn(BaseModel):
 
 
 class DatabaseSchemaTable(BaseModel):
+    """Represents a table (for relational databases) or resource (for APIs)"""
+
     id: str
 
     columns: List[DatabaseSchemaTableColumn]
@@ -38,6 +42,8 @@ class DatabaseSchemaTable(BaseModel):
 
 
 class DatabaseSchema(BaseModel):
+    """Schema within a database"""
+
     name: str
 
     tables: List[DatabaseSchemaTable]
@@ -48,6 +54,8 @@ class DatabaseSchema(BaseModel):
 
 
 class Database(BaseModel):
+    """Database within a connector"""
+
     name: str
 
     schemas: List[DatabaseSchema]
@@ -58,6 +66,15 @@ class Database(BaseModel):
 
 
 class LlmInformationStore(BaseModel):
+    """Information store for connector schema
+
+    Hierarchical structure: Connector → Database → Schema → Table → Column
+    Works for both relational databases and API-based data.
+    Distinguishes between the two by presence of `endpoint` on tables:
+    - Relational DB: all tables have `endpoint: None`
+    - API: all tables have `endpoint: Some(...)`
+    """
+
     databases: List[Database]
     """List of databases in this connector"""
 

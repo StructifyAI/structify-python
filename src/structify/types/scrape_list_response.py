@@ -6,6 +6,8 @@ __all__ = ["ScrapeListResponse"]
 
 
 class ScrapeListResponse(BaseModel):
+    """Response body"""
+
     dataset_name: str
 
     job_id: str

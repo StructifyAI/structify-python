@@ -9,6 +9,8 @@ __all__ = ["MergeConfig"]
 
 
 class MergeConfig(BaseModel):
+    """The configuration for a probabilistic merge strategy"""
+
     baseline_cardinality: int
     """
     The number of unique values that are expected to be present in the complete

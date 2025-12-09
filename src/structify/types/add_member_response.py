@@ -10,6 +10,8 @@ __all__ = ["AddMemberResponse", "Membership"]
 
 
 class Membership(BaseModel):
+    """Contains membership information and API token value"""
+
     id: str
 
     created_at: datetime

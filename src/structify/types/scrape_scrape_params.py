@@ -34,6 +34,8 @@ class ScrapeScrapeParams(TypedDict, total=False):
 
 
 class StopConfig(TypedDict, total=False):
+    """Configuration parameters for the StopChecker"""
+
     max_steps_without_save: Required[int]
 
     max_errors: Optional[int]
