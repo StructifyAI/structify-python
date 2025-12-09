@@ -55,7 +55,6 @@ class ScrapeResource(SyncAPIResource):
         table_name: str,
         dataset_name: Optional[str] | Omit = omit,
         node_id: Optional[str] | Omit = omit,
-        stop_config: Optional[scrape_list_params.StopConfig] | Omit = omit,
         use_proxy: Optional[bool] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -70,8 +69,6 @@ class ScrapeResource(SyncAPIResource):
 
               A dataset is a complete namespace where all references between schemas are held
               within the dataset.
-
-          stop_config: Configuration parameters for the StopChecker
 
           extra_headers: Send extra headers
 
@@ -90,7 +87,6 @@ class ScrapeResource(SyncAPIResource):
                     "table_name": table_name,
                     "dataset_name": dataset_name,
                     "node_id": node_id,
-                    "stop_config": stop_config,
                     "use_proxy": use_proxy,
                 },
                 scrape_list_params.ScrapeListParams,
@@ -109,7 +105,6 @@ class ScrapeResource(SyncAPIResource):
         url: str,
         node_id: Optional[str] | Omit = omit,
         seeded_kg: Optional[KnowledgeGraphParam] | Omit = omit,
-        stop_config: Optional[scrape_scrape_params.StopConfig] | Omit = omit,
         use_proxy: Optional[bool] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -123,8 +118,6 @@ class ScrapeResource(SyncAPIResource):
           seeded_kg: Knowledge graph info structured to deserialize and display in the same format
               that the LLM outputs. Also the first representation of an LLM output in the
               pipeline from raw tool output to being merged into a DB
-
-          stop_config: Configuration parameters for the StopChecker
 
           extra_headers: Send extra headers
 
@@ -143,7 +136,6 @@ class ScrapeResource(SyncAPIResource):
                     "url": url,
                     "node_id": node_id,
                     "seeded_kg": seeded_kg,
-                    "stop_config": stop_config,
                     "use_proxy": use_proxy,
                 },
                 scrape_scrape_params.ScrapeScrapeParams,
@@ -183,7 +175,6 @@ class AsyncScrapeResource(AsyncAPIResource):
         table_name: str,
         dataset_name: Optional[str] | Omit = omit,
         node_id: Optional[str] | Omit = omit,
-        stop_config: Optional[scrape_list_params.StopConfig] | Omit = omit,
         use_proxy: Optional[bool] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -198,8 +189,6 @@ class AsyncScrapeResource(AsyncAPIResource):
 
               A dataset is a complete namespace where all references between schemas are held
               within the dataset.
-
-          stop_config: Configuration parameters for the StopChecker
 
           extra_headers: Send extra headers
 
@@ -218,7 +207,6 @@ class AsyncScrapeResource(AsyncAPIResource):
                     "table_name": table_name,
                     "dataset_name": dataset_name,
                     "node_id": node_id,
-                    "stop_config": stop_config,
                     "use_proxy": use_proxy,
                 },
                 scrape_list_params.ScrapeListParams,
@@ -237,7 +225,6 @@ class AsyncScrapeResource(AsyncAPIResource):
         url: str,
         node_id: Optional[str] | Omit = omit,
         seeded_kg: Optional[KnowledgeGraphParam] | Omit = omit,
-        stop_config: Optional[scrape_scrape_params.StopConfig] | Omit = omit,
         use_proxy: Optional[bool] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -251,8 +238,6 @@ class AsyncScrapeResource(AsyncAPIResource):
           seeded_kg: Knowledge graph info structured to deserialize and display in the same format
               that the LLM outputs. Also the first representation of an LLM output in the
               pipeline from raw tool output to being merged into a DB
-
-          stop_config: Configuration parameters for the StopChecker
 
           extra_headers: Send extra headers
 
@@ -271,7 +256,6 @@ class AsyncScrapeResource(AsyncAPIResource):
                     "url": url,
                     "node_id": node_id,
                     "seeded_kg": seeded_kg,
-                    "stop_config": stop_config,
                     "use_proxy": use_proxy,
                 },
                 scrape_scrape_params.ScrapeScrapeParams,

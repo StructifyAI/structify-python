@@ -3,14 +3,14 @@
 from __future__ import annotations
 
 from typing import Union, Iterable, Optional
-from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
+from typing_extensions import Required, Annotated, TypeAlias, TypedDict
 
 from .._types import SequenceNotStr
 from .._utils import PropertyInfo
 from .knowledge_graph_param import KnowledgeGraphParam
 from .save_requirement_param import SaveRequirementParam
 
-__all__ = ["StructureRunAsyncParams", "Source", "SourcePdf", "SourcePdfPdf", "SourceWeb", "SourceWebWeb", "StopConfig"]
+__all__ = ["StructureRunAsyncParams", "Source", "SourcePdf", "SourcePdfPdf", "SourceWeb", "SourceWebWeb"]
 
 
 class StructureRunAsyncParams(TypedDict, total=False):
@@ -29,11 +29,6 @@ class StructureRunAsyncParams(TypedDict, total=False):
     that the LLM outputs. Also the first representation of an LLM output in the
     pipeline from raw tool output to being merged into a DB
     """
-
-    special_job_type: Optional[Literal["HumanLLM"]]
-
-    stop_config: Optional[StopConfig]
-    """Configuration parameters for the StopChecker"""
 
 
 class SourcePdfPdf(TypedDict, total=False):
@@ -60,15 +55,3 @@ class SourceWeb(TypedDict, total=False):
 
 
 Source: TypeAlias = Union[SourcePdf, SourceWeb]
-
-
-class StopConfig(TypedDict, total=False):
-    """Configuration parameters for the StopChecker"""
-
-    max_steps_without_save: Required[int]
-
-    max_errors: Optional[int]
-
-    max_execution_time_secs: Optional[int]
-
-    max_total_steps: Optional[int]

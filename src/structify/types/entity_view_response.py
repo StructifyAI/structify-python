@@ -467,8 +467,6 @@ class Source(BaseModel):
 
     scraper_id: Optional[str] = None
 
-    step_id: Optional[str] = None
-
 
 class EntityViewResponse(BaseModel):
     connected_entities: List[ConnectedEntity]
