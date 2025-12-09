@@ -37,9 +37,11 @@ from .token_response import TokenResponse as TokenResponse
 from .autofix_context import AutofixContext as AutofixContext
 from .chat_dependency import ChatDependency as ChatDependency
 from .chat_visibility import ChatVisibility as ChatVisibility
+from .edge_spec_param import EdgeSpecParam as EdgeSpecParam
 from .exploration_run import ExplorationRun as ExplorationRun
 from .job_list_params import JobListParams as JobListParams
 from .knowledge_graph import KnowledgeGraph as KnowledgeGraph
+from .node_spec_param import NodeSpecParam as NodeSpecParam
 from .usage_group_key import UsageGroupKey as UsageGroupKey
 from .chat_copy_params import ChatCopyParams as ChatCopyParams
 from .dashboard_layout import DashboardLayout as DashboardLayout
@@ -113,6 +115,7 @@ from .dataset_create_params import DatasetCreateParams as DatasetCreateParams
 from .dataset_delete_params import DatasetDeleteParams as DatasetDeleteParams
 from .dataset_list_response import DatasetListResponse as DatasetListResponse
 from .entity_merge_response import EntityMergeResponse as EntityMergeResponse
+from .finalize_dag_response import FinalizeDagResponse as FinalizeDagResponse
 from .job_get_step_response import JobGetStepResponse as JobGetStepResponse
 from .knowledge_graph_param import KnowledgeGraphParam as KnowledgeGraphParam
 from .list_members_response import ListMembersResponse as ListMembersResponse
@@ -197,8 +200,6 @@ from .create_match_jobs_response import CreateMatchJobsResponse as CreateMatchJo
 from .document_download_response import DocumentDownloadResponse as DocumentDownloadResponse
 from .entity_derive_all_response import EntityDeriveAllResponse as EntityDeriveAllResponse
 from .entity_get_merges_response import EntityGetMergesResponse as EntityGetMergesResponse
-from .session_create_edge_params import SessionCreateEdgeParams as SessionCreateEdgeParams
-from .session_create_node_params import SessionCreateNodeParams as SessionCreateNodeParams
 from .session_kill_jobs_response import SessionKillJobsResponse as SessionKillJobsResponse
 from .session_update_node_params import SessionUpdateNodeParams as SessionUpdateNodeParams
 from .structure_run_async_params import StructureRunAsyncParams as StructureRunAsyncParams
@@ -217,6 +218,7 @@ from .job_get_step_graph_response import JobGetStepGraphResponse as JobGetStepGr
 from .list_chat_sessions_response import ListChatSessionsResponse as ListChatSessionsResponse
 from .list_collaborators_response import ListCollaboratorsResponse as ListCollaboratorsResponse
 from .relationship_merge_strategy import RelationshipMergeStrategy as RelationshipMergeStrategy
+from .session_finalize_dag_params import SessionFinalizeDagParams as SessionFinalizeDagParams
 from .session_get_events_response import SessionGetEventsResponse as SessionGetEventsResponse
 from .session_mark_errored_params import SessionMarkErroredParams as SessionMarkErroredParams
 from .source_delete_entity_params import SourceDeleteEntityParams as SourceDeleteEntityParams

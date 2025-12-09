@@ -489,14 +489,16 @@ Types:
 ```python
 from structify.types import (
     AutofixContext,
-    CreateWorkflowEdgeRequest,
-    CreateWorkflowNodeRequest,
     CreateWorkflowSessionRequest,
     DashboardComponent,
     DashboardLayout,
+    EdgeSpec,
+    FinalizeDagRequest,
+    FinalizeDagResponse,
     GetNodeLogsResponse,
     JobEventBody,
     MarkWorkflowSessionErroredRequest,
+    NodeSpec,
     UpdateWorkflowNodeProgressRequest,
     UpdateWorkflowNodeRequest,
     UploadDashboardLayoutRequest,
@@ -515,10 +517,8 @@ from structify.types import (
 
 Methods:
 
-- <code title="post /sessions/{session_id}/edges">client.sessions.<a href="./src/structify/resources/sessions.py">create_edge</a>(session_id, \*\*<a href="src/structify/types/session_create_edge_params.py">params</a>) -> <a href="./src/structify/types/workflow_session_edge.py">WorkflowSessionEdge</a></code>
-- <code title="post /sessions/{session_id}/nodes">client.sessions.<a href="./src/structify/resources/sessions.py">create_node</a>(session_id, \*\*<a href="src/structify/types/session_create_node_params.py">params</a>) -> <a href="./src/structify/types/workflow_session_node.py">WorkflowSessionNode</a></code>
 - <code title="post /sessions">client.sessions.<a href="./src/structify/resources/sessions.py">create_session</a>(\*\*<a href="src/structify/types/session_create_session_params.py">params</a>) -> <a href="./src/structify/types/workflow_session.py">WorkflowSession</a></code>
-- <code title="post /sessions/{session_id}/dag_ready">client.sessions.<a href="./src/structify/resources/sessions.py">finalize_dag</a>(session_id) -> None</code>
+- <code title="post /sessions/{session_id}/dag_ready">client.sessions.<a href="./src/structify/resources/sessions.py">finalize_dag</a>(session_id, \*\*<a href="src/structify/types/session_finalize_dag_params.py">params</a>) -> <a href="./src/structify/types/finalize_dag_response.py">FinalizeDagResponse</a></code>
 - <code title="get /sessions/{session_id}/dag">client.sessions.<a href="./src/structify/resources/sessions.py">get_dag</a>(session_id) -> <a href="./src/structify/types/workflow_dag.py">WorkflowDag</a></code>
 - <code title="get /sessions/nodes/{node_id}/events">client.sessions.<a href="./src/structify/resources/sessions.py">get_events</a>(node_id, \*\*<a href="src/structify/types/session_get_events_params.py">params</a>) -> <a href="./src/structify/types/session_get_events_response.py">SessionGetEventsResponse</a></code>
 - <code title="get /sessions/node/{node_id}/logs">client.sessions.<a href="./src/structify/resources/sessions.py">get_node_logs</a>(node_id) -> <a href="./src/structify/types/get_node_logs_response.py">GetNodeLogsResponse</a></code>
