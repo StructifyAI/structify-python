@@ -31,7 +31,6 @@ from .resources import (
     slack,
     teams,
     polars,
-    report,
     scrape,
     server,
     sandbox,
@@ -94,7 +93,6 @@ class Structify(SyncAPIClient):
     server: server.ServerResource
     sources: sources.SourcesResource
     entities: entities.EntitiesResource
-    report: report.ReportResource
     sandbox: sandbox.SandboxResource
     scrape: scrape.ScrapeResource
     code: code.CodeResource
@@ -205,7 +203,6 @@ class Structify(SyncAPIClient):
         self.server = server.ServerResource(self)
         self.sources = sources.SourcesResource(self)
         self.entities = entities.EntitiesResource(self)
-        self.report = report.ReportResource(self)
         self.sandbox = sandbox.SandboxResource(self)
         self.scrape = scrape.ScrapeResource(self)
         self.code = code.CodeResource(self)
@@ -373,7 +370,6 @@ class AsyncStructify(AsyncAPIClient):
     server: server.AsyncServerResource
     sources: sources.AsyncSourcesResource
     entities: entities.AsyncEntitiesResource
-    report: report.AsyncReportResource
     sandbox: sandbox.AsyncSandboxResource
     scrape: scrape.AsyncScrapeResource
     code: code.AsyncCodeResource
@@ -483,7 +479,6 @@ class AsyncStructify(AsyncAPIClient):
         self.server = server.AsyncServerResource(self)
         self.sources = sources.AsyncSourcesResource(self)
         self.entities = entities.AsyncEntitiesResource(self)
-        self.report = report.AsyncReportResource(self)
         self.sandbox = sandbox.AsyncSandboxResource(self)
         self.scrape = scrape.AsyncScrapeResource(self)
         self.code = code.AsyncCodeResource(self)
@@ -651,7 +646,6 @@ class StructifyWithRawResponse:
         self.server = server.ServerResourceWithRawResponse(client.server)
         self.sources = sources.SourcesResourceWithRawResponse(client.sources)
         self.entities = entities.EntitiesResourceWithRawResponse(client.entities)
-        self.report = report.ReportResourceWithRawResponse(client.report)
         self.sandbox = sandbox.SandboxResourceWithRawResponse(client.sandbox)
         self.scrape = scrape.ScrapeResourceWithRawResponse(client.scrape)
         self.code = code.CodeResourceWithRawResponse(client.code)
@@ -683,7 +677,6 @@ class AsyncStructifyWithRawResponse:
         self.server = server.AsyncServerResourceWithRawResponse(client.server)
         self.sources = sources.AsyncSourcesResourceWithRawResponse(client.sources)
         self.entities = entities.AsyncEntitiesResourceWithRawResponse(client.entities)
-        self.report = report.AsyncReportResourceWithRawResponse(client.report)
         self.sandbox = sandbox.AsyncSandboxResourceWithRawResponse(client.sandbox)
         self.scrape = scrape.AsyncScrapeResourceWithRawResponse(client.scrape)
         self.code = code.AsyncCodeResourceWithRawResponse(client.code)
@@ -714,7 +707,6 @@ class StructifyWithStreamedResponse:
         self.server = server.ServerResourceWithStreamingResponse(client.server)
         self.sources = sources.SourcesResourceWithStreamingResponse(client.sources)
         self.entities = entities.EntitiesResourceWithStreamingResponse(client.entities)
-        self.report = report.ReportResourceWithStreamingResponse(client.report)
         self.sandbox = sandbox.SandboxResourceWithStreamingResponse(client.sandbox)
         self.scrape = scrape.ScrapeResourceWithStreamingResponse(client.scrape)
         self.code = code.CodeResourceWithStreamingResponse(client.code)
@@ -746,7 +738,6 @@ class AsyncStructifyWithStreamedResponse:
         self.server = server.AsyncServerResourceWithStreamingResponse(client.server)
         self.sources = sources.AsyncSourcesResourceWithStreamingResponse(client.sources)
         self.entities = entities.AsyncEntitiesResourceWithStreamingResponse(client.entities)
-        self.report = report.AsyncReportResourceWithStreamingResponse(client.report)
         self.sandbox = sandbox.AsyncSandboxResourceWithStreamingResponse(client.sandbox)
         self.scrape = scrape.AsyncScrapeResourceWithStreamingResponse(client.scrape)
         self.code = code.AsyncCodeResourceWithStreamingResponse(client.code)

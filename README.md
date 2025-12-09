@@ -134,9 +134,32 @@ from structify import Structify
 
 client = Structify()
 
-client.admin.training_datasets.upload_labeled_step(
-    dataset_name=Path("/path/to/file"),
-    step_bytes=b"raw file contents",
+client.documents.structure(
+    dataset_descriptor={
+        "description": "description",
+        "name": "name",
+        "relationships": [
+            {
+                "description": "description",
+                "name": "name",
+                "source_table": "source_table",
+                "target_table": "target_table",
+            }
+        ],
+        "tables": [
+            {
+                "description": "description",
+                "name": "name",
+                "properties": [
+                    {
+                        "description": "description",
+                        "name": "name",
+                    }
+                ],
+            }
+        ],
+    },
+    content=Path("/path/to/file"),
 )
 ```
 
