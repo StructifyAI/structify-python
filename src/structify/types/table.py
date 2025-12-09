@@ -20,6 +20,8 @@ class Property(BaseModel):
 
 
 class Table(BaseModel):
+    """The full definition of what a schema is - without duplicate information."""
+
     description: str
 
     name: str

@@ -36,6 +36,12 @@ class Relationship(BaseModel):
 
 
 class DatasetDescriptor(BaseModel):
+    """A dataset is where you put multiple referential schemas.
+
+    A dataset is a complete namespace where all references between schemas
+    are held within the dataset.
+    """
+
     description: str
 
     name: str

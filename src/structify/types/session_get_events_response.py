@@ -19,6 +19,8 @@ class EventEvent(BaseModel):
 
 
 class Event(BaseModel):
+    """A job paired with all its associated events"""
+
     id: str
 
     events: List[EventEvent]

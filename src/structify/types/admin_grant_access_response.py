@@ -9,6 +9,8 @@ __all__ = ["AdminGrantAccessResponse"]
 
 
 class AdminGrantAccessResponse(BaseModel):
+    """Response for granting temporary admin access"""
+
     expires_at: datetime
 
     role: ChatSessionRole

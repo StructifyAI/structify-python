@@ -55,6 +55,8 @@ class JobGetStepGraphResponseItemExecutionStepResponseToolCallInputSave(BaseMode
 
 
 class JobGetStepGraphResponseItemExecutionStepResponseToolCallInputScrollScroll(BaseModel):
+    """For tools with no inputs."""
+
     reason: str
     """Dummy argument"""
 
@@ -65,6 +67,8 @@ class JobGetStepGraphResponseItemExecutionStepResponseToolCallInputScroll(BaseMo
 
 
 class JobGetStepGraphResponseItemExecutionStepResponseToolCallInputScrollToBottomScrollToBottom(BaseModel):
+    """For tools with no inputs."""
+
     reason: str
     """Dummy argument"""
 
@@ -77,6 +81,8 @@ class JobGetStepGraphResponseItemExecutionStepResponseToolCallInputScrollToBotto
 
 
 class JobGetStepGraphResponseItemExecutionStepResponseToolCallInputExitExit(BaseModel):
+    """For tools with no inputs."""
+
     reason: str
     """Dummy argument"""
 

@@ -12,6 +12,8 @@ __all__ = ["ConnectorExplorerChat"]
 
 
 class ConnectorExplorerChat(BaseModel):
+    """Connector explorer chat with deserialized ChatPrompt for API responses"""
+
     id: str
 
     chat_events: List[ChatEvent]

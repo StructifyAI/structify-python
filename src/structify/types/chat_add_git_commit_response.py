@@ -18,4 +18,6 @@ class Commit(BaseModel):
 
 
 class ChatAddGitCommitResponse(BaseModel):
+    """Response structure for adding a git commit"""
+
     commit: Commit

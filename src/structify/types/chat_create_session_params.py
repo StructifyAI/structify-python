@@ -22,6 +22,8 @@ class ChatCreateSessionParams(TypedDict, total=False):
 
 
 class Config(TypedDict, total=False):
+    """Configuration for chat session with system prompt and LLM key"""
+
     is_onboarding_session: Required[bool]
 
     llm_key: Optional[

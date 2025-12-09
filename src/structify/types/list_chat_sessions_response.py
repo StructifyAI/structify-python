@@ -35,4 +35,6 @@ class Session(BaseModel):
 
 
 class ListChatSessionsResponse(BaseModel):
+    """Response for listing chat sessions"""
+
     sessions: List[Session]

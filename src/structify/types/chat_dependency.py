@@ -8,6 +8,8 @@ __all__ = ["ChatDependency"]
 
 
 class ChatDependency(BaseModel):
+    """A chat session dependency"""
+
     package_name: str
     """Name of the Python package"""
 

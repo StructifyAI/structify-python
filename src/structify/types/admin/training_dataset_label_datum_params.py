@@ -58,6 +58,8 @@ class UpdatedToolCallInputSave(TypedDict, total=False):
 
 
 class UpdatedToolCallInputScrollScroll(TypedDict, total=False):
+    """For tools with no inputs."""
+
     reason: Required[str]
     """Dummy argument"""
 
@@ -68,6 +70,8 @@ class UpdatedToolCallInputScroll(TypedDict, total=False):
 
 
 class UpdatedToolCallInputScrollToBottomScrollToBottom(TypedDict, total=False):
+    """For tools with no inputs."""
+
     reason: Required[str]
     """Dummy argument"""
 
@@ -80,6 +84,8 @@ class UpdatedToolCallInputScrollToBottom(TypedDict, total=False):
 
 
 class UpdatedToolCallInputExitExit(TypedDict, total=False):
+    """For tools with no inputs."""
+
     reason: Required[str]
     """Dummy argument"""
 

@@ -6,4 +6,6 @@ __all__ = ["ScrapeScrapeResponse"]
 
 
 class ScrapeScrapeResponse(BaseModel):
+    """Response body"""
+
     job_id: str

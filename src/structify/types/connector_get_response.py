@@ -10,6 +10,8 @@ __all__ = ["ConnectorGetResponse", "ConnectorGetResponseSecret"]
 
 
 class ConnectorGetResponseSecret(BaseModel):
+    """Result of getting a secret"""
+
     created_at: datetime
 
     secret_name: str

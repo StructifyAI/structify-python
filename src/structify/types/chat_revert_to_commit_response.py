@@ -8,6 +8,8 @@ __all__ = ["ChatRevertToCommitResponse"]
 
 
 class ChatRevertToCommitResponse(BaseModel):
+    """Response structure for reverting to a git commit"""
+
     commit_hash: str
     """The commit hash that was reverted to"""
 

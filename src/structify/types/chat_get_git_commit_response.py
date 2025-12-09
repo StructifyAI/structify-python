@@ -18,4 +18,6 @@ class Commit(BaseModel):
 
 
 class ChatGetGitCommitResponse(BaseModel):
+    """Response structure for getting a git commit by hash"""
+
     commit: Commit

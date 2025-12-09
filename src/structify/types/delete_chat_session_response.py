@@ -6,6 +6,8 @@ __all__ = ["DeleteChatSessionResponse"]
 
 
 class DeleteChatSessionResponse(BaseModel):
+    """Success response for delete operations"""
+
     message: str
 
     success: bool

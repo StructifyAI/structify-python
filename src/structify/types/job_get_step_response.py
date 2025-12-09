@@ -51,6 +51,8 @@ class ResponseToolCallInputSave(BaseModel):
 
 
 class ResponseToolCallInputScrollScroll(BaseModel):
+    """For tools with no inputs."""
+
     reason: str
     """Dummy argument"""
 
@@ -61,6 +63,8 @@ class ResponseToolCallInputScroll(BaseModel):
 
 
 class ResponseToolCallInputScrollToBottomScrollToBottom(BaseModel):
+    """For tools with no inputs."""
+
     reason: str
     """Dummy argument"""
 
@@ -71,6 +75,8 @@ class ResponseToolCallInputScrollToBottom(BaseModel):
 
 
 class ResponseToolCallInputExitExit(BaseModel):
+    """For tools with no inputs."""
+
     reason: str
     """Dummy argument"""
 

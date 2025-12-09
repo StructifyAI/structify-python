@@ -23,6 +23,8 @@ Content: TypeAlias = Union[ContentText, ContentImage]
 
 
 class MessageParam(TypedDict, total=False):
+    """Our generic definition of a message to a chat agent."""
+
     content: Required[Iterable[Content]]
     """
     We want this to be a vec of contents so we can accurately capture an
