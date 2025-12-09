@@ -1,5 +1,29 @@
 # Changelog
 
+## 1.166.0 (2025-12-09)
+
+Full Changelog: [v1.165.0...v1.166.0](https://github.com/StructifyAI/structify-python/compare/v1.165.0...v1.166.0)
+
+### Features
+
+* **api:** manual updates ([da48b84](https://github.com/StructifyAI/structify-python/commit/da48b847811b5f0ec737a1b1c2fe84b3564266a0))
+* Update from Structify backend changes ([dbefe9f](https://github.com/StructifyAI/structify-python/commit/dbefe9f6f442ccfa7307511c6b3b49c8346bbcce))
+* Update from Structify backend changes ([ee3cfd0](https://github.com/StructifyAI/structify-python/commit/ee3cfd0aa4238bb08d222dae2085845d0656a0bc))
+* Update from Structify backend changes ([6fbe5cc](https://github.com/StructifyAI/structify-python/commit/6fbe5cc485415eea5223ad0ab191a482c170e01e))
+* Update from Structify backend changes ([303c535](https://github.com/StructifyAI/structify-python/commit/303c5353b0bf24b19a8e6367a6cda7b1f6279da6))
+* Update from Structify backend changes ([6d45491](https://github.com/StructifyAI/structify-python/commit/6d454912cffd7e78b4b561d74ac99728d65223a2))
+* Update from Structify backend changes ([7a4e863](https://github.com/StructifyAI/structify-python/commit/7a4e863ff4a4725b201d4213a523d8fed2ec2d75))
+
+
+### Bug Fixes
+
+* **types:** allow pyright to infer TypedDict types within SequenceNotStr ([3d9efc4](https://github.com/StructifyAI/structify-python/commit/3d9efc49f93af8f637395a661565aaccab80783b))
+
+
+### Chores
+
+* add missing docstrings ([e59c9df](https://github.com/StructifyAI/structify-python/commit/e59c9dfee614347503750744dd2395e4e15975f5))
+
 ## 1.165.0 (2025-12-08)
 
 Full Changelog: [v1.164.0...v1.165.0](https://github.com/StructifyAI/structify-python/compare/v1.164.0...v1.165.0)
