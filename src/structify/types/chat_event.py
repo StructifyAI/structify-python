@@ -189,7 +189,7 @@ class ToolCallToolCallUnionMember4(BaseModel):
 class ToolCallToolCallUnionMember5Input(BaseModel):
     command: str
 
-    connectors: List[str]
+    connector: Optional[str] = None
 
     working_dir: Optional[str] = None
 
@@ -205,7 +205,7 @@ class ToolCallToolCallUnionMember5(BaseModel):
 class ToolCallToolCallUnionMember6Input(BaseModel):
     code: str
 
-    connectors: List[str]
+    connector: Optional[str] = None
 
     working_dir: Optional[str] = None
 
