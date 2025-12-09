@@ -31,6 +31,8 @@ class TimelineMessage(BaseModel):
 
     slack_channel_id: Optional[str] = None
 
+    slack_message_ts: Optional[str] = None
+
     slack_thread_ts: Optional[str] = None
 
 
