@@ -43,23 +43,7 @@ from .sandbox import (
     AsyncSandboxResourceWithStreamingResponse,
 )
 from ..._compat import cached_property
-from .human_llm import (
-    HumanLlmResource,
-    AsyncHumanLlmResource,
-    HumanLlmResourceWithRawResponse,
-    AsyncHumanLlmResourceWithRawResponse,
-    HumanLlmResourceWithStreamingResponse,
-    AsyncHumanLlmResourceWithStreamingResponse,
-)
 from ..._resource import SyncAPIResource, AsyncAPIResource
-from .next_action import (
-    NextActionResource,
-    AsyncNextActionResource,
-    NextActionResourceWithRawResponse,
-    AsyncNextActionResourceWithRawResponse,
-    NextActionResourceWithStreamingResponse,
-    AsyncNextActionResourceWithStreamingResponse,
-)
 from .functional_tests import (
     FunctionalTestsResource,
     AsyncFunctionalTestsResource,
@@ -67,14 +51,6 @@ from .functional_tests import (
     AsyncFunctionalTestsResourceWithRawResponse,
     FunctionalTestsResourceWithStreamingResponse,
     AsyncFunctionalTestsResourceWithStreamingResponse,
-)
-from .training_datasets import (
-    TrainingDatasetsResource,
-    AsyncTrainingDatasetsResource,
-    TrainingDatasetsResourceWithRawResponse,
-    AsyncTrainingDatasetsResourceWithRawResponse,
-    TrainingDatasetsResourceWithStreamingResponse,
-    AsyncTrainingDatasetsResourceWithStreamingResponse,
 )
 
 __all__ = ["AdminResource", "AsyncAdminResource"]
@@ -98,24 +74,12 @@ class AdminResource(SyncAPIResource):
         return SandboxResource(self._client)
 
     @cached_property
-    def human_llm(self) -> HumanLlmResource:
-        return HumanLlmResource(self._client)
-
-    @cached_property
     def functional_tests(self) -> FunctionalTestsResource:
         return FunctionalTestsResource(self._client)
 
     @cached_property
-    def next_action(self) -> NextActionResource:
-        return NextActionResource(self._client)
-
-    @cached_property
     def users(self) -> UsersResource:
         return UsersResource(self._client)
-
-    @cached_property
-    def training_datasets(self) -> TrainingDatasetsResource:
-        return TrainingDatasetsResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> AdminResourceWithRawResponse:
@@ -155,24 +119,12 @@ class AsyncAdminResource(AsyncAPIResource):
         return AsyncSandboxResource(self._client)
 
     @cached_property
-    def human_llm(self) -> AsyncHumanLlmResource:
-        return AsyncHumanLlmResource(self._client)
-
-    @cached_property
     def functional_tests(self) -> AsyncFunctionalTestsResource:
         return AsyncFunctionalTestsResource(self._client)
 
     @cached_property
-    def next_action(self) -> AsyncNextActionResource:
-        return AsyncNextActionResource(self._client)
-
-    @cached_property
     def users(self) -> AsyncUsersResource:
         return AsyncUsersResource(self._client)
-
-    @cached_property
-    def training_datasets(self) -> AsyncTrainingDatasetsResource:
-        return AsyncTrainingDatasetsResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> AsyncAdminResourceWithRawResponse:
@@ -215,24 +167,12 @@ class AdminResourceWithRawResponse:
         return SandboxResourceWithRawResponse(self._admin.sandbox)
 
     @cached_property
-    def human_llm(self) -> HumanLlmResourceWithRawResponse:
-        return HumanLlmResourceWithRawResponse(self._admin.human_llm)
-
-    @cached_property
     def functional_tests(self) -> FunctionalTestsResourceWithRawResponse:
         return FunctionalTestsResourceWithRawResponse(self._admin.functional_tests)
 
     @cached_property
-    def next_action(self) -> NextActionResourceWithRawResponse:
-        return NextActionResourceWithRawResponse(self._admin.next_action)
-
-    @cached_property
     def users(self) -> UsersResourceWithRawResponse:
         return UsersResourceWithRawResponse(self._admin.users)
-
-    @cached_property
-    def training_datasets(self) -> TrainingDatasetsResourceWithRawResponse:
-        return TrainingDatasetsResourceWithRawResponse(self._admin.training_datasets)
 
 
 class AsyncAdminResourceWithRawResponse:
@@ -256,24 +196,12 @@ class AsyncAdminResourceWithRawResponse:
         return AsyncSandboxResourceWithRawResponse(self._admin.sandbox)
 
     @cached_property
-    def human_llm(self) -> AsyncHumanLlmResourceWithRawResponse:
-        return AsyncHumanLlmResourceWithRawResponse(self._admin.human_llm)
-
-    @cached_property
     def functional_tests(self) -> AsyncFunctionalTestsResourceWithRawResponse:
         return AsyncFunctionalTestsResourceWithRawResponse(self._admin.functional_tests)
 
     @cached_property
-    def next_action(self) -> AsyncNextActionResourceWithRawResponse:
-        return AsyncNextActionResourceWithRawResponse(self._admin.next_action)
-
-    @cached_property
     def users(self) -> AsyncUsersResourceWithRawResponse:
         return AsyncUsersResourceWithRawResponse(self._admin.users)
-
-    @cached_property
-    def training_datasets(self) -> AsyncTrainingDatasetsResourceWithRawResponse:
-        return AsyncTrainingDatasetsResourceWithRawResponse(self._admin.training_datasets)
 
 
 class AdminResourceWithStreamingResponse:
@@ -297,24 +225,12 @@ class AdminResourceWithStreamingResponse:
         return SandboxResourceWithStreamingResponse(self._admin.sandbox)
 
     @cached_property
-    def human_llm(self) -> HumanLlmResourceWithStreamingResponse:
-        return HumanLlmResourceWithStreamingResponse(self._admin.human_llm)
-
-    @cached_property
     def functional_tests(self) -> FunctionalTestsResourceWithStreamingResponse:
         return FunctionalTestsResourceWithStreamingResponse(self._admin.functional_tests)
 
     @cached_property
-    def next_action(self) -> NextActionResourceWithStreamingResponse:
-        return NextActionResourceWithStreamingResponse(self._admin.next_action)
-
-    @cached_property
     def users(self) -> UsersResourceWithStreamingResponse:
         return UsersResourceWithStreamingResponse(self._admin.users)
-
-    @cached_property
-    def training_datasets(self) -> TrainingDatasetsResourceWithStreamingResponse:
-        return TrainingDatasetsResourceWithStreamingResponse(self._admin.training_datasets)
 
 
 class AsyncAdminResourceWithStreamingResponse:
@@ -338,21 +254,9 @@ class AsyncAdminResourceWithStreamingResponse:
         return AsyncSandboxResourceWithStreamingResponse(self._admin.sandbox)
 
     @cached_property
-    def human_llm(self) -> AsyncHumanLlmResourceWithStreamingResponse:
-        return AsyncHumanLlmResourceWithStreamingResponse(self._admin.human_llm)
-
-    @cached_property
     def functional_tests(self) -> AsyncFunctionalTestsResourceWithStreamingResponse:
         return AsyncFunctionalTestsResourceWithStreamingResponse(self._admin.functional_tests)
 
     @cached_property
-    def next_action(self) -> AsyncNextActionResourceWithStreamingResponse:
-        return AsyncNextActionResourceWithStreamingResponse(self._admin.next_action)
-
-    @cached_property
     def users(self) -> AsyncUsersResourceWithStreamingResponse:
         return AsyncUsersResourceWithStreamingResponse(self._admin.users)
-
-    @cached_property
-    def training_datasets(self) -> AsyncTrainingDatasetsResourceWithStreamingResponse:
-        return AsyncTrainingDatasetsResourceWithStreamingResponse(self._admin.training_datasets)

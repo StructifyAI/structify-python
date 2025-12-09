@@ -299,31 +299,6 @@ Methods:
 
 - <code title="get /admin/sandbox/list">client.admin.sandbox.<a href="./src/structify/resources/admin/sandbox.py">list</a>(\*\*<a href="src/structify/types/admin/sandbox_list_params.py">params</a>) -> <a href="./src/structify/types/admin/admin_sandbox.py">SyncJobsList[AdminSandbox]</a></code>
 
-## HumanLlm
-
-Types:
-
-```python
-from structify.types.admin import (
-    HumanLlmJob,
-    StepChoices,
-    HumanLlmGetJobsResponse,
-    HumanLlmGetNextStepResponse,
-    HumanLlmPrelabelStepResponse,
-)
-```
-
-Methods:
-
-- <code title="post /admin/human_llm/add_search_for_job">client.admin.human_llm.<a href="./src/structify/resources/admin/human_llm.py">add_search_for_job</a>(\*\*<a href="src/structify/types/admin/human_llm_add_search_for_job_params.py">params</a>) -> <a href="./src/structify/types/admin/step_choices.py">StepChoices</a></code>
-- <code title="post /admin/human_llm/add_to_dataset">client.admin.human_llm.<a href="./src/structify/resources/admin/human_llm.py">add_to_dataset</a>(\*\*<a href="src/structify/types/admin/human_llm_add_to_dataset_params.py">params</a>) -> object</code>
-- <code title="post /admin/human_llm/finish_job">client.admin.human_llm.<a href="./src/structify/resources/admin/human_llm.py">finish_job</a>(\*\*<a href="src/structify/types/admin/human_llm_finish_job_params.py">params</a>) -> object</code>
-- <code title="post /admin/human_llm/get_jobs">client.admin.human_llm.<a href="./src/structify/resources/admin/human_llm.py">get_jobs</a>(\*\*<a href="src/structify/types/admin/human_llm_get_jobs_params.py">params</a>) -> <a href="./src/structify/types/admin/human_llm_get_jobs_response.py">HumanLlmGetJobsResponse</a></code>
-- <code title="post /admin/human_llm/get_next_step">client.admin.human_llm.<a href="./src/structify/resources/admin/human_llm.py">get_next_step</a>(\*\*<a href="src/structify/types/admin/human_llm_get_next_step_params.py">params</a>) -> <a href="./src/structify/types/admin/human_llm_get_next_step_response.py">HumanLlmGetNextStepResponse</a></code>
-- <code title="post /admin/human_llm/prelabel_step/{step_id}">client.admin.human_llm.<a href="./src/structify/resources/admin/human_llm.py">prelabel_step</a>(step_id) -> <a href="./src/structify/types/admin/human_llm_prelabel_step_response.py">HumanLlmPrelabelStepResponse</a></code>
-- <code title="post /admin/human_llm/start_next_job">client.admin.human_llm.<a href="./src/structify/resources/admin/human_llm.py">start_next_job</a>(\*\*<a href="src/structify/types/admin/human_llm_start_next_job_params.py">params</a>) -> <a href="./src/structify/types/admin/step_choices.py">StepChoices</a></code>
-- <code title="post /admin/human_llm/update_step">client.admin.human_llm.<a href="./src/structify/resources/admin/human_llm.py">update_step</a>(\*\*<a href="src/structify/types/admin/human_llm_update_step_params.py">params</a>) -> <a href="./src/structify/types/admin/step_choices.py">StepChoices</a></code>
-
 ## FunctionalTests
 
 Types:
@@ -350,32 +325,6 @@ Methods:
 - <code title="get /admin/functional_tests/system_prompt">client.admin.functional_tests.<a href="./src/structify/resources/admin/functional_tests.py">system_prompt</a>() -> str</code>
 - <code title="put /admin/functional_tests/update_results">client.admin.functional_tests.<a href="./src/structify/resources/admin/functional_tests.py">update_results</a>(\*\*<a href="src/structify/types/admin/functional_test_update_results_params.py">params</a>) -> None</code>
 
-## NextAction
-
-Types:
-
-```python
-from structify.types.admin import (
-    ActionTrainingDataEntry,
-    ActionTrainingDataResponse,
-    AddActionTrainingDatumRequest,
-    DeleteActionTrainingDataParams,
-    DeleteActionTrainingDataResponse,
-    GetActionTrainingDataParams,
-    GetBatchedActionTrainingDataRequest,
-    LabelActionTrainingDatumRequest,
-)
-```
-
-Methods:
-
-- <code title="post /admin/next_action/add_action_training_datum">client.admin.next_action.<a href="./src/structify/resources/admin/next_action.py">add_training_datum</a>(\*\*<a href="src/structify/types/admin/next_action_add_training_datum_params.py">params</a>) -> None</code>
-- <code title="delete /admin/next_action/delete_action_training_data">client.admin.next_action.<a href="./src/structify/resources/admin/next_action.py">delete_training_data</a>(\*\*<a href="src/structify/types/admin/next_action_delete_training_data_params.py">params</a>) -> <a href="./src/structify/types/admin/delete_action_training_data_response.py">DeleteActionTrainingDataResponse</a></code>
-- <code title="post /admin/next_action/get_batched_action_training_data">client.admin.next_action.<a href="./src/structify/resources/admin/next_action.py">get_batched_training_data</a>(\*\*<a href="src/structify/types/admin/next_action_get_batched_training_data_params.py">params</a>) -> <a href="./src/structify/types/admin/action_training_data_response.py">ActionTrainingDataResponse</a></code>
-- <code title="get /admin/next_action/get_action_training_data">client.admin.next_action.<a href="./src/structify/resources/admin/next_action.py">get_training_data</a>(\*\*<a href="src/structify/types/admin/next_action_get_training_data_params.py">params</a>) -> <a href="./src/structify/types/admin/action_training_data_response.py">ActionTrainingDataResponse</a></code>
-- <code title="get /admin/next_action/get_action_training_datum">client.admin.next_action.<a href="./src/structify/resources/admin/next_action.py">get_training_datum</a>(\*\*<a href="src/structify/types/admin/next_action_get_training_datum_params.py">params</a>) -> <a href="./src/structify/types/admin/action_training_data_entry.py">ActionTrainingDataEntry</a></code>
-- <code title="put /admin/next_action/label_action_training_datum">client.admin.next_action.<a href="./src/structify/resources/admin/next_action.py">label_training_datum</a>(\*\*<a href="src/structify/types/admin/next_action_label_training_datum_params.py">params</a>) -> None</code>
-
 ## Users
 
 Types:
@@ -396,48 +345,6 @@ Methods:
 - <code title="get /admin/users/list">client.admin.users.<a href="./src/structify/resources/admin/users.py">list</a>() -> <a href="./src/structify/types/admin/user_list_response.py">UserListResponse</a></code>
 - <code title="post /admin/users/get_stats">client.admin.users.<a href="./src/structify/resources/admin/users.py">get_stats</a>(\*\*<a href="src/structify/types/admin/user_get_stats_params.py">params</a>) -> <a href="./src/structify/types/admin/user_get_stats_response.py">UserGetStatsResponse</a></code>
 - <code title="post /admin/users/impersonate">client.admin.users.<a href="./src/structify/resources/admin/users.py">impersonate</a>(\*\*<a href="src/structify/types/admin/user_impersonate_params.py">params</a>) -> <a href="./src/structify/types/admin/impersonate_response.py">ImpersonateResponse</a></code>
-
-## TrainingDatasets
-
-Types:
-
-```python
-from structify.types.admin import (
-    AddDatumRequest,
-    DatumStatus,
-    LabelingStats,
-    TrainingDatumResponse,
-    UpdateDatumStatusRequest,
-    TrainingDatasetListResponse,
-    TrainingDatasetGetLabellerStatsResponse,
-    TrainingDatasetListDatumsResponse,
-    TrainingDatasetSizeResponse,
-    TrainingDatasetSuspiciousCountResponse,
-)
-```
-
-Methods:
-
-- <code title="get /admin/training_datasets/list">client.admin.training_datasets.<a href="./src/structify/resources/admin/training_datasets.py">list</a>() -> <a href="./src/structify/types/admin/training_dataset_list_response.py">TrainingDatasetListResponse</a></code>
-- <code title="delete /admin/training_datasets/delete_dataset">client.admin.training_datasets.<a href="./src/structify/resources/admin/training_datasets.py">delete</a>(\*\*<a href="src/structify/types/admin/training_dataset_delete_params.py">params</a>) -> None</code>
-- <code title="post /admin/training_datasets/add_dataset">client.admin.training_datasets.<a href="./src/structify/resources/admin/training_datasets.py">add</a>(\*\*<a href="src/structify/types/admin/training_dataset_add_params.py">params</a>) -> None</code>
-- <code title="post /admin/training_datasets/add_datum">client.admin.training_datasets.<a href="./src/structify/resources/admin/training_datasets.py">add_datum</a>(\*\*<a href="src/structify/types/admin/training_dataset_add_datum_params.py">params</a>) -> None</code>
-- <code title="get /admin/training_datasets/download_datum_step">client.admin.training_datasets.<a href="./src/structify/resources/admin/training_datasets.py">download_datum</a>(\*\*<a href="src/structify/types/admin/training_dataset_download_datum_params.py">params</a>) -> BinaryAPIResponse</code>
-- <code title="get /admin/training_datasets/get_datum_info">client.admin.training_datasets.<a href="./src/structify/resources/admin/training_datasets.py">get_datum_info</a>(\*\*<a href="src/structify/types/admin/training_dataset_get_datum_info_params.py">params</a>) -> <a href="./src/structify/types/admin/training_datum_response.py">TrainingDatumResponse</a></code>
-- <code title="get /admin/training_datasets/labeller_stats">client.admin.training_datasets.<a href="./src/structify/resources/admin/training_datasets.py">get_labeller_stats</a>(\*\*<a href="src/structify/types/admin/training_dataset_get_labeller_stats_params.py">params</a>) -> <a href="./src/structify/types/admin/training_dataset_get_labeller_stats_response.py">TrainingDatasetGetLabellerStatsResponse</a></code>
-- <code title="get /admin/training_datasets/get_next_for_labeling">client.admin.training_datasets.<a href="./src/structify/resources/admin/training_datasets.py">get_next_for_labeling</a>(\*\*<a href="src/structify/types/admin/training_dataset_get_next_for_labeling_params.py">params</a>) -> <a href="./src/structify/types/admin/training_datum_response.py">Optional[TrainingDatumResponse]</a></code>
-- <code title="get /admin/training_datasets/get_next_for_qa">client.admin.training_datasets.<a href="./src/structify/resources/admin/training_datasets.py">get_next_for_qa</a>(\*\*<a href="src/structify/types/admin/training_dataset_get_next_for_qa_params.py">params</a>) -> <a href="./src/structify/types/admin/training_datum_response.py">Optional[TrainingDatumResponse]</a></code>
-- <code title="get /admin/training_datasets/get_next_suspicious">client.admin.training_datasets.<a href="./src/structify/resources/admin/training_datasets.py">get_next_suspicious</a>(\*\*<a href="src/structify/types/admin/training_dataset_get_next_suspicious_params.py">params</a>) -> <a href="./src/structify/types/admin/training_datum_response.py">Optional[TrainingDatumResponse]</a></code>
-- <code title="put /admin/training_datasets/label_datum">client.admin.training_datasets.<a href="./src/structify/resources/admin/training_datasets.py">label_datum</a>(\*\*<a href="src/structify/types/admin/training_dataset_label_datum_params.py">params</a>) -> None</code>
-- <code title="get /admin/training_datasets/list_datums">client.admin.training_datasets.<a href="./src/structify/resources/admin/training_datasets.py">list_datums</a>(\*\*<a href="src/structify/types/admin/training_dataset_list_datums_params.py">params</a>) -> <a href="./src/structify/types/admin/training_dataset_list_datums_response.py">TrainingDatasetListDatumsResponse</a></code>
-- <code title="put /admin/training_datasets/mark_datum_suspicious">client.admin.training_datasets.<a href="./src/structify/resources/admin/training_datasets.py">mark_datum_suspicious</a>(\*\*<a href="src/structify/types/admin/training_dataset_mark_datum_suspicious_params.py">params</a>) -> None</code>
-- <code title="delete /admin/training_datasets/remove_from_dataset">client.admin.training_datasets.<a href="./src/structify/resources/admin/training_datasets.py">remove_datum</a>(\*\*<a href="src/structify/types/admin/training_dataset_remove_datum_params.py">params</a>) -> None</code>
-- <code title="post /admin/training_datasets/size">client.admin.training_datasets.<a href="./src/structify/resources/admin/training_datasets.py">size</a>(\*\*<a href="src/structify/types/admin/training_dataset_size_params.py">params</a>) -> <a href="./src/structify/types/admin/training_dataset_size_response.py">TrainingDatasetSizeResponse</a></code>
-- <code title="get /admin/training_datasets/suspicious_count">client.admin.training_datasets.<a href="./src/structify/resources/admin/training_datasets.py">suspicious_count</a>(\*\*<a href="src/structify/types/admin/training_dataset_suspicious_count_params.py">params</a>) -> <a href="./src/structify/types/admin/training_dataset_suspicious_count_response.py">TrainingDatasetSuspiciousCountResponse</a></code>
-- <code title="post /admin/training_datasets/switch_dataset">client.admin.training_datasets.<a href="./src/structify/resources/admin/training_datasets.py">switch_dataset</a>(\*\*<a href="src/structify/types/admin/training_dataset_switch_dataset_params.py">params</a>) -> None</code>
-- <code title="post /admin/training_datasets/update_datum_status">client.admin.training_datasets.<a href="./src/structify/resources/admin/training_datasets.py">update_datum_status</a>(\*\*<a href="src/structify/types/admin/training_dataset_update_datum_status_params.py">params</a>) -> None</code>
-- <code title="post /admin/training_datasets/upload_labeled_step">client.admin.training_datasets.<a href="./src/structify/resources/admin/training_datasets.py">upload_labeled_step</a>(\*\*<a href="src/structify/types/admin/training_dataset_upload_labeled_step_params.py">params</a>) -> None</code>
-- <code title="put /admin/training_datasets/verify_datum">client.admin.training_datasets.<a href="./src/structify/resources/admin/training_datasets.py">verify_datum</a>(\*\*<a href="src/structify/types/admin/training_dataset_verify_datum_params.py">params</a>) -> None</code>
 
 # Datasets
 
@@ -821,26 +728,6 @@ Methods:
 - <code title="post /entity/upload_parquet">client.entities.<a href="./src/structify/resources/entities.py">upload_parquet</a>(\*\*<a href="src/structify/types/entity_upload_parquet_params.py">params</a>) -> None</code>
 - <code title="post /entity/verify">client.entities.<a href="./src/structify/resources/entities.py">verify</a>(\*\*<a href="src/structify/types/entity_verify_params.py">params</a>) -> <a href="./src/structify/types/knowledge_graph.py">KnowledgeGraph</a></code>
 - <code title="get /entity/view">client.entities.<a href="./src/structify/resources/entities.py">view</a>(\*\*<a href="src/structify/types/entity_view_params.py">params</a>) -> <a href="./src/structify/types/entity_view_response.py">EntityViewResponse</a></code>
-
-# Report
-
-Types:
-
-```python
-from structify.types import (
-    ReportMissingResponse,
-    ReportRelationshipResponse,
-    ReportStepResponse,
-    ReportWrongResponse,
-)
-```
-
-Methods:
-
-- <code title="post /report/entity/missing">client.report.<a href="./src/structify/resources/report.py">missing</a>(\*\*<a href="src/structify/types/report_missing_params.py">params</a>) -> str</code>
-- <code title="post /report/relationship/missing">client.report.<a href="./src/structify/resources/report.py">relationship</a>(\*\*<a href="src/structify/types/report_relationship_params.py">params</a>) -> str</code>
-- <code title="post /report/step">client.report.<a href="./src/structify/resources/report.py">step</a>(\*\*<a href="src/structify/types/report_step_params.py">params</a>) -> str</code>
-- <code title="post /report/entity/wrong">client.report.<a href="./src/structify/resources/report.py">wrong</a>(\*\*<a href="src/structify/types/report_wrong_params.py">params</a>) -> str</code>
 
 # Sandbox
 
