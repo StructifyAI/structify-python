@@ -100,12 +100,6 @@ class TestScrape:
             table_name="table_name",
             dataset_name="dataset_name",
             node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            stop_config={
-                "max_steps_without_save": 0,
-                "max_errors": 0,
-                "max_execution_time_secs": 0,
-                "max_total_steps": 0,
-            },
             use_proxy=True,
         )
         assert_matches_type(ScrapeListResponse, scrape, path=["response"])
@@ -216,12 +210,6 @@ class TestScrape:
                         "properties": {"foo": "string"},
                     }
                 ],
-            },
-            stop_config={
-                "max_steps_without_save": 0,
-                "max_errors": 0,
-                "max_execution_time_secs": 0,
-                "max_total_steps": 0,
             },
             use_proxy=True,
         )
@@ -341,12 +329,6 @@ class TestAsyncScrape:
             table_name="table_name",
             dataset_name="dataset_name",
             node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            stop_config={
-                "max_steps_without_save": 0,
-                "max_errors": 0,
-                "max_execution_time_secs": 0,
-                "max_total_steps": 0,
-            },
             use_proxy=True,
         )
         assert_matches_type(ScrapeListResponse, scrape, path=["response"])
@@ -457,12 +439,6 @@ class TestAsyncScrape:
                         "properties": {"foo": "string"},
                     }
                 ],
-            },
-            stop_config={
-                "max_steps_without_save": 0,
-                "max_errors": 0,
-                "max_execution_time_secs": 0,
-                "max_total_steps": 0,
             },
             use_proxy=True,
         )

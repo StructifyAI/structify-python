@@ -9,15 +9,7 @@ from .._utils import PropertyInfo
 from .entity_param import EntityParam
 from .dataset_descriptor_param import DatasetDescriptorParam
 
-__all__ = [
-    "ScrapeListParams",
-    "Input",
-    "InputDirect",
-    "InputDirectDirect",
-    "InputRelated",
-    "InputRelatedRelated",
-    "StopConfig",
-]
+__all__ = ["ScrapeListParams", "Input", "InputDirect", "InputDirectDirect", "InputRelated", "InputRelatedRelated"]
 
 
 class ScrapeListParams(TypedDict, total=False):
@@ -35,9 +27,6 @@ class ScrapeListParams(TypedDict, total=False):
     dataset_name: Optional[str]
 
     node_id: Optional[str]
-
-    stop_config: Optional[StopConfig]
-    """Configuration parameters for the StopChecker"""
 
     use_proxy: Optional[bool]
 
@@ -63,15 +52,3 @@ class InputRelated(TypedDict, total=False):
 
 
 Input: TypeAlias = Union[InputDirect, InputRelated]
-
-
-class StopConfig(TypedDict, total=False):
-    """Configuration parameters for the StopChecker"""
-
-    max_steps_without_save: Required[int]
-
-    max_errors: Optional[int]
-
-    max_execution_time_secs: Optional[int]
-
-    max_total_steps: Optional[int]

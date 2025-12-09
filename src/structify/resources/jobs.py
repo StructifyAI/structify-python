@@ -21,15 +21,11 @@ from .._response import (
 )
 from ..pagination import SyncJobsList, AsyncJobsList
 from .._base_client import AsyncPaginator, make_request_options
-from ..types.job_get_response import JobGetResponse
 from ..types.job_list_response import JobListResponse
 from ..types.job_cancel_response import JobCancelResponse
 from ..types.job_status_response import JobStatusResponse
-from ..types.job_get_step_response import JobGetStepResponse
-from ..types.job_get_steps_response import JobGetStepsResponse
 from ..types.get_job_events_response import GetJobEventsResponse
 from ..types.job_get_scrapers_response import JobGetScrapersResponse
-from ..types.job_get_step_graph_response import JobGetStepGraphResponse
 from ..types.job_get_source_entities_response import JobGetSourceEntitiesResponse
 
 __all__ = ["JobsResource", "AsyncJobsResource"]
@@ -122,40 +118,6 @@ class JobsResource(SyncAPIResource):
             model=JobListResponse,
         )
 
-    def delete(
-        self,
-        job_id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> str:
-        """
-        Delete a job
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not job_id:
-            raise ValueError(f"Expected a non-empty value for `job_id` but received {job_id!r}")
-        extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
-        return self._post(
-            f"/jobs/delete/{job_id}",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=str,
-        )
-
     def cancel(
         self,
         uuid: str,
@@ -187,39 +149,6 @@ class JobsResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=JobCancelResponse,
-        )
-
-    def get(
-        self,
-        job_id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> JobGetResponse:
-        """
-        Retrieve a job from structify using a job_id.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not job_id:
-            raise ValueError(f"Expected a non-empty value for `job_id` but received {job_id!r}")
-        return self._get(
-            f"/jobs/get/{job_id}",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=JobGetResponse,
         )
 
     def get_events(
@@ -317,103 +246,6 @@ class JobsResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=JobGetSourceEntitiesResponse,
-        )
-
-    def get_step(
-        self,
-        step_id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> JobGetStepResponse:
-        """
-        Retrieve a step from structify.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not step_id:
-            raise ValueError(f"Expected a non-empty value for `step_id` but received {step_id!r}")
-        return self._get(
-            f"/jobs/get_step/{step_id}",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=JobGetStepResponse,
-        )
-
-    def get_step_graph(
-        self,
-        job_id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> JobGetStepGraphResponse:
-        """
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not job_id:
-            raise ValueError(f"Expected a non-empty value for `job_id` but received {job_id!r}")
-        return self._get(
-            f"/jobs/get_step_graph/{job_id}",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=JobGetStepGraphResponse,
-        )
-
-    def get_steps(
-        self,
-        job_id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> JobGetStepsResponse:
-        """
-        Retrieve a job from structify.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not job_id:
-            raise ValueError(f"Expected a non-empty value for `job_id` but received {job_id!r}")
-        return self._get(
-            f"/jobs/get_steps/{job_id}",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=JobGetStepsResponse,
         )
 
     def schedule(
@@ -572,40 +404,6 @@ class AsyncJobsResource(AsyncAPIResource):
             model=JobListResponse,
         )
 
-    async def delete(
-        self,
-        job_id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> str:
-        """
-        Delete a job
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not job_id:
-            raise ValueError(f"Expected a non-empty value for `job_id` but received {job_id!r}")
-        extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
-        return await self._post(
-            f"/jobs/delete/{job_id}",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=str,
-        )
-
     async def cancel(
         self,
         uuid: str,
@@ -637,39 +435,6 @@ class AsyncJobsResource(AsyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=JobCancelResponse,
-        )
-
-    async def get(
-        self,
-        job_id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> JobGetResponse:
-        """
-        Retrieve a job from structify using a job_id.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not job_id:
-            raise ValueError(f"Expected a non-empty value for `job_id` but received {job_id!r}")
-        return await self._get(
-            f"/jobs/get/{job_id}",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=JobGetResponse,
         )
 
     async def get_events(
@@ -769,103 +534,6 @@ class AsyncJobsResource(AsyncAPIResource):
             cast_to=JobGetSourceEntitiesResponse,
         )
 
-    async def get_step(
-        self,
-        step_id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> JobGetStepResponse:
-        """
-        Retrieve a step from structify.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not step_id:
-            raise ValueError(f"Expected a non-empty value for `step_id` but received {step_id!r}")
-        return await self._get(
-            f"/jobs/get_step/{step_id}",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=JobGetStepResponse,
-        )
-
-    async def get_step_graph(
-        self,
-        job_id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> JobGetStepGraphResponse:
-        """
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not job_id:
-            raise ValueError(f"Expected a non-empty value for `job_id` but received {job_id!r}")
-        return await self._get(
-            f"/jobs/get_step_graph/{job_id}",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=JobGetStepGraphResponse,
-        )
-
-    async def get_steps(
-        self,
-        job_id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> JobGetStepsResponse:
-        """
-        Retrieve a job from structify.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not job_id:
-            raise ValueError(f"Expected a non-empty value for `job_id` but received {job_id!r}")
-        return await self._get(
-            f"/jobs/get_steps/{job_id}",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=JobGetStepsResponse,
-        )
-
     async def schedule(
         self,
         *,
@@ -942,14 +610,8 @@ class JobsResourceWithRawResponse:
         self.list = to_raw_response_wrapper(
             jobs.list,
         )
-        self.delete = to_raw_response_wrapper(
-            jobs.delete,
-        )
         self.cancel = to_raw_response_wrapper(
             jobs.cancel,
-        )
-        self.get = to_raw_response_wrapper(
-            jobs.get,
         )
         self.get_events = to_raw_response_wrapper(
             jobs.get_events,
@@ -959,15 +621,6 @@ class JobsResourceWithRawResponse:
         )
         self.get_source_entities = to_raw_response_wrapper(
             jobs.get_source_entities,
-        )
-        self.get_step = to_raw_response_wrapper(
-            jobs.get_step,
-        )
-        self.get_step_graph = to_raw_response_wrapper(
-            jobs.get_step_graph,
-        )
-        self.get_steps = to_raw_response_wrapper(
-            jobs.get_steps,
         )
         self.schedule = to_raw_response_wrapper(
             jobs.schedule,
@@ -984,14 +637,8 @@ class AsyncJobsResourceWithRawResponse:
         self.list = async_to_raw_response_wrapper(
             jobs.list,
         )
-        self.delete = async_to_raw_response_wrapper(
-            jobs.delete,
-        )
         self.cancel = async_to_raw_response_wrapper(
             jobs.cancel,
-        )
-        self.get = async_to_raw_response_wrapper(
-            jobs.get,
         )
         self.get_events = async_to_raw_response_wrapper(
             jobs.get_events,
@@ -1001,15 +648,6 @@ class AsyncJobsResourceWithRawResponse:
         )
         self.get_source_entities = async_to_raw_response_wrapper(
             jobs.get_source_entities,
-        )
-        self.get_step = async_to_raw_response_wrapper(
-            jobs.get_step,
-        )
-        self.get_step_graph = async_to_raw_response_wrapper(
-            jobs.get_step_graph,
-        )
-        self.get_steps = async_to_raw_response_wrapper(
-            jobs.get_steps,
         )
         self.schedule = async_to_raw_response_wrapper(
             jobs.schedule,
@@ -1026,14 +664,8 @@ class JobsResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             jobs.list,
         )
-        self.delete = to_streamed_response_wrapper(
-            jobs.delete,
-        )
         self.cancel = to_streamed_response_wrapper(
             jobs.cancel,
-        )
-        self.get = to_streamed_response_wrapper(
-            jobs.get,
         )
         self.get_events = to_streamed_response_wrapper(
             jobs.get_events,
@@ -1043,15 +675,6 @@ class JobsResourceWithStreamingResponse:
         )
         self.get_source_entities = to_streamed_response_wrapper(
             jobs.get_source_entities,
-        )
-        self.get_step = to_streamed_response_wrapper(
-            jobs.get_step,
-        )
-        self.get_step_graph = to_streamed_response_wrapper(
-            jobs.get_step_graph,
-        )
-        self.get_steps = to_streamed_response_wrapper(
-            jobs.get_steps,
         )
         self.schedule = to_streamed_response_wrapper(
             jobs.schedule,
@@ -1068,14 +691,8 @@ class AsyncJobsResourceWithStreamingResponse:
         self.list = async_to_streamed_response_wrapper(
             jobs.list,
         )
-        self.delete = async_to_streamed_response_wrapper(
-            jobs.delete,
-        )
         self.cancel = async_to_streamed_response_wrapper(
             jobs.cancel,
-        )
-        self.get = async_to_streamed_response_wrapper(
-            jobs.get,
         )
         self.get_events = async_to_streamed_response_wrapper(
             jobs.get_events,
@@ -1085,15 +702,6 @@ class AsyncJobsResourceWithStreamingResponse:
         )
         self.get_source_entities = async_to_streamed_response_wrapper(
             jobs.get_source_entities,
-        )
-        self.get_step = async_to_streamed_response_wrapper(
-            jobs.get_step,
-        )
-        self.get_step_graph = async_to_streamed_response_wrapper(
-            jobs.get_step_graph,
-        )
-        self.get_steps = async_to_streamed_response_wrapper(
-            jobs.get_steps,
         )
         self.schedule = async_to_streamed_response_wrapper(
             jobs.schedule,
