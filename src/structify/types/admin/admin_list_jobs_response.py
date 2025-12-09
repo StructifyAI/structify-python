@@ -31,6 +31,8 @@ __all__ = [
 
 
 class ParametersStructuringInputAgentAgentPdfPdf(BaseModel):
+    """Ingest all pages of a PDF and process them independently."""
+
     path: str
 
 

@@ -8,6 +8,8 @@ __all__ = ["MergeConfigParam"]
 
 
 class MergeConfigParam(TypedDict, total=False):
+    """The configuration for a probabilistic merge strategy"""
+
     baseline_cardinality: Required[int]
     """
     The number of unique values that are expected to be present in the complete

@@ -8,6 +8,8 @@ __all__ = ["UpdateTableResponse", "Table", "TableColumn"]
 
 
 class TableColumn(BaseModel):
+    """Represents a column in a table or API resource"""
+
     name: str
     """Name of the column"""
 
@@ -19,6 +21,8 @@ class TableColumn(BaseModel):
 
 
 class Table(BaseModel):
+    """Represents a table (for relational databases) or resource (for APIs)"""
+
     id: str
 
     columns: List[TableColumn]

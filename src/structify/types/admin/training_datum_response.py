@@ -82,6 +82,8 @@ class StepResponseToolCallInputSave(BaseModel):
 
 
 class StepResponseToolCallInputScrollScroll(BaseModel):
+    """For tools with no inputs."""
+
     reason: str
     """Dummy argument"""
 
@@ -92,6 +94,8 @@ class StepResponseToolCallInputScroll(BaseModel):
 
 
 class StepResponseToolCallInputScrollToBottomScrollToBottom(BaseModel):
+    """For tools with no inputs."""
+
     reason: str
     """Dummy argument"""
 
@@ -102,6 +106,8 @@ class StepResponseToolCallInputScrollToBottom(BaseModel):
 
 
 class StepResponseToolCallInputExitExit(BaseModel):
+    """For tools with no inputs."""
+
     reason: str
     """Dummy argument"""
 
@@ -237,6 +243,8 @@ class UpdateResponseToolCallInputSave(BaseModel):
 
 
 class UpdateResponseToolCallInputScrollScroll(BaseModel):
+    """For tools with no inputs."""
+
     reason: str
     """Dummy argument"""
 
@@ -247,6 +255,8 @@ class UpdateResponseToolCallInputScroll(BaseModel):
 
 
 class UpdateResponseToolCallInputScrollToBottomScrollToBottom(BaseModel):
+    """For tools with no inputs."""
+
     reason: str
     """Dummy argument"""
 
@@ -257,6 +267,8 @@ class UpdateResponseToolCallInputScrollToBottom(BaseModel):
 
 
 class UpdateResponseToolCallInputExitExit(BaseModel):
+    """For tools with no inputs."""
+
     reason: str
     """Dummy argument"""
 

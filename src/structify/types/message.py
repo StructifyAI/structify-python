@@ -22,6 +22,8 @@ Content: TypeAlias = Union[ContentText, ContentImage]
 
 
 class Message(BaseModel):
+    """Our generic definition of a message to a chat agent."""
+
     content: List[Content]
     """
     We want this to be a vec of contents so we can accurately capture an

@@ -38,6 +38,12 @@ class Relationship(TypedDict, total=False):
 
 
 class DatasetDescriptorParam(TypedDict, total=False):
+    """A dataset is where you put multiple referential schemas.
+
+    A dataset is a complete namespace where all references between schemas
+    are held within the dataset.
+    """
+
     description: Required[str]
 
     name: Required[str]

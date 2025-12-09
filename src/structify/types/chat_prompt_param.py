@@ -228,6 +228,8 @@ MetadataFormatterSpecific: TypeAlias = Union[
 
 
 class Metadata(TypedDict, total=False):
+    """All metadata required to generate a prompt for the LLM"""
+
     dataset_descriptor: Required[DatasetDescriptorParam]
     """A dataset is where you put multiple referential schemas.
 

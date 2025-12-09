@@ -10,6 +10,8 @@ __all__ = ["ListCollaboratorsResponse", "User"]
 
 
 class User(BaseModel):
+    """DTO for chat collaborator with user email information"""
+
     created_at: datetime
 
     email: str
@@ -22,4 +24,6 @@ class User(BaseModel):
 
 
 class ListCollaboratorsResponse(BaseModel):
+    """Response for listing collaborators"""
+
     users: List[User]

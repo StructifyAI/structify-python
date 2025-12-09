@@ -83,6 +83,11 @@ class Thinking(BaseModel):
 
 
 class FileFile(BaseModel):
+    """
+    The file event can't be serialized to the database safely without the content.
+    When streaming, we start with the path only, then add the content as we go.
+    """
+
     complete: bool
 
     path: str
@@ -99,6 +104,8 @@ class File(BaseModel):
 
 
 class ActionActionAction(BaseModel):
+    """Action definition"""
+
     description: str
 
     name: str

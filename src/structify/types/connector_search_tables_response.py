@@ -19,6 +19,8 @@ __all__ = [
 
 
 class RankedResultColumn(BaseModel):
+    """Represents a column in a table or API resource"""
+
     name: str
     """Name of the column"""
 
@@ -30,6 +32,8 @@ class RankedResultColumn(BaseModel):
 
 
 class RankedResultTableColumn(BaseModel):
+    """Represents a column in a table or API resource"""
+
     name: str
     """Name of the column"""
 
@@ -41,6 +45,8 @@ class RankedResultTableColumn(BaseModel):
 
 
 class RankedResultTable(BaseModel):
+    """Represents a table (for relational databases) or resource (for APIs)"""
+
     id: str
 
     columns: List[RankedResultTableColumn]
@@ -60,6 +66,8 @@ class RankedResultTable(BaseModel):
 
 
 class RankedResult(BaseModel):
+    """Result struct for connector table search"""
+
     columns: List[RankedResultColumn]
 
     database_name: str
@@ -74,6 +82,8 @@ class RankedResult(BaseModel):
 
 
 class RawResultColumn(BaseModel):
+    """Represents a column in a table or API resource"""
+
     name: str
     """Name of the column"""
 
@@ -85,6 +95,8 @@ class RawResultColumn(BaseModel):
 
 
 class RawResultTableColumn(BaseModel):
+    """Represents a column in a table or API resource"""
+
     name: str
     """Name of the column"""
 
@@ -96,6 +108,8 @@ class RawResultTableColumn(BaseModel):
 
 
 class RawResultTable(BaseModel):
+    """Represents a table (for relational databases) or resource (for APIs)"""
+
     id: str
 
     columns: List[RawResultTableColumn]
@@ -115,6 +129,8 @@ class RawResultTable(BaseModel):
 
 
 class RawResult(BaseModel):
+    """Result struct for connector table search"""
+
     columns: List[RawResultColumn]
 
     database_name: str

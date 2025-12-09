@@ -22,6 +22,8 @@ class Property(TypedDict, total=False):
 
 
 class TableParam(TypedDict, total=False):
+    """The full definition of what a schema is - without duplicate information."""
+
     description: Required[str]
 
     name: Required[str]

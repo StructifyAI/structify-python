@@ -9,5 +9,7 @@ __all__ = ["GetDependenciesResponse"]
 
 
 class GetDependenciesResponse(BaseModel):
+    """Response structure for getting chat dependencies"""
+
     dependencies: List[ChatDependency]
     """List of dependencies for the chat session"""

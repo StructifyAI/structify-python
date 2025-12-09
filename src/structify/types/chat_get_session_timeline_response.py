@@ -52,5 +52,7 @@ Timeline: TypeAlias = Annotated[Union[TimelineMessage, TimelineGitCommit], Prope
 
 
 class ChatGetSessionTimelineResponse(BaseModel):
+    """Response structure for getting session timeline"""
+
     timeline: List[Timeline]
     """Chronologically sorted list of messages and commits"""

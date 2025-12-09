@@ -10,6 +10,12 @@ __all__ = ["KnowledgeGraph"]
 
 
 class KnowledgeGraph(BaseModel):
+    """
+    Knowledge graph info structured to deserialize and display
+    in the same format that the LLM outputs.
+    Also the first representation of an LLM output in the pipeline from raw tool output to being merged into a DB
+    """
+
     entities: List[Entity]
 
     relationships: Optional[List[Relationship]] = None

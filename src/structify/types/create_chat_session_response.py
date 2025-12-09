@@ -7,4 +7,6 @@ __all__ = ["CreateChatSessionResponse"]
 
 
 class CreateChatSessionResponse(BaseModel):
+    """Response for creating a chat session"""
+
     session: ChatSessionWithMessages
