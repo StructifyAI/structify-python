@@ -730,6 +730,15 @@ class TestSessions:
         assert_matches_type(WorkflowSessionNode, session, path=["response"])
 
     @parametrize
+    def test_method_upload_node_output_data_with_all_params(self, client: Structify) -> None:
+        session = client.sessions.upload_node_output_data(
+            node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            content=b"raw file contents",
+            output_schema="output_schema",
+        )
+        assert_matches_type(WorkflowSessionNode, session, path=["response"])
+
+    @parametrize
     def test_raw_response_upload_node_output_data(self, client: Structify) -> None:
         response = client.sessions.with_raw_response.upload_node_output_data(
             node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -1507,6 +1516,15 @@ class TestAsyncSessions:
         session = await async_client.sessions.upload_node_output_data(
             node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             content=b"raw file contents",
+        )
+        assert_matches_type(WorkflowSessionNode, session, path=["response"])
+
+    @parametrize
+    async def test_method_upload_node_output_data_with_all_params(self, async_client: AsyncStructify) -> None:
+        session = await async_client.sessions.upload_node_output_data(
+            node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            content=b"raw file contents",
+            output_schema="output_schema",
         )
         assert_matches_type(WorkflowSessionNode, session, path=["response"])
 

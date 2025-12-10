@@ -540,6 +540,7 @@ class SessionsResource(SyncAPIResource):
         node_id: str,
         *,
         content: FileTypes,
+        output_schema: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -559,7 +560,12 @@ class SessionsResource(SyncAPIResource):
         """
         if not node_id:
             raise ValueError(f"Expected a non-empty value for `node_id` but received {node_id!r}")
-        body = deepcopy_minimal({"content": content})
+        body = deepcopy_minimal(
+            {
+                "content": content,
+                "output_schema": output_schema,
+            }
+        )
         files = extract_files(cast(Mapping[str, object], body), paths=[["content"]])
         # It should be noted that the actual Content-Type header that will be
         # sent to the server will contain a `boundary` parameter, e.g.
@@ -1095,6 +1101,7 @@ class AsyncSessionsResource(AsyncAPIResource):
         node_id: str,
         *,
         content: FileTypes,
+        output_schema: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1114,7 +1121,12 @@ class AsyncSessionsResource(AsyncAPIResource):
         """
         if not node_id:
             raise ValueError(f"Expected a non-empty value for `node_id` but received {node_id!r}")
-        body = deepcopy_minimal({"content": content})
+        body = deepcopy_minimal(
+            {
+                "content": content,
+                "output_schema": output_schema,
+            }
+        )
         files = extract_files(cast(Mapping[str, object], body), paths=[["content"]])
         # It should be noted that the actual Content-Type header that will be
         # sent to the server will contain a `boundary` parameter, e.g.
