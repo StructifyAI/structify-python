@@ -7,7 +7,7 @@ from .._models import BaseModel
 from .chat_visibility import ChatVisibility
 from .chat_session_role import ChatSessionRole
 
-__all__ = ["ChatSessionWithMessages", "Commit", "Message"]
+__all__ = ["ChatSessionWithMessages", "Commit", "Message", "MessageStreamChunk"]
 
 
 class Commit(BaseModel):
@@ -18,6 +18,14 @@ class Commit(BaseModel):
     commit_hash: str
 
     created_at: datetime
+
+
+class MessageStreamChunk(BaseModel):
+    """Entry for stream chunk logging - stored as JSONB array on chat_message"""
+
+    chunk_type: str
+
+    content: str
 
 
 class Message(BaseModel):
@@ -42,6 +50,8 @@ class Message(BaseModel):
     slack_message_ts: Optional[str] = None
 
     slack_thread_ts: Optional[str] = None
+
+    stream_chunks: Optional[List[MessageStreamChunk]] = None
 
 
 class ChatSessionWithMessages(BaseModel):
