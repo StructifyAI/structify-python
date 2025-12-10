@@ -56,6 +56,8 @@ __all__ = [
     "ToolCallToolCallUnionMember15Input",
     "ToolCallToolCallUnionMember16",
     "ToolCallToolCallUnionMember16Input",
+    "ToolCallToolCallUnionMember17",
+    "ToolCallToolCallUnionMember17Input",
     "Question",
     "QuestionQuestion",
     "InternalError",
@@ -381,6 +383,18 @@ class ToolCallToolCallUnionMember16(BaseModel):
     result_text: Optional[str] = None
 
 
+class ToolCallToolCallUnionMember17Input(BaseModel):
+    node_ids: List[str]
+
+
+class ToolCallToolCallUnionMember17(BaseModel):
+    input: ToolCallToolCallUnionMember17Input
+
+    name: Literal["SelectData"]
+
+    result_text: Optional[str] = None
+
+
 ToolCallToolCall: TypeAlias = Union[
     ToolCallToolCallUnionMember0,
     ToolCallToolCallUnionMember1,
@@ -399,6 +413,7 @@ ToolCallToolCall: TypeAlias = Union[
     ToolCallToolCallUnionMember14,
     ToolCallToolCallUnionMember15,
     ToolCallToolCallUnionMember16,
+    ToolCallToolCallUnionMember17,
 ]
 
 
