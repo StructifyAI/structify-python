@@ -7,7 +7,21 @@ from typing_extensions import Literal, Annotated, TypeAlias
 from .._utils import PropertyInfo
 from .._models import BaseModel
 
-__all__ = ["ChatGetSessionTimelineResponse", "Timeline", "TimelineMessage", "TimelineGitCommit"]
+__all__ = [
+    "ChatGetSessionTimelineResponse",
+    "Timeline",
+    "TimelineMessage",
+    "TimelineMessageStreamChunk",
+    "TimelineGitCommit",
+]
+
+
+class TimelineMessageStreamChunk(BaseModel):
+    """Entry for stream chunk logging - stored as JSONB array on chat_message"""
+
+    chunk_type: str
+
+    content: str
 
 
 class TimelineMessage(BaseModel):
@@ -34,6 +48,8 @@ class TimelineMessage(BaseModel):
     slack_message_ts: Optional[str] = None
 
     slack_thread_ts: Optional[str] = None
+
+    stream_chunks: Optional[List[TimelineMessageStreamChunk]] = None
 
 
 class TimelineGitCommit(BaseModel):
