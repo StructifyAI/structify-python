@@ -10,6 +10,4 @@ class UserUsageResponse(BaseModel):
 
     num_entities: int
 
-    num_jobs: int
-
     num_relationships: int
