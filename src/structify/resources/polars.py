@@ -1103,7 +1103,7 @@ class PolarsResource(SyncAPIResource):
             "/entity/upload_parquet",
             params={"dataset": dataset_name, "table_name": table_name},
             files={"file": ("data.parquet", parquet_bytes.getvalue(), "application/octet-stream")},
-            headers={"Authorization": f"Bearer {self._client.session_token}"},
+            headers={"api_key": self._client.api_key},
         )
         response.raise_for_status()
 
