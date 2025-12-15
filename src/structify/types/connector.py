@@ -37,6 +37,10 @@ class Connector(BaseModel):
 
     exploration_started_at: Optional[datetime] = None
 
+    nango_connection_id: Optional[str] = None
+
+    nango_integration_id: Optional[str] = None
+
     pipedream_account_id: Optional[str] = None
 
     pipedream_external_id: Optional[str] = None
