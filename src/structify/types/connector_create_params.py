@@ -17,6 +17,12 @@ class ConnectorCreateParams(TypedDict, total=False):
 
     description: Optional[str]
 
+    nango_connection_id: Optional[str]
+    """Nango connection ID for OAuth token management"""
+
+    nango_integration_id: Optional[str]
+    """Nango integration ID (e.g., "linear", "slack")"""
+
     pipedream_account_id: Optional[str]
 
     pipedream_external_id: Optional[str]
