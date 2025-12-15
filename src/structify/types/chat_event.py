@@ -77,6 +77,10 @@ class TextMessage(BaseModel):
 
 
 class ThinkingThinking(BaseModel):
+    block_id: int
+
+    complete: bool
+
     content: str
 
 
@@ -89,6 +93,8 @@ class FileFile(BaseModel):
     The file event can't be serialized to the database safely without the content.
     When streaming, we start with the path only, then add the content as we go.
     """
+
+    block_id: int
 
     complete: bool
 
@@ -116,6 +122,10 @@ class ActionActionAction(BaseModel):
 class ActionAction(BaseModel):
     actions: List[ActionActionAction]
 
+    block_id: int
+
+    complete: bool
+
 
 class Action(BaseModel):
     action: ActionAction = FieldInfo(alias="Action")
@@ -142,6 +152,10 @@ class ToolCallToolCallUnionMember0(BaseModel):
 
     name: Literal["WebSearch"]
 
+    block_id: Optional[int] = None
+
+    complete: Optional[bool] = None
+
     result_text: Optional[str] = None
 
 
@@ -153,6 +167,10 @@ class ToolCallToolCallUnionMember1(BaseModel):
     input: ToolCallToolCallUnionMember1Input
 
     name: Literal["WebNavigate"]
+
+    block_id: Optional[int] = None
+
+    complete: Optional[bool] = None
 
     result_text: Optional[str] = None
 
@@ -166,6 +184,10 @@ class ToolCallToolCallUnionMember2(BaseModel):
 
     name: Literal["InspectDAG"]
 
+    block_id: Optional[int] = None
+
+    complete: Optional[bool] = None
+
     result_text: Optional[str] = None
 
 
@@ -177,6 +199,10 @@ class ToolCallToolCallUnionMember3(BaseModel):
     input: ToolCallToolCallUnionMember3Input
 
     name: Literal["DeleteFile"]
+
+    block_id: Optional[int] = None
+
+    complete: Optional[bool] = None
 
     result_text: Optional[str] = None
 
@@ -191,6 +217,10 @@ class ToolCallToolCallUnionMember4(BaseModel):
     input: ToolCallToolCallUnionMember4Input
 
     name: Literal["MoveFile"]
+
+    block_id: Optional[int] = None
+
+    complete: Optional[bool] = None
 
     result_text: Optional[str] = None
 
@@ -208,6 +238,10 @@ class ToolCallToolCallUnionMember5(BaseModel):
 
     name: Literal["RunBash"]
 
+    block_id: Optional[int] = None
+
+    complete: Optional[bool] = None
+
     result_text: Optional[str] = None
 
 
@@ -224,6 +258,10 @@ class ToolCallToolCallUnionMember6(BaseModel):
 
     name: Literal["RunPython"]
 
+    block_id: Optional[int] = None
+
+    complete: Optional[bool] = None
+
     result_text: Optional[str] = None
 
 
@@ -237,6 +275,10 @@ class ToolCallToolCallUnionMember7(BaseModel):
     input: ToolCallToolCallUnionMember7Input
 
     name: Literal["IssueFound"]
+
+    block_id: Optional[int] = None
+
+    complete: Optional[bool] = None
 
     result_text: Optional[str] = None
 
@@ -254,6 +296,10 @@ class ToolCallToolCallUnionMember8(BaseModel):
 
     name: Literal["SaveDatabase"]
 
+    block_id: Optional[int] = None
+
+    complete: Optional[bool] = None
+
     result_text: Optional[str] = None
 
 
@@ -269,6 +315,10 @@ class ToolCallToolCallUnionMember9(BaseModel):
     input: ToolCallToolCallUnionMember9Input
 
     name: Literal["SaveSchema"]
+
+    block_id: Optional[int] = None
+
+    complete: Optional[bool] = None
 
     result_text: Optional[str] = None
 
@@ -288,6 +338,10 @@ class ToolCallToolCallUnionMember10(BaseModel):
 
     name: Literal["SaveTable"]
 
+    block_id: Optional[int] = None
+
+    complete: Optional[bool] = None
+
     result_text: Optional[str] = None
 
 
@@ -303,6 +357,10 @@ class ToolCallToolCallUnionMember11(BaseModel):
     input: ToolCallToolCallUnionMember11Input
 
     name: Literal["SaveColumn"]
+
+    block_id: Optional[int] = None
+
+    complete: Optional[bool] = None
 
     result_text: Optional[str] = None
 
@@ -322,6 +380,10 @@ class ToolCallToolCallUnionMember12(BaseModel):
 
     name: Literal["SaveApiResource"]
 
+    block_id: Optional[int] = None
+
+    complete: Optional[bool] = None
+
     result_text: Optional[str] = None
 
 
@@ -336,6 +398,10 @@ class ToolCallToolCallUnionMember13(BaseModel):
 
     name: Literal["SaveMemory"]
 
+    block_id: Optional[int] = None
+
+    complete: Optional[bool] = None
+
     result_text: Optional[str] = None
 
 
@@ -349,6 +415,10 @@ class ToolCallToolCallUnionMember14(BaseModel):
     input: ToolCallToolCallUnionMember14Input
 
     name: Literal["SearchConnectorTables"]
+
+    block_id: Optional[int] = None
+
+    complete: Optional[bool] = None
 
     result_text: Optional[str] = None
 
@@ -366,6 +436,10 @@ class ToolCallToolCallUnionMember15(BaseModel):
 
     name: Literal["RequestClarification"]
 
+    block_id: Optional[int] = None
+
+    complete: Optional[bool] = None
+
     result_text: Optional[str] = None
 
 
@@ -380,6 +454,10 @@ class ToolCallToolCallUnionMember16(BaseModel):
 
     name: Literal["AddDependency"]
 
+    block_id: Optional[int] = None
+
+    complete: Optional[bool] = None
+
     result_text: Optional[str] = None
 
 
@@ -391,6 +469,10 @@ class ToolCallToolCallUnionMember17(BaseModel):
     input: ToolCallToolCallUnionMember17Input
 
     name: Literal["SelectData"]
+
+    block_id: Optional[int] = None
+
+    complete: Optional[bool] = None
 
     result_text: Optional[str] = None
 
@@ -422,6 +504,8 @@ class ToolCall(BaseModel):
 
 
 class QuestionQuestion(BaseModel):
+    block_id: int
+
     complete: bool
 
     content: str
