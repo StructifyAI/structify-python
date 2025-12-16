@@ -12,6 +12,8 @@ __all__ = ["WorkflowDag"]
 
 
 class WorkflowDag(BaseModel):
+    aborted: bool
+
     edges: List[WorkflowSessionEdge]
 
     is_ready: bool
