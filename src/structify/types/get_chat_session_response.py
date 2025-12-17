@@ -75,6 +75,8 @@ class Session(BaseModel):
 
     project_id: Optional[str] = None
 
+    workflow_schedule_id: Optional[str] = None
+
 
 class GetChatSessionResponse(BaseModel):
     """Response for getting a chat session"""
