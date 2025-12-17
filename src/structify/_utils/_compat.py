@@ -26,7 +26,7 @@ def is_union(tp: Optional[Type[Any]]) -> bool:
     else:
         import types
 
-        return tp is Union or tp is types.UnionType
+        return tp is Union or tp is types.UnionType  # type: ignore[comparison-overlap]
 
 
 def is_typeddict(tp: Type[Any]) -> bool:
@@ -34,7 +34,7 @@ def is_typeddict(tp: Type[Any]) -> bool:
 
 
 def is_literal_type(tp: Type[Any]) -> bool:
-    return get_origin(tp) in _LITERAL_TYPES
+    return get_origin(tp) in _LITERAL_TYPES  # type: ignore[comparison-overlap]
 
 
 def parse_date(value: Union[date, StrBytesIntFloat]) -> date:

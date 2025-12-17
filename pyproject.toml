@@ -49,7 +49,7 @@ aiohttp = ["aiohttp", "httpx_aiohttp>=0.1.9"]
 managed = true
 # version pins are in requirements-dev.lock
 dev-dependencies = [
-    "pyright==1.1.399",
+    "ty>=0.0.2",
     "mypy==1.17",
     "respx",
     "pytest",
@@ -86,11 +86,13 @@ format = { chain = [
 "check:importable" = "python -c 'import structify'"
 
 typecheck = { chain = [
-  "typecheck:pyright",
+  "typecheck:ty",
   "typecheck:mypy"
 ]}
-"typecheck:pyright" = "pyright"
-"typecheck:verify-types" = "pyright --verifytypes structify --ignoreexternal"
+# ty type checker (in beta) - ignore rules related to type guard narrowing that don't work yet.
+# As ty matures, these ignores can be removed. mypy still runs alongside for additional coverage.
+# See: https://github.com/astral-sh/ty for ty development updates
+"typecheck:ty" = "ty check --ignore invalid-key --ignore invalid-parameter-default --ignore non-subscriptable --ignore not-iterable --ignore unresolved-attribute --ignore invalid-assignment --ignore invalid-argument-type --ignore call-non-callable --ignore invalid-return-type --ignore invalid-await --ignore no-matching-overload --ignore unresolved-import"
 "typecheck:mypy" = "mypy ."
 
 [build-system]
@@ -141,25 +143,18 @@ filterwarnings = [
   "error"
 ]
 
-[tool.pyright]
-# this enables practically every flag given by pyright.
-# there are a couple of flags that are still disabled by
-# default in strict mode as they are experimental and niche.
-typeCheckingMode = "strict"
-pythonVersion = "3.9"
+[tool.ty.environment]
+python-version = "3.9"
 
+[tool.ty.src]
 exclude = [
-    "_dev",
-    ".venv",
-    ".nox",
-    ".git",
+    "_dev/",
+    ".venv/",
+    ".nox/",
+    ".git/",
+    "noxfile.py",
+    "tests/",
 ]
-
-reportImplicitOverride = true
-reportOverlappingOverload = false
-
-reportImportCycles = false
-reportPrivateUsage = false
 
 [tool.mypy]
 pretty = true
