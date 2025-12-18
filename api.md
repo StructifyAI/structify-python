@@ -938,3 +938,21 @@ from structify.types import SlackAPIResponse, SlackEventPayload
 Methods:
 
 - <code title="post /slack/events">client.slack.<a href="./src/structify/resources/slack.py">events</a>(\*\*<a href="src/structify/types/slack_events_params.py">params</a>) -> <a href="./src/structify/types/slack_api_response.py">SlackAPIResponse</a></code>
+
+# Nango
+
+Types:
+
+```python
+from structify.types import (
+    ConnectSession,
+    Integration,
+    NangoCreateSessionResponse,
+    NangoListIntegrationsResponse,
+)
+```
+
+Methods:
+
+- <code title="post /nango/session">client.nango.<a href="./src/structify/resources/nango.py">create_session</a>() -> <a href="./src/structify/types/nango_create_session_response.py">NangoCreateSessionResponse</a></code>
+- <code title="get /nango/integrations">client.nango.<a href="./src/structify/resources/nango.py">list_integrations</a>() -> <a href="./src/structify/types/nango_list_integrations_response.py">NangoListIntegrationsResponse</a></code>
