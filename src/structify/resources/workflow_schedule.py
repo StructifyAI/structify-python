@@ -24,7 +24,6 @@ from .._response import (
 )
 from .._base_client import make_request_options
 from ..types.workflow_schedule_info import WorkflowScheduleInfo
-from ..types.workflow_schedule_get_response import WorkflowScheduleGetResponse
 from ..types.workflow_schedule_get_all_response import WorkflowScheduleGetAllResponse
 from ..types.get_workflow_schedule_sessions_response import GetWorkflowScheduleSessionsResponse
 
@@ -179,7 +178,7 @@ class WorkflowScheduleResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> WorkflowScheduleGetResponse:
+    ) -> Optional[WorkflowScheduleInfo]:
         """
         Args:
           extra_headers: Send extra headers
@@ -197,7 +196,7 @@ class WorkflowScheduleResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=WorkflowScheduleGetResponse,
+            cast_to=WorkflowScheduleInfo,
         )
 
     def get_all(
@@ -472,7 +471,7 @@ class AsyncWorkflowScheduleResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> WorkflowScheduleGetResponse:
+    ) -> Optional[WorkflowScheduleInfo]:
         """
         Args:
           extra_headers: Send extra headers
@@ -490,7 +489,7 @@ class AsyncWorkflowScheduleResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=WorkflowScheduleGetResponse,
+            cast_to=WorkflowScheduleInfo,
         )
 
     async def get_all(
