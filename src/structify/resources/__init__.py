@@ -56,6 +56,14 @@ from .match import (
     MatchResourceWithStreamingResponse,
     AsyncMatchResourceWithStreamingResponse,
 )
+from .nango import (
+    NangoResource,
+    AsyncNangoResource,
+    NangoResourceWithRawResponse,
+    AsyncNangoResourceWithRawResponse,
+    NangoResourceWithStreamingResponse,
+    AsyncNangoResourceWithStreamingResponse,
+)
 from .slack import (
     SlackResource,
     AsyncSlackResource,
@@ -338,4 +346,10 @@ __all__ = [
     "AsyncSlackResourceWithRawResponse",
     "SlackResourceWithStreamingResponse",
     "AsyncSlackResourceWithStreamingResponse",
+    "NangoResource",
+    "AsyncNangoResource",
+    "NangoResourceWithRawResponse",
+    "AsyncNangoResourceWithRawResponse",
+    "NangoResourceWithStreamingResponse",
+    "AsyncNangoResourceWithStreamingResponse",
 ]

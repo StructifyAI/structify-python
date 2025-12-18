@@ -40,6 +40,7 @@ if TYPE_CHECKING:
         wiki,
         admin,
         match,
+        nango,
         slack,
         teams,
         scrape,
@@ -63,6 +64,7 @@ if TYPE_CHECKING:
     from .resources.jobs import JobsResource, AsyncJobsResource
     from .resources.wiki import WikiResource, AsyncWikiResource
     from .resources.match import MatchResource, AsyncMatchResource
+    from .resources.nango import NangoResource, AsyncNangoResource
     from .resources.slack import SlackResource, AsyncSlackResource
     from .resources.teams import TeamsResource, AsyncTeamsResource
     from .resources.scrape import ScrapeResource, AsyncScrapeResource
@@ -327,6 +329,12 @@ class Structify(SyncAPIClient):
         from .resources.slack import SlackResource
 
         return SlackResource(self)
+
+    @cached_property
+    def nango(self) -> NangoResource:
+        from .resources.nango import NangoResource
+
+        return NangoResource(self)
 
     @cached_property
     def with_raw_response(self) -> StructifyWithRawResponse:
@@ -702,6 +710,12 @@ class AsyncStructify(AsyncAPIClient):
         return AsyncSlackResource(self)
 
     @cached_property
+    def nango(self) -> AsyncNangoResource:
+        from .resources.nango import AsyncNangoResource
+
+        return AsyncNangoResource(self)
+
+    @cached_property
     def with_raw_response(self) -> AsyncStructifyWithRawResponse:
         return AsyncStructifyWithRawResponse(self)
 
@@ -997,6 +1011,12 @@ class StructifyWithRawResponse:
 
         return SlackResourceWithRawResponse(self._client.slack)
 
+    @cached_property
+    def nango(self) -> nango.NangoResourceWithRawResponse:
+        from .resources.nango import NangoResourceWithRawResponse
+
+        return NangoResourceWithRawResponse(self._client.nango)
+
 
 class AsyncStructifyWithRawResponse:
     _client: AsyncStructify
@@ -1147,6 +1167,12 @@ class AsyncStructifyWithRawResponse:
         from .resources.slack import AsyncSlackResourceWithRawResponse
 
         return AsyncSlackResourceWithRawResponse(self._client.slack)
+
+    @cached_property
+    def nango(self) -> nango.AsyncNangoResourceWithRawResponse:
+        from .resources.nango import AsyncNangoResourceWithRawResponse
+
+        return AsyncNangoResourceWithRawResponse(self._client.nango)
 
 
 class StructifyWithStreamedResponse:
@@ -1299,6 +1325,12 @@ class StructifyWithStreamedResponse:
 
         return SlackResourceWithStreamingResponse(self._client.slack)
 
+    @cached_property
+    def nango(self) -> nango.NangoResourceWithStreamingResponse:
+        from .resources.nango import NangoResourceWithStreamingResponse
+
+        return NangoResourceWithStreamingResponse(self._client.nango)
+
 
 class AsyncStructifyWithStreamedResponse:
     _client: AsyncStructify
@@ -1449,6 +1481,12 @@ class AsyncStructifyWithStreamedResponse:
         from .resources.slack import AsyncSlackResourceWithStreamingResponse
 
         return AsyncSlackResourceWithStreamingResponse(self._client.slack)
+
+    @cached_property
+    def nango(self) -> nango.AsyncNangoResourceWithStreamingResponse:
+        from .resources.nango import AsyncNangoResourceWithStreamingResponse
+
+        return AsyncNangoResourceWithStreamingResponse(self._client.nango)
 
 
 Client = Structify
