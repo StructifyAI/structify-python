@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import os
-from typing import Any, cast
+from typing import Any, Optional, cast
 
 import pytest
 
@@ -11,7 +11,6 @@ from structify import Structify, AsyncStructify
 from tests.utils import assert_matches_type
 from structify.types import (
     WorkflowScheduleInfo,
-    WorkflowScheduleGetResponse,
     WorkflowScheduleGetAllResponse,
     GetWorkflowScheduleSessionsResponse,
 )
@@ -166,7 +165,7 @@ class TestWorkflowSchedule:
         workflow_schedule = client.workflow_schedule.get(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(WorkflowScheduleGetResponse, workflow_schedule, path=["response"])
+        assert_matches_type(Optional[WorkflowScheduleInfo], workflow_schedule, path=["response"])
 
     @parametrize
     def test_raw_response_get(self, client: Structify) -> None:
@@ -177,7 +176,7 @@ class TestWorkflowSchedule:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         workflow_schedule = response.parse()
-        assert_matches_type(WorkflowScheduleGetResponse, workflow_schedule, path=["response"])
+        assert_matches_type(Optional[WorkflowScheduleInfo], workflow_schedule, path=["response"])
 
     @parametrize
     def test_streaming_response_get(self, client: Structify) -> None:
@@ -188,7 +187,7 @@ class TestWorkflowSchedule:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             workflow_schedule = response.parse()
-            assert_matches_type(WorkflowScheduleGetResponse, workflow_schedule, path=["response"])
+            assert_matches_type(Optional[WorkflowScheduleInfo], workflow_schedule, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -501,7 +500,7 @@ class TestAsyncWorkflowSchedule:
         workflow_schedule = await async_client.workflow_schedule.get(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(WorkflowScheduleGetResponse, workflow_schedule, path=["response"])
+        assert_matches_type(Optional[WorkflowScheduleInfo], workflow_schedule, path=["response"])
 
     @parametrize
     async def test_raw_response_get(self, async_client: AsyncStructify) -> None:
@@ -512,7 +511,7 @@ class TestAsyncWorkflowSchedule:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         workflow_schedule = await response.parse()
-        assert_matches_type(WorkflowScheduleGetResponse, workflow_schedule, path=["response"])
+        assert_matches_type(Optional[WorkflowScheduleInfo], workflow_schedule, path=["response"])
 
     @parametrize
     async def test_streaming_response_get(self, async_client: AsyncStructify) -> None:
@@ -523,7 +522,7 @@ class TestAsyncWorkflowSchedule:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             workflow_schedule = await response.parse()
-            assert_matches_type(WorkflowScheduleGetResponse, workflow_schedule, path=["response"])
+            assert_matches_type(Optional[WorkflowScheduleInfo], workflow_schedule, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
