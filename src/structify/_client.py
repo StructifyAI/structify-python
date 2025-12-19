@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import os
-from typing import Any, Dict, Mapping, cast
+from typing import TYPE_CHECKING, Any, Dict, Mapping, cast
 from typing_extensions import Self, Literal, override
 
 import httpx
@@ -21,30 +21,8 @@ from ._types import (
     not_given,
 )
 from ._utils import is_given, get_async_library
+from ._compat import cached_property
 from ._version import __version__
-from .resources import (
-    chat,
-    code,
-    jobs,
-    wiki,
-    match,
-    slack,
-    teams,
-    polars,
-    scrape,
-    server,
-    sandbox,
-    sources,
-    entities,
-    external,
-    projects,
-    sessions,
-    workflow,
-    documents,
-    structure,
-    public_sessions,
-    workflow_schedule,
-)
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import APIStatusError
 from ._base_client import (
@@ -52,10 +30,60 @@ from ._base_client import (
     SyncAPIClient,
     AsyncAPIClient,
 )
-from .resources.user import user
-from .resources.admin import admin
-from .resources.datasets import datasets
-from .resources.connectors import connectors
+
+if TYPE_CHECKING:
+    from .resources import (
+        chat,
+        code,
+        jobs,
+        user,
+        wiki,
+        admin,
+        match,
+        slack,
+        teams,
+        polars,
+        scrape,
+        server,
+        sandbox,
+        sources,
+        datasets,
+        entities,
+        external,
+        projects,
+        sessions,
+        workflow,
+        documents,
+        structure,
+        connectors,
+        public_sessions,
+        workflow_schedule,
+    )
+    from .resources.chat import ChatResource, AsyncChatResource
+    from .resources.code import CodeResource, AsyncCodeResource
+    from .resources.jobs import JobsResource, AsyncJobsResource
+    from .resources.wiki import WikiResource, AsyncWikiResource
+    from .resources.match import MatchResource, AsyncMatchResource
+    from .resources.slack import SlackResource, AsyncSlackResource
+    from .resources.teams import TeamsResource, AsyncTeamsResource
+    from .resources.polars import PolarsResource
+    from .resources.scrape import ScrapeResource, AsyncScrapeResource
+    from .resources.server import ServerResource, AsyncServerResource
+    from .resources.sandbox import SandboxResource, AsyncSandboxResource
+    from .resources.sources import SourcesResource, AsyncSourcesResource
+    from .resources.entities import EntitiesResource, AsyncEntitiesResource
+    from .resources.projects import ProjectsResource, AsyncProjectsResource
+    from .resources.sessions import SessionsResource, AsyncSessionsResource
+    from .resources.workflow import WorkflowResource, AsyncWorkflowResource
+    from .resources.documents import DocumentsResource, AsyncDocumentsResource
+    from .resources.structure import StructureResource, AsyncStructureResource
+    from .resources.user.user import UserResource, AsyncUserResource
+    from .resources.admin.admin import AdminResource, AsyncAdminResource
+    from .resources.public_sessions import PublicSessionsResource, AsyncPublicSessionsResource
+    from .resources.datasets.datasets import DatasetsResource, AsyncDatasetsResource
+    from .resources.external.external import ExternalResource, AsyncExternalResource
+    from .resources.workflow_schedule import WorkflowScheduleResource, AsyncWorkflowScheduleResource
+    from .resources.connectors.connectors import ConnectorsResource, AsyncConnectorsResource
 
 __all__ = [
     "ENVIRONMENTS",
@@ -76,34 +104,6 @@ ENVIRONMENTS: Dict[str, str] = {
 
 
 class Structify(SyncAPIClient):
-    user: user.UserResource
-    chat: chat.ChatResource
-    teams: teams.TeamsResource
-    wiki: wiki.WikiResource
-    projects: projects.ProjectsResource
-    admin: admin.AdminResource
-    datasets: datasets.DatasetsResource
-    documents: documents.DocumentsResource
-    jobs: jobs.JobsResource
-    match: match.MatchResource
-    sessions: sessions.SessionsResource
-    workflow_schedule: workflow_schedule.WorkflowScheduleResource
-    workflow: workflow.WorkflowResource
-    connectors: connectors.ConnectorsResource
-    server: server.ServerResource
-    sources: sources.SourcesResource
-    entities: entities.EntitiesResource
-    sandbox: sandbox.SandboxResource
-    scrape: scrape.ScrapeResource
-    code: code.CodeResource
-    structure: structure.StructureResource
-    public_sessions: public_sessions.PublicSessionsResource
-    polars: polars.PolarsResource
-    external: external.ExternalResource
-    slack: slack.SlackResource
-    with_raw_response: StructifyWithRawResponse
-    with_streaming_response: StructifyWithStreamedResponse
-
     # client options
     api_key: str | None
     session_token: str | None
@@ -186,33 +186,163 @@ class Structify(SyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.user = user.UserResource(self)
-        self.chat = chat.ChatResource(self)
-        self.teams = teams.TeamsResource(self)
-        self.wiki = wiki.WikiResource(self)
-        self.projects = projects.ProjectsResource(self)
-        self.admin = admin.AdminResource(self)
-        self.datasets = datasets.DatasetsResource(self)
-        self.documents = documents.DocumentsResource(self)
-        self.jobs = jobs.JobsResource(self)
-        self.match = match.MatchResource(self)
-        self.sessions = sessions.SessionsResource(self)
-        self.workflow_schedule = workflow_schedule.WorkflowScheduleResource(self)
-        self.workflow = workflow.WorkflowResource(self)
-        self.connectors = connectors.ConnectorsResource(self)
-        self.server = server.ServerResource(self)
-        self.sources = sources.SourcesResource(self)
-        self.entities = entities.EntitiesResource(self)
-        self.sandbox = sandbox.SandboxResource(self)
-        self.scrape = scrape.ScrapeResource(self)
-        self.code = code.CodeResource(self)
-        self.structure = structure.StructureResource(self)
-        self.public_sessions = public_sessions.PublicSessionsResource(self)
-        self.polars = polars.PolarsResource(self)
-        self.external = external.ExternalResource(self)
-        self.slack = slack.SlackResource(self)
-        self.with_raw_response = StructifyWithRawResponse(self)
-        self.with_streaming_response = StructifyWithStreamedResponse(self)
+    @cached_property
+    def user(self) -> UserResource:
+        from .resources.user import UserResource
+
+        return UserResource(self)
+
+    @cached_property
+    def chat(self) -> ChatResource:
+        from .resources.chat import ChatResource
+
+        return ChatResource(self)
+
+    @cached_property
+    def teams(self) -> TeamsResource:
+        from .resources.teams import TeamsResource
+
+        return TeamsResource(self)
+
+    @cached_property
+    def wiki(self) -> WikiResource:
+        from .resources.wiki import WikiResource
+
+        return WikiResource(self)
+
+    @cached_property
+    def polars(self) -> PolarsResource:
+        from .resources.polars import PolarsResource
+
+        return PolarsResource(self)
+
+    @cached_property
+    def projects(self) -> ProjectsResource:
+        from .resources.projects import ProjectsResource
+
+        return ProjectsResource(self)
+
+    @cached_property
+    def admin(self) -> AdminResource:
+        from .resources.admin import AdminResource
+
+        return AdminResource(self)
+
+    @cached_property
+    def datasets(self) -> DatasetsResource:
+        from .resources.datasets import DatasetsResource
+
+        return DatasetsResource(self)
+
+    @cached_property
+    def documents(self) -> DocumentsResource:
+        from .resources.documents import DocumentsResource
+
+        return DocumentsResource(self)
+
+    @cached_property
+    def jobs(self) -> JobsResource:
+        from .resources.jobs import JobsResource
+
+        return JobsResource(self)
+
+    @cached_property
+    def match(self) -> MatchResource:
+        from .resources.match import MatchResource
+
+        return MatchResource(self)
+
+    @cached_property
+    def sessions(self) -> SessionsResource:
+        from .resources.sessions import SessionsResource
+
+        return SessionsResource(self)
+
+    @cached_property
+    def workflow_schedule(self) -> WorkflowScheduleResource:
+        from .resources.workflow_schedule import WorkflowScheduleResource
+
+        return WorkflowScheduleResource(self)
+
+    @cached_property
+    def workflow(self) -> WorkflowResource:
+        from .resources.workflow import WorkflowResource
+
+        return WorkflowResource(self)
+
+    @cached_property
+    def connectors(self) -> ConnectorsResource:
+        from .resources.connectors import ConnectorsResource
+
+        return ConnectorsResource(self)
+
+    @cached_property
+    def server(self) -> ServerResource:
+        from .resources.server import ServerResource
+
+        return ServerResource(self)
+
+    @cached_property
+    def sources(self) -> SourcesResource:
+        from .resources.sources import SourcesResource
+
+        return SourcesResource(self)
+
+    @cached_property
+    def entities(self) -> EntitiesResource:
+        from .resources.entities import EntitiesResource
+
+        return EntitiesResource(self)
+
+    @cached_property
+    def sandbox(self) -> SandboxResource:
+        from .resources.sandbox import SandboxResource
+
+        return SandboxResource(self)
+
+    @cached_property
+    def scrape(self) -> ScrapeResource:
+        from .resources.scrape import ScrapeResource
+
+        return ScrapeResource(self)
+
+    @cached_property
+    def code(self) -> CodeResource:
+        from .resources.code import CodeResource
+
+        return CodeResource(self)
+
+    @cached_property
+    def structure(self) -> StructureResource:
+        from .resources.structure import StructureResource
+
+        return StructureResource(self)
+
+    @cached_property
+    def public_sessions(self) -> PublicSessionsResource:
+        from .resources.public_sessions import PublicSessionsResource
+
+        return PublicSessionsResource(self)
+
+    @cached_property
+    def external(self) -> ExternalResource:
+        from .resources.external import ExternalResource
+
+        return ExternalResource(self)
+
+    @cached_property
+    def slack(self) -> SlackResource:
+        from .resources.slack import SlackResource
+
+        return SlackResource(self)
+
+    @cached_property
+    def with_raw_response(self) -> StructifyWithRawResponse:
+        return StructifyWithRawResponse(self)
+
+    @cached_property
+    def with_streaming_response(self) -> StructifyWithStreamedResponse:
+        return StructifyWithStreamedResponse(self)
 
     @property
     @override
@@ -353,33 +483,6 @@ class Structify(SyncAPIClient):
 
 
 class AsyncStructify(AsyncAPIClient):
-    user: user.AsyncUserResource
-    chat: chat.AsyncChatResource
-    teams: teams.AsyncTeamsResource
-    wiki: wiki.AsyncWikiResource
-    projects: projects.AsyncProjectsResource
-    admin: admin.AsyncAdminResource
-    datasets: datasets.AsyncDatasetsResource
-    documents: documents.AsyncDocumentsResource
-    jobs: jobs.AsyncJobsResource
-    match: match.AsyncMatchResource
-    sessions: sessions.AsyncSessionsResource
-    workflow_schedule: workflow_schedule.AsyncWorkflowScheduleResource
-    workflow: workflow.AsyncWorkflowResource
-    connectors: connectors.AsyncConnectorsResource
-    server: server.AsyncServerResource
-    sources: sources.AsyncSourcesResource
-    entities: entities.AsyncEntitiesResource
-    sandbox: sandbox.AsyncSandboxResource
-    scrape: scrape.AsyncScrapeResource
-    code: code.AsyncCodeResource
-    structure: structure.AsyncStructureResource
-    public_sessions: public_sessions.AsyncPublicSessionsResource
-    external: external.AsyncExternalResource
-    slack: slack.AsyncSlackResource
-    with_raw_response: AsyncStructifyWithRawResponse
-    with_streaming_response: AsyncStructifyWithStreamedResponse
-
     # client options
     api_key: str | None
     session_token: str | None
@@ -462,32 +565,157 @@ class AsyncStructify(AsyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.user = user.AsyncUserResource(self)
-        self.chat = chat.AsyncChatResource(self)
-        self.teams = teams.AsyncTeamsResource(self)
-        self.wiki = wiki.AsyncWikiResource(self)
-        self.projects = projects.AsyncProjectsResource(self)
-        self.admin = admin.AsyncAdminResource(self)
-        self.datasets = datasets.AsyncDatasetsResource(self)
-        self.documents = documents.AsyncDocumentsResource(self)
-        self.jobs = jobs.AsyncJobsResource(self)
-        self.match = match.AsyncMatchResource(self)
-        self.sessions = sessions.AsyncSessionsResource(self)
-        self.workflow_schedule = workflow_schedule.AsyncWorkflowScheduleResource(self)
-        self.workflow = workflow.AsyncWorkflowResource(self)
-        self.connectors = connectors.AsyncConnectorsResource(self)
-        self.server = server.AsyncServerResource(self)
-        self.sources = sources.AsyncSourcesResource(self)
-        self.entities = entities.AsyncEntitiesResource(self)
-        self.sandbox = sandbox.AsyncSandboxResource(self)
-        self.scrape = scrape.AsyncScrapeResource(self)
-        self.code = code.AsyncCodeResource(self)
-        self.structure = structure.AsyncStructureResource(self)
-        self.public_sessions = public_sessions.AsyncPublicSessionsResource(self)
-        self.external = external.AsyncExternalResource(self)
-        self.slack = slack.AsyncSlackResource(self)
-        self.with_raw_response = AsyncStructifyWithRawResponse(self)
-        self.with_streaming_response = AsyncStructifyWithStreamedResponse(self)
+    @cached_property
+    def user(self) -> AsyncUserResource:
+        from .resources.user import AsyncUserResource
+
+        return AsyncUserResource(self)
+
+    @cached_property
+    def chat(self) -> AsyncChatResource:
+        from .resources.chat import AsyncChatResource
+
+        return AsyncChatResource(self)
+
+    @cached_property
+    def teams(self) -> AsyncTeamsResource:
+        from .resources.teams import AsyncTeamsResource
+
+        return AsyncTeamsResource(self)
+
+    @cached_property
+    def wiki(self) -> AsyncWikiResource:
+        from .resources.wiki import AsyncWikiResource
+
+        return AsyncWikiResource(self)
+
+    @cached_property
+    def projects(self) -> AsyncProjectsResource:
+        from .resources.projects import AsyncProjectsResource
+
+        return AsyncProjectsResource(self)
+
+    @cached_property
+    def admin(self) -> AsyncAdminResource:
+        from .resources.admin import AsyncAdminResource
+
+        return AsyncAdminResource(self)
+
+    @cached_property
+    def datasets(self) -> AsyncDatasetsResource:
+        from .resources.datasets import AsyncDatasetsResource
+
+        return AsyncDatasetsResource(self)
+
+    @cached_property
+    def documents(self) -> AsyncDocumentsResource:
+        from .resources.documents import AsyncDocumentsResource
+
+        return AsyncDocumentsResource(self)
+
+    @cached_property
+    def jobs(self) -> AsyncJobsResource:
+        from .resources.jobs import AsyncJobsResource
+
+        return AsyncJobsResource(self)
+
+    @cached_property
+    def match(self) -> AsyncMatchResource:
+        from .resources.match import AsyncMatchResource
+
+        return AsyncMatchResource(self)
+
+    @cached_property
+    def sessions(self) -> AsyncSessionsResource:
+        from .resources.sessions import AsyncSessionsResource
+
+        return AsyncSessionsResource(self)
+
+    @cached_property
+    def workflow_schedule(self) -> AsyncWorkflowScheduleResource:
+        from .resources.workflow_schedule import AsyncWorkflowScheduleResource
+
+        return AsyncWorkflowScheduleResource(self)
+
+    @cached_property
+    def workflow(self) -> AsyncWorkflowResource:
+        from .resources.workflow import AsyncWorkflowResource
+
+        return AsyncWorkflowResource(self)
+
+    @cached_property
+    def connectors(self) -> AsyncConnectorsResource:
+        from .resources.connectors import AsyncConnectorsResource
+
+        return AsyncConnectorsResource(self)
+
+    @cached_property
+    def server(self) -> AsyncServerResource:
+        from .resources.server import AsyncServerResource
+
+        return AsyncServerResource(self)
+
+    @cached_property
+    def sources(self) -> AsyncSourcesResource:
+        from .resources.sources import AsyncSourcesResource
+
+        return AsyncSourcesResource(self)
+
+    @cached_property
+    def entities(self) -> AsyncEntitiesResource:
+        from .resources.entities import AsyncEntitiesResource
+
+        return AsyncEntitiesResource(self)
+
+    @cached_property
+    def sandbox(self) -> AsyncSandboxResource:
+        from .resources.sandbox import AsyncSandboxResource
+
+        return AsyncSandboxResource(self)
+
+    @cached_property
+    def scrape(self) -> AsyncScrapeResource:
+        from .resources.scrape import AsyncScrapeResource
+
+        return AsyncScrapeResource(self)
+
+    @cached_property
+    def code(self) -> AsyncCodeResource:
+        from .resources.code import AsyncCodeResource
+
+        return AsyncCodeResource(self)
+
+    @cached_property
+    def structure(self) -> AsyncStructureResource:
+        from .resources.structure import AsyncStructureResource
+
+        return AsyncStructureResource(self)
+
+    @cached_property
+    def public_sessions(self) -> AsyncPublicSessionsResource:
+        from .resources.public_sessions import AsyncPublicSessionsResource
+
+        return AsyncPublicSessionsResource(self)
+
+    @cached_property
+    def external(self) -> AsyncExternalResource:
+        from .resources.external import AsyncExternalResource
+
+        return AsyncExternalResource(self)
+
+    @cached_property
+    def slack(self) -> AsyncSlackResource:
+        from .resources.slack import AsyncSlackResource
+
+        return AsyncSlackResource(self)
+
+    @cached_property
+    def with_raw_response(self) -> AsyncStructifyWithRawResponse:
+        return AsyncStructifyWithRawResponse(self)
+
+    @cached_property
+    def with_streaming_response(self) -> AsyncStructifyWithStreamedResponse:
+        return AsyncStructifyWithStreamedResponse(self)
 
     @property
     @override
@@ -628,123 +856,619 @@ class AsyncStructify(AsyncAPIClient):
 
 
 class StructifyWithRawResponse:
+    _client: Structify
+
     def __init__(self, client: Structify) -> None:
-        self.user = user.UserResourceWithRawResponse(client.user)
-        self.chat = chat.ChatResourceWithRawResponse(client.chat)
-        self.teams = teams.TeamsResourceWithRawResponse(client.teams)
-        self.wiki = wiki.WikiResourceWithRawResponse(client.wiki)
-        self.projects = projects.ProjectsResourceWithRawResponse(client.projects)
-        self.admin = admin.AdminResourceWithRawResponse(client.admin)
-        self.datasets = datasets.DatasetsResourceWithRawResponse(client.datasets)
-        self.documents = documents.DocumentsResourceWithRawResponse(client.documents)
-        self.jobs = jobs.JobsResourceWithRawResponse(client.jobs)
-        self.match = match.MatchResourceWithRawResponse(client.match)
-        self.sessions = sessions.SessionsResourceWithRawResponse(client.sessions)
-        self.workflow_schedule = workflow_schedule.WorkflowScheduleResourceWithRawResponse(client.workflow_schedule)
-        self.workflow = workflow.WorkflowResourceWithRawResponse(client.workflow)
-        self.connectors = connectors.ConnectorsResourceWithRawResponse(client.connectors)
-        self.server = server.ServerResourceWithRawResponse(client.server)
-        self.sources = sources.SourcesResourceWithRawResponse(client.sources)
-        self.entities = entities.EntitiesResourceWithRawResponse(client.entities)
-        self.sandbox = sandbox.SandboxResourceWithRawResponse(client.sandbox)
-        self.scrape = scrape.ScrapeResourceWithRawResponse(client.scrape)
-        self.code = code.CodeResourceWithRawResponse(client.code)
-        self.structure = structure.StructureResourceWithRawResponse(client.structure)
-        self.public_sessions = public_sessions.PublicSessionsResourceWithRawResponse(client.public_sessions)
-        self.polars = polars.PolarsResourceWithRawResponse(client.polars)
-        self.external = external.ExternalResourceWithRawResponse(client.external)
-        self.slack = slack.SlackResourceWithRawResponse(client.slack)
+        self._client = client
+
+    @cached_property
+    def user(self) -> user.UserResourceWithRawResponse:
+        from .resources.user import UserResourceWithRawResponse
+
+        return UserResourceWithRawResponse(self._client.user)
+
+    @cached_property
+    def chat(self) -> chat.ChatResourceWithRawResponse:
+        from .resources.chat import ChatResourceWithRawResponse
+
+        return ChatResourceWithRawResponse(self._client.chat)
+
+    @cached_property
+    def teams(self) -> teams.TeamsResourceWithRawResponse:
+        from .resources.teams import TeamsResourceWithRawResponse
+
+        return TeamsResourceWithRawResponse(self._client.teams)
+
+    @cached_property
+    def wiki(self) -> wiki.WikiResourceWithRawResponse:
+        from .resources.wiki import WikiResourceWithRawResponse
+
+        return WikiResourceWithRawResponse(self._client.wiki)
+
+    @cached_property
+    def projects(self) -> projects.ProjectsResourceWithRawResponse:
+        from .resources.projects import ProjectsResourceWithRawResponse
+
+        return ProjectsResourceWithRawResponse(self._client.projects)
+
+    @cached_property
+    def polars(self) -> polars.PolarsResourceWithRawResponse:
+        from .resources.polars import PolarsResourceWithRawResponse
+
+        return PolarsResourceWithRawResponse(self._client.polars)
+
+    @cached_property
+    def admin(self) -> admin.AdminResourceWithRawResponse:
+        from .resources.admin import AdminResourceWithRawResponse
+
+        return AdminResourceWithRawResponse(self._client.admin)
+
+    @cached_property
+    def datasets(self) -> datasets.DatasetsResourceWithRawResponse:
+        from .resources.datasets import DatasetsResourceWithRawResponse
+
+        return DatasetsResourceWithRawResponse(self._client.datasets)
+
+    @cached_property
+    def documents(self) -> documents.DocumentsResourceWithRawResponse:
+        from .resources.documents import DocumentsResourceWithRawResponse
+
+        return DocumentsResourceWithRawResponse(self._client.documents)
+
+    @cached_property
+    def jobs(self) -> jobs.JobsResourceWithRawResponse:
+        from .resources.jobs import JobsResourceWithRawResponse
+
+        return JobsResourceWithRawResponse(self._client.jobs)
+
+    @cached_property
+    def match(self) -> match.MatchResourceWithRawResponse:
+        from .resources.match import MatchResourceWithRawResponse
+
+        return MatchResourceWithRawResponse(self._client.match)
+
+    @cached_property
+    def sessions(self) -> sessions.SessionsResourceWithRawResponse:
+        from .resources.sessions import SessionsResourceWithRawResponse
+
+        return SessionsResourceWithRawResponse(self._client.sessions)
+
+    @cached_property
+    def workflow_schedule(self) -> workflow_schedule.WorkflowScheduleResourceWithRawResponse:
+        from .resources.workflow_schedule import WorkflowScheduleResourceWithRawResponse
+
+        return WorkflowScheduleResourceWithRawResponse(self._client.workflow_schedule)
+
+    @cached_property
+    def workflow(self) -> workflow.WorkflowResourceWithRawResponse:
+        from .resources.workflow import WorkflowResourceWithRawResponse
+
+        return WorkflowResourceWithRawResponse(self._client.workflow)
+
+    @cached_property
+    def connectors(self) -> connectors.ConnectorsResourceWithRawResponse:
+        from .resources.connectors import ConnectorsResourceWithRawResponse
+
+        return ConnectorsResourceWithRawResponse(self._client.connectors)
+
+    @cached_property
+    def server(self) -> server.ServerResourceWithRawResponse:
+        from .resources.server import ServerResourceWithRawResponse
+
+        return ServerResourceWithRawResponse(self._client.server)
+
+    @cached_property
+    def sources(self) -> sources.SourcesResourceWithRawResponse:
+        from .resources.sources import SourcesResourceWithRawResponse
+
+        return SourcesResourceWithRawResponse(self._client.sources)
+
+    @cached_property
+    def entities(self) -> entities.EntitiesResourceWithRawResponse:
+        from .resources.entities import EntitiesResourceWithRawResponse
+
+        return EntitiesResourceWithRawResponse(self._client.entities)
+
+    @cached_property
+    def sandbox(self) -> sandbox.SandboxResourceWithRawResponse:
+        from .resources.sandbox import SandboxResourceWithRawResponse
+
+        return SandboxResourceWithRawResponse(self._client.sandbox)
+
+    @cached_property
+    def scrape(self) -> scrape.ScrapeResourceWithRawResponse:
+        from .resources.scrape import ScrapeResourceWithRawResponse
+
+        return ScrapeResourceWithRawResponse(self._client.scrape)
+
+    @cached_property
+    def code(self) -> code.CodeResourceWithRawResponse:
+        from .resources.code import CodeResourceWithRawResponse
+
+        return CodeResourceWithRawResponse(self._client.code)
+
+    @cached_property
+    def structure(self) -> structure.StructureResourceWithRawResponse:
+        from .resources.structure import StructureResourceWithRawResponse
+
+        return StructureResourceWithRawResponse(self._client.structure)
+
+    @cached_property
+    def public_sessions(self) -> public_sessions.PublicSessionsResourceWithRawResponse:
+        from .resources.public_sessions import PublicSessionsResourceWithRawResponse
+
+        return PublicSessionsResourceWithRawResponse(self._client.public_sessions)
+
+    @cached_property
+    def external(self) -> external.ExternalResourceWithRawResponse:
+        from .resources.external import ExternalResourceWithRawResponse
+
+        return ExternalResourceWithRawResponse(self._client.external)
+
+    @cached_property
+    def slack(self) -> slack.SlackResourceWithRawResponse:
+        from .resources.slack import SlackResourceWithRawResponse
+
+        return SlackResourceWithRawResponse(self._client.slack)
 
 
 class AsyncStructifyWithRawResponse:
+    _client: AsyncStructify
+
     def __init__(self, client: AsyncStructify) -> None:
-        self.user = user.AsyncUserResourceWithRawResponse(client.user)
-        self.chat = chat.AsyncChatResourceWithRawResponse(client.chat)
-        self.teams = teams.AsyncTeamsResourceWithRawResponse(client.teams)
-        self.wiki = wiki.AsyncWikiResourceWithRawResponse(client.wiki)
-        self.projects = projects.AsyncProjectsResourceWithRawResponse(client.projects)
-        self.admin = admin.AsyncAdminResourceWithRawResponse(client.admin)
-        self.datasets = datasets.AsyncDatasetsResourceWithRawResponse(client.datasets)
-        self.documents = documents.AsyncDocumentsResourceWithRawResponse(client.documents)
-        self.jobs = jobs.AsyncJobsResourceWithRawResponse(client.jobs)
-        self.match = match.AsyncMatchResourceWithRawResponse(client.match)
-        self.sessions = sessions.AsyncSessionsResourceWithRawResponse(client.sessions)
-        self.workflow_schedule = workflow_schedule.AsyncWorkflowScheduleResourceWithRawResponse(
-            client.workflow_schedule
-        )
-        self.workflow = workflow.AsyncWorkflowResourceWithRawResponse(client.workflow)
-        self.connectors = connectors.AsyncConnectorsResourceWithRawResponse(client.connectors)
-        self.server = server.AsyncServerResourceWithRawResponse(client.server)
-        self.sources = sources.AsyncSourcesResourceWithRawResponse(client.sources)
-        self.entities = entities.AsyncEntitiesResourceWithRawResponse(client.entities)
-        self.sandbox = sandbox.AsyncSandboxResourceWithRawResponse(client.sandbox)
-        self.scrape = scrape.AsyncScrapeResourceWithRawResponse(client.scrape)
-        self.code = code.AsyncCodeResourceWithRawResponse(client.code)
-        self.structure = structure.AsyncStructureResourceWithRawResponse(client.structure)
-        self.public_sessions = public_sessions.AsyncPublicSessionsResourceWithRawResponse(client.public_sessions)
-        self.external = external.AsyncExternalResourceWithRawResponse(client.external)
-        self.slack = slack.AsyncSlackResourceWithRawResponse(client.slack)
+        self._client = client
+
+    @cached_property
+    def user(self) -> user.AsyncUserResourceWithRawResponse:
+        from .resources.user import AsyncUserResourceWithRawResponse
+
+        return AsyncUserResourceWithRawResponse(self._client.user)
+
+    @cached_property
+    def chat(self) -> chat.AsyncChatResourceWithRawResponse:
+        from .resources.chat import AsyncChatResourceWithRawResponse
+
+        return AsyncChatResourceWithRawResponse(self._client.chat)
+
+    @cached_property
+    def teams(self) -> teams.AsyncTeamsResourceWithRawResponse:
+        from .resources.teams import AsyncTeamsResourceWithRawResponse
+
+        return AsyncTeamsResourceWithRawResponse(self._client.teams)
+
+    @cached_property
+    def wiki(self) -> wiki.AsyncWikiResourceWithRawResponse:
+        from .resources.wiki import AsyncWikiResourceWithRawResponse
+
+        return AsyncWikiResourceWithRawResponse(self._client.wiki)
+
+    @cached_property
+    def projects(self) -> projects.AsyncProjectsResourceWithRawResponse:
+        from .resources.projects import AsyncProjectsResourceWithRawResponse
+
+        return AsyncProjectsResourceWithRawResponse(self._client.projects)
+
+    @cached_property
+    def admin(self) -> admin.AsyncAdminResourceWithRawResponse:
+        from .resources.admin import AsyncAdminResourceWithRawResponse
+
+        return AsyncAdminResourceWithRawResponse(self._client.admin)
+
+    @cached_property
+    def datasets(self) -> datasets.AsyncDatasetsResourceWithRawResponse:
+        from .resources.datasets import AsyncDatasetsResourceWithRawResponse
+
+        return AsyncDatasetsResourceWithRawResponse(self._client.datasets)
+
+    @cached_property
+    def documents(self) -> documents.AsyncDocumentsResourceWithRawResponse:
+        from .resources.documents import AsyncDocumentsResourceWithRawResponse
+
+        return AsyncDocumentsResourceWithRawResponse(self._client.documents)
+
+    @cached_property
+    def jobs(self) -> jobs.AsyncJobsResourceWithRawResponse:
+        from .resources.jobs import AsyncJobsResourceWithRawResponse
+
+        return AsyncJobsResourceWithRawResponse(self._client.jobs)
+
+    @cached_property
+    def match(self) -> match.AsyncMatchResourceWithRawResponse:
+        from .resources.match import AsyncMatchResourceWithRawResponse
+
+        return AsyncMatchResourceWithRawResponse(self._client.match)
+
+    @cached_property
+    def sessions(self) -> sessions.AsyncSessionsResourceWithRawResponse:
+        from .resources.sessions import AsyncSessionsResourceWithRawResponse
+
+        return AsyncSessionsResourceWithRawResponse(self._client.sessions)
+
+    @cached_property
+    def workflow_schedule(self) -> workflow_schedule.AsyncWorkflowScheduleResourceWithRawResponse:
+        from .resources.workflow_schedule import AsyncWorkflowScheduleResourceWithRawResponse
+
+        return AsyncWorkflowScheduleResourceWithRawResponse(self._client.workflow_schedule)
+
+    @cached_property
+    def workflow(self) -> workflow.AsyncWorkflowResourceWithRawResponse:
+        from .resources.workflow import AsyncWorkflowResourceWithRawResponse
+
+        return AsyncWorkflowResourceWithRawResponse(self._client.workflow)
+
+    @cached_property
+    def connectors(self) -> connectors.AsyncConnectorsResourceWithRawResponse:
+        from .resources.connectors import AsyncConnectorsResourceWithRawResponse
+
+        return AsyncConnectorsResourceWithRawResponse(self._client.connectors)
+
+    @cached_property
+    def server(self) -> server.AsyncServerResourceWithRawResponse:
+        from .resources.server import AsyncServerResourceWithRawResponse
+
+        return AsyncServerResourceWithRawResponse(self._client.server)
+
+    @cached_property
+    def sources(self) -> sources.AsyncSourcesResourceWithRawResponse:
+        from .resources.sources import AsyncSourcesResourceWithRawResponse
+
+        return AsyncSourcesResourceWithRawResponse(self._client.sources)
+
+    @cached_property
+    def entities(self) -> entities.AsyncEntitiesResourceWithRawResponse:
+        from .resources.entities import AsyncEntitiesResourceWithRawResponse
+
+        return AsyncEntitiesResourceWithRawResponse(self._client.entities)
+
+    @cached_property
+    def sandbox(self) -> sandbox.AsyncSandboxResourceWithRawResponse:
+        from .resources.sandbox import AsyncSandboxResourceWithRawResponse
+
+        return AsyncSandboxResourceWithRawResponse(self._client.sandbox)
+
+    @cached_property
+    def scrape(self) -> scrape.AsyncScrapeResourceWithRawResponse:
+        from .resources.scrape import AsyncScrapeResourceWithRawResponse
+
+        return AsyncScrapeResourceWithRawResponse(self._client.scrape)
+
+    @cached_property
+    def code(self) -> code.AsyncCodeResourceWithRawResponse:
+        from .resources.code import AsyncCodeResourceWithRawResponse
+
+        return AsyncCodeResourceWithRawResponse(self._client.code)
+
+    @cached_property
+    def structure(self) -> structure.AsyncStructureResourceWithRawResponse:
+        from .resources.structure import AsyncStructureResourceWithRawResponse
+
+        return AsyncStructureResourceWithRawResponse(self._client.structure)
+
+    @cached_property
+    def public_sessions(self) -> public_sessions.AsyncPublicSessionsResourceWithRawResponse:
+        from .resources.public_sessions import AsyncPublicSessionsResourceWithRawResponse
+
+        return AsyncPublicSessionsResourceWithRawResponse(self._client.public_sessions)
+
+    @cached_property
+    def external(self) -> external.AsyncExternalResourceWithRawResponse:
+        from .resources.external import AsyncExternalResourceWithRawResponse
+
+        return AsyncExternalResourceWithRawResponse(self._client.external)
+
+    @cached_property
+    def slack(self) -> slack.AsyncSlackResourceWithRawResponse:
+        from .resources.slack import AsyncSlackResourceWithRawResponse
+
+        return AsyncSlackResourceWithRawResponse(self._client.slack)
 
 
 class StructifyWithStreamedResponse:
+    _client: Structify
+
     def __init__(self, client: Structify) -> None:
-        self.user = user.UserResourceWithStreamingResponse(client.user)
-        self.chat = chat.ChatResourceWithStreamingResponse(client.chat)
-        self.teams = teams.TeamsResourceWithStreamingResponse(client.teams)
-        self.wiki = wiki.WikiResourceWithStreamingResponse(client.wiki)
-        self.projects = projects.ProjectsResourceWithStreamingResponse(client.projects)
-        self.admin = admin.AdminResourceWithStreamingResponse(client.admin)
-        self.datasets = datasets.DatasetsResourceWithStreamingResponse(client.datasets)
-        self.documents = documents.DocumentsResourceWithStreamingResponse(client.documents)
-        self.jobs = jobs.JobsResourceWithStreamingResponse(client.jobs)
-        self.match = match.MatchResourceWithStreamingResponse(client.match)
-        self.sessions = sessions.SessionsResourceWithStreamingResponse(client.sessions)
-        self.workflow_schedule = workflow_schedule.WorkflowScheduleResourceWithStreamingResponse(
-            client.workflow_schedule
-        )
-        self.workflow = workflow.WorkflowResourceWithStreamingResponse(client.workflow)
-        self.connectors = connectors.ConnectorsResourceWithStreamingResponse(client.connectors)
-        self.server = server.ServerResourceWithStreamingResponse(client.server)
-        self.sources = sources.SourcesResourceWithStreamingResponse(client.sources)
-        self.entities = entities.EntitiesResourceWithStreamingResponse(client.entities)
-        self.sandbox = sandbox.SandboxResourceWithStreamingResponse(client.sandbox)
-        self.scrape = scrape.ScrapeResourceWithStreamingResponse(client.scrape)
-        self.code = code.CodeResourceWithStreamingResponse(client.code)
-        self.structure = structure.StructureResourceWithStreamingResponse(client.structure)
-        self.public_sessions = public_sessions.PublicSessionsResourceWithStreamingResponse(client.public_sessions)
-        self.polars = polars.PolarsResourceWithStreamingResponse(client.polars)
-        self.external = external.ExternalResourceWithStreamingResponse(client.external)
-        self.slack = slack.SlackResourceWithStreamingResponse(client.slack)
+        self._client = client
+
+    @cached_property
+    def user(self) -> user.UserResourceWithStreamingResponse:
+        from .resources.user import UserResourceWithStreamingResponse
+
+        return UserResourceWithStreamingResponse(self._client.user)
+
+    @cached_property
+    def chat(self) -> chat.ChatResourceWithStreamingResponse:
+        from .resources.chat import ChatResourceWithStreamingResponse
+
+        return ChatResourceWithStreamingResponse(self._client.chat)
+
+    @cached_property
+    def teams(self) -> teams.TeamsResourceWithStreamingResponse:
+        from .resources.teams import TeamsResourceWithStreamingResponse
+
+        return TeamsResourceWithStreamingResponse(self._client.teams)
+
+    @cached_property
+    def wiki(self) -> wiki.WikiResourceWithStreamingResponse:
+        from .resources.wiki import WikiResourceWithStreamingResponse
+
+        return WikiResourceWithStreamingResponse(self._client.wiki)
+
+    @cached_property
+    def projects(self) -> projects.ProjectsResourceWithStreamingResponse:
+        from .resources.projects import ProjectsResourceWithStreamingResponse
+
+        return ProjectsResourceWithStreamingResponse(self._client.projects)
+
+    @cached_property
+    def polars(self) -> polars.PolarsResourceWithStreamingResponse:
+        from .resources.polars import PolarsResourceWithStreamingResponse
+
+        return PolarsResourceWithStreamingResponse(self._client.polars)
+
+    @cached_property
+    def admin(self) -> admin.AdminResourceWithStreamingResponse:
+        from .resources.admin import AdminResourceWithStreamingResponse
+
+        return AdminResourceWithStreamingResponse(self._client.admin)
+
+    @cached_property
+    def datasets(self) -> datasets.DatasetsResourceWithStreamingResponse:
+        from .resources.datasets import DatasetsResourceWithStreamingResponse
+
+        return DatasetsResourceWithStreamingResponse(self._client.datasets)
+
+    @cached_property
+    def documents(self) -> documents.DocumentsResourceWithStreamingResponse:
+        from .resources.documents import DocumentsResourceWithStreamingResponse
+
+        return DocumentsResourceWithStreamingResponse(self._client.documents)
+
+    @cached_property
+    def jobs(self) -> jobs.JobsResourceWithStreamingResponse:
+        from .resources.jobs import JobsResourceWithStreamingResponse
+
+        return JobsResourceWithStreamingResponse(self._client.jobs)
+
+    @cached_property
+    def match(self) -> match.MatchResourceWithStreamingResponse:
+        from .resources.match import MatchResourceWithStreamingResponse
+
+        return MatchResourceWithStreamingResponse(self._client.match)
+
+    @cached_property
+    def sessions(self) -> sessions.SessionsResourceWithStreamingResponse:
+        from .resources.sessions import SessionsResourceWithStreamingResponse
+
+        return SessionsResourceWithStreamingResponse(self._client.sessions)
+
+    @cached_property
+    def workflow_schedule(self) -> workflow_schedule.WorkflowScheduleResourceWithStreamingResponse:
+        from .resources.workflow_schedule import WorkflowScheduleResourceWithStreamingResponse
+
+        return WorkflowScheduleResourceWithStreamingResponse(self._client.workflow_schedule)
+
+    @cached_property
+    def workflow(self) -> workflow.WorkflowResourceWithStreamingResponse:
+        from .resources.workflow import WorkflowResourceWithStreamingResponse
+
+        return WorkflowResourceWithStreamingResponse(self._client.workflow)
+
+    @cached_property
+    def connectors(self) -> connectors.ConnectorsResourceWithStreamingResponse:
+        from .resources.connectors import ConnectorsResourceWithStreamingResponse
+
+        return ConnectorsResourceWithStreamingResponse(self._client.connectors)
+
+    @cached_property
+    def server(self) -> server.ServerResourceWithStreamingResponse:
+        from .resources.server import ServerResourceWithStreamingResponse
+
+        return ServerResourceWithStreamingResponse(self._client.server)
+
+    @cached_property
+    def sources(self) -> sources.SourcesResourceWithStreamingResponse:
+        from .resources.sources import SourcesResourceWithStreamingResponse
+
+        return SourcesResourceWithStreamingResponse(self._client.sources)
+
+    @cached_property
+    def entities(self) -> entities.EntitiesResourceWithStreamingResponse:
+        from .resources.entities import EntitiesResourceWithStreamingResponse
+
+        return EntitiesResourceWithStreamingResponse(self._client.entities)
+
+    @cached_property
+    def sandbox(self) -> sandbox.SandboxResourceWithStreamingResponse:
+        from .resources.sandbox import SandboxResourceWithStreamingResponse
+
+        return SandboxResourceWithStreamingResponse(self._client.sandbox)
+
+    @cached_property
+    def scrape(self) -> scrape.ScrapeResourceWithStreamingResponse:
+        from .resources.scrape import ScrapeResourceWithStreamingResponse
+
+        return ScrapeResourceWithStreamingResponse(self._client.scrape)
+
+    @cached_property
+    def code(self) -> code.CodeResourceWithStreamingResponse:
+        from .resources.code import CodeResourceWithStreamingResponse
+
+        return CodeResourceWithStreamingResponse(self._client.code)
+
+    @cached_property
+    def structure(self) -> structure.StructureResourceWithStreamingResponse:
+        from .resources.structure import StructureResourceWithStreamingResponse
+
+        return StructureResourceWithStreamingResponse(self._client.structure)
+
+    @cached_property
+    def public_sessions(self) -> public_sessions.PublicSessionsResourceWithStreamingResponse:
+        from .resources.public_sessions import PublicSessionsResourceWithStreamingResponse
+
+        return PublicSessionsResourceWithStreamingResponse(self._client.public_sessions)
+
+    @cached_property
+    def external(self) -> external.ExternalResourceWithStreamingResponse:
+        from .resources.external import ExternalResourceWithStreamingResponse
+
+        return ExternalResourceWithStreamingResponse(self._client.external)
+
+    @cached_property
+    def slack(self) -> slack.SlackResourceWithStreamingResponse:
+        from .resources.slack import SlackResourceWithStreamingResponse
+
+        return SlackResourceWithStreamingResponse(self._client.slack)
 
 
 class AsyncStructifyWithStreamedResponse:
+    _client: AsyncStructify
+
     def __init__(self, client: AsyncStructify) -> None:
-        self.user = user.AsyncUserResourceWithStreamingResponse(client.user)
-        self.chat = chat.AsyncChatResourceWithStreamingResponse(client.chat)
-        self.teams = teams.AsyncTeamsResourceWithStreamingResponse(client.teams)
-        self.wiki = wiki.AsyncWikiResourceWithStreamingResponse(client.wiki)
-        self.projects = projects.AsyncProjectsResourceWithStreamingResponse(client.projects)
-        self.admin = admin.AsyncAdminResourceWithStreamingResponse(client.admin)
-        self.datasets = datasets.AsyncDatasetsResourceWithStreamingResponse(client.datasets)
-        self.documents = documents.AsyncDocumentsResourceWithStreamingResponse(client.documents)
-        self.jobs = jobs.AsyncJobsResourceWithStreamingResponse(client.jobs)
-        self.match = match.AsyncMatchResourceWithStreamingResponse(client.match)
-        self.sessions = sessions.AsyncSessionsResourceWithStreamingResponse(client.sessions)
-        self.workflow_schedule = workflow_schedule.AsyncWorkflowScheduleResourceWithStreamingResponse(
-            client.workflow_schedule
-        )
-        self.workflow = workflow.AsyncWorkflowResourceWithStreamingResponse(client.workflow)
-        self.connectors = connectors.AsyncConnectorsResourceWithStreamingResponse(client.connectors)
-        self.server = server.AsyncServerResourceWithStreamingResponse(client.server)
-        self.sources = sources.AsyncSourcesResourceWithStreamingResponse(client.sources)
-        self.entities = entities.AsyncEntitiesResourceWithStreamingResponse(client.entities)
-        self.sandbox = sandbox.AsyncSandboxResourceWithStreamingResponse(client.sandbox)
-        self.scrape = scrape.AsyncScrapeResourceWithStreamingResponse(client.scrape)
-        self.code = code.AsyncCodeResourceWithStreamingResponse(client.code)
-        self.structure = structure.AsyncStructureResourceWithStreamingResponse(client.structure)
-        self.public_sessions = public_sessions.AsyncPublicSessionsResourceWithStreamingResponse(client.public_sessions)
-        self.external = external.AsyncExternalResourceWithStreamingResponse(client.external)
-        self.slack = slack.AsyncSlackResourceWithStreamingResponse(client.slack)
+        self._client = client
+
+    @cached_property
+    def user(self) -> user.AsyncUserResourceWithStreamingResponse:
+        from .resources.user import AsyncUserResourceWithStreamingResponse
+
+        return AsyncUserResourceWithStreamingResponse(self._client.user)
+
+    @cached_property
+    def chat(self) -> chat.AsyncChatResourceWithStreamingResponse:
+        from .resources.chat import AsyncChatResourceWithStreamingResponse
+
+        return AsyncChatResourceWithStreamingResponse(self._client.chat)
+
+    @cached_property
+    def teams(self) -> teams.AsyncTeamsResourceWithStreamingResponse:
+        from .resources.teams import AsyncTeamsResourceWithStreamingResponse
+
+        return AsyncTeamsResourceWithStreamingResponse(self._client.teams)
+
+    @cached_property
+    def wiki(self) -> wiki.AsyncWikiResourceWithStreamingResponse:
+        from .resources.wiki import AsyncWikiResourceWithStreamingResponse
+
+        return AsyncWikiResourceWithStreamingResponse(self._client.wiki)
+
+    @cached_property
+    def projects(self) -> projects.AsyncProjectsResourceWithStreamingResponse:
+        from .resources.projects import AsyncProjectsResourceWithStreamingResponse
+
+        return AsyncProjectsResourceWithStreamingResponse(self._client.projects)
+
+    @cached_property
+    def admin(self) -> admin.AsyncAdminResourceWithStreamingResponse:
+        from .resources.admin import AsyncAdminResourceWithStreamingResponse
+
+        return AsyncAdminResourceWithStreamingResponse(self._client.admin)
+
+    @cached_property
+    def datasets(self) -> datasets.AsyncDatasetsResourceWithStreamingResponse:
+        from .resources.datasets import AsyncDatasetsResourceWithStreamingResponse
+
+        return AsyncDatasetsResourceWithStreamingResponse(self._client.datasets)
+
+    @cached_property
+    def documents(self) -> documents.AsyncDocumentsResourceWithStreamingResponse:
+        from .resources.documents import AsyncDocumentsResourceWithStreamingResponse
+
+        return AsyncDocumentsResourceWithStreamingResponse(self._client.documents)
+
+    @cached_property
+    def jobs(self) -> jobs.AsyncJobsResourceWithStreamingResponse:
+        from .resources.jobs import AsyncJobsResourceWithStreamingResponse
+
+        return AsyncJobsResourceWithStreamingResponse(self._client.jobs)
+
+    @cached_property
+    def match(self) -> match.AsyncMatchResourceWithStreamingResponse:
+        from .resources.match import AsyncMatchResourceWithStreamingResponse
+
+        return AsyncMatchResourceWithStreamingResponse(self._client.match)
+
+    @cached_property
+    def sessions(self) -> sessions.AsyncSessionsResourceWithStreamingResponse:
+        from .resources.sessions import AsyncSessionsResourceWithStreamingResponse
+
+        return AsyncSessionsResourceWithStreamingResponse(self._client.sessions)
+
+    @cached_property
+    def workflow_schedule(self) -> workflow_schedule.AsyncWorkflowScheduleResourceWithStreamingResponse:
+        from .resources.workflow_schedule import AsyncWorkflowScheduleResourceWithStreamingResponse
+
+        return AsyncWorkflowScheduleResourceWithStreamingResponse(self._client.workflow_schedule)
+
+    @cached_property
+    def workflow(self) -> workflow.AsyncWorkflowResourceWithStreamingResponse:
+        from .resources.workflow import AsyncWorkflowResourceWithStreamingResponse
+
+        return AsyncWorkflowResourceWithStreamingResponse(self._client.workflow)
+
+    @cached_property
+    def connectors(self) -> connectors.AsyncConnectorsResourceWithStreamingResponse:
+        from .resources.connectors import AsyncConnectorsResourceWithStreamingResponse
+
+        return AsyncConnectorsResourceWithStreamingResponse(self._client.connectors)
+
+    @cached_property
+    def server(self) -> server.AsyncServerResourceWithStreamingResponse:
+        from .resources.server import AsyncServerResourceWithStreamingResponse
+
+        return AsyncServerResourceWithStreamingResponse(self._client.server)
+
+    @cached_property
+    def sources(self) -> sources.AsyncSourcesResourceWithStreamingResponse:
+        from .resources.sources import AsyncSourcesResourceWithStreamingResponse
+
+        return AsyncSourcesResourceWithStreamingResponse(self._client.sources)
+
+    @cached_property
+    def entities(self) -> entities.AsyncEntitiesResourceWithStreamingResponse:
+        from .resources.entities import AsyncEntitiesResourceWithStreamingResponse
+
+        return AsyncEntitiesResourceWithStreamingResponse(self._client.entities)
+
+    @cached_property
+    def sandbox(self) -> sandbox.AsyncSandboxResourceWithStreamingResponse:
+        from .resources.sandbox import AsyncSandboxResourceWithStreamingResponse
+
+        return AsyncSandboxResourceWithStreamingResponse(self._client.sandbox)
+
+    @cached_property
+    def scrape(self) -> scrape.AsyncScrapeResourceWithStreamingResponse:
+        from .resources.scrape import AsyncScrapeResourceWithStreamingResponse
+
+        return AsyncScrapeResourceWithStreamingResponse(self._client.scrape)
+
+    @cached_property
+    def code(self) -> code.AsyncCodeResourceWithStreamingResponse:
+        from .resources.code import AsyncCodeResourceWithStreamingResponse
+
+        return AsyncCodeResourceWithStreamingResponse(self._client.code)
+
+    @cached_property
+    def structure(self) -> structure.AsyncStructureResourceWithStreamingResponse:
+        from .resources.structure import AsyncStructureResourceWithStreamingResponse
+
+        return AsyncStructureResourceWithStreamingResponse(self._client.structure)
+
+    @cached_property
+    def public_sessions(self) -> public_sessions.AsyncPublicSessionsResourceWithStreamingResponse:
+        from .resources.public_sessions import AsyncPublicSessionsResourceWithStreamingResponse
+
+        return AsyncPublicSessionsResourceWithStreamingResponse(self._client.public_sessions)
+
+    @cached_property
+    def external(self) -> external.AsyncExternalResourceWithStreamingResponse:
+        from .resources.external import AsyncExternalResourceWithStreamingResponse
+
+        return AsyncExternalResourceWithStreamingResponse(self._client.external)
+
+    @cached_property
+    def slack(self) -> slack.AsyncSlackResourceWithStreamingResponse:
+        from .resources.slack import AsyncSlackResourceWithStreamingResponse
+
+        return AsyncSlackResourceWithStreamingResponse(self._client.slack)
 
 
 Client = Structify
