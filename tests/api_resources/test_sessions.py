@@ -85,6 +85,7 @@ class TestSessions:
             ],
             nodes=[
                 {
+                    "code": "code",
                     "code_md5_hash": "code_md5_hash",
                     "docstring": "docstring",
                     "function_name": "function_name",
@@ -105,6 +106,7 @@ class TestSessions:
             ],
             nodes=[
                 {
+                    "code": "code",
                     "code_md5_hash": "code_md5_hash",
                     "docstring": "docstring",
                     "function_name": "function_name",
@@ -138,6 +140,7 @@ class TestSessions:
             ],
             nodes=[
                 {
+                    "code": "code",
                     "code_md5_hash": "code_md5_hash",
                     "docstring": "docstring",
                     "function_name": "function_name",
@@ -162,6 +165,7 @@ class TestSessions:
             ],
             nodes=[
                 {
+                    "code": "code",
                     "code_md5_hash": "code_md5_hash",
                     "docstring": "docstring",
                     "function_name": "function_name",
@@ -189,6 +193,7 @@ class TestSessions:
                 ],
                 nodes=[
                     {
+                        "code": "code",
                         "code_md5_hash": "code_md5_hash",
                         "docstring": "docstring",
                         "function_name": "function_name",
@@ -871,6 +876,7 @@ class TestAsyncSessions:
             ],
             nodes=[
                 {
+                    "code": "code",
                     "code_md5_hash": "code_md5_hash",
                     "docstring": "docstring",
                     "function_name": "function_name",
@@ -891,6 +897,7 @@ class TestAsyncSessions:
             ],
             nodes=[
                 {
+                    "code": "code",
                     "code_md5_hash": "code_md5_hash",
                     "docstring": "docstring",
                     "function_name": "function_name",
@@ -924,6 +931,7 @@ class TestAsyncSessions:
             ],
             nodes=[
                 {
+                    "code": "code",
                     "code_md5_hash": "code_md5_hash",
                     "docstring": "docstring",
                     "function_name": "function_name",
@@ -948,6 +956,7 @@ class TestAsyncSessions:
             ],
             nodes=[
                 {
+                    "code": "code",
                     "code_md5_hash": "code_md5_hash",
                     "docstring": "docstring",
                     "function_name": "function_name",
@@ -975,6 +984,7 @@ class TestAsyncSessions:
                 ],
                 nodes=[
                     {
+                        "code": "code",
                         "code_md5_hash": "code_md5_hash",
                         "docstring": "docstring",
                         "function_name": "function_name",
