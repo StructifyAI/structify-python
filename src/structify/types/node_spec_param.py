@@ -9,6 +9,8 @@ __all__ = ["NodeSpecParam"]
 
 
 class NodeSpecParam(TypedDict, total=False):
+    code: Required[str]
+
     code_md5_hash: Required[str]
 
     docstring: Required[str]
