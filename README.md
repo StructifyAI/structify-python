@@ -109,6 +109,67 @@ Nested request parameters are [TypedDicts](https://docs.python.org/3/library/typ
 
 Typed requests and responses provide autocomplete and documentation within your editor. If you would like to see type errors in VS Code to help catch bugs earlier, set `python.analysis.typeCheckingMode` to `basic`.
 
+## Pagination
+
+List methods in the Structify API are paginated.
+
+This library provides auto-paginating iterators with each list response, so you do not have to request successive pages manually:
+
+```python
+from structify import Structify
+
+client = Structify()
+
+all_teams = []
+# Automatically fetches more pages as needed.
+for team in client.admin.teams.list():
+    # Do something with team here
+    all_teams.append(team)
+print(all_teams)
+```
+
+Or, asynchronously:
+
+```python
+import asyncio
+from structify import AsyncStructify
+
+client = AsyncStructify()
+
+
+async def main() -> None:
+    all_teams = []
+    # Iterate through items across all pages, issuing requests as needed.
+    async for team in client.admin.teams.list():
+        all_teams.append(team)
+    print(all_teams)
+
+
+asyncio.run(main())
+```
+
+Alternatively, you can use the `.has_next_page()`, `.next_page_info()`, or `.get_next_page()` methods for more granular control working with pages:
+
+```python
+first_page = await client.admin.teams.list()
+if first_page.has_next_page():
+    print(f"will fetch next page using these details: {first_page.next_page_info()}")
+    next_page = await first_page.get_next_page()
+    print(f"number of items we just fetched: {len(next_page.items)}")
+
+# Remove `await` for non-async usage.
+```
+
+Or just work directly with the returned data:
+
+```python
+first_page = await client.admin.teams.list()
+for team in first_page.items:
+    print(team)
+
+# Remove `await` for non-async usage.
+```
+
 ## Nested params
 
 Nested parameters are dictionaries, typed using `TypedDict`, for example:
