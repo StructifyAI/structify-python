@@ -634,6 +634,57 @@ Methods:
 
 - <code title="put /connector-type-snippets/{connector_type}">client.connectors.type_snippets.<a href="./src/structify/resources/connectors/type_snippets.py">upsert</a>(connector_type, \*\*<a href="src/structify/types/connectors/type_snippet_upsert_params.py">params</a>) -> <a href="./src/structify/types/connectors/snippet.py">Snippet</a></code>
 
+# ConnectorCatalog
+
+Types:
+
+```python
+from structify.types import (
+    ConnectorAuthMethod,
+    ConnectorAuthMethodWithFields,
+    ConnectorCatalog,
+    ConnectorCatalogWithMethods,
+    ConnectorCredentialField,
+    ConnectorCatalogListResponse,
+)
+```
+
+Methods:
+
+- <code title="get /connector-catalog">client.connector_catalog.<a href="./src/structify/resources/connector_catalog/connector_catalog.py">list</a>() -> <a href="./src/structify/types/connector_catalog_list_response.py">ConnectorCatalogListResponse</a></code>
+- <code title="get /connector-catalog/{slug}">client.connector_catalog.<a href="./src/structify/resources/connector_catalog/connector_catalog.py">get</a>(slug) -> <a href="./src/structify/types/connector_catalog_with_methods.py">ConnectorCatalogWithMethods</a></code>
+
+## Admin
+
+Types:
+
+```python
+from structify.types.connector_catalog import (
+    BatchCreateCredentialFieldsRequest,
+    CreateAuthMethodRequest,
+    CreateCatalogRequest,
+    CreateCredentialFieldRequest,
+    PendingNangoIntegration,
+    UpdateAuthMethodRequest,
+    UpdateCatalogRequest,
+    UpdateCredentialFieldRequest,
+    AdminBatchCreateCredentialFieldsResponse,
+    AdminListNangoPendingResponse,
+)
+```
+
+Methods:
+
+- <code title="post /admin/connector-catalog/credential-fields/batch">client.connector_catalog.admin.<a href="./src/structify/resources/connector_catalog/admin.py">batch_create_credential_fields</a>(\*\*<a href="src/structify/types/connector_catalog/admin_batch_create_credential_fields_params.py">params</a>) -> <a href="./src/structify/types/connector_catalog/admin_batch_create_credential_fields_response.py">AdminBatchCreateCredentialFieldsResponse</a></code>
+- <code title="post /admin/connector-catalog/auth-methods">client.connector_catalog.admin.<a href="./src/structify/resources/connector_catalog/admin.py">create_auth_method</a>(\*\*<a href="src/structify/types/connector_catalog/admin_create_auth_method_params.py">params</a>) -> <a href="./src/structify/types/connector_auth_method.py">ConnectorAuthMethod</a></code>
+- <code title="post /admin/connector-catalog">client.connector_catalog.admin.<a href="./src/structify/resources/connector_catalog/admin.py">create_catalog</a>(\*\*<a href="src/structify/types/connector_catalog/admin_create_catalog_params.py">params</a>) -> <a href="./src/structify/types/connector_catalog/connector_catalog.py">ConnectorCatalog</a></code>
+- <code title="post /admin/connector-catalog/credential-fields">client.connector_catalog.admin.<a href="./src/structify/resources/connector_catalog/admin.py">create_credential_field</a>(\*\*<a href="src/structify/types/connector_catalog/admin_create_credential_field_params.py">params</a>) -> <a href="./src/structify/types/connector_credential_field.py">ConnectorCredentialField</a></code>
+- <code title="delete /admin/connector-catalog/credential-fields/{id}">client.connector_catalog.admin.<a href="./src/structify/resources/connector_catalog/admin.py">delete_credential_field</a>(id) -> None</code>
+- <code title="get /admin/connector-catalog/nango-pending">client.connector_catalog.admin.<a href="./src/structify/resources/connector_catalog/admin.py">list_nango_pending</a>() -> <a href="./src/structify/types/connector_catalog/admin_list_nango_pending_response.py">AdminListNangoPendingResponse</a></code>
+- <code title="patch /admin/connector-catalog/auth-methods/{id}">client.connector_catalog.admin.<a href="./src/structify/resources/connector_catalog/admin.py">update_auth_method</a>(id, \*\*<a href="src/structify/types/connector_catalog/admin_update_auth_method_params.py">params</a>) -> <a href="./src/structify/types/connector_auth_method.py">ConnectorAuthMethod</a></code>
+- <code title="patch /admin/connector-catalog/{id}">client.connector_catalog.admin.<a href="./src/structify/resources/connector_catalog/admin.py">update_catalog</a>(id, \*\*<a href="src/structify/types/connector_catalog/admin_update_catalog_params.py">params</a>) -> <a href="./src/structify/types/connector_catalog/connector_catalog.py">ConnectorCatalog</a></code>
+- <code title="patch /admin/connector-catalog/credential-fields/{id}">client.connector_catalog.admin.<a href="./src/structify/resources/connector_catalog/admin.py">update_credential_field</a>(id, \*\*<a href="src/structify/types/connector_catalog/admin_update_credential_field_params.py">params</a>) -> <a href="./src/structify/types/connector_credential_field.py">ConnectorCredentialField</a></code>
+
 # Server
 
 Types:

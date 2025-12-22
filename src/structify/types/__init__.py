@@ -47,6 +47,7 @@ from .dashboard_layout import DashboardLayout as DashboardLayout
 from .save_requirement import SaveRequirement as SaveRequirement
 from .workflow_session import WorkflowSession as WorkflowSession
 from .chat_session_role import ChatSessionRole as ChatSessionRole
+from .connector_catalog import ConnectorCatalog as ConnectorCatalog
 from .entity_add_params import EntityAddParams as EntityAddParams
 from .entity_get_params import EntityGetParams as EntityGetParams
 from .get_team_response import GetTeamResponse as GetTeamResponse
@@ -107,6 +108,7 @@ from .select_team_response import SelectTeamResponse as SelectTeamResponse
 from .source_list_response import SourceListResponse as SourceListResponse
 from .update_team_response import UpdateTeamResponse as UpdateTeamResponse
 from .workflow_stop_params import WorkflowStopParams as WorkflowStopParams
+from .connector_auth_method import ConnectorAuthMethod as ConnectorAuthMethod
 from .connector_list_params import ConnectorListParams as ConnectorListParams
 from .dataset_create_params import DatasetCreateParams as DatasetCreateParams
 from .dataset_delete_params import DatasetDeleteParams as DatasetDeleteParams
@@ -191,6 +193,7 @@ from .chat_create_session_params import ChatCreateSessionParams as ChatCreateSes
 from .chat_delete_files_response import ChatDeleteFilesResponse as ChatDeleteFilesResponse
 from .chat_session_with_messages import ChatSessionWithMessages as ChatSessionWithMessages
 from .chat_update_session_params import ChatUpdateSessionParams as ChatUpdateSessionParams
+from .connector_credential_field import ConnectorCredentialField as ConnectorCredentialField
 from .create_match_jobs_response import CreateMatchJobsResponse as CreateMatchJobsResponse
 from .document_download_response import DocumentDownloadResponse as DocumentDownloadResponse
 from .entity_derive_all_response import EntityDeriveAllResponse as EntityDeriveAllResponse
@@ -240,6 +243,7 @@ from .session_create_session_params import SessionCreateSessionParams as Session
 from .structure_job_status_response import StructureJobStatusResponse as StructureJobStatusResponse
 from .team_accept_invitation_params import TeamAcceptInvitationParams as TeamAcceptInvitationParams
 from .chat_revert_to_commit_response import ChatRevertToCommitResponse as ChatRevertToCommitResponse
+from .connector_catalog_with_methods import ConnectorCatalogWithMethods as ConnectorCatalogWithMethods
 from .connector_create_secret_params import ConnectorCreateSecretParams as ConnectorCreateSecretParams
 from .connector_search_tables_params import ConnectorSearchTablesParams as ConnectorSearchTablesParams
 from .connector_update_column_params import ConnectorUpdateColumnParams as ConnectorUpdateColumnParams
@@ -253,6 +257,7 @@ from .team_update_member_role_params import TeamUpdateMemberRoleParams as TeamUp
 from .workflow_node_execution_status import WorkflowNodeExecutionStatus as WorkflowNodeExecutionStatus
 from .workflow_schedule_pause_params import WorkflowSchedulePauseParams as WorkflowSchedulePauseParams
 from .chat_get_partial_chats_response import ChatGetPartialChatsResponse as ChatGetPartialChatsResponse
+from .connector_catalog_list_response import ConnectorCatalogListResponse as ConnectorCatalogListResponse
 from .entity_update_property_response import EntityUpdatePropertyResponse as EntityUpdatePropertyResponse
 from .workflow_schedule_create_params import WorkflowScheduleCreateParams as WorkflowScheduleCreateParams
 from .workflow_schedule_update_params import WorkflowScheduleUpdateParams as WorkflowScheduleUpdateParams
@@ -264,6 +269,7 @@ from .entity_get_local_subgraph_params import EntityGetLocalSubgraphParams as En
 from .job_get_source_entities_response import JobGetSourceEntitiesResponse as JobGetSourceEntitiesResponse
 from .nango_list_integrations_response import NangoListIntegrationsResponse as NangoListIntegrationsResponse
 from .project_collaborator_input_param import ProjectCollaboratorInputParam as ProjectCollaboratorInputParam
+from .connector_auth_method_with_fields import ConnectorAuthMethodWithFields as ConnectorAuthMethodWithFields
 from .dataset_reorder_properties_params import DatasetReorderPropertiesParams as DatasetReorderPropertiesParams
 from .dataset_set_primary_column_params import DatasetSetPrimaryColumnParams as DatasetSetPrimaryColumnParams
 from .dataset_view_relationships_params import DatasetViewRelationshipsParams as DatasetViewRelationshipsParams
