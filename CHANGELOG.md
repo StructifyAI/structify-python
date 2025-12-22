@@ -1,5 +1,44 @@
 # Changelog
 
+## 1.167.0 (2025-12-22)
+
+Full Changelog: [v1.166.0...v1.167.0](https://github.com/StructifyAI/structify-python/compare/v1.166.0...v1.167.0)
+
+### Features
+
+* **api:** api update ([b331e11](https://github.com/StructifyAI/structify-python/commit/b331e1124753b3c1252b5bd28ced806a4c98e2c8))
+* **api:** api update ([56dc4b5](https://github.com/StructifyAI/structify-python/commit/56dc4b567732fe1bc10acd4552838697e885d30a))
+* **api:** api update ([ffd7751](https://github.com/StructifyAI/structify-python/commit/ffd775187838e36f62ff27191d3d109b1ce48c9b))
+* **api:** api update ([5528369](https://github.com/StructifyAI/structify-python/commit/55283698f3fac8cdb0b0666e4257504bb1c5dab6))
+* **api:** api update ([8b60db4](https://github.com/StructifyAI/structify-python/commit/8b60db4dd581a8d340e771609dac85b2d56e3692))
+* **api:** api update ([c49df88](https://github.com/StructifyAI/structify-python/commit/c49df88173e349afd9ec82bb251d15fd406ddb73))
+* **api:** manual updates ([df9bfe8](https://github.com/StructifyAI/structify-python/commit/df9bfe86a8703e0aa4c4058306250d8ec9032b77))
+* **api:** manual updates ([71df800](https://github.com/StructifyAI/structify-python/commit/71df800535e601373ea5fda51827fa62b90abefc))
+* Update from Structify backend changes ([54893a1](https://github.com/StructifyAI/structify-python/commit/54893a18977fa7d7494a125d4536dd8d8569a639))
+* Update from Structify backend changes ([54054a2](https://github.com/StructifyAI/structify-python/commit/54054a2edd670aa2e48fb4f346b7c24067e58877))
+* Update from Structify backend changes ([ff29b0f](https://github.com/StructifyAI/structify-python/commit/ff29b0fd5800f020b2264677f172c088907bbe48))
+* Update from Structify backend changes ([5211916](https://github.com/StructifyAI/structify-python/commit/52119160e04a46a96ed018953faba47b7603b8aa))
+* Update from Structify backend changes ([c020520](https://github.com/StructifyAI/structify-python/commit/c020520473cfa28f227910e2ae8b4fa81e435ef9))
+* Update from Structify backend changes ([798dbdf](https://github.com/StructifyAI/structify-python/commit/798dbdfe61c2cf9fe8925cd94bd1134eae812849))
+* Update from Structify backend changes ([b696755](https://github.com/StructifyAI/structify-python/commit/b696755523f4c149640f9306144b138ff68b8d5d))
+
+
+### Bug Fixes
+
+* use async_to_httpx_files in patch method ([a2a8f0a](https://github.com/StructifyAI/structify-python/commit/a2a8f0af901bd45b366a3ee56b3c5be9e3366879))
+
+
+### Chores
+
+* **internal:** add `--fix` argument to lint script ([1f206db](https://github.com/StructifyAI/structify-python/commit/1f206dbed79d4c46ac5b133a68cde41b1c8eb30a))
+* **internal:** add missing files argument to base client ([3735e22](https://github.com/StructifyAI/structify-python/commit/3735e22380259559e07aa1db4925d0745a7daa7e))
+* speedup initial import ([e14d34c](https://github.com/StructifyAI/structify-python/commit/e14d34ceec704c70bc87d1d40fe78b89c42e2fb5))
+
+
+### Documentation
+
+* add more examples ([4427c53](https://github.com/StructifyAI/structify-python/commit/4427c53295ac7169cb1353c8d5a1436985d994eb))
+
 ## 1.166.0 (2025-12-09)
 
 Full Changelog: [v1.165.0...v1.166.0](https://github.com/StructifyAI/structify-python/compare/v1.165.0...v1.166.0)
