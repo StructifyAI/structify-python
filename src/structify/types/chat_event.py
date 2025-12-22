@@ -176,13 +176,13 @@ class ToolCallToolCallUnionMember1(BaseModel):
 
 
 class ToolCallToolCallUnionMember2Input(BaseModel):
-    node_function_name: str
+    step_name: str
 
 
 class ToolCallToolCallUnionMember2(BaseModel):
     input: ToolCallToolCallUnionMember2Input
 
-    name: Literal["InspectDAG"]
+    name: Literal["InspectStep"]
 
     block_id: Optional[int] = None
 
