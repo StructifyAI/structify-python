@@ -43,15 +43,7 @@ class UserInfo(BaseModel):
 
     username: str
 
-    company_description: Optional[str] = None
-
-    company_name: Optional[str] = None
-
-    job_title: Optional[str] = None
-
     last_selected_team_id: Optional[str] = None
-
-    linkedin_url: Optional[str] = None
 
     onboarding_session_id: Optional[str] = None
 
