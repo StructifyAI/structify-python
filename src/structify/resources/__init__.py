@@ -192,14 +192,6 @@ from .public_sessions import (
     PublicSessionsResourceWithStreamingResponse,
     AsyncPublicSessionsResourceWithStreamingResponse,
 )
-from .connector_catalog import (
-    ConnectorCatalogResource,
-    AsyncConnectorCatalogResource,
-    ConnectorCatalogResourceWithRawResponse,
-    AsyncConnectorCatalogResourceWithRawResponse,
-    ConnectorCatalogResourceWithStreamingResponse,
-    AsyncConnectorCatalogResourceWithStreamingResponse,
-)
 from .workflow_schedule import (
     WorkflowScheduleResource,
     AsyncWorkflowScheduleResource,
@@ -294,12 +286,6 @@ __all__ = [
     "AsyncConnectorsResourceWithRawResponse",
     "ConnectorsResourceWithStreamingResponse",
     "AsyncConnectorsResourceWithStreamingResponse",
-    "ConnectorCatalogResource",
-    "AsyncConnectorCatalogResource",
-    "ConnectorCatalogResourceWithRawResponse",
-    "AsyncConnectorCatalogResourceWithRawResponse",
-    "ConnectorCatalogResourceWithStreamingResponse",
-    "AsyncConnectorCatalogResourceWithStreamingResponse",
     "ServerResource",
     "AsyncServerResource",
     "ServerResourceWithRawResponse",
