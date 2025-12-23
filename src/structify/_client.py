@@ -58,7 +58,6 @@ if TYPE_CHECKING:
         structure,
         connectors,
         public_sessions,
-        connector_catalog,
         workflow_schedule,
     )
     from .resources.chat import ChatResource, AsyncChatResource
@@ -87,7 +86,6 @@ if TYPE_CHECKING:
     from .resources.external.external import ExternalResource, AsyncExternalResource
     from .resources.workflow_schedule import WorkflowScheduleResource, AsyncWorkflowScheduleResource
     from .resources.connectors.connectors import ConnectorsResource, AsyncConnectorsResource
-    from .resources.connector_catalog.connector_catalog import ConnectorCatalogResource, AsyncConnectorCatalogResource
 
 __all__ = [
     "ENVIRONMENTS",
@@ -279,12 +277,6 @@ class Structify(SyncAPIClient):
         from .resources.connectors import ConnectorsResource
 
         return ConnectorsResource(self)
-
-    @cached_property
-    def connector_catalog(self) -> ConnectorCatalogResource:
-        from .resources.connector_catalog import ConnectorCatalogResource
-
-        return ConnectorCatalogResource(self)
 
     @cached_property
     def server(self) -> ServerResource:
@@ -666,12 +658,6 @@ class AsyncStructify(AsyncAPIClient):
         return AsyncConnectorsResource(self)
 
     @cached_property
-    def connector_catalog(self) -> AsyncConnectorCatalogResource:
-        from .resources.connector_catalog import AsyncConnectorCatalogResource
-
-        return AsyncConnectorCatalogResource(self)
-
-    @cached_property
     def server(self) -> AsyncServerResource:
         from .resources.server import AsyncServerResource
 
@@ -980,12 +966,6 @@ class StructifyWithRawResponse:
         return ConnectorsResourceWithRawResponse(self._client.connectors)
 
     @cached_property
-    def connector_catalog(self) -> connector_catalog.ConnectorCatalogResourceWithRawResponse:
-        from .resources.connector_catalog import ConnectorCatalogResourceWithRawResponse
-
-        return ConnectorCatalogResourceWithRawResponse(self._client.connector_catalog)
-
-    @cached_property
     def server(self) -> server.ServerResourceWithRawResponse:
         from .resources.server import ServerResourceWithRawResponse
 
@@ -1141,12 +1121,6 @@ class AsyncStructifyWithRawResponse:
         from .resources.connectors import AsyncConnectorsResourceWithRawResponse
 
         return AsyncConnectorsResourceWithRawResponse(self._client.connectors)
-
-    @cached_property
-    def connector_catalog(self) -> connector_catalog.AsyncConnectorCatalogResourceWithRawResponse:
-        from .resources.connector_catalog import AsyncConnectorCatalogResourceWithRawResponse
-
-        return AsyncConnectorCatalogResourceWithRawResponse(self._client.connector_catalog)
 
     @cached_property
     def server(self) -> server.AsyncServerResourceWithRawResponse:
@@ -1312,12 +1286,6 @@ class StructifyWithStreamedResponse:
         return ConnectorsResourceWithStreamingResponse(self._client.connectors)
 
     @cached_property
-    def connector_catalog(self) -> connector_catalog.ConnectorCatalogResourceWithStreamingResponse:
-        from .resources.connector_catalog import ConnectorCatalogResourceWithStreamingResponse
-
-        return ConnectorCatalogResourceWithStreamingResponse(self._client.connector_catalog)
-
-    @cached_property
     def server(self) -> server.ServerResourceWithStreamingResponse:
         from .resources.server import ServerResourceWithStreamingResponse
 
@@ -1473,12 +1441,6 @@ class AsyncStructifyWithStreamedResponse:
         from .resources.connectors import AsyncConnectorsResourceWithStreamingResponse
 
         return AsyncConnectorsResourceWithStreamingResponse(self._client.connectors)
-
-    @cached_property
-    def connector_catalog(self) -> connector_catalog.AsyncConnectorCatalogResourceWithStreamingResponse:
-        from .resources.connector_catalog import AsyncConnectorCatalogResourceWithStreamingResponse
-
-        return AsyncConnectorCatalogResourceWithStreamingResponse(self._client.connector_catalog)
 
     @cached_property
     def server(self) -> server.AsyncServerResourceWithStreamingResponse:
