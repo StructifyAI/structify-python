@@ -1,5 +1,5 @@
 version = 1
-revision = 2
+revision = 3
 requires-python = ">=3.9"
 
 [[package]]
@@ -358,15 +358,15 @@ wheels = [
 
 [[package]]
 name = "httpx-aiohttp"
-version = "0.1.8"
+version = "0.1.12"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "aiohttp" },
     { name = "httpx" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/37/19/ae2d2bf1f57fdd23c8ad83675599fb5c407fa13bc20e90f00cffa4dea3aa/httpx_aiohttp-0.1.8.tar.gz", hash = "sha256:756c5e74cdb568c3248ba63fe82bfe8bbe64b928728720f7eaac64b3cf46f308", size = 25401, upload-time = "2025-07-04T10:40:32.329Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/63/2c/b894861cecf030fb45675ea24aa55b5722e97c602a163d872fca66c5a6d8/httpx_aiohttp-0.1.12.tar.gz", hash = "sha256:81feec51fd82c0ecfa0e9aaf1b1a6c2591260d5e2bcbeb7eb0277a78e610df2c", size = 275945, upload-time = "2025-12-12T10:12:15.283Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/54/7a/514c484b88cc4ebbcd2e27e92b86019c0c5bb920582f5fbb10b7e6c78574/httpx_aiohttp-0.1.8-py3-none-any.whl", hash = "sha256:b7bd958d1331f3759a38a0ba22ad29832cb63ca69498c17735228055bf78fa7e", size = 6180, upload-time = "2025-07-04T10:40:31.522Z" },
+    { url = "https://files.pythonhosted.org/packages/16/8d/85c9701e9af72ca132a1783e2a54364a90c6da832304416a30fc11196ab2/httpx_aiohttp-0.1.12-py3-none-any.whl", hash = "sha256:5b0eac39a7f360fa7867a60bcb46bb1024eada9c01cbfecdb54dc1edb3fb7141", size = 6367, upload-time = "2025-12-12T10:12:14.018Z" },
 ]
 
 [[package]]
@@ -752,7 +752,7 @@ wheels = [
 
 [[package]]
 name = "structifyai"
-version = "1.139.0"
+version = "1.168.0"
 source = { editable = "." }
 dependencies = [
     { name = "anyio" },
@@ -777,7 +777,7 @@ requires-dist = [
     { name = "anyio", specifier = ">=3.5.0,<5" },
     { name = "distro", specifier = ">=1.7.0,<2" },
     { name = "httpx", specifier = ">=0.23.0,<1" },
-    { name = "httpx-aiohttp", marker = "extra == 'aiohttp'", specifier = ">=0.1.8" },
+    { name = "httpx-aiohttp", marker = "extra == 'aiohttp'", specifier = ">=0.1.9" },
     { name = "polars", specifier = "==1.31.0" },
     { name = "pydantic", specifier = ">=1.9.0,<3" },
     { name = "sniffio" },
