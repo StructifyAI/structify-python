@@ -7,13 +7,7 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..types import (
-    document_list_params,
-    document_delete_params,
-    document_upload_params,
-    document_download_params,
-    document_structure_params,
-)
+from ..types import document_list_params, document_delete_params, document_upload_params, document_download_params
 from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, FileTypes, omit, not_given
 from .._utils import extract_files, maybe_transform, deepcopy_minimal, async_maybe_transform
 from .._compat import cached_property
@@ -26,9 +20,7 @@ from .._response import (
 )
 from .._base_client import make_request_options
 from ..types.document_list_response import DocumentListResponse
-from ..types.dataset_descriptor_param import DatasetDescriptorParam
 from ..types.document_download_response import DocumentDownloadResponse
-from ..types.document_structure_response import DocumentStructureResponse
 
 __all__ = ["DocumentsResource", "AsyncDocumentsResource"]
 
@@ -162,57 +154,6 @@ class DocumentsResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=DocumentDownloadResponse,
-        )
-
-    def structure(
-        self,
-        *,
-        dataset_descriptor: DatasetDescriptorParam,
-        content: FileTypes,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> DocumentStructureResponse:
-        """
-        Returns the structured data as JSON.
-
-        Args:
-          dataset_descriptor: A dataset is where you put multiple referential schemas.
-
-              A dataset is a complete namespace where all references between schemas are held
-              within the dataset.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        body = deepcopy_minimal({"content": content})
-        files = extract_files(cast(Mapping[str, object], body), paths=[["content"]])
-        # It should be noted that the actual Content-Type header that will be
-        # sent to the server will contain a `boundary` parameter, e.g.
-        # multipart/form-data; boundary=---abc--
-        extra_headers = {"Content-Type": "multipart/form-data", **(extra_headers or {})}
-        return self._post(
-            "/documents/structure",
-            body=maybe_transform(body, document_structure_params.DocumentStructureParams),
-            files=files,
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {"dataset_descriptor": dataset_descriptor}, document_structure_params.DocumentStructureParams
-                ),
-            ),
-            cast_to=DocumentStructureResponse,
         )
 
     def upload(
@@ -407,57 +348,6 @@ class AsyncDocumentsResource(AsyncAPIResource):
             cast_to=DocumentDownloadResponse,
         )
 
-    async def structure(
-        self,
-        *,
-        dataset_descriptor: DatasetDescriptorParam,
-        content: FileTypes,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> DocumentStructureResponse:
-        """
-        Returns the structured data as JSON.
-
-        Args:
-          dataset_descriptor: A dataset is where you put multiple referential schemas.
-
-              A dataset is a complete namespace where all references between schemas are held
-              within the dataset.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        body = deepcopy_minimal({"content": content})
-        files = extract_files(cast(Mapping[str, object], body), paths=[["content"]])
-        # It should be noted that the actual Content-Type header that will be
-        # sent to the server will contain a `boundary` parameter, e.g.
-        # multipart/form-data; boundary=---abc--
-        extra_headers = {"Content-Type": "multipart/form-data", **(extra_headers or {})}
-        return await self._post(
-            "/documents/structure",
-            body=await async_maybe_transform(body, document_structure_params.DocumentStructureParams),
-            files=files,
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform(
-                    {"dataset_descriptor": dataset_descriptor}, document_structure_params.DocumentStructureParams
-                ),
-            ),
-            cast_to=DocumentStructureResponse,
-        )
-
     async def upload(
         self,
         *,
@@ -532,9 +422,6 @@ class DocumentsResourceWithRawResponse:
         self.download = to_raw_response_wrapper(
             documents.download,
         )
-        self.structure = to_raw_response_wrapper(
-            documents.structure,
-        )
         self.upload = to_raw_response_wrapper(
             documents.upload,
         )
@@ -552,9 +439,6 @@ class AsyncDocumentsResourceWithRawResponse:
         )
         self.download = async_to_raw_response_wrapper(
             documents.download,
-        )
-        self.structure = async_to_raw_response_wrapper(
-            documents.structure,
         )
         self.upload = async_to_raw_response_wrapper(
             documents.upload,
@@ -574,9 +458,6 @@ class DocumentsResourceWithStreamingResponse:
         self.download = to_streamed_response_wrapper(
             documents.download,
         )
-        self.structure = to_streamed_response_wrapper(
-            documents.structure,
-        )
         self.upload = to_streamed_response_wrapper(
             documents.upload,
         )
@@ -594,9 +475,6 @@ class AsyncDocumentsResourceWithStreamingResponse:
         )
         self.download = async_to_streamed_response_wrapper(
             documents.download,
-        )
-        self.structure = async_to_streamed_response_wrapper(
-            documents.structure,
         )
         self.upload = async_to_streamed_response_wrapper(
             documents.upload,

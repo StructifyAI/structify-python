@@ -196,32 +196,10 @@ from structify import Structify
 
 client = Structify()
 
-client.documents.structure(
-    dataset_descriptor={
-        "description": "description",
-        "name": "name",
-        "relationships": [
-            {
-                "description": "description",
-                "name": "name",
-                "source_table": "source_table",
-                "target_table": "target_table",
-            }
-        ],
-        "tables": [
-            {
-                "description": "description",
-                "name": "name",
-                "properties": [
-                    {
-                        "description": "description",
-                        "name": "name",
-                    }
-                ],
-            }
-        ],
-    },
+client.documents.upload(
     content=Path("/path/to/file"),
+    file_type="Text",
+    path=b"raw file contents",
 )
 ```
 
