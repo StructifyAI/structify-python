@@ -98,7 +98,6 @@ class TestDatasets:
                 }
             ],
             ephemeral=True,
-            generate_merge_criteria=True,
             llm_override_field="llm_override_field",
         )
         assert_matches_type(str, dataset, path=["response"])
@@ -959,7 +958,6 @@ class TestAsyncDatasets:
                 }
             ],
             ephemeral=True,
-            generate_merge_criteria=True,
             llm_override_field="llm_override_field",
         )
         assert_matches_type(str, dataset, path=["response"])

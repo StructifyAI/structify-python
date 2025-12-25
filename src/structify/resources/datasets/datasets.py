@@ -95,7 +95,6 @@ class DatasetsResource(SyncAPIResource):
         relationships: Iterable[dataset_create_params.Relationship],
         tables: Iterable[TableParam],
         ephemeral: bool | Omit = omit,
-        generate_merge_criteria: bool | Omit = omit,
         llm_override_field: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -125,7 +124,6 @@ class DatasetsResource(SyncAPIResource):
                     "relationships": relationships,
                     "tables": tables,
                     "ephemeral": ephemeral,
-                    "generate_merge_criteria": generate_merge_criteria,
                     "llm_override_field": llm_override_field,
                 },
                 dataset_create_params.DatasetCreateParams,
@@ -877,7 +875,6 @@ class AsyncDatasetsResource(AsyncAPIResource):
         relationships: Iterable[dataset_create_params.Relationship],
         tables: Iterable[TableParam],
         ephemeral: bool | Omit = omit,
-        generate_merge_criteria: bool | Omit = omit,
         llm_override_field: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -907,7 +904,6 @@ class AsyncDatasetsResource(AsyncAPIResource):
                     "relationships": relationships,
                     "tables": tables,
                     "ephemeral": ephemeral,
-                    "generate_merge_criteria": generate_merge_criteria,
                     "llm_override_field": llm_override_field,
                 },
                 dataset_create_params.DatasetCreateParams,
