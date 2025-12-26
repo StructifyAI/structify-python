@@ -156,6 +156,8 @@ class ToolCallToolCallUnionMember0(BaseModel):
 
     complete: Optional[bool] = None
 
+    result_image: Optional[object] = None
+
     result_text: Optional[str] = None
 
 
@@ -171,6 +173,8 @@ class ToolCallToolCallUnionMember1(BaseModel):
     block_id: Optional[int] = None
 
     complete: Optional[bool] = None
+
+    result_image: Optional[object] = None
 
     result_text: Optional[str] = None
 
@@ -188,6 +192,8 @@ class ToolCallToolCallUnionMember2(BaseModel):
 
     complete: Optional[bool] = None
 
+    result_image: Optional[object] = None
+
     result_text: Optional[str] = None
 
 
@@ -203,6 +209,8 @@ class ToolCallToolCallUnionMember3(BaseModel):
     block_id: Optional[int] = None
 
     complete: Optional[bool] = None
+
+    result_image: Optional[object] = None
 
     result_text: Optional[str] = None
 
@@ -221,6 +229,8 @@ class ToolCallToolCallUnionMember4(BaseModel):
     block_id: Optional[int] = None
 
     complete: Optional[bool] = None
+
+    result_image: Optional[object] = None
 
     result_text: Optional[str] = None
 
@@ -242,6 +252,8 @@ class ToolCallToolCallUnionMember5(BaseModel):
 
     complete: Optional[bool] = None
 
+    result_image: Optional[object] = None
+
     result_text: Optional[str] = None
 
 
@@ -262,6 +274,8 @@ class ToolCallToolCallUnionMember6(BaseModel):
 
     complete: Optional[bool] = None
 
+    result_image: Optional[object] = None
+
     result_text: Optional[str] = None
 
 
@@ -279,6 +293,8 @@ class ToolCallToolCallUnionMember7(BaseModel):
     block_id: Optional[int] = None
 
     complete: Optional[bool] = None
+
+    result_image: Optional[object] = None
 
     result_text: Optional[str] = None
 
@@ -300,6 +316,8 @@ class ToolCallToolCallUnionMember8(BaseModel):
 
     complete: Optional[bool] = None
 
+    result_image: Optional[object] = None
+
     result_text: Optional[str] = None
 
 
@@ -319,6 +337,8 @@ class ToolCallToolCallUnionMember9(BaseModel):
     block_id: Optional[int] = None
 
     complete: Optional[bool] = None
+
+    result_image: Optional[object] = None
 
     result_text: Optional[str] = None
 
@@ -342,6 +362,8 @@ class ToolCallToolCallUnionMember10(BaseModel):
 
     complete: Optional[bool] = None
 
+    result_image: Optional[object] = None
+
     result_text: Optional[str] = None
 
 
@@ -361,6 +383,8 @@ class ToolCallToolCallUnionMember11(BaseModel):
     block_id: Optional[int] = None
 
     complete: Optional[bool] = None
+
+    result_image: Optional[object] = None
 
     result_text: Optional[str] = None
 
@@ -384,6 +408,8 @@ class ToolCallToolCallUnionMember12(BaseModel):
 
     complete: Optional[bool] = None
 
+    result_image: Optional[object] = None
+
     result_text: Optional[str] = None
 
 
@@ -402,6 +428,8 @@ class ToolCallToolCallUnionMember13(BaseModel):
 
     complete: Optional[bool] = None
 
+    result_image: Optional[object] = None
+
     result_text: Optional[str] = None
 
 
@@ -419,6 +447,8 @@ class ToolCallToolCallUnionMember14(BaseModel):
     block_id: Optional[int] = None
 
     complete: Optional[bool] = None
+
+    result_image: Optional[object] = None
 
     result_text: Optional[str] = None
 
@@ -440,6 +470,8 @@ class ToolCallToolCallUnionMember15(BaseModel):
 
     complete: Optional[bool] = None
 
+    result_image: Optional[object] = None
+
     result_text: Optional[str] = None
 
 
@@ -458,6 +490,8 @@ class ToolCallToolCallUnionMember16(BaseModel):
 
     complete: Optional[bool] = None
 
+    result_image: Optional[object] = None
+
     result_text: Optional[str] = None
 
 
@@ -473,6 +507,8 @@ class ToolCallToolCallUnionMember17(BaseModel):
     block_id: Optional[int] = None
 
     complete: Optional[bool] = None
+
+    result_image: Optional[object] = None
 
     result_text: Optional[str] = None
 
