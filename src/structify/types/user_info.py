@@ -47,6 +47,8 @@ class UserInfo(BaseModel):
 
     company_name: Optional[str] = None
 
+    impersonated_by_email: Optional[str] = None
+
     job_title: Optional[str] = None
 
     last_selected_team_id: Optional[str] = None
