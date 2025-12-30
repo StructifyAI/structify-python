@@ -248,6 +248,8 @@ from structify.types.admin import (
     CancelSubscriptionResponse,
     CreateSubscriptionResponse,
     CreateTeamSubscriptionRequest,
+    ExpireGrantsRequest,
+    ExpireGrantsResponse,
     ExtendTrialRequest,
     ExtendTrialResponse,
     GrantCreditsRequest,
@@ -260,6 +262,7 @@ Methods:
 - <code title="get /admin/team/list">client.admin.teams.<a href="./src/structify/resources/admin/teams.py">list</a>(\*\*<a href="src/structify/types/admin/team_list_params.py">params</a>) -> <a href="./src/structify/types/admin/admin_teams_list_response.py">SyncJobsList[AdminTeamsListResponse]</a></code>
 - <code title="post /admin/team/cancel_subscription">client.admin.teams.<a href="./src/structify/resources/admin/teams.py">cancel_subscription</a>(\*\*<a href="src/structify/types/admin/team_cancel_subscription_params.py">params</a>) -> <a href="./src/structify/types/admin/cancel_subscription_response.py">CancelSubscriptionResponse</a></code>
 - <code title="post /admin/team/create_subscription">client.admin.teams.<a href="./src/structify/resources/admin/teams.py">create_subscription</a>(\*\*<a href="src/structify/types/admin/team_create_subscription_params.py">params</a>) -> <a href="./src/structify/types/admin/create_subscription_response.py">CreateSubscriptionResponse</a></code>
+- <code title="post /admin/team/expire_grants">client.admin.teams.<a href="./src/structify/resources/admin/teams.py">expire_grants</a>(\*\*<a href="src/structify/types/admin/team_expire_grants_params.py">params</a>) -> <a href="./src/structify/types/admin/expire_grants_response.py">ExpireGrantsResponse</a></code>
 - <code title="post /admin/team/extend_trial">client.admin.teams.<a href="./src/structify/resources/admin/teams.py">extend_trial</a>(\*\*<a href="src/structify/types/admin/team_extend_trial_params.py">params</a>) -> <a href="./src/structify/types/admin/extend_trial_response.py">ExtendTrialResponse</a></code>
 - <code title="post /admin/team/grant_credits">client.admin.teams.<a href="./src/structify/resources/admin/teams.py">grant_credits</a>(\*\*<a href="src/structify/types/admin/team_grant_credits_params.py">params</a>) -> <a href="./src/structify/types/admin/grant_credits_response.py">GrantCreditsResponse</a></code>
 

@@ -15,6 +15,7 @@ from .admin_dataset_return import AdminDatasetReturn as AdminDatasetReturn
 from .impersonate_response import ImpersonateResponse as ImpersonateResponse
 from .extend_trial_response import ExtendTrialResponse as ExtendTrialResponse
 from .user_get_stats_params import UserGetStatsParams as UserGetStatsParams
+from .expire_grants_response import ExpireGrantsResponse as ExpireGrantsResponse
 from .grant_credits_response import GrantCreditsResponse as GrantCreditsResponse
 from .user_get_stats_response import UserGetStatsResponse as UserGetStatsResponse
 from .user_impersonate_params import UserImpersonateParams as UserImpersonateParams
@@ -22,6 +23,7 @@ from .admin_list_jobs_response import AdminListJobsResponse as AdminListJobsResp
 from .dataset_get_by_id_params import DatasetGetByIDParams as DatasetGetByIDParams
 from .team_extend_trial_params import TeamExtendTrialParams as TeamExtendTrialParams
 from .admin_teams_list_response import AdminTeamsListResponse as AdminTeamsListResponse
+from .team_expire_grants_params import TeamExpireGrantsParams as TeamExpireGrantsParams
 from .team_grant_credits_params import TeamGrantCreditsParams as TeamGrantCreditsParams
 from .cancel_subscription_response import CancelSubscriptionResponse as CancelSubscriptionResponse
 from .create_subscription_response import CreateSubscriptionResponse as CreateSubscriptionResponse
