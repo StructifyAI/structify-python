@@ -16,9 +16,9 @@ CONFIRMATION_POLL_INTERVAL_SECONDS = 0.5
 
 
 def request_cost_confirmation_if_needed(client: Any, row_count: int) -> bool:
-    """Request cost confirmation if running in workflow context.
+    """Request cost confirmation if running in workflow context with confirmation enabled.
 
-    When executing within a workflow (indicated by STRUCTIFY_NODE_ID env var),
+    When STRUCTIFY_REQUIRES_CONFIRMATION=true and STRUCTIFY_NODE_ID is set,
     this function requests user confirmation before proceeding with costly
     operations like web scraping or PDF extraction.
 
@@ -27,12 +27,15 @@ def request_cost_confirmation_if_needed(client: Any, row_count: int) -> bool:
         row_count: Number of rows to be processed (used for cost estimation)
 
     Returns:
-        True if confirmed or not in workflow context.
+        True if confirmed, confirmation not required, or not in workflow context.
         False if user rejected the operation.
 
     Raises:
         TimeoutError: If confirmation times out after CONFIRMATION_TIMEOUT_SECONDS
     """
+    if os.environ.get("STRUCTIFY_REQUIRES_CONFIRMATION", "").lower() != "true":
+        return True
+
     node_id = os.environ.get("STRUCTIFY_NODE_ID")
     if not node_id:
         return True
