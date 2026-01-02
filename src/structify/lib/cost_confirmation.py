@@ -9,16 +9,13 @@ from __future__ import annotations
 
 import os
 import time
-from typing import TYPE_CHECKING
-
-if TYPE_CHECKING:
-    from structify import Structify
+from typing import Any
 
 CONFIRMATION_TIMEOUT_SECONDS = 3600
 CONFIRMATION_POLL_INTERVAL_SECONDS = 0.5
 
 
-def request_cost_confirmation_if_needed(client: Structify, row_count: int) -> bool:
+def request_cost_confirmation_if_needed(client: Any, row_count: int) -> bool:
     """Request cost confirmation if running in workflow context.
 
     When executing within a workflow (indicated by STRUCTIFY_NODE_ID env var),
