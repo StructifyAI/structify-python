@@ -283,12 +283,18 @@ Methods:
 Types:
 
 ```python
-from structify.types.admin import AdminListJobsRequestParams, AdminListJobsResponse
+from structify.types.admin import (
+    AdminDeleteJobsRequest,
+    AdminDeleteJobsResponse,
+    AdminListJobsRequestParams,
+    AdminListJobsResponse,
+)
 ```
 
 Methods:
 
 - <code title="get /admin/jobs/list">client.admin.jobs.<a href="./src/structify/resources/admin/jobs.py">list</a>(\*\*<a href="src/structify/types/admin/job_list_params.py">params</a>) -> <a href="./src/structify/types/admin/admin_list_jobs_response.py">SyncJobsList[AdminListJobsResponse]</a></code>
+- <code title="post /admin/jobs/delete">client.admin.jobs.<a href="./src/structify/resources/admin/jobs.py">delete</a>(\*\*<a href="src/structify/types/admin/job_delete_params.py">params</a>) -> <a href="./src/structify/types/admin/admin_delete_jobs_response.py">AdminDeleteJobsResponse</a></code>
 
 ## Sandbox
 

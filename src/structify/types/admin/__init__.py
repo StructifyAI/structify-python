@@ -8,6 +8,7 @@ from .admin_sandbox import AdminSandbox as AdminSandbox
 from .functional_test import FunctionalTest as FunctionalTest
 from .job_list_params import JobListParams as JobListParams
 from .team_list_params import TeamListParams as TeamListParams
+from .job_delete_params import JobDeleteParams as JobDeleteParams
 from .user_create_params import UserCreateParams as UserCreateParams
 from .user_list_response import UserListResponse as UserListResponse
 from .sandbox_list_params import SandboxListParams as SandboxListParams
@@ -25,6 +26,7 @@ from .team_extend_trial_params import TeamExtendTrialParams as TeamExtendTrialPa
 from .admin_teams_list_response import AdminTeamsListResponse as AdminTeamsListResponse
 from .team_expire_grants_params import TeamExpireGrantsParams as TeamExpireGrantsParams
 from .team_grant_credits_params import TeamGrantCreditsParams as TeamGrantCreditsParams
+from .admin_delete_jobs_response import AdminDeleteJobsResponse as AdminDeleteJobsResponse
 from .cancel_subscription_response import CancelSubscriptionResponse as CancelSubscriptionResponse
 from .create_subscription_response import CreateSubscriptionResponse as CreateSubscriptionResponse
 from .functional_test_create_params import FunctionalTestCreateParams as FunctionalTestCreateParams
