@@ -32,6 +32,8 @@ class WorkflowSessionNode(BaseModel):
 
     code: Optional[str] = None
 
+    confirmation_status: Optional[str] = None
+
     connector_id: Optional[str] = None
 
     created_at: Optional[datetime] = None
@@ -40,7 +42,11 @@ class WorkflowSessionNode(BaseModel):
 
     error_traceback: Optional[str] = None
 
+    estimated_cost: Optional[int] = None
+
     execution_time_ms: Optional[int] = None
+
+    input_row_count: Optional[int] = None
 
     original_node: Optional[str] = None
 
