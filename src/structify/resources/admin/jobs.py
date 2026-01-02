@@ -8,8 +8,8 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from ..._utils import maybe_transform
+from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
+from ..._utils import maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -19,9 +19,10 @@ from ..._response import (
     async_to_streamed_response_wrapper,
 )
 from ...pagination import SyncJobsList, AsyncJobsList
-from ...types.admin import job_list_params
+from ...types.admin import job_list_params, job_delete_params
 from ..._base_client import AsyncPaginator, make_request_options
 from ...types.admin.admin_list_jobs_response import AdminListJobsResponse
+from ...types.admin.admin_delete_jobs_response import AdminDeleteJobsResponse
 
 __all__ = ["JobsResource", "AsyncJobsResource"]
 
@@ -116,6 +117,36 @@ class JobsResource(SyncAPIResource):
             model=AdminListJobsResponse,
         )
 
+    def delete(
+        self,
+        *,
+        job_ids: SequenceNotStr[str],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AdminDeleteJobsResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/admin/jobs/delete",
+            body=maybe_transform({"job_ids": job_ids}, job_delete_params.JobDeleteParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=AdminDeleteJobsResponse,
+        )
+
 
 class AsyncJobsResource(AsyncAPIResource):
     @cached_property
@@ -207,6 +238,36 @@ class AsyncJobsResource(AsyncAPIResource):
             model=AdminListJobsResponse,
         )
 
+    async def delete(
+        self,
+        *,
+        job_ids: SequenceNotStr[str],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AdminDeleteJobsResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/admin/jobs/delete",
+            body=await async_maybe_transform({"job_ids": job_ids}, job_delete_params.JobDeleteParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=AdminDeleteJobsResponse,
+        )
+
 
 class JobsResourceWithRawResponse:
     def __init__(self, jobs: JobsResource) -> None:
@@ -214,6 +275,9 @@ class JobsResourceWithRawResponse:
 
         self.list = to_raw_response_wrapper(
             jobs.list,
+        )
+        self.delete = to_raw_response_wrapper(
+            jobs.delete,
         )
 
 
@@ -224,6 +288,9 @@ class AsyncJobsResourceWithRawResponse:
         self.list = async_to_raw_response_wrapper(
             jobs.list,
         )
+        self.delete = async_to_raw_response_wrapper(
+            jobs.delete,
+        )
 
 
 class JobsResourceWithStreamingResponse:
@@ -233,6 +300,9 @@ class JobsResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             jobs.list,
         )
+        self.delete = to_streamed_response_wrapper(
+            jobs.delete,
+        )
 
 
 class AsyncJobsResourceWithStreamingResponse:
@@ -241,4 +311,7 @@ class AsyncJobsResourceWithStreamingResponse:
 
         self.list = async_to_streamed_response_wrapper(
             jobs.list,
+        )
+        self.delete = async_to_streamed_response_wrapper(
+            jobs.delete,
         )
