@@ -25,6 +25,7 @@ from .._response import (
     to_streamed_response_wrapper,
 )
 from ..types.table_param import Property
+from ..lib.cost_confirmation import request_cost_confirmation_if_needed
 from .external_dataframe_proxy import ServicesProxy
 from ..types.save_requirement_param import RequiredEntity, RequiredProperty
 from ..types.dataset_descriptor_param import DatasetDescriptorParam
@@ -183,6 +184,10 @@ class PolarsResource(SyncAPIResource):
                 ):
                     entity_id, entity = future.result()
                     entity_id_to_entity[entity_id] = entity
+
+            # Request cost confirmation before dispatching costly enhancement jobs
+            if not request_cost_confirmation_if_needed(self._client, len(entity_id_to_entity)):
+                raise Exception(f"User cancelled enhancement of {dataframe_name}")
 
             # 2. Enhance the entities
             def enhance_entity_property(
@@ -362,6 +367,10 @@ class PolarsResource(SyncAPIResource):
                     batch_entity_ids = future.result()
                     entity_ids.extend(batch_entity_ids)
 
+            # Request cost confirmation before dispatching costly relationship enhancement jobs
+            if not request_cost_confirmation_if_needed(self._client, len(entity_ids)):
+                raise Exception(f"User cancelled relationship enhancement for {source_table_name}")
+
             # Enhance relationships for each entity
             def enhance_relationship(entity_id: str) -> None:
                 self._client.structure.enhance_relationship(
@@ -512,6 +521,10 @@ class PolarsResource(SyncAPIResource):
                 ):
                     entity_id, entity = future.result()
                     entity_id_to_entity[entity_id] = entity
+
+            # Request cost confirmation before dispatching costly scrape jobs
+            if not request_cost_confirmation_if_needed(self._client, len(entity_id_to_entity)):
+                raise Exception(f"User cancelled scraping of {dataframe_name}")
 
             # 2. Run scrape jobs for each entity
             def scrape_entity_property(entity_id: str) -> None:
@@ -664,6 +677,10 @@ class PolarsResource(SyncAPIResource):
             # 1. Get the unique URLs in the batch
             entities = batch_df.drop_nulls(subset=[url_column]).unique().to_dicts()
 
+            # Request cost confirmation before dispatching costly scrape jobs
+            if not request_cost_confirmation_if_needed(self._client, len(entities)):
+                raise Exception(f"User cancelled scraping for {relationship['target_table']}")
+
             # 2. Scrape the URLs
             def scrape_entity(entity: Dict[str, Any]) -> None:
                 entity_clean = {k: v for k, v in entity.items() if v is not None}
@@ -808,6 +825,10 @@ class PolarsResource(SyncAPIResource):
         def structure_batch(batch_df: pl.DataFrame) -> pl.DataFrame:
             # Get unique PDF paths in the batch
             batch_paths = batch_df.select(path_column).drop_nulls(subset=[path_column]).unique().to_series().to_list()
+
+            # Request cost confirmation before dispatching costly PDF extraction jobs
+            if not request_cost_confirmation_if_needed(self._client, len(batch_paths)):
+                raise Exception(f"User cancelled PDF extraction for {table_name}")
 
             # Process each PDF document
             path_to_dataset: dict[str, str] = {}
@@ -954,6 +975,10 @@ class PolarsResource(SyncAPIResource):
         # Create the expected output schema
         self._upload_df(collected_df, dataset_name, dataframe_name)
 
+        # Request cost confirmation before dispatching costly derive jobs
+        if not request_cost_confirmation_if_needed(self._client, len(collected_df)):
+            raise Exception(f"User cancelled tagging of {dataframe_name}")
+
         # 2. Derive the new property for each entity in the dataset
         self._client.entities.derive_all(
             dataset=dataset_name,
@@ -1057,6 +1082,11 @@ class PolarsResource(SyncAPIResource):
             time.sleep(0.5)
 
         node_id = get_node_id()
+
+        # Request cost confirmation before dispatching costly match jobs
+        # Cost is based on the smaller dataframe (source) which determines number of match operations
+        if not request_cost_confirmation_if_needed(self._client, len(df)):
+            raise Exception("User cancelled matching operation")
 
         self._client.match.create_jobs(
             dataset=dataset_name,
