@@ -25,11 +25,11 @@ from .._response import (
     to_streamed_response_wrapper,
 )
 from ..types.table_param import Property
+from ..lib.cost_confirmation import request_cost_confirmation_if_needed
 from .external_dataframe_proxy import ServicesProxy
 from ..types.save_requirement_param import RequiredEntity, RequiredProperty
 from ..types.dataset_descriptor_param import DatasetDescriptorParam
 from ..types.structure_run_async_params import SourcePdf, SourceWebWeb
-from ..lib.cost_confirmation import request_cost_confirmation_if_needed
 
 __all__ = ["PolarsResource"]
 
