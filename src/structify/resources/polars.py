@@ -174,6 +174,10 @@ class PolarsResource(SyncAPIResource):
             column_schema = {col["name"]: col["name"] for col in all_properties}
             entities = dataframe_to_entities(batch_df, dataframe_name, column_schema)
 
+            # Request cost confirmation before adding entities
+            if not request_cost_confirmation_if_needed(self._client, len(entities)):
+                raise Exception(f"User cancelled enhancement of {dataframe_name}")
+
             # We add individually instead of batched to maintain the mapping between entity and ID (Same as in enhance_relationships)
             entity_id_to_entity: Dict[str, EntityParam] = {}
 
@@ -184,10 +188,6 @@ class PolarsResource(SyncAPIResource):
                 ):
                     entity_id, entity = future.result()
                     entity_id_to_entity[entity_id] = entity
-
-            # Request cost confirmation before dispatching costly enhancement jobs
-            if not request_cost_confirmation_if_needed(self._client, len(entity_id_to_entity)):
-                raise Exception(f"User cancelled enhancement of {dataframe_name}")
 
             # 2. Enhance the entities
             def enhance_entity_property(
@@ -351,6 +351,10 @@ class PolarsResource(SyncAPIResource):
             column_schema = {col_name: col_name for col_name in input_schema.names()}
             entities = dataframe_to_entities(batch_df, source_table_name, column_schema)
 
+            # Request cost confirmation before adding entities
+            if not request_cost_confirmation_if_needed(self._client, len(entities)):
+                raise Exception(f"User cancelled relationship enhancement for {source_table_name}")
+
             # Add entities in batches to avoid JSON payload size issues
             entity_ids: List[str] = []
             entity_batches = chunk_entities_for_parallel_add(entities)
@@ -366,10 +370,6 @@ class PolarsResource(SyncAPIResource):
                 for future in tqdm(as_completed(futures), total=len(futures), desc=f"Preparing {source_table_name}"):
                     batch_entity_ids = future.result()
                     entity_ids.extend(batch_entity_ids)
-
-            # Request cost confirmation before dispatching costly relationship enhancement jobs
-            if not request_cost_confirmation_if_needed(self._client, len(entity_ids)):
-                raise Exception(f"User cancelled relationship enhancement for {source_table_name}")
 
             # Enhance relationships for each entity
             def enhance_relationship(entity_id: str) -> None:
@@ -509,6 +509,10 @@ class PolarsResource(SyncAPIResource):
             column_schema = {col["name"]: col["name"] for col in all_properties}
             entities = dataframe_to_entities(batch_df, dataframe_name, column_schema, zero_ids=True)
 
+            # Request cost confirmation before adding entities
+            if not request_cost_confirmation_if_needed(self._client, len(entities)):
+                raise Exception(f"User cancelled scraping of {dataframe_name}")
+
             # We add individually instead of batched to maintain the mapping between entity and ID
             # This can be changed later if we make an endpoint for scrape single properties that
             # just takes in entity id and property names
@@ -521,10 +525,6 @@ class PolarsResource(SyncAPIResource):
                 ):
                     entity_id, entity = future.result()
                     entity_id_to_entity[entity_id] = entity
-
-            # Request cost confirmation before dispatching costly scrape jobs
-            if not request_cost_confirmation_if_needed(self._client, len(entity_id_to_entity)):
-                raise Exception(f"User cancelled scraping of {dataframe_name}")
 
             # 2. Run scrape jobs for each entity
             def scrape_entity_property(entity_id: str) -> None:
@@ -972,12 +972,11 @@ class PolarsResource(SyncAPIResource):
 
         node_id = get_node_id()
 
-        # Create the expected output schema
-        self._upload_df(collected_df, dataset_name, dataframe_name)
-
-        # Request cost confirmation before dispatching costly derive jobs
+        # Request cost confirmation before uploading
         if not request_cost_confirmation_if_needed(self._client, len(collected_df)):
             raise Exception(f"User cancelled tagging of {dataframe_name}")
+
+        self._upload_df(collected_df, dataset_name, dataframe_name)
 
         # 2. Derive the new property for each entity in the dataset
         self._client.entities.derive_all(
@@ -1068,6 +1067,11 @@ class PolarsResource(SyncAPIResource):
             ephemeral=True,
         )
 
+        # Request cost confirmation before uploading
+        # Cost is based on the smaller dataframe (source) which determines number of match operations
+        if not request_cost_confirmation_if_needed(self._client, len(df)):
+            raise Exception("User cancelled matching operation")
+
         self._upload_df(df, dataset_name, "table1")
         self._upload_df(reference_df, dataset_name, "table2")
 
@@ -1082,11 +1086,6 @@ class PolarsResource(SyncAPIResource):
             time.sleep(0.5)
 
         node_id = get_node_id()
-
-        # Request cost confirmation before dispatching costly match jobs
-        # Cost is based on the smaller dataframe (source) which determines number of match operations
-        if not request_cost_confirmation_if_needed(self._client, len(df)):
-            raise Exception("User cancelled matching operation")
 
         self._client.match.create_jobs(
             dataset=dataset_name,
