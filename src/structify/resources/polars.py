@@ -9,7 +9,6 @@ import logging
 from typing import Any, Dict, List, Tuple, Optional, cast
 from concurrent.futures import Future, ThreadPoolExecutor, as_completed
 
-import httpx
 import polars as pl
 from tqdm import tqdm  # type: ignore
 from polars import LazyFrame
@@ -38,35 +37,6 @@ logger = logging.getLogger(__name__)
 __all__ = ["PolarsResource"]
 
 MAX_PARALLEL_REQUESTS = 20
-CONFIRMATION_TIMEOUT_SECONDS = 300  # 5 minutes to wait for user confirmation
-
-
-class CostConfirmationError(Exception):
-    """Raised when user rejects cost confirmation or confirmation times out."""
-
-    pass
-
-
-def _request_cost_confirmation(
-    base_url: str,
-    token: str,
-    node_id: str,
-    estimated_cost: float,
-    row_count: int,
-) -> bool:
-    """Request cost confirmation from user via long-polling API.
-
-    This blocks until the user confirms or rejects, or times out.
-    Returns True if confirmed, False if rejected or timed out.
-    """
-    with httpx.Client(timeout=CONFIRMATION_TIMEOUT_SECONDS + 60) as client:
-        response = client.post(
-            f"{base_url}/sessions/nodes/{node_id}/request_confirmation",
-            headers={"Authorization": f"Bearer {token}"},
-            json={"estimated_cost": estimated_cost, "row_count": row_count},
-        )
-        response.raise_for_status()
-        return response.json().get("confirmed", False)
 
 
 class PolarsResource(SyncAPIResource):
@@ -74,72 +44,6 @@ class PolarsResource(SyncAPIResource):
     def external(self) -> ServicesProxy:
         """Access external whitelabel services with DataFrame batch processing."""
         return ServicesProxy(self._client)
-
-    def _estimate_cost(self, operation: Dict[str, Any]) -> float:
-        """Call the API to estimate cost for an operation.
-
-        Returns estimated cost in dollars.
-        """
-        base_url = str(self._client.base_url).rstrip("/")
-        token = self._client.session_token
-
-        if not token:
-            return 0.0
-
-        with httpx.Client(timeout=30) as client:
-            response = client.post(
-                f"{base_url}/sessions/estimate_cost",
-                headers={"Authorization": f"Bearer {token}"},
-                json=operation,
-            )
-            response.raise_for_status()
-            return response.json().get("estimated_dollars", 0.0)
-
-    def _confirm_cost(
-        self,
-        node_id: Optional[str],
-        operation: Dict[str, Any],
-        row_count: int,
-    ) -> None:
-        """Request cost confirmation from user if node_id is set.
-
-        If running in a workflow (node_id is set), this will block until the user
-        confirms or rejects the estimated cost. If rejected, raises CostConfirmationError.
-
-        If not running in a workflow (node_id is None), this is a no-op.
-        Requires COST_CHECK_AVAILABLE=1 environment variable to be enabled.
-        """
-        if not os.environ.get("COST_CHECK_AVAILABLE"):
-            return
-
-        if node_id is None:
-            return
-
-        estimated_cost = self._estimate_cost(operation)
-        if estimated_cost <= 0:
-            return
-
-        base_url = str(self._client.base_url).rstrip("/")
-        token = self._client.session_token
-
-        if not token:
-            logger.warning("No session token, skipping cost confirmation")
-            return
-
-        logger.info(f"Requesting cost confirmation: {row_count} rows, ${estimated_cost:.2f} estimated")
-
-        confirmed = _request_cost_confirmation(
-            base_url=base_url,
-            token=token,
-            node_id=node_id,
-            estimated_cost=estimated_cost,
-            row_count=row_count,
-        )
-
-        if not confirmed:
-            raise CostConfirmationError(
-                f"User cancelled operation. Estimated cost was ${estimated_cost:.2f} for {row_count} rows."
-            )
 
     @cached_property
     def with_raw_response(self) -> PolarsResourceWithRawResponse:
@@ -269,11 +173,6 @@ class PolarsResource(SyncAPIResource):
         def enhance_batch(batch_df: pl.DataFrame) -> pl.DataFrame:
             if batch_df.is_empty():
                 return pl.DataFrame(schema=expected_schema)
-
-            # Request cost confirmation before processing
-            num_properties = len(new_columns_dict)
-            operation = {"operation": "enhance", "row_count": len(batch_df), "num_properties": num_properties}
-            self._confirm_cost(node_id, operation, len(batch_df))
 
             # 1. Add all the entities to the structify dataset
             column_schema = {col["name"]: col["name"] for col in all_properties}
@@ -415,10 +314,6 @@ class PolarsResource(SyncAPIResource):
         def enhance_relationship_batch(batch_df: pl.DataFrame) -> pl.DataFrame:
             if batch_df.is_empty():
                 return pl.DataFrame(schema=output_schema)
-
-            # Request cost confirmation before processing
-            operation = {"operation": "enhance_relationship", "row_count": len(batch_df)}
-            self._confirm_cost(node_id, operation, len(batch_df))
 
             # Create dataset for this batch
             dataset_name = f"enhance_relationships_{relationship_name}_{uuid.uuid4().hex}"
@@ -613,10 +508,6 @@ class PolarsResource(SyncAPIResource):
             if batch_df.is_empty():
                 return pl.DataFrame(schema=expected_schema)
 
-            # Request cost confirmation before processing
-            operation = {"operation": "scrape", "row_count": len(batch_df), "use_proxy": use_proxy}
-            self._confirm_cost(node_id, operation, len(batch_df))
-
             # 1. Add all the entities to the structify dataset
             batch_df = batch_df.drop_nulls(subset=[url_column]).unique()
             column_schema = {col["name"]: col["name"] for col in all_properties}
@@ -790,11 +681,6 @@ class PolarsResource(SyncAPIResource):
             # 1. Get the unique URLs in the batch
             entities = batch_df.drop_nulls(subset=[url_column]).unique().to_dicts()
 
-            # Request cost confirmation before processing
-            if entities:
-                operation = {"operation": "scrape", "row_count": len(entities), "use_proxy": use_proxy}
-                self._confirm_cost(node_id, operation, len(entities))
-
             # 2. Scrape the URLs
             def scrape_entity(entity: Dict[str, Any]) -> None:
                 entity_clean = {k: v for k, v in entity.items() if v is not None}
@@ -940,11 +826,6 @@ class PolarsResource(SyncAPIResource):
             # Get unique PDF paths in the batch
             batch_paths = batch_df.select(path_column).drop_nulls(subset=[path_column]).unique().to_series().to_list()
 
-            # Request cost confirmation before processing
-            if batch_paths:
-                operation = {"operation": "structure_pdf", "num_documents": len(batch_paths)}
-                self._confirm_cost(node_id, operation, len(batch_paths))
-
             # Process each PDF document
             path_to_dataset: dict[str, str] = {}
             job_ids: list[str] = []
@@ -1053,11 +934,7 @@ class PolarsResource(SyncAPIResource):
         # We need to collect the DataFrame in order to guarantee starting all jobs doesn't double dip
         collected_df = df.collect()
 
-        # Request cost confirmation before processing
         node_id = get_node_id()
-        if not collected_df.is_empty():
-            operation = {"operation": "tag", "row_count": len(collected_df)}
-            self._confirm_cost(node_id, operation, len(collected_df))
 
         # Build Structify `Property` objects for existing columns
         existing_properties = schema_to_properties(collected_df.schema)
@@ -1150,13 +1027,7 @@ class PolarsResource(SyncAPIResource):
         collected_df1 = df1.collect()
         collected_df2 = df2.collect()
 
-        # Request cost confirmation before processing
         node_id = get_node_id()
-        source_count = len(collected_df1)
-        target_count = len(collected_df2)
-        if source_count > 0 and target_count > 0:
-            operation = {"operation": "match", "source_count": source_count, "target_count": target_count}
-            self._confirm_cost(node_id, operation, min(source_count, target_count))
 
         # Determine which dataframe is bigger (more rows)
         # Use the smaller one as source (table1) for cost optimization
