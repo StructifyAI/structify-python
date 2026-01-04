@@ -103,16 +103,16 @@ class DeprecatedPolarsMixin:
         scraped_columns: dict[str, pl.DataType] = {}
         column_details: dict[str, dict[str, Any]] = {}
         if scrape_schema_override:
-            for prop in scrape_schema_override["properties"]:
-                prop_name = original_column_map.get(prop["name"], prop["name"])
-                prop_type = prop.get("prop_type")
+            for schema_prop in scrape_schema_override["properties"]:
+                prop_name = original_column_map.get(schema_prop["name"], schema_prop["name"])
+                prop_type = schema_prop.get("prop_type")
                 if prop_type is None:
                     raise ValueError("scrape_schema_override properties must include 'prop_type'.")
                 scraped_columns[prop_name] = structify_type_to_polars_dtype(prop_type)
                 column_details[prop_name] = {
-                    "description": prop.get("description", ""),
+                    "description": schema_prop.get("description", ""),
                     "prop_type": prop_type,
-                    "merge_strategy": prop.get("merge_strategy"),
+                    "merge_strategy": schema_prop.get("merge_strategy"),
                 }
         else:
             for col_name, col_info in scrape_schema.items():

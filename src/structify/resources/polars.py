@@ -117,25 +117,26 @@ class PolarsResource(DeprecatedPolarsMixin, SyncAPIResource):
             )
             properties: list[Property] = []
             for entry in column_entries:
-                name = entry.get("name")
+                entry_data = cast(dict[str, Any], entry)
+                name = entry_data.get("name")
                 if not name:
                     raise ValueError("Each new column must include a 'name'.")
-                description = entry.get("description", "")
+                description = entry_data.get("description", "")
                 prop_type: PropertyTypeParam
-                if "prop_type" in entry:
-                    raw_prop_type = entry.get("prop_type")
+                if "prop_type" in entry_data:
+                    raw_prop_type = entry_data.get("prop_type")
                     if raw_prop_type is None:
                         raise ValueError("Each new column must include a non-null 'prop_type'.")
                     prop_type = cast(PropertyTypeParam, raw_prop_type)
-                elif "type" in entry:
-                    dtype = entry["type"]
+                elif "type" in entry_data:
+                    dtype = entry_data.get("type")
                     if dtype is None:
                         raise ValueError("Each new column must include a non-null 'type'.")
                     prop_type = dtype_to_structify_type(cast(pl.DataType, dtype))
                 else:
                     raise ValueError("Each new column must include 'type' or 'prop_type'.")
                 prop: Property = {"name": name, "description": description, "prop_type": prop_type}
-                merge_strategy = entry.get("merge_strategy")
+                merge_strategy = entry_data.get("merge_strategy")
                 if merge_strategy is not None:
                     prop["merge_strategy"] = cast(StrategyParam, merge_strategy)
                 properties.append(prop)
