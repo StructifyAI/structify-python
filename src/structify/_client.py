@@ -44,7 +44,6 @@ if TYPE_CHECKING:
         slack,
         teams,
         polars,
-        scrape,
         server,
         sandbox,
         sources,
@@ -70,7 +69,6 @@ if TYPE_CHECKING:
     from .resources.slack import SlackResource, AsyncSlackResource
     from .resources.teams import TeamsResource, AsyncTeamsResource
     from .resources.polars import PolarsResource
-    from .resources.scrape import ScrapeResource, AsyncScrapeResource
     from .resources.server import ServerResource, AsyncServerResource
     from .resources.sandbox import SandboxResource, AsyncSandboxResource
     from .resources.sources import SourcesResource, AsyncSourcesResource
@@ -309,12 +307,6 @@ class Structify(SyncAPIClient):
         from .resources.sandbox import SandboxResource
 
         return SandboxResource(self)
-
-    @cached_property
-    def scrape(self) -> ScrapeResource:
-        from .resources.scrape import ScrapeResource
-
-        return ScrapeResource(self)
 
     @cached_property
     def code(self) -> CodeResource:
@@ -696,12 +688,6 @@ class AsyncStructify(AsyncAPIClient):
         return AsyncSandboxResource(self)
 
     @cached_property
-    def scrape(self) -> AsyncScrapeResource:
-        from .resources.scrape import AsyncScrapeResource
-
-        return AsyncScrapeResource(self)
-
-    @cached_property
     def code(self) -> AsyncCodeResource:
         from .resources.code import AsyncCodeResource
 
@@ -1010,12 +996,6 @@ class StructifyWithRawResponse:
         return SandboxResourceWithRawResponse(self._client.sandbox)
 
     @cached_property
-    def scrape(self) -> scrape.ScrapeResourceWithRawResponse:
-        from .resources.scrape import ScrapeResourceWithRawResponse
-
-        return ScrapeResourceWithRawResponse(self._client.scrape)
-
-    @cached_property
     def code(self) -> code.CodeResourceWithRawResponse:
         from .resources.code import CodeResourceWithRawResponse
 
@@ -1171,12 +1151,6 @@ class AsyncStructifyWithRawResponse:
         from .resources.sandbox import AsyncSandboxResourceWithRawResponse
 
         return AsyncSandboxResourceWithRawResponse(self._client.sandbox)
-
-    @cached_property
-    def scrape(self) -> scrape.AsyncScrapeResourceWithRawResponse:
-        from .resources.scrape import AsyncScrapeResourceWithRawResponse
-
-        return AsyncScrapeResourceWithRawResponse(self._client.scrape)
 
     @cached_property
     def code(self) -> code.AsyncCodeResourceWithRawResponse:
@@ -1342,12 +1316,6 @@ class StructifyWithStreamedResponse:
         return SandboxResourceWithStreamingResponse(self._client.sandbox)
 
     @cached_property
-    def scrape(self) -> scrape.ScrapeResourceWithStreamingResponse:
-        from .resources.scrape import ScrapeResourceWithStreamingResponse
-
-        return ScrapeResourceWithStreamingResponse(self._client.scrape)
-
-    @cached_property
     def code(self) -> code.CodeResourceWithStreamingResponse:
         from .resources.code import CodeResourceWithStreamingResponse
 
@@ -1503,12 +1471,6 @@ class AsyncStructifyWithStreamedResponse:
         from .resources.sandbox import AsyncSandboxResourceWithStreamingResponse
 
         return AsyncSandboxResourceWithStreamingResponse(self._client.sandbox)
-
-    @cached_property
-    def scrape(self) -> scrape.AsyncScrapeResourceWithStreamingResponse:
-        from .resources.scrape import AsyncScrapeResourceWithStreamingResponse
-
-        return AsyncScrapeResourceWithStreamingResponse(self._client.scrape)
 
     @cached_property
     def code(self) -> code.AsyncCodeResourceWithStreamingResponse:

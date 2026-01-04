@@ -85,14 +85,6 @@ from .polars import (
     PolarsResourceWithRawResponse,
     PolarsResourceWithStreamingResponse,
 )
-from .scrape import (
-    ScrapeResource,
-    AsyncScrapeResource,
-    ScrapeResourceWithRawResponse,
-    AsyncScrapeResourceWithRawResponse,
-    ScrapeResourceWithStreamingResponse,
-    AsyncScrapeResourceWithStreamingResponse,
-)
 from .server import (
     ServerResource,
     AsyncServerResource,
@@ -329,12 +321,6 @@ __all__ = [
     "AsyncSandboxResourceWithRawResponse",
     "SandboxResourceWithStreamingResponse",
     "AsyncSandboxResourceWithStreamingResponse",
-    "ScrapeResource",
-    "AsyncScrapeResource",
-    "ScrapeResourceWithRawResponse",
-    "AsyncScrapeResourceWithRawResponse",
-    "ScrapeResourceWithStreamingResponse",
-    "AsyncScrapeResourceWithStreamingResponse",
     "CodeResource",
     "AsyncCodeResource",
     "CodeResourceWithRawResponse",

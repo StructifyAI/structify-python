@@ -65,7 +65,6 @@ from .merge_config_param import MergeConfigParam as MergeConfigParam
 from .project_visibility import ProjectVisibility as ProjectVisibility
 from .relationship_param import RelationshipParam as RelationshipParam
 from .sandbox_get_params import SandboxGetParams as SandboxGetParams
-from .scrape_list_params import ScrapeListParams as ScrapeListParams
 from .server_information import ServerInformation as ServerInformation
 from .slack_api_response import SlackAPIResponse as SlackAPIResponse
 from .source_list_params import SourceListParams as SourceListParams
@@ -104,8 +103,6 @@ from .entity_view_response import EntityViewResponse as EntityViewResponse
 from .exploration_phase_id import ExplorationPhaseID as ExplorationPhaseID
 from .list_tables_response import ListTablesResponse as ListTablesResponse
 from .project_get_response import ProjectGetResponse as ProjectGetResponse
-from .scrape_list_response import ScrapeListResponse as ScrapeListResponse
-from .scrape_scrape_params import ScrapeScrapeParams as ScrapeScrapeParams
 from .select_team_response import SelectTeamResponse as SelectTeamResponse
 from .source_list_response import SourceListResponse as SourceListResponse
 from .update_team_response import UpdateTeamResponse as UpdateTeamResponse
@@ -143,7 +140,6 @@ from .get_node_logs_response import GetNodeLogsResponse as GetNodeLogsResponse
 from .list_projects_response import ListProjectsResponse as ListProjectsResponse
 from .remove_member_response import RemoveMemberResponse as RemoveMemberResponse
 from .save_requirement_param import SaveRequirementParam as SaveRequirementParam
-from .scrape_scrape_response import ScrapeScrapeResponse as ScrapeScrapeResponse
 from .team_add_member_params import TeamAddMemberParams as TeamAddMemberParams
 from .workflow_schedule_info import WorkflowScheduleInfo as WorkflowScheduleInfo
 from .connector_create_params import ConnectorCreateParams as ConnectorCreateParams
@@ -202,7 +198,6 @@ from .entity_derive_all_response import EntityDeriveAllResponse as EntityDeriveA
 from .entity_get_merges_response import EntityGetMergesResponse as EntityGetMergesResponse
 from .session_kill_jobs_response import SessionKillJobsResponse as SessionKillJobsResponse
 from .session_update_node_params import SessionUpdateNodeParams as SessionUpdateNodeParams
-from .structure_run_async_params import StructureRunAsyncParams as StructureRunAsyncParams
 from .survey_submission_response import SurveySubmissionResponse as SurveySubmissionResponse
 from .team_create_project_params import TeamCreateProjectParams as TeamCreateProjectParams
 from .update_visibility_response import UpdateVisibilityResponse as UpdateVisibilityResponse
@@ -233,7 +228,6 @@ from .delete_chat_session_response import DeleteChatSessionResponse as DeleteCha
 from .entity_upload_parquet_params import EntityUploadParquetParams as EntityUploadParquetParams
 from .sandbox_update_status_params import SandboxUpdateStatusParams as SandboxUpdateStatusParams
 from .structure_is_complete_params import StructureIsCompleteParams as StructureIsCompleteParams
-from .structure_run_async_response import StructureRunAsyncResponse as StructureRunAsyncResponse
 from .chat_update_visibility_params import ChatUpdateVisibilityParams as ChatUpdateVisibilityParams
 from .connector_update_table_params import ConnectorUpdateTableParams as ConnectorUpdateTableParams
 from .delete_schema_object_response import DeleteSchemaObjectResponse as DeleteSchemaObjectResponse
@@ -279,7 +273,6 @@ from .entity_delete_relationship_params import EntityDeleteRelationshipParams as
 from .entity_get_source_entities_params import EntityGetSourceEntitiesParams as EntityGetSourceEntitiesParams
 from .relationship_merge_strategy_param import RelationshipMergeStrategyParam as RelationshipMergeStrategyParam
 from .source_delete_relationship_params import SourceDeleteRelationshipParams as SourceDeleteRelationshipParams
-from .structure_enhance_property_params import StructureEnhancePropertyParams as StructureEnhancePropertyParams
 from .chat_get_session_timeline_response import ChatGetSessionTimelineResponse as ChatGetSessionTimelineResponse
 from .connector_get_explorer_chat_params import ConnectorGetExplorerChatParams as ConnectorGetExplorerChatParams
 from .dataset_enrichment_progress_params import DatasetEnrichmentProgressParams as DatasetEnrichmentProgressParams
@@ -287,7 +280,6 @@ from .dataset_update_relationship_params import DatasetUpdateRelationshipParams 
 from .delete_schema_object_request_param import DeleteSchemaObjectRequestParam as DeleteSchemaObjectRequestParam
 from .entity_get_local_subgraph_response import EntityGetLocalSubgraphResponse as EntityGetLocalSubgraphResponse
 from .session_get_node_progress_response import SessionGetNodeProgressResponse as SessionGetNodeProgressResponse
-from .structure_find_relationship_params import StructureFindRelationshipParams as StructureFindRelationshipParams
 from .workflow_schedule_get_all_response import WorkflowScheduleGetAllResponse as WorkflowScheduleGetAllResponse
 from .chat_update_session_favorite_params import ChatUpdateSessionFavoriteParams as ChatUpdateSessionFavoriteParams
 from .connector_list_with_snippets_params import ConnectorListWithSnippetsParams as ConnectorListWithSnippetsParams
@@ -295,17 +287,12 @@ from .dataset_view_relationships_response import DatasetViewRelationshipsRespons
 from .delete_source_relationship_response import DeleteSourceRelationshipResponse as DeleteSourceRelationshipResponse
 from .entity_get_source_entities_response import EntityGetSourceEntitiesResponse as EntityGetSourceEntitiesResponse
 from .session_update_node_progress_params import SessionUpdateNodeProgressParams as SessionUpdateNodeProgressParams
-from .structure_enhance_property_response import StructureEnhancePropertyResponse as StructureEnhancePropertyResponse
 from .dataset_enrichment_progress_response import DatasetEnrichmentProgressResponse as DatasetEnrichmentProgressResponse
-from .structure_find_relationship_response import StructureFindRelationshipResponse as StructureFindRelationshipResponse
 from .connector_delete_schema_object_params import (
     ConnectorDeleteSchemaObjectParams as ConnectorDeleteSchemaObjectParams,
 )
 from .connector_list_with_snippets_response import (
     ConnectorListWithSnippetsResponse as ConnectorListWithSnippetsResponse,
-)
-from .structure_enhance_relationship_params import (
-    StructureEnhanceRelationshipParams as StructureEnhanceRelationshipParams,
 )
 from .workflow_schedule_get_sessions_params import (
     WorkflowScheduleGetSessionsParams as WorkflowScheduleGetSessionsParams,
@@ -321,9 +308,6 @@ from .dataset_count_missing_embeddings_params import (
 )
 from .get_workflow_schedule_sessions_response import (
     GetWorkflowScheduleSessionsResponse as GetWorkflowScheduleSessionsResponse,
-)
-from .structure_enhance_relationship_response import (
-    StructureEnhanceRelationshipResponse as StructureEnhanceRelationshipResponse,
 )
 from .chat_copy_node_output_by_code_hash_params import (
     ChatCopyNodeOutputByCodeHashParams as ChatCopyNodeOutputByCodeHashParams,
