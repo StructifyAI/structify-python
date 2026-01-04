@@ -2,164 +2,106 @@
 
 from __future__ import annotations
 
+import io
 import os
 from typing import Any, cast
 
+import polars as pl
 import pytest
 
 from structify import Structify, AsyncStructify
 from tests.utils import assert_matches_type
-from structify.types import (
-    StructureJobStatusResponse,
-)
+from structify.types import StructureJobStatusResponse
+from structify.types.structure_params import StructureParams
+from structify.types.structure_response import StructureResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
+
+
+def make_structure_request() -> tuple[StructureParams, bytes]:
+    buffer = io.BytesIO()
+    pl.DataFrame({"name": ["Structify"]}).write_parquet(buffer)
+
+    params: StructureParams = {
+        "dataset_descriptor": {
+            "name": "test_dataset",
+            "description": "Test dataset",
+            "tables": [
+                {
+                    "name": "Company",
+                    "description": "Company table",
+                    "properties": [
+                        {"name": "name", "description": "Company name", "prop_type": "String"},
+                    ],
+                }
+            ],
+            "relationships": [],
+        },
+        "table_name": "Company",
+        "new_columns": [
+            {"name": "description", "description": "Company description", "prop_type": "String"},
+        ],
+    }
+
+    return params, buffer.getvalue()
 
 
 class TestStructure:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @parametrize
-    def test_method_enhance_property(self, client: Structify) -> None:
-        structure = client.structure.enhance_property(
-            entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            property_name="property_name",
+    def test_method_structure(self, client: Structify) -> None:
+        params, file_data = make_structure_request()
+        structure = client.structure.structure(
+            params=params,
+            file=file_data,
         )
-        assert_matches_type(str, structure, path=["response"])
+        assert_matches_type(StructureResponse, structure, path=["response"])
 
     @parametrize
-    def test_method_enhance_property_with_all_params(self, client: Structify) -> None:
-        structure = client.structure.enhance_property(
-            entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            property_name="property_name",
-            allow_extra_entities=True,
-            banned_domains=["string"],
-            node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            starting_searches=["string"],
-            starting_urls=["string"],
+    def test_method_structure_with_all_params(self, client: Structify) -> None:
+        params, file_data = make_structure_request()
+        params = {
+            **params,
+            "allow_expand_rows": True,
+            "instruction": "Use the company name to find details.",
+            "browser": {"starting_urls": ["https://www.example.com"], "proxy": True},
+            "sandbox": {},
+            "nsteps": 5,
+            "model": "gpt-4o-mini",
+            "node_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        }
+        structure = client.structure.structure(
+            params=params,
+            file=file_data,
         )
-        assert_matches_type(str, structure, path=["response"])
+        assert_matches_type(StructureResponse, structure, path=["response"])
 
     @parametrize
-    def test_raw_response_enhance_property(self, client: Structify) -> None:
-        response = client.structure.with_raw_response.enhance_property(
-            entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            property_name="property_name",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        structure = response.parse()
-        assert_matches_type(str, structure, path=["response"])
-
-    @parametrize
-    def test_streaming_response_enhance_property(self, client: Structify) -> None:
-        with client.structure.with_streaming_response.enhance_property(
-            entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            property_name="property_name",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            structure = response.parse()
-            assert_matches_type(str, structure, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    def test_method_enhance_relationship(self, client: Structify) -> None:
-        structure = client.structure.enhance_relationship(
-            entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            relationship_name="relationship_name",
-        )
-        assert_matches_type(str, structure, path=["response"])
-
-    @parametrize
-    def test_method_enhance_relationship_with_all_params(self, client: Structify) -> None:
-        structure = client.structure.enhance_relationship(
-            entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            relationship_name="relationship_name",
-            allow_extra_entities=True,
-            banned_domains=["string"],
-            node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            starting_searches=["string"],
-            starting_urls=["string"],
-        )
-        assert_matches_type(str, structure, path=["response"])
-
-    @parametrize
-    def test_raw_response_enhance_relationship(self, client: Structify) -> None:
-        response = client.structure.with_raw_response.enhance_relationship(
-            entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            relationship_name="relationship_name",
+    def test_raw_response_structure(self, client: Structify) -> None:
+        params, file_data = make_structure_request()
+        response = client.structure.with_raw_response.structure(
+            params=params,
+            file=file_data,
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         structure = response.parse()
-        assert_matches_type(str, structure, path=["response"])
+        assert_matches_type(StructureResponse, structure, path=["response"])
 
     @parametrize
-    def test_streaming_response_enhance_relationship(self, client: Structify) -> None:
-        with client.structure.with_streaming_response.enhance_relationship(
-            entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            relationship_name="relationship_name",
+    def test_streaming_response_structure(self, client: Structify) -> None:
+        params, file_data = make_structure_request()
+        with client.structure.with_streaming_response.structure(
+            params=params,
+            file=file_data,
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             structure = response.parse()
-            assert_matches_type(str, structure, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    def test_method_find_relationship(self, client: Structify) -> None:
-        structure = client.structure.find_relationship(
-            from_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            relationship_name="relationship_name",
-            to_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-        assert_matches_type(str, structure, path=["response"])
-
-    @parametrize
-    def test_method_find_relationship_with_all_params(self, client: Structify) -> None:
-        structure = client.structure.find_relationship(
-            from_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            relationship_name="relationship_name",
-            to_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            allow_extra_entities=True,
-            banned_domains=["string"],
-            starting_searches=["string"],
-            starting_urls=["string"],
-        )
-        assert_matches_type(str, structure, path=["response"])
-
-    @parametrize
-    def test_raw_response_find_relationship(self, client: Structify) -> None:
-        response = client.structure.with_raw_response.find_relationship(
-            from_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            relationship_name="relationship_name",
-            to_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        structure = response.parse()
-        assert_matches_type(str, structure, path=["response"])
-
-    @parametrize
-    def test_streaming_response_find_relationship(self, client: Structify) -> None:
-        with client.structure.with_streaming_response.find_relationship(
-            from_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            relationship_name="relationship_name",
-            to_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            structure = response.parse()
-            assert_matches_type(str, structure, path=["response"])
+            assert_matches_type(StructureResponse, structure, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -235,214 +177,63 @@ class TestStructure:
 
         assert cast(Any, response.is_closed) is True
 
-    @parametrize
-    def test_method_run_async(self, client: Structify) -> None:
-        structure = client.structure.run_async(
-            dataset="dataset",
-            source={"pdf": {"path": "path"}},
-        )
-        assert_matches_type(str, structure, path=["response"])
-
-    @parametrize
-    def test_method_run_async_with_all_params(self, client: Structify) -> None:
-        structure = client.structure.run_async(
-            dataset="dataset",
-            source={"pdf": {"path": "path"}},
-            node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            save_requirement=[{"relationship_name": "relationship_name"}],
-            seeded_entity={
-                "entities": [
-                    {
-                        "id": 0,
-                        "properties": {"foo": "string"},
-                        "type": "type",
-                    }
-                ],
-                "relationships": [
-                    {
-                        "source": 0,
-                        "target": 0,
-                        "type": "type",
-                        "properties": {"foo": "string"},
-                    }
-                ],
-            },
-        )
-        assert_matches_type(str, structure, path=["response"])
-
-    @parametrize
-    def test_raw_response_run_async(self, client: Structify) -> None:
-        response = client.structure.with_raw_response.run_async(
-            dataset="dataset",
-            source={"pdf": {"path": "path"}},
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        structure = response.parse()
-        assert_matches_type(str, structure, path=["response"])
-
-    @parametrize
-    def test_streaming_response_run_async(self, client: Structify) -> None:
-        with client.structure.with_streaming_response.run_async(
-            dataset="dataset",
-            source={"pdf": {"path": "path"}},
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            structure = response.parse()
-            assert_matches_type(str, structure, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
 
 class TestAsyncStructure:
-    parametrize = pytest.mark.parametrize(
-        "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
-    )
+    parametrize = pytest.mark.parametrize("async_client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @parametrize
-    async def test_method_enhance_property(self, async_client: AsyncStructify) -> None:
-        structure = await async_client.structure.enhance_property(
-            entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            property_name="property_name",
+    async def test_method_structure(self, async_client: AsyncStructify) -> None:
+        params, file_data = make_structure_request()
+        structure = await async_client.structure.structure(
+            params=params,
+            file=file_data,
         )
-        assert_matches_type(str, structure, path=["response"])
+        assert_matches_type(StructureResponse, structure, path=["response"])
 
     @parametrize
-    async def test_method_enhance_property_with_all_params(self, async_client: AsyncStructify) -> None:
-        structure = await async_client.structure.enhance_property(
-            entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            property_name="property_name",
-            allow_extra_entities=True,
-            banned_domains=["string"],
-            node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            starting_searches=["string"],
-            starting_urls=["string"],
+    async def test_method_structure_with_all_params(self, async_client: AsyncStructify) -> None:
+        params, file_data = make_structure_request()
+        params = {
+            **params,
+            "allow_expand_rows": True,
+            "instruction": "Use the company name to find details.",
+            "browser": {"starting_urls": ["https://www.example.com"], "proxy": True},
+            "sandbox": {},
+            "nsteps": 5,
+            "model": "gpt-4o-mini",
+            "node_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        }
+        structure = await async_client.structure.structure(
+            params=params,
+            file=file_data,
         )
-        assert_matches_type(str, structure, path=["response"])
+        assert_matches_type(StructureResponse, structure, path=["response"])
 
     @parametrize
-    async def test_raw_response_enhance_property(self, async_client: AsyncStructify) -> None:
-        response = await async_client.structure.with_raw_response.enhance_property(
-            entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            property_name="property_name",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        structure = await response.parse()
-        assert_matches_type(str, structure, path=["response"])
-
-    @parametrize
-    async def test_streaming_response_enhance_property(self, async_client: AsyncStructify) -> None:
-        async with async_client.structure.with_streaming_response.enhance_property(
-            entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            property_name="property_name",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            structure = await response.parse()
-            assert_matches_type(str, structure, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    async def test_method_enhance_relationship(self, async_client: AsyncStructify) -> None:
-        structure = await async_client.structure.enhance_relationship(
-            entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            relationship_name="relationship_name",
-        )
-        assert_matches_type(str, structure, path=["response"])
-
-    @parametrize
-    async def test_method_enhance_relationship_with_all_params(self, async_client: AsyncStructify) -> None:
-        structure = await async_client.structure.enhance_relationship(
-            entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            relationship_name="relationship_name",
-            allow_extra_entities=True,
-            banned_domains=["string"],
-            node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            starting_searches=["string"],
-            starting_urls=["string"],
-        )
-        assert_matches_type(str, structure, path=["response"])
-
-    @parametrize
-    async def test_raw_response_enhance_relationship(self, async_client: AsyncStructify) -> None:
-        response = await async_client.structure.with_raw_response.enhance_relationship(
-            entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            relationship_name="relationship_name",
+    async def test_raw_response_structure(self, async_client: AsyncStructify) -> None:
+        params, file_data = make_structure_request()
+        response = await async_client.structure.with_raw_response.structure(
+            params=params,
+            file=file_data,
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         structure = await response.parse()
-        assert_matches_type(str, structure, path=["response"])
+        assert_matches_type(StructureResponse, structure, path=["response"])
 
     @parametrize
-    async def test_streaming_response_enhance_relationship(self, async_client: AsyncStructify) -> None:
-        async with async_client.structure.with_streaming_response.enhance_relationship(
-            entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            relationship_name="relationship_name",
+    async def test_streaming_response_structure(self, async_client: AsyncStructify) -> None:
+        params, file_data = make_structure_request()
+        async with async_client.structure.with_streaming_response.structure(
+            params=params,
+            file=file_data,
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             structure = await response.parse()
-            assert_matches_type(str, structure, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    async def test_method_find_relationship(self, async_client: AsyncStructify) -> None:
-        structure = await async_client.structure.find_relationship(
-            from_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            relationship_name="relationship_name",
-            to_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-        assert_matches_type(str, structure, path=["response"])
-
-    @parametrize
-    async def test_method_find_relationship_with_all_params(self, async_client: AsyncStructify) -> None:
-        structure = await async_client.structure.find_relationship(
-            from_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            relationship_name="relationship_name",
-            to_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            allow_extra_entities=True,
-            banned_domains=["string"],
-            starting_searches=["string"],
-            starting_urls=["string"],
-        )
-        assert_matches_type(str, structure, path=["response"])
-
-    @parametrize
-    async def test_raw_response_find_relationship(self, async_client: AsyncStructify) -> None:
-        response = await async_client.structure.with_raw_response.find_relationship(
-            from_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            relationship_name="relationship_name",
-            to_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        structure = await response.parse()
-        assert_matches_type(str, structure, path=["response"])
-
-    @parametrize
-    async def test_streaming_response_find_relationship(self, async_client: AsyncStructify) -> None:
-        async with async_client.structure.with_streaming_response.find_relationship(
-            from_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            relationship_name="relationship_name",
-            to_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            structure = await response.parse()
-            assert_matches_type(str, structure, path=["response"])
+            assert_matches_type(StructureResponse, structure, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -515,66 +306,5 @@ class TestAsyncStructure:
 
             structure = await response.parse()
             assert_matches_type(StructureJobStatusResponse, structure, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    async def test_method_run_async(self, async_client: AsyncStructify) -> None:
-        structure = await async_client.structure.run_async(
-            dataset="dataset",
-            source={"pdf": {"path": "path"}},
-        )
-        assert_matches_type(str, structure, path=["response"])
-
-    @parametrize
-    async def test_method_run_async_with_all_params(self, async_client: AsyncStructify) -> None:
-        structure = await async_client.structure.run_async(
-            dataset="dataset",
-            source={"pdf": {"path": "path"}},
-            node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            save_requirement=[{"relationship_name": "relationship_name"}],
-            seeded_entity={
-                "entities": [
-                    {
-                        "id": 0,
-                        "properties": {"foo": "string"},
-                        "type": "type",
-                    }
-                ],
-                "relationships": [
-                    {
-                        "source": 0,
-                        "target": 0,
-                        "type": "type",
-                        "properties": {"foo": "string"},
-                    }
-                ],
-            },
-        )
-        assert_matches_type(str, structure, path=["response"])
-
-    @parametrize
-    async def test_raw_response_run_async(self, async_client: AsyncStructify) -> None:
-        response = await async_client.structure.with_raw_response.run_async(
-            dataset="dataset",
-            source={"pdf": {"path": "path"}},
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        structure = await response.parse()
-        assert_matches_type(str, structure, path=["response"])
-
-    @parametrize
-    async def test_streaming_response_run_async(self, async_client: AsyncStructify) -> None:
-        async with async_client.structure.with_streaming_response.run_async(
-            dataset="dataset",
-            source={"pdf": {"path": "path"}},
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            structure = await response.parse()
-            assert_matches_type(str, structure, path=["response"])
 
         assert cast(Any, response.is_closed) is True

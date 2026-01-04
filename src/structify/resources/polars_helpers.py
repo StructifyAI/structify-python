@@ -6,8 +6,8 @@ from typing import Any, Dict, List, Optional
 
 import polars as pl
 
-from structify.types.property_type_param import PropertyTypeParam
 from ..types.table_param import Property, TableParam
+from ..types.property_type_param import PropertyTypeParam
 
 
 def get_node_id() -> Optional[str]:

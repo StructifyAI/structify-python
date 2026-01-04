@@ -6,13 +6,12 @@ from typing import Any, Dict
 import polars as pl
 from polars import LazyFrame
 
-from ..types import TableParam
-from ..types.table_param import Property
 from .polars_helpers import (
-    _merge_schema_with_suffix,
     dtype_to_structify_type,
+    _merge_schema_with_suffix,
     structify_type_to_polars_dtype,
 )
+from ..types.table_param import Property, TableParam
 
 
 class DeprecatedPolarsMixin:
@@ -105,7 +104,7 @@ class DeprecatedPolarsMixin:
         output_schema = _merge_schema_with_suffix(input_schema, scraped_columns, suffix=table_name)
 
         new_columns: list[Property] = []
-        for col_name, dtype in scraped_columns.items():
+        for col_name in scraped_columns:
             effective_name = col_name if col_name not in input_schema else f"{col_name}_{table_name}"
             details = column_details[col_name]
             prop: Property = {
@@ -119,6 +118,7 @@ class DeprecatedPolarsMixin:
 
         instruction_parts = [
             f"Use the URL in column '{url_column}' as the source for scraping.",
+            f"Source table: {source_table_name}.",
             f"Find {relationship_name} for each row and return one row per related entity.",
             relationship_description,
         ]
@@ -135,12 +135,13 @@ class DeprecatedPolarsMixin:
             browser=browser,
         )
         structured = structured.drop(["_original_index", "_job_id", "_explanation"])
+        structured_columns = structured.collect_schema().names()
         if scrape_schema_override and original_column_map:
             structured = structured.rename(
                 {
                     col_name: original_column_map.get(col_name, col_name)
                     for col_name in original_column_map.values()
-                    if col_name in structured.columns
+                    if col_name in structured_columns
                 }
             )
         return structured.select(output_schema.names())
@@ -212,7 +213,8 @@ class DeprecatedPolarsMixin:
             "file_size_bytes",
             "local_path",
         ]
-        columns_to_drop = [col for col in drop_candidates if col in structured.columns]
+        structured_columns = structured.collect_schema().names()
+        columns_to_drop = [col for col in drop_candidates if col in structured_columns]
         structured = structured.drop(columns_to_drop)
         structured = structured.select([path_column] + list(schema.keys()))
 

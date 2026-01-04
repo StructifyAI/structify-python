@@ -5,8 +5,8 @@ import io
 import json
 import time
 import uuid
+from typing import Any, Dict, List, Iterable, Optional
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Iterable
 
 import polars as pl
 from polars import LazyFrame
@@ -15,28 +15,28 @@ from structify.types.entity_param import EntityParam
 from structify.types.knowledge_graph_param import KnowledgeGraphParam
 
 from ..types import TableParam
-from .._base_client import make_request_options
 from .._compat import cached_property
 from .._resource import SyncAPIResource
 from .._response import (
     to_raw_response_wrapper,
     to_streamed_response_wrapper,
 )
+from .deprecated import DeprecatedPolarsMixin
+from .._base_client import make_request_options
+from .polars_helpers import (
+    get_node_id,
+    properties_to_schema,
+    schema_to_properties,
+    dtype_to_structify_type,
+    merge_column_properties,
+    _merge_schema_with_suffix,
+    structify_type_to_polars_dtype,
+)
 from ..types.table_param import Property
 from ..lib.cost_confirmation import request_cost_confirmation_if_needed
 from .external_dataframe_proxy import ServicesProxy
-from ..types.dataset_descriptor_param import DatasetDescriptorParam
 from ..types.structure_response import StructureResponse
-from .deprecated import DeprecatedPolarsMixin
-from .polars_helpers import (
-    _merge_schema_with_suffix,
-    dtype_to_structify_type,
-    get_node_id,
-    merge_column_properties,
-    properties_to_schema,
-    schema_to_properties,
-    structify_type_to_polars_dtype,
-)
+from ..types.dataset_descriptor_param import DatasetDescriptorParam
 
 __all__ = ["PolarsResource"]
 
