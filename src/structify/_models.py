@@ -718,7 +718,13 @@ def _extract_field_schema_pv2(model: type[BaseModel], field_name: str) -> ModelF
 
 def validate_type(*, type_: type[_T], value: object) -> _T:
     """Strict validation that the given value matches the expected type"""
-    if inspect.isclass(type_) and get_origin(type_) is None and issubclass(type_, pydantic.BaseModel):
+    origin = get_origin(type_)
+    if (
+        inspect.isclass(type_)
+        and origin is None
+        and getattr(type_, "__origin__", None) is None
+        and issubclass(type_, pydantic.BaseModel)
+    ):
         return cast(_T, parse_obj(type_, value))
 
     return cast(_T, _validate_non_model_type(type_=type_, value=value))
