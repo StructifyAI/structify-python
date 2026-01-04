@@ -6,7 +6,16 @@ import traceback
 import contextlib
 from typing import Any, TypeVar, Iterable, Iterator, Sequence, cast
 from datetime import date, datetime
-from typing_extensions import Literal, get_args, get_origin, assert_type, is_typeddict
+from typing_extensions import (
+    Literal,
+    Required,
+    NotRequired,
+    get_args,
+    get_origin,
+    assert_type,
+    is_typeddict,
+    get_type_hints,
+)
 
 from structify._types import Omit, NoneType
 from structify._utils import (
@@ -67,7 +76,12 @@ def assert_matches_type(
         assert value is None
         return
 
-    origin = get_origin(type_) or type_
+    origin = get_origin(type_)
+    if origin in (Required, NotRequired):
+        inner_type = get_args(type_)[0]
+        return assert_matches_type(inner_type, value, path=path, allow_none=allow_none)
+
+    origin = origin or type_
 
     if is_list_type(type_):
         return _assert_list_type(type_, value)
@@ -82,9 +96,11 @@ def assert_matches_type(
     if is_typeddict(type_):
         assert is_dict(value)
 
-        annotations = cast(dict[str, Any], type_.__annotations__)
-        required_keys = set(cast(Iterable[str], getattr(type_, "__required_keys__", set(annotations))))
-        optional_keys = set(cast(Iterable[str], getattr(type_, "__optional_keys__", set())))
+        annotations = cast(dict[str, Any], get_type_hints(type_, include_extras=True))
+        required_default = set(annotations.keys())
+        optional_default: set[str] = set()
+        required_keys = set(cast(Iterable[str], getattr(type_, "__required_keys__", required_default)))
+        optional_keys = set(cast(Iterable[str], getattr(type_, "__optional_keys__", optional_default)))
 
         for key in required_keys:
             assert key in value
