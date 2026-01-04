@@ -619,7 +619,11 @@ class BaseClient(Generic[_HttpxClientT, _DefaultStreamT]):
             return cast(ResponseT, data)
 
         try:
-            if inspect.isclass(cast_to) and issubclass(cast_to, ModelBuilderProtocol):
+            if (
+                inspect.isclass(cast_to)
+                and get_origin(cast_to) is None
+                and issubclass(cast_to, ModelBuilderProtocol)
+            ):
                 return cast(ResponseT, cast_to.build(response=response, data=data))
 
             if self._strict_response_validation:

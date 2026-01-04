@@ -82,9 +82,15 @@ def assert_matches_type(
     if is_typeddict(type_):
         assert is_dict(value)
 
-        annotations = type_.__annotations__
-        required_keys = getattr(type_, "__required_keys__", set(annotations))
-        optional_keys = getattr(type_, "__optional_keys__", set())
+        annotations = cast(dict[str, Any], type_.__annotations__)
+        required_keys = cast(
+            set[str] | frozenset[str],
+            getattr(type_, "__required_keys__", set(annotations)),
+        )
+        optional_keys = cast(
+            set[str] | frozenset[str],
+            getattr(type_, "__optional_keys__", set()),
+        )
 
         for key in required_keys:
             assert key in value
