@@ -6,7 +6,7 @@ import traceback
 import contextlib
 from typing import Any, TypeVar, Iterator, Sequence, cast
 from datetime import date, datetime
-from typing_extensions import Literal, get_args, get_origin, assert_type
+from typing_extensions import Literal, get_args, get_origin, assert_type, is_typeddict
 
 from structify._types import Omit, NoneType
 from structify._utils import (
@@ -77,6 +77,22 @@ def assert_matches_type(
         inner_type = get_args(type_)[0]
         for entry in value:  # type: ignore
             assert_type(inner_type, entry)  # type: ignore
+        return
+
+    if is_typeddict(type_):
+        assert is_dict(value)
+
+        annotations = type_.__annotations__
+        required_keys = getattr(type_, "__required_keys__", set(annotations))
+        optional_keys = getattr(type_, "__optional_keys__", set())
+
+        for key in required_keys:
+            assert key in value
+            assert_matches_type(annotations[key], value[key], path=[*path, key])
+
+        for key in optional_keys:
+            if key in value:
+                assert_matches_type(annotations[key], value[key], path=[*path, key])
         return
 
     if origin == str:

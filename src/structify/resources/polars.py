@@ -123,9 +123,10 @@ class PolarsResource(DeprecatedPolarsMixin, SyncAPIResource):
                 description = entry.get("description", "")
                 prop_type: PropertyTypeParam
                 if "prop_type" in entry:
-                    prop_type = cast(PropertyTypeParam, entry["prop_type"])
-                    if prop_type is None:
+                    raw_prop_type = entry.get("prop_type")
+                    if raw_prop_type is None:
                         raise ValueError("Each new column must include a non-null 'prop_type'.")
+                    prop_type = cast(PropertyTypeParam, raw_prop_type)
                 elif "type" in entry:
                     dtype = entry["type"]
                     if dtype is None:
@@ -233,7 +234,7 @@ class PolarsResource(DeprecatedPolarsMixin, SyncAPIResource):
                 node_id=resolved_node_id,
             )
 
-            results = [
+            results: list[dict[str, Any]] = [
                 dict(entity.properties)
                 for entity in self._client.datasets.view_table(
                     dataset=response["dataset_name"], name=response["table_name"]
@@ -326,7 +327,7 @@ class PolarsResource(DeprecatedPolarsMixin, SyncAPIResource):
                 }
                 merge_strategy = prop.get("merge_strategy")
                 if merge_strategy is not None:
-                    target_property["merge_strategy"] = cast(StrategyParam, merge_strategy)
+                    target_property["merge_strategy"] = merge_strategy
                 target_properties.append(target_property)
         else:
             for col_name, col_info in target_schema.items():
@@ -355,7 +356,7 @@ class PolarsResource(DeprecatedPolarsMixin, SyncAPIResource):
             }
             merge_strategy = prop.get("merge_strategy")
             if merge_strategy is not None:
-                effective_prop["merge_strategy"] = cast(StrategyParam, merge_strategy)
+                effective_prop["merge_strategy"] = merge_strategy
             effective_properties.append(effective_prop)
 
         instruction_parts = [

@@ -72,14 +72,17 @@ class StructureResource(SyncAPIResource):
         body = deepcopy_minimal({"params": params_json, "file": file})
         files = extract_files(cast(Mapping[str, object], body), paths=[["file"]])
         extra_headers = {"Content-Type": "multipart/form-data", **(extra_headers or {})}
-        return self._post(
-            "/structure",
-            body=body,
-            files=files,
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+        return cast(
+            structure_response.StructureResponse,
+            self._post(
+                "/structure",
+                body=body,
+                files=files,
+                options=make_request_options(
+                    extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                ),
+                cast_to=dict[str, object],
             ),
-            cast_to=dict,
         )
 
     def is_complete(
@@ -197,14 +200,17 @@ class AsyncStructureResource(AsyncAPIResource):
         body = deepcopy_minimal({"params": params_json, "file": file})
         files = extract_files(cast(Mapping[str, object], body), paths=[["file"]])
         extra_headers = {"Content-Type": "multipart/form-data", **(extra_headers or {})}
-        return await self._post(
-            "/structure",
-            body=body,
-            files=files,
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+        return cast(
+            structure_response.StructureResponse,
+            await self._post(
+                "/structure",
+                body=body,
+                files=files,
+                options=make_request_options(
+                    extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                ),
+                cast_to=dict[str, object],
             ),
-            cast_to=dict,
         )
 
     async def is_complete(
