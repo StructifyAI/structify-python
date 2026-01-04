@@ -10,11 +10,11 @@ import polars as pl
 import pytest
 
 from structify import Structify, AsyncStructify
+from tests.utils import assert_matches_type
 from structify.types import DatasetDescriptorParam, StructureJobStatusResponse
+from structify.types.table_param import Property, TableParam
 from structify.types.structure_params import StructureParams
 from structify.types.structure_response import StructureResponse
-from structify.types.table_param import Property, TableParam
-from tests.utils import assert_matches_type
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
