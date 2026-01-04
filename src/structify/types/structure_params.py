@@ -2,12 +2,12 @@
 
 from __future__ import annotations
 
-from typing import Iterable, Optional, Union
-from typing_extensions import Required, TypedDict, TypeAlias
+from typing import Union, Iterable, Optional
+from typing_extensions import Required, TypeAlias, TypedDict
 
 from .._types import SequenceNotStr
-from .dataset_descriptor_param import DatasetDescriptorParam
 from .table_param import Property
+from .dataset_descriptor_param import DatasetDescriptorParam
 
 __all__ = [
     "StructureParams",

@@ -8,8 +8,8 @@ from typing import Mapping, cast
 import httpx
 
 from ..types import structure_params, structure_response, structure_job_status_params
-from .._types import Body, Query, Headers, NotGiven, SequenceNotStr, not_given, FileTypes
-from .._utils import maybe_transform, async_maybe_transform, deepcopy_minimal, extract_files
+from .._types import Body, Query, Headers, NotGiven, FileTypes, SequenceNotStr, not_given
+from .._utils import extract_files, maybe_transform, deepcopy_minimal, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
