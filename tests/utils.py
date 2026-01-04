@@ -6,6 +6,7 @@ import traceback
 import contextlib
 from typing import Any, TypeVar, Iterable, Iterator, Sequence, cast
 from datetime import date, datetime
+from collections.abc import Iterable as IterableABC
 from typing_extensions import (
     Literal,
     Required,
@@ -93,10 +94,17 @@ def assert_matches_type(
             assert_type(inner_type, entry)  # type: ignore
         return
 
+    if origin is IterableABC:
+        assert isinstance(value, IterableABC)
+        inner_type = get_args(type_)[0]
+        for entry in value:  # type: ignore
+            assert_type(inner_type, entry)  # type: ignore
+        return
+
     if is_typeddict(type_):
         assert is_dict(value)
 
-        annotations = cast(dict[str, Any], get_type_hints(type_, include_extras=True))
+        annotations = get_type_hints(type_, include_extras=True)
         required_default = set(annotations.keys())
         optional_default: set[str] = set()
         required_keys = set(cast(Iterable[str], getattr(type_, "__required_keys__", required_default)))
