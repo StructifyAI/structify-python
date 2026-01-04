@@ -4,7 +4,7 @@ import os
 import inspect
 import traceback
 import contextlib
-from typing import Any, TypeVar, Iterator, Sequence, cast
+from typing import Any, TypeVar, Iterable, Iterator, Sequence, cast
 from datetime import date, datetime
 from typing_extensions import Literal, get_args, get_origin, assert_type, is_typeddict
 
@@ -83,14 +83,8 @@ def assert_matches_type(
         assert is_dict(value)
 
         annotations = cast(dict[str, Any], type_.__annotations__)
-        required_keys = cast(
-            set[str] | frozenset[str],
-            getattr(type_, "__required_keys__", set(annotations)),
-        )
-        optional_keys = cast(
-            set[str] | frozenset[str],
-            getattr(type_, "__optional_keys__", set()),
-        )
+        required_keys = set(cast(Iterable[str], getattr(type_, "__required_keys__", set(annotations))))
+        optional_keys = set(cast(Iterable[str], getattr(type_, "__optional_keys__", set())))
 
         for key in required_keys:
             assert key in value
