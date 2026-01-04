@@ -344,32 +344,6 @@
           }
         ]
       },
-      "AdminDeleteJobsRequest": {
-        "properties": {
-          "job_ids": {
-            "items": {
-              "$ref": "#/components/schemas/JobId"
-            },
-            "type": "array"
-          }
-        },
-        "required": [
-          "job_ids"
-        ],
-        "type": "object"
-      },
-      "AdminDeleteJobsResponse": {
-        "properties": {
-          "deleted_jobs": {
-            "minimum": 0,
-            "type": "integer"
-          }
-        },
-        "required": [
-          "deleted_jobs"
-        ],
-        "type": "object"
-      },
       "AdminGrantAccessResponse": {
         "description": "Response for granting temporary admin access",
         "properties": {
@@ -676,43 +650,6 @@
         ],
         "type": "object"
       },
-      "BrowserConfig": {
-        "additionalProperties": false,
-        "properties": {
-          "banned_domains": {
-            "items": {
-              "type": "string"
-            },
-            "type": "array"
-          },
-          "proxy": {
-            "type": "boolean"
-          },
-          "starting_searches": {
-            "items": {
-              "type": "string"
-            },
-            "type": "array"
-          },
-          "starting_urls": {
-            "items": {
-              "type": "string"
-            },
-            "type": "array"
-          }
-        },
-        "type": "object"
-      },
-      "BrowserParam": {
-        "oneOf": [
-          {
-            "type": "boolean"
-          },
-          {
-            "$ref": "#/components/schemas/BrowserConfig"
-          }
-        ]
-      },
       "CancelSubscriptionRequest": {
         "properties": {
           "team_id": {
@@ -972,11 +909,6 @@
                       "complete": {
                         "type": "boolean"
                       },
-                      "result_image": {
-                        "format": "binary",
-                        "nullable": true,
-                        "type": "string"
-                      },
                       "result_text": {
                         "nullable": true,
                         "type": "string"
@@ -1074,31 +1006,6 @@
             "type": "object"
           }
         ]
-      },
-      "ChatEventWithRole": {
-        "description": "Model-layer message representation - streamlined for LLM transmission",
-        "properties": {
-          "content": {
-            "$ref": "#/components/schemas/ChatEvent"
-          },
-          "message_id": {
-            "$ref": "#/components/schemas/ChatMessageId"
-          },
-          "role": {
-            "$ref": "#/components/schemas/SpeakerTag"
-          },
-          "timestamp": {
-            "format": "date-time",
-            "type": "string"
-          }
-        },
-        "required": [
-          "message_id",
-          "role",
-          "content",
-          "timestamp"
-        ],
-        "type": "object"
       },
       "ChatMessage": {
         "properties": {
@@ -1435,7 +1342,7 @@
           },
           "messages": {
             "items": {
-              "$ref": "#/components/schemas/ChatEventWithRole"
+              "$ref": "#/components/schemas/FrontendChatMessage"
             },
             "type": "array"
           },
@@ -2145,17 +2052,6 @@
             "$ref": "#/components/schemas/Address"
           }
         ]
-      },
-      "ConfirmNodeRequest": {
-        "properties": {
-          "confirmed": {
-            "type": "boolean"
-          }
-        },
-        "required": [
-          "confirmed"
-        ],
-        "type": "object"
       },
       "ConfusionMatrix": {
         "properties": {
@@ -2896,79 +2792,6 @@
         ],
         "type": "object"
       },
-      "CostEstimateRequest": {
-        "properties": {
-          "avg_pages_per_doc": {
-            "format": "int64",
-            "nullable": true,
-            "type": "integer"
-          },
-          "num_documents": {
-            "format": "int64",
-            "nullable": true,
-            "type": "integer"
-          },
-          "num_properties": {
-            "format": "int64",
-            "nullable": true,
-            "type": "integer"
-          },
-          "operation": {
-            "$ref": "#/components/schemas/CostOperation"
-          },
-          "row_count": {
-            "format": "int64",
-            "nullable": true,
-            "type": "integer"
-          },
-          "source_count": {
-            "format": "int64",
-            "nullable": true,
-            "type": "integer"
-          },
-          "target_count": {
-            "format": "int64",
-            "nullable": true,
-            "type": "integer"
-          },
-          "use_proxy": {
-            "nullable": true,
-            "type": "boolean"
-          }
-        },
-        "required": [
-          "operation"
-        ],
-        "type": "object"
-      },
-      "CostEstimateResponse": {
-        "properties": {
-          "estimated_credits": {
-            "format": "int64",
-            "type": "integer"
-          },
-          "estimated_dollars": {
-            "format": "double",
-            "type": "number"
-          }
-        },
-        "required": [
-          "estimated_credits",
-          "estimated_dollars"
-        ],
-        "type": "object"
-      },
-      "CostOperation": {
-        "enum": [
-          "enhance",
-          "enhance_relationship",
-          "scrape",
-          "structure_pdf",
-          "tag",
-          "match"
-        ],
-        "type": "string"
-      },
       "CreateApiKeyRequest": {
         "properties": {
           "expires_at": {
@@ -3679,6 +3502,9 @@
             "properties": {
               "ephemeral": {
                 "type": "boolean"
+              },
+              "generate_merge_criteria": {
+                "type": "boolean"
               }
             },
             "type": "object"
@@ -4294,6 +4120,32 @@
         ],
         "type": "object"
       },
+      "Descriptor": {
+        "oneOf": [
+          {
+            "properties": {
+              "Property": {
+                "$ref": "#/components/schemas/PropertyDescriptor"
+              }
+            },
+            "required": [
+              "Property"
+            ],
+            "type": "object"
+          },
+          {
+            "properties": {
+              "Relationship": {
+                "$ref": "#/components/schemas/RelationshipDescriptor"
+              }
+            },
+            "required": [
+              "Relationship"
+            ],
+            "type": "object"
+          }
+        ]
+      },
       "DocumentId": {
         "format": "uuid",
         "type": "string"
@@ -4352,6 +4204,26 @@
           }
         ]
       },
+      "EnhancePropertyParams": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/EnhancePropertyArgs"
+          },
+          {
+            "properties": {
+              "node_id": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/WorkflowSessionNodeId"
+                  }
+                ],
+                "nullable": true
+              }
+            },
+            "type": "object"
+          }
+        ]
+      },
       "EnhanceRelationshipArgs": {
         "allOf": [
           {
@@ -4373,6 +4245,26 @@
               "entity_id",
               "relationship_name"
             ],
+            "type": "object"
+          }
+        ]
+      },
+      "EnhanceRelationshipParams": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/EnhanceRelationshipArgs"
+          },
+          {
+            "properties": {
+              "node_id": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/WorkflowSessionNodeId"
+                  }
+                ],
+                "nullable": true
+              }
+            },
             "type": "object"
           }
         ]
@@ -4878,37 +4770,6 @@
           "status",
           "total_results",
           "articles"
-        ],
-        "type": "object"
-      },
-      "ExpireGrantsRequest": {
-        "properties": {
-          "source_type": {
-            "type": "string"
-          },
-          "team_id": {
-            "$ref": "#/components/schemas/TeamId"
-          }
-        },
-        "required": [
-          "team_id",
-          "source_type"
-        ],
-        "type": "object"
-      },
-      "ExpireGrantsResponse": {
-        "properties": {
-          "expired_count": {
-            "format": "int64",
-            "type": "integer"
-          },
-          "team_id": {
-            "$ref": "#/components/schemas/TeamId"
-          }
-        },
-        "required": [
-          "team_id",
-          "expired_count"
         ],
         "type": "object"
       },
@@ -5434,6 +5295,16 @@
           }
         ]
       },
+      "FindRelationshipParams": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/FindRelationshipArgs"
+          },
+          {
+            "type": "object"
+          }
+        ]
+      },
       "Flag": {
         "properties": {
           "ariaLabel": {
@@ -5598,6 +5469,44 @@
             "type": "object"
           }
         ]
+      },
+      "FrontendChatMessage": {
+        "description": "Model-layer message representation - streamlined for LLM transmission",
+        "properties": {
+          "chat_session_id": {
+            "$ref": "#/components/schemas/ChatSessionId"
+          },
+          "commit_hash": {
+            "nullable": true,
+            "type": "string"
+          },
+          "content": {
+            "$ref": "#/components/schemas/ChatEvent"
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "id": {
+            "$ref": "#/components/schemas/ChatMessageId"
+          },
+          "role": {
+            "$ref": "#/components/schemas/SpeakerTag"
+          },
+          "timestamp": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "chat_session_id",
+          "role",
+          "content",
+          "timestamp",
+          "created_at"
+        ],
+        "type": "object"
       },
       "FunctionalTest": {
         "properties": {
@@ -5967,17 +5876,6 @@
         },
         "required": [
           "logs"
-        ],
-        "type": "object"
-      },
-      "GetNodeResponse": {
-        "properties": {
-          "node": {
-            "$ref": "#/components/schemas/WorkflowSessionNode"
-          }
-        },
-        "required": [
-          "node"
         ],
         "type": "object"
       },
@@ -8212,7 +8110,7 @@
         "type": "object"
       },
       "LlmInformationStore": {
-        "description": "Information store for connector schema\n\nHierarchical structure: Connector → Database → Schema → Table → Column\nWorks for both relational databases and API-based data.\nDistinguishes between the two by presence of `endpoint` on tables:\n- Relational DB: all tables have `endpoint: None`\n- API: all tables have `endpoint: Some(...)`",
+        "description": "Information store for connector schema\n\nHierarchical structure: Connector \u2192 Database \u2192 Schema \u2192 Table \u2192 Column\nWorks for both relational databases and API-based data.\nDistinguishes between the two by presence of `endpoint` on tables:\n- Relational DB: all tables have `endpoint: None`\n- API: all tables have `endpoint: Some(...)`",
         "properties": {
           "databases": {
             "description": "List of databases in this connector",
@@ -8222,7 +8120,7 @@
             "type": "array"
           },
           "uses_default_hierarchy": {
-            "description": "Whether this store uses default auto-generated database/schema names\n(i.e., database and schema names match the connector name).\nWhen true, UIs should hide the database/schema hierarchy.\nWhen false, UIs should show the full database → schema → table hierarchy.",
+            "description": "Whether this store uses default auto-generated database/schema names\n(i.e., database and schema names match the connector name).\nWhen true, UIs should hide the database/schema hierarchy.\nWhen false, UIs should show the full database \u2192 schema \u2192 table hierarchy.",
             "type": "boolean"
           }
         },
@@ -8746,7 +8644,7 @@
       "Money": {
         "oneOf": [
           {
-            "description": "Money string that includes currency and amount: $10k, £100.00, 1 million CAD, ¥1e8 etc.",
+            "description": "Money string that includes currency and amount: $10k, \u00a3100.00, 1 million CAD, \u00a51e8 etc.",
             "title": "MoneyString",
             "type": "string"
           },
@@ -10294,31 +10192,6 @@
           }
         ]
       },
-      "ReadNodeLogsInput": {
-        "properties": {
-          "end_line": {
-            "minimum": 0,
-            "type": "integer"
-          },
-          "log_type": {
-            "nullable": true,
-            "type": "string"
-          },
-          "node_function_name": {
-            "type": "string"
-          },
-          "start_line": {
-            "minimum": 0,
-            "type": "integer"
-          }
-        },
-        "required": [
-          "node_function_name",
-          "start_line",
-          "end_line"
-        ],
-        "type": "object"
-      },
       "ReasoningEffort": {
         "enum": [
           "low",
@@ -10744,18 +10617,6 @@
         ],
         "type": "object"
       },
-      "RequestConfirmationRequest": {
-        "properties": {
-          "row_count": {
-            "format": "int64",
-            "type": "integer"
-          }
-        },
-        "required": [
-          "row_count"
-        ],
-        "type": "object"
-      },
       "RequiredEntity": {
         "additionalProperties": false,
         "properties": {
@@ -10902,6 +10763,39 @@
         ],
         "type": "object"
       },
+      "RunRequestParams": {
+        "additionalProperties": false,
+        "properties": {
+          "dataset": {
+            "type": "string"
+          },
+          "node_id": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/WorkflowSessionNodeId"
+              }
+            ],
+            "nullable": true
+          },
+          "save_requirement": {
+            "items": {
+              "$ref": "#/components/schemas/SaveRequirement"
+            },
+            "type": "array"
+          },
+          "seeded_entity": {
+            "$ref": "#/components/schemas/LLMKnowledgeGraph"
+          },
+          "source": {
+            "$ref": "#/components/schemas/Input"
+          }
+        },
+        "required": [
+          "source",
+          "dataset"
+        ],
+        "type": "object"
+      },
       "RunWorkflowRequest": {
         "properties": {
           "chat_session_id": {
@@ -10970,23 +10864,9 @@
         ],
         "type": "object"
       },
-      "SandboxConfig": {
-        "additionalProperties": false,
-        "type": "object"
-      },
       "SandboxId": {
         "format": "uuid",
         "type": "string"
-      },
-      "SandboxParam": {
-        "oneOf": [
-          {
-            "type": "boolean"
-          },
-          {
-            "$ref": "#/components/schemas/SandboxConfig"
-          }
-        ]
       },
       "SandboxStatus": {
         "enum": [
@@ -11275,6 +11155,108 @@
         ],
         "type": "object"
       },
+      "ScrapeListInput": {
+        "oneOf": [
+          {
+            "properties": {
+              "Direct": {
+                "properties": {
+                  "url": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "url"
+                ],
+                "type": "object"
+              }
+            },
+            "required": [
+              "Direct"
+            ],
+            "type": "object"
+          },
+          {
+            "properties": {
+              "Related": {
+                "properties": {
+                  "relationship_name": {
+                    "type": "string"
+                  },
+                  "source_entity": {
+                    "$ref": "#/components/schemas/LLMEntity"
+                  },
+                  "source_url_column": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "source_url_column",
+                  "source_entity",
+                  "relationship_name"
+                ],
+                "type": "object"
+              }
+            },
+            "required": [
+              "Related"
+            ],
+            "type": "object"
+          }
+        ]
+      },
+      "ScrapeListRequest": {
+        "description": "Request body for scraping a list",
+        "properties": {
+          "dataset_descriptor": {
+            "$ref": "#/components/schemas/DatasetDescriptor"
+          },
+          "dataset_name": {
+            "nullable": true,
+            "type": "string"
+          },
+          "input": {
+            "$ref": "#/components/schemas/ScrapeListInput"
+          },
+          "node_id": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/WorkflowSessionNodeId"
+              }
+            ],
+            "nullable": true
+          },
+          "table_name": {
+            "type": "string"
+          },
+          "use_proxy": {
+            "nullable": true,
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "dataset_descriptor",
+          "table_name",
+          "input"
+        ],
+        "type": "object"
+      },
+      "ScrapeListResponse": {
+        "description": "Response body",
+        "properties": {
+          "dataset_name": {
+            "type": "string"
+          },
+          "job_id": {
+            "$ref": "#/components/schemas/JobId"
+          }
+        },
+        "required": [
+          "job_id",
+          "dataset_name"
+        ],
+        "type": "object"
+      },
       "ScrapePageInput": {
         "properties": {
           "batch_scrape": {
@@ -11310,6 +11292,61 @@
           "url",
           "batch_scrape",
           "use_markdown"
+        ],
+        "type": "object"
+      },
+      "ScrapeRequest": {
+        "description": "Request body for scraping a single entity directly",
+        "properties": {
+          "dataset_name": {
+            "type": "string"
+          },
+          "extraction_criteria": {
+            "items": {
+              "$ref": "#/components/schemas/SaveRequirement"
+            },
+            "type": "array"
+          },
+          "node_id": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/WorkflowSessionNodeId"
+              }
+            ],
+            "nullable": true
+          },
+          "seeded_kg": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/LLMKnowledgeGraph"
+              }
+            ],
+            "nullable": true
+          },
+          "url": {
+            "type": "string"
+          },
+          "use_proxy": {
+            "nullable": true,
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "dataset_name",
+          "url",
+          "extraction_criteria"
+        ],
+        "type": "object"
+      },
+      "ScrapeResponse": {
+        "description": "Response body",
+        "properties": {
+          "job_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "job_id"
         ],
         "type": "object"
       },
@@ -12195,6 +12232,30 @@
         "format": "uuid",
         "type": "string"
       },
+      "StructureDocumentParams": {
+        "properties": {
+          "dataset_descriptor": {
+            "$ref": "#/components/schemas/DatasetDescriptor"
+          }
+        },
+        "required": [
+          "dataset_descriptor"
+        ],
+        "type": "object"
+      },
+      "StructureFileMultipart": {
+        "properties": {
+          "content": {
+            "format": "binary",
+            "type": "string"
+          }
+        },
+        "required": [
+          "content"
+        ],
+        "title": "StructureFileMultipart",
+        "type": "object"
+      },
       "StructureForm": {
         "properties": {
           "file": {
@@ -12209,70 +12270,6 @@
         "required": [
           "file",
           "params"
-        ],
-        "type": "object"
-      },
-      "StructureParams": {
-        "additionalProperties": false,
-        "properties": {
-          "allow_expand_rows": {
-            "type": "boolean"
-          },
-          "browser": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/BrowserParam"
-              }
-            ],
-            "nullable": true
-          },
-          "dataset_descriptor": {
-            "$ref": "#/components/schemas/DatasetDescriptor"
-          },
-          "instruction": {
-            "nullable": true,
-            "type": "string"
-          },
-          "model": {
-            "nullable": true,
-            "type": "string"
-          },
-          "new_columns": {
-            "items": {
-              "$ref": "#/components/schemas/PropertyDescriptor"
-            },
-            "type": "array"
-          },
-          "node_id": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/WorkflowSessionNodeId"
-              }
-            ],
-            "nullable": true
-          },
-          "nsteps": {
-            "format": "int32",
-            "minimum": 0,
-            "nullable": true,
-            "type": "integer"
-          },
-          "sandbox": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/SandboxParam"
-              }
-            ],
-            "nullable": true
-          },
-          "table_name": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "dataset_descriptor",
-          "table_name",
-          "new_columns"
         ],
         "type": "object"
       },
@@ -13142,24 +13139,6 @@
               "name": {
                 "enum": [
                   "InspectStep"
-                ],
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "input"
-            ],
-            "type": "object"
-          },
-          {
-            "properties": {
-              "input": {
-                "$ref": "#/components/schemas/ReadNodeLogsInput"
-              },
-              "name": {
-                "enum": [
-                  "ReadNodeLogs"
                 ],
                 "type": "string"
               }
@@ -14604,10 +14583,6 @@
           "full_name": {
             "type": "string"
           },
-          "impersonated_by_email": {
-            "nullable": true,
-            "type": "string"
-          },
           "is_developer": {
             "type": "boolean"
           },
@@ -15258,8 +15233,7 @@
           "Success",
           "Failure",
           "Running",
-          "Aborted",
-          "PendingConfirmation"
+          "Aborted"
         ],
         "type": "string"
       },
@@ -15454,10 +15428,6 @@
           "code_md5_hash": {
             "type": "string"
           },
-          "confirmation_status": {
-            "nullable": true,
-            "type": "string"
-          },
           "connector_id": {
             "allOf": [
               {
@@ -15482,11 +15452,6 @@
             "nullable": true,
             "type": "string"
           },
-          "estimated_cost": {
-            "format": "int64",
-            "nullable": true,
-            "type": "integer"
-          },
           "execution_status": {
             "$ref": "#/components/schemas/WorkflowNodeExecutionStatus"
           },
@@ -15500,11 +15465,6 @@
           },
           "id": {
             "$ref": "#/components/schemas/WorkflowSessionNodeId"
-          },
-          "input_row_count": {
-            "format": "int64",
-            "nullable": true,
-            "type": "integer"
           },
           "node_index": {
             "format": "int32",
@@ -16257,47 +16217,6 @@
         ]
       }
     },
-    "/admin/jobs/delete": {
-      "post": {
-        "operationId": "admin_jobs_delete",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/AdminDeleteJobsRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/AdminDeleteJobsResponse"
-                }
-              }
-            },
-            "description": "Jobs deleted successfully"
-          },
-          "400": {
-            "description": "Invalid request"
-          }
-        },
-        "security": [
-          {
-            "api_key": []
-          },
-          {
-            "session_token": []
-          }
-        ],
-        "tags": [
-          "admin"
-        ]
-      }
-    },
     "/admin/jobs/list": {
       "get": {
         "description": "This endpoint allows admins to list jobs from all users without user ownership restrictions.\nOptionally filter out test users (users with functional_test feature flag or debug permission).",
@@ -16522,44 +16441,6 @@
               }
             },
             "description": "Subscription created successfully"
-          }
-        },
-        "security": [
-          {
-            "api_key": []
-          },
-          {
-            "session_token": []
-          }
-        ],
-        "tags": [
-          "admin"
-        ]
-      }
-    },
-    "/admin/team/expire_grants": {
-      "post": {
-        "operationId": "admin_team_expire_grants",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ExpireGrantsRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ExpireGrantsResponse"
-                }
-              }
-            },
-            "description": "Grants expired successfully"
           }
         },
         "security": [
@@ -21071,6 +20952,59 @@
         ]
       }
     },
+    "/documents/structure": {
+      "post": {
+        "description": "Returns the structured data as JSON.",
+        "operationId": "documents_structure",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "dataset_descriptor",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/DatasetDescriptor"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/StructureFileMultipart"
+              }
+            }
+          },
+          "description": "The file to structure.",
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "x-stainless-empty-object": true
+                }
+              }
+            },
+            "description": "The structured data as JSON."
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "session_token": []
+          }
+        ],
+        "summary": "Structure a document (PDF or web page) by extracting entities and relationships.",
+        "tags": [
+          "documents"
+        ]
+      }
+    },
     "/documents/upload": {
       "post": {
         "operationId": "documents_upload",
@@ -23908,6 +23842,103 @@
         ]
       }
     },
+    "/scrape": {
+      "post": {
+        "operationId": "scrape",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ScrapeRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ScrapeResponse"
+                }
+              }
+            },
+            "description": "Scrape job created successfully"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "tags": [
+          "scrape"
+        ]
+      }
+    },
+    "/scrape/list": {
+      "post": {
+        "operationId": "scrape_list",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ScrapeListRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ScrapeListResponse"
+                }
+              }
+            },
+            "description": "Knowledge graph extracted successfully"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Invalid input"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Internal server error"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "session_token": []
+          }
+        ],
+        "tags": [
+          "scrape"
+        ]
+      }
+    },
     "/server/version": {
       "get": {
         "description": "Gets the version of the API server.",
@@ -23971,39 +24002,6 @@
         ]
       }
     },
-    "/sessions/estimate_cost": {
-      "post": {
-        "operationId": "estimate_cost",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CostEstimateRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CostEstimateResponse"
-                }
-              }
-            },
-            "description": "Cost estimate calculated successfully."
-          },
-          "400": {
-            "description": "Invalid request."
-          }
-        },
-        "tags": [
-          "sessions"
-        ]
-      }
-    },
     "/sessions/node/{node_id}/logs": {
       "get": {
         "operationId": "get_node_logs",
@@ -24043,37 +24041,6 @@
       }
     },
     "/sessions/nodes/{node_id}": {
-      "get": {
-        "operationId": "get_node",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "node_id",
-            "required": true,
-            "schema": {
-              "$ref": "#/components/schemas/WorkflowSessionNodeId"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GetNodeResponse"
-                }
-              }
-            },
-            "description": "Node retrieved successfully."
-          },
-          "404": {
-            "description": "Node not found."
-          }
-        },
-        "tags": [
-          "sessions"
-        ]
-      },
       "patch": {
         "operationId": "update_workflow_node",
         "parameters": [
@@ -24107,52 +24074,6 @@
               }
             },
             "description": "Successfully updated node."
-          },
-          "400": {
-            "description": "Invalid request."
-          },
-          "404": {
-            "description": "Node not found."
-          }
-        },
-        "tags": [
-          "sessions"
-        ]
-      }
-    },
-    "/sessions/nodes/{node_id}/confirm": {
-      "post": {
-        "operationId": "confirm_node",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "node_id",
-            "required": true,
-            "schema": {
-              "$ref": "#/components/schemas/WorkflowSessionNodeId"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ConfirmNodeRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/WorkflowSessionNode"
-                }
-              }
-            },
-            "description": "Successfully confirmed/rejected node."
           },
           "400": {
             "description": "Invalid request."
@@ -24397,52 +24318,6 @@
               }
             },
             "description": "Successfully updated node progress."
-          },
-          "400": {
-            "description": "Invalid request."
-          },
-          "404": {
-            "description": "Node not found."
-          }
-        },
-        "tags": [
-          "sessions"
-        ]
-      }
-    },
-    "/sessions/nodes/{node_id}/request_confirmation": {
-      "post": {
-        "operationId": "request_node_confirmation",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "node_id",
-            "required": true,
-            "schema": {
-              "$ref": "#/components/schemas/WorkflowSessionNodeId"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RequestConfirmationRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/WorkflowSessionNode"
-                }
-              }
-            },
-            "description": "Node set to pending confirmation."
           },
           "400": {
             "description": "Invalid request."
@@ -24917,6 +24792,125 @@
         ]
       }
     },
+    "/structure/enhance_property": {
+      "post": {
+        "description": "Returns a job id that can be waited on until the request is finished.",
+        "operationId": "structure_enhance_property",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EnhancePropertyParams"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "description": "The job id."
+          }
+        },
+        "security": [
+          {
+            "session_token": []
+          },
+          {
+            "api_key": []
+          }
+        ],
+        "summary": "enhance_property a given entity by searching specifically for a certain missing property.",
+        "tags": [
+          "structure"
+        ]
+      }
+    },
+    "/structure/enhance_relationship": {
+      "post": {
+        "description": "Returns a job id that can be waited on until the request is finished.",
+        "operationId": "structure_enhance_relationship",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EnhanceRelationshipParams"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "description": "The job id."
+          }
+        },
+        "security": [
+          {
+            "session_token": []
+          },
+          {
+            "api_key": []
+          }
+        ],
+        "summary": "Enhance relationships between entities by searching for missing connections.",
+        "tags": [
+          "structure"
+        ]
+      }
+    },
+    "/structure/find_relationship": {
+      "post": {
+        "operationId": "structure_find_relationship",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FindRelationshipParams"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "description": "The job id."
+          }
+        },
+        "security": [
+          {
+            "session_token": []
+          },
+          {
+            "api_key": []
+          }
+        ],
+        "summary": "Attempt to find the given relation between two entities.",
+        "tags": [
+          "structure"
+        ]
+      }
+    },
     "/structure/is_complete": {
       "post": {
         "operationId": "structure_is_complete",
@@ -24997,6 +24991,46 @@
           }
         ],
         "summary": "Get status for specified jobs with detailed information similar to websocket endpoint.",
+        "tags": [
+          "structure"
+        ]
+      }
+    },
+    "/structure/run_async": {
+      "post": {
+        "description": "Returns a token that can be waited on until the request is finished.",
+        "operationId": "structure_run_async",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RunRequestParams"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "description": "The job id."
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "session_token": []
+          }
+        ],
+        "summary": "Structure an unstructured data source into the given dataset in an async fashion.",
         "tags": [
           "structure"
         ]

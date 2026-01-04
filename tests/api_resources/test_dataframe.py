@@ -3,7 +3,8 @@
 from __future__ import annotations
 
 import os
-from unittest.mock import Mock, patch, mock_open
+import tempfile
+from unittest.mock import Mock, patch
 
 import polars as pl
 import pytest
@@ -57,30 +58,33 @@ class TestPolars:
         assert isinstance(dataframe, pl.LazyFrame)
 
     @parametrize
-    def test_method_scrape_urls(self, client: Structify) -> None:
+    def test_method_scrape_columns(self, client: Structify) -> None:
         # Create test LazyFrame with URLs
         url_data = {"url": ["https://example.com", "https://test.com"], "id": [1, 2]}
         lazy_df = pl.DataFrame(url_data).lazy()
 
-        dataframe = client.polars.scrape_urls(
-            lazy_df=lazy_df,
+        dataframe = client.polars.scrape_columns(
+            df=lazy_df,
             url_column="url",
-            table_name="companies",
-            scrape_schema=SCRAPE_SCHEMA,
+            new_columns=SCRAPE_SCHEMA,
+            dataframe_name="companies",
+            dataframe_description="Company data scraped from URLs",
         )
         assert isinstance(dataframe, pl.LazyFrame)
 
     @parametrize
-    def test_method_scrape_urls_with_all_params(self, client: Structify) -> None:
+    def test_method_scrape_columns_with_all_params(self, client: Structify) -> None:
         # Create test LazyFrame with URLs
         url_data = {"url": ["https://example.com", "https://test.com"], "id": [1, 2]}
         lazy_df = pl.DataFrame(url_data).lazy()
 
-        dataframe = client.polars.scrape_urls(
-            lazy_df=lazy_df,
+        dataframe = client.polars.scrape_columns(
+            df=lazy_df,
             url_column="url",
-            table_name="companies",
-            scrape_schema=SCRAPE_SCHEMA,
+            new_columns=SCRAPE_SCHEMA,
+            dataframe_name="companies",
+            dataframe_description="Company data scraped from URLs",
+            use_proxy=True,
         )
         assert isinstance(dataframe, pl.LazyFrame)
 
@@ -94,47 +98,54 @@ class TestPolars:
             "amount": {"description": "Invoice amount", "type": pl.Float64},
         }
 
-        with patch.object(client.datasets, "create") as mock_create, patch.object(
-            client.documents, "upload"
-        ) as mock_upload, patch.object(client.structure, "run_async") as mock_run_async, patch.object(
-            client.jobs, "wait_for_jobs"
-        ) as mock_wait_for_jobs, patch.object(client.datasets, "view_table") as mock_view_table, patch(
-            "builtins.open", mock_open(read_data=pdf_content)
-        ):
-            # Configure mock return values
-            mock_run_async.return_value = "test-job-id"
-            mock_wait_for_jobs.return_value = None  # No error message
+        with tempfile.NamedTemporaryFile(suffix=".pdf") as temp_file:
+            temp_file.write(pdf_content)
+            temp_file.flush()
 
-            # Mock entity with sample data
-            mock_entity = Mock()
-            mock_entity.properties = {"invoice_number": "INV-001", "amount": 1234.56}
-            mock_view_table.return_value = [mock_entity]
+            with patch.object(client.documents, "upload") as mock_upload, patch.object(
+                client.polars, "_post"
+            ) as mock_post, patch.object(client.jobs, "wait_for_jobs") as mock_wait_for_jobs, patch.object(
+                client.datasets, "view_table"
+            ) as mock_view_table:
+                # Configure mock return values
+                mock_post.return_value = {"dataset_name": "test_dataset", "table_name": "invoices", "job_ids": ["job-1"]}
+                mock_wait_for_jobs.return_value = None
 
-            dataframe = client.polars.structure_pdfs(
-                document_paths=pl.DataFrame({"pdf_path": ["/tmp/fake.pdf"]}).lazy(),
-                path_column="pdf_path",
-                table_name="invoices",
-                schema=schema,
-            )
+                # Mock entity with sample data
+                mock_entity = Mock()
+                mock_entity.properties = {
+                    "pdf_path": temp_file.name,
+                    "invoice_number": "INV-001",
+                    "amount": 1234.56,
+                }
+                mock_view_table.return_value = [mock_entity]
 
-            assert isinstance(dataframe, pl.LazyFrame)
+                dataframe = client.polars.structure_pdfs(
+                    document_paths=pl.DataFrame({"pdf_path": [temp_file.name]}).lazy(),
+                    path_column="pdf_path",
+                    table_name="invoices",
+                    schema=schema,
+                )
 
-            # Trigger execution so that the mocked API methods are called
-            result_df = dataframe.collect()
+                assert isinstance(dataframe, pl.LazyFrame)
 
-            # Verify the API calls were made with correct parameters AFTER execution
-            mock_create.assert_called_once()
-            mock_upload.assert_called_once()
-            mock_run_async.assert_called_once()
-            mock_wait_for_jobs.assert_called_once_with(
-                job_ids=["test-job-id"], title="Parsing invoices from PDFs", node_id=None
-            )
-            mock_view_table.assert_called_once()
+                # Trigger execution so that the mocked API methods are called
+                result_df = dataframe.collect()
 
-            # Validate returned data
-            assert len(result_df) == 1
-            assert result_df["invoice_number"][0] == "INV-001"
-            assert result_df["amount"][0] == 1234.56
+                # Verify the API calls were made with correct parameters AFTER execution
+                mock_upload.assert_called_once()
+                mock_post.assert_called_once()
+                mock_wait_for_jobs.assert_called_once_with(
+                    dataset_name="test_dataset",
+                    title="Structuring invoices",
+                    node_id=None,
+                )
+                mock_view_table.assert_called_once_with(dataset="test_dataset", name="invoices")
+
+                # Validate returned data
+                assert len(result_df) == 1
+                assert result_df["invoice_number"][0] == "INV-001"
+                assert result_df["amount"][0] == 1234.56
 
     @parametrize
     def test_method_enhance_relationships(self, client: Structify) -> None:
@@ -148,40 +159,20 @@ class TestPolars:
         }
 
         # Mock all the API calls that enhance_relationships makes
-        with patch.object(client.datasets, "create") as mock_create, patch.object(
-            client.entities, "add_batch"
-        ) as mock_add_batch, patch.object(
-            client.structure, "enhance_relationship"
-        ) as mock_enhance_relationship, patch.object(client.jobs, "wait_for_jobs") as mock_wait_for_jobs, patch.object(
-            client.datasets, "view_tables_with_relationships"
-        ) as mock_view_tables_with_relationships:
+        with patch.object(client.polars, "_post") as mock_post, patch.object(
+            client.jobs, "wait_for_jobs"
+        ) as mock_wait_for_jobs, patch.object(client.datasets, "view_table") as mock_view_table:
             # Configure mock return values
-            mock_add_batch.return_value = ["entity-1", "entity-2", "entity-3"]
-            mock_enhance_relationship.return_value = "test-job-id"
+            mock_post.return_value = {"dataset_name": "test_dataset", "table_name": "Company", "job_ids": ["job-1"]}
             mock_wait_for_jobs.return_value = None
 
-            # Build mock response mimicking DatasetViewTablesWithRelationshipsResponse
-            # Source entities
-            mock_source_1 = Mock(id="entity-1", properties={"company_name": "Structify"})
-            mock_source_2 = Mock(id="entity-2", properties={"company_name": "Google"})
-            mock_source_3 = Mock(id="entity-3", properties={"company_name": "Microsoft"})
-
-            # Target/connected entities
-            mock_target_1 = Mock(id="target-1", properties={"employee_name": "Alex", "position": "CEO"})
-            mock_target_2 = Mock(id="target-2", properties={"employee_name": "Alex", "position": "SWE"})
-            mock_target_3 = Mock(id="target-3", properties={"employee_name": "Alex", "position": "PM"})
-
-            # Relationships connecting sources to targets
-            rel1 = Mock(from_id="entity-1", to_id="target-1")
-            rel2 = Mock(from_id="entity-2", to_id="target-2")
-            rel3 = Mock(from_id="entity-3", to_id="target-3")
-
-            mock_response = Mock()
-            mock_response.entities = [mock_source_1, mock_source_2, mock_source_3]
-            mock_response.connected_entities = [mock_target_1, mock_target_2, mock_target_3]
-            mock_response.relationships = [rel1, rel2, rel3]
-
-            mock_view_tables_with_relationships.return_value = mock_response
+            mock_entity = Mock()
+            mock_entity.properties = {
+                "company_name": "Structify",
+                "employee_name": "Alex",
+                "position": "CEO",
+            }
+            mock_view_table.return_value = [mock_entity]
 
             dataframe = client.polars.enhance_relationships(
                 lazy_df=lazy_df,
@@ -198,15 +189,16 @@ class TestPolars:
             result_df = dataframe.collect()
 
             # Verify the API calls were made with correct parameters (after collect)
-            mock_create.assert_called_once()
-            mock_add_batch.assert_called_once()
-            assert mock_enhance_relationship.call_count == 3  # One for each entity
-            mock_wait_for_jobs.assert_called_once()
+            mock_post.assert_called_once()
+            mock_wait_for_jobs.assert_called_once_with(
+                dataset_name="test_dataset",
+                title="Structuring Company",
+                node_id=None,
+            )
+            mock_view_table.assert_called_once_with(dataset="test_dataset", name="Company")
 
-            assert len(result_df) == 3
-            assert "company_name" in result_df.columns
-            assert "employee_name" in result_df.columns
-            assert "position" in result_df.columns
+            assert len(result_df) == 1
+            assert list(result_df.columns) == ["company_name", "employee_name", "position"]
 
     def test_enum_dtype(self) -> None:
         polars_int = pl.Int64()

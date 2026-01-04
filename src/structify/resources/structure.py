@@ -79,7 +79,7 @@ class StructureResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=structure_response.StructureResponse,
+            cast_to=dict,
         )
 
     def is_complete(
@@ -204,7 +204,7 @@ class AsyncStructureResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=structure_response.StructureResponse,
+            cast_to=dict,
         )
 
     async def is_complete(

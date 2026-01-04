@@ -9,6 +9,17 @@ import polars as pl
 from ..types.table_param import Property, TableParam
 from ..types.property_type_param import PropertyTypeParam
 
+__all__ = [
+    "get_node_id",
+    "merge_column_properties",
+    "dtype_to_structify_type",
+    "structify_type_to_polars_dtype",
+    "properties_to_schema",
+    "schema_to_properties",
+    "_merge_schema_with_suffix",
+    "as_table_param",
+]
+
 
 def get_node_id() -> Optional[str]:
     return os.environ.get("STRUCTIFY_NODE_ID")

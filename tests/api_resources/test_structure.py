@@ -11,7 +11,8 @@ import pytest
 
 from structify import Structify, AsyncStructify
 from tests.utils import assert_matches_type
-from structify.types import StructureJobStatusResponse
+from structify.types import DatasetDescriptorParam, StructureJobStatusResponse
+from structify.types.table_param import Property, TableParam
 from structify.types.structure_params import StructureParams
 from structify.types.structure_response import StructureResponse
 
@@ -22,25 +23,29 @@ def make_structure_request() -> tuple[StructureParams, bytes]:
     buffer = io.BytesIO()
     pl.DataFrame({"name": ["Structify"]}).write_parquet(buffer)
 
+    properties: list[Property] = [
+        {"name": "name", "description": "Company name", "prop_type": "String"},
+    ]
+    tables: list[TableParam] = [
+        {
+            "name": "Company",
+            "description": "Company table",
+            "properties": properties,
+        }
+    ]
+    dataset_descriptor: DatasetDescriptorParam = {
+        "name": "test_dataset",
+        "description": "Test dataset",
+        "tables": tables,
+        "relationships": [],
+    }
+    new_columns: list[Property] = [
+        {"name": "description", "description": "Company description", "prop_type": "String"},
+    ]
     params: StructureParams = {
-        "dataset_descriptor": {
-            "name": "test_dataset",
-            "description": "Test dataset",
-            "tables": [
-                {
-                    "name": "Company",
-                    "description": "Company table",
-                    "properties": [
-                        {"name": "name", "description": "Company name", "prop_type": "String"},
-                    ],
-                }
-            ],
-            "relationships": [],
-        },
+        "dataset_descriptor": dataset_descriptor,
         "table_name": "Company",
-        "new_columns": [
-            {"name": "description", "description": "Company description", "prop_type": "String"},
-        ],
+        "new_columns": new_columns,
     }
 
     return params, buffer.getvalue()
@@ -61,16 +66,13 @@ class TestStructure:
     @parametrize
     def test_method_structure_with_all_params(self, client: Structify) -> None:
         params, file_data = make_structure_request()
-        params = {
-            **params,
-            "allow_expand_rows": True,
-            "instruction": "Use the company name to find details.",
-            "browser": {"starting_urls": ["https://www.example.com"], "proxy": True},
-            "sandbox": {},
-            "nsteps": 5,
-            "model": "gpt-4o-mini",
-            "node_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        }
+        params["allow_expand_rows"] = True
+        params["instruction"] = "Use the company name to find details."
+        params["browser"] = {"starting_urls": ["https://www.example.com"], "proxy": True}
+        params["sandbox"] = {}
+        params["nsteps"] = 5
+        params["model"] = "gpt-4o-mini"
+        params["node_id"] = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"
         structure = client.structure.structure(
             params=params,
             file=file_data,
@@ -193,16 +195,13 @@ class TestAsyncStructure:
     @parametrize
     async def test_method_structure_with_all_params(self, async_client: AsyncStructify) -> None:
         params, file_data = make_structure_request()
-        params = {
-            **params,
-            "allow_expand_rows": True,
-            "instruction": "Use the company name to find details.",
-            "browser": {"starting_urls": ["https://www.example.com"], "proxy": True},
-            "sandbox": {},
-            "nsteps": 5,
-            "model": "gpt-4o-mini",
-            "node_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        }
+        params["allow_expand_rows"] = True
+        params["instruction"] = "Use the company name to find details."
+        params["browser"] = {"starting_urls": ["https://www.example.com"], "proxy": True}
+        params["sandbox"] = {}
+        params["nsteps"] = 5
+        params["model"] = "gpt-4o-mini"
+        params["node_id"] = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"
         structure = await async_client.structure.structure(
             params=params,
             file=file_data,

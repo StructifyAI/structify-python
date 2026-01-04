@@ -5,7 +5,7 @@ import io
 import json
 import time
 import uuid
-from typing import Any, Dict, List, Iterable, Optional
+from typing import Any, Dict, List, Iterable, Optional, cast
 from pathlib import Path
 
 import polars as pl
@@ -33,9 +33,11 @@ from .polars_helpers import (
     structify_type_to_polars_dtype,
 )
 from ..types.table_param import Property
+from ..types.strategy_param import StrategyParam
 from ..lib.cost_confirmation import request_cost_confirmation_if_needed
 from .external_dataframe_proxy import ServicesProxy
 from ..types.structure_response import StructureResponse
+from ..types.property_type_param import PropertyTypeParam
 from ..types.dataset_descriptor_param import DatasetDescriptorParam
 
 __all__ = ["PolarsResource"]
@@ -85,7 +87,7 @@ class PolarsResource(DeprecatedPolarsMixin, SyncAPIResource):
         self,
         *,
         df: LazyFrame | pl.DataFrame,
-        new_columns: Dict[str, Dict[str, Any]] | List[Dict[str, Any]],
+        new_columns: Dict[str, Dict[str, Any]] | List[Dict[str, Any]] | List[Property],
         table_name: str,
         table_description: str = "",
         instruction: Optional[str] = None,
@@ -108,7 +110,7 @@ class PolarsResource(DeprecatedPolarsMixin, SyncAPIResource):
             raise ValueError("browser must be False, None, or a BrowserConfig dict.")
 
         def normalize_new_columns(
-            columns: Dict[str, Dict[str, Any]] | List[Dict[str, Any]],
+            columns: Dict[str, Dict[str, Any]] | List[Dict[str, Any]] | List[Property],
         ) -> List[Property]:
             column_entries = (
                 [{"name": name, **spec} for name, spec in columns.items()] if isinstance(columns, dict) else columns
@@ -119,20 +121,22 @@ class PolarsResource(DeprecatedPolarsMixin, SyncAPIResource):
                 if not name:
                     raise ValueError("Each new column must include a 'name'.")
                 description = entry.get("description", "")
+                prop_type: PropertyTypeParam
                 if "prop_type" in entry:
-                    prop_type = entry["prop_type"]
+                    prop_type = cast(PropertyTypeParam, entry["prop_type"])
                     if prop_type is None:
                         raise ValueError("Each new column must include a non-null 'prop_type'.")
                 elif "type" in entry:
                     dtype = entry["type"]
                     if dtype is None:
                         raise ValueError("Each new column must include a non-null 'type'.")
-                    prop_type = dtype_to_structify_type(dtype)
+                    prop_type = dtype_to_structify_type(cast(pl.DataType, dtype))
                 else:
                     raise ValueError("Each new column must include 'type' or 'prop_type'.")
                 prop: Property = {"name": name, "description": description, "prop_type": prop_type}
-                if "merge_strategy" in entry:
-                    prop["merge_strategy"] = entry["merge_strategy"]
+                merge_strategy = entry.get("merge_strategy")
+                if merge_strategy is not None:
+                    prop["merge_strategy"] = cast(StrategyParam, merge_strategy)
                 properties.append(prop)
             return properties
 
@@ -230,7 +234,7 @@ class PolarsResource(DeprecatedPolarsMixin, SyncAPIResource):
             )
 
             results = [
-                entity.properties
+                dict(entity.properties)
                 for entity in self._client.datasets.view_table(
                     dataset=response["dataset_name"], name=response["table_name"]
                 )
@@ -315,14 +319,15 @@ class PolarsResource(DeprecatedPolarsMixin, SyncAPIResource):
                 if prop_type is None:
                     raise ValueError("target_schema_override properties must include 'prop_type'.")
                 target_columns[prop["name"]] = structify_type_to_polars_dtype(prop_type)
-                target_properties.append(
-                    Property(
-                        name=prop["name"],
-                        description=prop.get("description", ""),
-                        prop_type=prop_type,
-                        merge_strategy=prop.get("merge_strategy"),
-                    )
-                )
+                target_property: Property = {
+                    "name": prop["name"],
+                    "description": prop.get("description", ""),
+                    "prop_type": prop_type,
+                }
+                merge_strategy = prop.get("merge_strategy")
+                if merge_strategy is not None:
+                    target_property["merge_strategy"] = cast(StrategyParam, merge_strategy)
+                target_properties.append(target_property)
         else:
             for col_name, col_info in target_schema.items():
                 dtype = col_info.get("type", pl.String())
@@ -340,13 +345,17 @@ class PolarsResource(DeprecatedPolarsMixin, SyncAPIResource):
         effective_properties: list[Property] = []
         for prop in target_properties:
             effective_name = prop["name"] if prop["name"] not in input_schema else f"{prop['name']}_{target_table_name}"
+            prop_type = prop.get("prop_type")
+            if prop_type is None:
+                raise ValueError("Missing prop_type in target properties.")
             effective_prop: Property = {
                 "name": effective_name,
                 "description": prop.get("description", ""),
-                "prop_type": prop.get("prop_type"),
+                "prop_type": prop_type,
             }
-            if prop.get("merge_strategy") is not None:
-                effective_prop["merge_strategy"] = prop.get("merge_strategy")
+            merge_strategy = prop.get("merge_strategy")
+            if merge_strategy is not None:
+                effective_prop["merge_strategy"] = cast(StrategyParam, merge_strategy)
             effective_properties.append(effective_prop)
 
         instruction_parts = [

@@ -1,7 +1,8 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 from __future__ import annotations
 
-from typing import Any, Dict
+from typing import Any, Dict, Iterable, Protocol, cast
+from pathlib import Path
 
 import polars as pl
 from polars import LazyFrame
@@ -12,11 +13,32 @@ from .polars_helpers import (
     structify_type_to_polars_dtype,
 )
 from ..types.table_param import Property, TableParam
+from ..types.strategy_param import StrategyParam
+
+
+class _PolarsResourceProtocol(Protocol):
+    def structure(
+        self,
+        *,
+        df: LazyFrame,
+        new_columns: Dict[str, Dict[str, Any]] | list[Dict[str, Any]] | list[Property],
+        table_name: str,
+        table_description: str = "",
+        instruction: str | None = None,
+        allow_expand_rows: bool = False,
+        browser: Dict[str, Any] | bool | None = None,
+        sandbox: Dict[str, Any] | bool | None = None,
+        nsteps: int | None = None,
+        model: str | None = None,
+        node_id: str | None = None,
+    ) -> LazyFrame: ...
+
+    def upload_files(self, *, paths: Iterable[str | Path]) -> pl.DataFrame: ...
 
 
 class DeprecatedPolarsMixin:
     def enhance_columns(
-        self,
+        self: _PolarsResourceProtocol,
         *,
         df: LazyFrame,
         new_columns: Dict[str, Dict[str, Any]],
@@ -32,7 +54,7 @@ class DeprecatedPolarsMixin:
         return structured.drop(["_original_index", "_job_id", "_explanation"])
 
     def scrape_columns(
-        self,
+        self: _PolarsResourceProtocol,
         *,
         df: LazyFrame,
         url_column: str,
@@ -59,7 +81,7 @@ class DeprecatedPolarsMixin:
         return structured.drop(["_original_index", "_job_id", "_explanation"])
 
     def scrape_relationships(
-        self,
+        self: _PolarsResourceProtocol,
         *,
         lazy_df: LazyFrame,
         url_column: str,
@@ -107,13 +129,15 @@ class DeprecatedPolarsMixin:
         for col_name in scraped_columns:
             effective_name = col_name if col_name not in input_schema else f"{col_name}_{table_name}"
             details = column_details[col_name]
+            prop_type = details["prop_type"]
             prop: Property = {
                 "name": effective_name,
                 "description": details.get("description", ""),
-                "prop_type": details.get("prop_type"),
+                "prop_type": prop_type,
             }
-            if details.get("merge_strategy") is not None:
-                prop["merge_strategy"] = details.get("merge_strategy")
+            merge_strategy = details.get("merge_strategy")
+            if merge_strategy is not None:
+                prop["merge_strategy"] = cast(StrategyParam, merge_strategy)
             new_columns.append(prop)
 
         instruction_parts = [
@@ -147,7 +171,7 @@ class DeprecatedPolarsMixin:
         return structured.select(output_schema.names())
 
     def structure_pdfs(
-        self,
+        self: _PolarsResourceProtocol,
         *,
         document_paths: LazyFrame,
         path_column: str,
