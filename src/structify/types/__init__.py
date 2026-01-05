@@ -19,7 +19,6 @@ from .chat_prompt import ChatPrompt as ChatPrompt
 from .granularity import Granularity as Granularity
 from .table_param import TableParam as TableParam
 from .chat_session import ChatSession as ChatSession
-from .entity_match import EntityMatch as EntityMatch
 from .entity_param import EntityParam as EntityParam
 from .match_result import MatchResult as MatchResult
 from .merge_config import MergeConfig as MergeConfig
@@ -80,7 +79,6 @@ from .add_member_response import AddMemberResponse as AddMemberResponse
 from .dashboard_component import DashboardComponent as DashboardComponent
 from .entity_add_response import EntityAddResponse as EntityAddResponse
 from .entity_get_response import EntityGetResponse as EntityGetResponse
-from .entity_merge_params import EntityMergeParams as EntityMergeParams
 from .job_cancel_response import JobCancelResponse as JobCancelResponse
 from .job_status_response import JobStatusResponse as JobStatusResponse
 from .list_teams_response import ListTeamsResponse as ListTeamsResponse
@@ -114,7 +112,6 @@ from .connector_list_params import ConnectorListParams as ConnectorListParams
 from .dataset_create_params import DatasetCreateParams as DatasetCreateParams
 from .dataset_delete_params import DatasetDeleteParams as DatasetDeleteParams
 from .dataset_list_response import DatasetListResponse as DatasetListResponse
-from .entity_merge_response import EntityMergeResponse as EntityMergeResponse
 from .finalize_dag_response import FinalizeDagResponse as FinalizeDagResponse
 from .knowledge_graph_param import KnowledgeGraphParam as KnowledgeGraphParam
 from .list_members_response import ListMembersResponse as ListMembersResponse
@@ -163,7 +160,6 @@ from .connector_store_response import ConnectorStoreResponse as ConnectorStoreRe
 from .dataset_descriptor_param import DatasetDescriptorParam as DatasetDescriptorParam
 from .document_download_params import DocumentDownloadParams as DocumentDownloadParams
 from .entity_derive_all_params import EntityDeriveAllParams as EntityDeriveAllParams
-from .entity_get_merges_params import EntityGetMergesParams as EntityGetMergesParams
 from .match_create_jobs_params import MatchCreateJobsParams as MatchCreateJobsParams
 from .refresh_session_response import RefreshSessionResponse as RefreshSessionResponse
 from .session_kill_jobs_params import SessionKillJobsParams as SessionKillJobsParams
@@ -174,7 +170,6 @@ from .code_generate_code_params import CodeGenerateCodeParams as CodeGenerateCod
 from .dashboard_component_param import DashboardComponentParam as DashboardComponentParam
 from .dataset_view_table_params import DatasetViewTableParams as DatasetViewTableParams
 from .entity_add_batch_response import EntityAddBatchResponse as EntityAddBatchResponse
-from .entity_agent_merge_params import EntityAgentMergeParams as EntityAgentMergeParams
 from .entity_list_jobs_response import EntityListJobsResponse as EntityListJobsResponse
 from .entity_summarize_response import EntitySummarizeResponse as EntitySummarizeResponse
 from .exploration_runs_response import ExplorationRunsResponse as ExplorationRunsResponse
@@ -197,7 +192,6 @@ from .connector_credential_field import ConnectorCredentialField as ConnectorCre
 from .create_match_jobs_response import CreateMatchJobsResponse as CreateMatchJobsResponse
 from .document_download_response import DocumentDownloadResponse as DocumentDownloadResponse
 from .entity_derive_all_response import EntityDeriveAllResponse as EntityDeriveAllResponse
-from .entity_get_merges_response import EntityGetMergesResponse as EntityGetMergesResponse
 from .session_kill_jobs_response import SessionKillJobsResponse as SessionKillJobsResponse
 from .session_update_node_params import SessionUpdateNodeParams as SessionUpdateNodeParams
 from .structure_run_async_params import StructureRunAsyncParams as StructureRunAsyncParams
@@ -208,8 +202,6 @@ from .user_transactions_response import UserTransactionsResponse as UserTransact
 from .admin_grant_access_response import AdminGrantAccessResponse as AdminGrantAccessResponse
 from .dataset_add_property_params import DatasetAddPropertyParams as DatasetAddPropertyParams
 from .dataset_view_table_response import DatasetViewTableResponse as DatasetViewTableResponse
-from .entity_agent_merge_response import EntityAgentMergeResponse as EntityAgentMergeResponse
-from .entity_trigger_merge_params import EntityTriggerMergeParams as EntityTriggerMergeParams
 from .invitation_details_response import InvitationDetailsResponse as InvitationDetailsResponse
 from .list_chat_sessions_response import ListChatSessionsResponse as ListChatSessionsResponse
 from .list_collaborators_response import ListCollaboratorsResponse as ListCollaboratorsResponse
@@ -236,7 +228,6 @@ from .chat_update_visibility_params import ChatUpdateVisibilityParams as ChatUpd
 from .connector_update_table_params import ConnectorUpdateTableParams as ConnectorUpdateTableParams
 from .delete_schema_object_response import DeleteSchemaObjectResponse as DeleteSchemaObjectResponse
 from .delete_source_entity_response import DeleteSourceEntityResponse as DeleteSourceEntityResponse
-from .entity_trigger_merge_response import EntityTriggerMergeResponse as EntityTriggerMergeResponse
 from .entity_update_property_params import EntityUpdatePropertyParams as EntityUpdatePropertyParams
 from .nango_create_session_response import NangoCreateSessionResponse as NangoCreateSessionResponse
 from .session_create_session_params import SessionCreateSessionParams as SessionCreateSessionParams

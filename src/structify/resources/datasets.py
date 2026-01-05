@@ -7,7 +7,7 @@ from datetime import datetime
 
 import httpx
 
-from ...types import (
+from ..types import (
     dataset_get_params,
     dataset_match_params,
     dataset_create_params,
@@ -26,48 +26,36 @@ from ...types import (
     dataset_count_missing_embeddings_params,
     dataset_view_tables_with_relationships_params,
 )
-from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, SequenceNotStr, omit, not_given
-from ..._utils import maybe_transform, async_maybe_transform
-from .evaluate import (
-    EvaluateResource,
-    AsyncEvaluateResource,
-    EvaluateResourceWithRawResponse,
-    AsyncEvaluateResourceWithRawResponse,
-    EvaluateResourceWithStreamingResponse,
-    AsyncEvaluateResourceWithStreamingResponse,
-)
-from ..._compat import cached_property
-from ..._resource import SyncAPIResource, AsyncAPIResource
-from ..._response import (
+from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, SequenceNotStr, omit, not_given
+from .._utils import maybe_transform, async_maybe_transform
+from .._compat import cached_property
+from .._resource import SyncAPIResource, AsyncAPIResource
+from .._response import (
     to_raw_response_wrapper,
     to_streamed_response_wrapper,
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ...pagination import SyncJobsList, AsyncJobsList
-from ..._base_client import AsyncPaginator, make_request_options
-from ...types.table_param import TableParam
-from ...types.strategy_param import StrategyParam
-from ...types.property_type_param import PropertyTypeParam
-from ...types.dataset_get_response import DatasetGetResponse
-from ...types.dataset_list_response import DatasetListResponse
-from ...types.knowledge_graph_param import KnowledgeGraphParam
-from ...types.dataset_match_response import DatasetMatchResponse
-from ...types.dataset_view_table_response import DatasetViewTableResponse
-from ...types.relationship_merge_strategy_param import RelationshipMergeStrategyParam
-from ...types.dataset_view_relationships_response import DatasetViewRelationshipsResponse
-from ...types.dataset_enrichment_progress_response import DatasetEnrichmentProgressResponse
-from ...types.dataset_count_missing_embeddings_response import DatasetCountMissingEmbeddingsResponse
-from ...types.dataset_view_tables_with_relationships_response import DatasetViewTablesWithRelationshipsResponse
+from ..pagination import SyncJobsList, AsyncJobsList
+from .._base_client import AsyncPaginator, make_request_options
+from ..types.table_param import TableParam
+from ..types.strategy_param import StrategyParam
+from ..types.property_type_param import PropertyTypeParam
+from ..types.dataset_get_response import DatasetGetResponse
+from ..types.dataset_list_response import DatasetListResponse
+from ..types.knowledge_graph_param import KnowledgeGraphParam
+from ..types.dataset_match_response import DatasetMatchResponse
+from ..types.dataset_view_table_response import DatasetViewTableResponse
+from ..types.relationship_merge_strategy_param import RelationshipMergeStrategyParam
+from ..types.dataset_view_relationships_response import DatasetViewRelationshipsResponse
+from ..types.dataset_enrichment_progress_response import DatasetEnrichmentProgressResponse
+from ..types.dataset_count_missing_embeddings_response import DatasetCountMissingEmbeddingsResponse
+from ..types.dataset_view_tables_with_relationships_response import DatasetViewTablesWithRelationshipsResponse
 
 __all__ = ["DatasetsResource", "AsyncDatasetsResource"]
 
 
 class DatasetsResource(SyncAPIResource):
-    @cached_property
-    def evaluate(self) -> EvaluateResource:
-        return EvaluateResource(self._client)
-
     @cached_property
     def with_raw_response(self) -> DatasetsResourceWithRawResponse:
         """
@@ -844,10 +832,6 @@ class DatasetsResource(SyncAPIResource):
 
 
 class AsyncDatasetsResource(AsyncAPIResource):
-    @cached_property
-    def evaluate(self) -> AsyncEvaluateResource:
-        return AsyncEvaluateResource(self._client)
-
     @cached_property
     def with_raw_response(self) -> AsyncDatasetsResourceWithRawResponse:
         """
@@ -1684,10 +1668,6 @@ class DatasetsResourceWithRawResponse:
             datasets.view_tables_with_relationships,
         )
 
-    @cached_property
-    def evaluate(self) -> EvaluateResourceWithRawResponse:
-        return EvaluateResourceWithRawResponse(self._datasets.evaluate)
-
 
 class AsyncDatasetsResourceWithRawResponse:
     def __init__(self, datasets: AsyncDatasetsResource) -> None:
@@ -1747,10 +1727,6 @@ class AsyncDatasetsResourceWithRawResponse:
         self.view_tables_with_relationships = async_to_raw_response_wrapper(
             datasets.view_tables_with_relationships,
         )
-
-    @cached_property
-    def evaluate(self) -> AsyncEvaluateResourceWithRawResponse:
-        return AsyncEvaluateResourceWithRawResponse(self._datasets.evaluate)
 
 
 class DatasetsResourceWithStreamingResponse:
@@ -1812,10 +1788,6 @@ class DatasetsResourceWithStreamingResponse:
             datasets.view_tables_with_relationships,
         )
 
-    @cached_property
-    def evaluate(self) -> EvaluateResourceWithStreamingResponse:
-        return EvaluateResourceWithStreamingResponse(self._datasets.evaluate)
-
 
 class AsyncDatasetsResourceWithStreamingResponse:
     def __init__(self, datasets: AsyncDatasetsResource) -> None:
@@ -1875,7 +1847,3 @@ class AsyncDatasetsResourceWithStreamingResponse:
         self.view_tables_with_relationships = async_to_streamed_response_wrapper(
             datasets.view_tables_with_relationships,
         )
-
-    @cached_property
-    def evaluate(self) -> AsyncEvaluateResourceWithStreamingResponse:
-        return AsyncEvaluateResourceWithStreamingResponse(self._datasets.evaluate)

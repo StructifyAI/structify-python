@@ -378,45 +378,24 @@ from structify.types import (
 
 Methods:
 
-- <code title="post /dataset/create">client.datasets.<a href="./src/structify/resources/datasets/datasets.py">create</a>(\*\*<a href="src/structify/types/dataset_create_params.py">params</a>) -> str</code>
-- <code title="get /dataset/list">client.datasets.<a href="./src/structify/resources/datasets/datasets.py">list</a>() -> <a href="./src/structify/types/dataset_list_response.py">DatasetListResponse</a></code>
-- <code title="delete /dataset/delete">client.datasets.<a href="./src/structify/resources/datasets/datasets.py">delete</a>(\*\*<a href="src/structify/types/dataset_delete_params.py">params</a>) -> None</code>
-- <code title="post /dataset/add_property">client.datasets.<a href="./src/structify/resources/datasets/datasets.py">add_property</a>(\*\*<a href="src/structify/types/dataset_add_property_params.py">params</a>) -> None</code>
-- <code title="get /dataset/count_missing_embeddings">client.datasets.<a href="./src/structify/resources/datasets/datasets.py">count_missing_embeddings</a>(\*\*<a href="src/structify/types/dataset_count_missing_embeddings_params.py">params</a>) -> <a href="./src/structify/types/dataset_count_missing_embeddings_response.py">DatasetCountMissingEmbeddingsResponse</a></code>
-- <code title="get /dataset/enrichment_progress">client.datasets.<a href="./src/structify/resources/datasets/datasets.py">enrichment_progress</a>(\*\*<a href="src/structify/types/dataset_enrichment_progress_params.py">params</a>) -> <a href="./src/structify/types/dataset_enrichment_progress_response.py">DatasetEnrichmentProgressResponse</a></code>
-- <code title="get /dataset/export_to_csv">client.datasets.<a href="./src/structify/resources/datasets/datasets.py">export_to_csv</a>(\*\*<a href="src/structify/types/dataset_export_to_csv_params.py">params</a>) -> None</code>
-- <code title="get /dataset/export_to_excel">client.datasets.<a href="./src/structify/resources/datasets/datasets.py">export_to_excel</a>(\*\*<a href="src/structify/types/dataset_export_to_excel_params.py">params</a>) -> None</code>
-- <code title="get /dataset/info">client.datasets.<a href="./src/structify/resources/datasets/datasets.py">get</a>(\*\*<a href="src/structify/types/dataset_get_params.py">params</a>) -> <a href="./src/structify/types/dataset_get_response.py">DatasetGetResponse</a></code>
-- <code title="post /dataset/match">client.datasets.<a href="./src/structify/resources/datasets/datasets.py">match</a>(\*\*<a href="src/structify/types/dataset_match_params.py">params</a>) -> <a href="./src/structify/types/dataset_match_response.py">DatasetMatchResponse</a></code>
-- <code title="post /dataset/remove_property">client.datasets.<a href="./src/structify/resources/datasets/datasets.py">remove_property</a>(\*\*<a href="src/structify/types/dataset_remove_property_params.py">params</a>) -> None</code>
-- <code title="post /dataset/reorder_properties">client.datasets.<a href="./src/structify/resources/datasets/datasets.py">reorder_properties</a>(\*\*<a href="src/structify/types/dataset_reorder_properties_params.py">params</a>) -> None</code>
-- <code title="post /dataset/set_primary_column">client.datasets.<a href="./src/structify/resources/datasets/datasets.py">set_primary_column</a>(\*\*<a href="src/structify/types/dataset_set_primary_column_params.py">params</a>) -> None</code>
-- <code title="post /dataset/update_property">client.datasets.<a href="./src/structify/resources/datasets/datasets.py">update_property</a>(\*\*<a href="src/structify/types/dataset_update_property_params.py">params</a>) -> None</code>
-- <code title="post /dataset/update_relationship">client.datasets.<a href="./src/structify/resources/datasets/datasets.py">update_relationship</a>(\*\*<a href="src/structify/types/dataset_update_relationship_params.py">params</a>) -> None</code>
-- <code title="get /dataset/view_relationships">client.datasets.<a href="./src/structify/resources/datasets/datasets.py">view_relationships</a>(\*\*<a href="src/structify/types/dataset_view_relationships_params.py">params</a>) -> <a href="./src/structify/types/dataset_view_relationships_response.py">SyncJobsList[DatasetViewRelationshipsResponse]</a></code>
-- <code title="get /dataset/view_table">client.datasets.<a href="./src/structify/resources/datasets/datasets.py">view_table</a>(\*\*<a href="src/structify/types/dataset_view_table_params.py">params</a>) -> <a href="./src/structify/types/dataset_view_table_response.py">SyncJobsList[DatasetViewTableResponse]</a></code>
-- <code title="get /dataset/view_tables_with_relationships">client.datasets.<a href="./src/structify/resources/datasets/datasets.py">view_tables_with_relationships</a>(\*\*<a href="src/structify/types/dataset_view_tables_with_relationships_params.py">params</a>) -> <a href="./src/structify/types/dataset_view_tables_with_relationships_response.py">DatasetViewTablesWithRelationshipsResponse</a></code>
-
-## Evaluate
-
-Types:
-
-```python
-from structify.types.datasets import (
-    EvaluateListResponse,
-    EvaluateGetResponse,
-    EvaluateRunResponse,
-    EvaluateStatusResponse,
-)
-```
-
-Methods:
-
-- <code title="get /dataset/evaluate/list">client.datasets.evaluate.<a href="./src/structify/resources/datasets/evaluate.py">list</a>(\*\*<a href="src/structify/types/datasets/evaluate_list_params.py">params</a>) -> <a href="./src/structify/types/datasets/evaluate_list_response.py">SyncJobsList[EvaluateListResponse]</a></code>
-- <code title="delete /dataset/evaluate/delete">client.datasets.evaluate.<a href="./src/structify/resources/datasets/evaluate.py">delete</a>(\*\*<a href="src/structify/types/datasets/evaluate_delete_params.py">params</a>) -> None</code>
-- <code title="get /dataset/evaluate/get">client.datasets.evaluate.<a href="./src/structify/resources/datasets/evaluate.py">get</a>(\*\*<a href="src/structify/types/datasets/evaluate_get_params.py">params</a>) -> <a href="./src/structify/types/datasets/evaluate_get_response.py">EvaluateGetResponse</a></code>
-- <code title="post /dataset/evaluate/run">client.datasets.evaluate.<a href="./src/structify/resources/datasets/evaluate.py">run</a>(\*\*<a href="src/structify/types/datasets/evaluate_run_params.py">params</a>) -> str</code>
-- <code title="get /dataset/evaluate/status">client.datasets.evaluate.<a href="./src/structify/resources/datasets/evaluate.py">status</a>(\*\*<a href="src/structify/types/datasets/evaluate_status_params.py">params</a>) -> <a href="./src/structify/types/datasets/evaluate_status_response.py">EvaluateStatusResponse</a></code>
+- <code title="post /dataset/create">client.datasets.<a href="./src/structify/resources/datasets.py">create</a>(\*\*<a href="src/structify/types/dataset_create_params.py">params</a>) -> str</code>
+- <code title="get /dataset/list">client.datasets.<a href="./src/structify/resources/datasets.py">list</a>() -> <a href="./src/structify/types/dataset_list_response.py">DatasetListResponse</a></code>
+- <code title="delete /dataset/delete">client.datasets.<a href="./src/structify/resources/datasets.py">delete</a>(\*\*<a href="src/structify/types/dataset_delete_params.py">params</a>) -> None</code>
+- <code title="post /dataset/add_property">client.datasets.<a href="./src/structify/resources/datasets.py">add_property</a>(\*\*<a href="src/structify/types/dataset_add_property_params.py">params</a>) -> None</code>
+- <code title="get /dataset/count_missing_embeddings">client.datasets.<a href="./src/structify/resources/datasets.py">count_missing_embeddings</a>(\*\*<a href="src/structify/types/dataset_count_missing_embeddings_params.py">params</a>) -> <a href="./src/structify/types/dataset_count_missing_embeddings_response.py">DatasetCountMissingEmbeddingsResponse</a></code>
+- <code title="get /dataset/enrichment_progress">client.datasets.<a href="./src/structify/resources/datasets.py">enrichment_progress</a>(\*\*<a href="src/structify/types/dataset_enrichment_progress_params.py">params</a>) -> <a href="./src/structify/types/dataset_enrichment_progress_response.py">DatasetEnrichmentProgressResponse</a></code>
+- <code title="get /dataset/export_to_csv">client.datasets.<a href="./src/structify/resources/datasets.py">export_to_csv</a>(\*\*<a href="src/structify/types/dataset_export_to_csv_params.py">params</a>) -> None</code>
+- <code title="get /dataset/export_to_excel">client.datasets.<a href="./src/structify/resources/datasets.py">export_to_excel</a>(\*\*<a href="src/structify/types/dataset_export_to_excel_params.py">params</a>) -> None</code>
+- <code title="get /dataset/info">client.datasets.<a href="./src/structify/resources/datasets.py">get</a>(\*\*<a href="src/structify/types/dataset_get_params.py">params</a>) -> <a href="./src/structify/types/dataset_get_response.py">DatasetGetResponse</a></code>
+- <code title="post /dataset/match">client.datasets.<a href="./src/structify/resources/datasets.py">match</a>(\*\*<a href="src/structify/types/dataset_match_params.py">params</a>) -> <a href="./src/structify/types/dataset_match_response.py">DatasetMatchResponse</a></code>
+- <code title="post /dataset/remove_property">client.datasets.<a href="./src/structify/resources/datasets.py">remove_property</a>(\*\*<a href="src/structify/types/dataset_remove_property_params.py">params</a>) -> None</code>
+- <code title="post /dataset/reorder_properties">client.datasets.<a href="./src/structify/resources/datasets.py">reorder_properties</a>(\*\*<a href="src/structify/types/dataset_reorder_properties_params.py">params</a>) -> None</code>
+- <code title="post /dataset/set_primary_column">client.datasets.<a href="./src/structify/resources/datasets.py">set_primary_column</a>(\*\*<a href="src/structify/types/dataset_set_primary_column_params.py">params</a>) -> None</code>
+- <code title="post /dataset/update_property">client.datasets.<a href="./src/structify/resources/datasets.py">update_property</a>(\*\*<a href="src/structify/types/dataset_update_property_params.py">params</a>) -> None</code>
+- <code title="post /dataset/update_relationship">client.datasets.<a href="./src/structify/resources/datasets.py">update_relationship</a>(\*\*<a href="src/structify/types/dataset_update_relationship_params.py">params</a>) -> None</code>
+- <code title="get /dataset/view_relationships">client.datasets.<a href="./src/structify/resources/datasets.py">view_relationships</a>(\*\*<a href="src/structify/types/dataset_view_relationships_params.py">params</a>) -> <a href="./src/structify/types/dataset_view_relationships_response.py">SyncJobsList[DatasetViewRelationshipsResponse]</a></code>
+- <code title="get /dataset/view_table">client.datasets.<a href="./src/structify/resources/datasets.py">view_table</a>(\*\*<a href="src/structify/types/dataset_view_table_params.py">params</a>) -> <a href="./src/structify/types/dataset_view_table_response.py">SyncJobsList[DatasetViewTableResponse]</a></code>
+- <code title="get /dataset/view_tables_with_relationships">client.datasets.<a href="./src/structify/resources/datasets.py">view_tables_with_relationships</a>(\*\*<a href="src/structify/types/dataset_view_tables_with_relationships_params.py">params</a>) -> <a href="./src/structify/types/dataset_view_tables_with_relationships_response.py">DatasetViewTablesWithRelationshipsResponse</a></code>
 
 # Documents
 
@@ -738,18 +717,14 @@ from structify.types import (
     EntityAddResponse,
     EntityAddBatchResponse,
     EntityAddRelationshipResponse,
-    EntityAgentMergeResponse,
     EntityDeriveResponse,
     EntityDeriveAllResponse,
     EntityGetResponse,
     EntityGetLocalSubgraphResponse,
-    EntityGetMergesResponse,
     EntityGetSourceEntitiesResponse,
     EntityListJobsResponse,
-    EntityMergeResponse,
     EntitySearchResponse,
     EntitySummarizeResponse,
-    EntityTriggerMergeResponse,
     EntityUpdatePropertyResponse,
     EntityViewResponse,
 )
@@ -761,19 +736,15 @@ Methods:
 - <code title="post /entity/add">client.entities.<a href="./src/structify/resources/entities.py">add</a>(\*\*<a href="src/structify/types/entity_add_params.py">params</a>) -> <a href="./src/structify/types/entity_add_response.py">EntityAddResponse</a></code>
 - <code title="post /entity/add_batch">client.entities.<a href="./src/structify/resources/entities.py">add_batch</a>(\*\*<a href="src/structify/types/entity_add_batch_params.py">params</a>) -> <a href="./src/structify/types/entity_add_batch_response.py">EntityAddBatchResponse</a></code>
 - <code title="post /entity/add_relationship">client.entities.<a href="./src/structify/resources/entities.py">add_relationship</a>(\*\*<a href="src/structify/types/entity_add_relationship_params.py">params</a>) -> <a href="./src/structify/types/entity_add_relationship_response.py">EntityAddRelationshipResponse</a></code>
-- <code title="post /entity/agent_merge">client.entities.<a href="./src/structify/resources/entities.py">agent_merge</a>(\*\*<a href="src/structify/types/entity_agent_merge_params.py">params</a>) -> <a href="./src/structify/types/entity_agent_merge_response.py">EntityAgentMergeResponse</a></code>
 - <code title="post /entity/delete_relationship">client.entities.<a href="./src/structify/resources/entities.py">delete_relationship</a>(\*\*<a href="src/structify/types/entity_delete_relationship_params.py">params</a>) -> object</code>
 - <code title="post /entity/derive">client.entities.<a href="./src/structify/resources/entities.py">derive</a>(\*\*<a href="src/structify/types/entity_derive_params.py">params</a>) -> str</code>
 - <code title="post /entity/derive_all">client.entities.<a href="./src/structify/resources/entities.py">derive_all</a>(\*\*<a href="src/structify/types/entity_derive_all_params.py">params</a>) -> <a href="./src/structify/types/entity_derive_all_response.py">EntityDeriveAllResponse</a></code>
 - <code title="get /entity/get">client.entities.<a href="./src/structify/resources/entities.py">get</a>(\*\*<a href="src/structify/types/entity_get_params.py">params</a>) -> <a href="./src/structify/types/entity_get_response.py">EntityGetResponse</a></code>
 - <code title="get /entity/get_local_subgraph">client.entities.<a href="./src/structify/resources/entities.py">get_local_subgraph</a>(\*\*<a href="src/structify/types/entity_get_local_subgraph_params.py">params</a>) -> <a href="./src/structify/types/entity_get_local_subgraph_response.py">EntityGetLocalSubgraphResponse</a></code>
-- <code title="get /entity/get_merges">client.entities.<a href="./src/structify/resources/entities.py">get_merges</a>(\*\*<a href="src/structify/types/entity_get_merges_params.py">params</a>) -> <a href="./src/structify/types/entity_get_merges_response.py">EntityGetMergesResponse</a></code>
 - <code title="get /entity/get_source_entities">client.entities.<a href="./src/structify/resources/entities.py">get_source_entities</a>(\*\*<a href="src/structify/types/entity_get_source_entities_params.py">params</a>) -> <a href="./src/structify/types/entity_get_source_entities_response.py">EntityGetSourceEntitiesResponse</a></code>
 - <code title="get /entity/list_jobs">client.entities.<a href="./src/structify/resources/entities.py">list_jobs</a>(\*\*<a href="src/structify/types/entity_list_jobs_params.py">params</a>) -> <a href="./src/structify/types/entity_list_jobs_response.py">EntityListJobsResponse</a></code>
-- <code title="post /entity/merge">client.entities.<a href="./src/structify/resources/entities.py">merge</a>(\*\*<a href="src/structify/types/entity_merge_params.py">params</a>) -> <a href="./src/structify/types/entity_merge_response.py">EntityMergeResponse</a></code>
 - <code title="post /entity/search">client.entities.<a href="./src/structify/resources/entities.py">search</a>(\*\*<a href="src/structify/types/entity_search_params.py">params</a>) -> <a href="./src/structify/types/entity_search_response.py">EntitySearchResponse</a></code>
 - <code title="post /entity/summarize">client.entities.<a href="./src/structify/resources/entities.py">summarize</a>(\*\*<a href="src/structify/types/entity_summarize_params.py">params</a>) -> <a href="./src/structify/types/entity_summarize_response.py">EntitySummarizeResponse</a></code>
-- <code title="post /entity/trigger_merge">client.entities.<a href="./src/structify/resources/entities.py">trigger_merge</a>(\*\*<a href="src/structify/types/entity_trigger_merge_params.py">params</a>) -> <a href="./src/structify/types/entity_trigger_merge_response.py">EntityTriggerMergeResponse</a></code>
 - <code title="post /entity/update">client.entities.<a href="./src/structify/resources/entities.py">update_property</a>(\*\*<a href="src/structify/types/entity_update_property_params.py">params</a>) -> <a href="./src/structify/types/entity_update_property_response.py">EntityUpdatePropertyResponse</a></code>
 - <code title="post /entity/upload_parquet">client.entities.<a href="./src/structify/resources/entities.py">upload_parquet</a>(\*\*<a href="src/structify/types/entity_upload_parquet_params.py">params</a>) -> None</code>
 - <code title="post /entity/verify">client.entities.<a href="./src/structify/resources/entities.py">verify</a>(\*\*<a href="src/structify/types/entity_verify_params.py">params</a>) -> <a href="./src/structify/types/knowledge_graph.py">KnowledgeGraph</a></code>
