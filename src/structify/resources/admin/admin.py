@@ -44,6 +44,14 @@ from .sandbox import (
 )
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
+from .chat_templates import (
+    ChatTemplatesResource,
+    AsyncChatTemplatesResource,
+    ChatTemplatesResourceWithRawResponse,
+    AsyncChatTemplatesResourceWithRawResponse,
+    ChatTemplatesResourceWithStreamingResponse,
+    AsyncChatTemplatesResourceWithStreamingResponse,
+)
 from .functional_tests import (
     FunctionalTestsResource,
     AsyncFunctionalTestsResource,
@@ -80,6 +88,10 @@ class AdminResource(SyncAPIResource):
     @cached_property
     def users(self) -> UsersResource:
         return UsersResource(self._client)
+
+    @cached_property
+    def chat_templates(self) -> ChatTemplatesResource:
+        return ChatTemplatesResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> AdminResourceWithRawResponse:
@@ -125,6 +137,10 @@ class AsyncAdminResource(AsyncAPIResource):
     @cached_property
     def users(self) -> AsyncUsersResource:
         return AsyncUsersResource(self._client)
+
+    @cached_property
+    def chat_templates(self) -> AsyncChatTemplatesResource:
+        return AsyncChatTemplatesResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> AsyncAdminResourceWithRawResponse:
@@ -174,6 +190,10 @@ class AdminResourceWithRawResponse:
     def users(self) -> UsersResourceWithRawResponse:
         return UsersResourceWithRawResponse(self._admin.users)
 
+    @cached_property
+    def chat_templates(self) -> ChatTemplatesResourceWithRawResponse:
+        return ChatTemplatesResourceWithRawResponse(self._admin.chat_templates)
+
 
 class AsyncAdminResourceWithRawResponse:
     def __init__(self, admin: AsyncAdminResource) -> None:
@@ -202,6 +222,10 @@ class AsyncAdminResourceWithRawResponse:
     @cached_property
     def users(self) -> AsyncUsersResourceWithRawResponse:
         return AsyncUsersResourceWithRawResponse(self._admin.users)
+
+    @cached_property
+    def chat_templates(self) -> AsyncChatTemplatesResourceWithRawResponse:
+        return AsyncChatTemplatesResourceWithRawResponse(self._admin.chat_templates)
 
 
 class AdminResourceWithStreamingResponse:
@@ -232,6 +256,10 @@ class AdminResourceWithStreamingResponse:
     def users(self) -> UsersResourceWithStreamingResponse:
         return UsersResourceWithStreamingResponse(self._admin.users)
 
+    @cached_property
+    def chat_templates(self) -> ChatTemplatesResourceWithStreamingResponse:
+        return ChatTemplatesResourceWithStreamingResponse(self._admin.chat_templates)
+
 
 class AsyncAdminResourceWithStreamingResponse:
     def __init__(self, admin: AsyncAdminResource) -> None:
@@ -260,3 +288,7 @@ class AsyncAdminResourceWithStreamingResponse:
     @cached_property
     def users(self) -> AsyncUsersResourceWithStreamingResponse:
         return AsyncUsersResourceWithStreamingResponse(self._admin.users)
+
+    @cached_property
+    def chat_templates(self) -> AsyncChatTemplatesResourceWithStreamingResponse:
+        return AsyncChatTemplatesResourceWithStreamingResponse(self._admin.chat_templates)
