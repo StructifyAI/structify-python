@@ -226,7 +226,7 @@ class BaseAPIResponse(Generic[R]):
         ):
             raise TypeError("Pydantic models must subclass our base model type, e.g. `from structify import BaseModel`")
 
-        is_typeddict_origin = inspect.isclass(origin) and is_typeddict(cast(type[Any], origin))
+        is_typeddict_origin = isinstance(origin, type) and is_typeddict(cast(type[Any], origin))
 
         if (
             cast_to is not object
