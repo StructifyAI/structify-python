@@ -27,6 +27,7 @@ class UserInfo(BaseModel):
             "cerebras_codegen",
             "gemini25pro",
             "claude_sonnet4",
+            "allow_job_deletion",
             "none",
         ]
     ]
