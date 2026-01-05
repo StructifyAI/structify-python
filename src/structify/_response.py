@@ -27,11 +27,11 @@ import pydantic
 from ._types import NoneType
 from ._utils import (
     is_given,
+    is_typeddict,
     extract_type_arg,
     is_annotated_type,
     is_type_alias_type,
     extract_type_var_from_base,
-    is_typeddict,
 )
 from ._models import BaseModel, is_basemodel
 from ._constants import RAW_RESPONSE_HEADER, OVERRIDE_CAST_TO_HEADER
