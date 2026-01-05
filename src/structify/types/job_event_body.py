@@ -13,6 +13,8 @@ __all__ = [
     "AgentSearched",
     "AgentSaved",
     "AgentExited",
+    "APINetworkCaptured",
+    "APIJsExecuted",
     "DerivedProperty",
     "Failed",
     "Completed",
@@ -62,6 +64,24 @@ class AgentExited(BaseModel):
     event_type: Literal["agent_exited"]
 
     reason: Optional[str] = None
+
+
+class APINetworkCaptured(BaseModel):
+    api_candidate_count: int
+
+    event_type: Literal["api_network_captured"]
+
+    request_count: int
+
+    url: str
+
+
+class APIJsExecuted(BaseModel):
+    code_preview: str
+
+    event_type: Literal["api_js_executed"]
+
+    success: bool
 
 
 class DerivedProperty(BaseModel):
@@ -150,6 +170,8 @@ JobEventBody: TypeAlias = Annotated[
         AgentSearched,
         AgentSaved,
         AgentExited,
+        APINetworkCaptured,
+        APIJsExecuted,
         DerivedProperty,
         Failed,
         Completed,
