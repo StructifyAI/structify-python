@@ -58,6 +58,8 @@ __all__ = [
     "ToolCallToolCallUnionMember16Input",
     "ToolCallToolCallUnionMember17",
     "ToolCallToolCallUnionMember17Input",
+    "ToolCallToolCallUnionMember18",
+    "ToolCallToolCallUnionMember18Input",
     "Question",
     "QuestionQuestion",
     "InternalError",
@@ -156,6 +158,8 @@ class ToolCallToolCallUnionMember0(BaseModel):
 
     complete: Optional[bool] = None
 
+    result_image: Optional[object] = None
+
     result_text: Optional[str] = None
 
 
@@ -171,6 +175,8 @@ class ToolCallToolCallUnionMember1(BaseModel):
     block_id: Optional[int] = None
 
     complete: Optional[bool] = None
+
+    result_image: Optional[object] = None
 
     result_text: Optional[str] = None
 
@@ -188,21 +194,31 @@ class ToolCallToolCallUnionMember2(BaseModel):
 
     complete: Optional[bool] = None
 
+    result_image: Optional[object] = None
+
     result_text: Optional[str] = None
 
 
 class ToolCallToolCallUnionMember3Input(BaseModel):
-    file: str
+    end_line: int
+
+    node_function_name: str
+
+    start_line: int
+
+    log_type: Optional[str] = None
 
 
 class ToolCallToolCallUnionMember3(BaseModel):
     input: ToolCallToolCallUnionMember3Input
 
-    name: Literal["DeleteFile"]
+    name: Literal["ReadNodeLogs"]
 
     block_id: Optional[int] = None
 
     complete: Optional[bool] = None
+
+    result_image: Optional[object] = None
 
     result_text: Optional[str] = None
 
@@ -210,11 +226,29 @@ class ToolCallToolCallUnionMember3(BaseModel):
 class ToolCallToolCallUnionMember4Input(BaseModel):
     file: str
 
-    new_path: str
-
 
 class ToolCallToolCallUnionMember4(BaseModel):
     input: ToolCallToolCallUnionMember4Input
+
+    name: Literal["DeleteFile"]
+
+    block_id: Optional[int] = None
+
+    complete: Optional[bool] = None
+
+    result_image: Optional[object] = None
+
+    result_text: Optional[str] = None
+
+
+class ToolCallToolCallUnionMember5Input(BaseModel):
+    file: str
+
+    new_path: str
+
+
+class ToolCallToolCallUnionMember5(BaseModel):
+    input: ToolCallToolCallUnionMember5Input
 
     name: Literal["MoveFile"]
 
@@ -222,31 +256,13 @@ class ToolCallToolCallUnionMember4(BaseModel):
 
     complete: Optional[bool] = None
 
-    result_text: Optional[str] = None
-
-
-class ToolCallToolCallUnionMember5Input(BaseModel):
-    command: str
-
-    connector: Optional[str] = None
-
-    working_dir: Optional[str] = None
-
-
-class ToolCallToolCallUnionMember5(BaseModel):
-    input: ToolCallToolCallUnionMember5Input
-
-    name: Literal["RunBash"]
-
-    block_id: Optional[int] = None
-
-    complete: Optional[bool] = None
+    result_image: Optional[object] = None
 
     result_text: Optional[str] = None
 
 
 class ToolCallToolCallUnionMember6Input(BaseModel):
-    code: str
+    command: str
 
     connector: Optional[str] = None
 
@@ -256,23 +272,47 @@ class ToolCallToolCallUnionMember6Input(BaseModel):
 class ToolCallToolCallUnionMember6(BaseModel):
     input: ToolCallToolCallUnionMember6Input
 
+    name: Literal["RunBash"]
+
+    block_id: Optional[int] = None
+
+    complete: Optional[bool] = None
+
+    result_image: Optional[object] = None
+
+    result_text: Optional[str] = None
+
+
+class ToolCallToolCallUnionMember7Input(BaseModel):
+    code: str
+
+    connector: Optional[str] = None
+
+    working_dir: Optional[str] = None
+
+
+class ToolCallToolCallUnionMember7(BaseModel):
+    input: ToolCallToolCallUnionMember7Input
+
     name: Literal["RunPython"]
 
     block_id: Optional[int] = None
 
     complete: Optional[bool] = None
 
+    result_image: Optional[object] = None
+
     result_text: Optional[str] = None
 
 
-class ToolCallToolCallUnionMember7Input(BaseModel):
+class ToolCallToolCallUnionMember8Input(BaseModel):
     description: str
 
     title: str
 
 
-class ToolCallToolCallUnionMember7(BaseModel):
-    input: ToolCallToolCallUnionMember7Input
+class ToolCallToolCallUnionMember8(BaseModel):
+    input: ToolCallToolCallUnionMember8Input
 
     name: Literal["IssueFound"]
 
@@ -280,25 +320,7 @@ class ToolCallToolCallUnionMember7(BaseModel):
 
     complete: Optional[bool] = None
 
-    result_text: Optional[str] = None
-
-
-class ToolCallToolCallUnionMember8Input(BaseModel):
-    name: str
-
-    description: Optional[str] = None
-
-    notes: Optional[str] = None
-
-
-class ToolCallToolCallUnionMember8(BaseModel):
-    input: ToolCallToolCallUnionMember8Input
-
-    name: Literal["SaveDatabase"]
-
-    block_id: Optional[int] = None
-
-    complete: Optional[bool] = None
+    result_image: Optional[object] = None
 
     result_text: Optional[str] = None
 
@@ -314,11 +336,13 @@ class ToolCallToolCallUnionMember9Input(BaseModel):
 class ToolCallToolCallUnionMember9(BaseModel):
     input: ToolCallToolCallUnionMember9Input
 
-    name: Literal["SaveSchema"]
+    name: Literal["SaveDatabase"]
 
     block_id: Optional[int] = None
 
     complete: Optional[bool] = None
+
+    result_image: Optional[object] = None
 
     result_text: Optional[str] = None
 
@@ -330,11 +354,33 @@ class ToolCallToolCallUnionMember10Input(BaseModel):
 
     notes: Optional[str] = None
 
-    tag: Optional[str] = None
-
 
 class ToolCallToolCallUnionMember10(BaseModel):
     input: ToolCallToolCallUnionMember10Input
+
+    name: Literal["SaveSchema"]
+
+    block_id: Optional[int] = None
+
+    complete: Optional[bool] = None
+
+    result_image: Optional[object] = None
+
+    result_text: Optional[str] = None
+
+
+class ToolCallToolCallUnionMember11Input(BaseModel):
+    name: str
+
+    description: Optional[str] = None
+
+    notes: Optional[str] = None
+
+    tag: Optional[str] = None
+
+
+class ToolCallToolCallUnionMember11(BaseModel):
+    input: ToolCallToolCallUnionMember11Input
 
     name: Literal["SaveTable"]
 
@@ -342,10 +388,12 @@ class ToolCallToolCallUnionMember10(BaseModel):
 
     complete: Optional[bool] = None
 
+    result_image: Optional[object] = None
+
     result_text: Optional[str] = None
 
 
-class ToolCallToolCallUnionMember11Input(BaseModel):
+class ToolCallToolCallUnionMember12Input(BaseModel):
     column_name: str
 
     column_type: str
@@ -353,8 +401,8 @@ class ToolCallToolCallUnionMember11Input(BaseModel):
     notes: Optional[str] = None
 
 
-class ToolCallToolCallUnionMember11(BaseModel):
-    input: ToolCallToolCallUnionMember11Input
+class ToolCallToolCallUnionMember12(BaseModel):
+    input: ToolCallToolCallUnionMember12Input
 
     name: Literal["SaveColumn"]
 
@@ -362,10 +410,12 @@ class ToolCallToolCallUnionMember11(BaseModel):
 
     complete: Optional[bool] = None
 
+    result_image: Optional[object] = None
+
     result_text: Optional[str] = None
 
 
-class ToolCallToolCallUnionMember12Input(BaseModel):
+class ToolCallToolCallUnionMember13Input(BaseModel):
     endpoint: str
 
     name: str
@@ -375,8 +425,8 @@ class ToolCallToolCallUnionMember12Input(BaseModel):
     notes: Optional[str] = None
 
 
-class ToolCallToolCallUnionMember12(BaseModel):
-    input: ToolCallToolCallUnionMember12Input
+class ToolCallToolCallUnionMember13(BaseModel):
+    input: ToolCallToolCallUnionMember13Input
 
     name: Literal["SaveApiResource"]
 
@@ -384,17 +434,19 @@ class ToolCallToolCallUnionMember12(BaseModel):
 
     complete: Optional[bool] = None
 
+    result_image: Optional[object] = None
+
     result_text: Optional[str] = None
 
 
-class ToolCallToolCallUnionMember13Input(BaseModel):
+class ToolCallToolCallUnionMember14Input(BaseModel):
     key: str
 
     value: str
 
 
-class ToolCallToolCallUnionMember13(BaseModel):
-    input: ToolCallToolCallUnionMember13Input
+class ToolCallToolCallUnionMember14(BaseModel):
+    input: ToolCallToolCallUnionMember14Input
 
     name: Literal["SaveMemory"]
 
@@ -402,17 +454,19 @@ class ToolCallToolCallUnionMember13(BaseModel):
 
     complete: Optional[bool] = None
 
+    result_image: Optional[object] = None
+
     result_text: Optional[str] = None
 
 
-class ToolCallToolCallUnionMember14Input(BaseModel):
+class ToolCallToolCallUnionMember15Input(BaseModel):
     query: str
 
     wiki_tag: Optional[str] = None
 
 
-class ToolCallToolCallUnionMember14(BaseModel):
-    input: ToolCallToolCallUnionMember14Input
+class ToolCallToolCallUnionMember15(BaseModel):
+    input: ToolCallToolCallUnionMember15Input
 
     name: Literal["SearchConnectorTables"]
 
@@ -420,10 +474,12 @@ class ToolCallToolCallUnionMember14(BaseModel):
 
     complete: Optional[bool] = None
 
+    result_image: Optional[object] = None
+
     result_text: Optional[str] = None
 
 
-class ToolCallToolCallUnionMember15Input(BaseModel):
+class ToolCallToolCallUnionMember16Input(BaseModel):
     question: str
 
     table_name: str
@@ -431,8 +487,8 @@ class ToolCallToolCallUnionMember15Input(BaseModel):
     column_name: Optional[str] = None
 
 
-class ToolCallToolCallUnionMember15(BaseModel):
-    input: ToolCallToolCallUnionMember15Input
+class ToolCallToolCallUnionMember16(BaseModel):
+    input: ToolCallToolCallUnionMember16Input
 
     name: Literal["RequestClarification"]
 
@@ -440,17 +496,19 @@ class ToolCallToolCallUnionMember15(BaseModel):
 
     complete: Optional[bool] = None
 
+    result_image: Optional[object] = None
+
     result_text: Optional[str] = None
 
 
-class ToolCallToolCallUnionMember16Input(BaseModel):
+class ToolCallToolCallUnionMember17Input(BaseModel):
     package_name: str
 
     version_spec: Optional[str] = None
 
 
-class ToolCallToolCallUnionMember16(BaseModel):
-    input: ToolCallToolCallUnionMember16Input
+class ToolCallToolCallUnionMember17(BaseModel):
+    input: ToolCallToolCallUnionMember17Input
 
     name: Literal["AddDependency"]
 
@@ -458,21 +516,25 @@ class ToolCallToolCallUnionMember16(BaseModel):
 
     complete: Optional[bool] = None
 
+    result_image: Optional[object] = None
+
     result_text: Optional[str] = None
 
 
-class ToolCallToolCallUnionMember17Input(BaseModel):
+class ToolCallToolCallUnionMember18Input(BaseModel):
     node_ids: List[str]
 
 
-class ToolCallToolCallUnionMember17(BaseModel):
-    input: ToolCallToolCallUnionMember17Input
+class ToolCallToolCallUnionMember18(BaseModel):
+    input: ToolCallToolCallUnionMember18Input
 
     name: Literal["SelectData"]
 
     block_id: Optional[int] = None
 
     complete: Optional[bool] = None
+
+    result_image: Optional[object] = None
 
     result_text: Optional[str] = None
 
@@ -496,6 +558,7 @@ ToolCallToolCall: TypeAlias = Union[
     ToolCallToolCallUnionMember15,
     ToolCallToolCallUnionMember16,
     ToolCallToolCallUnionMember17,
+    ToolCallToolCallUnionMember18,
 ]
 
 

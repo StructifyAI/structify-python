@@ -25,23 +25,17 @@ class SessionCommit(BaseModel):
 class SessionMessage(BaseModel):
     """Model-layer message representation - streamlined for LLM transmission"""
 
-    id: str
-
-    chat_session_id: str
-
     content: ChatEvent
     """
     Events in a chat session timeline, including messages and unified tool
     calls/results
     """
 
-    created_at: datetime
+    message_id: str
 
     role: Literal["user", "system", "assistant"]
 
     timestamp: datetime
-
-    commit_hash: Optional[str] = None
 
 
 class Session(BaseModel):

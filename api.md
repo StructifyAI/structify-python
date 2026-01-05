@@ -248,6 +248,8 @@ from structify.types.admin import (
     CancelSubscriptionResponse,
     CreateSubscriptionResponse,
     CreateTeamSubscriptionRequest,
+    ExpireGrantsRequest,
+    ExpireGrantsResponse,
     ExtendTrialRequest,
     ExtendTrialResponse,
     GrantCreditsRequest,
@@ -260,6 +262,7 @@ Methods:
 - <code title="get /admin/team/list">client.admin.teams.<a href="./src/structify/resources/admin/teams.py">list</a>(\*\*<a href="src/structify/types/admin/team_list_params.py">params</a>) -> <a href="./src/structify/types/admin/admin_teams_list_response.py">SyncJobsList[AdminTeamsListResponse]</a></code>
 - <code title="post /admin/team/cancel_subscription">client.admin.teams.<a href="./src/structify/resources/admin/teams.py">cancel_subscription</a>(\*\*<a href="src/structify/types/admin/team_cancel_subscription_params.py">params</a>) -> <a href="./src/structify/types/admin/cancel_subscription_response.py">CancelSubscriptionResponse</a></code>
 - <code title="post /admin/team/create_subscription">client.admin.teams.<a href="./src/structify/resources/admin/teams.py">create_subscription</a>(\*\*<a href="src/structify/types/admin/team_create_subscription_params.py">params</a>) -> <a href="./src/structify/types/admin/create_subscription_response.py">CreateSubscriptionResponse</a></code>
+- <code title="post /admin/team/expire_grants">client.admin.teams.<a href="./src/structify/resources/admin/teams.py">expire_grants</a>(\*\*<a href="src/structify/types/admin/team_expire_grants_params.py">params</a>) -> <a href="./src/structify/types/admin/expire_grants_response.py">ExpireGrantsResponse</a></code>
 - <code title="post /admin/team/extend_trial">client.admin.teams.<a href="./src/structify/resources/admin/teams.py">extend_trial</a>(\*\*<a href="src/structify/types/admin/team_extend_trial_params.py">params</a>) -> <a href="./src/structify/types/admin/extend_trial_response.py">ExtendTrialResponse</a></code>
 - <code title="post /admin/team/grant_credits">client.admin.teams.<a href="./src/structify/resources/admin/teams.py">grant_credits</a>(\*\*<a href="src/structify/types/admin/team_grant_credits_params.py">params</a>) -> <a href="./src/structify/types/admin/grant_credits_response.py">GrantCreditsResponse</a></code>
 
@@ -280,12 +283,18 @@ Methods:
 Types:
 
 ```python
-from structify.types.admin import AdminListJobsRequestParams, AdminListJobsResponse
+from structify.types.admin import (
+    AdminDeleteJobsRequest,
+    AdminDeleteJobsResponse,
+    AdminListJobsRequestParams,
+    AdminListJobsResponse,
+)
 ```
 
 Methods:
 
 - <code title="get /admin/jobs/list">client.admin.jobs.<a href="./src/structify/resources/admin/jobs.py">list</a>(\*\*<a href="src/structify/types/admin/job_list_params.py">params</a>) -> <a href="./src/structify/types/admin/admin_list_jobs_response.py">SyncJobsList[AdminListJobsResponse]</a></code>
+- <code title="post /admin/jobs/delete">client.admin.jobs.<a href="./src/structify/resources/admin/jobs.py">delete</a>(\*\*<a href="src/structify/types/admin/job_delete_params.py">params</a>) -> <a href="./src/structify/types/admin/admin_delete_jobs_response.py">AdminDeleteJobsResponse</a></code>
 
 ## Sandbox
 
@@ -414,11 +423,7 @@ Methods:
 Types:
 
 ```python
-from structify.types import (
-    DocumentListResponse,
-    DocumentDownloadResponse,
-    DocumentStructureResponse,
-)
+from structify.types import DocumentListResponse, DocumentDownloadResponse
 ```
 
 Methods:
@@ -426,7 +431,6 @@ Methods:
 - <code title="get /documents/list">client.documents.<a href="./src/structify/resources/documents.py">list</a>(\*\*<a href="src/structify/types/document_list_params.py">params</a>) -> <a href="./src/structify/types/document_list_response.py">DocumentListResponse</a></code>
 - <code title="delete /documents/delete">client.documents.<a href="./src/structify/resources/documents.py">delete</a>(\*\*<a href="src/structify/types/document_delete_params.py">params</a>) -> None</code>
 - <code title="post /documents/download">client.documents.<a href="./src/structify/resources/documents.py">download</a>(\*\*<a href="src/structify/types/document_download_params.py">params</a>) -> <a href="./src/structify/types/document_download_response.py">DocumentDownloadResponse</a></code>
-- <code title="post /documents/structure">client.documents.<a href="./src/structify/resources/documents.py">structure</a>(\*\*<a href="src/structify/types/document_structure_params.py">params</a>) -> <a href="./src/structify/types/document_structure_response.py">DocumentStructureResponse</a></code>
 - <code title="post /documents/upload">client.documents.<a href="./src/structify/resources/documents.py">upload</a>(\*\*<a href="src/structify/types/document_upload_params.py">params</a>) -> None</code>
 
 # Jobs
@@ -479,6 +483,7 @@ Types:
 ```python
 from structify.types import (
     AutofixContext,
+    ConfirmNodeRequest,
     CreateWorkflowSessionRequest,
     DashboardComponent,
     DashboardLayout,
@@ -486,9 +491,11 @@ from structify.types import (
     FinalizeDagRequest,
     FinalizeDagResponse,
     GetNodeLogsResponse,
+    GetNodeResponse,
     JobEventBody,
     MarkWorkflowSessionErroredRequest,
     NodeSpec,
+    RequestConfirmationRequest,
     UpdateWorkflowNodeProgressRequest,
     UpdateWorkflowNodeRequest,
     UploadDashboardLayoutRequest,
@@ -507,15 +514,18 @@ from structify.types import (
 
 Methods:
 
+- <code title="post /sessions/nodes/{node_id}/confirm">client.sessions.<a href="./src/structify/resources/sessions.py">confirm_node</a>(node_id, \*\*<a href="src/structify/types/session_confirm_node_params.py">params</a>) -> <a href="./src/structify/types/workflow_session_node.py">WorkflowSessionNode</a></code>
 - <code title="post /sessions">client.sessions.<a href="./src/structify/resources/sessions.py">create_session</a>(\*\*<a href="src/structify/types/session_create_session_params.py">params</a>) -> <a href="./src/structify/types/workflow_session.py">WorkflowSession</a></code>
 - <code title="post /sessions/{session_id}/dag_ready">client.sessions.<a href="./src/structify/resources/sessions.py">finalize_dag</a>(session_id, \*\*<a href="src/structify/types/session_finalize_dag_params.py">params</a>) -> <a href="./src/structify/types/finalize_dag_response.py">FinalizeDagResponse</a></code>
 - <code title="get /sessions/{session_id}/dag">client.sessions.<a href="./src/structify/resources/sessions.py">get_dag</a>(session_id) -> <a href="./src/structify/types/workflow_dag.py">WorkflowDag</a></code>
 - <code title="get /sessions/nodes/{node_id}/events">client.sessions.<a href="./src/structify/resources/sessions.py">get_events</a>(node_id, \*\*<a href="src/structify/types/session_get_events_params.py">params</a>) -> <a href="./src/structify/types/session_get_events_response.py">SessionGetEventsResponse</a></code>
+- <code title="get /sessions/nodes/{node_id}">client.sessions.<a href="./src/structify/resources/sessions.py">get_node</a>(node_id) -> <a href="./src/structify/types/get_node_response.py">GetNodeResponse</a></code>
 - <code title="get /sessions/node/{node_id}/logs">client.sessions.<a href="./src/structify/resources/sessions.py">get_node_logs</a>(node_id) -> <a href="./src/structify/types/get_node_logs_response.py">GetNodeLogsResponse</a></code>
 - <code title="get /sessions/nodes/{node_id}/output_data">client.sessions.<a href="./src/structify/resources/sessions.py">get_node_output_data</a>(node_id) -> BinaryAPIResponse</code>
 - <code title="get /sessions/nodes/{node_id}/progress">client.sessions.<a href="./src/structify/resources/sessions.py">get_node_progress</a>(node_id) -> <a href="./src/structify/types/session_get_node_progress_response.py">SessionGetNodeProgressResponse</a></code>
 - <code title="post /sessions/{session_id}/kill_jobs">client.sessions.<a href="./src/structify/resources/sessions.py">kill_jobs</a>(session_id, \*\*<a href="src/structify/types/session_kill_jobs_params.py">params</a>) -> <a href="./src/structify/types/session_kill_jobs_response.py">SessionKillJobsResponse</a></code>
 - <code title="patch /sessions/{session_id}/error">client.sessions.<a href="./src/structify/resources/sessions.py">mark_errored</a>(session_id, \*\*<a href="src/structify/types/session_mark_errored_params.py">params</a>) -> <a href="./src/structify/types/workflow_session.py">WorkflowSession</a></code>
+- <code title="post /sessions/nodes/{node_id}/request_confirmation">client.sessions.<a href="./src/structify/resources/sessions.py">request_confirmation</a>(node_id, \*\*<a href="src/structify/types/session_request_confirmation_params.py">params</a>) -> <a href="./src/structify/types/workflow_session_node.py">WorkflowSessionNode</a></code>
 - <code title="patch /sessions/nodes/{node_id}">client.sessions.<a href="./src/structify/resources/sessions.py">update_node</a>(node_id, \*\*<a href="src/structify/types/session_update_node_params.py">params</a>) -> <a href="./src/structify/types/workflow_session_node.py">WorkflowSessionNode</a></code>
 - <code title="patch /sessions/nodes/{node_id}/progress">client.sessions.<a href="./src/structify/resources/sessions.py">update_node_progress</a>(node_id, \*\*<a href="src/structify/types/session_update_node_progress_params.py">params</a>) -> <a href="./src/structify/types/workflow_session_node.py">WorkflowSessionNode</a></code>
 - <code title="post /sessions/{session_id}/dashboard_layout">client.sessions.<a href="./src/structify/resources/sessions.py">upload_dashboard_layout</a>(session_id, \*\*<a href="src/structify/types/session_upload_dashboard_layout_params.py">params</a>) -> <a href="./src/structify/types/workflow_session.py">WorkflowSession</a></code>

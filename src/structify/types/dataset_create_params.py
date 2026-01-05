@@ -24,8 +24,6 @@ class DatasetCreateParams(TypedDict, total=False):
 
     ephemeral: bool
 
-    generate_merge_criteria: bool
-
     llm_override_field: Optional[str]
 
 
