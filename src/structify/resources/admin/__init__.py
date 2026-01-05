@@ -48,6 +48,14 @@ from .sandbox import (
     SandboxResourceWithStreamingResponse,
     AsyncSandboxResourceWithStreamingResponse,
 )
+from .chat_templates import (
+    ChatTemplatesResource,
+    AsyncChatTemplatesResource,
+    ChatTemplatesResourceWithRawResponse,
+    AsyncChatTemplatesResourceWithRawResponse,
+    ChatTemplatesResourceWithStreamingResponse,
+    AsyncChatTemplatesResourceWithStreamingResponse,
+)
 from .functional_tests import (
     FunctionalTestsResource,
     AsyncFunctionalTestsResource,
@@ -94,6 +102,12 @@ __all__ = [
     "AsyncUsersResourceWithRawResponse",
     "UsersResourceWithStreamingResponse",
     "AsyncUsersResourceWithStreamingResponse",
+    "ChatTemplatesResource",
+    "AsyncChatTemplatesResource",
+    "ChatTemplatesResourceWithRawResponse",
+    "AsyncChatTemplatesResourceWithRawResponse",
+    "ChatTemplatesResourceWithStreamingResponse",
+    "AsyncChatTemplatesResourceWithStreamingResponse",
     "AdminResource",
     "AsyncAdminResource",
     "AdminResourceWithRawResponse",

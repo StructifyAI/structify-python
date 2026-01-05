@@ -24,6 +24,7 @@ from .match_result import MatchResult as MatchResult
 from .merge_config import MergeConfig as MergeConfig
 from .relationship import Relationship as Relationship
 from .workflow_dag import WorkflowDag as WorkflowDag
+from .chat_template import ChatTemplate as ChatTemplate
 from .property_type import PropertyType as PropertyType
 from .tool_metadata import ToolMetadata as ToolMetadata
 from .job_event_body import JobEventBody as JobEventBody
@@ -216,6 +217,7 @@ from .update_member_role_response import UpdateMemberRoleResponse as UpdateMembe
 from .chat_add_collaborator_params import ChatAddCollaboratorParams as ChatAddCollaboratorParams
 from .chat_add_git_commit_response import ChatAddGitCommitResponse as ChatAddGitCommitResponse
 from .chat_get_git_commit_response import ChatGetGitCommitResponse as ChatGetGitCommitResponse
+from .chat_list_templates_response import ChatListTemplatesResponse as ChatListTemplatesResponse
 from .chat_revert_to_commit_params import ChatRevertToCommitParams as ChatRevertToCommitParams
 from .create_chat_session_response import CreateChatSessionResponse as CreateChatSessionResponse
 from .dataset_export_to_csv_params import DatasetExportToCsvParams as DatasetExportToCsvParams
