@@ -49,6 +49,7 @@ from ..types.list_chat_sessions_response import ListChatSessionsResponse
 from ..types.list_collaborators_response import ListCollaboratorsResponse
 from ..types.chat_add_git_commit_response import ChatAddGitCommitResponse
 from ..types.chat_get_git_commit_response import ChatGetGitCommitResponse
+from ..types.chat_list_templates_response import ChatListTemplatesResponse
 from ..types.create_chat_session_response import CreateChatSessionResponse
 from ..types.delete_chat_session_response import DeleteChatSessionResponse
 from ..types.chat_revert_to_commit_response import ChatRevertToCommitResponse
@@ -684,6 +685,25 @@ class ChatResource(SyncAPIResource):
                 ),
             ),
             cast_to=ListChatSessionsResponse,
+        )
+
+    def list_templates(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ChatListTemplatesResponse:
+        """List active chat templates for the /chat page"""
+        return self._get(
+            "/chat/templates",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ChatListTemplatesResponse,
         )
 
     def load_files(
@@ -1572,6 +1592,25 @@ class AsyncChatResource(AsyncAPIResource):
             cast_to=ListChatSessionsResponse,
         )
 
+    async def list_templates(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ChatListTemplatesResponse:
+        """List active chat templates for the /chat page"""
+        return await self._get(
+            "/chat/templates",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ChatListTemplatesResponse,
+        )
+
     async def load_files(
         self,
         *,
@@ -1884,6 +1923,9 @@ class ChatResourceWithRawResponse:
         self.list_sessions = to_raw_response_wrapper(
             chat.list_sessions,
         )
+        self.list_templates = to_raw_response_wrapper(
+            chat.list_templates,
+        )
         self.load_files = to_raw_response_wrapper(
             chat.load_files,
         )
@@ -1958,6 +2000,9 @@ class AsyncChatResourceWithRawResponse:
         )
         self.list_sessions = async_to_raw_response_wrapper(
             chat.list_sessions,
+        )
+        self.list_templates = async_to_raw_response_wrapper(
+            chat.list_templates,
         )
         self.load_files = async_to_raw_response_wrapper(
             chat.load_files,
@@ -2034,6 +2079,9 @@ class ChatResourceWithStreamingResponse:
         self.list_sessions = to_streamed_response_wrapper(
             chat.list_sessions,
         )
+        self.list_templates = to_streamed_response_wrapper(
+            chat.list_templates,
+        )
         self.load_files = to_streamed_response_wrapper(
             chat.load_files,
         )
@@ -2108,6 +2156,9 @@ class AsyncChatResourceWithStreamingResponse:
         )
         self.list_sessions = async_to_streamed_response_wrapper(
             chat.list_sessions,
+        )
+        self.list_templates = async_to_streamed_response_wrapper(
+            chat.list_templates,
         )
         self.load_files = async_to_streamed_response_wrapper(
             chat.load_files,

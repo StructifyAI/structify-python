@@ -22,6 +22,7 @@ from structify.types import (
     ChatGetGitCommitResponse,
     ListChatSessionsResponse,
     UpdateVisibilityResponse,
+    ChatListTemplatesResponse,
     CreateChatSessionResponse,
     DeleteChatSessionResponse,
     ListCollaboratorsResponse,
@@ -704,6 +705,31 @@ class TestChat:
 
             chat = response.parse()
             assert_matches_type(ListChatSessionsResponse, chat, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_method_list_templates(self, client: Structify) -> None:
+        chat = client.chat.list_templates()
+        assert_matches_type(ChatListTemplatesResponse, chat, path=["response"])
+
+    @parametrize
+    def test_raw_response_list_templates(self, client: Structify) -> None:
+        response = client.chat.with_raw_response.list_templates()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        chat = response.parse()
+        assert_matches_type(ChatListTemplatesResponse, chat, path=["response"])
+
+    @parametrize
+    def test_streaming_response_list_templates(self, client: Structify) -> None:
+        with client.chat.with_streaming_response.list_templates() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            chat = response.parse()
+            assert_matches_type(ChatListTemplatesResponse, chat, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -1679,6 +1705,31 @@ class TestAsyncChat:
 
             chat = await response.parse()
             assert_matches_type(ListChatSessionsResponse, chat, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_method_list_templates(self, async_client: AsyncStructify) -> None:
+        chat = await async_client.chat.list_templates()
+        assert_matches_type(ChatListTemplatesResponse, chat, path=["response"])
+
+    @parametrize
+    async def test_raw_response_list_templates(self, async_client: AsyncStructify) -> None:
+        response = await async_client.chat.with_raw_response.list_templates()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        chat = await response.parse()
+        assert_matches_type(ChatListTemplatesResponse, chat, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_list_templates(self, async_client: AsyncStructify) -> None:
+        async with async_client.chat.with_streaming_response.list_templates() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            chat = await response.parse()
+            assert_matches_type(ChatListTemplatesResponse, chat, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

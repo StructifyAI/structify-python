@@ -82,6 +82,7 @@ from structify.types import (
     ChatSessionRole,
     ChatSessionUser,
     ChatSessionWithMessages,
+    ChatTemplate,
     ChatVisibility,
     CopyChatSessionRequest,
     CreateChatSessionRequest,
@@ -104,6 +105,7 @@ from structify.types import (
     ChatGetGitCommitResponse,
     ChatGetPartialChatsResponse,
     ChatGetSessionTimelineResponse,
+    ChatListTemplatesResponse,
     ChatLoadFilesResponse,
     ChatRevertToCommitResponse,
 )
@@ -127,6 +129,7 @@ Methods:
 - <code title="post /chat/sessions/{chat_id}/admin_override">client.chat.<a href="./src/structify/resources/chat.py">grant_admin_override</a>(chat_id, \*\*<a href="src/structify/types/chat_grant_admin_override_params.py">params</a>) -> <a href="./src/structify/types/admin_grant_access_response.py">AdminGrantAccessResponse</a></code>
 - <code title="get /chat/sessions/{chat_id}/collaborators">client.chat.<a href="./src/structify/resources/chat.py">list_collaborators</a>(chat_id) -> <a href="./src/structify/types/list_collaborators_response.py">ListCollaboratorsResponse</a></code>
 - <code title="get /chat/sessions">client.chat.<a href="./src/structify/resources/chat.py">list_sessions</a>(\*\*<a href="src/structify/types/chat_list_sessions_params.py">params</a>) -> <a href="./src/structify/types/list_chat_sessions_response.py">ListChatSessionsResponse</a></code>
+- <code title="get /chat/templates">client.chat.<a href="./src/structify/resources/chat.py">list_templates</a>() -> <a href="./src/structify/types/chat_list_templates_response.py">ChatListTemplatesResponse</a></code>
 - <code title="post /chat/files/load">client.chat.<a href="./src/structify/resources/chat.py">load_files</a>(\*\*<a href="src/structify/types/chat_load_files_params.py">params</a>) -> <a href="./src/structify/types/chat_load_files_response.py">ChatLoadFilesResponse</a></code>
 - <code title="patch /chat/sessions/{session_id}/make-permanent">client.chat.<a href="./src/structify/resources/chat.py">make_permanent</a>(session_id) -> None</code>
 - <code title="delete /chat/sessions/{chat_id}/collaborators/{user_id}">client.chat.<a href="./src/structify/resources/chat.py">remove_collaborator</a>(user_id, \*, chat_id) -> None</code>
@@ -354,6 +357,25 @@ Methods:
 - <code title="get /admin/users/list">client.admin.users.<a href="./src/structify/resources/admin/users.py">list</a>() -> <a href="./src/structify/types/admin/user_list_response.py">UserListResponse</a></code>
 - <code title="post /admin/users/get_stats">client.admin.users.<a href="./src/structify/resources/admin/users.py">get_stats</a>(\*\*<a href="src/structify/types/admin/user_get_stats_params.py">params</a>) -> <a href="./src/structify/types/admin/user_get_stats_response.py">UserGetStatsResponse</a></code>
 - <code title="post /admin/users/impersonate">client.admin.users.<a href="./src/structify/resources/admin/users.py">impersonate</a>(\*\*<a href="src/structify/types/admin/user_impersonate_params.py">params</a>) -> <a href="./src/structify/types/admin/impersonate_response.py">ImpersonateResponse</a></code>
+
+## ChatTemplates
+
+Types:
+
+```python
+from structify.types.admin import (
+    AdminChatTemplateListQuery,
+    CreateChatTemplateRequest,
+    UpdateChatTemplateRequest,
+    ChatTemplateListResponse,
+)
+```
+
+Methods:
+
+- <code title="post /admin/chat/templates">client.admin.chat_templates.<a href="./src/structify/resources/admin/chat_templates.py">create</a>(\*\*<a href="src/structify/types/admin/chat_template_create_params.py">params</a>) -> <a href="./src/structify/types/chat_template.py">ChatTemplate</a></code>
+- <code title="patch /admin/chat/templates/{template_id}">client.admin.chat_templates.<a href="./src/structify/resources/admin/chat_templates.py">update</a>(template_id, \*\*<a href="src/structify/types/admin/chat_template_update_params.py">params</a>) -> <a href="./src/structify/types/chat_template.py">ChatTemplate</a></code>
+- <code title="get /admin/chat/templates">client.admin.chat_templates.<a href="./src/structify/resources/admin/chat_templates.py">list</a>(\*\*<a href="src/structify/types/admin/chat_template_list_params.py">params</a>) -> <a href="./src/structify/types/admin/chat_template_list_response.py">ChatTemplateListResponse</a></code>
 
 # Datasets
 
