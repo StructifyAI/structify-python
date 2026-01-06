@@ -74,6 +74,7 @@ if TYPE_CHECKING:
     from .resources.server import ServerResource, AsyncServerResource
     from .resources.sandbox import SandboxResource, AsyncSandboxResource
     from .resources.sources import SourcesResource, AsyncSourcesResource
+    from .resources.datasets import DatasetsResource, AsyncDatasetsResource
     from .resources.entities import EntitiesResource, AsyncEntitiesResource
     from .resources.projects import ProjectsResource, AsyncProjectsResource
     from .resources.sessions import SessionsResource, AsyncSessionsResource
@@ -83,7 +84,6 @@ if TYPE_CHECKING:
     from .resources.user.user import UserResource, AsyncUserResource
     from .resources.admin.admin import AdminResource, AsyncAdminResource
     from .resources.public_sessions import PublicSessionsResource, AsyncPublicSessionsResource
-    from .resources.datasets.datasets import DatasetsResource, AsyncDatasetsResource
     from .resources.external.external import ExternalResource, AsyncExternalResource
     from .resources.workflow_schedule import WorkflowScheduleResource, AsyncWorkflowScheduleResource
     from .resources.connectors.connectors import ConnectorsResource, AsyncConnectorsResource
