@@ -60,6 +60,10 @@ __all__ = [
     "ToolCallToolCallUnionMember17Input",
     "ToolCallToolCallUnionMember18",
     "ToolCallToolCallUnionMember18Input",
+    "ToolCallToolCallUnionMember19",
+    "ToolCallToolCallUnionMember19Input",
+    "ToolCallToolCallUnionMember20",
+    "ToolCallToolCallUnionMember20Input",
     "Question",
     "QuestionQuestion",
     "InternalError",
@@ -539,6 +543,48 @@ class ToolCallToolCallUnionMember18(BaseModel):
     result_text: Optional[str] = None
 
 
+class ToolCallToolCallUnionMember19Input(BaseModel):
+    connector_type: str
+
+    name: str
+
+    description: Optional[str] = None
+
+    secrets: Optional[List[str]] = None
+
+
+class ToolCallToolCallUnionMember19(BaseModel):
+    input: ToolCallToolCallUnionMember19Input
+
+    name: Literal["CreateConnector"]
+
+    block_id: Optional[int] = None
+
+    complete: Optional[bool] = None
+
+    result_image: Optional[object] = None
+
+    result_text: Optional[str] = None
+
+
+class ToolCallToolCallUnionMember20Input(BaseModel):
+    query: Optional[str] = None
+
+
+class ToolCallToolCallUnionMember20(BaseModel):
+    input: ToolCallToolCallUnionMember20Input
+
+    name: Literal["SearchConnectorTypes"]
+
+    block_id: Optional[int] = None
+
+    complete: Optional[bool] = None
+
+    result_image: Optional[object] = None
+
+    result_text: Optional[str] = None
+
+
 ToolCallToolCall: TypeAlias = Union[
     ToolCallToolCallUnionMember0,
     ToolCallToolCallUnionMember1,
@@ -559,6 +605,8 @@ ToolCallToolCall: TypeAlias = Union[
     ToolCallToolCallUnionMember16,
     ToolCallToolCallUnionMember17,
     ToolCallToolCallUnionMember18,
+    ToolCallToolCallUnionMember19,
+    ToolCallToolCallUnionMember20,
 ]
 
 
