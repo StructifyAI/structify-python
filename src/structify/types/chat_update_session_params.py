@@ -12,3 +12,5 @@ class ChatUpdateSessionParams(TypedDict, total=False):
     name: Optional[str]
 
     project_id: Optional[str]
+
+    skip_confirmations: Optional[bool]

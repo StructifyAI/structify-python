@@ -67,6 +67,8 @@ class ChatSessionWithMessages(BaseModel):
 
     messages: List[Message]
 
+    skip_confirmations: bool
+
     team_id: str
 
     updated_at: datetime
