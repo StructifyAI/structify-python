@@ -20,6 +20,8 @@ class ChatSession(BaseModel):
 
     review_required: bool
 
+    skip_confirmations: bool
+
     slack_completion_notified: bool
 
     team_id: str
