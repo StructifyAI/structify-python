@@ -67,4 +67,8 @@ class Updates(TypedDict, total=False):
 
     survey_response: object
 
+    teams_user_id: Optional[str]
+
+    teams_user_name: Optional[str]
+
     user_type: Optional[Literal["admin", "public", "end_user"]]
