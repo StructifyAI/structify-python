@@ -19,6 +19,4 @@ class AdminCreateCatalogParams(TypedDict, total=False):
 
     description: Optional[str]
 
-    logo_path: Optional[str]
-
     priority: Optional[int]
