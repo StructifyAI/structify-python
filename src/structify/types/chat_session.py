@@ -26,6 +26,8 @@ class ChatSession(BaseModel):
 
     team_id: str
 
+    teams_completion_notified: bool
+
     updated_at: datetime
 
     user_message_needed: bool
@@ -43,3 +45,9 @@ class ChatSession(BaseModel):
     slack_team_id: Optional[str] = None
 
     slack_thread_ts: Optional[str] = None
+
+    teams_channel_id: Optional[str] = None
+
+    teams_conversation_id: Optional[str] = None
+
+    teams_tenant_id: Optional[str] = None
