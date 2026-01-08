@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 from .connector_catalog import ConnectorCatalog as ConnectorCatalog
+from .upload_logo_response import UploadLogoResponse as UploadLogoResponse
+from .admin_upload_logo_params import AdminUploadLogoParams as AdminUploadLogoParams
 from .pending_nango_integration import PendingNangoIntegration as PendingNangoIntegration
 from .admin_create_catalog_params import AdminCreateCatalogParams as AdminCreateCatalogParams
 from .admin_update_catalog_params import AdminUpdateCatalogParams as AdminUpdateCatalogParams

@@ -15,8 +15,6 @@ class AdminUpdateCatalogParams(TypedDict, total=False):
 
     description: Optional[str]
 
-    logo_path: Optional[str]
-
     name: Optional[str]
 
     priority: Optional[int]

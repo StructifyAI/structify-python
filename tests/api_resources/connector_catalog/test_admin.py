@@ -12,6 +12,7 @@ from tests.utils import assert_matches_type
 from structify.types import ConnectorAuthMethod, ConnectorCredentialField
 from structify.types.connector_catalog import (
     ConnectorCatalog,
+    UploadLogoResponse,
     AdminListNangoPendingResponse,
     AdminBatchCreateCredentialFieldsResponse,
 )
@@ -144,7 +145,6 @@ class TestAdmin:
             slug="slug",
             categories=["string"],
             description="description",
-            logo_path="logo_path",
             priority=0,
         )
         assert_matches_type(ConnectorCatalog, admin, path=["response"])
@@ -357,7 +357,6 @@ class TestAdmin:
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             categories=["string"],
             description="description",
-            logo_path="logo_path",
             name="name",
             priority=0,
         )
@@ -445,6 +444,48 @@ class TestAdmin:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.connector_catalog.admin.with_raw_response.update_credential_field(
                 id="",
+            )
+
+    @parametrize
+    def test_method_upload_logo(self, client: Structify) -> None:
+        admin = client.connector_catalog.admin.upload_logo(
+            slug="slug",
+            file=b"raw file contents",
+        )
+        assert_matches_type(UploadLogoResponse, admin, path=["response"])
+
+    @parametrize
+    def test_raw_response_upload_logo(self, client: Structify) -> None:
+        response = client.connector_catalog.admin.with_raw_response.upload_logo(
+            slug="slug",
+            file=b"raw file contents",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        admin = response.parse()
+        assert_matches_type(UploadLogoResponse, admin, path=["response"])
+
+    @parametrize
+    def test_streaming_response_upload_logo(self, client: Structify) -> None:
+        with client.connector_catalog.admin.with_streaming_response.upload_logo(
+            slug="slug",
+            file=b"raw file contents",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            admin = response.parse()
+            assert_matches_type(UploadLogoResponse, admin, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_path_params_upload_logo(self, client: Structify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `slug` but received ''"):
+            client.connector_catalog.admin.with_raw_response.upload_logo(
+                slug="",
+                file=b"raw file contents",
             )
 
 
@@ -575,7 +616,6 @@ class TestAsyncAdmin:
             slug="slug",
             categories=["string"],
             description="description",
-            logo_path="logo_path",
             priority=0,
         )
         assert_matches_type(ConnectorCatalog, admin, path=["response"])
@@ -788,7 +828,6 @@ class TestAsyncAdmin:
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             categories=["string"],
             description="description",
-            logo_path="logo_path",
             name="name",
             priority=0,
         )
@@ -876,4 +915,46 @@ class TestAsyncAdmin:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.connector_catalog.admin.with_raw_response.update_credential_field(
                 id="",
+            )
+
+    @parametrize
+    async def test_method_upload_logo(self, async_client: AsyncStructify) -> None:
+        admin = await async_client.connector_catalog.admin.upload_logo(
+            slug="slug",
+            file=b"raw file contents",
+        )
+        assert_matches_type(UploadLogoResponse, admin, path=["response"])
+
+    @parametrize
+    async def test_raw_response_upload_logo(self, async_client: AsyncStructify) -> None:
+        response = await async_client.connector_catalog.admin.with_raw_response.upload_logo(
+            slug="slug",
+            file=b"raw file contents",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        admin = await response.parse()
+        assert_matches_type(UploadLogoResponse, admin, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_upload_logo(self, async_client: AsyncStructify) -> None:
+        async with async_client.connector_catalog.admin.with_streaming_response.upload_logo(
+            slug="slug",
+            file=b"raw file contents",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            admin = await response.parse()
+            assert_matches_type(UploadLogoResponse, admin, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_upload_logo(self, async_client: AsyncStructify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `slug` but received ''"):
+            await async_client.connector_catalog.admin.with_raw_response.upload_logo(
+                slug="",
+                file=b"raw file contents",
             )
