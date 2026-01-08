@@ -270,6 +270,8 @@ class ToolCallToolCallUnionMember6Input(BaseModel):
 
     connector: Optional[str] = None
 
+    timeout_seconds: Optional[int] = None
+
     working_dir: Optional[str] = None
 
 
