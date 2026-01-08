@@ -23,6 +23,4 @@ class ConnectorCatalog(BaseModel):
 
     description: Optional[str] = None
 
-    logo_path: Optional[str] = None
-
     priority: Optional[int] = None

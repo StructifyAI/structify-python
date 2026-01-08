@@ -662,8 +662,9 @@ from structify.types import (
 
 Methods:
 
-- <code title="get /connector-catalog">client.connector_catalog.<a href="./src/structify/resources/connector_catalog/connector_catalog.py">list</a>() -> <a href="./src/structify/types/connector_catalog_list_response.py">ConnectorCatalogListResponse</a></code>
+- <code title="get /connector-catalog">client.connector_catalog.<a href="./src/structify/resources/connector_catalog/connector_catalog.py">list</a>(\*\*<a href="src/structify/types/connector_catalog_list_params.py">params</a>) -> <a href="./src/structify/types/connector_catalog_list_response.py">ConnectorCatalogListResponse</a></code>
 - <code title="get /connector-catalog/{slug}">client.connector_catalog.<a href="./src/structify/resources/connector_catalog/connector_catalog.py">get</a>(slug) -> <a href="./src/structify/types/connector_catalog_with_methods.py">ConnectorCatalogWithMethods</a></code>
+- <code title="get /connector-catalog/{slug}/logo">client.connector_catalog.<a href="./src/structify/resources/connector_catalog/connector_catalog.py">get_logo</a>(slug) -> BinaryAPIResponse</code>
 
 ## Admin
 
@@ -679,6 +680,7 @@ from structify.types.connector_catalog import (
     UpdateAuthMethodRequest,
     UpdateCatalogRequest,
     UpdateCredentialFieldRequest,
+    UploadLogoResponse,
     AdminBatchCreateCredentialFieldsResponse,
     AdminListNangoPendingResponse,
 )
@@ -695,6 +697,7 @@ Methods:
 - <code title="patch /admin/connector-catalog/auth-methods/{id}">client.connector_catalog.admin.<a href="./src/structify/resources/connector_catalog/admin.py">update_auth_method</a>(id, \*\*<a href="src/structify/types/connector_catalog/admin_update_auth_method_params.py">params</a>) -> <a href="./src/structify/types/connector_auth_method.py">ConnectorAuthMethod</a></code>
 - <code title="patch /admin/connector-catalog/{id}">client.connector_catalog.admin.<a href="./src/structify/resources/connector_catalog/admin.py">update_catalog</a>(id, \*\*<a href="src/structify/types/connector_catalog/admin_update_catalog_params.py">params</a>) -> <a href="./src/structify/types/connector_catalog/connector_catalog.py">ConnectorCatalog</a></code>
 - <code title="patch /admin/connector-catalog/credential-fields/{id}">client.connector_catalog.admin.<a href="./src/structify/resources/connector_catalog/admin.py">update_credential_field</a>(id, \*\*<a href="src/structify/types/connector_catalog/admin_update_credential_field_params.py">params</a>) -> <a href="./src/structify/types/connector_credential_field.py">ConnectorCredentialField</a></code>
+- <code title="put /admin/connector-catalog/{slug}/logo">client.connector_catalog.admin.<a href="./src/structify/resources/connector_catalog/admin.py">upload_logo</a>(slug, \*\*<a href="src/structify/types/connector_catalog/admin_upload_logo_params.py">params</a>) -> <a href="./src/structify/types/connector_catalog/upload_logo_response.py">UploadLogoResponse</a></code>
 
 # Server
 

@@ -2,13 +2,24 @@
 
 from __future__ import annotations
 
-from typing import Iterable, Optional
+from typing import Mapping, Iterable, Optional, cast
 from typing_extensions import Literal
 
 import httpx
 
-from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, SequenceNotStr, omit, not_given
-from ..._utils import maybe_transform, async_maybe_transform
+from ..._types import (
+    Body,
+    Omit,
+    Query,
+    Headers,
+    NoneType,
+    NotGiven,
+    FileTypes,
+    SequenceNotStr,
+    omit,
+    not_given,
+)
+from ..._utils import extract_files, maybe_transform, deepcopy_minimal, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -19,6 +30,7 @@ from ..._response import (
 )
 from ..._base_client import make_request_options
 from ...types.connector_catalog import (
+    admin_upload_logo_params,
     admin_create_catalog_params,
     admin_update_catalog_params,
     admin_create_auth_method_params,
@@ -30,6 +42,7 @@ from ...types.connector_catalog import (
 from ...types.connector_auth_method import ConnectorAuthMethod
 from ...types.connector_credential_field import ConnectorCredentialField
 from ...types.connector_catalog.connector_catalog import ConnectorCatalog
+from ...types.connector_catalog.upload_logo_response import UploadLogoResponse
 from ...types.connector_catalog.admin_list_nango_pending_response import AdminListNangoPendingResponse
 from ...types.connector_catalog.create_credential_field_request_param import CreateCredentialFieldRequestParam
 from ...types.connector_catalog.admin_batch_create_credential_fields_response import (
@@ -147,7 +160,6 @@ class AdminResource(SyncAPIResource):
         slug: str,
         categories: SequenceNotStr[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
-        logo_path: Optional[str] | Omit = omit,
         priority: Optional[int] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -176,7 +188,6 @@ class AdminResource(SyncAPIResource):
                     "slug": slug,
                     "categories": categories,
                     "description": description,
-                    "logo_path": logo_path,
                     "priority": priority,
                 },
                 admin_create_catalog_params.AdminCreateCatalogParams,
@@ -343,7 +354,6 @@ class AdminResource(SyncAPIResource):
         *,
         categories: Optional[SequenceNotStr[str]] | Omit = omit,
         description: Optional[str] | Omit = omit,
-        logo_path: Optional[str] | Omit = omit,
         name: Optional[str] | Omit = omit,
         priority: Optional[int] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -373,7 +383,6 @@ class AdminResource(SyncAPIResource):
                 {
                     "categories": categories,
                     "description": description,
-                    "logo_path": logo_path,
                     "name": name,
                     "priority": priority,
                 },
@@ -437,6 +446,46 @@ class AdminResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=ConnectorCredentialField,
+        )
+
+    def upload_logo(
+        self,
+        slug: str,
+        *,
+        file: FileTypes,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> UploadLogoResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not slug:
+            raise ValueError(f"Expected a non-empty value for `slug` but received {slug!r}")
+        body = deepcopy_minimal({"file": file})
+        files = extract_files(cast(Mapping[str, object], body), paths=[["file"]])
+        # It should be noted that the actual Content-Type header that will be
+        # sent to the server will contain a `boundary` parameter, e.g.
+        # multipart/form-data; boundary=---abc--
+        extra_headers = {"Content-Type": "multipart/form-data", **(extra_headers or {})}
+        return self._put(
+            f"/admin/connector-catalog/{slug}/logo",
+            body=maybe_transform(body, admin_upload_logo_params.AdminUploadLogoParams),
+            files=files,
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=UploadLogoResponse,
         )
 
 
@@ -548,7 +597,6 @@ class AsyncAdminResource(AsyncAPIResource):
         slug: str,
         categories: SequenceNotStr[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
-        logo_path: Optional[str] | Omit = omit,
         priority: Optional[int] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -577,7 +625,6 @@ class AsyncAdminResource(AsyncAPIResource):
                     "slug": slug,
                     "categories": categories,
                     "description": description,
-                    "logo_path": logo_path,
                     "priority": priority,
                 },
                 admin_create_catalog_params.AdminCreateCatalogParams,
@@ -744,7 +791,6 @@ class AsyncAdminResource(AsyncAPIResource):
         *,
         categories: Optional[SequenceNotStr[str]] | Omit = omit,
         description: Optional[str] | Omit = omit,
-        logo_path: Optional[str] | Omit = omit,
         name: Optional[str] | Omit = omit,
         priority: Optional[int] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -774,7 +820,6 @@ class AsyncAdminResource(AsyncAPIResource):
                 {
                     "categories": categories,
                     "description": description,
-                    "logo_path": logo_path,
                     "name": name,
                     "priority": priority,
                 },
@@ -840,6 +885,46 @@ class AsyncAdminResource(AsyncAPIResource):
             cast_to=ConnectorCredentialField,
         )
 
+    async def upload_logo(
+        self,
+        slug: str,
+        *,
+        file: FileTypes,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> UploadLogoResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not slug:
+            raise ValueError(f"Expected a non-empty value for `slug` but received {slug!r}")
+        body = deepcopy_minimal({"file": file})
+        files = extract_files(cast(Mapping[str, object], body), paths=[["file"]])
+        # It should be noted that the actual Content-Type header that will be
+        # sent to the server will contain a `boundary` parameter, e.g.
+        # multipart/form-data; boundary=---abc--
+        extra_headers = {"Content-Type": "multipart/form-data", **(extra_headers or {})}
+        return await self._put(
+            f"/admin/connector-catalog/{slug}/logo",
+            body=await async_maybe_transform(body, admin_upload_logo_params.AdminUploadLogoParams),
+            files=files,
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=UploadLogoResponse,
+        )
+
 
 class AdminResourceWithRawResponse:
     def __init__(self, admin: AdminResource) -> None:
@@ -871,6 +956,9 @@ class AdminResourceWithRawResponse:
         )
         self.update_credential_field = to_raw_response_wrapper(
             admin.update_credential_field,
+        )
+        self.upload_logo = to_raw_response_wrapper(
+            admin.upload_logo,
         )
 
 
@@ -905,6 +993,9 @@ class AsyncAdminResourceWithRawResponse:
         self.update_credential_field = async_to_raw_response_wrapper(
             admin.update_credential_field,
         )
+        self.upload_logo = async_to_raw_response_wrapper(
+            admin.upload_logo,
+        )
 
 
 class AdminResourceWithStreamingResponse:
@@ -938,6 +1029,9 @@ class AdminResourceWithStreamingResponse:
         self.update_credential_field = to_streamed_response_wrapper(
             admin.update_credential_field,
         )
+        self.upload_logo = to_streamed_response_wrapper(
+            admin.upload_logo,
+        )
 
 
 class AsyncAdminResourceWithStreamingResponse:
@@ -970,4 +1064,7 @@ class AsyncAdminResourceWithStreamingResponse:
         )
         self.update_credential_field = async_to_streamed_response_wrapper(
             admin.update_credential_field,
+        )
+        self.upload_logo = async_to_streamed_response_wrapper(
+            admin.upload_logo,
         )
