@@ -53,6 +53,12 @@ class Message(BaseModel):
 
     stream_chunks: Optional[List[MessageStreamChunk]] = None
 
+    teams_channel_id: Optional[str] = None
+
+    teams_conversation_id: Optional[str] = None
+
+    teams_message_id: Optional[str] = None
+
 
 class ChatSessionWithMessages(BaseModel):
     id: str

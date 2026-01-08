@@ -51,6 +51,12 @@ class TimelineMessage(BaseModel):
 
     stream_chunks: Optional[List[TimelineMessageStreamChunk]] = None
 
+    teams_channel_id: Optional[str] = None
+
+    teams_conversation_id: Optional[str] = None
+
+    teams_message_id: Optional[str] = None
+
 
 class TimelineGitCommit(BaseModel):
     id: str

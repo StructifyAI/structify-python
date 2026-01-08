@@ -26,3 +26,9 @@ class Team(BaseModel):
     slack_team_id: Optional[str] = None
 
     slack_team_name: Optional[str] = None
+
+    teams_app_id: Optional[str] = None
+
+    teams_service_url: Optional[str] = None
+
+    teams_tenant_id: Optional[str] = None

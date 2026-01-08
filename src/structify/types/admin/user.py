@@ -73,3 +73,7 @@ class User(BaseModel):
     survey_completed_at: Optional[datetime] = None
 
     survey_response: Optional[object] = None
+
+    teams_user_id: Optional[str] = None
+
+    teams_user_name: Optional[str] = None
