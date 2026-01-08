@@ -111,8 +111,6 @@ class TeamsResource(SyncAPIResource):
         self,
         team_id: str,
         *,
-        datahub_host: Optional[str] | Omit = omit,
-        datahub_token: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
         name: Optional[str] | Omit = omit,
         pipedream_project_id: Optional[str] | Omit = omit,
@@ -143,8 +141,6 @@ class TeamsResource(SyncAPIResource):
             f"/team/{team_id}",
             body=maybe_transform(
                 {
-                    "datahub_host": datahub_host,
-                    "datahub_token": datahub_token,
                     "description": description,
                     "name": name,
                     "pipedream_project_id": pipedream_project_id,
@@ -662,8 +658,6 @@ class AsyncTeamsResource(AsyncAPIResource):
         self,
         team_id: str,
         *,
-        datahub_host: Optional[str] | Omit = omit,
-        datahub_token: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
         name: Optional[str] | Omit = omit,
         pipedream_project_id: Optional[str] | Omit = omit,
@@ -694,8 +688,6 @@ class AsyncTeamsResource(AsyncAPIResource):
             f"/team/{team_id}",
             body=await async_maybe_transform(
                 {
-                    "datahub_host": datahub_host,
-                    "datahub_token": datahub_token,
                     "description": description,
                     "name": name,
                     "pipedream_project_id": pipedream_project_id,
