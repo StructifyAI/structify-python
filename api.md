@@ -95,6 +95,8 @@ from structify.types import (
     ListChatSessionsResponse,
     ListCollaboratorsResponse,
     Message,
+    ToolInvocation,
+    ToolResult,
     UpdateChatSessionFavoriteRequest,
     UpdateChatSessionRequest,
     UpdateVisibilityRequest,
