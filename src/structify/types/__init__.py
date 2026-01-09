@@ -18,6 +18,7 @@ from .chat_event import ChatEvent as ChatEvent
 from .chat_prompt import ChatPrompt as ChatPrompt
 from .granularity import Granularity as Granularity
 from .table_param import TableParam as TableParam
+from .tool_result import ToolResult as ToolResult
 from .chat_session import ChatSession as ChatSession
 from .entity_match import EntityMatch as EntityMatch
 from .entity_param import EntityParam as EntityParam
@@ -42,6 +43,7 @@ from .exploration_run import ExplorationRun as ExplorationRun
 from .job_list_params import JobListParams as JobListParams
 from .knowledge_graph import KnowledgeGraph as KnowledgeGraph
 from .node_spec_param import NodeSpecParam as NodeSpecParam
+from .tool_invocation import ToolInvocation as ToolInvocation
 from .usage_group_key import UsageGroupKey as UsageGroupKey
 from .chat_copy_params import ChatCopyParams as ChatCopyParams
 from .dashboard_layout import DashboardLayout as DashboardLayout
