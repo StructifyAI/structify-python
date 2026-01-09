@@ -49,7 +49,6 @@ if TYPE_CHECKING:
         sources,
         datasets,
         entities,
-        external,
         projects,
         sessions,
         workflow,
@@ -82,7 +81,6 @@ if TYPE_CHECKING:
     from .resources.user.user import UserResource, AsyncUserResource
     from .resources.admin.admin import AdminResource, AsyncAdminResource
     from .resources.public_sessions import PublicSessionsResource, AsyncPublicSessionsResource
-    from .resources.external.external import ExternalResource, AsyncExternalResource
     from .resources.workflow_schedule import WorkflowScheduleResource, AsyncWorkflowScheduleResource
     from .resources.connectors.connectors import ConnectorsResource, AsyncConnectorsResource
     from .resources.connector_catalog.connector_catalog import ConnectorCatalogResource, AsyncConnectorCatalogResource
@@ -325,12 +323,6 @@ class Structify(SyncAPIClient):
         from .resources.public_sessions import PublicSessionsResource
 
         return PublicSessionsResource(self)
-
-    @cached_property
-    def external(self) -> ExternalResource:
-        from .resources.external import ExternalResource
-
-        return ExternalResource(self)
 
     @cached_property
     def slack(self) -> SlackResource:
@@ -708,12 +700,6 @@ class AsyncStructify(AsyncAPIClient):
         return AsyncPublicSessionsResource(self)
 
     @cached_property
-    def external(self) -> AsyncExternalResource:
-        from .resources.external import AsyncExternalResource
-
-        return AsyncExternalResource(self)
-
-    @cached_property
     def slack(self) -> AsyncSlackResource:
         from .resources.slack import AsyncSlackResource
 
@@ -1012,12 +998,6 @@ class StructifyWithRawResponse:
         return PublicSessionsResourceWithRawResponse(self._client.public_sessions)
 
     @cached_property
-    def external(self) -> external.ExternalResourceWithRawResponse:
-        from .resources.external import ExternalResourceWithRawResponse
-
-        return ExternalResourceWithRawResponse(self._client.external)
-
-    @cached_property
     def slack(self) -> slack.SlackResourceWithRawResponse:
         from .resources.slack import SlackResourceWithRawResponse
 
@@ -1173,12 +1153,6 @@ class AsyncStructifyWithRawResponse:
         from .resources.public_sessions import AsyncPublicSessionsResourceWithRawResponse
 
         return AsyncPublicSessionsResourceWithRawResponse(self._client.public_sessions)
-
-    @cached_property
-    def external(self) -> external.AsyncExternalResourceWithRawResponse:
-        from .resources.external import AsyncExternalResourceWithRawResponse
-
-        return AsyncExternalResourceWithRawResponse(self._client.external)
 
     @cached_property
     def slack(self) -> slack.AsyncSlackResourceWithRawResponse:
@@ -1338,12 +1312,6 @@ class StructifyWithStreamedResponse:
         return PublicSessionsResourceWithStreamingResponse(self._client.public_sessions)
 
     @cached_property
-    def external(self) -> external.ExternalResourceWithStreamingResponse:
-        from .resources.external import ExternalResourceWithStreamingResponse
-
-        return ExternalResourceWithStreamingResponse(self._client.external)
-
-    @cached_property
     def slack(self) -> slack.SlackResourceWithStreamingResponse:
         from .resources.slack import SlackResourceWithStreamingResponse
 
@@ -1499,12 +1467,6 @@ class AsyncStructifyWithStreamedResponse:
         from .resources.public_sessions import AsyncPublicSessionsResourceWithStreamingResponse
 
         return AsyncPublicSessionsResourceWithStreamingResponse(self._client.public_sessions)
-
-    @cached_property
-    def external(self) -> external.AsyncExternalResourceWithStreamingResponse:
-        from .resources.external import AsyncExternalResourceWithStreamingResponse
-
-        return AsyncExternalResourceWithStreamingResponse(self._client.external)
 
     @cached_property
     def slack(self) -> slack.AsyncSlackResourceWithStreamingResponse:
