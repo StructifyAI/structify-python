@@ -23,6 +23,8 @@ class Updates(TypedDict, total=False):
 
     completed_onboarding: Optional[bool]
 
+    cost_confirmation_threshold: Optional[int]
+
     cufinder_data: object
 
     email: Optional[str]

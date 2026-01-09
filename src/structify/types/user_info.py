@@ -48,6 +48,8 @@ class UserInfo(BaseModel):
 
     company_name: Optional[str] = None
 
+    cost_confirmation_threshold: Optional[int] = None
+
     impersonated_by_email: Optional[str] = None
 
     job_title: Optional[str] = None
