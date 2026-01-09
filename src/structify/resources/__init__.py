@@ -133,14 +133,6 @@ from .entities import (
     EntitiesResourceWithStreamingResponse,
     AsyncEntitiesResourceWithStreamingResponse,
 )
-from .external import (
-    ExternalResource,
-    AsyncExternalResource,
-    ExternalResourceWithRawResponse,
-    AsyncExternalResourceWithRawResponse,
-    ExternalResourceWithStreamingResponse,
-    AsyncExternalResourceWithStreamingResponse,
-)
 from .projects import (
     ProjectsResource,
     AsyncProjectsResource,
