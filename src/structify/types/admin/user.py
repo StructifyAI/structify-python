@@ -54,6 +54,8 @@ class User(BaseModel):
 
     company_name: Optional[str] = None
 
+    cost_confirmation_threshold: Optional[int] = None
+
     cufinder_data: Optional[object] = None
 
     job_title: Optional[str] = None
