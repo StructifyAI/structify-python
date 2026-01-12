@@ -23,6 +23,14 @@ class TestNango:
         assert_matches_type(NangoCreateSessionResponse, nango, path=["response"])
 
     @parametrize
+    def test_method_create_session_with_all_params(self, client: Structify) -> None:
+        nango = client.nango.create_session(
+            connector_auth_method_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            selected_scope_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+        )
+        assert_matches_type(NangoCreateSessionResponse, nango, path=["response"])
+
+    @parametrize
     def test_raw_response_create_session(self, client: Structify) -> None:
         response = client.nango.with_raw_response.create_session()
 
@@ -76,6 +84,14 @@ class TestAsyncNango:
     @parametrize
     async def test_method_create_session(self, async_client: AsyncStructify) -> None:
         nango = await async_client.nango.create_session()
+        assert_matches_type(NangoCreateSessionResponse, nango, path=["response"])
+
+    @parametrize
+    async def test_method_create_session_with_all_params(self, async_client: AsyncStructify) -> None:
+        nango = await async_client.nango.create_session(
+            connector_auth_method_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            selected_scope_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+        )
         assert_matches_type(NangoCreateSessionResponse, nango, path=["response"])
 
     @parametrize

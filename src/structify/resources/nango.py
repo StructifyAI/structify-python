@@ -2,9 +2,13 @@
 
 from __future__ import annotations
 
+from typing import Optional
+
 import httpx
 
-from .._types import Body, Query, Headers, NotGiven, not_given
+from ..types import nango_create_session_params
+from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
+from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -43,6 +47,8 @@ class NangoResource(SyncAPIResource):
     def create_session(
         self,
         *,
+        connector_auth_method_id: Optional[str] | Omit = omit,
+        selected_scope_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -50,8 +56,30 @@ class NangoResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> NangoCreateSessionResponse:
+        """Args:
+          selected_scope_ids: Specific scope IDs to use.
+
+        If not provided, defaults to required + recommended
+              scopes. If the auth method has no scopes in the database, Nango's default scopes
+              are used.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
         return self._post(
             "/nango/session",
+            body=maybe_transform(
+                {
+                    "connector_auth_method_id": connector_auth_method_id,
+                    "selected_scope_ids": selected_scope_ids,
+                },
+                nango_create_session_params.NangoCreateSessionParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -100,6 +128,8 @@ class AsyncNangoResource(AsyncAPIResource):
     async def create_session(
         self,
         *,
+        connector_auth_method_id: Optional[str] | Omit = omit,
+        selected_scope_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -107,8 +137,30 @@ class AsyncNangoResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> NangoCreateSessionResponse:
+        """Args:
+          selected_scope_ids: Specific scope IDs to use.
+
+        If not provided, defaults to required + recommended
+              scopes. If the auth method has no scopes in the database, Nango's default scopes
+              are used.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
         return await self._post(
             "/nango/session",
+            body=await async_maybe_transform(
+                {
+                    "connector_auth_method_id": connector_auth_method_id,
+                    "selected_scope_ids": selected_scope_ids,
+                },
+                nango_create_session_params.NangoCreateSessionParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
