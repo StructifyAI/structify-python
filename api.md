@@ -169,6 +169,8 @@ from structify.types import (
     TeamRole,
     TeamSubscriptionStatus,
     TeamWithRole,
+    TeamsLinkCodeRequest,
+    TeamsLinkCodeResponse,
     UpdateMemberRoleRequest,
     UpdateMemberRoleResponse,
     UpdateTeamRequest,
@@ -185,6 +187,7 @@ Methods:
 - <code title="delete /team/{team_id}">client.teams.<a href="./src/structify/resources/teams.py">delete</a>(team_id) -> <a href="./src/structify/types/delete_team_response.py">DeleteTeamResponse</a></code>
 - <code title="post /team/invitations/accept">client.teams.<a href="./src/structify/resources/teams.py">accept_invitation</a>(\*\*<a href="src/structify/types/team_accept_invitation_params.py">params</a>) -> <a href="./src/structify/types/accept_invitation_response.py">AcceptInvitationResponse</a></code>
 - <code title="post /team/{team_id}/members">client.teams.<a href="./src/structify/resources/teams.py">add_member</a>(team_id, \*\*<a href="src/structify/types/team_add_member_params.py">params</a>) -> <a href="./src/structify/types/add_member_response.py">AddMemberResponse</a></code>
+- <code title="post /teams/link-code">client.teams.<a href="./src/structify/resources/teams.py">create_link_code</a>(\*\*<a href="src/structify/types/team_create_link_code_params.py">params</a>) -> <a href="./src/structify/types/teams_link_code_response.py">TeamsLinkCodeResponse</a></code>
 - <code title="post /team/{team_id}/projects">client.teams.<a href="./src/structify/resources/teams.py">create_project</a>(team_id, \*\*<a href="src/structify/types/team_create_project_params.py">params</a>) -> <a href="./src/structify/types/project.py">Project</a></code>
 - <code title="get /team/{team_id}/credits/usage">client.teams.<a href="./src/structify/resources/teams.py">credits_usage</a>(team_id, \*\*<a href="src/structify/types/team_credits_usage_params.py">params</a>) -> <a href="./src/structify/types/credits_usage_response.py">CreditsUsageResponse</a></code>
 - <code title="get /team/{team_id}">client.teams.<a href="./src/structify/resources/teams.py">get</a>(team_id) -> <a href="./src/structify/types/get_team_response.py">GetTeamResponse</a></code>
