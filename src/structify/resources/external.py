@@ -6,12 +6,12 @@ from typing import Any, Dict, List, cast
 
 import polars as pl
 
-from .whitelabel import WhitelabelResource, whitelabel_method
+from .whitelabel_service import WhitelabelServiceResource, whitelabel_method
 
 __all__ = ["ExternalResource"]
 
 
-class ExternalResource(WhitelabelResource):
+class ExternalResource(WhitelabelServiceResource):
     """
     Container for all external/whitelabel services.
 
