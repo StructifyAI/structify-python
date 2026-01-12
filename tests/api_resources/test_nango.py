@@ -19,7 +19,9 @@ class TestNango:
 
     @parametrize
     def test_method_create_session(self, client: Structify) -> None:
-        nango = client.nango.create_session()
+        nango = client.nango.create_session(
+            connector_auth_method_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
         assert_matches_type(NangoCreateSessionResponse, nango, path=["response"])
 
     @parametrize
@@ -32,7 +34,9 @@ class TestNango:
 
     @parametrize
     def test_raw_response_create_session(self, client: Structify) -> None:
-        response = client.nango.with_raw_response.create_session()
+        response = client.nango.with_raw_response.create_session(
+            connector_auth_method_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -41,7 +45,9 @@ class TestNango:
 
     @parametrize
     def test_streaming_response_create_session(self, client: Structify) -> None:
-        with client.nango.with_streaming_response.create_session() as response:
+        with client.nango.with_streaming_response.create_session(
+            connector_auth_method_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -83,7 +89,9 @@ class TestAsyncNango:
 
     @parametrize
     async def test_method_create_session(self, async_client: AsyncStructify) -> None:
-        nango = await async_client.nango.create_session()
+        nango = await async_client.nango.create_session(
+            connector_auth_method_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
         assert_matches_type(NangoCreateSessionResponse, nango, path=["response"])
 
     @parametrize
@@ -96,7 +104,9 @@ class TestAsyncNango:
 
     @parametrize
     async def test_raw_response_create_session(self, async_client: AsyncStructify) -> None:
-        response = await async_client.nango.with_raw_response.create_session()
+        response = await async_client.nango.with_raw_response.create_session(
+            connector_auth_method_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -105,7 +115,9 @@ class TestAsyncNango:
 
     @parametrize
     async def test_streaming_response_create_session(self, async_client: AsyncStructify) -> None:
-        async with async_client.nango.with_streaming_response.create_session() as response:
+        async with async_client.nango.with_streaming_response.create_session(
+            connector_auth_method_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 

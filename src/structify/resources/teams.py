@@ -15,6 +15,7 @@ from ..types import (
     team_add_member_params,
     team_credits_usage_params,
     team_create_project_params,
+    team_create_link_code_params,
     team_accept_invitation_params,
     team_update_member_role_params,
 )
@@ -43,6 +44,7 @@ from ..types.list_members_response import ListMembersResponse
 from ..types.credits_usage_response import CreditsUsageResponse
 from ..types.list_projects_response import ListProjectsResponse
 from ..types.remove_member_response import RemoveMemberResponse
+from ..types.teams_link_code_response import TeamsLinkCodeResponse
 from ..types.accept_invitation_response import AcceptInvitationResponse
 from ..types.invitation_details_response import InvitationDetailsResponse
 from ..types.update_member_role_response import UpdateMemberRoleResponse
@@ -274,6 +276,36 @@ class TeamsResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=AddMemberResponse,
+        )
+
+    def create_link_code(
+        self,
+        *,
+        team_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> TeamsLinkCodeResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/teams/link-code",
+            body=maybe_transform({"team_id": team_id}, team_create_link_code_params.TeamCreateLinkCodeParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=TeamsLinkCodeResponse,
         )
 
     def create_project(
@@ -825,6 +857,38 @@ class AsyncTeamsResource(AsyncAPIResource):
             cast_to=AddMemberResponse,
         )
 
+    async def create_link_code(
+        self,
+        *,
+        team_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> TeamsLinkCodeResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/teams/link-code",
+            body=await async_maybe_transform(
+                {"team_id": team_id}, team_create_link_code_params.TeamCreateLinkCodeParams
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=TeamsLinkCodeResponse,
+        )
+
     async def create_project(
         self,
         team_id: str,
@@ -1168,6 +1232,9 @@ class TeamsResourceWithRawResponse:
         self.add_member = to_raw_response_wrapper(
             teams.add_member,
         )
+        self.create_link_code = to_raw_response_wrapper(
+            teams.create_link_code,
+        )
         self.create_project = to_raw_response_wrapper(
             teams.create_project,
         )
@@ -1218,6 +1285,9 @@ class AsyncTeamsResourceWithRawResponse:
         )
         self.add_member = async_to_raw_response_wrapper(
             teams.add_member,
+        )
+        self.create_link_code = async_to_raw_response_wrapper(
+            teams.create_link_code,
         )
         self.create_project = async_to_raw_response_wrapper(
             teams.create_project,
@@ -1270,6 +1340,9 @@ class TeamsResourceWithStreamingResponse:
         self.add_member = to_streamed_response_wrapper(
             teams.add_member,
         )
+        self.create_link_code = to_streamed_response_wrapper(
+            teams.create_link_code,
+        )
         self.create_project = to_streamed_response_wrapper(
             teams.create_project,
         )
@@ -1320,6 +1393,9 @@ class AsyncTeamsResourceWithStreamingResponse:
         )
         self.add_member = async_to_streamed_response_wrapper(
             teams.add_member,
+        )
+        self.create_link_code = async_to_streamed_response_wrapper(
+            teams.create_link_code,
         )
         self.create_project = async_to_streamed_response_wrapper(
             teams.create_project,
