@@ -4,8 +4,8 @@ from __future__ import annotations
 
 from typing_extensions import Required, TypedDict
 
-__all__ = ["TeamCreateLinkCodeParams"]
+__all__ = ["AdminListScopesParams"]
 
 
-class TeamCreateLinkCodeParams(TypedDict, total=False):
-    team_id: Required[str]
+class AdminListScopesParams(TypedDict, total=False):
+    connector_auth_method_id: Required[str]

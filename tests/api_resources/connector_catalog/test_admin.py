@@ -12,7 +12,10 @@ from tests.utils import assert_matches_type
 from structify.types import ConnectorAuthMethod, ConnectorCredentialField
 from structify.types.connector_catalog import (
     ConnectorCatalog,
+    ListScopesResponse,
     UploadLogoResponse,
+    ConnectorAuthMethodScope,
+    BatchCreateScopesResponse,
     AdminListNangoPendingResponse,
     AdminBatchCreateCredentialFieldsResponse,
 )
@@ -75,6 +78,52 @@ class TestAdmin:
 
             admin = response.parse()
             assert_matches_type(AdminBatchCreateCredentialFieldsResponse, admin, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_method_batch_create_scopes(self, client: Structify) -> None:
+        admin = client.connector_catalog.admin.batch_create_scopes(
+            scopes=[
+                {
+                    "connector_auth_method_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    "scope_value": "scope_value",
+                }
+            ],
+        )
+        assert_matches_type(BatchCreateScopesResponse, admin, path=["response"])
+
+    @parametrize
+    def test_raw_response_batch_create_scopes(self, client: Structify) -> None:
+        response = client.connector_catalog.admin.with_raw_response.batch_create_scopes(
+            scopes=[
+                {
+                    "connector_auth_method_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    "scope_value": "scope_value",
+                }
+            ],
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        admin = response.parse()
+        assert_matches_type(BatchCreateScopesResponse, admin, path=["response"])
+
+    @parametrize
+    def test_streaming_response_batch_create_scopes(self, client: Structify) -> None:
+        with client.connector_catalog.admin.with_streaming_response.batch_create_scopes(
+            scopes=[
+                {
+                    "connector_auth_method_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    "scope_value": "scope_value",
+                }
+            ],
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            admin = response.parse()
+            assert_matches_type(BatchCreateScopesResponse, admin, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -234,6 +283,51 @@ class TestAdmin:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
+    def test_method_create_scope(self, client: Structify) -> None:
+        admin = client.connector_catalog.admin.create_scope(
+            connector_auth_method_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            scope_value="scope_value",
+        )
+        assert_matches_type(ConnectorAuthMethodScope, admin, path=["response"])
+
+    @parametrize
+    def test_method_create_scope_with_all_params(self, client: Structify) -> None:
+        admin = client.connector_catalog.admin.create_scope(
+            connector_auth_method_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            scope_value="scope_value",
+            is_recommended=True,
+            is_required=True,
+            query_parameter="query_parameter",
+        )
+        assert_matches_type(ConnectorAuthMethodScope, admin, path=["response"])
+
+    @parametrize
+    def test_raw_response_create_scope(self, client: Structify) -> None:
+        response = client.connector_catalog.admin.with_raw_response.create_scope(
+            connector_auth_method_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            scope_value="scope_value",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        admin = response.parse()
+        assert_matches_type(ConnectorAuthMethodScope, admin, path=["response"])
+
+    @parametrize
+    def test_streaming_response_create_scope(self, client: Structify) -> None:
+        with client.connector_catalog.admin.with_streaming_response.create_scope(
+            connector_auth_method_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            scope_value="scope_value",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            admin = response.parse()
+            assert_matches_type(ConnectorAuthMethodScope, admin, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
     def test_method_delete_credential_field(self, client: Structify) -> None:
         admin = client.connector_catalog.admin.delete_credential_field(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -272,6 +366,44 @@ class TestAdmin:
             )
 
     @parametrize
+    def test_method_delete_scope(self, client: Structify) -> None:
+        admin = client.connector_catalog.admin.delete_scope(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert admin is None
+
+    @parametrize
+    def test_raw_response_delete_scope(self, client: Structify) -> None:
+        response = client.connector_catalog.admin.with_raw_response.delete_scope(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        admin = response.parse()
+        assert admin is None
+
+    @parametrize
+    def test_streaming_response_delete_scope(self, client: Structify) -> None:
+        with client.connector_catalog.admin.with_streaming_response.delete_scope(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            admin = response.parse()
+            assert admin is None
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_path_params_delete_scope(self, client: Structify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            client.connector_catalog.admin.with_raw_response.delete_scope(
+                "",
+            )
+
+    @parametrize
     def test_method_list_nango_pending(self, client: Structify) -> None:
         admin = client.connector_catalog.admin.list_nango_pending()
         assert_matches_type(AdminListNangoPendingResponse, admin, path=["response"])
@@ -293,6 +425,37 @@ class TestAdmin:
 
             admin = response.parse()
             assert_matches_type(AdminListNangoPendingResponse, admin, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_method_list_scopes(self, client: Structify) -> None:
+        admin = client.connector_catalog.admin.list_scopes(
+            connector_auth_method_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(ListScopesResponse, admin, path=["response"])
+
+    @parametrize
+    def test_raw_response_list_scopes(self, client: Structify) -> None:
+        response = client.connector_catalog.admin.with_raw_response.list_scopes(
+            connector_auth_method_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        admin = response.parse()
+        assert_matches_type(ListScopesResponse, admin, path=["response"])
+
+    @parametrize
+    def test_streaming_response_list_scopes(self, client: Structify) -> None:
+        with client.connector_catalog.admin.with_streaming_response.list_scopes(
+            connector_auth_method_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            admin = response.parse()
+            assert_matches_type(ListScopesResponse, admin, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -447,6 +610,55 @@ class TestAdmin:
             )
 
     @parametrize
+    def test_method_update_scope(self, client: Structify) -> None:
+        admin = client.connector_catalog.admin.update_scope(
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(ConnectorAuthMethodScope, admin, path=["response"])
+
+    @parametrize
+    def test_method_update_scope_with_all_params(self, client: Structify) -> None:
+        admin = client.connector_catalog.admin.update_scope(
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            is_recommended=True,
+            is_required=True,
+            query_parameter="query_parameter",
+            scope_value="scope_value",
+        )
+        assert_matches_type(ConnectorAuthMethodScope, admin, path=["response"])
+
+    @parametrize
+    def test_raw_response_update_scope(self, client: Structify) -> None:
+        response = client.connector_catalog.admin.with_raw_response.update_scope(
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        admin = response.parse()
+        assert_matches_type(ConnectorAuthMethodScope, admin, path=["response"])
+
+    @parametrize
+    def test_streaming_response_update_scope(self, client: Structify) -> None:
+        with client.connector_catalog.admin.with_streaming_response.update_scope(
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            admin = response.parse()
+            assert_matches_type(ConnectorAuthMethodScope, admin, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_path_params_update_scope(self, client: Structify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            client.connector_catalog.admin.with_raw_response.update_scope(
+                id="",
+            )
+
+    @parametrize
     def test_method_upload_logo(self, client: Structify) -> None:
         admin = client.connector_catalog.admin.upload_logo(
             slug="slug",
@@ -546,6 +758,52 @@ class TestAsyncAdmin:
 
             admin = await response.parse()
             assert_matches_type(AdminBatchCreateCredentialFieldsResponse, admin, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_method_batch_create_scopes(self, async_client: AsyncStructify) -> None:
+        admin = await async_client.connector_catalog.admin.batch_create_scopes(
+            scopes=[
+                {
+                    "connector_auth_method_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    "scope_value": "scope_value",
+                }
+            ],
+        )
+        assert_matches_type(BatchCreateScopesResponse, admin, path=["response"])
+
+    @parametrize
+    async def test_raw_response_batch_create_scopes(self, async_client: AsyncStructify) -> None:
+        response = await async_client.connector_catalog.admin.with_raw_response.batch_create_scopes(
+            scopes=[
+                {
+                    "connector_auth_method_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    "scope_value": "scope_value",
+                }
+            ],
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        admin = await response.parse()
+        assert_matches_type(BatchCreateScopesResponse, admin, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_batch_create_scopes(self, async_client: AsyncStructify) -> None:
+        async with async_client.connector_catalog.admin.with_streaming_response.batch_create_scopes(
+            scopes=[
+                {
+                    "connector_auth_method_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    "scope_value": "scope_value",
+                }
+            ],
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            admin = await response.parse()
+            assert_matches_type(BatchCreateScopesResponse, admin, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -705,6 +963,51 @@ class TestAsyncAdmin:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
+    async def test_method_create_scope(self, async_client: AsyncStructify) -> None:
+        admin = await async_client.connector_catalog.admin.create_scope(
+            connector_auth_method_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            scope_value="scope_value",
+        )
+        assert_matches_type(ConnectorAuthMethodScope, admin, path=["response"])
+
+    @parametrize
+    async def test_method_create_scope_with_all_params(self, async_client: AsyncStructify) -> None:
+        admin = await async_client.connector_catalog.admin.create_scope(
+            connector_auth_method_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            scope_value="scope_value",
+            is_recommended=True,
+            is_required=True,
+            query_parameter="query_parameter",
+        )
+        assert_matches_type(ConnectorAuthMethodScope, admin, path=["response"])
+
+    @parametrize
+    async def test_raw_response_create_scope(self, async_client: AsyncStructify) -> None:
+        response = await async_client.connector_catalog.admin.with_raw_response.create_scope(
+            connector_auth_method_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            scope_value="scope_value",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        admin = await response.parse()
+        assert_matches_type(ConnectorAuthMethodScope, admin, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_create_scope(self, async_client: AsyncStructify) -> None:
+        async with async_client.connector_catalog.admin.with_streaming_response.create_scope(
+            connector_auth_method_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            scope_value="scope_value",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            admin = await response.parse()
+            assert_matches_type(ConnectorAuthMethodScope, admin, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
     async def test_method_delete_credential_field(self, async_client: AsyncStructify) -> None:
         admin = await async_client.connector_catalog.admin.delete_credential_field(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -743,6 +1046,44 @@ class TestAsyncAdmin:
             )
 
     @parametrize
+    async def test_method_delete_scope(self, async_client: AsyncStructify) -> None:
+        admin = await async_client.connector_catalog.admin.delete_scope(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert admin is None
+
+    @parametrize
+    async def test_raw_response_delete_scope(self, async_client: AsyncStructify) -> None:
+        response = await async_client.connector_catalog.admin.with_raw_response.delete_scope(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        admin = await response.parse()
+        assert admin is None
+
+    @parametrize
+    async def test_streaming_response_delete_scope(self, async_client: AsyncStructify) -> None:
+        async with async_client.connector_catalog.admin.with_streaming_response.delete_scope(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            admin = await response.parse()
+            assert admin is None
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_delete_scope(self, async_client: AsyncStructify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            await async_client.connector_catalog.admin.with_raw_response.delete_scope(
+                "",
+            )
+
+    @parametrize
     async def test_method_list_nango_pending(self, async_client: AsyncStructify) -> None:
         admin = await async_client.connector_catalog.admin.list_nango_pending()
         assert_matches_type(AdminListNangoPendingResponse, admin, path=["response"])
@@ -764,6 +1105,37 @@ class TestAsyncAdmin:
 
             admin = await response.parse()
             assert_matches_type(AdminListNangoPendingResponse, admin, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_method_list_scopes(self, async_client: AsyncStructify) -> None:
+        admin = await async_client.connector_catalog.admin.list_scopes(
+            connector_auth_method_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(ListScopesResponse, admin, path=["response"])
+
+    @parametrize
+    async def test_raw_response_list_scopes(self, async_client: AsyncStructify) -> None:
+        response = await async_client.connector_catalog.admin.with_raw_response.list_scopes(
+            connector_auth_method_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        admin = await response.parse()
+        assert_matches_type(ListScopesResponse, admin, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_list_scopes(self, async_client: AsyncStructify) -> None:
+        async with async_client.connector_catalog.admin.with_streaming_response.list_scopes(
+            connector_auth_method_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            admin = await response.parse()
+            assert_matches_type(ListScopesResponse, admin, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -914,6 +1286,55 @@ class TestAsyncAdmin:
     async def test_path_params_update_credential_field(self, async_client: AsyncStructify) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.connector_catalog.admin.with_raw_response.update_credential_field(
+                id="",
+            )
+
+    @parametrize
+    async def test_method_update_scope(self, async_client: AsyncStructify) -> None:
+        admin = await async_client.connector_catalog.admin.update_scope(
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(ConnectorAuthMethodScope, admin, path=["response"])
+
+    @parametrize
+    async def test_method_update_scope_with_all_params(self, async_client: AsyncStructify) -> None:
+        admin = await async_client.connector_catalog.admin.update_scope(
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            is_recommended=True,
+            is_required=True,
+            query_parameter="query_parameter",
+            scope_value="scope_value",
+        )
+        assert_matches_type(ConnectorAuthMethodScope, admin, path=["response"])
+
+    @parametrize
+    async def test_raw_response_update_scope(self, async_client: AsyncStructify) -> None:
+        response = await async_client.connector_catalog.admin.with_raw_response.update_scope(
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        admin = await response.parse()
+        assert_matches_type(ConnectorAuthMethodScope, admin, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_update_scope(self, async_client: AsyncStructify) -> None:
+        async with async_client.connector_catalog.admin.with_streaming_response.update_scope(
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            admin = await response.parse()
+            assert_matches_type(ConnectorAuthMethodScope, admin, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_update_scope(self, async_client: AsyncStructify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            await async_client.connector_catalog.admin.with_raw_response.update_scope(
                 id="",
             )
 

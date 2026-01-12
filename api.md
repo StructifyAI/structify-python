@@ -169,8 +169,6 @@ from structify.types import (
     TeamRole,
     TeamSubscriptionStatus,
     TeamWithRole,
-    TeamsLinkCodeRequest,
-    TeamsLinkCodeResponse,
     UpdateMemberRoleRequest,
     UpdateMemberRoleResponse,
     UpdateTeamRequest,
@@ -187,7 +185,6 @@ Methods:
 - <code title="delete /team/{team_id}">client.teams.<a href="./src/structify/resources/teams.py">delete</a>(team_id) -> <a href="./src/structify/types/delete_team_response.py">DeleteTeamResponse</a></code>
 - <code title="post /team/invitations/accept">client.teams.<a href="./src/structify/resources/teams.py">accept_invitation</a>(\*\*<a href="src/structify/types/team_accept_invitation_params.py">params</a>) -> <a href="./src/structify/types/accept_invitation_response.py">AcceptInvitationResponse</a></code>
 - <code title="post /team/{team_id}/members">client.teams.<a href="./src/structify/resources/teams.py">add_member</a>(team_id, \*\*<a href="src/structify/types/team_add_member_params.py">params</a>) -> <a href="./src/structify/types/add_member_response.py">AddMemberResponse</a></code>
-- <code title="post /teams/link-code">client.teams.<a href="./src/structify/resources/teams.py">create_link_code</a>(\*\*<a href="src/structify/types/team_create_link_code_params.py">params</a>) -> <a href="./src/structify/types/teams_link_code_response.py">TeamsLinkCodeResponse</a></code>
 - <code title="post /team/{team_id}/projects">client.teams.<a href="./src/structify/resources/teams.py">create_project</a>(team_id, \*\*<a href="src/structify/types/team_create_project_params.py">params</a>) -> <a href="./src/structify/types/project.py">Project</a></code>
 - <code title="get /team/{team_id}/credits/usage">client.teams.<a href="./src/structify/resources/teams.py">credits_usage</a>(team_id, \*\*<a href="src/structify/types/team_credits_usage_params.py">params</a>) -> <a href="./src/structify/types/credits_usage_response.py">CreditsUsageResponse</a></code>
 - <code title="get /team/{team_id}">client.teams.<a href="./src/structify/resources/teams.py">get</a>(team_id) -> <a href="./src/structify/types/get_team_response.py">GetTeamResponse</a></code>
@@ -699,13 +696,19 @@ Types:
 ```python
 from structify.types.connector_catalog import (
     BatchCreateCredentialFieldsRequest,
+    BatchCreateScopesRequest,
+    BatchCreateScopesResponse,
+    ConnectorAuthMethodScope,
     CreateAuthMethodRequest,
     CreateCatalogRequest,
     CreateCredentialFieldRequest,
+    CreateScopeRequest,
+    ListScopesResponse,
     PendingNangoIntegration,
     UpdateAuthMethodRequest,
     UpdateCatalogRequest,
     UpdateCredentialFieldRequest,
+    UpdateScopeRequest,
     UploadLogoResponse,
     AdminBatchCreateCredentialFieldsResponse,
     AdminListNangoPendingResponse,
@@ -715,14 +718,19 @@ from structify.types.connector_catalog import (
 Methods:
 
 - <code title="post /admin/connector-catalog/credential-fields/batch">client.connector_catalog.admin.<a href="./src/structify/resources/connector_catalog/admin.py">batch_create_credential_fields</a>(\*\*<a href="src/structify/types/connector_catalog/admin_batch_create_credential_fields_params.py">params</a>) -> <a href="./src/structify/types/connector_catalog/admin_batch_create_credential_fields_response.py">AdminBatchCreateCredentialFieldsResponse</a></code>
+- <code title="post /admin/connector-catalog/scopes/batch">client.connector_catalog.admin.<a href="./src/structify/resources/connector_catalog/admin.py">batch_create_scopes</a>(\*\*<a href="src/structify/types/connector_catalog/admin_batch_create_scopes_params.py">params</a>) -> <a href="./src/structify/types/connector_catalog/batch_create_scopes_response.py">BatchCreateScopesResponse</a></code>
 - <code title="post /admin/connector-catalog/auth-methods">client.connector_catalog.admin.<a href="./src/structify/resources/connector_catalog/admin.py">create_auth_method</a>(\*\*<a href="src/structify/types/connector_catalog/admin_create_auth_method_params.py">params</a>) -> <a href="./src/structify/types/connector_auth_method.py">ConnectorAuthMethod</a></code>
 - <code title="post /admin/connector-catalog">client.connector_catalog.admin.<a href="./src/structify/resources/connector_catalog/admin.py">create_catalog</a>(\*\*<a href="src/structify/types/connector_catalog/admin_create_catalog_params.py">params</a>) -> <a href="./src/structify/types/connector_catalog/connector_catalog.py">ConnectorCatalog</a></code>
 - <code title="post /admin/connector-catalog/credential-fields">client.connector_catalog.admin.<a href="./src/structify/resources/connector_catalog/admin.py">create_credential_field</a>(\*\*<a href="src/structify/types/connector_catalog/admin_create_credential_field_params.py">params</a>) -> <a href="./src/structify/types/connector_credential_field.py">ConnectorCredentialField</a></code>
+- <code title="post /admin/connector-catalog/scopes">client.connector_catalog.admin.<a href="./src/structify/resources/connector_catalog/admin.py">create_scope</a>(\*\*<a href="src/structify/types/connector_catalog/admin_create_scope_params.py">params</a>) -> <a href="./src/structify/types/connector_catalog/connector_auth_method_scope.py">ConnectorAuthMethodScope</a></code>
 - <code title="delete /admin/connector-catalog/credential-fields/{id}">client.connector_catalog.admin.<a href="./src/structify/resources/connector_catalog/admin.py">delete_credential_field</a>(id) -> None</code>
+- <code title="delete /admin/connector-catalog/scopes/{id}">client.connector_catalog.admin.<a href="./src/structify/resources/connector_catalog/admin.py">delete_scope</a>(id) -> None</code>
 - <code title="get /admin/connector-catalog/nango-pending">client.connector_catalog.admin.<a href="./src/structify/resources/connector_catalog/admin.py">list_nango_pending</a>() -> <a href="./src/structify/types/connector_catalog/admin_list_nango_pending_response.py">AdminListNangoPendingResponse</a></code>
+- <code title="get /admin/connector-catalog/scopes">client.connector_catalog.admin.<a href="./src/structify/resources/connector_catalog/admin.py">list_scopes</a>(\*\*<a href="src/structify/types/connector_catalog/admin_list_scopes_params.py">params</a>) -> <a href="./src/structify/types/connector_catalog/list_scopes_response.py">ListScopesResponse</a></code>
 - <code title="patch /admin/connector-catalog/auth-methods/{id}">client.connector_catalog.admin.<a href="./src/structify/resources/connector_catalog/admin.py">update_auth_method</a>(id, \*\*<a href="src/structify/types/connector_catalog/admin_update_auth_method_params.py">params</a>) -> <a href="./src/structify/types/connector_auth_method.py">ConnectorAuthMethod</a></code>
 - <code title="patch /admin/connector-catalog/{id}">client.connector_catalog.admin.<a href="./src/structify/resources/connector_catalog/admin.py">update_catalog</a>(id, \*\*<a href="src/structify/types/connector_catalog/admin_update_catalog_params.py">params</a>) -> <a href="./src/structify/types/connector_catalog/connector_catalog.py">ConnectorCatalog</a></code>
 - <code title="patch /admin/connector-catalog/credential-fields/{id}">client.connector_catalog.admin.<a href="./src/structify/resources/connector_catalog/admin.py">update_credential_field</a>(id, \*\*<a href="src/structify/types/connector_catalog/admin_update_credential_field_params.py">params</a>) -> <a href="./src/structify/types/connector_credential_field.py">ConnectorCredentialField</a></code>
+- <code title="patch /admin/connector-catalog/scopes/{id}">client.connector_catalog.admin.<a href="./src/structify/resources/connector_catalog/admin.py">update_scope</a>(id, \*\*<a href="src/structify/types/connector_catalog/admin_update_scope_params.py">params</a>) -> <a href="./src/structify/types/connector_catalog/connector_auth_method_scope.py">ConnectorAuthMethodScope</a></code>
 - <code title="put /admin/connector-catalog/{slug}/logo">client.connector_catalog.admin.<a href="./src/structify/resources/connector_catalog/admin.py">upload_logo</a>(slug, \*\*<a href="src/structify/types/connector_catalog/admin_upload_logo_params.py">params</a>) -> <a href="./src/structify/types/connector_catalog/upload_logo_response.py">UploadLogoResponse</a></code>
 
 # Server
@@ -925,6 +933,7 @@ Types:
 ```python
 from structify.types import (
     ConnectSession,
+    CreateNangoSessionRequest,
     Integration,
     NangoCreateSessionResponse,
     NangoListIntegrationsResponse,
@@ -933,5 +942,5 @@ from structify.types import (
 
 Methods:
 
-- <code title="post /nango/session">client.nango.<a href="./src/structify/resources/nango.py">create_session</a>() -> <a href="./src/structify/types/nango_create_session_response.py">NangoCreateSessionResponse</a></code>
+- <code title="post /nango/session">client.nango.<a href="./src/structify/resources/nango.py">create_session</a>(\*\*<a href="src/structify/types/nango_create_session_params.py">params</a>) -> <a href="./src/structify/types/nango_create_session_response.py">NangoCreateSessionResponse</a></code>
 - <code title="get /nango/integrations">client.nango.<a href="./src/structify/resources/nango.py">list_integrations</a>() -> <a href="./src/structify/types/nango_list_integrations_response.py">NangoListIntegrationsResponse</a></code>
