@@ -31,18 +31,20 @@ class Updates(TypedDict, total=False):
 
     feature_flags: Optional[
         List[
-            Literal[
-                "functional_test",
-                "pdf_parsing",
-                "boredm_construction_model",
-                "generic_suspicious_queue",
-                "new_use_case_preview",
-                "bedrock_codegen",
-                "cerebras_codegen",
-                "gemini25pro",
-                "claude_sonnet4",
-                "allow_job_deletion",
-                "none",
+            Optional[
+                Literal[
+                    "functional_test",
+                    "pdf_parsing",
+                    "boredm_construction_model",
+                    "generic_suspicious_queue",
+                    "new_use_case_preview",
+                    "bedrock_codegen",
+                    "cerebras_codegen",
+                    "gemini25pro",
+                    "claude_sonnet4",
+                    "allow_job_deletion",
+                    "none",
+                ]
             ]
         ]
     ]
@@ -61,7 +63,7 @@ class Updates(TypedDict, total=False):
 
     onboarding_session_id: Optional[str]
 
-    permissions: Optional[List[Literal["labeler", "qa_labeler", "debug", "human_llm", "none"]]]
+    permissions: Optional[List[Optional[Literal["labeler", "qa_labeler", "debug", "human_llm", "none"]]]]
 
     slack_user_id: Optional[str]
 
