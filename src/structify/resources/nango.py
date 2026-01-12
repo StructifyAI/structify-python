@@ -47,7 +47,7 @@ class NangoResource(SyncAPIResource):
     def create_session(
         self,
         *,
-        connector_auth_method_id: Optional[str] | Omit = omit,
+        connector_auth_method_id: str,
         selected_scope_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -128,7 +128,7 @@ class AsyncNangoResource(AsyncAPIResource):
     async def create_session(
         self,
         *,
-        connector_auth_method_id: Optional[str] | Omit = omit,
+        connector_auth_method_id: str,
         selected_scope_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.

@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from typing import Optional
-from typing_extensions import TypedDict
+from typing_extensions import Required, TypedDict
 
 from .._types import SequenceNotStr
 
@@ -11,7 +11,7 @@ __all__ = ["NangoCreateSessionParams"]
 
 
 class NangoCreateSessionParams(TypedDict, total=False):
-    connector_auth_method_id: Optional[str]
+    connector_auth_method_id: Required[str]
 
     selected_scope_ids: Optional[SequenceNotStr[str]]
     """Specific scope IDs to use.
