@@ -14,7 +14,7 @@ from .._response import (
 )
 from .._base_client import make_request_options
 
-__all__ = ["WhitelabelResource", "whitelabel_method"]
+__all__ = ["WhitelabelServiceResource", "whitelabel_method"]
 
 T = TypeVar("T")
 
@@ -42,7 +42,7 @@ def whitelabel_method(
 
     def decorator(func: Callable[..., T]) -> Callable[..., T]:
         @wraps(func)
-        def wrapper(self: WhitelabelResource, *args: Any, **kwargs: Any) -> Any:
+        def wrapper(self: WhitelabelServiceResource, *args: Any, **kwargs: Any) -> Any:
             # Call the original function to get the request payload
             raw_payload = func(self, *args, **kwargs)
 
@@ -114,7 +114,7 @@ def whitelabel_method(
     return decorator
 
 
-class WhitelabelResource(SyncAPIResource):
+class WhitelabelServiceResource(SyncAPIResource):
     """
     Base class for whitelabel service resources.
 
@@ -123,19 +123,19 @@ class WhitelabelResource(SyncAPIResource):
     """
 
     @cached_property
-    def with_raw_response(self) -> WhitelabelResourceWithRawResponse:
+    def with_raw_response(self) -> WhitelabelServiceResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
         """
-        return WhitelabelResourceWithRawResponse(self)
+        return WhitelabelServiceResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> WhitelabelResourceWithStreamingResponse:
+    def with_streaming_response(self) -> WhitelabelServiceResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
         """
-        return WhitelabelResourceWithStreamingResponse(self)
+        return WhitelabelServiceResourceWithStreamingResponse(self)
 
     def _build_headers(self, extra_headers: Optional[Dict[str, str]] = None) -> Dict[str, str]:
         """Build headers for API requests, allowing service-specific customization."""
@@ -198,8 +198,8 @@ class WhitelabelResource(SyncAPIResource):
             raise ValueError(f"Unsupported HTTP method: {method}")
 
 
-class WhitelabelResourceWithRawResponse:
-    def __init__(self, resource: WhitelabelResource) -> None:
+class WhitelabelServiceResourceWithRawResponse:
+    def __init__(self, resource: WhitelabelServiceResource) -> None:
         self._resource = resource
 
         # Dynamically wrap all whitelabel methods
@@ -210,8 +210,8 @@ class WhitelabelResourceWithRawResponse:
                     setattr(self, attr_name, to_raw_response_wrapper(attr))
 
 
-class WhitelabelResourceWithStreamingResponse:
-    def __init__(self, resource: WhitelabelResource) -> None:
+class WhitelabelServiceResourceWithStreamingResponse:
+    def __init__(self, resource: WhitelabelServiceResource) -> None:
         self._resource = resource
 
         # Dynamically wrap all whitelabel methods
