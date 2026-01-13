@@ -12,6 +12,7 @@ import polars as pl
 from tqdm import tqdm  # type: ignore
 from polars import LazyFrame
 
+from structify.types.entity_get_response import Properties
 from structify.types.entity_param import EntityParam
 from structify.types.property_type_param import PropertyTypeParam
 from structify.types.dataset_create_params import Relationship as CreateRelationshipParam
@@ -592,12 +593,15 @@ class PolarsResource(SyncAPIResource):
             self._client.jobs.wait_for_jobs(dataset_name=dataset_name, title=title, node_id=node_id)
 
             # 4. Collect the results
-            results = []
+            results: list[dict[str, Properties]] = []
             for entity in self._client.datasets.view_table(dataset=dataset_name, name=dataframe_name):
                 properties = entity.properties.copy()
                 if job_id_column is not None:
                     url = properties.get(url_column)
-                    properties[job_id_column] = job_ids_by_url.get(url) if isinstance(url, str) else None
+                    if isinstance(url, str):
+                        job_id = job_ids_by_url.get(url)
+                        if job_id is not None:
+                            properties[job_id_column] = job_id
                 results.append(properties)
 
             # 5. Return the results
