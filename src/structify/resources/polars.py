@@ -1098,7 +1098,7 @@ class PolarsResource(SyncAPIResource):
         # Wait for all embeddings to be added
         tqdm_marker = tqdm(total=df.height + reference_df.height, desc="Waiting for embeddings")
         total_embeddings = df.height + reference_df.height
-        count_history = []
+        count_history: list[int] = []
         while True:
             remaining_embeddings = self._client.datasets.count_missing_embeddings(name=dataset_name).count
             if remaining_embeddings == 0:
