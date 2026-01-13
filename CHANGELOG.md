@@ -1,5 +1,37 @@
 # Changelog
 
+## 1.170.0 (2026-01-13)
+
+Full Changelog: [v1.169.0...v1.170.0](https://github.com/StructifyAI/structify-python/compare/v1.169.0...v1.170.0)
+
+### Features
+
+* **api:** manual updates ([ba86735](https://github.com/StructifyAI/structify-python/commit/ba8673565d979fe8b63570a100f27928c38ea235))
+* **api:** manual updates ([162d67e](https://github.com/StructifyAI/structify-python/commit/162d67eaf25796feb4a70a97f74b02c122b0e376))
+* Update from Structify backend changes ([7f75573](https://github.com/StructifyAI/structify-python/commit/7f75573e2f5bef1637687dc39dbadc50072600e6))
+* Update from Structify backend changes ([cab07c8](https://github.com/StructifyAI/structify-python/commit/cab07c8a9bfd0edd078c76da267bf44bcdbfed06))
+* Update from Structify backend changes ([89d7963](https://github.com/StructifyAI/structify-python/commit/89d7963eda13b9e2dda1c03e3180944c22d0a0b3))
+* Update from Structify backend changes ([c839b18](https://github.com/StructifyAI/structify-python/commit/c839b18d19b092781e9e30fce45994dd2123c0bb))
+* Update from Structify backend changes ([1bb3f0c](https://github.com/StructifyAI/structify-python/commit/1bb3f0ca2d66af78237f29e2ee5ec2507ae306f7))
+* Update from Structify backend changes ([f509e9a](https://github.com/StructifyAI/structify-python/commit/f509e9a76d255ad9f59ddf9cfd4a2897f194cfed))
+* Update from Structify backend changes ([99b7cc5](https://github.com/StructifyAI/structify-python/commit/99b7cc5993366b01abdff2266b28d9e9eb94106f))
+* Update from Structify backend changes ([1e67ee8](https://github.com/StructifyAI/structify-python/commit/1e67ee8fd3b10a26d97536d3378dbb106d42823a))
+* Update from Structify backend changes ([40f5dde](https://github.com/StructifyAI/structify-python/commit/40f5dde7ea3be7cc7c368cf161069250c76bbaaf))
+* Update from Structify backend changes ([cc0d6ee](https://github.com/StructifyAI/structify-python/commit/cc0d6ee08d15eb90e3e1da458f81da0950466b9a))
+* Update from Structify backend changes ([13446c7](https://github.com/StructifyAI/structify-python/commit/13446c7c1e74cff57f8a17a3cc47bd6add9a6115))
+* Update from Structify backend changes ([8403789](https://github.com/StructifyAI/structify-python/commit/84037890ba857e905a099039f3b6c1d9403be1fd))
+* Update from Structify backend changes ([82bb5f2](https://github.com/StructifyAI/structify-python/commit/82bb5f2496994c5a6bdc0991af23d51d0cacd6ae))
+* Update from Structify backend changes ([48f65d9](https://github.com/StructifyAI/structify-python/commit/48f65d9c577feefb6fd1e7b7e99720686eb58058))
+* Update from Structify backend changes ([06a2d6a](https://github.com/StructifyAI/structify-python/commit/06a2d6a79f301ff75c3ee4deaf59cc1b7361f091))
+* Update from Structify backend changes ([1ffd28f](https://github.com/StructifyAI/structify-python/commit/1ffd28f9d612d1a0c43c61ab3b5ea251165d6c30))
+* Update from Structify backend changes ([9d1d649](https://github.com/StructifyAI/structify-python/commit/9d1d649a2f4bd199b6b102fe413cbf523fb4209b))
+* Update from Structify backend changes ([e2c0435](https://github.com/StructifyAI/structify-python/commit/e2c04350f3dbd425138e89f52766fd51754cf79b))
+
+
+### Bug Fixes
+
+* **client:** loosen auth header validation ([6a56739](https://github.com/StructifyAI/structify-python/commit/6a56739a1f834d1cfd7c99f8fd0be1f10a05639b))
+
 ## 1.169.0 (2026-01-03)
 
 Full Changelog: [v1.168.0...v1.169.0](https://github.com/StructifyAI/structify-python/compare/v1.168.0...v1.169.0)
