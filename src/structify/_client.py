@@ -56,6 +56,7 @@ if TYPE_CHECKING:
         documents,
         structure,
         connectors,
+        whitelabel,
         public_sessions,
         connector_catalog,
         workflow_schedule,
@@ -81,6 +82,7 @@ if TYPE_CHECKING:
     from .resources.documents import DocumentsResource, AsyncDocumentsResource
     from .resources.structure import StructureResource, AsyncStructureResource
     from .resources.user.user import UserResource, AsyncUserResource
+    from .resources.whitelabel import WhitelabelResource, AsyncWhitelabelResource
     from .resources.admin.admin import AdminResource, AsyncAdminResource
     from .resources.public_sessions import PublicSessionsResource, AsyncPublicSessionsResource
     from .resources.workflow_schedule import WorkflowScheduleResource, AsyncWorkflowScheduleResource
@@ -187,6 +189,12 @@ class Structify(SyncAPIClient):
             custom_query=default_query,
             _strict_response_validation=_strict_response_validation,
         )
+
+    @cached_property
+    def whitelabel(self) -> WhitelabelResource:
+        from .resources.whitelabel import WhitelabelResource
+
+        return WhitelabelResource(self)
 
     @cached_property
     def user(self) -> UserResource:
@@ -570,6 +578,12 @@ class AsyncStructify(AsyncAPIClient):
         )
 
     @cached_property
+    def whitelabel(self) -> AsyncWhitelabelResource:
+        from .resources.whitelabel import AsyncWhitelabelResource
+
+        return AsyncWhitelabelResource(self)
+
+    @cached_property
     def user(self) -> AsyncUserResource:
         from .resources.user import AsyncUserResource
 
@@ -868,6 +882,12 @@ class StructifyWithRawResponse:
         self._client = client
 
     @cached_property
+    def whitelabel(self) -> whitelabel.WhitelabelResourceWithRawResponse:
+        from .resources.whitelabel import WhitelabelResourceWithRawResponse
+
+        return WhitelabelResourceWithRawResponse(self._client.whitelabel)
+
+    @cached_property
     def user(self) -> user.UserResourceWithRawResponse:
         from .resources.user import UserResourceWithRawResponse
 
@@ -1031,6 +1051,12 @@ class AsyncStructifyWithRawResponse:
         self._client = client
 
     @cached_property
+    def whitelabel(self) -> whitelabel.AsyncWhitelabelResourceWithRawResponse:
+        from .resources.whitelabel import AsyncWhitelabelResourceWithRawResponse
+
+        return AsyncWhitelabelResourceWithRawResponse(self._client.whitelabel)
+
+    @cached_property
     def user(self) -> user.AsyncUserResourceWithRawResponse:
         from .resources.user import AsyncUserResourceWithRawResponse
 
@@ -1186,6 +1212,12 @@ class StructifyWithStreamedResponse:
 
     def __init__(self, client: Structify) -> None:
         self._client = client
+
+    @cached_property
+    def whitelabel(self) -> whitelabel.WhitelabelResourceWithStreamingResponse:
+        from .resources.whitelabel import WhitelabelResourceWithStreamingResponse
+
+        return WhitelabelResourceWithStreamingResponse(self._client.whitelabel)
 
     @cached_property
     def user(self) -> user.UserResourceWithStreamingResponse:
@@ -1349,6 +1381,12 @@ class AsyncStructifyWithStreamedResponse:
 
     def __init__(self, client: AsyncStructify) -> None:
         self._client = client
+
+    @cached_property
+    def whitelabel(self) -> whitelabel.AsyncWhitelabelResourceWithStreamingResponse:
+        from .resources.whitelabel import AsyncWhitelabelResourceWithStreamingResponse
+
+        return AsyncWhitelabelResourceWithStreamingResponse(self._client.whitelabel)
 
     @cached_property
     def user(self) -> user.AsyncUserResourceWithStreamingResponse:
