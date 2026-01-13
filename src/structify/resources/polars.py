@@ -13,10 +13,10 @@ from tqdm import tqdm  # type: ignore
 from polars import LazyFrame
 
 from structify.types.entity_param import EntityParam
-from structify.types.entity_get_response import Properties
 from structify.types.property_type_param import PropertyTypeParam
 from structify.types.dataset_create_params import Relationship as CreateRelationshipParam
 from structify.types.knowledge_graph_param import KnowledgeGraphParam
+from structify.types.dataset_view_table_response import Properties
 
 from ..types import TableParam
 from .._compat import cached_property
