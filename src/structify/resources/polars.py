@@ -1116,6 +1116,7 @@ class PolarsResource(SyncAPIResource):
                 count == remaining_embeddings for count in count_history[-stall_count:]
             ):
                 raise RuntimeError(f"Failed to match due to embedding failure. Please try again.")
+        tqdm_marker.close()
 
         node_id = get_node_id()
 
