@@ -1,3 +1,16 @@
+# Whitelabel
+
+Types:
+
+```python
+from structify.types import EstimateCostResponse
+```
+
+Methods:
+
+- <code title="get /whitelabel/{service}/estimate-cost/{path}">client.whitelabel.<a href="./src/structify/resources/whitelabel.py">estimate_cost</a>(path, \*, service) -> <a href="./src/structify/types/estimate_cost_response.py">EstimateCostResponse</a></code>
+- <code title="get /whitelabel/{service}/{path}">client.whitelabel.<a href="./src/structify/resources/whitelabel.py">proxy_get</a>(path, \*, service) -> None</code>
+
 # User
 
 Types:

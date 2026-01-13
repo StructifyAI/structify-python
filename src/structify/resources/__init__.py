@@ -182,6 +182,14 @@ from .connectors import (
     ConnectorsResourceWithStreamingResponse,
     AsyncConnectorsResourceWithStreamingResponse,
 )
+from .whitelabel import (
+    WhitelabelResource,
+    AsyncWhitelabelResource,
+    WhitelabelResourceWithRawResponse,
+    AsyncWhitelabelResourceWithRawResponse,
+    WhitelabelResourceWithStreamingResponse,
+    AsyncWhitelabelResourceWithStreamingResponse,
+)
 from .public_sessions import (
     PublicSessionsResource,
     AsyncPublicSessionsResource,
@@ -208,6 +216,12 @@ from .workflow_schedule import (
 )
 
 __all__ = [
+    "WhitelabelResource",
+    "AsyncWhitelabelResource",
+    "WhitelabelResourceWithRawResponse",
+    "AsyncWhitelabelResourceWithRawResponse",
+    "WhitelabelResourceWithStreamingResponse",
+    "AsyncWhitelabelResourceWithStreamingResponse",
     "UserResource",
     "AsyncUserResource",
     "UserResourceWithRawResponse",
