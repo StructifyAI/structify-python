@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from typing import Optional
+
 import httpx
 
 from .admin import (
@@ -67,6 +69,7 @@ class ConnectorCatalogResource(SyncAPIResource):
         *,
         limit: int | Omit = omit,
         offset: int | Omit = omit,
+        search: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -78,6 +81,9 @@ class ConnectorCatalogResource(SyncAPIResource):
         List all connector catalog entries with their active auth methods and logos
 
         Args:
+          search: Optional search query to filter by name, slug, or category (case-insensitive
+              substring match)
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -97,6 +103,7 @@ class ConnectorCatalogResource(SyncAPIResource):
                     {
                         "limit": limit,
                         "offset": offset,
+                        "search": search,
                     },
                     connector_catalog_list_params.ConnectorCatalogListParams,
                 ),
@@ -199,6 +206,7 @@ class AsyncConnectorCatalogResource(AsyncAPIResource):
         *,
         limit: int | Omit = omit,
         offset: int | Omit = omit,
+        search: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -210,6 +218,9 @@ class AsyncConnectorCatalogResource(AsyncAPIResource):
         List all connector catalog entries with their active auth methods and logos
 
         Args:
+          search: Optional search query to filter by name, slug, or category (case-insensitive
+              substring match)
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -229,6 +240,7 @@ class AsyncConnectorCatalogResource(AsyncAPIResource):
                     {
                         "limit": limit,
                         "offset": offset,
+                        "search": search,
                     },
                     connector_catalog_list_params.ConnectorCatalogListParams,
                 ),

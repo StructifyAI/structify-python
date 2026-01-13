@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from typing import Optional
 from typing_extensions import TypedDict
 
 __all__ = ["ConnectorCatalogListParams"]
@@ -11,3 +12,9 @@ class ConnectorCatalogListParams(TypedDict, total=False):
     limit: int
 
     offset: int
+
+    search: Optional[str]
+    """
+    Optional search query to filter by name, slug, or category (case-insensitive
+    substring match)
+    """

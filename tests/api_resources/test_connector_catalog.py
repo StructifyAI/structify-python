@@ -35,6 +35,7 @@ class TestConnectorCatalog:
         connector_catalog = client.connector_catalog.list(
             limit=0,
             offset=0,
+            search="search",
         )
         assert_matches_type(ConnectorCatalogListResponse, connector_catalog, path=["response"])
 
@@ -162,6 +163,7 @@ class TestAsyncConnectorCatalog:
         connector_catalog = await async_client.connector_catalog.list(
             limit=0,
             offset=0,
+            search="search",
         )
         assert_matches_type(ConnectorCatalogListResponse, connector_catalog, path=["response"])
 
