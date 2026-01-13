@@ -444,10 +444,9 @@ class PolarsResource(SyncAPIResource):
         """
         Enhance one or more columns of a `LazyFrame` directly from a URL.
 
-        When `include_job_ids=True`, an additional column is added to the output
-        DataFrame with the Structify job id for each URL. The job id is not stored
-        in Structify. If a single property is scraped, the column is named
-        `{property_name}_job_id`; otherwise it is `scrape_job_id`.
+        When `include_job_ids=True`, an additional `job_id` column is added to the
+        output DataFrame with the Structify job id for each URL. The job id is not
+        stored in Structify.
         """
 
         # Existing columns & their dtypes from the LazyFrame
@@ -475,12 +474,7 @@ class PolarsResource(SyncAPIResource):
             for col_name, (dtype, desc) in new_columns_dict.items()
         ]
 
-        job_id_column: str | None = None
-        if include_job_ids:
-            if len(new_column_properties) == 1:
-                job_id_column = f"{new_column_properties[0]['name']}_job_id"
-            else:
-                job_id_column = "scrape_job_id"
+        job_id_column: str | None = "job_id" if include_job_ids else None
 
         all_properties = merge_column_properties(pre_existing_properties, new_column_properties)
 
