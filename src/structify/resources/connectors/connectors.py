@@ -12,6 +12,7 @@ from ...types import (
     connector_create_params,
     connector_update_params,
     connector_explore_params,
+    connector_summaries_params,
     connector_update_table_params,
     connector_create_secret_params,
     connector_search_tables_params,
@@ -20,7 +21,7 @@ from ...types import (
     connector_list_with_snippets_params,
     connector_delete_schema_object_params,
 )
-from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
+from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, SequenceNotStr, omit, not_given
 from ..._utils import required_args, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
@@ -49,6 +50,7 @@ from ...types.explorer_chat_response import ExplorerChatResponse
 from ...types.explore_status_response import ExploreStatusResponse
 from ...types.connector_store_response import ConnectorStoreResponse
 from ...types.exploration_runs_response import ExplorationRunsResponse
+from ...types.connector_summaries_response import ConnectorSummariesResponse
 from ...types.delete_schema_object_response import DeleteSchemaObjectResponse
 from ...types.connector_search_tables_response import ConnectorSearchTablesResponse
 from ...types.connector_list_with_snippets_response import ConnectorListWithSnippetsResponse
@@ -876,6 +878,43 @@ class ConnectorsResource(SyncAPIResource):
                 ),
             ),
             cast_to=ConnectorSearchTablesResponse,
+        )
+
+    def summaries(
+        self,
+        *,
+        connector_ids: SequenceNotStr[str],
+        team_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ConnectorSummariesResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/connectors/summaries",
+            body=maybe_transform(
+                {
+                    "connector_ids": connector_ids,
+                    "team_id": team_id,
+                },
+                connector_summaries_params.ConnectorSummariesParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ConnectorSummariesResponse,
         )
 
     def update_column(
@@ -1778,6 +1817,43 @@ class AsyncConnectorsResource(AsyncAPIResource):
             cast_to=ConnectorSearchTablesResponse,
         )
 
+    async def summaries(
+        self,
+        *,
+        connector_ids: SequenceNotStr[str],
+        team_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ConnectorSummariesResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/connectors/summaries",
+            body=await async_maybe_transform(
+                {
+                    "connector_ids": connector_ids,
+                    "team_id": team_id,
+                },
+                connector_summaries_params.ConnectorSummariesParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ConnectorSummariesResponse,
+        )
+
     async def update_column(
         self,
         column_id: str,
@@ -1917,6 +1993,9 @@ class ConnectorsResourceWithRawResponse:
         self.search_tables = to_raw_response_wrapper(
             connectors.search_tables,
         )
+        self.summaries = to_raw_response_wrapper(
+            connectors.summaries,
+        )
         self.update_column = to_raw_response_wrapper(
             connectors.update_column,
         )
@@ -1986,6 +2065,9 @@ class AsyncConnectorsResourceWithRawResponse:
         )
         self.search_tables = async_to_raw_response_wrapper(
             connectors.search_tables,
+        )
+        self.summaries = async_to_raw_response_wrapper(
+            connectors.summaries,
         )
         self.update_column = async_to_raw_response_wrapper(
             connectors.update_column,
@@ -2057,6 +2139,9 @@ class ConnectorsResourceWithStreamingResponse:
         self.search_tables = to_streamed_response_wrapper(
             connectors.search_tables,
         )
+        self.summaries = to_streamed_response_wrapper(
+            connectors.summaries,
+        )
         self.update_column = to_streamed_response_wrapper(
             connectors.update_column,
         )
@@ -2126,6 +2211,9 @@ class AsyncConnectorsResourceWithStreamingResponse:
         )
         self.search_tables = async_to_streamed_response_wrapper(
             connectors.search_tables,
+        )
+        self.summaries = async_to_streamed_response_wrapper(
+            connectors.summaries,
         )
         self.update_column = async_to_streamed_response_wrapper(
             connectors.update_column,
