@@ -1105,10 +1105,11 @@ class PolarsResource(SyncAPIResource):
                 break
             count_history.append(remaining_embeddings)
             tqdm_marker.update(total_embeddings - remaining_embeddings)
-            # If we haven't updated any entities in 10 seconds, consider the embeddings as not updating and break
+            # If we haven't updated any entities in a while, consider the embeddings as not updating and break
             # with a helpful log message
+            STALL_TIMEOUT = 30
             SLEEP_TIME = 0.5
-            stall_count = int(10 // SLEEP_TIME)
+            stall_count = int(STALL_TIMEOUT // SLEEP_TIME)
             time.sleep(SLEEP_TIME)
 
             if len(count_history) > stall_count and all(
