@@ -5,32 +5,32 @@ import io
 import os
 import time
 import uuid
+from typing import Any, Dict, List, Tuple, Optional, cast
 from concurrent.futures import Future, ThreadPoolExecutor, as_completed
-from typing import Any, Dict, List, Optional, Tuple, cast
 
 import polars as pl
-from polars import LazyFrame
 from tqdm import tqdm  # type: ignore
+from polars import LazyFrame
 
-from structify.types.dataset_create_params import Relationship as CreateRelationshipParam
-from structify.types.entity_get_response import Properties
 from structify.types.entity_param import EntityParam
-from structify.types.knowledge_graph_param import KnowledgeGraphParam
+from structify.types.entity_get_response import Properties
 from structify.types.property_type_param import PropertyTypeParam
+from structify.types.dataset_create_params import Relationship as CreateRelationshipParam
+from structify.types.knowledge_graph_param import KnowledgeGraphParam
 
+from ..types import TableParam
 from .._compat import cached_property
 from .._resource import SyncAPIResource
 from .._response import (
     to_raw_response_wrapper,
     to_streamed_response_wrapper,
 )
-from ..lib.cost_confirmation import request_cost_confirmation_if_needed
-from ..types import TableParam
-from ..types.dataset_descriptor_param import DatasetDescriptorParam
-from ..types.save_requirement_param import RequiredEntity, RequiredProperty
-from ..types.structure_run_async_params import SourcePdf, SourceWebWeb
 from ..types.table_param import Property
+from ..lib.cost_confirmation import request_cost_confirmation_if_needed
 from .external_dataframe_proxy import ServicesProxy
+from ..types.save_requirement_param import RequiredEntity, RequiredProperty
+from ..types.dataset_descriptor_param import DatasetDescriptorParam
+from ..types.structure_run_async_params import SourcePdf, SourceWebWeb
 
 __all__ = ["PolarsResource"]
 
