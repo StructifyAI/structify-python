@@ -19,6 +19,7 @@ from structify.types import (
     ExploreStatusResponse,
     ConnectorStoreResponse,
     ExplorationRunsResponse,
+    ConnectorSummariesResponse,
     DeleteSchemaObjectResponse,
     ConnectorSearchTablesResponse,
     ConnectorListWithSnippetsResponse,
@@ -911,6 +912,40 @@ class TestConnectors:
 
             connector = response.parse()
             assert_matches_type(ConnectorSearchTablesResponse, connector, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_method_summaries(self, client: Structify) -> None:
+        connector = client.connectors.summaries(
+            connector_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(ConnectorSummariesResponse, connector, path=["response"])
+
+    @parametrize
+    def test_raw_response_summaries(self, client: Structify) -> None:
+        response = client.connectors.with_raw_response.summaries(
+            connector_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        connector = response.parse()
+        assert_matches_type(ConnectorSummariesResponse, connector, path=["response"])
+
+    @parametrize
+    def test_streaming_response_summaries(self, client: Structify) -> None:
+        with client.connectors.with_streaming_response.summaries(
+            connector_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            connector = response.parse()
+            assert_matches_type(ConnectorSummariesResponse, connector, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -1892,6 +1927,40 @@ class TestAsyncConnectors:
 
             connector = await response.parse()
             assert_matches_type(ConnectorSearchTablesResponse, connector, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_method_summaries(self, async_client: AsyncStructify) -> None:
+        connector = await async_client.connectors.summaries(
+            connector_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(ConnectorSummariesResponse, connector, path=["response"])
+
+    @parametrize
+    async def test_raw_response_summaries(self, async_client: AsyncStructify) -> None:
+        response = await async_client.connectors.with_raw_response.summaries(
+            connector_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        connector = await response.parse()
+        assert_matches_type(ConnectorSummariesResponse, connector, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_summaries(self, async_client: AsyncStructify) -> None:
+        async with async_client.connectors.with_streaming_response.summaries(
+            connector_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            connector = await response.parse()
+            assert_matches_type(ConnectorSummariesResponse, connector, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

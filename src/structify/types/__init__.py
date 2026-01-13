@@ -50,6 +50,7 @@ from .save_requirement import SaveRequirement as SaveRequirement
 from .workflow_session import WorkflowSession as WorkflowSession
 from .chat_session_role import ChatSessionRole as ChatSessionRole
 from .connector_catalog import ConnectorCatalog as ConnectorCatalog
+from .connector_summary import ConnectorSummary as ConnectorSummary
 from .entity_add_params import EntityAddParams as EntityAddParams
 from .entity_get_params import EntityGetParams as EntityGetParams
 from .get_node_response import GetNodeResponse as GetNodeResponse
@@ -194,6 +195,7 @@ from .chat_delete_files_response import ChatDeleteFilesResponse as ChatDeleteFil
 from .chat_session_with_messages import ChatSessionWithMessages as ChatSessionWithMessages
 from .chat_update_session_params import ChatUpdateSessionParams as ChatUpdateSessionParams
 from .connector_credential_field import ConnectorCredentialField as ConnectorCredentialField
+from .connector_summaries_params import ConnectorSummariesParams as ConnectorSummariesParams
 from .create_match_jobs_response import CreateMatchJobsResponse as CreateMatchJobsResponse
 from .document_download_response import DocumentDownloadResponse as DocumentDownloadResponse
 from .entity_derive_all_response import EntityDeriveAllResponse as EntityDeriveAllResponse
@@ -224,6 +226,7 @@ from .chat_add_git_commit_response import ChatAddGitCommitResponse as ChatAddGit
 from .chat_get_git_commit_response import ChatGetGitCommitResponse as ChatGetGitCommitResponse
 from .chat_list_templates_response import ChatListTemplatesResponse as ChatListTemplatesResponse
 from .chat_revert_to_commit_params import ChatRevertToCommitParams as ChatRevertToCommitParams
+from .connector_summaries_response import ConnectorSummariesResponse as ConnectorSummariesResponse
 from .create_chat_session_response import CreateChatSessionResponse as CreateChatSessionResponse
 from .dataset_export_to_csv_params import DatasetExportToCsvParams as DatasetExportToCsvParams
 from .delete_chat_session_response import DeleteChatSessionResponse as DeleteChatSessionResponse
