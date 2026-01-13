@@ -1096,14 +1096,25 @@ class PolarsResource(SyncAPIResource):
         self._upload_df(reference_df, dataset_name, "table2")
 
         # Wait for all embeddings to be added
-        TIMEOUT_SECONDS = 60
-        start_time = time.monotonic()
-
-        while time.monotonic() - start_time < TIMEOUT_SECONDS:
+        tqdm_marker = tqdm(total=df.height + reference_df.height, desc="Waiting for embeddings")
+        total_embeddings = df.height + reference_df.height
+        count_history = []
+        while True:
             remaining_embeddings = self._client.datasets.count_missing_embeddings(name=dataset_name).count
             if remaining_embeddings == 0:
                 break
-            time.sleep(0.5)
+            count_history.append(remaining_embeddings)
+            tqdm_marker.update(total_embeddings - remaining_embeddings)
+            # If we haven't updated any entities in 10 seconds, consider the embeddings as not updating and break
+            # with a helpful log message
+            SLEEP_TIME = 0.5
+            stall_count = int(10 // SLEEP_TIME)
+            time.sleep(SLEEP_TIME)
+
+            if len(count_history) > stall_count and all(
+                count == remaining_embeddings for count in count_history[-stall_count:]
+            ):
+                raise RuntimeError(f"Failed to match due to embedding failure. Please try again.")
 
         node_id = get_node_id()
 
