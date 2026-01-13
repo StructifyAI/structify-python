@@ -6,9 +6,30 @@ from typing import Any, Dict, List, cast
 
 import polars as pl
 
+from .._base_client import make_request_options
 from .whitelabel_service import WhitelabelServiceResource, whitelabel_method
 
 __all__ = ["ExternalResource"]
+
+
+class ExternalServiceResource(WhitelabelServiceResource):
+    def __init__(self, client: Any, service_name: str) -> None:
+        super().__init__(client)
+        self._service_name = service_name
+
+    def __getattr__(self, name: str) -> Any:
+        if name.startswith("_"):
+            raise AttributeError(name)
+
+        def method(**kwargs: Any) -> Any:
+            return self._post(
+                f"/external/{self._service_name}/{name}",
+                body=kwargs,
+                cast_to=object,
+                options=make_request_options(),
+            )
+
+        return method
 
 
 class ExternalResource(WhitelabelServiceResource):
@@ -18,6 +39,18 @@ class ExternalResource(WhitelabelServiceResource):
     This provides a namespace for external services that are
     separate from the core Structify functionality.
     """
+
+    @property
+    def news(self) -> ExternalServiceResource:
+        return ExternalServiceResource(self._client, "news")
+
+    @property
+    def people(self) -> ExternalServiceResource:
+        return ExternalServiceResource(self._client, "people")
+
+    @property
+    def search_api(self) -> ExternalServiceResource:
+        return ExternalServiceResource(self._client, "search_api")
 
     @whitelabel_method("/external/search")
     def search(
