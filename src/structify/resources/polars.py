@@ -1098,17 +1098,18 @@ class PolarsResource(SyncAPIResource):
         # Wait for all embeddings to be added
         tqdm_marker = tqdm(total=df.height + reference_df.height, desc="Waiting for embeddings")
         total_embeddings = df.height + reference_df.height
-        count_history = []
+        count_history: list[int] = []
         while True:
             remaining_embeddings = self._client.datasets.count_missing_embeddings(name=dataset_name).count
             if remaining_embeddings == 0:
                 break
             count_history.append(remaining_embeddings)
             tqdm_marker.update(total_embeddings - remaining_embeddings)
-            # If we haven't updated any entities in 10 seconds, consider the embeddings as not updating and break
+            # If we haven't updated any entities in a while, consider the embeddings as not updating and break
             # with a helpful log message
+            STALL_TIMEOUT = 30
             SLEEP_TIME = 0.5
-            stall_count = int(10 // SLEEP_TIME)
+            stall_count = int(STALL_TIMEOUT // SLEEP_TIME)
             time.sleep(SLEEP_TIME)
 
             if len(count_history) > stall_count and all(
