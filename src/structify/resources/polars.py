@@ -444,8 +444,9 @@ class PolarsResource(SyncAPIResource):
         """
         Enhance one or more columns of a `LazyFrame` directly from a URL.
 
-        When `include_job_ids=True`, an additional column is added with the Structify
-        job id for each URL. If a single property is scraped, the column is named
+        When `include_job_ids=True`, an additional column is added to the output
+        DataFrame with the Structify job id for each URL. The job id is not stored
+        in Structify. If a single property is scraped, the column is named
         `{property_name}_job_id`; otherwise it is `scrape_job_id`.
         """
 
@@ -482,17 +483,6 @@ class PolarsResource(SyncAPIResource):
                 job_id_column = "scrape_job_id"
 
         all_properties = merge_column_properties(pre_existing_properties, new_column_properties)
-        if job_id_column is not None:
-            all_properties = merge_column_properties(
-                all_properties,
-                [
-                    Property(
-                        name=job_id_column,
-                        description="Structify scrape job id for the URL",
-                        prop_type=dtype_to_structify_type(pl.String),
-                    )
-                ],
-            )
 
         dataset_name = f"enhance_{dataframe_name}_{uuid.uuid4().hex}"
         self._client.datasets.create(
@@ -521,6 +511,8 @@ class PolarsResource(SyncAPIResource):
 
         # Create the expected output schema
         expected_schema = properties_to_schema(all_properties)
+        if job_id_column is not None:
+            expected_schema[job_id_column] = pl.String
 
         # Apply Structify scrape on the dataframe
         def scrape_batch(batch_df: pl.DataFrame) -> pl.DataFrame:
