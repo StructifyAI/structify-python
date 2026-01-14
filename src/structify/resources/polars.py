@@ -812,6 +812,8 @@ class PolarsResource(SyncAPIResource):
         table_name: str,
         schema: Dict[str, Dict[str, Any]],
         conditioning: str = "",
+        instructions: str | LazyFrame | None = None,
+        model: str | LazyFrame | None = None,
     ) -> LazyFrame:
         """
         Extract structured data from PDF documents and return as a LazyFrame.
@@ -821,6 +823,11 @@ class PolarsResource(SyncAPIResource):
         path_column: Name of the column containing PDF file paths
         table_name: Name of the table for the structured data
         schema: Schema definition with descriptions, format: {"column_name": {"description": "...", "type": polars_dtype}}
+        conditioning: Optional conditioning string for the extraction
+        instructions: Optional instructions for the extraction. Can be a string (applied to all PDFs)
+            or a LazyFrame with the same rows as document_paths containing per-PDF instructions.
+        model: Optional model to use for extraction. Can be a string (applied to all PDFs)
+            or a LazyFrame with the same rows as document_paths containing per-PDF model selection.
 
         Returns:
         LazyFrame: Structured data extracted from the PDFs
@@ -842,9 +849,33 @@ class PolarsResource(SyncAPIResource):
 
         node_id = get_node_id()
 
+        # Validate model format if provided as string
+        if isinstance(model, str):
+            parts = model.split(".", 1)
+            if len(parts) != 2:
+                raise ValueError("model must be in format 'provider.model_name' (e.g. 'bedrock.claude-sonnet-4-bedrock')")
+
+        # Build lookups for per-path instructions and model
+        paths_df = document_paths.collect()
+        paths_list = paths_df[path_column].to_list()
+
+        instructions_map: dict[str, str] = {}
+        model_map: dict[str, str] = {}
+
+        if instructions is not None and not isinstance(instructions, str):
+            instr_df = instructions.collect()
+            if instr_df.shape != paths_df.shape:
+                raise ValueError(f"instructions shape {instr_df.shape} != document_paths shape {paths_df.shape}")
+            instructions_map = dict(zip(paths_list, instr_df[instr_df.columns[0]].to_list()))
+
+        if model is not None and not isinstance(model, str):
+            model_df = model.collect()
+            if model_df.shape != paths_df.shape:
+                raise ValueError(f"model shape {model_df.shape} != document_paths shape {paths_df.shape}")
+            model_map = dict(zip(paths_list, model_df[model_df.columns[0]].to_list()))
+
         def structure_batch(batch_df: pl.DataFrame) -> pl.DataFrame:
-            # Get unique PDF paths in the batch
-            batch_paths = batch_df.select(path_column).drop_nulls(subset=[path_column]).unique().to_series().to_list()
+            batch_paths = batch_df.select(path_column).drop_nulls().unique().to_series().to_list()
 
             # Request cost confirmation before dispatching costly PDF extraction jobs
             if not request_cost_confirmation_if_needed(self._client, len(batch_paths)):
@@ -875,10 +906,16 @@ class PolarsResource(SyncAPIResource):
                         path=f"{dataset_name}.pdf".encode(),
                     )
 
+                # Get per-PDF instructions and model
+                pdf_instructions = instructions if isinstance(instructions, str) else instructions_map.get(pdf_path)
+                pdf_model = model if isinstance(model, str) else model_map.get(pdf_path)
+
                 job_id = self._client.structure.run_async(
                     dataset=dataset_name,
                     source=SourcePdf(pdf={"path": f"{dataset_name}.pdf"}),
                     node_id=node_id,
+                    instructions=pdf_instructions,
+                    model=pdf_model,
                 )
                 return job_id, str(pdf_path), dataset_name
 
