@@ -86,7 +86,7 @@ class ConnectorsResource(SyncAPIResource):
     def create(
         self,
         *,
-        connector_catalouge_id: str,
+        known_connector_type: str,
         name: str,
         team_id: str,
         description: Optional[str] | Omit = omit,
@@ -126,7 +126,7 @@ class ConnectorsResource(SyncAPIResource):
             "/connectors",
             body=maybe_transform(
                 {
-                    "connector_catalouge_id": connector_catalouge_id,
+                    "known_connector_type": known_connector_type,
                     "name": name,
                     "team_id": team_id,
                     "description": description,
@@ -150,8 +150,8 @@ class ConnectorsResource(SyncAPIResource):
         self,
         connector_id: str,
         *,
-        connector_catalouge_id: str,
         description: Optional[str] | Omit = omit,
+        known_connector_type: Optional[str] | Omit = omit,
         name: Optional[str] | Omit = omit,
         refresh_script: Optional[str] | Omit = omit,
         usage_snippet_override: Optional[str] | Omit = omit,
@@ -179,8 +179,8 @@ class ConnectorsResource(SyncAPIResource):
             f"/connectors/{connector_id}",
             body=maybe_transform(
                 {
-                    "connector_catalouge_id": connector_catalouge_id,
                     "description": description,
+                    "known_connector_type": known_connector_type,
                     "name": name,
                     "refresh_script": refresh_script,
                     "usage_snippet_override": usage_snippet_override,
@@ -1023,7 +1023,7 @@ class AsyncConnectorsResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        connector_catalouge_id: str,
+        known_connector_type: str,
         name: str,
         team_id: str,
         description: Optional[str] | Omit = omit,
@@ -1063,7 +1063,7 @@ class AsyncConnectorsResource(AsyncAPIResource):
             "/connectors",
             body=await async_maybe_transform(
                 {
-                    "connector_catalouge_id": connector_catalouge_id,
+                    "known_connector_type": known_connector_type,
                     "name": name,
                     "team_id": team_id,
                     "description": description,
@@ -1087,8 +1087,8 @@ class AsyncConnectorsResource(AsyncAPIResource):
         self,
         connector_id: str,
         *,
-        connector_catalouge_id: str,
         description: Optional[str] | Omit = omit,
+        known_connector_type: Optional[str] | Omit = omit,
         name: Optional[str] | Omit = omit,
         refresh_script: Optional[str] | Omit = omit,
         usage_snippet_override: Optional[str] | Omit = omit,
@@ -1116,8 +1116,8 @@ class AsyncConnectorsResource(AsyncAPIResource):
             f"/connectors/{connector_id}",
             body=await async_maybe_transform(
                 {
-                    "connector_catalouge_id": connector_catalouge_id,
                     "description": description,
+                    "known_connector_type": known_connector_type,
                     "name": name,
                     "refresh_script": refresh_script,
                     "usage_snippet_override": usage_snippet_override,

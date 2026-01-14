@@ -19,6 +19,10 @@ class StructureRunAsyncParams(TypedDict, total=False):
     source: Required[Source]
     """These are all the types that can be converted into a BasicInputType"""
 
+    instructions: Optional[str]
+
+    model: Optional[str]
+
     node_id: Optional[str]
 
     save_requirement: Iterable[SaveRequirementParam]
