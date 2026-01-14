@@ -139,6 +139,10 @@ class Parameters(BaseModel):
 
     structuring_input: ParametersStructuringInput
 
+    instructions: Optional[str] = None
+
+    model: Optional[str] = None
+
 
 class JobListResponse(BaseModel):
     id: str
