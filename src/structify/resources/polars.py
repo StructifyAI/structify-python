@@ -859,7 +859,6 @@ class PolarsResource(SyncAPIResource):
         paths_list = paths_df[path_column].to_list()
 
         instructions_map: dict[str, str] = {}
-        model_map: dict[str, str] = {}
 
         if instructions is not None and not isinstance(instructions, str):
             instr_df = instructions.collect()
