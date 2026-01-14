@@ -813,7 +813,7 @@ class PolarsResource(SyncAPIResource):
         schema: Dict[str, Dict[str, Any]],
         conditioning: str = "",
         instructions: str | LazyFrame | None = None,
-        model: str | LazyFrame | None = None,
+        model: str | None = None,
     ) -> LazyFrame:
         """
         Extract structured data from PDF documents and return as a LazyFrame.
@@ -823,7 +823,6 @@ class PolarsResource(SyncAPIResource):
         path_column: Name of the column containing PDF file paths
         table_name: Name of the table for the structured data
         schema: Schema definition with descriptions, format: {"column_name": {"description": "...", "type": polars_dtype}}
-        conditioning: Optional conditioning string for the extraction
         instructions: Optional instructions for the extraction. Can be a string (applied to all PDFs)
             or a LazyFrame with the same rows as document_paths containing per-PDF instructions.
         model: Optional model to use for extraction. Can be a string (applied to all PDFs)
@@ -868,12 +867,6 @@ class PolarsResource(SyncAPIResource):
                 raise ValueError(f"instructions shape {instr_df.shape} != document_paths shape {paths_df.shape}")
             instructions_map = dict(zip(paths_list, instr_df[instr_df.columns[0]].to_list()))
 
-        if model is not None and not isinstance(model, str):
-            model_df = model.collect()
-            if model_df.shape != paths_df.shape:
-                raise ValueError(f"model shape {model_df.shape} != document_paths shape {paths_df.shape}")
-            model_map = dict(zip(paths_list, model_df[model_df.columns[0]].to_list()))
-
         def structure_batch(batch_df: pl.DataFrame) -> pl.DataFrame:
             batch_paths = batch_df.select(path_column).drop_nulls().unique().to_series().to_list()
 
@@ -908,7 +901,7 @@ class PolarsResource(SyncAPIResource):
 
                 # Get per-PDF instructions and model
                 pdf_instructions = instructions if isinstance(instructions, str) else instructions_map.get(pdf_path)
-                pdf_model = model if isinstance(model, str) else model_map.get(pdf_path)
+                pdf_model = model
 
                 job_id = self._client.structure.run_async(
                     dataset=dataset_name,
