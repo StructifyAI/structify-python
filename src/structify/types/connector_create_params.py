@@ -9,7 +9,7 @@ __all__ = ["ConnectorCreateParams"]
 
 
 class ConnectorCreateParams(TypedDict, total=False):
-    known_connector_type: Required[str]
+    connector_catalouge_id: Required[str]
 
     name: Required[str]
 
