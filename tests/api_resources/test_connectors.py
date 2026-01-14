@@ -36,7 +36,7 @@ class TestConnectors:
     @parametrize
     def test_method_create(self, client: Structify) -> None:
         connector = client.connectors.create(
-            connector_catalouge_id="connector_catalouge_id",
+            known_connector_type="known_connector_type",
             name="name",
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
@@ -45,7 +45,7 @@ class TestConnectors:
     @parametrize
     def test_method_create_with_all_params(self, client: Structify) -> None:
         connector = client.connectors.create(
-            connector_catalouge_id="connector_catalouge_id",
+            known_connector_type="known_connector_type",
             name="name",
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             description="description",
@@ -62,7 +62,7 @@ class TestConnectors:
     @parametrize
     def test_raw_response_create(self, client: Structify) -> None:
         response = client.connectors.with_raw_response.create(
-            connector_catalouge_id="connector_catalouge_id",
+            known_connector_type="known_connector_type",
             name="name",
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
@@ -75,7 +75,7 @@ class TestConnectors:
     @parametrize
     def test_streaming_response_create(self, client: Structify) -> None:
         with client.connectors.with_streaming_response.create(
-            connector_catalouge_id="connector_catalouge_id",
+            known_connector_type="known_connector_type",
             name="name",
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
@@ -91,7 +91,6 @@ class TestConnectors:
     def test_method_update(self, client: Structify) -> None:
         connector = client.connectors.update(
             connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            connector_catalouge_id="connector_catalouge_id",
         )
         assert connector is None
 
@@ -99,8 +98,8 @@ class TestConnectors:
     def test_method_update_with_all_params(self, client: Structify) -> None:
         connector = client.connectors.update(
             connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            connector_catalouge_id="connector_catalouge_id",
             description="description",
+            known_connector_type="known_connector_type",
             name="name",
             refresh_script="refresh_script",
             usage_snippet_override="usage_snippet_override",
@@ -111,7 +110,6 @@ class TestConnectors:
     def test_raw_response_update(self, client: Structify) -> None:
         response = client.connectors.with_raw_response.update(
             connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            connector_catalouge_id="connector_catalouge_id",
         )
 
         assert response.is_closed is True
@@ -123,7 +121,6 @@ class TestConnectors:
     def test_streaming_response_update(self, client: Structify) -> None:
         with client.connectors.with_streaming_response.update(
             connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            connector_catalouge_id="connector_catalouge_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -138,7 +135,6 @@ class TestConnectors:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `connector_id` but received ''"):
             client.connectors.with_raw_response.update(
                 connector_id="",
-                connector_catalouge_id="connector_catalouge_id",
             )
 
     @parametrize
@@ -1055,7 +1051,7 @@ class TestAsyncConnectors:
     @parametrize
     async def test_method_create(self, async_client: AsyncStructify) -> None:
         connector = await async_client.connectors.create(
-            connector_catalouge_id="connector_catalouge_id",
+            known_connector_type="known_connector_type",
             name="name",
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
@@ -1064,7 +1060,7 @@ class TestAsyncConnectors:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncStructify) -> None:
         connector = await async_client.connectors.create(
-            connector_catalouge_id="connector_catalouge_id",
+            known_connector_type="known_connector_type",
             name="name",
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             description="description",
@@ -1081,7 +1077,7 @@ class TestAsyncConnectors:
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncStructify) -> None:
         response = await async_client.connectors.with_raw_response.create(
-            connector_catalouge_id="connector_catalouge_id",
+            known_connector_type="known_connector_type",
             name="name",
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
@@ -1094,7 +1090,7 @@ class TestAsyncConnectors:
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncStructify) -> None:
         async with async_client.connectors.with_streaming_response.create(
-            connector_catalouge_id="connector_catalouge_id",
+            known_connector_type="known_connector_type",
             name="name",
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
@@ -1110,7 +1106,6 @@ class TestAsyncConnectors:
     async def test_method_update(self, async_client: AsyncStructify) -> None:
         connector = await async_client.connectors.update(
             connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            connector_catalouge_id="connector_catalouge_id",
         )
         assert connector is None
 
@@ -1118,8 +1113,8 @@ class TestAsyncConnectors:
     async def test_method_update_with_all_params(self, async_client: AsyncStructify) -> None:
         connector = await async_client.connectors.update(
             connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            connector_catalouge_id="connector_catalouge_id",
             description="description",
+            known_connector_type="known_connector_type",
             name="name",
             refresh_script="refresh_script",
             usage_snippet_override="usage_snippet_override",
@@ -1130,7 +1125,6 @@ class TestAsyncConnectors:
     async def test_raw_response_update(self, async_client: AsyncStructify) -> None:
         response = await async_client.connectors.with_raw_response.update(
             connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            connector_catalouge_id="connector_catalouge_id",
         )
 
         assert response.is_closed is True
@@ -1142,7 +1136,6 @@ class TestAsyncConnectors:
     async def test_streaming_response_update(self, async_client: AsyncStructify) -> None:
         async with async_client.connectors.with_streaming_response.update(
             connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            connector_catalouge_id="connector_catalouge_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -1157,7 +1150,6 @@ class TestAsyncConnectors:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `connector_id` but received ''"):
             await async_client.connectors.with_raw_response.update(
                 connector_id="",
-                connector_catalouge_id="connector_catalouge_id",
             )
 
     @parametrize
