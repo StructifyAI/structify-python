@@ -49,6 +49,7 @@ class UserInfo(BaseModel):
     company_name: Optional[str] = None
 
     cost_confirmation_threshold: Optional[int] = None
+    """Cost confirmation threshold in credits (thousandth of a cent)."""
 
     impersonated_by_email: Optional[str] = None
 

@@ -55,6 +55,7 @@ class User(BaseModel):
     company_name: Optional[str] = None
 
     cost_confirmation_threshold: Optional[int] = None
+    """Cost confirmation threshold in credits (thousandth of a cent)."""
 
     cufinder_data: Optional[object] = None
 
