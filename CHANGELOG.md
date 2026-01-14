@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.171.0 (2026-01-14)
+
+Full Changelog: [v1.170.1...v1.171.0](https://github.com/StructifyAI/structify-python/compare/v1.170.1...v1.171.0)
+
+### Features
+
+* **client:** add support for binary request streaming ([60b23a8](https://github.com/StructifyAI/structify-python/commit/60b23a8f69e7233af93abedc5b55ecbde25a9a49))
+* Update from Structify backend changes ([e83a845](https://github.com/StructifyAI/structify-python/commit/e83a84575a72691d43f9ddec3cdb9ae444ca9454))
+* Update from Structify backend changes ([1b96a76](https://github.com/StructifyAI/structify-python/commit/1b96a7683839641b751118f41139d49b163c0ee4))
+* Update from Structify backend changes ([b03fd4f](https://github.com/StructifyAI/structify-python/commit/b03fd4f06aee126b61aa796e238570dff0cb3447))
+* Update from Structify backend changes ([e809d11](https://github.com/StructifyAI/structify-python/commit/e809d114ab11d2a5cc59c7276b85ed73e36027ae))
+* Update from Structify backend changes ([2ba5b55](https://github.com/StructifyAI/structify-python/commit/2ba5b551ee71d3880857d394719a9118ceb4cbee))
+
 ## 1.170.1 (2026-01-13)
 
 Full Changelog: [v1.170.0...v1.170.1](https://github.com/StructifyAI/structify-python/compare/v1.170.0...v1.170.1)
