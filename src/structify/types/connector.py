@@ -13,11 +13,11 @@ __all__ = ["Connector"]
 class Connector(BaseModel):
     id: str
 
+    connector_catalouge_id: str
+
     created_at: datetime
 
     exploration_status: ExplorationStatus
-
-    known_connector_type: str
 
     name: str
 

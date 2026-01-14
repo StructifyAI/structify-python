@@ -3,15 +3,15 @@
 from __future__ import annotations
 
 from typing import Optional
-from typing_extensions import TypedDict
+from typing_extensions import Required, TypedDict
 
 __all__ = ["ConnectorUpdateParams"]
 
 
 class ConnectorUpdateParams(TypedDict, total=False):
-    description: Optional[str]
+    connector_catalouge_id: Required[str]
 
-    known_connector_type: Optional[str]
+    description: Optional[str]
 
     name: Optional[str]
 
