@@ -967,8 +967,7 @@ class PolarsResource(SyncAPIResource):
 
             # Build result dataframe directly from structured_results without joining
             # Each entity is already tagged with path_column from its source PDF
-            structured_df = pl.DataFrame(structured_results).select(polars_schema.names())
-            return structured_df.cast(dict(polars_schema))
+            return pl.DataFrame(structured_results, schema=polars_schema)
 
         return document_paths.map_batches(structure_batch, schema=polars_schema, no_optimizations=True)
 
