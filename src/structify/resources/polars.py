@@ -5,7 +5,7 @@ import io
 import os
 import time
 import uuid
-from typing import Any, Dict, List, Literal, Tuple, Optional, cast
+from typing import Any, Dict, List, Tuple, Literal, Optional, cast
 from concurrent.futures import Future, ThreadPoolExecutor, as_completed
 
 import polars as pl
