@@ -152,6 +152,8 @@ class RunPython(BaseModel):
 
 
 class IssueFoundInput(BaseModel):
+    admin_override: bool
+
     description: str
 
     title: str

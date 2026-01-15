@@ -40,6 +40,8 @@ class SourcePdfPdf(TypedDict, total=False):
 
     path: Required[str]
 
+    single_agent: bool
+
 
 class SourcePdf(TypedDict, total=False):
     pdf: Required[Annotated[SourcePdfPdf, PropertyInfo(alias="PDF")]]

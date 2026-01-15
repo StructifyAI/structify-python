@@ -5,7 +5,7 @@ import io
 import os
 import time
 import uuid
-from typing import Any, Dict, List, Tuple, Optional, cast
+from typing import Any, Dict, List, Tuple, Literal, Optional, cast
 from concurrent.futures import Future, ThreadPoolExecutor, as_completed
 
 import polars as pl
@@ -811,7 +811,10 @@ class PolarsResource(SyncAPIResource):
         path_column: str,
         table_name: str,
         schema: Dict[str, Dict[str, Any]],
-        conditioning: str = "",
+        conditioning: str = "",  # Kept for backward compatibility
+        instructions: str | LazyFrame | None = None,
+        model: str | None = None,
+        mode: Literal["single", "all_pages"] = "all_pages",
     ) -> LazyFrame:
         """
         Extract structured data from PDF documents and return as a LazyFrame.
@@ -821,6 +824,10 @@ class PolarsResource(SyncAPIResource):
         path_column: Name of the column containing PDF file paths
         table_name: Name of the table for the structured data
         schema: Schema definition with descriptions, format: {"column_name": {"description": "...", "type": polars_dtype}}
+        instructions: Optional instructions for the extraction. Can be a string (applied to all PDFs)
+            or a LazyFrame with the same rows as document_paths containing per-PDF instructions.
+        model: Optional model name to use for extraction
+        mode: Whether to dispatch a single high-agency agent or one low-agency agent per page.
 
         Returns:
         LazyFrame: Structured data extracted from the PDFs
@@ -842,25 +849,50 @@ class PolarsResource(SyncAPIResource):
 
         node_id = get_node_id()
 
+        # Validate model format if provided as string
+        if isinstance(model, str):
+            parts = model.split(".", 1)
+            if len(parts) != 2:
+                raise ValueError(
+                    "model must be in format 'provider.model_name' (e.g. 'bedrock.claude-sonnet-4-bedrock')"
+                )
+
+        # Build lookups for per-row instructions by index (not by path, since the same PDF may appear multiple times)
+        paths_df = document_paths.collect()
+
+        instructions_list: list[str | None] = []
+
+        if instructions is not None and not isinstance(instructions, str):
+            instr_df = instructions.collect()
+            if instr_df.shape[0] != paths_df.shape[0]:
+                raise ValueError(f"instructions shape {instr_df.shape} != document_paths shape {paths_df.shape}")
+            instructions_list = cast(List[Optional[str]], instr_df[instr_df.columns[0]].to_list())
+
         def structure_batch(batch_df: pl.DataFrame) -> pl.DataFrame:
-            # Get unique PDF paths in the batch
-            batch_paths = batch_df.select(path_column).drop_nulls(subset=[path_column]).unique().to_series().to_list()
+            # Track by row index since the same PDF may appear multiple times with different instructions
+            batch_rows = batch_df.with_row_index("__row_idx__").to_dicts()
+            valid_rows = [row for row in batch_rows if row.get(path_column) is not None]
+
+            if not valid_rows:
+                return pl.DataFrame(schema=polars_schema)
 
             # Request cost confirmation before dispatching costly PDF extraction jobs
-            if not request_cost_confirmation_if_needed(self._client, len(batch_paths)):
+            if not request_cost_confirmation_if_needed(self._client, len(valid_rows)):
                 raise Exception(f"User cancelled PDF extraction for {table_name}")
 
             # Process each PDF document
-            path_to_dataset: dict[str, str] = {}
             job_ids: list[str] = []
+            idx_to_dataset: dict[int, str] = {}
 
-            def process_pdf(pdf_path: str) -> Tuple[str, str, str]:
+            def process_pdf(row: dict[str, Any]) -> Tuple[str, int, str]:
+                row_idx = row["__row_idx__"]
+                pdf_path = row[path_column]
                 dataset_name = f"structure_pdfs_{table_name}_{uuid.uuid4().hex}"
 
                 # Create dataset for this PDF
                 self._client.datasets.create(
                     name=dataset_name,
-                    description=conditioning,
+                    description="",
                     tables=[table_param],
                     relationships=[],
                     ephemeral=True,
@@ -875,19 +907,30 @@ class PolarsResource(SyncAPIResource):
                         path=f"{dataset_name}.pdf".encode(),
                     )
 
+                # Get per-row instructions and model
+                pdf_instructions: str | None = None
+                if isinstance(instructions, str):
+                    pdf_instructions = instructions
+                elif instructions_list:
+                    pdf_instructions = cast(Optional[str], instructions_list[row_idx])
+                elif conditioning:
+                    pdf_instructions = conditioning
+
                 job_id = self._client.structure.run_async(
                     dataset=dataset_name,
-                    source=SourcePdf(pdf={"path": f"{dataset_name}.pdf"}),
+                    source=SourcePdf(pdf={"path": f"{dataset_name}.pdf", "single_agent": mode == "single"}),
                     node_id=node_id,
+                    instructions=pdf_instructions,
+                    model=model,
                 )
-                return job_id, str(pdf_path), dataset_name
+                return job_id, row_idx, dataset_name
 
             with ThreadPoolExecutor(max_workers=MAX_PARALLEL_REQUESTS) as executor:
-                futures = [executor.submit(process_pdf, pdf_path) for pdf_path in batch_paths]
+                futures = [executor.submit(process_pdf, row) for row in valid_rows]
                 for future in tqdm(as_completed(futures), total=len(futures), desc="Preparing PDFs"):
-                    job_id, pdf_path, dataset_name = future.result()
+                    job_id, row_idx, dataset_name = future.result()
                     job_ids.append(job_id)
-                    path_to_dataset[pdf_path] = dataset_name
+                    idx_to_dataset[row_idx] = dataset_name
 
             # Wait for all PDF processing jobs to complete
             self._client.jobs.wait_for_jobs(job_ids=job_ids, title=f"Parsing {table_name} from PDFs", node_id=node_id)
@@ -895,16 +938,17 @@ class PolarsResource(SyncAPIResource):
             # Collect results from all processed PDFs
             structured_results: list[dict[str, Any]] = []
 
-            def collect_pdf_results(pdf_path: str, dataset_name: str) -> List[Dict[str, Any]]:
+            def collect_pdf_results(row_idx: int, dataset_name: str) -> List[Dict[str, Any]]:
+                pdf_path = batch_rows[row_idx][path_column]
                 entities_result = self._client.datasets.view_table(dataset=dataset_name, name=table_name)
                 return [{**entity.properties, path_column: pdf_path} for entity in entities_result]
 
             with ThreadPoolExecutor(max_workers=MAX_PARALLEL_REQUESTS) as executor:
-                futures = [
-                    executor.submit(collect_pdf_results, pdf_path, dataset_name)  # type: ignore
-                    for pdf_path, dataset_name in path_to_dataset.items()
+                collect_futures = [
+                    executor.submit(collect_pdf_results, row_idx, dataset_name)
+                    for row_idx, dataset_name in idx_to_dataset.items()
                 ]
-                for future in tqdm(as_completed(futures), total=len(futures), desc="Collecting PDF extractions"):
+                for future in tqdm(as_completed(collect_futures), total=len(collect_futures), desc="Collecting PDF extractions"):
                     results = future.result()
                     structured_results.extend(results)
 
