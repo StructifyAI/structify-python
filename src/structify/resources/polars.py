@@ -912,8 +912,7 @@ class PolarsResource(SyncAPIResource):
                 if isinstance(instructions, str):
                     pdf_instructions = instructions
                 elif instructions_list:
-                    # We already checked that instructions_list is the same length as batch_rows
-                    pdf_instructions = instructions_list[row_idx]
+                    pdf_instructions = cast(str | None, instructions_list[row_idx])
                 elif conditioning:
                     pdf_instructions = conditioning
 
