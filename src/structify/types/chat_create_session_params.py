@@ -44,6 +44,7 @@ class Config(TypedDict, total=False):
             "bedrock.claude-sonnet-4-bedrock",
             "bedrock.claude-sonnet-4-5-bedrock",
             "bedrock.claude-opus-4-5-bedrock",
+            "bedrock.claude-haiku-4-5-bedrock",
             "gemini.gemini-2.5-pro",
             "gemini.gemini-2.5-flash",
             "gemini.gemini-3-pro-preview",
