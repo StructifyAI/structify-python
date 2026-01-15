@@ -935,13 +935,15 @@ class PolarsResource(SyncAPIResource):
             # Wait for all PDF processing jobs to complete
             self._client.jobs.wait_for_jobs(job_ids=job_ids, title=f"Parsing {table_name} from PDFs", node_id=node_id)
 
-            # Collect results from all processed PDFs
+            # Collect results from all processed PDFs - each result is tagged with its source row_idx
             structured_results: list[dict[str, Any]] = []
 
             def collect_pdf_results(row_idx: int, dataset_name: str) -> List[Dict[str, Any]]:
                 pdf_path = batch_rows[row_idx][path_column]
                 entities_result = self._client.datasets.view_table(dataset=dataset_name, name=table_name)
-                return [{**entity.properties, path_column: pdf_path} for entity in entities_result]
+                return [
+                    {**entity.properties, path_column: pdf_path, "__row_idx__": row_idx} for entity in entities_result
+                ]
 
             with ThreadPoolExecutor(max_workers=MAX_PARALLEL_REQUESTS) as executor:
                 collect_futures = [
@@ -958,17 +960,13 @@ class PolarsResource(SyncAPIResource):
                     if col_name not in result_row:
                         result_row[col_name] = None
 
-            # Create DataFrame with structured results
             if not structured_results:
-                structured_df = pl.DataFrame(
-                    {col: pl.Series([], dtype=polars_schema[col]) for col in polars_schema.names()}
-                )
-            else:
-                structured_df = pl.DataFrame(structured_results, schema=polars_schema)
+                return pl.DataFrame(schema=polars_schema)
 
-            # Join with original batch to preserve any additional columns
-            joined_df = batch_df.join(structured_df, on=path_column, how="left")
-            return joined_df
+            # Build result dataframe directly from structured_results without joining
+            # Each entity is already tagged with path_column from its source PDF
+            structured_df = pl.DataFrame(structured_results).select(polars_schema.names())
+            return structured_df.cast(polars_schema)
 
         return document_paths.map_batches(structure_batch, schema=polars_schema, no_optimizations=True)
 
