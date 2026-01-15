@@ -866,7 +866,7 @@ class PolarsResource(SyncAPIResource):
             instr_df = instructions.collect()
             if instr_df.shape[0] != paths_df.shape[0]:
                 raise ValueError(f"instructions shape {instr_df.shape} != document_paths shape {paths_df.shape}")
-            instructions_list = cast(list[str | None], instr_df[instr_df.columns[0]].to_list())
+            instructions_list = cast(List[Optional[str]], instr_df[instr_df.columns[0]].to_list())
 
         def structure_batch(batch_df: pl.DataFrame) -> pl.DataFrame:
             # Track by row index since the same PDF may appear multiple times with different instructions
@@ -912,7 +912,7 @@ class PolarsResource(SyncAPIResource):
                 if isinstance(instructions, str):
                     pdf_instructions = instructions
                 elif instructions_list:
-                    pdf_instructions = cast(str | None, instructions_list[row_idx])
+                    pdf_instructions = cast(Optional[str], instructions_list[row_idx])
                 elif conditioning:
                     pdf_instructions = conditioning
 
