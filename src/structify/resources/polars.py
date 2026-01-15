@@ -944,11 +944,11 @@ class PolarsResource(SyncAPIResource):
                 return [{**entity.properties, path_column: pdf_path} for entity in entities_result]
 
             with ThreadPoolExecutor(max_workers=MAX_PARALLEL_REQUESTS) as executor:
-                futures = [
+                collect_futures = [
                     executor.submit(collect_pdf_results, row_idx, dataset_name)
                     for row_idx, dataset_name in idx_to_dataset.items()
                 ]
-                for future in tqdm(as_completed(futures), total=len(futures), desc="Collecting PDF extractions"):
+                for future in tqdm(as_completed(collect_futures), total=len(collect_futures), desc="Collecting PDF extractions"):
                     results = future.result()
                     structured_results.extend(results)
 
