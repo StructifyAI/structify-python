@@ -18,6 +18,7 @@ from ..types import (
     chat_update_session_params,
     chat_add_collaborator_params,
     chat_revert_to_commit_params,
+    chat_admin_issue_found_params,
     chat_update_visibility_params,
     chat_grant_admin_override_params,
     chat_update_session_favorite_params,
@@ -41,6 +42,7 @@ from ..types.chat_session_role import ChatSessionRole
 from ..types.chat_load_files_response import ChatLoadFilesResponse
 from ..types.get_chat_session_response import GetChatSessionResponse
 from ..types.get_dependencies_response import GetDependenciesResponse
+from ..types.admin_issue_found_response import AdminIssueFoundResponse
 from ..types.chat_delete_files_response import ChatDeleteFilesResponse
 from ..types.chat_session_with_messages import ChatSessionWithMessages
 from ..types.update_visibility_response import UpdateVisibilityResponse
@@ -189,6 +191,48 @@ class ChatResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=ChatPrompt,
+        )
+
+    def admin_issue_found(
+        self,
+        chat_id: str,
+        *,
+        message: str,
+        title: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AdminIssueFoundResponse:
+        """
+        Add an IssueFound tool call as an admin-only auto-review message
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not chat_id:
+            raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
+        return self._post(
+            f"/chat/sessions/{chat_id}/admin/issue_found",
+            body=maybe_transform(
+                {
+                    "message": message,
+                    "title": title,
+                },
+                chat_admin_issue_found_params.ChatAdminIssueFoundParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=AdminIssueFoundResponse,
         )
 
     def copy(
@@ -1098,6 +1142,48 @@ class AsyncChatResource(AsyncAPIResource):
             cast_to=ChatPrompt,
         )
 
+    async def admin_issue_found(
+        self,
+        chat_id: str,
+        *,
+        message: str,
+        title: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AdminIssueFoundResponse:
+        """
+        Add an IssueFound tool call as an admin-only auto-review message
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not chat_id:
+            raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
+        return await self._post(
+            f"/chat/sessions/{chat_id}/admin/issue_found",
+            body=await async_maybe_transform(
+                {
+                    "message": message,
+                    "title": title,
+                },
+                chat_admin_issue_found_params.ChatAdminIssueFoundParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=AdminIssueFoundResponse,
+        )
+
     async def copy(
         self,
         *,
@@ -1888,6 +1974,9 @@ class ChatResourceWithRawResponse:
         self.admin_get_chat_prompt = to_raw_response_wrapper(
             chat.admin_get_chat_prompt,
         )
+        self.admin_issue_found = to_raw_response_wrapper(
+            chat.admin_issue_found,
+        )
         self.copy = to_raw_response_wrapper(
             chat.copy,
         )
@@ -1965,6 +2054,9 @@ class AsyncChatResourceWithRawResponse:
         )
         self.admin_get_chat_prompt = async_to_raw_response_wrapper(
             chat.admin_get_chat_prompt,
+        )
+        self.admin_issue_found = async_to_raw_response_wrapper(
+            chat.admin_issue_found,
         )
         self.copy = async_to_raw_response_wrapper(
             chat.copy,
@@ -2044,6 +2136,9 @@ class ChatResourceWithStreamingResponse:
         self.admin_get_chat_prompt = to_streamed_response_wrapper(
             chat.admin_get_chat_prompt,
         )
+        self.admin_issue_found = to_streamed_response_wrapper(
+            chat.admin_issue_found,
+        )
         self.copy = to_streamed_response_wrapper(
             chat.copy,
         )
@@ -2121,6 +2216,9 @@ class AsyncChatResourceWithStreamingResponse:
         )
         self.admin_get_chat_prompt = async_to_streamed_response_wrapper(
             chat.admin_get_chat_prompt,
+        )
+        self.admin_issue_found = async_to_streamed_response_wrapper(
+            chat.admin_issue_found,
         )
         self.copy = async_to_streamed_response_wrapper(
             chat.copy,
