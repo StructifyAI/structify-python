@@ -35,6 +35,8 @@ class ParametersStructuringInputAgentAgentPdfPdf(BaseModel):
 
     path: str
 
+    single_agent: Optional[bool] = None
+
 
 class ParametersStructuringInputAgentAgentPdf(BaseModel):
     pdf: ParametersStructuringInputAgentAgentPdfPdf = FieldInfo(alias="PDF")
