@@ -24,6 +24,7 @@ __all__ = [
     "DatahubSchemasCreated",
     "DatahubTablesProcessed",
     "DatahubEmbeddingBatch",
+    "ViewedPdfPage",
 ]
 
 
@@ -164,6 +165,12 @@ class DatahubEmbeddingBatch(BaseModel):
     total_batches: int
 
 
+class ViewedPdfPage(BaseModel):
+    event_type: Literal["viewed_pdf_page"]
+
+    page_index: int
+
+
 JobEventBody: TypeAlias = Annotated[
     Union[
         AgentNavigated,
@@ -181,6 +188,7 @@ JobEventBody: TypeAlias = Annotated[
         DatahubSchemasCreated,
         DatahubTablesProcessed,
         DatahubEmbeddingBatch,
+        ViewedPdfPage,
     ],
     PropertyInfo(discriminator="event_type"),
 ]
