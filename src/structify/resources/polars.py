@@ -950,7 +950,9 @@ class PolarsResource(SyncAPIResource):
                     executor.submit(collect_pdf_results, row_idx, dataset_name)
                     for row_idx, dataset_name in idx_to_dataset.items()
                 ]
-                for future in tqdm(as_completed(collect_futures), total=len(collect_futures), desc="Collecting PDF extractions"):
+                for future in tqdm(
+                    as_completed(collect_futures), total=len(collect_futures), desc="Collecting PDF extractions"
+                ):
                     results = future.result()
                     structured_results.extend(results)
 
@@ -966,7 +968,7 @@ class PolarsResource(SyncAPIResource):
             # Build result dataframe directly from structured_results without joining
             # Each entity is already tagged with path_column from its source PDF
             structured_df = pl.DataFrame(structured_results).select(polars_schema.names())
-            return structured_df.cast(polars_schema)
+            return structured_df.cast(dict(polars_schema))
 
         return document_paths.map_batches(structure_batch, schema=polars_schema, no_optimizations=True)
 
