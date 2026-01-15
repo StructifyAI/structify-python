@@ -866,7 +866,7 @@ class PolarsResource(SyncAPIResource):
             instr_df = instructions.collect()
             if instr_df.shape[0] != paths_df.shape[0]:
                 raise ValueError(f"instructions shape {instr_df.shape} != document_paths shape {paths_df.shape}")
-            instructions_list = instr_df[instr_df.columns[0]].to_list()
+            instructions_list = cast(List[Optional[str]], instr_df[instr_df.columns[0]].to_list())
 
         def structure_batch(batch_df: pl.DataFrame) -> pl.DataFrame:
             # Track by row index since the same PDF may appear multiple times with different instructions
@@ -912,8 +912,7 @@ class PolarsResource(SyncAPIResource):
                 if isinstance(instructions, str):
                     pdf_instructions = instructions
                 elif instructions_list:
-                    # We already checked that instructions_list is the same length as batch_rows
-                    pdf_instructions = instructions_list[row_idx]
+                    pdf_instructions = cast(Optional[str], instructions_list[row_idx])
                 elif conditioning:
                     pdf_instructions = conditioning
 
@@ -945,11 +944,11 @@ class PolarsResource(SyncAPIResource):
                 return [{**entity.properties, path_column: pdf_path} for entity in entities_result]
 
             with ThreadPoolExecutor(max_workers=MAX_PARALLEL_REQUESTS) as executor:
-                futures = [
+                collect_futures = [
                     executor.submit(collect_pdf_results, row_idx, dataset_name)
                     for row_idx, dataset_name in idx_to_dataset.items()
                 ]
-                for future in tqdm(as_completed(futures), total=len(futures), desc="Collecting PDF extractions"):
+                for future in tqdm(as_completed(collect_futures), total=len(collect_futures), desc="Collecting PDF extractions"):
                     results = future.result()
                     structured_results.extend(results)
 
