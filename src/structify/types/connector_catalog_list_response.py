@@ -10,15 +10,12 @@ __all__ = ["ConnectorCatalogListResponse", "CategoryCount"]
 
 class CategoryCount(BaseModel):
     category: str
-    """Primary category label used for catalog filtering."""
 
     count: int
-    """Number of catalog entries in this category."""
 
 
 class ConnectorCatalogListResponse(BaseModel):
     category_counts: List[CategoryCount]
-    """Counts of catalog entries grouped by primary category."""
 
     items: List[ConnectorCatalogWithMethods]
 
