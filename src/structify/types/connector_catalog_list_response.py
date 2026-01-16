@@ -5,18 +5,10 @@ from typing import List
 from .._models import BaseModel
 from .connector_catalog_with_methods import ConnectorCatalogWithMethods
 
-__all__ = ["ConnectorCatalogListResponse", "CategoryCount"]
-
-
-class CategoryCount(BaseModel):
-    category: str
-
-    count: int
+__all__ = ["ConnectorCatalogListResponse"]
 
 
 class ConnectorCatalogListResponse(BaseModel):
-    category_counts: List[CategoryCount]
-
     items: List[ConnectorCatalogWithMethods]
 
     total_count: int

@@ -1,10 +1,11 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Union, Optional
+from typing import Dict, List, Union, Optional
 from typing_extensions import Literal, Annotated, TypeAlias
 
 from .._utils import PropertyInfo
 from .._models import BaseModel
+from .knowledge_graph import KnowledgeGraph
 
 __all__ = [
     "ToolInvocation",
@@ -12,6 +13,21 @@ __all__ = [
     "WebSearchInput",
     "WebNavigate",
     "WebNavigateInput",
+    "ViewPage",
+    "ViewPageInput",
+    "Save",
+    "SaveInput",
+    "SaveEntities",
+    "SaveEntitiesInput",
+    "Exit",
+    "ExitInput",
+    "APIExecute",
+    "APIExecuteInput",
+    "Javascript",
+    "JavascriptInput",
+    "NavigateToIFrame",
+    "NavigateToIFrameInput",
+    "InfiniteScroll",
     "InspectStep",
     "InspectStepInput",
     "ReadNodeLogs",
@@ -66,11 +82,102 @@ class WebSearch(BaseModel):
 class WebNavigateInput(BaseModel):
     url: str
 
+    output_format: Optional[Literal["Text", "Visual"]] = None
+
 
 class WebNavigate(BaseModel):
     input: WebNavigateInput
 
     name: Literal["WebNavigate"]
+
+
+class ViewPageInput(BaseModel):
+    page_number: int
+
+
+class ViewPage(BaseModel):
+    input: ViewPageInput
+
+    name: Literal["ViewPage"]
+
+
+class SaveInput(BaseModel):
+    knowledge_graph: KnowledgeGraph
+    """
+    Knowledge graph info structured to deserialize and display in the same format
+    that the LLM outputs. Also the first representation of an LLM output in the
+    pipeline from raw tool output to being merged into a DB
+    """
+
+    reason: str
+
+    sources: List[str]
+
+
+class Save(BaseModel):
+    input: SaveInput
+
+    name: Literal["Save"]
+
+
+class SaveEntitiesInput(BaseModel):
+    entities: List[Dict[str, Dict[str, object]]]
+
+    reason: str
+
+    sources: List[str]
+
+
+class SaveEntities(BaseModel):
+    input: SaveEntitiesInput
+
+    name: Literal["SaveEntities"]
+
+
+class ExitInput(BaseModel):
+    reason: str
+
+
+class Exit(BaseModel):
+    input: ExitInput
+
+    name: Literal["Exit"]
+
+
+class APIExecuteInput(BaseModel):
+    code: str
+
+
+class APIExecute(BaseModel):
+    input: APIExecuteInput
+
+    name: Literal["ApiExecute"]
+
+
+class JavascriptInput(BaseModel):
+    code: str
+
+
+class Javascript(BaseModel):
+    input: JavascriptInput
+
+    name: Literal["Javascript"]
+
+
+class NavigateToIFrameInput(BaseModel):
+    index: int
+
+
+class NavigateToIFrame(BaseModel):
+    input: NavigateToIFrameInput
+
+    name: Literal["NavigateToIFrame"]
+
+
+class InfiniteScroll(BaseModel):
+    input: object
+
+    name: Literal["InfiniteScroll"]
 
 
 class InspectStepInput(BaseModel):
@@ -329,6 +436,14 @@ ToolInvocation: TypeAlias = Annotated[
     Union[
         WebSearch,
         WebNavigate,
+        ViewPage,
+        Save,
+        SaveEntities,
+        Exit,
+        APIExecute,
+        Javascript,
+        NavigateToIFrame,
+        InfiniteScroll,
         InspectStep,
         ReadNodeLogs,
         DeleteFile,
