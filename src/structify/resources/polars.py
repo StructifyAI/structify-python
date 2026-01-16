@@ -5,6 +5,7 @@ import io
 import os
 import time
 import uuid
+from threading import Lock
 from typing import Any, Dict, List, Tuple, Literal, Optional, cast
 from concurrent.futures import Future, ThreadPoolExecutor, as_completed
 
@@ -84,6 +85,7 @@ class PolarsResource(SyncAPIResource):
         new_columns: Dict[str, Dict[str, Any]],
         dataframe_name: str,
         dataframe_description: str,
+        include_job_ids: bool = False,
     ) -> LazyFrame:
         """
         Enhance one or more columns of a `LazyFrame` by letting Structify populate the
@@ -111,6 +113,8 @@ class PolarsResource(SyncAPIResource):
             dataframe_description: Free-form description that provides the
                 necessary context for Structify (e.g. "Companies that are in the
                 food industry").
+            include_job_ids: When True, include a `job_id` column containing a
+                comma-separated list of Structify job ids for each row.
         """
 
         # Existing columns & their dtypes from the LazyFrame
@@ -166,6 +170,9 @@ class PolarsResource(SyncAPIResource):
 
         # Create the expected output schema
         expected_schema = properties_to_schema(all_properties)
+        job_id_column: str | None = "job_id" if include_job_ids else None
+        if job_id_column is not None:
+            expected_schema[job_id_column] = pl.String
 
         # Apply Structify enrich on the dataframe
         def enhance_batch(batch_df: pl.DataFrame) -> pl.DataFrame:
@@ -181,6 +188,8 @@ class PolarsResource(SyncAPIResource):
 
             # We add individually instead of batched to maintain the mapping between entity and ID (Same as in enhance_relationships)
             entity_id_to_entity: Dict[str, EntityParam] = {}
+            job_ids_by_entity: Dict[str, list[str]] = {}
+            job_ids_lock = Lock()
 
             with ThreadPoolExecutor(max_workers=MAX_PARALLEL_REQUESTS) as executor:
                 add_futures = [executor.submit(self._add_single_entity, dataset_name, entity) for entity in entities]
@@ -194,7 +203,7 @@ class PolarsResource(SyncAPIResource):
             def enhance_entity_property(
                 structify_entity_id: str, entity_param: EntityParam, col_names: List[str]
             ) -> None:
-                self._client.structure.run_async(
+                job_id = self._client.structure.run_async(
                     dataset=dataset_name,
                     source={
                         "web": SourceWebWeb(
@@ -225,6 +234,9 @@ class PolarsResource(SyncAPIResource):
                         relationships=[],
                     ),
                 )
+                if job_id_column is not None:
+                    with job_ids_lock:
+                        job_ids_by_entity.setdefault(structify_entity_id, []).append(job_id)
 
             property_list = list(new_columns_dict.keys())
             if len(property_list) == 1:
@@ -250,10 +262,13 @@ class PolarsResource(SyncAPIResource):
             title = f"Enriching {property_names} for {dataframe_name}"
             self._client.jobs.wait_for_jobs(dataset_name=dataset_name, title=title, node_id=node_id)
             # 4. Collect the results
-            results = [
-                entity.properties
-                for entity in self._client.datasets.view_table(dataset=dataset_name, name=dataframe_name)
-            ]
+            results: list[dict[str, Properties]] = []
+            for entity in self._client.datasets.view_table(dataset=dataset_name, name=dataframe_name):
+                properties = entity.properties.copy()
+                if job_id_column is not None:
+                    job_ids = job_ids_by_entity.get(entity.id)
+                    properties[job_id_column] = ",".join(job_ids) if job_ids else None
+                results.append(properties)
             # 5. Return the results
             return pl.DataFrame(results, schema=expected_schema)
 
@@ -622,6 +637,7 @@ class PolarsResource(SyncAPIResource):
         relationship_name: str = "scraped",
         relationship_description: str = "",
         use_proxy: bool = False,
+        include_job_ids: bool = False,
     ) -> LazyFrame:
         """
         Scrape data from URLs in a LazyFrame column and return structured results, with a column `source_url` that contains the original URL.
@@ -632,6 +648,7 @@ class PolarsResource(SyncAPIResource):
           table_name: Name of the table to scrape. This will be the target table for the relationship.
           scrape_schema: Schema definition with descriptions, format: {"column_name": {"description": "...", "type": polars_dtype}}. If the column name is the same as the table name, it will be suffixed by the table name, e.g. "name_Person"
           original_column_map: Mapping of original column names to new names
+          include_job_ids: When True, include a `job_id` column containing the Structify job id for each URL.
         """
         relationship = CreateRelationshipParam(
             name=relationship_name,
@@ -657,6 +674,9 @@ class PolarsResource(SyncAPIResource):
             }
 
         output_schema = _merge_schema_with_suffix(input_schema, scraped_columns, suffix=relationship["target_table"])
+        job_id_column: str | None = "job_id" if include_job_ids else None
+        if job_id_column is not None:
+            output_schema[job_id_column] = pl.String
 
         properties: list[Property] = []
         for col_name, col_info in scrape_schema.items():
@@ -702,9 +722,11 @@ class PolarsResource(SyncAPIResource):
                 raise Exception(f"User cancelled scraping for {relationship['target_table']}")
 
             # 2. Scrape the URLs
+            job_ids_by_url: Dict[str, str] = {}
+
             def scrape_entity(entity: Dict[str, Any]) -> None:
                 entity_clean = {k: v for k, v in entity.items() if v is not None}
-                self._client.scrape.list(
+                response = self._client.scrape.list(
                     table_name=relationship["target_table"],
                     dataset_name=dataset_descriptor["name"],
                     input={
@@ -722,6 +744,10 @@ class PolarsResource(SyncAPIResource):
                     node_id=node_id,
                     use_proxy=use_proxy,
                 )
+                if job_id_column is not None:
+                    url = entity_clean.get(url_column)
+                    if isinstance(url, str):
+                        job_ids_by_url[url] = response.job_id
 
             with ThreadPoolExecutor(max_workers=MAX_PARALLEL_REQUESTS) as executor:
                 futures = [executor.submit(scrape_entity, entity) for entity in entities]
@@ -759,6 +785,10 @@ class PolarsResource(SyncAPIResource):
                                     **scraped_entity.properties,
                                     url_column: related_entity.properties[url_column],
                                 }
+                                if job_id_column is not None:
+                                    url_value = related_entity.properties.get(url_column)
+                                    if isinstance(url_value, str):
+                                        result_row[job_id_column] = job_ids_by_url.get(url_value)
                                 result_rows.append(result_row)
                     offset += LIMIT
                     if len(response.entities) < LIMIT:
@@ -767,6 +797,8 @@ class PolarsResource(SyncAPIResource):
                     break
             # Build scraped schema (pre-join, original names) incl. join column
             scraped_schema = scraped_columns | {url_column: input_schema[url_column]}
+            if job_id_column is not None:
+                scraped_schema[job_id_column] = pl.String
 
             # Fill missing columns in scraped results
             for result_row in result_rows:
@@ -790,6 +822,7 @@ class PolarsResource(SyncAPIResource):
         scrape_schema_override: TableParam | None = None,
         original_column_map: Dict[str, str] = {},
         use_proxy: bool = False,
+        include_job_ids: bool = False,
     ) -> LazyFrame:
         """
         DEPRECATED: Use `scrape_relationships` instead.
@@ -802,6 +835,7 @@ class PolarsResource(SyncAPIResource):
             scrape_schema_override=scrape_schema_override,
             original_column_map=original_column_map,
             use_proxy=use_proxy,
+            include_job_ids=include_job_ids,
         )
 
     def structure_pdfs(
