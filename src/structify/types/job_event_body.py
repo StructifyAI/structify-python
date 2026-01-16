@@ -118,6 +118,8 @@ class AttemptedMatch(BaseModel):
 
     match_idx: Optional[int] = None
 
+    raw_text: Optional[str] = None
+
 
 class DatahubPageFetched(BaseModel):
     datasets_in_page: int
