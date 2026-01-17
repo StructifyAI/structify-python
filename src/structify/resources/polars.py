@@ -27,7 +27,6 @@ from .._response import (
 )
 from ..types.table_param import Property
 from ..lib.cost_confirmation import request_cost_confirmation_if_needed
-from .external_dataframe_proxy import ServicesProxy
 from ..types.save_requirement_param import RequiredEntity, RequiredProperty
 from ..types.dataset_descriptor_param import DatasetDescriptorParam
 from ..types.structure_run_async_params import SourcePdf, SourceWebWeb
@@ -38,11 +37,6 @@ MAX_PARALLEL_REQUESTS = 20
 
 
 class PolarsResource(SyncAPIResource):
-    @cached_property
-    def external(self) -> ServicesProxy:
-        """Access external whitelabel services with DataFrame batch processing."""
-        return ServicesProxy(self._client)
-
     @cached_property
     def with_raw_response(self) -> PolarsResourceWithRawResponse:
         """
