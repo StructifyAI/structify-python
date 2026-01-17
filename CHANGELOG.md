@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.174.1 (2026-01-17)
+
+Full Changelog: [v1.174.0...v1.174.1](https://github.com/StructifyAI/structify-python/compare/v1.174.0...v1.174.1)
+
+### Chores
+
+* **internal:** update `actions/checkout` version ([61e31a0](https://github.com/StructifyAI/structify-python/commit/61e31a0d4c76caf0a517a7fb820ac706f5c3726d))
+
 ## 1.174.0 (2026-01-17)
 
 Full Changelog: [v1.173.0...v1.174.0](https://github.com/StructifyAI/structify-python/compare/v1.173.0...v1.174.0)
