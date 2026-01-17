@@ -18,6 +18,7 @@ __all__ = [
     "DerivedProperty",
     "Failed",
     "Completed",
+    "CacheHit",
     "AttemptedMatch",
     "DatahubPageFetched",
     "DatahubDatabasesCreated",
@@ -107,6 +108,14 @@ class Completed(BaseModel):
     message: Optional[str] = None
 
 
+class CacheHit(BaseModel):
+    cached_from_job_id: str
+
+    event_type: Literal["cache_hit"]
+
+    message: Optional[str] = None
+
+
 class AttemptedMatch(BaseModel):
     candidates: List[Dict[str, Union[str, bool, float]]]
 
@@ -117,6 +126,8 @@ class AttemptedMatch(BaseModel):
     target: Dict[str, Union[str, bool, float]]
 
     match_idx: Optional[int] = None
+
+    raw_text: Optional[str] = None
 
 
 class DatahubPageFetched(BaseModel):
@@ -182,6 +193,7 @@ JobEventBody: TypeAlias = Annotated[
         DerivedProperty,
         Failed,
         Completed,
+        CacheHit,
         AttemptedMatch,
         DatahubPageFetched,
         DatahubDatabasesCreated,
