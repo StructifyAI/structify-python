@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, Union, Optional
+from typing import Dict, List, Union, Optional
 from datetime import datetime
 from typing_extensions import Literal, TypeAlias
 
@@ -102,6 +102,8 @@ class DatasetViewTableResponse(BaseModel):
     created_at: datetime
 
     dataset_id: str
+
+    job_ids: List[str]
 
     label: str
 
