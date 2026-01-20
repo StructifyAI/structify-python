@@ -44,13 +44,13 @@ from .._response import (
 from .._base_client import make_request_options
 from ..types.workflow_dag import WorkflowDag
 from ..types.autofix_context import AutofixContext
+from ..types.dashboard_param import DashboardParam
 from ..types.edge_spec_param import EdgeSpecParam
 from ..types.node_spec_param import NodeSpecParam
 from ..types.workflow_session import WorkflowSession
 from ..types.get_node_response import GetNodeResponse
 from ..types.finalize_dag_response import FinalizeDagResponse
 from ..types.workflow_session_node import WorkflowSessionNode
-from ..types.dashboard_layout_param import DashboardLayoutParam
 from ..types.get_node_logs_response import GetNodeLogsResponse
 from ..types.session_kill_jobs_response import SessionKillJobsResponse
 from ..types.session_get_events_response import SessionGetEventsResponse
@@ -156,7 +156,7 @@ class SessionsResource(SyncAPIResource):
         *,
         edges: Iterable[EdgeSpecParam],
         nodes: Iterable[NodeSpecParam],
-        dashboard_layout: Optional[DashboardLayoutParam] | Omit = omit,
+        dashboard_layout: Optional[DashboardParam] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -169,6 +169,9 @@ class SessionsResource(SyncAPIResource):
         ready
 
         Args:
+          dashboard_layout: A page is the top-level container with title/description Can contain multiple
+              dashboards with different datasets
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -606,7 +609,7 @@ class SessionsResource(SyncAPIResource):
         self,
         session_id: str,
         *,
-        layout: DashboardLayoutParam,
+        layout: DashboardParam,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -616,6 +619,9 @@ class SessionsResource(SyncAPIResource):
     ) -> WorkflowSession:
         """
         Args:
+          layout: A page is the top-level container with title/description Can contain multiple
+              dashboards with different datasets
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -818,7 +824,7 @@ class AsyncSessionsResource(AsyncAPIResource):
         *,
         edges: Iterable[EdgeSpecParam],
         nodes: Iterable[NodeSpecParam],
-        dashboard_layout: Optional[DashboardLayoutParam] | Omit = omit,
+        dashboard_layout: Optional[DashboardParam] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -831,6 +837,9 @@ class AsyncSessionsResource(AsyncAPIResource):
         ready
 
         Args:
+          dashboard_layout: A page is the top-level container with title/description Can contain multiple
+              dashboards with different datasets
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -1268,7 +1277,7 @@ class AsyncSessionsResource(AsyncAPIResource):
         self,
         session_id: str,
         *,
-        layout: DashboardLayoutParam,
+        layout: DashboardParam,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1278,6 +1287,9 @@ class AsyncSessionsResource(AsyncAPIResource):
     ) -> WorkflowSession:
         """
         Args:
+          layout: A page is the top-level container with title/description Can contain multiple
+              dashboards with different datasets
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
