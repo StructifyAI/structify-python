@@ -113,6 +113,54 @@ class TestWhitelabel:
                 service="service",
             )
 
+    @parametrize
+    def test_method_proxy_post(self, client: Structify) -> None:
+        whitelabel = client.whitelabel.proxy_post(
+            path="path",
+            service="service",
+        )
+        assert whitelabel is None
+
+    @parametrize
+    def test_raw_response_proxy_post(self, client: Structify) -> None:
+        response = client.whitelabel.with_raw_response.proxy_post(
+            path="path",
+            service="service",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        whitelabel = response.parse()
+        assert whitelabel is None
+
+    @parametrize
+    def test_streaming_response_proxy_post(self, client: Structify) -> None:
+        with client.whitelabel.with_streaming_response.proxy_post(
+            path="path",
+            service="service",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            whitelabel = response.parse()
+            assert whitelabel is None
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_path_params_proxy_post(self, client: Structify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `service` but received ''"):
+            client.whitelabel.with_raw_response.proxy_post(
+                path="path",
+                service="",
+            )
+
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `path` but received ''"):
+            client.whitelabel.with_raw_response.proxy_post(
+                path="",
+                service="service",
+            )
+
 
 class TestAsyncWhitelabel:
     parametrize = pytest.mark.parametrize(
@@ -211,6 +259,54 @@ class TestAsyncWhitelabel:
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `path` but received ''"):
             await async_client.whitelabel.with_raw_response.proxy_get(
+                path="",
+                service="service",
+            )
+
+    @parametrize
+    async def test_method_proxy_post(self, async_client: AsyncStructify) -> None:
+        whitelabel = await async_client.whitelabel.proxy_post(
+            path="path",
+            service="service",
+        )
+        assert whitelabel is None
+
+    @parametrize
+    async def test_raw_response_proxy_post(self, async_client: AsyncStructify) -> None:
+        response = await async_client.whitelabel.with_raw_response.proxy_post(
+            path="path",
+            service="service",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        whitelabel = await response.parse()
+        assert whitelabel is None
+
+    @parametrize
+    async def test_streaming_response_proxy_post(self, async_client: AsyncStructify) -> None:
+        async with async_client.whitelabel.with_streaming_response.proxy_post(
+            path="path",
+            service="service",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            whitelabel = await response.parse()
+            assert whitelabel is None
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_proxy_post(self, async_client: AsyncStructify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `service` but received ''"):
+            await async_client.whitelabel.with_raw_response.proxy_post(
+                path="path",
+                service="",
+            )
+
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `path` but received ''"):
+            await async_client.whitelabel.with_raw_response.proxy_post(
                 path="",
                 service="service",
             )

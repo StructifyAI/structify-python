@@ -108,6 +108,41 @@ class WhitelabelResource(SyncAPIResource):
             cast_to=NoneType,
         )
 
+    def proxy_post(
+        self,
+        path: str,
+        *,
+        service: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> None:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not service:
+            raise ValueError(f"Expected a non-empty value for `service` but received {service!r}")
+        if not path:
+            raise ValueError(f"Expected a non-empty value for `path` but received {path!r}")
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return self._post(
+            f"/whitelabel/{service}/{path}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NoneType,
+        )
+
 
 class AsyncWhitelabelResource(AsyncAPIResource):
     @cached_property
@@ -198,6 +233,41 @@ class AsyncWhitelabelResource(AsyncAPIResource):
             cast_to=NoneType,
         )
 
+    async def proxy_post(
+        self,
+        path: str,
+        *,
+        service: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> None:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not service:
+            raise ValueError(f"Expected a non-empty value for `service` but received {service!r}")
+        if not path:
+            raise ValueError(f"Expected a non-empty value for `path` but received {path!r}")
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return await self._post(
+            f"/whitelabel/{service}/{path}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NoneType,
+        )
+
 
 class WhitelabelResourceWithRawResponse:
     def __init__(self, whitelabel: WhitelabelResource) -> None:
@@ -208,6 +278,9 @@ class WhitelabelResourceWithRawResponse:
         )
         self.proxy_get = to_raw_response_wrapper(
             whitelabel.proxy_get,
+        )
+        self.proxy_post = to_raw_response_wrapper(
+            whitelabel.proxy_post,
         )
 
 
@@ -221,6 +294,9 @@ class AsyncWhitelabelResourceWithRawResponse:
         self.proxy_get = async_to_raw_response_wrapper(
             whitelabel.proxy_get,
         )
+        self.proxy_post = async_to_raw_response_wrapper(
+            whitelabel.proxy_post,
+        )
 
 
 class WhitelabelResourceWithStreamingResponse:
@@ -233,6 +309,9 @@ class WhitelabelResourceWithStreamingResponse:
         self.proxy_get = to_streamed_response_wrapper(
             whitelabel.proxy_get,
         )
+        self.proxy_post = to_streamed_response_wrapper(
+            whitelabel.proxy_post,
+        )
 
 
 class AsyncWhitelabelResourceWithStreamingResponse:
@@ -244,4 +323,7 @@ class AsyncWhitelabelResourceWithStreamingResponse:
         )
         self.proxy_get = async_to_streamed_response_wrapper(
             whitelabel.proxy_get,
+        )
+        self.proxy_post = async_to_streamed_response_wrapper(
+            whitelabel.proxy_post,
         )
