@@ -111,6 +111,7 @@ from .scrape_list_response import ScrapeListResponse as ScrapeListResponse
 from .scrape_scrape_params import ScrapeScrapeParams as ScrapeScrapeParams
 from .select_team_response import SelectTeamResponse as SelectTeamResponse
 from .source_list_response import SourceListResponse as SourceListResponse
+from .structure_pdf_params import StructurePdfParams as StructurePdfParams
 from .update_team_response import UpdateTeamResponse as UpdateTeamResponse
 from .workflow_stop_params import WorkflowStopParams as WorkflowStopParams
 from .connector_auth_method import ConnectorAuthMethod as ConnectorAuthMethod
@@ -147,6 +148,7 @@ from .list_projects_response import ListProjectsResponse as ListProjectsResponse
 from .remove_member_response import RemoveMemberResponse as RemoveMemberResponse
 from .save_requirement_param import SaveRequirementParam as SaveRequirementParam
 from .scrape_scrape_response import ScrapeScrapeResponse as ScrapeScrapeResponse
+from .structure_pdf_response import StructurePdfResponse as StructurePdfResponse
 from .team_add_member_params import TeamAddMemberParams as TeamAddMemberParams
 from .workflow_schedule_info import WorkflowScheduleInfo as WorkflowScheduleInfo
 from .connector_create_params import ConnectorCreateParams as ConnectorCreateParams

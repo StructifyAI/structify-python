@@ -40,7 +40,7 @@ class SourcePdfPdf(TypedDict, total=False):
 
     path: Required[str]
 
-    single_agent: bool
+    page: Optional[int]
 
 
 class SourcePdf(TypedDict, total=False):
