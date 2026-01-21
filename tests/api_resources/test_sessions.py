@@ -157,46 +157,12 @@ class TestSessions:
                 }
             ],
             dashboard_layout={
-                "dashboards": [
+                "components": [
                     {
-                        "components": [
-                            {
-                                "node_name": "node_name",
-                                "title": "title",
-                                "description": "description",
-                                "mosaic": {
-                                    "fields": {"foo": "string"},
-                                    "bin": {
-                                        "as": "as",
-                                        "field": "field",
-                                        "step": 0,
-                                    },
-                                    "group_by": ["string"],
-                                    "limit": 0,
-                                    "order_by": "orderBy",
-                                    "table": "table",
-                                },
-                                "span": 0,
-                            }
-                        ],
+                        "node_name": "node_name",
                         "title": "title",
-                        "controls": [
-                            {
-                                "id": "id",
-                                "field": "field",
-                                "label": "label",
-                                "options": [
-                                    {
-                                        "label": "label",
-                                        "value": "value",
-                                    }
-                                ],
-                                "type": "dropdown",
-                                "default_value": "default_value",
-                            }
-                        ],
-                        "dataset_node_name": "datasetNodeName",
                         "description": "description",
+                        "span": 0,
                     }
                 ],
                 "title": "title",
@@ -795,14 +761,9 @@ class TestSessions:
         session = client.sessions.upload_dashboard_layout(
             session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             layout={
-                "dashboards": [
+                "components": [
                     {
-                        "components": [
-                            {
-                                "node_name": "node_name",
-                                "title": "title",
-                            }
-                        ],
+                        "node_name": "node_name",
                         "title": "title",
                     }
                 ],
@@ -816,46 +777,12 @@ class TestSessions:
         session = client.sessions.upload_dashboard_layout(
             session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             layout={
-                "dashboards": [
+                "components": [
                     {
-                        "components": [
-                            {
-                                "node_name": "node_name",
-                                "title": "title",
-                                "description": "description",
-                                "mosaic": {
-                                    "fields": {"foo": "string"},
-                                    "bin": {
-                                        "as": "as",
-                                        "field": "field",
-                                        "step": 0,
-                                    },
-                                    "group_by": ["string"],
-                                    "limit": 0,
-                                    "order_by": "orderBy",
-                                    "table": "table",
-                                },
-                                "span": 0,
-                            }
-                        ],
+                        "node_name": "node_name",
                         "title": "title",
-                        "controls": [
-                            {
-                                "id": "id",
-                                "field": "field",
-                                "label": "label",
-                                "options": [
-                                    {
-                                        "label": "label",
-                                        "value": "value",
-                                    }
-                                ],
-                                "type": "dropdown",
-                                "default_value": "default_value",
-                            }
-                        ],
-                        "dataset_node_name": "datasetNodeName",
                         "description": "description",
+                        "span": 0,
                     }
                 ],
                 "title": "title",
@@ -869,14 +796,9 @@ class TestSessions:
         response = client.sessions.with_raw_response.upload_dashboard_layout(
             session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             layout={
-                "dashboards": [
+                "components": [
                     {
-                        "components": [
-                            {
-                                "node_name": "node_name",
-                                "title": "title",
-                            }
-                        ],
+                        "node_name": "node_name",
                         "title": "title",
                     }
                 ],
@@ -894,14 +816,9 @@ class TestSessions:
         with client.sessions.with_streaming_response.upload_dashboard_layout(
             session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             layout={
-                "dashboards": [
+                "components": [
                     {
-                        "components": [
-                            {
-                                "node_name": "node_name",
-                                "title": "title",
-                            }
-                        ],
+                        "node_name": "node_name",
                         "title": "title",
                     }
                 ],
@@ -922,14 +839,9 @@ class TestSessions:
             client.sessions.with_raw_response.upload_dashboard_layout(
                 session_id="",
                 layout={
-                    "dashboards": [
+                    "components": [
                         {
-                            "components": [
-                                {
-                                    "node_name": "node_name",
-                                    "title": "title",
-                                }
-                            ],
+                            "node_name": "node_name",
                             "title": "title",
                         }
                     ],
@@ -1158,46 +1070,12 @@ class TestAsyncSessions:
                 }
             ],
             dashboard_layout={
-                "dashboards": [
+                "components": [
                     {
-                        "components": [
-                            {
-                                "node_name": "node_name",
-                                "title": "title",
-                                "description": "description",
-                                "mosaic": {
-                                    "fields": {"foo": "string"},
-                                    "bin": {
-                                        "as": "as",
-                                        "field": "field",
-                                        "step": 0,
-                                    },
-                                    "group_by": ["string"],
-                                    "limit": 0,
-                                    "order_by": "orderBy",
-                                    "table": "table",
-                                },
-                                "span": 0,
-                            }
-                        ],
+                        "node_name": "node_name",
                         "title": "title",
-                        "controls": [
-                            {
-                                "id": "id",
-                                "field": "field",
-                                "label": "label",
-                                "options": [
-                                    {
-                                        "label": "label",
-                                        "value": "value",
-                                    }
-                                ],
-                                "type": "dropdown",
-                                "default_value": "default_value",
-                            }
-                        ],
-                        "dataset_node_name": "datasetNodeName",
                         "description": "description",
+                        "span": 0,
                     }
                 ],
                 "title": "title",
@@ -1800,14 +1678,9 @@ class TestAsyncSessions:
         session = await async_client.sessions.upload_dashboard_layout(
             session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             layout={
-                "dashboards": [
+                "components": [
                     {
-                        "components": [
-                            {
-                                "node_name": "node_name",
-                                "title": "title",
-                            }
-                        ],
+                        "node_name": "node_name",
                         "title": "title",
                     }
                 ],
@@ -1821,46 +1694,12 @@ class TestAsyncSessions:
         session = await async_client.sessions.upload_dashboard_layout(
             session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             layout={
-                "dashboards": [
+                "components": [
                     {
-                        "components": [
-                            {
-                                "node_name": "node_name",
-                                "title": "title",
-                                "description": "description",
-                                "mosaic": {
-                                    "fields": {"foo": "string"},
-                                    "bin": {
-                                        "as": "as",
-                                        "field": "field",
-                                        "step": 0,
-                                    },
-                                    "group_by": ["string"],
-                                    "limit": 0,
-                                    "order_by": "orderBy",
-                                    "table": "table",
-                                },
-                                "span": 0,
-                            }
-                        ],
+                        "node_name": "node_name",
                         "title": "title",
-                        "controls": [
-                            {
-                                "id": "id",
-                                "field": "field",
-                                "label": "label",
-                                "options": [
-                                    {
-                                        "label": "label",
-                                        "value": "value",
-                                    }
-                                ],
-                                "type": "dropdown",
-                                "default_value": "default_value",
-                            }
-                        ],
-                        "dataset_node_name": "datasetNodeName",
                         "description": "description",
+                        "span": 0,
                     }
                 ],
                 "title": "title",
@@ -1874,14 +1713,9 @@ class TestAsyncSessions:
         response = await async_client.sessions.with_raw_response.upload_dashboard_layout(
             session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             layout={
-                "dashboards": [
+                "components": [
                     {
-                        "components": [
-                            {
-                                "node_name": "node_name",
-                                "title": "title",
-                            }
-                        ],
+                        "node_name": "node_name",
                         "title": "title",
                     }
                 ],
@@ -1899,14 +1733,9 @@ class TestAsyncSessions:
         async with async_client.sessions.with_streaming_response.upload_dashboard_layout(
             session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             layout={
-                "dashboards": [
+                "components": [
                     {
-                        "components": [
-                            {
-                                "node_name": "node_name",
-                                "title": "title",
-                            }
-                        ],
+                        "node_name": "node_name",
                         "title": "title",
                     }
                 ],
@@ -1927,14 +1756,9 @@ class TestAsyncSessions:
             await async_client.sessions.with_raw_response.upload_dashboard_layout(
                 session_id="",
                 layout={
-                    "dashboards": [
+                    "components": [
                         {
-                            "components": [
-                                {
-                                    "node_name": "node_name",
-                                    "title": "title",
-                                }
-                            ],
+                            "node_name": "node_name",
                             "title": "title",
                         }
                     ],

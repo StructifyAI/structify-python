@@ -35,7 +35,7 @@ class ParametersStructuringInputAgentAgentPdfPdf(BaseModel):
 
     path: str
 
-    single_agent: Optional[bool] = None
+    page: Optional[int] = None
 
 
 class ParametersStructuringInputAgentAgentPdf(BaseModel):
