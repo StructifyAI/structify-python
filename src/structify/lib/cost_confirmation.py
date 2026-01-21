@@ -9,13 +9,18 @@ from __future__ import annotations
 
 import os
 import time
-from typing import Any
+from typing import TYPE_CHECKING, Literal
+
+if TYPE_CHECKING:
+    from structify import Structify
 
 CONFIRMATION_TIMEOUT_SECONDS = 3600
 CONFIRMATION_POLL_INTERVAL_SECONDS = 0.5
 
 
-def request_cost_confirmation_if_needed(client: Any, row_count: int) -> bool:
+def request_cost_confirmation_if_needed(
+    client: Structify, row_count: int, operation: Literal["tag", "pdf", "web", "match"]
+) -> bool:
     """Request cost confirmation if running in workflow context with confirmation enabled.
 
     When STRUCTIFY_REQUIRES_CONFIRMATION=true and STRUCTIFY_NODE_ID is set,
@@ -43,7 +48,7 @@ def request_cost_confirmation_if_needed(client: Any, row_count: int) -> bool:
     if row_count <= 0:
         return True
 
-    client.sessions.request_confirmation(node_id=node_id, row_count=row_count)
+    client.sessions.request_confirmation(node_id=node_id, row_count=row_count, operation=operation)
 
     start_time = time.time()
     while time.time() - start_time < CONFIRMATION_TIMEOUT_SECONDS:
