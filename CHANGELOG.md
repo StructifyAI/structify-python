@@ -1,5 +1,23 @@
 # Changelog
 
+## 1.175.0 (2026-01-21)
+
+Full Changelog: [v1.174.0...v1.175.0](https://github.com/StructifyAI/structify-python/compare/v1.174.0...v1.175.0)
+
+### Features
+
+* **api:** manual updates ([2e343eb](https://github.com/StructifyAI/structify-python/commit/2e343eb40a99f39efa8a11571f43bf0b3939931c))
+* **api:** manual updates ([d4eaea6](https://github.com/StructifyAI/structify-python/commit/d4eaea6684e7e86176e7240977fc3742f11160ae))
+* Update from Structify backend changes ([7c12fae](https://github.com/StructifyAI/structify-python/commit/7c12fae77216a7f218a91d22c2f6a945d83854ae))
+* Update from Structify backend changes ([ac09e0c](https://github.com/StructifyAI/structify-python/commit/ac09e0c9135311df2f9d0338e31aefd5585a74f2))
+* Update from Structify backend changes ([e74787b](https://github.com/StructifyAI/structify-python/commit/e74787b8cb367c3e03333ff8c9481d0570811f0a))
+* Update from Structify backend changes ([e7cb429](https://github.com/StructifyAI/structify-python/commit/e7cb429c53c01f0306f47a7eeff685d0837b276c))
+
+
+### Chores
+
+* **internal:** update `actions/checkout` version ([61e31a0](https://github.com/StructifyAI/structify-python/commit/61e31a0d4c76caf0a517a7fb820ac706f5c3726d))
+
 ## 1.174.0 (2026-01-17)
 
 Full Changelog: [v1.173.0...v1.174.0](https://github.com/StructifyAI/structify-python/compare/v1.173.0...v1.174.0)
