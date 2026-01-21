@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.176.1 (2026-01-21)
+
+Full Changelog: [v1.176.0...v1.176.1](https://github.com/StructifyAI/structify-python/compare/v1.176.0...v1.176.1)
+
 ## 1.176.0 (2026-01-21)
 
 Full Changelog: [v1.175.0...v1.176.0](https://github.com/StructifyAI/structify-python/compare/v1.175.0...v1.176.0)
