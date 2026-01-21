@@ -900,6 +900,7 @@ from structify.types import (
     StructureFindRelationshipResponse,
     StructureIsCompleteResponse,
     StructureJobStatusResponse,
+    StructurePdfResponse,
     StructureRunAsyncResponse,
 )
 ```
@@ -911,6 +912,7 @@ Methods:
 - <code title="post /structure/find_relationship">client.structure.<a href="./src/structify/resources/structure.py">find_relationship</a>(\*\*<a href="src/structify/types/structure_find_relationship_params.py">params</a>) -> str</code>
 - <code title="post /structure/is_complete">client.structure.<a href="./src/structify/resources/structure.py">is_complete</a>(\*\*<a href="src/structify/types/structure_is_complete_params.py">params</a>) -> str</code>
 - <code title="post /structure/job_status">client.structure.<a href="./src/structify/resources/structure.py">job_status</a>(\*\*<a href="src/structify/types/structure_job_status_params.py">params</a>) -> <a href="./src/structify/types/structure_job_status_response.py">StructureJobStatusResponse</a></code>
+- <code title="post /structure/pdf">client.structure.<a href="./src/structify/resources/structure.py">pdf</a>(\*\*<a href="src/structify/types/structure_pdf_params.py">params</a>) -> <a href="./src/structify/types/structure_pdf_response.py">StructurePdfResponse</a></code>
 - <code title="post /structure/run_async">client.structure.<a href="./src/structify/resources/structure.py">run_async</a>(\*\*<a href="src/structify/types/structure_run_async_params.py">params</a>) -> str</code>
 
 # PublicSessions
