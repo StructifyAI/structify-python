@@ -4,14 +4,10 @@ from __future__ import annotations
 
 from typing_extensions import Required, TypedDict
 
-from .dashboard_param import DashboardParam
+from .dashboard_layout_param import DashboardLayoutParam
 
 __all__ = ["SessionUploadDashboardLayoutParams"]
 
 
 class SessionUploadDashboardLayoutParams(TypedDict, total=False):
-    layout: Required[DashboardParam]
-    """
-    A page is the top-level container with title/description Can contain multiple
-    dashboards with different datasets
-    """
+    layout: Required[DashboardLayoutParam]

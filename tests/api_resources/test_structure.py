@@ -250,7 +250,7 @@ class TestStructure:
             source={
                 "pdf": {
                     "path": "path",
-                    "single_agent": True,
+                    "page": 0,
                 }
             },
             instructions="instructions",
@@ -540,7 +540,7 @@ class TestAsyncStructure:
             source={
                 "pdf": {
                     "path": "path",
-                    "single_agent": True,
+                    "page": 0,
                 }
             },
             instructions="instructions",
