@@ -12,6 +12,7 @@ from .project import Project as Project
 from .sandbox import Sandbox as Sandbox
 from .strategy import Strategy as Strategy
 from .connector import Connector as Connector
+from .dashboard import Dashboard as Dashboard
 from .team_role import TeamRole as TeamRole
 from .user_info import UserInfo as UserInfo
 from .chat_event import ChatEvent as ChatEvent
@@ -28,6 +29,7 @@ from .workflow_dag import WorkflowDag as WorkflowDag
 from .chat_template import ChatTemplate as ChatTemplate
 from .property_type import PropertyType as PropertyType
 from .tool_metadata import ToolMetadata as ToolMetadata
+from .dashboard_page import DashboardPage as DashboardPage
 from .job_event_body import JobEventBody as JobEventBody
 from .project_member import ProjectMember as ProjectMember
 from .strategy_param import StrategyParam as StrategyParam
@@ -37,6 +39,7 @@ from .token_response import TokenResponse as TokenResponse
 from .autofix_context import AutofixContext as AutofixContext
 from .chat_dependency import ChatDependency as ChatDependency
 from .chat_visibility import ChatVisibility as ChatVisibility
+from .dashboard_param import DashboardParam as DashboardParam
 from .edge_spec_param import EdgeSpecParam as EdgeSpecParam
 from .exploration_run import ExplorationRun as ExplorationRun
 from .job_list_params import JobListParams as JobListParams
@@ -45,7 +48,6 @@ from .node_spec_param import NodeSpecParam as NodeSpecParam
 from .tool_invocation import ToolInvocation as ToolInvocation
 from .usage_group_key import UsageGroupKey as UsageGroupKey
 from .chat_copy_params import ChatCopyParams as ChatCopyParams
-from .dashboard_layout import DashboardLayout as DashboardLayout
 from .save_requirement import SaveRequirement as SaveRequirement
 from .workflow_session import WorkflowSession as WorkflowSession
 from .chat_session_role import ChatSessionRole as ChatSessionRole
@@ -93,6 +95,7 @@ from .user_usage_response import UserUsageResponse as UserUsageResponse
 from .workflow_run_params import WorkflowRunParams as WorkflowRunParams
 from .connector_table_info import ConnectorTableInfo as ConnectorTableInfo
 from .create_team_response import CreateTeamResponse as CreateTeamResponse
+from .dashboard_page_param import DashboardPageParam as DashboardPageParam
 from .dataset_get_response import DatasetGetResponse as DatasetGetResponse
 from .dataset_match_params import DatasetMatchParams as DatasetMatchParams
 from .delete_team_response import DeleteTeamResponse as DeleteTeamResponse
@@ -130,7 +133,6 @@ from .chat_load_files_params import ChatLoadFilesParams as ChatLoadFilesParams
 from .connector_get_response import ConnectorGetResponse as ConnectorGetResponse
 from .connector_with_secrets import ConnectorWithSecrets as ConnectorWithSecrets
 from .credits_usage_response import CreditsUsageResponse as CreditsUsageResponse
-from .dashboard_layout_param import DashboardLayoutParam as DashboardLayoutParam
 from .dataset_match_response import DatasetMatchResponse as DatasetMatchResponse
 from .document_delete_params import DocumentDeleteParams as DocumentDeleteParams
 from .document_list_response import DocumentListResponse as DocumentListResponse
