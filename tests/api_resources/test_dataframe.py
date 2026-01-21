@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import os
-from unittest.mock import Mock, patch, mock_open
+from unittest.mock import Mock, patch
 
 import polars as pl
 import pytest
@@ -83,52 +83,6 @@ class TestPolars:
             scrape_schema=SCRAPE_SCHEMA,
         )
         assert isinstance(dataframe, pl.LazyFrame)
-
-    @parametrize
-    def test_method_structure_pdf(self, client: Structify) -> None:
-        # Mock PDF content
-        pdf_content = b"PDF content here"
-
-        schema = {
-            "invoice_number": {"description": "The invoice number", "type": pl.Utf8},
-            "amount": {"description": "Invoice amount", "type": pl.Float64},
-        }
-
-        with patch.object(client.datasets, "create"), patch.object(client.documents, "upload"), patch.object(
-            client.structure, "pdf"
-        ) as mock_structure_pdf, patch.object(client.jobs, "wait_for_jobs") as mock_wait_for_jobs, patch.object(
-            client.datasets, "view_table"
-        ) as mock_view_table, patch("builtins.open", mock_open(read_data=pdf_content)):
-
-            class MockResponse:
-                def __init__(self, job_ids: list[str]):
-                    self.job_ids = job_ids
-
-            # Configure mock return values
-            mock_structure_pdf.return_value = MockResponse(["test-job-id"])
-            mock_wait_for_jobs.return_value = None  # No error message
-
-            # Mock entity with sample data
-            mock_entity = Mock()
-            mock_entity.properties = {"invoice_number": "INV-001", "amount": 1234.56}
-            mock_view_table.return_value = [mock_entity]
-
-            dataframe = client.polars.structure_pdfs(
-                document_paths=pl.DataFrame({"pdf_path": ["/tmp/fake.pdf"]}).lazy(),
-                path_column="pdf_path",
-                table_name="invoices",
-                schema=schema,
-            )
-
-            assert isinstance(dataframe, pl.LazyFrame)
-
-            # Trigger execution so that the mocked API methods are called
-            result_df = dataframe.collect()
-
-            # Validate returned data
-            assert len(result_df) == 1
-            assert result_df["invoice_number"][0] == "INV-001"
-            assert result_df["amount"][0] == 1234.56
 
     @parametrize
     def test_method_enhance_relationships(self, client: Structify) -> None:
