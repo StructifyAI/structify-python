@@ -17,11 +17,15 @@ class AdminSandbox(BaseModel):
 
     created_at: datetime
 
+    provider: Literal["modal", "daytona"]
+
     sandbox_type: SandboxType
 
     status: Literal["alive", "terminated"]
 
     updated_at: datetime
+
+    api_url: Optional[str] = None
 
     chat_session_id: Optional[str] = None
 
@@ -29,6 +33,6 @@ class AdminSandbox(BaseModel):
 
     latest_node: Optional[str] = None
 
-    modal_id: Optional[str] = None
+    provider_id: Optional[str] = None
 
-    modal_url: Optional[str] = None
+    tunnel_url: Optional[str] = None
