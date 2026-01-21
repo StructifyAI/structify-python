@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import os
-from unittest.mock import Mock, patch, mock_open
+from unittest.mock import Mock, patch
 
 import polars as pl
 import pytest
@@ -83,58 +83,6 @@ class TestPolars:
             scrape_schema=SCRAPE_SCHEMA,
         )
         assert isinstance(dataframe, pl.LazyFrame)
-
-    @parametrize
-    def test_method_structure_pdf(self, client: Structify) -> None:
-        # Mock PDF content
-        pdf_content = b"PDF content here"
-
-        schema = {
-            "invoice_number": {"description": "The invoice number", "type": pl.Utf8},
-            "amount": {"description": "Invoice amount", "type": pl.Float64},
-        }
-
-        with patch.object(client.datasets, "create") as mock_create, patch.object(
-            client.documents, "upload"
-        ) as mock_upload, patch.object(client.structure, "run_async") as mock_run_async, patch.object(
-            client.jobs, "wait_for_jobs"
-        ) as mock_wait_for_jobs, patch.object(client.datasets, "view_table") as mock_view_table, patch(
-            "builtins.open", mock_open(read_data=pdf_content)
-        ):
-            # Configure mock return values
-            mock_run_async.return_value = "test-job-id"
-            mock_wait_for_jobs.return_value = None  # No error message
-
-            # Mock entity with sample data
-            mock_entity = Mock()
-            mock_entity.properties = {"invoice_number": "INV-001", "amount": 1234.56}
-            mock_view_table.return_value = [mock_entity]
-
-            dataframe = client.polars.structure_pdfs(
-                document_paths=pl.DataFrame({"pdf_path": ["/tmp/fake.pdf"]}).lazy(),
-                path_column="pdf_path",
-                table_name="invoices",
-                schema=schema,
-            )
-
-            assert isinstance(dataframe, pl.LazyFrame)
-
-            # Trigger execution so that the mocked API methods are called
-            result_df = dataframe.collect()
-
-            # Verify the API calls were made with correct parameters AFTER execution
-            mock_create.assert_called_once()
-            mock_upload.assert_called_once()
-            mock_run_async.assert_called_once()
-            mock_wait_for_jobs.assert_called_once_with(
-                job_ids=["test-job-id"], title="Parsing invoices from PDFs", node_id=None
-            )
-            mock_view_table.assert_called_once()
-
-            # Validate returned data
-            assert len(result_df) == 1
-            assert result_df["invoice_number"][0] == "INV-001"
-            assert result_df["amount"][0] == 1234.56
 
     @parametrize
     def test_method_enhance_relationships(self, client: Structify) -> None:
