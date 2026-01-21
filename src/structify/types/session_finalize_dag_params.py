@@ -5,9 +5,9 @@ from __future__ import annotations
 from typing import Iterable, Optional
 from typing_extensions import Required, TypedDict
 
+from .dashboard_param import DashboardParam
 from .edge_spec_param import EdgeSpecParam
 from .node_spec_param import NodeSpecParam
-from .dashboard_layout_param import DashboardLayoutParam
 
 __all__ = ["SessionFinalizeDagParams"]
 
@@ -17,4 +17,8 @@ class SessionFinalizeDagParams(TypedDict, total=False):
 
     nodes: Required[Iterable[NodeSpecParam]]
 
-    dashboard_layout: Optional[DashboardLayoutParam]
+    dashboard_layout: Optional[DashboardParam]
+    """
+    A page is the top-level container with title/description Can contain multiple
+    dashboards with different datasets
+    """
