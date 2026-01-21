@@ -9,83 +9,13 @@ import pytest
 
 from structify import Structify, AsyncStructify
 from tests.utils import assert_matches_type
-from structify.types import (
-    Sandbox,
-    SandboxListResponse,
-)
+from structify.types import Sandbox, SandboxListResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
 
 class TestSandbox:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
-
-    @parametrize
-    def test_method_create(self, client: Structify) -> None:
-        sandbox = client.sandbox.create(
-            chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            chat_session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            modal_id="modal_id",
-            modal_url="modal_url",
-            status="alive",
-        )
-        assert_matches_type(Sandbox, sandbox, path=["response"])
-
-    @parametrize
-    def test_method_create_with_all_params(self, client: Structify) -> None:
-        sandbox = client.sandbox.create(
-            chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            chat_session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            modal_id="modal_id",
-            modal_url="modal_url",
-            status="alive",
-            latest_node="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-        assert_matches_type(Sandbox, sandbox, path=["response"])
-
-    @parametrize
-    def test_raw_response_create(self, client: Structify) -> None:
-        response = client.sandbox.with_raw_response.create(
-            chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            chat_session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            modal_id="modal_id",
-            modal_url="modal_url",
-            status="alive",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        sandbox = response.parse()
-        assert_matches_type(Sandbox, sandbox, path=["response"])
-
-    @parametrize
-    def test_streaming_response_create(self, client: Structify) -> None:
-        with client.sandbox.with_streaming_response.create(
-            chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            chat_session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            modal_id="modal_id",
-            modal_url="modal_url",
-            status="alive",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            sandbox = response.parse()
-            assert_matches_type(Sandbox, sandbox, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    def test_path_params_create(self, client: Structify) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `chat_id` but received ''"):
-            client.sandbox.with_raw_response.create(
-                chat_id="",
-                chat_session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                modal_id="modal_id",
-                modal_url="modal_url",
-                status="alive",
-            )
 
     @parametrize
     def test_method_list(self, client: Structify) -> None:
@@ -218,73 +148,6 @@ class TestAsyncSandbox:
     parametrize = pytest.mark.parametrize(
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
-
-    @parametrize
-    async def test_method_create(self, async_client: AsyncStructify) -> None:
-        sandbox = await async_client.sandbox.create(
-            chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            chat_session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            modal_id="modal_id",
-            modal_url="modal_url",
-            status="alive",
-        )
-        assert_matches_type(Sandbox, sandbox, path=["response"])
-
-    @parametrize
-    async def test_method_create_with_all_params(self, async_client: AsyncStructify) -> None:
-        sandbox = await async_client.sandbox.create(
-            chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            chat_session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            modal_id="modal_id",
-            modal_url="modal_url",
-            status="alive",
-            latest_node="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-        assert_matches_type(Sandbox, sandbox, path=["response"])
-
-    @parametrize
-    async def test_raw_response_create(self, async_client: AsyncStructify) -> None:
-        response = await async_client.sandbox.with_raw_response.create(
-            chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            chat_session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            modal_id="modal_id",
-            modal_url="modal_url",
-            status="alive",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        sandbox = await response.parse()
-        assert_matches_type(Sandbox, sandbox, path=["response"])
-
-    @parametrize
-    async def test_streaming_response_create(self, async_client: AsyncStructify) -> None:
-        async with async_client.sandbox.with_streaming_response.create(
-            chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            chat_session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            modal_id="modal_id",
-            modal_url="modal_url",
-            status="alive",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            sandbox = await response.parse()
-            assert_matches_type(Sandbox, sandbox, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    async def test_path_params_create(self, async_client: AsyncStructify) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `chat_id` but received ''"):
-            await async_client.sandbox.with_raw_response.create(
-                chat_id="",
-                chat_session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                modal_id="modal_id",
-                modal_url="modal_url",
-                status="alive",
-            )
 
     @parametrize
     async def test_method_list(self, async_client: AsyncStructify) -> None:
