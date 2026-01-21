@@ -176,7 +176,7 @@ class PolarsResource(SyncAPIResource):
             entities = dataframe_to_entities(batch_df, dataframe_name, column_schema)
 
             # Request cost confirmation before adding entities
-            if not request_cost_confirmation_if_needed(self._client, len(entities)):
+            if not request_cost_confirmation_if_needed(self._client, len(entities), "web"):
                 raise Exception(f"User cancelled enhancement of {dataframe_name}")
 
             # We add individually instead of batched to maintain the mapping between entity and ID (Same as in enhance_relationships)
@@ -353,7 +353,7 @@ class PolarsResource(SyncAPIResource):
             entities = dataframe_to_entities(batch_df, source_table_name, column_schema)
 
             # Request cost confirmation before adding entities
-            if not request_cost_confirmation_if_needed(self._client, len(entities)):
+            if not request_cost_confirmation_if_needed(self._client, len(entities), "web"):
                 raise Exception(f"User cancelled relationship enhancement for {source_table_name}")
 
             # Add entities in batches to avoid JSON payload size issues
@@ -520,7 +520,7 @@ class PolarsResource(SyncAPIResource):
             entities = dataframe_to_entities(batch_df, dataframe_name, column_schema, zero_ids=True)
 
             # Request cost confirmation before adding entities
-            if not request_cost_confirmation_if_needed(self._client, len(entities)):
+            if not request_cost_confirmation_if_needed(self._client, len(entities), "web"):
                 raise Exception(f"User cancelled scraping of {dataframe_name}")
 
             # We add individually instead of batched to maintain the mapping between entity and ID
@@ -698,7 +698,7 @@ class PolarsResource(SyncAPIResource):
             entities = batch_df.drop_nulls(subset=[url_column]).unique().to_dicts()
 
             # Request cost confirmation before dispatching costly scrape jobs
-            if not request_cost_confirmation_if_needed(self._client, len(entities)):
+            if not request_cost_confirmation_if_needed(self._client, len(entities), "web"):
                 raise Exception(f"User cancelled scraping for {relationship['target_table']}")
 
             # 2. Scrape the URLs
@@ -877,7 +877,7 @@ class PolarsResource(SyncAPIResource):
             instructions_list = cast(List[Optional[str]], instr_df[instr_df.columns[0]].to_list())
 
         # Request cost confirmation before dispatching costly PDF extraction jobs
-        if not request_cost_confirmation_if_needed(self._client, paths_df.shape[0]):
+        if not request_cost_confirmation_if_needed(self._client, paths_df.shape[0], "pdf"):
             raise Exception(f"User cancelled PDF extraction for {table_name}")
 
         job_to_pdf_path: dict[str, str] = {}
@@ -1010,7 +1010,7 @@ class PolarsResource(SyncAPIResource):
         node_id = get_node_id()
 
         # Request cost confirmation before uploading
-        if not request_cost_confirmation_if_needed(self._client, len(collected_df)):
+        if not request_cost_confirmation_if_needed(self._client, len(collected_df), "tag"):
             raise Exception(f"User cancelled tagging of {dataframe_name}")
 
         self._upload_df(collected_df, dataset_name, dataframe_name)
@@ -1106,7 +1106,7 @@ class PolarsResource(SyncAPIResource):
 
         # Request cost confirmation before uploading
         # Cost is based on the smaller dataframe (source) which determines number of match operations
-        if not request_cost_confirmation_if_needed(self._client, len(df)):
+        if not request_cost_confirmation_if_needed(self._client, len(df), "match"):
             raise Exception("User cancelled matching operation")
 
         self._upload_df(df, dataset_name, "table1")
