@@ -2,10 +2,12 @@
 
 from __future__ import annotations
 
-from typing_extensions import Required, TypedDict
+from typing_extensions import Literal, Required, TypedDict
 
 __all__ = ["SessionRequestConfirmationParams"]
 
 
 class SessionRequestConfirmationParams(TypedDict, total=False):
+    operation: Required[Literal["tag", "pdf", "web", "match"]]
+
     row_count: Required[int]

@@ -604,6 +604,7 @@ class TestSessions:
     def test_method_request_confirmation(self, client: Structify) -> None:
         session = client.sessions.request_confirmation(
             node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            operation="tag",
             row_count=0,
         )
         assert_matches_type(WorkflowSessionNode, session, path=["response"])
@@ -612,6 +613,7 @@ class TestSessions:
     def test_raw_response_request_confirmation(self, client: Structify) -> None:
         response = client.sessions.with_raw_response.request_confirmation(
             node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            operation="tag",
             row_count=0,
         )
 
@@ -624,6 +626,7 @@ class TestSessions:
     def test_streaming_response_request_confirmation(self, client: Structify) -> None:
         with client.sessions.with_streaming_response.request_confirmation(
             node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            operation="tag",
             row_count=0,
         ) as response:
             assert not response.is_closed
@@ -639,6 +642,7 @@ class TestSessions:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `node_id` but received ''"):
             client.sessions.with_raw_response.request_confirmation(
                 node_id="",
+                operation="tag",
                 row_count=0,
             )
 
@@ -1521,6 +1525,7 @@ class TestAsyncSessions:
     async def test_method_request_confirmation(self, async_client: AsyncStructify) -> None:
         session = await async_client.sessions.request_confirmation(
             node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            operation="tag",
             row_count=0,
         )
         assert_matches_type(WorkflowSessionNode, session, path=["response"])
@@ -1529,6 +1534,7 @@ class TestAsyncSessions:
     async def test_raw_response_request_confirmation(self, async_client: AsyncStructify) -> None:
         response = await async_client.sessions.with_raw_response.request_confirmation(
             node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            operation="tag",
             row_count=0,
         )
 
@@ -1541,6 +1547,7 @@ class TestAsyncSessions:
     async def test_streaming_response_request_confirmation(self, async_client: AsyncStructify) -> None:
         async with async_client.sessions.with_streaming_response.request_confirmation(
             node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            operation="tag",
             row_count=0,
         ) as response:
             assert not response.is_closed
@@ -1556,6 +1563,7 @@ class TestAsyncSessions:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `node_id` but received ''"):
             await async_client.sessions.with_raw_response.request_confirmation(
                 node_id="",
+                operation="tag",
                 row_count=0,
             )
 

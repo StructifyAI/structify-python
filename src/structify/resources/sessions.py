@@ -483,6 +483,7 @@ class SessionsResource(SyncAPIResource):
         self,
         node_id: str,
         *,
+        operation: Literal["tag", "pdf", "web", "match"],
         row_count: int,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -506,7 +507,11 @@ class SessionsResource(SyncAPIResource):
         return self._post(
             f"/sessions/nodes/{node_id}/request_confirmation",
             body=maybe_transform(
-                {"row_count": row_count}, session_request_confirmation_params.SessionRequestConfirmationParams
+                {
+                    "operation": operation,
+                    "row_count": row_count,
+                },
+                session_request_confirmation_params.SessionRequestConfirmationParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -1145,6 +1150,7 @@ class AsyncSessionsResource(AsyncAPIResource):
         self,
         node_id: str,
         *,
+        operation: Literal["tag", "pdf", "web", "match"],
         row_count: int,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1168,7 +1174,11 @@ class AsyncSessionsResource(AsyncAPIResource):
         return await self._post(
             f"/sessions/nodes/{node_id}/request_confirmation",
             body=await async_maybe_transform(
-                {"row_count": row_count}, session_request_confirmation_params.SessionRequestConfirmationParams
+                {
+                    "operation": operation,
+                    "row_count": row_count,
+                },
+                session_request_confirmation_params.SessionRequestConfirmationParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
