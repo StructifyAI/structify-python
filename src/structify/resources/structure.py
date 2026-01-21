@@ -3,12 +3,10 @@
 from __future__ import annotations
 
 from typing import Iterable, Optional
-from typing_extensions import Literal
 
 import httpx
 
 from ..types import (
-    structure_pdf_params,
     structure_run_async_params,
     structure_job_status_params,
     structure_enhance_property_params,
@@ -28,7 +26,6 @@ from .._response import (
 from .._base_client import make_request_options
 from ..types.knowledge_graph_param import KnowledgeGraphParam
 from ..types.save_requirement_param import SaveRequirementParam
-from ..types.structure_pdf_response import StructurePdfResponse
 from ..types.structure_job_status_response import StructureJobStatusResponse
 
 __all__ = ["StructureResource", "AsyncStructureResource"]
@@ -268,55 +265,6 @@ class StructureResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=StructureJobStatusResponse,
-        )
-
-    def pdf(
-        self,
-        *,
-        dataset: str,
-        path: str,
-        instructions: Optional[str] | Omit = omit,
-        mode: Literal["Single", "Batch"] | Omit = omit,
-        model: Optional[str] | Omit = omit,
-        node_id: Optional[str] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> StructurePdfResponse:
-        """For single mode, creates one job for the entire PDF.
-
-        For batch mode, creates one
-        job per PDF page.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return self._post(
-            "/structure/pdf",
-            body=maybe_transform(
-                {
-                    "dataset": dataset,
-                    "path": path,
-                    "instructions": instructions,
-                    "mode": mode,
-                    "model": model,
-                    "node_id": node_id,
-                },
-                structure_pdf_params.StructurePdfParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=StructurePdfResponse,
         )
 
     def run_async(
@@ -612,55 +560,6 @@ class AsyncStructureResource(AsyncAPIResource):
             cast_to=StructureJobStatusResponse,
         )
 
-    async def pdf(
-        self,
-        *,
-        dataset: str,
-        path: str,
-        instructions: Optional[str] | Omit = omit,
-        mode: Literal["Single", "Batch"] | Omit = omit,
-        model: Optional[str] | Omit = omit,
-        node_id: Optional[str] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> StructurePdfResponse:
-        """For single mode, creates one job for the entire PDF.
-
-        For batch mode, creates one
-        job per PDF page.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return await self._post(
-            "/structure/pdf",
-            body=await async_maybe_transform(
-                {
-                    "dataset": dataset,
-                    "path": path,
-                    "instructions": instructions,
-                    "mode": mode,
-                    "model": model,
-                    "node_id": node_id,
-                },
-                structure_pdf_params.StructurePdfParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=StructurePdfResponse,
-        )
-
     async def run_async(
         self,
         *,
@@ -737,9 +636,6 @@ class StructureResourceWithRawResponse:
         self.job_status = to_raw_response_wrapper(
             structure.job_status,
         )
-        self.pdf = to_raw_response_wrapper(
-            structure.pdf,
-        )
         self.run_async = to_raw_response_wrapper(
             structure.run_async,
         )
@@ -763,9 +659,6 @@ class AsyncStructureResourceWithRawResponse:
         )
         self.job_status = async_to_raw_response_wrapper(
             structure.job_status,
-        )
-        self.pdf = async_to_raw_response_wrapper(
-            structure.pdf,
         )
         self.run_async = async_to_raw_response_wrapper(
             structure.run_async,
@@ -791,9 +684,6 @@ class StructureResourceWithStreamingResponse:
         self.job_status = to_streamed_response_wrapper(
             structure.job_status,
         )
-        self.pdf = to_streamed_response_wrapper(
-            structure.pdf,
-        )
         self.run_async = to_streamed_response_wrapper(
             structure.run_async,
         )
@@ -817,9 +707,6 @@ class AsyncStructureResourceWithStreamingResponse:
         )
         self.job_status = async_to_streamed_response_wrapper(
             structure.job_status,
-        )
-        self.pdf = async_to_streamed_response_wrapper(
-            structure.pdf,
         )
         self.run_async = async_to_streamed_response_wrapper(
             structure.run_async,

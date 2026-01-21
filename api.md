@@ -822,7 +822,6 @@ from structify.types import GetSandboxRequest, Sandbox, SandboxListResponse
 
 Methods:
 
-- <code title="post /sandbox/{chat_id}">client.sandbox.<a href="./src/structify/resources/sandbox.py">create</a>(chat_id, \*\*<a href="src/structify/types/sandbox_create_params.py">params</a>) -> <a href="./src/structify/types/sandbox.py">Sandbox</a></code>
 - <code title="get /sandbox/list/{chat_id}">client.sandbox.<a href="./src/structify/resources/sandbox.py">list</a>(chat_id) -> <a href="./src/structify/types/sandbox_list_response.py">SandboxListResponse</a></code>
 - <code title="post /sandbox/live/{chat_id}">client.sandbox.<a href="./src/structify/resources/sandbox.py">get</a>(chat_id, \*\*<a href="src/structify/types/sandbox_get_params.py">params</a>) -> <a href="./src/structify/types/sandbox.py">Sandbox</a></code>
 - <code title="patch /sandbox/{sandbox_id}/status">client.sandbox.<a href="./src/structify/resources/sandbox.py">update_status</a>(sandbox_id, \*\*<a href="src/structify/types/sandbox_update_status_params.py">params</a>) -> <a href="./src/structify/types/sandbox.py">Sandbox</a></code>
@@ -872,7 +871,6 @@ from structify.types import (
     StructureFindRelationshipResponse,
     StructureIsCompleteResponse,
     StructureJobStatusResponse,
-    StructurePdfResponse,
     StructureRunAsyncResponse,
 )
 ```
@@ -884,7 +882,6 @@ Methods:
 - <code title="post /structure/find_relationship">client.structure.<a href="./src/structify/resources/structure.py">find_relationship</a>(\*\*<a href="src/structify/types/structure_find_relationship_params.py">params</a>) -> str</code>
 - <code title="post /structure/is_complete">client.structure.<a href="./src/structify/resources/structure.py">is_complete</a>(\*\*<a href="src/structify/types/structure_is_complete_params.py">params</a>) -> str</code>
 - <code title="post /structure/job_status">client.structure.<a href="./src/structify/resources/structure.py">job_status</a>(\*\*<a href="src/structify/types/structure_job_status_params.py">params</a>) -> <a href="./src/structify/types/structure_job_status_response.py">StructureJobStatusResponse</a></code>
-- <code title="post /structure/pdf">client.structure.<a href="./src/structify/resources/structure.py">pdf</a>(\*\*<a href="src/structify/types/structure_pdf_params.py">params</a>) -> <a href="./src/structify/types/structure_pdf_response.py">StructurePdfResponse</a></code>
 - <code title="post /structure/run_async">client.structure.<a href="./src/structify/resources/structure.py">run_async</a>(\*\*<a href="src/structify/types/structure_run_async_params.py">params</a>) -> str</code>
 
 # PublicSessions

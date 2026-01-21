@@ -16,13 +16,17 @@ class Sandbox(BaseModel):
 
     created_at: datetime
 
-    modal_id: str
+    provider: Literal["modal", "daytona"]
 
-    modal_url: str
+    provider_id: str
 
     status: Literal["alive", "terminated"]
 
+    tunnel_url: str
+
     updated_at: datetime
+
+    api_url: Optional[str] = None
 
     latest_node: Optional[str] = None
 
