@@ -4,7 +4,7 @@ from typing import List, Optional
 from datetime import datetime
 
 from .._models import BaseModel
-from .dashboard import Dashboard
+from .dashboard_layout import DashboardLayout
 from .workflow_session_edge import WorkflowSessionEdge
 from .workflow_session_node import WorkflowSessionNode
 
@@ -24,11 +24,7 @@ class WorkflowDag(BaseModel):
 
     dag_ready_at: Optional[datetime] = None
 
-    dashboard_layout: Optional[Dashboard] = None
-    """
-    A page is the top-level container with title/description Can contain multiple
-    dashboards with different datasets
-    """
+    dashboard_layout: Optional[DashboardLayout] = None
 
     error: Optional[str] = None
 
