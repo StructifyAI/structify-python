@@ -33,6 +33,7 @@ class TestConnectorCatalog:
     @parametrize
     def test_method_list_with_all_params(self, client: Structify) -> None:
         connector_catalog = client.connector_catalog.list(
+            include_inactive=True,
             limit=0,
             offset=0,
             search="search",
@@ -161,6 +162,7 @@ class TestAsyncConnectorCatalog:
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncStructify) -> None:
         connector_catalog = await async_client.connector_catalog.list(
+            include_inactive=True,
             limit=0,
             offset=0,
             search="search",

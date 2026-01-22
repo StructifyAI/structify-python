@@ -67,6 +67,7 @@ class ConnectorCatalogResource(SyncAPIResource):
     def list(
         self,
         *,
+        include_inactive: bool | Omit = omit,
         limit: int | Omit = omit,
         offset: int | Omit = omit,
         search: Optional[str] | Omit = omit,
@@ -78,9 +79,11 @@ class ConnectorCatalogResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ConnectorCatalogListResponse:
         """
-        List all connector catalog entries with their active auth methods and logos
+        List all connector catalog entries with their auth methods and logos
 
         Args:
+          include_inactive: Include inactive auth methods (admin only)
+
           search: Optional search query to filter by name, slug, or category (case-insensitive
               substring match)
 
@@ -101,6 +104,7 @@ class ConnectorCatalogResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "include_inactive": include_inactive,
                         "limit": limit,
                         "offset": offset,
                         "search": search,
@@ -204,6 +208,7 @@ class AsyncConnectorCatalogResource(AsyncAPIResource):
     async def list(
         self,
         *,
+        include_inactive: bool | Omit = omit,
         limit: int | Omit = omit,
         offset: int | Omit = omit,
         search: Optional[str] | Omit = omit,
@@ -215,9 +220,11 @@ class AsyncConnectorCatalogResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ConnectorCatalogListResponse:
         """
-        List all connector catalog entries with their active auth methods and logos
+        List all connector catalog entries with their auth methods and logos
 
         Args:
+          include_inactive: Include inactive auth methods (admin only)
+
           search: Optional search query to filter by name, slug, or category (case-insensitive
               substring match)
 
@@ -238,6 +245,7 @@ class AsyncConnectorCatalogResource(AsyncAPIResource):
                 timeout=timeout,
                 query=await async_maybe_transform(
                     {
+                        "include_inactive": include_inactive,
                         "limit": limit,
                         "offset": offset,
                         "search": search,
