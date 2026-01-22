@@ -318,6 +318,7 @@ class TestChat:
             config={
                 "is_onboarding_session": True,
                 "llm_key": "vllm.gpt-5-mini-2025-08-07",
+                "max_steps": 0,
                 "reminder_message": "reminder_message",
                 "system_prompt": "system_prompt",
             },
@@ -1365,6 +1366,7 @@ class TestAsyncChat:
             config={
                 "is_onboarding_session": True,
                 "llm_key": "vllm.gpt-5-mini-2025-08-07",
+                "max_steps": 0,
                 "reminder_message": "reminder_message",
                 "system_prompt": "system_prompt",
             },
