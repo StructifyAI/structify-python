@@ -9,6 +9,9 @@ __all__ = ["ConnectorCatalogListParams"]
 
 
 class ConnectorCatalogListParams(TypedDict, total=False):
+    include_inactive: bool
+    """Include inactive auth methods (admin only)"""
+
     limit: int
 
     offset: int
