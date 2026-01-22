@@ -43,6 +43,14 @@ from .sandbox import (
     AsyncSandboxResourceWithStreamingResponse,
 )
 from ..._compat import cached_property
+from .connector import (
+    ConnectorResource,
+    AsyncConnectorResource,
+    ConnectorResourceWithRawResponse,
+    AsyncConnectorResourceWithRawResponse,
+    ConnectorResourceWithStreamingResponse,
+    AsyncConnectorResourceWithStreamingResponse,
+)
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from .chat_templates import (
     ChatTemplatesResource,
@@ -94,6 +102,10 @@ class AdminResource(SyncAPIResource):
         return ChatTemplatesResource(self._client)
 
     @cached_property
+    def connector(self) -> ConnectorResource:
+        return ConnectorResource(self._client)
+
+    @cached_property
     def with_raw_response(self) -> AdminResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
@@ -141,6 +153,10 @@ class AsyncAdminResource(AsyncAPIResource):
     @cached_property
     def chat_templates(self) -> AsyncChatTemplatesResource:
         return AsyncChatTemplatesResource(self._client)
+
+    @cached_property
+    def connector(self) -> AsyncConnectorResource:
+        return AsyncConnectorResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> AsyncAdminResourceWithRawResponse:
@@ -194,6 +210,10 @@ class AdminResourceWithRawResponse:
     def chat_templates(self) -> ChatTemplatesResourceWithRawResponse:
         return ChatTemplatesResourceWithRawResponse(self._admin.chat_templates)
 
+    @cached_property
+    def connector(self) -> ConnectorResourceWithRawResponse:
+        return ConnectorResourceWithRawResponse(self._admin.connector)
+
 
 class AsyncAdminResourceWithRawResponse:
     def __init__(self, admin: AsyncAdminResource) -> None:
@@ -226,6 +246,10 @@ class AsyncAdminResourceWithRawResponse:
     @cached_property
     def chat_templates(self) -> AsyncChatTemplatesResourceWithRawResponse:
         return AsyncChatTemplatesResourceWithRawResponse(self._admin.chat_templates)
+
+    @cached_property
+    def connector(self) -> AsyncConnectorResourceWithRawResponse:
+        return AsyncConnectorResourceWithRawResponse(self._admin.connector)
 
 
 class AdminResourceWithStreamingResponse:
@@ -260,6 +284,10 @@ class AdminResourceWithStreamingResponse:
     def chat_templates(self) -> ChatTemplatesResourceWithStreamingResponse:
         return ChatTemplatesResourceWithStreamingResponse(self._admin.chat_templates)
 
+    @cached_property
+    def connector(self) -> ConnectorResourceWithStreamingResponse:
+        return ConnectorResourceWithStreamingResponse(self._admin.connector)
+
 
 class AsyncAdminResourceWithStreamingResponse:
     def __init__(self, admin: AsyncAdminResource) -> None:
@@ -292,3 +320,7 @@ class AsyncAdminResourceWithStreamingResponse:
     @cached_property
     def chat_templates(self) -> AsyncChatTemplatesResourceWithStreamingResponse:
         return AsyncChatTemplatesResourceWithStreamingResponse(self._admin.chat_templates)
+
+    @cached_property
+    def connector(self) -> AsyncConnectorResourceWithStreamingResponse:
+        return AsyncConnectorResourceWithStreamingResponse(self._admin.connector)
