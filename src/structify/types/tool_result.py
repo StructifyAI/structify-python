@@ -11,7 +11,6 @@ __all__ = [
     "ToolResult",
     "Error",
     "Text",
-    "Image",
     "CodeExecution",
     "CodeExecutionCodeExecution",
     "WebMarkdown",
@@ -21,6 +20,8 @@ __all__ = [
     "ConnectorSearchConnectorSearch",
     "ConnectorSearchConnectorSearchColumn",
     "NodeLogs",
+    "Image",
+    "ImageImage",
 ]
 
 
@@ -30,10 +31,6 @@ class Error(BaseModel):
 
 class Text(BaseModel):
     text: str = FieldInfo(alias="Text")
-
-
-class Image(BaseModel):
-    image: object = FieldInfo(alias="Image")
 
 
 class CodeExecutionCodeExecution(BaseModel):
@@ -94,6 +91,24 @@ class NodeLogs(BaseModel):
     node_logs: List[str] = FieldInfo(alias="NodeLogs")
 
 
+class ImageImage(BaseModel):
+    image_bytes: object
+
+    ocr_text: Optional[str] = None
+
+
+class Image(BaseModel):
+    image: ImageImage = FieldInfo(alias="Image")
+
+
 ToolResult: TypeAlias = Union[
-    Literal["Pending", "NoResult"], Error, Text, Image, CodeExecution, WebMarkdown, WebSearch, ConnectorSearch, NodeLogs
+    Literal["Pending", "NoResult", "Completed"],
+    Error,
+    Text,
+    CodeExecution,
+    WebMarkdown,
+    WebSearch,
+    ConnectorSearch,
+    NodeLogs,
+    Image,
 ]

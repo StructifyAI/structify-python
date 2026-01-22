@@ -5,6 +5,7 @@ from datetime import datetime
 from typing_extensions import TypeAlias
 
 from .._models import BaseModel
+from .chat_event import ChatEvent
 from .chat_prompt import ChatPrompt
 
 __all__ = ["JobGetScrapersResponse", "JobGetScrapersResponseItem"]
@@ -24,6 +25,8 @@ class JobGetScrapersResponseItem(BaseModel):
     chat: Optional[ChatPrompt] = None
 
     code: Optional[str] = None
+
+    events: Optional[List[ChatEvent]] = None
 
     next_page_code: Optional[str] = None
 
