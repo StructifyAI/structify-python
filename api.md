@@ -399,6 +399,22 @@ Methods:
 - <code title="patch /admin/chat/templates/{template_id}">client.admin.chat_templates.<a href="./src/structify/resources/admin/chat_templates.py">update</a>(template_id, \*\*<a href="src/structify/types/admin/chat_template_update_params.py">params</a>) -> <a href="./src/structify/types/chat_template.py">ChatTemplate</a></code>
 - <code title="get /admin/chat/templates">client.admin.chat_templates.<a href="./src/structify/resources/admin/chat_templates.py">list</a>(\*\*<a href="src/structify/types/admin/chat_template_list_params.py">params</a>) -> <a href="./src/structify/types/admin/chat_template_list_response.py">ChatTemplateListResponse</a></code>
 
+## Connector
+
+Types:
+
+```python
+from structify.types.admin import (
+    CloneConnectorItem,
+    CloneConnectorsRequest,
+    CloneConnectorsResponse,
+)
+```
+
+Methods:
+
+- <code title="post /admin/connector/clone">client.admin.connector.<a href="./src/structify/resources/admin/connector.py">clone</a>(\*\*<a href="src/structify/types/admin/connector_clone_params.py">params</a>) -> <a href="./src/structify/types/admin/clone_connectors_response.py">CloneConnectorsResponse</a></code>
+
 # Datasets
 
 Types:

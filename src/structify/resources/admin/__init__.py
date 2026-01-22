@@ -48,6 +48,14 @@ from .sandbox import (
     SandboxResourceWithStreamingResponse,
     AsyncSandboxResourceWithStreamingResponse,
 )
+from .connector import (
+    ConnectorResource,
+    AsyncConnectorResource,
+    ConnectorResourceWithRawResponse,
+    AsyncConnectorResourceWithRawResponse,
+    ConnectorResourceWithStreamingResponse,
+    AsyncConnectorResourceWithStreamingResponse,
+)
 from .chat_templates import (
     ChatTemplatesResource,
     AsyncChatTemplatesResource,
@@ -108,6 +116,12 @@ __all__ = [
     "AsyncChatTemplatesResourceWithRawResponse",
     "ChatTemplatesResourceWithStreamingResponse",
     "AsyncChatTemplatesResourceWithStreamingResponse",
+    "ConnectorResource",
+    "AsyncConnectorResource",
+    "ConnectorResourceWithRawResponse",
+    "AsyncConnectorResourceWithRawResponse",
+    "ConnectorResourceWithStreamingResponse",
+    "AsyncConnectorResourceWithStreamingResponse",
     "AdminResource",
     "AsyncAdminResource",
     "AdminResourceWithRawResponse",
