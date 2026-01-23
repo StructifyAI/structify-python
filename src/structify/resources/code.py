@@ -7,7 +7,7 @@ from typing import Optional
 import httpx
 
 from ..types import code_generate_code_params, code_interrupt_generation_params
-from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
+from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -49,6 +49,8 @@ class CodeResource(SyncAPIResource):
         prompt: str,
         assistant_message_id: Optional[str] | Omit = omit,
         config: Optional[code_generate_code_params.Config] | Omit = omit,
+        connector_ids: SequenceNotStr[str] | Omit = omit,
+        file_paths: SequenceNotStr[str] | Omit = omit,
         trigger_workflow_execution: bool | Omit = omit,
         user_message_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -83,6 +85,8 @@ class CodeResource(SyncAPIResource):
                     "prompt": prompt,
                     "assistant_message_id": assistant_message_id,
                     "config": config,
+                    "connector_ids": connector_ids,
+                    "file_paths": file_paths,
                     "trigger_workflow_execution": trigger_workflow_execution,
                     "user_message_id": user_message_id,
                 },
@@ -158,6 +162,8 @@ class AsyncCodeResource(AsyncAPIResource):
         prompt: str,
         assistant_message_id: Optional[str] | Omit = omit,
         config: Optional[code_generate_code_params.Config] | Omit = omit,
+        connector_ids: SequenceNotStr[str] | Omit = omit,
+        file_paths: SequenceNotStr[str] | Omit = omit,
         trigger_workflow_execution: bool | Omit = omit,
         user_message_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -192,6 +198,8 @@ class AsyncCodeResource(AsyncAPIResource):
                     "prompt": prompt,
                     "assistant_message_id": assistant_message_id,
                     "config": config,
+                    "connector_ids": connector_ids,
+                    "file_paths": file_paths,
                     "trigger_workflow_execution": trigger_workflow_execution,
                     "user_message_id": user_message_id,
                 },
