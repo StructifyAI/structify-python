@@ -146,6 +146,8 @@ class InternalError(BaseModel):
 
 
 class ReviewRequestReviewRequestNodeSummary(BaseModel):
+    in_dashboard: bool
+
     name: str
 
     data_preview: Optional[str] = None
