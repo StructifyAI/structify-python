@@ -5,6 +5,7 @@ from __future__ import annotations
 from typing import Optional
 from typing_extensions import Literal, Required, Annotated, TypedDict
 
+from .._types import SequenceNotStr
 from .._utils import PropertyInfo
 
 __all__ = ["CodeGenerateCodeParams", "Config"]
@@ -19,6 +20,10 @@ class CodeGenerateCodeParams(TypedDict, total=False):
 
     config: Optional[Config]
     """Configuration for chat session with system prompt and LLM key"""
+
+    connector_ids: Annotated[SequenceNotStr[str], PropertyInfo(alias="connectorIds")]
+
+    file_paths: Annotated[SequenceNotStr[str], PropertyInfo(alias="filePaths")]
 
     trigger_workflow_execution: Annotated[bool, PropertyInfo(alias="triggerWorkflowExecution")]
 
