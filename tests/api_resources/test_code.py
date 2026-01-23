@@ -36,6 +36,8 @@ class TestCode:
                 "reminder_message": "reminder_message",
                 "system_prompt": "system_prompt",
             },
+            connector_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+            file_paths=["string"],
             trigger_workflow_execution=True,
             user_message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
@@ -125,6 +127,8 @@ class TestAsyncCode:
                 "reminder_message": "reminder_message",
                 "system_prompt": "system_prompt",
             },
+            connector_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+            file_paths=["string"],
             trigger_workflow_execution=True,
             user_message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )

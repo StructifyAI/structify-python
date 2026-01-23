@@ -31,6 +31,10 @@ __all__ = [
     "ReviewRequest",
     "ReviewRequestReviewRequest",
     "ReviewRequestReviewRequestNodeSummary",
+    "AttachedFile",
+    "AttachedFileAttachedFile",
+    "ConnectorRequest",
+    "ConnectorRequestConnectorRequest",
 ]
 
 
@@ -163,6 +167,34 @@ class ReviewRequest(BaseModel):
     review_request: ReviewRequestReviewRequest = FieldInfo(alias="ReviewRequest")
 
 
+class AttachedFileAttachedFile(BaseModel):
+    path: str
+
+    image_bytes: Optional[object] = None
+
+
+class AttachedFile(BaseModel):
+    attached_file: AttachedFileAttachedFile = FieldInfo(alias="AttachedFile")
+
+
+class ConnectorRequestConnectorRequest(BaseModel):
+    connector_id: str
+
+
+class ConnectorRequest(BaseModel):
+    connector_request: ConnectorRequestConnectorRequest = FieldInfo(alias="ConnectorRequest")
+
+
 ChatEvent: TypeAlias = Union[
-    TextMessage, Thinking, File, Action, Connector, ToolCall, Question, InternalError, ReviewRequest
+    TextMessage,
+    Thinking,
+    File,
+    Action,
+    Connector,
+    ToolCall,
+    Question,
+    InternalError,
+    ReviewRequest,
+    AttachedFile,
+    ConnectorRequest,
 ]
