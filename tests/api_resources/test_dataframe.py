@@ -115,9 +115,9 @@ class TestPolars:
             mock_source_3 = Mock(id="entity-3", properties={"company_name": "Microsoft"})
 
             # Target/connected entities
-            mock_target_1 = Mock(id="target-1", properties={"employee_name": "Alex", "position": "CEO"})
-            mock_target_2 = Mock(id="target-2", properties={"employee_name": "Alex", "position": "SWE"})
-            mock_target_3 = Mock(id="target-3", properties={"employee_name": "Alex", "position": "PM"})
+            mock_target_1 = Mock(id="target-1", properties={"employee_name": "Alex", "position": "CEO"}, job_ids=["job-1"])
+            mock_target_2 = Mock(id="target-2", properties={"employee_name": "Alex", "position": "SWE"}, job_ids=["job-2"])
+            mock_target_3 = Mock(id="target-3", properties={"employee_name": "Alex", "position": "PM"}, job_ids=["job-3"])
 
             # Relationships connecting sources to targets
             rel1 = Mock(from_id="entity-1", to_id="target-1")
@@ -155,6 +155,7 @@ class TestPolars:
             assert "company_name" in result_df.columns
             assert "employee_name" in result_df.columns
             assert "position" in result_df.columns
+            assert "structify_job_id" in result_df.columns
 
     def test_enum_dtype(self) -> None:
         polars_int = pl.Int64()
