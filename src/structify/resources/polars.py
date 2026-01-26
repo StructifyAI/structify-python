@@ -757,9 +757,9 @@ class PolarsResource(SyncAPIResource):
                 except Exception:
                     break
             # Build scraped schema (pre-join, original names) incl. join column and job_id
-            scraped_schema = scraped_columns | {
+            scraped_schema: Dict[str, pl.DataType] = scraped_columns | {
                 url_column: input_schema[url_column],
-                "structify_job_id": pl.String,
+                "structify_job_id": pl.String(),
             }
 
             # Fill missing columns in scraped results
