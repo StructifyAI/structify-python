@@ -1,5 +1,23 @@
 # Changelog
 
+## 1.178.0 (2026-01-26)
+
+Full Changelog: [v1.177.0...v1.178.0](https://github.com/StructifyAI/structify-python/compare/v1.177.0...v1.178.0)
+
+### Features
+
+* Update from Structify backend changes ([2d31df4](https://github.com/StructifyAI/structify-python/commit/2d31df48dd3cd3843c853a98ebc0a695b5cdbb68))
+* Update from Structify backend changes ([4796618](https://github.com/StructifyAI/structify-python/commit/4796618596a7daa52cf35a9fc8e81cbb75eb8cfc))
+* Update from Structify backend changes ([0234109](https://github.com/StructifyAI/structify-python/commit/0234109a3214829ed7060a6c3558d7a78c752fc8))
+* Update from Structify backend changes ([bc9cacf](https://github.com/StructifyAI/structify-python/commit/bc9cacf4bfd0cb410170517a2d2e897402d790a3))
+* Update from Structify backend changes ([62fee2a](https://github.com/StructifyAI/structify-python/commit/62fee2ae9a407318235620ad378b89ce41826475))
+* Update from Structify backend changes ([6440ce7](https://github.com/StructifyAI/structify-python/commit/6440ce7177815277e7277e302d6f3b6aa8c25e21))
+
+
+### Chores
+
+* **ci:** upgrade `actions/github-script` ([f3c1660](https://github.com/StructifyAI/structify-python/commit/f3c16600539ceac7f13d5d6b67a2f4790473ca63))
+
 ## 1.177.0 (2026-01-21)
 
 Full Changelog: [v1.176.1...v1.177.0](https://github.com/StructifyAI/structify-python/compare/v1.176.1...v1.177.0)
