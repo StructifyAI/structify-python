@@ -118,6 +118,8 @@ class ConnectedEntity(BaseModel):
 
     dataset_id: str
 
+    job_ids: List[str]
+
     label: str
 
     properties: Dict[str, ConnectedEntityProperties]
@@ -209,6 +211,8 @@ class Entity(BaseModel):
     created_at: datetime
 
     dataset_id: str
+
+    job_ids: List[str]
 
     label: str
 
