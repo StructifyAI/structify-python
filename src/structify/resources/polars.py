@@ -37,7 +37,7 @@ MAX_PARALLEL_REQUESTS = 20
 STRUCTIFY_JOB_ID_COLUMN = "structify_job_id"
 
 
-def _collect_entities_with_job_ids(entities) -> List[Dict[str, Any]]:
+def _collect_entities_with_job_ids(entities: Any) -> List[Dict[str, Any]]:
     """Collect entity properties with their first job_id."""
     results: List[Dict[str, Any]] = []
     for entity in entities:
