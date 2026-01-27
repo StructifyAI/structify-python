@@ -1,5 +1,25 @@
 # Changelog
 
+## 1.179.0 (2026-01-27)
+
+Full Changelog: [v1.178.0...v1.179.0](https://github.com/StructifyAI/structify-python/compare/v1.178.0...v1.179.0)
+
+### Features
+
+* Add structify_job_id column to all polars functions ([8c6569a](https://github.com/StructifyAI/structify-python/commit/8c6569ae9f6194c4efa299eaf7056534e559a009))
+
+
+### Bug Fixes
+
+* Add job_ids to mock target entities in test ([7f246dd](https://github.com/StructifyAI/structify-python/commit/7f246dd4f3e5e1a8caa068153521ab0b948c8d3c))
+* Add type annotation to fix pyright error ([4b4697f](https://github.com/StructifyAI/structify-python/commit/4b4697f01b09b9ad2c88acac1ea0dfda9bb652b7))
+* Add type annotation to helper function parameter ([3316e08](https://github.com/StructifyAI/structify-python/commit/3316e083d43e4c5c9eaa087130971d0929bc511a))
+
+
+### Refactors
+
+* Extract STRUCTIFY_JOB_ID_COLUMN constant and helper function ([6d223ae](https://github.com/StructifyAI/structify-python/commit/6d223ae5897417d60d7908cb06c456643bae76bd))
+
 ## 1.178.0 (2026-01-26)
 
 Full Changelog: [v1.177.0...v1.178.0](https://github.com/StructifyAI/structify-python/compare/v1.177.0...v1.178.0)
