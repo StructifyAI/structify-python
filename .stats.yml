@@ -1,4 +1,4 @@
-configured_endpoints: 228
-openapi_spec_url: https://storage.googleapis.com/stainless-sdk-openapi-specs/structify%2Fstructify-f6ab78c8ccdc6214ee510e696e401c7cf82cefc507a05dccc615485f3bbcac02.yml
-openapi_spec_hash: 69db831d325f920be69defcf0190a048
-config_hash: 297601dc0d81960dfc9ccdf1b88e1a63
+configured_endpoints: 229
+openapi_spec_url: https://storage.googleapis.com/stainless-sdk-openapi-specs/structify%2Fstructify-ac51b9f38f1f2a5979d0f3f6cba0437d1a8f0b44580112dd71360b0a8f47dc23.yml
+openapi_spec_hash: 07578c1a07407c2f9d233c993dfd0b1e
+config_hash: a8f5f5f93b1b0c2c2e330d5d1afdb6ec
