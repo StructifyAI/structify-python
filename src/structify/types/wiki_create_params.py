@@ -2,14 +2,13 @@
 
 from __future__ import annotations
 
-from typing import Dict
 from typing_extensions import Required, TypedDict
 
 __all__ = ["WikiCreateParams"]
 
 
 class WikiCreateParams(TypedDict, total=False):
-    content: Required[Dict[str, object]]
+    markdown: Required[str]
 
     slug: Required[str]
 
