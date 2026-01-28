@@ -44,6 +44,8 @@ class DatabaseSchemaTable(BaseModel):
 class DatabaseSchema(BaseModel):
     """Schema within a database"""
 
+    id: str
+
     name: str
 
     tables: List[DatabaseSchemaTable]
@@ -55,6 +57,8 @@ class DatabaseSchema(BaseModel):
 
 class Database(BaseModel):
     """Database within a connector"""
+
+    id: str
 
     name: str
 
