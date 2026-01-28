@@ -10,8 +10,9 @@ import pytest
 from structify import Structify, AsyncStructify
 from tests.utils import assert_matches_type
 from structify.types import (
-    TeamWikiPage,
     WikiListResponse,
+    WikiCreateResponse,
+    WikiUpdateResponse,
     WikiPageWithReferences,
 )
 
@@ -25,17 +26,17 @@ class TestWiki:
     def test_method_create(self, client: Structify) -> None:
         wiki = client.wiki.create(
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            content={"foo": "bar"},
+            markdown="markdown",
             slug="slug",
             title="title",
         )
-        assert_matches_type(TeamWikiPage, wiki, path=["response"])
+        assert_matches_type(WikiCreateResponse, wiki, path=["response"])
 
     @parametrize
     def test_raw_response_create(self, client: Structify) -> None:
         response = client.wiki.with_raw_response.create(
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            content={"foo": "bar"},
+            markdown="markdown",
             slug="slug",
             title="title",
         )
@@ -43,13 +44,13 @@ class TestWiki:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         wiki = response.parse()
-        assert_matches_type(TeamWikiPage, wiki, path=["response"])
+        assert_matches_type(WikiCreateResponse, wiki, path=["response"])
 
     @parametrize
     def test_streaming_response_create(self, client: Structify) -> None:
         with client.wiki.with_streaming_response.create(
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            content={"foo": "bar"},
+            markdown="markdown",
             slug="slug",
             title="title",
         ) as response:
@@ -57,7 +58,7 @@ class TestWiki:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             wiki = response.parse()
-            assert_matches_type(TeamWikiPage, wiki, path=["response"])
+            assert_matches_type(WikiCreateResponse, wiki, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -66,7 +67,7 @@ class TestWiki:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `team_id` but received ''"):
             client.wiki.with_raw_response.create(
                 team_id="",
-                content={"foo": "bar"},
+                markdown="markdown",
                 slug="slug",
                 title="title",
             )
@@ -76,45 +77,46 @@ class TestWiki:
         wiki = client.wiki.update(
             slug="slug",
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            content={"foo": "bar"},
+            markdown="markdown",
         )
-        assert_matches_type(TeamWikiPage, wiki, path=["response"])
+        assert_matches_type(WikiUpdateResponse, wiki, path=["response"])
 
     @parametrize
     def test_method_update_with_all_params(self, client: Structify) -> None:
         wiki = client.wiki.update(
             slug="slug",
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            content={"foo": "bar"},
+            markdown="markdown",
+            base_version=0,
             title="title",
         )
-        assert_matches_type(TeamWikiPage, wiki, path=["response"])
+        assert_matches_type(WikiUpdateResponse, wiki, path=["response"])
 
     @parametrize
     def test_raw_response_update(self, client: Structify) -> None:
         response = client.wiki.with_raw_response.update(
             slug="slug",
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            content={"foo": "bar"},
+            markdown="markdown",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         wiki = response.parse()
-        assert_matches_type(TeamWikiPage, wiki, path=["response"])
+        assert_matches_type(WikiUpdateResponse, wiki, path=["response"])
 
     @parametrize
     def test_streaming_response_update(self, client: Structify) -> None:
         with client.wiki.with_streaming_response.update(
             slug="slug",
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            content={"foo": "bar"},
+            markdown="markdown",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             wiki = response.parse()
-            assert_matches_type(TeamWikiPage, wiki, path=["response"])
+            assert_matches_type(WikiUpdateResponse, wiki, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -124,14 +126,14 @@ class TestWiki:
             client.wiki.with_raw_response.update(
                 slug="slug",
                 team_id="",
-                content={"foo": "bar"},
+                markdown="markdown",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `slug` but received ''"):
             client.wiki.with_raw_response.update(
                 slug="",
                 team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                content={"foo": "bar"},
+                markdown="markdown",
             )
 
     @parametrize
@@ -278,17 +280,17 @@ class TestAsyncWiki:
     async def test_method_create(self, async_client: AsyncStructify) -> None:
         wiki = await async_client.wiki.create(
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            content={"foo": "bar"},
+            markdown="markdown",
             slug="slug",
             title="title",
         )
-        assert_matches_type(TeamWikiPage, wiki, path=["response"])
+        assert_matches_type(WikiCreateResponse, wiki, path=["response"])
 
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncStructify) -> None:
         response = await async_client.wiki.with_raw_response.create(
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            content={"foo": "bar"},
+            markdown="markdown",
             slug="slug",
             title="title",
         )
@@ -296,13 +298,13 @@ class TestAsyncWiki:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         wiki = await response.parse()
-        assert_matches_type(TeamWikiPage, wiki, path=["response"])
+        assert_matches_type(WikiCreateResponse, wiki, path=["response"])
 
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncStructify) -> None:
         async with async_client.wiki.with_streaming_response.create(
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            content={"foo": "bar"},
+            markdown="markdown",
             slug="slug",
             title="title",
         ) as response:
@@ -310,7 +312,7 @@ class TestAsyncWiki:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             wiki = await response.parse()
-            assert_matches_type(TeamWikiPage, wiki, path=["response"])
+            assert_matches_type(WikiCreateResponse, wiki, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -319,7 +321,7 @@ class TestAsyncWiki:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `team_id` but received ''"):
             await async_client.wiki.with_raw_response.create(
                 team_id="",
-                content={"foo": "bar"},
+                markdown="markdown",
                 slug="slug",
                 title="title",
             )
@@ -329,45 +331,46 @@ class TestAsyncWiki:
         wiki = await async_client.wiki.update(
             slug="slug",
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            content={"foo": "bar"},
+            markdown="markdown",
         )
-        assert_matches_type(TeamWikiPage, wiki, path=["response"])
+        assert_matches_type(WikiUpdateResponse, wiki, path=["response"])
 
     @parametrize
     async def test_method_update_with_all_params(self, async_client: AsyncStructify) -> None:
         wiki = await async_client.wiki.update(
             slug="slug",
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            content={"foo": "bar"},
+            markdown="markdown",
+            base_version=0,
             title="title",
         )
-        assert_matches_type(TeamWikiPage, wiki, path=["response"])
+        assert_matches_type(WikiUpdateResponse, wiki, path=["response"])
 
     @parametrize
     async def test_raw_response_update(self, async_client: AsyncStructify) -> None:
         response = await async_client.wiki.with_raw_response.update(
             slug="slug",
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            content={"foo": "bar"},
+            markdown="markdown",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         wiki = await response.parse()
-        assert_matches_type(TeamWikiPage, wiki, path=["response"])
+        assert_matches_type(WikiUpdateResponse, wiki, path=["response"])
 
     @parametrize
     async def test_streaming_response_update(self, async_client: AsyncStructify) -> None:
         async with async_client.wiki.with_streaming_response.update(
             slug="slug",
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            content={"foo": "bar"},
+            markdown="markdown",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             wiki = await response.parse()
-            assert_matches_type(TeamWikiPage, wiki, path=["response"])
+            assert_matches_type(WikiUpdateResponse, wiki, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -377,14 +380,14 @@ class TestAsyncWiki:
             await async_client.wiki.with_raw_response.update(
                 slug="slug",
                 team_id="",
-                content={"foo": "bar"},
+                markdown="markdown",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `slug` but received ''"):
             await async_client.wiki.with_raw_response.update(
                 slug="",
                 team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                content={"foo": "bar"},
+                markdown="markdown",
             )
 
     @parametrize

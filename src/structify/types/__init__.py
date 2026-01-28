@@ -34,7 +34,6 @@ from .dashboard_page import DashboardPage as DashboardPage
 from .job_event_body import JobEventBody as JobEventBody
 from .project_member import ProjectMember as ProjectMember
 from .strategy_param import StrategyParam as StrategyParam
-from .team_wiki_page import TeamWikiPage as TeamWikiPage
 from .team_with_role import TeamWithRole as TeamWithRole
 from .token_response import TokenResponse as TokenResponse
 from .autofix_context import AutofixContext as AutofixContext
@@ -116,6 +115,8 @@ from .select_team_response import SelectTeamResponse as SelectTeamResponse
 from .source_list_response import SourceListResponse as SourceListResponse
 from .structure_pdf_params import StructurePdfParams as StructurePdfParams
 from .update_team_response import UpdateTeamResponse as UpdateTeamResponse
+from .wiki_create_response import WikiCreateResponse as WikiCreateResponse
+from .wiki_update_response import WikiUpdateResponse as WikiUpdateResponse
 from .workflow_stop_params import WorkflowStopParams as WorkflowStopParams
 from .connector_auth_method import ConnectorAuthMethod as ConnectorAuthMethod
 from .connector_list_params import ConnectorListParams as ConnectorListParams
