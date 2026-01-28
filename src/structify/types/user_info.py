@@ -16,6 +16,8 @@ class UserInfo(BaseModel):
 
     credits_used: int
 
+    data_docs_enabled: bool
+
     feature_flags: List[
         Literal[
             "functional_test",
