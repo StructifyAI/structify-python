@@ -666,6 +666,7 @@ from structify.types import (
     UpdateConnectorRequest,
     UpdateTableRequest,
     UpdateTableResponse,
+    ConnectorAddSchemaObjectResponse,
     ConnectorGetResponse,
     ConnectorGetClarificationRequestsResponse,
     ConnectorListWithSnippetsResponse,
@@ -680,6 +681,7 @@ Methods:
 - <code title="patch /connectors/{connector_id}">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">update</a>(connector_id, \*\*<a href="src/structify/types/connector_update_params.py">params</a>) -> None</code>
 - <code title="get /connectors">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">list</a>(\*\*<a href="src/structify/types/connector_list_params.py">params</a>) -> <a href="./src/structify/types/connector_with_secrets.py">SyncJobsList[ConnectorWithSecrets]</a></code>
 - <code title="delete /connectors/{connector_id}">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">delete</a>(connector_id) -> None</code>
+- <code title="post /connectors/{connector_id}/schema_object">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">add_schema_object</a>(connector_id, \*\*<a href="src/structify/types/connector_add_schema_object_params.py">params</a>) -> <a href="./src/structify/types/connector_add_schema_object_response.py">ConnectorAddSchemaObjectResponse</a></code>
 - <code title="post /connectors/{connector_id}/secrets">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">create_secret</a>(connector_id, \*\*<a href="src/structify/types/connector_create_secret_params.py">params</a>) -> None</code>
 - <code title="delete /connectors/{connector_id}/schema_object">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">delete_schema_object</a>(connector_id, \*\*<a href="src/structify/types/connector_delete_schema_object_params.py">params</a>) -> <a href="./src/structify/types/delete_schema_object_response.py">DeleteSchemaObjectResponse</a></code>
 - <code title="delete /connectors/{connector_id}/secrets/{secret_name}">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">delete_secret</a>(secret_name, \*, connector_id) -> None</code>
