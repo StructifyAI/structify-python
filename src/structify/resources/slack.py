@@ -80,12 +80,12 @@ class SlackResource(SyncAPIResource):
         self,
         *,
         event: slack_events_params.Variant1Event,
+        event_id: str,
         team_id: str,
         type: Literal["event_callback"],
         api_app_id: Optional[str] | Omit = omit,
         authed_users: Optional[SequenceNotStr[str]] | Omit = omit,
         event_context: Optional[str] | Omit = omit,
-        event_id: Optional[str] | Omit = omit,
         event_time: Optional[int] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -111,7 +111,7 @@ class SlackResource(SyncAPIResource):
         """
         ...
 
-    @required_args(["challenge", "type"], ["event", "team_id", "type"])
+    @required_args(["challenge", "type"], ["event", "event_id", "team_id", "type"])
     def events(
         self,
         *,
@@ -119,11 +119,11 @@ class SlackResource(SyncAPIResource):
         type: Literal["url_verification"] | Literal["event_callback"],
         token: Optional[str] | Omit = omit,
         event: slack_events_params.Variant1Event | Omit = omit,
+        event_id: str | Omit = omit,
         team_id: str | Omit = omit,
         api_app_id: Optional[str] | Omit = omit,
         authed_users: Optional[SequenceNotStr[str]] | Omit = omit,
         event_context: Optional[str] | Omit = omit,
-        event_id: Optional[str] | Omit = omit,
         event_time: Optional[int] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -142,11 +142,11 @@ class SlackResource(SyncAPIResource):
                         "type": type,
                         "token": token,
                         "event": event,
+                        "event_id": event_id,
                         "team_id": team_id,
                         "api_app_id": api_app_id,
                         "authed_users": authed_users,
                         "event_context": event_context,
-                        "event_id": event_id,
                         "event_time": event_time,
                     },
                     slack_events_params.SlackEventsParams,
@@ -215,12 +215,12 @@ class AsyncSlackResource(AsyncAPIResource):
         self,
         *,
         event: slack_events_params.Variant1Event,
+        event_id: str,
         team_id: str,
         type: Literal["event_callback"],
         api_app_id: Optional[str] | Omit = omit,
         authed_users: Optional[SequenceNotStr[str]] | Omit = omit,
         event_context: Optional[str] | Omit = omit,
-        event_id: Optional[str] | Omit = omit,
         event_time: Optional[int] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -246,7 +246,7 @@ class AsyncSlackResource(AsyncAPIResource):
         """
         ...
 
-    @required_args(["challenge", "type"], ["event", "team_id", "type"])
+    @required_args(["challenge", "type"], ["event", "event_id", "team_id", "type"])
     async def events(
         self,
         *,
@@ -254,11 +254,11 @@ class AsyncSlackResource(AsyncAPIResource):
         type: Literal["url_verification"] | Literal["event_callback"],
         token: Optional[str] | Omit = omit,
         event: slack_events_params.Variant1Event | Omit = omit,
+        event_id: str | Omit = omit,
         team_id: str | Omit = omit,
         api_app_id: Optional[str] | Omit = omit,
         authed_users: Optional[SequenceNotStr[str]] | Omit = omit,
         event_context: Optional[str] | Omit = omit,
-        event_id: Optional[str] | Omit = omit,
         event_time: Optional[int] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -277,11 +277,11 @@ class AsyncSlackResource(AsyncAPIResource):
                         "type": type,
                         "token": token,
                         "event": event,
+                        "event_id": event_id,
                         "team_id": team_id,
                         "api_app_id": api_app_id,
                         "authed_users": authed_users,
                         "event_context": event_context,
-                        "event_id": event_id,
                         "event_time": event_time,
                     },
                     slack_events_params.SlackEventsParams,

@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, Optional
+from typing import Optional
 
 import httpx
 
@@ -18,8 +18,9 @@ from .._response import (
     async_to_streamed_response_wrapper,
 )
 from .._base_client import make_request_options
-from ..types.team_wiki_page import TeamWikiPage
 from ..types.wiki_list_response import WikiListResponse
+from ..types.wiki_create_response import WikiCreateResponse
+from ..types.wiki_update_response import WikiUpdateResponse
 from ..types.wiki_page_with_references import WikiPageWithReferences
 
 __all__ = ["WikiResource", "AsyncWikiResource"]
@@ -49,7 +50,7 @@ class WikiResource(SyncAPIResource):
         self,
         team_id: str,
         *,
-        content: Dict[str, object],
+        markdown: str,
         slug: str,
         title: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -58,7 +59,7 @@ class WikiResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> TeamWikiPage:
+    ) -> WikiCreateResponse:
         """
         Args:
           extra_headers: Send extra headers
@@ -75,7 +76,7 @@ class WikiResource(SyncAPIResource):
             f"/team/{team_id}/wiki",
             body=maybe_transform(
                 {
-                    "content": content,
+                    "markdown": markdown,
                     "slug": slug,
                     "title": title,
                 },
@@ -84,7 +85,7 @@ class WikiResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=TeamWikiPage,
+            cast_to=WikiCreateResponse,
         )
 
     def update(
@@ -92,7 +93,8 @@ class WikiResource(SyncAPIResource):
         slug: str,
         *,
         team_id: str,
-        content: Dict[str, object],
+        markdown: str,
+        base_version: Optional[int] | Omit = omit,
         title: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -100,7 +102,7 @@ class WikiResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> TeamWikiPage:
+    ) -> WikiUpdateResponse:
         """
         Args:
           extra_headers: Send extra headers
@@ -119,7 +121,8 @@ class WikiResource(SyncAPIResource):
             f"/team/{team_id}/wiki/{slug}",
             body=maybe_transform(
                 {
-                    "content": content,
+                    "markdown": markdown,
+                    "base_version": base_version,
                     "title": title,
                 },
                 wiki_update_params.WikiUpdateParams,
@@ -127,7 +130,7 @@ class WikiResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=TeamWikiPage,
+            cast_to=WikiUpdateResponse,
         )
 
     def list(
@@ -255,7 +258,7 @@ class AsyncWikiResource(AsyncAPIResource):
         self,
         team_id: str,
         *,
-        content: Dict[str, object],
+        markdown: str,
         slug: str,
         title: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -264,7 +267,7 @@ class AsyncWikiResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> TeamWikiPage:
+    ) -> WikiCreateResponse:
         """
         Args:
           extra_headers: Send extra headers
@@ -281,7 +284,7 @@ class AsyncWikiResource(AsyncAPIResource):
             f"/team/{team_id}/wiki",
             body=await async_maybe_transform(
                 {
-                    "content": content,
+                    "markdown": markdown,
                     "slug": slug,
                     "title": title,
                 },
@@ -290,7 +293,7 @@ class AsyncWikiResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=TeamWikiPage,
+            cast_to=WikiCreateResponse,
         )
 
     async def update(
@@ -298,7 +301,8 @@ class AsyncWikiResource(AsyncAPIResource):
         slug: str,
         *,
         team_id: str,
-        content: Dict[str, object],
+        markdown: str,
+        base_version: Optional[int] | Omit = omit,
         title: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -306,7 +310,7 @@ class AsyncWikiResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> TeamWikiPage:
+    ) -> WikiUpdateResponse:
         """
         Args:
           extra_headers: Send extra headers
@@ -325,7 +329,8 @@ class AsyncWikiResource(AsyncAPIResource):
             f"/team/{team_id}/wiki/{slug}",
             body=await async_maybe_transform(
                 {
-                    "content": content,
+                    "markdown": markdown,
+                    "base_version": base_version,
                     "title": title,
                 },
                 wiki_update_params.WikiUpdateParams,
@@ -333,7 +338,7 @@ class AsyncWikiResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=TeamWikiPage,
+            cast_to=WikiUpdateResponse,
         )
 
     async def list(

@@ -34,7 +34,6 @@ from .dashboard_page import DashboardPage as DashboardPage
 from .job_event_body import JobEventBody as JobEventBody
 from .project_member import ProjectMember as ProjectMember
 from .strategy_param import StrategyParam as StrategyParam
-from .team_wiki_page import TeamWikiPage as TeamWikiPage
 from .team_with_role import TeamWithRole as TeamWithRole
 from .token_response import TokenResponse as TokenResponse
 from .autofix_context import AutofixContext as AutofixContext
@@ -116,6 +115,8 @@ from .select_team_response import SelectTeamResponse as SelectTeamResponse
 from .source_list_response import SourceListResponse as SourceListResponse
 from .structure_pdf_params import StructurePdfParams as StructurePdfParams
 from .update_team_response import UpdateTeamResponse as UpdateTeamResponse
+from .wiki_create_response import WikiCreateResponse as WikiCreateResponse
+from .wiki_update_response import WikiUpdateResponse as WikiUpdateResponse
 from .workflow_stop_params import WorkflowStopParams as WorkflowStopParams
 from .connector_auth_method import ConnectorAuthMethod as ConnectorAuthMethod
 from .connector_list_params import ConnectorListParams as ConnectorListParams
@@ -296,6 +297,7 @@ from .relationship_merge_strategy_param import RelationshipMergeStrategyParam as
 from .source_delete_relationship_params import SourceDeleteRelationshipParams as SourceDeleteRelationshipParams
 from .structure_enhance_property_params import StructureEnhancePropertyParams as StructureEnhancePropertyParams
 from .chat_get_session_timeline_response import ChatGetSessionTimelineResponse as ChatGetSessionTimelineResponse
+from .connector_add_schema_object_params import ConnectorAddSchemaObjectParams as ConnectorAddSchemaObjectParams
 from .connector_get_explorer_chat_params import ConnectorGetExplorerChatParams as ConnectorGetExplorerChatParams
 from .dataset_enrichment_progress_params import DatasetEnrichmentProgressParams as DatasetEnrichmentProgressParams
 from .dataset_update_relationship_params import DatasetUpdateRelationshipParams as DatasetUpdateRelationshipParams
@@ -312,6 +314,7 @@ from .entity_get_source_entities_response import EntityGetSourceEntitiesResponse
 from .session_request_confirmation_params import SessionRequestConfirmationParams as SessionRequestConfirmationParams
 from .session_update_node_progress_params import SessionUpdateNodeProgressParams as SessionUpdateNodeProgressParams
 from .structure_enhance_property_response import StructureEnhancePropertyResponse as StructureEnhancePropertyResponse
+from .connector_add_schema_object_response import ConnectorAddSchemaObjectResponse as ConnectorAddSchemaObjectResponse
 from .dataset_enrichment_progress_response import DatasetEnrichmentProgressResponse as DatasetEnrichmentProgressResponse
 from .structure_find_relationship_response import StructureFindRelationshipResponse as StructureFindRelationshipResponse
 from .connector_delete_schema_object_params import (

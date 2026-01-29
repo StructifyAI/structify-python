@@ -70,6 +70,7 @@ class TestSlack:
                 "type": "app_mention",
                 "user": "user",
             },
+            event_id="event_id",
             team_id="team_id",
             type="event_callback",
         )
@@ -100,12 +101,12 @@ class TestSlack:
                 "team": "team",
                 "thread_ts": "thread_ts",
             },
+            event_id="event_id",
             team_id="team_id",
             type="event_callback",
             api_app_id="api_app_id",
             authed_users=["string"],
             event_context="event_context",
-            event_id="event_id",
             event_time=0,
         )
         assert_matches_type(SlackAPIResponse, slack, path=["response"])
@@ -120,6 +121,7 @@ class TestSlack:
                 "type": "app_mention",
                 "user": "user",
             },
+            event_id="event_id",
             team_id="team_id",
             type="event_callback",
         )
@@ -139,6 +141,7 @@ class TestSlack:
                 "type": "app_mention",
                 "user": "user",
             },
+            event_id="event_id",
             team_id="team_id",
             type="event_callback",
         ) as response:
@@ -209,6 +212,7 @@ class TestAsyncSlack:
                 "type": "app_mention",
                 "user": "user",
             },
+            event_id="event_id",
             team_id="team_id",
             type="event_callback",
         )
@@ -239,12 +243,12 @@ class TestAsyncSlack:
                 "team": "team",
                 "thread_ts": "thread_ts",
             },
+            event_id="event_id",
             team_id="team_id",
             type="event_callback",
             api_app_id="api_app_id",
             authed_users=["string"],
             event_context="event_context",
-            event_id="event_id",
             event_time=0,
         )
         assert_matches_type(SlackAPIResponse, slack, path=["response"])
@@ -259,6 +263,7 @@ class TestAsyncSlack:
                 "type": "app_mention",
                 "user": "user",
             },
+            event_id="event_id",
             team_id="team_id",
             type="event_callback",
         )
@@ -278,6 +283,7 @@ class TestAsyncSlack:
                 "type": "app_mention",
                 "user": "user",
             },
+            event_id="event_id",
             team_id="team_id",
             type="event_callback",
         ) as response:

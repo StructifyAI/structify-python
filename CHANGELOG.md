@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.180.0 (2026-01-29)
+
+Full Changelog: [v1.179.0...v1.180.0](https://github.com/StructifyAI/structify-python/compare/v1.179.0...v1.180.0)
+
+### Features
+
+* Update from Structify backend changes ([d74a4d4](https://github.com/StructifyAI/structify-python/commit/d74a4d49be96c8c170b6d7ada1550a6b6fa5340b))
+* Update from Structify backend changes ([3745466](https://github.com/StructifyAI/structify-python/commit/3745466a39d2830d72e21eefa3047ecbf7fd739f))
+* Update from Structify backend changes ([74d338b](https://github.com/StructifyAI/structify-python/commit/74d338beee91c5387250435101500f4c1802960b))
+* Update from Structify backend changes ([365c776](https://github.com/StructifyAI/structify-python/commit/365c7767db894a3e774801ccb9667147ebce3859))
+* Update from Structify backend changes ([c70b50e](https://github.com/StructifyAI/structify-python/commit/c70b50ec1f3440d9dbf1f45fcde3f98214728d95))
+* Update from Structify backend changes ([1352d70](https://github.com/StructifyAI/structify-python/commit/1352d70df7f241d803af382dd82621406e101195))
+
 ## 1.179.0 (2026-01-27)
 
 Full Changelog: [v1.178.0...v1.179.0](https://github.com/StructifyAI/structify-python/compare/v1.178.0...v1.179.0)
