@@ -2,27 +2,11 @@
 
 from typing import List
 
-from .._models import BaseModel
+from .wiki_page import WikiPage
 from .wiki_connector_reference import WikiConnectorReference
 
 __all__ = ["WikiPageWithReferences"]
 
 
-class WikiPageWithReferences(BaseModel):
-    id: str
-
-    created_at: str
-
-    markdown: str
-
+class WikiPageWithReferences(WikiPage):
     references: List[WikiConnectorReference]
-
-    slug: str
-
-    team_id: str
-
-    title: str
-
-    updated_at: str
-
-    version: int

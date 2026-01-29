@@ -18,9 +18,8 @@ from .._response import (
     async_to_streamed_response_wrapper,
 )
 from .._base_client import make_request_options
+from ..types.wiki_page import WikiPage
 from ..types.wiki_list_response import WikiListResponse
-from ..types.wiki_create_response import WikiCreateResponse
-from ..types.wiki_update_response import WikiUpdateResponse
 from ..types.wiki_page_with_references import WikiPageWithReferences
 
 __all__ = ["WikiResource", "AsyncWikiResource"]
@@ -59,7 +58,7 @@ class WikiResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> WikiCreateResponse:
+    ) -> WikiPage:
         """
         Args:
           extra_headers: Send extra headers
@@ -85,7 +84,7 @@ class WikiResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=WikiCreateResponse,
+            cast_to=WikiPage,
         )
 
     def update(
@@ -102,7 +101,7 @@ class WikiResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> WikiUpdateResponse:
+    ) -> WikiPage:
         """
         Args:
           extra_headers: Send extra headers
@@ -130,7 +129,7 @@ class WikiResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=WikiUpdateResponse,
+            cast_to=WikiPage,
         )
 
     def list(
@@ -267,7 +266,7 @@ class AsyncWikiResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> WikiCreateResponse:
+    ) -> WikiPage:
         """
         Args:
           extra_headers: Send extra headers
@@ -293,7 +292,7 @@ class AsyncWikiResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=WikiCreateResponse,
+            cast_to=WikiPage,
         )
 
     async def update(
@@ -310,7 +309,7 @@ class AsyncWikiResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> WikiUpdateResponse:
+    ) -> WikiPage:
         """
         Args:
           extra_headers: Send extra headers
@@ -338,7 +337,7 @@ class AsyncWikiResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=WikiUpdateResponse,
+            cast_to=WikiPage,
         )
 
     async def list(

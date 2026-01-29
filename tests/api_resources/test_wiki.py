@@ -9,12 +9,7 @@ import pytest
 
 from structify import Structify, AsyncStructify
 from tests.utils import assert_matches_type
-from structify.types import (
-    WikiListResponse,
-    WikiCreateResponse,
-    WikiUpdateResponse,
-    WikiPageWithReferences,
-)
+from structify.types import WikiPage, WikiListResponse, WikiPageWithReferences
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -30,7 +25,7 @@ class TestWiki:
             slug="slug",
             title="title",
         )
-        assert_matches_type(WikiCreateResponse, wiki, path=["response"])
+        assert_matches_type(WikiPage, wiki, path=["response"])
 
     @parametrize
     def test_raw_response_create(self, client: Structify) -> None:
@@ -44,7 +39,7 @@ class TestWiki:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         wiki = response.parse()
-        assert_matches_type(WikiCreateResponse, wiki, path=["response"])
+        assert_matches_type(WikiPage, wiki, path=["response"])
 
     @parametrize
     def test_streaming_response_create(self, client: Structify) -> None:
@@ -58,7 +53,7 @@ class TestWiki:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             wiki = response.parse()
-            assert_matches_type(WikiCreateResponse, wiki, path=["response"])
+            assert_matches_type(WikiPage, wiki, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -79,7 +74,7 @@ class TestWiki:
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             markdown="markdown",
         )
-        assert_matches_type(WikiUpdateResponse, wiki, path=["response"])
+        assert_matches_type(WikiPage, wiki, path=["response"])
 
     @parametrize
     def test_method_update_with_all_params(self, client: Structify) -> None:
@@ -90,7 +85,7 @@ class TestWiki:
             base_version=0,
             title="title",
         )
-        assert_matches_type(WikiUpdateResponse, wiki, path=["response"])
+        assert_matches_type(WikiPage, wiki, path=["response"])
 
     @parametrize
     def test_raw_response_update(self, client: Structify) -> None:
@@ -103,7 +98,7 @@ class TestWiki:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         wiki = response.parse()
-        assert_matches_type(WikiUpdateResponse, wiki, path=["response"])
+        assert_matches_type(WikiPage, wiki, path=["response"])
 
     @parametrize
     def test_streaming_response_update(self, client: Structify) -> None:
@@ -116,7 +111,7 @@ class TestWiki:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             wiki = response.parse()
-            assert_matches_type(WikiUpdateResponse, wiki, path=["response"])
+            assert_matches_type(WikiPage, wiki, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -284,7 +279,7 @@ class TestAsyncWiki:
             slug="slug",
             title="title",
         )
-        assert_matches_type(WikiCreateResponse, wiki, path=["response"])
+        assert_matches_type(WikiPage, wiki, path=["response"])
 
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncStructify) -> None:
@@ -298,7 +293,7 @@ class TestAsyncWiki:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         wiki = await response.parse()
-        assert_matches_type(WikiCreateResponse, wiki, path=["response"])
+        assert_matches_type(WikiPage, wiki, path=["response"])
 
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncStructify) -> None:
@@ -312,7 +307,7 @@ class TestAsyncWiki:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             wiki = await response.parse()
-            assert_matches_type(WikiCreateResponse, wiki, path=["response"])
+            assert_matches_type(WikiPage, wiki, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -333,7 +328,7 @@ class TestAsyncWiki:
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             markdown="markdown",
         )
-        assert_matches_type(WikiUpdateResponse, wiki, path=["response"])
+        assert_matches_type(WikiPage, wiki, path=["response"])
 
     @parametrize
     async def test_method_update_with_all_params(self, async_client: AsyncStructify) -> None:
@@ -344,7 +339,7 @@ class TestAsyncWiki:
             base_version=0,
             title="title",
         )
-        assert_matches_type(WikiUpdateResponse, wiki, path=["response"])
+        assert_matches_type(WikiPage, wiki, path=["response"])
 
     @parametrize
     async def test_raw_response_update(self, async_client: AsyncStructify) -> None:
@@ -357,7 +352,7 @@ class TestAsyncWiki:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         wiki = await response.parse()
-        assert_matches_type(WikiUpdateResponse, wiki, path=["response"])
+        assert_matches_type(WikiPage, wiki, path=["response"])
 
     @parametrize
     async def test_streaming_response_update(self, async_client: AsyncStructify) -> None:
@@ -370,7 +365,7 @@ class TestAsyncWiki:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             wiki = await response.parse()
-            assert_matches_type(WikiUpdateResponse, wiki, path=["response"])
+            assert_matches_type(WikiPage, wiki, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

@@ -2,10 +2,10 @@
 
 from .._models import BaseModel
 
-__all__ = ["WikiUpdateResponse"]
+__all__ = ["WikiPage"]
 
 
-class WikiUpdateResponse(BaseModel):
+class WikiPage(BaseModel):
     id: str
 
     created_at: str
