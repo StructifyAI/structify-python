@@ -3,8 +3,27 @@
 from typing import List
 from typing_extensions import TypeAlias
 
-from .team_wiki_page import TeamWikiPage
+from .._models import BaseModel
 
-__all__ = ["WikiListResponse"]
+__all__ = ["WikiListResponse", "WikiListResponseItem"]
 
-WikiListResponse: TypeAlias = List[TeamWikiPage]
+
+class WikiListResponseItem(BaseModel):
+    id: str
+
+    created_at: str
+
+    markdown: str
+
+    slug: str
+
+    team_id: str
+
+    title: str
+
+    updated_at: str
+
+    version: int
+
+
+WikiListResponse: TypeAlias = List[WikiListResponseItem]

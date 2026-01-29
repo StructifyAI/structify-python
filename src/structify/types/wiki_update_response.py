@@ -1,21 +1,16 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List
-
 from .._models import BaseModel
-from .wiki_connector_reference import WikiConnectorReference
 
-__all__ = ["WikiPageWithReferences"]
+__all__ = ["WikiUpdateResponse"]
 
 
-class WikiPageWithReferences(BaseModel):
+class WikiUpdateResponse(BaseModel):
     id: str
 
     created_at: str
 
     markdown: str
-
-    references: List[WikiConnectorReference]
 
     slug: str
 

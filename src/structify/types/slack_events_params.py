@@ -21,6 +21,8 @@ class Variant0(TypedDict, total=False):
 class Variant1(TypedDict, total=False):
     event: Required[Variant1Event]
 
+    event_id: Required[str]
+
     team_id: Required[str]
 
     type: Required[Literal["event_callback"]]
@@ -30,8 +32,6 @@ class Variant1(TypedDict, total=False):
     authed_users: Optional[SequenceNotStr[str]]
 
     event_context: Optional[str]
-
-    event_id: Optional[str]
 
     event_time: Optional[int]
 

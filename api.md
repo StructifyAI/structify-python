@@ -222,18 +222,19 @@ Types:
 ```python
 from structify.types import (
     CreateWikiPageRequest,
-    TeamWikiPage,
     UpdateWikiPageRequest,
     WikiConnectorReference,
     WikiPageWithReferences,
+    WikiCreateResponse,
+    WikiUpdateResponse,
     WikiListResponse,
 )
 ```
 
 Methods:
 
-- <code title="post /team/{team_id}/wiki">client.wiki.<a href="./src/structify/resources/wiki.py">create</a>(team_id, \*\*<a href="src/structify/types/wiki_create_params.py">params</a>) -> <a href="./src/structify/types/team_wiki_page.py">TeamWikiPage</a></code>
-- <code title="put /team/{team_id}/wiki/{slug}">client.wiki.<a href="./src/structify/resources/wiki.py">update</a>(slug, \*, team_id, \*\*<a href="src/structify/types/wiki_update_params.py">params</a>) -> <a href="./src/structify/types/team_wiki_page.py">TeamWikiPage</a></code>
+- <code title="post /team/{team_id}/wiki">client.wiki.<a href="./src/structify/resources/wiki.py">create</a>(team_id, \*\*<a href="src/structify/types/wiki_create_params.py">params</a>) -> <a href="./src/structify/types/wiki_create_response.py">WikiCreateResponse</a></code>
+- <code title="put /team/{team_id}/wiki/{slug}">client.wiki.<a href="./src/structify/resources/wiki.py">update</a>(slug, \*, team_id, \*\*<a href="src/structify/types/wiki_update_params.py">params</a>) -> <a href="./src/structify/types/wiki_update_response.py">WikiUpdateResponse</a></code>
 - <code title="get /team/{team_id}/wiki">client.wiki.<a href="./src/structify/resources/wiki.py">list</a>(team_id) -> <a href="./src/structify/types/wiki_list_response.py">WikiListResponse</a></code>
 - <code title="delete /team/{team_id}/wiki/{slug}">client.wiki.<a href="./src/structify/resources/wiki.py">delete</a>(slug, \*, team_id) -> None</code>
 - <code title="get /team/{team_id}/wiki/{slug}">client.wiki.<a href="./src/structify/resources/wiki.py">get</a>(slug, \*, team_id) -> <a href="./src/structify/types/wiki_page_with_references.py">WikiPageWithReferences</a></code>
@@ -665,6 +666,7 @@ from structify.types import (
     UpdateConnectorRequest,
     UpdateTableRequest,
     UpdateTableResponse,
+    ConnectorAddSchemaObjectResponse,
     ConnectorGetResponse,
     ConnectorGetClarificationRequestsResponse,
     ConnectorListWithSnippetsResponse,
@@ -679,6 +681,7 @@ Methods:
 - <code title="patch /connectors/{connector_id}">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">update</a>(connector_id, \*\*<a href="src/structify/types/connector_update_params.py">params</a>) -> None</code>
 - <code title="get /connectors">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">list</a>(\*\*<a href="src/structify/types/connector_list_params.py">params</a>) -> <a href="./src/structify/types/connector_with_secrets.py">SyncJobsList[ConnectorWithSecrets]</a></code>
 - <code title="delete /connectors/{connector_id}">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">delete</a>(connector_id) -> None</code>
+- <code title="post /connectors/{connector_id}/schema_object">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">add_schema_object</a>(connector_id, \*\*<a href="src/structify/types/connector_add_schema_object_params.py">params</a>) -> <a href="./src/structify/types/connector_add_schema_object_response.py">ConnectorAddSchemaObjectResponse</a></code>
 - <code title="post /connectors/{connector_id}/secrets">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">create_secret</a>(connector_id, \*\*<a href="src/structify/types/connector_create_secret_params.py">params</a>) -> None</code>
 - <code title="delete /connectors/{connector_id}/schema_object">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">delete_schema_object</a>(connector_id, \*\*<a href="src/structify/types/connector_delete_schema_object_params.py">params</a>) -> <a href="./src/structify/types/delete_schema_object_response.py">DeleteSchemaObjectResponse</a></code>
 - <code title="delete /connectors/{connector_id}/secrets/{secret_name}">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">delete_secret</a>(secret_name, \*, connector_id) -> None</code>

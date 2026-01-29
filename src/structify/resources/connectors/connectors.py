@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, Optional
+from typing import Any, Dict, Optional, cast
 from typing_extensions import Literal, overload
 
 import httpx
@@ -17,6 +17,7 @@ from ...types import (
     connector_create_secret_params,
     connector_search_tables_params,
     connector_update_column_params,
+    connector_add_schema_object_params,
     connector_get_explorer_chat_params,
     connector_list_with_snippets_params,
     connector_delete_schema_object_params,
@@ -53,6 +54,7 @@ from ...types.exploration_runs_response import ExplorationRunsResponse
 from ...types.connector_summaries_response import ConnectorSummariesResponse
 from ...types.delete_schema_object_response import DeleteSchemaObjectResponse
 from ...types.connector_search_tables_response import ConnectorSearchTablesResponse
+from ...types.connector_add_schema_object_response import ConnectorAddSchemaObjectResponse
 from ...types.connector_list_with_snippets_response import ConnectorListWithSnippetsResponse
 from ...types.connector_get_clarification_requests_response import ConnectorGetClarificationRequestsResponse
 
@@ -268,6 +270,177 @@ class ConnectorsResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=NoneType,
+        )
+
+    @overload
+    def add_schema_object(
+        self,
+        connector_id: str,
+        *,
+        name: str,
+        type: Literal["database"],
+        description: Optional[str] | Omit = omit,
+        notes: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ConnectorAddSchemaObjectResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @overload
+    def add_schema_object(
+        self,
+        connector_id: str,
+        *,
+        database_id: str,
+        name: str,
+        type: Literal["schema"],
+        description: Optional[str] | Omit = omit,
+        notes: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ConnectorAddSchemaObjectResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @overload
+    def add_schema_object(
+        self,
+        connector_id: str,
+        *,
+        name: str,
+        schema_id: str,
+        type: Literal["table"],
+        description: Optional[str] | Omit = omit,
+        endpoint: Optional[str] | Omit = omit,
+        notes: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ConnectorAddSchemaObjectResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @overload
+    def add_schema_object(
+        self,
+        connector_id: str,
+        *,
+        column_type: str,
+        name: str,
+        table_id: str,
+        type: Literal["column"],
+        notes: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ConnectorAddSchemaObjectResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @required_args(
+        ["name", "type"],
+        ["database_id", "name", "type"],
+        ["name", "schema_id", "type"],
+        ["column_type", "name", "table_id", "type"],
+    )
+    def add_schema_object(
+        self,
+        connector_id: str,
+        *,
+        name: str,
+        type: Literal["database"] | Literal["schema"] | Literal["table"] | Literal["column"],
+        description: Optional[str] | Omit = omit,
+        notes: Optional[str] | Omit = omit,
+        database_id: str | Omit = omit,
+        schema_id: str | Omit = omit,
+        endpoint: Optional[str] | Omit = omit,
+        column_type: str | Omit = omit,
+        table_id: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ConnectorAddSchemaObjectResponse:
+        if not connector_id:
+            raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
+        return cast(
+            ConnectorAddSchemaObjectResponse,
+            self._post(
+                f"/connectors/{connector_id}/schema_object",
+                body=maybe_transform(
+                    {
+                        "name": name,
+                        "type": type,
+                        "description": description,
+                        "notes": notes,
+                        "database_id": database_id,
+                        "schema_id": schema_id,
+                        "endpoint": endpoint,
+                        "column_type": column_type,
+                        "table_id": table_id,
+                    },
+                    connector_add_schema_object_params.ConnectorAddSchemaObjectParams,
+                ),
+                options=make_request_options(
+                    extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                ),
+                cast_to=cast(
+                    Any, ConnectorAddSchemaObjectResponse
+                ),  # Union types cannot be passed in as arguments in the type system
+            ),
         )
 
     def create_secret(
@@ -1207,6 +1380,177 @@ class AsyncConnectorsResource(AsyncAPIResource):
             cast_to=NoneType,
         )
 
+    @overload
+    async def add_schema_object(
+        self,
+        connector_id: str,
+        *,
+        name: str,
+        type: Literal["database"],
+        description: Optional[str] | Omit = omit,
+        notes: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ConnectorAddSchemaObjectResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @overload
+    async def add_schema_object(
+        self,
+        connector_id: str,
+        *,
+        database_id: str,
+        name: str,
+        type: Literal["schema"],
+        description: Optional[str] | Omit = omit,
+        notes: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ConnectorAddSchemaObjectResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @overload
+    async def add_schema_object(
+        self,
+        connector_id: str,
+        *,
+        name: str,
+        schema_id: str,
+        type: Literal["table"],
+        description: Optional[str] | Omit = omit,
+        endpoint: Optional[str] | Omit = omit,
+        notes: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ConnectorAddSchemaObjectResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @overload
+    async def add_schema_object(
+        self,
+        connector_id: str,
+        *,
+        column_type: str,
+        name: str,
+        table_id: str,
+        type: Literal["column"],
+        notes: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ConnectorAddSchemaObjectResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @required_args(
+        ["name", "type"],
+        ["database_id", "name", "type"],
+        ["name", "schema_id", "type"],
+        ["column_type", "name", "table_id", "type"],
+    )
+    async def add_schema_object(
+        self,
+        connector_id: str,
+        *,
+        name: str,
+        type: Literal["database"] | Literal["schema"] | Literal["table"] | Literal["column"],
+        description: Optional[str] | Omit = omit,
+        notes: Optional[str] | Omit = omit,
+        database_id: str | Omit = omit,
+        schema_id: str | Omit = omit,
+        endpoint: Optional[str] | Omit = omit,
+        column_type: str | Omit = omit,
+        table_id: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ConnectorAddSchemaObjectResponse:
+        if not connector_id:
+            raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
+        return cast(
+            ConnectorAddSchemaObjectResponse,
+            await self._post(
+                f"/connectors/{connector_id}/schema_object",
+                body=await async_maybe_transform(
+                    {
+                        "name": name,
+                        "type": type,
+                        "description": description,
+                        "notes": notes,
+                        "database_id": database_id,
+                        "schema_id": schema_id,
+                        "endpoint": endpoint,
+                        "column_type": column_type,
+                        "table_id": table_id,
+                    },
+                    connector_add_schema_object_params.ConnectorAddSchemaObjectParams,
+                ),
+                options=make_request_options(
+                    extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                ),
+                cast_to=cast(
+                    Any, ConnectorAddSchemaObjectResponse
+                ),  # Union types cannot be passed in as arguments in the type system
+            ),
+        )
+
     async def create_secret(
         self,
         connector_id: str,
@@ -1951,6 +2295,9 @@ class ConnectorsResourceWithRawResponse:
         self.delete = to_raw_response_wrapper(
             connectors.delete,
         )
+        self.add_schema_object = to_raw_response_wrapper(
+            connectors.add_schema_object,
+        )
         self.create_secret = to_raw_response_wrapper(
             connectors.create_secret,
         )
@@ -2023,6 +2370,9 @@ class AsyncConnectorsResourceWithRawResponse:
         )
         self.delete = async_to_raw_response_wrapper(
             connectors.delete,
+        )
+        self.add_schema_object = async_to_raw_response_wrapper(
+            connectors.add_schema_object,
         )
         self.create_secret = async_to_raw_response_wrapper(
             connectors.create_secret,
@@ -2097,6 +2447,9 @@ class ConnectorsResourceWithStreamingResponse:
         self.delete = to_streamed_response_wrapper(
             connectors.delete,
         )
+        self.add_schema_object = to_streamed_response_wrapper(
+            connectors.add_schema_object,
+        )
         self.create_secret = to_streamed_response_wrapper(
             connectors.create_secret,
         )
@@ -2169,6 +2522,9 @@ class AsyncConnectorsResourceWithStreamingResponse:
         )
         self.delete = async_to_streamed_response_wrapper(
             connectors.delete,
+        )
+        self.add_schema_object = async_to_streamed_response_wrapper(
+            connectors.add_schema_object,
         )
         self.create_secret = async_to_streamed_response_wrapper(
             connectors.create_secret,
