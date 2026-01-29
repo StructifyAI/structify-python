@@ -15,6 +15,7 @@ from .connector import Connector as Connector
 from .dashboard import Dashboard as Dashboard
 from .team_role import TeamRole as TeamRole
 from .user_info import UserInfo as UserInfo
+from .wiki_page import WikiPage as WikiPage
 from .chat_event import ChatEvent as ChatEvent
 from .chat_prompt import ChatPrompt as ChatPrompt
 from .granularity import Granularity as Granularity
@@ -115,8 +116,6 @@ from .select_team_response import SelectTeamResponse as SelectTeamResponse
 from .source_list_response import SourceListResponse as SourceListResponse
 from .structure_pdf_params import StructurePdfParams as StructurePdfParams
 from .update_team_response import UpdateTeamResponse as UpdateTeamResponse
-from .wiki_create_response import WikiCreateResponse as WikiCreateResponse
-from .wiki_update_response import WikiUpdateResponse as WikiUpdateResponse
 from .workflow_stop_params import WorkflowStopParams as WorkflowStopParams
 from .connector_auth_method import ConnectorAuthMethod as ConnectorAuthMethod
 from .connector_list_params import ConnectorListParams as ConnectorListParams
