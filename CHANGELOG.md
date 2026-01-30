@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.181.0 (2026-01-30)
+
+Full Changelog: [v1.180.0...v1.181.0](https://github.com/StructifyAI/structify-python/compare/v1.180.0...v1.181.0)
+
+### Features
+
+* **api:** manual updates ([3c824f8](https://github.com/StructifyAI/structify-python/commit/3c824f880e168ee56e60ad638673c2734573761d))
+* **client:** add custom JSON encoder for extended type support ([de4fa96](https://github.com/StructifyAI/structify-python/commit/de4fa96215310266b47f7c1f80b3b464d5b88a58))
+* Update from Structify backend changes ([e690a3a](https://github.com/StructifyAI/structify-python/commit/e690a3a2d35a2e1e577124bbb233a358c7264ce0))
+
 ## 1.180.0 (2026-01-29)
 
 Full Changelog: [v1.179.0...v1.180.0](https://github.com/StructifyAI/structify-python/compare/v1.179.0...v1.180.0)
