@@ -332,6 +332,38 @@ class AdminResource(SyncAPIResource):
             cast_to=ConnectorAuthMethodScope,
         )
 
+    def delete_catalog(
+        self,
+        id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> None:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return self._delete(
+            f"/admin/connector-catalog/{id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NoneType,
+        )
+
     def delete_credential_field(
         self,
         id: str,
@@ -956,6 +988,38 @@ class AsyncAdminResource(AsyncAPIResource):
             cast_to=ConnectorAuthMethodScope,
         )
 
+    async def delete_catalog(
+        self,
+        id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> None:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return await self._delete(
+            f"/admin/connector-catalog/{id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NoneType,
+        )
+
     async def delete_credential_field(
         self,
         id: str,
@@ -1328,6 +1392,9 @@ class AdminResourceWithRawResponse:
         self.create_scope = to_raw_response_wrapper(
             admin.create_scope,
         )
+        self.delete_catalog = to_raw_response_wrapper(
+            admin.delete_catalog,
+        )
         self.delete_credential_field = to_raw_response_wrapper(
             admin.delete_credential_field,
         )
@@ -1378,6 +1445,9 @@ class AsyncAdminResourceWithRawResponse:
         )
         self.create_scope = async_to_raw_response_wrapper(
             admin.create_scope,
+        )
+        self.delete_catalog = async_to_raw_response_wrapper(
+            admin.delete_catalog,
         )
         self.delete_credential_field = async_to_raw_response_wrapper(
             admin.delete_credential_field,
@@ -1430,6 +1500,9 @@ class AdminResourceWithStreamingResponse:
         self.create_scope = to_streamed_response_wrapper(
             admin.create_scope,
         )
+        self.delete_catalog = to_streamed_response_wrapper(
+            admin.delete_catalog,
+        )
         self.delete_credential_field = to_streamed_response_wrapper(
             admin.delete_credential_field,
         )
@@ -1480,6 +1553,9 @@ class AsyncAdminResourceWithStreamingResponse:
         )
         self.create_scope = async_to_streamed_response_wrapper(
             admin.create_scope,
+        )
+        self.delete_catalog = async_to_streamed_response_wrapper(
+            admin.delete_catalog,
         )
         self.delete_credential_field = async_to_streamed_response_wrapper(
             admin.delete_credential_field,
