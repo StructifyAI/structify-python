@@ -1120,8 +1120,8 @@ class PolarsResource(SyncAPIResource):
         if not request_cost_confirmation_if_needed(self._client, len(df), "match"):
             raise Exception("User cancelled matching operation")
 
-        self._upload_df(df, dataset_name, "table1")
-        self._upload_df(reference_df, dataset_name, "table2")
+        self._upload_df(df, dataset_name, "table1", batch_size=df.height)
+        self._upload_df(reference_df, dataset_name, "table2", batch_size=reference_df.height)
 
         # Wait for all embeddings to be added
         tqdm_marker = tqdm(total=df.height + reference_df.height, desc="Waiting for embeddings")
@@ -1186,20 +1186,27 @@ class PolarsResource(SyncAPIResource):
         df: pl.DataFrame,
         dataset_name: str,
         table_name: str,
+        *,
+        batch_size: int = 10_000,
     ) -> None:
-        parquet_bytes = io.BytesIO()
-        df.write_parquet(parquet_bytes)
-        parquet_bytes.seek(0)
+        if df.is_empty():
+            return
+        if batch_size <= 0:
+            raise ValueError("batch_size must be positive")
 
-        response = self._client._client.post(
-            "/entity/upload_parquet",
-            params={"dataset": dataset_name, "table_name": table_name},
-            files={"file": ("data.parquet", parquet_bytes.getvalue(), "application/octet-stream")},
-            headers=self._client.auth_headers,
-        )
-        response.raise_for_status()
+        for offset in range(0, df.height, batch_size):
+            chunk = df.slice(offset, batch_size)
+            parquet_bytes = io.BytesIO()
+            chunk.write_parquet(parquet_bytes)
+            parquet_bytes.seek(0)
 
-        pass
+            response = self._client._client.post(
+                "/entity/upload_parquet",
+                params={"dataset": dataset_name, "table_name": table_name},
+                files={"file": ("data.parquet", parquet_bytes.getvalue(), "application/octet-stream")},
+                headers=self._client.auth_headers,
+            )
+            response.raise_for_status()
 
 
 class PolarsResourceWithRawResponse:
