@@ -125,6 +125,7 @@ class TestSessions:
                     "column_name": "column_name",
                     "row_index": 0,
                     "value": "value",
+                    "type": "edit_cell",
                 }
             ],
         )
@@ -139,6 +140,7 @@ class TestSessions:
                     "column_name": "column_name",
                     "row_index": 0,
                     "value": "value",
+                    "type": "edit_cell",
                 }
             ],
         )
@@ -157,6 +159,7 @@ class TestSessions:
                     "column_name": "column_name",
                     "row_index": 0,
                     "value": "value",
+                    "type": "edit_cell",
                 }
             ],
         ) as response:
@@ -178,6 +181,7 @@ class TestSessions:
                         "column_name": "column_name",
                         "row_index": 0,
                         "value": "value",
+                        "type": "edit_cell",
                     }
                 ],
             )
@@ -1196,6 +1200,7 @@ class TestAsyncSessions:
                     "column_name": "column_name",
                     "row_index": 0,
                     "value": "value",
+                    "type": "edit_cell",
                 }
             ],
         )
@@ -1210,6 +1215,7 @@ class TestAsyncSessions:
                     "column_name": "column_name",
                     "row_index": 0,
                     "value": "value",
+                    "type": "edit_cell",
                 }
             ],
         )
@@ -1228,6 +1234,7 @@ class TestAsyncSessions:
                     "column_name": "column_name",
                     "row_index": 0,
                     "value": "value",
+                    "type": "edit_cell",
                 }
             ],
         ) as response:
@@ -1249,6 +1256,7 @@ class TestAsyncSessions:
                         "column_name": "column_name",
                         "row_index": 0,
                         "value": "value",
+                        "type": "edit_cell",
                     }
                 ],
             )

@@ -69,6 +69,7 @@ from .dataset_get_params import DatasetGetParams as DatasetGetParams
 from .entity_view_params import EntityViewParams as EntityViewParams
 from .exploration_status import ExplorationStatus as ExplorationStatus
 from .merge_config_param import MergeConfigParam as MergeConfigParam
+from .parquet_edit_param import ParquetEditParam as ParquetEditParam
 from .project_visibility import ProjectVisibility as ProjectVisibility
 from .relationship_param import RelationshipParam as RelationshipParam
 from .sandbox_get_params import SandboxGetParams as SandboxGetParams
