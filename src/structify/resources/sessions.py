@@ -17,13 +17,14 @@ from ..types import (
     session_finalize_dag_params,
     session_mark_errored_params,
     session_create_session_params,
+    session_edit_node_output_params,
     session_request_confirmation_params,
     session_update_node_progress_params,
     session_upload_dashboard_layout_params,
     session_upload_node_output_data_params,
     session_upload_node_visualization_output_params,
 )
-from .._types import Body, Omit, Query, Headers, NotGiven, FileTypes, omit, not_given
+from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, FileTypes, omit, not_given
 from .._utils import extract_files, maybe_transform, deepcopy_minimal, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -44,6 +45,7 @@ from .._response import (
 from .._base_client import make_request_options
 from ..types.workflow_dag import WorkflowDag
 from ..types.autofix_context import AutofixContext
+from ..types.cell_edit_param import CellEditParam
 from ..types.dashboard_param import DashboardParam
 from ..types.edge_spec_param import EdgeSpecParam
 from ..types.node_spec_param import NodeSpecParam
@@ -148,6 +150,40 @@ class SessionsResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=WorkflowSession,
+        )
+
+    def edit_node_output(
+        self,
+        node_id: str,
+        *,
+        edits: Iterable[CellEditParam],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> None:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not node_id:
+            raise ValueError(f"Expected a non-empty value for `node_id` but received {node_id!r}")
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return self._post(
+            f"/sessions/nodes/{node_id}/edit_output",
+            body=maybe_transform({"edits": edits}, session_edit_node_output_params.SessionEditNodeOutputParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NoneType,
         )
 
     def finalize_dag(
@@ -823,6 +859,42 @@ class AsyncSessionsResource(AsyncAPIResource):
             cast_to=WorkflowSession,
         )
 
+    async def edit_node_output(
+        self,
+        node_id: str,
+        *,
+        edits: Iterable[CellEditParam],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> None:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not node_id:
+            raise ValueError(f"Expected a non-empty value for `node_id` but received {node_id!r}")
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return await self._post(
+            f"/sessions/nodes/{node_id}/edit_output",
+            body=await async_maybe_transform(
+                {"edits": edits}, session_edit_node_output_params.SessionEditNodeOutputParams
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NoneType,
+        )
+
     async def finalize_dag(
         self,
         session_id: str,
@@ -1416,6 +1488,9 @@ class SessionsResourceWithRawResponse:
         self.create_session = to_raw_response_wrapper(
             sessions.create_session,
         )
+        self.edit_node_output = to_raw_response_wrapper(
+            sessions.edit_node_output,
+        )
         self.finalize_dag = to_raw_response_wrapper(
             sessions.finalize_dag,
         )
@@ -1473,6 +1548,9 @@ class AsyncSessionsResourceWithRawResponse:
         )
         self.create_session = async_to_raw_response_wrapper(
             sessions.create_session,
+        )
+        self.edit_node_output = async_to_raw_response_wrapper(
+            sessions.edit_node_output,
         )
         self.finalize_dag = async_to_raw_response_wrapper(
             sessions.finalize_dag,
@@ -1532,6 +1610,9 @@ class SessionsResourceWithStreamingResponse:
         self.create_session = to_streamed_response_wrapper(
             sessions.create_session,
         )
+        self.edit_node_output = to_streamed_response_wrapper(
+            sessions.edit_node_output,
+        )
         self.finalize_dag = to_streamed_response_wrapper(
             sessions.finalize_dag,
         )
@@ -1589,6 +1670,9 @@ class AsyncSessionsResourceWithStreamingResponse:
         )
         self.create_session = async_to_streamed_response_wrapper(
             sessions.create_session,
+        )
+        self.edit_node_output = async_to_streamed_response_wrapper(
+            sessions.edit_node_output,
         )
         self.finalize_dag = async_to_streamed_response_wrapper(
             sessions.finalize_dag,

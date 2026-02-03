@@ -543,12 +543,14 @@ Types:
 ```python
 from structify.types import (
     AutofixContext,
+    CellEdit,
     ConfirmNodeRequest,
     CreateWorkflowSessionRequest,
     Dashboard,
     DashboardComponent,
     DashboardPage,
     EdgeSpec,
+    EditNodeOutputRequest,
     FinalizeDagRequest,
     FinalizeDagResponse,
     GetNodeLogsResponse,
@@ -577,6 +579,7 @@ Methods:
 
 - <code title="post /sessions/nodes/{node_id}/confirm">client.sessions.<a href="./src/structify/resources/sessions.py">confirm_node</a>(node_id, \*\*<a href="src/structify/types/session_confirm_node_params.py">params</a>) -> <a href="./src/structify/types/workflow_session_node.py">WorkflowSessionNode</a></code>
 - <code title="post /sessions">client.sessions.<a href="./src/structify/resources/sessions.py">create_session</a>(\*\*<a href="src/structify/types/session_create_session_params.py">params</a>) -> <a href="./src/structify/types/workflow_session.py">WorkflowSession</a></code>
+- <code title="post /sessions/nodes/{node_id}/edit_output">client.sessions.<a href="./src/structify/resources/sessions.py">edit_node_output</a>(node_id, \*\*<a href="src/structify/types/session_edit_node_output_params.py">params</a>) -> None</code>
 - <code title="post /sessions/{session_id}/dag_ready">client.sessions.<a href="./src/structify/resources/sessions.py">finalize_dag</a>(session_id, \*\*<a href="src/structify/types/session_finalize_dag_params.py">params</a>) -> <a href="./src/structify/types/finalize_dag_response.py">FinalizeDagResponse</a></code>
 - <code title="get /sessions/{session_id}/dag">client.sessions.<a href="./src/structify/resources/sessions.py">get_dag</a>(session_id) -> <a href="./src/structify/types/workflow_dag.py">WorkflowDag</a></code>
 - <code title="get /sessions/nodes/{node_id}/events">client.sessions.<a href="./src/structify/resources/sessions.py">get_events</a>(node_id, \*\*<a href="src/structify/types/session_get_events_params.py">params</a>) -> <a href="./src/structify/types/session_get_events_response.py">SessionGetEventsResponse</a></code>
