@@ -131,6 +131,8 @@ class AttemptedMatch(BaseModel):
 
     raw_text: Optional[str] = None
 
+    source_entity_index: Optional[int] = None
+
 
 class DatahubPageFetched(BaseModel):
     datasets_in_page: int
