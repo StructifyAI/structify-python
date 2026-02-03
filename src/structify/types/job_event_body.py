@@ -125,6 +125,8 @@ class AttemptedMatch(BaseModel):
 
     target: Dict[str, Union[str, bool, float]]
 
+    candidate_indices: Optional[List[int]] = None
+
     match_idx: Optional[int] = None
 
     raw_text: Optional[str] = None
