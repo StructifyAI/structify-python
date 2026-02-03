@@ -37,6 +37,7 @@ from .strategy_param import StrategyParam as StrategyParam
 from .team_with_role import TeamWithRole as TeamWithRole
 from .token_response import TokenResponse as TokenResponse
 from .autofix_context import AutofixContext as AutofixContext
+from .cell_edit_param import CellEditParam as CellEditParam
 from .chat_dependency import ChatDependency as ChatDependency
 from .chat_visibility import ChatVisibility as ChatVisibility
 from .dashboard_param import DashboardParam as DashboardParam
@@ -267,6 +268,7 @@ from .workflow_schedule_pause_params import WorkflowSchedulePauseParams as Workf
 from .chat_get_partial_chats_response import ChatGetPartialChatsResponse as ChatGetPartialChatsResponse
 from .connector_catalog_list_response import ConnectorCatalogListResponse as ConnectorCatalogListResponse
 from .entity_update_property_response import EntityUpdatePropertyResponse as EntityUpdatePropertyResponse
+from .session_edit_node_output_params import SessionEditNodeOutputParams as SessionEditNodeOutputParams
 from .workflow_schedule_create_params import WorkflowScheduleCreateParams as WorkflowScheduleCreateParams
 from .workflow_schedule_update_params import WorkflowScheduleUpdateParams as WorkflowScheduleUpdateParams
 from .chat_grant_admin_override_params import ChatGrantAdminOverrideParams as ChatGrantAdminOverrideParams

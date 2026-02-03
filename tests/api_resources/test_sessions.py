@@ -117,6 +117,72 @@ class TestSessions:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
+    def test_method_edit_node_output(self, client: Structify) -> None:
+        session = client.sessions.edit_node_output(
+            node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            edits=[
+                {
+                    "column_name": "column_name",
+                    "row_index": 0,
+                    "value": "value",
+                }
+            ],
+        )
+        assert session is None
+
+    @parametrize
+    def test_raw_response_edit_node_output(self, client: Structify) -> None:
+        response = client.sessions.with_raw_response.edit_node_output(
+            node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            edits=[
+                {
+                    "column_name": "column_name",
+                    "row_index": 0,
+                    "value": "value",
+                }
+            ],
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        session = response.parse()
+        assert session is None
+
+    @parametrize
+    def test_streaming_response_edit_node_output(self, client: Structify) -> None:
+        with client.sessions.with_streaming_response.edit_node_output(
+            node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            edits=[
+                {
+                    "column_name": "column_name",
+                    "row_index": 0,
+                    "value": "value",
+                }
+            ],
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            session = response.parse()
+            assert session is None
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_path_params_edit_node_output(self, client: Structify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `node_id` but received ''"):
+            client.sessions.with_raw_response.edit_node_output(
+                node_id="",
+                edits=[
+                    {
+                        "column_name": "column_name",
+                        "row_index": 0,
+                        "value": "value",
+                    }
+                ],
+            )
+
+    @parametrize
     def test_method_finalize_dag(self, client: Structify) -> None:
         session = client.sessions.finalize_dag(
             session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -1120,6 +1186,72 @@ class TestAsyncSessions:
             assert_matches_type(WorkflowSession, session, path=["response"])
 
         assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_method_edit_node_output(self, async_client: AsyncStructify) -> None:
+        session = await async_client.sessions.edit_node_output(
+            node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            edits=[
+                {
+                    "column_name": "column_name",
+                    "row_index": 0,
+                    "value": "value",
+                }
+            ],
+        )
+        assert session is None
+
+    @parametrize
+    async def test_raw_response_edit_node_output(self, async_client: AsyncStructify) -> None:
+        response = await async_client.sessions.with_raw_response.edit_node_output(
+            node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            edits=[
+                {
+                    "column_name": "column_name",
+                    "row_index": 0,
+                    "value": "value",
+                }
+            ],
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        session = await response.parse()
+        assert session is None
+
+    @parametrize
+    async def test_streaming_response_edit_node_output(self, async_client: AsyncStructify) -> None:
+        async with async_client.sessions.with_streaming_response.edit_node_output(
+            node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            edits=[
+                {
+                    "column_name": "column_name",
+                    "row_index": 0,
+                    "value": "value",
+                }
+            ],
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            session = await response.parse()
+            assert session is None
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_edit_node_output(self, async_client: AsyncStructify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `node_id` but received ''"):
+            await async_client.sessions.with_raw_response.edit_node_output(
+                node_id="",
+                edits=[
+                    {
+                        "column_name": "column_name",
+                        "row_index": 0,
+                        "value": "value",
+                    }
+                ],
+            )
 
     @parametrize
     async def test_method_finalize_dag(self, async_client: AsyncStructify) -> None:
