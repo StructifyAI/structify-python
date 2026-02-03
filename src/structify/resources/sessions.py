@@ -45,12 +45,12 @@ from .._response import (
 from .._base_client import make_request_options
 from ..types.workflow_dag import WorkflowDag
 from ..types.autofix_context import AutofixContext
-from ..types.cell_edit_param import CellEditParam
 from ..types.dashboard_param import DashboardParam
 from ..types.edge_spec_param import EdgeSpecParam
 from ..types.node_spec_param import NodeSpecParam
 from ..types.workflow_session import WorkflowSession
 from ..types.get_node_response import GetNodeResponse
+from ..types.parquet_edit_param import ParquetEditParam
 from ..types.finalize_dag_response import FinalizeDagResponse
 from ..types.workflow_session_node import WorkflowSessionNode
 from ..types.get_node_logs_response import GetNodeLogsResponse
@@ -156,7 +156,7 @@ class SessionsResource(SyncAPIResource):
         self,
         node_id: str,
         *,
-        edits: Iterable[CellEditParam],
+        edits: Iterable[ParquetEditParam],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -863,7 +863,7 @@ class AsyncSessionsResource(AsyncAPIResource):
         self,
         node_id: str,
         *,
-        edits: Iterable[CellEditParam],
+        edits: Iterable[ParquetEditParam],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,

@@ -537,6 +537,7 @@ from structify.types import (
     JobEventBody,
     MarkWorkflowSessionErroredRequest,
     NodeSpec,
+    ParquetEdit,
     RequestConfirmationRequest,
     UpdateWorkflowNodeProgressRequest,
     UpdateWorkflowNodeRequest,
