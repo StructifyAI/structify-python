@@ -20,6 +20,8 @@ class WorkflowSessionNode(BaseModel):
 
     function_name: str
 
+    manually_edited: bool
+
     node_index: int
 
     node_name: str
