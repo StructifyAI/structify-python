@@ -1124,7 +1124,8 @@ class PolarsResource(SyncAPIResource):
         while True:
             remaining_embeddings = self._client.datasets.count_missing_embeddings(name=dataset_name).count
             count_history.append(remaining_embeddings)
-            tqdm_marker.update(total_embeddings - remaining_embeddings)
+            tqdm_marker.n = total_embeddings - remaining_embeddings
+            tqdm_marker.refresh()
             if remaining_embeddings == 0:
                 break
             # If we haven't updated any entities in a while, consider the embeddings as not updating and break
