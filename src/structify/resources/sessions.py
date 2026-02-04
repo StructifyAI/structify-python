@@ -24,7 +24,7 @@ from ..types import (
     session_upload_node_output_data_params,
     session_upload_node_visualization_output_params,
 )
-from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, FileTypes, omit, not_given
+from .._types import Body, Omit, Query, Headers, NotGiven, FileTypes, omit, not_given
 from .._utils import extract_files, maybe_transform, deepcopy_minimal, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -57,6 +57,7 @@ from ..types.get_node_logs_response import GetNodeLogsResponse
 from ..types.session_kill_jobs_response import SessionKillJobsResponse
 from ..types.session_get_events_response import SessionGetEventsResponse
 from ..types.workflow_node_execution_status import WorkflowNodeExecutionStatus
+from ..types.session_edit_node_output_response import SessionEditNodeOutputResponse
 from ..types.session_get_node_progress_response import SessionGetNodeProgressResponse
 
 __all__ = ["SessionsResource", "AsyncSessionsResource"]
@@ -163,7 +164,7 @@ class SessionsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> None:
+    ) -> SessionEditNodeOutputResponse:
         """
         Args:
           extra_headers: Send extra headers
@@ -176,14 +177,13 @@ class SessionsResource(SyncAPIResource):
         """
         if not node_id:
             raise ValueError(f"Expected a non-empty value for `node_id` but received {node_id!r}")
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
             f"/sessions/nodes/{node_id}/edit_output",
             body=maybe_transform({"edits": edits}, session_edit_node_output_params.SessionEditNodeOutputParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=NoneType,
+            cast_to=SessionEditNodeOutputResponse,
         )
 
     def finalize_dag(
@@ -870,7 +870,7 @@ class AsyncSessionsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> None:
+    ) -> SessionEditNodeOutputResponse:
         """
         Args:
           extra_headers: Send extra headers
@@ -883,7 +883,6 @@ class AsyncSessionsResource(AsyncAPIResource):
         """
         if not node_id:
             raise ValueError(f"Expected a non-empty value for `node_id` but received {node_id!r}")
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
             f"/sessions/nodes/{node_id}/edit_output",
             body=await async_maybe_transform(
@@ -892,7 +891,7 @@ class AsyncSessionsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=NoneType,
+            cast_to=SessionEditNodeOutputResponse,
         )
 
     async def finalize_dag(

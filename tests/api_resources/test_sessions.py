@@ -20,6 +20,7 @@ from structify.types import (
     WorkflowSessionNode,
     SessionKillJobsResponse,
     SessionGetEventsResponse,
+    SessionEditNodeOutputResponse,
     SessionGetNodeProgressResponse,
 )
 from structify._response import (
@@ -129,7 +130,7 @@ class TestSessions:
                 }
             ],
         )
-        assert session is None
+        assert_matches_type(SessionEditNodeOutputResponse, session, path=["response"])
 
     @parametrize
     def test_raw_response_edit_node_output(self, client: Structify) -> None:
@@ -148,7 +149,7 @@ class TestSessions:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         session = response.parse()
-        assert session is None
+        assert_matches_type(SessionEditNodeOutputResponse, session, path=["response"])
 
     @parametrize
     def test_streaming_response_edit_node_output(self, client: Structify) -> None:
@@ -167,7 +168,7 @@ class TestSessions:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             session = response.parse()
-            assert session is None
+            assert_matches_type(SessionEditNodeOutputResponse, session, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -1204,7 +1205,7 @@ class TestAsyncSessions:
                 }
             ],
         )
-        assert session is None
+        assert_matches_type(SessionEditNodeOutputResponse, session, path=["response"])
 
     @parametrize
     async def test_raw_response_edit_node_output(self, async_client: AsyncStructify) -> None:
@@ -1223,7 +1224,7 @@ class TestAsyncSessions:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         session = await response.parse()
-        assert session is None
+        assert_matches_type(SessionEditNodeOutputResponse, session, path=["response"])
 
     @parametrize
     async def test_streaming_response_edit_node_output(self, async_client: AsyncStructify) -> None:
@@ -1242,7 +1243,7 @@ class TestAsyncSessions:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             session = await response.parse()
-            assert session is None
+            assert_matches_type(SessionEditNodeOutputResponse, session, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
