@@ -92,9 +92,6 @@ class DashboardPage(BaseModel):
     components: List[DashboardComponent]
     """Components (charts) in this dashboard"""
 
-    title: str
-    """Title for this dashboard section"""
-
     controls: Optional[List[Control]] = None
     """Control filters (dropdowns, checkboxes, ranges) for this dashboard"""
 
@@ -106,3 +103,6 @@ class DashboardPage(BaseModel):
 
     description: Optional[str] = None
     """Optional description"""
+
+    title: Optional[str] = None
+    """Title for this dashboard section"""
