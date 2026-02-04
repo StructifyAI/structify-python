@@ -90,9 +90,6 @@ class DashboardPageParam(TypedDict, total=False):
     components: Required[Iterable[DashboardComponentParam]]
     """Components (charts) in this dashboard"""
 
-    title: Required[str]
-    """Title for this dashboard section"""
-
     controls: Optional[Iterable[Control]]
     """Control filters (dropdowns, checkboxes, ranges) for this dashboard"""
 
@@ -104,3 +101,6 @@ class DashboardPageParam(TypedDict, total=False):
 
     description: Optional[str]
     """Optional description"""
+
+    title: Optional[str]
+    """Title for this dashboard section"""
