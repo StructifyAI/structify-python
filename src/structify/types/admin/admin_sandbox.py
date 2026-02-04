@@ -13,8 +13,6 @@ __all__ = ["AdminSandbox"]
 class AdminSandbox(BaseModel):
     id: str
 
-    active_count: int
-
     created_at: datetime
 
     provider: Literal["modal", "daytona"]
