@@ -250,7 +250,6 @@ class TestSessions:
                                 "span": 0,
                             }
                         ],
-                        "title": "title",
                         "controls": [
                             {
                                 "id": "id",
@@ -268,6 +267,7 @@ class TestSessions:
                         ],
                         "dataset_node_name": "datasetNodeName",
                         "description": "description",
+                        "title": "title",
                     }
                 ],
                 "title": "title",
@@ -877,8 +877,7 @@ class TestSessions:
                                 "node_name": "node_name",
                                 "title": "title",
                             }
-                        ],
-                        "title": "title",
+                        ]
                     }
                 ],
                 "title": "title",
@@ -913,7 +912,6 @@ class TestSessions:
                                 "span": 0,
                             }
                         ],
-                        "title": "title",
                         "controls": [
                             {
                                 "id": "id",
@@ -931,6 +929,7 @@ class TestSessions:
                         ],
                         "dataset_node_name": "datasetNodeName",
                         "description": "description",
+                        "title": "title",
                     }
                 ],
                 "title": "title",
@@ -951,8 +950,7 @@ class TestSessions:
                                 "node_name": "node_name",
                                 "title": "title",
                             }
-                        ],
-                        "title": "title",
+                        ]
                     }
                 ],
                 "title": "title",
@@ -976,8 +974,7 @@ class TestSessions:
                                 "node_name": "node_name",
                                 "title": "title",
                             }
-                        ],
-                        "title": "title",
+                        ]
                     }
                 ],
                 "title": "title",
@@ -1004,8 +1001,7 @@ class TestSessions:
                                     "node_name": "node_name",
                                     "title": "title",
                                 }
-                            ],
-                            "title": "title",
+                            ]
                         }
                     ],
                     "title": "title",
@@ -1325,7 +1321,6 @@ class TestAsyncSessions:
                                 "span": 0,
                             }
                         ],
-                        "title": "title",
                         "controls": [
                             {
                                 "id": "id",
@@ -1343,6 +1338,7 @@ class TestAsyncSessions:
                         ],
                         "dataset_node_name": "datasetNodeName",
                         "description": "description",
+                        "title": "title",
                     }
                 ],
                 "title": "title",
@@ -1956,8 +1952,7 @@ class TestAsyncSessions:
                                 "node_name": "node_name",
                                 "title": "title",
                             }
-                        ],
-                        "title": "title",
+                        ]
                     }
                 ],
                 "title": "title",
@@ -1992,7 +1987,6 @@ class TestAsyncSessions:
                                 "span": 0,
                             }
                         ],
-                        "title": "title",
                         "controls": [
                             {
                                 "id": "id",
@@ -2010,6 +2004,7 @@ class TestAsyncSessions:
                         ],
                         "dataset_node_name": "datasetNodeName",
                         "description": "description",
+                        "title": "title",
                     }
                 ],
                 "title": "title",
@@ -2030,8 +2025,7 @@ class TestAsyncSessions:
                                 "node_name": "node_name",
                                 "title": "title",
                             }
-                        ],
-                        "title": "title",
+                        ]
                     }
                 ],
                 "title": "title",
@@ -2055,8 +2049,7 @@ class TestAsyncSessions:
                                 "node_name": "node_name",
                                 "title": "title",
                             }
-                        ],
-                        "title": "title",
+                        ]
                     }
                 ],
                 "title": "title",
@@ -2083,8 +2076,7 @@ class TestAsyncSessions:
                                     "node_name": "node_name",
                                     "title": "title",
                                 }
-                            ],
-                            "title": "title",
+                            ]
                         }
                     ],
                     "title": "title",
