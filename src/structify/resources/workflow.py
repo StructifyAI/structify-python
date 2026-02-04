@@ -2,10 +2,12 @@
 
 from __future__ import annotations
 
+from typing import Optional
+
 import httpx
 
 from ..types import workflow_run_params, workflow_stop_params
-from .._types import Body, Query, Headers, NoneType, NotGiven, not_given
+from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -45,6 +47,7 @@ class WorkflowResource(SyncAPIResource):
         *,
         chat_session_id: str,
         use_node_cache: bool,
+        edited_node_name: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -69,6 +72,7 @@ class WorkflowResource(SyncAPIResource):
                 {
                     "chat_session_id": chat_session_id,
                     "use_node_cache": use_node_cache,
+                    "edited_node_name": edited_node_name,
                 },
                 workflow_run_params.WorkflowRunParams,
             ),
@@ -135,6 +139,7 @@ class AsyncWorkflowResource(AsyncAPIResource):
         *,
         chat_session_id: str,
         use_node_cache: bool,
+        edited_node_name: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -159,6 +164,7 @@ class AsyncWorkflowResource(AsyncAPIResource):
                 {
                     "chat_session_id": chat_session_id,
                     "use_node_cache": use_node_cache,
+                    "edited_node_name": edited_node_name,
                 },
                 workflow_run_params.WorkflowRunParams,
             ),

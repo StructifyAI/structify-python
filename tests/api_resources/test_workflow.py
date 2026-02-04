@@ -24,6 +24,15 @@ class TestWorkflow:
         assert workflow is None
 
     @parametrize
+    def test_method_run_with_all_params(self, client: Structify) -> None:
+        workflow = client.workflow.run(
+            chat_session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            use_node_cache=True,
+            edited_node_name="edited_node_name",
+        )
+        assert workflow is None
+
+    @parametrize
     def test_raw_response_run(self, client: Structify) -> None:
         response = client.workflow.with_raw_response.run(
             chat_session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -91,6 +100,15 @@ class TestAsyncWorkflow:
         workflow = await async_client.workflow.run(
             chat_session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             use_node_cache=True,
+        )
+        assert workflow is None
+
+    @parametrize
+    async def test_method_run_with_all_params(self, async_client: AsyncStructify) -> None:
+        workflow = await async_client.workflow.run(
+            chat_session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            use_node_cache=True,
+            edited_node_name="edited_node_name",
         )
         assert workflow is None
 
