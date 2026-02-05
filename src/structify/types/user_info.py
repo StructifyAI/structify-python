@@ -66,3 +66,7 @@ class UserInfo(BaseModel):
     slack_username: Optional[str] = None
 
     survey_completed_at: Optional[datetime] = None
+
+    teams_user_id: Optional[str] = None
+
+    teams_user_name: Optional[str] = None
