@@ -235,18 +235,6 @@ class TestSessions:
                                 "node_name": "node_name",
                                 "title": "title",
                                 "description": "description",
-                                "mosaic": {
-                                    "fields": {"foo": "string"},
-                                    "bin": {
-                                        "as": "as",
-                                        "field": "field",
-                                        "step": 0,
-                                    },
-                                    "group_by": ["string"],
-                                    "limit": 0,
-                                    "order_by": "orderBy",
-                                    "table": "table",
-                                },
                                 "span": 0,
                             }
                         ],
@@ -897,18 +885,6 @@ class TestSessions:
                                 "node_name": "node_name",
                                 "title": "title",
                                 "description": "description",
-                                "mosaic": {
-                                    "fields": {"foo": "string"},
-                                    "bin": {
-                                        "as": "as",
-                                        "field": "field",
-                                        "step": 0,
-                                    },
-                                    "group_by": ["string"],
-                                    "limit": 0,
-                                    "order_by": "orderBy",
-                                    "table": "table",
-                                },
                                 "span": 0,
                             }
                         ],
@@ -1306,18 +1282,6 @@ class TestAsyncSessions:
                                 "node_name": "node_name",
                                 "title": "title",
                                 "description": "description",
-                                "mosaic": {
-                                    "fields": {"foo": "string"},
-                                    "bin": {
-                                        "as": "as",
-                                        "field": "field",
-                                        "step": 0,
-                                    },
-                                    "group_by": ["string"],
-                                    "limit": 0,
-                                    "order_by": "orderBy",
-                                    "table": "table",
-                                },
                                 "span": 0,
                             }
                         ],
@@ -1972,18 +1936,6 @@ class TestAsyncSessions:
                                 "node_name": "node_name",
                                 "title": "title",
                                 "description": "description",
-                                "mosaic": {
-                                    "fields": {"foo": "string"},
-                                    "bin": {
-                                        "as": "as",
-                                        "field": "field",
-                                        "step": 0,
-                                    },
-                                    "group_by": ["string"],
-                                    "limit": 0,
-                                    "order_by": "orderBy",
-                                    "table": "table",
-                                },
                                 "span": 0,
                             }
                         ],
