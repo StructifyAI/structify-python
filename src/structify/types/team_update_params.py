@@ -22,3 +22,9 @@ class TeamUpdateParams(TypedDict, total=False):
     slack_team_id: Optional[str]
 
     slack_team_name: Optional[str]
+
+    teams_app_id: Optional[str]
+
+    teams_app_password: Optional[str]
+
+    teams_tenant_id: Optional[str]
