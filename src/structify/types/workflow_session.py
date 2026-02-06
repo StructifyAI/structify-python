@@ -29,4 +29,6 @@ class WorkflowSession(BaseModel):
 
     error_traceback: Optional[str] = None
 
+    git_commit: Optional[str] = None
+
     workflow_schedule_id: Optional[str] = None
