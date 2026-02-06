@@ -1,5 +1,28 @@
 # Changelog
 
+## 1.182.0 (2026-02-06)
+
+Full Changelog: [v1.181.0...v1.182.0](https://github.com/StructifyAI/structify-python/compare/v1.181.0...v1.182.0)
+
+### Features
+
+* Update from Structify backend changes ([487f4d1](https://github.com/StructifyAI/structify-python/commit/487f4d125e3bd9cb091ca4eb85fb180ea6095bed))
+* Update from Structify backend changes ([fb72c0c](https://github.com/StructifyAI/structify-python/commit/fb72c0c93fde7293278627703f5d191aa541c87b))
+* Update from Structify backend changes ([395bfac](https://github.com/StructifyAI/structify-python/commit/395bfac86ce04152f3efee5f573c079287ae2814))
+* Update from Structify backend changes ([0dce161](https://github.com/StructifyAI/structify-python/commit/0dce16153ee297464b24a61976acc968891e35fc))
+* Update from Structify backend changes ([b7ff575](https://github.com/StructifyAI/structify-python/commit/b7ff575fb4de8ac6af59f27854d508fbbbb6ad11))
+* Update from Structify backend changes ([1863e94](https://github.com/StructifyAI/structify-python/commit/1863e94930907f1915e929a73c54e4b33a8caf92))
+* Update from Structify backend changes ([1e5a1a5](https://github.com/StructifyAI/structify-python/commit/1e5a1a5e1fe5a971c916d39a3fb24b218b81484e))
+* Update from Structify backend changes ([4539bad](https://github.com/StructifyAI/structify-python/commit/4539bad4e9da321f8bbaecbfa9484909bf59fe52))
+* Update from Structify backend changes ([305ddf7](https://github.com/StructifyAI/structify-python/commit/305ddf77893e5b5df1b756595501b746933a9c49))
+* Update from Structify backend changes ([6fe38a5](https://github.com/StructifyAI/structify-python/commit/6fe38a5414abc1601c6dfa8d1956fc9043f20111))
+* Update from Structify backend changes ([d25c643](https://github.com/StructifyAI/structify-python/commit/d25c6431bd7494dae7e87cd6782567251c1d2e0c))
+
+
+### Bug Fixes
+
+* Fix cumsum tqdm bug ([cf19eaa](https://github.com/StructifyAI/structify-python/commit/cf19eaa9c9dda9c1db7c19785ae97e2dd03a6c39))
+
 ## 1.181.0 (2026-01-30)
 
 Full Changelog: [v1.180.0...v1.181.0](https://github.com/StructifyAI/structify-python/compare/v1.180.0...v1.181.0)
