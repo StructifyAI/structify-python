@@ -10,6 +10,7 @@ UsageGroupKey: TypeAlias = Literal[
     "derive",
     "scrape",
     "apollo",
+    "apify",
     "searchapi",
     "newsapi",
     "secapi",
