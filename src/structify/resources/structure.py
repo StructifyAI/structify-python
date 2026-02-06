@@ -340,8 +340,6 @@ class StructureResource(SyncAPIResource):
         Returns a token that can be waited on until the request is finished.
 
         Args:
-          source: These are all the types that can be converted into a BasicInputType
-
           seeded_entity: Knowledge graph info structured to deserialize and display in the same format
               that the LLM outputs. Also the first representation of an LLM output in the
               pipeline from raw tool output to being merged into a DB
@@ -682,8 +680,6 @@ class AsyncStructureResource(AsyncAPIResource):
         Returns a token that can be waited on until the request is finished.
 
         Args:
-          source: These are all the types that can be converted into a BasicInputType
-
           seeded_entity: Knowledge graph info structured to deserialize and display in the same format
               that the LLM outputs. Also the first representation of an LLM output in the
               pipeline from raw tool output to being merged into a DB
