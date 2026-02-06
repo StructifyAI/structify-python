@@ -17,7 +17,6 @@ class StructureRunAsyncParams(TypedDict, total=False):
     dataset: Required[str]
 
     source: Required[Source]
-    """These are all the types that can be converted into a BasicInputType"""
 
     instructions: Optional[str]
 
