@@ -75,6 +75,12 @@ class Session(BaseModel):
 
     slack_thread_ts: Optional[str] = None
 
+    teams_channel_id: Optional[str] = None
+
+    teams_conversation_id: Optional[str] = None
+
+    teams_tenant_id: Optional[str] = None
+
     workflow_schedule_id: Optional[str] = None
 
 
