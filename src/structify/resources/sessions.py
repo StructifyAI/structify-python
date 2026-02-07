@@ -120,6 +120,7 @@ class SessionsResource(SyncAPIResource):
         self,
         *,
         chat_session_id: str,
+        git_commit: str,
         workflow_schedule_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -143,6 +144,7 @@ class SessionsResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "chat_session_id": chat_session_id,
+                    "git_commit": git_commit,
                     "workflow_schedule_id": workflow_schedule_id,
                 },
                 session_create_session_params.SessionCreateSessionParams,
@@ -826,6 +828,7 @@ class AsyncSessionsResource(AsyncAPIResource):
         self,
         *,
         chat_session_id: str,
+        git_commit: str,
         workflow_schedule_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -849,6 +852,7 @@ class AsyncSessionsResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "chat_session_id": chat_session_id,
+                    "git_commit": git_commit,
                     "workflow_schedule_id": workflow_schedule_id,
                 },
                 session_create_session_params.SessionCreateSessionParams,

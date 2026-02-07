@@ -63,7 +63,6 @@ ParametersStructuringInputAgentAgent: TypeAlias = Union[
 
 class ParametersStructuringInputAgent(BaseModel):
     agent: ParametersStructuringInputAgentAgent = FieldInfo(alias="Agent")
-    """These are all the types that can be converted into a BasicInputType"""
 
 
 class ParametersStructuringInputTransformationPrompt(BaseModel):

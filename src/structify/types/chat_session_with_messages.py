@@ -96,3 +96,9 @@ class ChatSessionWithMessages(BaseModel):
     slack_team_id: Optional[str] = None
 
     slack_thread_ts: Optional[str] = None
+
+    teams_channel_id: Optional[str] = None
+
+    teams_conversation_id: Optional[str] = None
+
+    teams_tenant_id: Optional[str] = None
