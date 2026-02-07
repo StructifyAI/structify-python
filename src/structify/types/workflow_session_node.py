@@ -20,8 +20,6 @@ class WorkflowSessionNode(BaseModel):
 
     function_name: str
 
-    manually_edited: bool
-
     node_index: int
 
     node_name: str
@@ -49,6 +47,8 @@ class WorkflowSessionNode(BaseModel):
     execution_time_ms: Optional[int] = None
 
     input_row_count: Optional[int] = None
+
+    manually_edited: Optional[bool] = None
 
     original_node: Optional[str] = None
 
