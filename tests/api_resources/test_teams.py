@@ -15,7 +15,6 @@ from structify.types import (
     AddMemberResponse,
     ListTeamsResponse,
     CreateTeamResponse,
-    DeleteTeamResponse,
     SelectTeamResponse,
     UpdateTeamResponse,
     ListMembersResponse,
@@ -152,44 +151,6 @@ class TestTeams:
             assert_matches_type(ListTeamsResponse, team, path=["response"])
 
         assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    def test_method_delete(self, client: Structify) -> None:
-        team = client.teams.delete(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-        assert_matches_type(DeleteTeamResponse, team, path=["response"])
-
-    @parametrize
-    def test_raw_response_delete(self, client: Structify) -> None:
-        response = client.teams.with_raw_response.delete(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        team = response.parse()
-        assert_matches_type(DeleteTeamResponse, team, path=["response"])
-
-    @parametrize
-    def test_streaming_response_delete(self, client: Structify) -> None:
-        with client.teams.with_streaming_response.delete(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            team = response.parse()
-            assert_matches_type(DeleteTeamResponse, team, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    def test_path_params_delete(self, client: Structify) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `team_id` but received ''"):
-            client.teams.with_raw_response.delete(
-                "",
-            )
 
     @parametrize
     def test_method_accept_invitation(self, client: Structify) -> None:
@@ -795,44 +756,6 @@ class TestAsyncTeams:
             assert_matches_type(ListTeamsResponse, team, path=["response"])
 
         assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    async def test_method_delete(self, async_client: AsyncStructify) -> None:
-        team = await async_client.teams.delete(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-        assert_matches_type(DeleteTeamResponse, team, path=["response"])
-
-    @parametrize
-    async def test_raw_response_delete(self, async_client: AsyncStructify) -> None:
-        response = await async_client.teams.with_raw_response.delete(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        team = await response.parse()
-        assert_matches_type(DeleteTeamResponse, team, path=["response"])
-
-    @parametrize
-    async def test_streaming_response_delete(self, async_client: AsyncStructify) -> None:
-        async with async_client.teams.with_streaming_response.delete(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            team = await response.parse()
-            assert_matches_type(DeleteTeamResponse, team, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    async def test_path_params_delete(self, async_client: AsyncStructify) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `team_id` but received ''"):
-            await async_client.teams.with_raw_response.delete(
-                "",
-            )
 
     @parametrize
     async def test_method_accept_invitation(self, async_client: AsyncStructify) -> None:
