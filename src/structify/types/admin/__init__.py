@@ -3,8 +3,6 @@
 from __future__ import annotations
 
 from .user import User as User
-from .sandbox_type import SandboxType as SandboxType
-from .admin_sandbox import AdminSandbox as AdminSandbox
 from .functional_test import FunctionalTest as FunctionalTest
 from .job_list_params import JobListParams as JobListParams
 from .team_list_params import TeamListParams as TeamListParams
