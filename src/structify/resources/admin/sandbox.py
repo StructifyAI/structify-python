@@ -19,7 +19,7 @@ from ..._response import (
 from ...pagination import SyncJobsList, AsyncJobsList
 from ...types.admin import sandbox_list_params
 from ..._base_client import AsyncPaginator, make_request_options
-from ...types.admin.admin_sandbox import AdminSandbox
+from ...types.sandbox import Sandbox
 
 __all__ = ["SandboxResource", "AsyncSandboxResource"]
 
@@ -55,7 +55,7 @@ class SandboxResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncJobsList[AdminSandbox]:
+    ) -> SyncJobsList[Sandbox]:
         """
         Args:
           extra_headers: Send extra headers
@@ -68,7 +68,7 @@ class SandboxResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/admin/sandbox/list",
-            page=SyncJobsList[AdminSandbox],
+            page=SyncJobsList[Sandbox],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -82,7 +82,7 @@ class SandboxResource(SyncAPIResource):
                     sandbox_list_params.SandboxListParams,
                 ),
             ),
-            model=AdminSandbox,
+            model=Sandbox,
         )
 
 
@@ -117,7 +117,7 @@ class AsyncSandboxResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[AdminSandbox, AsyncJobsList[AdminSandbox]]:
+    ) -> AsyncPaginator[Sandbox, AsyncJobsList[Sandbox]]:
         """
         Args:
           extra_headers: Send extra headers
@@ -130,7 +130,7 @@ class AsyncSandboxResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/admin/sandbox/list",
-            page=AsyncJobsList[AdminSandbox],
+            page=AsyncJobsList[Sandbox],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -144,7 +144,7 @@ class AsyncSandboxResource(AsyncAPIResource):
                     sandbox_list_params.SandboxListParams,
                 ),
             ),
-            model=AdminSandbox,
+            model=Sandbox,
         )
 
 
