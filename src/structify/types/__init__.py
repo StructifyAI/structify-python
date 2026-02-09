@@ -100,7 +100,6 @@ from .create_team_response import CreateTeamResponse as CreateTeamResponse
 from .dashboard_page_param import DashboardPageParam as DashboardPageParam
 from .dataset_get_response import DatasetGetResponse as DatasetGetResponse
 from .dataset_match_params import DatasetMatchParams as DatasetMatchParams
-from .delete_team_response import DeleteTeamResponse as DeleteTeamResponse
 from .document_list_params import DocumentListParams as DocumentListParams
 from .entity_delete_params import EntityDeleteParams as EntityDeleteParams
 from .entity_derive_params import EntityDeriveParams as EntityDeriveParams

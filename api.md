@@ -173,7 +173,6 @@ from structify.types import (
     CreditsUsageRequest,
     CreditsUsageResponse,
     CreditsUsageTimeseriesPoint,
-    DeleteTeamResponse,
     GetTeamResponse,
     Granularity,
     InvitationDetailsResponse,
@@ -199,7 +198,6 @@ Methods:
 - <code title="post /team/create">client.teams.<a href="./src/structify/resources/teams.py">create</a>(\*\*<a href="src/structify/types/team_create_params.py">params</a>) -> <a href="./src/structify/types/create_team_response.py">CreateTeamResponse</a></code>
 - <code title="put /team/{team_id}">client.teams.<a href="./src/structify/resources/teams.py">update</a>(team_id, \*\*<a href="src/structify/types/team_update_params.py">params</a>) -> <a href="./src/structify/types/update_team_response.py">UpdateTeamResponse</a></code>
 - <code title="get /team/list">client.teams.<a href="./src/structify/resources/teams.py">list</a>() -> <a href="./src/structify/types/list_teams_response.py">ListTeamsResponse</a></code>
-- <code title="delete /team/{team_id}">client.teams.<a href="./src/structify/resources/teams.py">delete</a>(team_id) -> <a href="./src/structify/types/delete_team_response.py">DeleteTeamResponse</a></code>
 - <code title="post /team/invitations/accept">client.teams.<a href="./src/structify/resources/teams.py">accept_invitation</a>(\*\*<a href="src/structify/types/team_accept_invitation_params.py">params</a>) -> <a href="./src/structify/types/accept_invitation_response.py">AcceptInvitationResponse</a></code>
 - <code title="post /team/{team_id}/members">client.teams.<a href="./src/structify/resources/teams.py">add_member</a>(team_id, \*\*<a href="src/structify/types/team_add_member_params.py">params</a>) -> <a href="./src/structify/types/add_member_response.py">AddMemberResponse</a></code>
 - <code title="post /team/{team_id}/projects">client.teams.<a href="./src/structify/resources/teams.py">create_project</a>(team_id, \*\*<a href="src/structify/types/team_create_project_params.py">params</a>) -> <a href="./src/structify/types/project.py">Project</a></code>
