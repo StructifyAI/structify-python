@@ -1047,6 +1047,7 @@ class PolarsResource(SyncAPIResource):
         conditioning: str,
         df1_columns: Optional[List[str]] = None,
         df2_columns: Optional[List[str]] = None,
+        no_swap: bool = False,
     ) -> LazyFrame:
         """Match rows between two DataFrames based on the provided instructions.
 
@@ -1058,6 +1059,8 @@ class PolarsResource(SyncAPIResource):
             conditioning: Natural language instructions describing how to match rows
             df1_columns: Optional list of columns to use from df1 to consider matching
             df2_columns: Optional list of columns to use from df2 to consider matching
+            no_swap: A flag on whether to block automatically swapping the first
+                dataframe with the second internally for efficient matching.
 
         Returns:
             LazyFrame with three columns:
@@ -1074,7 +1077,7 @@ class PolarsResource(SyncAPIResource):
 
         # Determine which dataframe is bigger (more rows)
         # Use the smaller one as source (table1) for cost optimization
-        if len(collected_df1) > len(collected_df2):
+        if len(collected_df1) > len(collected_df2) and not no_swap:
             # df1 is bigger, so use it as reference (table2/target)
             df = collected_df2
             reference_df = collected_df1
