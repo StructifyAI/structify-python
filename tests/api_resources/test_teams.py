@@ -230,6 +230,48 @@ class TestTeams:
             )
 
     @parametrize
+    def test_method_cancel_invitation(self, client: Structify) -> None:
+        team = client.teams.cancel_invitation(
+            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            email="email",
+        )
+        assert team is None
+
+    @parametrize
+    def test_raw_response_cancel_invitation(self, client: Structify) -> None:
+        response = client.teams.with_raw_response.cancel_invitation(
+            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            email="email",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        team = response.parse()
+        assert team is None
+
+    @parametrize
+    def test_streaming_response_cancel_invitation(self, client: Structify) -> None:
+        with client.teams.with_streaming_response.cancel_invitation(
+            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            email="email",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            team = response.parse()
+            assert team is None
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_path_params_cancel_invitation(self, client: Structify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `team_id` but received ''"):
+            client.teams.with_raw_response.cancel_invitation(
+                team_id="",
+                email="email",
+            )
+
+    @parametrize
     def test_method_create_project(self, client: Structify) -> None:
         team = client.teams.create_project(
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -832,6 +874,48 @@ class TestAsyncTeams:
                 team_id="",
                 email="email",
                 role="read_only",
+            )
+
+    @parametrize
+    async def test_method_cancel_invitation(self, async_client: AsyncStructify) -> None:
+        team = await async_client.teams.cancel_invitation(
+            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            email="email",
+        )
+        assert team is None
+
+    @parametrize
+    async def test_raw_response_cancel_invitation(self, async_client: AsyncStructify) -> None:
+        response = await async_client.teams.with_raw_response.cancel_invitation(
+            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            email="email",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        team = await response.parse()
+        assert team is None
+
+    @parametrize
+    async def test_streaming_response_cancel_invitation(self, async_client: AsyncStructify) -> None:
+        async with async_client.teams.with_streaming_response.cancel_invitation(
+            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            email="email",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            team = await response.parse()
+            assert team is None
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_cancel_invitation(self, async_client: AsyncStructify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `team_id` but received ''"):
+            await async_client.teams.with_raw_response.cancel_invitation(
+                team_id="",
+                email="email",
             )
 
     @parametrize

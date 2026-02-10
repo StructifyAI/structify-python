@@ -16,9 +16,10 @@ from ..types import (
     team_credits_usage_params,
     team_create_project_params,
     team_accept_invitation_params,
+    team_cancel_invitation_params,
     team_update_member_role_params,
 )
-from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -248,6 +249,43 @@ class TeamsResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=AddMemberResponse,
+        )
+
+    def cancel_invitation(
+        self,
+        team_id: str,
+        *,
+        email: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> None:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not team_id:
+            raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return self._delete(
+            f"/team/{team_id}/invitations",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"email": email}, team_cancel_invitation_params.TeamCancelInvitationParams),
+            ),
+            cast_to=NoneType,
         )
 
     def create_project(
@@ -774,6 +812,45 @@ class AsyncTeamsResource(AsyncAPIResource):
             cast_to=AddMemberResponse,
         )
 
+    async def cancel_invitation(
+        self,
+        team_id: str,
+        *,
+        email: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> None:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not team_id:
+            raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return await self._delete(
+            f"/team/{team_id}/invitations",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"email": email}, team_cancel_invitation_params.TeamCancelInvitationParams
+                ),
+            ),
+            cast_to=NoneType,
+        )
+
     async def create_project(
         self,
         team_id: str,
@@ -1114,6 +1191,9 @@ class TeamsResourceWithRawResponse:
         self.add_member = to_raw_response_wrapper(
             teams.add_member,
         )
+        self.cancel_invitation = to_raw_response_wrapper(
+            teams.cancel_invitation,
+        )
         self.create_project = to_raw_response_wrapper(
             teams.create_project,
         )
@@ -1161,6 +1241,9 @@ class AsyncTeamsResourceWithRawResponse:
         )
         self.add_member = async_to_raw_response_wrapper(
             teams.add_member,
+        )
+        self.cancel_invitation = async_to_raw_response_wrapper(
+            teams.cancel_invitation,
         )
         self.create_project = async_to_raw_response_wrapper(
             teams.create_project,
@@ -1210,6 +1293,9 @@ class TeamsResourceWithStreamingResponse:
         self.add_member = to_streamed_response_wrapper(
             teams.add_member,
         )
+        self.cancel_invitation = to_streamed_response_wrapper(
+            teams.cancel_invitation,
+        )
         self.create_project = to_streamed_response_wrapper(
             teams.create_project,
         )
@@ -1257,6 +1343,9 @@ class AsyncTeamsResourceWithStreamingResponse:
         )
         self.add_member = async_to_streamed_response_wrapper(
             teams.add_member,
+        )
+        self.cancel_invitation = async_to_streamed_response_wrapper(
+            teams.cancel_invitation,
         )
         self.create_project = async_to_streamed_response_wrapper(
             teams.create_project,

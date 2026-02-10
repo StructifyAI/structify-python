@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List
+from typing import List, Optional
 from datetime import datetime
 
 from ..._models import BaseModel
@@ -14,11 +14,13 @@ class Member(BaseModel):
 
     email: str
 
+    pending: bool
+
     role: TeamRole
 
     team_id: str
 
-    user_id: str
+    user_id: Optional[str] = None
 
 
 class AdminListMembersResponse(BaseModel):
