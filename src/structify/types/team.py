@@ -23,6 +23,8 @@ class Team(BaseModel):
 
     sandbox_provider: Optional[str] = None
 
+    seats_override: Optional[int] = None
+
     slack_team_icon: Optional[str] = None
 
     slack_team_id: Optional[str] = None
