@@ -871,6 +871,16 @@ class TestEntities:
         assert entity is None
 
     @parametrize
+    def test_method_upload_parquet_with_all_params(self, client: Structify) -> None:
+        entity = client.entities.upload_parquet(
+            dataset="dataset",
+            table_name="table_name",
+            content=b"raw file contents",
+            start_embedding=True,
+        )
+        assert entity is None
+
+    @parametrize
     def test_raw_response_upload_parquet(self, client: Structify) -> None:
         response = client.entities.with_raw_response.upload_parquet(
             dataset="dataset",
@@ -1857,6 +1867,16 @@ class TestAsyncEntities:
             dataset="dataset",
             table_name="table_name",
             content=b"raw file contents",
+        )
+        assert entity is None
+
+    @parametrize
+    async def test_method_upload_parquet_with_all_params(self, async_client: AsyncStructify) -> None:
+        entity = await async_client.entities.upload_parquet(
+            dataset="dataset",
+            table_name="table_name",
+            content=b"raw file contents",
+            start_embedding=True,
         )
         assert entity is None
 

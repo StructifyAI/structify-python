@@ -1117,8 +1117,8 @@ class PolarsResource(SyncAPIResource):
         if not request_cost_confirmation_if_needed(self._client, len(df), "match"):
             raise Exception("User cancelled matching operation")
 
-        self._upload_df(df, dataset_name, "table1")
-        self._upload_df(reference_df, dataset_name, "table2")
+        self._upload_df(df, dataset_name, "table1", embed=True)
+        self._upload_df(reference_df, dataset_name, "table2", embed=True)
 
         # Wait for all embeddings to be added
         tqdm_marker = tqdm(total=df.height + reference_df.height, desc="Waiting for embeddings")
@@ -1184,6 +1184,7 @@ class PolarsResource(SyncAPIResource):
         df: pl.DataFrame,
         dataset_name: str,
         table_name: str,
+        embed: bool = False,
     ) -> None:
         parquet_bytes = io.BytesIO()
         df.write_parquet(parquet_bytes)
@@ -1191,7 +1192,7 @@ class PolarsResource(SyncAPIResource):
 
         response = self._client._client.post(
             "/entity/upload_parquet",
-            params={"dataset": dataset_name, "table_name": table_name},
+            params={"dataset": dataset_name, "table_name": table_name, "start_embedding": embed},
             files={"file": ("data.parquet", parquet_bytes.getvalue(), "application/octet-stream")},
             headers=self._client.auth_headers,
         )
