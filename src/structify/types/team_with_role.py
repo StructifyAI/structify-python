@@ -8,6 +8,8 @@ __all__ = ["TeamWithRole"]
 
 
 class TeamWithRole(Team):
+    max_seats: int
+
     role: TeamRole
 
     subscription_status: TeamSubscriptionStatus

@@ -8,6 +8,8 @@ __all__ = ["GetTeamResponse"]
 
 
 class GetTeamResponse(BaseModel):
+    max_seats: int
+
     subscription_status: TeamSubscriptionStatus
 
     team: Team
