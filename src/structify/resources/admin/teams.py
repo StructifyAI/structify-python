@@ -8,6 +8,7 @@ from typing_extensions import Literal
 
 import httpx
 
+from ...types import TeamRole
 from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from ..._utils import maybe_transform, async_maybe_transform
 from ..._compat import cached_property
@@ -21,19 +22,27 @@ from ..._response import (
 from ...pagination import SyncJobsList, AsyncJobsList
 from ...types.admin import (
     team_list_params,
+    team_add_member_params,
     team_extend_trial_params,
     team_expire_grants_params,
     team_grant_credits_params,
+    team_remove_member_params,
     team_cancel_subscription_params,
     team_create_subscription_params,
+    team_update_seats_override_params,
 )
 from ..._base_client import AsyncPaginator, make_request_options
+from ...types.team_role import TeamRole
 from ...types.admin.extend_trial_response import ExtendTrialResponse
 from ...types.admin.expire_grants_response import ExpireGrantsResponse
 from ...types.admin.grant_credits_response import GrantCreditsResponse
+from ...types.admin.admin_add_member_response import AdminAddMemberResponse
 from ...types.admin.admin_teams_list_response import AdminTeamsListResponse
+from ...types.admin.admin_list_members_response import AdminListMembersResponse
+from ...types.admin.admin_remove_member_response import AdminRemoveMemberResponse
 from ...types.admin.cancel_subscription_response import CancelSubscriptionResponse
 from ...types.admin.create_subscription_response import CreateSubscriptionResponse
+from ...types.admin.update_seats_override_response import UpdateSeatsOverrideResponse
 
 __all__ = ["TeamsResource", "AsyncTeamsResource"]
 
@@ -101,6 +110,45 @@ class TeamsResource(SyncAPIResource):
                 ),
             ),
             model=AdminTeamsListResponse,
+        )
+
+    def add_member(
+        self,
+        *,
+        email: str,
+        role: TeamRole,
+        team_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AdminAddMemberResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/admin/team/add_member",
+            body=maybe_transform(
+                {
+                    "email": email,
+                    "role": role,
+                    "team_id": team_id,
+                },
+                team_add_member_params.TeamAddMemberParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=AdminAddMemberResponse,
         )
 
     def cancel_subscription(
@@ -301,6 +349,111 @@ class TeamsResource(SyncAPIResource):
             cast_to=GrantCreditsResponse,
         )
 
+    def list_members(
+        self,
+        team_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AdminListMembersResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not team_id:
+            raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
+        return self._get(
+            f"/admin/team/{team_id}/members",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=AdminListMembersResponse,
+        )
+
+    def remove_member(
+        self,
+        *,
+        team_id: str,
+        user_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AdminRemoveMemberResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/admin/team/remove_member",
+            body=maybe_transform(
+                {
+                    "team_id": team_id,
+                    "user_id": user_id,
+                },
+                team_remove_member_params.TeamRemoveMemberParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=AdminRemoveMemberResponse,
+        )
+
+    def update_seats_override(
+        self,
+        *,
+        team_id: str,
+        seats_override: Optional[int] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> UpdateSeatsOverrideResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/admin/team/update_seats_override",
+            body=maybe_transform(
+                {
+                    "team_id": team_id,
+                    "seats_override": seats_override,
+                },
+                team_update_seats_override_params.TeamUpdateSeatsOverrideParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=UpdateSeatsOverrideResponse,
+        )
+
 
 class AsyncTeamsResource(AsyncAPIResource):
     @cached_property
@@ -365,6 +518,45 @@ class AsyncTeamsResource(AsyncAPIResource):
                 ),
             ),
             model=AdminTeamsListResponse,
+        )
+
+    async def add_member(
+        self,
+        *,
+        email: str,
+        role: TeamRole,
+        team_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AdminAddMemberResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/admin/team/add_member",
+            body=await async_maybe_transform(
+                {
+                    "email": email,
+                    "role": role,
+                    "team_id": team_id,
+                },
+                team_add_member_params.TeamAddMemberParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=AdminAddMemberResponse,
         )
 
     async def cancel_subscription(
@@ -567,6 +759,111 @@ class AsyncTeamsResource(AsyncAPIResource):
             cast_to=GrantCreditsResponse,
         )
 
+    async def list_members(
+        self,
+        team_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AdminListMembersResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not team_id:
+            raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
+        return await self._get(
+            f"/admin/team/{team_id}/members",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=AdminListMembersResponse,
+        )
+
+    async def remove_member(
+        self,
+        *,
+        team_id: str,
+        user_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AdminRemoveMemberResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/admin/team/remove_member",
+            body=await async_maybe_transform(
+                {
+                    "team_id": team_id,
+                    "user_id": user_id,
+                },
+                team_remove_member_params.TeamRemoveMemberParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=AdminRemoveMemberResponse,
+        )
+
+    async def update_seats_override(
+        self,
+        *,
+        team_id: str,
+        seats_override: Optional[int] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> UpdateSeatsOverrideResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/admin/team/update_seats_override",
+            body=await async_maybe_transform(
+                {
+                    "team_id": team_id,
+                    "seats_override": seats_override,
+                },
+                team_update_seats_override_params.TeamUpdateSeatsOverrideParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=UpdateSeatsOverrideResponse,
+        )
+
 
 class TeamsResourceWithRawResponse:
     def __init__(self, teams: TeamsResource) -> None:
@@ -574,6 +871,9 @@ class TeamsResourceWithRawResponse:
 
         self.list = to_raw_response_wrapper(
             teams.list,
+        )
+        self.add_member = to_raw_response_wrapper(
+            teams.add_member,
         )
         self.cancel_subscription = to_raw_response_wrapper(
             teams.cancel_subscription,
@@ -590,6 +890,15 @@ class TeamsResourceWithRawResponse:
         self.grant_credits = to_raw_response_wrapper(
             teams.grant_credits,
         )
+        self.list_members = to_raw_response_wrapper(
+            teams.list_members,
+        )
+        self.remove_member = to_raw_response_wrapper(
+            teams.remove_member,
+        )
+        self.update_seats_override = to_raw_response_wrapper(
+            teams.update_seats_override,
+        )
 
 
 class AsyncTeamsResourceWithRawResponse:
@@ -598,6 +907,9 @@ class AsyncTeamsResourceWithRawResponse:
 
         self.list = async_to_raw_response_wrapper(
             teams.list,
+        )
+        self.add_member = async_to_raw_response_wrapper(
+            teams.add_member,
         )
         self.cancel_subscription = async_to_raw_response_wrapper(
             teams.cancel_subscription,
@@ -614,6 +926,15 @@ class AsyncTeamsResourceWithRawResponse:
         self.grant_credits = async_to_raw_response_wrapper(
             teams.grant_credits,
         )
+        self.list_members = async_to_raw_response_wrapper(
+            teams.list_members,
+        )
+        self.remove_member = async_to_raw_response_wrapper(
+            teams.remove_member,
+        )
+        self.update_seats_override = async_to_raw_response_wrapper(
+            teams.update_seats_override,
+        )
 
 
 class TeamsResourceWithStreamingResponse:
@@ -622,6 +943,9 @@ class TeamsResourceWithStreamingResponse:
 
         self.list = to_streamed_response_wrapper(
             teams.list,
+        )
+        self.add_member = to_streamed_response_wrapper(
+            teams.add_member,
         )
         self.cancel_subscription = to_streamed_response_wrapper(
             teams.cancel_subscription,
@@ -638,6 +962,15 @@ class TeamsResourceWithStreamingResponse:
         self.grant_credits = to_streamed_response_wrapper(
             teams.grant_credits,
         )
+        self.list_members = to_streamed_response_wrapper(
+            teams.list_members,
+        )
+        self.remove_member = to_streamed_response_wrapper(
+            teams.remove_member,
+        )
+        self.update_seats_override = to_streamed_response_wrapper(
+            teams.update_seats_override,
+        )
 
 
 class AsyncTeamsResourceWithStreamingResponse:
@@ -646,6 +979,9 @@ class AsyncTeamsResourceWithStreamingResponse:
 
         self.list = async_to_streamed_response_wrapper(
             teams.list,
+        )
+        self.add_member = async_to_streamed_response_wrapper(
+            teams.add_member,
         )
         self.cancel_subscription = async_to_streamed_response_wrapper(
             teams.cancel_subscription,
@@ -661,4 +997,13 @@ class AsyncTeamsResourceWithStreamingResponse:
         )
         self.grant_credits = async_to_streamed_response_wrapper(
             teams.grant_credits,
+        )
+        self.list_members = async_to_streamed_response_wrapper(
+            teams.list_members,
+        )
+        self.remove_member = async_to_streamed_response_wrapper(
+            teams.remove_member,
+        )
+        self.update_seats_override = async_to_streamed_response_wrapper(
+            teams.update_seats_override,
         )
