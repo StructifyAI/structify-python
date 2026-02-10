@@ -15,3 +15,5 @@ class EntityUploadParquetParams(TypedDict, total=False):
     table_name: Required[str]
 
     content: Required[FileTypes]
+
+    start_embedding: bool

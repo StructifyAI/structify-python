@@ -674,6 +674,7 @@ class EntitiesResource(SyncAPIResource):
         dataset: str,
         table_name: str,
         content: FileTypes,
+        start_embedding: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -713,6 +714,7 @@ class EntitiesResource(SyncAPIResource):
                     {
                         "dataset": dataset,
                         "table_name": table_name,
+                        "start_embedding": start_embedding,
                     },
                     entity_upload_parquet_params.EntityUploadParquetParams,
                 ),
@@ -1428,6 +1430,7 @@ class AsyncEntitiesResource(AsyncAPIResource):
         dataset: str,
         table_name: str,
         content: FileTypes,
+        start_embedding: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1467,6 +1470,7 @@ class AsyncEntitiesResource(AsyncAPIResource):
                     {
                         "dataset": dataset,
                         "table_name": table_name,
+                        "start_embedding": start_embedding,
                     },
                     entity_upload_parquet_params.EntityUploadParquetParams,
                 ),
