@@ -43,6 +43,8 @@ class TimelineMessage(BaseModel):
 
     git_commit_id: Optional[str] = None
 
+    previous_message_id: Optional[str] = None
+
     slack_channel_id: Optional[str] = None
 
     slack_message_ts: Optional[str] = None
