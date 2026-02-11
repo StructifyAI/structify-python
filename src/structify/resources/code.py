@@ -51,6 +51,7 @@ class CodeResource(SyncAPIResource):
         config: Optional[code_generate_code_params.Config] | Omit = omit,
         connector_ids: SequenceNotStr[str] | Omit = omit,
         file_paths: SequenceNotStr[str] | Omit = omit,
+        override_previous_message_id: Optional[str] | Omit = omit,
         trigger_workflow_execution: bool | Omit = omit,
         user_message_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -87,6 +88,7 @@ class CodeResource(SyncAPIResource):
                     "config": config,
                     "connector_ids": connector_ids,
                     "file_paths": file_paths,
+                    "override_previous_message_id": override_previous_message_id,
                     "trigger_workflow_execution": trigger_workflow_execution,
                     "user_message_id": user_message_id,
                 },
@@ -164,6 +166,7 @@ class AsyncCodeResource(AsyncAPIResource):
         config: Optional[code_generate_code_params.Config] | Omit = omit,
         connector_ids: SequenceNotStr[str] | Omit = omit,
         file_paths: SequenceNotStr[str] | Omit = omit,
+        override_previous_message_id: Optional[str] | Omit = omit,
         trigger_workflow_execution: bool | Omit = omit,
         user_message_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -200,6 +203,7 @@ class AsyncCodeResource(AsyncAPIResource):
                     "config": config,
                     "connector_ids": connector_ids,
                     "file_paths": file_paths,
+                    "override_previous_message_id": override_previous_message_id,
                     "trigger_workflow_execution": trigger_workflow_execution,
                     "user_message_id": user_message_id,
                 },
