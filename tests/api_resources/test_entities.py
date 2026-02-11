@@ -107,7 +107,6 @@ class TestEntities:
                     }
                 ],
             },
-            attempt_merge=True,
             source="None",
         )
         assert_matches_type(EntityAddResponse, entity, path=["response"])
@@ -195,7 +194,6 @@ class TestEntities:
                     ],
                 }
             ],
-            attempt_merge=True,
             skip_malformed_entities=True,
             source="None",
         )
@@ -1107,7 +1105,6 @@ class TestAsyncEntities:
                     }
                 ],
             },
-            attempt_merge=True,
             source="None",
         )
         assert_matches_type(EntityAddResponse, entity, path=["response"])
@@ -1195,7 +1192,6 @@ class TestAsyncEntities:
                     ],
                 }
             ],
-            attempt_merge=True,
             skip_malformed_entities=True,
             source="None",
         )
