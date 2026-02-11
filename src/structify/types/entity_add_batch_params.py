@@ -16,9 +16,6 @@ class EntityAddBatchParams(TypedDict, total=False):
 
     entity_graphs: Required[Iterable[KnowledgeGraphParam]]
 
-    attempt_merge: bool
-    """If true, attempt to merge with existing entities in the dataset"""
-
     skip_malformed_entities: bool
 
     source: Source

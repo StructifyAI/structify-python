@@ -120,7 +120,6 @@ class EntitiesResource(SyncAPIResource):
         *,
         dataset: str,
         entity_graph: KnowledgeGraphParam,
-        attempt_merge: bool | Omit = omit,
         source: entity_add_params.Source | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -138,8 +137,6 @@ class EntitiesResource(SyncAPIResource):
               that the LLM outputs. Also the first representation of an LLM output in the
               pipeline from raw tool output to being merged into a DB
 
-          attempt_merge: If true, attempt to merge with existing entities in the dataset
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -154,7 +151,6 @@ class EntitiesResource(SyncAPIResource):
                 {
                     "dataset": dataset,
                     "entity_graph": entity_graph,
-                    "attempt_merge": attempt_merge,
                     "source": source,
                 },
                 entity_add_params.EntityAddParams,
@@ -170,7 +166,6 @@ class EntitiesResource(SyncAPIResource):
         *,
         dataset: str,
         entity_graphs: Iterable[KnowledgeGraphParam],
-        attempt_merge: bool | Omit = omit,
         skip_malformed_entities: bool | Omit = omit,
         source: entity_add_batch_params.Source | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -185,8 +180,6 @@ class EntitiesResource(SyncAPIResource):
         the entities.
 
         Args:
-          attempt_merge: If true, attempt to merge with existing entities in the dataset
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -201,7 +194,6 @@ class EntitiesResource(SyncAPIResource):
                 {
                     "dataset": dataset,
                     "entity_graphs": entity_graphs,
-                    "attempt_merge": attempt_merge,
                     "skip_malformed_entities": skip_malformed_entities,
                     "source": source,
                 },
@@ -874,7 +866,6 @@ class AsyncEntitiesResource(AsyncAPIResource):
         *,
         dataset: str,
         entity_graph: KnowledgeGraphParam,
-        attempt_merge: bool | Omit = omit,
         source: entity_add_params.Source | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -892,8 +883,6 @@ class AsyncEntitiesResource(AsyncAPIResource):
               that the LLM outputs. Also the first representation of an LLM output in the
               pipeline from raw tool output to being merged into a DB
 
-          attempt_merge: If true, attempt to merge with existing entities in the dataset
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -908,7 +897,6 @@ class AsyncEntitiesResource(AsyncAPIResource):
                 {
                     "dataset": dataset,
                     "entity_graph": entity_graph,
-                    "attempt_merge": attempt_merge,
                     "source": source,
                 },
                 entity_add_params.EntityAddParams,
@@ -924,7 +912,6 @@ class AsyncEntitiesResource(AsyncAPIResource):
         *,
         dataset: str,
         entity_graphs: Iterable[KnowledgeGraphParam],
-        attempt_merge: bool | Omit = omit,
         skip_malformed_entities: bool | Omit = omit,
         source: entity_add_batch_params.Source | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -939,8 +926,6 @@ class AsyncEntitiesResource(AsyncAPIResource):
         the entities.
 
         Args:
-          attempt_merge: If true, attempt to merge with existing entities in the dataset
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -955,7 +940,6 @@ class AsyncEntitiesResource(AsyncAPIResource):
                 {
                     "dataset": dataset,
                     "entity_graphs": entity_graphs,
-                    "attempt_merge": attempt_merge,
                     "skip_malformed_entities": skip_malformed_entities,
                     "source": source,
                 },
