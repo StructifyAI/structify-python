@@ -21,7 +21,6 @@ from ..types import (
     entity_summarize_params,
     entity_derive_all_params,
     entity_get_merges_params,
-    entity_agent_merge_params,
     entity_trigger_merge_params,
     entity_upload_parquet_params,
     entity_update_property_params,
@@ -54,7 +53,6 @@ from ..types.entity_list_jobs_response import EntityListJobsResponse
 from ..types.entity_summarize_response import EntitySummarizeResponse
 from ..types.entity_derive_all_response import EntityDeriveAllResponse
 from ..types.entity_get_merges_response import EntityGetMergesResponse
-from ..types.entity_agent_merge_response import EntityAgentMergeResponse
 from ..types.entity_trigger_merge_response import EntityTriggerMergeResponse
 from ..types.entity_update_property_response import EntityUpdatePropertyResponse
 from ..types.entity_add_relationship_response import EntityAddRelationshipResponse
@@ -264,50 +262,6 @@ class EntitiesResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=EntityAddRelationshipResponse,
-        )
-
-    def agent_merge(
-        self,
-        *,
-        dataset: str,
-        entity_id: str,
-        force_consider_entities: SequenceNotStr[str] | Omit = omit,
-        top_k: int | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> EntityAgentMergeResponse:
-        """
-        Use LLM to analyze and automatically merge entities based on sources and
-        properties
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return self._post(
-            "/entity/agent_merge",
-            body=maybe_transform(
-                {
-                    "dataset": dataset,
-                    "entity_id": entity_id,
-                    "force_consider_entities": force_consider_entities,
-                    "top_k": top_k,
-                },
-                entity_agent_merge_params.EntityAgentMergeParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=EntityAgentMergeResponse,
         )
 
     def delete_relationship(
@@ -1175,50 +1129,6 @@ class AsyncEntitiesResource(AsyncAPIResource):
             cast_to=EntityAddRelationshipResponse,
         )
 
-    async def agent_merge(
-        self,
-        *,
-        dataset: str,
-        entity_id: str,
-        force_consider_entities: SequenceNotStr[str] | Omit = omit,
-        top_k: int | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> EntityAgentMergeResponse:
-        """
-        Use LLM to analyze and automatically merge entities based on sources and
-        properties
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return await self._post(
-            "/entity/agent_merge",
-            body=await async_maybe_transform(
-                {
-                    "dataset": dataset,
-                    "entity_id": entity_id,
-                    "force_consider_entities": force_consider_entities,
-                    "top_k": top_k,
-                },
-                entity_agent_merge_params.EntityAgentMergeParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=EntityAgentMergeResponse,
-        )
-
     async def delete_relationship(
         self,
         *,
@@ -1904,9 +1814,6 @@ class EntitiesResourceWithRawResponse:
         self.add_relationship = to_raw_response_wrapper(
             entities.add_relationship,
         )
-        self.agent_merge = to_raw_response_wrapper(
-            entities.agent_merge,
-        )
         self.delete_relationship = to_raw_response_wrapper(
             entities.delete_relationship,
         )
@@ -1972,9 +1879,6 @@ class AsyncEntitiesResourceWithRawResponse:
         )
         self.add_relationship = async_to_raw_response_wrapper(
             entities.add_relationship,
-        )
-        self.agent_merge = async_to_raw_response_wrapper(
-            entities.agent_merge,
         )
         self.delete_relationship = async_to_raw_response_wrapper(
             entities.delete_relationship,
@@ -2042,9 +1946,6 @@ class EntitiesResourceWithStreamingResponse:
         self.add_relationship = to_streamed_response_wrapper(
             entities.add_relationship,
         )
-        self.agent_merge = to_streamed_response_wrapper(
-            entities.agent_merge,
-        )
         self.delete_relationship = to_streamed_response_wrapper(
             entities.delete_relationship,
         )
@@ -2110,9 +2011,6 @@ class AsyncEntitiesResourceWithStreamingResponse:
         )
         self.add_relationship = async_to_streamed_response_wrapper(
             entities.add_relationship,
-        )
-        self.agent_merge = async_to_streamed_response_wrapper(
-            entities.agent_merge,
         )
         self.delete_relationship = async_to_streamed_response_wrapper(
             entities.delete_relationship,
