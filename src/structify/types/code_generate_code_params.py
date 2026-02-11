@@ -25,6 +25,8 @@ class CodeGenerateCodeParams(TypedDict, total=False):
 
     file_paths: Annotated[SequenceNotStr[str], PropertyInfo(alias="filePaths")]
 
+    override_previous_message_id: Annotated[Optional[str], PropertyInfo(alias="overridePreviousMessageId")]
+
     trigger_workflow_execution: Annotated[bool, PropertyInfo(alias="triggerWorkflowExecution")]
 
     user_message_id: Annotated[Optional[str], PropertyInfo(alias="userMessageId")]
