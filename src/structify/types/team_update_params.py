@@ -15,8 +15,6 @@ class TeamUpdateParams(TypedDict, total=False):
 
     name: Optional[str]
 
-    pipedream_project_id: Optional[str]
-
     slack_bot_token: Optional[str]
 
     slack_team_icon: Optional[str]
