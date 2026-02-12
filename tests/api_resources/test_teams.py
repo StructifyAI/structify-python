@@ -83,6 +83,10 @@ class TestTeams:
     def test_method_update_with_all_params(self, client: Structify) -> None:
         team = client.teams.update(
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            daytona_credentials={
+                "api_key": "api_key",
+                "api_url": "api_url",
+            },
             description="description",
             name="name",
             pipedream_project_id="pipedream_project_id",
@@ -93,6 +97,10 @@ class TestTeams:
             teams_app_id="teams_app_id",
             teams_app_password="teams_app_password",
             teams_tenant_id="teams_tenant_id",
+            workflow_bucket={
+                "bucket_url": "bucket_url",
+                "gcp_credentials_json": "gcp_credentials_json",
+            },
         )
         assert_matches_type(UpdateTeamResponse, team, path=["response"])
 
@@ -730,6 +738,10 @@ class TestAsyncTeams:
     async def test_method_update_with_all_params(self, async_client: AsyncStructify) -> None:
         team = await async_client.teams.update(
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            daytona_credentials={
+                "api_key": "api_key",
+                "api_url": "api_url",
+            },
             description="description",
             name="name",
             pipedream_project_id="pipedream_project_id",
@@ -740,6 +752,10 @@ class TestAsyncTeams:
             teams_app_id="teams_app_id",
             teams_app_password="teams_app_password",
             teams_tenant_id="teams_tenant_id",
+            workflow_bucket={
+                "bucket_url": "bucket_url",
+                "gcp_credentials_json": "gcp_credentials_json",
+            },
         )
         assert_matches_type(UpdateTeamResponse, team, path=["response"])
 
