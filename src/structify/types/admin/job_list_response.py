@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import List, Union, Optional
+from datetime import datetime
 from typing_extensions import Literal, TypeAlias
 
 from pydantic import Field as FieldInfo
@@ -11,7 +12,7 @@ from ..save_requirement import SaveRequirement
 from ..exploration_phase_id import ExplorationPhaseID
 
 __all__ = [
-    "AdminListJobsResponse",
+    "JobListResponse",
     "Parameters",
     "ParametersStructuringInput",
     "ParametersStructuringInputAgent",
@@ -144,8 +145,10 @@ class Parameters(BaseModel):
     model: Optional[str] = None
 
 
-class AdminListJobsResponse(BaseModel):
+class JobListResponse(BaseModel):
     id: str
+
+    created_at: datetime
 
     dataset_id: str
 
@@ -155,4 +158,14 @@ class AdminListJobsResponse(BaseModel):
 
     user_id: str
 
+    message: Optional[str] = None
+
     parameters: Optional[Parameters] = None
+
+    reason: Optional[str] = None
+
+    run_started_time: Optional[datetime] = None
+
+    run_time_milliseconds: Optional[int] = None
+
+    special_job_type: Optional[Literal["HumanLLM"]] = None

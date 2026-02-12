@@ -49,6 +49,7 @@ from .node_spec_param import NodeSpecParam as NodeSpecParam
 from .tool_invocation import ToolInvocation as ToolInvocation
 from .usage_group_key import UsageGroupKey as UsageGroupKey
 from .chat_copy_params import ChatCopyParams as ChatCopyParams
+from .job_get_response import JobGetResponse as JobGetResponse
 from .save_requirement import SaveRequirement as SaveRequirement
 from .workflow_session import WorkflowSession as WorkflowSession
 from .chat_session_role import ChatSessionRole as ChatSessionRole
@@ -184,7 +185,6 @@ from .entity_summarize_response import EntitySummarizeResponse as EntitySummariz
 from .exploration_runs_response import ExplorationRunsResponse as ExplorationRunsResponse
 from .get_chat_session_response import GetChatSessionResponse as GetChatSessionResponse
 from .get_dependencies_response import GetDependenciesResponse as GetDependenciesResponse
-from .job_get_scrapers_response import JobGetScrapersResponse as JobGetScrapersResponse
 from .match_list_results_params import MatchListResultsParams as MatchListResultsParams
 from .session_get_events_params import SessionGetEventsParams as SessionGetEventsParams
 from .slack_event_payload_param import SlackEventPayloadParam as SlackEventPayloadParam
@@ -275,7 +275,6 @@ from .code_interrupt_generation_params import CodeInterruptGenerationParams as C
 from .connector_search_tables_response import ConnectorSearchTablesResponse as ConnectorSearchTablesResponse
 from .entity_add_relationship_response import EntityAddRelationshipResponse as EntityAddRelationshipResponse
 from .entity_get_local_subgraph_params import EntityGetLocalSubgraphParams as EntityGetLocalSubgraphParams
-from .job_get_source_entities_response import JobGetSourceEntitiesResponse as JobGetSourceEntitiesResponse
 from .nango_list_integrations_response import NangoListIntegrationsResponse as NangoListIntegrationsResponse
 from .project_collaborator_input_param import ProjectCollaboratorInputParam as ProjectCollaboratorInputParam
 from .connector_auth_method_with_fields import ConnectorAuthMethodWithFields as ConnectorAuthMethodWithFields
