@@ -23,13 +23,6 @@ class ConnectorCreateParams(TypedDict, total=False):
     nango_integration_id: Optional[str]
     """Nango integration ID (e.g., "linear", "slack")"""
 
-    pipedream_account_id: Optional[str]
-
-    pipedream_external_id: Optional[str]
-    """Unique external ID for Pipedream routing (required for Pipedream connectors)"""
-
-    pipedream_project_id: Optional[str]
-
     refresh_script: Optional[str]
 
     secrets: Dict[str, str]

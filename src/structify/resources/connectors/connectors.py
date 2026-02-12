@@ -94,9 +94,6 @@ class ConnectorsResource(SyncAPIResource):
         description: Optional[str] | Omit = omit,
         nango_connection_id: Optional[str] | Omit = omit,
         nango_integration_id: Optional[str] | Omit = omit,
-        pipedream_account_id: Optional[str] | Omit = omit,
-        pipedream_external_id: Optional[str] | Omit = omit,
-        pipedream_project_id: Optional[str] | Omit = omit,
         refresh_script: Optional[str] | Omit = omit,
         secrets: Dict[str, str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -111,8 +108,6 @@ class ConnectorsResource(SyncAPIResource):
           nango_connection_id: Nango connection ID for OAuth token management
 
           nango_integration_id: Nango integration ID (e.g., "linear", "slack")
-
-          pipedream_external_id: Unique external ID for Pipedream routing (required for Pipedream connectors)
 
           secrets: Optional secrets/environment variables for the connector
 
@@ -134,9 +129,6 @@ class ConnectorsResource(SyncAPIResource):
                     "description": description,
                     "nango_connection_id": nango_connection_id,
                     "nango_integration_id": nango_integration_id,
-                    "pipedream_account_id": pipedream_account_id,
-                    "pipedream_external_id": pipedream_external_id,
-                    "pipedream_project_id": pipedream_project_id,
                     "refresh_script": refresh_script,
                     "secrets": secrets,
                 },
@@ -1202,9 +1194,6 @@ class AsyncConnectorsResource(AsyncAPIResource):
         description: Optional[str] | Omit = omit,
         nango_connection_id: Optional[str] | Omit = omit,
         nango_integration_id: Optional[str] | Omit = omit,
-        pipedream_account_id: Optional[str] | Omit = omit,
-        pipedream_external_id: Optional[str] | Omit = omit,
-        pipedream_project_id: Optional[str] | Omit = omit,
         refresh_script: Optional[str] | Omit = omit,
         secrets: Dict[str, str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -1219,8 +1208,6 @@ class AsyncConnectorsResource(AsyncAPIResource):
           nango_connection_id: Nango connection ID for OAuth token management
 
           nango_integration_id: Nango integration ID (e.g., "linear", "slack")
-
-          pipedream_external_id: Unique external ID for Pipedream routing (required for Pipedream connectors)
 
           secrets: Optional secrets/environment variables for the connector
 
@@ -1242,9 +1229,6 @@ class AsyncConnectorsResource(AsyncAPIResource):
                     "description": description,
                     "nango_connection_id": nango_connection_id,
                     "nango_integration_id": nango_integration_id,
-                    "pipedream_account_id": pipedream_account_id,
-                    "pipedream_external_id": pipedream_external_id,
-                    "pipedream_project_id": pipedream_project_id,
                     "refresh_script": refresh_script,
                     "secrets": secrets,
                 },
