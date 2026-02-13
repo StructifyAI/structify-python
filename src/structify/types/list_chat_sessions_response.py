@@ -33,6 +33,12 @@ class Session(BaseModel):
 
     project_id: Optional[str] = None
 
+    slack_channel_id: Optional[str] = None
+
+    teams_channel_id: Optional[str] = None
+
+    teams_conversation_id: Optional[str] = None
+
 
 class ListChatSessionsResponse(BaseModel):
     """Response for listing chat sessions"""
