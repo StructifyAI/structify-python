@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 from typing import Iterable, Optional
-from typing_extensions import Literal
 
 import httpx
 
@@ -276,9 +275,9 @@ class StructureResource(SyncAPIResource):
         dataset: str,
         path: str,
         instructions: Optional[str] | Omit = omit,
-        mode: Literal["Single", "Batch"] | Omit = omit,
         model: Optional[str] | Omit = omit,
         node_id: Optional[str] | Omit = omit,
+        pages: Optional[Iterable[int]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -307,9 +306,9 @@ class StructureResource(SyncAPIResource):
                     "dataset": dataset,
                     "path": path,
                     "instructions": instructions,
-                    "mode": mode,
                     "model": model,
                     "node_id": node_id,
+                    "pages": pages,
                 },
                 structure_pdf_params.StructurePdfParams,
             ),
@@ -616,9 +615,9 @@ class AsyncStructureResource(AsyncAPIResource):
         dataset: str,
         path: str,
         instructions: Optional[str] | Omit = omit,
-        mode: Literal["Single", "Batch"] | Omit = omit,
         model: Optional[str] | Omit = omit,
         node_id: Optional[str] | Omit = omit,
+        pages: Optional[Iterable[int]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -647,9 +646,9 @@ class AsyncStructureResource(AsyncAPIResource):
                     "dataset": dataset,
                     "path": path,
                     "instructions": instructions,
-                    "mode": mode,
                     "model": model,
                     "node_id": node_id,
+                    "pages": pages,
                 },
                 structure_pdf_params.StructurePdfParams,
             ),

@@ -8,6 +8,7 @@ import uuid
 from typing import Any, Dict, List, Tuple, Literal, Optional, cast
 from concurrent.futures import Future, ThreadPoolExecutor, as_completed
 
+import pypdf
 import polars as pl
 from tqdm import tqdm  # type: ignore
 from polars import LazyFrame
@@ -845,6 +846,24 @@ class PolarsResource(SyncAPIResource):
 
         table_param = as_table_param(table_name, schema)
 
+        paths_df = document_paths.collect()
+
+        page_count_map: dict[str, int] = {}
+        if mode == "all_pages":
+            for pdf_path in paths_df[path_column].to_list():
+                if pdf_path is not None:
+                    with open(pdf_path, "rb") as f:
+                        pdf = pypdf.PdfReader(f)
+                        page_count_map[pdf_path] = len(pdf.pages)
+        else:
+            for pdf_path in paths_df[path_column].to_list():
+                # TODO: this is a hack to note that we cost twice as much for single page mode
+                page_count_map[pdf_path] = 2
+
+        total_pages = sum(page_count_map.values())
+        if not request_cost_confirmation_if_needed(self._client, total_pages, "pdf"):
+            raise Exception(f"User cancelled PDF extraction for {table_name}")
+
         # Create dataset for this PDF
         dataset_name = f"structure_pdfs_{table_name}_{uuid.uuid4().hex}"
         self._client.datasets.create(
@@ -865,7 +884,6 @@ class PolarsResource(SyncAPIResource):
                     "model must be in format 'provider.model_name' (e.g. 'bedrock.claude-sonnet-4-bedrock')"
                 )
 
-        paths_df = document_paths.collect()
         instructions_list: list[str | None] = []
 
         if instructions is not None and not isinstance(instructions, str):
@@ -874,42 +892,50 @@ class PolarsResource(SyncAPIResource):
                 raise ValueError(f"instructions shape {instr_df.shape} != document_paths shape {paths_df.shape}")
             instructions_list = cast(List[Optional[str]], instr_df[instr_df.columns[0]].to_list())
 
-        # Request cost confirmation before dispatching costly PDF extraction jobs
-        if not request_cost_confirmation_if_needed(self._client, paths_df.shape[0], "pdf"):
-            raise Exception(f"User cancelled PDF extraction for {table_name}")
-
         job_to_pdf_path: dict[str, str] = {}
 
         # Process each PDF document
-        def process_pdf(pdf_path: str, instructions: str | None) -> Tuple[List[str], str]:
+        def upload_pdf(pdf_path: str) -> None:
             # Upload the PDF document
-            unique_pdf_name = f"{uuid.uuid4().hex}.pdf"
             with open(pdf_path, "rb") as pdf_file:
                 try:
                     self._client.documents.upload(
                         content=pdf_file,
                         file_type="PDF",
                         dataset=dataset_name,
-                        path=unique_pdf_name.encode(),
+                        path=pdf_path.encode(),
                     )
                 except Exception as e:
                     if "Document already exists" not in str(e):
                         raise e
 
+        with ThreadPoolExecutor(max_workers=MAX_PARALLEL_REQUESTS) as executor:
+            upload_futures: List[Future[None]] = []
+            for pdf_path in paths_df[path_column].to_list():
+                if isinstance(pdf_path, str):
+                    upload_futures.append(executor.submit(upload_pdf, pdf_path))
+            for future in tqdm(as_completed(upload_futures), total=len(upload_futures), desc="Uploading PDFs"):
+                future.result()
+
+        def structure_pdf(pdf_path: str, instructions: str | None) -> Tuple[List[str], str]:
+            pages: List[int] | None = None
+            if mode == "all_pages":
+                pages = list(range(page_count_map[pdf_path]))
+
             job_ids = self._client.structure.pdf(
                 dataset=dataset_name,
-                path=unique_pdf_name,
+                path=pdf_path,
                 node_id=node_id,
                 instructions=instructions,
-                mode="Single" if mode == "single" else "Batch",
                 model=model,
+                pages=pages,
             ).job_ids
             return job_ids, pdf_path
 
         with ThreadPoolExecutor(max_workers=MAX_PARALLEL_REQUESTS) as executor:
             futures: List[Future[Tuple[List[str], str]]] = []
             for i in range(paths_df.shape[0]):
-                path: str | None = paths_df[path_column][i]
+                path = paths_df[path_column][i]
                 pdf_instructions: str | None = None
                 if isinstance(instructions, str):
                     pdf_instructions = instructions
@@ -917,15 +943,15 @@ class PolarsResource(SyncAPIResource):
                     pdf_instructions = instructions_list[i]
                 if pdf_instructions is None and conditioning:
                     pdf_instructions = conditioning
-                if path is not None:
-                    futures.append(executor.submit(process_pdf, path, pdf_instructions))
-            for future in tqdm(as_completed(futures), total=len(futures), desc="Preparing PDFs"):
+                if isinstance(path, str):
+                    futures.append(executor.submit(structure_pdf, path, pdf_instructions))
+            for future in tqdm(as_completed(futures), total=len(futures), desc="Submitting PDFs for parsing"):
                 job_ids, pdf_path = future.result()
                 for job_id in job_ids:
                     job_to_pdf_path[job_id] = pdf_path
 
         # Wait for all PDF processing jobs to complete
-        self._client.jobs.wait_for_jobs(dataset_name=dataset_name, title=f"Parsing PDFs", node_id=node_id)
+        self._client.jobs.wait_for_jobs(dataset_name=dataset_name, title=f"Parsing PDF pages", node_id=node_id)
 
         # Get all of the entities with their job_ids
         entities = self._client.datasets.view_table(dataset=dataset_name, name=table_name)
