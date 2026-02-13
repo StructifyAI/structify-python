@@ -52,7 +52,6 @@ class TestConnectors:
             description="description",
             nango_connection_id="nango_connection_id",
             nango_integration_id="nango_integration_id",
-            refresh_script="refresh_script",
             secrets={"foo": "string"},
         )
         assert_matches_type(Connector, connector, path=["response"])
@@ -99,7 +98,6 @@ class TestConnectors:
             description="description",
             known_connector_type="known_connector_type",
             name="name",
-            refresh_script="refresh_script",
             usage_snippet_override="usage_snippet_override",
         )
         assert connector is None
@@ -1312,7 +1310,6 @@ class TestAsyncConnectors:
             description="description",
             nango_connection_id="nango_connection_id",
             nango_integration_id="nango_integration_id",
-            refresh_script="refresh_script",
             secrets={"foo": "string"},
         )
         assert_matches_type(Connector, connector, path=["response"])
@@ -1359,7 +1356,6 @@ class TestAsyncConnectors:
             description="description",
             known_connector_type="known_connector_type",
             name="name",
-            refresh_script="refresh_script",
             usage_snippet_override="usage_snippet_override",
         )
         assert connector is None

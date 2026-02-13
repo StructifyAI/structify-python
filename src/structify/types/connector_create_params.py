@@ -23,7 +23,5 @@ class ConnectorCreateParams(TypedDict, total=False):
     nango_integration_id: Optional[str]
     """Nango integration ID (e.g., "linear", "slack")"""
 
-    refresh_script: Optional[str]
-
     secrets: Dict[str, str]
     """Optional secrets/environment variables for the connector"""

@@ -41,6 +41,4 @@ class Connector(BaseModel):
 
     nango_integration_id: Optional[str] = None
 
-    refresh_script: Optional[str] = None
-
     usage_snippet_override: Optional[str] = None
