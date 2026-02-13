@@ -167,5 +167,3 @@ class JobListResponse(BaseModel):
     run_started_time: Optional[datetime] = None
 
     run_time_milliseconds: Optional[int] = None
-
-    special_job_type: Optional[Literal["HumanLLM"]] = None

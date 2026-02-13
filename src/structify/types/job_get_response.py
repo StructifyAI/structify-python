@@ -208,8 +208,6 @@ class Info(BaseModel):
 
     run_time_milliseconds: Optional[int] = None
 
-    special_job_type: Optional[Literal["HumanLLM"]] = None
-
 
 class SavedPropertiesPartialDateObject(BaseModel):
     original_string: str
