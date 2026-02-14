@@ -2,8 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
-from datetime import datetime
+from typing import Optional
 from typing_extensions import Literal
 
 import httpx
@@ -19,9 +18,10 @@ from ..._response import (
     async_to_streamed_response_wrapper,
 )
 from ...pagination import SyncJobsList, AsyncJobsList
-from ...types.admin import job_list_params, job_delete_params
+from ...types.admin import job_list_params, job_delete_params, job_kill_by_user_params
 from ..._base_client import AsyncPaginator, make_request_options
-from ...types.admin.admin_list_jobs_response import AdminListJobsResponse
+from ...types.admin.job_list_response import JobListResponse
+from ...types.admin.job_kill_by_user_response import JobKillByUserResponse
 from ...types.admin.admin_delete_jobs_response import AdminDeleteJobsResponse
 
 __all__ = ["JobsResource", "AsyncJobsResource"]
@@ -50,41 +50,20 @@ class JobsResource(SyncAPIResource):
     def list(
         self,
         *,
-        filter_test_users: bool,
-        limit: int,
-        offset: int,
-        dataset_id: Optional[str] | Omit = omit,
-        seeded_kg_search_term: Optional[str] | Omit = omit,
-        since: Union[str, datetime, None] | Omit = omit,
+        job_type: Optional[Literal["Web", "Pdf", "Derive", "Scrape", "Match", "ConnectorExplore"]] | Omit = omit,
+        limit: int | Omit = omit,
+        offset: int | Omit = omit,
         status: Optional[Literal["Queued", "Running", "Completed", "Failed"]] | Omit = omit,
+        user_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncJobsList[AdminListJobsResponse]:
+    ) -> SyncJobsList[JobListResponse]:
         """
-        This endpoint allows admins to list jobs from all users without user ownership
-        restrictions. Optionally filter out test users (users with functional_test
-        feature flag or debug permission).
-
         Args:
-          filter_test_users: Filter out jobs from test users (users with functional_test feature flag or
-              debug permission)
-
-          limit: Number of results to return
-
-          offset: Pagination offset
-
-          dataset_id: Dataset ID to optionally filter jobs by
-
-          seeded_kg_search_term: Seeded kg search term
-
-          since: List since a specific timestamp
-
-          status: Status to optionally filter jobs by
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -95,7 +74,7 @@ class JobsResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/admin/jobs/list",
-            page=SyncJobsList[AdminListJobsResponse],
+            page=SyncJobsList[JobListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -103,18 +82,16 @@ class JobsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "filter_test_users": filter_test_users,
+                        "job_type": job_type,
                         "limit": limit,
                         "offset": offset,
-                        "dataset_id": dataset_id,
-                        "seeded_kg_search_term": seeded_kg_search_term,
-                        "since": since,
                         "status": status,
+                        "user_id": user_id,
                     },
                     job_list_params.JobListParams,
                 ),
             ),
-            model=AdminListJobsResponse,
+            model=JobListResponse,
         )
 
     def delete(
@@ -147,6 +124,36 @@ class JobsResource(SyncAPIResource):
             cast_to=AdminDeleteJobsResponse,
         )
 
+    def kill_by_user(
+        self,
+        *,
+        user_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> JobKillByUserResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/admin/jobs/kill_by_user",
+            body=maybe_transform({"user_id": user_id}, job_kill_by_user_params.JobKillByUserParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=JobKillByUserResponse,
+        )
+
 
 class AsyncJobsResource(AsyncAPIResource):
     @cached_property
@@ -171,41 +178,20 @@ class AsyncJobsResource(AsyncAPIResource):
     def list(
         self,
         *,
-        filter_test_users: bool,
-        limit: int,
-        offset: int,
-        dataset_id: Optional[str] | Omit = omit,
-        seeded_kg_search_term: Optional[str] | Omit = omit,
-        since: Union[str, datetime, None] | Omit = omit,
+        job_type: Optional[Literal["Web", "Pdf", "Derive", "Scrape", "Match", "ConnectorExplore"]] | Omit = omit,
+        limit: int | Omit = omit,
+        offset: int | Omit = omit,
         status: Optional[Literal["Queued", "Running", "Completed", "Failed"]] | Omit = omit,
+        user_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[AdminListJobsResponse, AsyncJobsList[AdminListJobsResponse]]:
+    ) -> AsyncPaginator[JobListResponse, AsyncJobsList[JobListResponse]]:
         """
-        This endpoint allows admins to list jobs from all users without user ownership
-        restrictions. Optionally filter out test users (users with functional_test
-        feature flag or debug permission).
-
         Args:
-          filter_test_users: Filter out jobs from test users (users with functional_test feature flag or
-              debug permission)
-
-          limit: Number of results to return
-
-          offset: Pagination offset
-
-          dataset_id: Dataset ID to optionally filter jobs by
-
-          seeded_kg_search_term: Seeded kg search term
-
-          since: List since a specific timestamp
-
-          status: Status to optionally filter jobs by
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -216,7 +202,7 @@ class AsyncJobsResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/admin/jobs/list",
-            page=AsyncJobsList[AdminListJobsResponse],
+            page=AsyncJobsList[JobListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -224,18 +210,16 @@ class AsyncJobsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "filter_test_users": filter_test_users,
+                        "job_type": job_type,
                         "limit": limit,
                         "offset": offset,
-                        "dataset_id": dataset_id,
-                        "seeded_kg_search_term": seeded_kg_search_term,
-                        "since": since,
                         "status": status,
+                        "user_id": user_id,
                     },
                     job_list_params.JobListParams,
                 ),
             ),
-            model=AdminListJobsResponse,
+            model=JobListResponse,
         )
 
     async def delete(
@@ -268,6 +252,36 @@ class AsyncJobsResource(AsyncAPIResource):
             cast_to=AdminDeleteJobsResponse,
         )
 
+    async def kill_by_user(
+        self,
+        *,
+        user_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> JobKillByUserResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/admin/jobs/kill_by_user",
+            body=await async_maybe_transform({"user_id": user_id}, job_kill_by_user_params.JobKillByUserParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=JobKillByUserResponse,
+        )
+
 
 class JobsResourceWithRawResponse:
     def __init__(self, jobs: JobsResource) -> None:
@@ -278,6 +292,9 @@ class JobsResourceWithRawResponse:
         )
         self.delete = to_raw_response_wrapper(
             jobs.delete,
+        )
+        self.kill_by_user = to_raw_response_wrapper(
+            jobs.kill_by_user,
         )
 
 
@@ -291,6 +308,9 @@ class AsyncJobsResourceWithRawResponse:
         self.delete = async_to_raw_response_wrapper(
             jobs.delete,
         )
+        self.kill_by_user = async_to_raw_response_wrapper(
+            jobs.kill_by_user,
+        )
 
 
 class JobsResourceWithStreamingResponse:
@@ -303,6 +323,9 @@ class JobsResourceWithStreamingResponse:
         self.delete = to_streamed_response_wrapper(
             jobs.delete,
         )
+        self.kill_by_user = to_streamed_response_wrapper(
+            jobs.kill_by_user,
+        )
 
 
 class AsyncJobsResourceWithStreamingResponse:
@@ -314,4 +337,7 @@ class AsyncJobsResourceWithStreamingResponse:
         )
         self.delete = async_to_streamed_response_wrapper(
             jobs.delete,
+        )
+        self.kill_by_user = async_to_streamed_response_wrapper(
+            jobs.kill_by_user,
         )

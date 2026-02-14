@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
-from typing import Optional
-from typing_extensions import Literal, Required, TypedDict
+from typing import Iterable, Optional
+from typing_extensions import Required, TypedDict
 
 __all__ = ["StructurePdfParams"]
 
@@ -15,8 +15,8 @@ class StructurePdfParams(TypedDict, total=False):
 
     instructions: Optional[str]
 
-    mode: Literal["Single", "Batch"]
-
     model: Optional[str]
 
     node_id: Optional[str]
+
+    pages: Optional[Iterable[int]]

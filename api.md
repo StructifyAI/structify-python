@@ -319,14 +319,16 @@ from structify.types.admin import (
     AdminDeleteJobsRequest,
     AdminDeleteJobsResponse,
     AdminListJobsRequestParams,
-    AdminListJobsResponse,
+    JobListResponse,
+    JobKillByUserResponse,
 )
 ```
 
 Methods:
 
-- <code title="get /admin/jobs/list">client.admin.jobs.<a href="./src/structify/resources/admin/jobs.py">list</a>(\*\*<a href="src/structify/types/admin/job_list_params.py">params</a>) -> <a href="./src/structify/types/admin/admin_list_jobs_response.py">SyncJobsList[AdminListJobsResponse]</a></code>
+- <code title="get /admin/jobs/list">client.admin.jobs.<a href="./src/structify/resources/admin/jobs.py">list</a>(\*\*<a href="src/structify/types/admin/job_list_params.py">params</a>) -> <a href="./src/structify/types/admin/job_list_response.py">SyncJobsList[JobListResponse]</a></code>
 - <code title="post /admin/jobs/delete">client.admin.jobs.<a href="./src/structify/resources/admin/jobs.py">delete</a>(\*\*<a href="src/structify/types/admin/job_delete_params.py">params</a>) -> <a href="./src/structify/types/admin/admin_delete_jobs_response.py">AdminDeleteJobsResponse</a></code>
+- <code title="post /admin/jobs/kill_by_user">client.admin.jobs.<a href="./src/structify/resources/admin/jobs.py">kill_by_user</a>(\*\*<a href="src/structify/types/admin/job_kill_by_user_params.py">params</a>) -> <a href="./src/structify/types/admin/job_kill_by_user_response.py">JobKillByUserResponse</a></code>
 
 ## Sandbox
 
@@ -503,8 +505,7 @@ from structify.types import (
     GetJobEventsResponse,
     JobListResponse,
     JobCancelResponse,
-    JobGetScrapersResponse,
-    JobGetSourceEntitiesResponse,
+    JobGetResponse,
     JobStatusResponse,
 )
 ```
@@ -513,9 +514,8 @@ Methods:
 
 - <code title="get /jobs/list">client.jobs.<a href="./src/structify/resources/jobs.py">list</a>(\*\*<a href="src/structify/types/job_list_params.py">params</a>) -> <a href="./src/structify/types/job_list_response.py">SyncJobsList[JobListResponse]</a></code>
 - <code title="post /jobs/cancel/{uuid}">client.jobs.<a href="./src/structify/resources/jobs.py">cancel</a>(uuid) -> <a href="./src/structify/types/job_cancel_response.py">JobCancelResponse</a></code>
+- <code title="get /jobs/get/{job_id}">client.jobs.<a href="./src/structify/resources/jobs.py">get</a>(job_id) -> <a href="./src/structify/types/job_get_response.py">JobGetResponse</a></code>
 - <code title="get /jobs/{job_id}/events">client.jobs.<a href="./src/structify/resources/jobs.py">get_events</a>(job_id) -> <a href="./src/structify/types/get_job_events_response.py">GetJobEventsResponse</a></code>
-- <code title="get /jobs/get_scrapers/{job_id}">client.jobs.<a href="./src/structify/resources/jobs.py">get_scrapers</a>(job_id) -> <a href="./src/structify/types/job_get_scrapers_response.py">JobGetScrapersResponse</a></code>
-- <code title="get /jobs/get_source_entities/{job_id}">client.jobs.<a href="./src/structify/resources/jobs.py">get_source_entities</a>(job_id) -> <a href="./src/structify/types/job_get_source_entities_response.py">JobGetSourceEntitiesResponse</a></code>
 - <code title="post /jobs/schedule">client.jobs.<a href="./src/structify/resources/jobs.py">schedule</a>() -> None</code>
 - <code title="post /jobs/status_aggregated">client.jobs.<a href="./src/structify/resources/jobs.py">status</a>(\*\*<a href="src/structify/types/job_status_params.py">params</a>) -> <a href="./src/structify/types/job_status_response.py">JobStatusResponse</a></code>
 

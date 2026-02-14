@@ -20,6 +20,8 @@ class Sandbox(BaseModel):
 
     status: Literal["alive", "terminated"]
 
+    team_id: str
+
     updated_at: datetime
 
     api_url: Optional[str] = None

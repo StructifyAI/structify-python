@@ -19,8 +19,6 @@ class Team(BaseModel):
 
     description: Optional[str] = None
 
-    pipedream_project_id: Optional[str] = None
-
     sandbox_provider: Optional[str] = None
 
     seats_override: Optional[int] = None
