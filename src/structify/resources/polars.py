@@ -13,6 +13,7 @@ import polars as pl
 from tqdm import tqdm  # type: ignore
 from polars import LazyFrame
 
+from structify import Structify
 from structify.types.entity_param import EntityParam
 from structify.types.property_type_param import PropertyTypeParam
 from structify.types.dataset_create_params import Relationship as CreateRelationshipParam
@@ -37,12 +38,13 @@ MAX_PARALLEL_REQUESTS = 20
 STRUCTIFY_JOB_ID_COLUMN = "structify_job_id"
 
 
-def _collect_entities_with_job_ids(entities: Any) -> List[Dict[str, Any]]:
-    """Collect entity properties with their first job_id."""
+def _collect_entities_with_job_ids(client: Structify, dataset_name: str, table_name: str) -> List[Dict[str, Any]]:
+    """Collect entity properties with their job_id."""
+    entities = client.datasets.view_table(dataset=dataset_name, name=table_name)
     results: List[Dict[str, Any]] = []
     for entity in entities:
         row: Dict[str, Any] = dict(entity.properties)
-        row[STRUCTIFY_JOB_ID_COLUMN] = entity.job_ids[0] if entity.job_ids else None
+        row[STRUCTIFY_JOB_ID_COLUMN] = entity.job_id
         results.append(row)
     return results
 
@@ -252,9 +254,7 @@ class PolarsResource(SyncAPIResource):
             title = f"Enriching {property_names} for {dataframe_name}"
             self._client.jobs.wait_for_jobs(dataset_name=dataset_name, title=title, node_id=node_id)
             # 4. Collect the results with job_ids
-            results = _collect_entities_with_job_ids(
-                self._client.datasets.view_table(dataset=dataset_name, name=dataframe_name)
-            )
+            results = _collect_entities_with_job_ids(self._client, dataset_name, dataframe_name)
             # 5. Return the results
             return pl.DataFrame(results, schema=expected_schema)
 
@@ -414,7 +414,7 @@ class PolarsResource(SyncAPIResource):
                             prop_name if prop_name not in input_schema else f"{prop_name}_{target_table_name}"
                         )  # If the column already exists in the input schema, we need to suffix it with the target table name
                         result_row[eff] = target_entity.properties.get(prop_name)
-                    result_row[STRUCTIFY_JOB_ID_COLUMN] = target_entity.job_ids[0] if target_entity.job_ids else None
+                    result_row[STRUCTIFY_JOB_ID_COLUMN] = target_entity.job_id
                     result_rows.append(result_row)
 
             # Handle source rows without relationships
@@ -587,9 +587,7 @@ class PolarsResource(SyncAPIResource):
             self._client.jobs.wait_for_jobs(dataset_name=dataset_name, title=title, node_id=node_id)
 
             # 4. Collect the results with job_id
-            results = _collect_entities_with_job_ids(
-                self._client.datasets.view_table(dataset=dataset_name, name=dataframe_name)
-            )
+            results = _collect_entities_with_job_ids(self._client, dataset_name, dataframe_name)
 
             # 5. Return the results
             return pl.DataFrame(results, schema=expected_schema)
@@ -746,9 +744,7 @@ class PolarsResource(SyncAPIResource):
                                 result_row: dict[str, Any] = {
                                     **scraped_entity.properties,
                                     url_column: related_entity.properties[url_column],
-                                    STRUCTIFY_JOB_ID_COLUMN: scraped_entity.job_ids[0]
-                                    if scraped_entity.job_ids
-                                    else None,
+                                    STRUCTIFY_JOB_ID_COLUMN: scraped_entity.job_id,
                                 }
                                 result_rows.append(result_row)
                     offset += LIMIT
@@ -953,7 +949,7 @@ class PolarsResource(SyncAPIResource):
         entities = self._client.datasets.view_table(dataset=dataset_name, name=table_name)
         structured_results: List[Dict[str, Any]] = []
         for entity in entities:
-            job_id = entity.job_ids[0] if entity.job_ids else None
+            job_id = entity.job_id
             result_row: Dict[str, Any] = {
                 **entity.properties,
                 path_column: job_to_pdf_path.get(job_id) if job_id else None,
@@ -1054,9 +1050,7 @@ class PolarsResource(SyncAPIResource):
         # 3. Collect the results with job_ids
         title = f"Tagging {new_property_name} for {dataframe_name}"
         self._client.jobs.wait_for_jobs(dataset_name=dataset_name, title=title, node_id=node_id)
-        results = _collect_entities_with_job_ids(
-            self._client.datasets.view_table(dataset=dataset_name, name=dataframe_name)
-        )
+        results = _collect_entities_with_job_ids(self._client, dataset_name, dataframe_name)
 
         # 4. Return the results
         return pl.DataFrame(results, schema=expected_schema).lazy()

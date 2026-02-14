@@ -110,5 +110,7 @@ class EntitySummarizeResponseItem(BaseModel):
 
     updated_at: datetime
 
+    job_id: Optional[str] = None
+
 
 EntitySummarizeResponse: TypeAlias = List[EntitySummarizeResponseItem]

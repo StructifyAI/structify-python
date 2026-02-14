@@ -115,9 +115,9 @@ class TestPolars:
             mock_source_3 = Mock(id="entity-3", properties={"company_name": "Microsoft"})
 
             # Target/connected entities
-            mock_target_1 = Mock(id="target-1", properties={"employee_name": "Alex", "position": "CEO"}, job_ids=["job-1"])
-            mock_target_2 = Mock(id="target-2", properties={"employee_name": "Alex", "position": "SWE"}, job_ids=["job-2"])
-            mock_target_3 = Mock(id="target-3", properties={"employee_name": "Alex", "position": "PM"}, job_ids=["job-3"])
+            mock_target_1 = Mock(id="target-1", properties={"employee_name": "Alex", "position": "CEO"}, job_id="job-1")
+            mock_target_2 = Mock(id="target-2", properties={"employee_name": "Alex", "position": "SWE"}, job_id="job-2")
+            mock_target_3 = Mock(id="target-3", properties={"employee_name": "Alex", "position": "PM"}, job_id="job-3")
 
             # Relationships connecting sources to targets
             rel1 = Mock(from_id="entity-1", to_id="target-1")
