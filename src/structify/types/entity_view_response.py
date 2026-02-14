@@ -142,6 +142,8 @@ class ConnectedEntity(BaseModel):
 
     updated_at: datetime
 
+    job_id: Optional[str] = None
+
 
 class EntityPropertiesPartialDateObject(BaseModel):
     original_string: str
@@ -233,6 +235,8 @@ class Entity(BaseModel):
     properties: Dict[str, EntityProperties]
 
     updated_at: datetime
+
+    job_id: Optional[str] = None
 
 
 class RelationshipPropertiesPartialDateObject(BaseModel):
@@ -421,6 +425,8 @@ class SimilarEntity(BaseModel):
     properties: Dict[str, SimilarEntityProperties]
 
     updated_at: datetime
+
+    job_id: Optional[str] = None
 
 
 class SourceLocationTextText(BaseModel):
