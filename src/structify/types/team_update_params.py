@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from typing import Optional
-from typing_extensions import Required, TypedDict
+from typing_extensions import Literal, Required, TypedDict
 
 __all__ = ["TeamUpdateParams", "DaytonaCredentials", "WorkflowBucket"]
 
@@ -14,6 +14,8 @@ class TeamUpdateParams(TypedDict, total=False):
     description: Optional[str]
 
     name: Optional[str]
+
+    sandbox_provider: Optional[Literal["modal", "daytona"]]
 
     slack_bot_token: Optional[str]
 

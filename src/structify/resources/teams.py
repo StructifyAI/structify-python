@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from typing import Union, Optional
 from datetime import datetime
+from typing_extensions import Literal
 
 import httpx
 
@@ -114,6 +115,7 @@ class TeamsResource(SyncAPIResource):
         daytona_credentials: Optional[team_update_params.DaytonaCredentials] | Omit = omit,
         description: Optional[str] | Omit = omit,
         name: Optional[str] | Omit = omit,
+        sandbox_provider: Optional[Literal["modal", "daytona"]] | Omit = omit,
         slack_bot_token: Optional[str] | Omit = omit,
         slack_team_icon: Optional[str] | Omit = omit,
         slack_team_id: Optional[str] | Omit = omit,
@@ -148,6 +150,7 @@ class TeamsResource(SyncAPIResource):
                     "daytona_credentials": daytona_credentials,
                     "description": description,
                     "name": name,
+                    "sandbox_provider": sandbox_provider,
                     "slack_bot_token": slack_bot_token,
                     "slack_team_icon": slack_team_icon,
                     "slack_team_id": slack_team_id,
@@ -675,6 +678,7 @@ class AsyncTeamsResource(AsyncAPIResource):
         daytona_credentials: Optional[team_update_params.DaytonaCredentials] | Omit = omit,
         description: Optional[str] | Omit = omit,
         name: Optional[str] | Omit = omit,
+        sandbox_provider: Optional[Literal["modal", "daytona"]] | Omit = omit,
         slack_bot_token: Optional[str] | Omit = omit,
         slack_team_icon: Optional[str] | Omit = omit,
         slack_team_id: Optional[str] | Omit = omit,
@@ -709,6 +713,7 @@ class AsyncTeamsResource(AsyncAPIResource):
                     "daytona_credentials": daytona_credentials,
                     "description": description,
                     "name": name,
+                    "sandbox_provider": sandbox_provider,
                     "slack_bot_token": slack_bot_token,
                     "slack_team_icon": slack_team_icon,
                     "slack_team_id": slack_team_id,
