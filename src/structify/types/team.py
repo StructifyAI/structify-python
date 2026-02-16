@@ -5,7 +5,19 @@ from datetime import datetime
 
 from .._models import BaseModel
 
-__all__ = ["Team"]
+__all__ = ["Team", "DaytonaCredentials", "WorkflowBucket"]
+
+
+class DaytonaCredentials(BaseModel):
+    api_key: Optional[str] = None
+
+    api_url: Optional[str] = None
+
+
+class WorkflowBucket(BaseModel):
+    bucket_url: str
+
+    gcp_credentials_json: Optional[str] = None
 
 
 class Team(BaseModel):
@@ -16,6 +28,8 @@ class Team(BaseModel):
     name: str
 
     updated_at: datetime
+
+    daytona_credentials: Optional[DaytonaCredentials] = None
 
     description: Optional[str] = None
 
@@ -34,3 +48,5 @@ class Team(BaseModel):
     teams_service_url: Optional[str] = None
 
     teams_tenant_id: Optional[str] = None
+
+    workflow_bucket: Optional[WorkflowBucket] = None
