@@ -2,6 +2,7 @@
 
 from typing import Optional
 from datetime import datetime
+from typing_extensions import Literal
 
 from .._models import BaseModel
 from .connector_category import ConnectorCategory
@@ -22,6 +23,8 @@ class Connector(BaseModel):
     name: str
 
     team_id: str
+
+    team_visibility: Literal["Team", "Private"]
 
     updated_at: datetime
 
