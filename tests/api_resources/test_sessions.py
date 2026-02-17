@@ -91,6 +91,7 @@ class TestSessions:
         session = client.sessions.create_session(
             chat_session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             git_commit="git_commit",
+            parent_chat_message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             workflow_schedule_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(WorkflowSession, session, path=["response"])
@@ -1142,6 +1143,7 @@ class TestAsyncSessions:
         session = await async_client.sessions.create_session(
             chat_session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             git_commit="git_commit",
+            parent_chat_message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             workflow_schedule_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(WorkflowSession, session, path=["response"])

@@ -962,6 +962,7 @@ class TestChat:
             name="name",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             skip_confirmations=True,
+            user_message_head="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(ChatSession, chat, path=["response"])
 
@@ -2010,6 +2011,7 @@ class TestAsyncChat:
             name="name",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             skip_confirmations=True,
+            user_message_head="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(ChatSession, chat, path=["response"])
 
