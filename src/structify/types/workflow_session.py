@@ -31,4 +31,6 @@ class WorkflowSession(BaseModel):
 
     git_commit: Optional[str] = None
 
+    parent_chat_message_id: Optional[str] = None
+
     workflow_schedule_id: Optional[str] = None

@@ -51,3 +51,5 @@ class ChatSession(BaseModel):
     teams_conversation_id: Optional[str] = None
 
     teams_tenant_id: Optional[str] = None
+
+    user_message_head: Optional[str] = None

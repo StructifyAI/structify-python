@@ -121,6 +121,7 @@ class SessionsResource(SyncAPIResource):
         *,
         chat_session_id: str,
         git_commit: str,
+        parent_chat_message_id: Optional[str] | Omit = omit,
         workflow_schedule_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -145,6 +146,7 @@ class SessionsResource(SyncAPIResource):
                 {
                     "chat_session_id": chat_session_id,
                     "git_commit": git_commit,
+                    "parent_chat_message_id": parent_chat_message_id,
                     "workflow_schedule_id": workflow_schedule_id,
                 },
                 session_create_session_params.SessionCreateSessionParams,
@@ -829,6 +831,7 @@ class AsyncSessionsResource(AsyncAPIResource):
         *,
         chat_session_id: str,
         git_commit: str,
+        parent_chat_message_id: Optional[str] | Omit = omit,
         workflow_schedule_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -853,6 +856,7 @@ class AsyncSessionsResource(AsyncAPIResource):
                 {
                     "chat_session_id": chat_session_id,
                     "git_commit": git_commit,
+                    "parent_chat_message_id": parent_chat_message_id,
                     "workflow_schedule_id": workflow_schedule_id,
                 },
                 session_create_session_params.SessionCreateSessionParams,
