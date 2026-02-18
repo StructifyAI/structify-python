@@ -258,6 +258,16 @@ Methods:
 
 # Admin
 
+Types:
+
+```python
+from structify.types import ReportCriticalRequest
+```
+
+Methods:
+
+- <code title="post /admin/critical">client.admin.<a href="./src/structify/resources/admin/admin.py">report_critical</a>(\*\*<a href="src/structify/types/admin_report_critical_params.py">params</a>) -> None</code>
+
 ## Teams
 
 Types:
