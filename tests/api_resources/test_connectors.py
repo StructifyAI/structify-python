@@ -95,10 +95,16 @@ class TestConnectors:
     def test_method_update_with_all_params(self, client: Structify) -> None:
         connector = client.connectors.update(
             connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            connector_category="RelationalDatabase",
+            datahub_urn="datahub_urn",
             description="description",
             known_connector_type="known_connector_type",
             name="name",
+            nango_connection_id="nango_connection_id",
+            nango_integration_id="nango_integration_id",
+            team_visibility="Team",
             usage_snippet_override="usage_snippet_override",
+            user_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
         )
         assert connector is None
 
@@ -1353,10 +1359,16 @@ class TestAsyncConnectors:
     async def test_method_update_with_all_params(self, async_client: AsyncStructify) -> None:
         connector = await async_client.connectors.update(
             connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            connector_category="RelationalDatabase",
+            datahub_urn="datahub_urn",
             description="description",
             known_connector_type="known_connector_type",
             name="name",
+            nango_connection_id="nango_connection_id",
+            nango_integration_id="nango_integration_id",
+            team_visibility="Team",
             usage_snippet_override="usage_snippet_override",
+            user_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
         )
         assert connector is None
 

@@ -8,6 +8,7 @@ from typing_extensions import Literal, overload
 import httpx
 
 from ...types import (
+    ConnectorCategory,
     connector_list_params,
     connector_create_params,
     connector_update_params,
@@ -43,6 +44,7 @@ from .type_snippets import (
 )
 from ..._base_client import AsyncPaginator, make_request_options
 from ...types.connector import Connector
+from ...types.connector_category import ConnectorCategory
 from ...types.list_tables_response import ListTablesResponse
 from ...types.update_table_response import UpdateTableResponse
 from ...types.connector_get_response import ConnectorGetResponse
@@ -142,10 +144,16 @@ class ConnectorsResource(SyncAPIResource):
         self,
         connector_id: str,
         *,
+        connector_category: Optional[ConnectorCategory] | Omit = omit,
+        datahub_urn: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
         known_connector_type: Optional[str] | Omit = omit,
         name: Optional[str] | Omit = omit,
+        nango_connection_id: Optional[str] | Omit = omit,
+        nango_integration_id: Optional[str] | Omit = omit,
+        team_visibility: Optional[Literal["Team", "Private"]] | Omit = omit,
         usage_snippet_override: Optional[str] | Omit = omit,
+        user_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -170,10 +178,16 @@ class ConnectorsResource(SyncAPIResource):
             f"/connectors/{connector_id}",
             body=maybe_transform(
                 {
+                    "connector_category": connector_category,
+                    "datahub_urn": datahub_urn,
                     "description": description,
                     "known_connector_type": known_connector_type,
                     "name": name,
+                    "nango_connection_id": nango_connection_id,
+                    "nango_integration_id": nango_integration_id,
+                    "team_visibility": team_visibility,
                     "usage_snippet_override": usage_snippet_override,
+                    "user_ids": user_ids,
                 },
                 connector_update_params.ConnectorUpdateParams,
             ),
@@ -1238,10 +1252,16 @@ class AsyncConnectorsResource(AsyncAPIResource):
         self,
         connector_id: str,
         *,
+        connector_category: Optional[ConnectorCategory] | Omit = omit,
+        datahub_urn: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
         known_connector_type: Optional[str] | Omit = omit,
         name: Optional[str] | Omit = omit,
+        nango_connection_id: Optional[str] | Omit = omit,
+        nango_integration_id: Optional[str] | Omit = omit,
+        team_visibility: Optional[Literal["Team", "Private"]] | Omit = omit,
         usage_snippet_override: Optional[str] | Omit = omit,
+        user_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1266,10 +1286,16 @@ class AsyncConnectorsResource(AsyncAPIResource):
             f"/connectors/{connector_id}",
             body=await async_maybe_transform(
                 {
+                    "connector_category": connector_category,
+                    "datahub_urn": datahub_urn,
                     "description": description,
                     "known_connector_type": known_connector_type,
                     "name": name,
+                    "nango_connection_id": nango_connection_id,
+                    "nango_integration_id": nango_integration_id,
+                    "team_visibility": team_visibility,
                     "usage_snippet_override": usage_snippet_override,
+                    "user_ids": user_ids,
                 },
                 connector_update_params.ConnectorUpdateParams,
             ),
