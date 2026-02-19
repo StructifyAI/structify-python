@@ -899,10 +899,10 @@ class ChatResource(SyncAPIResource):
         self,
         session_id: str,
         *,
+        message_head: Optional[str] | Omit = omit,
         name: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         skip_confirmations: Optional[bool] | Omit = omit,
-        user_message_head: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -926,10 +926,10 @@ class ChatResource(SyncAPIResource):
             f"/chat/sessions/{session_id}",
             body=maybe_transform(
                 {
+                    "message_head": message_head,
                     "name": name,
                     "project_id": project_id,
                     "skip_confirmations": skip_confirmations,
-                    "user_message_head": user_message_head,
                 },
                 chat_update_session_params.ChatUpdateSessionParams,
             ),
@@ -1852,10 +1852,10 @@ class AsyncChatResource(AsyncAPIResource):
         self,
         session_id: str,
         *,
+        message_head: Optional[str] | Omit = omit,
         name: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         skip_confirmations: Optional[bool] | Omit = omit,
-        user_message_head: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1879,10 +1879,10 @@ class AsyncChatResource(AsyncAPIResource):
             f"/chat/sessions/{session_id}",
             body=await async_maybe_transform(
                 {
+                    "message_head": message_head,
                     "name": name,
                     "project_id": project_id,
                     "skip_confirmations": skip_confirmations,
-                    "user_message_head": user_message_head,
                 },
                 chat_update_session_params.ChatUpdateSessionParams,
             ),

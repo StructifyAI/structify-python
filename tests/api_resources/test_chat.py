@@ -959,10 +959,10 @@ class TestChat:
     def test_method_update_session_with_all_params(self, client: Structify) -> None:
         chat = client.chat.update_session(
             session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            message_head="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             name="name",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             skip_confirmations=True,
-            user_message_head="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(ChatSession, chat, path=["response"])
 
@@ -2008,10 +2008,10 @@ class TestAsyncChat:
     async def test_method_update_session_with_all_params(self, async_client: AsyncStructify) -> None:
         chat = await async_client.chat.update_session(
             session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            message_head="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             name="name",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             skip_confirmations=True,
-            user_message_head="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(ChatSession, chat, path=["response"])
 
