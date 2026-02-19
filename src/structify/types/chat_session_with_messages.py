@@ -89,6 +89,8 @@ class ChatSessionWithMessages(BaseModel):
 
     latest_workflow_session_id: Optional[str] = None
 
+    message_head: Optional[str] = None
+
     name: Optional[str] = None
 
     project_id: Optional[str] = None
@@ -104,5 +106,3 @@ class ChatSessionWithMessages(BaseModel):
     teams_conversation_id: Optional[str] = None
 
     teams_tenant_id: Optional[str] = None
-
-    user_message_head: Optional[str] = None
