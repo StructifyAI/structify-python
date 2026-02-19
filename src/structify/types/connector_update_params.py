@@ -26,6 +26,8 @@ class ConnectorUpdateParams(TypedDict, total=False):
 
     nango_integration_id: Optional[str]
 
+    oauth_scopes: Optional[SequenceNotStr[Optional[str]]]
+
     team_visibility: Optional[Literal["Team", "Private"]]
 
     usage_snippet_override: Optional[str]

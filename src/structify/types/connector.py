@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Optional
+from typing import List, Optional
 from datetime import datetime
 from typing_extensions import Literal
 
@@ -43,5 +43,7 @@ class Connector(BaseModel):
     nango_connection_id: Optional[str] = None
 
     nango_integration_id: Optional[str] = None
+
+    oauth_scopes: Optional[List[Optional[str]]] = None
 
     usage_snippet_override: Optional[str] = None
