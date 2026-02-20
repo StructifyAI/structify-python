@@ -2,7 +2,8 @@
 
 from __future__ import annotations
 
-from typing import Optional
+from typing import Union, Mapping, Optional, cast
+from datetime import datetime
 
 import httpx
 
@@ -11,31 +12,40 @@ from ..types import (
     ChatSessionRole,
     chat_copy_params,
     chat_load_files_params,
-    chat_delete_files_params,
     chat_list_sessions_params,
     chat_add_git_commit_params,
     chat_create_session_params,
     chat_update_session_params,
     chat_add_collaborator_params,
+    chat_load_input_files_params,
     chat_revert_to_commit_params,
     chat_admin_issue_found_params,
+    chat_delete_input_file_params,
     chat_update_visibility_params,
+    chat_upload_input_file_params,
     chat_grant_admin_override_params,
     chat_update_session_favorite_params,
     chat_copy_node_output_by_code_hash_params,
 )
-from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, SequenceNotStr, omit, not_given
-from .._utils import maybe_transform, async_maybe_transform
+from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, FileTypes, SequenceNotStr, omit, not_given
+from .._utils import extract_files, maybe_transform, deepcopy_minimal, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
+    BinaryAPIResponse,
+    AsyncBinaryAPIResponse,
+    StreamedBinaryAPIResponse,
+    AsyncStreamedBinaryAPIResponse,
     to_raw_response_wrapper,
     to_streamed_response_wrapper,
     async_to_raw_response_wrapper,
+    to_custom_raw_response_wrapper,
     async_to_streamed_response_wrapper,
+    to_custom_streamed_response_wrapper,
+    async_to_custom_raw_response_wrapper,
+    async_to_custom_streamed_response_wrapper,
 )
 from .._base_client import make_request_options
-from ..types.chat_prompt import ChatPrompt
 from ..types.chat_session import ChatSession
 from ..types.chat_visibility import ChatVisibility
 from ..types.chat_session_role import ChatSessionRole
@@ -43,7 +53,6 @@ from ..types.chat_load_files_response import ChatLoadFilesResponse
 from ..types.get_chat_session_response import GetChatSessionResponse
 from ..types.get_dependencies_response import GetDependenciesResponse
 from ..types.admin_issue_found_response import AdminIssueFoundResponse
-from ..types.chat_delete_files_response import ChatDeleteFilesResponse
 from ..types.chat_session_with_messages import ChatSessionWithMessages
 from ..types.update_visibility_response import UpdateVisibilityResponse
 from ..types.admin_grant_access_response import AdminGrantAccessResponse
@@ -54,8 +63,12 @@ from ..types.chat_get_git_commit_response import ChatGetGitCommitResponse
 from ..types.chat_list_templates_response import ChatListTemplatesResponse
 from ..types.create_chat_session_response import CreateChatSessionResponse
 from ..types.delete_chat_session_response import DeleteChatSessionResponse
+from ..types.chat_list_input_files_response import ChatListInputFilesResponse
+from ..types.chat_load_input_files_response import ChatLoadInputFilesResponse
 from ..types.chat_revert_to_commit_response import ChatRevertToCommitResponse
+from ..types.chat_delete_input_file_response import ChatDeleteInputFileResponse
 from ..types.chat_get_partial_chats_response import ChatGetPartialChatsResponse
+from ..types.chat_upload_input_file_response import ChatUploadInputFileResponse
 from ..types.chat_get_session_timeline_response import ChatGetSessionTimelineResponse
 
 __all__ = ["ChatResource", "AsyncChatResource"]
@@ -157,40 +170,6 @@ class ChatResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=ChatAddGitCommitResponse,
-        )
-
-    def admin_get_chat_prompt(
-        self,
-        session_id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ChatPrompt:
-        """
-        Get the actual chat prompt that the LLM will see on its next message (admin
-        only)
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not session_id:
-            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
-        return self._get(
-            f"/chat/sessions/{session_id}/admin/chat_prompt",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=ChatPrompt,
         )
 
     def admin_issue_found(
@@ -326,7 +305,6 @@ class ChatResource(SyncAPIResource):
         team_id: str,
         config: Optional[chat_create_session_params.Config] | Omit = omit,
         ephemeral: Optional[bool] | Omit = omit,
-        initial_message: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -356,7 +334,6 @@ class ChatResource(SyncAPIResource):
                     "team_id": team_id,
                     "config": config,
                     "ephemeral": ephemeral,
-                    "initial_message": initial_message,
                     "project_id": project_id,
                 },
                 chat_create_session_params.ChatCreateSessionParams,
@@ -367,20 +344,20 @@ class ChatResource(SyncAPIResource):
             cast_to=CreateChatSessionResponse,
         )
 
-    def delete_files(
+    def delete_input_file(
         self,
         chat_id: str,
         *,
-        paths: SequenceNotStr[str],
+        filenames: SequenceNotStr[str],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ChatDeleteFilesResponse:
+    ) -> ChatDeleteInputFileResponse:
         """
-        Delete files from a chat session's git repository
+        Delete input files from a chat session
 
         Args:
           extra_headers: Send extra headers
@@ -394,12 +371,12 @@ class ChatResource(SyncAPIResource):
         if not chat_id:
             raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
         return self._post(
-            f"/chat/files/delete/{chat_id}",
-            body=maybe_transform({"paths": paths}, chat_delete_files_params.ChatDeleteFilesParams),
+            f"/chat/input-files/delete/{chat_id}",
+            body=maybe_transform({"filenames": filenames}, chat_delete_input_file_params.ChatDeleteInputFileParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ChatDeleteFilesResponse,
+            cast_to=ChatDeleteInputFileResponse,
         )
 
     def delete_session(
@@ -680,6 +657,39 @@ class ChatResource(SyncAPIResource):
             cast_to=ListCollaboratorsResponse,
         )
 
+    def list_input_files(
+        self,
+        chat_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ChatListInputFilesResponse:
+        """
+        List input files for a chat session
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not chat_id:
+            raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
+        return self._get(
+            f"/chat/input-files/list/{chat_id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ChatListInputFilesResponse,
+        )
+
     def list_sessions(
         self,
         *,
@@ -787,6 +797,83 @@ class ChatResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=ChatLoadFilesResponse,
+        )
+
+    def load_input_file(
+        self,
+        filename: str,
+        *,
+        chat_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> BinaryAPIResponse:
+        """
+        Download a single input file by chat ID and filename
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not chat_id:
+            raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
+        if not filename:
+            raise ValueError(f"Expected a non-empty value for `filename` but received {filename!r}")
+        extra_headers = {"Accept": "application/octet-stream", **(extra_headers or {})}
+        return self._get(
+            f"/chat/input-files/download/{chat_id}/{filename}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=BinaryAPIResponse,
+        )
+
+    def load_input_files(
+        self,
+        chat_id: str,
+        *,
+        since: Union[str, datetime, None] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ChatLoadInputFilesResponse:
+        """
+        Pass `since` query param (RFC 3339 timestamp) to only get files created/updated
+        after that time. The response includes `latest_timestamp` which can be passed as
+        `since` on the next call.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not chat_id:
+            raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
+        return self._get(
+            f"/chat/input-files/download-all/{chat_id}",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"since": since}, chat_load_input_files_params.ChatLoadInputFilesParams),
+            ),
+            cast_to=ChatLoadInputFilesResponse,
         )
 
     def make_permanent(
@@ -1009,6 +1096,56 @@ class ChatResource(SyncAPIResource):
             cast_to=UpdateVisibilityResponse,
         )
 
+    def upload_input_file(
+        self,
+        chat_id: str,
+        *,
+        content: FileTypes,
+        content_type: str,
+        file_name: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ChatUploadInputFileResponse:
+        """
+        Upload an input file to a chat session's bucket storage
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not chat_id:
+            raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
+        body = deepcopy_minimal(
+            {
+                "content": content,
+                "content_type": content_type,
+                "file_name": file_name,
+            }
+        )
+        files = extract_files(cast(Mapping[str, object], body), paths=[["content"]])
+        # It should be noted that the actual Content-Type header that will be
+        # sent to the server will contain a `boundary` parameter, e.g.
+        # multipart/form-data; boundary=---abc--
+        extra_headers = {"Content-Type": "multipart/form-data", **(extra_headers or {})}
+        return self._post(
+            f"/chat/input-files/upload/{chat_id}",
+            body=maybe_transform(body, chat_upload_input_file_params.ChatUploadInputFileParams),
+            files=files,
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ChatUploadInputFileResponse,
+        )
+
 
 class AsyncChatResource(AsyncAPIResource):
     @cached_property
@@ -1108,40 +1245,6 @@ class AsyncChatResource(AsyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=ChatAddGitCommitResponse,
-        )
-
-    async def admin_get_chat_prompt(
-        self,
-        session_id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ChatPrompt:
-        """
-        Get the actual chat prompt that the LLM will see on its next message (admin
-        only)
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not session_id:
-            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
-        return await self._get(
-            f"/chat/sessions/{session_id}/admin/chat_prompt",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=ChatPrompt,
         )
 
     async def admin_issue_found(
@@ -1277,7 +1380,6 @@ class AsyncChatResource(AsyncAPIResource):
         team_id: str,
         config: Optional[chat_create_session_params.Config] | Omit = omit,
         ephemeral: Optional[bool] | Omit = omit,
-        initial_message: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1307,7 +1409,6 @@ class AsyncChatResource(AsyncAPIResource):
                     "team_id": team_id,
                     "config": config,
                     "ephemeral": ephemeral,
-                    "initial_message": initial_message,
                     "project_id": project_id,
                 },
                 chat_create_session_params.ChatCreateSessionParams,
@@ -1318,20 +1419,20 @@ class AsyncChatResource(AsyncAPIResource):
             cast_to=CreateChatSessionResponse,
         )
 
-    async def delete_files(
+    async def delete_input_file(
         self,
         chat_id: str,
         *,
-        paths: SequenceNotStr[str],
+        filenames: SequenceNotStr[str],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ChatDeleteFilesResponse:
+    ) -> ChatDeleteInputFileResponse:
         """
-        Delete files from a chat session's git repository
+        Delete input files from a chat session
 
         Args:
           extra_headers: Send extra headers
@@ -1345,12 +1446,14 @@ class AsyncChatResource(AsyncAPIResource):
         if not chat_id:
             raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
         return await self._post(
-            f"/chat/files/delete/{chat_id}",
-            body=await async_maybe_transform({"paths": paths}, chat_delete_files_params.ChatDeleteFilesParams),
+            f"/chat/input-files/delete/{chat_id}",
+            body=await async_maybe_transform(
+                {"filenames": filenames}, chat_delete_input_file_params.ChatDeleteInputFileParams
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ChatDeleteFilesResponse,
+            cast_to=ChatDeleteInputFileResponse,
         )
 
     async def delete_session(
@@ -1631,6 +1734,39 @@ class AsyncChatResource(AsyncAPIResource):
             cast_to=ListCollaboratorsResponse,
         )
 
+    async def list_input_files(
+        self,
+        chat_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ChatListInputFilesResponse:
+        """
+        List input files for a chat session
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not chat_id:
+            raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
+        return await self._get(
+            f"/chat/input-files/list/{chat_id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ChatListInputFilesResponse,
+        )
+
     async def list_sessions(
         self,
         *,
@@ -1738,6 +1874,85 @@ class AsyncChatResource(AsyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=ChatLoadFilesResponse,
+        )
+
+    async def load_input_file(
+        self,
+        filename: str,
+        *,
+        chat_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AsyncBinaryAPIResponse:
+        """
+        Download a single input file by chat ID and filename
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not chat_id:
+            raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
+        if not filename:
+            raise ValueError(f"Expected a non-empty value for `filename` but received {filename!r}")
+        extra_headers = {"Accept": "application/octet-stream", **(extra_headers or {})}
+        return await self._get(
+            f"/chat/input-files/download/{chat_id}/{filename}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=AsyncBinaryAPIResponse,
+        )
+
+    async def load_input_files(
+        self,
+        chat_id: str,
+        *,
+        since: Union[str, datetime, None] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ChatLoadInputFilesResponse:
+        """
+        Pass `since` query param (RFC 3339 timestamp) to only get files created/updated
+        after that time. The response includes `latest_timestamp` which can be passed as
+        `since` on the next call.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not chat_id:
+            raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
+        return await self._get(
+            f"/chat/input-files/download-all/{chat_id}",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"since": since}, chat_load_input_files_params.ChatLoadInputFilesParams
+                ),
+            ),
+            cast_to=ChatLoadInputFilesResponse,
         )
 
     async def make_permanent(
@@ -1964,6 +2179,56 @@ class AsyncChatResource(AsyncAPIResource):
             cast_to=UpdateVisibilityResponse,
         )
 
+    async def upload_input_file(
+        self,
+        chat_id: str,
+        *,
+        content: FileTypes,
+        content_type: str,
+        file_name: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ChatUploadInputFileResponse:
+        """
+        Upload an input file to a chat session's bucket storage
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not chat_id:
+            raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
+        body = deepcopy_minimal(
+            {
+                "content": content,
+                "content_type": content_type,
+                "file_name": file_name,
+            }
+        )
+        files = extract_files(cast(Mapping[str, object], body), paths=[["content"]])
+        # It should be noted that the actual Content-Type header that will be
+        # sent to the server will contain a `boundary` parameter, e.g.
+        # multipart/form-data; boundary=---abc--
+        extra_headers = {"Content-Type": "multipart/form-data", **(extra_headers or {})}
+        return await self._post(
+            f"/chat/input-files/upload/{chat_id}",
+            body=await async_maybe_transform(body, chat_upload_input_file_params.ChatUploadInputFileParams),
+            files=files,
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ChatUploadInputFileResponse,
+        )
+
 
 class ChatResourceWithRawResponse:
     def __init__(self, chat: ChatResource) -> None:
@@ -1974,9 +2239,6 @@ class ChatResourceWithRawResponse:
         )
         self.add_git_commit = to_raw_response_wrapper(
             chat.add_git_commit,
-        )
-        self.admin_get_chat_prompt = to_raw_response_wrapper(
-            chat.admin_get_chat_prompt,
         )
         self.admin_issue_found = to_raw_response_wrapper(
             chat.admin_issue_found,
@@ -1990,8 +2252,8 @@ class ChatResourceWithRawResponse:
         self.create_session = to_raw_response_wrapper(
             chat.create_session,
         )
-        self.delete_files = to_raw_response_wrapper(
-            chat.delete_files,
+        self.delete_input_file = to_raw_response_wrapper(
+            chat.delete_input_file,
         )
         self.delete_session = to_raw_response_wrapper(
             chat.delete_session,
@@ -2017,6 +2279,9 @@ class ChatResourceWithRawResponse:
         self.list_collaborators = to_raw_response_wrapper(
             chat.list_collaborators,
         )
+        self.list_input_files = to_raw_response_wrapper(
+            chat.list_input_files,
+        )
         self.list_sessions = to_raw_response_wrapper(
             chat.list_sessions,
         )
@@ -2025,6 +2290,13 @@ class ChatResourceWithRawResponse:
         )
         self.load_files = to_raw_response_wrapper(
             chat.load_files,
+        )
+        self.load_input_file = to_custom_raw_response_wrapper(
+            chat.load_input_file,
+            BinaryAPIResponse,
+        )
+        self.load_input_files = to_raw_response_wrapper(
+            chat.load_input_files,
         )
         self.make_permanent = to_raw_response_wrapper(
             chat.make_permanent,
@@ -2044,6 +2316,9 @@ class ChatResourceWithRawResponse:
         self.update_visibility = to_raw_response_wrapper(
             chat.update_visibility,
         )
+        self.upload_input_file = to_raw_response_wrapper(
+            chat.upload_input_file,
+        )
 
 
 class AsyncChatResourceWithRawResponse:
@@ -2055,9 +2330,6 @@ class AsyncChatResourceWithRawResponse:
         )
         self.add_git_commit = async_to_raw_response_wrapper(
             chat.add_git_commit,
-        )
-        self.admin_get_chat_prompt = async_to_raw_response_wrapper(
-            chat.admin_get_chat_prompt,
         )
         self.admin_issue_found = async_to_raw_response_wrapper(
             chat.admin_issue_found,
@@ -2071,8 +2343,8 @@ class AsyncChatResourceWithRawResponse:
         self.create_session = async_to_raw_response_wrapper(
             chat.create_session,
         )
-        self.delete_files = async_to_raw_response_wrapper(
-            chat.delete_files,
+        self.delete_input_file = async_to_raw_response_wrapper(
+            chat.delete_input_file,
         )
         self.delete_session = async_to_raw_response_wrapper(
             chat.delete_session,
@@ -2098,6 +2370,9 @@ class AsyncChatResourceWithRawResponse:
         self.list_collaborators = async_to_raw_response_wrapper(
             chat.list_collaborators,
         )
+        self.list_input_files = async_to_raw_response_wrapper(
+            chat.list_input_files,
+        )
         self.list_sessions = async_to_raw_response_wrapper(
             chat.list_sessions,
         )
@@ -2106,6 +2381,13 @@ class AsyncChatResourceWithRawResponse:
         )
         self.load_files = async_to_raw_response_wrapper(
             chat.load_files,
+        )
+        self.load_input_file = async_to_custom_raw_response_wrapper(
+            chat.load_input_file,
+            AsyncBinaryAPIResponse,
+        )
+        self.load_input_files = async_to_raw_response_wrapper(
+            chat.load_input_files,
         )
         self.make_permanent = async_to_raw_response_wrapper(
             chat.make_permanent,
@@ -2125,6 +2407,9 @@ class AsyncChatResourceWithRawResponse:
         self.update_visibility = async_to_raw_response_wrapper(
             chat.update_visibility,
         )
+        self.upload_input_file = async_to_raw_response_wrapper(
+            chat.upload_input_file,
+        )
 
 
 class ChatResourceWithStreamingResponse:
@@ -2136,9 +2421,6 @@ class ChatResourceWithStreamingResponse:
         )
         self.add_git_commit = to_streamed_response_wrapper(
             chat.add_git_commit,
-        )
-        self.admin_get_chat_prompt = to_streamed_response_wrapper(
-            chat.admin_get_chat_prompt,
         )
         self.admin_issue_found = to_streamed_response_wrapper(
             chat.admin_issue_found,
@@ -2152,8 +2434,8 @@ class ChatResourceWithStreamingResponse:
         self.create_session = to_streamed_response_wrapper(
             chat.create_session,
         )
-        self.delete_files = to_streamed_response_wrapper(
-            chat.delete_files,
+        self.delete_input_file = to_streamed_response_wrapper(
+            chat.delete_input_file,
         )
         self.delete_session = to_streamed_response_wrapper(
             chat.delete_session,
@@ -2179,6 +2461,9 @@ class ChatResourceWithStreamingResponse:
         self.list_collaborators = to_streamed_response_wrapper(
             chat.list_collaborators,
         )
+        self.list_input_files = to_streamed_response_wrapper(
+            chat.list_input_files,
+        )
         self.list_sessions = to_streamed_response_wrapper(
             chat.list_sessions,
         )
@@ -2187,6 +2472,13 @@ class ChatResourceWithStreamingResponse:
         )
         self.load_files = to_streamed_response_wrapper(
             chat.load_files,
+        )
+        self.load_input_file = to_custom_streamed_response_wrapper(
+            chat.load_input_file,
+            StreamedBinaryAPIResponse,
+        )
+        self.load_input_files = to_streamed_response_wrapper(
+            chat.load_input_files,
         )
         self.make_permanent = to_streamed_response_wrapper(
             chat.make_permanent,
@@ -2206,6 +2498,9 @@ class ChatResourceWithStreamingResponse:
         self.update_visibility = to_streamed_response_wrapper(
             chat.update_visibility,
         )
+        self.upload_input_file = to_streamed_response_wrapper(
+            chat.upload_input_file,
+        )
 
 
 class AsyncChatResourceWithStreamingResponse:
@@ -2217,9 +2512,6 @@ class AsyncChatResourceWithStreamingResponse:
         )
         self.add_git_commit = async_to_streamed_response_wrapper(
             chat.add_git_commit,
-        )
-        self.admin_get_chat_prompt = async_to_streamed_response_wrapper(
-            chat.admin_get_chat_prompt,
         )
         self.admin_issue_found = async_to_streamed_response_wrapper(
             chat.admin_issue_found,
@@ -2233,8 +2525,8 @@ class AsyncChatResourceWithStreamingResponse:
         self.create_session = async_to_streamed_response_wrapper(
             chat.create_session,
         )
-        self.delete_files = async_to_streamed_response_wrapper(
-            chat.delete_files,
+        self.delete_input_file = async_to_streamed_response_wrapper(
+            chat.delete_input_file,
         )
         self.delete_session = async_to_streamed_response_wrapper(
             chat.delete_session,
@@ -2260,6 +2552,9 @@ class AsyncChatResourceWithStreamingResponse:
         self.list_collaborators = async_to_streamed_response_wrapper(
             chat.list_collaborators,
         )
+        self.list_input_files = async_to_streamed_response_wrapper(
+            chat.list_input_files,
+        )
         self.list_sessions = async_to_streamed_response_wrapper(
             chat.list_sessions,
         )
@@ -2268,6 +2563,13 @@ class AsyncChatResourceWithStreamingResponse:
         )
         self.load_files = async_to_streamed_response_wrapper(
             chat.load_files,
+        )
+        self.load_input_file = async_to_custom_streamed_response_wrapper(
+            chat.load_input_file,
+            AsyncStreamedBinaryAPIResponse,
+        )
+        self.load_input_files = async_to_streamed_response_wrapper(
+            chat.load_input_files,
         )
         self.make_permanent = async_to_streamed_response_wrapper(
             chat.make_permanent,
@@ -2286,4 +2588,7 @@ class AsyncChatResourceWithStreamingResponse:
         )
         self.update_visibility = async_to_streamed_response_wrapper(
             chat.update_visibility,
+        )
+        self.upload_input_file = async_to_streamed_response_wrapper(
+            chat.upload_input_file,
         )

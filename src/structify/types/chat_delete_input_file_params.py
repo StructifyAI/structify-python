@@ -6,8 +6,8 @@ from typing_extensions import Required, TypedDict
 
 from .._types import SequenceNotStr
 
-__all__ = ["ChatDeleteFilesParams"]
+__all__ = ["ChatDeleteInputFileParams"]
 
 
-class ChatDeleteFilesParams(TypedDict, total=False):
-    paths: Required[SequenceNotStr[str]]
+class ChatDeleteInputFileParams(TypedDict, total=False):
+    filenames: Required[SequenceNotStr[str]]

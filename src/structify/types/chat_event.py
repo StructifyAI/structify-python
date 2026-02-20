@@ -35,6 +35,7 @@ __all__ = [
     "AttachedFileAttachedFile",
     "ConnectorRequest",
     "ConnectorRequestConnectorRequest",
+    "UserInterrupted",
 ]
 
 
@@ -185,6 +186,10 @@ class ConnectorRequest(BaseModel):
     connector_request: ConnectorRequestConnectorRequest = FieldInfo(alias="ConnectorRequest")
 
 
+class UserInterrupted(BaseModel):
+    user_interrupted: object = FieldInfo(alias="UserInterrupted")
+
+
 ChatEvent: TypeAlias = Union[
     TextMessage,
     Thinking,
@@ -197,4 +202,5 @@ ChatEvent: TypeAlias = Union[
     ReviewRequest,
     AttachedFile,
     ConnectorRequest,
+    UserInterrupted,
 ]

@@ -38,6 +38,8 @@ class SessionMessage(BaseModel):
 
     timestamp: datetime
 
+    git_hash: Optional[str] = None
+
     previous_message_id: Optional[str] = None
 
 
