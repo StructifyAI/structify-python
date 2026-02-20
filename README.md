@@ -196,10 +196,11 @@ from structify import Structify
 
 client = Structify()
 
-client.documents.upload(
+client.chat.upload_input_file(
+    chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
     content=Path("/path/to/file"),
-    file_type="Text",
-    path=b"raw file contents",
+    content_type="content_type",
+    file_name="file_name",
 )
 ```
 

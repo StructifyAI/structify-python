@@ -43,7 +43,7 @@ class Message(BaseModel):
 
     content_proto: Optional[object] = None
 
-    git_commit_id: Optional[str] = None
+    git_hash: Optional[str] = None
 
     previous_message_id: Optional[str] = None
 

@@ -119,13 +119,16 @@ from structify.types import (
     UpdateVisibilityResponse,
     ChatAddGitCommitResponse,
     ChatCopyNodeOutputByCodeHashResponse,
-    ChatDeleteFilesResponse,
+    ChatDeleteInputFileResponse,
     ChatGetGitCommitResponse,
     ChatGetPartialChatsResponse,
     ChatGetSessionTimelineResponse,
+    ChatListInputFilesResponse,
     ChatListTemplatesResponse,
     ChatLoadFilesResponse,
+    ChatLoadInputFilesResponse,
     ChatRevertToCommitResponse,
+    ChatUploadInputFileResponse,
 )
 ```
 
@@ -133,12 +136,11 @@ Methods:
 
 - <code title="post /chat/sessions/{chat_id}/collaborators">client.chat.<a href="./src/structify/resources/chat.py">add_collaborator</a>(chat_id, \*\*<a href="src/structify/types/chat_add_collaborator_params.py">params</a>) -> None</code>
 - <code title="post /chat/sessions/{session_id}/commits">client.chat.<a href="./src/structify/resources/chat.py">add_git_commit</a>(session_id, \*\*<a href="src/structify/types/chat_add_git_commit_params.py">params</a>) -> <a href="./src/structify/types/chat_add_git_commit_response.py">ChatAddGitCommitResponse</a></code>
-- <code title="get /chat/sessions/{session_id}/admin/chat_prompt">client.chat.<a href="./src/structify/resources/chat.py">admin_get_chat_prompt</a>(session_id) -> <a href="./src/structify/types/chat_prompt.py">ChatPrompt</a></code>
 - <code title="post /chat/sessions/{chat_id}/admin/issue_found">client.chat.<a href="./src/structify/resources/chat.py">admin_issue_found</a>(chat_id, \*\*<a href="src/structify/types/chat_admin_issue_found_params.py">params</a>) -> <a href="./src/structify/types/admin_issue_found_response.py">AdminIssueFoundResponse</a></code>
 - <code title="post /chat/copy">client.chat.<a href="./src/structify/resources/chat.py">copy</a>(\*\*<a href="src/structify/types/chat_copy_params.py">params</a>) -> <a href="./src/structify/types/chat_session_with_messages.py">ChatSessionWithMessages</a></code>
 - <code title="post /chat/sessions/{session_id}/nodes/by_code_hash">client.chat.<a href="./src/structify/resources/chat.py">copy_node_output_by_code_hash</a>(session_id, \*\*<a href="src/structify/types/chat_copy_node_output_by_code_hash_params.py">params</a>) -> str</code>
 - <code title="post /chat/sessions">client.chat.<a href="./src/structify/resources/chat.py">create_session</a>(\*\*<a href="src/structify/types/chat_create_session_params.py">params</a>) -> <a href="./src/structify/types/create_chat_session_response.py">CreateChatSessionResponse</a></code>
-- <code title="post /chat/files/delete/{chat_id}">client.chat.<a href="./src/structify/resources/chat.py">delete_files</a>(chat_id, \*\*<a href="src/structify/types/chat_delete_files_params.py">params</a>) -> <a href="./src/structify/types/chat_delete_files_response.py">ChatDeleteFilesResponse</a></code>
+- <code title="post /chat/input-files/delete/{chat_id}">client.chat.<a href="./src/structify/resources/chat.py">delete_input_file</a>(chat_id, \*\*<a href="src/structify/types/chat_delete_input_file_params.py">params</a>) -> <a href="./src/structify/types/chat_delete_input_file_response.py">ChatDeleteInputFileResponse</a></code>
 - <code title="delete /chat/sessions/{session_id}">client.chat.<a href="./src/structify/resources/chat.py">delete_session</a>(session_id) -> <a href="./src/structify/types/delete_chat_session_response.py">DeleteChatSessionResponse</a></code>
 - <code title="get /chat/sessions/{session_id}/dependencies">client.chat.<a href="./src/structify/resources/chat.py">get_dependencies</a>(session_id) -> <a href="./src/structify/types/get_dependencies_response.py">GetDependenciesResponse</a></code>
 - <code title="get /chat/sessions/{chat_id}/commits/{commit_hash}">client.chat.<a href="./src/structify/resources/chat.py">get_git_commit</a>(commit_hash, \*, chat_id) -> <a href="./src/structify/types/chat_get_git_commit_response.py">ChatGetGitCommitResponse</a></code>
@@ -147,15 +149,19 @@ Methods:
 - <code title="get /chat/sessions/{session_id}/timeline">client.chat.<a href="./src/structify/resources/chat.py">get_session_timeline</a>(session_id) -> <a href="./src/structify/types/chat_get_session_timeline_response.py">ChatGetSessionTimelineResponse</a></code>
 - <code title="post /chat/sessions/{chat_id}/admin_override">client.chat.<a href="./src/structify/resources/chat.py">grant_admin_override</a>(chat_id, \*\*<a href="src/structify/types/chat_grant_admin_override_params.py">params</a>) -> <a href="./src/structify/types/admin_grant_access_response.py">AdminGrantAccessResponse</a></code>
 - <code title="get /chat/sessions/{chat_id}/collaborators">client.chat.<a href="./src/structify/resources/chat.py">list_collaborators</a>(chat_id) -> <a href="./src/structify/types/list_collaborators_response.py">ListCollaboratorsResponse</a></code>
+- <code title="get /chat/input-files/list/{chat_id}">client.chat.<a href="./src/structify/resources/chat.py">list_input_files</a>(chat_id) -> <a href="./src/structify/types/chat_list_input_files_response.py">ChatListInputFilesResponse</a></code>
 - <code title="get /chat/sessions">client.chat.<a href="./src/structify/resources/chat.py">list_sessions</a>(\*\*<a href="src/structify/types/chat_list_sessions_params.py">params</a>) -> <a href="./src/structify/types/list_chat_sessions_response.py">ListChatSessionsResponse</a></code>
 - <code title="get /chat/templates">client.chat.<a href="./src/structify/resources/chat.py">list_templates</a>() -> <a href="./src/structify/types/chat_list_templates_response.py">ChatListTemplatesResponse</a></code>
 - <code title="post /chat/files/load">client.chat.<a href="./src/structify/resources/chat.py">load_files</a>(\*\*<a href="src/structify/types/chat_load_files_params.py">params</a>) -> <a href="./src/structify/types/chat_load_files_response.py">ChatLoadFilesResponse</a></code>
+- <code title="get /chat/input-files/download/{chat_id}/{filename}">client.chat.<a href="./src/structify/resources/chat.py">load_input_file</a>(filename, \*, chat_id) -> BinaryAPIResponse</code>
+- <code title="get /chat/input-files/download-all/{chat_id}">client.chat.<a href="./src/structify/resources/chat.py">load_input_files</a>(chat_id, \*\*<a href="src/structify/types/chat_load_input_files_params.py">params</a>) -> <a href="./src/structify/types/chat_load_input_files_response.py">ChatLoadInputFilesResponse</a></code>
 - <code title="patch /chat/sessions/{session_id}/make-permanent">client.chat.<a href="./src/structify/resources/chat.py">make_permanent</a>(session_id) -> None</code>
 - <code title="delete /chat/sessions/{chat_id}/collaborators/{user_id}">client.chat.<a href="./src/structify/resources/chat.py">remove_collaborator</a>(user_id, \*, chat_id) -> None</code>
 - <code title="post /chat/sessions/{session_id}/revert">client.chat.<a href="./src/structify/resources/chat.py">revert_to_commit</a>(session_id, \*\*<a href="src/structify/types/chat_revert_to_commit_params.py">params</a>) -> <a href="./src/structify/types/chat_revert_to_commit_response.py">ChatRevertToCommitResponse</a></code>
 - <code title="patch /chat/sessions/{session_id}">client.chat.<a href="./src/structify/resources/chat.py">update_session</a>(session_id, \*\*<a href="src/structify/types/chat_update_session_params.py">params</a>) -> <a href="./src/structify/types/chat_session.py">ChatSession</a></code>
 - <code title="patch /chat/sessions/{session_id}/favorite">client.chat.<a href="./src/structify/resources/chat.py">update_session_favorite</a>(session_id, \*\*<a href="src/structify/types/chat_update_session_favorite_params.py">params</a>) -> <a href="./src/structify/types/chat_session.py">ChatSession</a></code>
 - <code title="put /chat/sessions/{session_id}/visibility">client.chat.<a href="./src/structify/resources/chat.py">update_visibility</a>(session_id, \*\*<a href="src/structify/types/chat_update_visibility_params.py">params</a>) -> <a href="./src/structify/types/update_visibility_response.py">UpdateVisibilityResponse</a></code>
+- <code title="post /chat/input-files/upload/{chat_id}">client.chat.<a href="./src/structify/resources/chat.py">upload_input_file</a>(chat_id, \*\*<a href="src/structify/types/chat_upload_input_file_params.py">params</a>) -> <a href="./src/structify/types/chat_upload_input_file_response.py">ChatUploadInputFileResponse</a></code>
 
 # Teams
 
