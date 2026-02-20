@@ -18,7 +18,7 @@ class Sandbox(BaseModel):
 
     provider_id: str
 
-    status: Literal["alive", "terminated"]
+    status: Literal["alive", "paused", "terminated"]
 
     team_id: str
 
@@ -31,6 +31,8 @@ class Sandbox(BaseModel):
     exploration_run_id: Optional[str] = None
 
     latest_node: Optional[str] = None
+
+    resumed_at: Optional[datetime] = None
 
     session_id: Optional[str] = None
 
