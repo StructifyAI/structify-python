@@ -11,5 +11,3 @@ __all__ = ["ConnectorSummariesParams"]
 
 class ConnectorSummariesParams(TypedDict, total=False):
     connector_ids: Required[SequenceNotStr[str]]
-
-    team_id: Required[str]

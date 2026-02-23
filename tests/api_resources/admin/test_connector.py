@@ -27,6 +27,8 @@ class TestConnector:
                     "source_connector_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 }
             ],
+            source_membership_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            source_team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             target_team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(CloneConnectorsResponse, connector, path=["response"])
@@ -41,6 +43,8 @@ class TestConnector:
                     "source_connector_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 }
             ],
+            source_membership_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            source_team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             target_team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
@@ -59,6 +63,8 @@ class TestConnector:
                     "source_connector_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 }
             ],
+            source_membership_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            source_team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             target_team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
@@ -85,6 +91,8 @@ class TestAsyncConnector:
                     "source_connector_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 }
             ],
+            source_membership_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            source_team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             target_team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(CloneConnectorsResponse, connector, path=["response"])
@@ -99,6 +107,8 @@ class TestAsyncConnector:
                     "source_connector_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 }
             ],
+            source_membership_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            source_team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             target_team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
@@ -117,6 +127,8 @@ class TestAsyncConnector:
                     "source_connector_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 }
             ],
+            source_membership_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            source_team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             target_team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed

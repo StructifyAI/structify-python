@@ -48,6 +48,8 @@ class ConnectorResource(SyncAPIResource):
         self,
         *,
         connectors: Iterable[CloneConnectorItemParam],
+        source_membership_id: str,
+        source_team_id: str,
         target_team_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -71,6 +73,8 @@ class ConnectorResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "connectors": connectors,
+                    "source_membership_id": source_membership_id,
+                    "source_team_id": source_team_id,
                     "target_team_id": target_team_id,
                 },
                 connector_clone_params.ConnectorCloneParams,
@@ -106,6 +110,8 @@ class AsyncConnectorResource(AsyncAPIResource):
         self,
         *,
         connectors: Iterable[CloneConnectorItemParam],
+        source_membership_id: str,
+        source_team_id: str,
         target_team_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -129,6 +135,8 @@ class AsyncConnectorResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "connectors": connectors,
+                    "source_membership_id": source_membership_id,
+                    "source_team_id": source_team_id,
                     "target_team_id": target_team_id,
                 },
                 connector_clone_params.ConnectorCloneParams,
