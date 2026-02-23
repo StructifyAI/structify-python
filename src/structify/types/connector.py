@@ -22,6 +22,8 @@ class Connector(BaseModel):
 
     name: str
 
+    owner_user_id: str
+
     team_id: str
 
     team_visibility: Literal["Team", "Private"]

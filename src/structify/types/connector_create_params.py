@@ -13,8 +13,6 @@ class ConnectorCreateParams(TypedDict, total=False):
 
     name: Required[str]
 
-    team_id: Required[str]
-
     description: Optional[str]
 
     nango_connection_id: Optional[str]

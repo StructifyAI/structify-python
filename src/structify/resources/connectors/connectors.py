@@ -20,7 +20,6 @@ from ...types import (
     connector_update_column_params,
     connector_add_schema_object_params,
     connector_get_explorer_chat_params,
-    connector_list_with_snippets_params,
     connector_delete_schema_object_params,
 )
 from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, SequenceNotStr, omit, not_given
@@ -92,7 +91,6 @@ class ConnectorsResource(SyncAPIResource):
         *,
         known_connector_type: str,
         name: str,
-        team_id: str,
         description: Optional[str] | Omit = omit,
         nango_connection_id: Optional[str] | Omit = omit,
         nango_integration_id: Optional[str] | Omit = omit,
@@ -126,7 +124,6 @@ class ConnectorsResource(SyncAPIResource):
                 {
                     "known_connector_type": known_connector_type,
                     "name": name,
-                    "team_id": team_id,
                     "description": description,
                     "nango_connection_id": nango_connection_id,
                     "nango_integration_id": nango_integration_id,
@@ -202,7 +199,6 @@ class ConnectorsResource(SyncAPIResource):
     def list(
         self,
         *,
-        team_id: str,
         limit: int | Omit = omit,
         offset: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -214,8 +210,6 @@ class ConnectorsResource(SyncAPIResource):
     ) -> SyncJobsList[ConnectorWithSecrets]:
         """
         Args:
-          team_id: Team ID to list connectors for
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -234,7 +228,6 @@ class ConnectorsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "team_id": team_id,
                         "limit": limit,
                         "offset": offset,
                     },
@@ -945,7 +938,6 @@ class ConnectorsResource(SyncAPIResource):
     def list_with_snippets(
         self,
         *,
-        team_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -953,28 +945,10 @@ class ConnectorsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ConnectorListWithSnippetsResponse:
-        """
-        Args:
-          team_id: Team ID to list connectors for
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
         return self._get(
             "/connectors/with-snippets",
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {"team_id": team_id}, connector_list_with_snippets_params.ConnectorListWithSnippetsParams
-                ),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=ConnectorListWithSnippetsResponse,
         )
@@ -1017,7 +991,6 @@ class ConnectorsResource(SyncAPIResource):
         self,
         *,
         query: str,
-        team_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1028,8 +1001,6 @@ class ConnectorsResource(SyncAPIResource):
         """
         Args:
           query: Search query string
-
-          team_id: Team ID to search tables for
 
           extra_headers: Send extra headers
 
@@ -1046,13 +1017,7 @@ class ConnectorsResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "query": query,
-                        "team_id": team_id,
-                    },
-                    connector_search_tables_params.ConnectorSearchTablesParams,
-                ),
+                query=maybe_transform({"query": query}, connector_search_tables_params.ConnectorSearchTablesParams),
             ),
             cast_to=ConnectorSearchTablesResponse,
         )
@@ -1061,7 +1026,6 @@ class ConnectorsResource(SyncAPIResource):
         self,
         *,
         connector_ids: SequenceNotStr[str],
-        team_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1081,13 +1045,7 @@ class ConnectorsResource(SyncAPIResource):
         """
         return self._post(
             "/connectors/summaries",
-            body=maybe_transform(
-                {
-                    "connector_ids": connector_ids,
-                    "team_id": team_id,
-                },
-                connector_summaries_params.ConnectorSummariesParams,
-            ),
+            body=maybe_transform({"connector_ids": connector_ids}, connector_summaries_params.ConnectorSummariesParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1202,7 +1160,6 @@ class AsyncConnectorsResource(AsyncAPIResource):
         *,
         known_connector_type: str,
         name: str,
-        team_id: str,
         description: Optional[str] | Omit = omit,
         nango_connection_id: Optional[str] | Omit = omit,
         nango_integration_id: Optional[str] | Omit = omit,
@@ -1236,7 +1193,6 @@ class AsyncConnectorsResource(AsyncAPIResource):
                 {
                     "known_connector_type": known_connector_type,
                     "name": name,
-                    "team_id": team_id,
                     "description": description,
                     "nango_connection_id": nango_connection_id,
                     "nango_integration_id": nango_integration_id,
@@ -1312,7 +1268,6 @@ class AsyncConnectorsResource(AsyncAPIResource):
     def list(
         self,
         *,
-        team_id: str,
         limit: int | Omit = omit,
         offset: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -1324,8 +1279,6 @@ class AsyncConnectorsResource(AsyncAPIResource):
     ) -> AsyncPaginator[ConnectorWithSecrets, AsyncJobsList[ConnectorWithSecrets]]:
         """
         Args:
-          team_id: Team ID to list connectors for
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -1344,7 +1297,6 @@ class AsyncConnectorsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "team_id": team_id,
                         "limit": limit,
                         "offset": offset,
                     },
@@ -2055,7 +2007,6 @@ class AsyncConnectorsResource(AsyncAPIResource):
     async def list_with_snippets(
         self,
         *,
-        team_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -2063,28 +2014,10 @@ class AsyncConnectorsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ConnectorListWithSnippetsResponse:
-        """
-        Args:
-          team_id: Team ID to list connectors for
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
         return await self._get(
             "/connectors/with-snippets",
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform(
-                    {"team_id": team_id}, connector_list_with_snippets_params.ConnectorListWithSnippetsParams
-                ),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=ConnectorListWithSnippetsResponse,
         )
@@ -2127,7 +2060,6 @@ class AsyncConnectorsResource(AsyncAPIResource):
         self,
         *,
         query: str,
-        team_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -2138,8 +2070,6 @@ class AsyncConnectorsResource(AsyncAPIResource):
         """
         Args:
           query: Search query string
-
-          team_id: Team ID to search tables for
 
           extra_headers: Send extra headers
 
@@ -2157,11 +2087,7 @@ class AsyncConnectorsResource(AsyncAPIResource):
                 extra_body=extra_body,
                 timeout=timeout,
                 query=await async_maybe_transform(
-                    {
-                        "query": query,
-                        "team_id": team_id,
-                    },
-                    connector_search_tables_params.ConnectorSearchTablesParams,
+                    {"query": query}, connector_search_tables_params.ConnectorSearchTablesParams
                 ),
             ),
             cast_to=ConnectorSearchTablesResponse,
@@ -2171,7 +2097,6 @@ class AsyncConnectorsResource(AsyncAPIResource):
         self,
         *,
         connector_ids: SequenceNotStr[str],
-        team_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -2192,11 +2117,7 @@ class AsyncConnectorsResource(AsyncAPIResource):
         return await self._post(
             "/connectors/summaries",
             body=await async_maybe_transform(
-                {
-                    "connector_ids": connector_ids,
-                    "team_id": team_id,
-                },
-                connector_summaries_params.ConnectorSummariesParams,
+                {"connector_ids": connector_ids}, connector_summaries_params.ConnectorSummariesParams
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
