@@ -66,6 +66,8 @@ __all__ = [
     "CreateConnectorInput",
     "SearchConnectorTypes",
     "SearchConnectorTypesInput",
+    "PinPreviousTool",
+    "PinPreviousToolInput",
 ]
 
 
@@ -432,6 +434,16 @@ class SearchConnectorTypes(BaseModel):
     name: Literal["SearchConnectorTypes"]
 
 
+class PinPreviousToolInput(BaseModel):
+    path: str
+
+
+class PinPreviousTool(BaseModel):
+    input: PinPreviousToolInput
+
+    name: Literal["PinPreviousTool"]
+
+
 ToolInvocation: TypeAlias = Annotated[
     Union[
         WebSearch,
@@ -463,6 +475,7 @@ ToolInvocation: TypeAlias = Annotated[
         SelectData,
         CreateConnector,
         SearchConnectorTypes,
+        PinPreviousTool,
     ],
     PropertyInfo(discriminator="name"),
 ]
