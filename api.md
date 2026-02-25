@@ -889,13 +889,19 @@ Methods:
 Types:
 
 ```python
-from structify.types import GetSandboxRequest, Sandbox, SandboxListResponse
+from structify.types import (
+    GetSandboxRequest,
+    Sandbox,
+    SandboxListResponse,
+    SandboxGetMetricsResponse,
+)
 ```
 
 Methods:
 
 - <code title="get /sandbox/list/{chat_id}">client.sandbox.<a href="./src/structify/resources/sandbox.py">list</a>(chat_id) -> <a href="./src/structify/types/sandbox_list_response.py">SandboxListResponse</a></code>
 - <code title="post /sandbox/live/{chat_id}">client.sandbox.<a href="./src/structify/resources/sandbox.py">get</a>(chat_id, \*\*<a href="src/structify/types/sandbox_get_params.py">params</a>) -> <a href="./src/structify/types/sandbox.py">Sandbox</a></code>
+- <code title="get /sandbox/{sandbox_id}/metrics">client.sandbox.<a href="./src/structify/resources/sandbox.py">get_metrics</a>(sandbox_id) -> <a href="./src/structify/types/sandbox_get_metrics_response.py">SandboxGetMetricsResponse</a></code>
 - <code title="patch /sandbox/{sandbox_id}/status">client.sandbox.<a href="./src/structify/resources/sandbox.py">update_status</a>(sandbox_id, \*\*<a href="src/structify/types/sandbox_update_status_params.py">params</a>) -> <a href="./src/structify/types/sandbox.py">Sandbox</a></code>
 
 # Scrape
