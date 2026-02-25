@@ -668,6 +668,7 @@ from structify.types import (
     ConnectorSummariesRequest,
     ConnectorSummary,
     ConnectorTableInfo,
+    ConnectorTablePathResponse,
     ConnectorWithSecrets,
     ConnectorWithSnippets,
     CreateConnectorRequest,
@@ -714,6 +715,7 @@ Methods:
 - <code title="get /connectors/{connector_id}/explore/status">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">get_exploration_status</a>(connector_id) -> <a href="./src/structify/types/explore_status_response.py">ExploreStatusResponse</a></code>
 - <code title="get /connectors/{connector_id}/explore/chat">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">get_explorer_chat</a>(connector_id, \*\*<a href="src/structify/types/connector_get_explorer_chat_params.py">params</a>) -> <a href="./src/structify/types/explorer_chat_response.py">ExplorerChatResponse</a></code>
 - <code title="get /connectors/{connector_id}/store">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">get_store</a>(connector_id) -> <a href="./src/structify/types/connector_store_response.py">ConnectorStoreResponse</a></code>
+- <code title="get /connectors/tables/{table_id}/path">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">get_table_path</a>(table_id) -> <a href="./src/structify/types/connector_table_path_response.py">ConnectorTablePathResponse</a></code>
 - <code title="get /connectors/{connector_id}/tables">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">list_tables</a>(connector_id) -> <a href="./src/structify/types/list_tables_response.py">ListTablesResponse</a></code>
 - <code title="get /connectors/with-snippets">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">list_with_snippets</a>() -> <a href="./src/structify/types/connector_list_with_snippets_response.py">ConnectorListWithSnippetsResponse</a></code>
 - <code title="patch /connectors/clarification-requests/{clarification_id}/resolve">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">resolve_clarification</a>(clarification_id) -> None</code>

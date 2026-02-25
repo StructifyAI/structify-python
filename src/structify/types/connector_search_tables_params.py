@@ -10,3 +10,6 @@ __all__ = ["ConnectorSearchTablesParams"]
 class ConnectorSearchTablesParams(TypedDict, total=False):
     query: Required[str]
     """Search query string"""
+
+    team_id: Required[str]
+    """Team ID to scope table search"""

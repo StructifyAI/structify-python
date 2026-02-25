@@ -53,6 +53,7 @@ from ...types.explore_status_response import ExploreStatusResponse
 from ...types.connector_store_response import ConnectorStoreResponse
 from ...types.exploration_runs_response import ExplorationRunsResponse
 from ...types.connector_summaries_response import ConnectorSummariesResponse
+from ...types.connector_table_path_response import ConnectorTablePathResponse
 from ...types.delete_schema_object_response import DeleteSchemaObjectResponse
 from ...types.connector_search_tables_response import ConnectorSearchTablesResponse
 from ...types.connector_add_schema_object_response import ConnectorAddSchemaObjectResponse
@@ -900,6 +901,37 @@ class ConnectorsResource(SyncAPIResource):
             cast_to=ConnectorStoreResponse,
         )
 
+    def get_table_path(
+        self,
+        table_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ConnectorTablePathResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not table_id:
+            raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
+        return self._get(
+            f"/connectors/tables/{table_id}/path",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ConnectorTablePathResponse,
+        )
+
     def list_tables(
         self,
         connector_id: str,
@@ -991,6 +1023,7 @@ class ConnectorsResource(SyncAPIResource):
         self,
         *,
         query: str,
+        team_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1001,6 +1034,8 @@ class ConnectorsResource(SyncAPIResource):
         """
         Args:
           query: Search query string
+
+          team_id: Team ID to scope table search
 
           extra_headers: Send extra headers
 
@@ -1017,7 +1052,13 @@ class ConnectorsResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform({"query": query}, connector_search_tables_params.ConnectorSearchTablesParams),
+                query=maybe_transform(
+                    {
+                        "query": query,
+                        "team_id": team_id,
+                    },
+                    connector_search_tables_params.ConnectorSearchTablesParams,
+                ),
             ),
             cast_to=ConnectorSearchTablesResponse,
         )
@@ -1969,6 +2010,37 @@ class AsyncConnectorsResource(AsyncAPIResource):
             cast_to=ConnectorStoreResponse,
         )
 
+    async def get_table_path(
+        self,
+        table_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ConnectorTablePathResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not table_id:
+            raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
+        return await self._get(
+            f"/connectors/tables/{table_id}/path",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ConnectorTablePathResponse,
+        )
+
     async def list_tables(
         self,
         connector_id: str,
@@ -2060,6 +2132,7 @@ class AsyncConnectorsResource(AsyncAPIResource):
         self,
         *,
         query: str,
+        team_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -2070,6 +2143,8 @@ class AsyncConnectorsResource(AsyncAPIResource):
         """
         Args:
           query: Search query string
+
+          team_id: Team ID to scope table search
 
           extra_headers: Send extra headers
 
@@ -2087,7 +2162,11 @@ class AsyncConnectorsResource(AsyncAPIResource):
                 extra_body=extra_body,
                 timeout=timeout,
                 query=await async_maybe_transform(
-                    {"query": query}, connector_search_tables_params.ConnectorSearchTablesParams
+                    {
+                        "query": query,
+                        "team_id": team_id,
+                    },
+                    connector_search_tables_params.ConnectorSearchTablesParams,
                 ),
             ),
             cast_to=ConnectorSearchTablesResponse,
@@ -2255,6 +2334,9 @@ class ConnectorsResourceWithRawResponse:
         self.get_store = to_raw_response_wrapper(
             connectors.get_store,
         )
+        self.get_table_path = to_raw_response_wrapper(
+            connectors.get_table_path,
+        )
         self.list_tables = to_raw_response_wrapper(
             connectors.list_tables,
         )
@@ -2330,6 +2412,9 @@ class AsyncConnectorsResourceWithRawResponse:
         )
         self.get_store = async_to_raw_response_wrapper(
             connectors.get_store,
+        )
+        self.get_table_path = async_to_raw_response_wrapper(
+            connectors.get_table_path,
         )
         self.list_tables = async_to_raw_response_wrapper(
             connectors.list_tables,
@@ -2407,6 +2492,9 @@ class ConnectorsResourceWithStreamingResponse:
         self.get_store = to_streamed_response_wrapper(
             connectors.get_store,
         )
+        self.get_table_path = to_streamed_response_wrapper(
+            connectors.get_table_path,
+        )
         self.list_tables = to_streamed_response_wrapper(
             connectors.list_tables,
         )
@@ -2482,6 +2570,9 @@ class AsyncConnectorsResourceWithStreamingResponse:
         )
         self.get_store = async_to_streamed_response_wrapper(
             connectors.get_store,
+        )
+        self.get_table_path = async_to_streamed_response_wrapper(
+            connectors.get_table_path,
         )
         self.list_tables = async_to_streamed_response_wrapper(
             connectors.list_tables,
