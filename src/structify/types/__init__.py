@@ -28,6 +28,7 @@ from .merge_config import MergeConfig as MergeConfig
 from .relationship import Relationship as Relationship
 from .workflow_dag import WorkflowDag as WorkflowDag
 from .chat_template import ChatTemplate as ChatTemplate
+from .message_param import MessageParam as MessageParam
 from .property_type import PropertyType as PropertyType
 from .tool_metadata import ToolMetadata as ToolMetadata
 from .dashboard_page import DashboardPage as DashboardPage
@@ -52,6 +53,7 @@ from .chat_copy_params import ChatCopyParams as ChatCopyParams
 from .job_get_response import JobGetResponse as JobGetResponse
 from .save_requirement import SaveRequirement as SaveRequirement
 from .workflow_session import WorkflowSession as WorkflowSession
+from .chat_prompt_param import ChatPromptParam as ChatPromptParam
 from .chat_session_role import ChatSessionRole as ChatSessionRole
 from .connector_catalog import ConnectorCatalog as ConnectorCatalog
 from .connector_summary import ConnectorSummary as ConnectorSummary
@@ -93,6 +95,7 @@ from .job_status_response import JobStatusResponse as JobStatusResponse
 from .list_teams_response import ListTeamsResponse as ListTeamsResponse
 from .property_type_param import PropertyTypeParam as PropertyTypeParam
 from .slack_events_params import SlackEventsParams as SlackEventsParams
+from .tool_metadata_param import ToolMetadataParam as ToolMetadataParam
 from .user_refresh_params import UserRefreshParams as UserRefreshParams
 from .user_usage_response import UserUsageResponse as UserUsageResponse
 from .workflow_run_params import WorkflowRunParams as WorkflowRunParams
@@ -172,6 +175,7 @@ from .entity_derive_all_params import EntityDeriveAllParams as EntityDeriveAllPa
 from .match_create_jobs_params import MatchCreateJobsParams as MatchCreateJobsParams
 from .refresh_session_response import RefreshSessionResponse as RefreshSessionResponse
 from .session_kill_jobs_params import SessionKillJobsParams as SessionKillJobsParams
+from .simulate_prompt_response import SimulatePromptResponse as SimulatePromptResponse
 from .team_subscription_status import TeamSubscriptionStatus as TeamSubscriptionStatus
 from .wiki_connector_reference import WikiConnectorReference as WikiConnectorReference
 from .chat_list_sessions_params import ChatListSessionsParams as ChatListSessionsParams
@@ -209,6 +213,7 @@ from .team_create_project_params import TeamCreateProjectParams as TeamCreatePro
 from .update_visibility_response import UpdateVisibilityResponse as UpdateVisibilityResponse
 from .user_transactions_response import UserTransactionsResponse as UserTransactionsResponse
 from .admin_grant_access_response import AdminGrantAccessResponse as AdminGrantAccessResponse
+from .chat_simulate_prompt_params import ChatSimulatePromptParams as ChatSimulatePromptParams
 from .dataset_add_property_params import DatasetAddPropertyParams as DatasetAddPropertyParams
 from .dataset_view_table_response import DatasetViewTableResponse as DatasetViewTableResponse
 from .invitation_details_response import InvitationDetailsResponse as InvitationDetailsResponse
