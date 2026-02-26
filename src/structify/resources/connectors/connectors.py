@@ -94,7 +94,6 @@ class ConnectorsResource(SyncAPIResource):
         name: str,
         description: Optional[str] | Omit = omit,
         nango_connection_id: Optional[str] | Omit = omit,
-        nango_integration_id: Optional[str] | Omit = omit,
         secrets: Dict[str, str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -106,8 +105,6 @@ class ConnectorsResource(SyncAPIResource):
         """
         Args:
           nango_connection_id: Nango connection ID for OAuth token management
-
-          nango_integration_id: Nango integration ID (e.g., "linear", "slack")
 
           secrets: Optional secrets/environment variables for the connector
 
@@ -127,7 +124,6 @@ class ConnectorsResource(SyncAPIResource):
                     "name": name,
                     "description": description,
                     "nango_connection_id": nango_connection_id,
-                    "nango_integration_id": nango_integration_id,
                     "secrets": secrets,
                 },
                 connector_create_params.ConnectorCreateParams,
@@ -148,7 +144,6 @@ class ConnectorsResource(SyncAPIResource):
         known_connector_type: Optional[str] | Omit = omit,
         name: Optional[str] | Omit = omit,
         nango_connection_id: Optional[str] | Omit = omit,
-        nango_integration_id: Optional[str] | Omit = omit,
         oauth_scopes: Optional[SequenceNotStr[Optional[str]]] | Omit = omit,
         owner_user_id: Optional[str] | Omit = omit,
         team_visibility: Optional[Literal["Team", "Private"]] | Omit = omit,
@@ -184,7 +179,6 @@ class ConnectorsResource(SyncAPIResource):
                     "known_connector_type": known_connector_type,
                     "name": name,
                     "nango_connection_id": nango_connection_id,
-                    "nango_integration_id": nango_integration_id,
                     "oauth_scopes": oauth_scopes,
                     "owner_user_id": owner_user_id,
                     "team_visibility": team_visibility,
@@ -1205,7 +1199,6 @@ class AsyncConnectorsResource(AsyncAPIResource):
         name: str,
         description: Optional[str] | Omit = omit,
         nango_connection_id: Optional[str] | Omit = omit,
-        nango_integration_id: Optional[str] | Omit = omit,
         secrets: Dict[str, str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1217,8 +1210,6 @@ class AsyncConnectorsResource(AsyncAPIResource):
         """
         Args:
           nango_connection_id: Nango connection ID for OAuth token management
-
-          nango_integration_id: Nango integration ID (e.g., "linear", "slack")
 
           secrets: Optional secrets/environment variables for the connector
 
@@ -1238,7 +1229,6 @@ class AsyncConnectorsResource(AsyncAPIResource):
                     "name": name,
                     "description": description,
                     "nango_connection_id": nango_connection_id,
-                    "nango_integration_id": nango_integration_id,
                     "secrets": secrets,
                 },
                 connector_create_params.ConnectorCreateParams,
@@ -1259,7 +1249,6 @@ class AsyncConnectorsResource(AsyncAPIResource):
         known_connector_type: Optional[str] | Omit = omit,
         name: Optional[str] | Omit = omit,
         nango_connection_id: Optional[str] | Omit = omit,
-        nango_integration_id: Optional[str] | Omit = omit,
         oauth_scopes: Optional[SequenceNotStr[Optional[str]]] | Omit = omit,
         owner_user_id: Optional[str] | Omit = omit,
         team_visibility: Optional[Literal["Team", "Private"]] | Omit = omit,
@@ -1295,7 +1284,6 @@ class AsyncConnectorsResource(AsyncAPIResource):
                     "known_connector_type": known_connector_type,
                     "name": name,
                     "nango_connection_id": nango_connection_id,
-                    "nango_integration_id": nango_integration_id,
                     "oauth_scopes": oauth_scopes,
                     "owner_user_id": owner_user_id,
                     "team_visibility": team_visibility,

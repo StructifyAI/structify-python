@@ -24,8 +24,6 @@ class ConnectorUpdateParams(TypedDict, total=False):
 
     nango_connection_id: Optional[str]
 
-    nango_integration_id: Optional[str]
-
     oauth_scopes: Optional[SequenceNotStr[Optional[str]]]
 
     owner_user_id: Optional[str]
