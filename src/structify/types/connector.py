@@ -44,8 +44,6 @@ class Connector(BaseModel):
 
     nango_connection_id: Optional[str] = None
 
-    nango_integration_id: Optional[str] = None
-
     oauth_scopes: Optional[List[Optional[str]]] = None
 
     usage_snippet_override: Optional[str] = None

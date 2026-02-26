@@ -50,7 +50,6 @@ class TestConnectors:
             name="name",
             description="description",
             nango_connection_id="nango_connection_id",
-            nango_integration_id="nango_integration_id",
             secrets={"foo": "string"},
         )
         assert_matches_type(Connector, connector, path=["response"])
@@ -98,7 +97,6 @@ class TestConnectors:
             known_connector_type="known_connector_type",
             name="name",
             nango_connection_id="nango_connection_id",
-            nango_integration_id="nango_integration_id",
             oauth_scopes=["string"],
             owner_user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             team_visibility="Team",
@@ -1334,7 +1332,6 @@ class TestAsyncConnectors:
             name="name",
             description="description",
             nango_connection_id="nango_connection_id",
-            nango_integration_id="nango_integration_id",
             secrets={"foo": "string"},
         )
         assert_matches_type(Connector, connector, path=["response"])
@@ -1382,7 +1379,6 @@ class TestAsyncConnectors:
             known_connector_type="known_connector_type",
             name="name",
             nango_connection_id="nango_connection_id",
-            nango_integration_id="nango_integration_id",
             oauth_scopes=["string"],
             owner_user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             team_visibility="Team",
