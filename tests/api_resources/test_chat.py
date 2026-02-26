@@ -15,6 +15,7 @@ from structify.types import (
     ChatSession,
     ChatLoadFilesResponse,
     GetChatSessionResponse,
+    SimulatePromptResponse,
     AdminIssueFoundResponse,
     ChatSessionWithMessages,
     GetDependenciesResponse,
@@ -1068,6 +1069,264 @@ class TestChat:
             client.chat.with_raw_response.revert_to_commit(
                 session_id="",
                 commit_hash="commit_hash",
+            )
+
+    @parametrize
+    def test_method_simulate_prompt(self, client: Structify) -> None:
+        chat = client.chat.simulate_prompt(
+            chat_session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            chat_prompt={
+                "decoding_params": {"parameters": [{"max_tokens": 0}]},
+                "messages": [
+                    {
+                        "content": [{"text": "Text"}],
+                        "role": "user",
+                    }
+                ],
+                "metadata": {
+                    "dataset_descriptor": {
+                        "description": "description",
+                        "name": "name",
+                        "relationships": [
+                            {
+                                "description": "description",
+                                "name": "name",
+                                "source_table": "source_table",
+                                "target_table": "target_table",
+                            }
+                        ],
+                        "tables": [
+                            {
+                                "description": "description",
+                                "name": "name",
+                                "properties": [
+                                    {
+                                        "description": "description",
+                                        "name": "name",
+                                    }
+                                ],
+                            }
+                        ],
+                    },
+                    "extracted_entities": [
+                        {
+                            "entities": [
+                                {
+                                    "id": 0,
+                                    "properties": {"foo": "string"},
+                                    "type": "type",
+                                }
+                            ]
+                        }
+                    ],
+                    "extraction_criteria": [{"relationship_name": "relationship_name"}],
+                    "formatter_specific": {"image_meta": {"image": "image"}},
+                    "tool_metadata": [
+                        {
+                            "description": "description",
+                            "name": "Exit",
+                            "regex_validator": "regex_validator",
+                        }
+                    ],
+                },
+            },
+        )
+        assert_matches_type(SimulatePromptResponse, chat, path=["response"])
+
+    @parametrize
+    def test_raw_response_simulate_prompt(self, client: Structify) -> None:
+        response = client.chat.with_raw_response.simulate_prompt(
+            chat_session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            chat_prompt={
+                "decoding_params": {"parameters": [{"max_tokens": 0}]},
+                "messages": [
+                    {
+                        "content": [{"text": "Text"}],
+                        "role": "user",
+                    }
+                ],
+                "metadata": {
+                    "dataset_descriptor": {
+                        "description": "description",
+                        "name": "name",
+                        "relationships": [
+                            {
+                                "description": "description",
+                                "name": "name",
+                                "source_table": "source_table",
+                                "target_table": "target_table",
+                            }
+                        ],
+                        "tables": [
+                            {
+                                "description": "description",
+                                "name": "name",
+                                "properties": [
+                                    {
+                                        "description": "description",
+                                        "name": "name",
+                                    }
+                                ],
+                            }
+                        ],
+                    },
+                    "extracted_entities": [
+                        {
+                            "entities": [
+                                {
+                                    "id": 0,
+                                    "properties": {"foo": "string"},
+                                    "type": "type",
+                                }
+                            ]
+                        }
+                    ],
+                    "extraction_criteria": [{"relationship_name": "relationship_name"}],
+                    "formatter_specific": {"image_meta": {"image": "image"}},
+                    "tool_metadata": [
+                        {
+                            "description": "description",
+                            "name": "Exit",
+                            "regex_validator": "regex_validator",
+                        }
+                    ],
+                },
+            },
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        chat = response.parse()
+        assert_matches_type(SimulatePromptResponse, chat, path=["response"])
+
+    @parametrize
+    def test_streaming_response_simulate_prompt(self, client: Structify) -> None:
+        with client.chat.with_streaming_response.simulate_prompt(
+            chat_session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            chat_prompt={
+                "decoding_params": {"parameters": [{"max_tokens": 0}]},
+                "messages": [
+                    {
+                        "content": [{"text": "Text"}],
+                        "role": "user",
+                    }
+                ],
+                "metadata": {
+                    "dataset_descriptor": {
+                        "description": "description",
+                        "name": "name",
+                        "relationships": [
+                            {
+                                "description": "description",
+                                "name": "name",
+                                "source_table": "source_table",
+                                "target_table": "target_table",
+                            }
+                        ],
+                        "tables": [
+                            {
+                                "description": "description",
+                                "name": "name",
+                                "properties": [
+                                    {
+                                        "description": "description",
+                                        "name": "name",
+                                    }
+                                ],
+                            }
+                        ],
+                    },
+                    "extracted_entities": [
+                        {
+                            "entities": [
+                                {
+                                    "id": 0,
+                                    "properties": {"foo": "string"},
+                                    "type": "type",
+                                }
+                            ]
+                        }
+                    ],
+                    "extraction_criteria": [{"relationship_name": "relationship_name"}],
+                    "formatter_specific": {"image_meta": {"image": "image"}},
+                    "tool_metadata": [
+                        {
+                            "description": "description",
+                            "name": "Exit",
+                            "regex_validator": "regex_validator",
+                        }
+                    ],
+                },
+            },
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            chat = response.parse()
+            assert_matches_type(SimulatePromptResponse, chat, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_path_params_simulate_prompt(self, client: Structify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `chat_session_id` but received ''"):
+            client.chat.with_raw_response.simulate_prompt(
+                chat_session_id="",
+                chat_prompt={
+                    "decoding_params": {"parameters": [{"max_tokens": 0}]},
+                    "messages": [
+                        {
+                            "content": [{"text": "Text"}],
+                            "role": "user",
+                        }
+                    ],
+                    "metadata": {
+                        "dataset_descriptor": {
+                            "description": "description",
+                            "name": "name",
+                            "relationships": [
+                                {
+                                    "description": "description",
+                                    "name": "name",
+                                    "source_table": "source_table",
+                                    "target_table": "target_table",
+                                }
+                            ],
+                            "tables": [
+                                {
+                                    "description": "description",
+                                    "name": "name",
+                                    "properties": [
+                                        {
+                                            "description": "description",
+                                            "name": "name",
+                                        }
+                                    ],
+                                }
+                            ],
+                        },
+                        "extracted_entities": [
+                            {
+                                "entities": [
+                                    {
+                                        "id": 0,
+                                        "properties": {"foo": "string"},
+                                        "type": "type",
+                                    }
+                                ]
+                            }
+                        ],
+                        "extraction_criteria": [{"relationship_name": "relationship_name"}],
+                        "formatter_specific": {"image_meta": {"image": "image"}},
+                        "tool_metadata": [
+                            {
+                                "description": "description",
+                                "name": "Exit",
+                                "regex_validator": "regex_validator",
+                            }
+                        ],
+                    },
+                },
             )
 
     @parametrize
@@ -2280,6 +2539,264 @@ class TestAsyncChat:
             await async_client.chat.with_raw_response.revert_to_commit(
                 session_id="",
                 commit_hash="commit_hash",
+            )
+
+    @parametrize
+    async def test_method_simulate_prompt(self, async_client: AsyncStructify) -> None:
+        chat = await async_client.chat.simulate_prompt(
+            chat_session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            chat_prompt={
+                "decoding_params": {"parameters": [{"max_tokens": 0}]},
+                "messages": [
+                    {
+                        "content": [{"text": "Text"}],
+                        "role": "user",
+                    }
+                ],
+                "metadata": {
+                    "dataset_descriptor": {
+                        "description": "description",
+                        "name": "name",
+                        "relationships": [
+                            {
+                                "description": "description",
+                                "name": "name",
+                                "source_table": "source_table",
+                                "target_table": "target_table",
+                            }
+                        ],
+                        "tables": [
+                            {
+                                "description": "description",
+                                "name": "name",
+                                "properties": [
+                                    {
+                                        "description": "description",
+                                        "name": "name",
+                                    }
+                                ],
+                            }
+                        ],
+                    },
+                    "extracted_entities": [
+                        {
+                            "entities": [
+                                {
+                                    "id": 0,
+                                    "properties": {"foo": "string"},
+                                    "type": "type",
+                                }
+                            ]
+                        }
+                    ],
+                    "extraction_criteria": [{"relationship_name": "relationship_name"}],
+                    "formatter_specific": {"image_meta": {"image": "image"}},
+                    "tool_metadata": [
+                        {
+                            "description": "description",
+                            "name": "Exit",
+                            "regex_validator": "regex_validator",
+                        }
+                    ],
+                },
+            },
+        )
+        assert_matches_type(SimulatePromptResponse, chat, path=["response"])
+
+    @parametrize
+    async def test_raw_response_simulate_prompt(self, async_client: AsyncStructify) -> None:
+        response = await async_client.chat.with_raw_response.simulate_prompt(
+            chat_session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            chat_prompt={
+                "decoding_params": {"parameters": [{"max_tokens": 0}]},
+                "messages": [
+                    {
+                        "content": [{"text": "Text"}],
+                        "role": "user",
+                    }
+                ],
+                "metadata": {
+                    "dataset_descriptor": {
+                        "description": "description",
+                        "name": "name",
+                        "relationships": [
+                            {
+                                "description": "description",
+                                "name": "name",
+                                "source_table": "source_table",
+                                "target_table": "target_table",
+                            }
+                        ],
+                        "tables": [
+                            {
+                                "description": "description",
+                                "name": "name",
+                                "properties": [
+                                    {
+                                        "description": "description",
+                                        "name": "name",
+                                    }
+                                ],
+                            }
+                        ],
+                    },
+                    "extracted_entities": [
+                        {
+                            "entities": [
+                                {
+                                    "id": 0,
+                                    "properties": {"foo": "string"},
+                                    "type": "type",
+                                }
+                            ]
+                        }
+                    ],
+                    "extraction_criteria": [{"relationship_name": "relationship_name"}],
+                    "formatter_specific": {"image_meta": {"image": "image"}},
+                    "tool_metadata": [
+                        {
+                            "description": "description",
+                            "name": "Exit",
+                            "regex_validator": "regex_validator",
+                        }
+                    ],
+                },
+            },
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        chat = await response.parse()
+        assert_matches_type(SimulatePromptResponse, chat, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_simulate_prompt(self, async_client: AsyncStructify) -> None:
+        async with async_client.chat.with_streaming_response.simulate_prompt(
+            chat_session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            chat_prompt={
+                "decoding_params": {"parameters": [{"max_tokens": 0}]},
+                "messages": [
+                    {
+                        "content": [{"text": "Text"}],
+                        "role": "user",
+                    }
+                ],
+                "metadata": {
+                    "dataset_descriptor": {
+                        "description": "description",
+                        "name": "name",
+                        "relationships": [
+                            {
+                                "description": "description",
+                                "name": "name",
+                                "source_table": "source_table",
+                                "target_table": "target_table",
+                            }
+                        ],
+                        "tables": [
+                            {
+                                "description": "description",
+                                "name": "name",
+                                "properties": [
+                                    {
+                                        "description": "description",
+                                        "name": "name",
+                                    }
+                                ],
+                            }
+                        ],
+                    },
+                    "extracted_entities": [
+                        {
+                            "entities": [
+                                {
+                                    "id": 0,
+                                    "properties": {"foo": "string"},
+                                    "type": "type",
+                                }
+                            ]
+                        }
+                    ],
+                    "extraction_criteria": [{"relationship_name": "relationship_name"}],
+                    "formatter_specific": {"image_meta": {"image": "image"}},
+                    "tool_metadata": [
+                        {
+                            "description": "description",
+                            "name": "Exit",
+                            "regex_validator": "regex_validator",
+                        }
+                    ],
+                },
+            },
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            chat = await response.parse()
+            assert_matches_type(SimulatePromptResponse, chat, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_simulate_prompt(self, async_client: AsyncStructify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `chat_session_id` but received ''"):
+            await async_client.chat.with_raw_response.simulate_prompt(
+                chat_session_id="",
+                chat_prompt={
+                    "decoding_params": {"parameters": [{"max_tokens": 0}]},
+                    "messages": [
+                        {
+                            "content": [{"text": "Text"}],
+                            "role": "user",
+                        }
+                    ],
+                    "metadata": {
+                        "dataset_descriptor": {
+                            "description": "description",
+                            "name": "name",
+                            "relationships": [
+                                {
+                                    "description": "description",
+                                    "name": "name",
+                                    "source_table": "source_table",
+                                    "target_table": "target_table",
+                                }
+                            ],
+                            "tables": [
+                                {
+                                    "description": "description",
+                                    "name": "name",
+                                    "properties": [
+                                        {
+                                            "description": "description",
+                                            "name": "name",
+                                        }
+                                    ],
+                                }
+                            ],
+                        },
+                        "extracted_entities": [
+                            {
+                                "entities": [
+                                    {
+                                        "id": 0,
+                                        "properties": {"foo": "string"},
+                                        "type": "type",
+                                    }
+                                ]
+                            }
+                        ],
+                        "extraction_criteria": [{"relationship_name": "relationship_name"}],
+                        "formatter_specific": {"image_meta": {"image": "image"}},
+                        "tool_metadata": [
+                            {
+                                "description": "description",
+                                "name": "Exit",
+                                "regex_validator": "regex_validator",
+                            }
+                        ],
+                    },
+                },
             )
 
     @parametrize

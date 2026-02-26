@@ -16,6 +16,7 @@ from ..types import (
     chat_add_git_commit_params,
     chat_create_session_params,
     chat_update_session_params,
+    chat_simulate_prompt_params,
     chat_add_collaborator_params,
     chat_load_input_files_params,
     chat_revert_to_commit_params,
@@ -48,8 +49,10 @@ from .._response import (
 from .._base_client import make_request_options
 from ..types.chat_session import ChatSession
 from ..types.chat_visibility import ChatVisibility
+from ..types.chat_prompt_param import ChatPromptParam
 from ..types.chat_session_role import ChatSessionRole
 from ..types.chat_load_files_response import ChatLoadFilesResponse
+from ..types.simulate_prompt_response import SimulatePromptResponse
 from ..types.get_chat_session_response import GetChatSessionResponse
 from ..types.get_dependencies_response import GetDependenciesResponse
 from ..types.admin_issue_found_response import AdminIssueFoundResponse
@@ -980,6 +983,41 @@ class ChatResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=ChatRevertToCommitResponse,
+        )
+
+    def simulate_prompt(
+        self,
+        chat_session_id: str,
+        *,
+        chat_prompt: ChatPromptParam,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> SimulatePromptResponse:
+        """
+        any messages to the database.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not chat_session_id:
+            raise ValueError(f"Expected a non-empty value for `chat_session_id` but received {chat_session_id!r}")
+        return self._post(
+            f"/chat/{chat_session_id}/simulate-prompt",
+            body=maybe_transform({"chat_prompt": chat_prompt}, chat_simulate_prompt_params.ChatSimulatePromptParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=SimulatePromptResponse,
         )
 
     def update_session(
@@ -2063,6 +2101,43 @@ class AsyncChatResource(AsyncAPIResource):
             cast_to=ChatRevertToCommitResponse,
         )
 
+    async def simulate_prompt(
+        self,
+        chat_session_id: str,
+        *,
+        chat_prompt: ChatPromptParam,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> SimulatePromptResponse:
+        """
+        any messages to the database.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not chat_session_id:
+            raise ValueError(f"Expected a non-empty value for `chat_session_id` but received {chat_session_id!r}")
+        return await self._post(
+            f"/chat/{chat_session_id}/simulate-prompt",
+            body=await async_maybe_transform(
+                {"chat_prompt": chat_prompt}, chat_simulate_prompt_params.ChatSimulatePromptParams
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=SimulatePromptResponse,
+        )
+
     async def update_session(
         self,
         session_id: str,
@@ -2307,6 +2382,9 @@ class ChatResourceWithRawResponse:
         self.revert_to_commit = to_raw_response_wrapper(
             chat.revert_to_commit,
         )
+        self.simulate_prompt = to_raw_response_wrapper(
+            chat.simulate_prompt,
+        )
         self.update_session = to_raw_response_wrapper(
             chat.update_session,
         )
@@ -2397,6 +2475,9 @@ class AsyncChatResourceWithRawResponse:
         )
         self.revert_to_commit = async_to_raw_response_wrapper(
             chat.revert_to_commit,
+        )
+        self.simulate_prompt = async_to_raw_response_wrapper(
+            chat.simulate_prompt,
         )
         self.update_session = async_to_raw_response_wrapper(
             chat.update_session,
@@ -2489,6 +2570,9 @@ class ChatResourceWithStreamingResponse:
         self.revert_to_commit = to_streamed_response_wrapper(
             chat.revert_to_commit,
         )
+        self.simulate_prompt = to_streamed_response_wrapper(
+            chat.simulate_prompt,
+        )
         self.update_session = to_streamed_response_wrapper(
             chat.update_session,
         )
@@ -2579,6 +2663,9 @@ class AsyncChatResourceWithStreamingResponse:
         )
         self.revert_to_commit = async_to_streamed_response_wrapper(
             chat.revert_to_commit,
+        )
+        self.simulate_prompt = async_to_streamed_response_wrapper(
+            chat.simulate_prompt,
         )
         self.update_session = async_to_streamed_response_wrapper(
             chat.update_session,

@@ -111,6 +111,8 @@ from structify.types import (
     ListChatSessionsResponse,
     ListCollaboratorsResponse,
     Message,
+    SimulatePromptRequest,
+    SimulatePromptResponse,
     ToolInvocation,
     ToolResult,
     UpdateChatSessionFavoriteRequest,
@@ -158,6 +160,7 @@ Methods:
 - <code title="patch /chat/sessions/{session_id}/make-permanent">client.chat.<a href="./src/structify/resources/chat.py">make_permanent</a>(session_id) -> None</code>
 - <code title="delete /chat/sessions/{chat_id}/collaborators/{user_id}">client.chat.<a href="./src/structify/resources/chat.py">remove_collaborator</a>(user_id, \*, chat_id) -> None</code>
 - <code title="post /chat/sessions/{session_id}/revert">client.chat.<a href="./src/structify/resources/chat.py">revert_to_commit</a>(session_id, \*\*<a href="src/structify/types/chat_revert_to_commit_params.py">params</a>) -> <a href="./src/structify/types/chat_revert_to_commit_response.py">ChatRevertToCommitResponse</a></code>
+- <code title="post /chat/{chat_session_id}/simulate-prompt">client.chat.<a href="./src/structify/resources/chat.py">simulate_prompt</a>(chat_session_id, \*\*<a href="src/structify/types/chat_simulate_prompt_params.py">params</a>) -> <a href="./src/structify/types/simulate_prompt_response.py">SimulatePromptResponse</a></code>
 - <code title="patch /chat/sessions/{session_id}">client.chat.<a href="./src/structify/resources/chat.py">update_session</a>(session_id, \*\*<a href="src/structify/types/chat_update_session_params.py">params</a>) -> <a href="./src/structify/types/chat_session.py">ChatSession</a></code>
 - <code title="patch /chat/sessions/{session_id}/favorite">client.chat.<a href="./src/structify/resources/chat.py">update_session_favorite</a>(session_id, \*\*<a href="src/structify/types/chat_update_session_favorite_params.py">params</a>) -> <a href="./src/structify/types/chat_session.py">ChatSession</a></code>
 - <code title="put /chat/sessions/{session_id}/visibility">client.chat.<a href="./src/structify/resources/chat.py">update_visibility</a>(session_id, \*\*<a href="src/structify/types/chat_update_visibility_params.py">params</a>) -> <a href="./src/structify/types/update_visibility_response.py">UpdateVisibilityResponse</a></code>
