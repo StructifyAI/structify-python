@@ -28,6 +28,8 @@ class ConnectorUpdateParams(TypedDict, total=False):
 
     oauth_scopes: Optional[SequenceNotStr[Optional[str]]]
 
+    owner_user_id: Optional[str]
+
     team_visibility: Optional[Literal["Team", "Private"]]
 
     usage_snippet_override: Optional[str]
