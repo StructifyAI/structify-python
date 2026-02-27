@@ -42,6 +42,8 @@ class User(BaseModel):
 
     is_developer: bool
 
+    notify_for_interaction: bool
+
     permissions: List[Optional[Literal["labeler", "qa_labeler", "debug", "human_llm", "none"]]]
 
     updated_at: datetime
