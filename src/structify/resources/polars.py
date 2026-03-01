@@ -8,10 +8,12 @@ import uuid
 from typing import Any, Dict, List, Tuple, Literal, Optional, cast
 from concurrent.futures import Future, ThreadPoolExecutor, as_completed
 
+import pypdf
 import polars as pl
 from tqdm import tqdm  # type: ignore
 from polars import LazyFrame
 
+from structify import Structify
 from structify.types.entity_param import EntityParam
 from structify.types.property_type_param import PropertyTypeParam
 from structify.types.dataset_create_params import Relationship as CreateRelationshipParam
@@ -36,12 +38,13 @@ MAX_PARALLEL_REQUESTS = 20
 STRUCTIFY_JOB_ID_COLUMN = "structify_job_id"
 
 
-def _collect_entities_with_job_ids(entities: Any) -> List[Dict[str, Any]]:
-    """Collect entity properties with their first job_id."""
+def _collect_entities_with_job_ids(client: Structify, dataset_name: str, table_name: str) -> List[Dict[str, Any]]:
+    """Collect entity properties with their job_id."""
+    entities = client.datasets.view_table(dataset=dataset_name, name=table_name)
     results: List[Dict[str, Any]] = []
     for entity in entities:
         row: Dict[str, Any] = dict(entity.properties)
-        row[STRUCTIFY_JOB_ID_COLUMN] = entity.job_ids[0] if entity.job_ids else None
+        row[STRUCTIFY_JOB_ID_COLUMN] = entity.job_id
         results.append(row)
     return results
 
@@ -239,14 +242,10 @@ class PolarsResource(SyncAPIResource):
             else:
                 property_names = f"{', '.join(property_list[:-1])}, and {property_list[-1]}"
             with ThreadPoolExecutor(max_workers=MAX_PARALLEL_REQUESTS) as executor:
-                futures: List[Future[None]] = []
-                # Iterate through property name at the outer level for queueing so with large requests
-                # we can skip later jobs if the earlier ones get extra properties.
-                for property_name in property_list:
-                    futures += [
-                        executor.submit(enhance_entity_property, entity_id, entity_param, [property_name])
-                        for entity_id, entity_param in entity_id_to_entity.items()
-                    ]
+                futures: List[Future[None]] = [
+                    executor.submit(enhance_entity_property, entity_id, entity_param, property_list)
+                    for entity_id, entity_param in entity_id_to_entity.items()
+                ]
                 for future in tqdm(
                     as_completed(futures), total=len(futures), desc=f"Preparing enrichments for {property_names}"
                 ):
@@ -255,9 +254,7 @@ class PolarsResource(SyncAPIResource):
             title = f"Enriching {property_names} for {dataframe_name}"
             self._client.jobs.wait_for_jobs(dataset_name=dataset_name, title=title, node_id=node_id)
             # 4. Collect the results with job_ids
-            results = _collect_entities_with_job_ids(
-                self._client.datasets.view_table(dataset=dataset_name, name=dataframe_name)
-            )
+            results = _collect_entities_with_job_ids(self._client, dataset_name, dataframe_name)
             # 5. Return the results
             return pl.DataFrame(results, schema=expected_schema)
 
@@ -417,7 +414,7 @@ class PolarsResource(SyncAPIResource):
                             prop_name if prop_name not in input_schema else f"{prop_name}_{target_table_name}"
                         )  # If the column already exists in the input schema, we need to suffix it with the target table name
                         result_row[eff] = target_entity.properties.get(prop_name)
-                    result_row[STRUCTIFY_JOB_ID_COLUMN] = target_entity.job_ids[0] if target_entity.job_ids else None
+                    result_row[STRUCTIFY_JOB_ID_COLUMN] = target_entity.job_id
                     result_rows.append(result_row)
 
             # Handle source rows without relationships
@@ -590,9 +587,7 @@ class PolarsResource(SyncAPIResource):
             self._client.jobs.wait_for_jobs(dataset_name=dataset_name, title=title, node_id=node_id)
 
             # 4. Collect the results with job_id
-            results = _collect_entities_with_job_ids(
-                self._client.datasets.view_table(dataset=dataset_name, name=dataframe_name)
-            )
+            results = _collect_entities_with_job_ids(self._client, dataset_name, dataframe_name)
 
             # 5. Return the results
             return pl.DataFrame(results, schema=expected_schema)
@@ -749,9 +744,7 @@ class PolarsResource(SyncAPIResource):
                                 result_row: dict[str, Any] = {
                                     **scraped_entity.properties,
                                     url_column: related_entity.properties[url_column],
-                                    STRUCTIFY_JOB_ID_COLUMN: scraped_entity.job_ids[0]
-                                    if scraped_entity.job_ids
-                                    else None,
+                                    STRUCTIFY_JOB_ID_COLUMN: scraped_entity.job_id,
                                 }
                                 result_rows.append(result_row)
                     offset += LIMIT
@@ -845,6 +838,24 @@ class PolarsResource(SyncAPIResource):
 
         table_param = as_table_param(table_name, schema)
 
+        paths_df = document_paths.collect()
+
+        page_count_map: dict[str, int] = {}
+        if mode == "all_pages":
+            for pdf_path in paths_df[path_column].to_list():
+                if pdf_path is not None:
+                    with open(pdf_path, "rb") as f:
+                        pdf = pypdf.PdfReader(f)
+                        page_count_map[pdf_path] = len(pdf.pages)
+        else:
+            for pdf_path in paths_df[path_column].to_list():
+                # TODO: this is a hack to note that we cost twice as much for single page mode
+                page_count_map[pdf_path] = 2
+
+        total_pages = sum(page_count_map.values())
+        if not request_cost_confirmation_if_needed(self._client, total_pages, "pdf"):
+            raise Exception(f"User cancelled PDF extraction for {table_name}")
+
         # Create dataset for this PDF
         dataset_name = f"structure_pdfs_{table_name}_{uuid.uuid4().hex}"
         self._client.datasets.create(
@@ -865,7 +876,6 @@ class PolarsResource(SyncAPIResource):
                     "model must be in format 'provider.model_name' (e.g. 'bedrock.claude-sonnet-4-bedrock')"
                 )
 
-        paths_df = document_paths.collect()
         instructions_list: list[str | None] = []
 
         if instructions is not None and not isinstance(instructions, str):
@@ -874,42 +884,50 @@ class PolarsResource(SyncAPIResource):
                 raise ValueError(f"instructions shape {instr_df.shape} != document_paths shape {paths_df.shape}")
             instructions_list = cast(List[Optional[str]], instr_df[instr_df.columns[0]].to_list())
 
-        # Request cost confirmation before dispatching costly PDF extraction jobs
-        if not request_cost_confirmation_if_needed(self._client, paths_df.shape[0], "pdf"):
-            raise Exception(f"User cancelled PDF extraction for {table_name}")
-
         job_to_pdf_path: dict[str, str] = {}
 
         # Process each PDF document
-        def process_pdf(pdf_path: str, instructions: str | None) -> Tuple[List[str], str]:
+        def upload_pdf(pdf_path: str) -> None:
             # Upload the PDF document
-            unique_pdf_name = f"{uuid.uuid4().hex}.pdf"
             with open(pdf_path, "rb") as pdf_file:
                 try:
                     self._client.documents.upload(
                         content=pdf_file,
                         file_type="PDF",
                         dataset=dataset_name,
-                        path=unique_pdf_name.encode(),
+                        path=pdf_path.encode(),
                     )
                 except Exception as e:
                     if "Document already exists" not in str(e):
                         raise e
 
+        with ThreadPoolExecutor(max_workers=MAX_PARALLEL_REQUESTS) as executor:
+            upload_futures: List[Future[None]] = []
+            for pdf_path in paths_df[path_column].to_list():
+                if isinstance(pdf_path, str):
+                    upload_futures.append(executor.submit(upload_pdf, pdf_path))
+            for future in tqdm(as_completed(upload_futures), total=len(upload_futures), desc="Uploading PDFs"):
+                future.result()
+
+        def structure_pdf(pdf_path: str, instructions: str | None) -> Tuple[List[str], str]:
+            pages: List[int] | None = None
+            if mode == "all_pages":
+                pages = list(range(page_count_map[pdf_path]))
+
             job_ids = self._client.structure.pdf(
                 dataset=dataset_name,
-                path=unique_pdf_name,
+                path=pdf_path,
                 node_id=node_id,
                 instructions=instructions,
-                mode="Single" if mode == "single" else "Batch",
                 model=model,
+                pages=pages,
             ).job_ids
             return job_ids, pdf_path
 
         with ThreadPoolExecutor(max_workers=MAX_PARALLEL_REQUESTS) as executor:
             futures: List[Future[Tuple[List[str], str]]] = []
             for i in range(paths_df.shape[0]):
-                path: str | None = paths_df[path_column][i]
+                path = paths_df[path_column][i]
                 pdf_instructions: str | None = None
                 if isinstance(instructions, str):
                     pdf_instructions = instructions
@@ -917,21 +935,21 @@ class PolarsResource(SyncAPIResource):
                     pdf_instructions = instructions_list[i]
                 if pdf_instructions is None and conditioning:
                     pdf_instructions = conditioning
-                if path is not None:
-                    futures.append(executor.submit(process_pdf, path, pdf_instructions))
-            for future in tqdm(as_completed(futures), total=len(futures), desc="Preparing PDFs"):
+                if isinstance(path, str):
+                    futures.append(executor.submit(structure_pdf, path, pdf_instructions))
+            for future in tqdm(as_completed(futures), total=len(futures), desc="Submitting PDFs for parsing"):
                 job_ids, pdf_path = future.result()
                 for job_id in job_ids:
                     job_to_pdf_path[job_id] = pdf_path
 
         # Wait for all PDF processing jobs to complete
-        self._client.jobs.wait_for_jobs(dataset_name=dataset_name, title=f"Parsing PDFs", node_id=node_id)
+        self._client.jobs.wait_for_jobs(dataset_name=dataset_name, title=f"Parsing PDF pages", node_id=node_id)
 
         # Get all of the entities with their job_ids
         entities = self._client.datasets.view_table(dataset=dataset_name, name=table_name)
         structured_results: List[Dict[str, Any]] = []
         for entity in entities:
-            job_id = entity.job_ids[0] if entity.job_ids else None
+            job_id = entity.job_id
             result_row: Dict[str, Any] = {
                 **entity.properties,
                 path_column: job_to_pdf_path.get(job_id) if job_id else None,
@@ -1032,9 +1050,7 @@ class PolarsResource(SyncAPIResource):
         # 3. Collect the results with job_ids
         title = f"Tagging {new_property_name} for {dataframe_name}"
         self._client.jobs.wait_for_jobs(dataset_name=dataset_name, title=title, node_id=node_id)
-        results = _collect_entities_with_job_ids(
-            self._client.datasets.view_table(dataset=dataset_name, name=dataframe_name)
-        )
+        results = _collect_entities_with_job_ids(self._client, dataset_name, dataframe_name)
 
         # 4. Return the results
         return pl.DataFrame(results, schema=expected_schema).lazy()

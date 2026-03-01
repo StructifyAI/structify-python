@@ -8,6 +8,7 @@ from typing_extensions import Literal, overload
 import httpx
 
 from ...types import (
+    ConnectorCategory,
     connector_list_params,
     connector_create_params,
     connector_update_params,
@@ -19,7 +20,6 @@ from ...types import (
     connector_update_column_params,
     connector_add_schema_object_params,
     connector_get_explorer_chat_params,
-    connector_list_with_snippets_params,
     connector_delete_schema_object_params,
 )
 from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, SequenceNotStr, omit, not_given
@@ -43,6 +43,7 @@ from .type_snippets import (
 )
 from ..._base_client import AsyncPaginator, make_request_options
 from ...types.connector import Connector
+from ...types.connector_category import ConnectorCategory
 from ...types.list_tables_response import ListTablesResponse
 from ...types.update_table_response import UpdateTableResponse
 from ...types.connector_get_response import ConnectorGetResponse
@@ -52,6 +53,7 @@ from ...types.explore_status_response import ExploreStatusResponse
 from ...types.connector_store_response import ConnectorStoreResponse
 from ...types.exploration_runs_response import ExplorationRunsResponse
 from ...types.connector_summaries_response import ConnectorSummariesResponse
+from ...types.connector_table_path_response import ConnectorTablePathResponse
 from ...types.delete_schema_object_response import DeleteSchemaObjectResponse
 from ...types.connector_search_tables_response import ConnectorSearchTablesResponse
 from ...types.connector_add_schema_object_response import ConnectorAddSchemaObjectResponse
@@ -90,14 +92,8 @@ class ConnectorsResource(SyncAPIResource):
         *,
         known_connector_type: str,
         name: str,
-        team_id: str,
         description: Optional[str] | Omit = omit,
         nango_connection_id: Optional[str] | Omit = omit,
-        nango_integration_id: Optional[str] | Omit = omit,
-        pipedream_account_id: Optional[str] | Omit = omit,
-        pipedream_external_id: Optional[str] | Omit = omit,
-        pipedream_project_id: Optional[str] | Omit = omit,
-        refresh_script: Optional[str] | Omit = omit,
         secrets: Dict[str, str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -109,10 +105,6 @@ class ConnectorsResource(SyncAPIResource):
         """
         Args:
           nango_connection_id: Nango connection ID for OAuth token management
-
-          nango_integration_id: Nango integration ID (e.g., "linear", "slack")
-
-          pipedream_external_id: Unique external ID for Pipedream routing (required for Pipedream connectors)
 
           secrets: Optional secrets/environment variables for the connector
 
@@ -130,14 +122,8 @@ class ConnectorsResource(SyncAPIResource):
                 {
                     "known_connector_type": known_connector_type,
                     "name": name,
-                    "team_id": team_id,
                     "description": description,
                     "nango_connection_id": nango_connection_id,
-                    "nango_integration_id": nango_integration_id,
-                    "pipedream_account_id": pipedream_account_id,
-                    "pipedream_external_id": pipedream_external_id,
-                    "pipedream_project_id": pipedream_project_id,
-                    "refresh_script": refresh_script,
                     "secrets": secrets,
                 },
                 connector_create_params.ConnectorCreateParams,
@@ -152,11 +138,17 @@ class ConnectorsResource(SyncAPIResource):
         self,
         connector_id: str,
         *,
+        connector_category: Optional[ConnectorCategory] | Omit = omit,
+        datahub_urn: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
         known_connector_type: Optional[str] | Omit = omit,
         name: Optional[str] | Omit = omit,
-        refresh_script: Optional[str] | Omit = omit,
+        nango_connection_id: Optional[str] | Omit = omit,
+        oauth_scopes: Optional[SequenceNotStr[Optional[str]]] | Omit = omit,
+        owner_user_id: Optional[str] | Omit = omit,
+        team_visibility: Optional[Literal["Team", "Private"]] | Omit = omit,
         usage_snippet_override: Optional[str] | Omit = omit,
+        user_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -181,11 +173,17 @@ class ConnectorsResource(SyncAPIResource):
             f"/connectors/{connector_id}",
             body=maybe_transform(
                 {
+                    "connector_category": connector_category,
+                    "datahub_urn": datahub_urn,
                     "description": description,
                     "known_connector_type": known_connector_type,
                     "name": name,
-                    "refresh_script": refresh_script,
+                    "nango_connection_id": nango_connection_id,
+                    "oauth_scopes": oauth_scopes,
+                    "owner_user_id": owner_user_id,
+                    "team_visibility": team_visibility,
                     "usage_snippet_override": usage_snippet_override,
+                    "user_ids": user_ids,
                 },
                 connector_update_params.ConnectorUpdateParams,
             ),
@@ -198,7 +196,6 @@ class ConnectorsResource(SyncAPIResource):
     def list(
         self,
         *,
-        team_id: str,
         limit: int | Omit = omit,
         offset: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -210,8 +207,6 @@ class ConnectorsResource(SyncAPIResource):
     ) -> SyncJobsList[ConnectorWithSecrets]:
         """
         Args:
-          team_id: Team ID to list connectors for
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -230,7 +225,6 @@ class ConnectorsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "team_id": team_id,
                         "limit": limit,
                         "offset": offset,
                     },
@@ -903,6 +897,37 @@ class ConnectorsResource(SyncAPIResource):
             cast_to=ConnectorStoreResponse,
         )
 
+    def get_table_path(
+        self,
+        table_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ConnectorTablePathResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not table_id:
+            raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
+        return self._get(
+            f"/connectors/tables/{table_id}/path",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ConnectorTablePathResponse,
+        )
+
     def list_tables(
         self,
         connector_id: str,
@@ -941,7 +966,6 @@ class ConnectorsResource(SyncAPIResource):
     def list_with_snippets(
         self,
         *,
-        team_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -949,28 +973,10 @@ class ConnectorsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ConnectorListWithSnippetsResponse:
-        """
-        Args:
-          team_id: Team ID to list connectors for
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
         return self._get(
             "/connectors/with-snippets",
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {"team_id": team_id}, connector_list_with_snippets_params.ConnectorListWithSnippetsParams
-                ),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=ConnectorListWithSnippetsResponse,
         )
@@ -1025,7 +1031,7 @@ class ConnectorsResource(SyncAPIResource):
         Args:
           query: Search query string
 
-          team_id: Team ID to search tables for
+          team_id: Team ID to scope table search
 
           extra_headers: Send extra headers
 
@@ -1057,7 +1063,6 @@ class ConnectorsResource(SyncAPIResource):
         self,
         *,
         connector_ids: SequenceNotStr[str],
-        team_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1077,13 +1082,7 @@ class ConnectorsResource(SyncAPIResource):
         """
         return self._post(
             "/connectors/summaries",
-            body=maybe_transform(
-                {
-                    "connector_ids": connector_ids,
-                    "team_id": team_id,
-                },
-                connector_summaries_params.ConnectorSummariesParams,
-            ),
+            body=maybe_transform({"connector_ids": connector_ids}, connector_summaries_params.ConnectorSummariesParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1198,14 +1197,8 @@ class AsyncConnectorsResource(AsyncAPIResource):
         *,
         known_connector_type: str,
         name: str,
-        team_id: str,
         description: Optional[str] | Omit = omit,
         nango_connection_id: Optional[str] | Omit = omit,
-        nango_integration_id: Optional[str] | Omit = omit,
-        pipedream_account_id: Optional[str] | Omit = omit,
-        pipedream_external_id: Optional[str] | Omit = omit,
-        pipedream_project_id: Optional[str] | Omit = omit,
-        refresh_script: Optional[str] | Omit = omit,
         secrets: Dict[str, str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1217,10 +1210,6 @@ class AsyncConnectorsResource(AsyncAPIResource):
         """
         Args:
           nango_connection_id: Nango connection ID for OAuth token management
-
-          nango_integration_id: Nango integration ID (e.g., "linear", "slack")
-
-          pipedream_external_id: Unique external ID for Pipedream routing (required for Pipedream connectors)
 
           secrets: Optional secrets/environment variables for the connector
 
@@ -1238,14 +1227,8 @@ class AsyncConnectorsResource(AsyncAPIResource):
                 {
                     "known_connector_type": known_connector_type,
                     "name": name,
-                    "team_id": team_id,
                     "description": description,
                     "nango_connection_id": nango_connection_id,
-                    "nango_integration_id": nango_integration_id,
-                    "pipedream_account_id": pipedream_account_id,
-                    "pipedream_external_id": pipedream_external_id,
-                    "pipedream_project_id": pipedream_project_id,
-                    "refresh_script": refresh_script,
                     "secrets": secrets,
                 },
                 connector_create_params.ConnectorCreateParams,
@@ -1260,11 +1243,17 @@ class AsyncConnectorsResource(AsyncAPIResource):
         self,
         connector_id: str,
         *,
+        connector_category: Optional[ConnectorCategory] | Omit = omit,
+        datahub_urn: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
         known_connector_type: Optional[str] | Omit = omit,
         name: Optional[str] | Omit = omit,
-        refresh_script: Optional[str] | Omit = omit,
+        nango_connection_id: Optional[str] | Omit = omit,
+        oauth_scopes: Optional[SequenceNotStr[Optional[str]]] | Omit = omit,
+        owner_user_id: Optional[str] | Omit = omit,
+        team_visibility: Optional[Literal["Team", "Private"]] | Omit = omit,
         usage_snippet_override: Optional[str] | Omit = omit,
+        user_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1289,11 +1278,17 @@ class AsyncConnectorsResource(AsyncAPIResource):
             f"/connectors/{connector_id}",
             body=await async_maybe_transform(
                 {
+                    "connector_category": connector_category,
+                    "datahub_urn": datahub_urn,
                     "description": description,
                     "known_connector_type": known_connector_type,
                     "name": name,
-                    "refresh_script": refresh_script,
+                    "nango_connection_id": nango_connection_id,
+                    "oauth_scopes": oauth_scopes,
+                    "owner_user_id": owner_user_id,
+                    "team_visibility": team_visibility,
                     "usage_snippet_override": usage_snippet_override,
+                    "user_ids": user_ids,
                 },
                 connector_update_params.ConnectorUpdateParams,
             ),
@@ -1306,7 +1301,6 @@ class AsyncConnectorsResource(AsyncAPIResource):
     def list(
         self,
         *,
-        team_id: str,
         limit: int | Omit = omit,
         offset: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -1318,8 +1312,6 @@ class AsyncConnectorsResource(AsyncAPIResource):
     ) -> AsyncPaginator[ConnectorWithSecrets, AsyncJobsList[ConnectorWithSecrets]]:
         """
         Args:
-          team_id: Team ID to list connectors for
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -1338,7 +1330,6 @@ class AsyncConnectorsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "team_id": team_id,
                         "limit": limit,
                         "offset": offset,
                     },
@@ -2011,6 +2002,37 @@ class AsyncConnectorsResource(AsyncAPIResource):
             cast_to=ConnectorStoreResponse,
         )
 
+    async def get_table_path(
+        self,
+        table_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ConnectorTablePathResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not table_id:
+            raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
+        return await self._get(
+            f"/connectors/tables/{table_id}/path",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ConnectorTablePathResponse,
+        )
+
     async def list_tables(
         self,
         connector_id: str,
@@ -2049,7 +2071,6 @@ class AsyncConnectorsResource(AsyncAPIResource):
     async def list_with_snippets(
         self,
         *,
-        team_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -2057,28 +2078,10 @@ class AsyncConnectorsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ConnectorListWithSnippetsResponse:
-        """
-        Args:
-          team_id: Team ID to list connectors for
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
         return await self._get(
             "/connectors/with-snippets",
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform(
-                    {"team_id": team_id}, connector_list_with_snippets_params.ConnectorListWithSnippetsParams
-                ),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=ConnectorListWithSnippetsResponse,
         )
@@ -2133,7 +2136,7 @@ class AsyncConnectorsResource(AsyncAPIResource):
         Args:
           query: Search query string
 
-          team_id: Team ID to search tables for
+          team_id: Team ID to scope table search
 
           extra_headers: Send extra headers
 
@@ -2165,7 +2168,6 @@ class AsyncConnectorsResource(AsyncAPIResource):
         self,
         *,
         connector_ids: SequenceNotStr[str],
-        team_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -2186,11 +2188,7 @@ class AsyncConnectorsResource(AsyncAPIResource):
         return await self._post(
             "/connectors/summaries",
             body=await async_maybe_transform(
-                {
-                    "connector_ids": connector_ids,
-                    "team_id": team_id,
-                },
-                connector_summaries_params.ConnectorSummariesParams,
+                {"connector_ids": connector_ids}, connector_summaries_params.ConnectorSummariesParams
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -2328,6 +2326,9 @@ class ConnectorsResourceWithRawResponse:
         self.get_store = to_raw_response_wrapper(
             connectors.get_store,
         )
+        self.get_table_path = to_raw_response_wrapper(
+            connectors.get_table_path,
+        )
         self.list_tables = to_raw_response_wrapper(
             connectors.list_tables,
         )
@@ -2403,6 +2404,9 @@ class AsyncConnectorsResourceWithRawResponse:
         )
         self.get_store = async_to_raw_response_wrapper(
             connectors.get_store,
+        )
+        self.get_table_path = async_to_raw_response_wrapper(
+            connectors.get_table_path,
         )
         self.list_tables = async_to_raw_response_wrapper(
             connectors.list_tables,
@@ -2480,6 +2484,9 @@ class ConnectorsResourceWithStreamingResponse:
         self.get_store = to_streamed_response_wrapper(
             connectors.get_store,
         )
+        self.get_table_path = to_streamed_response_wrapper(
+            connectors.get_table_path,
+        )
         self.list_tables = to_streamed_response_wrapper(
             connectors.list_tables,
         )
@@ -2555,6 +2562,9 @@ class AsyncConnectorsResourceWithStreamingResponse:
         )
         self.get_store = async_to_streamed_response_wrapper(
             connectors.get_store,
+        )
+        self.get_table_path = async_to_streamed_response_wrapper(
+            connectors.get_table_path,
         )
         self.list_tables = async_to_streamed_response_wrapper(
             connectors.list_tables,

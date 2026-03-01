@@ -10,6 +10,8 @@ __all__ = ["LlmInformationStore", "Database", "DatabaseSchema", "DatabaseSchemaT
 class DatabaseSchemaTableColumn(BaseModel):
     """Represents a column in a table or API resource"""
 
+    id: str
+
     name: str
     """Name of the column"""
 

@@ -22,6 +22,7 @@ __all__ = [
     "NodeLogs",
     "Image",
     "ImageImage",
+    "Pinned",
 ]
 
 
@@ -101,6 +102,10 @@ class Image(BaseModel):
     image: ImageImage = FieldInfo(alias="Image")
 
 
+class Pinned(BaseModel):
+    pinned: str = FieldInfo(alias="Pinned")
+
+
 ToolResult: TypeAlias = Union[
     Literal["Pending", "NoResult", "Completed"],
     Error,
@@ -111,4 +116,5 @@ ToolResult: TypeAlias = Union[
     ConnectorSearch,
     NodeLogs,
     Image,
+    Pinned,
 ]

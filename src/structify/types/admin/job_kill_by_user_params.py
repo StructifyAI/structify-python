@@ -4,10 +4,8 @@ from __future__ import annotations
 
 from typing_extensions import Required, TypedDict
 
-from .._types import SequenceNotStr
-
-__all__ = ["ChatDeleteFilesParams"]
+__all__ = ["JobKillByUserParams"]
 
 
-class ChatDeleteFilesParams(TypedDict, total=False):
-    paths: Required[SequenceNotStr[str]]
+class JobKillByUserParams(TypedDict, total=False):
+    user_id: Required[str]

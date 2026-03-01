@@ -23,3 +23,5 @@ class ConnectorGetResponseSecret(BaseModel):
 
 class ConnectorGetResponse(Connector):
     secrets: List[ConnectorGetResponseSecret]
+
+    shared_user_ids: List[str]

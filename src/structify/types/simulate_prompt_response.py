@@ -2,8 +2,8 @@
 
 from .._models import BaseModel
 
-__all__ = ["ChatDeleteFilesResponse"]
+__all__ = ["SimulatePromptResponse"]
 
 
-class ChatDeleteFilesResponse(BaseModel):
-    files_deleted: int
+class SimulatePromptResponse(BaseModel):
+    response: str

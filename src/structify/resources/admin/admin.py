@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import httpx
+
 from .jobs import (
     JobsResource,
     AsyncJobsResource,
@@ -26,6 +28,7 @@ from .users import (
     UsersResourceWithStreamingResponse,
     AsyncUsersResourceWithStreamingResponse,
 )
+from ...types import admin_report_critical_params
 from .dataset import (
     DatasetResource,
     AsyncDatasetResource,
@@ -42,6 +45,8 @@ from .sandbox import (
     SandboxResourceWithStreamingResponse,
     AsyncSandboxResourceWithStreamingResponse,
 )
+from ..._types import Body, Query, Headers, NoneType, NotGiven, not_given
+from ..._utils import maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from .connector import (
     ConnectorResource,
@@ -52,6 +57,13 @@ from .connector import (
     AsyncConnectorResourceWithStreamingResponse,
 )
 from ..._resource import SyncAPIResource, AsyncAPIResource
+from ..._response import (
+    to_raw_response_wrapper,
+    to_streamed_response_wrapper,
+    async_to_raw_response_wrapper,
+    async_to_streamed_response_wrapper,
+)
+from ..._base_client import make_request_options
 from .chat_templates import (
     ChatTemplatesResource,
     AsyncChatTemplatesResource,
@@ -124,6 +136,37 @@ class AdminResource(SyncAPIResource):
         """
         return AdminResourceWithStreamingResponse(self)
 
+    def report_critical(
+        self,
+        *,
+        message: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> None:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return self._post(
+            "/admin/critical",
+            body=maybe_transform({"message": message}, admin_report_critical_params.AdminReportCriticalParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NoneType,
+        )
+
 
 class AsyncAdminResource(AsyncAPIResource):
     @cached_property
@@ -177,10 +220,47 @@ class AsyncAdminResource(AsyncAPIResource):
         """
         return AsyncAdminResourceWithStreamingResponse(self)
 
+    async def report_critical(
+        self,
+        *,
+        message: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> None:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return await self._post(
+            "/admin/critical",
+            body=await async_maybe_transform(
+                {"message": message}, admin_report_critical_params.AdminReportCriticalParams
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NoneType,
+        )
+
 
 class AdminResourceWithRawResponse:
     def __init__(self, admin: AdminResource) -> None:
         self._admin = admin
+
+        self.report_critical = to_raw_response_wrapper(
+            admin.report_critical,
+        )
 
     @cached_property
     def teams(self) -> TeamsResourceWithRawResponse:
@@ -219,6 +299,10 @@ class AsyncAdminResourceWithRawResponse:
     def __init__(self, admin: AsyncAdminResource) -> None:
         self._admin = admin
 
+        self.report_critical = async_to_raw_response_wrapper(
+            admin.report_critical,
+        )
+
     @cached_property
     def teams(self) -> AsyncTeamsResourceWithRawResponse:
         return AsyncTeamsResourceWithRawResponse(self._admin.teams)
@@ -256,6 +340,10 @@ class AdminResourceWithStreamingResponse:
     def __init__(self, admin: AdminResource) -> None:
         self._admin = admin
 
+        self.report_critical = to_streamed_response_wrapper(
+            admin.report_critical,
+        )
+
     @cached_property
     def teams(self) -> TeamsResourceWithStreamingResponse:
         return TeamsResourceWithStreamingResponse(self._admin.teams)
@@ -292,6 +380,10 @@ class AdminResourceWithStreamingResponse:
 class AsyncAdminResourceWithStreamingResponse:
     def __init__(self, admin: AsyncAdminResource) -> None:
         self._admin = admin
+
+        self.report_critical = async_to_streamed_response_wrapper(
+            admin.report_critical,
+        )
 
     @cached_property
     def teams(self) -> AsyncTeamsResourceWithStreamingResponse:

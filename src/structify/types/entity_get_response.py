@@ -108,3 +108,5 @@ class EntityGetResponse(BaseModel):
     properties: Dict[str, Properties]
 
     updated_at: datetime
+
+    job_id: Optional[str] = None

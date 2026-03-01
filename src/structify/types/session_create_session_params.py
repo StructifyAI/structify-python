@@ -11,6 +11,6 @@ __all__ = ["SessionCreateSessionParams"]
 class SessionCreateSessionParams(TypedDict, total=False):
     chat_session_id: Required[str]
 
-    git_commit: Required[str]
+    parent_chat_message_id: Optional[str]
 
     workflow_schedule_id: Optional[str]
