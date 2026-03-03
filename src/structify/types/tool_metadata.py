@@ -10,6 +10,38 @@ __all__ = ["ToolMetadata"]
 class ToolMetadata(BaseModel):
     description: str
 
-    name: Literal["Exit", "Save", "Wait", "Type", "Scroll", "ScrollToBottom", "Click", "Hover", "Error", "Google"]
+    name: Literal[
+        "WebSearch",
+        "WebNavigate",
+        "ViewPage",
+        "Save",
+        "SaveEntities",
+        "Exit",
+        "ApiExecute",
+        "Javascript",
+        "NavigateToIFrame",
+        "InfiniteScroll",
+        "InspectStep",
+        "ReadNodeLogs",
+        "DeleteFile",
+        "MoveFile",
+        "ApplyPatch",
+        "RunBash",
+        "RunPython",
+        "IssueFound",
+        "SaveDatabase",
+        "SaveSchema",
+        "SaveTable",
+        "SaveColumn",
+        "SaveApiResource",
+        "SaveMemory",
+        "SearchConnectorTables",
+        "RequestClarification",
+        "AddDependency",
+        "SelectData",
+        "CreateConnector",
+        "SearchConnectorTypes",
+        "PinPreviousTool",
+    ]
 
     regex_validator: str
