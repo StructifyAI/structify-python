@@ -1124,7 +1124,7 @@ class TestChat:
                     "tool_metadata": [
                         {
                             "description": "description",
-                            "name": "Exit",
+                            "name": "WebSearch",
                             "regex_validator": "regex_validator",
                         }
                     ],
@@ -1186,7 +1186,7 @@ class TestChat:
                     "tool_metadata": [
                         {
                             "description": "description",
-                            "name": "Exit",
+                            "name": "WebSearch",
                             "regex_validator": "regex_validator",
                         }
                     ],
@@ -1252,7 +1252,7 @@ class TestChat:
                     "tool_metadata": [
                         {
                             "description": "description",
-                            "name": "Exit",
+                            "name": "WebSearch",
                             "regex_validator": "regex_validator",
                         }
                     ],
@@ -1321,7 +1321,7 @@ class TestChat:
                         "tool_metadata": [
                             {
                                 "description": "description",
-                                "name": "Exit",
+                                "name": "WebSearch",
                                 "regex_validator": "regex_validator",
                             }
                         ],
@@ -2594,7 +2594,7 @@ class TestAsyncChat:
                     "tool_metadata": [
                         {
                             "description": "description",
-                            "name": "Exit",
+                            "name": "WebSearch",
                             "regex_validator": "regex_validator",
                         }
                     ],
@@ -2656,7 +2656,7 @@ class TestAsyncChat:
                     "tool_metadata": [
                         {
                             "description": "description",
-                            "name": "Exit",
+                            "name": "WebSearch",
                             "regex_validator": "regex_validator",
                         }
                     ],
@@ -2722,7 +2722,7 @@ class TestAsyncChat:
                     "tool_metadata": [
                         {
                             "description": "description",
-                            "name": "Exit",
+                            "name": "WebSearch",
                             "regex_validator": "regex_validator",
                         }
                     ],
@@ -2791,7 +2791,7 @@ class TestAsyncChat:
                         "tool_metadata": [
                             {
                                 "description": "description",
-                                "name": "Exit",
+                                "name": "WebSearch",
                                 "regex_validator": "regex_validator",
                             }
                         ],

@@ -36,6 +36,9 @@ __all__ = [
     "DeleteFileInput",
     "MoveFile",
     "MoveFileInput",
+    "ApplyPatch",
+    "ApplyPatchInput",
+    "ApplyPatchInputEdit",
     "RunBash",
     "RunBashInput",
     "RunPython",
@@ -228,6 +231,26 @@ class MoveFile(BaseModel):
     input: MoveFileInput
 
     name: Literal["MoveFile"]
+
+
+class ApplyPatchInputEdit(BaseModel):
+    new_string: str
+
+    old_string: str
+
+
+class ApplyPatchInput(BaseModel):
+    apply_all: bool
+
+    edits: List[ApplyPatchInputEdit]
+
+    file: str
+
+
+class ApplyPatch(BaseModel):
+    input: ApplyPatchInput
+
+    name: Literal["ApplyPatch"]
 
 
 class RunBashInput(BaseModel):
@@ -460,6 +483,7 @@ ToolInvocation: TypeAlias = Annotated[
         ReadNodeLogs,
         DeleteFile,
         MoveFile,
+        ApplyPatch,
         RunBash,
         RunPython,
         IssueFound,
