@@ -73,6 +73,7 @@ from ..types.chat_delete_input_file_response import ChatDeleteInputFileResponse
 from ..types.chat_get_partial_chats_response import ChatGetPartialChatsResponse
 from ..types.chat_upload_input_file_response import ChatUploadInputFileResponse
 from ..types.chat_get_session_timeline_response import ChatGetSessionTimelineResponse
+from ..types.chat_copy_node_output_by_code_hash_response import ChatCopyNodeOutputByCodeHashResponse
 
 __all__ = ["ChatResource", "AsyncChatResource"]
 
@@ -274,7 +275,7 @@ class ChatResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> str:
+    ) -> ChatCopyNodeOutputByCodeHashResponse:
         """
         Args:
           extra_headers: Send extra headers
@@ -299,7 +300,7 @@ class ChatResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=str,
+            cast_to=ChatCopyNodeOutputByCodeHashResponse,
         )
 
     def create_session(
@@ -1384,7 +1385,7 @@ class AsyncChatResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> str:
+    ) -> ChatCopyNodeOutputByCodeHashResponse:
         """
         Args:
           extra_headers: Send extra headers
@@ -1409,7 +1410,7 @@ class AsyncChatResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=str,
+            cast_to=ChatCopyNodeOutputByCodeHashResponse,
         )
 
     async def create_session(
