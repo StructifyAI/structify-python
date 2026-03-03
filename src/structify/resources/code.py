@@ -23,6 +23,8 @@ __all__ = ["CodeResource", "AsyncCodeResource"]
 
 
 class CodeResource(SyncAPIResource):
+    """Code generation endpoints"""
+
     @cached_property
     def with_raw_response(self) -> CodeResourceWithRawResponse:
         """
@@ -138,6 +140,8 @@ class CodeResource(SyncAPIResource):
 
 
 class AsyncCodeResource(AsyncAPIResource):
+    """Code generation endpoints"""
+
     @cached_property
     def with_raw_response(self) -> AsyncCodeResourceWithRawResponse:
         """

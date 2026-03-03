@@ -28,6 +28,8 @@ __all__ = ["JobsResource", "AsyncJobsResource"]
 
 
 class JobsResource(SyncAPIResource):
+    """Admin endpoints"""
+
     @cached_property
     def with_raw_response(self) -> JobsResourceWithRawResponse:
         """
@@ -156,6 +158,8 @@ class JobsResource(SyncAPIResource):
 
 
 class AsyncJobsResource(AsyncAPIResource):
+    """Admin endpoints"""
+
     @cached_property
     def with_raw_response(self) -> AsyncJobsResourceWithRawResponse:
         """

@@ -61,6 +61,8 @@ __all__ = ["AdminResource", "AsyncAdminResource"]
 
 
 class AdminResource(SyncAPIResource):
+    """Admin endpoints"""
+
     @cached_property
     def with_raw_response(self) -> AdminResourceWithRawResponse:
         """
@@ -715,6 +717,8 @@ class AdminResource(SyncAPIResource):
 
 
 class AsyncAdminResource(AsyncAPIResource):
+    """Admin endpoints"""
+
     @cached_property
     def with_raw_response(self) -> AsyncAdminResourceWithRawResponse:
         """

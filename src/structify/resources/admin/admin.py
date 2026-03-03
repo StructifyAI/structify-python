@@ -85,36 +85,46 @@ __all__ = ["AdminResource", "AsyncAdminResource"]
 
 
 class AdminResource(SyncAPIResource):
+    """Admin endpoints"""
+
     @cached_property
     def teams(self) -> TeamsResource:
+        """Admin endpoints"""
         return TeamsResource(self._client)
 
     @cached_property
     def dataset(self) -> DatasetResource:
+        """Admin endpoints"""
         return DatasetResource(self._client)
 
     @cached_property
     def jobs(self) -> JobsResource:
+        """Admin endpoints"""
         return JobsResource(self._client)
 
     @cached_property
     def sandbox(self) -> SandboxResource:
+        """Admin endpoints"""
         return SandboxResource(self._client)
 
     @cached_property
     def functional_tests(self) -> FunctionalTestsResource:
+        """Admin endpoints"""
         return FunctionalTestsResource(self._client)
 
     @cached_property
     def users(self) -> UsersResource:
+        """Admin endpoints"""
         return UsersResource(self._client)
 
     @cached_property
     def chat_templates(self) -> ChatTemplatesResource:
+        """Admin endpoints"""
         return ChatTemplatesResource(self._client)
 
     @cached_property
     def connector(self) -> ConnectorResource:
+        """Admin endpoints"""
         return ConnectorResource(self._client)
 
     @cached_property
@@ -169,36 +179,46 @@ class AdminResource(SyncAPIResource):
 
 
 class AsyncAdminResource(AsyncAPIResource):
+    """Admin endpoints"""
+
     @cached_property
     def teams(self) -> AsyncTeamsResource:
+        """Admin endpoints"""
         return AsyncTeamsResource(self._client)
 
     @cached_property
     def dataset(self) -> AsyncDatasetResource:
+        """Admin endpoints"""
         return AsyncDatasetResource(self._client)
 
     @cached_property
     def jobs(self) -> AsyncJobsResource:
+        """Admin endpoints"""
         return AsyncJobsResource(self._client)
 
     @cached_property
     def sandbox(self) -> AsyncSandboxResource:
+        """Admin endpoints"""
         return AsyncSandboxResource(self._client)
 
     @cached_property
     def functional_tests(self) -> AsyncFunctionalTestsResource:
+        """Admin endpoints"""
         return AsyncFunctionalTestsResource(self._client)
 
     @cached_property
     def users(self) -> AsyncUsersResource:
+        """Admin endpoints"""
         return AsyncUsersResource(self._client)
 
     @cached_property
     def chat_templates(self) -> AsyncChatTemplatesResource:
+        """Admin endpoints"""
         return AsyncChatTemplatesResource(self._client)
 
     @cached_property
     def connector(self) -> AsyncConnectorResource:
+        """Admin endpoints"""
         return AsyncConnectorResource(self._client)
 
     @cached_property
@@ -264,34 +284,42 @@ class AdminResourceWithRawResponse:
 
     @cached_property
     def teams(self) -> TeamsResourceWithRawResponse:
+        """Admin endpoints"""
         return TeamsResourceWithRawResponse(self._admin.teams)
 
     @cached_property
     def dataset(self) -> DatasetResourceWithRawResponse:
+        """Admin endpoints"""
         return DatasetResourceWithRawResponse(self._admin.dataset)
 
     @cached_property
     def jobs(self) -> JobsResourceWithRawResponse:
+        """Admin endpoints"""
         return JobsResourceWithRawResponse(self._admin.jobs)
 
     @cached_property
     def sandbox(self) -> SandboxResourceWithRawResponse:
+        """Admin endpoints"""
         return SandboxResourceWithRawResponse(self._admin.sandbox)
 
     @cached_property
     def functional_tests(self) -> FunctionalTestsResourceWithRawResponse:
+        """Admin endpoints"""
         return FunctionalTestsResourceWithRawResponse(self._admin.functional_tests)
 
     @cached_property
     def users(self) -> UsersResourceWithRawResponse:
+        """Admin endpoints"""
         return UsersResourceWithRawResponse(self._admin.users)
 
     @cached_property
     def chat_templates(self) -> ChatTemplatesResourceWithRawResponse:
+        """Admin endpoints"""
         return ChatTemplatesResourceWithRawResponse(self._admin.chat_templates)
 
     @cached_property
     def connector(self) -> ConnectorResourceWithRawResponse:
+        """Admin endpoints"""
         return ConnectorResourceWithRawResponse(self._admin.connector)
 
 
@@ -305,34 +333,42 @@ class AsyncAdminResourceWithRawResponse:
 
     @cached_property
     def teams(self) -> AsyncTeamsResourceWithRawResponse:
+        """Admin endpoints"""
         return AsyncTeamsResourceWithRawResponse(self._admin.teams)
 
     @cached_property
     def dataset(self) -> AsyncDatasetResourceWithRawResponse:
+        """Admin endpoints"""
         return AsyncDatasetResourceWithRawResponse(self._admin.dataset)
 
     @cached_property
     def jobs(self) -> AsyncJobsResourceWithRawResponse:
+        """Admin endpoints"""
         return AsyncJobsResourceWithRawResponse(self._admin.jobs)
 
     @cached_property
     def sandbox(self) -> AsyncSandboxResourceWithRawResponse:
+        """Admin endpoints"""
         return AsyncSandboxResourceWithRawResponse(self._admin.sandbox)
 
     @cached_property
     def functional_tests(self) -> AsyncFunctionalTestsResourceWithRawResponse:
+        """Admin endpoints"""
         return AsyncFunctionalTestsResourceWithRawResponse(self._admin.functional_tests)
 
     @cached_property
     def users(self) -> AsyncUsersResourceWithRawResponse:
+        """Admin endpoints"""
         return AsyncUsersResourceWithRawResponse(self._admin.users)
 
     @cached_property
     def chat_templates(self) -> AsyncChatTemplatesResourceWithRawResponse:
+        """Admin endpoints"""
         return AsyncChatTemplatesResourceWithRawResponse(self._admin.chat_templates)
 
     @cached_property
     def connector(self) -> AsyncConnectorResourceWithRawResponse:
+        """Admin endpoints"""
         return AsyncConnectorResourceWithRawResponse(self._admin.connector)
 
 
@@ -346,34 +382,42 @@ class AdminResourceWithStreamingResponse:
 
     @cached_property
     def teams(self) -> TeamsResourceWithStreamingResponse:
+        """Admin endpoints"""
         return TeamsResourceWithStreamingResponse(self._admin.teams)
 
     @cached_property
     def dataset(self) -> DatasetResourceWithStreamingResponse:
+        """Admin endpoints"""
         return DatasetResourceWithStreamingResponse(self._admin.dataset)
 
     @cached_property
     def jobs(self) -> JobsResourceWithStreamingResponse:
+        """Admin endpoints"""
         return JobsResourceWithStreamingResponse(self._admin.jobs)
 
     @cached_property
     def sandbox(self) -> SandboxResourceWithStreamingResponse:
+        """Admin endpoints"""
         return SandboxResourceWithStreamingResponse(self._admin.sandbox)
 
     @cached_property
     def functional_tests(self) -> FunctionalTestsResourceWithStreamingResponse:
+        """Admin endpoints"""
         return FunctionalTestsResourceWithStreamingResponse(self._admin.functional_tests)
 
     @cached_property
     def users(self) -> UsersResourceWithStreamingResponse:
+        """Admin endpoints"""
         return UsersResourceWithStreamingResponse(self._admin.users)
 
     @cached_property
     def chat_templates(self) -> ChatTemplatesResourceWithStreamingResponse:
+        """Admin endpoints"""
         return ChatTemplatesResourceWithStreamingResponse(self._admin.chat_templates)
 
     @cached_property
     def connector(self) -> ConnectorResourceWithStreamingResponse:
+        """Admin endpoints"""
         return ConnectorResourceWithStreamingResponse(self._admin.connector)
 
 
@@ -387,32 +431,40 @@ class AsyncAdminResourceWithStreamingResponse:
 
     @cached_property
     def teams(self) -> AsyncTeamsResourceWithStreamingResponse:
+        """Admin endpoints"""
         return AsyncTeamsResourceWithStreamingResponse(self._admin.teams)
 
     @cached_property
     def dataset(self) -> AsyncDatasetResourceWithStreamingResponse:
+        """Admin endpoints"""
         return AsyncDatasetResourceWithStreamingResponse(self._admin.dataset)
 
     @cached_property
     def jobs(self) -> AsyncJobsResourceWithStreamingResponse:
+        """Admin endpoints"""
         return AsyncJobsResourceWithStreamingResponse(self._admin.jobs)
 
     @cached_property
     def sandbox(self) -> AsyncSandboxResourceWithStreamingResponse:
+        """Admin endpoints"""
         return AsyncSandboxResourceWithStreamingResponse(self._admin.sandbox)
 
     @cached_property
     def functional_tests(self) -> AsyncFunctionalTestsResourceWithStreamingResponse:
+        """Admin endpoints"""
         return AsyncFunctionalTestsResourceWithStreamingResponse(self._admin.functional_tests)
 
     @cached_property
     def users(self) -> AsyncUsersResourceWithStreamingResponse:
+        """Admin endpoints"""
         return AsyncUsersResourceWithStreamingResponse(self._admin.users)
 
     @cached_property
     def chat_templates(self) -> AsyncChatTemplatesResourceWithStreamingResponse:
+        """Admin endpoints"""
         return AsyncChatTemplatesResourceWithStreamingResponse(self._admin.chat_templates)
 
     @cached_property
     def connector(self) -> AsyncConnectorResourceWithStreamingResponse:
+        """Admin endpoints"""
         return AsyncConnectorResourceWithStreamingResponse(self._admin.connector)
