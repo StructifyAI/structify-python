@@ -20,6 +20,8 @@ __all__ = ["WhitelabelResource", "AsyncWhitelabelResource"]
 
 
 class WhitelabelResource(SyncAPIResource):
+    """Whitelabeled service proxy endpoints"""
+
     @cached_property
     def with_raw_response(self) -> WhitelabelResourceWithRawResponse:
         """
@@ -145,6 +147,8 @@ class WhitelabelResource(SyncAPIResource):
 
 
 class AsyncWhitelabelResource(AsyncAPIResource):
+    """Whitelabeled service proxy endpoints"""
+
     @cached_property
     def with_raw_response(self) -> AsyncWhitelabelResourceWithRawResponse:
         """

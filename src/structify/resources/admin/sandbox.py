@@ -25,6 +25,8 @@ __all__ = ["SandboxResource", "AsyncSandboxResource"]
 
 
 class SandboxResource(SyncAPIResource):
+    """Admin endpoints"""
+
     @cached_property
     def with_raw_response(self) -> SandboxResourceWithRawResponse:
         """
@@ -87,6 +89,8 @@ class SandboxResource(SyncAPIResource):
 
 
 class AsyncSandboxResource(AsyncAPIResource):
+    """Admin endpoints"""
+
     @cached_property
     def with_raw_response(self) -> AsyncSandboxResourceWithRawResponse:
         """

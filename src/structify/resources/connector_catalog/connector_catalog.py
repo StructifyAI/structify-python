@@ -43,6 +43,7 @@ __all__ = ["ConnectorCatalogResource", "AsyncConnectorCatalogResource"]
 class ConnectorCatalogResource(SyncAPIResource):
     @cached_property
     def admin(self) -> AdminResource:
+        """Admin endpoints"""
         return AdminResource(self._client)
 
     @cached_property
@@ -184,6 +185,7 @@ class ConnectorCatalogResource(SyncAPIResource):
 class AsyncConnectorCatalogResource(AsyncAPIResource):
     @cached_property
     def admin(self) -> AsyncAdminResource:
+        """Admin endpoints"""
         return AsyncAdminResource(self._client)
 
     @cached_property
@@ -339,6 +341,7 @@ class ConnectorCatalogResourceWithRawResponse:
 
     @cached_property
     def admin(self) -> AdminResourceWithRawResponse:
+        """Admin endpoints"""
         return AdminResourceWithRawResponse(self._connector_catalog.admin)
 
 
@@ -359,6 +362,7 @@ class AsyncConnectorCatalogResourceWithRawResponse:
 
     @cached_property
     def admin(self) -> AsyncAdminResourceWithRawResponse:
+        """Admin endpoints"""
         return AsyncAdminResourceWithRawResponse(self._connector_catalog.admin)
 
 
@@ -379,6 +383,7 @@ class ConnectorCatalogResourceWithStreamingResponse:
 
     @cached_property
     def admin(self) -> AdminResourceWithStreamingResponse:
+        """Admin endpoints"""
         return AdminResourceWithStreamingResponse(self._connector_catalog.admin)
 
 
@@ -399,4 +404,5 @@ class AsyncConnectorCatalogResourceWithStreamingResponse:
 
     @cached_property
     def admin(self) -> AsyncAdminResourceWithStreamingResponse:
+        """Admin endpoints"""
         return AsyncAdminResourceWithStreamingResponse(self._connector_catalog.admin)

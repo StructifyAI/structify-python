@@ -64,6 +64,8 @@ __all__ = ["DatasetsResource", "AsyncDatasetsResource"]
 
 
 class DatasetsResource(SyncAPIResource):
+    """Dataset management endpoints"""
+
     @cached_property
     def evaluate(self) -> EvaluateResource:
         return EvaluateResource(self._client)
@@ -844,6 +846,8 @@ class DatasetsResource(SyncAPIResource):
 
 
 class AsyncDatasetsResource(AsyncAPIResource):
+    """Dataset management endpoints"""
+
     @cached_property
     def evaluate(self) -> AsyncEvaluateResource:
         return AsyncEvaluateResource(self._client)

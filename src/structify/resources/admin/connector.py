@@ -25,6 +25,8 @@ __all__ = ["ConnectorResource", "AsyncConnectorResource"]
 
 
 class ConnectorResource(SyncAPIResource):
+    """Admin endpoints"""
+
     @cached_property
     def with_raw_response(self) -> ConnectorResourceWithRawResponse:
         """
@@ -87,6 +89,8 @@ class ConnectorResource(SyncAPIResource):
 
 
 class AsyncConnectorResource(AsyncAPIResource):
+    """Admin endpoints"""
+
     @cached_property
     def with_raw_response(self) -> AsyncConnectorResourceWithRawResponse:
         """
