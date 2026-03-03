@@ -1,8 +1,11 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import Optional
-from typing_extensions import TypeAlias
+
+from .._models import BaseModel
 
 __all__ = ["ChatCopyNodeOutputByCodeHashResponse"]
 
-ChatCopyNodeOutputByCodeHashResponse: TypeAlias = Optional[str]
+
+class ChatCopyNodeOutputByCodeHashResponse(BaseModel):
+    cached_node_id: Optional[str] = None

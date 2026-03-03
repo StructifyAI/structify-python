@@ -35,6 +35,7 @@ from structify.types import (
     ChatGetPartialChatsResponse,
     ChatUploadInputFileResponse,
     ChatGetSessionTimelineResponse,
+    ChatCopyNodeOutputByCodeHashResponse,
 )
 from structify._utils import parse_datetime
 from structify._response import (
@@ -239,7 +240,7 @@ class TestChat:
             code_md5_hash="code_md5_hash",
             new_node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(str, chat, path=["response"])
+        assert_matches_type(ChatCopyNodeOutputByCodeHashResponse, chat, path=["response"])
 
     @parametrize
     def test_raw_response_copy_node_output_by_code_hash(self, client: Structify) -> None:
@@ -252,7 +253,7 @@ class TestChat:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         chat = response.parse()
-        assert_matches_type(str, chat, path=["response"])
+        assert_matches_type(ChatCopyNodeOutputByCodeHashResponse, chat, path=["response"])
 
     @parametrize
     def test_streaming_response_copy_node_output_by_code_hash(self, client: Structify) -> None:
@@ -265,7 +266,7 @@ class TestChat:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             chat = response.parse()
-            assert_matches_type(str, chat, path=["response"])
+            assert_matches_type(ChatCopyNodeOutputByCodeHashResponse, chat, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -1707,7 +1708,7 @@ class TestAsyncChat:
             code_md5_hash="code_md5_hash",
             new_node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(str, chat, path=["response"])
+        assert_matches_type(ChatCopyNodeOutputByCodeHashResponse, chat, path=["response"])
 
     @parametrize
     async def test_raw_response_copy_node_output_by_code_hash(self, async_client: AsyncStructify) -> None:
@@ -1720,7 +1721,7 @@ class TestAsyncChat:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         chat = await response.parse()
-        assert_matches_type(str, chat, path=["response"])
+        assert_matches_type(ChatCopyNodeOutputByCodeHashResponse, chat, path=["response"])
 
     @parametrize
     async def test_streaming_response_copy_node_output_by_code_hash(self, async_client: AsyncStructify) -> None:
@@ -1733,7 +1734,7 @@ class TestAsyncChat:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             chat = await response.parse()
-            assert_matches_type(str, chat, path=["response"])
+            assert_matches_type(ChatCopyNodeOutputByCodeHashResponse, chat, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
