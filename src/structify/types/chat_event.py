@@ -1,7 +1,7 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import List, Union, Optional
-from typing_extensions import TypeAlias
+from typing_extensions import Literal, TypeAlias
 
 from pydantic import Field as FieldInfo
 
@@ -146,6 +146,16 @@ class Question(BaseModel):
 
 class InternalErrorInternalError(BaseModel):
     message: str
+
+    error_kind: Optional[Literal["unknown", "context_limit", "rate_limited", "timeout", "connection_error"]] = None
+    """
+    Categorizes the kind of internal error that occurred during LLM generation. This
+    allows the frontend to render appropriate error messages without regex matching.
+
+    Classification logic lives in `LlmError::kind()` (in the inference crate) so
+    that errors are categorized at the source. This enum is the serializable
+    representation used in ChatEvent / proto / OpenAPI.
+    """
 
 
 class InternalError(BaseModel):
