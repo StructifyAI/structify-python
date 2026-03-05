@@ -200,6 +200,7 @@ class AdminResource(SyncAPIResource):
         slug: str,
         categories: SequenceNotStr[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
+        enterprise_only: bool | Omit = omit,
         priority: Optional[int] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -228,6 +229,7 @@ class AdminResource(SyncAPIResource):
                     "slug": slug,
                     "categories": categories,
                     "description": description,
+                    "enterprise_only": enterprise_only,
                     "priority": priority,
                 },
                 admin_create_catalog_params.AdminCreateCatalogParams,
@@ -537,6 +539,7 @@ class AdminResource(SyncAPIResource):
         *,
         categories: Optional[SequenceNotStr[str]] | Omit = omit,
         description: Optional[str] | Omit = omit,
+        enterprise_only: Optional[bool] | Omit = omit,
         name: Optional[str] | Omit = omit,
         priority: Optional[int] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -566,6 +569,7 @@ class AdminResource(SyncAPIResource):
                 {
                     "categories": categories,
                     "description": description,
+                    "enterprise_only": enterprise_only,
                     "name": name,
                     "priority": priority,
                 },
@@ -858,6 +862,7 @@ class AsyncAdminResource(AsyncAPIResource):
         slug: str,
         categories: SequenceNotStr[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
+        enterprise_only: bool | Omit = omit,
         priority: Optional[int] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -886,6 +891,7 @@ class AsyncAdminResource(AsyncAPIResource):
                     "slug": slug,
                     "categories": categories,
                     "description": description,
+                    "enterprise_only": enterprise_only,
                     "priority": priority,
                 },
                 admin_create_catalog_params.AdminCreateCatalogParams,
@@ -1195,6 +1201,7 @@ class AsyncAdminResource(AsyncAPIResource):
         *,
         categories: Optional[SequenceNotStr[str]] | Omit = omit,
         description: Optional[str] | Omit = omit,
+        enterprise_only: Optional[bool] | Omit = omit,
         name: Optional[str] | Omit = omit,
         priority: Optional[int] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -1224,6 +1231,7 @@ class AsyncAdminResource(AsyncAPIResource):
                 {
                     "categories": categories,
                     "description": description,
+                    "enterprise_only": enterprise_only,
                     "name": name,
                     "priority": priority,
                 },

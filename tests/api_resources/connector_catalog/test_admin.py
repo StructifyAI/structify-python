@@ -194,6 +194,7 @@ class TestAdmin:
             slug="slug",
             categories=["string"],
             description="description",
+            enterprise_only=True,
             priority=0,
         )
         assert_matches_type(ConnectorCatalog, admin, path=["response"])
@@ -558,6 +559,7 @@ class TestAdmin:
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             categories=["string"],
             description="description",
+            enterprise_only=True,
             name="name",
             priority=0,
         )
@@ -912,6 +914,7 @@ class TestAsyncAdmin:
             slug="slug",
             categories=["string"],
             description="description",
+            enterprise_only=True,
             priority=0,
         )
         assert_matches_type(ConnectorCatalog, admin, path=["response"])
@@ -1276,6 +1279,7 @@ class TestAsyncAdmin:
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             categories=["string"],
             description="description",
+            enterprise_only=True,
             name="name",
             priority=0,
         )
