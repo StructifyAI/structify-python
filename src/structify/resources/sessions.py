@@ -691,6 +691,12 @@ class SessionsResource(SyncAPIResource):
         node_id: str,
         *,
         content: FileTypes,
+        cache_final_rows: Optional[int] | Omit = omit,
+        cache_final_size_bytes: Optional[int] | Omit = omit,
+        cache_max_bytes: Optional[int] | Omit = omit,
+        cache_original_rows: Optional[int] | Omit = omit,
+        cache_original_size_bytes: Optional[int] | Omit = omit,
+        cache_truncated: Optional[bool] | Omit = omit,
         output_schema: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -714,6 +720,12 @@ class SessionsResource(SyncAPIResource):
         body = deepcopy_minimal(
             {
                 "content": content,
+                "cache_final_rows": cache_final_rows,
+                "cache_final_size_bytes": cache_final_size_bytes,
+                "cache_max_bytes": cache_max_bytes,
+                "cache_original_rows": cache_original_rows,
+                "cache_original_size_bytes": cache_original_size_bytes,
+                "cache_truncated": cache_truncated,
                 "output_schema": output_schema,
             }
         )
@@ -1401,6 +1413,12 @@ class AsyncSessionsResource(AsyncAPIResource):
         node_id: str,
         *,
         content: FileTypes,
+        cache_final_rows: Optional[int] | Omit = omit,
+        cache_final_size_bytes: Optional[int] | Omit = omit,
+        cache_max_bytes: Optional[int] | Omit = omit,
+        cache_original_rows: Optional[int] | Omit = omit,
+        cache_original_size_bytes: Optional[int] | Omit = omit,
+        cache_truncated: Optional[bool] | Omit = omit,
         output_schema: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1424,6 +1442,12 @@ class AsyncSessionsResource(AsyncAPIResource):
         body = deepcopy_minimal(
             {
                 "content": content,
+                "cache_final_rows": cache_final_rows,
+                "cache_final_size_bytes": cache_final_size_bytes,
+                "cache_max_bytes": cache_max_bytes,
+                "cache_original_rows": cache_original_rows,
+                "cache_original_size_bytes": cache_original_size_bytes,
+                "cache_truncated": cache_truncated,
                 "output_schema": output_schema,
             }
         )
