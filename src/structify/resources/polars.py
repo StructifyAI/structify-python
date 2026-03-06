@@ -934,7 +934,7 @@ class PolarsResource(SyncAPIResource):
             job_id = entity.job_ids[0] if entity.job_ids else None
             result_row: Dict[str, Any] = {
                 **entity.properties,
-                path_column: job_to_pdf_path.get(job_id) if job_id else None,
+                path_column: entity.properties[path_column],
                 STRUCTIFY_JOB_ID_COLUMN: job_id,
             }
             structured_results.append(result_row)
