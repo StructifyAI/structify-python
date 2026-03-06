@@ -998,6 +998,12 @@ class TestSessions:
         session = client.sessions.upload_node_output_data(
             node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             content=b"raw file contents",
+            cache_final_rows=0,
+            cache_final_size_bytes=0,
+            cache_max_bytes=0,
+            cache_original_rows=0,
+            cache_original_size_bytes=0,
+            cache_truncated=True,
             output_schema="output_schema",
         )
         assert_matches_type(WorkflowSessionNode, session, path=["response"])
@@ -2050,6 +2056,12 @@ class TestAsyncSessions:
         session = await async_client.sessions.upload_node_output_data(
             node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             content=b"raw file contents",
+            cache_final_rows=0,
+            cache_final_size_bytes=0,
+            cache_max_bytes=0,
+            cache_original_rows=0,
+            cache_original_size_bytes=0,
+            cache_truncated=True,
             output_schema="output_schema",
         )
         assert_matches_type(WorkflowSessionNode, session, path=["response"])
