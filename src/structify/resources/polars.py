@@ -927,6 +927,13 @@ class PolarsResource(SyncAPIResource):
         # Wait for all PDF processing jobs to complete
         self._client.jobs.wait_for_jobs(dataset_name=dataset_name, title=f"Parsing PDFs", node_id=node_id)
 
+        for job_id, pdf_path in list(job_to_pdf_path.items()):
+            events = self._client.jobs.get_events(job_id).events
+            for event in events:
+                if event.body.event_type == "cache_hit":
+                    job_to_pdf_path[event.body.cached_from_job_id] = pdf_path
+                    break
+
         # Get all of the entities with their job_ids
         entities = self._client.datasets.view_table(dataset=dataset_name, name=table_name)
         structured_results: List[Dict[str, Any]] = []
