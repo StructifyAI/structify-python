@@ -103,6 +103,7 @@ from structify.types import (
     CopyChatSessionRequest,
     CreateChatSessionRequest,
     CreateChatSessionResponse,
+    DashboardItem,
     DeleteChatSessionResponse,
     ErrorResponse,
     GetChatSessionResponse,
@@ -110,6 +111,7 @@ from structify.types import (
     GrantAdminAccessRequest,
     ListChatSessionsResponse,
     ListCollaboratorsResponse,
+    ListDashboardsResponse,
     Message,
     SimulatePromptRequest,
     SimulatePromptResponse,
@@ -151,6 +153,7 @@ Methods:
 - <code title="get /chat/sessions/{session_id}/timeline">client.chat.<a href="./src/structify/resources/chat.py">get_session_timeline</a>(session_id) -> <a href="./src/structify/types/chat_get_session_timeline_response.py">ChatGetSessionTimelineResponse</a></code>
 - <code title="post /chat/sessions/{chat_id}/admin_override">client.chat.<a href="./src/structify/resources/chat.py">grant_admin_override</a>(chat_id, \*\*<a href="src/structify/types/chat_grant_admin_override_params.py">params</a>) -> <a href="./src/structify/types/admin_grant_access_response.py">AdminGrantAccessResponse</a></code>
 - <code title="get /chat/sessions/{chat_id}/collaborators">client.chat.<a href="./src/structify/resources/chat.py">list_collaborators</a>(chat_id) -> <a href="./src/structify/types/list_collaborators_response.py">ListCollaboratorsResponse</a></code>
+- <code title="get /chat/sessions/{chat_id}/dashboards">client.chat.<a href="./src/structify/resources/chat.py">list_dashboards</a>(chat_id, \*\*<a href="src/structify/types/chat_list_dashboards_params.py">params</a>) -> <a href="./src/structify/types/list_dashboards_response.py">ListDashboardsResponse</a></code>
 - <code title="get /chat/input-files/list/{chat_id}">client.chat.<a href="./src/structify/resources/chat.py">list_input_files</a>(chat_id) -> <a href="./src/structify/types/chat_list_input_files_response.py">ChatListInputFilesResponse</a></code>
 - <code title="get /chat/sessions">client.chat.<a href="./src/structify/resources/chat.py">list_sessions</a>(\*\*<a href="src/structify/types/chat_list_sessions_params.py">params</a>) -> <a href="./src/structify/types/list_chat_sessions_response.py">ListChatSessionsResponse</a></code>
 - <code title="get /chat/templates">client.chat.<a href="./src/structify/resources/chat.py">list_templates</a>() -> <a href="./src/structify/types/chat_list_templates_response.py">ChatListTemplatesResponse</a></code>
@@ -570,6 +573,7 @@ from structify.types import (
     Dashboard,
     DashboardComponent,
     DashboardPage,
+    DashboardSpec,
     EdgeSpec,
     EditNodeOutputRequest,
     FinalizeDagRequest,
@@ -585,6 +589,20 @@ from structify.types import (
     UpdateWorkflowNodeRequest,
     UploadDashboardLayoutRequest,
     UploadNodeVisualizationOutputRequest,
+    VizBooleanControl,
+    VizBooleanControlType,
+    VizControlOption,
+    VizDateControl,
+    VizDateControlType,
+    VizFigure,
+    VizFigureDefinition,
+    VizFigureKind,
+    VizNumberControl,
+    VizNumberControlType,
+    VizParam,
+    VizQuery,
+    VizStringControl,
+    VizStringControlType,
     WorkflowDag,
     WorkflowNodeExecutionStatus,
     WorkflowNodeLog,

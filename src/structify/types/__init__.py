@@ -15,8 +15,11 @@ from .connector import Connector as Connector
 from .dashboard import Dashboard as Dashboard
 from .team_role import TeamRole as TeamRole
 from .user_info import UserInfo as UserInfo
+from .viz_param import VizParam as VizParam
+from .viz_query import VizQuery as VizQuery
 from .wiki_page import WikiPage as WikiPage
 from .chat_event import ChatEvent as ChatEvent
+from .viz_figure import VizFigure as VizFigure
 from .chat_prompt import ChatPrompt as ChatPrompt
 from .granularity import Granularity as Granularity
 from .table_param import TableParam as TableParam
@@ -32,7 +35,9 @@ from .chat_template import ChatTemplate as ChatTemplate
 from .message_param import MessageParam as MessageParam
 from .property_type import PropertyType as PropertyType
 from .tool_metadata import ToolMetadata as ToolMetadata
+from .dashboard_item import DashboardItem as DashboardItem
 from .dashboard_page import DashboardPage as DashboardPage
+from .dashboard_spec import DashboardSpec as DashboardSpec
 from .job_event_body import JobEventBody as JobEventBody
 from .project_member import ProjectMember as ProjectMember
 from .strategy_param import StrategyParam as StrategyParam
@@ -50,9 +55,14 @@ from .knowledge_graph import KnowledgeGraph as KnowledgeGraph
 from .node_spec_param import NodeSpecParam as NodeSpecParam
 from .tool_invocation import ToolInvocation as ToolInvocation
 from .usage_group_key import UsageGroupKey as UsageGroupKey
+from .viz_figure_kind import VizFigureKind as VizFigureKind
+from .viz_param_param import VizParamParam as VizParamParam
+from .viz_query_param import VizQueryParam as VizQueryParam
 from .chat_copy_params import ChatCopyParams as ChatCopyParams
 from .job_get_response import JobGetResponse as JobGetResponse
 from .save_requirement import SaveRequirement as SaveRequirement
+from .viz_date_control import VizDateControl as VizDateControl
+from .viz_figure_param import VizFigureParam as VizFigureParam
 from .workflow_session import WorkflowSession as WorkflowSession
 from .chat_prompt_param import ChatPromptParam as ChatPromptParam
 from .chat_session_role import ChatSessionRole as ChatSessionRole
@@ -84,6 +94,9 @@ from .team_create_params import TeamCreateParams as TeamCreateParams
 from .team_update_params import TeamUpdateParams as TeamUpdateParams
 from .user_enrich_params import UserEnrichParams as UserEnrichParams
 from .user_update_params import UserUpdateParams as UserUpdateParams
+from .viz_control_option import VizControlOption as VizControlOption
+from .viz_number_control import VizNumberControl as VizNumberControl
+from .viz_string_control import VizStringControl as VizStringControl
 from .wiki_create_params import WikiCreateParams as WikiCreateParams
 from .wiki_list_response import WikiListResponse as WikiListResponse
 from .wiki_update_params import WikiUpdateParams as WikiUpdateParams
@@ -100,10 +113,12 @@ from .slack_events_params import SlackEventsParams as SlackEventsParams
 from .tool_metadata_param import ToolMetadataParam as ToolMetadataParam
 from .user_refresh_params import UserRefreshParams as UserRefreshParams
 from .user_usage_response import UserUsageResponse as UserUsageResponse
+from .viz_boolean_control import VizBooleanControl as VizBooleanControl
 from .workflow_run_params import WorkflowRunParams as WorkflowRunParams
 from .connector_table_info import ConnectorTableInfo as ConnectorTableInfo
 from .create_team_response import CreateTeamResponse as CreateTeamResponse
 from .dashboard_page_param import DashboardPageParam as DashboardPageParam
+from .dashboard_spec_param import DashboardSpecParam as DashboardSpecParam
 from .dataset_get_response import DatasetGetResponse as DatasetGetResponse
 from .dataset_match_params import DatasetMatchParams as DatasetMatchParams
 from .document_list_params import DocumentListParams as DocumentListParams
@@ -135,6 +150,8 @@ from .llm_information_store import LlmInformationStore as LlmInformationStore
 from .project_update_params import ProjectUpdateParams as ProjectUpdateParams
 from .sandbox_list_response import SandboxListResponse as SandboxListResponse
 from .update_table_response import UpdateTableResponse as UpdateTableResponse
+from .viz_date_control_type import VizDateControlType as VizDateControlType
+from .viz_figure_definition import VizFigureDefinition as VizFigureDefinition
 from .workflow_session_edge import WorkflowSessionEdge as WorkflowSessionEdge
 from .workflow_session_node import WorkflowSessionNode as WorkflowSessionNode
 from .chat_load_files_params import ChatLoadFilesParams as ChatLoadFilesParams
@@ -157,6 +174,7 @@ from .save_requirement_param import SaveRequirementParam as SaveRequirementParam
 from .scrape_scrape_response import ScrapeScrapeResponse as ScrapeScrapeResponse
 from .structure_pdf_response import StructurePdfResponse as StructurePdfResponse
 from .team_add_member_params import TeamAddMemberParams as TeamAddMemberParams
+from .viz_date_control_param import VizDateControlParam as VizDateControlParam
 from .workflow_schedule_info import WorkflowScheduleInfo as WorkflowScheduleInfo
 from .connector_create_params import ConnectorCreateParams as ConnectorCreateParams
 from .connector_explorer_chat import ConnectorExplorerChat as ConnectorExplorerChat
@@ -169,6 +187,8 @@ from .entity_list_jobs_params import EntityListJobsParams as EntityListJobsParam
 from .entity_summarize_params import EntitySummarizeParams as EntitySummarizeParams
 from .explore_status_response import ExploreStatusResponse as ExploreStatusResponse
 from .get_job_events_response import GetJobEventsResponse as GetJobEventsResponse
+from .viz_number_control_type import VizNumberControlType as VizNumberControlType
+from .viz_string_control_type import VizStringControlType as VizStringControlType
 from .chat_load_files_response import ChatLoadFilesResponse as ChatLoadFilesResponse
 from .connector_explore_params import ConnectorExploreParams as ConnectorExploreParams
 from .connector_store_response import ConnectorStoreResponse as ConnectorStoreResponse
@@ -176,11 +196,16 @@ from .dataset_descriptor_param import DatasetDescriptorParam as DatasetDescripto
 from .document_download_params import DocumentDownloadParams as DocumentDownloadParams
 from .entity_derive_all_params import EntityDeriveAllParams as EntityDeriveAllParams
 from .entity_get_merges_params import EntityGetMergesParams as EntityGetMergesParams
+from .list_dashboards_response import ListDashboardsResponse as ListDashboardsResponse
 from .match_create_jobs_params import MatchCreateJobsParams as MatchCreateJobsParams
 from .refresh_session_response import RefreshSessionResponse as RefreshSessionResponse
 from .session_kill_jobs_params import SessionKillJobsParams as SessionKillJobsParams
 from .simulate_prompt_response import SimulatePromptResponse as SimulatePromptResponse
 from .team_subscription_status import TeamSubscriptionStatus as TeamSubscriptionStatus
+from .viz_boolean_control_type import VizBooleanControlType as VizBooleanControlType
+from .viz_control_option_param import VizControlOptionParam as VizControlOptionParam
+from .viz_number_control_param import VizNumberControlParam as VizNumberControlParam
+from .viz_string_control_param import VizStringControlParam as VizStringControlParam
 from .wiki_connector_reference import WikiConnectorReference as WikiConnectorReference
 from .chat_list_sessions_params import ChatListSessionsParams as ChatListSessionsParams
 from .code_generate_code_params import CodeGenerateCodeParams as CodeGenerateCodeParams
@@ -197,6 +222,7 @@ from .session_get_events_params import SessionGetEventsParams as SessionGetEvent
 from .slack_event_payload_param import SlackEventPayloadParam as SlackEventPayloadParam
 from .team_credits_usage_params import TeamCreditsUsageParams as TeamCreditsUsageParams
 from .user_survey_submit_params import UserSurveySubmitParams as UserSurveySubmitParams
+from .viz_boolean_control_param import VizBooleanControlParam as VizBooleanControlParam
 from .wiki_page_with_references import WikiPageWithReferences as WikiPageWithReferences
 from .accept_invitation_response import AcceptInvitationResponse as AcceptInvitationResponse
 from .admin_issue_found_response import AdminIssueFoundResponse as AdminIssueFoundResponse
@@ -218,6 +244,7 @@ from .team_create_project_params import TeamCreateProjectParams as TeamCreatePro
 from .update_visibility_response import UpdateVisibilityResponse as UpdateVisibilityResponse
 from .user_transactions_response import UserTransactionsResponse as UserTransactionsResponse
 from .admin_grant_access_response import AdminGrantAccessResponse as AdminGrantAccessResponse
+from .chat_list_dashboards_params import ChatListDashboardsParams as ChatListDashboardsParams
 from .chat_simulate_prompt_params import ChatSimulatePromptParams as ChatSimulatePromptParams
 from .dataset_add_property_params import DatasetAddPropertyParams as DatasetAddPropertyParams
 from .dataset_view_table_response import DatasetViewTableResponse as DatasetViewTableResponse
@@ -234,6 +261,7 @@ from .session_mark_errored_params import SessionMarkErroredParams as SessionMark
 from .source_delete_entity_params import SourceDeleteEntityParams as SourceDeleteEntityParams
 from .structure_job_status_params import StructureJobStatusParams as StructureJobStatusParams
 from .update_member_role_response import UpdateMemberRoleResponse as UpdateMemberRoleResponse
+from .viz_figure_definition_param import VizFigureDefinitionParam as VizFigureDefinitionParam
 from .admin_report_critical_params import AdminReportCriticalParams as AdminReportCriticalParams
 from .chat_add_collaborator_params import ChatAddCollaboratorParams as ChatAddCollaboratorParams
 from .chat_add_git_commit_response import ChatAddGitCommitResponse as ChatAddGitCommitResponse
@@ -336,6 +364,9 @@ from .connector_list_with_snippets_response import (
 )
 from .structure_enhance_relationship_params import (
     StructureEnhanceRelationshipParams as StructureEnhanceRelationshipParams,
+)
+from .upload_dashboard_layout_request_param import (
+    UploadDashboardLayoutRequestParam as UploadDashboardLayoutRequestParam,
 )
 from .workflow_schedule_get_sessions_params import (
     WorkflowScheduleGetSessionsParams as WorkflowScheduleGetSessionsParams,
