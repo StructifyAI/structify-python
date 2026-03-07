@@ -16,6 +16,7 @@ from ..types import (
     chat_add_git_commit_params,
     chat_create_session_params,
     chat_update_session_params,
+    chat_list_dashboards_params,
     chat_simulate_prompt_params,
     chat_add_collaborator_params,
     chat_load_input_files_params,
@@ -52,6 +53,7 @@ from ..types.chat_visibility import ChatVisibility
 from ..types.chat_prompt_param import ChatPromptParam
 from ..types.chat_session_role import ChatSessionRole
 from ..types.chat_load_files_response import ChatLoadFilesResponse
+from ..types.list_dashboards_response import ListDashboardsResponse
 from ..types.simulate_prompt_response import SimulatePromptResponse
 from ..types.get_chat_session_response import GetChatSessionResponse
 from ..types.get_dependencies_response import GetDependenciesResponse
@@ -659,6 +661,48 @@ class ChatResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=ListCollaboratorsResponse,
+        )
+
+    def list_dashboards(
+        self,
+        chat_id: str,
+        *,
+        commit_hash: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ListDashboardsResponse:
+        """
+        List dashboard specs for a chat session at a specific commit hash.
+
+        Args:
+          commit_hash: Optional commit hash. If omitted, uses the chat session latest commit.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not chat_id:
+            raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
+        return self._get(
+            f"/chat/sessions/{chat_id}/dashboards",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {"commit_hash": commit_hash}, chat_list_dashboards_params.ChatListDashboardsParams
+                ),
+            ),
+            cast_to=ListDashboardsResponse,
         )
 
     def list_input_files(
@@ -1773,6 +1817,48 @@ class AsyncChatResource(AsyncAPIResource):
             cast_to=ListCollaboratorsResponse,
         )
 
+    async def list_dashboards(
+        self,
+        chat_id: str,
+        *,
+        commit_hash: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ListDashboardsResponse:
+        """
+        List dashboard specs for a chat session at a specific commit hash.
+
+        Args:
+          commit_hash: Optional commit hash. If omitted, uses the chat session latest commit.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not chat_id:
+            raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
+        return await self._get(
+            f"/chat/sessions/{chat_id}/dashboards",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"commit_hash": commit_hash}, chat_list_dashboards_params.ChatListDashboardsParams
+                ),
+            ),
+            cast_to=ListDashboardsResponse,
+        )
+
     async def list_input_files(
         self,
         chat_id: str,
@@ -2355,6 +2441,9 @@ class ChatResourceWithRawResponse:
         self.list_collaborators = to_raw_response_wrapper(
             chat.list_collaborators,
         )
+        self.list_dashboards = to_raw_response_wrapper(
+            chat.list_dashboards,
+        )
         self.list_input_files = to_raw_response_wrapper(
             chat.list_input_files,
         )
@@ -2448,6 +2537,9 @@ class AsyncChatResourceWithRawResponse:
         )
         self.list_collaborators = async_to_raw_response_wrapper(
             chat.list_collaborators,
+        )
+        self.list_dashboards = async_to_raw_response_wrapper(
+            chat.list_dashboards,
         )
         self.list_input_files = async_to_raw_response_wrapper(
             chat.list_input_files,
@@ -2543,6 +2635,9 @@ class ChatResourceWithStreamingResponse:
         self.list_collaborators = to_streamed_response_wrapper(
             chat.list_collaborators,
         )
+        self.list_dashboards = to_streamed_response_wrapper(
+            chat.list_dashboards,
+        )
         self.list_input_files = to_streamed_response_wrapper(
             chat.list_input_files,
         )
@@ -2636,6 +2731,9 @@ class AsyncChatResourceWithStreamingResponse:
         )
         self.list_collaborators = async_to_streamed_response_wrapper(
             chat.list_collaborators,
+        )
+        self.list_dashboards = async_to_streamed_response_wrapper(
+            chat.list_dashboards,
         )
         self.list_input_files = async_to_streamed_response_wrapper(
             chat.list_input_files,
