@@ -704,7 +704,7 @@ class TestEntities:
         entity = client.entities.upload_parquet(
             dataset="dataset",
             table_name="table_name",
-            content=b"raw file contents",
+            content=b"Example data",
         )
         assert entity is None
 
@@ -713,7 +713,7 @@ class TestEntities:
         entity = client.entities.upload_parquet(
             dataset="dataset",
             table_name="table_name",
-            content=b"raw file contents",
+            content=b"Example data",
             start_embedding=True,
         )
         assert entity is None
@@ -723,7 +723,7 @@ class TestEntities:
         response = client.entities.with_raw_response.upload_parquet(
             dataset="dataset",
             table_name="table_name",
-            content=b"raw file contents",
+            content=b"Example data",
         )
 
         assert response.is_closed is True
@@ -736,7 +736,7 @@ class TestEntities:
         with client.entities.with_streaming_response.upload_parquet(
             dataset="dataset",
             table_name="table_name",
-            content=b"raw file contents",
+            content=b"Example data",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -1546,7 +1546,7 @@ class TestAsyncEntities:
         entity = await async_client.entities.upload_parquet(
             dataset="dataset",
             table_name="table_name",
-            content=b"raw file contents",
+            content=b"Example data",
         )
         assert entity is None
 
@@ -1555,7 +1555,7 @@ class TestAsyncEntities:
         entity = await async_client.entities.upload_parquet(
             dataset="dataset",
             table_name="table_name",
-            content=b"raw file contents",
+            content=b"Example data",
             start_embedding=True,
         )
         assert entity is None
@@ -1565,7 +1565,7 @@ class TestAsyncEntities:
         response = await async_client.entities.with_raw_response.upload_parquet(
             dataset="dataset",
             table_name="table_name",
-            content=b"raw file contents",
+            content=b"Example data",
         )
 
         assert response.is_closed is True
@@ -1578,7 +1578,7 @@ class TestAsyncEntities:
         async with async_client.entities.with_streaming_response.upload_parquet(
             dataset="dataset",
             table_name="table_name",
-            content=b"raw file contents",
+            content=b"Example data",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

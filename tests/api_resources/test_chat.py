@@ -1514,7 +1514,7 @@ class TestChat:
     def test_method_upload_input_file(self, client: Structify) -> None:
         chat = client.chat.upload_input_file(
             chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            content=b"raw file contents",
+            content=b"Example data",
             content_type="content_type",
             file_name="file_name",
         )
@@ -1524,7 +1524,7 @@ class TestChat:
     def test_raw_response_upload_input_file(self, client: Structify) -> None:
         response = client.chat.with_raw_response.upload_input_file(
             chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            content=b"raw file contents",
+            content=b"Example data",
             content_type="content_type",
             file_name="file_name",
         )
@@ -1538,7 +1538,7 @@ class TestChat:
     def test_streaming_response_upload_input_file(self, client: Structify) -> None:
         with client.chat.with_streaming_response.upload_input_file(
             chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            content=b"raw file contents",
+            content=b"Example data",
             content_type="content_type",
             file_name="file_name",
         ) as response:
@@ -1555,7 +1555,7 @@ class TestChat:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `chat_id` but received ''"):
             client.chat.with_raw_response.upload_input_file(
                 chat_id="",
-                content=b"raw file contents",
+                content=b"Example data",
                 content_type="content_type",
                 file_name="file_name",
             )
@@ -3030,7 +3030,7 @@ class TestAsyncChat:
     async def test_method_upload_input_file(self, async_client: AsyncStructify) -> None:
         chat = await async_client.chat.upload_input_file(
             chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            content=b"raw file contents",
+            content=b"Example data",
             content_type="content_type",
             file_name="file_name",
         )
@@ -3040,7 +3040,7 @@ class TestAsyncChat:
     async def test_raw_response_upload_input_file(self, async_client: AsyncStructify) -> None:
         response = await async_client.chat.with_raw_response.upload_input_file(
             chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            content=b"raw file contents",
+            content=b"Example data",
             content_type="content_type",
             file_name="file_name",
         )
@@ -3054,7 +3054,7 @@ class TestAsyncChat:
     async def test_streaming_response_upload_input_file(self, async_client: AsyncStructify) -> None:
         async with async_client.chat.with_streaming_response.upload_input_file(
             chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            content=b"raw file contents",
+            content=b"Example data",
             content_type="content_type",
             file_name="file_name",
         ) as response:
@@ -3071,7 +3071,7 @@ class TestAsyncChat:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `chat_id` but received ''"):
             await async_client.chat.with_raw_response.upload_input_file(
                 chat_id="",
-                content=b"raw file contents",
+                content=b"Example data",
                 content_type="content_type",
                 file_name="file_name",
             )
