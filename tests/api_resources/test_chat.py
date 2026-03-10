@@ -1169,13 +1169,6 @@ class TestChat:
                     ],
                     "extraction_criteria": [{"relationship_name": "relationship_name"}],
                     "formatter_specific": {"image_meta": {"image": "image"}},
-                    "tool_metadata": [
-                        {
-                            "description": "description",
-                            "name": "WebSearch",
-                            "regex_validator": "regex_validator",
-                        }
-                    ],
                 },
             },
         )
@@ -1231,13 +1224,6 @@ class TestChat:
                     ],
                     "extraction_criteria": [{"relationship_name": "relationship_name"}],
                     "formatter_specific": {"image_meta": {"image": "image"}},
-                    "tool_metadata": [
-                        {
-                            "description": "description",
-                            "name": "WebSearch",
-                            "regex_validator": "regex_validator",
-                        }
-                    ],
                 },
             },
         )
@@ -1297,13 +1283,6 @@ class TestChat:
                     ],
                     "extraction_criteria": [{"relationship_name": "relationship_name"}],
                     "formatter_specific": {"image_meta": {"image": "image"}},
-                    "tool_metadata": [
-                        {
-                            "description": "description",
-                            "name": "WebSearch",
-                            "regex_validator": "regex_validator",
-                        }
-                    ],
                 },
             },
         ) as response:
@@ -1366,13 +1345,6 @@ class TestChat:
                         ],
                         "extraction_criteria": [{"relationship_name": "relationship_name"}],
                         "formatter_specific": {"image_meta": {"image": "image"}},
-                        "tool_metadata": [
-                            {
-                                "description": "description",
-                                "name": "WebSearch",
-                                "regex_validator": "regex_validator",
-                            }
-                        ],
                     },
                 },
             )
@@ -2685,13 +2657,6 @@ class TestAsyncChat:
                     ],
                     "extraction_criteria": [{"relationship_name": "relationship_name"}],
                     "formatter_specific": {"image_meta": {"image": "image"}},
-                    "tool_metadata": [
-                        {
-                            "description": "description",
-                            "name": "WebSearch",
-                            "regex_validator": "regex_validator",
-                        }
-                    ],
                 },
             },
         )
@@ -2747,13 +2712,6 @@ class TestAsyncChat:
                     ],
                     "extraction_criteria": [{"relationship_name": "relationship_name"}],
                     "formatter_specific": {"image_meta": {"image": "image"}},
-                    "tool_metadata": [
-                        {
-                            "description": "description",
-                            "name": "WebSearch",
-                            "regex_validator": "regex_validator",
-                        }
-                    ],
                 },
             },
         )
@@ -2813,13 +2771,6 @@ class TestAsyncChat:
                     ],
                     "extraction_criteria": [{"relationship_name": "relationship_name"}],
                     "formatter_specific": {"image_meta": {"image": "image"}},
-                    "tool_metadata": [
-                        {
-                            "description": "description",
-                            "name": "WebSearch",
-                            "regex_validator": "regex_validator",
-                        }
-                    ],
                 },
             },
         ) as response:
@@ -2882,13 +2833,6 @@ class TestAsyncChat:
                         ],
                         "extraction_criteria": [{"relationship_name": "relationship_name"}],
                         "formatter_specific": {"image_meta": {"image": "image"}},
-                        "tool_metadata": [
-                            {
-                                "description": "description",
-                                "name": "WebSearch",
-                                "regex_validator": "regex_validator",
-                            }
-                        ],
                     },
                 },
             )
