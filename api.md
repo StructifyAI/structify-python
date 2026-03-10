@@ -965,7 +965,6 @@ Types:
 from structify.types import (
     ChatPrompt,
     SaveRequirement,
-    ToolMetadata,
     StructureEnhancePropertyResponse,
     StructureEnhanceRelationshipResponse,
     StructureFindRelationshipResponse,

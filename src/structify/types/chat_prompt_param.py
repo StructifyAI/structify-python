@@ -8,7 +8,6 @@ from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 from .._types import FileTypes, SequenceNotStr
 from .._utils import PropertyInfo
 from .message_param import MessageParam
-from .tool_metadata_param import ToolMetadataParam
 from .knowledge_graph_param import KnowledgeGraphParam
 from .save_requirement_param import SaveRequirementParam
 from .dataset_descriptor_param import DatasetDescriptorParam
@@ -242,8 +241,6 @@ class Metadata(TypedDict, total=False):
     extraction_criteria: Required[Iterable[SaveRequirementParam]]
 
     formatter_specific: Required[MetadataFormatterSpecific]
-
-    tool_metadata: Required[Iterable[ToolMetadataParam]]
 
     qa_potentially_sus_response: Optional[str]
 

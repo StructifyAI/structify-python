@@ -34,7 +34,6 @@ from .workflow_dag import WorkflowDag as WorkflowDag
 from .chat_template import ChatTemplate as ChatTemplate
 from .message_param import MessageParam as MessageParam
 from .property_type import PropertyType as PropertyType
-from .tool_metadata import ToolMetadata as ToolMetadata
 from .dashboard_item import DashboardItem as DashboardItem
 from .dashboard_page import DashboardPage as DashboardPage
 from .dashboard_spec import DashboardSpec as DashboardSpec
@@ -110,7 +109,6 @@ from .job_status_response import JobStatusResponse as JobStatusResponse
 from .list_teams_response import ListTeamsResponse as ListTeamsResponse
 from .property_type_param import PropertyTypeParam as PropertyTypeParam
 from .slack_events_params import SlackEventsParams as SlackEventsParams
-from .tool_metadata_param import ToolMetadataParam as ToolMetadataParam
 from .user_refresh_params import UserRefreshParams as UserRefreshParams
 from .user_usage_response import UserUsageResponse as UserUsageResponse
 from .viz_boolean_control import VizBooleanControl as VizBooleanControl
