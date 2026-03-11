@@ -151,10 +151,6 @@ class InternalErrorInternalError(BaseModel):
     """
     Categorizes the kind of internal error that occurred during LLM generation. This
     allows the frontend to render appropriate error messages without regex matching.
-
-    Classification logic lives in `LlmError::kind()` (in the inference crate) so
-    that errors are categorized at the source. This enum is the serializable
-    representation used in ChatEvent / proto / OpenAPI.
     """
 
 
