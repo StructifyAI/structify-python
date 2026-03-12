@@ -71,6 +71,8 @@ __all__ = [
     "SearchConnectorTypesInput",
     "PinPreviousTool",
     "PinPreviousToolInput",
+    "RunPipeline",
+    "RunPipelineInput",
 ]
 
 
@@ -467,6 +469,16 @@ class PinPreviousTool(BaseModel):
     name: Literal["PinPreviousTool"]
 
 
+class RunPipelineInput(BaseModel):
+    rerun_all_steps: Optional[bool] = None
+
+
+class RunPipeline(BaseModel):
+    input: RunPipelineInput
+
+    name: Literal["RunPipeline"]
+
+
 ToolInvocation: TypeAlias = Annotated[
     Union[
         WebSearch,
@@ -500,6 +512,7 @@ ToolInvocation: TypeAlias = Annotated[
         CreateConnector,
         SearchConnectorTypes,
         PinPreviousTool,
+        RunPipeline,
     ],
     PropertyInfo(discriminator="name"),
 ]
