@@ -250,9 +250,9 @@ class TestStructure:
             dataset="dataset",
             path="path",
             instructions="instructions",
-            mode="Single",
             model="model",
             node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            pages=[0],
         )
         assert_matches_type(StructurePdfResponse, structure, path=["response"])
 
@@ -586,9 +586,9 @@ class TestAsyncStructure:
             dataset="dataset",
             path="path",
             instructions="instructions",
-            mode="Single",
             model="model",
             node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            pages=[0],
         )
         assert_matches_type(StructurePdfResponse, structure, path=["response"])
 

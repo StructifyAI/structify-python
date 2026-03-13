@@ -62,6 +62,8 @@ class Updates(TypedDict, total=False):
 
     linkedin_url: Optional[str]
 
+    notify_for_interaction: Optional[bool]
+
     onboarding_session_id: Optional[str]
 
     permissions: Optional[List[Optional[Literal["labeler", "qa_labeler", "debug", "human_llm", "none"]]]]

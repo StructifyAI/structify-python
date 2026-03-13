@@ -194,6 +194,7 @@ class TestAdmin:
             slug="slug",
             categories=["string"],
             description="description",
+            enterprise_only=True,
             priority=0,
         )
         assert_matches_type(ConnectorCatalog, admin, path=["response"])
@@ -558,6 +559,7 @@ class TestAdmin:
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             categories=["string"],
             description="description",
+            enterprise_only=True,
             name="name",
             priority=0,
         )
@@ -700,7 +702,7 @@ class TestAdmin:
     def test_method_upload_logo(self, client: Structify) -> None:
         admin = client.connector_catalog.admin.upload_logo(
             slug="slug",
-            file=b"raw file contents",
+            file=b"Example data",
         )
         assert_matches_type(UploadLogoResponse, admin, path=["response"])
 
@@ -708,7 +710,7 @@ class TestAdmin:
     def test_raw_response_upload_logo(self, client: Structify) -> None:
         response = client.connector_catalog.admin.with_raw_response.upload_logo(
             slug="slug",
-            file=b"raw file contents",
+            file=b"Example data",
         )
 
         assert response.is_closed is True
@@ -720,7 +722,7 @@ class TestAdmin:
     def test_streaming_response_upload_logo(self, client: Structify) -> None:
         with client.connector_catalog.admin.with_streaming_response.upload_logo(
             slug="slug",
-            file=b"raw file contents",
+            file=b"Example data",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -735,7 +737,7 @@ class TestAdmin:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `slug` but received ''"):
             client.connector_catalog.admin.with_raw_response.upload_logo(
                 slug="",
-                file=b"raw file contents",
+                file=b"Example data",
             )
 
 
@@ -912,6 +914,7 @@ class TestAsyncAdmin:
             slug="slug",
             categories=["string"],
             description="description",
+            enterprise_only=True,
             priority=0,
         )
         assert_matches_type(ConnectorCatalog, admin, path=["response"])
@@ -1276,6 +1279,7 @@ class TestAsyncAdmin:
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             categories=["string"],
             description="description",
+            enterprise_only=True,
             name="name",
             priority=0,
         )
@@ -1418,7 +1422,7 @@ class TestAsyncAdmin:
     async def test_method_upload_logo(self, async_client: AsyncStructify) -> None:
         admin = await async_client.connector_catalog.admin.upload_logo(
             slug="slug",
-            file=b"raw file contents",
+            file=b"Example data",
         )
         assert_matches_type(UploadLogoResponse, admin, path=["response"])
 
@@ -1426,7 +1430,7 @@ class TestAsyncAdmin:
     async def test_raw_response_upload_logo(self, async_client: AsyncStructify) -> None:
         response = await async_client.connector_catalog.admin.with_raw_response.upload_logo(
             slug="slug",
-            file=b"raw file contents",
+            file=b"Example data",
         )
 
         assert response.is_closed is True
@@ -1438,7 +1442,7 @@ class TestAsyncAdmin:
     async def test_streaming_response_upload_logo(self, async_client: AsyncStructify) -> None:
         async with async_client.connector_catalog.admin.with_streaming_response.upload_logo(
             slug="slug",
-            file=b"raw file contents",
+            file=b"Example data",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -1453,5 +1457,5 @@ class TestAsyncAdmin:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `slug` but received ''"):
             await async_client.connector_catalog.admin.with_raw_response.upload_logo(
                 slug="",
-                file=b"raw file contents",
+                file=b"Example data",
             )

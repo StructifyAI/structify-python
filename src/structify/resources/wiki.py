@@ -26,6 +26,8 @@ __all__ = ["WikiResource", "AsyncWikiResource"]
 
 
 class WikiResource(SyncAPIResource):
+    """Team wiki page management endpoints"""
+
     @cached_property
     def with_raw_response(self) -> WikiResourceWithRawResponse:
         """
@@ -234,6 +236,8 @@ class WikiResource(SyncAPIResource):
 
 
 class AsyncWikiResource(AsyncAPIResource):
+    """Team wiki page management endpoints"""
+
     @cached_property
     def with_raw_response(self) -> AsyncWikiResourceWithRawResponse:
         """

@@ -57,6 +57,7 @@ class UserResource(SyncAPIResource):
 
     @cached_property
     def api_keys(self) -> APIKeysResource:
+        """All the accessible information about your account through our API"""
         return APIKeysResource(self._client)
 
     @cached_property
@@ -303,6 +304,7 @@ class AsyncUserResource(AsyncAPIResource):
 
     @cached_property
     def api_keys(self) -> AsyncAPIKeysResource:
+        """All the accessible information about your account through our API"""
         return AsyncAPIKeysResource(self._client)
 
     @cached_property
@@ -574,6 +576,7 @@ class UserResourceWithRawResponse:
 
     @cached_property
     def api_keys(self) -> APIKeysResourceWithRawResponse:
+        """All the accessible information about your account through our API"""
         return APIKeysResourceWithRawResponse(self._user.api_keys)
 
 
@@ -609,6 +612,7 @@ class AsyncUserResourceWithRawResponse:
 
     @cached_property
     def api_keys(self) -> AsyncAPIKeysResourceWithRawResponse:
+        """All the accessible information about your account through our API"""
         return AsyncAPIKeysResourceWithRawResponse(self._user.api_keys)
 
 
@@ -644,6 +648,7 @@ class UserResourceWithStreamingResponse:
 
     @cached_property
     def api_keys(self) -> APIKeysResourceWithStreamingResponse:
+        """All the accessible information about your account through our API"""
         return APIKeysResourceWithStreamingResponse(self._user.api_keys)
 
 
@@ -679,4 +684,5 @@ class AsyncUserResourceWithStreamingResponse:
 
     @cached_property
     def api_keys(self) -> AsyncAPIKeysResourceWithStreamingResponse:
+        """All the accessible information about your account through our API"""
         return AsyncAPIKeysResourceWithStreamingResponse(self._user.api_keys)

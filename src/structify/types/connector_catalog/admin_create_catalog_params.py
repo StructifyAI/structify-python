@@ -19,4 +19,6 @@ class AdminCreateCatalogParams(TypedDict, total=False):
 
     description: Optional[str]
 
+    enterprise_only: bool
+
     priority: Optional[int]

@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from typing import Dict, Mapping, Iterable, Optional, cast
-from typing_extensions import Literal
+from typing_extensions import Literal, overload
 
 import httpx
 
@@ -25,7 +25,7 @@ from ..types import (
     session_upload_node_visualization_output_params,
 )
 from .._types import Body, Omit, Query, Headers, NotGiven, FileTypes, omit, not_given
-from .._utils import extract_files, maybe_transform, deepcopy_minimal, async_maybe_transform
+from .._utils import extract_files, required_args, maybe_transform, deepcopy_minimal, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -120,7 +120,7 @@ class SessionsResource(SyncAPIResource):
         self,
         *,
         chat_session_id: str,
-        git_commit: str,
+        parent_chat_message_id: Optional[str] | Omit = omit,
         workflow_schedule_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -144,7 +144,7 @@ class SessionsResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "chat_session_id": chat_session_id,
-                    "git_commit": git_commit,
+                    "parent_chat_message_id": parent_chat_message_id,
                     "workflow_schedule_id": workflow_schedule_id,
                 },
                 session_create_session_params.SessionCreateSessionParams,
@@ -648,6 +648,7 @@ class SessionsResource(SyncAPIResource):
             cast_to=WorkflowSessionNode,
         )
 
+    @overload
     def upload_dashboard_layout(
         self,
         session_id: str,
@@ -673,12 +674,57 @@ class SessionsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        ...
+
+    @overload
+    def upload_dashboard_layout(
+        self,
+        session_id: str,
+        *,
+        dashboard_specs: Iterable[session_upload_dashboard_layout_params.Variant1DashboardSpec],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> WorkflowSession:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @required_args(["layout"], ["dashboard_specs"])
+    def upload_dashboard_layout(
+        self,
+        session_id: str,
+        *,
+        layout: DashboardParam | Omit = omit,
+        dashboard_specs: Iterable[session_upload_dashboard_layout_params.Variant1DashboardSpec] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> WorkflowSession:
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return self._post(
             f"/sessions/{session_id}/dashboard_layout",
             body=maybe_transform(
-                {"layout": layout}, session_upload_dashboard_layout_params.SessionUploadDashboardLayoutParams
+                {
+                    "layout": layout,
+                    "dashboard_specs": dashboard_specs,
+                },
+                session_upload_dashboard_layout_params.SessionUploadDashboardLayoutParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -691,6 +737,12 @@ class SessionsResource(SyncAPIResource):
         node_id: str,
         *,
         content: FileTypes,
+        cache_final_rows: Optional[int] | Omit = omit,
+        cache_final_size_bytes: Optional[int] | Omit = omit,
+        cache_max_bytes: Optional[int] | Omit = omit,
+        cache_original_rows: Optional[int] | Omit = omit,
+        cache_original_size_bytes: Optional[int] | Omit = omit,
+        cache_truncated: Optional[bool] | Omit = omit,
         output_schema: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -714,6 +766,12 @@ class SessionsResource(SyncAPIResource):
         body = deepcopy_minimal(
             {
                 "content": content,
+                "cache_final_rows": cache_final_rows,
+                "cache_final_size_bytes": cache_final_size_bytes,
+                "cache_max_bytes": cache_max_bytes,
+                "cache_original_rows": cache_original_rows,
+                "cache_original_size_bytes": cache_original_size_bytes,
+                "cache_truncated": cache_truncated,
                 "output_schema": output_schema,
             }
         )
@@ -828,7 +886,7 @@ class AsyncSessionsResource(AsyncAPIResource):
         self,
         *,
         chat_session_id: str,
-        git_commit: str,
+        parent_chat_message_id: Optional[str] | Omit = omit,
         workflow_schedule_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -852,7 +910,7 @@ class AsyncSessionsResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "chat_session_id": chat_session_id,
-                    "git_commit": git_commit,
+                    "parent_chat_message_id": parent_chat_message_id,
                     "workflow_schedule_id": workflow_schedule_id,
                 },
                 session_create_session_params.SessionCreateSessionParams,
@@ -1358,6 +1416,7 @@ class AsyncSessionsResource(AsyncAPIResource):
             cast_to=WorkflowSessionNode,
         )
 
+    @overload
     async def upload_dashboard_layout(
         self,
         session_id: str,
@@ -1383,12 +1442,57 @@ class AsyncSessionsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        ...
+
+    @overload
+    async def upload_dashboard_layout(
+        self,
+        session_id: str,
+        *,
+        dashboard_specs: Iterable[session_upload_dashboard_layout_params.Variant1DashboardSpec],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> WorkflowSession:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @required_args(["layout"], ["dashboard_specs"])
+    async def upload_dashboard_layout(
+        self,
+        session_id: str,
+        *,
+        layout: DashboardParam | Omit = omit,
+        dashboard_specs: Iterable[session_upload_dashboard_layout_params.Variant1DashboardSpec] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> WorkflowSession:
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return await self._post(
             f"/sessions/{session_id}/dashboard_layout",
             body=await async_maybe_transform(
-                {"layout": layout}, session_upload_dashboard_layout_params.SessionUploadDashboardLayoutParams
+                {
+                    "layout": layout,
+                    "dashboard_specs": dashboard_specs,
+                },
+                session_upload_dashboard_layout_params.SessionUploadDashboardLayoutParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -1401,6 +1505,12 @@ class AsyncSessionsResource(AsyncAPIResource):
         node_id: str,
         *,
         content: FileTypes,
+        cache_final_rows: Optional[int] | Omit = omit,
+        cache_final_size_bytes: Optional[int] | Omit = omit,
+        cache_max_bytes: Optional[int] | Omit = omit,
+        cache_original_rows: Optional[int] | Omit = omit,
+        cache_original_size_bytes: Optional[int] | Omit = omit,
+        cache_truncated: Optional[bool] | Omit = omit,
         output_schema: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1424,6 +1534,12 @@ class AsyncSessionsResource(AsyncAPIResource):
         body = deepcopy_minimal(
             {
                 "content": content,
+                "cache_final_rows": cache_final_rows,
+                "cache_final_size_bytes": cache_final_size_bytes,
+                "cache_max_bytes": cache_max_bytes,
+                "cache_original_rows": cache_original_rows,
+                "cache_original_size_bytes": cache_original_size_bytes,
+                "cache_truncated": cache_truncated,
                 "output_schema": output_schema,
             }
         )

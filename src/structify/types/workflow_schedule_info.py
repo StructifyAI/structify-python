@@ -3,6 +3,7 @@
 from typing import Optional
 
 from .._models import BaseModel
+from .chat_visibility import ChatVisibility
 
 __all__ = ["WorkflowScheduleInfo"]
 
@@ -21,3 +22,9 @@ class WorkflowScheduleInfo(BaseModel):
     git_commit_hash: Optional[str] = None
 
     next_run_time: Optional[str] = None
+
+    owner_email: Optional[str] = None
+
+    updated_at: Optional[str] = None
+
+    visibility: Optional[ChatVisibility] = None

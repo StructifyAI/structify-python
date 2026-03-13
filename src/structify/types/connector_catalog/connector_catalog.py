@@ -15,6 +15,8 @@ class ConnectorCatalog(BaseModel):
 
     created_at: datetime
 
+    enterprise_only: bool
+
     name: str
 
     slug: str

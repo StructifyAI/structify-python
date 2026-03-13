@@ -1,6 +1,6 @@
 [project]
 name = "structifyai"
-version = "1.183.0"
+version = "1.184.0"
 description = "The official Python library for the structify API"
 dynamic = ["readme"]
 license = "Apache-2.0"
@@ -16,6 +16,7 @@ dependencies = [
   "distro>=1.7.0, <2",
   "sniffio",
     "polars==1.31.0",
+    "pypdf>=4.0.0,<5.0.0",
     "tqdm>=4.66.2,<4.67.0",
 ]
 
@@ -72,7 +73,7 @@ format = { chain = [
   # run formatting again to fix any inconsistencies when imports are stripped
   "format:ruff",
 ]}
-"format:docs" = "python scripts/utils/ruffen-docs.py README.md api.md"
+"format:docs" = "bash -c 'python scripts/utils/ruffen-docs.py README.md $(find . -type f -name api.md)'"
 "format:ruff" = "ruff format"
 
 "lint" = { chain = [

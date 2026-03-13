@@ -13,4 +13,16 @@ __all__ = ["SessionUploadNodeOutputDataParams"]
 class SessionUploadNodeOutputDataParams(TypedDict, total=False):
     content: Required[FileTypes]
 
+    cache_final_rows: Optional[int]
+
+    cache_final_size_bytes: Optional[int]
+
+    cache_max_bytes: Optional[int]
+
+    cache_original_rows: Optional[int]
+
+    cache_original_size_bytes: Optional[int]
+
+    cache_truncated: Optional[bool]
+
     output_schema: Optional[str]
