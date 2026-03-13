@@ -8,6 +8,7 @@ import uuid
 from typing import Any, Dict, List, Tuple, Literal, Optional, cast
 from concurrent.futures import Future, ThreadPoolExecutor, as_completed
 
+import httpx
 import polars as pl
 from tqdm import tqdm  # type: ignore
 from polars import LazyFrame
@@ -882,15 +883,28 @@ class PolarsResource(SyncAPIResource):
 
         # Process each PDF document
         def process_pdf(pdf_path: str, instructions: str | None) -> Tuple[List[str], str]:
-            # Upload the PDF document
+            # Upload the PDF document using signed URL flow
             unique_pdf_name = f"{uuid.uuid4().hex}.pdf"
             with open(pdf_path, "rb") as pdf_file:
+                pdf_content = pdf_file.read()
                 try:
-                    self._client.documents.upload(
-                        content=pdf_file,
+                    # Step 1: Get signed upload URL
+                    init_response = self._client.documents.init_upload(
+                        content_type="application/pdf",
+                    )
+                    # Step 2: Upload directly to signed URL
+                    upload_response = httpx.put(
+                        init_response.upload_url,
+                        content=pdf_content,
+                        headers=init_response.required_headers,
+                    )
+                    upload_response.raise_for_status()
+                    # Step 3: Complete the upload
+                    self._client.documents.complete_upload(
+                        path=unique_pdf_name,
                         file_type="PDF",
+                        blob_name=init_response.blob_name,
                         dataset=dataset_name,
-                        path=unique_pdf_name.encode(),
                     )
                 except Exception as e:
                     if "Document already exists" not in str(e):
