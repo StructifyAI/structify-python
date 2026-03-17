@@ -583,6 +583,7 @@ from structify.types import (
     VizStringControl,
     VizStringControlType,
     WorkflowDag,
+    WorkflowDashboardItem,
     WorkflowNodeExecutionStatus,
     WorkflowNodeLog,
     WorkflowSession,

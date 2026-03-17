@@ -5,6 +5,7 @@ from datetime import datetime
 
 from .._models import BaseModel
 from .dashboard import Dashboard
+from .dashboard_item import DashboardItem
 from .workflow_session_edge import WorkflowSessionEdge
 from .workflow_session_node import WorkflowSessionNode
 
@@ -13,6 +14,8 @@ __all__ = ["WorkflowDag"]
 
 class WorkflowDag(BaseModel):
     aborted: bool
+
+    dashboard_specs: List[DashboardItem]
 
     edges: List[WorkflowSessionEdge]
 
