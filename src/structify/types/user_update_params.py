@@ -54,8 +54,6 @@ class Updates(TypedDict, total=False):
 
     full_name: Optional[str]
 
-    is_developer: Optional[bool]
-
     job_title: Optional[str]
 
     last_selected_team_id: Optional[str]
