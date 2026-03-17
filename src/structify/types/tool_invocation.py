@@ -198,11 +198,7 @@ class InspectStep(BaseModel):
 
 
 class ReadNodeLogsInput(BaseModel):
-    end_line: int
-
     node_function_name: str
-
-    start_line: int
 
     log_type: Optional[str] = None
 
