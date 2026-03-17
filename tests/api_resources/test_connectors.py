@@ -22,6 +22,7 @@ from structify.types import (
     ConnectorSummariesResponse,
     ConnectorTablePathResponse,
     DeleteSchemaObjectResponse,
+    ConnectorListStoresResponse,
     ConnectorSearchTablesResponse,
     ConnectorAddSchemaObjectResponse,
     ConnectorListWithSnippetsResponse,
@@ -1051,6 +1052,31 @@ class TestConnectors:
             client.connectors.with_raw_response.get_table_path(
                 "",
             )
+
+    @parametrize
+    def test_method_list_stores(self, client: Structify) -> None:
+        connector = client.connectors.list_stores()
+        assert_matches_type(ConnectorListStoresResponse, connector, path=["response"])
+
+    @parametrize
+    def test_raw_response_list_stores(self, client: Structify) -> None:
+        response = client.connectors.with_raw_response.list_stores()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        connector = response.parse()
+        assert_matches_type(ConnectorListStoresResponse, connector, path=["response"])
+
+    @parametrize
+    def test_streaming_response_list_stores(self, client: Structify) -> None:
+        with client.connectors.with_streaming_response.list_stores() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            connector = response.parse()
+            assert_matches_type(ConnectorListStoresResponse, connector, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
 
     @parametrize
     def test_method_list_tables(self, client: Structify) -> None:
@@ -2333,6 +2359,31 @@ class TestAsyncConnectors:
             await async_client.connectors.with_raw_response.get_table_path(
                 "",
             )
+
+    @parametrize
+    async def test_method_list_stores(self, async_client: AsyncStructify) -> None:
+        connector = await async_client.connectors.list_stores()
+        assert_matches_type(ConnectorListStoresResponse, connector, path=["response"])
+
+    @parametrize
+    async def test_raw_response_list_stores(self, async_client: AsyncStructify) -> None:
+        response = await async_client.connectors.with_raw_response.list_stores()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        connector = await response.parse()
+        assert_matches_type(ConnectorListStoresResponse, connector, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_list_stores(self, async_client: AsyncStructify) -> None:
+        async with async_client.connectors.with_streaming_response.list_stores() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            connector = await response.parse()
+            assert_matches_type(ConnectorListStoresResponse, connector, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
 
     @parametrize
     async def test_method_list_tables(self, async_client: AsyncStructify) -> None:
