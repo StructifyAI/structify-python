@@ -69,6 +69,8 @@ class ChatSessionWithMessages(BaseModel):
 
     created_at: datetime
 
+    ephemeral: bool
+
     git_application_token: str
 
     is_favorite: bool
@@ -86,6 +88,8 @@ class ChatSessionWithMessages(BaseModel):
     user_role: ChatSessionRole
 
     visibility: ChatVisibility
+
+    instantiated_from_template_id: Optional[str] = None
 
     latest_workflow_session_id: Optional[str] = None
 

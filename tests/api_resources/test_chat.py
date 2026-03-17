@@ -13,6 +13,7 @@ from structify import Structify, AsyncStructify
 from tests.utils import assert_matches_type
 from structify.types import (
     ChatSession,
+    ChatTemplate,
     ChatLoadFilesResponse,
     GetChatSessionResponse,
     ListDashboardsResponse,
@@ -203,6 +204,7 @@ class TestChat:
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             copy_inputs=True,
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            template_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(ChatSessionWithMessages, chat, path=["response"])
 
@@ -604,6 +606,44 @@ class TestChat:
     def test_path_params_get_session_timeline(self, client: Structify) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
             client.chat.with_raw_response.get_session_timeline(
+                "",
+            )
+
+    @parametrize
+    def test_method_get_template(self, client: Structify) -> None:
+        chat = client.chat.get_template(
+            "template_id",
+        )
+        assert_matches_type(ChatTemplate, chat, path=["response"])
+
+    @parametrize
+    def test_raw_response_get_template(self, client: Structify) -> None:
+        response = client.chat.with_raw_response.get_template(
+            "template_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        chat = response.parse()
+        assert_matches_type(ChatTemplate, chat, path=["response"])
+
+    @parametrize
+    def test_streaming_response_get_template(self, client: Structify) -> None:
+        with client.chat.with_streaming_response.get_template(
+            "template_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            chat = response.parse()
+            assert_matches_type(ChatTemplate, chat, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_path_params_get_template(self, client: Structify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `template_id` but received ''"):
+            client.chat.with_raw_response.get_template(
                 "",
             )
 
@@ -1689,6 +1729,7 @@ class TestAsyncChat:
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             copy_inputs=True,
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            template_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(ChatSessionWithMessages, chat, path=["response"])
 
@@ -2090,6 +2131,44 @@ class TestAsyncChat:
     async def test_path_params_get_session_timeline(self, async_client: AsyncStructify) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
             await async_client.chat.with_raw_response.get_session_timeline(
+                "",
+            )
+
+    @parametrize
+    async def test_method_get_template(self, async_client: AsyncStructify) -> None:
+        chat = await async_client.chat.get_template(
+            "template_id",
+        )
+        assert_matches_type(ChatTemplate, chat, path=["response"])
+
+    @parametrize
+    async def test_raw_response_get_template(self, async_client: AsyncStructify) -> None:
+        response = await async_client.chat.with_raw_response.get_template(
+            "template_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        chat = await response.parse()
+        assert_matches_type(ChatTemplate, chat, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_get_template(self, async_client: AsyncStructify) -> None:
+        async with async_client.chat.with_streaming_response.get_template(
+            "template_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            chat = await response.parse()
+            assert_matches_type(ChatTemplate, chat, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_get_template(self, async_client: AsyncStructify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `template_id` but received ''"):
+            await async_client.chat.with_raw_response.get_template(
                 "",
             )
 
