@@ -73,6 +73,7 @@ from .get_node_response import GetNodeResponse as GetNodeResponse
 from .get_team_response import GetTeamResponse as GetTeamResponse
 from .job_list_response import JobListResponse as JobListResponse
 from .job_status_params import JobStatusParams as JobStatusParams
+from .template_question import TemplateQuestion as TemplateQuestion
 from .user_usage_params import UserUsageParams as UserUsageParams
 from .workflow_node_log import WorkflowNodeLog as WorkflowNodeLog
 from .connector_category import ConnectorCategory as ConnectorCategory
@@ -185,6 +186,7 @@ from .entity_list_jobs_params import EntityListJobsParams as EntityListJobsParam
 from .entity_summarize_params import EntitySummarizeParams as EntitySummarizeParams
 from .explore_status_response import ExploreStatusResponse as ExploreStatusResponse
 from .get_job_events_response import GetJobEventsResponse as GetJobEventsResponse
+from .template_question_param import TemplateQuestionParam as TemplateQuestionParam
 from .viz_number_control_type import VizNumberControlType as VizNumberControlType
 from .viz_string_control_type import VizStringControlType as VizStringControlType
 from .chat_load_files_response import ChatLoadFilesResponse as ChatLoadFilesResponse

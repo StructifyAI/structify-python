@@ -36,6 +36,8 @@ class ChatSession(BaseModel):
 
     config_proto: Optional[object] = None
 
+    instantiated_from_template_id: Optional[str] = None
+
     message_head: Optional[str] = None
 
     name: Optional[str] = None

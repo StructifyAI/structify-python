@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Optional
+from typing import Iterable, Optional
 
 import httpx
 
@@ -19,6 +19,7 @@ from ..._response import (
 from ...types.admin import chat_template_list_params, chat_template_create_params, chat_template_update_params
 from ..._base_client import make_request_options
 from ...types.chat_template import ChatTemplate
+from ...types.template_question_param import TemplateQuestionParam
 from ...types.admin.chat_template_list_response import ChatTemplateListResponse
 
 __all__ = ["ChatTemplatesResource", "AsyncChatTemplatesResource"]
@@ -54,6 +55,7 @@ class ChatTemplatesResource(SyncAPIResource):
         display_order: int,
         image_url: str,
         is_active: bool,
+        questions: Iterable[TemplateQuestionParam],
         title: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -81,6 +83,7 @@ class ChatTemplatesResource(SyncAPIResource):
                     "display_order": display_order,
                     "image_url": image_url,
                     "is_active": is_active,
+                    "questions": questions,
                     "title": title,
                 },
                 chat_template_create_params.ChatTemplateCreateParams,
@@ -99,6 +102,7 @@ class ChatTemplatesResource(SyncAPIResource):
         display_order: Optional[int] | Omit = omit,
         image_url: Optional[str] | Omit = omit,
         is_active: Optional[bool] | Omit = omit,
+        questions: Optional[Iterable[TemplateQuestionParam]] | Omit = omit,
         title: Optional[str] | Omit = omit,
         updated_by: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -128,6 +132,7 @@ class ChatTemplatesResource(SyncAPIResource):
                     "display_order": display_order,
                     "image_url": image_url,
                     "is_active": is_active,
+                    "questions": questions,
                     "title": title,
                     "updated_by": updated_by,
                 },
@@ -205,6 +210,7 @@ class AsyncChatTemplatesResource(AsyncAPIResource):
         display_order: int,
         image_url: str,
         is_active: bool,
+        questions: Iterable[TemplateQuestionParam],
         title: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -232,6 +238,7 @@ class AsyncChatTemplatesResource(AsyncAPIResource):
                     "display_order": display_order,
                     "image_url": image_url,
                     "is_active": is_active,
+                    "questions": questions,
                     "title": title,
                 },
                 chat_template_create_params.ChatTemplateCreateParams,
@@ -250,6 +257,7 @@ class AsyncChatTemplatesResource(AsyncAPIResource):
         display_order: Optional[int] | Omit = omit,
         image_url: Optional[str] | Omit = omit,
         is_active: Optional[bool] | Omit = omit,
+        questions: Optional[Iterable[TemplateQuestionParam]] | Omit = omit,
         title: Optional[str] | Omit = omit,
         updated_by: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -279,6 +287,7 @@ class AsyncChatTemplatesResource(AsyncAPIResource):
                     "display_order": display_order,
                     "image_url": image_url,
                     "is_active": is_active,
+                    "questions": questions,
                     "title": title,
                     "updated_by": updated_by,
                 },

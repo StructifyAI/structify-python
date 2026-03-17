@@ -50,6 +50,8 @@ class Session(BaseModel):
 
     created_at: datetime
 
+    ephemeral: bool
+
     git_application_token: str
 
     is_favorite: bool
@@ -69,6 +71,8 @@ class Session(BaseModel):
     visibility: ChatVisibility
 
     workflow_sessions: List[WorkflowSession]
+
+    instantiated_from_template_id: Optional[str] = None
 
     latest_workflow_session_id: Optional[str] = None
 
