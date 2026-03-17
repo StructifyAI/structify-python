@@ -55,6 +55,7 @@ from ...types.exploration_runs_response import ExplorationRunsResponse
 from ...types.connector_summaries_response import ConnectorSummariesResponse
 from ...types.connector_table_path_response import ConnectorTablePathResponse
 from ...types.delete_schema_object_response import DeleteSchemaObjectResponse
+from ...types.connector_list_stores_response import ConnectorListStoresResponse
 from ...types.connector_search_tables_response import ConnectorSearchTablesResponse
 from ...types.connector_add_schema_object_response import ConnectorAddSchemaObjectResponse
 from ...types.connector_list_with_snippets_response import ConnectorListWithSnippetsResponse
@@ -926,6 +927,24 @@ class ConnectorsResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=ConnectorTablePathResponse,
+        )
+
+    def list_stores(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ConnectorListStoresResponse:
+        return self._get(
+            "/connectors/stores",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ConnectorListStoresResponse,
         )
 
     def list_tables(
@@ -2033,6 +2052,24 @@ class AsyncConnectorsResource(AsyncAPIResource):
             cast_to=ConnectorTablePathResponse,
         )
 
+    async def list_stores(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ConnectorListStoresResponse:
+        return await self._get(
+            "/connectors/stores",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ConnectorListStoresResponse,
+        )
+
     async def list_tables(
         self,
         connector_id: str,
@@ -2329,6 +2366,9 @@ class ConnectorsResourceWithRawResponse:
         self.get_table_path = to_raw_response_wrapper(
             connectors.get_table_path,
         )
+        self.list_stores = to_raw_response_wrapper(
+            connectors.list_stores,
+        )
         self.list_tables = to_raw_response_wrapper(
             connectors.list_tables,
         )
@@ -2407,6 +2447,9 @@ class AsyncConnectorsResourceWithRawResponse:
         )
         self.get_table_path = async_to_raw_response_wrapper(
             connectors.get_table_path,
+        )
+        self.list_stores = async_to_raw_response_wrapper(
+            connectors.list_stores,
         )
         self.list_tables = async_to_raw_response_wrapper(
             connectors.list_tables,
@@ -2487,6 +2530,9 @@ class ConnectorsResourceWithStreamingResponse:
         self.get_table_path = to_streamed_response_wrapper(
             connectors.get_table_path,
         )
+        self.list_stores = to_streamed_response_wrapper(
+            connectors.list_stores,
+        )
         self.list_tables = to_streamed_response_wrapper(
             connectors.list_tables,
         )
@@ -2565,6 +2611,9 @@ class AsyncConnectorsResourceWithStreamingResponse:
         )
         self.get_table_path = async_to_streamed_response_wrapper(
             connectors.get_table_path,
+        )
+        self.list_stores = async_to_streamed_response_wrapper(
+            connectors.list_stores,
         )
         self.list_tables = async_to_streamed_response_wrapper(
             connectors.list_tables,
