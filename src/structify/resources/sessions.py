@@ -54,6 +54,7 @@ from ..types.parquet_edit_param import ParquetEditParam
 from ..types.finalize_dag_response import FinalizeDagResponse
 from ..types.workflow_session_node import WorkflowSessionNode
 from ..types.get_node_logs_response import GetNodeLogsResponse
+from ..types.trigger_review_response import TriggerReviewResponse
 from ..types.session_kill_jobs_response import SessionKillJobsResponse
 from ..types.session_get_events_response import SessionGetEventsResponse
 from ..types.workflow_node_execution_status import WorkflowNodeExecutionStatus
@@ -558,6 +559,37 @@ class SessionsResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=WorkflowSessionNode,
+        )
+
+    def trigger_review(
+        self,
+        session_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> TriggerReviewResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not session_id:
+            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
+        return self._post(
+            f"/sessions/{session_id}/trigger_review",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=TriggerReviewResponse,
         )
 
     def update_node(
@@ -1328,6 +1360,37 @@ class AsyncSessionsResource(AsyncAPIResource):
             cast_to=WorkflowSessionNode,
         )
 
+    async def trigger_review(
+        self,
+        session_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> TriggerReviewResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not session_id:
+            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
+        return await self._post(
+            f"/sessions/{session_id}/trigger_review",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=TriggerReviewResponse,
+        )
+
     async def update_node(
         self,
         node_id: str,
@@ -1641,6 +1704,9 @@ class SessionsResourceWithRawResponse:
         self.request_confirmation = to_raw_response_wrapper(
             sessions.request_confirmation,
         )
+        self.trigger_review = to_raw_response_wrapper(
+            sessions.trigger_review,
+        )
         self.update_node = to_raw_response_wrapper(
             sessions.update_node,
         )
@@ -1701,6 +1767,9 @@ class AsyncSessionsResourceWithRawResponse:
         )
         self.request_confirmation = async_to_raw_response_wrapper(
             sessions.request_confirmation,
+        )
+        self.trigger_review = async_to_raw_response_wrapper(
+            sessions.trigger_review,
         )
         self.update_node = async_to_raw_response_wrapper(
             sessions.update_node,
@@ -1763,6 +1832,9 @@ class SessionsResourceWithStreamingResponse:
         self.request_confirmation = to_streamed_response_wrapper(
             sessions.request_confirmation,
         )
+        self.trigger_review = to_streamed_response_wrapper(
+            sessions.trigger_review,
+        )
         self.update_node = to_streamed_response_wrapper(
             sessions.update_node,
         )
@@ -1823,6 +1895,9 @@ class AsyncSessionsResourceWithStreamingResponse:
         )
         self.request_confirmation = async_to_streamed_response_wrapper(
             sessions.request_confirmation,
+        )
+        self.trigger_review = async_to_streamed_response_wrapper(
+            sessions.trigger_review,
         )
         self.update_node = async_to_streamed_response_wrapper(
             sessions.update_node,

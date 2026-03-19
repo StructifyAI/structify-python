@@ -15,5 +15,8 @@ class ChatListSessionsParams(TypedDict, total=False):
     limit: Optional[int]
     """Maximum number of sessions to return (default: 50)"""
 
+    offset: Optional[int]
+    """Number of sessions to skip (default: 0)"""
+
     project_id: Optional[str]
     """Project ID to filter chat sessions"""
