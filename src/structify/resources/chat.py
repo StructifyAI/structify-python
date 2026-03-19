@@ -777,7 +777,6 @@ class ChatResource(SyncAPIResource):
         *,
         team_id: str,
         limit: Optional[int] | Omit = omit,
-        offset: Optional[int] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -794,8 +793,6 @@ class ChatResource(SyncAPIResource):
           team_id: Team ID to filter chat sessions
 
           limit: Maximum number of sessions to return (default: 50)
-
-          offset: Number of sessions to skip (default: 0)
 
           project_id: Project ID to filter chat sessions
 
@@ -818,7 +815,6 @@ class ChatResource(SyncAPIResource):
                     {
                         "team_id": team_id,
                         "limit": limit,
-                        "offset": offset,
                         "project_id": project_id,
                     },
                     chat_list_sessions_params.ChatListSessionsParams,
@@ -1968,7 +1964,6 @@ class AsyncChatResource(AsyncAPIResource):
         *,
         team_id: str,
         limit: Optional[int] | Omit = omit,
-        offset: Optional[int] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1985,8 +1980,6 @@ class AsyncChatResource(AsyncAPIResource):
           team_id: Team ID to filter chat sessions
 
           limit: Maximum number of sessions to return (default: 50)
-
-          offset: Number of sessions to skip (default: 0)
 
           project_id: Project ID to filter chat sessions
 
@@ -2009,7 +2002,6 @@ class AsyncChatResource(AsyncAPIResource):
                     {
                         "team_id": team_id,
                         "limit": limit,
-                        "offset": offset,
                         "project_id": project_id,
                     },
                     chat_list_sessions_params.ChatListSessionsParams,

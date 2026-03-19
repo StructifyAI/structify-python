@@ -14,9 +14,7 @@ class JobCancelResponse(BaseModel):
 
     created_at: datetime
 
-    dataset_id: str
-
-    job_type: Literal["Web", "Pdf", "Derive", "Scrape", "Match", "ConnectorExplore"]
+    job_type: Literal["Web", "Pdf", "Derive", "Scrape", "Match", "ConnectorExplore", "DatahubIngestion"]
 
     max_steps_without_save: int
 
@@ -29,6 +27,8 @@ class JobCancelResponse(BaseModel):
     use_proxy: bool
 
     user_id: str
+
+    dataset_id: Optional[str] = None
 
     max_errors: Optional[int] = None
 
