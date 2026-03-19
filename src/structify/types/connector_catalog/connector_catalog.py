@@ -25,6 +25,4 @@ class ConnectorCatalog(BaseModel):
 
     description: Optional[str] = None
 
-    onboarding_priority: Optional[int] = None
-
     priority: Optional[int] = None

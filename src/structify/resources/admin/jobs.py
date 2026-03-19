@@ -52,7 +52,8 @@ class JobsResource(SyncAPIResource):
     def list(
         self,
         *,
-        job_type: Optional[Literal["Web", "Pdf", "Derive", "Scrape", "Match", "ConnectorExplore"]] | Omit = omit,
+        job_type: Optional[Literal["Web", "Pdf", "Derive", "Scrape", "Match", "ConnectorExplore", "DatahubIngestion"]]
+        | Omit = omit,
         limit: int | Omit = omit,
         offset: int | Omit = omit,
         status: Optional[Literal["Queued", "Running", "Completed", "Failed"]] | Omit = omit,
@@ -182,7 +183,8 @@ class AsyncJobsResource(AsyncAPIResource):
     def list(
         self,
         *,
-        job_type: Optional[Literal["Web", "Pdf", "Derive", "Scrape", "Match", "ConnectorExplore"]] | Omit = omit,
+        job_type: Optional[Literal["Web", "Pdf", "Derive", "Scrape", "Match", "ConnectorExplore", "DatahubIngestion"]]
+        | Omit = omit,
         limit: int | Omit = omit,
         offset: int | Omit = omit,
         status: Optional[Literal["Queued", "Running", "Completed", "Failed"]] | Omit = omit,
