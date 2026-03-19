@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from typing import Optional
-from typing_extensions import TypedDict
+from typing_extensions import Literal, TypedDict
 
 __all__ = ["ConnectorExploreParams"]
 
@@ -11,9 +11,9 @@ __all__ = ["ConnectorExploreParams"]
 class ConnectorExploreParams(TypedDict, total=False):
     database_id: Optional[str]
 
-    only_do_datahub: Optional[bool]
-    """If true, run only DataHub ingestion without queuing Diego annotation jobs."""
-
     schema_id: Optional[str]
+
+    stage: Optional[Literal["both", "ingestion", "annotation"]]
+    """Which exploration stage to run"""
 
     table_id: Optional[str]
