@@ -44,6 +44,3 @@ class ListChatSessionsResponse(BaseModel):
     """Response for listing chat sessions"""
 
     sessions: List[Session]
-
-    total_count: int
-    """Total number of chat sessions matching the query (for pagination)"""
