@@ -201,7 +201,6 @@ class AdminResource(SyncAPIResource):
         categories: SequenceNotStr[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
         enterprise_only: bool | Omit = omit,
-        onboarding_priority: Optional[int] | Omit = omit,
         priority: Optional[int] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -231,7 +230,6 @@ class AdminResource(SyncAPIResource):
                     "categories": categories,
                     "description": description,
                     "enterprise_only": enterprise_only,
-                    "onboarding_priority": onboarding_priority,
                     "priority": priority,
                 },
                 admin_create_catalog_params.AdminCreateCatalogParams,
@@ -543,7 +541,6 @@ class AdminResource(SyncAPIResource):
         description: Optional[str] | Omit = omit,
         enterprise_only: Optional[bool] | Omit = omit,
         name: Optional[str] | Omit = omit,
-        onboarding_priority: Optional[int] | Omit = omit,
         priority: Optional[int] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -574,7 +571,6 @@ class AdminResource(SyncAPIResource):
                     "description": description,
                     "enterprise_only": enterprise_only,
                     "name": name,
-                    "onboarding_priority": onboarding_priority,
                     "priority": priority,
                 },
                 admin_update_catalog_params.AdminUpdateCatalogParams,
@@ -867,7 +863,6 @@ class AsyncAdminResource(AsyncAPIResource):
         categories: SequenceNotStr[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
         enterprise_only: bool | Omit = omit,
-        onboarding_priority: Optional[int] | Omit = omit,
         priority: Optional[int] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -897,7 +892,6 @@ class AsyncAdminResource(AsyncAPIResource):
                     "categories": categories,
                     "description": description,
                     "enterprise_only": enterprise_only,
-                    "onboarding_priority": onboarding_priority,
                     "priority": priority,
                 },
                 admin_create_catalog_params.AdminCreateCatalogParams,
@@ -1209,7 +1203,6 @@ class AsyncAdminResource(AsyncAPIResource):
         description: Optional[str] | Omit = omit,
         enterprise_only: Optional[bool] | Omit = omit,
         name: Optional[str] | Omit = omit,
-        onboarding_priority: Optional[int] | Omit = omit,
         priority: Optional[int] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1240,7 +1233,6 @@ class AsyncAdminResource(AsyncAPIResource):
                     "description": description,
                     "enterprise_only": enterprise_only,
                     "name": name,
-                    "onboarding_priority": onboarding_priority,
                     "priority": priority,
                 },
                 admin_update_catalog_params.AdminUpdateCatalogParams,

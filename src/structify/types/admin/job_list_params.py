@@ -9,7 +9,7 @@ __all__ = ["JobListParams"]
 
 
 class JobListParams(TypedDict, total=False):
-    job_type: Optional[Literal["Web", "Pdf", "Derive", "Scrape", "Match", "ConnectorExplore"]]
+    job_type: Optional[Literal["Web", "Pdf", "Derive", "Scrape", "Match", "ConnectorExplore", "DatahubIngestion"]]
 
     limit: int
 
