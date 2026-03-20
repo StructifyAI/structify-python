@@ -151,6 +151,7 @@ from .viz_figure_definition import VizFigureDefinition as VizFigureDefinition
 from .workflow_session_edge import WorkflowSessionEdge as WorkflowSessionEdge
 from .workflow_session_node import WorkflowSessionNode as WorkflowSessionNode
 from .chat_load_files_params import ChatLoadFilesParams as ChatLoadFilesParams
+from .compress_chat_response import CompressChatResponse as CompressChatResponse
 from .connector_get_response import ConnectorGetResponse as ConnectorGetResponse
 from .connector_with_secrets import ConnectorWithSecrets as ConnectorWithSecrets
 from .credits_usage_response import CreditsUsageResponse as CreditsUsageResponse
@@ -380,9 +381,6 @@ from .get_workflow_schedule_sessions_response import (
 )
 from .structure_enhance_relationship_response import (
     StructureEnhanceRelationshipResponse as StructureEnhanceRelationshipResponse,
-)
-from .connector_upload_datahub_artifact_params import (
-    ConnectorUploadDatahubArtifactParams as ConnectorUploadDatahubArtifactParams,
 )
 from .chat_copy_node_output_by_code_hash_params import (
     ChatCopyNodeOutputByCodeHashParams as ChatCopyNodeOutputByCodeHashParams,

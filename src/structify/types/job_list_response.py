@@ -26,8 +26,6 @@ __all__ = [
     "ParametersStructuringInputScrapeFromURLPropertyScrapeFromURLProperty",
     "ParametersStructuringInputScrapeURL",
     "ParametersStructuringInputScrapeURLScrapeURL",
-    "ParametersStructuringInputDatahubIngestion",
-    "ParametersStructuringInputDatahubIngestionDatahubIngestion",
     "ParametersStructuringInputConnectorExploration",
     "ParametersStructuringInputConnectorExplorationConnectorExploration",
 ]
@@ -97,18 +95,6 @@ class ParametersStructuringInputScrapeURL(BaseModel):
     scrape_url: ParametersStructuringInputScrapeURLScrapeURL = FieldInfo(alias="ScrapeUrl")
 
 
-class ParametersStructuringInputDatahubIngestionDatahubIngestion(BaseModel):
-    connector_id: str
-
-    exploration_run_id: str
-
-    only_do_datahub: bool
-
-
-class ParametersStructuringInputDatahubIngestion(BaseModel):
-    datahub_ingestion: ParametersStructuringInputDatahubIngestionDatahubIngestion = FieldInfo(alias="DatahubIngestion")
-
-
 class ParametersStructuringInputConnectorExplorationConnectorExploration(BaseModel):
     connector_id: str
 
@@ -121,7 +107,8 @@ class ParametersStructuringInputConnectorExplorationConnectorExploration(BaseMod
 
     exploration_run_id: str
 
-    strategy: Literal["full", "diff"]
+    stage: Literal["both", "ingestion", "annotation"]
+    """Which exploration stage to run"""
 
 
 class ParametersStructuringInputConnectorExploration(BaseModel):
@@ -135,7 +122,6 @@ ParametersStructuringInput: TypeAlias = Union[
     ParametersStructuringInputTransformationPrompt,
     ParametersStructuringInputScrapeFromURLProperty,
     ParametersStructuringInputScrapeURL,
-    ParametersStructuringInputDatahubIngestion,
     ParametersStructuringInputConnectorExploration,
 ]
 
@@ -145,18 +131,18 @@ class Parameters(BaseModel):
 
     extraction_criteria: List[SaveRequirement]
 
-    structuring_input: ParametersStructuringInput
-
-    instructions: Optional[str] = None
-
-    model: Optional[str] = None
-
-    seeded_kg: Optional[KnowledgeGraph] = None
+    seeded_kg: KnowledgeGraph
     """
     Knowledge graph info structured to deserialize and display in the same format
     that the LLM outputs. Also the first representation of an LLM output in the
     pipeline from raw tool output to being merged into a DB
     """
+
+    structuring_input: ParametersStructuringInput
+
+    instructions: Optional[str] = None
+
+    model: Optional[str] = None
 
 
 class JobListResponse(BaseModel):
@@ -164,13 +150,13 @@ class JobListResponse(BaseModel):
 
     created_at: datetime
 
-    job_type: Literal["Web", "Pdf", "Derive", "Scrape", "Match", "ConnectorExplore", "DatahubIngestion"]
+    dataset_id: str
+
+    job_type: Literal["Web", "Pdf", "Derive", "Scrape", "Match", "ConnectorExplore"]
 
     status: Literal["Queued", "Running", "Completed", "Failed"]
 
     user_id: str
-
-    dataset_id: Optional[str] = None
 
     message: Optional[str] = None
 

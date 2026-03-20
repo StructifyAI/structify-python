@@ -4,4 +4,4 @@ from typing_extensions import Literal, TypeAlias
 
 __all__ = ["VizFigureKind"]
 
-VizFigureKind: TypeAlias = Literal["js", "vega-lite", "data-table"]
+VizFigureKind: TypeAlias = Literal["js", "vega-lite"]

@@ -100,6 +100,7 @@ from structify.types import (
     ChatSessionWithMessages,
     ChatTemplate,
     ChatVisibility,
+    CompressChatResponse,
     CopyChatSessionRequest,
     CreateChatSessionRequest,
     CreateChatSessionResponse,
@@ -142,6 +143,7 @@ Methods:
 - <code title="post /chat/sessions/{chat_id}/collaborators">client.chat.<a href="./src/structify/resources/chat.py">add_collaborator</a>(chat_id, \*\*<a href="src/structify/types/chat_add_collaborator_params.py">params</a>) -> None</code>
 - <code title="post /chat/sessions/{session_id}/commits">client.chat.<a href="./src/structify/resources/chat.py">add_git_commit</a>(session_id, \*\*<a href="src/structify/types/chat_add_git_commit_params.py">params</a>) -> <a href="./src/structify/types/chat_add_git_commit_response.py">ChatAddGitCommitResponse</a></code>
 - <code title="post /chat/sessions/{chat_id}/admin/issue_found">client.chat.<a href="./src/structify/resources/chat.py">admin_issue_found</a>(chat_id, \*\*<a href="src/structify/types/chat_admin_issue_found_params.py">params</a>) -> <a href="./src/structify/types/admin_issue_found_response.py">AdminIssueFoundResponse</a></code>
+- <code title="post /chat/sessions/{session_id}/compress">client.chat.<a href="./src/structify/resources/chat.py">compress</a>(session_id) -> <a href="./src/structify/types/compress_chat_response.py">CompressChatResponse</a></code>
 - <code title="post /chat/copy">client.chat.<a href="./src/structify/resources/chat.py">copy</a>(\*\*<a href="src/structify/types/chat_copy_params.py">params</a>) -> <a href="./src/structify/types/chat_session_with_messages.py">ChatSessionWithMessages</a></code>
 - <code title="post /chat/sessions/{session_id}/nodes/by_code_hash">client.chat.<a href="./src/structify/resources/chat.py">copy_node_output_by_code_hash</a>(session_id, \*\*<a href="src/structify/types/chat_copy_node_output_by_code_hash_params.py">params</a>) -> <a href="./src/structify/types/chat_copy_node_output_by_code_hash_response.py">ChatCopyNodeOutputByCodeHashResponse</a></code>
 - <code title="post /chat/sessions">client.chat.<a href="./src/structify/resources/chat.py">create_session</a>(\*\*<a href="src/structify/types/chat_create_session_params.py">params</a>) -> <a href="./src/structify/types/create_chat_session_response.py">CreateChatSessionResponse</a></code>
@@ -714,7 +716,6 @@ Methods:
 - <code title="post /connectors/{connector_id}/secrets">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">create_secret</a>(connector_id, \*\*<a href="src/structify/types/connector_create_secret_params.py">params</a>) -> None</code>
 - <code title="delete /connectors/{connector_id}/schema_object">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">delete_schema_object</a>(connector_id, \*\*<a href="src/structify/types/connector_delete_schema_object_params.py">params</a>) -> <a href="./src/structify/types/delete_schema_object_response.py">DeleteSchemaObjectResponse</a></code>
 - <code title="delete /connectors/{connector_id}/secrets/{secret_name}">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">delete_secret</a>(secret_name, \*, connector_id) -> None</code>
-- <code title="get /internal/connectors/{connector_id}/datahub-artifacts/{kind}">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">download_datahub_artifact</a>(kind, \*, connector_id) -> BinaryAPIResponse</code>
 - <code title="post /connectors/{connector_id}/explore">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">explore</a>(connector_id, \*\*<a href="src/structify/types/connector_explore_params.py">params</a>) -> None</code>
 - <code title="get /connectors/{connector_id}">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">get</a>(connector_id) -> <a href="./src/structify/types/connector_get_response.py">ConnectorGetResponse</a></code>
 - <code title="get /connectors/{connector_id}/clarification-requests">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">get_clarification_requests</a>(connector_id) -> <a href="./src/structify/types/connector_get_clarification_requests_response.py">ConnectorGetClarificationRequestsResponse</a></code>
@@ -731,7 +732,6 @@ Methods:
 - <code title="post /connectors/summaries">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">summaries</a>(\*\*<a href="src/structify/types/connector_summaries_params.py">params</a>) -> <a href="./src/structify/types/connector_summaries_response.py">ConnectorSummariesResponse</a></code>
 - <code title="patch /connectors/columns/{column_id}">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">update_column</a>(column_id, \*\*<a href="src/structify/types/connector_update_column_params.py">params</a>) -> None</code>
 - <code title="patch /connectors/tables/{table_id}">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">update_table</a>(table_id, \*\*<a href="src/structify/types/connector_update_table_params.py">params</a>) -> <a href="./src/structify/types/update_table_response.py">UpdateTableResponse</a></code>
-- <code title="put /internal/connectors/{connector_id}/datahub-artifacts/{kind}">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">upload_datahub_artifact</a>(kind, \*, connector_id, \*\*<a href="src/structify/types/connector_upload_datahub_artifact_params.py">params</a>) -> None</code>
 
 ## TypeSnippets
 
