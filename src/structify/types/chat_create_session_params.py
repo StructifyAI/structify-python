@@ -50,6 +50,7 @@ class Config(TypedDict, total=False):
             "gemini.gemini-3-flash-preview",
             "gemini.gemini-3.1-flash-lite-preview",
             "vertex_anthropic.claude-sonnet-4-5-vertex",
+            "vertex_anthropic.claude-opus-4-5-vertex",
         ]
     ]
     """LLM model keys available in the system. Format: <provider>.<model-name>"""
