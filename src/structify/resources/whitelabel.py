@@ -5,6 +5,7 @@ from __future__ import annotations
 import httpx
 
 from .._types import Body, Query, Headers, NoneType, NotGiven, not_given
+from .._utils import path_template
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -68,7 +69,7 @@ class WhitelabelResource(SyncAPIResource):
         if not path:
             raise ValueError(f"Expected a non-empty value for `path` but received {path!r}")
         return self._get(
-            f"/whitelabel/{service}/estimate-cost/{path}",
+            path_template("/whitelabel/{service}/estimate-cost/{path}", service=service, path=path),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -103,7 +104,7 @@ class WhitelabelResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `path` but received {path!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._get(
-            f"/whitelabel/{service}/{path}",
+            path_template("/whitelabel/{service}/{path}", service=service, path=path),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -138,7 +139,7 @@ class WhitelabelResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `path` but received {path!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
-            f"/whitelabel/{service}/{path}",
+            path_template("/whitelabel/{service}/{path}", service=service, path=path),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -195,7 +196,7 @@ class AsyncWhitelabelResource(AsyncAPIResource):
         if not path:
             raise ValueError(f"Expected a non-empty value for `path` but received {path!r}")
         return await self._get(
-            f"/whitelabel/{service}/estimate-cost/{path}",
+            path_template("/whitelabel/{service}/estimate-cost/{path}", service=service, path=path),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -230,7 +231,7 @@ class AsyncWhitelabelResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `path` but received {path!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._get(
-            f"/whitelabel/{service}/{path}",
+            path_template("/whitelabel/{service}/{path}", service=service, path=path),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -265,7 +266,7 @@ class AsyncWhitelabelResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `path` but received {path!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
-            f"/whitelabel/{service}/{path}",
+            path_template("/whitelabel/{service}/{path}", service=service, path=path),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),

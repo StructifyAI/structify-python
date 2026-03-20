@@ -8,7 +8,7 @@ import httpx
 
 from ..types import code_generate_code_params, code_apply_manual_edit_params, code_interrupt_generation_params
 from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, SequenceNotStr, omit, not_given
-from .._utils import maybe_transform, async_maybe_transform
+from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -71,7 +71,7 @@ class CodeResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
-            f"/code/apply-manual-edit/{chat_id}",
+            path_template("/code/apply-manual-edit/{chat_id}", chat_id=chat_id),
             body=maybe_transform(
                 {
                     "code": code,
@@ -229,7 +229,7 @@ class AsyncCodeResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
-            f"/code/apply-manual-edit/{chat_id}",
+            path_template("/code/apply-manual-edit/{chat_id}", chat_id=chat_id),
             body=await async_maybe_transform(
                 {
                     "code": code,

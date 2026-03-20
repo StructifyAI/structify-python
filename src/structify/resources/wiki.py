@@ -8,7 +8,7 @@ import httpx
 
 from ..types import wiki_create_params, wiki_update_params
 from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
-from .._utils import maybe_transform, async_maybe_transform
+from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -74,7 +74,7 @@ class WikiResource(SyncAPIResource):
         if not team_id:
             raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
         return self._post(
-            f"/team/{team_id}/wiki",
+            path_template("/team/{team_id}/wiki", team_id=team_id),
             body=maybe_transform(
                 {
                     "markdown": markdown,
@@ -119,7 +119,7 @@ class WikiResource(SyncAPIResource):
         if not slug:
             raise ValueError(f"Expected a non-empty value for `slug` but received {slug!r}")
         return self._put(
-            f"/team/{team_id}/wiki/{slug}",
+            path_template("/team/{team_id}/wiki/{slug}", team_id=team_id, slug=slug),
             body=maybe_transform(
                 {
                     "markdown": markdown,
@@ -158,7 +158,7 @@ class WikiResource(SyncAPIResource):
         if not team_id:
             raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
         return self._get(
-            f"/team/{team_id}/wiki",
+            path_template("/team/{team_id}/wiki", team_id=team_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -193,7 +193,7 @@ class WikiResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `slug` but received {slug!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._delete(
-            f"/team/{team_id}/wiki/{slug}",
+            path_template("/team/{team_id}/wiki/{slug}", team_id=team_id, slug=slug),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -227,7 +227,7 @@ class WikiResource(SyncAPIResource):
         if not slug:
             raise ValueError(f"Expected a non-empty value for `slug` but received {slug!r}")
         return self._get(
-            f"/team/{team_id}/wiki/{slug}",
+            path_template("/team/{team_id}/wiki/{slug}", team_id=team_id, slug=slug),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -284,7 +284,7 @@ class AsyncWikiResource(AsyncAPIResource):
         if not team_id:
             raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
         return await self._post(
-            f"/team/{team_id}/wiki",
+            path_template("/team/{team_id}/wiki", team_id=team_id),
             body=await async_maybe_transform(
                 {
                     "markdown": markdown,
@@ -329,7 +329,7 @@ class AsyncWikiResource(AsyncAPIResource):
         if not slug:
             raise ValueError(f"Expected a non-empty value for `slug` but received {slug!r}")
         return await self._put(
-            f"/team/{team_id}/wiki/{slug}",
+            path_template("/team/{team_id}/wiki/{slug}", team_id=team_id, slug=slug),
             body=await async_maybe_transform(
                 {
                     "markdown": markdown,
@@ -368,7 +368,7 @@ class AsyncWikiResource(AsyncAPIResource):
         if not team_id:
             raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
         return await self._get(
-            f"/team/{team_id}/wiki",
+            path_template("/team/{team_id}/wiki", team_id=team_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -403,7 +403,7 @@ class AsyncWikiResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `slug` but received {slug!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._delete(
-            f"/team/{team_id}/wiki/{slug}",
+            path_template("/team/{team_id}/wiki/{slug}", team_id=team_id, slug=slug),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -437,7 +437,7 @@ class AsyncWikiResource(AsyncAPIResource):
         if not slug:
             raise ValueError(f"Expected a non-empty value for `slug` but received {slug!r}")
         return await self._get(
-            f"/team/{team_id}/wiki/{slug}",
+            path_template("/team/{team_id}/wiki/{slug}", team_id=team_id, slug=slug),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),

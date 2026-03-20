@@ -8,7 +8,7 @@ import httpx
 
 from ..types import sandbox_get_params, sandbox_update_status_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import maybe_transform, async_maybe_transform
+from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -71,7 +71,7 @@ class SandboxResource(SyncAPIResource):
         if not chat_id:
             raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
         return self._get(
-            f"/sandbox/list/{chat_id}",
+            path_template("/sandbox/list/{chat_id}", chat_id=chat_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -105,7 +105,7 @@ class SandboxResource(SyncAPIResource):
         if not chat_id:
             raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
         return self._post(
-            f"/sandbox/live/{chat_id}",
+            path_template("/sandbox/live/{chat_id}", chat_id=chat_id),
             body=maybe_transform(
                 {"modal_control_service_url_override": modal_control_service_url_override},
                 sandbox_get_params.SandboxGetParams,
@@ -140,7 +140,7 @@ class SandboxResource(SyncAPIResource):
         if not sandbox_id:
             raise ValueError(f"Expected a non-empty value for `sandbox_id` but received {sandbox_id!r}")
         return self._get(
-            f"/sandbox/{sandbox_id}/metrics",
+            path_template("/sandbox/{sandbox_id}/metrics", sandbox_id=sandbox_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -172,7 +172,7 @@ class SandboxResource(SyncAPIResource):
         if not sandbox_id:
             raise ValueError(f"Expected a non-empty value for `sandbox_id` but received {sandbox_id!r}")
         return self._patch(
-            f"/sandbox/{sandbox_id}/status",
+            path_template("/sandbox/{sandbox_id}/status", sandbox_id=sandbox_id),
             body=maybe_transform({"status": status}, sandbox_update_status_params.SandboxUpdateStatusParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -227,7 +227,7 @@ class AsyncSandboxResource(AsyncAPIResource):
         if not chat_id:
             raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
         return await self._get(
-            f"/sandbox/list/{chat_id}",
+            path_template("/sandbox/list/{chat_id}", chat_id=chat_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -261,7 +261,7 @@ class AsyncSandboxResource(AsyncAPIResource):
         if not chat_id:
             raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
         return await self._post(
-            f"/sandbox/live/{chat_id}",
+            path_template("/sandbox/live/{chat_id}", chat_id=chat_id),
             body=await async_maybe_transform(
                 {"modal_control_service_url_override": modal_control_service_url_override},
                 sandbox_get_params.SandboxGetParams,
@@ -296,7 +296,7 @@ class AsyncSandboxResource(AsyncAPIResource):
         if not sandbox_id:
             raise ValueError(f"Expected a non-empty value for `sandbox_id` but received {sandbox_id!r}")
         return await self._get(
-            f"/sandbox/{sandbox_id}/metrics",
+            path_template("/sandbox/{sandbox_id}/metrics", sandbox_id=sandbox_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -328,7 +328,7 @@ class AsyncSandboxResource(AsyncAPIResource):
         if not sandbox_id:
             raise ValueError(f"Expected a non-empty value for `sandbox_id` but received {sandbox_id!r}")
         return await self._patch(
-            f"/sandbox/{sandbox_id}/status",
+            path_template("/sandbox/{sandbox_id}/status", sandbox_id=sandbox_id),
             body=await async_maybe_transform(
                 {"status": status}, sandbox_update_status_params.SandboxUpdateStatusParams
             ),

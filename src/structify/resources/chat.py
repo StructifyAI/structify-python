@@ -30,7 +30,7 @@ from ..types import (
     chat_copy_node_output_by_code_hash_params,
 )
 from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, FileTypes, SequenceNotStr, omit, not_given
-from .._utils import extract_files, maybe_transform, deepcopy_minimal, async_maybe_transform
+from .._utils import extract_files, path_template, maybe_transform, deepcopy_minimal, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -129,7 +129,7 @@ class ChatResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
-            f"/chat/sessions/{chat_id}/collaborators",
+            path_template("/chat/sessions/{chat_id}/collaborators", chat_id=chat_id),
             body=maybe_transform(
                 {
                     "email": email,
@@ -172,7 +172,7 @@ class ChatResource(SyncAPIResource):
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return self._post(
-            f"/chat/sessions/{session_id}/commits",
+            path_template("/chat/sessions/{session_id}/commits", session_id=session_id),
             body=maybe_transform({"commit_hash": commit_hash}, chat_add_git_commit_params.ChatAddGitCommitParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -208,7 +208,7 @@ class ChatResource(SyncAPIResource):
         if not chat_id:
             raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
         return self._post(
-            f"/chat/sessions/{chat_id}/admin/issue_found",
+            path_template("/chat/sessions/{chat_id}/admin/issue_found", chat_id=chat_id),
             body=maybe_transform(
                 {
                     "message": message,
@@ -246,7 +246,7 @@ class ChatResource(SyncAPIResource):
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return self._post(
-            f"/chat/sessions/{session_id}/compress",
+            path_template("/chat/sessions/{session_id}/compress", session_id=session_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -326,7 +326,7 @@ class ChatResource(SyncAPIResource):
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return self._post(
-            f"/chat/sessions/{session_id}/nodes/by_code_hash",
+            path_template("/chat/sessions/{session_id}/nodes/by_code_hash", session_id=session_id),
             body=maybe_transform(
                 {
                     "code_md5_hash": code_md5_hash,
@@ -412,7 +412,7 @@ class ChatResource(SyncAPIResource):
         if not chat_id:
             raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
         return self._post(
-            f"/chat/input-files/delete/{chat_id}",
+            path_template("/chat/input-files/delete/{chat_id}", chat_id=chat_id),
             body=maybe_transform({"filenames": filenames}, chat_delete_input_file_params.ChatDeleteInputFileParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -446,7 +446,7 @@ class ChatResource(SyncAPIResource):
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return self._delete(
-            f"/chat/sessions/{session_id}",
+            path_template("/chat/sessions/{session_id}", session_id=session_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -479,7 +479,7 @@ class ChatResource(SyncAPIResource):
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return self._get(
-            f"/chat/sessions/{session_id}/dependencies",
+            path_template("/chat/sessions/{session_id}/dependencies", session_id=session_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -515,7 +515,7 @@ class ChatResource(SyncAPIResource):
         if not commit_hash:
             raise ValueError(f"Expected a non-empty value for `commit_hash` but received {commit_hash!r}")
         return self._get(
-            f"/chat/sessions/{chat_id}/commits/{commit_hash}",
+            path_template("/chat/sessions/{chat_id}/commits/{commit_hash}", chat_id=chat_id, commit_hash=commit_hash),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -548,7 +548,7 @@ class ChatResource(SyncAPIResource):
         if not chat_session_id:
             raise ValueError(f"Expected a non-empty value for `chat_session_id` but received {chat_session_id!r}")
         return self._get(
-            f"/chat/{chat_session_id}/partial-chats",
+            path_template("/chat/{chat_session_id}/partial-chats", chat_session_id=chat_session_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -581,7 +581,7 @@ class ChatResource(SyncAPIResource):
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return self._get(
-            f"/chat/sessions/{session_id}",
+            path_template("/chat/sessions/{session_id}", session_id=session_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -614,7 +614,7 @@ class ChatResource(SyncAPIResource):
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return self._get(
-            f"/chat/sessions/{session_id}/timeline",
+            path_template("/chat/sessions/{session_id}/timeline", session_id=session_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -645,7 +645,7 @@ class ChatResource(SyncAPIResource):
         if not template_id:
             raise ValueError(f"Expected a non-empty value for `template_id` but received {template_id!r}")
         return self._get(
-            f"/chat/templates/{template_id}",
+            path_template("/chat/templates/{template_id}", template_id=template_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -682,7 +682,7 @@ class ChatResource(SyncAPIResource):
         if not chat_id:
             raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
         return self._post(
-            f"/chat/sessions/{chat_id}/admin_override",
+            path_template("/chat/sessions/{chat_id}/admin_override", chat_id=chat_id),
             body=maybe_transform(
                 {
                     "duration_hours": duration_hours,
@@ -722,7 +722,7 @@ class ChatResource(SyncAPIResource):
         if not chat_id:
             raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
         return self._get(
-            f"/chat/sessions/{chat_id}/collaborators",
+            path_template("/chat/sessions/{chat_id}/collaborators", chat_id=chat_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -758,7 +758,7 @@ class ChatResource(SyncAPIResource):
         if not chat_id:
             raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
         return self._get(
-            f"/chat/sessions/{chat_id}/dashboards",
+            path_template("/chat/sessions/{chat_id}/dashboards", chat_id=chat_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -797,7 +797,7 @@ class ChatResource(SyncAPIResource):
         if not chat_id:
             raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
         return self._get(
-            f"/chat/input-files/list/{chat_id}",
+            path_template("/chat/input-files/list/{chat_id}", chat_id=chat_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -943,7 +943,7 @@ class ChatResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `filename` but received {filename!r}")
         extra_headers = {"Accept": "application/octet-stream", **(extra_headers or {})}
         return self._get(
-            f"/chat/input-files/download/{chat_id}/{filename}",
+            path_template("/chat/input-files/download/{chat_id}/{filename}", chat_id=chat_id, filename=filename),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -979,7 +979,7 @@ class ChatResource(SyncAPIResource):
         if not chat_id:
             raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
         return self._get(
-            f"/chat/input-files/download-all/{chat_id}",
+            path_template("/chat/input-files/download-all/{chat_id}", chat_id=chat_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -1017,7 +1017,7 @@ class ChatResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._patch(
-            f"/chat/sessions/{session_id}/make-permanent",
+            path_template("/chat/sessions/{session_id}/make-permanent", session_id=session_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1052,7 +1052,7 @@ class ChatResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._delete(
-            f"/chat/sessions/{chat_id}/collaborators/{user_id}",
+            path_template("/chat/sessions/{chat_id}/collaborators/{user_id}", chat_id=chat_id, user_id=user_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1088,7 +1088,7 @@ class ChatResource(SyncAPIResource):
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return self._post(
-            f"/chat/sessions/{session_id}/revert",
+            path_template("/chat/sessions/{session_id}/revert", session_id=session_id),
             body=maybe_transform({"commit_hash": commit_hash}, chat_revert_to_commit_params.ChatRevertToCommitParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -1123,7 +1123,7 @@ class ChatResource(SyncAPIResource):
         if not chat_session_id:
             raise ValueError(f"Expected a non-empty value for `chat_session_id` but received {chat_session_id!r}")
         return self._post(
-            f"/chat/{chat_session_id}/simulate-prompt",
+            path_template("/chat/{chat_session_id}/simulate-prompt", chat_session_id=chat_session_id),
             body=maybe_transform({"chat_prompt": chat_prompt}, chat_simulate_prompt_params.ChatSimulatePromptParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -1159,7 +1159,7 @@ class ChatResource(SyncAPIResource):
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return self._patch(
-            f"/chat/sessions/{session_id}",
+            path_template("/chat/sessions/{session_id}", session_id=session_id),
             body=maybe_transform(
                 {
                     "message_head": message_head,
@@ -1200,7 +1200,7 @@ class ChatResource(SyncAPIResource):
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return self._patch(
-            f"/chat/sessions/{session_id}/favorite",
+            path_template("/chat/sessions/{session_id}/favorite", session_id=session_id),
             body=maybe_transform(
                 {"is_favorite": is_favorite}, chat_update_session_favorite_params.ChatUpdateSessionFavoriteParams
             ),
@@ -1237,7 +1237,7 @@ class ChatResource(SyncAPIResource):
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return self._put(
-            f"/chat/sessions/{session_id}/visibility",
+            path_template("/chat/sessions/{session_id}/visibility", session_id=session_id),
             body=maybe_transform({"visibility": visibility}, chat_update_visibility_params.ChatUpdateVisibilityParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -1286,7 +1286,7 @@ class ChatResource(SyncAPIResource):
         # multipart/form-data; boundary=---abc--
         extra_headers = {"Content-Type": "multipart/form-data", **(extra_headers or {})}
         return self._post(
-            f"/chat/input-files/upload/{chat_id}",
+            path_template("/chat/input-files/upload/{chat_id}", chat_id=chat_id),
             body=maybe_transform(body, chat_upload_input_file_params.ChatUploadInputFileParams),
             files=files,
             options=make_request_options(
@@ -1343,7 +1343,7 @@ class AsyncChatResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
-            f"/chat/sessions/{chat_id}/collaborators",
+            path_template("/chat/sessions/{chat_id}/collaborators", chat_id=chat_id),
             body=await async_maybe_transform(
                 {
                     "email": email,
@@ -1386,7 +1386,7 @@ class AsyncChatResource(AsyncAPIResource):
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return await self._post(
-            f"/chat/sessions/{session_id}/commits",
+            path_template("/chat/sessions/{session_id}/commits", session_id=session_id),
             body=await async_maybe_transform(
                 {"commit_hash": commit_hash}, chat_add_git_commit_params.ChatAddGitCommitParams
             ),
@@ -1424,7 +1424,7 @@ class AsyncChatResource(AsyncAPIResource):
         if not chat_id:
             raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
         return await self._post(
-            f"/chat/sessions/{chat_id}/admin/issue_found",
+            path_template("/chat/sessions/{chat_id}/admin/issue_found", chat_id=chat_id),
             body=await async_maybe_transform(
                 {
                     "message": message,
@@ -1462,7 +1462,7 @@ class AsyncChatResource(AsyncAPIResource):
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return await self._post(
-            f"/chat/sessions/{session_id}/compress",
+            path_template("/chat/sessions/{session_id}/compress", session_id=session_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1542,7 +1542,7 @@ class AsyncChatResource(AsyncAPIResource):
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return await self._post(
-            f"/chat/sessions/{session_id}/nodes/by_code_hash",
+            path_template("/chat/sessions/{session_id}/nodes/by_code_hash", session_id=session_id),
             body=await async_maybe_transform(
                 {
                     "code_md5_hash": code_md5_hash,
@@ -1628,7 +1628,7 @@ class AsyncChatResource(AsyncAPIResource):
         if not chat_id:
             raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
         return await self._post(
-            f"/chat/input-files/delete/{chat_id}",
+            path_template("/chat/input-files/delete/{chat_id}", chat_id=chat_id),
             body=await async_maybe_transform(
                 {"filenames": filenames}, chat_delete_input_file_params.ChatDeleteInputFileParams
             ),
@@ -1664,7 +1664,7 @@ class AsyncChatResource(AsyncAPIResource):
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return await self._delete(
-            f"/chat/sessions/{session_id}",
+            path_template("/chat/sessions/{session_id}", session_id=session_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1697,7 +1697,7 @@ class AsyncChatResource(AsyncAPIResource):
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return await self._get(
-            f"/chat/sessions/{session_id}/dependencies",
+            path_template("/chat/sessions/{session_id}/dependencies", session_id=session_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1733,7 +1733,7 @@ class AsyncChatResource(AsyncAPIResource):
         if not commit_hash:
             raise ValueError(f"Expected a non-empty value for `commit_hash` but received {commit_hash!r}")
         return await self._get(
-            f"/chat/sessions/{chat_id}/commits/{commit_hash}",
+            path_template("/chat/sessions/{chat_id}/commits/{commit_hash}", chat_id=chat_id, commit_hash=commit_hash),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1766,7 +1766,7 @@ class AsyncChatResource(AsyncAPIResource):
         if not chat_session_id:
             raise ValueError(f"Expected a non-empty value for `chat_session_id` but received {chat_session_id!r}")
         return await self._get(
-            f"/chat/{chat_session_id}/partial-chats",
+            path_template("/chat/{chat_session_id}/partial-chats", chat_session_id=chat_session_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1799,7 +1799,7 @@ class AsyncChatResource(AsyncAPIResource):
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return await self._get(
-            f"/chat/sessions/{session_id}",
+            path_template("/chat/sessions/{session_id}", session_id=session_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1832,7 +1832,7 @@ class AsyncChatResource(AsyncAPIResource):
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return await self._get(
-            f"/chat/sessions/{session_id}/timeline",
+            path_template("/chat/sessions/{session_id}/timeline", session_id=session_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1863,7 +1863,7 @@ class AsyncChatResource(AsyncAPIResource):
         if not template_id:
             raise ValueError(f"Expected a non-empty value for `template_id` but received {template_id!r}")
         return await self._get(
-            f"/chat/templates/{template_id}",
+            path_template("/chat/templates/{template_id}", template_id=template_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1900,7 +1900,7 @@ class AsyncChatResource(AsyncAPIResource):
         if not chat_id:
             raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
         return await self._post(
-            f"/chat/sessions/{chat_id}/admin_override",
+            path_template("/chat/sessions/{chat_id}/admin_override", chat_id=chat_id),
             body=await async_maybe_transform(
                 {
                     "duration_hours": duration_hours,
@@ -1940,7 +1940,7 @@ class AsyncChatResource(AsyncAPIResource):
         if not chat_id:
             raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
         return await self._get(
-            f"/chat/sessions/{chat_id}/collaborators",
+            path_template("/chat/sessions/{chat_id}/collaborators", chat_id=chat_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1976,7 +1976,7 @@ class AsyncChatResource(AsyncAPIResource):
         if not chat_id:
             raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
         return await self._get(
-            f"/chat/sessions/{chat_id}/dashboards",
+            path_template("/chat/sessions/{chat_id}/dashboards", chat_id=chat_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -2015,7 +2015,7 @@ class AsyncChatResource(AsyncAPIResource):
         if not chat_id:
             raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
         return await self._get(
-            f"/chat/input-files/list/{chat_id}",
+            path_template("/chat/input-files/list/{chat_id}", chat_id=chat_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -2161,7 +2161,7 @@ class AsyncChatResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `filename` but received {filename!r}")
         extra_headers = {"Accept": "application/octet-stream", **(extra_headers or {})}
         return await self._get(
-            f"/chat/input-files/download/{chat_id}/{filename}",
+            path_template("/chat/input-files/download/{chat_id}/{filename}", chat_id=chat_id, filename=filename),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -2197,7 +2197,7 @@ class AsyncChatResource(AsyncAPIResource):
         if not chat_id:
             raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
         return await self._get(
-            f"/chat/input-files/download-all/{chat_id}",
+            path_template("/chat/input-files/download-all/{chat_id}", chat_id=chat_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -2237,7 +2237,7 @@ class AsyncChatResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._patch(
-            f"/chat/sessions/{session_id}/make-permanent",
+            path_template("/chat/sessions/{session_id}/make-permanent", session_id=session_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -2272,7 +2272,7 @@ class AsyncChatResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._delete(
-            f"/chat/sessions/{chat_id}/collaborators/{user_id}",
+            path_template("/chat/sessions/{chat_id}/collaborators/{user_id}", chat_id=chat_id, user_id=user_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -2308,7 +2308,7 @@ class AsyncChatResource(AsyncAPIResource):
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return await self._post(
-            f"/chat/sessions/{session_id}/revert",
+            path_template("/chat/sessions/{session_id}/revert", session_id=session_id),
             body=await async_maybe_transform(
                 {"commit_hash": commit_hash}, chat_revert_to_commit_params.ChatRevertToCommitParams
             ),
@@ -2345,7 +2345,7 @@ class AsyncChatResource(AsyncAPIResource):
         if not chat_session_id:
             raise ValueError(f"Expected a non-empty value for `chat_session_id` but received {chat_session_id!r}")
         return await self._post(
-            f"/chat/{chat_session_id}/simulate-prompt",
+            path_template("/chat/{chat_session_id}/simulate-prompt", chat_session_id=chat_session_id),
             body=await async_maybe_transform(
                 {"chat_prompt": chat_prompt}, chat_simulate_prompt_params.ChatSimulatePromptParams
             ),
@@ -2383,7 +2383,7 @@ class AsyncChatResource(AsyncAPIResource):
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return await self._patch(
-            f"/chat/sessions/{session_id}",
+            path_template("/chat/sessions/{session_id}", session_id=session_id),
             body=await async_maybe_transform(
                 {
                     "message_head": message_head,
@@ -2424,7 +2424,7 @@ class AsyncChatResource(AsyncAPIResource):
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return await self._patch(
-            f"/chat/sessions/{session_id}/favorite",
+            path_template("/chat/sessions/{session_id}/favorite", session_id=session_id),
             body=await async_maybe_transform(
                 {"is_favorite": is_favorite}, chat_update_session_favorite_params.ChatUpdateSessionFavoriteParams
             ),
@@ -2461,7 +2461,7 @@ class AsyncChatResource(AsyncAPIResource):
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return await self._put(
-            f"/chat/sessions/{session_id}/visibility",
+            path_template("/chat/sessions/{session_id}/visibility", session_id=session_id),
             body=await async_maybe_transform(
                 {"visibility": visibility}, chat_update_visibility_params.ChatUpdateVisibilityParams
             ),
@@ -2512,7 +2512,7 @@ class AsyncChatResource(AsyncAPIResource):
         # multipart/form-data; boundary=---abc--
         extra_headers = {"Content-Type": "multipart/form-data", **(extra_headers or {})}
         return await self._post(
-            f"/chat/input-files/upload/{chat_id}",
+            path_template("/chat/input-files/upload/{chat_id}", chat_id=chat_id),
             body=await async_maybe_transform(body, chat_upload_input_file_params.ChatUploadInputFileParams),
             files=files,
             options=make_request_options(

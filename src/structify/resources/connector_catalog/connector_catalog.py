@@ -16,7 +16,7 @@ from .admin import (
 )
 from ...types import connector_catalog_list_params
 from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from ..._utils import maybe_transform, async_maybe_transform
+from ..._utils import path_template, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -142,7 +142,7 @@ class ConnectorCatalogResource(SyncAPIResource):
         if not slug:
             raise ValueError(f"Expected a non-empty value for `slug` but received {slug!r}")
         return self._get(
-            f"/connector-catalog/{slug}",
+            path_template("/connector-catalog/{slug}", slug=slug),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -174,7 +174,7 @@ class ConnectorCatalogResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `slug` but received {slug!r}")
         extra_headers = {"Accept": "application/octet-stream", **(extra_headers or {})}
         return self._get(
-            f"/connector-catalog/{slug}/logo",
+            path_template("/connector-catalog/{slug}/logo", slug=slug),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -284,7 +284,7 @@ class AsyncConnectorCatalogResource(AsyncAPIResource):
         if not slug:
             raise ValueError(f"Expected a non-empty value for `slug` but received {slug!r}")
         return await self._get(
-            f"/connector-catalog/{slug}",
+            path_template("/connector-catalog/{slug}", slug=slug),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -316,7 +316,7 @@ class AsyncConnectorCatalogResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `slug` but received {slug!r}")
         extra_headers = {"Accept": "application/octet-stream", **(extra_headers or {})}
         return await self._get(
-            f"/connector-catalog/{slug}/logo",
+            path_template("/connector-catalog/{slug}/logo", slug=slug),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
