@@ -759,6 +759,22 @@ class TestConnectors:
 
     @parametrize
     @pytest.mark.respx(base_url=base_url)
+    def test_method_download_datahub_artifact_with_all_params(self, client: Structify, respx_mock: MockRouter) -> None:
+        respx_mock.get("/internal/connectors/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e/datahub-artifacts/kind").mock(
+            return_value=httpx.Response(200, json={"foo": "bar"})
+        )
+        connector = client.connectors.download_datahub_artifact(
+            kind="kind",
+            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            exploration_run_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert connector.is_closed
+        assert connector.json() == {"foo": "bar"}
+        assert cast(Any, connector.is_closed) is True
+        assert isinstance(connector, BinaryAPIResponse)
+
+    @parametrize
+    @pytest.mark.respx(base_url=base_url)
     def test_raw_response_download_datahub_artifact(self, client: Structify, respx_mock: MockRouter) -> None:
         respx_mock.get("/internal/connectors/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e/datahub-artifacts/kind").mock(
             return_value=httpx.Response(200, json={"foo": "bar"})
@@ -1416,6 +1432,7 @@ class TestConnectors:
         connector = client.connectors.upload_datahub_artifact(
             kind="kind",
             connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            exploration_run_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             file=b"Example data",
         )
         assert connector is None
@@ -1425,6 +1442,7 @@ class TestConnectors:
         response = client.connectors.with_raw_response.upload_datahub_artifact(
             kind="kind",
             connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            exploration_run_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             file=b"Example data",
         )
 
@@ -1438,6 +1456,7 @@ class TestConnectors:
         with client.connectors.with_streaming_response.upload_datahub_artifact(
             kind="kind",
             connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            exploration_run_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             file=b"Example data",
         ) as response:
             assert not response.is_closed
@@ -1454,6 +1473,7 @@ class TestConnectors:
             client.connectors.with_raw_response.upload_datahub_artifact(
                 kind="kind",
                 connector_id="",
+                exploration_run_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 file=b"Example data",
             )
 
@@ -1461,6 +1481,7 @@ class TestConnectors:
             client.connectors.with_raw_response.upload_datahub_artifact(
                 kind="",
                 connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                exploration_run_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 file=b"Example data",
             )
 
@@ -2185,6 +2206,24 @@ class TestAsyncConnectors:
 
     @parametrize
     @pytest.mark.respx(base_url=base_url)
+    async def test_method_download_datahub_artifact_with_all_params(
+        self, async_client: AsyncStructify, respx_mock: MockRouter
+    ) -> None:
+        respx_mock.get("/internal/connectors/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e/datahub-artifacts/kind").mock(
+            return_value=httpx.Response(200, json={"foo": "bar"})
+        )
+        connector = await async_client.connectors.download_datahub_artifact(
+            kind="kind",
+            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            exploration_run_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert connector.is_closed
+        assert await connector.json() == {"foo": "bar"}
+        assert cast(Any, connector.is_closed) is True
+        assert isinstance(connector, AsyncBinaryAPIResponse)
+
+    @parametrize
+    @pytest.mark.respx(base_url=base_url)
     async def test_raw_response_download_datahub_artifact(
         self, async_client: AsyncStructify, respx_mock: MockRouter
     ) -> None:
@@ -2846,6 +2885,7 @@ class TestAsyncConnectors:
         connector = await async_client.connectors.upload_datahub_artifact(
             kind="kind",
             connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            exploration_run_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             file=b"Example data",
         )
         assert connector is None
@@ -2855,6 +2895,7 @@ class TestAsyncConnectors:
         response = await async_client.connectors.with_raw_response.upload_datahub_artifact(
             kind="kind",
             connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            exploration_run_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             file=b"Example data",
         )
 
@@ -2868,6 +2909,7 @@ class TestAsyncConnectors:
         async with async_client.connectors.with_streaming_response.upload_datahub_artifact(
             kind="kind",
             connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            exploration_run_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             file=b"Example data",
         ) as response:
             assert not response.is_closed
@@ -2884,6 +2926,7 @@ class TestAsyncConnectors:
             await async_client.connectors.with_raw_response.upload_datahub_artifact(
                 kind="kind",
                 connector_id="",
+                exploration_run_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 file=b"Example data",
             )
 
@@ -2891,5 +2934,6 @@ class TestAsyncConnectors:
             await async_client.connectors.with_raw_response.upload_datahub_artifact(
                 kind="",
                 connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                exploration_run_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 file=b"Example data",
             )

@@ -22,6 +22,7 @@ from ...types import (
     connector_get_explorer_chat_params,
     connector_delete_schema_object_params,
     connector_upload_datahub_artifact_params,
+    connector_download_datahub_artifact_params,
 )
 from ..._types import (
     Body,
@@ -683,6 +684,7 @@ class ConnectorsResource(SyncAPIResource):
         kind: str,
         *,
         connector_id: str,
+        exploration_run_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -710,7 +712,14 @@ class ConnectorsResource(SyncAPIResource):
                 "/internal/connectors/{connector_id}/datahub-artifacts/{kind}", connector_id=connector_id, kind=kind
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {"exploration_run_id": exploration_run_id},
+                    connector_download_datahub_artifact_params.ConnectorDownloadDatahubArtifactParams,
+                ),
             ),
             cast_to=BinaryAPIResponse,
         )
@@ -1259,6 +1268,7 @@ class ConnectorsResource(SyncAPIResource):
         kind: str,
         *,
         connector_id: str,
+        exploration_run_id: str,
         file: FileTypes,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1295,7 +1305,14 @@ class ConnectorsResource(SyncAPIResource):
             body=maybe_transform(body, connector_upload_datahub_artifact_params.ConnectorUploadDatahubArtifactParams),
             files=files,
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {"exploration_run_id": exploration_run_id},
+                    connector_upload_datahub_artifact_params.ConnectorUploadDatahubArtifactParams,
+                ),
             ),
             cast_to=NoneType,
         )
@@ -1893,6 +1910,7 @@ class AsyncConnectorsResource(AsyncAPIResource):
         kind: str,
         *,
         connector_id: str,
+        exploration_run_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1920,7 +1938,14 @@ class AsyncConnectorsResource(AsyncAPIResource):
                 "/internal/connectors/{connector_id}/datahub-artifacts/{kind}", connector_id=connector_id, kind=kind
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"exploration_run_id": exploration_run_id},
+                    connector_download_datahub_artifact_params.ConnectorDownloadDatahubArtifactParams,
+                ),
             ),
             cast_to=AsyncBinaryAPIResponse,
         )
@@ -2473,6 +2498,7 @@ class AsyncConnectorsResource(AsyncAPIResource):
         kind: str,
         *,
         connector_id: str,
+        exploration_run_id: str,
         file: FileTypes,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -2511,7 +2537,14 @@ class AsyncConnectorsResource(AsyncAPIResource):
             ),
             files=files,
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"exploration_run_id": exploration_run_id},
+                    connector_upload_datahub_artifact_params.ConnectorUploadDatahubArtifactParams,
+                ),
             ),
             cast_to=NoneType,
         )
