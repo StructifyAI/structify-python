@@ -12,4 +12,6 @@ __all__ = ["ConnectorUploadDatahubArtifactParams"]
 class ConnectorUploadDatahubArtifactParams(TypedDict, total=False):
     connector_id: Required[str]
 
+    exploration_run_id: Required[str]
+
     file: Required[FileTypes]

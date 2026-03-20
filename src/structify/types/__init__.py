@@ -398,6 +398,9 @@ from .chat_copy_node_output_by_code_hash_params import (
 from .dataset_count_missing_embeddings_response import (
     DatasetCountMissingEmbeddingsResponse as DatasetCountMissingEmbeddingsResponse,
 )
+from .connector_download_datahub_artifact_params import (
+    ConnectorDownloadDatahubArtifactParams as ConnectorDownloadDatahubArtifactParams,
+)
 from .chat_copy_node_output_by_code_hash_response import (
     ChatCopyNodeOutputByCodeHashResponse as ChatCopyNodeOutputByCodeHashResponse,
 )

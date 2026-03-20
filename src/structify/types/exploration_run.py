@@ -15,4 +15,8 @@ class ExplorationRun(BaseModel):
 
     created_at: datetime
 
+    checkpoint_blob_name: Optional[str] = None
+
+    latest_snapshot_blob_name: Optional[str] = None
+
     triggered_by: Optional[str] = None
