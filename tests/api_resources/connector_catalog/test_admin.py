@@ -195,6 +195,7 @@ class TestAdmin:
             categories=["string"],
             description="description",
             enterprise_only=True,
+            onboarding_priority=0,
             priority=0,
         )
         assert_matches_type(ConnectorCatalog, admin, path=["response"])
@@ -561,6 +562,7 @@ class TestAdmin:
             description="description",
             enterprise_only=True,
             name="name",
+            onboarding_priority=0,
             priority=0,
         )
         assert_matches_type(ConnectorCatalog, admin, path=["response"])
@@ -915,6 +917,7 @@ class TestAsyncAdmin:
             categories=["string"],
             description="description",
             enterprise_only=True,
+            onboarding_priority=0,
             priority=0,
         )
         assert_matches_type(ConnectorCatalog, admin, path=["response"])
@@ -1281,6 +1284,7 @@ class TestAsyncAdmin:
             description="description",
             enterprise_only=True,
             name="name",
+            onboarding_priority=0,
             priority=0,
         )
         assert_matches_type(ConnectorCatalog, admin, path=["response"])

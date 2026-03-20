@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Any, Dict, Optional, cast
+from typing import Any, Dict, Mapping, Optional, cast
 from typing_extensions import Literal, overload
 
 import httpx
@@ -21,16 +21,43 @@ from ...types import (
     connector_add_schema_object_params,
     connector_get_explorer_chat_params,
     connector_delete_schema_object_params,
+    connector_upload_datahub_artifact_params,
 )
-from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, SequenceNotStr, omit, not_given
-from ..._utils import path_template, required_args, maybe_transform, async_maybe_transform
+from ..._types import (
+    Body,
+    Omit,
+    Query,
+    Headers,
+    NoneType,
+    NotGiven,
+    FileTypes,
+    SequenceNotStr,
+    omit,
+    not_given,
+)
+from ..._utils import (
+    extract_files,
+    path_template,
+    required_args,
+    maybe_transform,
+    deepcopy_minimal,
+    async_maybe_transform,
+)
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
+    BinaryAPIResponse,
+    AsyncBinaryAPIResponse,
+    StreamedBinaryAPIResponse,
+    AsyncStreamedBinaryAPIResponse,
     to_raw_response_wrapper,
     to_streamed_response_wrapper,
     async_to_raw_response_wrapper,
+    to_custom_raw_response_wrapper,
     async_to_streamed_response_wrapper,
+    to_custom_streamed_response_wrapper,
+    async_to_custom_raw_response_wrapper,
+    async_to_custom_streamed_response_wrapper,
 )
 from ...pagination import SyncJobsList, AsyncJobsList
 from .type_snippets import (
@@ -651,13 +678,50 @@ class ConnectorsResource(SyncAPIResource):
             cast_to=NoneType,
         )
 
+    def download_datahub_artifact(
+        self,
+        kind: str,
+        *,
+        connector_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> BinaryAPIResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not connector_id:
+            raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
+        if not kind:
+            raise ValueError(f"Expected a non-empty value for `kind` but received {kind!r}")
+        extra_headers = {"Accept": "application/octet-stream", **(extra_headers or {})}
+        return self._get(
+            path_template(
+                "/internal/connectors/{connector_id}/datahub-artifacts/{kind}", connector_id=connector_id, kind=kind
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=BinaryAPIResponse,
+        )
+
     def explore(
         self,
         connector_id: str,
         *,
         database_id: Optional[str] | Omit = omit,
+        only_do_datahub: Optional[bool] | Omit = omit,
         schema_id: Optional[str] | Omit = omit,
-        stage: Optional[Literal["both", "ingestion", "annotation"]] | Omit = omit,
         table_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -668,7 +732,7 @@ class ConnectorsResource(SyncAPIResource):
     ) -> None:
         """
         Args:
-          stage: Which exploration stage to run
+          only_do_datahub: If true, run only DataHub ingestion without queuing Diego annotation jobs.
 
           extra_headers: Send extra headers
 
@@ -686,8 +750,8 @@ class ConnectorsResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "database_id": database_id,
+                    "only_do_datahub": only_do_datahub,
                     "schema_id": schema_id,
-                    "stage": stage,
                     "table_id": table_id,
                 },
                 connector_explore_params.ConnectorExploreParams,
@@ -1188,6 +1252,52 @@ class ConnectorsResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=UpdateTableResponse,
+        )
+
+    def upload_datahub_artifact(
+        self,
+        kind: str,
+        *,
+        connector_id: str,
+        file: FileTypes,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> None:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not connector_id:
+            raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
+        if not kind:
+            raise ValueError(f"Expected a non-empty value for `kind` but received {kind!r}")
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        body = deepcopy_minimal({"file": file})
+        files = extract_files(cast(Mapping[str, object], body), paths=[["file"]])
+        # It should be noted that the actual Content-Type header that will be
+        # sent to the server will contain a `boundary` parameter, e.g.
+        # multipart/form-data; boundary=---abc--
+        extra_headers["Content-Type"] = "multipart/form-data"
+        return self._put(
+            path_template(
+                "/internal/connectors/{connector_id}/datahub-artifacts/{kind}", connector_id=connector_id, kind=kind
+            ),
+            body=maybe_transform(body, connector_upload_datahub_artifact_params.ConnectorUploadDatahubArtifactParams),
+            files=files,
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NoneType,
         )
 
 
@@ -1778,13 +1888,50 @@ class AsyncConnectorsResource(AsyncAPIResource):
             cast_to=NoneType,
         )
 
+    async def download_datahub_artifact(
+        self,
+        kind: str,
+        *,
+        connector_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AsyncBinaryAPIResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not connector_id:
+            raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
+        if not kind:
+            raise ValueError(f"Expected a non-empty value for `kind` but received {kind!r}")
+        extra_headers = {"Accept": "application/octet-stream", **(extra_headers or {})}
+        return await self._get(
+            path_template(
+                "/internal/connectors/{connector_id}/datahub-artifacts/{kind}", connector_id=connector_id, kind=kind
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=AsyncBinaryAPIResponse,
+        )
+
     async def explore(
         self,
         connector_id: str,
         *,
         database_id: Optional[str] | Omit = omit,
+        only_do_datahub: Optional[bool] | Omit = omit,
         schema_id: Optional[str] | Omit = omit,
-        stage: Optional[Literal["both", "ingestion", "annotation"]] | Omit = omit,
         table_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1795,7 +1942,7 @@ class AsyncConnectorsResource(AsyncAPIResource):
     ) -> None:
         """
         Args:
-          stage: Which exploration stage to run
+          only_do_datahub: If true, run only DataHub ingestion without queuing Diego annotation jobs.
 
           extra_headers: Send extra headers
 
@@ -1813,8 +1960,8 @@ class AsyncConnectorsResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "database_id": database_id,
+                    "only_do_datahub": only_do_datahub,
                     "schema_id": schema_id,
-                    "stage": stage,
                     "table_id": table_id,
                 },
                 connector_explore_params.ConnectorExploreParams,
@@ -2321,6 +2468,54 @@ class AsyncConnectorsResource(AsyncAPIResource):
             cast_to=UpdateTableResponse,
         )
 
+    async def upload_datahub_artifact(
+        self,
+        kind: str,
+        *,
+        connector_id: str,
+        file: FileTypes,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> None:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not connector_id:
+            raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
+        if not kind:
+            raise ValueError(f"Expected a non-empty value for `kind` but received {kind!r}")
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        body = deepcopy_minimal({"file": file})
+        files = extract_files(cast(Mapping[str, object], body), paths=[["file"]])
+        # It should be noted that the actual Content-Type header that will be
+        # sent to the server will contain a `boundary` parameter, e.g.
+        # multipart/form-data; boundary=---abc--
+        extra_headers["Content-Type"] = "multipart/form-data"
+        return await self._put(
+            path_template(
+                "/internal/connectors/{connector_id}/datahub-artifacts/{kind}", connector_id=connector_id, kind=kind
+            ),
+            body=await async_maybe_transform(
+                body, connector_upload_datahub_artifact_params.ConnectorUploadDatahubArtifactParams
+            ),
+            files=files,
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NoneType,
+        )
+
 
 class ConnectorsResourceWithRawResponse:
     def __init__(self, connectors: ConnectorsResource) -> None:
@@ -2349,6 +2544,10 @@ class ConnectorsResourceWithRawResponse:
         )
         self.delete_secret = to_raw_response_wrapper(
             connectors.delete_secret,
+        )
+        self.download_datahub_artifact = to_custom_raw_response_wrapper(
+            connectors.download_datahub_artifact,
+            BinaryAPIResponse,
         )
         self.explore = to_raw_response_wrapper(
             connectors.explore,
@@ -2398,6 +2597,9 @@ class ConnectorsResourceWithRawResponse:
         self.update_table = to_raw_response_wrapper(
             connectors.update_table,
         )
+        self.upload_datahub_artifact = to_raw_response_wrapper(
+            connectors.upload_datahub_artifact,
+        )
 
     @cached_property
     def type_snippets(self) -> TypeSnippetsResourceWithRawResponse:
@@ -2431,6 +2633,10 @@ class AsyncConnectorsResourceWithRawResponse:
         )
         self.delete_secret = async_to_raw_response_wrapper(
             connectors.delete_secret,
+        )
+        self.download_datahub_artifact = async_to_custom_raw_response_wrapper(
+            connectors.download_datahub_artifact,
+            AsyncBinaryAPIResponse,
         )
         self.explore = async_to_raw_response_wrapper(
             connectors.explore,
@@ -2480,6 +2686,9 @@ class AsyncConnectorsResourceWithRawResponse:
         self.update_table = async_to_raw_response_wrapper(
             connectors.update_table,
         )
+        self.upload_datahub_artifact = async_to_raw_response_wrapper(
+            connectors.upload_datahub_artifact,
+        )
 
     @cached_property
     def type_snippets(self) -> AsyncTypeSnippetsResourceWithRawResponse:
@@ -2513,6 +2722,10 @@ class ConnectorsResourceWithStreamingResponse:
         )
         self.delete_secret = to_streamed_response_wrapper(
             connectors.delete_secret,
+        )
+        self.download_datahub_artifact = to_custom_streamed_response_wrapper(
+            connectors.download_datahub_artifact,
+            StreamedBinaryAPIResponse,
         )
         self.explore = to_streamed_response_wrapper(
             connectors.explore,
@@ -2562,6 +2775,9 @@ class ConnectorsResourceWithStreamingResponse:
         self.update_table = to_streamed_response_wrapper(
             connectors.update_table,
         )
+        self.upload_datahub_artifact = to_streamed_response_wrapper(
+            connectors.upload_datahub_artifact,
+        )
 
     @cached_property
     def type_snippets(self) -> TypeSnippetsResourceWithStreamingResponse:
@@ -2595,6 +2811,10 @@ class AsyncConnectorsResourceWithStreamingResponse:
         )
         self.delete_secret = async_to_streamed_response_wrapper(
             connectors.delete_secret,
+        )
+        self.download_datahub_artifact = async_to_custom_streamed_response_wrapper(
+            connectors.download_datahub_artifact,
+            AsyncStreamedBinaryAPIResponse,
         )
         self.explore = async_to_streamed_response_wrapper(
             connectors.explore,
@@ -2643,6 +2863,9 @@ class AsyncConnectorsResourceWithStreamingResponse:
         )
         self.update_table = async_to_streamed_response_wrapper(
             connectors.update_table,
+        )
+        self.upload_datahub_artifact = async_to_streamed_response_wrapper(
+            connectors.upload_datahub_artifact,
         )
 
     @cached_property

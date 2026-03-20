@@ -5,7 +5,9 @@ from __future__ import annotations
 import os
 from typing import Any, cast
 
+import httpx
 import pytest
+from respx import MockRouter
 
 from structify import Structify, AsyncStructify
 from tests.utils import assert_matches_type
@@ -27,6 +29,12 @@ from structify.types import (
     ConnectorAddSchemaObjectResponse,
     ConnectorListWithSnippetsResponse,
     ConnectorGetClarificationRequestsResponse,
+)
+from structify._response import (
+    BinaryAPIResponse,
+    AsyncBinaryAPIResponse,
+    StreamedBinaryAPIResponse,
+    AsyncStreamedBinaryAPIResponse,
 )
 from structify.pagination import SyncJobsList, AsyncJobsList
 
@@ -735,6 +743,72 @@ class TestConnectors:
             )
 
     @parametrize
+    @pytest.mark.respx(base_url=base_url)
+    def test_method_download_datahub_artifact(self, client: Structify, respx_mock: MockRouter) -> None:
+        respx_mock.get("/internal/connectors/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e/datahub-artifacts/kind").mock(
+            return_value=httpx.Response(200, json={"foo": "bar"})
+        )
+        connector = client.connectors.download_datahub_artifact(
+            kind="kind",
+            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert connector.is_closed
+        assert connector.json() == {"foo": "bar"}
+        assert cast(Any, connector.is_closed) is True
+        assert isinstance(connector, BinaryAPIResponse)
+
+    @parametrize
+    @pytest.mark.respx(base_url=base_url)
+    def test_raw_response_download_datahub_artifact(self, client: Structify, respx_mock: MockRouter) -> None:
+        respx_mock.get("/internal/connectors/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e/datahub-artifacts/kind").mock(
+            return_value=httpx.Response(200, json={"foo": "bar"})
+        )
+
+        connector = client.connectors.with_raw_response.download_datahub_artifact(
+            kind="kind",
+            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert connector.is_closed is True
+        assert connector.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert connector.json() == {"foo": "bar"}
+        assert isinstance(connector, BinaryAPIResponse)
+
+    @parametrize
+    @pytest.mark.respx(base_url=base_url)
+    def test_streaming_response_download_datahub_artifact(self, client: Structify, respx_mock: MockRouter) -> None:
+        respx_mock.get("/internal/connectors/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e/datahub-artifacts/kind").mock(
+            return_value=httpx.Response(200, json={"foo": "bar"})
+        )
+        with client.connectors.with_streaming_response.download_datahub_artifact(
+            kind="kind",
+            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as connector:
+            assert not connector.is_closed
+            assert connector.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            assert connector.json() == {"foo": "bar"}
+            assert cast(Any, connector.is_closed) is True
+            assert isinstance(connector, StreamedBinaryAPIResponse)
+
+        assert cast(Any, connector.is_closed) is True
+
+    @parametrize
+    @pytest.mark.respx(base_url=base_url)
+    def test_path_params_download_datahub_artifact(self, client: Structify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `connector_id` but received ''"):
+            client.connectors.with_raw_response.download_datahub_artifact(
+                kind="kind",
+                connector_id="",
+            )
+
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `kind` but received ''"):
+            client.connectors.with_raw_response.download_datahub_artifact(
+                kind="",
+                connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            )
+
+    @parametrize
     def test_method_explore(self, client: Structify) -> None:
         connector = client.connectors.explore(
             connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -746,8 +820,8 @@ class TestConnectors:
         connector = client.connectors.explore(
             connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             database_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            only_do_datahub=True,
             schema_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            stage="both",
             table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert connector is None
@@ -1335,6 +1409,59 @@ class TestConnectors:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `table_id` but received ''"):
             client.connectors.with_raw_response.update_table(
                 table_id="",
+            )
+
+    @parametrize
+    def test_method_upload_datahub_artifact(self, client: Structify) -> None:
+        connector = client.connectors.upload_datahub_artifact(
+            kind="kind",
+            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            file=b"Example data",
+        )
+        assert connector is None
+
+    @parametrize
+    def test_raw_response_upload_datahub_artifact(self, client: Structify) -> None:
+        response = client.connectors.with_raw_response.upload_datahub_artifact(
+            kind="kind",
+            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            file=b"Example data",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        connector = response.parse()
+        assert connector is None
+
+    @parametrize
+    def test_streaming_response_upload_datahub_artifact(self, client: Structify) -> None:
+        with client.connectors.with_streaming_response.upload_datahub_artifact(
+            kind="kind",
+            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            file=b"Example data",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            connector = response.parse()
+            assert connector is None
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_path_params_upload_datahub_artifact(self, client: Structify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `connector_id` but received ''"):
+            client.connectors.with_raw_response.upload_datahub_artifact(
+                kind="kind",
+                connector_id="",
+                file=b"Example data",
+            )
+
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `kind` but received ''"):
+            client.connectors.with_raw_response.upload_datahub_artifact(
+                kind="",
+                connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                file=b"Example data",
             )
 
 
@@ -2042,6 +2169,76 @@ class TestAsyncConnectors:
             )
 
     @parametrize
+    @pytest.mark.respx(base_url=base_url)
+    async def test_method_download_datahub_artifact(self, async_client: AsyncStructify, respx_mock: MockRouter) -> None:
+        respx_mock.get("/internal/connectors/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e/datahub-artifacts/kind").mock(
+            return_value=httpx.Response(200, json={"foo": "bar"})
+        )
+        connector = await async_client.connectors.download_datahub_artifact(
+            kind="kind",
+            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert connector.is_closed
+        assert await connector.json() == {"foo": "bar"}
+        assert cast(Any, connector.is_closed) is True
+        assert isinstance(connector, AsyncBinaryAPIResponse)
+
+    @parametrize
+    @pytest.mark.respx(base_url=base_url)
+    async def test_raw_response_download_datahub_artifact(
+        self, async_client: AsyncStructify, respx_mock: MockRouter
+    ) -> None:
+        respx_mock.get("/internal/connectors/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e/datahub-artifacts/kind").mock(
+            return_value=httpx.Response(200, json={"foo": "bar"})
+        )
+
+        connector = await async_client.connectors.with_raw_response.download_datahub_artifact(
+            kind="kind",
+            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert connector.is_closed is True
+        assert connector.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert await connector.json() == {"foo": "bar"}
+        assert isinstance(connector, AsyncBinaryAPIResponse)
+
+    @parametrize
+    @pytest.mark.respx(base_url=base_url)
+    async def test_streaming_response_download_datahub_artifact(
+        self, async_client: AsyncStructify, respx_mock: MockRouter
+    ) -> None:
+        respx_mock.get("/internal/connectors/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e/datahub-artifacts/kind").mock(
+            return_value=httpx.Response(200, json={"foo": "bar"})
+        )
+        async with async_client.connectors.with_streaming_response.download_datahub_artifact(
+            kind="kind",
+            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as connector:
+            assert not connector.is_closed
+            assert connector.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            assert await connector.json() == {"foo": "bar"}
+            assert cast(Any, connector.is_closed) is True
+            assert isinstance(connector, AsyncStreamedBinaryAPIResponse)
+
+        assert cast(Any, connector.is_closed) is True
+
+    @parametrize
+    @pytest.mark.respx(base_url=base_url)
+    async def test_path_params_download_datahub_artifact(self, async_client: AsyncStructify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `connector_id` but received ''"):
+            await async_client.connectors.with_raw_response.download_datahub_artifact(
+                kind="kind",
+                connector_id="",
+            )
+
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `kind` but received ''"):
+            await async_client.connectors.with_raw_response.download_datahub_artifact(
+                kind="",
+                connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            )
+
+    @parametrize
     async def test_method_explore(self, async_client: AsyncStructify) -> None:
         connector = await async_client.connectors.explore(
             connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -2053,8 +2250,8 @@ class TestAsyncConnectors:
         connector = await async_client.connectors.explore(
             connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             database_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            only_do_datahub=True,
             schema_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            stage="both",
             table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert connector is None
@@ -2642,4 +2839,57 @@ class TestAsyncConnectors:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `table_id` but received ''"):
             await async_client.connectors.with_raw_response.update_table(
                 table_id="",
+            )
+
+    @parametrize
+    async def test_method_upload_datahub_artifact(self, async_client: AsyncStructify) -> None:
+        connector = await async_client.connectors.upload_datahub_artifact(
+            kind="kind",
+            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            file=b"Example data",
+        )
+        assert connector is None
+
+    @parametrize
+    async def test_raw_response_upload_datahub_artifact(self, async_client: AsyncStructify) -> None:
+        response = await async_client.connectors.with_raw_response.upload_datahub_artifact(
+            kind="kind",
+            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            file=b"Example data",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        connector = await response.parse()
+        assert connector is None
+
+    @parametrize
+    async def test_streaming_response_upload_datahub_artifact(self, async_client: AsyncStructify) -> None:
+        async with async_client.connectors.with_streaming_response.upload_datahub_artifact(
+            kind="kind",
+            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            file=b"Example data",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            connector = await response.parse()
+            assert connector is None
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_upload_datahub_artifact(self, async_client: AsyncStructify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `connector_id` but received ''"):
+            await async_client.connectors.with_raw_response.upload_datahub_artifact(
+                kind="kind",
+                connector_id="",
+                file=b"Example data",
+            )
+
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `kind` but received ''"):
+            await async_client.connectors.with_raw_response.upload_datahub_artifact(
+                kind="",
+                connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                file=b"Example data",
             )
