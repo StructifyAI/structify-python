@@ -7,7 +7,7 @@ from typing import Iterable, Optional
 import httpx
 
 from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from ..._utils import maybe_transform, async_maybe_transform
+from ..._utils import path_template, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -125,7 +125,7 @@ class ChatTemplatesResource(SyncAPIResource):
         if not template_id:
             raise ValueError(f"Expected a non-empty value for `template_id` but received {template_id!r}")
         return self._patch(
-            f"/admin/chat/templates/{template_id}",
+            path_template("/admin/chat/templates/{template_id}", template_id=template_id),
             body=maybe_transform(
                 {
                     "description": description,
@@ -280,7 +280,7 @@ class AsyncChatTemplatesResource(AsyncAPIResource):
         if not template_id:
             raise ValueError(f"Expected a non-empty value for `template_id` but received {template_id!r}")
         return await self._patch(
-            f"/admin/chat/templates/{template_id}",
+            path_template("/admin/chat/templates/{template_id}", template_id=template_id),
             body=await async_maybe_transform(
                 {
                     "description": description,

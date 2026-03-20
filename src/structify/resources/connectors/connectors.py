@@ -23,7 +23,7 @@ from ...types import (
     connector_delete_schema_object_params,
 )
 from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, SequenceNotStr, omit, not_given
-from ..._utils import required_args, maybe_transform, async_maybe_transform
+from ..._utils import path_template, required_args, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -171,7 +171,7 @@ class ConnectorsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._patch(
-            f"/connectors/{connector_id}",
+            path_template("/connectors/{connector_id}", connector_id=connector_id),
             body=maybe_transform(
                 {
                     "connector_category": connector_category,
@@ -260,7 +260,7 @@ class ConnectorsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._delete(
-            f"/connectors/{connector_id}",
+            path_template("/connectors/{connector_id}", connector_id=connector_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -414,7 +414,7 @@ class ConnectorsResource(SyncAPIResource):
         return cast(
             ConnectorAddSchemaObjectResponse,
             self._post(
-                f"/connectors/{connector_id}/schema_object",
+                path_template("/connectors/{connector_id}/schema_object", connector_id=connector_id),
                 body=maybe_transform(
                     {
                         "name": name,
@@ -465,7 +465,7 @@ class ConnectorsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
-            f"/connectors/{connector_id}/secrets",
+            path_template("/connectors/{connector_id}/secrets", connector_id=connector_id),
             body=maybe_transform(
                 {
                     "secret_name": secret_name,
@@ -600,7 +600,7 @@ class ConnectorsResource(SyncAPIResource):
         if not connector_id:
             raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
         return self._delete(
-            f"/connectors/{connector_id}/schema_object",
+            path_template("/connectors/{connector_id}/schema_object", connector_id=connector_id),
             body=maybe_transform(
                 {
                     "id": id,
@@ -642,7 +642,9 @@ class ConnectorsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `secret_name` but received {secret_name!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._delete(
-            f"/connectors/{connector_id}/secrets/{secret_name}",
+            path_template(
+                "/connectors/{connector_id}/secrets/{secret_name}", connector_id=connector_id, secret_name=secret_name
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -680,7 +682,7 @@ class ConnectorsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
-            f"/connectors/{connector_id}/explore",
+            path_template("/connectors/{connector_id}/explore", connector_id=connector_id),
             body=maybe_transform(
                 {
                     "database_id": database_id,
@@ -720,7 +722,7 @@ class ConnectorsResource(SyncAPIResource):
         if not connector_id:
             raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
         return self._get(
-            f"/connectors/{connector_id}",
+            path_template("/connectors/{connector_id}", connector_id=connector_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -753,7 +755,7 @@ class ConnectorsResource(SyncAPIResource):
         if not connector_id:
             raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
         return self._get(
-            f"/connectors/{connector_id}/clarification-requests",
+            path_template("/connectors/{connector_id}/clarification-requests", connector_id=connector_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -786,7 +788,7 @@ class ConnectorsResource(SyncAPIResource):
         if not connector_id:
             raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
         return self._get(
-            f"/connectors/{connector_id}/explore/runs",
+            path_template("/connectors/{connector_id}/explore/runs", connector_id=connector_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -817,7 +819,7 @@ class ConnectorsResource(SyncAPIResource):
         if not connector_id:
             raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
         return self._get(
-            f"/connectors/{connector_id}/explore/status",
+            path_template("/connectors/{connector_id}/explore/status", connector_id=connector_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -854,7 +856,7 @@ class ConnectorsResource(SyncAPIResource):
         if not connector_id:
             raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
         return self._get(
-            f"/connectors/{connector_id}/explore/chat",
+            path_template("/connectors/{connector_id}/explore/chat", connector_id=connector_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -891,7 +893,7 @@ class ConnectorsResource(SyncAPIResource):
         if not connector_id:
             raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
         return self._get(
-            f"/connectors/{connector_id}/store",
+            path_template("/connectors/{connector_id}/store", connector_id=connector_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -922,7 +924,7 @@ class ConnectorsResource(SyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return self._get(
-            f"/connectors/tables/{table_id}/path",
+            path_template("/connectors/tables/{table_id}/path", table_id=table_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -975,7 +977,7 @@ class ConnectorsResource(SyncAPIResource):
         if not connector_id:
             raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
         return self._get(
-            f"/connectors/{connector_id}/tables",
+            path_template("/connectors/{connector_id}/tables", connector_id=connector_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1027,7 +1029,9 @@ class ConnectorsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `clarification_id` but received {clarification_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._patch(
-            f"/connectors/clarification-requests/{clarification_id}/resolve",
+            path_template(
+                "/connectors/clarification-requests/{clarification_id}/resolve", clarification_id=clarification_id
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1136,7 +1140,7 @@ class ConnectorsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `column_id` but received {column_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._patch(
-            f"/connectors/columns/{column_id}",
+            path_template("/connectors/columns/{column_id}", column_id=column_id),
             body=maybe_transform({"notes": notes}, connector_update_column_params.ConnectorUpdateColumnParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -1172,7 +1176,7 @@ class ConnectorsResource(SyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return self._patch(
-            f"/connectors/tables/{table_id}",
+            path_template("/connectors/tables/{table_id}", table_id=table_id),
             body=maybe_transform(
                 {
                     "description": description,
@@ -1294,7 +1298,7 @@ class AsyncConnectorsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._patch(
-            f"/connectors/{connector_id}",
+            path_template("/connectors/{connector_id}", connector_id=connector_id),
             body=await async_maybe_transform(
                 {
                     "connector_category": connector_category,
@@ -1383,7 +1387,7 @@ class AsyncConnectorsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._delete(
-            f"/connectors/{connector_id}",
+            path_template("/connectors/{connector_id}", connector_id=connector_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1537,7 +1541,7 @@ class AsyncConnectorsResource(AsyncAPIResource):
         return cast(
             ConnectorAddSchemaObjectResponse,
             await self._post(
-                f"/connectors/{connector_id}/schema_object",
+                path_template("/connectors/{connector_id}/schema_object", connector_id=connector_id),
                 body=await async_maybe_transform(
                     {
                         "name": name,
@@ -1588,7 +1592,7 @@ class AsyncConnectorsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
-            f"/connectors/{connector_id}/secrets",
+            path_template("/connectors/{connector_id}/secrets", connector_id=connector_id),
             body=await async_maybe_transform(
                 {
                     "secret_name": secret_name,
@@ -1723,7 +1727,7 @@ class AsyncConnectorsResource(AsyncAPIResource):
         if not connector_id:
             raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
         return await self._delete(
-            f"/connectors/{connector_id}/schema_object",
+            path_template("/connectors/{connector_id}/schema_object", connector_id=connector_id),
             body=await async_maybe_transform(
                 {
                     "id": id,
@@ -1765,7 +1769,9 @@ class AsyncConnectorsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `secret_name` but received {secret_name!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._delete(
-            f"/connectors/{connector_id}/secrets/{secret_name}",
+            path_template(
+                "/connectors/{connector_id}/secrets/{secret_name}", connector_id=connector_id, secret_name=secret_name
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1803,7 +1809,7 @@ class AsyncConnectorsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
-            f"/connectors/{connector_id}/explore",
+            path_template("/connectors/{connector_id}/explore", connector_id=connector_id),
             body=await async_maybe_transform(
                 {
                     "database_id": database_id,
@@ -1843,7 +1849,7 @@ class AsyncConnectorsResource(AsyncAPIResource):
         if not connector_id:
             raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
         return await self._get(
-            f"/connectors/{connector_id}",
+            path_template("/connectors/{connector_id}", connector_id=connector_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1876,7 +1882,7 @@ class AsyncConnectorsResource(AsyncAPIResource):
         if not connector_id:
             raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
         return await self._get(
-            f"/connectors/{connector_id}/clarification-requests",
+            path_template("/connectors/{connector_id}/clarification-requests", connector_id=connector_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1909,7 +1915,7 @@ class AsyncConnectorsResource(AsyncAPIResource):
         if not connector_id:
             raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
         return await self._get(
-            f"/connectors/{connector_id}/explore/runs",
+            path_template("/connectors/{connector_id}/explore/runs", connector_id=connector_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1940,7 +1946,7 @@ class AsyncConnectorsResource(AsyncAPIResource):
         if not connector_id:
             raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
         return await self._get(
-            f"/connectors/{connector_id}/explore/status",
+            path_template("/connectors/{connector_id}/explore/status", connector_id=connector_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1977,7 +1983,7 @@ class AsyncConnectorsResource(AsyncAPIResource):
         if not connector_id:
             raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
         return await self._get(
-            f"/connectors/{connector_id}/explore/chat",
+            path_template("/connectors/{connector_id}/explore/chat", connector_id=connector_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -2014,7 +2020,7 @@ class AsyncConnectorsResource(AsyncAPIResource):
         if not connector_id:
             raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
         return await self._get(
-            f"/connectors/{connector_id}/store",
+            path_template("/connectors/{connector_id}/store", connector_id=connector_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -2045,7 +2051,7 @@ class AsyncConnectorsResource(AsyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return await self._get(
-            f"/connectors/tables/{table_id}/path",
+            path_template("/connectors/tables/{table_id}/path", table_id=table_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -2098,7 +2104,7 @@ class AsyncConnectorsResource(AsyncAPIResource):
         if not connector_id:
             raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
         return await self._get(
-            f"/connectors/{connector_id}/tables",
+            path_template("/connectors/{connector_id}/tables", connector_id=connector_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -2150,7 +2156,9 @@ class AsyncConnectorsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `clarification_id` but received {clarification_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._patch(
-            f"/connectors/clarification-requests/{clarification_id}/resolve",
+            path_template(
+                "/connectors/clarification-requests/{clarification_id}/resolve", clarification_id=clarification_id
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -2261,7 +2269,7 @@ class AsyncConnectorsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `column_id` but received {column_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._patch(
-            f"/connectors/columns/{column_id}",
+            path_template("/connectors/columns/{column_id}", column_id=column_id),
             body=await async_maybe_transform(
                 {"notes": notes}, connector_update_column_params.ConnectorUpdateColumnParams
             ),
@@ -2299,7 +2307,7 @@ class AsyncConnectorsResource(AsyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return await self._patch(
-            f"/connectors/tables/{table_id}",
+            path_template("/connectors/tables/{table_id}", table_id=table_id),
             body=await async_maybe_transform(
                 {
                     "description": description,
