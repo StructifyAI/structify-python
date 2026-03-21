@@ -15,6 +15,8 @@ class Session(BaseModel):
 
     created_at: datetime
 
+    has_workflow_schedule: bool
+
     is_favorite: bool
 
     team_id: str
