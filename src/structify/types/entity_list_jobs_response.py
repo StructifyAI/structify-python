@@ -30,6 +30,8 @@ class EntityListJobsResponseItem(BaseModel):
 
     dataset_id: Optional[str] = None
 
+    exploration_run_id: Optional[str] = None
+
     max_errors: Optional[int] = None
 
     max_execution_time_secs: Optional[int] = None
