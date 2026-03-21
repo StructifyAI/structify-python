@@ -4,6 +4,7 @@ from typing import Optional
 from datetime import datetime
 
 from .._models import BaseModel
+from .exploration_status import ExplorationStatus
 
 __all__ = ["ExplorationRun"]
 
@@ -14,6 +15,8 @@ class ExplorationRun(BaseModel):
     connector_id: str
 
     created_at: datetime
+
+    status: ExplorationStatus
 
     checkpoint_blob_name: Optional[str] = None
 

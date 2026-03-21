@@ -12,6 +12,4 @@ __all__ = ["ExploreStatusResponse"]
 class ExploreStatusResponse(BaseModel):
     status: ExplorationStatus
 
-    error: Optional[str] = None
-
     started_at: Optional[datetime] = None
