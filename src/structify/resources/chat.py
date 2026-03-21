@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from typing import Union, Mapping, Optional, cast
 from datetime import datetime
+from typing_extensions import Literal
 
 import httpx
 
@@ -809,7 +810,10 @@ class ChatResource(SyncAPIResource):
         *,
         team_id: str,
         limit: Optional[int] | Omit = omit,
+        offset: Optional[int] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
+        search: Optional[str] | Omit = omit,
+        tab: Optional[Literal["my_chats", "favorites", "shared", "team", "recents", "from_messaging"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -826,7 +830,13 @@ class ChatResource(SyncAPIResource):
 
           limit: Maximum number of sessions to return (default: 50)
 
+          offset: Number of sessions to skip (default: 0)
+
           project_id: Project ID to filter chat sessions
+
+          search: Search query to filter sessions by name (case-insensitive)
+
+          tab: Tab filter for chat sessions
 
           extra_headers: Send extra headers
 
@@ -847,7 +857,10 @@ class ChatResource(SyncAPIResource):
                     {
                         "team_id": team_id,
                         "limit": limit,
+                        "offset": offset,
                         "project_id": project_id,
+                        "search": search,
+                        "tab": tab,
                     },
                     chat_list_sessions_params.ChatListSessionsParams,
                 ),
@@ -2027,7 +2040,10 @@ class AsyncChatResource(AsyncAPIResource):
         *,
         team_id: str,
         limit: Optional[int] | Omit = omit,
+        offset: Optional[int] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
+        search: Optional[str] | Omit = omit,
+        tab: Optional[Literal["my_chats", "favorites", "shared", "team", "recents", "from_messaging"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -2044,7 +2060,13 @@ class AsyncChatResource(AsyncAPIResource):
 
           limit: Maximum number of sessions to return (default: 50)
 
+          offset: Number of sessions to skip (default: 0)
+
           project_id: Project ID to filter chat sessions
+
+          search: Search query to filter sessions by name (case-insensitive)
+
+          tab: Tab filter for chat sessions
 
           extra_headers: Send extra headers
 
@@ -2065,7 +2087,10 @@ class AsyncChatResource(AsyncAPIResource):
                     {
                         "team_id": team_id,
                         "limit": limit,
+                        "offset": offset,
                         "project_id": project_id,
+                        "search": search,
+                        "tab": tab,
                     },
                     chat_list_sessions_params.ChatListSessionsParams,
                 ),
