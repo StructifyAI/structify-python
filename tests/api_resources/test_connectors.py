@@ -1029,7 +1029,17 @@ class TestConnectors:
     def test_method_get_explorer_chat(self, client: Structify) -> None:
         connector = client.connectors.get_explorer_chat(
             connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            run_id="run_id",
+        )
+        assert_matches_type(ExplorerChatResponse, connector, path=["response"])
+
+    @parametrize
+    def test_method_get_explorer_chat_with_all_params(self, client: Structify) -> None:
+        connector = client.connectors.get_explorer_chat(
+            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            database_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            run_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            schema_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(ExplorerChatResponse, connector, path=["response"])
 
@@ -1037,7 +1047,6 @@ class TestConnectors:
     def test_raw_response_get_explorer_chat(self, client: Structify) -> None:
         response = client.connectors.with_raw_response.get_explorer_chat(
             connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            run_id="run_id",
         )
 
         assert response.is_closed is True
@@ -1049,7 +1058,6 @@ class TestConnectors:
     def test_streaming_response_get_explorer_chat(self, client: Structify) -> None:
         with client.connectors.with_streaming_response.get_explorer_chat(
             connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            run_id="run_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -1064,7 +1072,6 @@ class TestConnectors:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `connector_id` but received ''"):
             client.connectors.with_raw_response.get_explorer_chat(
                 connector_id="",
-                run_id="run_id",
             )
 
     @parametrize
@@ -2482,7 +2489,17 @@ class TestAsyncConnectors:
     async def test_method_get_explorer_chat(self, async_client: AsyncStructify) -> None:
         connector = await async_client.connectors.get_explorer_chat(
             connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            run_id="run_id",
+        )
+        assert_matches_type(ExplorerChatResponse, connector, path=["response"])
+
+    @parametrize
+    async def test_method_get_explorer_chat_with_all_params(self, async_client: AsyncStructify) -> None:
+        connector = await async_client.connectors.get_explorer_chat(
+            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            database_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            run_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            schema_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(ExplorerChatResponse, connector, path=["response"])
 
@@ -2490,7 +2507,6 @@ class TestAsyncConnectors:
     async def test_raw_response_get_explorer_chat(self, async_client: AsyncStructify) -> None:
         response = await async_client.connectors.with_raw_response.get_explorer_chat(
             connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            run_id="run_id",
         )
 
         assert response.is_closed is True
@@ -2502,7 +2518,6 @@ class TestAsyncConnectors:
     async def test_streaming_response_get_explorer_chat(self, async_client: AsyncStructify) -> None:
         async with async_client.connectors.with_streaming_response.get_explorer_chat(
             connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            run_id="run_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -2517,7 +2532,6 @@ class TestAsyncConnectors:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `connector_id` but received ''"):
             await async_client.connectors.with_raw_response.get_explorer_chat(
                 connector_id="",
-                run_id="run_id",
             )
 
     @parametrize

@@ -903,7 +903,10 @@ class ConnectorsResource(SyncAPIResource):
         self,
         connector_id: str,
         *,
-        run_id: str,
+        database_id: Optional[str] | Omit = omit,
+        run_id: Optional[str] | Omit = omit,
+        schema_id: Optional[str] | Omit = omit,
+        table_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -912,12 +915,9 @@ class ConnectorsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ExplorerChatResponse:
         """
-        Returns chats for all phases (table discovery, column discovery for each table,
-        etc.)
+        Optionally filter by run, database, schema, or table
 
         Args:
-          run_id: Exploration run ID (required)
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -936,7 +936,13 @@ class ConnectorsResource(SyncAPIResource):
                 extra_body=extra_body,
                 timeout=timeout,
                 query=maybe_transform(
-                    {"run_id": run_id}, connector_get_explorer_chat_params.ConnectorGetExplorerChatParams
+                    {
+                        "database_id": database_id,
+                        "run_id": run_id,
+                        "schema_id": schema_id,
+                        "table_id": table_id,
+                    },
+                    connector_get_explorer_chat_params.ConnectorGetExplorerChatParams,
                 ),
             ),
             cast_to=ExplorerChatResponse,
@@ -2129,7 +2135,10 @@ class AsyncConnectorsResource(AsyncAPIResource):
         self,
         connector_id: str,
         *,
-        run_id: str,
+        database_id: Optional[str] | Omit = omit,
+        run_id: Optional[str] | Omit = omit,
+        schema_id: Optional[str] | Omit = omit,
+        table_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -2138,12 +2147,9 @@ class AsyncConnectorsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ExplorerChatResponse:
         """
-        Returns chats for all phases (table discovery, column discovery for each table,
-        etc.)
+        Optionally filter by run, database, schema, or table
 
         Args:
-          run_id: Exploration run ID (required)
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -2162,7 +2168,13 @@ class AsyncConnectorsResource(AsyncAPIResource):
                 extra_body=extra_body,
                 timeout=timeout,
                 query=await async_maybe_transform(
-                    {"run_id": run_id}, connector_get_explorer_chat_params.ConnectorGetExplorerChatParams
+                    {
+                        "database_id": database_id,
+                        "run_id": run_id,
+                        "schema_id": schema_id,
+                        "table_id": table_id,
+                    },
+                    connector_get_explorer_chat_params.ConnectorGetExplorerChatParams,
                 ),
             ),
             cast_to=ExplorerChatResponse,
