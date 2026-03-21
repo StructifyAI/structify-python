@@ -7,7 +7,7 @@ from .._models import BaseModel
 from .chat_visibility import ChatVisibility
 from .chat_session_role import ChatSessionRole
 
-__all__ = ["ListChatSessionsResponse", "Session"]
+__all__ = ["ListChatSessionsResponse", "Session", "TabCounts"]
 
 
 class Session(BaseModel):
@@ -40,7 +40,29 @@ class Session(BaseModel):
     teams_conversation_id: Optional[str] = None
 
 
+class TabCounts(BaseModel):
+    """Per-tab counts for chat session listing"""
+
+    favorites: int
+
+    from_messaging: int
+
+    my_chats: int
+
+    recents: int
+
+    shared: int
+
+    team: int
+
+
 class ListChatSessionsResponse(BaseModel):
     """Response for listing chat sessions"""
 
     sessions: List[Session]
+
+    tab_counts: TabCounts
+    """Per-tab counts for chat session listing"""
+
+    total_count: int
+    """Total number of chat sessions matching the query (for pagination)"""

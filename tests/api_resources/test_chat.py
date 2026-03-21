@@ -866,7 +866,10 @@ class TestChat:
         chat = client.chat.list_sessions(
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             limit=0,
+            offset=0,
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            search="search",
+            tab="my_chats",
         )
         assert_matches_type(ListChatSessionsResponse, chat, path=["response"])
 
@@ -2429,7 +2432,10 @@ class TestAsyncChat:
         chat = await async_client.chat.list_sessions(
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             limit=0,
+            offset=0,
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            search="search",
+            tab="my_chats",
         )
         assert_matches_type(ListChatSessionsResponse, chat, path=["response"])
 
