@@ -809,6 +809,7 @@ class ChatResource(SyncAPIResource):
         self,
         *,
         team_id: str,
+        connector_id: Optional[str] | Omit = omit,
         limit: Optional[int] | Omit = omit,
         offset: Optional[int] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
@@ -827,6 +828,8 @@ class ChatResource(SyncAPIResource):
 
         Args:
           team_id: Team ID to filter chat sessions
+
+          connector_id: Connector ID to filter chat sessions that use this connector
 
           limit: Maximum number of sessions to return (default: 50)
 
@@ -856,6 +859,7 @@ class ChatResource(SyncAPIResource):
                 query=maybe_transform(
                     {
                         "team_id": team_id,
+                        "connector_id": connector_id,
                         "limit": limit,
                         "offset": offset,
                         "project_id": project_id,
@@ -2039,6 +2043,7 @@ class AsyncChatResource(AsyncAPIResource):
         self,
         *,
         team_id: str,
+        connector_id: Optional[str] | Omit = omit,
         limit: Optional[int] | Omit = omit,
         offset: Optional[int] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
@@ -2057,6 +2062,8 @@ class AsyncChatResource(AsyncAPIResource):
 
         Args:
           team_id: Team ID to filter chat sessions
+
+          connector_id: Connector ID to filter chat sessions that use this connector
 
           limit: Maximum number of sessions to return (default: 50)
 
@@ -2086,6 +2093,7 @@ class AsyncChatResource(AsyncAPIResource):
                 query=await async_maybe_transform(
                     {
                         "team_id": team_id,
+                        "connector_id": connector_id,
                         "limit": limit,
                         "offset": offset,
                         "project_id": project_id,

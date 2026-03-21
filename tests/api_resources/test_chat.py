@@ -865,6 +865,7 @@ class TestChat:
     def test_method_list_sessions_with_all_params(self, client: Structify) -> None:
         chat = client.chat.list_sessions(
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             limit=0,
             offset=0,
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -2431,6 +2432,7 @@ class TestAsyncChat:
     async def test_method_list_sessions_with_all_params(self, async_client: AsyncStructify) -> None:
         chat = await async_client.chat.list_sessions(
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             limit=0,
             offset=0,
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",

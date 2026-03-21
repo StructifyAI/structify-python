@@ -12,6 +12,9 @@ class ChatListSessionsParams(TypedDict, total=False):
     team_id: Required[str]
     """Team ID to filter chat sessions"""
 
+    connector_id: Optional[str]
+    """Connector ID to filter chat sessions that use this connector"""
+
     limit: Optional[int]
     """Maximum number of sessions to return (default: 50)"""
 
