@@ -80,7 +80,6 @@ from ...types.explorer_chat_response import ExplorerChatResponse
 from ...types.explore_status_response import ExploreStatusResponse
 from ...types.connector_store_response import ConnectorStoreResponse
 from ...types.exploration_runs_response import ExplorationRunsResponse
-from ...types.connector_explore_response import ConnectorExploreResponse
 from ...types.connector_summaries_response import ConnectorSummariesResponse
 from ...types.connector_table_path_response import ConnectorTablePathResponse
 from ...types.delete_schema_object_response import DeleteSchemaObjectResponse
@@ -747,7 +746,7 @@ class ConnectorsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ConnectorExploreResponse:
+    ) -> None:
         """
         Args:
           only_do_datahub: If true, run only DataHub ingestion without queuing Diego annotation jobs.
@@ -762,6 +761,7 @@ class ConnectorsResource(SyncAPIResource):
         """
         if not connector_id:
             raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
             path_template("/connectors/{connector_id}/explore", connector_id=connector_id),
             body=maybe_transform(
@@ -776,7 +776,7 @@ class ConnectorsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ConnectorExploreResponse,
+            cast_to=NoneType,
         )
 
     def get(
@@ -1985,7 +1985,7 @@ class AsyncConnectorsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ConnectorExploreResponse:
+    ) -> None:
         """
         Args:
           only_do_datahub: If true, run only DataHub ingestion without queuing Diego annotation jobs.
@@ -2000,6 +2000,7 @@ class AsyncConnectorsResource(AsyncAPIResource):
         """
         if not connector_id:
             raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
             path_template("/connectors/{connector_id}/explore", connector_id=connector_id),
             body=await async_maybe_transform(
@@ -2014,7 +2015,7 @@ class AsyncConnectorsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ConnectorExploreResponse,
+            cast_to=NoneType,
         )
 
     async def get(

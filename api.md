@@ -435,6 +435,7 @@ Types:
 
 ```python
 from structify.types.admin import (
+    AdminListConnectorsResponse,
     CloneConnectorItem,
     CloneConnectorsRequest,
     CloneConnectorsResponse,
@@ -448,6 +449,7 @@ from structify.types.admin import (
 Methods:
 
 - <code title="post /admin/connector/clone">client.admin.connector.<a href="./src/structify/resources/admin/connector.py">clone</a>(\*\*<a href="src/structify/types/admin/connector_clone_params.py">params</a>) -> <a href="./src/structify/types/admin/clone_connectors_response.py">CloneConnectorsResponse</a></code>
+- <code title="get /admin/connector/team/{team_id}">client.admin.connector.<a href="./src/structify/resources/admin/connector.py">list_team_connectors</a>(team_id) -> <a href="./src/structify/types/admin/admin_list_connectors_response.py">AdminListConnectorsResponse</a></code>
 - <code title="post /admin/connector/datahub-config">client.admin.connector.<a href="./src/structify/resources/admin/connector.py">set_datahub_config</a>(\*\*<a href="src/structify/types/admin/connector_set_datahub_config_params.py">params</a>) -> <a href="./src/structify/types/connector.py">Connector</a></code>
 
 # Datasets
@@ -723,7 +725,6 @@ from structify.types import (
     UpdateTableRequest,
     UpdateTableResponse,
     ConnectorAddSchemaObjectResponse,
-    ConnectorExploreResponse,
     ConnectorGetResponse,
     ConnectorGetClarificationRequestsResponse,
     ConnectorListStoresResponse,
@@ -744,7 +745,7 @@ Methods:
 - <code title="delete /connectors/{connector_id}/schema_object">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">delete_schema_object</a>(connector_id, \*\*<a href="src/structify/types/connector_delete_schema_object_params.py">params</a>) -> <a href="./src/structify/types/delete_schema_object_response.py">DeleteSchemaObjectResponse</a></code>
 - <code title="delete /connectors/{connector_id}/secrets/{secret_name}">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">delete_secret</a>(secret_name, \*, connector_id) -> None</code>
 - <code title="get /internal/connectors/{connector_id}/datahub-artifacts/{kind}">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">download_datahub_artifact</a>(kind, \*, connector_id, \*\*<a href="src/structify/types/connector_download_datahub_artifact_params.py">params</a>) -> BinaryAPIResponse</code>
-- <code title="post /connectors/{connector_id}/explore">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">explore</a>(connector_id, \*\*<a href="src/structify/types/connector_explore_params.py">params</a>) -> <a href="./src/structify/types/connector_explore_response.py">ConnectorExploreResponse</a></code>
+- <code title="post /connectors/{connector_id}/explore">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">explore</a>(connector_id, \*\*<a href="src/structify/types/connector_explore_params.py">params</a>) -> None</code>
 - <code title="get /connectors/{connector_id}">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">get</a>(connector_id) -> <a href="./src/structify/types/connector_get_response.py">ConnectorGetResponse</a></code>
 - <code title="get /connectors/{connector_id}/clarification-requests">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">get_clarification_requests</a>(connector_id) -> <a href="./src/structify/types/connector_get_clarification_requests_response.py">ConnectorGetClarificationRequestsResponse</a></code>
 - <code title="get /connectors/{connector_id}/explore/runs">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">get_exploration_runs</a>(connector_id) -> <a href="./src/structify/types/exploration_runs_response.py">ExplorationRunsResponse</a></code>
