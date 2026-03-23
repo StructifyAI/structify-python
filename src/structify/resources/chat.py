@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
+from typing import Union, Mapping, Optional, cast
 from datetime import datetime
 from typing_extensions import Literal
 
@@ -25,12 +25,13 @@ from ..types import (
     chat_admin_issue_found_params,
     chat_delete_input_file_params,
     chat_update_visibility_params,
+    chat_upload_input_file_params,
     chat_grant_admin_override_params,
     chat_update_session_favorite_params,
     chat_copy_node_output_by_code_hash_params,
 )
-from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, SequenceNotStr, omit, not_given
-from .._utils import path_template, maybe_transform, async_maybe_transform
+from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, FileTypes, SequenceNotStr, omit, not_given
+from .._utils import extract_files, path_template, maybe_transform, deepcopy_minimal, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -75,6 +76,7 @@ from ..types.chat_load_input_files_response import ChatLoadInputFilesResponse
 from ..types.chat_revert_to_commit_response import ChatRevertToCommitResponse
 from ..types.chat_delete_input_file_response import ChatDeleteInputFileResponse
 from ..types.chat_get_partial_chats_response import ChatGetPartialChatsResponse
+from ..types.chat_upload_input_file_response import ChatUploadInputFileResponse
 from ..types.chat_get_session_timeline_response import ChatGetSessionTimelineResponse
 from ..types.chat_copy_node_output_by_code_hash_response import ChatCopyNodeOutputByCodeHashResponse
 
@@ -1258,6 +1260,56 @@ class ChatResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=UpdateVisibilityResponse,
+        )
+
+    def upload_input_file(
+        self,
+        chat_id: str,
+        *,
+        content: FileTypes,
+        content_type: str,
+        file_name: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ChatUploadInputFileResponse:
+        """
+        Upload an input file to a chat session's bucket storage
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not chat_id:
+            raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
+        body = deepcopy_minimal(
+            {
+                "content": content,
+                "content_type": content_type,
+                "file_name": file_name,
+            }
+        )
+        files = extract_files(cast(Mapping[str, object], body), paths=[["content"]])
+        # It should be noted that the actual Content-Type header that will be
+        # sent to the server will contain a `boundary` parameter, e.g.
+        # multipart/form-data; boundary=---abc--
+        extra_headers = {"Content-Type": "multipart/form-data", **(extra_headers or {})}
+        return self._post(
+            path_template("/chat/input-files/upload/{chat_id}", chat_id=chat_id),
+            body=maybe_transform(body, chat_upload_input_file_params.ChatUploadInputFileParams),
+            files=files,
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ChatUploadInputFileResponse,
         )
 
 
@@ -2452,6 +2504,56 @@ class AsyncChatResource(AsyncAPIResource):
             cast_to=UpdateVisibilityResponse,
         )
 
+    async def upload_input_file(
+        self,
+        chat_id: str,
+        *,
+        content: FileTypes,
+        content_type: str,
+        file_name: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ChatUploadInputFileResponse:
+        """
+        Upload an input file to a chat session's bucket storage
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not chat_id:
+            raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
+        body = deepcopy_minimal(
+            {
+                "content": content,
+                "content_type": content_type,
+                "file_name": file_name,
+            }
+        )
+        files = extract_files(cast(Mapping[str, object], body), paths=[["content"]])
+        # It should be noted that the actual Content-Type header that will be
+        # sent to the server will contain a `boundary` parameter, e.g.
+        # multipart/form-data; boundary=---abc--
+        extra_headers = {"Content-Type": "multipart/form-data", **(extra_headers or {})}
+        return await self._post(
+            path_template("/chat/input-files/upload/{chat_id}", chat_id=chat_id),
+            body=await async_maybe_transform(body, chat_upload_input_file_params.ChatUploadInputFileParams),
+            files=files,
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ChatUploadInputFileResponse,
+        )
+
 
 class ChatResourceWithRawResponse:
     def __init__(self, chat: ChatResource) -> None:
@@ -2550,6 +2652,9 @@ class ChatResourceWithRawResponse:
         )
         self.update_visibility = to_raw_response_wrapper(
             chat.update_visibility,
+        )
+        self.upload_input_file = to_raw_response_wrapper(
+            chat.upload_input_file,
         )
 
 
@@ -2651,6 +2756,9 @@ class AsyncChatResourceWithRawResponse:
         self.update_visibility = async_to_raw_response_wrapper(
             chat.update_visibility,
         )
+        self.upload_input_file = async_to_raw_response_wrapper(
+            chat.upload_input_file,
+        )
 
 
 class ChatResourceWithStreamingResponse:
@@ -2751,6 +2859,9 @@ class ChatResourceWithStreamingResponse:
         self.update_visibility = to_streamed_response_wrapper(
             chat.update_visibility,
         )
+        self.upload_input_file = to_streamed_response_wrapper(
+            chat.upload_input_file,
+        )
 
 
 class AsyncChatResourceWithStreamingResponse:
@@ -2850,4 +2961,7 @@ class AsyncChatResourceWithStreamingResponse:
         )
         self.update_visibility = async_to_streamed_response_wrapper(
             chat.update_visibility,
+        )
+        self.upload_input_file = async_to_streamed_response_wrapper(
+            chat.upload_input_file,
         )

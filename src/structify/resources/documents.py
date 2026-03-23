@@ -2,13 +2,14 @@
 
 from __future__ import annotations
 
-from typing import Optional
+from typing import Mapping, Optional, cast
+from typing_extensions import Literal
 
 import httpx
 
-from ..types import document_list_params, document_delete_params, document_download_params
-from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
-from .._utils import maybe_transform, async_maybe_transform
+from ..types import document_list_params, document_delete_params, document_upload_params, document_download_params
+from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, FileTypes, omit, not_given
+from .._utils import extract_files, maybe_transform, deepcopy_minimal, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -155,6 +156,66 @@ class DocumentsResource(SyncAPIResource):
             cast_to=DocumentDownloadResponse,
         )
 
+    def upload(
+        self,
+        *,
+        content: FileTypes,
+        file_type: Literal["Text", "PDF", "SEC"],
+        path: FileTypes,
+        dataset: Optional[str] | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> None:
+        """
+        Add a new file to the database
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        body = deepcopy_minimal(
+            {
+                "content": content,
+                "file_type": file_type,
+                "path": path,
+            }
+        )
+        files = extract_files(cast(Mapping[str, object], body), paths=[["content"], ["path"]])
+        # It should be noted that the actual Content-Type header that will be
+        # sent to the server will contain a `boundary` parameter, e.g.
+        # multipart/form-data; boundary=---abc--
+        extra_headers["Content-Type"] = "multipart/form-data"
+        return self._post(
+            "/documents/upload",
+            body=maybe_transform(body, document_upload_params.DocumentUploadParams),
+            files=files,
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "dataset": dataset,
+                        "project_id": project_id,
+                    },
+                    document_upload_params.DocumentUploadParams,
+                ),
+            ),
+            cast_to=NoneType,
+        )
+
 
 class AsyncDocumentsResource(AsyncAPIResource):
     @cached_property
@@ -287,6 +348,66 @@ class AsyncDocumentsResource(AsyncAPIResource):
             cast_to=DocumentDownloadResponse,
         )
 
+    async def upload(
+        self,
+        *,
+        content: FileTypes,
+        file_type: Literal["Text", "PDF", "SEC"],
+        path: FileTypes,
+        dataset: Optional[str] | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> None:
+        """
+        Add a new file to the database
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        body = deepcopy_minimal(
+            {
+                "content": content,
+                "file_type": file_type,
+                "path": path,
+            }
+        )
+        files = extract_files(cast(Mapping[str, object], body), paths=[["content"], ["path"]])
+        # It should be noted that the actual Content-Type header that will be
+        # sent to the server will contain a `boundary` parameter, e.g.
+        # multipart/form-data; boundary=---abc--
+        extra_headers["Content-Type"] = "multipart/form-data"
+        return await self._post(
+            "/documents/upload",
+            body=await async_maybe_transform(body, document_upload_params.DocumentUploadParams),
+            files=files,
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "dataset": dataset,
+                        "project_id": project_id,
+                    },
+                    document_upload_params.DocumentUploadParams,
+                ),
+            ),
+            cast_to=NoneType,
+        )
+
 
 class DocumentsResourceWithRawResponse:
     def __init__(self, documents: DocumentsResource) -> None:
@@ -300,6 +421,9 @@ class DocumentsResourceWithRawResponse:
         )
         self.download = to_raw_response_wrapper(
             documents.download,
+        )
+        self.upload = to_raw_response_wrapper(
+            documents.upload,
         )
 
 
@@ -316,6 +440,9 @@ class AsyncDocumentsResourceWithRawResponse:
         self.download = async_to_raw_response_wrapper(
             documents.download,
         )
+        self.upload = async_to_raw_response_wrapper(
+            documents.upload,
+        )
 
 
 class DocumentsResourceWithStreamingResponse:
@@ -331,6 +458,9 @@ class DocumentsResourceWithStreamingResponse:
         self.download = to_streamed_response_wrapper(
             documents.download,
         )
+        self.upload = to_streamed_response_wrapper(
+            documents.upload,
+        )
 
 
 class AsyncDocumentsResourceWithStreamingResponse:
@@ -345,4 +475,7 @@ class AsyncDocumentsResourceWithStreamingResponse:
         )
         self.download = async_to_streamed_response_wrapper(
             documents.download,
+        )
+        self.upload = async_to_streamed_response_wrapper(
+            documents.upload,
         )
