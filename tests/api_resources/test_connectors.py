@@ -21,6 +21,7 @@ from structify.types import (
     ExploreStatusResponse,
     ConnectorStoreResponse,
     ExplorationRunsResponse,
+    ConnectorExploreResponse,
     ConnectorSummariesResponse,
     ConnectorTablePathResponse,
     DeleteSchemaObjectResponse,
@@ -831,7 +832,7 @@ class TestConnectors:
         connector = client.connectors.explore(
             connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert connector is None
+        assert_matches_type(ConnectorExploreResponse, connector, path=["response"])
 
     @parametrize
     def test_method_explore_with_all_params(self, client: Structify) -> None:
@@ -842,7 +843,7 @@ class TestConnectors:
             schema_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert connector is None
+        assert_matches_type(ConnectorExploreResponse, connector, path=["response"])
 
     @parametrize
     def test_raw_response_explore(self, client: Structify) -> None:
@@ -853,7 +854,7 @@ class TestConnectors:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         connector = response.parse()
-        assert connector is None
+        assert_matches_type(ConnectorExploreResponse, connector, path=["response"])
 
     @parametrize
     def test_streaming_response_explore(self, client: Structify) -> None:
@@ -864,7 +865,7 @@ class TestConnectors:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             connector = response.parse()
-            assert connector is None
+            assert_matches_type(ConnectorExploreResponse, connector, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -2293,7 +2294,7 @@ class TestAsyncConnectors:
         connector = await async_client.connectors.explore(
             connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert connector is None
+        assert_matches_type(ConnectorExploreResponse, connector, path=["response"])
 
     @parametrize
     async def test_method_explore_with_all_params(self, async_client: AsyncStructify) -> None:
@@ -2304,7 +2305,7 @@ class TestAsyncConnectors:
             schema_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert connector is None
+        assert_matches_type(ConnectorExploreResponse, connector, path=["response"])
 
     @parametrize
     async def test_raw_response_explore(self, async_client: AsyncStructify) -> None:
@@ -2315,7 +2316,7 @@ class TestAsyncConnectors:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         connector = await response.parse()
-        assert connector is None
+        assert_matches_type(ConnectorExploreResponse, connector, path=["response"])
 
     @parametrize
     async def test_streaming_response_explore(self, async_client: AsyncStructify) -> None:
@@ -2326,7 +2327,7 @@ class TestAsyncConnectors:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             connector = await response.parse()
-            assert connector is None
+            assert_matches_type(ConnectorExploreResponse, connector, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
