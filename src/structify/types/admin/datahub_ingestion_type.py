@@ -4,4 +4,4 @@ from typing_extensions import Literal, TypeAlias
 
 __all__ = ["DatahubIngestionType"]
 
-DatahubIngestionType: TypeAlias = Literal["postgres", "snowflake", "salesforce", "hubspot"]
+DatahubIngestionType: TypeAlias = Literal["postgres", "snowflake", "salesforce", "hubspot", "bigquery"]

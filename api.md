@@ -708,23 +708,26 @@ from structify.types import (
     ConnectorWithSnippets,
     CreateConnectorRequest,
     CreateSecretRequest,
+    DatahubProgress,
     DeleteSchemaObjectRequest,
     DeleteSchemaObjectResponse,
     ExplorationPhaseID,
+    ExplorationProgress,
     ExplorationRun,
     ExplorationRunsResponse,
     ExplorationStatus,
     ExploreConnectorRequest,
-    ExploreStatusResponse,
     ExplorerChatResponse,
     ListTablesResponse,
     LlmInformationStore,
+    PhaseActivity,
     SchemaObjectID,
     UpdateColumnRequest,
     UpdateConnectorRequest,
     UpdateTableRequest,
     UpdateTableResponse,
     ConnectorAddSchemaObjectResponse,
+    ConnectorExploreResponse,
     ConnectorGetResponse,
     ConnectorGetClarificationRequestsResponse,
     ConnectorListStoresResponse,
@@ -745,11 +748,12 @@ Methods:
 - <code title="delete /connectors/{connector_id}/schema_object">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">delete_schema_object</a>(connector_id, \*\*<a href="src/structify/types/connector_delete_schema_object_params.py">params</a>) -> <a href="./src/structify/types/delete_schema_object_response.py">DeleteSchemaObjectResponse</a></code>
 - <code title="delete /connectors/{connector_id}/secrets/{secret_name}">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">delete_secret</a>(secret_name, \*, connector_id) -> None</code>
 - <code title="get /internal/connectors/{connector_id}/datahub-artifacts/{kind}">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">download_datahub_artifact</a>(kind, \*, connector_id, \*\*<a href="src/structify/types/connector_download_datahub_artifact_params.py">params</a>) -> BinaryAPIResponse</code>
-- <code title="post /connectors/{connector_id}/explore">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">explore</a>(connector_id, \*\*<a href="src/structify/types/connector_explore_params.py">params</a>) -> None</code>
+- <code title="post /connectors/{connector_id}/explore">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">explore</a>(connector_id, \*\*<a href="src/structify/types/connector_explore_params.py">params</a>) -> <a href="./src/structify/types/connector_explore_response.py">ConnectorExploreResponse</a></code>
 - <code title="get /connectors/{connector_id}">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">get</a>(connector_id) -> <a href="./src/structify/types/connector_get_response.py">ConnectorGetResponse</a></code>
 - <code title="get /connectors/{connector_id}/clarification-requests">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">get_clarification_requests</a>(connector_id) -> <a href="./src/structify/types/connector_get_clarification_requests_response.py">ConnectorGetClarificationRequestsResponse</a></code>
+- <code title="get /connectors/{connector_id}/explore/runs/{run_id}/progress">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">get_exploration_progress</a>(run_id, \*, connector_id) -> <a href="./src/structify/types/exploration_progress.py">ExplorationProgress</a></code>
 - <code title="get /connectors/{connector_id}/explore/runs">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">get_exploration_runs</a>(connector_id) -> <a href="./src/structify/types/exploration_runs_response.py">ExplorationRunsResponse</a></code>
-- <code title="get /connectors/{connector_id}/explore/status">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">get_exploration_status</a>(connector_id) -> <a href="./src/structify/types/explore_status_response.py">ExploreStatusResponse</a></code>
+- <code title="get /connectors/{connector_id}/explore/status">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">get_exploration_status</a>(connector_id) -> <a href="./src/structify/types/exploration_run.py">Optional[ExplorationRun]</a></code>
 - <code title="get /connectors/{connector_id}/explore/chat">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">get_explorer_chat</a>(connector_id, \*\*<a href="src/structify/types/connector_get_explorer_chat_params.py">params</a>) -> <a href="./src/structify/types/explorer_chat_response.py">ExplorerChatResponse</a></code>
 - <code title="get /connectors/{connector_id}/store">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">get_store</a>(connector_id) -> <a href="./src/structify/types/connector_store_response.py">ConnectorStoreResponse</a></code>
 - <code title="get /connectors/tables/{table_id}/path">client.connectors.<a href="./src/structify/resources/connectors/connectors.py">get_table_path</a>(table_id) -> <a href="./src/structify/types/connector_table_path_response.py">ConnectorTablePathResponse</a></code>
