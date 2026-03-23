@@ -37,6 +37,7 @@ from .dashboard_item import DashboardItem as DashboardItem
 from .dashboard_page import DashboardPage as DashboardPage
 from .dashboard_spec import DashboardSpec as DashboardSpec
 from .job_event_body import JobEventBody as JobEventBody
+from .phase_activity import PhaseActivity as PhaseActivity
 from .project_member import ProjectMember as ProjectMember
 from .strategy_param import StrategyParam as StrategyParam
 from .team_with_role import TeamWithRole as TeamWithRole
@@ -57,6 +58,7 @@ from .viz_figure_kind import VizFigureKind as VizFigureKind
 from .viz_param_param import VizParamParam as VizParamParam
 from .viz_query_param import VizQueryParam as VizQueryParam
 from .chat_copy_params import ChatCopyParams as ChatCopyParams
+from .datahub_progress import DatahubProgress as DatahubProgress
 from .job_get_response import JobGetResponse as JobGetResponse
 from .save_requirement import SaveRequirement as SaveRequirement
 from .viz_date_control import VizDateControl as VizDateControl
@@ -125,6 +127,7 @@ from .entity_search_params import EntitySearchParams as EntitySearchParams
 from .entity_verify_params import EntityVerifyParams as EntityVerifyParams
 from .entity_view_response import EntityViewResponse as EntityViewResponse
 from .exploration_phase_id import ExplorationPhaseID as ExplorationPhaseID
+from .exploration_progress import ExplorationProgress as ExplorationProgress
 from .list_tables_response import ListTablesResponse as ListTablesResponse
 from .project_get_response import ProjectGetResponse as ProjectGetResponse
 from .scrape_list_response import ScrapeListResponse as ScrapeListResponse
@@ -182,7 +185,6 @@ from .delete_project_response import DeleteProjectResponse as DeleteProjectRespo
 from .entity_add_batch_params import EntityAddBatchParams as EntityAddBatchParams
 from .entity_list_jobs_params import EntityListJobsParams as EntityListJobsParams
 from .entity_summarize_params import EntitySummarizeParams as EntitySummarizeParams
-from .explore_status_response import ExploreStatusResponse as ExploreStatusResponse
 from .get_job_events_response import GetJobEventsResponse as GetJobEventsResponse
 from .template_question_param import TemplateQuestionParam as TemplateQuestionParam
 from .trigger_review_response import TriggerReviewResponse as TriggerReviewResponse
@@ -229,6 +231,7 @@ from .chat_create_session_params import ChatCreateSessionParams as ChatCreateSes
 from .chat_session_with_messages import ChatSessionWithMessages as ChatSessionWithMessages
 from .chat_update_session_params import ChatUpdateSessionParams as ChatUpdateSessionParams
 from .connector_credential_field import ConnectorCredentialField as ConnectorCredentialField
+from .connector_explore_response import ConnectorExploreResponse as ConnectorExploreResponse
 from .connector_summaries_params import ConnectorSummariesParams as ConnectorSummariesParams
 from .create_match_jobs_response import CreateMatchJobsResponse as CreateMatchJobsResponse
 from .document_download_response import DocumentDownloadResponse as DocumentDownloadResponse
