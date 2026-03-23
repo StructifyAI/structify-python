@@ -195,11 +195,11 @@ from structify import Structify
 
 client = Structify()
 
-client.connectors.upload_datahub_artifact(
-    kind="kind",
-    connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-    exploration_run_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-    file=Path("/path/to/file"),
+client.chat.upload_input_file(
+    chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+    content=Path("/path/to/file"),
+    content_type="content_type",
+    file_name="file_name",
 )
 ```
 

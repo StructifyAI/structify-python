@@ -66,8 +66,6 @@ class WorkflowSessionNode(BaseModel):
 
     output_blob_name: Optional[str] = None
 
-    output_file_size: Optional[int] = None
-
     output_schema: Optional[object] = None
 
     progress: Optional[object] = None
