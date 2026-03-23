@@ -330,8 +330,6 @@ class SaveTableInput(BaseModel):
 
     notes: Optional[str] = None
 
-    tag: Optional[str] = None
-
 
 class SaveTable(BaseModel):
     input: SaveTableInput
