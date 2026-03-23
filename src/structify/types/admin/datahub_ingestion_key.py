@@ -15,6 +15,4 @@ DatahubIngestionKey: TypeAlias = Literal[
     "role",
     "instance_url",
     "access_token",
-    "project_id",
-    "credential_json",
 ]
