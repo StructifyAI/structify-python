@@ -16,6 +16,8 @@ class DocumentListResponseItem(BaseModel):
 
     file_bytes: object
 
+    file_size: int
+
     file_type: Literal["Text", "PDF", "SEC"]
 
     name: str
