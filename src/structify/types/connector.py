@@ -48,4 +48,8 @@ class Connector(BaseModel):
 
     oauth_scopes: Optional[List[Optional[str]]] = None
 
+    refresh_cron_schedule: Optional[str] = None
+
+    refresh_next_run_at: Optional[datetime] = None
+
     usage_snippet_override: Optional[str] = None

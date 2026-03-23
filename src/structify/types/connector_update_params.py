@@ -37,6 +37,8 @@ class ConnectorUpdateParams(TypedDict, total=False):
 
     owner_user_id: Optional[str]
 
+    refresh_cron_schedule: Optional[str]
+
     team_visibility: Optional[Literal["Team", "Private"]]
 
     usage_snippet_override: Optional[str]

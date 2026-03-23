@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import os
-from typing import Any, Optional, cast
+from typing import Any, cast
 
 import httpx
 import pytest
@@ -13,13 +13,12 @@ from structify import Structify, AsyncStructify
 from tests.utils import assert_matches_type
 from structify.types import (
     Connector,
-    ExplorationRun,
     ListTablesResponse,
-    ExplorationProgress,
     UpdateTableResponse,
     ConnectorGetResponse,
     ConnectorWithSecrets,
     ExplorerChatResponse,
+    ExploreStatusResponse,
     ConnectorStoreResponse,
     ExplorationRunsResponse,
     ConnectorExploreResponse,
@@ -112,6 +111,7 @@ class TestConnectors:
             nango_connection_id="nango_connection_id",
             oauth_scopes=["string"],
             owner_user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            refresh_cron_schedule="refresh_cron_schedule",
             team_visibility="Team",
             usage_snippet_override="usage_snippet_override",
             user_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
@@ -954,54 +954,6 @@ class TestConnectors:
             )
 
     @parametrize
-    def test_method_get_exploration_progress(self, client: Structify) -> None:
-        connector = client.connectors.get_exploration_progress(
-            run_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-        assert_matches_type(ExplorationProgress, connector, path=["response"])
-
-    @parametrize
-    def test_raw_response_get_exploration_progress(self, client: Structify) -> None:
-        response = client.connectors.with_raw_response.get_exploration_progress(
-            run_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        connector = response.parse()
-        assert_matches_type(ExplorationProgress, connector, path=["response"])
-
-    @parametrize
-    def test_streaming_response_get_exploration_progress(self, client: Structify) -> None:
-        with client.connectors.with_streaming_response.get_exploration_progress(
-            run_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            connector = response.parse()
-            assert_matches_type(ExplorationProgress, connector, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    def test_path_params_get_exploration_progress(self, client: Structify) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `connector_id` but received ''"):
-            client.connectors.with_raw_response.get_exploration_progress(
-                run_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                connector_id="",
-            )
-
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `run_id` but received ''"):
-            client.connectors.with_raw_response.get_exploration_progress(
-                run_id="",
-                connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            )
-
-    @parametrize
     def test_method_get_exploration_runs(self, client: Structify) -> None:
         connector = client.connectors.get_exploration_runs(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -1044,7 +996,7 @@ class TestConnectors:
         connector = client.connectors.get_exploration_status(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(Optional[ExplorationRun], connector, path=["response"])
+        assert_matches_type(ExploreStatusResponse, connector, path=["response"])
 
     @parametrize
     def test_raw_response_get_exploration_status(self, client: Structify) -> None:
@@ -1055,7 +1007,7 @@ class TestConnectors:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         connector = response.parse()
-        assert_matches_type(Optional[ExplorationRun], connector, path=["response"])
+        assert_matches_type(ExploreStatusResponse, connector, path=["response"])
 
     @parametrize
     def test_streaming_response_get_exploration_status(self, client: Structify) -> None:
@@ -1066,7 +1018,7 @@ class TestConnectors:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             connector = response.parse()
-            assert_matches_type(Optional[ExplorationRun], connector, path=["response"])
+            assert_matches_type(ExploreStatusResponse, connector, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -1616,6 +1568,7 @@ class TestAsyncConnectors:
             nango_connection_id="nango_connection_id",
             oauth_scopes=["string"],
             owner_user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            refresh_cron_schedule="refresh_cron_schedule",
             team_visibility="Team",
             usage_snippet_override="usage_snippet_override",
             user_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
@@ -2464,54 +2417,6 @@ class TestAsyncConnectors:
             )
 
     @parametrize
-    async def test_method_get_exploration_progress(self, async_client: AsyncStructify) -> None:
-        connector = await async_client.connectors.get_exploration_progress(
-            run_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-        assert_matches_type(ExplorationProgress, connector, path=["response"])
-
-    @parametrize
-    async def test_raw_response_get_exploration_progress(self, async_client: AsyncStructify) -> None:
-        response = await async_client.connectors.with_raw_response.get_exploration_progress(
-            run_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        connector = await response.parse()
-        assert_matches_type(ExplorationProgress, connector, path=["response"])
-
-    @parametrize
-    async def test_streaming_response_get_exploration_progress(self, async_client: AsyncStructify) -> None:
-        async with async_client.connectors.with_streaming_response.get_exploration_progress(
-            run_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            connector = await response.parse()
-            assert_matches_type(ExplorationProgress, connector, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    async def test_path_params_get_exploration_progress(self, async_client: AsyncStructify) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `connector_id` but received ''"):
-            await async_client.connectors.with_raw_response.get_exploration_progress(
-                run_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                connector_id="",
-            )
-
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `run_id` but received ''"):
-            await async_client.connectors.with_raw_response.get_exploration_progress(
-                run_id="",
-                connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            )
-
-    @parametrize
     async def test_method_get_exploration_runs(self, async_client: AsyncStructify) -> None:
         connector = await async_client.connectors.get_exploration_runs(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -2554,7 +2459,7 @@ class TestAsyncConnectors:
         connector = await async_client.connectors.get_exploration_status(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(Optional[ExplorationRun], connector, path=["response"])
+        assert_matches_type(ExploreStatusResponse, connector, path=["response"])
 
     @parametrize
     async def test_raw_response_get_exploration_status(self, async_client: AsyncStructify) -> None:
@@ -2565,7 +2470,7 @@ class TestAsyncConnectors:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         connector = await response.parse()
-        assert_matches_type(Optional[ExplorationRun], connector, path=["response"])
+        assert_matches_type(ExploreStatusResponse, connector, path=["response"])
 
     @parametrize
     async def test_streaming_response_get_exploration_status(self, async_client: AsyncStructify) -> None:
@@ -2576,7 +2481,7 @@ class TestAsyncConnectors:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             connector = await response.parse()
-            assert_matches_type(Optional[ExplorationRun], connector, path=["response"])
+            assert_matches_type(ExploreStatusResponse, connector, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
