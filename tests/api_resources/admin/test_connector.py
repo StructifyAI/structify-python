@@ -11,7 +11,7 @@ from structify import Structify, AsyncStructify
 from tests.utils import assert_matches_type
 from structify.types import Connector
 from structify.types.admin import (
-    CloneConnectorsResponse,
+    ConnectorCloneResponse,
     AdminListConnectorsResponse,
 )
 
@@ -35,7 +35,7 @@ class TestConnector:
             source_team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             target_team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(CloneConnectorsResponse, connector, path=["response"])
+        assert_matches_type(ConnectorCloneResponse, connector, path=["response"])
 
     @parametrize
     def test_raw_response_clone(self, client: Structify) -> None:
@@ -55,7 +55,7 @@ class TestConnector:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         connector = response.parse()
-        assert_matches_type(CloneConnectorsResponse, connector, path=["response"])
+        assert_matches_type(ConnectorCloneResponse, connector, path=["response"])
 
     @parametrize
     def test_streaming_response_clone(self, client: Structify) -> None:
@@ -75,7 +75,7 @@ class TestConnector:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             connector = response.parse()
-            assert_matches_type(CloneConnectorsResponse, connector, path=["response"])
+            assert_matches_type(ConnectorCloneResponse, connector, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -177,7 +177,7 @@ class TestAsyncConnector:
             source_team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             target_team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(CloneConnectorsResponse, connector, path=["response"])
+        assert_matches_type(ConnectorCloneResponse, connector, path=["response"])
 
     @parametrize
     async def test_raw_response_clone(self, async_client: AsyncStructify) -> None:
@@ -197,7 +197,7 @@ class TestAsyncConnector:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         connector = await response.parse()
-        assert_matches_type(CloneConnectorsResponse, connector, path=["response"])
+        assert_matches_type(ConnectorCloneResponse, connector, path=["response"])
 
     @parametrize
     async def test_streaming_response_clone(self, async_client: AsyncStructify) -> None:
@@ -217,7 +217,7 @@ class TestAsyncConnector:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             connector = await response.parse()
-            assert_matches_type(CloneConnectorsResponse, connector, path=["response"])
+            assert_matches_type(ConnectorCloneResponse, connector, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

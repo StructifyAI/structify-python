@@ -16,16 +16,12 @@ from ..._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ...types.admin import (
-    DatahubIngestionType,
-    connector_clone_params,
-    connector_set_datahub_config_params,
-)
+from ...types.admin import DatahubIngestionType, connector_clone_params, connector_set_datahub_config_params
 from ..._base_client import make_request_options
 from ...types.connector import Connector
+from ...types.datahub_secret_map_param import DatahubSecretMapParam
 from ...types.admin.datahub_ingestion_type import DatahubIngestionType
-from ...types.admin.datahub_secret_map_param import DatahubSecretMapParam
-from ...types.admin.clone_connectors_response import CloneConnectorsResponse
+from ...types.admin.connector_clone_response import ConnectorCloneResponse
 from ...types.admin.clone_connector_item_param import CloneConnectorItemParam
 from ...types.admin.admin_list_connectors_response import AdminListConnectorsResponse
 
@@ -67,7 +63,7 @@ class ConnectorResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> CloneConnectorsResponse:
+    ) -> ConnectorCloneResponse:
         """
         Args:
           extra_headers: Send extra headers
@@ -92,7 +88,7 @@ class ConnectorResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=CloneConnectorsResponse,
+            cast_to=ConnectorCloneResponse,
         )
 
     def list_team_connectors(
@@ -204,7 +200,7 @@ class AsyncConnectorResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> CloneConnectorsResponse:
+    ) -> ConnectorCloneResponse:
         """
         Args:
           extra_headers: Send extra headers
@@ -229,7 +225,7 @@ class AsyncConnectorResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=CloneConnectorsResponse,
+            cast_to=ConnectorCloneResponse,
         )
 
     async def list_team_connectors(

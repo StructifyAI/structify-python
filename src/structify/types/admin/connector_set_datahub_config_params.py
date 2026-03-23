@@ -6,7 +6,7 @@ from typing import Optional
 from typing_extensions import Required, TypedDict
 
 from .datahub_ingestion_type import DatahubIngestionType
-from .datahub_secret_map_param import DatahubSecretMapParam
+from ..datahub_secret_map_param import DatahubSecretMapParam
 
 __all__ = ["ConnectorSetDatahubConfigParams"]
 

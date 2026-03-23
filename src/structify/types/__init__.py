@@ -37,6 +37,7 @@ from .dashboard_item import DashboardItem as DashboardItem
 from .dashboard_page import DashboardPage as DashboardPage
 from .dashboard_spec import DashboardSpec as DashboardSpec
 from .job_event_body import JobEventBody as JobEventBody
+from .phase_activity import PhaseActivity as PhaseActivity
 from .project_member import ProjectMember as ProjectMember
 from .strategy_param import StrategyParam as StrategyParam
 from .team_with_role import TeamWithRole as TeamWithRole
@@ -57,6 +58,7 @@ from .viz_figure_kind import VizFigureKind as VizFigureKind
 from .viz_param_param import VizParamParam as VizParamParam
 from .viz_query_param import VizQueryParam as VizQueryParam
 from .chat_copy_params import ChatCopyParams as ChatCopyParams
+from .datahub_progress import DatahubProgress as DatahubProgress
 from .job_get_response import JobGetResponse as JobGetResponse
 from .save_requirement import SaveRequirement as SaveRequirement
 from .viz_date_control import VizDateControl as VizDateControl
@@ -76,11 +78,13 @@ from .template_question import TemplateQuestion as TemplateQuestion
 from .user_usage_params import UserUsageParams as UserUsageParams
 from .workflow_node_log import WorkflowNodeLog as WorkflowNodeLog
 from .connector_category import ConnectorCategory as ConnectorCategory
+from .datahub_secret_map import DatahubSecretMap as DatahubSecretMap
 from .dataset_descriptor import DatasetDescriptor as DatasetDescriptor
 from .dataset_get_params import DatasetGetParams as DatasetGetParams
 from .entity_view_params import EntityViewParams as EntityViewParams
 from .exploration_status import ExplorationStatus as ExplorationStatus
 from .merge_config_param import MergeConfigParam as MergeConfigParam
+from .onboarding_answers import OnboardingAnswers as OnboardingAnswers
 from .parquet_edit_param import ParquetEditParam as ParquetEditParam
 from .project_visibility import ProjectVisibility as ProjectVisibility
 from .relationship_param import RelationshipParam as RelationshipParam
@@ -125,6 +129,7 @@ from .entity_search_params import EntitySearchParams as EntitySearchParams
 from .entity_verify_params import EntityVerifyParams as EntityVerifyParams
 from .entity_view_response import EntityViewResponse as EntityViewResponse
 from .exploration_phase_id import ExplorationPhaseID as ExplorationPhaseID
+from .exploration_progress import ExplorationProgress as ExplorationProgress
 from .list_tables_response import ListTablesResponse as ListTablesResponse
 from .project_get_response import ProjectGetResponse as ProjectGetResponse
 from .scrape_list_response import ScrapeListResponse as ScrapeListResponse
@@ -182,7 +187,6 @@ from .delete_project_response import DeleteProjectResponse as DeleteProjectRespo
 from .entity_add_batch_params import EntityAddBatchParams as EntityAddBatchParams
 from .entity_list_jobs_params import EntityListJobsParams as EntityListJobsParams
 from .entity_summarize_params import EntitySummarizeParams as EntitySummarizeParams
-from .explore_status_response import ExploreStatusResponse as ExploreStatusResponse
 from .get_job_events_response import GetJobEventsResponse as GetJobEventsResponse
 from .template_question_param import TemplateQuestionParam as TemplateQuestionParam
 from .trigger_review_response import TriggerReviewResponse as TriggerReviewResponse
@@ -191,11 +195,13 @@ from .viz_string_control_type import VizStringControlType as VizStringControlTyp
 from .chat_load_files_response import ChatLoadFilesResponse as ChatLoadFilesResponse
 from .connector_explore_params import ConnectorExploreParams as ConnectorExploreParams
 from .connector_store_response import ConnectorStoreResponse as ConnectorStoreResponse
+from .datahub_secret_map_param import DatahubSecretMapParam as DatahubSecretMapParam
 from .dataset_descriptor_param import DatasetDescriptorParam as DatasetDescriptorParam
 from .document_download_params import DocumentDownloadParams as DocumentDownloadParams
 from .entity_derive_all_params import EntityDeriveAllParams as EntityDeriveAllParams
 from .list_dashboards_response import ListDashboardsResponse as ListDashboardsResponse
 from .match_create_jobs_params import MatchCreateJobsParams as MatchCreateJobsParams
+from .onboarding_answers_param import OnboardingAnswersParam as OnboardingAnswersParam
 from .refresh_session_response import RefreshSessionResponse as RefreshSessionResponse
 from .session_kill_jobs_params import SessionKillJobsParams as SessionKillJobsParams
 from .simulate_prompt_response import SimulatePromptResponse as SimulatePromptResponse
@@ -313,6 +319,7 @@ from .chat_get_partial_chats_response import ChatGetPartialChatsResponse as Chat
 from .chat_upload_input_file_response import ChatUploadInputFileResponse as ChatUploadInputFileResponse
 from .connector_catalog_list_response import ConnectorCatalogListResponse as ConnectorCatalogListResponse
 from .entity_update_property_response import EntityUpdatePropertyResponse as EntityUpdatePropertyResponse
+from .get_onboarding_answers_response import GetOnboardingAnswersResponse as GetOnboardingAnswersResponse
 from .session_edit_node_output_params import SessionEditNodeOutputParams as SessionEditNodeOutputParams
 from .workflow_schedule_create_params import WorkflowScheduleCreateParams as WorkflowScheduleCreateParams
 from .workflow_schedule_update_params import WorkflowScheduleUpdateParams as WorkflowScheduleUpdateParams
@@ -323,6 +330,7 @@ from .entity_add_relationship_response import EntityAddRelationshipResponse as E
 from .entity_get_local_subgraph_params import EntityGetLocalSubgraphParams as EntityGetLocalSubgraphParams
 from .nango_list_integrations_response import NangoListIntegrationsResponse as NangoListIntegrationsResponse
 from .project_collaborator_input_param import ProjectCollaboratorInputParam as ProjectCollaboratorInputParam
+from .save_onboarding_answers_response import SaveOnboardingAnswersResponse as SaveOnboardingAnswersResponse
 from .connector_auth_method_with_fields import ConnectorAuthMethodWithFields as ConnectorAuthMethodWithFields
 from .dataset_reorder_properties_params import DatasetReorderPropertiesParams as DatasetReorderPropertiesParams
 from .dataset_set_primary_column_params import DatasetSetPrimaryColumnParams as DatasetSetPrimaryColumnParams
@@ -350,6 +358,7 @@ from .entity_get_source_entities_response import EntityGetSourceEntitiesResponse
 from .session_request_confirmation_params import SessionRequestConfirmationParams as SessionRequestConfirmationParams
 from .session_update_node_progress_params import SessionUpdateNodeProgressParams as SessionUpdateNodeProgressParams
 from .structure_enhance_property_response import StructureEnhancePropertyResponse as StructureEnhancePropertyResponse
+from .user_save_onboarding_answers_params import UserSaveOnboardingAnswersParams as UserSaveOnboardingAnswersParams
 from .connector_add_schema_object_response import ConnectorAddSchemaObjectResponse as ConnectorAddSchemaObjectResponse
 from .dataset_enrichment_progress_response import DatasetEnrichmentProgressResponse as DatasetEnrichmentProgressResponse
 from .structure_find_relationship_response import StructureFindRelationshipResponse as StructureFindRelationshipResponse

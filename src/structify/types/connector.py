@@ -6,7 +6,7 @@ from typing_extensions import Literal
 
 from .._models import BaseModel
 from .connector_category import ConnectorCategory
-from .admin.datahub_secret_map import DatahubSecretMap
+from .datahub_secret_map import DatahubSecretMap
 
 __all__ = ["Connector"]
 

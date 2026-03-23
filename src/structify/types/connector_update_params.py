@@ -7,7 +7,7 @@ from typing_extensions import Literal, TypedDict
 
 from .._types import SequenceNotStr
 from .connector_category import ConnectorCategory
-from .admin.datahub_secret_map_param import DatahubSecretMapParam
+from .datahub_secret_map_param import DatahubSecretMapParam
 
 __all__ = ["ConnectorUpdateParams"]
 
