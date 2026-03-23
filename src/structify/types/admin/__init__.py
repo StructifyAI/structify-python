@@ -8,7 +8,6 @@ from .job_list_params import JobListParams as JobListParams
 from .team_list_params import TeamListParams as TeamListParams
 from .job_delete_params import JobDeleteParams as JobDeleteParams
 from .job_list_response import JobListResponse as JobListResponse
-from .datahub_secret_map import DatahubSecretMap as DatahubSecretMap
 from .team_list_response import TeamListResponse as TeamListResponse
 from .user_create_params import UserCreateParams as UserCreateParams
 from .user_list_response import UserListResponse as UserListResponse
@@ -26,13 +25,12 @@ from .team_add_member_params import TeamAddMemberParams as TeamAddMemberParams
 from .job_kill_by_user_params import JobKillByUserParams as JobKillByUserParams
 from .user_get_stats_response import UserGetStatsResponse as UserGetStatsResponse
 from .user_impersonate_params import UserImpersonateParams as UserImpersonateParams
-from .datahub_secret_map_param import DatahubSecretMapParam as DatahubSecretMapParam
+from .connector_clone_response import ConnectorCloneResponse as ConnectorCloneResponse
 from .dataset_get_by_id_params import DatasetGetByIDParams as DatasetGetByIDParams
 from .team_extend_trial_params import TeamExtendTrialParams as TeamExtendTrialParams
 from .admin_add_member_response import AdminAddMemberResponse as AdminAddMemberResponse
 from .admin_teams_list_response import AdminTeamsListResponse as AdminTeamsListResponse
 from .chat_template_list_params import ChatTemplateListParams as ChatTemplateListParams
-from .clone_connectors_response import CloneConnectorsResponse as CloneConnectorsResponse
 from .job_kill_by_user_response import JobKillByUserResponse as JobKillByUserResponse
 from .team_expire_grants_params import TeamExpireGrantsParams as TeamExpireGrantsParams
 from .team_grant_credits_params import TeamGrantCreditsParams as TeamGrantCreditsParams

@@ -5,8 +5,8 @@ from typing import List
 from ..._models import BaseModel
 from ..connector import Connector
 
-__all__ = ["CloneConnectorsResponse"]
+__all__ = ["ConnectorCloneResponse"]
 
 
-class CloneConnectorsResponse(BaseModel):
+class ConnectorCloneResponse(BaseModel):
     connectors: List[Connector]
