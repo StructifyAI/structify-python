@@ -9,7 +9,10 @@ import pytest
 
 from structify import Structify, AsyncStructify
 from tests.utils import assert_matches_type
-from structify.types.admin import CloneConnectorsResponse
+from structify.types import Connector
+from structify.types.admin import (
+    CloneConnectorsResponse,
+)
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -75,6 +78,46 @@ class TestConnector:
 
         assert cast(Any, response.is_closed) is True
 
+    @parametrize
+    def test_method_set_datahub_config(self, client: Structify) -> None:
+        connector = client.admin.connector.set_datahub_config(
+            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(Connector, connector, path=["response"])
+
+    @parametrize
+    def test_method_set_datahub_config_with_all_params(self, client: Structify) -> None:
+        connector = client.admin.connector.set_datahub_config(
+            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            datahub_ingestion_type="postgres",
+            datahub_secret_map={"foo": "string"},
+        )
+        assert_matches_type(Connector, connector, path=["response"])
+
+    @parametrize
+    def test_raw_response_set_datahub_config(self, client: Structify) -> None:
+        response = client.admin.connector.with_raw_response.set_datahub_config(
+            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        connector = response.parse()
+        assert_matches_type(Connector, connector, path=["response"])
+
+    @parametrize
+    def test_streaming_response_set_datahub_config(self, client: Structify) -> None:
+        with client.admin.connector.with_streaming_response.set_datahub_config(
+            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            connector = response.parse()
+            assert_matches_type(Connector, connector, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
 
 class TestAsyncConnector:
     parametrize = pytest.mark.parametrize(
@@ -136,5 +179,45 @@ class TestAsyncConnector:
 
             connector = await response.parse()
             assert_matches_type(CloneConnectorsResponse, connector, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_method_set_datahub_config(self, async_client: AsyncStructify) -> None:
+        connector = await async_client.admin.connector.set_datahub_config(
+            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(Connector, connector, path=["response"])
+
+    @parametrize
+    async def test_method_set_datahub_config_with_all_params(self, async_client: AsyncStructify) -> None:
+        connector = await async_client.admin.connector.set_datahub_config(
+            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            datahub_ingestion_type="postgres",
+            datahub_secret_map={"foo": "string"},
+        )
+        assert_matches_type(Connector, connector, path=["response"])
+
+    @parametrize
+    async def test_raw_response_set_datahub_config(self, async_client: AsyncStructify) -> None:
+        response = await async_client.admin.connector.with_raw_response.set_datahub_config(
+            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        connector = await response.parse()
+        assert_matches_type(Connector, connector, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_set_datahub_config(self, async_client: AsyncStructify) -> None:
+        async with async_client.admin.connector.with_streaming_response.set_datahub_config(
+            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            connector = await response.parse()
+            assert_matches_type(Connector, connector, path=["response"])
 
         assert cast(Any, response.is_closed) is True

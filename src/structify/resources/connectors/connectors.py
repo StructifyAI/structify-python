@@ -83,6 +83,7 @@ from ...types.exploration_runs_response import ExplorationRunsResponse
 from ...types.connector_summaries_response import ConnectorSummariesResponse
 from ...types.connector_table_path_response import ConnectorTablePathResponse
 from ...types.delete_schema_object_response import DeleteSchemaObjectResponse
+from ...types.admin.datahub_secret_map_param import DatahubSecretMapParam
 from ...types.connector_list_stores_response import ConnectorListStoresResponse
 from ...types.connector_search_tables_response import ConnectorSearchTablesResponse
 from ...types.connector_add_schema_object_response import ConnectorAddSchemaObjectResponse
@@ -168,6 +169,8 @@ class ConnectorsResource(SyncAPIResource):
         connector_id: str,
         *,
         connector_category: Optional[ConnectorCategory] | Omit = omit,
+        datahub_ingestion_type: Optional[str] | Omit = omit,
+        datahub_secret_map: Optional[DatahubSecretMapParam] | Omit = omit,
         datahub_urn: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
         known_connector_type: Optional[str] | Omit = omit,
@@ -187,6 +190,9 @@ class ConnectorsResource(SyncAPIResource):
     ) -> None:
         """
         Args:
+          datahub_secret_map: Maps DatahubIngestionKey to the name of the connector secret that holds the
+              value.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -203,6 +209,8 @@ class ConnectorsResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "connector_category": connector_category,
+                    "datahub_ingestion_type": datahub_ingestion_type,
+                    "datahub_secret_map": datahub_secret_map,
                     "datahub_urn": datahub_urn,
                     "description": description,
                     "known_connector_type": known_connector_type,
@@ -1400,6 +1408,8 @@ class AsyncConnectorsResource(AsyncAPIResource):
         connector_id: str,
         *,
         connector_category: Optional[ConnectorCategory] | Omit = omit,
+        datahub_ingestion_type: Optional[str] | Omit = omit,
+        datahub_secret_map: Optional[DatahubSecretMapParam] | Omit = omit,
         datahub_urn: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
         known_connector_type: Optional[str] | Omit = omit,
@@ -1419,6 +1429,9 @@ class AsyncConnectorsResource(AsyncAPIResource):
     ) -> None:
         """
         Args:
+          datahub_secret_map: Maps DatahubIngestionKey to the name of the connector secret that holds the
+              value.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -1435,6 +1448,8 @@ class AsyncConnectorsResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "connector_category": connector_category,
+                    "datahub_ingestion_type": datahub_ingestion_type,
+                    "datahub_secret_map": datahub_secret_map,
                     "datahub_urn": datahub_urn,
                     "description": description,
                     "known_connector_type": known_connector_type,

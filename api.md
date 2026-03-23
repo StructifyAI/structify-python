@@ -436,12 +436,17 @@ from structify.types.admin import (
     CloneConnectorItem,
     CloneConnectorsRequest,
     CloneConnectorsResponse,
+    DatahubIngestionKey,
+    DatahubIngestionType,
+    DatahubSecretMap,
+    SetDatahubConfigRequest,
 )
 ```
 
 Methods:
 
 - <code title="post /admin/connector/clone">client.admin.connector.<a href="./src/structify/resources/admin/connector.py">clone</a>(\*\*<a href="src/structify/types/admin/connector_clone_params.py">params</a>) -> <a href="./src/structify/types/admin/clone_connectors_response.py">CloneConnectorsResponse</a></code>
+- <code title="post /admin/connector/datahub-config">client.admin.connector.<a href="./src/structify/resources/admin/connector.py">set_datahub_config</a>(\*\*<a href="src/structify/types/admin/connector_set_datahub_config_params.py">params</a>) -> <a href="./src/structify/types/connector.py">Connector</a></code>
 
 # Datasets
 

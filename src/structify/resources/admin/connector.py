@@ -2,11 +2,11 @@
 
 from __future__ import annotations
 
-from typing import Iterable
+from typing import Iterable, Optional
 
 import httpx
 
-from ..._types import Body, Query, Headers, NotGiven, not_given
+from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from ..._utils import maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
@@ -16,8 +16,15 @@ from ..._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ...types.admin import connector_clone_params
+from ...types.admin import (
+    DatahubIngestionType,
+    connector_clone_params,
+    connector_set_datahub_config_params,
+)
 from ..._base_client import make_request_options
+from ...types.connector import Connector
+from ...types.admin.datahub_ingestion_type import DatahubIngestionType
+from ...types.admin.datahub_secret_map_param import DatahubSecretMapParam
 from ...types.admin.clone_connectors_response import CloneConnectorsResponse
 from ...types.admin.clone_connector_item_param import CloneConnectorItemParam
 
@@ -87,6 +94,48 @@ class ConnectorResource(SyncAPIResource):
             cast_to=CloneConnectorsResponse,
         )
 
+    def set_datahub_config(
+        self,
+        *,
+        connector_id: str,
+        datahub_ingestion_type: Optional[DatahubIngestionType] | Omit = omit,
+        datahub_secret_map: Optional[DatahubSecretMapParam] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Connector:
+        """
+        Args:
+          datahub_secret_map: Maps DatahubIngestionKey to the name of the connector secret that holds the
+              value.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/admin/connector/datahub-config",
+            body=maybe_transform(
+                {
+                    "connector_id": connector_id,
+                    "datahub_ingestion_type": datahub_ingestion_type,
+                    "datahub_secret_map": datahub_secret_map,
+                },
+                connector_set_datahub_config_params.ConnectorSetDatahubConfigParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Connector,
+        )
+
 
 class AsyncConnectorResource(AsyncAPIResource):
     """Admin endpoints"""
@@ -151,6 +200,48 @@ class AsyncConnectorResource(AsyncAPIResource):
             cast_to=CloneConnectorsResponse,
         )
 
+    async def set_datahub_config(
+        self,
+        *,
+        connector_id: str,
+        datahub_ingestion_type: Optional[DatahubIngestionType] | Omit = omit,
+        datahub_secret_map: Optional[DatahubSecretMapParam] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Connector:
+        """
+        Args:
+          datahub_secret_map: Maps DatahubIngestionKey to the name of the connector secret that holds the
+              value.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/admin/connector/datahub-config",
+            body=await async_maybe_transform(
+                {
+                    "connector_id": connector_id,
+                    "datahub_ingestion_type": datahub_ingestion_type,
+                    "datahub_secret_map": datahub_secret_map,
+                },
+                connector_set_datahub_config_params.ConnectorSetDatahubConfigParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Connector,
+        )
+
 
 class ConnectorResourceWithRawResponse:
     def __init__(self, connector: ConnectorResource) -> None:
@@ -158,6 +249,9 @@ class ConnectorResourceWithRawResponse:
 
         self.clone = to_raw_response_wrapper(
             connector.clone,
+        )
+        self.set_datahub_config = to_raw_response_wrapper(
+            connector.set_datahub_config,
         )
 
 
@@ -168,6 +262,9 @@ class AsyncConnectorResourceWithRawResponse:
         self.clone = async_to_raw_response_wrapper(
             connector.clone,
         )
+        self.set_datahub_config = async_to_raw_response_wrapper(
+            connector.set_datahub_config,
+        )
 
 
 class ConnectorResourceWithStreamingResponse:
@@ -177,6 +274,9 @@ class ConnectorResourceWithStreamingResponse:
         self.clone = to_streamed_response_wrapper(
             connector.clone,
         )
+        self.set_datahub_config = to_streamed_response_wrapper(
+            connector.set_datahub_config,
+        )
 
 
 class AsyncConnectorResourceWithStreamingResponse:
@@ -185,4 +285,7 @@ class AsyncConnectorResourceWithStreamingResponse:
 
         self.clone = async_to_streamed_response_wrapper(
             connector.clone,
+        )
+        self.set_datahub_config = async_to_streamed_response_wrapper(
+            connector.set_datahub_config,
         )
