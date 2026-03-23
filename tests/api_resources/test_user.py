@@ -15,8 +15,6 @@ from structify.types import (
     RefreshSessionResponse,
     SurveySubmissionResponse,
     UserTransactionsResponse,
-    GetOnboardingAnswersResponse,
-    SaveOnboardingAnswersResponse,
 )
 from structify.types.admin import User
 
@@ -120,31 +118,6 @@ class TestUser:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_method_get_onboarding_answers(self, client: Structify) -> None:
-        user = client.user.get_onboarding_answers()
-        assert_matches_type(GetOnboardingAnswersResponse, user, path=["response"])
-
-    @parametrize
-    def test_raw_response_get_onboarding_answers(self, client: Structify) -> None:
-        response = client.user.with_raw_response.get_onboarding_answers()
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        user = response.parse()
-        assert_matches_type(GetOnboardingAnswersResponse, user, path=["response"])
-
-    @parametrize
-    def test_streaming_response_get_onboarding_answers(self, client: Structify) -> None:
-        with client.user.with_streaming_response.get_onboarding_answers() as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            user = response.parse()
-            assert_matches_type(GetOnboardingAnswersResponse, user, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
     def test_method_info(self, client: Structify) -> None:
         user = client.user.info()
         assert_matches_type(UserInfo, user, path=["response"])
@@ -200,52 +173,6 @@ class TestUser:
 
             user = response.parse()
             assert_matches_type(RefreshSessionResponse, user, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    def test_method_save_onboarding_answers(self, client: Structify) -> None:
-        user = client.user.save_onboarding_answers(
-            answers={},
-        )
-        assert_matches_type(SaveOnboardingAnswersResponse, user, path=["response"])
-
-    @parametrize
-    def test_method_save_onboarding_answers_with_all_params(self, client: Structify) -> None:
-        user = client.user.save_onboarding_answers(
-            answers={
-                "company_name": "company_name",
-                "connected_connector_ids": ["string"],
-                "full_name": "full_name",
-                "primary_goal": "primary_goal",
-                "recommended_template_id": "recommended_template_id",
-                "role": "role",
-                "systems_to_connect": ["string"],
-            },
-        )
-        assert_matches_type(SaveOnboardingAnswersResponse, user, path=["response"])
-
-    @parametrize
-    def test_raw_response_save_onboarding_answers(self, client: Structify) -> None:
-        response = client.user.with_raw_response.save_onboarding_answers(
-            answers={},
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        user = response.parse()
-        assert_matches_type(SaveOnboardingAnswersResponse, user, path=["response"])
-
-    @parametrize
-    def test_streaming_response_save_onboarding_answers(self, client: Structify) -> None:
-        with client.user.with_streaming_response.save_onboarding_answers(
-            answers={},
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            user = response.parse()
-            assert_matches_type(SaveOnboardingAnswersResponse, user, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -437,31 +364,6 @@ class TestAsyncUser:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_method_get_onboarding_answers(self, async_client: AsyncStructify) -> None:
-        user = await async_client.user.get_onboarding_answers()
-        assert_matches_type(GetOnboardingAnswersResponse, user, path=["response"])
-
-    @parametrize
-    async def test_raw_response_get_onboarding_answers(self, async_client: AsyncStructify) -> None:
-        response = await async_client.user.with_raw_response.get_onboarding_answers()
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        user = await response.parse()
-        assert_matches_type(GetOnboardingAnswersResponse, user, path=["response"])
-
-    @parametrize
-    async def test_streaming_response_get_onboarding_answers(self, async_client: AsyncStructify) -> None:
-        async with async_client.user.with_streaming_response.get_onboarding_answers() as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            user = await response.parse()
-            assert_matches_type(GetOnboardingAnswersResponse, user, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
     async def test_method_info(self, async_client: AsyncStructify) -> None:
         user = await async_client.user.info()
         assert_matches_type(UserInfo, user, path=["response"])
@@ -517,52 +419,6 @@ class TestAsyncUser:
 
             user = await response.parse()
             assert_matches_type(RefreshSessionResponse, user, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    async def test_method_save_onboarding_answers(self, async_client: AsyncStructify) -> None:
-        user = await async_client.user.save_onboarding_answers(
-            answers={},
-        )
-        assert_matches_type(SaveOnboardingAnswersResponse, user, path=["response"])
-
-    @parametrize
-    async def test_method_save_onboarding_answers_with_all_params(self, async_client: AsyncStructify) -> None:
-        user = await async_client.user.save_onboarding_answers(
-            answers={
-                "company_name": "company_name",
-                "connected_connector_ids": ["string"],
-                "full_name": "full_name",
-                "primary_goal": "primary_goal",
-                "recommended_template_id": "recommended_template_id",
-                "role": "role",
-                "systems_to_connect": ["string"],
-            },
-        )
-        assert_matches_type(SaveOnboardingAnswersResponse, user, path=["response"])
-
-    @parametrize
-    async def test_raw_response_save_onboarding_answers(self, async_client: AsyncStructify) -> None:
-        response = await async_client.user.with_raw_response.save_onboarding_answers(
-            answers={},
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        user = await response.parse()
-        assert_matches_type(SaveOnboardingAnswersResponse, user, path=["response"])
-
-    @parametrize
-    async def test_streaming_response_save_onboarding_answers(self, async_client: AsyncStructify) -> None:
-        async with async_client.user.with_streaming_response.save_onboarding_answers(
-            answers={},
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            user = await response.parse()
-            assert_matches_type(SaveOnboardingAnswersResponse, user, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
