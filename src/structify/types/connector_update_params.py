@@ -7,12 +7,21 @@ from typing_extensions import Literal, TypedDict
 
 from .._types import SequenceNotStr
 from .connector_category import ConnectorCategory
+from .admin.datahub_secret_map_param import DatahubSecretMapParam
 
 __all__ = ["ConnectorUpdateParams"]
 
 
 class ConnectorUpdateParams(TypedDict, total=False):
     connector_category: Optional[ConnectorCategory]
+
+    datahub_ingestion_type: Optional[str]
+
+    datahub_secret_map: Optional[DatahubSecretMapParam]
+    """
+    Maps DatahubIngestionKey to the name of the connector secret that holds the
+    value.
+    """
 
     datahub_urn: Optional[str]
 

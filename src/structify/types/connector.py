@@ -6,6 +6,7 @@ from typing_extensions import Literal
 
 from .._models import BaseModel
 from .connector_category import ConnectorCategory
+from .admin.datahub_secret_map import DatahubSecretMap
 
 __all__ = ["Connector"]
 
@@ -28,6 +29,14 @@ class Connector(BaseModel):
     updated_at: datetime
 
     connector_category: Optional[ConnectorCategory] = None
+
+    datahub_ingestion_type: Optional[str] = None
+
+    datahub_secret_map: Optional[DatahubSecretMap] = None
+    """
+    Maps DatahubIngestionKey to the name of the connector secret that holds the
+    value.
+    """
 
     datahub_urn: Optional[str] = None
 

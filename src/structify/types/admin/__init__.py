@@ -8,21 +8,25 @@ from .job_list_params import JobListParams as JobListParams
 from .team_list_params import TeamListParams as TeamListParams
 from .job_delete_params import JobDeleteParams as JobDeleteParams
 from .job_list_response import JobListResponse as JobListResponse
+from .datahub_secret_map import DatahubSecretMap as DatahubSecretMap
 from .team_list_response import TeamListResponse as TeamListResponse
 from .user_create_params import UserCreateParams as UserCreateParams
 from .user_list_response import UserListResponse as UserListResponse
 from .sandbox_list_params import SandboxListParams as SandboxListParams
 from .admin_dataset_return import AdminDatasetReturn as AdminDatasetReturn
 from .impersonate_response import ImpersonateResponse as ImpersonateResponse
+from .datahub_ingestion_key import DatahubIngestionKey as DatahubIngestionKey
 from .extend_trial_response import ExtendTrialResponse as ExtendTrialResponse
 from .user_get_stats_params import UserGetStatsParams as UserGetStatsParams
 from .connector_clone_params import ConnectorCloneParams as ConnectorCloneParams
+from .datahub_ingestion_type import DatahubIngestionType as DatahubIngestionType
 from .expire_grants_response import ExpireGrantsResponse as ExpireGrantsResponse
 from .grant_credits_response import GrantCreditsResponse as GrantCreditsResponse
 from .team_add_member_params import TeamAddMemberParams as TeamAddMemberParams
 from .job_kill_by_user_params import JobKillByUserParams as JobKillByUserParams
 from .user_get_stats_response import UserGetStatsResponse as UserGetStatsResponse
 from .user_impersonate_params import UserImpersonateParams as UserImpersonateParams
+from .datahub_secret_map_param import DatahubSecretMapParam as DatahubSecretMapParam
 from .dataset_get_by_id_params import DatasetGetByIDParams as DatasetGetByIDParams
 from .team_extend_trial_params import TeamExtendTrialParams as TeamExtendTrialParams
 from .admin_add_member_response import AdminAddMemberResponse as AdminAddMemberResponse
@@ -51,6 +55,7 @@ from .functional_test_link_chat_params import FunctionalTestLinkChatParams as Fu
 from .functional_test_results_response import FunctionalTestResultsResponse as FunctionalTestResultsResponse
 from .team_update_seats_override_params import TeamUpdateSeatsOverrideParams as TeamUpdateSeatsOverrideParams
 from .functional_test_get_results_params import FunctionalTestGetResultsParams as FunctionalTestGetResultsParams
+from .connector_set_datahub_config_params import ConnectorSetDatahubConfigParams as ConnectorSetDatahubConfigParams
 from .functional_test_update_results_params import (
     FunctionalTestUpdateResultsParams as FunctionalTestUpdateResultsParams,
 )

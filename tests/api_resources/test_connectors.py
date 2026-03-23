@@ -101,6 +101,8 @@ class TestConnectors:
         connector = client.connectors.update(
             connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             connector_category="RelationalDatabase",
+            datahub_ingestion_type="datahub_ingestion_type",
+            datahub_secret_map={"foo": "string"},
             datahub_urn="datahub_urn",
             description="description",
             known_connector_type="known_connector_type",
@@ -1555,6 +1557,8 @@ class TestAsyncConnectors:
         connector = await async_client.connectors.update(
             connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             connector_category="RelationalDatabase",
+            datahub_ingestion_type="datahub_ingestion_type",
+            datahub_secret_map={"foo": "string"},
             datahub_urn="datahub_urn",
             description="description",
             known_connector_type="known_connector_type",
