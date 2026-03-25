@@ -15,7 +15,7 @@ from .admin import (
     AsyncAdminResourceWithStreamingResponse,
 )
 from ...types import connector_catalog_list_params
-from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from ..._utils import path_template, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
@@ -68,6 +68,7 @@ class ConnectorCatalogResource(SyncAPIResource):
     def list(
         self,
         *,
+        categories: SequenceNotStr[str] | Omit = omit,
         include_inactive: bool | Omit = omit,
         limit: int | Omit = omit,
         offset: int | Omit = omit,
@@ -83,6 +84,9 @@ class ConnectorCatalogResource(SyncAPIResource):
         List all connector catalog entries with their auth methods and logos
 
         Args:
+          categories: Optional category filter (exact match against any element in the categories
+              array)
+
           include_inactive: Include inactive auth methods (admin only)
 
           search: Optional search query to filter by name, slug, or category (case-insensitive
@@ -105,6 +109,7 @@ class ConnectorCatalogResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "categories": categories,
                         "include_inactive": include_inactive,
                         "limit": limit,
                         "offset": offset,
@@ -210,6 +215,7 @@ class AsyncConnectorCatalogResource(AsyncAPIResource):
     async def list(
         self,
         *,
+        categories: SequenceNotStr[str] | Omit = omit,
         include_inactive: bool | Omit = omit,
         limit: int | Omit = omit,
         offset: int | Omit = omit,
@@ -225,6 +231,9 @@ class AsyncConnectorCatalogResource(AsyncAPIResource):
         List all connector catalog entries with their auth methods and logos
 
         Args:
+          categories: Optional category filter (exact match against any element in the categories
+              array)
+
           include_inactive: Include inactive auth methods (admin only)
 
           search: Optional search query to filter by name, slug, or category (case-insensitive
@@ -247,6 +256,7 @@ class AsyncConnectorCatalogResource(AsyncAPIResource):
                 timeout=timeout,
                 query=await async_maybe_transform(
                     {
+                        "categories": categories,
                         "include_inactive": include_inactive,
                         "limit": limit,
                         "offset": offset,
