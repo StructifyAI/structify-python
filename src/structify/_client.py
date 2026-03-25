@@ -382,7 +382,7 @@ class Structify(SyncAPIClient):
         api_key = self.api_key
         if api_key is None:
             return {}
-        return {"api_key": api_key}
+        return {"api-key": api_key}
 
     @property
     def _session_token(self) -> dict[str, str]:
@@ -402,14 +402,14 @@ class Structify(SyncAPIClient):
 
     @override
     def _validate_headers(self, headers: Headers, custom_headers: Headers) -> None:
-        if headers.get("api_key") or isinstance(custom_headers.get("api_key"), Omit):
+        if headers.get("api-key") or isinstance(custom_headers.get("api-key"), Omit):
             return
 
         if headers.get("Authorization") or isinstance(custom_headers.get("Authorization"), Omit):
             return
 
         raise TypeError(
-            '"Could not resolve authentication method. Expected either api_key or session_token to be set. Or for one of the `api_key` or `Authorization` headers to be explicitly omitted"'
+            '"Could not resolve authentication method. Expected either api_key or session_token to be set. Or for one of the `api-key` or `Authorization` headers to be explicitly omitted"'
         )
 
     def copy(
@@ -770,7 +770,7 @@ class AsyncStructify(AsyncAPIClient):
         api_key = self.api_key
         if api_key is None:
             return {}
-        return {"api_key": api_key}
+        return {"api-key": api_key}
 
     @property
     def _session_token(self) -> dict[str, str]:
@@ -790,14 +790,14 @@ class AsyncStructify(AsyncAPIClient):
 
     @override
     def _validate_headers(self, headers: Headers, custom_headers: Headers) -> None:
-        if headers.get("api_key") or isinstance(custom_headers.get("api_key"), Omit):
+        if headers.get("api-key") or isinstance(custom_headers.get("api-key"), Omit):
             return
 
         if headers.get("Authorization") or isinstance(custom_headers.get("Authorization"), Omit):
             return
 
         raise TypeError(
-            '"Could not resolve authentication method. Expected either api_key or session_token to be set. Or for one of the `api_key` or `Authorization` headers to be explicitly omitted"'
+            '"Could not resolve authentication method. Expected either api_key or session_token to be set. Or for one of the `api-key` or `Authorization` headers to be explicitly omitted"'
         )
 
     def copy(
