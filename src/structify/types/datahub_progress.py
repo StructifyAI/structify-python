@@ -16,6 +16,8 @@ class DatahubProgress(BaseModel):
 
     pages_fetched: int
 
+    records_written: int
+
     schemas_created: int
 
     tables_processed: int
