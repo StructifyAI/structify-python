@@ -353,7 +353,10 @@ from structify.types.admin import (
     AdminDeleteJobsResponse,
     AdminListJobsRequestParams,
     JobListResponse,
+    JobConcurrencyResponse,
     JobKillByUserResponse,
+    JobRunningStatsResponse,
+    JobUpdateConcurrencyResponse,
 )
 ```
 
@@ -361,7 +364,10 @@ Methods:
 
 - <code title="get /admin/jobs/list">client.admin.jobs.<a href="./src/structify/resources/admin/jobs.py">list</a>(\*\*<a href="src/structify/types/admin/job_list_params.py">params</a>) -> <a href="./src/structify/types/admin/job_list_response.py">SyncJobsList[JobListResponse]</a></code>
 - <code title="post /admin/jobs/delete">client.admin.jobs.<a href="./src/structify/resources/admin/jobs.py">delete</a>(\*\*<a href="src/structify/types/admin/job_delete_params.py">params</a>) -> <a href="./src/structify/types/admin/admin_delete_jobs_response.py">AdminDeleteJobsResponse</a></code>
+- <code title="get /admin/jobs/concurrency_limits">client.admin.jobs.<a href="./src/structify/resources/admin/jobs.py">concurrency</a>() -> <a href="./src/structify/types/admin/job_concurrency_response.py">JobConcurrencyResponse</a></code>
 - <code title="post /admin/jobs/kill_by_user">client.admin.jobs.<a href="./src/structify/resources/admin/jobs.py">kill_by_user</a>(\*\*<a href="src/structify/types/admin/job_kill_by_user_params.py">params</a>) -> <a href="./src/structify/types/admin/job_kill_by_user_response.py">JobKillByUserResponse</a></code>
+- <code title="get /admin/jobs/running_stats">client.admin.jobs.<a href="./src/structify/resources/admin/jobs.py">running_stats</a>() -> <a href="./src/structify/types/admin/job_running_stats_response.py">JobRunningStatsResponse</a></code>
+- <code title="put /admin/jobs/concurrency_limits">client.admin.jobs.<a href="./src/structify/resources/admin/jobs.py">update_concurrency</a>(\*\*<a href="src/structify/types/admin/job_update_concurrency_params.py">params</a>) -> <a href="./src/structify/types/admin/job_update_concurrency_response.py">JobUpdateConcurrencyResponse</a></code>
 
 ## Sandbox
 

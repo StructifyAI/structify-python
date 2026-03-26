@@ -13,7 +13,10 @@ from structify.pagination import SyncJobsList, AsyncJobsList
 from structify.types.admin import (
     JobListResponse,
     JobKillByUserResponse,
+    JobConcurrencyResponse,
     AdminDeleteJobsResponse,
+    JobRunningStatsResponse,
+    JobUpdateConcurrencyResponse,
 )
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
@@ -90,6 +93,31 @@ class TestJobs:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
+    def test_method_concurrency(self, client: Structify) -> None:
+        job = client.admin.jobs.concurrency()
+        assert_matches_type(JobConcurrencyResponse, job, path=["response"])
+
+    @parametrize
+    def test_raw_response_concurrency(self, client: Structify) -> None:
+        response = client.admin.jobs.with_raw_response.concurrency()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        job = response.parse()
+        assert_matches_type(JobConcurrencyResponse, job, path=["response"])
+
+    @parametrize
+    def test_streaming_response_concurrency(self, client: Structify) -> None:
+        with client.admin.jobs.with_streaming_response.concurrency() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            job = response.parse()
+            assert_matches_type(JobConcurrencyResponse, job, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
     def test_method_kill_by_user(self, client: Structify) -> None:
         job = client.admin.jobs.kill_by_user(
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -117,6 +145,69 @@ class TestJobs:
 
             job = response.parse()
             assert_matches_type(JobKillByUserResponse, job, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_method_running_stats(self, client: Structify) -> None:
+        job = client.admin.jobs.running_stats()
+        assert_matches_type(JobRunningStatsResponse, job, path=["response"])
+
+    @parametrize
+    def test_raw_response_running_stats(self, client: Structify) -> None:
+        response = client.admin.jobs.with_raw_response.running_stats()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        job = response.parse()
+        assert_matches_type(JobRunningStatsResponse, job, path=["response"])
+
+    @parametrize
+    def test_streaming_response_running_stats(self, client: Structify) -> None:
+        with client.admin.jobs.with_streaming_response.running_stats() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            job = response.parse()
+            assert_matches_type(JobRunningStatsResponse, job, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_method_update_concurrency(self, client: Structify) -> None:
+        job = client.admin.jobs.update_concurrency()
+        assert_matches_type(JobUpdateConcurrencyResponse, job, path=["response"])
+
+    @parametrize
+    def test_method_update_concurrency_with_all_params(self, client: Structify) -> None:
+        job = client.admin.jobs.update_concurrency(
+            max_connector_explore_jobs=0,
+            max_derive_jobs=0,
+            max_match_jobs=0,
+            max_pdf_jobs=0,
+            max_scrape_jobs=0,
+            max_total_jobs=0,
+            max_web_jobs=0,
+        )
+        assert_matches_type(JobUpdateConcurrencyResponse, job, path=["response"])
+
+    @parametrize
+    def test_raw_response_update_concurrency(self, client: Structify) -> None:
+        response = client.admin.jobs.with_raw_response.update_concurrency()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        job = response.parse()
+        assert_matches_type(JobUpdateConcurrencyResponse, job, path=["response"])
+
+    @parametrize
+    def test_streaming_response_update_concurrency(self, client: Structify) -> None:
+        with client.admin.jobs.with_streaming_response.update_concurrency() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            job = response.parse()
+            assert_matches_type(JobUpdateConcurrencyResponse, job, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -194,6 +285,31 @@ class TestAsyncJobs:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
+    async def test_method_concurrency(self, async_client: AsyncStructify) -> None:
+        job = await async_client.admin.jobs.concurrency()
+        assert_matches_type(JobConcurrencyResponse, job, path=["response"])
+
+    @parametrize
+    async def test_raw_response_concurrency(self, async_client: AsyncStructify) -> None:
+        response = await async_client.admin.jobs.with_raw_response.concurrency()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        job = await response.parse()
+        assert_matches_type(JobConcurrencyResponse, job, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_concurrency(self, async_client: AsyncStructify) -> None:
+        async with async_client.admin.jobs.with_streaming_response.concurrency() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            job = await response.parse()
+            assert_matches_type(JobConcurrencyResponse, job, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
     async def test_method_kill_by_user(self, async_client: AsyncStructify) -> None:
         job = await async_client.admin.jobs.kill_by_user(
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -221,5 +337,68 @@ class TestAsyncJobs:
 
             job = await response.parse()
             assert_matches_type(JobKillByUserResponse, job, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_method_running_stats(self, async_client: AsyncStructify) -> None:
+        job = await async_client.admin.jobs.running_stats()
+        assert_matches_type(JobRunningStatsResponse, job, path=["response"])
+
+    @parametrize
+    async def test_raw_response_running_stats(self, async_client: AsyncStructify) -> None:
+        response = await async_client.admin.jobs.with_raw_response.running_stats()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        job = await response.parse()
+        assert_matches_type(JobRunningStatsResponse, job, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_running_stats(self, async_client: AsyncStructify) -> None:
+        async with async_client.admin.jobs.with_streaming_response.running_stats() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            job = await response.parse()
+            assert_matches_type(JobRunningStatsResponse, job, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_method_update_concurrency(self, async_client: AsyncStructify) -> None:
+        job = await async_client.admin.jobs.update_concurrency()
+        assert_matches_type(JobUpdateConcurrencyResponse, job, path=["response"])
+
+    @parametrize
+    async def test_method_update_concurrency_with_all_params(self, async_client: AsyncStructify) -> None:
+        job = await async_client.admin.jobs.update_concurrency(
+            max_connector_explore_jobs=0,
+            max_derive_jobs=0,
+            max_match_jobs=0,
+            max_pdf_jobs=0,
+            max_scrape_jobs=0,
+            max_total_jobs=0,
+            max_web_jobs=0,
+        )
+        assert_matches_type(JobUpdateConcurrencyResponse, job, path=["response"])
+
+    @parametrize
+    async def test_raw_response_update_concurrency(self, async_client: AsyncStructify) -> None:
+        response = await async_client.admin.jobs.with_raw_response.update_concurrency()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        job = await response.parse()
+        assert_matches_type(JobUpdateConcurrencyResponse, job, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_update_concurrency(self, async_client: AsyncStructify) -> None:
+        async with async_client.admin.jobs.with_streaming_response.update_concurrency() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            job = await response.parse()
+            assert_matches_type(JobUpdateConcurrencyResponse, job, path=["response"])
 
         assert cast(Any, response.is_closed) is True
