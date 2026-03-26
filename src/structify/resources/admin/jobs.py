@@ -18,11 +18,14 @@ from ..._response import (
     async_to_streamed_response_wrapper,
 )
 from ...pagination import SyncJobsList, AsyncJobsList
-from ...types.admin import job_list_params, job_delete_params, job_kill_by_user_params
+from ...types.admin import job_list_params, job_delete_params, job_kill_by_user_params, job_update_concurrency_params
 from ..._base_client import AsyncPaginator, make_request_options
 from ...types.admin.job_list_response import JobListResponse
+from ...types.admin.job_concurrency_response import JobConcurrencyResponse
 from ...types.admin.job_kill_by_user_response import JobKillByUserResponse
 from ...types.admin.admin_delete_jobs_response import AdminDeleteJobsResponse
+from ...types.admin.job_running_stats_response import JobRunningStatsResponse
+from ...types.admin.job_update_concurrency_response import JobUpdateConcurrencyResponse
 
 __all__ = ["JobsResource", "AsyncJobsResource"]
 
@@ -127,6 +130,24 @@ class JobsResource(SyncAPIResource):
             cast_to=AdminDeleteJobsResponse,
         )
 
+    def concurrency(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> JobConcurrencyResponse:
+        return self._get(
+            "/admin/jobs/concurrency_limits",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=JobConcurrencyResponse,
+        )
+
     def kill_by_user(
         self,
         *,
@@ -155,6 +176,71 @@ class JobsResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=JobKillByUserResponse,
+        )
+
+    def running_stats(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> JobRunningStatsResponse:
+        return self._get(
+            "/admin/jobs/running_stats",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=JobRunningStatsResponse,
+        )
+
+    def update_concurrency(
+        self,
+        *,
+        max_connector_explore_jobs: Optional[int] | Omit = omit,
+        max_derive_jobs: Optional[int] | Omit = omit,
+        max_match_jobs: Optional[int] | Omit = omit,
+        max_pdf_jobs: Optional[int] | Omit = omit,
+        max_scrape_jobs: Optional[int] | Omit = omit,
+        max_total_jobs: Optional[int] | Omit = omit,
+        max_web_jobs: Optional[int] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> JobUpdateConcurrencyResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._put(
+            "/admin/jobs/concurrency_limits",
+            body=maybe_transform(
+                {
+                    "max_connector_explore_jobs": max_connector_explore_jobs,
+                    "max_derive_jobs": max_derive_jobs,
+                    "max_match_jobs": max_match_jobs,
+                    "max_pdf_jobs": max_pdf_jobs,
+                    "max_scrape_jobs": max_scrape_jobs,
+                    "max_total_jobs": max_total_jobs,
+                    "max_web_jobs": max_web_jobs,
+                },
+                job_update_concurrency_params.JobUpdateConcurrencyParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=JobUpdateConcurrencyResponse,
         )
 
 
@@ -258,6 +344,24 @@ class AsyncJobsResource(AsyncAPIResource):
             cast_to=AdminDeleteJobsResponse,
         )
 
+    async def concurrency(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> JobConcurrencyResponse:
+        return await self._get(
+            "/admin/jobs/concurrency_limits",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=JobConcurrencyResponse,
+        )
+
     async def kill_by_user(
         self,
         *,
@@ -288,6 +392,71 @@ class AsyncJobsResource(AsyncAPIResource):
             cast_to=JobKillByUserResponse,
         )
 
+    async def running_stats(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> JobRunningStatsResponse:
+        return await self._get(
+            "/admin/jobs/running_stats",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=JobRunningStatsResponse,
+        )
+
+    async def update_concurrency(
+        self,
+        *,
+        max_connector_explore_jobs: Optional[int] | Omit = omit,
+        max_derive_jobs: Optional[int] | Omit = omit,
+        max_match_jobs: Optional[int] | Omit = omit,
+        max_pdf_jobs: Optional[int] | Omit = omit,
+        max_scrape_jobs: Optional[int] | Omit = omit,
+        max_total_jobs: Optional[int] | Omit = omit,
+        max_web_jobs: Optional[int] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> JobUpdateConcurrencyResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._put(
+            "/admin/jobs/concurrency_limits",
+            body=await async_maybe_transform(
+                {
+                    "max_connector_explore_jobs": max_connector_explore_jobs,
+                    "max_derive_jobs": max_derive_jobs,
+                    "max_match_jobs": max_match_jobs,
+                    "max_pdf_jobs": max_pdf_jobs,
+                    "max_scrape_jobs": max_scrape_jobs,
+                    "max_total_jobs": max_total_jobs,
+                    "max_web_jobs": max_web_jobs,
+                },
+                job_update_concurrency_params.JobUpdateConcurrencyParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=JobUpdateConcurrencyResponse,
+        )
+
 
 class JobsResourceWithRawResponse:
     def __init__(self, jobs: JobsResource) -> None:
@@ -299,8 +468,17 @@ class JobsResourceWithRawResponse:
         self.delete = to_raw_response_wrapper(
             jobs.delete,
         )
+        self.concurrency = to_raw_response_wrapper(
+            jobs.concurrency,
+        )
         self.kill_by_user = to_raw_response_wrapper(
             jobs.kill_by_user,
+        )
+        self.running_stats = to_raw_response_wrapper(
+            jobs.running_stats,
+        )
+        self.update_concurrency = to_raw_response_wrapper(
+            jobs.update_concurrency,
         )
 
 
@@ -314,8 +492,17 @@ class AsyncJobsResourceWithRawResponse:
         self.delete = async_to_raw_response_wrapper(
             jobs.delete,
         )
+        self.concurrency = async_to_raw_response_wrapper(
+            jobs.concurrency,
+        )
         self.kill_by_user = async_to_raw_response_wrapper(
             jobs.kill_by_user,
+        )
+        self.running_stats = async_to_raw_response_wrapper(
+            jobs.running_stats,
+        )
+        self.update_concurrency = async_to_raw_response_wrapper(
+            jobs.update_concurrency,
         )
 
 
@@ -329,8 +516,17 @@ class JobsResourceWithStreamingResponse:
         self.delete = to_streamed_response_wrapper(
             jobs.delete,
         )
+        self.concurrency = to_streamed_response_wrapper(
+            jobs.concurrency,
+        )
         self.kill_by_user = to_streamed_response_wrapper(
             jobs.kill_by_user,
+        )
+        self.running_stats = to_streamed_response_wrapper(
+            jobs.running_stats,
+        )
+        self.update_concurrency = to_streamed_response_wrapper(
+            jobs.update_concurrency,
         )
 
 
@@ -344,6 +540,15 @@ class AsyncJobsResourceWithStreamingResponse:
         self.delete = async_to_streamed_response_wrapper(
             jobs.delete,
         )
+        self.concurrency = async_to_streamed_response_wrapper(
+            jobs.concurrency,
+        )
         self.kill_by_user = async_to_streamed_response_wrapper(
             jobs.kill_by_user,
+        )
+        self.running_stats = async_to_streamed_response_wrapper(
+            jobs.running_stats,
+        )
+        self.update_concurrency = async_to_streamed_response_wrapper(
+            jobs.update_concurrency,
         )
