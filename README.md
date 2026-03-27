@@ -120,12 +120,12 @@ from structify import Structify
 
 client = Structify()
 
-all_teams = []
+all_jobs = []
 # Automatically fetches more pages as needed.
-for team in client.admin.teams.list():
-    # Do something with team here
-    all_teams.append(team)
-print(all_teams)
+for job in client.admin.jobs.list():
+    # Do something with job here
+    all_jobs.append(job)
+print(all_jobs)
 ```
 
 Or, asynchronously:
@@ -138,11 +138,11 @@ client = AsyncStructify()
 
 
 async def main() -> None:
-    all_teams = []
+    all_jobs = []
     # Iterate through items across all pages, issuing requests as needed.
-    async for team in client.admin.teams.list():
-        all_teams.append(team)
-    print(all_teams)
+    async for job in client.admin.jobs.list():
+        all_jobs.append(job)
+    print(all_jobs)
 
 
 asyncio.run(main())
@@ -151,7 +151,7 @@ asyncio.run(main())
 Alternatively, you can use the `.has_next_page()`, `.next_page_info()`, or `.get_next_page()` methods for more granular control working with pages:
 
 ```python
-first_page = await client.admin.teams.list()
+first_page = await client.admin.jobs.list()
 if first_page.has_next_page():
     print(f"will fetch next page using these details: {first_page.next_page_info()}")
     next_page = await first_page.get_next_page()
@@ -163,9 +163,9 @@ if first_page.has_next_page():
 Or just work directly with the returned data:
 
 ```python
-first_page = await client.admin.teams.list()
-for team in first_page.items:
-    print(team)
+first_page = await client.admin.jobs.list()
+for job in first_page.items:
+    print(job.id)
 
 # Remove `await` for non-async usage.
 ```
@@ -195,10 +195,11 @@ from structify import Structify
 
 client = Structify()
 
-client.documents.upload(
+client.chat.upload_input_file(
+    chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
     content=Path("/path/to/file"),
-    file_type="Text",
-    path=b"raw file contents",
+    content_type="content_type",
+    file_name="file_name",
 )
 ```
 

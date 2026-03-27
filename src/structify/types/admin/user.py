@@ -40,7 +40,7 @@ class User(BaseModel):
 
     full_name: str
 
-    is_developer: bool
+    notify_for_interaction: bool
 
     permissions: List[Optional[Literal["labeler", "qa_labeler", "debug", "human_llm", "none"]]]
 

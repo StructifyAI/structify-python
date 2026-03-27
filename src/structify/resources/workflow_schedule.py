@@ -13,7 +13,7 @@ from ..types import (
     workflow_schedule_get_sessions_params,
 )
 from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
-from .._utils import maybe_transform, async_maybe_transform
+from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -77,7 +77,7 @@ class WorkflowScheduleResource(SyncAPIResource):
         if not chat_session_id:
             raise ValueError(f"Expected a non-empty value for `chat_session_id` but received {chat_session_id!r}")
         return self._post(
-            f"/workflow-schedule/{chat_session_id}",
+            path_template("/workflow-schedule/{chat_session_id}", chat_session_id=chat_session_id),
             body=maybe_transform(
                 {
                     "name": name,
@@ -120,7 +120,7 @@ class WorkflowScheduleResource(SyncAPIResource):
         if not schedule_id:
             raise ValueError(f"Expected a non-empty value for `schedule_id` but received {schedule_id!r}")
         return self._put(
-            f"/workflow-schedule/{schedule_id}",
+            path_template("/workflow-schedule/{schedule_id}", schedule_id=schedule_id),
             body=maybe_transform(
                 {
                     "cron_schedule": cron_schedule,
@@ -161,7 +161,7 @@ class WorkflowScheduleResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `schedule_id` but received {schedule_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._delete(
-            f"/workflow-schedule/{schedule_id}",
+            path_template("/workflow-schedule/{schedule_id}", schedule_id=schedule_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -192,7 +192,7 @@ class WorkflowScheduleResource(SyncAPIResource):
         if not chat_session_id:
             raise ValueError(f"Expected a non-empty value for `chat_session_id` but received {chat_session_id!r}")
         return self._get(
-            f"/workflow-schedule/{chat_session_id}",
+            path_template("/workflow-schedule/{chat_session_id}", chat_session_id=chat_session_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -243,7 +243,7 @@ class WorkflowScheduleResource(SyncAPIResource):
         if not schedule_id:
             raise ValueError(f"Expected a non-empty value for `schedule_id` but received {schedule_id!r}")
         return self._post(
-            f"/workflow-schedule/{schedule_id}/sessions",
+            path_template("/workflow-schedule/{schedule_id}/sessions", schedule_id=schedule_id),
             body=maybe_transform(
                 {
                     "limit": limit,
@@ -282,7 +282,7 @@ class WorkflowScheduleResource(SyncAPIResource):
         if not schedule_id:
             raise ValueError(f"Expected a non-empty value for `schedule_id` but received {schedule_id!r}")
         return self._patch(
-            f"/workflow-schedule/{schedule_id}/pause",
+            path_template("/workflow-schedule/{schedule_id}/pause", schedule_id=schedule_id),
             body=maybe_transform({"paused": paused}, workflow_schedule_pause_params.WorkflowSchedulePauseParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -315,7 +315,7 @@ class WorkflowScheduleResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `schedule_id` but received {schedule_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
-            f"/workflow-schedule/{schedule_id}/run",
+            path_template("/workflow-schedule/{schedule_id}/run", schedule_id=schedule_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -370,7 +370,7 @@ class AsyncWorkflowScheduleResource(AsyncAPIResource):
         if not chat_session_id:
             raise ValueError(f"Expected a non-empty value for `chat_session_id` but received {chat_session_id!r}")
         return await self._post(
-            f"/workflow-schedule/{chat_session_id}",
+            path_template("/workflow-schedule/{chat_session_id}", chat_session_id=chat_session_id),
             body=await async_maybe_transform(
                 {
                     "name": name,
@@ -413,7 +413,7 @@ class AsyncWorkflowScheduleResource(AsyncAPIResource):
         if not schedule_id:
             raise ValueError(f"Expected a non-empty value for `schedule_id` but received {schedule_id!r}")
         return await self._put(
-            f"/workflow-schedule/{schedule_id}",
+            path_template("/workflow-schedule/{schedule_id}", schedule_id=schedule_id),
             body=await async_maybe_transform(
                 {
                     "cron_schedule": cron_schedule,
@@ -454,7 +454,7 @@ class AsyncWorkflowScheduleResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `schedule_id` but received {schedule_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._delete(
-            f"/workflow-schedule/{schedule_id}",
+            path_template("/workflow-schedule/{schedule_id}", schedule_id=schedule_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -485,7 +485,7 @@ class AsyncWorkflowScheduleResource(AsyncAPIResource):
         if not chat_session_id:
             raise ValueError(f"Expected a non-empty value for `chat_session_id` but received {chat_session_id!r}")
         return await self._get(
-            f"/workflow-schedule/{chat_session_id}",
+            path_template("/workflow-schedule/{chat_session_id}", chat_session_id=chat_session_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -536,7 +536,7 @@ class AsyncWorkflowScheduleResource(AsyncAPIResource):
         if not schedule_id:
             raise ValueError(f"Expected a non-empty value for `schedule_id` but received {schedule_id!r}")
         return await self._post(
-            f"/workflow-schedule/{schedule_id}/sessions",
+            path_template("/workflow-schedule/{schedule_id}/sessions", schedule_id=schedule_id),
             body=await async_maybe_transform(
                 {
                     "limit": limit,
@@ -575,7 +575,7 @@ class AsyncWorkflowScheduleResource(AsyncAPIResource):
         if not schedule_id:
             raise ValueError(f"Expected a non-empty value for `schedule_id` but received {schedule_id!r}")
         return await self._patch(
-            f"/workflow-schedule/{schedule_id}/pause",
+            path_template("/workflow-schedule/{schedule_id}/pause", schedule_id=schedule_id),
             body=await async_maybe_transform(
                 {"paused": paused}, workflow_schedule_pause_params.WorkflowSchedulePauseParams
             ),
@@ -610,7 +610,7 @@ class AsyncWorkflowScheduleResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `schedule_id` but received {schedule_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
-            f"/workflow-schedule/{schedule_id}/run",
+            path_template("/workflow-schedule/{schedule_id}/run", schedule_id=schedule_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),

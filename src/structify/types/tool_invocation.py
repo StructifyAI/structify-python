@@ -36,6 +36,9 @@ __all__ = [
     "DeleteFileInput",
     "MoveFile",
     "MoveFileInput",
+    "ApplyPatch",
+    "ApplyPatchInput",
+    "ApplyPatchInputEdit",
     "RunBash",
     "RunBashInput",
     "RunPython",
@@ -66,6 +69,10 @@ __all__ = [
     "CreateConnectorInput",
     "SearchConnectorTypes",
     "SearchConnectorTypesInput",
+    "PinPreviousTool",
+    "PinPreviousToolInput",
+    "RunPipeline",
+    "RunPipelineInput",
 ]
 
 
@@ -191,11 +198,7 @@ class InspectStep(BaseModel):
 
 
 class ReadNodeLogsInput(BaseModel):
-    end_line: int
-
     node_function_name: str
-
-    start_line: int
 
     log_type: Optional[str] = None
 
@@ -226,6 +229,26 @@ class MoveFile(BaseModel):
     input: MoveFileInput
 
     name: Literal["MoveFile"]
+
+
+class ApplyPatchInputEdit(BaseModel):
+    new_string: str
+
+    old_string: str
+
+
+class ApplyPatchInput(BaseModel):
+    apply_all: bool
+
+    edits: List[ApplyPatchInputEdit]
+
+    file: str
+
+
+class ApplyPatch(BaseModel):
+    input: ApplyPatchInput
+
+    name: Literal["ApplyPatch"]
 
 
 class RunBashInput(BaseModel):
@@ -306,8 +329,6 @@ class SaveTableInput(BaseModel):
     description: Optional[str] = None
 
     notes: Optional[str] = None
-
-    tag: Optional[str] = None
 
 
 class SaveTable(BaseModel):
@@ -432,6 +453,26 @@ class SearchConnectorTypes(BaseModel):
     name: Literal["SearchConnectorTypes"]
 
 
+class PinPreviousToolInput(BaseModel):
+    path: str
+
+
+class PinPreviousTool(BaseModel):
+    input: PinPreviousToolInput
+
+    name: Literal["PinPreviousTool"]
+
+
+class RunPipelineInput(BaseModel):
+    rerun_all_steps: Optional[bool] = None
+
+
+class RunPipeline(BaseModel):
+    input: RunPipelineInput
+
+    name: Literal["RunPipeline"]
+
+
 ToolInvocation: TypeAlias = Annotated[
     Union[
         WebSearch,
@@ -448,6 +489,7 @@ ToolInvocation: TypeAlias = Annotated[
         ReadNodeLogs,
         DeleteFile,
         MoveFile,
+        ApplyPatch,
         RunBash,
         RunPython,
         IssueFound,
@@ -463,6 +505,8 @@ ToolInvocation: TypeAlias = Annotated[
         SelectData,
         CreateConnector,
         SearchConnectorTypes,
+        PinPreviousTool,
+        RunPipeline,
     ],
     PropertyInfo(discriminator="name"),
 ]

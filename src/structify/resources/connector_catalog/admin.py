@@ -19,7 +19,7 @@ from ..._types import (
     omit,
     not_given,
 )
-from ..._utils import extract_files, maybe_transform, deepcopy_minimal, async_maybe_transform
+from ..._utils import extract_files, path_template, maybe_transform, deepcopy_minimal, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -61,6 +61,8 @@ __all__ = ["AdminResource", "AsyncAdminResource"]
 
 
 class AdminResource(SyncAPIResource):
+    """Admin endpoints"""
+
     @cached_property
     def with_raw_response(self) -> AdminResourceWithRawResponse:
         """
@@ -198,6 +200,8 @@ class AdminResource(SyncAPIResource):
         slug: str,
         categories: SequenceNotStr[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
+        enterprise_only: bool | Omit = omit,
+        onboarding_priority: Optional[int] | Omit = omit,
         priority: Optional[int] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -226,6 +230,8 @@ class AdminResource(SyncAPIResource):
                     "slug": slug,
                     "categories": categories,
                     "description": description,
+                    "enterprise_only": enterprise_only,
+                    "onboarding_priority": onboarding_priority,
                     "priority": priority,
                 },
                 admin_create_catalog_params.AdminCreateCatalogParams,
@@ -357,7 +363,7 @@ class AdminResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._delete(
-            f"/admin/connector-catalog/{id}",
+            path_template("/admin/connector-catalog/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -391,7 +397,7 @@ class AdminResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._delete(
-            f"/admin/connector-catalog/credential-fields/{id}",
+            path_template("/admin/connector-catalog/credential-fields/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -423,7 +429,7 @@ class AdminResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._delete(
-            f"/admin/connector-catalog/scopes/{id}",
+            path_template("/admin/connector-catalog/scopes/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -514,7 +520,7 @@ class AdminResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._patch(
-            f"/admin/connector-catalog/auth-methods/{id}",
+            path_template("/admin/connector-catalog/auth-methods/{id}", id=id),
             body=maybe_transform(
                 {
                     "is_active": is_active,
@@ -535,7 +541,9 @@ class AdminResource(SyncAPIResource):
         *,
         categories: Optional[SequenceNotStr[str]] | Omit = omit,
         description: Optional[str] | Omit = omit,
+        enterprise_only: Optional[bool] | Omit = omit,
         name: Optional[str] | Omit = omit,
+        onboarding_priority: Optional[int] | Omit = omit,
         priority: Optional[int] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -559,12 +567,14 @@ class AdminResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._patch(
-            f"/admin/connector-catalog/{id}",
+            path_template("/admin/connector-catalog/{id}", id=id),
             body=maybe_transform(
                 {
                     "categories": categories,
                     "description": description,
+                    "enterprise_only": enterprise_only,
                     "name": name,
+                    "onboarding_priority": onboarding_priority,
                     "priority": priority,
                 },
                 admin_update_catalog_params.AdminUpdateCatalogParams,
@@ -609,7 +619,7 @@ class AdminResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._patch(
-            f"/admin/connector-catalog/credential-fields/{id}",
+            path_template("/admin/connector-catalog/credential-fields/{id}", id=id),
             body=maybe_transform(
                 {
                     "default_value": default_value,
@@ -657,7 +667,7 @@ class AdminResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._patch(
-            f"/admin/connector-catalog/scopes/{id}",
+            path_template("/admin/connector-catalog/scopes/{id}", id=id),
             body=maybe_transform(
                 {
                     "is_recommended": is_recommended,
@@ -704,7 +714,7 @@ class AdminResource(SyncAPIResource):
         # multipart/form-data; boundary=---abc--
         extra_headers = {"Content-Type": "multipart/form-data", **(extra_headers or {})}
         return self._put(
-            f"/admin/connector-catalog/{slug}/logo",
+            path_template("/admin/connector-catalog/{slug}/logo", slug=slug),
             body=maybe_transform(body, admin_upload_logo_params.AdminUploadLogoParams),
             files=files,
             options=make_request_options(
@@ -715,6 +725,8 @@ class AdminResource(SyncAPIResource):
 
 
 class AsyncAdminResource(AsyncAPIResource):
+    """Admin endpoints"""
+
     @cached_property
     def with_raw_response(self) -> AsyncAdminResourceWithRawResponse:
         """
@@ -854,6 +866,8 @@ class AsyncAdminResource(AsyncAPIResource):
         slug: str,
         categories: SequenceNotStr[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
+        enterprise_only: bool | Omit = omit,
+        onboarding_priority: Optional[int] | Omit = omit,
         priority: Optional[int] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -882,6 +896,8 @@ class AsyncAdminResource(AsyncAPIResource):
                     "slug": slug,
                     "categories": categories,
                     "description": description,
+                    "enterprise_only": enterprise_only,
+                    "onboarding_priority": onboarding_priority,
                     "priority": priority,
                 },
                 admin_create_catalog_params.AdminCreateCatalogParams,
@@ -1013,7 +1029,7 @@ class AsyncAdminResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._delete(
-            f"/admin/connector-catalog/{id}",
+            path_template("/admin/connector-catalog/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1047,7 +1063,7 @@ class AsyncAdminResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._delete(
-            f"/admin/connector-catalog/credential-fields/{id}",
+            path_template("/admin/connector-catalog/credential-fields/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1079,7 +1095,7 @@ class AsyncAdminResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._delete(
-            f"/admin/connector-catalog/scopes/{id}",
+            path_template("/admin/connector-catalog/scopes/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1170,7 +1186,7 @@ class AsyncAdminResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._patch(
-            f"/admin/connector-catalog/auth-methods/{id}",
+            path_template("/admin/connector-catalog/auth-methods/{id}", id=id),
             body=await async_maybe_transform(
                 {
                     "is_active": is_active,
@@ -1191,7 +1207,9 @@ class AsyncAdminResource(AsyncAPIResource):
         *,
         categories: Optional[SequenceNotStr[str]] | Omit = omit,
         description: Optional[str] | Omit = omit,
+        enterprise_only: Optional[bool] | Omit = omit,
         name: Optional[str] | Omit = omit,
+        onboarding_priority: Optional[int] | Omit = omit,
         priority: Optional[int] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1215,12 +1233,14 @@ class AsyncAdminResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._patch(
-            f"/admin/connector-catalog/{id}",
+            path_template("/admin/connector-catalog/{id}", id=id),
             body=await async_maybe_transform(
                 {
                     "categories": categories,
                     "description": description,
+                    "enterprise_only": enterprise_only,
                     "name": name,
+                    "onboarding_priority": onboarding_priority,
                     "priority": priority,
                 },
                 admin_update_catalog_params.AdminUpdateCatalogParams,
@@ -1265,7 +1285,7 @@ class AsyncAdminResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._patch(
-            f"/admin/connector-catalog/credential-fields/{id}",
+            path_template("/admin/connector-catalog/credential-fields/{id}", id=id),
             body=await async_maybe_transform(
                 {
                     "default_value": default_value,
@@ -1313,7 +1333,7 @@ class AsyncAdminResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._patch(
-            f"/admin/connector-catalog/scopes/{id}",
+            path_template("/admin/connector-catalog/scopes/{id}", id=id),
             body=await async_maybe_transform(
                 {
                     "is_recommended": is_recommended,
@@ -1360,7 +1380,7 @@ class AsyncAdminResource(AsyncAPIResource):
         # multipart/form-data; boundary=---abc--
         extra_headers = {"Content-Type": "multipart/form-data", **(extra_headers or {})}
         return await self._put(
-            f"/admin/connector-catalog/{slug}/logo",
+            path_template("/admin/connector-catalog/{slug}/logo", slug=slug),
             body=await async_maybe_transform(body, admin_upload_logo_params.AdminUploadLogoParams),
             files=files,
             options=make_request_options(

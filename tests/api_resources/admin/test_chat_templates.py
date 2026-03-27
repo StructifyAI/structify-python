@@ -28,6 +28,7 @@ class TestChatTemplates:
             display_order=0,
             image_url="image_url",
             is_active=True,
+            questions=[{"prompt": "prompt"}],
             title="title",
         )
         assert_matches_type(ChatTemplate, chat_template, path=["response"])
@@ -40,6 +41,7 @@ class TestChatTemplates:
             display_order=0,
             image_url="image_url",
             is_active=True,
+            questions=[{"prompt": "prompt"}],
             title="title",
         )
 
@@ -56,6 +58,7 @@ class TestChatTemplates:
             display_order=0,
             image_url="image_url",
             is_active=True,
+            questions=[{"prompt": "prompt"}],
             title="title",
         ) as response:
             assert not response.is_closed
@@ -81,6 +84,12 @@ class TestChatTemplates:
             display_order=0,
             image_url="image_url",
             is_active=True,
+            questions=[
+                {
+                    "prompt": "prompt",
+                    "options": ["string"],
+                }
+            ],
             title="title",
             updated_by="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
@@ -163,6 +172,7 @@ class TestAsyncChatTemplates:
             display_order=0,
             image_url="image_url",
             is_active=True,
+            questions=[{"prompt": "prompt"}],
             title="title",
         )
         assert_matches_type(ChatTemplate, chat_template, path=["response"])
@@ -175,6 +185,7 @@ class TestAsyncChatTemplates:
             display_order=0,
             image_url="image_url",
             is_active=True,
+            questions=[{"prompt": "prompt"}],
             title="title",
         )
 
@@ -191,6 +202,7 @@ class TestAsyncChatTemplates:
             display_order=0,
             image_url="image_url",
             is_active=True,
+            questions=[{"prompt": "prompt"}],
             title="title",
         ) as response:
             assert not response.is_closed
@@ -216,6 +228,12 @@ class TestAsyncChatTemplates:
             display_order=0,
             image_url="image_url",
             is_active=True,
+            questions=[
+                {
+                    "prompt": "prompt",
+                    "options": ["string"],
+                }
+            ],
             title="title",
             updated_by="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )

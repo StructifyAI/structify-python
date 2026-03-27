@@ -1,7 +1,7 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import List, Union, Optional
-from typing_extensions import TypeAlias
+from typing_extensions import Literal, TypeAlias
 
 from pydantic import Field as FieldInfo
 
@@ -35,6 +35,9 @@ __all__ = [
     "AttachedFileAttachedFile",
     "ConnectorRequest",
     "ConnectorRequestConnectorRequest",
+    "UserInterrupted",
+    "IssueFound",
+    "IssueFoundIssueFound",
 ]
 
 
@@ -144,6 +147,12 @@ class Question(BaseModel):
 class InternalErrorInternalError(BaseModel):
     message: str
 
+    error_kind: Optional[Literal["unknown", "context_limit", "rate_limited", "timeout", "connection_error"]] = None
+    """
+    Categorizes the kind of internal error that occurred during LLM generation. This
+    allows the frontend to render appropriate error messages without regex matching.
+    """
+
 
 class InternalError(BaseModel):
     internal_error: InternalErrorInternalError = FieldInfo(alias="InternalError")
@@ -185,6 +194,22 @@ class ConnectorRequest(BaseModel):
     connector_request: ConnectorRequestConnectorRequest = FieldInfo(alias="ConnectorRequest")
 
 
+class UserInterrupted(BaseModel):
+    user_interrupted: object = FieldInfo(alias="UserInterrupted")
+
+
+class IssueFoundIssueFound(BaseModel):
+    admin_override: bool
+
+    description: str
+
+    title: str
+
+
+class IssueFound(BaseModel):
+    issue_found: IssueFoundIssueFound = FieldInfo(alias="IssueFound")
+
+
 ChatEvent: TypeAlias = Union[
     TextMessage,
     Thinking,
@@ -197,4 +222,6 @@ ChatEvent: TypeAlias = Union[
     ReviewRequest,
     AttachedFile,
     ConnectorRequest,
+    UserInterrupted,
+    IssueFound,
 ]

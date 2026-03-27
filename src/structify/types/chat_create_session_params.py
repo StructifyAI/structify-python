@@ -16,8 +16,6 @@ class ChatCreateSessionParams(TypedDict, total=False):
 
     ephemeral: Optional[bool]
 
-    initial_message: Optional[str]
-
     project_id: Optional[str]
 
 
@@ -48,9 +46,10 @@ class Config(TypedDict, total=False):
             "bedrock.claude-haiku-4-5-bedrock",
             "gemini.gemini-2.5-pro",
             "gemini.gemini-2.5-flash",
-            "gemini.gemini-3-pro-preview",
             "gemini.gemini-3-flash-preview",
+            "gemini.gemini-3.1-flash-lite-preview",
             "vertex_anthropic.claude-sonnet-4-5-vertex",
+            "vertex_anthropic.claude-opus-4-5-vertex",
         ]
     ]
     """LLM model keys available in the system. Format: <provider>.<model-name>"""

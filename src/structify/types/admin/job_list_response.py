@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import List, Union, Optional
+from datetime import datetime
 from typing_extensions import Literal, TypeAlias
 
 from pydantic import Field as FieldInfo
@@ -11,7 +12,7 @@ from ..save_requirement import SaveRequirement
 from ..exploration_phase_id import ExplorationPhaseID
 
 __all__ = [
-    "AdminListJobsResponse",
+    "JobListResponse",
     "Parameters",
     "ParametersStructuringInput",
     "ParametersStructuringInputAgent",
@@ -25,6 +26,8 @@ __all__ = [
     "ParametersStructuringInputScrapeFromURLPropertyScrapeFromURLProperty",
     "ParametersStructuringInputScrapeURL",
     "ParametersStructuringInputScrapeURLScrapeURL",
+    "ParametersStructuringInputDatahubIngestion",
+    "ParametersStructuringInputDatahubIngestionDatahubIngestion",
     "ParametersStructuringInputConnectorExploration",
     "ParametersStructuringInputConnectorExplorationConnectorExploration",
 ]
@@ -94,6 +97,18 @@ class ParametersStructuringInputScrapeURL(BaseModel):
     scrape_url: ParametersStructuringInputScrapeURLScrapeURL = FieldInfo(alias="ScrapeUrl")
 
 
+class ParametersStructuringInputDatahubIngestionDatahubIngestion(BaseModel):
+    connector_id: str
+
+    exploration_run_id: str
+
+    only_do_datahub: bool
+
+
+class ParametersStructuringInputDatahubIngestion(BaseModel):
+    datahub_ingestion: ParametersStructuringInputDatahubIngestionDatahubIngestion = FieldInfo(alias="DatahubIngestion")
+
+
 class ParametersStructuringInputConnectorExplorationConnectorExploration(BaseModel):
     connector_id: str
 
@@ -106,8 +121,7 @@ class ParametersStructuringInputConnectorExplorationConnectorExploration(BaseMod
 
     exploration_run_id: str
 
-    stage: Literal["both", "ingestion", "annotation"]
-    """Which exploration stage to run"""
+    strategy: Literal["full", "diff"]
 
 
 class ParametersStructuringInputConnectorExploration(BaseModel):
@@ -121,6 +135,7 @@ ParametersStructuringInput: TypeAlias = Union[
     ParametersStructuringInputTransformationPrompt,
     ParametersStructuringInputScrapeFromURLProperty,
     ParametersStructuringInputScrapeURL,
+    ParametersStructuringInputDatahubIngestion,
     ParametersStructuringInputConnectorExploration,
 ]
 
@@ -130,29 +145,39 @@ class Parameters(BaseModel):
 
     extraction_criteria: List[SaveRequirement]
 
-    seeded_kg: KnowledgeGraph
-    """
-    Knowledge graph info structured to deserialize and display in the same format
-    that the LLM outputs. Also the first representation of an LLM output in the
-    pipeline from raw tool output to being merged into a DB
-    """
-
     structuring_input: ParametersStructuringInput
 
     instructions: Optional[str] = None
 
     model: Optional[str] = None
 
+    seeded_kg: Optional[KnowledgeGraph] = None
+    """
+    Knowledge graph info structured to deserialize and display in the same format
+    that the LLM outputs. Also the first representation of an LLM output in the
+    pipeline from raw tool output to being merged into a DB
+    """
 
-class AdminListJobsResponse(BaseModel):
+
+class JobListResponse(BaseModel):
     id: str
 
-    dataset_id: str
+    created_at: datetime
 
-    job_type: Literal["Web", "Pdf", "Derive", "Scrape", "Match", "ConnectorExplore"]
+    job_type: Literal["Web", "Pdf", "Derive", "Scrape", "Match", "ConnectorExplore", "DatahubIngestion"]
 
     status: Literal["Queued", "Running", "Completed", "Failed"]
 
     user_id: str
 
+    dataset_id: Optional[str] = None
+
+    message: Optional[str] = None
+
     parameters: Optional[Parameters] = None
+
+    reason: Optional[str] = None
+
+    run_started_time: Optional[datetime] = None
+
+    run_time_milliseconds: Optional[int] = None

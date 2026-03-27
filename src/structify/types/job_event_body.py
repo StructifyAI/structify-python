@@ -24,6 +24,8 @@ __all__ = [
     "DatahubDatabasesCreated",
     "DatahubSchemasCreated",
     "DatahubTablesProcessed",
+    "DatahubAnnotationsQueued",
+    "DatahubIngestionProgress",
     "DatahubEmbeddingBatch",
     "ViewedPdfPage",
 ]
@@ -167,7 +169,23 @@ class DatahubTablesProcessed(BaseModel):
 
     tables_failed: int
 
+    tables_removed: int
+
     tables_updated: int
+
+
+class DatahubAnnotationsQueued(BaseModel):
+    diff_annotations_queued: int
+
+    event_type: Literal["datahub_annotations_queued"]
+
+    full_annotations_queued: int
+
+
+class DatahubIngestionProgress(BaseModel):
+    event_type: Literal["datahub_ingestion_progress"]
+
+    records_written: int
 
 
 class DatahubEmbeddingBatch(BaseModel):
@@ -203,6 +221,8 @@ JobEventBody: TypeAlias = Annotated[
         DatahubDatabasesCreated,
         DatahubSchemasCreated,
         DatahubTablesProcessed,
+        DatahubAnnotationsQueued,
+        DatahubIngestionProgress,
         DatahubEmbeddingBatch,
         ViewedPdfPage,
     ],

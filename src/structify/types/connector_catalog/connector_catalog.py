@@ -15,6 +15,8 @@ class ConnectorCatalog(BaseModel):
 
     created_at: datetime
 
+    enterprise_only: bool
+
     name: str
 
     slug: str
@@ -22,5 +24,7 @@ class ConnectorCatalog(BaseModel):
     updated_at: datetime
 
     description: Optional[str] = None
+
+    onboarding_priority: Optional[int] = None
 
     priority: Optional[int] = None
