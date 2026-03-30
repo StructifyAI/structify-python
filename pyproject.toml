@@ -5,7 +5,7 @@ description = "The official Python library for the structify API"
 dynamic = ["readme"]
 license = "Apache-2.0"
 authors = [
-{ name = "Structify", email = "team@structify.ai" },
+{ name = "Structify", email = "team+sdk-preview@structify.ai" },
 ]
 
 dependencies = [
