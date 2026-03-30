@@ -343,6 +343,7 @@ class TestEntities:
             derived_property="derived_property",
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             instructions="instructions",
+            model="model",
             node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(str, entity, path=["response"])
@@ -394,6 +395,7 @@ class TestEntities:
             derived_property="derived_property",
             instructions="instructions",
             table_name="table_name",
+            model="model",
             node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(EntityDeriveAllResponse, entity, path=["response"])
@@ -1185,6 +1187,7 @@ class TestAsyncEntities:
             derived_property="derived_property",
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             instructions="instructions",
+            model="model",
             node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(str, entity, path=["response"])
@@ -1236,6 +1239,7 @@ class TestAsyncEntities:
             derived_property="derived_property",
             instructions="instructions",
             table_name="table_name",
+            model="model",
             node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(EntityDeriveAllResponse, entity, path=["response"])
