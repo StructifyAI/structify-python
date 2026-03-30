@@ -976,6 +976,7 @@ class PolarsResource(SyncAPIResource):
         instructions: str,
         dataframe_name: str,
         dataframe_description: str,
+        model: str | None = None,
     ) -> LazyFrame:
         """
         Tag entities in a LazyFrame by deriving a new property value based on all existing properties.
@@ -990,6 +991,7 @@ class PolarsResource(SyncAPIResource):
             instructions: Instructions for how to derive the new property value.
             dataframe_name: Logical name of the dataframe (e.g. "Company", "Invoice").
             dataframe_description: Description providing context for the dataframe.
+            model: Optional model name to use for tagging.
 
         Returns:
             LazyFrame with the original columns plus the new derived property column.
@@ -1032,6 +1034,13 @@ class PolarsResource(SyncAPIResource):
 
         node_id = get_node_id()
 
+        if isinstance(model, str):
+            parts = model.split(".", 1)
+            if len(parts) != 2:
+                raise ValueError(
+                    "model must be in format 'provider.model_name' (e.g. 'bedrock.claude-sonnet-4-bedrock')"
+                )
+
         # Request cost confirmation before uploading
         if not request_cost_confirmation_if_needed(self._client, len(collected_df), "tag"):
             raise Exception(f"User cancelled tagging of {dataframe_name}")
@@ -1044,6 +1053,7 @@ class PolarsResource(SyncAPIResource):
             derived_property=new_property_name,
             instructions=instructions,
             table_name=dataframe_name,
+            model=model,
             node_id=node_id,
         )
 
