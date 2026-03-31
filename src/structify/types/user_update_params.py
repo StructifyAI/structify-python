@@ -62,8 +62,6 @@ class Updates(TypedDict, total=False):
 
     notify_for_interaction: Optional[bool]
 
-    onboarding_session_id: Optional[str]
-
     permissions: Optional[List[Optional[Literal["labeler", "qa_labeler", "debug", "human_llm", "none"]]]]
 
     slack_user_id: Optional[str]

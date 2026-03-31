@@ -59,8 +59,6 @@ class UserInfo(BaseModel):
 
     linkedin_url: Optional[str] = None
 
-    onboarding_session_id: Optional[str] = None
-
     slack_user_id: Optional[str] = None
 
     slack_username: Optional[str] = None

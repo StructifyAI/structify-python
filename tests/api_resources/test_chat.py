@@ -333,7 +333,6 @@ class TestChat:
         chat = client.chat.create_session(
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             config={
-                "is_onboarding_session": True,
                 "llm_key": "vllm.gpt-5-mini-2025-08-07",
                 "max_steps": 0,
                 "reminder_message": "reminder_message",
@@ -1900,7 +1899,6 @@ class TestAsyncChat:
         chat = await async_client.chat.create_session(
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             config={
-                "is_onboarding_session": True,
                 "llm_key": "vllm.gpt-5-mini-2025-08-07",
                 "max_steps": 0,
                 "reminder_message": "reminder_message",
