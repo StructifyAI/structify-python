@@ -1,10 +1,11 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List
+from typing import Dict, List
 from datetime import datetime
 
 from .._models import BaseModel
 from .connector import Connector
+from .chat_session_role import ChatSessionRole
 
 __all__ = ["ConnectorGetResponse", "ConnectorGetResponseSecret"]
 
@@ -24,4 +25,4 @@ class ConnectorGetResponseSecret(BaseModel):
 class ConnectorGetResponse(Connector):
     secrets: List[ConnectorGetResponseSecret]
 
-    shared_user_ids: List[str]
+    shared_user_roles: Dict[str, ChatSessionRole]
