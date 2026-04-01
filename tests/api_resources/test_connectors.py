@@ -113,9 +113,9 @@ class TestConnectors:
             oauth_scopes=["string"],
             owner_user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             refresh_cron_schedule="refresh_cron_schedule",
+            shared_user_roles={"foo": "viewer"},
             team_visibility="Team",
             usage_snippet_override="usage_snippet_override",
-            user_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
         )
         assert connector is None
 
@@ -1618,9 +1618,9 @@ class TestAsyncConnectors:
             oauth_scopes=["string"],
             owner_user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             refresh_cron_schedule="refresh_cron_schedule",
+            shared_user_roles={"foo": "viewer"},
             team_visibility="Team",
             usage_snippet_override="usage_snippet_override",
-            user_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
         )
         assert connector is None
 
