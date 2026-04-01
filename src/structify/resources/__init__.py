@@ -112,6 +112,14 @@ from .sources import (
     SourcesResourceWithStreamingResponse,
     AsyncSourcesResourceWithStreamingResponse,
 )
+from .webhook import (
+    WebhookResource,
+    AsyncWebhookResource,
+    WebhookResourceWithRawResponse,
+    AsyncWebhookResourceWithRawResponse,
+    WebhookResourceWithStreamingResponse,
+    AsyncWebhookResourceWithStreamingResponse,
+)
 from .datasets import (
     DatasetsResource,
     AsyncDatasetsResource,
@@ -288,6 +296,12 @@ __all__ = [
     "AsyncWorkflowScheduleResourceWithRawResponse",
     "WorkflowScheduleResourceWithStreamingResponse",
     "AsyncWorkflowScheduleResourceWithStreamingResponse",
+    "WebhookResource",
+    "AsyncWebhookResource",
+    "WebhookResourceWithRawResponse",
+    "AsyncWebhookResourceWithRawResponse",
+    "WebhookResourceWithStreamingResponse",
+    "AsyncWebhookResourceWithStreamingResponse",
     "WorkflowResource",
     "AsyncWorkflowResource",
     "WorkflowResourceWithRawResponse",
