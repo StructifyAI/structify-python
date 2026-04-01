@@ -688,6 +688,18 @@ Methods:
 - <code title="patch /workflow-schedule/{schedule_id}/pause">client.workflow_schedule.<a href="./src/structify/resources/workflow_schedule.py">pause</a>(schedule_id, \*\*<a href="src/structify/types/workflow_schedule_pause_params.py">params</a>) -> <a href="./src/structify/types/workflow_schedule_info.py">WorkflowScheduleInfo</a></code>
 - <code title="post /workflow-schedule/{schedule_id}/run">client.workflow_schedule.<a href="./src/structify/resources/workflow_schedule.py">run</a>(schedule_id) -> None</code>
 
+# Webhook
+
+Types:
+
+```python
+from structify.types import WebhookTriggerRequest, WebhookTriggerResponse
+```
+
+Methods:
+
+- <code title="post /webhook/trigger">client.webhook.<a href="./src/structify/resources/webhook.py">trigger</a>(\*\*<a href="src/structify/types/webhook_trigger_params.py">params</a>) -> <a href="./src/structify/types/webhook_trigger_response.py">WebhookTriggerResponse</a></code>
+
 # Workflow
 
 Types:

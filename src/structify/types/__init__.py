@@ -180,6 +180,7 @@ from .scrape_scrape_response import ScrapeScrapeResponse as ScrapeScrapeResponse
 from .structure_pdf_response import StructurePdfResponse as StructurePdfResponse
 from .team_add_member_params import TeamAddMemberParams as TeamAddMemberParams
 from .viz_date_control_param import VizDateControlParam as VizDateControlParam
+from .webhook_trigger_params import WebhookTriggerParams as WebhookTriggerParams
 from .workflow_schedule_info import WorkflowScheduleInfo as WorkflowScheduleInfo
 from .connector_create_params import ConnectorCreateParams as ConnectorCreateParams
 from .connector_explorer_chat import ConnectorExplorerChat as ConnectorExplorerChat
@@ -214,6 +215,7 @@ from .viz_boolean_control_type import VizBooleanControlType as VizBooleanControl
 from .viz_control_option_param import VizControlOptionParam as VizControlOptionParam
 from .viz_number_control_param import VizNumberControlParam as VizNumberControlParam
 from .viz_string_control_param import VizStringControlParam as VizStringControlParam
+from .webhook_trigger_response import WebhookTriggerResponse as WebhookTriggerResponse
 from .wiki_connector_reference import WikiConnectorReference as WikiConnectorReference
 from .chat_list_sessions_params import ChatListSessionsParams as ChatListSessionsParams
 from .code_generate_code_params import CodeGenerateCodeParams as CodeGenerateCodeParams

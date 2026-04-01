@@ -48,6 +48,7 @@ if TYPE_CHECKING:
         server,
         sandbox,
         sources,
+        webhook,
         datasets,
         entities,
         projects,
@@ -74,6 +75,7 @@ if TYPE_CHECKING:
     from .resources.server import ServerResource, AsyncServerResource
     from .resources.sandbox import SandboxResource, AsyncSandboxResource
     from .resources.sources import SourcesResource, AsyncSourcesResource
+    from .resources.webhook import WebhookResource, AsyncWebhookResource
     from .resources.datasets import DatasetsResource, AsyncDatasetsResource
     from .resources.entities import EntitiesResource, AsyncEntitiesResource
     from .resources.projects import ProjectsResource, AsyncProjectsResource
@@ -278,6 +280,12 @@ class Structify(SyncAPIClient):
         from .resources.workflow_schedule import WorkflowScheduleResource
 
         return WorkflowScheduleResource(self)
+
+    @cached_property
+    def webhook(self) -> WebhookResource:
+        from .resources.webhook import WebhookResource
+
+        return WebhookResource(self)
 
     @cached_property
     def workflow(self) -> WorkflowResource:
@@ -668,6 +676,12 @@ class AsyncStructify(AsyncAPIClient):
         return AsyncWorkflowScheduleResource(self)
 
     @cached_property
+    def webhook(self) -> AsyncWebhookResource:
+        from .resources.webhook import AsyncWebhookResource
+
+        return AsyncWebhookResource(self)
+
+    @cached_property
     def workflow(self) -> AsyncWorkflowResource:
         from .resources.workflow import AsyncWorkflowResource
 
@@ -985,6 +999,12 @@ class StructifyWithRawResponse:
         return WorkflowScheduleResourceWithRawResponse(self._client.workflow_schedule)
 
     @cached_property
+    def webhook(self) -> webhook.WebhookResourceWithRawResponse:
+        from .resources.webhook import WebhookResourceWithRawResponse
+
+        return WebhookResourceWithRawResponse(self._client.webhook)
+
+    @cached_property
     def workflow(self) -> workflow.WorkflowResourceWithRawResponse:
         from .resources.workflow import WorkflowResourceWithRawResponse
 
@@ -1153,6 +1173,12 @@ class AsyncStructifyWithRawResponse:
         from .resources.workflow_schedule import AsyncWorkflowScheduleResourceWithRawResponse
 
         return AsyncWorkflowScheduleResourceWithRawResponse(self._client.workflow_schedule)
+
+    @cached_property
+    def webhook(self) -> webhook.AsyncWebhookResourceWithRawResponse:
+        from .resources.webhook import AsyncWebhookResourceWithRawResponse
+
+        return AsyncWebhookResourceWithRawResponse(self._client.webhook)
 
     @cached_property
     def workflow(self) -> workflow.AsyncWorkflowResourceWithRawResponse:
@@ -1331,6 +1357,12 @@ class StructifyWithStreamedResponse:
         return WorkflowScheduleResourceWithStreamingResponse(self._client.workflow_schedule)
 
     @cached_property
+    def webhook(self) -> webhook.WebhookResourceWithStreamingResponse:
+        from .resources.webhook import WebhookResourceWithStreamingResponse
+
+        return WebhookResourceWithStreamingResponse(self._client.webhook)
+
+    @cached_property
     def workflow(self) -> workflow.WorkflowResourceWithStreamingResponse:
         from .resources.workflow import WorkflowResourceWithStreamingResponse
 
@@ -1499,6 +1531,12 @@ class AsyncStructifyWithStreamedResponse:
         from .resources.workflow_schedule import AsyncWorkflowScheduleResourceWithStreamingResponse
 
         return AsyncWorkflowScheduleResourceWithStreamingResponse(self._client.workflow_schedule)
+
+    @cached_property
+    def webhook(self) -> webhook.AsyncWebhookResourceWithStreamingResponse:
+        from .resources.webhook import AsyncWebhookResourceWithStreamingResponse
+
+        return AsyncWebhookResourceWithStreamingResponse(self._client.webhook)
 
     @cached_property
     def workflow(self) -> workflow.AsyncWorkflowResourceWithStreamingResponse:
