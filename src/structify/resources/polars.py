@@ -91,6 +91,7 @@ class PolarsResource(SyncAPIResource):
         new_columns: Dict[str, Dict[str, Any]],
         dataframe_name: str,
         dataframe_description: str,
+        instructions: Optional[str] = None,
         use_no_resources: bool = False,
     ) -> LazyFrame:
         """
@@ -119,6 +120,7 @@ class PolarsResource(SyncAPIResource):
             dataframe_description: Free-form description that provides the
                 necessary context for Structify (e.g. "Companies that are in the
                 food industry").
+            instructions: Optional free-form instructions to guide Structify's enrichment
             use_no_resources: When True, queue text-only structuring jobs by
                 sending `source="NoResources"` instead of the default web
                 search source.
@@ -181,11 +183,7 @@ class PolarsResource(SyncAPIResource):
                 starting_urls=[],
             ),
         }
-        run_async_source: Source = (
-            "NoResources"
-            if use_no_resources
-            else web_source
-        )
+        run_async_source: Source = "NoResources" if use_no_resources else web_source
 
         # Create the expected output schema with single job_id column
         expected_schema = properties_to_schema(all_properties)
@@ -221,6 +219,7 @@ class PolarsResource(SyncAPIResource):
                 self._client.structure.run_async(
                     dataset=dataset_name,
                     source=run_async_source,
+                    instructions=instructions,
                     node_id=node_id,
                     save_requirement=[
                         RequiredEntity(
