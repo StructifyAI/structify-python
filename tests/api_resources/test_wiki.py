@@ -28,6 +28,17 @@ class TestWiki:
         assert_matches_type(WikiPage, wiki, path=["response"])
 
     @parametrize
+    def test_method_create_with_all_params(self, client: Structify) -> None:
+        wiki = client.wiki.create(
+            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            markdown="markdown",
+            slug="slug",
+            title="title",
+            chat_session_id="chat_session_id",
+        )
+        assert_matches_type(WikiPage, wiki, path=["response"])
+
+    @parametrize
     def test_raw_response_create(self, client: Structify) -> None:
         response = client.wiki.with_raw_response.create(
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -83,6 +94,7 @@ class TestWiki:
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             markdown="markdown",
             base_version=0,
+            chat_session_id="chat_session_id",
             title="title",
         )
         assert_matches_type(WikiPage, wiki, path=["response"])
@@ -282,6 +294,17 @@ class TestAsyncWiki:
         assert_matches_type(WikiPage, wiki, path=["response"])
 
     @parametrize
+    async def test_method_create_with_all_params(self, async_client: AsyncStructify) -> None:
+        wiki = await async_client.wiki.create(
+            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            markdown="markdown",
+            slug="slug",
+            title="title",
+            chat_session_id="chat_session_id",
+        )
+        assert_matches_type(WikiPage, wiki, path=["response"])
+
+    @parametrize
     async def test_raw_response_create(self, async_client: AsyncStructify) -> None:
         response = await async_client.wiki.with_raw_response.create(
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -337,6 +360,7 @@ class TestAsyncWiki:
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             markdown="markdown",
             base_version=0,
+            chat_session_id="chat_session_id",
             title="title",
         )
         assert_matches_type(WikiPage, wiki, path=["response"])
