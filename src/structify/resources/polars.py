@@ -30,7 +30,7 @@ from ..types.table_param import Property
 from ..lib.cost_confirmation import request_cost_confirmation_if_needed
 from ..types.save_requirement_param import RequiredEntity, RequiredProperty
 from ..types.dataset_descriptor_param import DatasetDescriptorParam
-from ..types.structure_run_async_params import SourceWebWeb
+from ..types.structure_run_async_params import Source, SourceWebWeb
 
 __all__ = ["PolarsResource"]
 
@@ -91,6 +91,7 @@ class PolarsResource(SyncAPIResource):
         new_columns: Dict[str, Dict[str, Any]],
         dataframe_name: str,
         dataframe_description: str,
+        use_no_resources: bool = False,
     ) -> LazyFrame:
         """
         Enhance one or more columns of a `LazyFrame` by letting Structify populate the
@@ -118,6 +119,9 @@ class PolarsResource(SyncAPIResource):
             dataframe_description: Free-form description that provides the
                 necessary context for Structify (e.g. "Companies that are in the
                 food industry").
+            use_no_resources: When True, queue text-only structuring jobs by
+                sending `source="NoResources"` instead of the default web
+                search source.
         """
 
         # Existing columns & their dtypes from the LazyFrame
@@ -170,6 +174,17 @@ class PolarsResource(SyncAPIResource):
 
         # Get the node ID when the function is called, not when the batch is processed
         node_id = get_node_id()
+        run_async_source: Source = (
+            "NoResources"
+            if use_no_resources
+            else {
+                "web": SourceWebWeb(
+                    banned_domains=[],
+                    starting_searches=[],
+                    starting_urls=[],
+                ),
+            }
+        )
 
         # Create the expected output schema with single job_id column
         expected_schema = properties_to_schema(all_properties)
@@ -204,13 +219,7 @@ class PolarsResource(SyncAPIResource):
             ) -> None:
                 self._client.structure.run_async(
                     dataset=dataset_name,
-                    source={
-                        "web": SourceWebWeb(
-                            banned_domains=[],
-                            starting_searches=[],
-                            starting_urls=[],
-                        ),
-                    },
+                    source=run_async_source,
                     node_id=node_id,
                     save_requirement=[
                         RequiredEntity(
