@@ -30,7 +30,7 @@ from ..types.table_param import Property
 from ..lib.cost_confirmation import request_cost_confirmation_if_needed
 from ..types.save_requirement_param import RequiredEntity, RequiredProperty
 from ..types.dataset_descriptor_param import DatasetDescriptorParam
-from ..types.structure_run_async_params import Source, SourceWebWeb
+from ..types.structure_run_async_params import Source, SourceWeb, SourceWebWeb
 
 __all__ = ["PolarsResource"]
 
@@ -174,16 +174,17 @@ class PolarsResource(SyncAPIResource):
 
         # Get the node ID when the function is called, not when the batch is processed
         node_id = get_node_id()
+        web_source: SourceWeb = {
+            "web": SourceWebWeb(
+                banned_domains=[],
+                starting_searches=[],
+                starting_urls=[],
+            ),
+        }
         run_async_source: Source = (
             "NoResources"
             if use_no_resources
-            else {
-                "web": SourceWebWeb(
-                    banned_domains=[],
-                    starting_searches=[],
-                    starting_urls=[],
-                ),
-            }
+            else web_source
         )
 
         # Create the expected output schema with single job_id column
