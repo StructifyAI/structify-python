@@ -339,6 +339,8 @@ class StructureResource(SyncAPIResource):
         Returns a token that can be waited on until the request is finished.
 
         Args:
+          source: Only use the input text to derive new fields. Useful for large text inputs.
+
           seeded_entity: Knowledge graph info structured to deserialize and display in the same format
               that the LLM outputs. Also the first representation of an LLM output in the
               pipeline from raw tool output to being merged into a DB
@@ -679,6 +681,8 @@ class AsyncStructureResource(AsyncAPIResource):
         Returns a token that can be waited on until the request is finished.
 
         Args:
+          source: Only use the input text to derive new fields. Useful for large text inputs.
+
           seeded_entity: Knowledge graph info structured to deserialize and display in the same format
               that the LLM outputs. Also the first representation of an LLM output in the
               pipeline from raw tool output to being merged into a DB

@@ -99,12 +99,13 @@ class InfoParametersStructuringInputAgentAgentWeb(BaseModel):
 
 
 InfoParametersStructuringInputAgentAgent: TypeAlias = Union[
-    InfoParametersStructuringInputAgentAgentPdf, InfoParametersStructuringInputAgentAgentWeb
+    InfoParametersStructuringInputAgentAgentPdf, InfoParametersStructuringInputAgentAgentWeb, Literal["NoResources"]
 ]
 
 
 class InfoParametersStructuringInputAgent(BaseModel):
     agent: InfoParametersStructuringInputAgentAgent = FieldInfo(alias="Agent")
+    """Only use the input text to derive new fields. Useful for large text inputs."""
 
 
 class InfoParametersStructuringInputTransformationPrompt(BaseModel):
