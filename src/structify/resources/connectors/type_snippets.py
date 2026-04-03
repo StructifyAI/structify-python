@@ -7,7 +7,7 @@ from typing import Optional
 import httpx
 
 from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from ..._utils import maybe_transform, async_maybe_transform
+from ..._utils import path_template, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -68,7 +68,7 @@ class TypeSnippetsResource(SyncAPIResource):
         if not connector_type:
             raise ValueError(f"Expected a non-empty value for `connector_type` but received {connector_type!r}")
         return self._put(
-            f"/connector-type-snippets/{connector_type}",
+            path_template("/connector-type-snippets/{connector_type}", connector_type=connector_type),
             body=maybe_transform({"usage_snippet": usage_snippet}, type_snippet_upsert_params.TypeSnippetUpsertParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -122,7 +122,7 @@ class AsyncTypeSnippetsResource(AsyncAPIResource):
         if not connector_type:
             raise ValueError(f"Expected a non-empty value for `connector_type` but received {connector_type!r}")
         return await self._put(
-            f"/connector-type-snippets/{connector_type}",
+            path_template("/connector-type-snippets/{connector_type}", connector_type=connector_type),
             body=await async_maybe_transform(
                 {"usage_snippet": usage_snippet}, type_snippet_upsert_params.TypeSnippetUpsertParams
             ),

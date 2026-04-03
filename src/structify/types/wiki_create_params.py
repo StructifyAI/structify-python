@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from typing import Optional
 from typing_extensions import Required, TypedDict
 
 __all__ = ["WikiCreateParams"]
@@ -13,3 +14,5 @@ class WikiCreateParams(TypedDict, total=False):
     slug: Required[str]
 
     title: Required[str]
+
+    chat_session_id: Optional[str]

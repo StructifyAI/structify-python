@@ -117,6 +117,8 @@ class Neighbor(BaseModel):
 
     updated_at: datetime
 
+    job_id: Optional[str] = None
+
 
 class RelationshipPropertiesPartialDateObject(BaseModel):
     original_string: str

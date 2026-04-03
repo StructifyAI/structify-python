@@ -2,8 +2,8 @@
 
 from .._models import BaseModel
 
-__all__ = ["ChatDeleteFilesResponse"]
+__all__ = ["CompressChatResponse"]
 
 
-class ChatDeleteFilesResponse(BaseModel):
-    files_deleted: int
+class CompressChatResponse(BaseModel):
+    status: str

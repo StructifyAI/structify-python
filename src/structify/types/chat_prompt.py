@@ -7,7 +7,6 @@ from pydantic import Field as FieldInfo
 
 from .message import Message
 from .._models import BaseModel
-from .tool_metadata import ToolMetadata
 from .knowledge_graph import KnowledgeGraph
 from .save_requirement import SaveRequirement
 from .dataset_descriptor import DatasetDescriptor
@@ -237,8 +236,6 @@ class Metadata(BaseModel):
     extraction_criteria: List[SaveRequirement]
 
     formatter_specific: MetadataFormatterSpecific
-
-    tool_metadata: List[ToolMetadata]
 
     qa_potentially_sus_response: Optional[str] = None
 

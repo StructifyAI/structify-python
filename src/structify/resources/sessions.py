@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from typing import Dict, Mapping, Iterable, Optional, cast
-from typing_extensions import Literal
+from typing_extensions import Literal, overload
 
 import httpx
 
@@ -25,7 +25,14 @@ from ..types import (
     session_upload_node_visualization_output_params,
 )
 from .._types import Body, Omit, Query, Headers, NotGiven, FileTypes, omit, not_given
-from .._utils import extract_files, maybe_transform, deepcopy_minimal, async_maybe_transform
+from .._utils import (
+    extract_files,
+    path_template,
+    required_args,
+    maybe_transform,
+    deepcopy_minimal,
+    async_maybe_transform,
+)
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -54,6 +61,7 @@ from ..types.parquet_edit_param import ParquetEditParam
 from ..types.finalize_dag_response import FinalizeDagResponse
 from ..types.workflow_session_node import WorkflowSessionNode
 from ..types.get_node_logs_response import GetNodeLogsResponse
+from ..types.trigger_review_response import TriggerReviewResponse
 from ..types.session_kill_jobs_response import SessionKillJobsResponse
 from ..types.session_get_events_response import SessionGetEventsResponse
 from ..types.workflow_node_execution_status import WorkflowNodeExecutionStatus
@@ -108,7 +116,7 @@ class SessionsResource(SyncAPIResource):
         if not node_id:
             raise ValueError(f"Expected a non-empty value for `node_id` but received {node_id!r}")
         return self._post(
-            f"/sessions/nodes/{node_id}/confirm",
+            path_template("/sessions/nodes/{node_id}/confirm", node_id=node_id),
             body=maybe_transform({"confirmed": confirmed}, session_confirm_node_params.SessionConfirmNodeParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -120,7 +128,7 @@ class SessionsResource(SyncAPIResource):
         self,
         *,
         chat_session_id: str,
-        git_commit: str,
+        parent_chat_message_id: Optional[str] | Omit = omit,
         workflow_schedule_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -144,7 +152,7 @@ class SessionsResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "chat_session_id": chat_session_id,
-                    "git_commit": git_commit,
+                    "parent_chat_message_id": parent_chat_message_id,
                     "workflow_schedule_id": workflow_schedule_id,
                 },
                 session_create_session_params.SessionCreateSessionParams,
@@ -180,7 +188,7 @@ class SessionsResource(SyncAPIResource):
         if not node_id:
             raise ValueError(f"Expected a non-empty value for `node_id` but received {node_id!r}")
         return self._post(
-            f"/sessions/nodes/{node_id}/edit_output",
+            path_template("/sessions/nodes/{node_id}/edit_output", node_id=node_id),
             body=maybe_transform({"edits": edits}, session_edit_node_output_params.SessionEditNodeOutputParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -221,7 +229,7 @@ class SessionsResource(SyncAPIResource):
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return self._post(
-            f"/sessions/{session_id}/dag_ready",
+            path_template("/sessions/{session_id}/dag_ready", session_id=session_id),
             body=maybe_transform(
                 {
                     "edges": edges,
@@ -260,7 +268,7 @@ class SessionsResource(SyncAPIResource):
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return self._get(
-            f"/sessions/{session_id}/dag",
+            path_template("/sessions/{session_id}/dag", session_id=session_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -297,7 +305,7 @@ class SessionsResource(SyncAPIResource):
         if not node_id:
             raise ValueError(f"Expected a non-empty value for `node_id` but received {node_id!r}")
         return self._get(
-            f"/sessions/nodes/{node_id}/events",
+            path_template("/sessions/nodes/{node_id}/events", node_id=node_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -340,7 +348,7 @@ class SessionsResource(SyncAPIResource):
         if not node_id:
             raise ValueError(f"Expected a non-empty value for `node_id` but received {node_id!r}")
         return self._get(
-            f"/sessions/nodes/{node_id}",
+            path_template("/sessions/nodes/{node_id}", node_id=node_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -373,7 +381,7 @@ class SessionsResource(SyncAPIResource):
         if not node_id:
             raise ValueError(f"Expected a non-empty value for `node_id` but received {node_id!r}")
         return self._get(
-            f"/sessions/node/{node_id}/logs",
+            path_template("/sessions/node/{node_id}/logs", node_id=node_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -405,7 +413,7 @@ class SessionsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `node_id` but received {node_id!r}")
         extra_headers = {"Accept": "application/octet-stream", **(extra_headers or {})}
         return self._get(
-            f"/sessions/nodes/{node_id}/output_data",
+            path_template("/sessions/nodes/{node_id}/output_data", node_id=node_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -436,7 +444,7 @@ class SessionsResource(SyncAPIResource):
         if not node_id:
             raise ValueError(f"Expected a non-empty value for `node_id` but received {node_id!r}")
         return self._get(
-            f"/sessions/nodes/{node_id}/progress",
+            path_template("/sessions/nodes/{node_id}/progress", node_id=node_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -468,7 +476,7 @@ class SessionsResource(SyncAPIResource):
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return self._post(
-            f"/sessions/{session_id}/kill_jobs",
+            path_template("/sessions/{session_id}/kill_jobs", session_id=session_id),
             body=maybe_transform({"message": message}, session_kill_jobs_params.SessionKillJobsParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -504,7 +512,7 @@ class SessionsResource(SyncAPIResource):
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return self._patch(
-            f"/sessions/{session_id}/error",
+            path_template("/sessions/{session_id}/error", session_id=session_id),
             body=maybe_transform(
                 {
                     "error_message": error_message,
@@ -546,7 +554,7 @@ class SessionsResource(SyncAPIResource):
         if not node_id:
             raise ValueError(f"Expected a non-empty value for `node_id` but received {node_id!r}")
         return self._post(
-            f"/sessions/nodes/{node_id}/request_confirmation",
+            path_template("/sessions/nodes/{node_id}/request_confirmation", node_id=node_id),
             body=maybe_transform(
                 {
                     "operation": operation,
@@ -558,6 +566,37 @@ class SessionsResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=WorkflowSessionNode,
+        )
+
+    def trigger_review(
+        self,
+        session_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> TriggerReviewResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not session_id:
+            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
+        return self._post(
+            path_template("/sessions/{session_id}/trigger_review", session_id=session_id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=TriggerReviewResponse,
         )
 
     def update_node(
@@ -588,7 +627,7 @@ class SessionsResource(SyncAPIResource):
         if not node_id:
             raise ValueError(f"Expected a non-empty value for `node_id` but received {node_id!r}")
         return self._patch(
-            f"/sessions/nodes/{node_id}",
+            path_template("/sessions/nodes/{node_id}", node_id=node_id),
             body=maybe_transform(
                 {
                     "execution_status": execution_status,
@@ -632,7 +671,7 @@ class SessionsResource(SyncAPIResource):
         if not node_id:
             raise ValueError(f"Expected a non-empty value for `node_id` but received {node_id!r}")
         return self._patch(
-            f"/sessions/nodes/{node_id}/progress",
+            path_template("/sessions/nodes/{node_id}/progress", node_id=node_id),
             body=maybe_transform(
                 {
                     "current": current,
@@ -648,6 +687,7 @@ class SessionsResource(SyncAPIResource):
             cast_to=WorkflowSessionNode,
         )
 
+    @overload
     def upload_dashboard_layout(
         self,
         session_id: str,
@@ -673,12 +713,57 @@ class SessionsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        ...
+
+    @overload
+    def upload_dashboard_layout(
+        self,
+        session_id: str,
+        *,
+        dashboard_specs: Iterable[session_upload_dashboard_layout_params.Variant1DashboardSpec],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> WorkflowSession:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @required_args(["layout"], ["dashboard_specs"])
+    def upload_dashboard_layout(
+        self,
+        session_id: str,
+        *,
+        layout: DashboardParam | Omit = omit,
+        dashboard_specs: Iterable[session_upload_dashboard_layout_params.Variant1DashboardSpec] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> WorkflowSession:
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return self._post(
-            f"/sessions/{session_id}/dashboard_layout",
+            path_template("/sessions/{session_id}/dashboard_layout", session_id=session_id),
             body=maybe_transform(
-                {"layout": layout}, session_upload_dashboard_layout_params.SessionUploadDashboardLayoutParams
+                {
+                    "layout": layout,
+                    "dashboard_specs": dashboard_specs,
+                },
+                session_upload_dashboard_layout_params.SessionUploadDashboardLayoutParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -691,6 +776,12 @@ class SessionsResource(SyncAPIResource):
         node_id: str,
         *,
         content: FileTypes,
+        cache_final_rows: Optional[int] | Omit = omit,
+        cache_final_size_bytes: Optional[int] | Omit = omit,
+        cache_max_bytes: Optional[int] | Omit = omit,
+        cache_original_rows: Optional[int] | Omit = omit,
+        cache_original_size_bytes: Optional[int] | Omit = omit,
+        cache_truncated: Optional[bool] | Omit = omit,
         output_schema: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -714,6 +805,12 @@ class SessionsResource(SyncAPIResource):
         body = deepcopy_minimal(
             {
                 "content": content,
+                "cache_final_rows": cache_final_rows,
+                "cache_final_size_bytes": cache_final_size_bytes,
+                "cache_max_bytes": cache_max_bytes,
+                "cache_original_rows": cache_original_rows,
+                "cache_original_size_bytes": cache_original_size_bytes,
+                "cache_truncated": cache_truncated,
                 "output_schema": output_schema,
             }
         )
@@ -723,7 +820,7 @@ class SessionsResource(SyncAPIResource):
         # multipart/form-data; boundary=---abc--
         extra_headers = {"Content-Type": "multipart/form-data", **(extra_headers or {})}
         return self._post(
-            f"/sessions/nodes/{node_id}/output_data",
+            path_template("/sessions/nodes/{node_id}/output_data", node_id=node_id),
             body=maybe_transform(body, session_upload_node_output_data_params.SessionUploadNodeOutputDataParams),
             files=files,
             options=make_request_options(
@@ -757,7 +854,7 @@ class SessionsResource(SyncAPIResource):
         if not node_id:
             raise ValueError(f"Expected a non-empty value for `node_id` but received {node_id!r}")
         return self._post(
-            f"/sessions/nodes/{node_id}/visualization_output",
+            path_template("/sessions/nodes/{node_id}/visualization_output", node_id=node_id),
             body=maybe_transform(
                 {"visualization_output": visualization_output},
                 session_upload_node_visualization_output_params.SessionUploadNodeVisualizationOutputParams,
@@ -814,7 +911,7 @@ class AsyncSessionsResource(AsyncAPIResource):
         if not node_id:
             raise ValueError(f"Expected a non-empty value for `node_id` but received {node_id!r}")
         return await self._post(
-            f"/sessions/nodes/{node_id}/confirm",
+            path_template("/sessions/nodes/{node_id}/confirm", node_id=node_id),
             body=await async_maybe_transform(
                 {"confirmed": confirmed}, session_confirm_node_params.SessionConfirmNodeParams
             ),
@@ -828,7 +925,7 @@ class AsyncSessionsResource(AsyncAPIResource):
         self,
         *,
         chat_session_id: str,
-        git_commit: str,
+        parent_chat_message_id: Optional[str] | Omit = omit,
         workflow_schedule_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -852,7 +949,7 @@ class AsyncSessionsResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "chat_session_id": chat_session_id,
-                    "git_commit": git_commit,
+                    "parent_chat_message_id": parent_chat_message_id,
                     "workflow_schedule_id": workflow_schedule_id,
                 },
                 session_create_session_params.SessionCreateSessionParams,
@@ -888,7 +985,7 @@ class AsyncSessionsResource(AsyncAPIResource):
         if not node_id:
             raise ValueError(f"Expected a non-empty value for `node_id` but received {node_id!r}")
         return await self._post(
-            f"/sessions/nodes/{node_id}/edit_output",
+            path_template("/sessions/nodes/{node_id}/edit_output", node_id=node_id),
             body=await async_maybe_transform(
                 {"edits": edits}, session_edit_node_output_params.SessionEditNodeOutputParams
             ),
@@ -931,7 +1028,7 @@ class AsyncSessionsResource(AsyncAPIResource):
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return await self._post(
-            f"/sessions/{session_id}/dag_ready",
+            path_template("/sessions/{session_id}/dag_ready", session_id=session_id),
             body=await async_maybe_transform(
                 {
                     "edges": edges,
@@ -970,7 +1067,7 @@ class AsyncSessionsResource(AsyncAPIResource):
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return await self._get(
-            f"/sessions/{session_id}/dag",
+            path_template("/sessions/{session_id}/dag", session_id=session_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1007,7 +1104,7 @@ class AsyncSessionsResource(AsyncAPIResource):
         if not node_id:
             raise ValueError(f"Expected a non-empty value for `node_id` but received {node_id!r}")
         return await self._get(
-            f"/sessions/nodes/{node_id}/events",
+            path_template("/sessions/nodes/{node_id}/events", node_id=node_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -1050,7 +1147,7 @@ class AsyncSessionsResource(AsyncAPIResource):
         if not node_id:
             raise ValueError(f"Expected a non-empty value for `node_id` but received {node_id!r}")
         return await self._get(
-            f"/sessions/nodes/{node_id}",
+            path_template("/sessions/nodes/{node_id}", node_id=node_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1083,7 +1180,7 @@ class AsyncSessionsResource(AsyncAPIResource):
         if not node_id:
             raise ValueError(f"Expected a non-empty value for `node_id` but received {node_id!r}")
         return await self._get(
-            f"/sessions/node/{node_id}/logs",
+            path_template("/sessions/node/{node_id}/logs", node_id=node_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1115,7 +1212,7 @@ class AsyncSessionsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `node_id` but received {node_id!r}")
         extra_headers = {"Accept": "application/octet-stream", **(extra_headers or {})}
         return await self._get(
-            f"/sessions/nodes/{node_id}/output_data",
+            path_template("/sessions/nodes/{node_id}/output_data", node_id=node_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1146,7 +1243,7 @@ class AsyncSessionsResource(AsyncAPIResource):
         if not node_id:
             raise ValueError(f"Expected a non-empty value for `node_id` but received {node_id!r}")
         return await self._get(
-            f"/sessions/nodes/{node_id}/progress",
+            path_template("/sessions/nodes/{node_id}/progress", node_id=node_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1178,7 +1275,7 @@ class AsyncSessionsResource(AsyncAPIResource):
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return await self._post(
-            f"/sessions/{session_id}/kill_jobs",
+            path_template("/sessions/{session_id}/kill_jobs", session_id=session_id),
             body=await async_maybe_transform({"message": message}, session_kill_jobs_params.SessionKillJobsParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -1214,7 +1311,7 @@ class AsyncSessionsResource(AsyncAPIResource):
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return await self._patch(
-            f"/sessions/{session_id}/error",
+            path_template("/sessions/{session_id}/error", session_id=session_id),
             body=await async_maybe_transform(
                 {
                     "error_message": error_message,
@@ -1256,7 +1353,7 @@ class AsyncSessionsResource(AsyncAPIResource):
         if not node_id:
             raise ValueError(f"Expected a non-empty value for `node_id` but received {node_id!r}")
         return await self._post(
-            f"/sessions/nodes/{node_id}/request_confirmation",
+            path_template("/sessions/nodes/{node_id}/request_confirmation", node_id=node_id),
             body=await async_maybe_transform(
                 {
                     "operation": operation,
@@ -1268,6 +1365,37 @@ class AsyncSessionsResource(AsyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=WorkflowSessionNode,
+        )
+
+    async def trigger_review(
+        self,
+        session_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> TriggerReviewResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not session_id:
+            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
+        return await self._post(
+            path_template("/sessions/{session_id}/trigger_review", session_id=session_id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=TriggerReviewResponse,
         )
 
     async def update_node(
@@ -1298,7 +1426,7 @@ class AsyncSessionsResource(AsyncAPIResource):
         if not node_id:
             raise ValueError(f"Expected a non-empty value for `node_id` but received {node_id!r}")
         return await self._patch(
-            f"/sessions/nodes/{node_id}",
+            path_template("/sessions/nodes/{node_id}", node_id=node_id),
             body=await async_maybe_transform(
                 {
                     "execution_status": execution_status,
@@ -1342,7 +1470,7 @@ class AsyncSessionsResource(AsyncAPIResource):
         if not node_id:
             raise ValueError(f"Expected a non-empty value for `node_id` but received {node_id!r}")
         return await self._patch(
-            f"/sessions/nodes/{node_id}/progress",
+            path_template("/sessions/nodes/{node_id}/progress", node_id=node_id),
             body=await async_maybe_transform(
                 {
                     "current": current,
@@ -1358,6 +1486,7 @@ class AsyncSessionsResource(AsyncAPIResource):
             cast_to=WorkflowSessionNode,
         )
 
+    @overload
     async def upload_dashboard_layout(
         self,
         session_id: str,
@@ -1383,12 +1512,57 @@ class AsyncSessionsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        ...
+
+    @overload
+    async def upload_dashboard_layout(
+        self,
+        session_id: str,
+        *,
+        dashboard_specs: Iterable[session_upload_dashboard_layout_params.Variant1DashboardSpec],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> WorkflowSession:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @required_args(["layout"], ["dashboard_specs"])
+    async def upload_dashboard_layout(
+        self,
+        session_id: str,
+        *,
+        layout: DashboardParam | Omit = omit,
+        dashboard_specs: Iterable[session_upload_dashboard_layout_params.Variant1DashboardSpec] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> WorkflowSession:
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return await self._post(
-            f"/sessions/{session_id}/dashboard_layout",
+            path_template("/sessions/{session_id}/dashboard_layout", session_id=session_id),
             body=await async_maybe_transform(
-                {"layout": layout}, session_upload_dashboard_layout_params.SessionUploadDashboardLayoutParams
+                {
+                    "layout": layout,
+                    "dashboard_specs": dashboard_specs,
+                },
+                session_upload_dashboard_layout_params.SessionUploadDashboardLayoutParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -1401,6 +1575,12 @@ class AsyncSessionsResource(AsyncAPIResource):
         node_id: str,
         *,
         content: FileTypes,
+        cache_final_rows: Optional[int] | Omit = omit,
+        cache_final_size_bytes: Optional[int] | Omit = omit,
+        cache_max_bytes: Optional[int] | Omit = omit,
+        cache_original_rows: Optional[int] | Omit = omit,
+        cache_original_size_bytes: Optional[int] | Omit = omit,
+        cache_truncated: Optional[bool] | Omit = omit,
         output_schema: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1424,6 +1604,12 @@ class AsyncSessionsResource(AsyncAPIResource):
         body = deepcopy_minimal(
             {
                 "content": content,
+                "cache_final_rows": cache_final_rows,
+                "cache_final_size_bytes": cache_final_size_bytes,
+                "cache_max_bytes": cache_max_bytes,
+                "cache_original_rows": cache_original_rows,
+                "cache_original_size_bytes": cache_original_size_bytes,
+                "cache_truncated": cache_truncated,
                 "output_schema": output_schema,
             }
         )
@@ -1433,7 +1619,7 @@ class AsyncSessionsResource(AsyncAPIResource):
         # multipart/form-data; boundary=---abc--
         extra_headers = {"Content-Type": "multipart/form-data", **(extra_headers or {})}
         return await self._post(
-            f"/sessions/nodes/{node_id}/output_data",
+            path_template("/sessions/nodes/{node_id}/output_data", node_id=node_id),
             body=await async_maybe_transform(
                 body, session_upload_node_output_data_params.SessionUploadNodeOutputDataParams
             ),
@@ -1469,7 +1655,7 @@ class AsyncSessionsResource(AsyncAPIResource):
         if not node_id:
             raise ValueError(f"Expected a non-empty value for `node_id` but received {node_id!r}")
         return await self._post(
-            f"/sessions/nodes/{node_id}/visualization_output",
+            path_template("/sessions/nodes/{node_id}/visualization_output", node_id=node_id),
             body=await async_maybe_transform(
                 {"visualization_output": visualization_output},
                 session_upload_node_visualization_output_params.SessionUploadNodeVisualizationOutputParams,
@@ -1524,6 +1710,9 @@ class SessionsResourceWithRawResponse:
         )
         self.request_confirmation = to_raw_response_wrapper(
             sessions.request_confirmation,
+        )
+        self.trigger_review = to_raw_response_wrapper(
+            sessions.trigger_review,
         )
         self.update_node = to_raw_response_wrapper(
             sessions.update_node,
@@ -1586,6 +1775,9 @@ class AsyncSessionsResourceWithRawResponse:
         self.request_confirmation = async_to_raw_response_wrapper(
             sessions.request_confirmation,
         )
+        self.trigger_review = async_to_raw_response_wrapper(
+            sessions.trigger_review,
+        )
         self.update_node = async_to_raw_response_wrapper(
             sessions.update_node,
         )
@@ -1647,6 +1839,9 @@ class SessionsResourceWithStreamingResponse:
         self.request_confirmation = to_streamed_response_wrapper(
             sessions.request_confirmation,
         )
+        self.trigger_review = to_streamed_response_wrapper(
+            sessions.trigger_review,
+        )
         self.update_node = to_streamed_response_wrapper(
             sessions.update_node,
         )
@@ -1707,6 +1902,9 @@ class AsyncSessionsResourceWithStreamingResponse:
         )
         self.request_confirmation = async_to_streamed_response_wrapper(
             sessions.request_confirmation,
+        )
+        self.trigger_review = async_to_streamed_response_wrapper(
+            sessions.trigger_review,
         )
         self.update_node = async_to_streamed_response_wrapper(
             sessions.update_node,

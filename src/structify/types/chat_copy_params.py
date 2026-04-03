@@ -18,3 +18,5 @@ class ChatCopyParams(TypedDict, total=False):
     copy_inputs: bool
 
     project_id: Optional[str]
+
+    template_id: Optional[str]

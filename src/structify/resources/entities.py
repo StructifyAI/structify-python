@@ -302,6 +302,7 @@ class EntitiesResource(SyncAPIResource):
         derived_property: str,
         entity_id: str,
         instructions: str,
+        model: Optional[str] | Omit = omit,
         node_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -331,6 +332,7 @@ class EntitiesResource(SyncAPIResource):
                     "derived_property": derived_property,
                     "entity_id": entity_id,
                     "instructions": instructions,
+                    "model": model,
                     "node_id": node_id,
                 },
                 entity_derive_params.EntityDeriveParams,
@@ -348,6 +350,7 @@ class EntitiesResource(SyncAPIResource):
         derived_property: str,
         instructions: str,
         table_name: str,
+        model: Optional[str] | Omit = omit,
         node_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -377,6 +380,7 @@ class EntitiesResource(SyncAPIResource):
                     "derived_property": derived_property,
                     "instructions": instructions,
                     "table_name": table_name,
+                    "model": model,
                     "node_id": node_id,
                 },
                 entity_derive_all_params.EntityDeriveAllParams,
@@ -1159,6 +1163,7 @@ class AsyncEntitiesResource(AsyncAPIResource):
         derived_property: str,
         entity_id: str,
         instructions: str,
+        model: Optional[str] | Omit = omit,
         node_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1188,6 +1193,7 @@ class AsyncEntitiesResource(AsyncAPIResource):
                     "derived_property": derived_property,
                     "entity_id": entity_id,
                     "instructions": instructions,
+                    "model": model,
                     "node_id": node_id,
                 },
                 entity_derive_params.EntityDeriveParams,
@@ -1205,6 +1211,7 @@ class AsyncEntitiesResource(AsyncAPIResource):
         derived_property: str,
         instructions: str,
         table_name: str,
+        model: Optional[str] | Omit = omit,
         node_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1234,6 +1241,7 @@ class AsyncEntitiesResource(AsyncAPIResource):
                     "derived_property": derived_property,
                     "instructions": instructions,
                     "table_name": table_name,
+                    "model": model,
                     "node_id": node_id,
                 },
                 entity_derive_all_params.EntityDeriveAllParams,

@@ -8,7 +8,7 @@ import httpx
 
 from ..types import wiki_create_params, wiki_update_params
 from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
-from .._utils import maybe_transform, async_maybe_transform
+from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -26,6 +26,8 @@ __all__ = ["WikiResource", "AsyncWikiResource"]
 
 
 class WikiResource(SyncAPIResource):
+    """Team wiki page management endpoints"""
+
     @cached_property
     def with_raw_response(self) -> WikiResourceWithRawResponse:
         """
@@ -52,6 +54,7 @@ class WikiResource(SyncAPIResource):
         markdown: str,
         slug: str,
         title: str,
+        chat_session_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -72,12 +75,13 @@ class WikiResource(SyncAPIResource):
         if not team_id:
             raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
         return self._post(
-            f"/team/{team_id}/wiki",
+            path_template("/team/{team_id}/wiki", team_id=team_id),
             body=maybe_transform(
                 {
                     "markdown": markdown,
                     "slug": slug,
                     "title": title,
+                    "chat_session_id": chat_session_id,
                 },
                 wiki_create_params.WikiCreateParams,
             ),
@@ -94,6 +98,7 @@ class WikiResource(SyncAPIResource):
         team_id: str,
         markdown: str,
         base_version: Optional[int] | Omit = omit,
+        chat_session_id: Optional[str] | Omit = omit,
         title: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -117,11 +122,12 @@ class WikiResource(SyncAPIResource):
         if not slug:
             raise ValueError(f"Expected a non-empty value for `slug` but received {slug!r}")
         return self._put(
-            f"/team/{team_id}/wiki/{slug}",
+            path_template("/team/{team_id}/wiki/{slug}", team_id=team_id, slug=slug),
             body=maybe_transform(
                 {
                     "markdown": markdown,
                     "base_version": base_version,
+                    "chat_session_id": chat_session_id,
                     "title": title,
                 },
                 wiki_update_params.WikiUpdateParams,
@@ -156,7 +162,7 @@ class WikiResource(SyncAPIResource):
         if not team_id:
             raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
         return self._get(
-            f"/team/{team_id}/wiki",
+            path_template("/team/{team_id}/wiki", team_id=team_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -191,7 +197,7 @@ class WikiResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `slug` but received {slug!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._delete(
-            f"/team/{team_id}/wiki/{slug}",
+            path_template("/team/{team_id}/wiki/{slug}", team_id=team_id, slug=slug),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -225,7 +231,7 @@ class WikiResource(SyncAPIResource):
         if not slug:
             raise ValueError(f"Expected a non-empty value for `slug` but received {slug!r}")
         return self._get(
-            f"/team/{team_id}/wiki/{slug}",
+            path_template("/team/{team_id}/wiki/{slug}", team_id=team_id, slug=slug),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -234,6 +240,8 @@ class WikiResource(SyncAPIResource):
 
 
 class AsyncWikiResource(AsyncAPIResource):
+    """Team wiki page management endpoints"""
+
     @cached_property
     def with_raw_response(self) -> AsyncWikiResourceWithRawResponse:
         """
@@ -260,6 +268,7 @@ class AsyncWikiResource(AsyncAPIResource):
         markdown: str,
         slug: str,
         title: str,
+        chat_session_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -280,12 +289,13 @@ class AsyncWikiResource(AsyncAPIResource):
         if not team_id:
             raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
         return await self._post(
-            f"/team/{team_id}/wiki",
+            path_template("/team/{team_id}/wiki", team_id=team_id),
             body=await async_maybe_transform(
                 {
                     "markdown": markdown,
                     "slug": slug,
                     "title": title,
+                    "chat_session_id": chat_session_id,
                 },
                 wiki_create_params.WikiCreateParams,
             ),
@@ -302,6 +312,7 @@ class AsyncWikiResource(AsyncAPIResource):
         team_id: str,
         markdown: str,
         base_version: Optional[int] | Omit = omit,
+        chat_session_id: Optional[str] | Omit = omit,
         title: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -325,11 +336,12 @@ class AsyncWikiResource(AsyncAPIResource):
         if not slug:
             raise ValueError(f"Expected a non-empty value for `slug` but received {slug!r}")
         return await self._put(
-            f"/team/{team_id}/wiki/{slug}",
+            path_template("/team/{team_id}/wiki/{slug}", team_id=team_id, slug=slug),
             body=await async_maybe_transform(
                 {
                     "markdown": markdown,
                     "base_version": base_version,
+                    "chat_session_id": chat_session_id,
                     "title": title,
                 },
                 wiki_update_params.WikiUpdateParams,
@@ -364,7 +376,7 @@ class AsyncWikiResource(AsyncAPIResource):
         if not team_id:
             raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
         return await self._get(
-            f"/team/{team_id}/wiki",
+            path_template("/team/{team_id}/wiki", team_id=team_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -399,7 +411,7 @@ class AsyncWikiResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `slug` but received {slug!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._delete(
-            f"/team/{team_id}/wiki/{slug}",
+            path_template("/team/{team_id}/wiki/{slug}", team_id=team_id, slug=slug),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -433,7 +445,7 @@ class AsyncWikiResource(AsyncAPIResource):
         if not slug:
             raise ValueError(f"Expected a non-empty value for `slug` but received {slug!r}")
         return await self._get(
-            f"/team/{team_id}/wiki/{slug}",
+            path_template("/team/{team_id}/wiki/{slug}", team_id=team_id, slug=slug),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),

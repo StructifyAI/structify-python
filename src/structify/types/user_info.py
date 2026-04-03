@@ -34,7 +34,7 @@ class UserInfo(BaseModel):
 
     full_name: str
 
-    is_developer: bool
+    notify_for_interaction: bool
 
     permissions: List[Literal["labeler", "qa_labeler", "debug", "human_llm", "none"]]
 
@@ -58,8 +58,6 @@ class UserInfo(BaseModel):
     last_selected_team_id: Optional[str] = None
 
     linkedin_url: Optional[str] = None
-
-    onboarding_session_id: Optional[str] = None
 
     slack_user_id: Optional[str] = None
 
