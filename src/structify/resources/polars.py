@@ -28,7 +28,7 @@ from .._response import (
 )
 from ..types.table_param import Property
 from ..lib.cost_confirmation import request_cost_confirmation_if_needed
-from ..types.save_requirement_param import RequiredEntity, RequiredProperty
+from ..types.save_requirement_param import RequiredEntity, RequiredProperty, RequiredRelationship
 from ..types.dataset_descriptor_param import DatasetDescriptorParam
 from ..types.structure_run_async_params import Source, SourceWeb, SourceWebWeb
 
@@ -279,6 +279,8 @@ class PolarsResource(SyncAPIResource):
         target_schema: Dict[str, Dict[str, Any]],
         target_schema_override: TableParam | None = None,
         source_table_name: str = "source_table",
+        instructions: Optional[str] = None,
+        use_no_resources: bool = False,
     ) -> LazyFrame:
         """
         Enhance a LazyFrame by finding related entities and creating a one-to-many relationship.
@@ -317,7 +319,15 @@ class PolarsResource(SyncAPIResource):
             for col_name, col_info in target_schema.items()
         ]
 
-        node_id = get_node_id()  # Wait until we update relationship endpoint to use node_id
+        node_id = get_node_id()
+        web_source: SourceWeb = {
+            "web": SourceWebWeb(
+                banned_domains=[],
+                starting_searches=[],
+                starting_urls=[],
+            ),
+        }
+        run_async_source: Source = "NoResources" if use_no_resources else web_source
 
         def enhance_relationship_batch(batch_df: pl.DataFrame) -> pl.DataFrame:
             if batch_df.is_empty():
@@ -367,36 +377,54 @@ class PolarsResource(SyncAPIResource):
             if not request_cost_confirmation_if_needed(self._client, len(entities), "web"):
                 raise Exception(f"User cancelled relationship enhancement for {source_table_name}")
 
-            # Add entities in batches to avoid JSON payload size issues
-            entity_ids: List[str] = []
-            entity_batches = chunk_entities_for_parallel_add(entities)
+            # Add individually to maintain entity-id-to-entity mapping
+            entity_id_to_entity: Dict[str, EntityParam] = {}
 
-            def add_batch(batch: List[KnowledgeGraphParam]) -> List[str]:
-                return self._client.entities.add_batch(
+            with ThreadPoolExecutor(max_workers=MAX_PARALLEL_REQUESTS) as executor:
+                add_futures = [executor.submit(self._add_single_entity, dataset_name, entity) for entity in entities]
+                for future in tqdm(
+                    as_completed(add_futures), total=len(add_futures), desc=f"Adding {source_table_name} entities"
+                ):
+                    entity_id, entity = future.result()
+                    entity_id_to_entity[entity_id] = entity
+
+            # Enhance relationships for each entity using run_async
+            def enhance_relationship_for_entity(entity_id: str, entity_param: EntityParam) -> None:
+                self._client.structure.run_async(
                     dataset=dataset_name,
-                    entity_graphs=batch,
-                )
-
-            with ThreadPoolExecutor(max_workers=MAX_PARALLEL_REQUESTS) as executor:
-                futures = [executor.submit(add_batch, batch) for batch in entity_batches]
-                for future in tqdm(as_completed(futures), total=len(futures), desc=f"Preparing {source_table_name}"):
-                    batch_entity_ids = future.result()
-                    entity_ids.extend(batch_entity_ids)
-
-            # Enhance relationships for each entity
-            def enhance_relationship(entity_id: str) -> None:
-                self._client.structure.enhance_relationship(
-                    entity_id=entity_id,
-                    relationship_name=relationship_name,
+                    source=run_async_source,
+                    instructions=instructions,
                     node_id=node_id,
+                    save_requirement=[
+                        RequiredEntity(
+                            seeded_entity_id=int(0),
+                            entity_id=entity_id,
+                        ),
+                        RequiredRelationship(
+                            relationship_name=relationship_name,
+                        ),
+                    ],
+                    seeded_entity=KnowledgeGraphParam(
+                        entities=[
+                            EntityParam(
+                                id=int(0),
+                                properties=entity_param["properties"],
+                                type=source_table_name,
+                            ),
+                        ],
+                        relationships=[],
+                    ),
                 )
 
             with ThreadPoolExecutor(max_workers=MAX_PARALLEL_REQUESTS) as executor:
-                futures = [executor.submit(enhance_relationship, entity_id) for entity_id in entity_ids]  # type: ignore
+                futures = [
+                    executor.submit(enhance_relationship_for_entity, entity_id, entity_param)
+                    for entity_id, entity_param in entity_id_to_entity.items()
+                ]
                 for future in tqdm(
                     as_completed(futures), total=len(futures), desc=f"Preparing {relationship_name} enrichments"
                 ):
-                    future.result()  # Wait for completion
+                    future.result()
 
             # Wait for all relationship enhancement jobs to complete
             title = f"Finding {relationship_name} for {source_table_name}"
