@@ -374,6 +374,7 @@ Methods:
 Methods:
 
 - <code title="get /admin/sandbox/list">client.admin.sandbox.<a href="./src/structify/resources/admin/sandbox.py">list</a>(\*\*<a href="src/structify/types/admin/sandbox_list_params.py">params</a>) -> <a href="./src/structify/types/sandbox.py">SyncJobsList[Sandbox]</a></code>
+- <code title="post /admin/sandbox/{sandbox_id}/terminate">client.admin.sandbox.<a href="./src/structify/resources/admin/sandbox.py">terminate</a>(sandbox_id) -> <a href="./src/structify/types/sandbox.py">Sandbox</a></code>
 
 ## FunctionalTests
 
