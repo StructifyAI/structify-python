@@ -48,6 +48,7 @@ if TYPE_CHECKING:
         server,
         sandbox,
         sources,
+        uploads,
         webhook,
         datasets,
         entities,
@@ -75,6 +76,7 @@ if TYPE_CHECKING:
     from .resources.server import ServerResource, AsyncServerResource
     from .resources.sandbox import SandboxResource, AsyncSandboxResource
     from .resources.sources import SourcesResource, AsyncSourcesResource
+    from .resources.uploads import UploadsResource, AsyncUploadsResource
     from .resources.webhook import WebhookResource, AsyncWebhookResource
     from .resources.datasets import DatasetsResource, AsyncDatasetsResource
     from .resources.entities import EntitiesResource, AsyncEntitiesResource
@@ -274,6 +276,12 @@ class Structify(SyncAPIClient):
         from .resources.sessions import SessionsResource
 
         return SessionsResource(self)
+
+    @cached_property
+    def uploads(self) -> UploadsResource:
+        from .resources.uploads import UploadsResource
+
+        return UploadsResource(self)
 
     @cached_property
     def workflow_schedule(self) -> WorkflowScheduleResource:
@@ -670,6 +678,12 @@ class AsyncStructify(AsyncAPIClient):
         return AsyncSessionsResource(self)
 
     @cached_property
+    def uploads(self) -> AsyncUploadsResource:
+        from .resources.uploads import AsyncUploadsResource
+
+        return AsyncUploadsResource(self)
+
+    @cached_property
     def workflow_schedule(self) -> AsyncWorkflowScheduleResource:
         from .resources.workflow_schedule import AsyncWorkflowScheduleResource
 
@@ -993,6 +1007,12 @@ class StructifyWithRawResponse:
         return SessionsResourceWithRawResponse(self._client.sessions)
 
     @cached_property
+    def uploads(self) -> uploads.UploadsResourceWithRawResponse:
+        from .resources.uploads import UploadsResourceWithRawResponse
+
+        return UploadsResourceWithRawResponse(self._client.uploads)
+
+    @cached_property
     def workflow_schedule(self) -> workflow_schedule.WorkflowScheduleResourceWithRawResponse:
         from .resources.workflow_schedule import WorkflowScheduleResourceWithRawResponse
 
@@ -1167,6 +1187,12 @@ class AsyncStructifyWithRawResponse:
         from .resources.sessions import AsyncSessionsResourceWithRawResponse
 
         return AsyncSessionsResourceWithRawResponse(self._client.sessions)
+
+    @cached_property
+    def uploads(self) -> uploads.AsyncUploadsResourceWithRawResponse:
+        from .resources.uploads import AsyncUploadsResourceWithRawResponse
+
+        return AsyncUploadsResourceWithRawResponse(self._client.uploads)
 
     @cached_property
     def workflow_schedule(self) -> workflow_schedule.AsyncWorkflowScheduleResourceWithRawResponse:
@@ -1351,6 +1377,12 @@ class StructifyWithStreamedResponse:
         return SessionsResourceWithStreamingResponse(self._client.sessions)
 
     @cached_property
+    def uploads(self) -> uploads.UploadsResourceWithStreamingResponse:
+        from .resources.uploads import UploadsResourceWithStreamingResponse
+
+        return UploadsResourceWithStreamingResponse(self._client.uploads)
+
+    @cached_property
     def workflow_schedule(self) -> workflow_schedule.WorkflowScheduleResourceWithStreamingResponse:
         from .resources.workflow_schedule import WorkflowScheduleResourceWithStreamingResponse
 
@@ -1525,6 +1557,12 @@ class AsyncStructifyWithStreamedResponse:
         from .resources.sessions import AsyncSessionsResourceWithStreamingResponse
 
         return AsyncSessionsResourceWithStreamingResponse(self._client.sessions)
+
+    @cached_property
+    def uploads(self) -> uploads.AsyncUploadsResourceWithStreamingResponse:
+        from .resources.uploads import AsyncUploadsResourceWithStreamingResponse
+
+        return AsyncUploadsResourceWithStreamingResponse(self._client.uploads)
 
     @cached_property
     def workflow_schedule(self) -> workflow_schedule.AsyncWorkflowScheduleResourceWithStreamingResponse:
