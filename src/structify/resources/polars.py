@@ -905,14 +905,6 @@ class PolarsResource(SyncAPIResource):
 
         node_id = get_node_id()
 
-        # Validate model format if provided as string
-        if isinstance(model, str):
-            parts = model.split(".", 1)
-            if len(parts) != 2:
-                raise ValueError(
-                    "model must be in format 'provider.model_name' (e.g. 'bedrock.claude-sonnet-4-bedrock')"
-                )
-
         instructions_list: list[str | None] = []
 
         if instructions is not None and not isinstance(instructions, str):
@@ -1070,13 +1062,6 @@ class PolarsResource(SyncAPIResource):
         )
 
         node_id = get_node_id()
-
-        if isinstance(model, str):
-            parts = model.split(".", 1)
-            if len(parts) != 2:
-                raise ValueError(
-                    "model must be in format 'provider.model_name' (e.g. 'bedrock.claude-sonnet-4-bedrock')"
-                )
 
         # Request cost confirmation before uploading
         if not request_cost_confirmation_if_needed(self._client, len(collected_df), "tag"):
