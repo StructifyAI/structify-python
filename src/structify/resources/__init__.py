@@ -112,14 +112,6 @@ from .sources import (
     SourcesResourceWithStreamingResponse,
     AsyncSourcesResourceWithStreamingResponse,
 )
-from .uploads import (
-    UploadsResource,
-    AsyncUploadsResource,
-    UploadsResourceWithRawResponse,
-    AsyncUploadsResourceWithRawResponse,
-    UploadsResourceWithStreamingResponse,
-    AsyncUploadsResourceWithStreamingResponse,
-)
 from .webhook import (
     WebhookResource,
     AsyncWebhookResource,
@@ -298,12 +290,6 @@ __all__ = [
     "AsyncSessionsResourceWithRawResponse",
     "SessionsResourceWithStreamingResponse",
     "AsyncSessionsResourceWithStreamingResponse",
-    "UploadsResource",
-    "AsyncUploadsResource",
-    "UploadsResourceWithRawResponse",
-    "AsyncUploadsResourceWithRawResponse",
-    "UploadsResourceWithStreamingResponse",
-    "AsyncUploadsResourceWithStreamingResponse",
     "WorkflowScheduleResource",
     "AsyncWorkflowScheduleResource",
     "WorkflowScheduleResourceWithRawResponse",
