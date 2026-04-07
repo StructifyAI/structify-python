@@ -372,6 +372,7 @@ Methods:
 Methods:
 
 - <code title="get /admin/sandbox/list">client.admin.sandbox.<a href="./src/structify/resources/admin/sandbox.py">list</a>(\*\*<a href="src/structify/types/admin/sandbox_list_params.py">params</a>) -> <a href="./src/structify/types/sandbox.py">SyncJobsList[Sandbox]</a></code>
+- <code title="post /admin/sandbox/{sandbox_id}/terminate">client.admin.sandbox.<a href="./src/structify/resources/admin/sandbox.py">terminate</a>(sandbox_id) -> <a href="./src/structify/types/sandbox.py">Sandbox</a></code>
 
 ## FunctionalTests
 
@@ -658,6 +659,25 @@ Methods:
 - <code title="patch /sessions/nodes/{node_id}/progress">client.sessions.<a href="./src/structify/resources/sessions.py">update_node_progress</a>(node_id, \*\*<a href="src/structify/types/session_update_node_progress_params.py">params</a>) -> <a href="./src/structify/types/workflow_session_node.py">WorkflowSessionNode</a></code>
 - <code title="post /sessions/{session_id}/dashboard_layout">client.sessions.<a href="./src/structify/resources/sessions.py">upload_dashboard_layout</a>(session_id, \*\*<a href="src/structify/types/session_upload_dashboard_layout_params.py">params</a>) -> <a href="./src/structify/types/workflow_session.py">WorkflowSession</a></code>
 - <code title="post /sessions/nodes/{node_id}/visualization_output">client.sessions.<a href="./src/structify/resources/sessions.py">upload_node_visualization_output</a>(node_id, \*\*<a href="src/structify/types/session_upload_node_visualization_output_params.py">params</a>) -> <a href="./src/structify/types/workflow_session_node.py">WorkflowSessionNode</a></code>
+
+# Uploads
+
+Types:
+
+```python
+from structify.types import (
+    SignedUploadCompleteRequest,
+    SignedUploadCompleteResponse,
+    SignedUploadInitRequest,
+    SignedUploadInitResponse,
+    SignedUploadTarget,
+)
+```
+
+Methods:
+
+- <code title="post /chat/input-files/upload/complete">client.uploads.<a href="./src/structify/resources/uploads.py">complete</a>(\*\*<a href="src/structify/types/upload_complete_params.py">params</a>) -> <a href="./src/structify/types/signed_upload_complete_response.py">SignedUploadCompleteResponse</a></code>
+- <code title="post /chat/input-files/upload/init">client.uploads.<a href="./src/structify/resources/uploads.py">init</a>(\*\*<a href="src/structify/types/upload_init_params.py">params</a>) -> <a href="./src/structify/types/signed_upload_init_response.py">SignedUploadInitResponse</a></code>
 
 # WorkflowSchedule
 
