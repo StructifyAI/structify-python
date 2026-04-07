@@ -38,6 +38,9 @@ __all__ = [
     "UserInterrupted",
     "IssueFound",
     "IssueFoundIssueFound",
+    "ReviewSummary",
+    "ReviewSummaryReviewSummary",
+    "ReviewSummaryReviewSummaryNodeSummary",
 ]
 
 
@@ -210,6 +213,26 @@ class IssueFound(BaseModel):
     issue_found: IssueFoundIssueFound = FieldInfo(alias="IssueFound")
 
 
+class ReviewSummaryReviewSummaryNodeSummary(BaseModel):
+    in_dashboard: bool
+
+    name: str
+
+    data_preview: Optional[str] = None
+
+    image: Optional[object] = None
+
+
+class ReviewSummaryReviewSummary(BaseModel):
+    node_summaries: List[ReviewSummaryReviewSummaryNodeSummary]
+
+    summary: str
+
+
+class ReviewSummary(BaseModel):
+    review_summary: ReviewSummaryReviewSummary = FieldInfo(alias="ReviewSummary")
+
+
 ChatEvent: TypeAlias = Union[
     TextMessage,
     Thinking,
@@ -224,4 +247,5 @@ ChatEvent: TypeAlias = Union[
     ConnectorRequest,
     UserInterrupted,
     IssueFound,
+    ReviewSummary,
 ]
