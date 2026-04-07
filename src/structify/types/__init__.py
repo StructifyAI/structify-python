@@ -95,6 +95,7 @@ from .slack_api_response import SlackAPIResponse as SlackAPIResponse
 from .source_list_params import SourceListParams as SourceListParams
 from .team_create_params import TeamCreateParams as TeamCreateParams
 from .team_update_params import TeamUpdateParams as TeamUpdateParams
+from .upload_init_params import UploadInitParams as UploadInitParams
 from .user_enrich_params import UserEnrichParams as UserEnrichParams
 from .user_update_params import UserUpdateParams as UserUpdateParams
 from .viz_control_option import VizControlOption as VizControlOption
@@ -135,6 +136,7 @@ from .project_get_response import ProjectGetResponse as ProjectGetResponse
 from .scrape_list_response import ScrapeListResponse as ScrapeListResponse
 from .scrape_scrape_params import ScrapeScrapeParams as ScrapeScrapeParams
 from .select_team_response import SelectTeamResponse as SelectTeamResponse
+from .signed_upload_target import SignedUploadTarget as SignedUploadTarget
 from .source_list_response import SourceListResponse as SourceListResponse
 from .structure_pdf_params import StructurePdfParams as StructurePdfParams
 from .update_team_response import UpdateTeamResponse as UpdateTeamResponse
@@ -176,6 +178,7 @@ from .save_requirement_param import SaveRequirementParam as SaveRequirementParam
 from .scrape_scrape_response import ScrapeScrapeResponse as ScrapeScrapeResponse
 from .structure_pdf_response import StructurePdfResponse as StructurePdfResponse
 from .team_add_member_params import TeamAddMemberParams as TeamAddMemberParams
+from .upload_complete_params import UploadCompleteParams as UploadCompleteParams
 from .viz_date_control_param import VizDateControlParam as VizDateControlParam
 from .webhook_trigger_params import WebhookTriggerParams as WebhookTriggerParams
 from .workflow_schedule_info import WorkflowScheduleInfo as WorkflowScheduleInfo
@@ -263,6 +266,7 @@ from .session_confirm_node_params import SessionConfirmNodeParams as SessionConf
 from .session_finalize_dag_params import SessionFinalizeDagParams as SessionFinalizeDagParams
 from .session_get_events_response import SessionGetEventsResponse as SessionGetEventsResponse
 from .session_mark_errored_params import SessionMarkErroredParams as SessionMarkErroredParams
+from .signed_upload_init_response import SignedUploadInitResponse as SignedUploadInitResponse
 from .source_delete_entity_params import SourceDeleteEntityParams as SourceDeleteEntityParams
 from .structure_job_status_params import StructureJobStatusParams as StructureJobStatusParams
 from .update_member_role_response import UpdateMemberRoleResponse as UpdateMemberRoleResponse
@@ -321,6 +325,7 @@ from .connector_catalog_list_response import ConnectorCatalogListResponse as Con
 from .entity_update_property_response import EntityUpdatePropertyResponse as EntityUpdatePropertyResponse
 from .get_onboarding_answers_response import GetOnboardingAnswersResponse as GetOnboardingAnswersResponse
 from .session_edit_node_output_params import SessionEditNodeOutputParams as SessionEditNodeOutputParams
+from .signed_upload_complete_response import SignedUploadCompleteResponse as SignedUploadCompleteResponse
 from .workflow_schedule_create_params import WorkflowScheduleCreateParams as WorkflowScheduleCreateParams
 from .workflow_schedule_update_params import WorkflowScheduleUpdateParams as WorkflowScheduleUpdateParams
 from .chat_grant_admin_override_params import ChatGrantAdminOverrideParams as ChatGrantAdminOverrideParams
