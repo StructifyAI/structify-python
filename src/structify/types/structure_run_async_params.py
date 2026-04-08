@@ -10,7 +10,16 @@ from .._utils import PropertyInfo
 from .knowledge_graph_param import KnowledgeGraphParam
 from .save_requirement_param import SaveRequirementParam
 
-__all__ = ["StructureRunAsyncParams", "Source", "SourcePdf", "SourcePdfPdf", "SourceWeb", "SourceWebWeb"]
+__all__ = [
+    "StructureRunAsyncParams",
+    "Source",
+    "SourcePdf",
+    "SourcePdfPdf",
+    "SourceWeb",
+    "SourceWebWeb",
+    "SourceUrlColumn",
+    "SourceUrlColumnUrlColumn",
+]
 
 
 class StructureRunAsyncParams(TypedDict, total=False):
@@ -22,6 +31,8 @@ class StructureRunAsyncParams(TypedDict, total=False):
     instructions: Optional[str]
 
     model: Optional[str]
+
+    use_proxy: Optional[bool]
 
     node_id: Optional[str]
 
@@ -60,4 +71,14 @@ class SourceWeb(TypedDict, total=False):
     web: Required[Annotated[SourceWebWeb, PropertyInfo(alias="Web")]]
 
 
-Source: TypeAlias = Union[SourcePdf, SourceWeb, Literal["NoResources"]]
+class SourceUrlColumnUrlColumn(TypedDict, total=False):
+    url_column: Required[str]
+
+    output_many: bool
+
+
+class SourceUrlColumn(TypedDict, total=False):
+    url_column: Required[Annotated[SourceUrlColumnUrlColumn, PropertyInfo(alias="UrlColumn")]]
+
+
+Source: TypeAlias = Union[SourcePdf, SourceWeb, SourceUrlColumn, Literal["NoResources"]]

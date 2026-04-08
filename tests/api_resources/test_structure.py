@@ -295,15 +295,25 @@ class TestStructure:
         structure = client.structure.run_async(
             dataset="dataset",
             source={
-                "pdf": {
-                    "path": "path",
-                    "page": 0,
+                "url_column": {
+                    "url_column": "website",
+                    "output_many": False,
                 }
             },
             instructions="instructions",
             model="model",
+            use_proxy=True,
             node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            save_requirement=[{"relationship_name": "relationship_name"}],
+            save_requirement=[
+                {
+                    "seeded_entity_id": 0,
+                    "entity_id": "entity_id",
+                },
+                {
+                    "table_name": "Company",
+                    "property_names": ["description"],
+                },
+            ],
             seeded_entity={
                 "entities": [
                     {
@@ -631,15 +641,25 @@ class TestAsyncStructure:
         structure = await async_client.structure.run_async(
             dataset="dataset",
             source={
-                "pdf": {
-                    "path": "path",
-                    "page": 0,
+                "url_column": {
+                    "url_column": "website",
+                    "output_many": False,
                 }
             },
             instructions="instructions",
             model="model",
+            use_proxy=True,
             node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            save_requirement=[{"relationship_name": "relationship_name"}],
+            save_requirement=[
+                {
+                    "seeded_entity_id": 0,
+                    "entity_id": "entity_id",
+                },
+                {
+                    "table_name": "Company",
+                    "property_names": ["description"],
+                },
+            ],
             seeded_entity={
                 "entities": [
                     {
