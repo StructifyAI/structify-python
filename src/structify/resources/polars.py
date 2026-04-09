@@ -1001,10 +1001,11 @@ class PolarsResource(SyncAPIResource):
         *,
         df: LazyFrame,
         new_property_name: str,
+        new_property_description: str,
         dtype: pl.DataType,
         instructions: str,
-        dataframe_name: str,
-        dataframe_description: str,
+        dataframe_name: str,  # Outdated arg, ignore
+        dataframe_description: str,  # Outdated arg, ignore
         model: str | None = None,
     ) -> LazyFrame:
         """
@@ -1016,6 +1017,7 @@ class PolarsResource(SyncAPIResource):
         Args:
             df: The input `polars.LazyFrame` to tag.
             new_property_name: Name of the new property to derive.
+            new_property_description: Description of the new property.
             dtype: Polars DataType for the new property (e.g. pl.String(), pl.Int64()).
             instructions: Instructions for how to derive the new property value.
             dataframe_name: Logical name of the dataframe (e.g. "Company", "Invoice").
@@ -1033,7 +1035,7 @@ class PolarsResource(SyncAPIResource):
 
         # Add the new property to derive
         new_property = Property(
-            name=new_property_name, description=instructions, prop_type=dtype_to_structify_type(dtype)
+            name=new_property_name, description=new_property_description, prop_type=dtype_to_structify_type(dtype)
         )
 
         all_properties = existing_properties + [new_property]
@@ -1052,7 +1054,7 @@ class PolarsResource(SyncAPIResource):
             description="",
             tables=[
                 TableParam(
-                    name=dataframe_name,
+                    name=dataframe_name or "table",
                     description=dataframe_description,
                     properties=all_properties,
                 )
