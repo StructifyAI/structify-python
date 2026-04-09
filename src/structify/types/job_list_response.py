@@ -19,8 +19,6 @@ __all__ = [
     "ParametersStructuringInputAgentAgent",
     "ParametersStructuringInputAgentAgentPdf",
     "ParametersStructuringInputAgentAgentPdfPdf",
-    "ParametersStructuringInputAgentAgentWeb",
-    "ParametersStructuringInputAgentAgentWebWeb",
     "ParametersStructuringInputTransformationPrompt",
     "ParametersStructuringInputScrapeFromURLProperty",
     "ParametersStructuringInputScrapeFromURLPropertyScrapeFromURLProperty",
@@ -46,26 +44,13 @@ class ParametersStructuringInputAgentAgentPdf(BaseModel):
     """Ingest all pages of a PDF and process them independently."""
 
 
-class ParametersStructuringInputAgentAgentWebWeb(BaseModel):
-    banned_domains: Optional[List[str]] = None
-
-    starting_searches: Optional[List[str]] = None
-
-    starting_urls: Optional[List[str]] = None
-
-
-class ParametersStructuringInputAgentAgentWeb(BaseModel):
-    web: ParametersStructuringInputAgentAgentWebWeb = FieldInfo(alias="Web")
-
-
 ParametersStructuringInputAgentAgent: TypeAlias = Union[
-    ParametersStructuringInputAgentAgentPdf, ParametersStructuringInputAgentAgentWeb, Literal["NoResources"]
+    Literal["Web", "NoResources"], ParametersStructuringInputAgentAgentPdf
 ]
 
 
 class ParametersStructuringInputAgent(BaseModel):
     agent: ParametersStructuringInputAgentAgent = FieldInfo(alias="Agent")
-    """Only use the input text to derive new fields. Useful for large text inputs."""
 
 
 class ParametersStructuringInputTransformationPrompt(BaseModel):
