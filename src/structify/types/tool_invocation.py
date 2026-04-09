@@ -73,6 +73,8 @@ __all__ = [
     "PinPreviousToolInput",
     "RunPipeline",
     "RunPipelineInput",
+    "SaveProperty",
+    "SavePropertyInput",
 ]
 
 
@@ -473,6 +475,16 @@ class RunPipeline(BaseModel):
     name: Literal["RunPipeline"]
 
 
+class SavePropertyInput(BaseModel):
+    value: str
+
+
+class SaveProperty(BaseModel):
+    input: SavePropertyInput
+
+    name: Literal["SaveProperty"]
+
+
 ToolInvocation: TypeAlias = Annotated[
     Union[
         WebSearch,
@@ -507,6 +519,7 @@ ToolInvocation: TypeAlias = Annotated[
         SearchConnectorTypes,
         PinPreviousTool,
         RunPipeline,
+        SaveProperty,
     ],
     PropertyInfo(discriminator="name"),
 ]
