@@ -1001,11 +1001,11 @@ class PolarsResource(SyncAPIResource):
         *,
         df: LazyFrame,
         new_property_name: str,
-        new_property_description: str,
+        new_property_description: str = "",
         dtype: pl.DataType,
         instructions: str,
-        dataframe_name: str,  # Outdated arg, ignore
-        dataframe_description: str,  # Outdated arg, ignore
+        dataframe_name: str = "default_table",  # Only exists for back compat, not shown to agent
+        dataframe_description: str = "",  # Only exists for back compat, not shown to agent
         model: str | None = None,
     ) -> LazyFrame:
         """
@@ -1020,8 +1020,6 @@ class PolarsResource(SyncAPIResource):
             new_property_description: Description of the new property.
             dtype: Polars DataType for the new property (e.g. pl.String(), pl.Int64()).
             instructions: Instructions for how to derive the new property value.
-            dataframe_name: Logical name of the dataframe (e.g. "Company", "Invoice").
-            dataframe_description: Description providing context for the dataframe.
             model: Optional model name to use for tagging.
 
         Returns:
@@ -1054,7 +1052,7 @@ class PolarsResource(SyncAPIResource):
             description="",
             tables=[
                 TableParam(
-                    name=dataframe_name or "table",
+                    name=dataframe_name,
                     description=dataframe_description,
                     properties=all_properties,
                 )
