@@ -219,7 +219,6 @@ from .viz_control_option_param import VizControlOptionParam as VizControlOptionP
 from .viz_number_control_param import VizNumberControlParam as VizNumberControlParam
 from .viz_string_control_param import VizStringControlParam as VizStringControlParam
 from .webhook_trigger_response import WebhookTriggerResponse as WebhookTriggerResponse
-from .wiki_connector_reference import WikiConnectorReference as WikiConnectorReference
 from .chat_list_sessions_params import ChatListSessionsParams as ChatListSessionsParams
 from .code_generate_code_params import CodeGenerateCodeParams as CodeGenerateCodeParams
 from .dashboard_component_param import DashboardComponentParam as DashboardComponentParam
@@ -236,7 +235,6 @@ from .slack_event_payload_param import SlackEventPayloadParam as SlackEventPaylo
 from .team_credits_usage_params import TeamCreditsUsageParams as TeamCreditsUsageParams
 from .user_survey_submit_params import UserSurveySubmitParams as UserSurveySubmitParams
 from .viz_boolean_control_param import VizBooleanControlParam as VizBooleanControlParam
-from .wiki_page_with_references import WikiPageWithReferences as WikiPageWithReferences
 from .accept_invitation_response import AcceptInvitationResponse as AcceptInvitationResponse
 from .admin_issue_found_response import AdminIssueFoundResponse as AdminIssueFoundResponse
 from .chat_add_git_commit_params import ChatAddGitCommitParams as ChatAddGitCommitParams

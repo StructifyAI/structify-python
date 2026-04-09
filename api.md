@@ -236,14 +236,7 @@ Methods:
 Types:
 
 ```python
-from structify.types import (
-    CreateWikiPageRequest,
-    UpdateWikiPageRequest,
-    WikiConnectorReference,
-    WikiPage,
-    WikiPageWithReferences,
-    WikiListResponse,
-)
+from structify.types import CreateWikiPageRequest, UpdateWikiPageRequest, WikiPage, WikiListResponse
 ```
 
 Methods:
@@ -252,7 +245,7 @@ Methods:
 - <code title="put /team/{team_id}/wiki/{slug}">client.wiki.<a href="./src/structify/resources/wiki.py">update</a>(slug, \*, team_id, \*\*<a href="src/structify/types/wiki_update_params.py">params</a>) -> <a href="./src/structify/types/wiki_page.py">WikiPage</a></code>
 - <code title="get /team/{team_id}/wiki">client.wiki.<a href="./src/structify/resources/wiki.py">list</a>(team_id) -> <a href="./src/structify/types/wiki_list_response.py">WikiListResponse</a></code>
 - <code title="delete /team/{team_id}/wiki/{slug}">client.wiki.<a href="./src/structify/resources/wiki.py">delete</a>(slug, \*, team_id) -> None</code>
-- <code title="get /team/{team_id}/wiki/{slug}">client.wiki.<a href="./src/structify/resources/wiki.py">get</a>(slug, \*, team_id) -> <a href="./src/structify/types/wiki_page_with_references.py">WikiPageWithReferences</a></code>
+- <code title="get /team/{team_id}/wiki/{slug}">client.wiki.<a href="./src/structify/resources/wiki.py">get</a>(slug, \*, team_id) -> <a href="./src/structify/types/wiki_page.py">WikiPage</a></code>
 
 # Projects
 

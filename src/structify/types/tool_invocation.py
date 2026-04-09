@@ -382,8 +382,6 @@ class SaveMemory(BaseModel):
 class SearchConnectorTablesInput(BaseModel):
     query: str
 
-    wiki_tag: Optional[str] = None
-
 
 class SearchConnectorTables(BaseModel):
     input: SearchConnectorTablesInput
