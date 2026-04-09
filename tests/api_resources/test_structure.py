@@ -34,10 +34,7 @@ class TestStructure:
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             property_name="property_name",
             allow_extra_entities=True,
-            banned_domains=["string"],
             node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            starting_searches=["string"],
-            starting_urls=["string"],
         )
         assert_matches_type(str, structure, path=["response"])
 
@@ -81,10 +78,7 @@ class TestStructure:
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             relationship_name="relationship_name",
             allow_extra_entities=True,
-            banned_domains=["string"],
             node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            starting_searches=["string"],
-            starting_urls=["string"],
         )
         assert_matches_type(str, structure, path=["response"])
 
@@ -130,9 +124,6 @@ class TestStructure:
             relationship_name="relationship_name",
             to_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             allow_extra_entities=True,
-            banned_domains=["string"],
-            starting_searches=["string"],
-            starting_urls=["string"],
         )
         assert_matches_type(str, structure, path=["response"])
 
@@ -378,10 +369,7 @@ class TestAsyncStructure:
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             property_name="property_name",
             allow_extra_entities=True,
-            banned_domains=["string"],
             node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            starting_searches=["string"],
-            starting_urls=["string"],
         )
         assert_matches_type(str, structure, path=["response"])
 
@@ -425,10 +413,7 @@ class TestAsyncStructure:
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             relationship_name="relationship_name",
             allow_extra_entities=True,
-            banned_domains=["string"],
             node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            starting_searches=["string"],
-            starting_urls=["string"],
         )
         assert_matches_type(str, structure, path=["response"])
 
@@ -474,9 +459,6 @@ class TestAsyncStructure:
             relationship_name="relationship_name",
             to_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             allow_extra_entities=True,
-            banned_domains=["string"],
-            starting_searches=["string"],
-            starting_urls=["string"],
         )
         assert_matches_type(str, structure, path=["response"])
 
