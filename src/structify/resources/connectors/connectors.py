@@ -926,7 +926,7 @@ class ConnectorsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ExplorationRunsResponse:
         """
-        Get all exploration runs for a connector (requires debug permission)
+        Get all exploration runs for a connector
 
         Args:
           extra_headers: Send extra headers
@@ -2202,7 +2202,7 @@ class AsyncConnectorsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ExplorationRunsResponse:
         """
-        Get all exploration runs for a connector (requires debug permission)
+        Get all exploration runs for a connector
 
         Args:
           extra_headers: Send extra headers
