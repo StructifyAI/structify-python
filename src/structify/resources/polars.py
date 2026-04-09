@@ -20,6 +20,7 @@ from structify.types.dataset_create_params import Relationship as CreateRelation
 from structify.types.knowledge_graph_param import KnowledgeGraphParam
 
 from ..types import TableParam
+from .._types import Omit, omit
 from .._compat import cached_property
 from .._resource import SyncAPIResource
 from .._response import (
@@ -29,12 +30,7 @@ from .._response import (
 from ..types.table_param import Property
 from ..lib.cost_confirmation import request_cost_confirmation_if_needed
 from ..types.save_requirement_param import RequiredEntity, RequiredProperty, RequiredRelationship
-from ..types.structure_run_async_params import (
-    Source,
-    SourceWeb,
-    SourceWebWeb,
-    SourceUrlColumnUrlColumn,
-)
+from ..types.structure_run_async_params import Source, SourceScrape, SourceScrapeScrape
 
 __all__ = ["PolarsResource"]
 
@@ -128,8 +124,7 @@ class PolarsResource(SyncAPIResource):
                 food industry").
             instructions: Optional free-form instructions to guide Structify's enrichment
             use_no_resources: When True, queue text-only structuring jobs by
-                sending `source="NoResources"` instead of the default web
-                search source.
+                omitting `source` instead of using the default web source.
         """
 
         # Existing columns & their dtypes from the LazyFrame
@@ -182,20 +177,10 @@ class PolarsResource(SyncAPIResource):
 
         # Get the node ID when the function is called, not when the batch is processed
         node_id = get_node_id()
-        run_async_source: Source
-        if url_column is None:
-            web_source: SourceWeb = {
-                "web": SourceWebWeb(
-                    banned_domains=[],
-                    starting_searches=[],
-                    starting_urls=[],
-                ),
-            }
-            run_async_source = "NoResources" if use_no_resources else web_source
-        else:
-            run_async_source = {
-                "url_column": SourceUrlColumnUrlColumn(url_column=url_column, output_many=False)
-            }
+        run_async_source: Source | Omit = omit if use_no_resources else "Web"
+        if url_column is not None:
+            run_async_source = SourceScrape(scrape=SourceScrapeScrape(url_column=url_column))
+        run_async_use_proxy: bool | Omit = use_proxy if url_column is not None else omit
 
         # Create the expected output schema with single job_id column
         expected_schema = properties_to_schema(all_properties)
@@ -236,7 +221,7 @@ class PolarsResource(SyncAPIResource):
                     dataset=dataset_name,
                     source=run_async_source,
                     instructions=instructions,
-                    use_proxy=use_proxy,
+                    use_proxy=run_async_use_proxy,
                     node_id=node_id,
                     save_requirement=[
                         RequiredEntity(
@@ -295,7 +280,6 @@ class PolarsResource(SyncAPIResource):
         target_table_name: str,
         target_schema: Dict[str, Dict[str, Any]],
         target_schema_override: TableParam | None = None,
-        original_column_map: Dict[str, str] = {},
         source_table_name: str = "source_table",
         instructions: Optional[str] = None,
         use_no_resources: bool = False,
@@ -325,10 +309,7 @@ class PolarsResource(SyncAPIResource):
         target_columns: dict[str, pl.DataType] = {}
         if target_schema_override:
             for prop in target_schema_override["properties"]:
-                column_name = prop["name"]
-                if url_column is not None:
-                    column_name = original_column_map.get(column_name, column_name)
-                target_columns[column_name] = structify_type_to_polars_dtype(prop.get("prop_type"))
+                target_columns[prop["name"]] = structify_type_to_polars_dtype(prop.get("prop_type"))
         else:
             for col_name, col_info in target_schema.items():
                 target_columns[col_name] = col_info.get("type", pl.String())
@@ -346,20 +327,10 @@ class PolarsResource(SyncAPIResource):
         ]
 
         node_id = get_node_id()
-        run_async_source: Source
-        if url_column is None:
-            web_source: SourceWeb = {
-                "web": SourceWebWeb(
-                    banned_domains=[],
-                    starting_searches=[],
-                    starting_urls=[],
-                ),
-            }
-            run_async_source = "NoResources" if use_no_resources else web_source
-        else:
-            run_async_source = {
-                "url_column": SourceUrlColumnUrlColumn(url_column=url_column, output_many=True)
-            }
+        run_async_source: Source | Omit = omit if use_no_resources else "Web"
+        if url_column is not None:
+            run_async_source = SourceScrape(scrape=SourceScrapeScrape(url_column=url_column))
+        run_async_use_proxy: bool | Omit = use_proxy if url_column is not None else omit
 
         def enhance_relationship_batch(batch_df: pl.DataFrame) -> pl.DataFrame:
             if batch_df.is_empty():
@@ -411,7 +382,7 @@ class PolarsResource(SyncAPIResource):
 
             # Request cost confirmation before adding entities
             if not request_cost_confirmation_if_needed(self._client, len(entities), "web"):
-                raise Exception(f"User cancelled relationship enhancement for {source_table_name}")
+                raise Exception(f"User cancelled enhancement of {source_table_name}")
 
             # Add individually to maintain entity-id-to-entity mapping
             entity_id_to_entity: Dict[str, EntityParam] = {}
@@ -430,7 +401,7 @@ class PolarsResource(SyncAPIResource):
                     dataset=dataset_name,
                     source=run_async_source,
                     instructions=instructions,
-                    use_proxy=use_proxy,
+                    use_proxy=run_async_use_proxy,
                     node_id=node_id,
                     save_requirement=[
                         RequiredEntity(
@@ -541,7 +512,6 @@ class PolarsResource(SyncAPIResource):
         table_name: str,
         scrape_schema: Dict[str, Dict[str, Any]],
         scrape_schema_override: TableParam | None = None,
-        original_column_map: Dict[str, str] = {},
         source_table_name: str = "source_table",
         relationship_name: str = "scraped",
         relationship_description: str = "",
@@ -555,7 +525,6 @@ class PolarsResource(SyncAPIResource):
           url_column: Name of the column containing URLs (Must exist in the input LazyFrame)
           table_name: Name of the table to scrape. This will be the target table for the relationship.
           scrape_schema: Schema definition with descriptions, format: {"column_name": {"description": "...", "type": polars_dtype}}. If the column name is the same as the table name, it will be suffixed by the table name, e.g. "name_Person"
-          original_column_map: Mapping of original column names to new names
         """
         enhanced_df = self.enhance_relationships(
             lazy_df=lazy_df,
@@ -564,7 +533,6 @@ class PolarsResource(SyncAPIResource):
             target_table_name=table_name,
             target_schema=scrape_schema,
             target_schema_override=scrape_schema_override,
-            original_column_map=original_column_map,
             source_table_name=source_table_name,
             url_column=url_column,
             use_proxy=use_proxy,
@@ -595,7 +563,6 @@ class PolarsResource(SyncAPIResource):
         table_name: str,
         scrape_schema: Dict[str, Dict[str, Any]],
         scrape_schema_override: TableParam | None = None,
-        original_column_map: Dict[str, str] = {},
         use_proxy: bool = False,
     ) -> LazyFrame:
         """
@@ -607,7 +574,6 @@ class PolarsResource(SyncAPIResource):
             table_name=table_name,
             scrape_schema=scrape_schema,
             scrape_schema_override=scrape_schema_override,
-            original_column_map=original_column_map,
             use_proxy=use_proxy,
         )
 

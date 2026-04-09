@@ -28,7 +28,7 @@ Structify allows you transform any information from document to web page into st
    # Then, create an agent to index information from defined sources for your dataset
    structify.structure.run_async(
       dataset="startups",
-      source=SourceWeb(web=SourceWebWeb(starting_urls=["https://www.techcrunch.com/"])),
+      source="Web",
       save_requirement=[RequiredProperty(table_name="company", property_name="name")]
    )
 
