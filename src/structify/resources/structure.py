@@ -322,9 +322,10 @@ class StructureResource(SyncAPIResource):
         self,
         *,
         dataset: str,
-        source: structure_run_async_params.Source,
+        source: structure_run_async_params.Source | Omit = omit,
         instructions: Optional[str] | Omit = omit,
         model: Optional[str] | Omit = omit,
+        use_proxy: Optional[bool] | Omit = omit,
         node_id: Optional[str] | Omit = omit,
         save_requirement: Iterable[SaveRequirementParam] | Omit = omit,
         seeded_entity: KnowledgeGraphParam | Omit = omit,
@@ -339,7 +340,7 @@ class StructureResource(SyncAPIResource):
         Returns a token that can be waited on until the request is finished.
 
         Args:
-          source: Only use the input text to derive new fields. Useful for large text inputs.
+          source: Optional source to use for the run. Omit for no-resources mode.
 
           seeded_entity: Knowledge graph info structured to deserialize and display in the same format
               that the LLM outputs. Also the first representation of an LLM output in the
@@ -362,6 +363,7 @@ class StructureResource(SyncAPIResource):
                     "source": source,
                     "instructions": instructions,
                     "model": model,
+                    "use_proxy": use_proxy,
                     "node_id": node_id,
                     "save_requirement": save_requirement,
                     "seeded_entity": seeded_entity,
@@ -664,9 +666,10 @@ class AsyncStructureResource(AsyncAPIResource):
         self,
         *,
         dataset: str,
-        source: structure_run_async_params.Source,
+        source: structure_run_async_params.Source | Omit = omit,
         instructions: Optional[str] | Omit = omit,
         model: Optional[str] | Omit = omit,
+        use_proxy: Optional[bool] | Omit = omit,
         node_id: Optional[str] | Omit = omit,
         save_requirement: Iterable[SaveRequirementParam] | Omit = omit,
         seeded_entity: KnowledgeGraphParam | Omit = omit,
@@ -681,7 +684,7 @@ class AsyncStructureResource(AsyncAPIResource):
         Returns a token that can be waited on until the request is finished.
 
         Args:
-          source: Only use the input text to derive new fields. Useful for large text inputs.
+          source: Optional source to use for the run. Omit for no-resources mode.
 
           seeded_entity: Knowledge graph info structured to deserialize and display in the same format
               that the LLM outputs. Also the first representation of an LLM output in the
@@ -704,6 +707,7 @@ class AsyncStructureResource(AsyncAPIResource):
                     "source": source,
                     "instructions": instructions,
                     "model": model,
+                    "use_proxy": use_proxy,
                     "node_id": node_id,
                     "save_requirement": save_requirement,
                     "seeded_entity": seeded_entity,

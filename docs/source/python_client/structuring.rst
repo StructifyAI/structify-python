@@ -77,8 +77,8 @@ To populate your dataset with more control, you can run our agents through ``cli
 The ``client.structure.run_async`` API call takes the following arguments:
 
 - **dataset:** *(required)* The name of the dataset you want to populate
-- **source:** *(required)* The source you want the agent to use to extract data from. More on this in :ref:`source-types`
-- **save_requirement:** *(required)* The criteria you want the agent to use to extract data from the source. More on this in :ref:`save-requirement`
+- **source:** *(optional)* The source you want the agent to use to extract data from. Omit it to run in no-resources mode. More on this in :ref:`source-types`
+- **save_requirement:** *(optional)* The criteria you want the agent to use to extract data from the source. More on this in :ref:`save-requirement`
 - **seeded_entity:** *(only required if save_requirement is RequiredEntity)* The entity you want the agent to use to extract data from the source.
 
 This API endpoint allows the user to have more finetune control over the agent, and allows them to specify the sources and criteria for the agent to extract data from the source.
@@ -87,15 +87,10 @@ This API endpoint allows the user to have more finetune control over the agent, 
 
     from structify.types import KnowledgeGraphParam, EntityParam
     from structify.types.save_requirement import RequiredEntity, RequiredProperty, RequiredRelationship
-    from structify.types.structure_run_async_params import SourceWeb, SourceWebWeb
 
     job_id = client.structure.run_async(
-        dataset="startups", 
-        source=SourceWeb(
-            SourceWebWeb(
-                starting_urls=[] # If you don't specify a starting url, the agent will start from Google
-            )
-        ),
+        dataset="startups",
+        source="Web",
         save_requirement=[RequiredProperty(table_name="company", property_names=["name"])],
     )
     client.structure.job_status(job=[job_id])
@@ -122,12 +117,8 @@ This save requirement does necessitate that you input the entity into the run or
     from structify.types import KnowledgeGraphParam, EntityParam
 
     client.structure.run_async(
-        dataset="startups", 
-        source=SourceWeb(
-            SourceWebWeb(
-                starting_urls=[]
-            )
-        ),
+        dataset="startups",
+        source="Web",
         save_requirement=[RequiredEntity(seeded_entity_id=0)],
         seeded_entity=KnowledgeGraphParam(
             entities=[EntityParam(
@@ -151,12 +142,8 @@ In the case that you want to require that a certain property be present for a ta
 .. code-block:: python
 
     client.structure.run_async(
-        dataset="startups", 
-        source=SourceWeb(
-            SourceWebWeb(
-                starting_urls=[]
-            )
-        ),
+        dataset="startups",
+        source="Web",
         save_requirement=[RequiredProperty(table_name="founder", property_names=["name", "bio", "title"])]
     )
 
@@ -170,11 +157,7 @@ In the case that you want to require that a certain relationship be present for 
 
     client.structure.run_async(
         dataset="startups",
-        source=SourceWeb(
-            SourceWebWeb(
-                starting_urls=[]
-            )
-        ),
+        source="Web",
         save_requirement=[RequiredRelationship(relationship_name="founded")]
     )
 
@@ -187,13 +170,13 @@ You can input multiple save requirement to ensure a set of conditions are met be
 
 Sources
 -----------------------
-You can use a variety of sources to populate your datasets such as:
+You can use a few different source modes to populate your datasets:
 
 - **Web**: Our AI agents can navigate the Web and structure data at scale. This is our bread and butter.
-- **PDF**: We can also extract unstructured data from PDFs.
-- **DocumentImage**: We support any other document types through this endpoint (which is used via the same API calls as PDFs). It does require users to convert their documents into images first.
+- **No resources**: Omit ``source`` and the agent will work only from the seeded/input text you provide.
+- **Scrape**: Use the scrape wrapper methods to structure rows from a URL column.
 
-Below are some examples of how you can start structuring runs on each source:
+Below are some examples of how you can start structuring runs:
 
 Web
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -201,12 +184,8 @@ Web
 .. code-block:: python
 
     client.structure.run_async(
-        dataset="startups", 
-        source=SourceWeb(
-            SourceWebWeb(
-                starting_urls=["techcrunch.com"] # Note that this field is optional
-            )
-        ),
+        dataset="startups",
+        source="Web",
         save_requirement=[RequiredEntity(seeded_entity_id=0)],
         seeded_entity=KnowledgeGraphParam(
             entities=[EntityParam(
@@ -217,17 +196,24 @@ Web
             relationships=[]
         )
     )
+No Resources
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: python
+
+    client.structure.run_async(
+        dataset="startups",
+        save_requirement=[RequiredRelationship(relationship_name="founded")],
+    )
+
 PDF
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: python
 
-    from structify.types.structure_run_async_params import SourcePdf, SourcePdfPdf
-
-    client.structure.run_async(
+    client.structure.pdf(
         dataset="startups",
-        source=SourcePdf(pdf=SourcePdfPdf(path="path/to/pdf")),
-        save_requirement=[RequiredRelationship(relationship_name="founded")],
+        path="path/to/pdf",
     )
 
 .. note::
