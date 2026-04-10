@@ -139,6 +139,7 @@ from structify.types import (
     ChatListTemplatesResponse,
     ChatLoadFilesResponse,
     ChatLoadInputFilesResponse,
+    ChatPendingWikiEditsResponse,
     ChatRevertToCommitResponse,
 )
 ```
@@ -151,6 +152,7 @@ Methods:
 - <code title="post /chat/sessions/{session_id}/compress">client.chat.<a href="./src/structify/resources/chat.py">compress</a>(session_id) -> <a href="./src/structify/types/compress_chat_response.py">CompressChatResponse</a></code>
 - <code title="post /chat/copy">client.chat.<a href="./src/structify/resources/chat.py">copy</a>(\*\*<a href="src/structify/types/chat_copy_params.py">params</a>) -> <a href="./src/structify/types/chat_session_with_messages.py">ChatSessionWithMessages</a></code>
 - <code title="post /chat/sessions/{session_id}/nodes/by_code_hash">client.chat.<a href="./src/structify/resources/chat.py">copy_node_output_by_code_hash</a>(session_id, \*\*<a href="src/structify/types/chat_copy_node_output_by_code_hash_params.py">params</a>) -> <a href="./src/structify/types/chat_copy_node_output_by_code_hash_response.py">ChatCopyNodeOutputByCodeHashResponse</a></code>
+- <code title="post /chat/create_from_files">client.chat.<a href="./src/structify/resources/chat.py">create_chat_from_files</a>(\*\*<a href="src/structify/types/chat_create_chat_from_files_params.py">params</a>) -> <a href="./src/structify/types/chat_session_with_messages.py">ChatSessionWithMessages</a></code>
 - <code title="post /chat/sessions">client.chat.<a href="./src/structify/resources/chat.py">create_session</a>(\*\*<a href="src/structify/types/chat_create_session_params.py">params</a>) -> <a href="./src/structify/types/create_chat_session_response.py">CreateChatSessionResponse</a></code>
 - <code title="post /chat/input-files/delete/{chat_id}">client.chat.<a href="./src/structify/resources/chat.py">delete_input_file</a>(chat_id, \*\*<a href="src/structify/types/chat_delete_input_file_params.py">params</a>) -> <a href="./src/structify/types/chat_delete_input_file_response.py">ChatDeleteInputFileResponse</a></code>
 - <code title="delete /chat/sessions/{session_id}">client.chat.<a href="./src/structify/resources/chat.py">delete_session</a>(session_id) -> <a href="./src/structify/types/delete_chat_session_response.py">DeleteChatSessionResponse</a></code>
@@ -170,6 +172,7 @@ Methods:
 - <code title="get /chat/input-files/download/{chat_id}/{filename}">client.chat.<a href="./src/structify/resources/chat.py">load_input_file</a>(filename, \*, chat_id) -> BinaryAPIResponse</code>
 - <code title="get /chat/input-files/download-all/{chat_id}">client.chat.<a href="./src/structify/resources/chat.py">load_input_files</a>(chat_id, \*\*<a href="src/structify/types/chat_load_input_files_params.py">params</a>) -> <a href="./src/structify/types/chat_load_input_files_response.py">ChatLoadInputFilesResponse</a></code>
 - <code title="patch /chat/sessions/{session_id}/make-permanent">client.chat.<a href="./src/structify/resources/chat.py">make_permanent</a>(session_id) -> None</code>
+- <code title="get /chat/sessions/{chat_id}/pending_wiki_edits">client.chat.<a href="./src/structify/resources/chat.py">pending_wiki_edits</a>(chat_id) -> <a href="./src/structify/types/chat_pending_wiki_edits_response.py">ChatPendingWikiEditsResponse</a></code>
 - <code title="delete /chat/sessions/{chat_id}/collaborators/{user_id}">client.chat.<a href="./src/structify/resources/chat.py">remove_collaborator</a>(user_id, \*, chat_id) -> None</code>
 - <code title="post /chat/sessions/{session_id}/revert">client.chat.<a href="./src/structify/resources/chat.py">revert_to_commit</a>(session_id, \*\*<a href="src/structify/types/chat_revert_to_commit_params.py">params</a>) -> <a href="./src/structify/types/chat_revert_to_commit_response.py">ChatRevertToCommitResponse</a></code>
 - <code title="post /chat/{chat_session_id}/simulate-prompt">client.chat.<a href="./src/structify/resources/chat.py">simulate_prompt</a>(chat_session_id, \*\*<a href="src/structify/types/chat_simulate_prompt_params.py">params</a>) -> <a href="./src/structify/types/simulate_prompt_response.py">SimulatePromptResponse</a></code>

@@ -36,6 +36,7 @@ from structify.types import (
     ChatRevertToCommitResponse,
     ChatDeleteInputFileResponse,
     ChatGetPartialChatsResponse,
+    ChatPendingWikiEditsResponse,
     ChatGetSessionTimelineResponse,
     ChatCopyNodeOutputByCodeHashResponse,
 )
@@ -319,6 +320,53 @@ class TestChat:
                 code_md5_hash="code_md5_hash",
                 new_node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
+
+    @parametrize
+    def test_method_create_chat_from_files(self, client: Structify) -> None:
+        chat = client.chat.create_chat_from_files(
+            files={"foo": "string"},
+            name="name",
+            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(ChatSessionWithMessages, chat, path=["response"])
+
+    @parametrize
+    def test_method_create_chat_from_files_with_all_params(self, client: Structify) -> None:
+        chat = client.chat.create_chat_from_files(
+            files={"foo": "string"},
+            name="name",
+            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(ChatSessionWithMessages, chat, path=["response"])
+
+    @parametrize
+    def test_raw_response_create_chat_from_files(self, client: Structify) -> None:
+        response = client.chat.with_raw_response.create_chat_from_files(
+            files={"foo": "string"},
+            name="name",
+            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        chat = response.parse()
+        assert_matches_type(ChatSessionWithMessages, chat, path=["response"])
+
+    @parametrize
+    def test_streaming_response_create_chat_from_files(self, client: Structify) -> None:
+        with client.chat.with_streaming_response.create_chat_from_files(
+            files={"foo": "string"},
+            name="name",
+            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            chat = response.parse()
+            assert_matches_type(ChatSessionWithMessages, chat, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
 
     @parametrize
     def test_method_create_session(self, client: Structify) -> None:
@@ -1111,6 +1159,44 @@ class TestChat:
             )
 
     @parametrize
+    def test_method_pending_wiki_edits(self, client: Structify) -> None:
+        chat = client.chat.pending_wiki_edits(
+            "chat_id",
+        )
+        assert_matches_type(ChatPendingWikiEditsResponse, chat, path=["response"])
+
+    @parametrize
+    def test_raw_response_pending_wiki_edits(self, client: Structify) -> None:
+        response = client.chat.with_raw_response.pending_wiki_edits(
+            "chat_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        chat = response.parse()
+        assert_matches_type(ChatPendingWikiEditsResponse, chat, path=["response"])
+
+    @parametrize
+    def test_streaming_response_pending_wiki_edits(self, client: Structify) -> None:
+        with client.chat.with_streaming_response.pending_wiki_edits(
+            "chat_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            chat = response.parse()
+            assert_matches_type(ChatPendingWikiEditsResponse, chat, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_path_params_pending_wiki_edits(self, client: Structify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `chat_id` but received ''"):
+            client.chat.with_raw_response.pending_wiki_edits(
+                "",
+            )
+
+    @parametrize
     def test_method_remove_collaborator(self, client: Structify) -> None:
         chat = client.chat.remove_collaborator(
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -1835,6 +1921,53 @@ class TestAsyncChat:
                 code_md5_hash="code_md5_hash",
                 new_node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
+
+    @parametrize
+    async def test_method_create_chat_from_files(self, async_client: AsyncStructify) -> None:
+        chat = await async_client.chat.create_chat_from_files(
+            files={"foo": "string"},
+            name="name",
+            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(ChatSessionWithMessages, chat, path=["response"])
+
+    @parametrize
+    async def test_method_create_chat_from_files_with_all_params(self, async_client: AsyncStructify) -> None:
+        chat = await async_client.chat.create_chat_from_files(
+            files={"foo": "string"},
+            name="name",
+            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(ChatSessionWithMessages, chat, path=["response"])
+
+    @parametrize
+    async def test_raw_response_create_chat_from_files(self, async_client: AsyncStructify) -> None:
+        response = await async_client.chat.with_raw_response.create_chat_from_files(
+            files={"foo": "string"},
+            name="name",
+            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        chat = await response.parse()
+        assert_matches_type(ChatSessionWithMessages, chat, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_create_chat_from_files(self, async_client: AsyncStructify) -> None:
+        async with async_client.chat.with_streaming_response.create_chat_from_files(
+            files={"foo": "string"},
+            name="name",
+            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            chat = await response.parse()
+            assert_matches_type(ChatSessionWithMessages, chat, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
 
     @parametrize
     async def test_method_create_session(self, async_client: AsyncStructify) -> None:
@@ -2625,6 +2758,44 @@ class TestAsyncChat:
     async def test_path_params_make_permanent(self, async_client: AsyncStructify) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
             await async_client.chat.with_raw_response.make_permanent(
+                "",
+            )
+
+    @parametrize
+    async def test_method_pending_wiki_edits(self, async_client: AsyncStructify) -> None:
+        chat = await async_client.chat.pending_wiki_edits(
+            "chat_id",
+        )
+        assert_matches_type(ChatPendingWikiEditsResponse, chat, path=["response"])
+
+    @parametrize
+    async def test_raw_response_pending_wiki_edits(self, async_client: AsyncStructify) -> None:
+        response = await async_client.chat.with_raw_response.pending_wiki_edits(
+            "chat_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        chat = await response.parse()
+        assert_matches_type(ChatPendingWikiEditsResponse, chat, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_pending_wiki_edits(self, async_client: AsyncStructify) -> None:
+        async with async_client.chat.with_streaming_response.pending_wiki_edits(
+            "chat_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            chat = await response.parse()
+            assert_matches_type(ChatPendingWikiEditsResponse, chat, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_pending_wiki_edits(self, async_client: AsyncStructify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `chat_id` but received ''"):
+            await async_client.chat.with_raw_response.pending_wiki_edits(
                 "",
             )
 
