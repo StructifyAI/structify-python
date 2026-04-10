@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
+from typing import Dict, Union, Optional
 from datetime import datetime
 from typing_extensions import Literal
 
@@ -26,6 +26,7 @@ from ..types import (
     chat_delete_input_file_params,
     chat_update_visibility_params,
     chat_grant_admin_override_params,
+    chat_create_chat_from_files_params,
     chat_update_session_favorite_params,
     chat_copy_node_output_by_code_hash_params,
 )
@@ -75,6 +76,7 @@ from ..types.chat_load_input_files_response import ChatLoadInputFilesResponse
 from ..types.chat_revert_to_commit_response import ChatRevertToCommitResponse
 from ..types.chat_delete_input_file_response import ChatDeleteInputFileResponse
 from ..types.chat_get_partial_chats_response import ChatGetPartialChatsResponse
+from ..types.chat_pending_wiki_edits_response import ChatPendingWikiEditsResponse
 from ..types.chat_get_session_timeline_response import ChatGetSessionTimelineResponse
 from ..types.chat_copy_node_output_by_code_hash_response import ChatCopyNodeOutputByCodeHashResponse
 
@@ -337,6 +339,53 @@ class ChatResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=ChatCopyNodeOutputByCodeHashResponse,
+        )
+
+    def create_chat_from_files(
+        self,
+        *,
+        files: Dict[str, str],
+        name: str,
+        team_id: str,
+        project_id: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ChatSessionWithMessages:
+        """committed to its git repo.
+
+        Used for copying pipelines across Structify
+        instances.
+
+        Args:
+          files: Map of relative file path to base64-encoded file bytes.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/chat/create_from_files",
+            body=maybe_transform(
+                {
+                    "files": files,
+                    "name": name,
+                    "team_id": team_id,
+                    "project_id": project_id,
+                },
+                chat_create_chat_from_files_params.ChatCreateChatFromFilesParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ChatSessionWithMessages,
         )
 
     def create_session(
@@ -1039,6 +1088,37 @@ class ChatResource(SyncAPIResource):
             cast_to=NoneType,
         )
 
+    def pending_wiki_edits(
+        self,
+        chat_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ChatPendingWikiEditsResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not chat_id:
+            raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
+        return self._get(
+            path_template("/chat/sessions/{chat_id}/pending_wiki_edits", chat_id=chat_id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ChatPendingWikiEditsResponse,
+        )
+
     def remove_collaborator(
         self,
         user_id: str,
@@ -1519,6 +1599,53 @@ class AsyncChatResource(AsyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=ChatCopyNodeOutputByCodeHashResponse,
+        )
+
+    async def create_chat_from_files(
+        self,
+        *,
+        files: Dict[str, str],
+        name: str,
+        team_id: str,
+        project_id: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ChatSessionWithMessages:
+        """committed to its git repo.
+
+        Used for copying pipelines across Structify
+        instances.
+
+        Args:
+          files: Map of relative file path to base64-encoded file bytes.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/chat/create_from_files",
+            body=await async_maybe_transform(
+                {
+                    "files": files,
+                    "name": name,
+                    "team_id": team_id,
+                    "project_id": project_id,
+                },
+                chat_create_chat_from_files_params.ChatCreateChatFromFilesParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ChatSessionWithMessages,
         )
 
     async def create_session(
@@ -2225,6 +2352,37 @@ class AsyncChatResource(AsyncAPIResource):
             cast_to=NoneType,
         )
 
+    async def pending_wiki_edits(
+        self,
+        chat_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ChatPendingWikiEditsResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not chat_id:
+            raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
+        return await self._get(
+            path_template("/chat/sessions/{chat_id}/pending_wiki_edits", chat_id=chat_id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ChatPendingWikiEditsResponse,
+        )
+
     async def remove_collaborator(
         self,
         user_id: str,
@@ -2475,6 +2633,9 @@ class ChatResourceWithRawResponse:
         self.copy_node_output_by_code_hash = to_raw_response_wrapper(
             chat.copy_node_output_by_code_hash,
         )
+        self.create_chat_from_files = to_raw_response_wrapper(
+            chat.create_chat_from_files,
+        )
         self.create_session = to_raw_response_wrapper(
             chat.create_session,
         )
@@ -2533,6 +2694,9 @@ class ChatResourceWithRawResponse:
         self.make_permanent = to_raw_response_wrapper(
             chat.make_permanent,
         )
+        self.pending_wiki_edits = to_raw_response_wrapper(
+            chat.pending_wiki_edits,
+        )
         self.remove_collaborator = to_raw_response_wrapper(
             chat.remove_collaborator,
         )
@@ -2574,6 +2738,9 @@ class AsyncChatResourceWithRawResponse:
         )
         self.copy_node_output_by_code_hash = async_to_raw_response_wrapper(
             chat.copy_node_output_by_code_hash,
+        )
+        self.create_chat_from_files = async_to_raw_response_wrapper(
+            chat.create_chat_from_files,
         )
         self.create_session = async_to_raw_response_wrapper(
             chat.create_session,
@@ -2633,6 +2800,9 @@ class AsyncChatResourceWithRawResponse:
         self.make_permanent = async_to_raw_response_wrapper(
             chat.make_permanent,
         )
+        self.pending_wiki_edits = async_to_raw_response_wrapper(
+            chat.pending_wiki_edits,
+        )
         self.remove_collaborator = async_to_raw_response_wrapper(
             chat.remove_collaborator,
         )
@@ -2674,6 +2844,9 @@ class ChatResourceWithStreamingResponse:
         )
         self.copy_node_output_by_code_hash = to_streamed_response_wrapper(
             chat.copy_node_output_by_code_hash,
+        )
+        self.create_chat_from_files = to_streamed_response_wrapper(
+            chat.create_chat_from_files,
         )
         self.create_session = to_streamed_response_wrapper(
             chat.create_session,
@@ -2733,6 +2906,9 @@ class ChatResourceWithStreamingResponse:
         self.make_permanent = to_streamed_response_wrapper(
             chat.make_permanent,
         )
+        self.pending_wiki_edits = to_streamed_response_wrapper(
+            chat.pending_wiki_edits,
+        )
         self.remove_collaborator = to_streamed_response_wrapper(
             chat.remove_collaborator,
         )
@@ -2774,6 +2950,9 @@ class AsyncChatResourceWithStreamingResponse:
         )
         self.copy_node_output_by_code_hash = async_to_streamed_response_wrapper(
             chat.copy_node_output_by_code_hash,
+        )
+        self.create_chat_from_files = async_to_streamed_response_wrapper(
+            chat.create_chat_from_files,
         )
         self.create_session = async_to_streamed_response_wrapper(
             chat.create_session,
@@ -2832,6 +3011,9 @@ class AsyncChatResourceWithStreamingResponse:
         )
         self.make_permanent = async_to_streamed_response_wrapper(
             chat.make_permanent,
+        )
+        self.pending_wiki_edits = async_to_streamed_response_wrapper(
+            chat.pending_wiki_edits,
         )
         self.remove_collaborator = async_to_streamed_response_wrapper(
             chat.remove_collaborator,
