@@ -5,17 +5,21 @@ from __future__ import annotations
 import os
 from typing import Any, cast
 
+import httpx
 import pytest
+from respx import MockRouter
 
 from structify import Structify, AsyncStructify
 from tests.utils import assert_matches_type
 from structify.types import (
-    ChatPrompt,
     ChatSession,
+    ChatTemplate,
+    CompressChatResponse,
     ChatLoadFilesResponse,
     GetChatSessionResponse,
+    ListDashboardsResponse,
+    SimulatePromptResponse,
     AdminIssueFoundResponse,
-    ChatDeleteFilesResponse,
     ChatSessionWithMessages,
     GetDependenciesResponse,
     AdminGrantAccessResponse,
@@ -27,9 +31,21 @@ from structify.types import (
     CreateChatSessionResponse,
     DeleteChatSessionResponse,
     ListCollaboratorsResponse,
+    ChatListInputFilesResponse,
+    ChatLoadInputFilesResponse,
     ChatRevertToCommitResponse,
+    ChatDeleteInputFileResponse,
     ChatGetPartialChatsResponse,
+    ChatPendingWikiEditsResponse,
     ChatGetSessionTimelineResponse,
+    ChatCopyNodeOutputByCodeHashResponse,
+)
+from structify._utils import parse_datetime
+from structify._response import (
+    BinaryAPIResponse,
+    AsyncBinaryAPIResponse,
+    StreamedBinaryAPIResponse,
+    AsyncStreamedBinaryAPIResponse,
 )
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
@@ -127,44 +143,6 @@ class TestChat:
             )
 
     @parametrize
-    def test_method_admin_get_chat_prompt(self, client: Structify) -> None:
-        chat = client.chat.admin_get_chat_prompt(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-        assert_matches_type(ChatPrompt, chat, path=["response"])
-
-    @parametrize
-    def test_raw_response_admin_get_chat_prompt(self, client: Structify) -> None:
-        response = client.chat.with_raw_response.admin_get_chat_prompt(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        chat = response.parse()
-        assert_matches_type(ChatPrompt, chat, path=["response"])
-
-    @parametrize
-    def test_streaming_response_admin_get_chat_prompt(self, client: Structify) -> None:
-        with client.chat.with_streaming_response.admin_get_chat_prompt(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            chat = response.parse()
-            assert_matches_type(ChatPrompt, chat, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    def test_path_params_admin_get_chat_prompt(self, client: Structify) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
-            client.chat.with_raw_response.admin_get_chat_prompt(
-                "",
-            )
-
-    @parametrize
     def test_method_admin_issue_found(self, client: Structify) -> None:
         chat = client.chat.admin_issue_found(
             chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -211,6 +189,44 @@ class TestChat:
             )
 
     @parametrize
+    def test_method_compress(self, client: Structify) -> None:
+        chat = client.chat.compress(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(CompressChatResponse, chat, path=["response"])
+
+    @parametrize
+    def test_raw_response_compress(self, client: Structify) -> None:
+        response = client.chat.with_raw_response.compress(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        chat = response.parse()
+        assert_matches_type(CompressChatResponse, chat, path=["response"])
+
+    @parametrize
+    def test_streaming_response_compress(self, client: Structify) -> None:
+        with client.chat.with_streaming_response.compress(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            chat = response.parse()
+            assert_matches_type(CompressChatResponse, chat, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_path_params_compress(self, client: Structify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
+            client.chat.with_raw_response.compress(
+                "",
+            )
+
+    @parametrize
     def test_method_copy(self, client: Structify) -> None:
         chat = client.chat.copy(
             copy_name="copy_name",
@@ -227,6 +243,7 @@ class TestChat:
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             copy_inputs=True,
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            template_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(ChatSessionWithMessages, chat, path=["response"])
 
@@ -265,7 +282,7 @@ class TestChat:
             code_md5_hash="code_md5_hash",
             new_node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(str, chat, path=["response"])
+        assert_matches_type(ChatCopyNodeOutputByCodeHashResponse, chat, path=["response"])
 
     @parametrize
     def test_raw_response_copy_node_output_by_code_hash(self, client: Structify) -> None:
@@ -278,7 +295,7 @@ class TestChat:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         chat = response.parse()
-        assert_matches_type(str, chat, path=["response"])
+        assert_matches_type(ChatCopyNodeOutputByCodeHashResponse, chat, path=["response"])
 
     @parametrize
     def test_streaming_response_copy_node_output_by_code_hash(self, client: Structify) -> None:
@@ -291,7 +308,7 @@ class TestChat:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             chat = response.parse()
-            assert_matches_type(str, chat, path=["response"])
+            assert_matches_type(ChatCopyNodeOutputByCodeHashResponse, chat, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -305,6 +322,53 @@ class TestChat:
             )
 
     @parametrize
+    def test_method_create_chat_from_files(self, client: Structify) -> None:
+        chat = client.chat.create_chat_from_files(
+            files={"foo": "string"},
+            name="name",
+            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(ChatSessionWithMessages, chat, path=["response"])
+
+    @parametrize
+    def test_method_create_chat_from_files_with_all_params(self, client: Structify) -> None:
+        chat = client.chat.create_chat_from_files(
+            files={"foo": "string"},
+            name="name",
+            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(ChatSessionWithMessages, chat, path=["response"])
+
+    @parametrize
+    def test_raw_response_create_chat_from_files(self, client: Structify) -> None:
+        response = client.chat.with_raw_response.create_chat_from_files(
+            files={"foo": "string"},
+            name="name",
+            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        chat = response.parse()
+        assert_matches_type(ChatSessionWithMessages, chat, path=["response"])
+
+    @parametrize
+    def test_streaming_response_create_chat_from_files(self, client: Structify) -> None:
+        with client.chat.with_streaming_response.create_chat_from_files(
+            files={"foo": "string"},
+            name="name",
+            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            chat = response.parse()
+            assert_matches_type(ChatSessionWithMessages, chat, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
     def test_method_create_session(self, client: Structify) -> None:
         chat = client.chat.create_session(
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -316,14 +380,12 @@ class TestChat:
         chat = client.chat.create_session(
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             config={
-                "is_onboarding_session": True,
-                "llm_key": "vllm.gpt-5-mini-2025-08-07",
+                "llm_key": "claude-sonnet-4-5",
                 "max_steps": 0,
                 "reminder_message": "reminder_message",
                 "system_prompt": "system_prompt",
             },
             ephemeral=True,
-            initial_message="initial_message",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(CreateChatSessionResponse, chat, path=["response"])
@@ -353,45 +415,45 @@ class TestChat:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_method_delete_files(self, client: Structify) -> None:
-        chat = client.chat.delete_files(
+    def test_method_delete_input_file(self, client: Structify) -> None:
+        chat = client.chat.delete_input_file(
             chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            paths=["string"],
+            filenames=["string"],
         )
-        assert_matches_type(ChatDeleteFilesResponse, chat, path=["response"])
+        assert_matches_type(ChatDeleteInputFileResponse, chat, path=["response"])
 
     @parametrize
-    def test_raw_response_delete_files(self, client: Structify) -> None:
-        response = client.chat.with_raw_response.delete_files(
+    def test_raw_response_delete_input_file(self, client: Structify) -> None:
+        response = client.chat.with_raw_response.delete_input_file(
             chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            paths=["string"],
+            filenames=["string"],
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         chat = response.parse()
-        assert_matches_type(ChatDeleteFilesResponse, chat, path=["response"])
+        assert_matches_type(ChatDeleteInputFileResponse, chat, path=["response"])
 
     @parametrize
-    def test_streaming_response_delete_files(self, client: Structify) -> None:
-        with client.chat.with_streaming_response.delete_files(
+    def test_streaming_response_delete_input_file(self, client: Structify) -> None:
+        with client.chat.with_streaming_response.delete_input_file(
             chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            paths=["string"],
+            filenames=["string"],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             chat = response.parse()
-            assert_matches_type(ChatDeleteFilesResponse, chat, path=["response"])
+            assert_matches_type(ChatDeleteInputFileResponse, chat, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_delete_files(self, client: Structify) -> None:
+    def test_path_params_delete_input_file(self, client: Structify) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `chat_id` but received ''"):
-            client.chat.with_raw_response.delete_files(
+            client.chat.with_raw_response.delete_input_file(
                 chat_id="",
-                paths=["string"],
+                filenames=["string"],
             )
 
     @parametrize
@@ -633,6 +695,44 @@ class TestChat:
             )
 
     @parametrize
+    def test_method_get_template(self, client: Structify) -> None:
+        chat = client.chat.get_template(
+            "template_id",
+        )
+        assert_matches_type(ChatTemplate, chat, path=["response"])
+
+    @parametrize
+    def test_raw_response_get_template(self, client: Structify) -> None:
+        response = client.chat.with_raw_response.get_template(
+            "template_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        chat = response.parse()
+        assert_matches_type(ChatTemplate, chat, path=["response"])
+
+    @parametrize
+    def test_streaming_response_get_template(self, client: Structify) -> None:
+        with client.chat.with_streaming_response.get_template(
+            "template_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            chat = response.parse()
+            assert_matches_type(ChatTemplate, chat, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_path_params_get_template(self, client: Structify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `template_id` but received ''"):
+            client.chat.with_raw_response.get_template(
+                "",
+            )
+
+    @parametrize
     def test_method_grant_admin_override(self, client: Structify) -> None:
         chat = client.chat.grant_admin_override(
             chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -717,6 +817,90 @@ class TestChat:
             )
 
     @parametrize
+    def test_method_list_dashboards(self, client: Structify) -> None:
+        chat = client.chat.list_dashboards(
+            chat_id="chat_id",
+        )
+        assert_matches_type(ListDashboardsResponse, chat, path=["response"])
+
+    @parametrize
+    def test_method_list_dashboards_with_all_params(self, client: Structify) -> None:
+        chat = client.chat.list_dashboards(
+            chat_id="chat_id",
+            commit_hash="commit_hash",
+        )
+        assert_matches_type(ListDashboardsResponse, chat, path=["response"])
+
+    @parametrize
+    def test_raw_response_list_dashboards(self, client: Structify) -> None:
+        response = client.chat.with_raw_response.list_dashboards(
+            chat_id="chat_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        chat = response.parse()
+        assert_matches_type(ListDashboardsResponse, chat, path=["response"])
+
+    @parametrize
+    def test_streaming_response_list_dashboards(self, client: Structify) -> None:
+        with client.chat.with_streaming_response.list_dashboards(
+            chat_id="chat_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            chat = response.parse()
+            assert_matches_type(ListDashboardsResponse, chat, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_path_params_list_dashboards(self, client: Structify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `chat_id` but received ''"):
+            client.chat.with_raw_response.list_dashboards(
+                chat_id="",
+            )
+
+    @parametrize
+    def test_method_list_input_files(self, client: Structify) -> None:
+        chat = client.chat.list_input_files(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(ChatListInputFilesResponse, chat, path=["response"])
+
+    @parametrize
+    def test_raw_response_list_input_files(self, client: Structify) -> None:
+        response = client.chat.with_raw_response.list_input_files(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        chat = response.parse()
+        assert_matches_type(ChatListInputFilesResponse, chat, path=["response"])
+
+    @parametrize
+    def test_streaming_response_list_input_files(self, client: Structify) -> None:
+        with client.chat.with_streaming_response.list_input_files(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            chat = response.parse()
+            assert_matches_type(ChatListInputFilesResponse, chat, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_path_params_list_input_files(self, client: Structify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `chat_id` but received ''"):
+            client.chat.with_raw_response.list_input_files(
+                "",
+            )
+
+    @parametrize
     def test_method_list_sessions(self, client: Structify) -> None:
         chat = client.chat.list_sessions(
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -727,8 +911,12 @@ class TestChat:
     def test_method_list_sessions_with_all_params(self, client: Structify) -> None:
         chat = client.chat.list_sessions(
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             limit=0,
+            offset=0,
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            search="search",
+            tab="my_chats",
         )
         assert_matches_type(ListChatSessionsResponse, chat, path=["response"])
 
@@ -821,6 +1009,118 @@ class TestChat:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
+    @pytest.mark.respx(base_url=base_url)
+    def test_method_load_input_file(self, client: Structify, respx_mock: MockRouter) -> None:
+        respx_mock.get("/chat/input-files/download/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e/filename").mock(
+            return_value=httpx.Response(200, json={"foo": "bar"})
+        )
+        chat = client.chat.load_input_file(
+            filename="filename",
+            chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert chat.is_closed
+        assert chat.json() == {"foo": "bar"}
+        assert cast(Any, chat.is_closed) is True
+        assert isinstance(chat, BinaryAPIResponse)
+
+    @parametrize
+    @pytest.mark.respx(base_url=base_url)
+    def test_raw_response_load_input_file(self, client: Structify, respx_mock: MockRouter) -> None:
+        respx_mock.get("/chat/input-files/download/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e/filename").mock(
+            return_value=httpx.Response(200, json={"foo": "bar"})
+        )
+
+        chat = client.chat.with_raw_response.load_input_file(
+            filename="filename",
+            chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert chat.is_closed is True
+        assert chat.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert chat.json() == {"foo": "bar"}
+        assert isinstance(chat, BinaryAPIResponse)
+
+    @parametrize
+    @pytest.mark.respx(base_url=base_url)
+    def test_streaming_response_load_input_file(self, client: Structify, respx_mock: MockRouter) -> None:
+        respx_mock.get("/chat/input-files/download/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e/filename").mock(
+            return_value=httpx.Response(200, json={"foo": "bar"})
+        )
+        with client.chat.with_streaming_response.load_input_file(
+            filename="filename",
+            chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as chat:
+            assert not chat.is_closed
+            assert chat.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            assert chat.json() == {"foo": "bar"}
+            assert cast(Any, chat.is_closed) is True
+            assert isinstance(chat, StreamedBinaryAPIResponse)
+
+        assert cast(Any, chat.is_closed) is True
+
+    @parametrize
+    @pytest.mark.respx(base_url=base_url)
+    def test_path_params_load_input_file(self, client: Structify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `chat_id` but received ''"):
+            client.chat.with_raw_response.load_input_file(
+                filename="filename",
+                chat_id="",
+            )
+
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `filename` but received ''"):
+            client.chat.with_raw_response.load_input_file(
+                filename="",
+                chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            )
+
+    @parametrize
+    def test_method_load_input_files(self, client: Structify) -> None:
+        chat = client.chat.load_input_files(
+            chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(ChatLoadInputFilesResponse, chat, path=["response"])
+
+    @parametrize
+    def test_method_load_input_files_with_all_params(self, client: Structify) -> None:
+        chat = client.chat.load_input_files(
+            chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            since=parse_datetime("2019-12-27T18:11:19.117Z"),
+        )
+        assert_matches_type(ChatLoadInputFilesResponse, chat, path=["response"])
+
+    @parametrize
+    def test_raw_response_load_input_files(self, client: Structify) -> None:
+        response = client.chat.with_raw_response.load_input_files(
+            chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        chat = response.parse()
+        assert_matches_type(ChatLoadInputFilesResponse, chat, path=["response"])
+
+    @parametrize
+    def test_streaming_response_load_input_files(self, client: Structify) -> None:
+        with client.chat.with_streaming_response.load_input_files(
+            chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            chat = response.parse()
+            assert_matches_type(ChatLoadInputFilesResponse, chat, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_path_params_load_input_files(self, client: Structify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `chat_id` but received ''"):
+            client.chat.with_raw_response.load_input_files(
+                chat_id="",
+            )
+
+    @parametrize
     def test_method_make_permanent(self, client: Structify) -> None:
         chat = client.chat.make_permanent(
             "session_id",
@@ -855,6 +1155,44 @@ class TestChat:
     def test_path_params_make_permanent(self, client: Structify) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
             client.chat.with_raw_response.make_permanent(
+                "",
+            )
+
+    @parametrize
+    def test_method_pending_wiki_edits(self, client: Structify) -> None:
+        chat = client.chat.pending_wiki_edits(
+            "chat_id",
+        )
+        assert_matches_type(ChatPendingWikiEditsResponse, chat, path=["response"])
+
+    @parametrize
+    def test_raw_response_pending_wiki_edits(self, client: Structify) -> None:
+        response = client.chat.with_raw_response.pending_wiki_edits(
+            "chat_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        chat = response.parse()
+        assert_matches_type(ChatPendingWikiEditsResponse, chat, path=["response"])
+
+    @parametrize
+    def test_streaming_response_pending_wiki_edits(self, client: Structify) -> None:
+        with client.chat.with_streaming_response.pending_wiki_edits(
+            "chat_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            chat = response.parse()
+            assert_matches_type(ChatPendingWikiEditsResponse, chat, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_path_params_pending_wiki_edits(self, client: Structify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `chat_id` but received ''"):
+            client.chat.with_raw_response.pending_wiki_edits(
                 "",
             )
 
@@ -949,6 +1287,236 @@ class TestChat:
             )
 
     @parametrize
+    def test_method_simulate_prompt(self, client: Structify) -> None:
+        chat = client.chat.simulate_prompt(
+            chat_session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            chat_prompt={
+                "decoding_params": {"parameters": [{"max_tokens": 0}]},
+                "messages": [
+                    {
+                        "content": [{"text": "Text"}],
+                        "role": "user",
+                    }
+                ],
+                "metadata": {
+                    "dataset_descriptor": {
+                        "description": "description",
+                        "name": "name",
+                        "relationships": [
+                            {
+                                "description": "description",
+                                "name": "name",
+                                "source_table": "source_table",
+                                "target_table": "target_table",
+                            }
+                        ],
+                        "tables": [
+                            {
+                                "description": "description",
+                                "name": "name",
+                                "properties": [
+                                    {
+                                        "description": "description",
+                                        "name": "name",
+                                    }
+                                ],
+                            }
+                        ],
+                    },
+                    "extracted_entities": [
+                        {
+                            "entities": [
+                                {
+                                    "id": 0,
+                                    "properties": {"foo": "string"},
+                                    "type": "type",
+                                }
+                            ]
+                        }
+                    ],
+                    "extraction_criteria": [{"relationship_name": "relationship_name"}],
+                    "formatter_specific": {"image_meta": {"image": "image"}},
+                },
+            },
+        )
+        assert_matches_type(SimulatePromptResponse, chat, path=["response"])
+
+    @parametrize
+    def test_raw_response_simulate_prompt(self, client: Structify) -> None:
+        response = client.chat.with_raw_response.simulate_prompt(
+            chat_session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            chat_prompt={
+                "decoding_params": {"parameters": [{"max_tokens": 0}]},
+                "messages": [
+                    {
+                        "content": [{"text": "Text"}],
+                        "role": "user",
+                    }
+                ],
+                "metadata": {
+                    "dataset_descriptor": {
+                        "description": "description",
+                        "name": "name",
+                        "relationships": [
+                            {
+                                "description": "description",
+                                "name": "name",
+                                "source_table": "source_table",
+                                "target_table": "target_table",
+                            }
+                        ],
+                        "tables": [
+                            {
+                                "description": "description",
+                                "name": "name",
+                                "properties": [
+                                    {
+                                        "description": "description",
+                                        "name": "name",
+                                    }
+                                ],
+                            }
+                        ],
+                    },
+                    "extracted_entities": [
+                        {
+                            "entities": [
+                                {
+                                    "id": 0,
+                                    "properties": {"foo": "string"},
+                                    "type": "type",
+                                }
+                            ]
+                        }
+                    ],
+                    "extraction_criteria": [{"relationship_name": "relationship_name"}],
+                    "formatter_specific": {"image_meta": {"image": "image"}},
+                },
+            },
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        chat = response.parse()
+        assert_matches_type(SimulatePromptResponse, chat, path=["response"])
+
+    @parametrize
+    def test_streaming_response_simulate_prompt(self, client: Structify) -> None:
+        with client.chat.with_streaming_response.simulate_prompt(
+            chat_session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            chat_prompt={
+                "decoding_params": {"parameters": [{"max_tokens": 0}]},
+                "messages": [
+                    {
+                        "content": [{"text": "Text"}],
+                        "role": "user",
+                    }
+                ],
+                "metadata": {
+                    "dataset_descriptor": {
+                        "description": "description",
+                        "name": "name",
+                        "relationships": [
+                            {
+                                "description": "description",
+                                "name": "name",
+                                "source_table": "source_table",
+                                "target_table": "target_table",
+                            }
+                        ],
+                        "tables": [
+                            {
+                                "description": "description",
+                                "name": "name",
+                                "properties": [
+                                    {
+                                        "description": "description",
+                                        "name": "name",
+                                    }
+                                ],
+                            }
+                        ],
+                    },
+                    "extracted_entities": [
+                        {
+                            "entities": [
+                                {
+                                    "id": 0,
+                                    "properties": {"foo": "string"},
+                                    "type": "type",
+                                }
+                            ]
+                        }
+                    ],
+                    "extraction_criteria": [{"relationship_name": "relationship_name"}],
+                    "formatter_specific": {"image_meta": {"image": "image"}},
+                },
+            },
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            chat = response.parse()
+            assert_matches_type(SimulatePromptResponse, chat, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_path_params_simulate_prompt(self, client: Structify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `chat_session_id` but received ''"):
+            client.chat.with_raw_response.simulate_prompt(
+                chat_session_id="",
+                chat_prompt={
+                    "decoding_params": {"parameters": [{"max_tokens": 0}]},
+                    "messages": [
+                        {
+                            "content": [{"text": "Text"}],
+                            "role": "user",
+                        }
+                    ],
+                    "metadata": {
+                        "dataset_descriptor": {
+                            "description": "description",
+                            "name": "name",
+                            "relationships": [
+                                {
+                                    "description": "description",
+                                    "name": "name",
+                                    "source_table": "source_table",
+                                    "target_table": "target_table",
+                                }
+                            ],
+                            "tables": [
+                                {
+                                    "description": "description",
+                                    "name": "name",
+                                    "properties": [
+                                        {
+                                            "description": "description",
+                                            "name": "name",
+                                        }
+                                    ],
+                                }
+                            ],
+                        },
+                        "extracted_entities": [
+                            {
+                                "entities": [
+                                    {
+                                        "id": 0,
+                                        "properties": {"foo": "string"},
+                                        "type": "type",
+                                    }
+                                ]
+                            }
+                        ],
+                        "extraction_criteria": [{"relationship_name": "relationship_name"}],
+                        "formatter_specific": {"image_meta": {"image": "image"}},
+                    },
+                },
+            )
+
+    @parametrize
     def test_method_update_session(self, client: Structify) -> None:
         chat = client.chat.update_session(
             session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -959,6 +1527,7 @@ class TestChat:
     def test_method_update_session_with_all_params(self, client: Structify) -> None:
         chat = client.chat.update_session(
             session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            message_head="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             name="name",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             skip_confirmations=True,
@@ -1175,44 +1744,6 @@ class TestAsyncChat:
             )
 
     @parametrize
-    async def test_method_admin_get_chat_prompt(self, async_client: AsyncStructify) -> None:
-        chat = await async_client.chat.admin_get_chat_prompt(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-        assert_matches_type(ChatPrompt, chat, path=["response"])
-
-    @parametrize
-    async def test_raw_response_admin_get_chat_prompt(self, async_client: AsyncStructify) -> None:
-        response = await async_client.chat.with_raw_response.admin_get_chat_prompt(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        chat = await response.parse()
-        assert_matches_type(ChatPrompt, chat, path=["response"])
-
-    @parametrize
-    async def test_streaming_response_admin_get_chat_prompt(self, async_client: AsyncStructify) -> None:
-        async with async_client.chat.with_streaming_response.admin_get_chat_prompt(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            chat = await response.parse()
-            assert_matches_type(ChatPrompt, chat, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    async def test_path_params_admin_get_chat_prompt(self, async_client: AsyncStructify) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
-            await async_client.chat.with_raw_response.admin_get_chat_prompt(
-                "",
-            )
-
-    @parametrize
     async def test_method_admin_issue_found(self, async_client: AsyncStructify) -> None:
         chat = await async_client.chat.admin_issue_found(
             chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -1259,6 +1790,44 @@ class TestAsyncChat:
             )
 
     @parametrize
+    async def test_method_compress(self, async_client: AsyncStructify) -> None:
+        chat = await async_client.chat.compress(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(CompressChatResponse, chat, path=["response"])
+
+    @parametrize
+    async def test_raw_response_compress(self, async_client: AsyncStructify) -> None:
+        response = await async_client.chat.with_raw_response.compress(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        chat = await response.parse()
+        assert_matches_type(CompressChatResponse, chat, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_compress(self, async_client: AsyncStructify) -> None:
+        async with async_client.chat.with_streaming_response.compress(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            chat = await response.parse()
+            assert_matches_type(CompressChatResponse, chat, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_compress(self, async_client: AsyncStructify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
+            await async_client.chat.with_raw_response.compress(
+                "",
+            )
+
+    @parametrize
     async def test_method_copy(self, async_client: AsyncStructify) -> None:
         chat = await async_client.chat.copy(
             copy_name="copy_name",
@@ -1275,6 +1844,7 @@ class TestAsyncChat:
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             copy_inputs=True,
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            template_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(ChatSessionWithMessages, chat, path=["response"])
 
@@ -1313,7 +1883,7 @@ class TestAsyncChat:
             code_md5_hash="code_md5_hash",
             new_node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(str, chat, path=["response"])
+        assert_matches_type(ChatCopyNodeOutputByCodeHashResponse, chat, path=["response"])
 
     @parametrize
     async def test_raw_response_copy_node_output_by_code_hash(self, async_client: AsyncStructify) -> None:
@@ -1326,7 +1896,7 @@ class TestAsyncChat:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         chat = await response.parse()
-        assert_matches_type(str, chat, path=["response"])
+        assert_matches_type(ChatCopyNodeOutputByCodeHashResponse, chat, path=["response"])
 
     @parametrize
     async def test_streaming_response_copy_node_output_by_code_hash(self, async_client: AsyncStructify) -> None:
@@ -1339,7 +1909,7 @@ class TestAsyncChat:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             chat = await response.parse()
-            assert_matches_type(str, chat, path=["response"])
+            assert_matches_type(ChatCopyNodeOutputByCodeHashResponse, chat, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -1353,6 +1923,53 @@ class TestAsyncChat:
             )
 
     @parametrize
+    async def test_method_create_chat_from_files(self, async_client: AsyncStructify) -> None:
+        chat = await async_client.chat.create_chat_from_files(
+            files={"foo": "string"},
+            name="name",
+            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(ChatSessionWithMessages, chat, path=["response"])
+
+    @parametrize
+    async def test_method_create_chat_from_files_with_all_params(self, async_client: AsyncStructify) -> None:
+        chat = await async_client.chat.create_chat_from_files(
+            files={"foo": "string"},
+            name="name",
+            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(ChatSessionWithMessages, chat, path=["response"])
+
+    @parametrize
+    async def test_raw_response_create_chat_from_files(self, async_client: AsyncStructify) -> None:
+        response = await async_client.chat.with_raw_response.create_chat_from_files(
+            files={"foo": "string"},
+            name="name",
+            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        chat = await response.parse()
+        assert_matches_type(ChatSessionWithMessages, chat, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_create_chat_from_files(self, async_client: AsyncStructify) -> None:
+        async with async_client.chat.with_streaming_response.create_chat_from_files(
+            files={"foo": "string"},
+            name="name",
+            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            chat = await response.parse()
+            assert_matches_type(ChatSessionWithMessages, chat, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
     async def test_method_create_session(self, async_client: AsyncStructify) -> None:
         chat = await async_client.chat.create_session(
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -1364,14 +1981,12 @@ class TestAsyncChat:
         chat = await async_client.chat.create_session(
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             config={
-                "is_onboarding_session": True,
-                "llm_key": "vllm.gpt-5-mini-2025-08-07",
+                "llm_key": "claude-sonnet-4-5",
                 "max_steps": 0,
                 "reminder_message": "reminder_message",
                 "system_prompt": "system_prompt",
             },
             ephemeral=True,
-            initial_message="initial_message",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(CreateChatSessionResponse, chat, path=["response"])
@@ -1401,45 +2016,45 @@ class TestAsyncChat:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_method_delete_files(self, async_client: AsyncStructify) -> None:
-        chat = await async_client.chat.delete_files(
+    async def test_method_delete_input_file(self, async_client: AsyncStructify) -> None:
+        chat = await async_client.chat.delete_input_file(
             chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            paths=["string"],
+            filenames=["string"],
         )
-        assert_matches_type(ChatDeleteFilesResponse, chat, path=["response"])
+        assert_matches_type(ChatDeleteInputFileResponse, chat, path=["response"])
 
     @parametrize
-    async def test_raw_response_delete_files(self, async_client: AsyncStructify) -> None:
-        response = await async_client.chat.with_raw_response.delete_files(
+    async def test_raw_response_delete_input_file(self, async_client: AsyncStructify) -> None:
+        response = await async_client.chat.with_raw_response.delete_input_file(
             chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            paths=["string"],
+            filenames=["string"],
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         chat = await response.parse()
-        assert_matches_type(ChatDeleteFilesResponse, chat, path=["response"])
+        assert_matches_type(ChatDeleteInputFileResponse, chat, path=["response"])
 
     @parametrize
-    async def test_streaming_response_delete_files(self, async_client: AsyncStructify) -> None:
-        async with async_client.chat.with_streaming_response.delete_files(
+    async def test_streaming_response_delete_input_file(self, async_client: AsyncStructify) -> None:
+        async with async_client.chat.with_streaming_response.delete_input_file(
             chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            paths=["string"],
+            filenames=["string"],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             chat = await response.parse()
-            assert_matches_type(ChatDeleteFilesResponse, chat, path=["response"])
+            assert_matches_type(ChatDeleteInputFileResponse, chat, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_delete_files(self, async_client: AsyncStructify) -> None:
+    async def test_path_params_delete_input_file(self, async_client: AsyncStructify) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `chat_id` but received ''"):
-            await async_client.chat.with_raw_response.delete_files(
+            await async_client.chat.with_raw_response.delete_input_file(
                 chat_id="",
-                paths=["string"],
+                filenames=["string"],
             )
 
     @parametrize
@@ -1681,6 +2296,44 @@ class TestAsyncChat:
             )
 
     @parametrize
+    async def test_method_get_template(self, async_client: AsyncStructify) -> None:
+        chat = await async_client.chat.get_template(
+            "template_id",
+        )
+        assert_matches_type(ChatTemplate, chat, path=["response"])
+
+    @parametrize
+    async def test_raw_response_get_template(self, async_client: AsyncStructify) -> None:
+        response = await async_client.chat.with_raw_response.get_template(
+            "template_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        chat = await response.parse()
+        assert_matches_type(ChatTemplate, chat, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_get_template(self, async_client: AsyncStructify) -> None:
+        async with async_client.chat.with_streaming_response.get_template(
+            "template_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            chat = await response.parse()
+            assert_matches_type(ChatTemplate, chat, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_get_template(self, async_client: AsyncStructify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `template_id` but received ''"):
+            await async_client.chat.with_raw_response.get_template(
+                "",
+            )
+
+    @parametrize
     async def test_method_grant_admin_override(self, async_client: AsyncStructify) -> None:
         chat = await async_client.chat.grant_admin_override(
             chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -1765,6 +2418,90 @@ class TestAsyncChat:
             )
 
     @parametrize
+    async def test_method_list_dashboards(self, async_client: AsyncStructify) -> None:
+        chat = await async_client.chat.list_dashboards(
+            chat_id="chat_id",
+        )
+        assert_matches_type(ListDashboardsResponse, chat, path=["response"])
+
+    @parametrize
+    async def test_method_list_dashboards_with_all_params(self, async_client: AsyncStructify) -> None:
+        chat = await async_client.chat.list_dashboards(
+            chat_id="chat_id",
+            commit_hash="commit_hash",
+        )
+        assert_matches_type(ListDashboardsResponse, chat, path=["response"])
+
+    @parametrize
+    async def test_raw_response_list_dashboards(self, async_client: AsyncStructify) -> None:
+        response = await async_client.chat.with_raw_response.list_dashboards(
+            chat_id="chat_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        chat = await response.parse()
+        assert_matches_type(ListDashboardsResponse, chat, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_list_dashboards(self, async_client: AsyncStructify) -> None:
+        async with async_client.chat.with_streaming_response.list_dashboards(
+            chat_id="chat_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            chat = await response.parse()
+            assert_matches_type(ListDashboardsResponse, chat, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_list_dashboards(self, async_client: AsyncStructify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `chat_id` but received ''"):
+            await async_client.chat.with_raw_response.list_dashboards(
+                chat_id="",
+            )
+
+    @parametrize
+    async def test_method_list_input_files(self, async_client: AsyncStructify) -> None:
+        chat = await async_client.chat.list_input_files(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(ChatListInputFilesResponse, chat, path=["response"])
+
+    @parametrize
+    async def test_raw_response_list_input_files(self, async_client: AsyncStructify) -> None:
+        response = await async_client.chat.with_raw_response.list_input_files(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        chat = await response.parse()
+        assert_matches_type(ChatListInputFilesResponse, chat, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_list_input_files(self, async_client: AsyncStructify) -> None:
+        async with async_client.chat.with_streaming_response.list_input_files(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            chat = await response.parse()
+            assert_matches_type(ChatListInputFilesResponse, chat, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_list_input_files(self, async_client: AsyncStructify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `chat_id` but received ''"):
+            await async_client.chat.with_raw_response.list_input_files(
+                "",
+            )
+
+    @parametrize
     async def test_method_list_sessions(self, async_client: AsyncStructify) -> None:
         chat = await async_client.chat.list_sessions(
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -1775,8 +2512,12 @@ class TestAsyncChat:
     async def test_method_list_sessions_with_all_params(self, async_client: AsyncStructify) -> None:
         chat = await async_client.chat.list_sessions(
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            connector_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             limit=0,
+            offset=0,
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            search="search",
+            tab="my_chats",
         )
         assert_matches_type(ListChatSessionsResponse, chat, path=["response"])
 
@@ -1869,6 +2610,120 @@ class TestAsyncChat:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
+    @pytest.mark.respx(base_url=base_url)
+    async def test_method_load_input_file(self, async_client: AsyncStructify, respx_mock: MockRouter) -> None:
+        respx_mock.get("/chat/input-files/download/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e/filename").mock(
+            return_value=httpx.Response(200, json={"foo": "bar"})
+        )
+        chat = await async_client.chat.load_input_file(
+            filename="filename",
+            chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert chat.is_closed
+        assert await chat.json() == {"foo": "bar"}
+        assert cast(Any, chat.is_closed) is True
+        assert isinstance(chat, AsyncBinaryAPIResponse)
+
+    @parametrize
+    @pytest.mark.respx(base_url=base_url)
+    async def test_raw_response_load_input_file(self, async_client: AsyncStructify, respx_mock: MockRouter) -> None:
+        respx_mock.get("/chat/input-files/download/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e/filename").mock(
+            return_value=httpx.Response(200, json={"foo": "bar"})
+        )
+
+        chat = await async_client.chat.with_raw_response.load_input_file(
+            filename="filename",
+            chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert chat.is_closed is True
+        assert chat.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert await chat.json() == {"foo": "bar"}
+        assert isinstance(chat, AsyncBinaryAPIResponse)
+
+    @parametrize
+    @pytest.mark.respx(base_url=base_url)
+    async def test_streaming_response_load_input_file(
+        self, async_client: AsyncStructify, respx_mock: MockRouter
+    ) -> None:
+        respx_mock.get("/chat/input-files/download/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e/filename").mock(
+            return_value=httpx.Response(200, json={"foo": "bar"})
+        )
+        async with async_client.chat.with_streaming_response.load_input_file(
+            filename="filename",
+            chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as chat:
+            assert not chat.is_closed
+            assert chat.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            assert await chat.json() == {"foo": "bar"}
+            assert cast(Any, chat.is_closed) is True
+            assert isinstance(chat, AsyncStreamedBinaryAPIResponse)
+
+        assert cast(Any, chat.is_closed) is True
+
+    @parametrize
+    @pytest.mark.respx(base_url=base_url)
+    async def test_path_params_load_input_file(self, async_client: AsyncStructify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `chat_id` but received ''"):
+            await async_client.chat.with_raw_response.load_input_file(
+                filename="filename",
+                chat_id="",
+            )
+
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `filename` but received ''"):
+            await async_client.chat.with_raw_response.load_input_file(
+                filename="",
+                chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            )
+
+    @parametrize
+    async def test_method_load_input_files(self, async_client: AsyncStructify) -> None:
+        chat = await async_client.chat.load_input_files(
+            chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(ChatLoadInputFilesResponse, chat, path=["response"])
+
+    @parametrize
+    async def test_method_load_input_files_with_all_params(self, async_client: AsyncStructify) -> None:
+        chat = await async_client.chat.load_input_files(
+            chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            since=parse_datetime("2019-12-27T18:11:19.117Z"),
+        )
+        assert_matches_type(ChatLoadInputFilesResponse, chat, path=["response"])
+
+    @parametrize
+    async def test_raw_response_load_input_files(self, async_client: AsyncStructify) -> None:
+        response = await async_client.chat.with_raw_response.load_input_files(
+            chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        chat = await response.parse()
+        assert_matches_type(ChatLoadInputFilesResponse, chat, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_load_input_files(self, async_client: AsyncStructify) -> None:
+        async with async_client.chat.with_streaming_response.load_input_files(
+            chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            chat = await response.parse()
+            assert_matches_type(ChatLoadInputFilesResponse, chat, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_load_input_files(self, async_client: AsyncStructify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `chat_id` but received ''"):
+            await async_client.chat.with_raw_response.load_input_files(
+                chat_id="",
+            )
+
+    @parametrize
     async def test_method_make_permanent(self, async_client: AsyncStructify) -> None:
         chat = await async_client.chat.make_permanent(
             "session_id",
@@ -1903,6 +2758,44 @@ class TestAsyncChat:
     async def test_path_params_make_permanent(self, async_client: AsyncStructify) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
             await async_client.chat.with_raw_response.make_permanent(
+                "",
+            )
+
+    @parametrize
+    async def test_method_pending_wiki_edits(self, async_client: AsyncStructify) -> None:
+        chat = await async_client.chat.pending_wiki_edits(
+            "chat_id",
+        )
+        assert_matches_type(ChatPendingWikiEditsResponse, chat, path=["response"])
+
+    @parametrize
+    async def test_raw_response_pending_wiki_edits(self, async_client: AsyncStructify) -> None:
+        response = await async_client.chat.with_raw_response.pending_wiki_edits(
+            "chat_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        chat = await response.parse()
+        assert_matches_type(ChatPendingWikiEditsResponse, chat, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_pending_wiki_edits(self, async_client: AsyncStructify) -> None:
+        async with async_client.chat.with_streaming_response.pending_wiki_edits(
+            "chat_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            chat = await response.parse()
+            assert_matches_type(ChatPendingWikiEditsResponse, chat, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_pending_wiki_edits(self, async_client: AsyncStructify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `chat_id` but received ''"):
+            await async_client.chat.with_raw_response.pending_wiki_edits(
                 "",
             )
 
@@ -1997,6 +2890,236 @@ class TestAsyncChat:
             )
 
     @parametrize
+    async def test_method_simulate_prompt(self, async_client: AsyncStructify) -> None:
+        chat = await async_client.chat.simulate_prompt(
+            chat_session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            chat_prompt={
+                "decoding_params": {"parameters": [{"max_tokens": 0}]},
+                "messages": [
+                    {
+                        "content": [{"text": "Text"}],
+                        "role": "user",
+                    }
+                ],
+                "metadata": {
+                    "dataset_descriptor": {
+                        "description": "description",
+                        "name": "name",
+                        "relationships": [
+                            {
+                                "description": "description",
+                                "name": "name",
+                                "source_table": "source_table",
+                                "target_table": "target_table",
+                            }
+                        ],
+                        "tables": [
+                            {
+                                "description": "description",
+                                "name": "name",
+                                "properties": [
+                                    {
+                                        "description": "description",
+                                        "name": "name",
+                                    }
+                                ],
+                            }
+                        ],
+                    },
+                    "extracted_entities": [
+                        {
+                            "entities": [
+                                {
+                                    "id": 0,
+                                    "properties": {"foo": "string"},
+                                    "type": "type",
+                                }
+                            ]
+                        }
+                    ],
+                    "extraction_criteria": [{"relationship_name": "relationship_name"}],
+                    "formatter_specific": {"image_meta": {"image": "image"}},
+                },
+            },
+        )
+        assert_matches_type(SimulatePromptResponse, chat, path=["response"])
+
+    @parametrize
+    async def test_raw_response_simulate_prompt(self, async_client: AsyncStructify) -> None:
+        response = await async_client.chat.with_raw_response.simulate_prompt(
+            chat_session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            chat_prompt={
+                "decoding_params": {"parameters": [{"max_tokens": 0}]},
+                "messages": [
+                    {
+                        "content": [{"text": "Text"}],
+                        "role": "user",
+                    }
+                ],
+                "metadata": {
+                    "dataset_descriptor": {
+                        "description": "description",
+                        "name": "name",
+                        "relationships": [
+                            {
+                                "description": "description",
+                                "name": "name",
+                                "source_table": "source_table",
+                                "target_table": "target_table",
+                            }
+                        ],
+                        "tables": [
+                            {
+                                "description": "description",
+                                "name": "name",
+                                "properties": [
+                                    {
+                                        "description": "description",
+                                        "name": "name",
+                                    }
+                                ],
+                            }
+                        ],
+                    },
+                    "extracted_entities": [
+                        {
+                            "entities": [
+                                {
+                                    "id": 0,
+                                    "properties": {"foo": "string"},
+                                    "type": "type",
+                                }
+                            ]
+                        }
+                    ],
+                    "extraction_criteria": [{"relationship_name": "relationship_name"}],
+                    "formatter_specific": {"image_meta": {"image": "image"}},
+                },
+            },
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        chat = await response.parse()
+        assert_matches_type(SimulatePromptResponse, chat, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_simulate_prompt(self, async_client: AsyncStructify) -> None:
+        async with async_client.chat.with_streaming_response.simulate_prompt(
+            chat_session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            chat_prompt={
+                "decoding_params": {"parameters": [{"max_tokens": 0}]},
+                "messages": [
+                    {
+                        "content": [{"text": "Text"}],
+                        "role": "user",
+                    }
+                ],
+                "metadata": {
+                    "dataset_descriptor": {
+                        "description": "description",
+                        "name": "name",
+                        "relationships": [
+                            {
+                                "description": "description",
+                                "name": "name",
+                                "source_table": "source_table",
+                                "target_table": "target_table",
+                            }
+                        ],
+                        "tables": [
+                            {
+                                "description": "description",
+                                "name": "name",
+                                "properties": [
+                                    {
+                                        "description": "description",
+                                        "name": "name",
+                                    }
+                                ],
+                            }
+                        ],
+                    },
+                    "extracted_entities": [
+                        {
+                            "entities": [
+                                {
+                                    "id": 0,
+                                    "properties": {"foo": "string"},
+                                    "type": "type",
+                                }
+                            ]
+                        }
+                    ],
+                    "extraction_criteria": [{"relationship_name": "relationship_name"}],
+                    "formatter_specific": {"image_meta": {"image": "image"}},
+                },
+            },
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            chat = await response.parse()
+            assert_matches_type(SimulatePromptResponse, chat, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_simulate_prompt(self, async_client: AsyncStructify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `chat_session_id` but received ''"):
+            await async_client.chat.with_raw_response.simulate_prompt(
+                chat_session_id="",
+                chat_prompt={
+                    "decoding_params": {"parameters": [{"max_tokens": 0}]},
+                    "messages": [
+                        {
+                            "content": [{"text": "Text"}],
+                            "role": "user",
+                        }
+                    ],
+                    "metadata": {
+                        "dataset_descriptor": {
+                            "description": "description",
+                            "name": "name",
+                            "relationships": [
+                                {
+                                    "description": "description",
+                                    "name": "name",
+                                    "source_table": "source_table",
+                                    "target_table": "target_table",
+                                }
+                            ],
+                            "tables": [
+                                {
+                                    "description": "description",
+                                    "name": "name",
+                                    "properties": [
+                                        {
+                                            "description": "description",
+                                            "name": "name",
+                                        }
+                                    ],
+                                }
+                            ],
+                        },
+                        "extracted_entities": [
+                            {
+                                "entities": [
+                                    {
+                                        "id": 0,
+                                        "properties": {"foo": "string"},
+                                        "type": "type",
+                                    }
+                                ]
+                            }
+                        ],
+                        "extraction_criteria": [{"relationship_name": "relationship_name"}],
+                        "formatter_specific": {"image_meta": {"image": "image"}},
+                    },
+                },
+            )
+
+    @parametrize
     async def test_method_update_session(self, async_client: AsyncStructify) -> None:
         chat = await async_client.chat.update_session(
             session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -2007,6 +3130,7 @@ class TestAsyncChat:
     async def test_method_update_session_with_all_params(self, async_client: AsyncStructify) -> None:
         chat = await async_client.chat.update_session(
             session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            message_head="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             name="name",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             skip_confirmations=True,

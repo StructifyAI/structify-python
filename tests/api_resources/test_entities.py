@@ -346,6 +346,7 @@ class TestEntities:
             derived_property="derived_property",
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             instructions="instructions",
+            model="model",
             node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(str, entity, path=["response"])
@@ -397,6 +398,7 @@ class TestEntities:
             derived_property="derived_property",
             instructions="instructions",
             table_name="table_name",
+            model="model",
             node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(EntityDeriveAllResponse, entity, path=["response"])
@@ -819,7 +821,7 @@ class TestEntities:
         entity = client.entities.upload_parquet(
             dataset="dataset",
             table_name="table_name",
-            content=b"raw file contents",
+            content=b"Example data",
         )
         assert entity is None
 
@@ -828,7 +830,7 @@ class TestEntities:
         entity = client.entities.upload_parquet(
             dataset="dataset",
             table_name="table_name",
-            content=b"raw file contents",
+            content=b"Example data",
             start_embedding=True,
         )
         assert entity is None
@@ -838,7 +840,7 @@ class TestEntities:
         response = client.entities.with_raw_response.upload_parquet(
             dataset="dataset",
             table_name="table_name",
-            content=b"raw file contents",
+            content=b"Example data",
         )
 
         assert response.is_closed is True
@@ -851,7 +853,7 @@ class TestEntities:
         with client.entities.with_streaming_response.upload_parquet(
             dataset="dataset",
             table_name="table_name",
-            content=b"raw file contents",
+            content=b"Example data",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -1300,6 +1302,7 @@ class TestAsyncEntities:
             derived_property="derived_property",
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             instructions="instructions",
+            model="model",
             node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(str, entity, path=["response"])
@@ -1351,6 +1354,7 @@ class TestAsyncEntities:
             derived_property="derived_property",
             instructions="instructions",
             table_name="table_name",
+            model="model",
             node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(EntityDeriveAllResponse, entity, path=["response"])
@@ -1773,7 +1777,7 @@ class TestAsyncEntities:
         entity = await async_client.entities.upload_parquet(
             dataset="dataset",
             table_name="table_name",
-            content=b"raw file contents",
+            content=b"Example data",
         )
         assert entity is None
 
@@ -1782,7 +1786,7 @@ class TestAsyncEntities:
         entity = await async_client.entities.upload_parquet(
             dataset="dataset",
             table_name="table_name",
-            content=b"raw file contents",
+            content=b"Example data",
             start_embedding=True,
         )
         assert entity is None
@@ -1792,7 +1796,7 @@ class TestAsyncEntities:
         response = await async_client.entities.with_raw_response.upload_parquet(
             dataset="dataset",
             table_name="table_name",
-            content=b"raw file contents",
+            content=b"Example data",
         )
 
         assert response.is_closed is True
@@ -1805,7 +1809,7 @@ class TestAsyncEntities:
         async with async_client.entities.with_streaming_response.upload_parquet(
             dataset="dataset",
             table_name="table_name",
-            content=b"raw file contents",
+            content=b"Example data",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

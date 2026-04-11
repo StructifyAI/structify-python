@@ -31,6 +31,8 @@ __all__ = ["FunctionalTestsResource", "AsyncFunctionalTestsResource"]
 
 
 class FunctionalTestsResource(SyncAPIResource):
+    """Admin endpoints"""
+
     @cached_property
     def with_raw_response(self) -> FunctionalTestsResourceWithRawResponse:
         """
@@ -268,6 +270,8 @@ class FunctionalTestsResource(SyncAPIResource):
 
 
 class AsyncFunctionalTestsResource(AsyncAPIResource):
+    """Admin endpoints"""
+
     @cached_property
     def with_raw_response(self) -> AsyncFunctionalTestsResourceWithRawResponse:
         """

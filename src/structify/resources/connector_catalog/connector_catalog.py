@@ -15,8 +15,8 @@ from .admin import (
     AsyncAdminResourceWithStreamingResponse,
 )
 from ...types import connector_catalog_list_params
-from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from ..._utils import maybe_transform, async_maybe_transform
+from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
+from ..._utils import path_template, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -43,6 +43,7 @@ __all__ = ["ConnectorCatalogResource", "AsyncConnectorCatalogResource"]
 class ConnectorCatalogResource(SyncAPIResource):
     @cached_property
     def admin(self) -> AdminResource:
+        """Admin endpoints"""
         return AdminResource(self._client)
 
     @cached_property
@@ -67,6 +68,7 @@ class ConnectorCatalogResource(SyncAPIResource):
     def list(
         self,
         *,
+        categories: SequenceNotStr[str] | Omit = omit,
         include_inactive: bool | Omit = omit,
         limit: int | Omit = omit,
         offset: int | Omit = omit,
@@ -82,6 +84,9 @@ class ConnectorCatalogResource(SyncAPIResource):
         List all connector catalog entries with their auth methods and logos
 
         Args:
+          categories: Optional category filter (exact match against any element in the categories
+              array)
+
           include_inactive: Include inactive auth methods (admin only)
 
           search: Optional search query to filter by name, slug, or category (case-insensitive
@@ -104,6 +109,7 @@ class ConnectorCatalogResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "categories": categories,
                         "include_inactive": include_inactive,
                         "limit": limit,
                         "offset": offset,
@@ -141,7 +147,7 @@ class ConnectorCatalogResource(SyncAPIResource):
         if not slug:
             raise ValueError(f"Expected a non-empty value for `slug` but received {slug!r}")
         return self._get(
-            f"/connector-catalog/{slug}",
+            path_template("/connector-catalog/{slug}", slug=slug),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -173,7 +179,7 @@ class ConnectorCatalogResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `slug` but received {slug!r}")
         extra_headers = {"Accept": "application/octet-stream", **(extra_headers or {})}
         return self._get(
-            f"/connector-catalog/{slug}/logo",
+            path_template("/connector-catalog/{slug}/logo", slug=slug),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -184,6 +190,7 @@ class ConnectorCatalogResource(SyncAPIResource):
 class AsyncConnectorCatalogResource(AsyncAPIResource):
     @cached_property
     def admin(self) -> AsyncAdminResource:
+        """Admin endpoints"""
         return AsyncAdminResource(self._client)
 
     @cached_property
@@ -208,6 +215,7 @@ class AsyncConnectorCatalogResource(AsyncAPIResource):
     async def list(
         self,
         *,
+        categories: SequenceNotStr[str] | Omit = omit,
         include_inactive: bool | Omit = omit,
         limit: int | Omit = omit,
         offset: int | Omit = omit,
@@ -223,6 +231,9 @@ class AsyncConnectorCatalogResource(AsyncAPIResource):
         List all connector catalog entries with their auth methods and logos
 
         Args:
+          categories: Optional category filter (exact match against any element in the categories
+              array)
+
           include_inactive: Include inactive auth methods (admin only)
 
           search: Optional search query to filter by name, slug, or category (case-insensitive
@@ -245,6 +256,7 @@ class AsyncConnectorCatalogResource(AsyncAPIResource):
                 timeout=timeout,
                 query=await async_maybe_transform(
                     {
+                        "categories": categories,
                         "include_inactive": include_inactive,
                         "limit": limit,
                         "offset": offset,
@@ -282,7 +294,7 @@ class AsyncConnectorCatalogResource(AsyncAPIResource):
         if not slug:
             raise ValueError(f"Expected a non-empty value for `slug` but received {slug!r}")
         return await self._get(
-            f"/connector-catalog/{slug}",
+            path_template("/connector-catalog/{slug}", slug=slug),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -314,7 +326,7 @@ class AsyncConnectorCatalogResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `slug` but received {slug!r}")
         extra_headers = {"Accept": "application/octet-stream", **(extra_headers or {})}
         return await self._get(
-            f"/connector-catalog/{slug}/logo",
+            path_template("/connector-catalog/{slug}/logo", slug=slug),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -339,6 +351,7 @@ class ConnectorCatalogResourceWithRawResponse:
 
     @cached_property
     def admin(self) -> AdminResourceWithRawResponse:
+        """Admin endpoints"""
         return AdminResourceWithRawResponse(self._connector_catalog.admin)
 
 
@@ -359,6 +372,7 @@ class AsyncConnectorCatalogResourceWithRawResponse:
 
     @cached_property
     def admin(self) -> AsyncAdminResourceWithRawResponse:
+        """Admin endpoints"""
         return AsyncAdminResourceWithRawResponse(self._connector_catalog.admin)
 
 
@@ -379,6 +393,7 @@ class ConnectorCatalogResourceWithStreamingResponse:
 
     @cached_property
     def admin(self) -> AdminResourceWithStreamingResponse:
+        """Admin endpoints"""
         return AdminResourceWithStreamingResponse(self._connector_catalog.admin)
 
 
@@ -399,4 +414,5 @@ class AsyncConnectorCatalogResourceWithStreamingResponse:
 
     @cached_property
     def admin(self) -> AsyncAdminResourceWithStreamingResponse:
+        """Admin endpoints"""
         return AsyncAdminResourceWithStreamingResponse(self._connector_catalog.admin)

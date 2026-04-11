@@ -31,6 +31,8 @@ class AdminTeamsListResponseGrant(BaseModel):
 
     starts_at: Optional[datetime] = None
 
+    stripe_event_id: Optional[str] = None
+
 
 class AdminTeamsListResponseSubscription(BaseModel):
     has_active_subscription: bool

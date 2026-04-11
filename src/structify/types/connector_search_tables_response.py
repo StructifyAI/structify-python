@@ -21,6 +21,8 @@ __all__ = [
 class RankedResultColumn(BaseModel):
     """Represents a column in a table or API resource"""
 
+    id: str
+
     name: str
     """Name of the column"""
 
@@ -33,6 +35,8 @@ class RankedResultColumn(BaseModel):
 
 class RankedResultTableColumn(BaseModel):
     """Represents a column in a table or API resource"""
+
+    id: str
 
     name: str
     """Name of the column"""
@@ -84,6 +88,8 @@ class RankedResult(BaseModel):
 class RawResultColumn(BaseModel):
     """Represents a column in a table or API resource"""
 
+    id: str
+
     name: str
     """Name of the column"""
 
@@ -96,6 +102,8 @@ class RawResultColumn(BaseModel):
 
 class RawResultTableColumn(BaseModel):
     """Represents a column in a table or API resource"""
+
+    id: str
 
     name: str
     """Name of the column"""

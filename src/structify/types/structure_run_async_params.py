@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from typing import Union, Iterable, Optional
-from typing_extensions import Required, Annotated, TypeAlias, TypedDict
+from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
 from .._types import SequenceNotStr
 from .._utils import PropertyInfo
@@ -17,6 +17,7 @@ class StructureRunAsyncParams(TypedDict, total=False):
     dataset: Required[str]
 
     source: Required[Source]
+    """Only use the input text to derive new fields. Useful for large text inputs."""
 
     instructions: Optional[str]
 
@@ -59,4 +60,4 @@ class SourceWeb(TypedDict, total=False):
     web: Required[Annotated[SourceWebWeb, PropertyInfo(alias="Web")]]
 
 
-Source: TypeAlias = Union[SourcePdf, SourceWeb]
+Source: TypeAlias = Union[SourcePdf, SourceWeb, Literal["NoResources"]]

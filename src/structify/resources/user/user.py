@@ -20,6 +20,7 @@ from ...types import (
     user_update_params,
     user_refresh_params,
     user_survey_submit_params,
+    user_save_onboarding_answers_params,
 )
 from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
 from ..._utils import maybe_transform, async_maybe_transform
@@ -43,9 +44,12 @@ from ..._base_client import make_request_options
 from ...types.user_info import UserInfo
 from ...types.admin.user import User
 from ...types.user_usage_response import UserUsageResponse
+from ...types.onboarding_answers_param import OnboardingAnswersParam
 from ...types.refresh_session_response import RefreshSessionResponse
 from ...types.survey_submission_response import SurveySubmissionResponse
 from ...types.user_transactions_response import UserTransactionsResponse
+from ...types.get_onboarding_answers_response import GetOnboardingAnswersResponse
+from ...types.save_onboarding_answers_response import SaveOnboardingAnswersResponse
 
 __all__ = ["UserResource", "AsyncUserResource"]
 
@@ -57,6 +61,7 @@ class UserResource(SyncAPIResource):
 
     @cached_property
     def api_keys(self) -> APIKeysResource:
+        """All the accessible information about your account through our API"""
         return APIKeysResource(self._client)
 
     @cached_property
@@ -148,6 +153,24 @@ class UserResource(SyncAPIResource):
             cast_to=NoneType,
         )
 
+    def get_onboarding_answers(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> GetOnboardingAnswersResponse:
+        return self._get(
+            "/user/onboarding/answers",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=GetOnboardingAnswersResponse,
+        )
+
     def info(
         self,
         *,
@@ -206,6 +229,38 @@ class UserResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=RefreshSessionResponse,
+        )
+
+    def save_onboarding_answers(
+        self,
+        *,
+        answers: OnboardingAnswersParam,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> SaveOnboardingAnswersResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._put(
+            "/user/onboarding/answers",
+            body=maybe_transform(
+                {"answers": answers}, user_save_onboarding_answers_params.UserSaveOnboardingAnswersParams
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=SaveOnboardingAnswersResponse,
         )
 
     def survey_submit(
@@ -303,6 +358,7 @@ class AsyncUserResource(AsyncAPIResource):
 
     @cached_property
     def api_keys(self) -> AsyncAPIKeysResource:
+        """All the accessible information about your account through our API"""
         return AsyncAPIKeysResource(self._client)
 
     @cached_property
@@ -394,6 +450,24 @@ class AsyncUserResource(AsyncAPIResource):
             cast_to=NoneType,
         )
 
+    async def get_onboarding_answers(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> GetOnboardingAnswersResponse:
+        return await self._get(
+            "/user/onboarding/answers",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=GetOnboardingAnswersResponse,
+        )
+
     async def info(
         self,
         *,
@@ -452,6 +526,38 @@ class AsyncUserResource(AsyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=RefreshSessionResponse,
+        )
+
+    async def save_onboarding_answers(
+        self,
+        *,
+        answers: OnboardingAnswersParam,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> SaveOnboardingAnswersResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._put(
+            "/user/onboarding/answers",
+            body=await async_maybe_transform(
+                {"answers": answers}, user_save_onboarding_answers_params.UserSaveOnboardingAnswersParams
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=SaveOnboardingAnswersResponse,
         )
 
     async def survey_submit(
@@ -552,11 +658,17 @@ class UserResourceWithRawResponse:
         self.enrich = to_raw_response_wrapper(
             user.enrich,
         )
+        self.get_onboarding_answers = to_raw_response_wrapper(
+            user.get_onboarding_answers,
+        )
         self.info = to_raw_response_wrapper(
             user.info,
         )
         self.refresh = to_raw_response_wrapper(
             user.refresh,
+        )
+        self.save_onboarding_answers = to_raw_response_wrapper(
+            user.save_onboarding_answers,
         )
         self.survey_submit = to_raw_response_wrapper(
             user.survey_submit,
@@ -574,6 +686,7 @@ class UserResourceWithRawResponse:
 
     @cached_property
     def api_keys(self) -> APIKeysResourceWithRawResponse:
+        """All the accessible information about your account through our API"""
         return APIKeysResourceWithRawResponse(self._user.api_keys)
 
 
@@ -587,11 +700,17 @@ class AsyncUserResourceWithRawResponse:
         self.enrich = async_to_raw_response_wrapper(
             user.enrich,
         )
+        self.get_onboarding_answers = async_to_raw_response_wrapper(
+            user.get_onboarding_answers,
+        )
         self.info = async_to_raw_response_wrapper(
             user.info,
         )
         self.refresh = async_to_raw_response_wrapper(
             user.refresh,
+        )
+        self.save_onboarding_answers = async_to_raw_response_wrapper(
+            user.save_onboarding_answers,
         )
         self.survey_submit = async_to_raw_response_wrapper(
             user.survey_submit,
@@ -609,6 +728,7 @@ class AsyncUserResourceWithRawResponse:
 
     @cached_property
     def api_keys(self) -> AsyncAPIKeysResourceWithRawResponse:
+        """All the accessible information about your account through our API"""
         return AsyncAPIKeysResourceWithRawResponse(self._user.api_keys)
 
 
@@ -622,11 +742,17 @@ class UserResourceWithStreamingResponse:
         self.enrich = to_streamed_response_wrapper(
             user.enrich,
         )
+        self.get_onboarding_answers = to_streamed_response_wrapper(
+            user.get_onboarding_answers,
+        )
         self.info = to_streamed_response_wrapper(
             user.info,
         )
         self.refresh = to_streamed_response_wrapper(
             user.refresh,
+        )
+        self.save_onboarding_answers = to_streamed_response_wrapper(
+            user.save_onboarding_answers,
         )
         self.survey_submit = to_streamed_response_wrapper(
             user.survey_submit,
@@ -644,6 +770,7 @@ class UserResourceWithStreamingResponse:
 
     @cached_property
     def api_keys(self) -> APIKeysResourceWithStreamingResponse:
+        """All the accessible information about your account through our API"""
         return APIKeysResourceWithStreamingResponse(self._user.api_keys)
 
 
@@ -657,11 +784,17 @@ class AsyncUserResourceWithStreamingResponse:
         self.enrich = async_to_streamed_response_wrapper(
             user.enrich,
         )
+        self.get_onboarding_answers = async_to_streamed_response_wrapper(
+            user.get_onboarding_answers,
+        )
         self.info = async_to_streamed_response_wrapper(
             user.info,
         )
         self.refresh = async_to_streamed_response_wrapper(
             user.refresh,
+        )
+        self.save_onboarding_answers = async_to_streamed_response_wrapper(
+            user.save_onboarding_answers,
         )
         self.survey_submit = async_to_streamed_response_wrapper(
             user.survey_submit,
@@ -679,4 +812,5 @@ class AsyncUserResourceWithStreamingResponse:
 
     @cached_property
     def api_keys(self) -> AsyncAPIKeysResourceWithStreamingResponse:
+        """All the accessible information about your account through our API"""
         return AsyncAPIKeysResourceWithStreamingResponse(self._user.api_keys)

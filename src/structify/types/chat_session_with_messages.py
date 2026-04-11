@@ -43,7 +43,7 @@ class Message(BaseModel):
 
     content_proto: Optional[object] = None
 
-    git_commit_id: Optional[str] = None
+    git_hash: Optional[str] = None
 
     previous_message_id: Optional[str] = None
 
@@ -69,6 +69,8 @@ class ChatSessionWithMessages(BaseModel):
 
     created_at: datetime
 
+    ephemeral: bool
+
     git_application_token: str
 
     is_favorite: bool
@@ -87,7 +89,11 @@ class ChatSessionWithMessages(BaseModel):
 
     visibility: ChatVisibility
 
+    instantiated_from_template_id: Optional[str] = None
+
     latest_workflow_session_id: Optional[str] = None
+
+    message_head: Optional[str] = None
 
     name: Optional[str] = None
 

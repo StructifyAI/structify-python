@@ -20,7 +20,7 @@ or products provided by Structify, please follow the respective company's securi
 
 ### Structify Terms and Policies
 
-Please contact team@structify.ai for any questions or concerns regarding the security of our services.
+Please contact team+sdk-preview@structify.ai for any questions or concerns regarding the security of our services.
 
 ---
 

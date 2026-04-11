@@ -250,9 +250,9 @@ class TestStructure:
             dataset="dataset",
             path="path",
             instructions="instructions",
-            mode="Single",
             model="model",
             node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            pages=[0],
         )
         assert_matches_type(StructurePdfResponse, structure, path=["response"])
 
@@ -286,7 +286,7 @@ class TestStructure:
     def test_method_run_async(self, client: Structify) -> None:
         structure = client.structure.run_async(
             dataset="dataset",
-            source={"pdf": {"path": "path"}},
+            source="NoResources",
         )
         assert_matches_type(str, structure, path=["response"])
 
@@ -294,12 +294,7 @@ class TestStructure:
     def test_method_run_async_with_all_params(self, client: Structify) -> None:
         structure = client.structure.run_async(
             dataset="dataset",
-            source={
-                "pdf": {
-                    "path": "path",
-                    "page": 0,
-                }
-            },
+            source="NoResources",
             instructions="instructions",
             model="model",
             node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -328,7 +323,7 @@ class TestStructure:
     def test_raw_response_run_async(self, client: Structify) -> None:
         response = client.structure.with_raw_response.run_async(
             dataset="dataset",
-            source={"pdf": {"path": "path"}},
+            source="NoResources",
         )
 
         assert response.is_closed is True
@@ -340,7 +335,7 @@ class TestStructure:
     def test_streaming_response_run_async(self, client: Structify) -> None:
         with client.structure.with_streaming_response.run_async(
             dataset="dataset",
-            source={"pdf": {"path": "path"}},
+            source="NoResources",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -586,9 +581,9 @@ class TestAsyncStructure:
             dataset="dataset",
             path="path",
             instructions="instructions",
-            mode="Single",
             model="model",
             node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            pages=[0],
         )
         assert_matches_type(StructurePdfResponse, structure, path=["response"])
 
@@ -622,7 +617,7 @@ class TestAsyncStructure:
     async def test_method_run_async(self, async_client: AsyncStructify) -> None:
         structure = await async_client.structure.run_async(
             dataset="dataset",
-            source={"pdf": {"path": "path"}},
+            source="NoResources",
         )
         assert_matches_type(str, structure, path=["response"])
 
@@ -630,12 +625,7 @@ class TestAsyncStructure:
     async def test_method_run_async_with_all_params(self, async_client: AsyncStructify) -> None:
         structure = await async_client.structure.run_async(
             dataset="dataset",
-            source={
-                "pdf": {
-                    "path": "path",
-                    "page": 0,
-                }
-            },
+            source="NoResources",
             instructions="instructions",
             model="model",
             node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -664,7 +654,7 @@ class TestAsyncStructure:
     async def test_raw_response_run_async(self, async_client: AsyncStructify) -> None:
         response = await async_client.structure.with_raw_response.run_async(
             dataset="dataset",
-            source={"pdf": {"path": "path"}},
+            source="NoResources",
         )
 
         assert response.is_closed is True
@@ -676,7 +666,7 @@ class TestAsyncStructure:
     async def test_streaming_response_run_async(self, async_client: AsyncStructify) -> None:
         async with async_client.structure.with_streaming_response.run_async(
             dataset="dataset",
-            source={"pdf": {"path": "path"}},
+            source="NoResources",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
