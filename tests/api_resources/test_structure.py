@@ -284,25 +284,10 @@ class TestStructure:
     def test_method_run_async_with_all_params(self, client: Structify) -> None:
         structure = client.structure.run_async(
             dataset="dataset",
-            source={
-                "scrape": {
-                    "url_column": "website",
-                }
-            },
             instructions="instructions",
             model="model",
-            use_proxy=True,
             node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            save_requirement=[
-                {
-                    "seeded_entity_id": 0,
-                    "entity_id": "entity_id",
-                },
-                {
-                    "table_name": "Company",
-                    "property_names": ["description"],
-                },
-            ],
+            save_requirement=[{"relationship_name": "relationship_name"}],
             seeded_entity={
                 "entities": [
                     {
@@ -320,6 +305,8 @@ class TestStructure:
                     }
                 ],
             },
+            source="Web",
+            use_proxy=True,
         )
         assert_matches_type(str, structure, path=["response"])
 
@@ -327,7 +314,6 @@ class TestStructure:
     def test_raw_response_run_async(self, client: Structify) -> None:
         response = client.structure.with_raw_response.run_async(
             dataset="dataset",
-            source="Web",
         )
 
         assert response.is_closed is True
@@ -339,7 +325,6 @@ class TestStructure:
     def test_streaming_response_run_async(self, client: Structify) -> None:
         with client.structure.with_streaming_response.run_async(
             dataset="dataset",
-            source="Web",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -619,25 +604,10 @@ class TestAsyncStructure:
     async def test_method_run_async_with_all_params(self, async_client: AsyncStructify) -> None:
         structure = await async_client.structure.run_async(
             dataset="dataset",
-            source={
-                "scrape": {
-                    "url_column": "website",
-                }
-            },
             instructions="instructions",
             model="model",
-            use_proxy=True,
             node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            save_requirement=[
-                {
-                    "seeded_entity_id": 0,
-                    "entity_id": "entity_id",
-                },
-                {
-                    "table_name": "Company",
-                    "property_names": ["description"],
-                },
-            ],
+            save_requirement=[{"relationship_name": "relationship_name"}],
             seeded_entity={
                 "entities": [
                     {
@@ -655,6 +625,8 @@ class TestAsyncStructure:
                     }
                 ],
             },
+            source="Web",
+            use_proxy=True,
         )
         assert_matches_type(str, structure, path=["response"])
 
@@ -662,7 +634,6 @@ class TestAsyncStructure:
     async def test_raw_response_run_async(self, async_client: AsyncStructify) -> None:
         response = await async_client.structure.with_raw_response.run_async(
             dataset="dataset",
-            source="Web",
         )
 
         assert response.is_closed is True
@@ -674,7 +645,6 @@ class TestAsyncStructure:
     async def test_streaming_response_run_async(self, async_client: AsyncStructify) -> None:
         async with async_client.structure.with_streaming_response.run_async(
             dataset="dataset",
-            source="Web",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

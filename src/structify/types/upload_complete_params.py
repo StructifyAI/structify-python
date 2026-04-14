@@ -5,13 +5,17 @@ from __future__ import annotations
 from typing import Optional
 from typing_extensions import Required, TypedDict
 
-from .._types import FileTypes
+from .signed_upload_target import SignedUploadTarget
 
-__all__ = ["SessionUploadNodeOutputDataParams"]
+__all__ = ["UploadCompleteParams"]
 
 
-class SessionUploadNodeOutputDataParams(TypedDict, total=False):
-    content: Required[FileTypes]
+class UploadCompleteParams(TypedDict, total=False):
+    blob_name: Required[str]
+
+    content_type: Required[str]
+
+    target: Required[SignedUploadTarget]
 
     cache_final_rows: Optional[int]
 
@@ -25,4 +29,10 @@ class SessionUploadNodeOutputDataParams(TypedDict, total=False):
 
     cache_truncated: Optional[bool]
 
-    output_schema: Optional[str]
+    chat_id: Optional[str]
+
+    file_name: Optional[str]
+
+    node_id: Optional[str]
+
+    output_schema: object

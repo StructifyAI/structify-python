@@ -139,8 +139,8 @@ from structify.types import (
     ChatListTemplatesResponse,
     ChatLoadFilesResponse,
     ChatLoadInputFilesResponse,
+    ChatPendingWikiEditsResponse,
     ChatRevertToCommitResponse,
-    ChatUploadInputFileResponse,
 )
 ```
 
@@ -152,6 +152,7 @@ Methods:
 - <code title="post /chat/sessions/{session_id}/compress">client.chat.<a href="./src/structify/resources/chat.py">compress</a>(session_id) -> <a href="./src/structify/types/compress_chat_response.py">CompressChatResponse</a></code>
 - <code title="post /chat/copy">client.chat.<a href="./src/structify/resources/chat.py">copy</a>(\*\*<a href="src/structify/types/chat_copy_params.py">params</a>) -> <a href="./src/structify/types/chat_session_with_messages.py">ChatSessionWithMessages</a></code>
 - <code title="post /chat/sessions/{session_id}/nodes/by_code_hash">client.chat.<a href="./src/structify/resources/chat.py">copy_node_output_by_code_hash</a>(session_id, \*\*<a href="src/structify/types/chat_copy_node_output_by_code_hash_params.py">params</a>) -> <a href="./src/structify/types/chat_copy_node_output_by_code_hash_response.py">ChatCopyNodeOutputByCodeHashResponse</a></code>
+- <code title="post /chat/create_from_files">client.chat.<a href="./src/structify/resources/chat.py">create_chat_from_files</a>(\*\*<a href="src/structify/types/chat_create_chat_from_files_params.py">params</a>) -> <a href="./src/structify/types/chat_session_with_messages.py">ChatSessionWithMessages</a></code>
 - <code title="post /chat/sessions">client.chat.<a href="./src/structify/resources/chat.py">create_session</a>(\*\*<a href="src/structify/types/chat_create_session_params.py">params</a>) -> <a href="./src/structify/types/create_chat_session_response.py">CreateChatSessionResponse</a></code>
 - <code title="post /chat/input-files/delete/{chat_id}">client.chat.<a href="./src/structify/resources/chat.py">delete_input_file</a>(chat_id, \*\*<a href="src/structify/types/chat_delete_input_file_params.py">params</a>) -> <a href="./src/structify/types/chat_delete_input_file_response.py">ChatDeleteInputFileResponse</a></code>
 - <code title="delete /chat/sessions/{session_id}">client.chat.<a href="./src/structify/resources/chat.py">delete_session</a>(session_id) -> <a href="./src/structify/types/delete_chat_session_response.py">DeleteChatSessionResponse</a></code>
@@ -171,13 +172,13 @@ Methods:
 - <code title="get /chat/input-files/download/{chat_id}/{filename}">client.chat.<a href="./src/structify/resources/chat.py">load_input_file</a>(filename, \*, chat_id) -> BinaryAPIResponse</code>
 - <code title="get /chat/input-files/download-all/{chat_id}">client.chat.<a href="./src/structify/resources/chat.py">load_input_files</a>(chat_id, \*\*<a href="src/structify/types/chat_load_input_files_params.py">params</a>) -> <a href="./src/structify/types/chat_load_input_files_response.py">ChatLoadInputFilesResponse</a></code>
 - <code title="patch /chat/sessions/{session_id}/make-permanent">client.chat.<a href="./src/structify/resources/chat.py">make_permanent</a>(session_id) -> None</code>
+- <code title="get /chat/sessions/{chat_id}/pending_wiki_edits">client.chat.<a href="./src/structify/resources/chat.py">pending_wiki_edits</a>(chat_id) -> <a href="./src/structify/types/chat_pending_wiki_edits_response.py">ChatPendingWikiEditsResponse</a></code>
 - <code title="delete /chat/sessions/{chat_id}/collaborators/{user_id}">client.chat.<a href="./src/structify/resources/chat.py">remove_collaborator</a>(user_id, \*, chat_id) -> None</code>
 - <code title="post /chat/sessions/{session_id}/revert">client.chat.<a href="./src/structify/resources/chat.py">revert_to_commit</a>(session_id, \*\*<a href="src/structify/types/chat_revert_to_commit_params.py">params</a>) -> <a href="./src/structify/types/chat_revert_to_commit_response.py">ChatRevertToCommitResponse</a></code>
 - <code title="post /chat/{chat_session_id}/simulate-prompt">client.chat.<a href="./src/structify/resources/chat.py">simulate_prompt</a>(chat_session_id, \*\*<a href="src/structify/types/chat_simulate_prompt_params.py">params</a>) -> <a href="./src/structify/types/simulate_prompt_response.py">SimulatePromptResponse</a></code>
 - <code title="patch /chat/sessions/{session_id}">client.chat.<a href="./src/structify/resources/chat.py">update_session</a>(session_id, \*\*<a href="src/structify/types/chat_update_session_params.py">params</a>) -> <a href="./src/structify/types/chat_session.py">ChatSession</a></code>
 - <code title="patch /chat/sessions/{session_id}/favorite">client.chat.<a href="./src/structify/resources/chat.py">update_session_favorite</a>(session_id, \*\*<a href="src/structify/types/chat_update_session_favorite_params.py">params</a>) -> <a href="./src/structify/types/chat_session.py">ChatSession</a></code>
 - <code title="put /chat/sessions/{session_id}/visibility">client.chat.<a href="./src/structify/resources/chat.py">update_visibility</a>(session_id, \*\*<a href="src/structify/types/chat_update_visibility_params.py">params</a>) -> <a href="./src/structify/types/update_visibility_response.py">UpdateVisibilityResponse</a></code>
-- <code title="post /chat/input-files/upload/{chat_id}">client.chat.<a href="./src/structify/resources/chat.py">upload_input_file</a>(chat_id, \*\*<a href="src/structify/types/chat_upload_input_file_params.py">params</a>) -> <a href="./src/structify/types/chat_upload_input_file_response.py">ChatUploadInputFileResponse</a></code>
 
 # Teams
 
@@ -238,14 +239,7 @@ Methods:
 Types:
 
 ```python
-from structify.types import (
-    CreateWikiPageRequest,
-    UpdateWikiPageRequest,
-    WikiConnectorReference,
-    WikiPage,
-    WikiPageWithReferences,
-    WikiListResponse,
-)
+from structify.types import CreateWikiPageRequest, UpdateWikiPageRequest, WikiPage, WikiListResponse
 ```
 
 Methods:
@@ -254,7 +248,7 @@ Methods:
 - <code title="put /team/{team_id}/wiki/{slug}">client.wiki.<a href="./src/structify/resources/wiki.py">update</a>(slug, \*, team_id, \*\*<a href="src/structify/types/wiki_update_params.py">params</a>) -> <a href="./src/structify/types/wiki_page.py">WikiPage</a></code>
 - <code title="get /team/{team_id}/wiki">client.wiki.<a href="./src/structify/resources/wiki.py">list</a>(team_id) -> <a href="./src/structify/types/wiki_list_response.py">WikiListResponse</a></code>
 - <code title="delete /team/{team_id}/wiki/{slug}">client.wiki.<a href="./src/structify/resources/wiki.py">delete</a>(slug, \*, team_id) -> None</code>
-- <code title="get /team/{team_id}/wiki/{slug}">client.wiki.<a href="./src/structify/resources/wiki.py">get</a>(slug, \*, team_id) -> <a href="./src/structify/types/wiki_page_with_references.py">WikiPageWithReferences</a></code>
+- <code title="get /team/{team_id}/wiki/{slug}">client.wiki.<a href="./src/structify/resources/wiki.py">get</a>(slug, \*, team_id) -> <a href="./src/structify/types/wiki_page.py">WikiPage</a></code>
 
 # Projects
 
@@ -374,6 +368,7 @@ Methods:
 Methods:
 
 - <code title="get /admin/sandbox/list">client.admin.sandbox.<a href="./src/structify/resources/admin/sandbox.py">list</a>(\*\*<a href="src/structify/types/admin/sandbox_list_params.py">params</a>) -> <a href="./src/structify/types/sandbox.py">SyncJobsList[Sandbox]</a></code>
+- <code title="post /admin/sandbox/{sandbox_id}/terminate">client.admin.sandbox.<a href="./src/structify/resources/admin/sandbox.py">terminate</a>(sandbox_id) -> <a href="./src/structify/types/sandbox.py">Sandbox</a></code>
 
 ## FunctionalTests
 
@@ -659,8 +654,26 @@ Methods:
 - <code title="patch /sessions/nodes/{node_id}">client.sessions.<a href="./src/structify/resources/sessions.py">update_node</a>(node_id, \*\*<a href="src/structify/types/session_update_node_params.py">params</a>) -> <a href="./src/structify/types/workflow_session_node.py">WorkflowSessionNode</a></code>
 - <code title="patch /sessions/nodes/{node_id}/progress">client.sessions.<a href="./src/structify/resources/sessions.py">update_node_progress</a>(node_id, \*\*<a href="src/structify/types/session_update_node_progress_params.py">params</a>) -> <a href="./src/structify/types/workflow_session_node.py">WorkflowSessionNode</a></code>
 - <code title="post /sessions/{session_id}/dashboard_layout">client.sessions.<a href="./src/structify/resources/sessions.py">upload_dashboard_layout</a>(session_id, \*\*<a href="src/structify/types/session_upload_dashboard_layout_params.py">params</a>) -> <a href="./src/structify/types/workflow_session.py">WorkflowSession</a></code>
-- <code title="post /sessions/nodes/{node_id}/output_data">client.sessions.<a href="./src/structify/resources/sessions.py">upload_node_output_data</a>(node_id, \*\*<a href="src/structify/types/session_upload_node_output_data_params.py">params</a>) -> <a href="./src/structify/types/workflow_session_node.py">WorkflowSessionNode</a></code>
 - <code title="post /sessions/nodes/{node_id}/visualization_output">client.sessions.<a href="./src/structify/resources/sessions.py">upload_node_visualization_output</a>(node_id, \*\*<a href="src/structify/types/session_upload_node_visualization_output_params.py">params</a>) -> <a href="./src/structify/types/workflow_session_node.py">WorkflowSessionNode</a></code>
+
+# Uploads
+
+Types:
+
+```python
+from structify.types import (
+    SignedUploadCompleteRequest,
+    SignedUploadCompleteResponse,
+    SignedUploadInitRequest,
+    SignedUploadInitResponse,
+    SignedUploadTarget,
+)
+```
+
+Methods:
+
+- <code title="post /chat/input-files/upload/complete">client.uploads.<a href="./src/structify/resources/uploads.py">complete</a>(\*\*<a href="src/structify/types/upload_complete_params.py">params</a>) -> <a href="./src/structify/types/signed_upload_complete_response.py">SignedUploadCompleteResponse</a></code>
+- <code title="post /chat/input-files/upload/init">client.uploads.<a href="./src/structify/resources/uploads.py">init</a>(\*\*<a href="src/structify/types/upload_init_params.py">params</a>) -> <a href="./src/structify/types/signed_upload_init_response.py">SignedUploadInitResponse</a></code>
 
 # WorkflowSchedule
 

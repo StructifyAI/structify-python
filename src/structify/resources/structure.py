@@ -304,13 +304,13 @@ class StructureResource(SyncAPIResource):
         self,
         *,
         dataset: str,
-        source: structure_run_async_params.Source | Omit = omit,
         instructions: Optional[str] | Omit = omit,
         model: Optional[str] | Omit = omit,
-        use_proxy: Optional[bool] | Omit = omit,
         node_id: Optional[str] | Omit = omit,
         save_requirement: Iterable[SaveRequirementParam] | Omit = omit,
         seeded_entity: KnowledgeGraphParam | Omit = omit,
+        source: Optional[structure_run_async_params.Source] | Omit = omit,
+        use_proxy: Optional[bool] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -322,8 +322,6 @@ class StructureResource(SyncAPIResource):
         Returns a token that can be waited on until the request is finished.
 
         Args:
-          source: Optional source to use for the run. Omit for no-resources mode.
-
           seeded_entity: Knowledge graph info structured to deserialize and display in the same format
               that the LLM outputs. Also the first representation of an LLM output in the
               pipeline from raw tool output to being merged into a DB
@@ -342,13 +340,13 @@ class StructureResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "dataset": dataset,
-                    "source": source,
                     "instructions": instructions,
                     "model": model,
-                    "use_proxy": use_proxy,
                     "node_id": node_id,
                     "save_requirement": save_requirement,
                     "seeded_entity": seeded_entity,
+                    "source": source,
+                    "use_proxy": use_proxy,
                 },
                 structure_run_async_params.StructureRunAsyncParams,
             ),
@@ -630,13 +628,13 @@ class AsyncStructureResource(AsyncAPIResource):
         self,
         *,
         dataset: str,
-        source: structure_run_async_params.Source | Omit = omit,
         instructions: Optional[str] | Omit = omit,
         model: Optional[str] | Omit = omit,
-        use_proxy: Optional[bool] | Omit = omit,
         node_id: Optional[str] | Omit = omit,
         save_requirement: Iterable[SaveRequirementParam] | Omit = omit,
         seeded_entity: KnowledgeGraphParam | Omit = omit,
+        source: Optional[structure_run_async_params.Source] | Omit = omit,
+        use_proxy: Optional[bool] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -648,8 +646,6 @@ class AsyncStructureResource(AsyncAPIResource):
         Returns a token that can be waited on until the request is finished.
 
         Args:
-          source: Optional source to use for the run. Omit for no-resources mode.
-
           seeded_entity: Knowledge graph info structured to deserialize and display in the same format
               that the LLM outputs. Also the first representation of an LLM output in the
               pipeline from raw tool output to being merged into a DB
@@ -668,13 +664,13 @@ class AsyncStructureResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "dataset": dataset,
-                    "source": source,
                     "instructions": instructions,
                     "model": model,
-                    "use_proxy": use_proxy,
                     "node_id": node_id,
                     "save_requirement": save_requirement,
                     "seeded_entity": seeded_entity,
+                    "source": source,
+                    "use_proxy": use_proxy,
                 },
                 structure_run_async_params.StructureRunAsyncParams,
             ),

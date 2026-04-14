@@ -9,25 +9,15 @@ from .._utils import PropertyInfo
 from .knowledge_graph_param import KnowledgeGraphParam
 from .save_requirement_param import SaveRequirementParam
 
-__all__ = [
-    "StructureRunAsyncParams",
-    "Source",
-    "SourceScrape",
-    "SourceScrapeScrape",
-]
+__all__ = ["StructureRunAsyncParams", "Source", "SourceScrape", "SourceScrapeScrape"]
 
 
 class StructureRunAsyncParams(TypedDict, total=False):
     dataset: Required[str]
 
-    source: Source
-    """Optional source to use for the run. Omit for no-resources mode."""
-
     instructions: Optional[str]
 
     model: Optional[str]
-
-    use_proxy: Optional[bool]
 
     node_id: Optional[str]
 
@@ -39,6 +29,10 @@ class StructureRunAsyncParams(TypedDict, total=False):
     that the LLM outputs. Also the first representation of an LLM output in the
     pipeline from raw tool output to being merged into a DB
     """
+
+    source: Optional[Source]
+
+    use_proxy: Optional[bool]
 
 
 class SourceScrapeScrape(TypedDict, total=False):

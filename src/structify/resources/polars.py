@@ -30,6 +30,7 @@ from .._response import (
 from ..types.table_param import Property
 from ..lib.cost_confirmation import request_cost_confirmation_if_needed
 from ..types.save_requirement_param import RequiredEntity, RequiredProperty, RequiredRelationship
+from ..types.dataset_descriptor_param import DatasetDescriptorParam
 from ..types.structure_run_async_params import Source, SourceScrape, SourceScrapeScrape
 
 __all__ = ["PolarsResource"]
@@ -747,10 +748,11 @@ class PolarsResource(SyncAPIResource):
         *,
         df: LazyFrame,
         new_property_name: str,
+        new_property_description: str = "",
         dtype: pl.DataType,
         instructions: str,
-        dataframe_name: str,
-        dataframe_description: str,
+        dataframe_name: str = "default_table",  # Only exists for back compat, not shown to agent
+        dataframe_description: str = "",  # Only exists for back compat, not shown to agent
         model: str | None = None,
     ) -> LazyFrame:
         """
@@ -762,10 +764,9 @@ class PolarsResource(SyncAPIResource):
         Args:
             df: The input `polars.LazyFrame` to tag.
             new_property_name: Name of the new property to derive.
+            new_property_description: Description of the new property.
             dtype: Polars DataType for the new property (e.g. pl.String(), pl.Int64()).
             instructions: Instructions for how to derive the new property value.
-            dataframe_name: Logical name of the dataframe (e.g. "Company", "Invoice").
-            dataframe_description: Description providing context for the dataframe.
             model: Optional model name to use for tagging.
 
         Returns:
@@ -779,7 +780,7 @@ class PolarsResource(SyncAPIResource):
 
         # Add the new property to derive
         new_property = Property(
-            name=new_property_name, description=instructions, prop_type=dtype_to_structify_type(dtype)
+            name=new_property_name, description=new_property_description, prop_type=dtype_to_structify_type(dtype)
         )
 
         all_properties = existing_properties + [new_property]

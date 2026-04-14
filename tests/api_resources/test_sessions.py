@@ -1191,63 +1191,6 @@ class TestSessions:
             )
 
     @parametrize
-    def test_method_upload_node_output_data(self, client: Structify) -> None:
-        session = client.sessions.upload_node_output_data(
-            node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            content=b"Example data",
-        )
-        assert_matches_type(WorkflowSessionNode, session, path=["response"])
-
-    @parametrize
-    def test_method_upload_node_output_data_with_all_params(self, client: Structify) -> None:
-        session = client.sessions.upload_node_output_data(
-            node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            content=b"Example data",
-            cache_final_rows=0,
-            cache_final_size_bytes=0,
-            cache_max_bytes=0,
-            cache_original_rows=0,
-            cache_original_size_bytes=0,
-            cache_truncated=True,
-            output_schema="output_schema",
-        )
-        assert_matches_type(WorkflowSessionNode, session, path=["response"])
-
-    @parametrize
-    def test_raw_response_upload_node_output_data(self, client: Structify) -> None:
-        response = client.sessions.with_raw_response.upload_node_output_data(
-            node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            content=b"Example data",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        session = response.parse()
-        assert_matches_type(WorkflowSessionNode, session, path=["response"])
-
-    @parametrize
-    def test_streaming_response_upload_node_output_data(self, client: Structify) -> None:
-        with client.sessions.with_streaming_response.upload_node_output_data(
-            node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            content=b"Example data",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            session = response.parse()
-            assert_matches_type(WorkflowSessionNode, session, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    def test_path_params_upload_node_output_data(self, client: Structify) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `node_id` but received ''"):
-            client.sessions.with_raw_response.upload_node_output_data(
-                node_id="",
-                content=b"Example data",
-            )
-
-    @parametrize
     def test_method_upload_node_visualization_output(self, client: Structify) -> None:
         session = client.sessions.upload_node_visualization_output(
             node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -2452,63 +2395,6 @@ class TestAsyncSessions:
                         },
                     }
                 ],
-            )
-
-    @parametrize
-    async def test_method_upload_node_output_data(self, async_client: AsyncStructify) -> None:
-        session = await async_client.sessions.upload_node_output_data(
-            node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            content=b"Example data",
-        )
-        assert_matches_type(WorkflowSessionNode, session, path=["response"])
-
-    @parametrize
-    async def test_method_upload_node_output_data_with_all_params(self, async_client: AsyncStructify) -> None:
-        session = await async_client.sessions.upload_node_output_data(
-            node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            content=b"Example data",
-            cache_final_rows=0,
-            cache_final_size_bytes=0,
-            cache_max_bytes=0,
-            cache_original_rows=0,
-            cache_original_size_bytes=0,
-            cache_truncated=True,
-            output_schema="output_schema",
-        )
-        assert_matches_type(WorkflowSessionNode, session, path=["response"])
-
-    @parametrize
-    async def test_raw_response_upload_node_output_data(self, async_client: AsyncStructify) -> None:
-        response = await async_client.sessions.with_raw_response.upload_node_output_data(
-            node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            content=b"Example data",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        session = await response.parse()
-        assert_matches_type(WorkflowSessionNode, session, path=["response"])
-
-    @parametrize
-    async def test_streaming_response_upload_node_output_data(self, async_client: AsyncStructify) -> None:
-        async with async_client.sessions.with_streaming_response.upload_node_output_data(
-            node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            content=b"Example data",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            session = await response.parse()
-            assert_matches_type(WorkflowSessionNode, session, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    async def test_path_params_upload_node_output_data(self, async_client: AsyncStructify) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `node_id` but received ''"):
-            await async_client.sessions.with_raw_response.upload_node_output_data(
-                node_id="",
-                content=b"Example data",
             )
 
     @parametrize

@@ -1,10 +1,12 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+from typing import Optional
 from datetime import datetime
 
 from .._models import BaseModel
+from .workflow_session_node import WorkflowSessionNode
 
-__all__ = ["ChatUploadInputFileResponse", "File"]
+__all__ = ["SignedUploadCompleteResponse", "File"]
 
 
 class File(BaseModel):
@@ -19,5 +21,7 @@ class File(BaseModel):
     filename: str
 
 
-class ChatUploadInputFileResponse(BaseModel):
-    file: File
+class SignedUploadCompleteResponse(BaseModel):
+    file: Optional[File] = None
+
+    node: Optional[WorkflowSessionNode] = None
