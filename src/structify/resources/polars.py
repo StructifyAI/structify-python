@@ -20,6 +20,7 @@ from structify.types.dataset_create_params import Relationship as CreateRelation
 from structify.types.knowledge_graph_param import KnowledgeGraphParam
 
 from ..types import TableParam
+from .._types import Omit, omit
 from .._compat import cached_property
 from .._resource import SyncAPIResource
 from .._response import (
@@ -29,8 +30,7 @@ from .._response import (
 from ..types.table_param import Property
 from ..lib.cost_confirmation import request_cost_confirmation_if_needed
 from ..types.save_requirement_param import RequiredEntity, RequiredProperty, RequiredRelationship
-from ..types.dataset_descriptor_param import DatasetDescriptorParam
-from ..types.structure_run_async_params import Source, SourceWeb, SourceWebWeb
+from ..types.structure_run_async_params import Source, SourceScrape, SourceScrapeScrape
 
 __all__ = ["PolarsResource"]
 
@@ -93,6 +93,8 @@ class PolarsResource(SyncAPIResource):
         dataframe_description: str,
         instructions: Optional[str] = None,
         use_no_resources: bool = False,
+        url_column: Optional[str] = None,
+        use_proxy: bool = False,
     ) -> LazyFrame:
         """
         Enhance one or more columns of a `LazyFrame` by letting Structify populate the
@@ -122,8 +124,7 @@ class PolarsResource(SyncAPIResource):
                 food industry").
             instructions: Optional free-form instructions to guide Structify's enrichment
             use_no_resources: When True, queue text-only structuring jobs by
-                sending `source="NoResources"` instead of the default web
-                search source.
+                omitting `source` instead of using the default web source.
         """
 
         # Existing columns & their dtypes from the LazyFrame
@@ -176,14 +177,10 @@ class PolarsResource(SyncAPIResource):
 
         # Get the node ID when the function is called, not when the batch is processed
         node_id = get_node_id()
-        web_source: SourceWeb = {
-            "web": SourceWebWeb(
-                banned_domains=[],
-                starting_searches=[],
-                starting_urls=[],
-            ),
-        }
-        run_async_source: Source = "NoResources" if use_no_resources else web_source
+        run_async_source: Source | Omit = omit if use_no_resources else "Web"
+        if url_column is not None:
+            run_async_source = SourceScrape(scrape=SourceScrapeScrape(url_column=url_column))
+        run_async_use_proxy: bool | Omit = use_proxy if url_column is not None else omit
 
         # Create the expected output schema with single job_id column
         expected_schema = properties_to_schema(all_properties)
@@ -195,7 +192,11 @@ class PolarsResource(SyncAPIResource):
                 return pl.DataFrame(schema=expected_schema)
             # 1. Add all the entities to the structify dataset
             column_schema = {col["name"]: col["name"] for col in all_properties}
-            entities = dataframe_to_entities(batch_df, dataframe_name, column_schema)
+            if url_column is None:
+                entities = dataframe_to_entities(batch_df, dataframe_name, column_schema)
+            else:
+                batch_df = batch_df.drop_nulls(subset=[url_column]).unique()
+                entities = dataframe_to_entities(batch_df, dataframe_name, column_schema, zero_ids=True)
 
             # Request cost confirmation before adding entities
             if not request_cost_confirmation_if_needed(self._client, len(entities), "web"):
@@ -220,6 +221,7 @@ class PolarsResource(SyncAPIResource):
                     dataset=dataset_name,
                     source=run_async_source,
                     instructions=instructions,
+                    use_proxy=run_async_use_proxy,
                     node_id=node_id,
                     save_requirement=[
                         RequiredEntity(
@@ -281,6 +283,8 @@ class PolarsResource(SyncAPIResource):
         source_table_name: str = "source_table",
         instructions: Optional[str] = None,
         use_no_resources: bool = False,
+        url_column: Optional[str] = None,
+        use_proxy: bool = False,
     ) -> LazyFrame:
         """
         Enhance a LazyFrame by finding related entities and creating a one-to-many relationship.
@@ -298,6 +302,9 @@ class PolarsResource(SyncAPIResource):
             LazyFrame with original columns plus new columns from related entities
         """
         input_schema = lazy_df.collect_schema()
+
+        if url_column is not None and url_column not in input_schema:
+            raise ValueError(f"Column '{url_column}' not found in LazyFrame")
 
         target_columns: dict[str, pl.DataType] = {}
         if target_schema_override:
@@ -320,14 +327,10 @@ class PolarsResource(SyncAPIResource):
         ]
 
         node_id = get_node_id()
-        web_source: SourceWeb = {
-            "web": SourceWebWeb(
-                banned_domains=[],
-                starting_searches=[],
-                starting_urls=[],
-            ),
-        }
-        run_async_source: Source = "NoResources" if use_no_resources else web_source
+        run_async_source: Source | Omit = omit if use_no_resources else "Web"
+        if url_column is not None:
+            run_async_source = SourceScrape(scrape=SourceScrapeScrape(url_column=url_column))
+        run_async_use_proxy: bool | Omit = use_proxy if url_column is not None else omit
 
         def enhance_relationship_batch(batch_df: pl.DataFrame) -> pl.DataFrame:
             if batch_df.is_empty():
@@ -371,11 +374,15 @@ class PolarsResource(SyncAPIResource):
 
             # Add source entities to dataset
             column_schema = {col_name: col_name for col_name in input_schema.names()}
-            entities = dataframe_to_entities(batch_df, source_table_name, column_schema)
+            if url_column is None:
+                entities = dataframe_to_entities(batch_df, source_table_name, column_schema)
+            else:
+                unique_batch_df = batch_df.drop_nulls(subset=[url_column]).unique()
+                entities = dataframe_to_entities(unique_batch_df, source_table_name, column_schema, zero_ids=True)
 
             # Request cost confirmation before adding entities
             if not request_cost_confirmation_if_needed(self._client, len(entities), "web"):
-                raise Exception(f"User cancelled relationship enhancement for {source_table_name}")
+                raise Exception(f"User cancelled enhancement of {source_table_name}")
 
             # Add individually to maintain entity-id-to-entity mapping
             entity_id_to_entity: Dict[str, EntityParam] = {}
@@ -394,6 +401,7 @@ class PolarsResource(SyncAPIResource):
                     dataset=dataset_name,
                     source=run_async_source,
                     instructions=instructions,
+                    use_proxy=run_async_use_proxy,
                     node_id=node_id,
                     save_requirement=[
                         RequiredEntity(
@@ -487,149 +495,14 @@ class PolarsResource(SyncAPIResource):
 
         Adds a `structify_job_id` column with the job id for each row.
         """
-
-        # Existing columns & their dtypes from the LazyFrame
-        existing_schema_dict: Dict[str, pl.DataType] = df.collect_schema()
-
-        # Normalise to Dict[str, Tuple[dtype, description]]
-        new_columns_dict: Dict[str, tuple[pl.DataType, str]] = {}
-        for col_name, val in new_columns.items():
-            if "type" not in val:
-                raise TypeError("Each new column must be a dict with a 'type' key containing a polars.DataType")
-            dtype = val["type"]
-            desc = val.get("description", "")
-            new_columns_dict[col_name] = (dtype, desc)
-
-        # ------------------------------------------------------------------
-        # Build Structify `Property` objects for existing & new columns
-        # ------------------------------------------------------------------
-        pre_existing_properties = [
-            Property(name=col_name, description="", prop_type=dtype_to_structify_type(dtype))
-            for col_name, dtype in existing_schema_dict.items()
-        ]
-
-        new_column_properties = [
-            Property(name=col_name, description=desc, prop_type=dtype_to_structify_type(dtype))
-            for col_name, (dtype, desc) in new_columns_dict.items()
-        ]
-
-        all_properties = merge_column_properties(pre_existing_properties, new_column_properties)
-
-        dataset_name = f"enhance_{dataframe_name}_{uuid.uuid4().hex}"
-        self._client.datasets.create(
-            name=dataset_name,
-            description="",
-            tables=[
-                TableParam(
-                    name=dataframe_name,
-                    description=dataframe_description,
-                    properties=all_properties,
-                )
-            ],
-            relationships=[],
-            ephemeral=True,
+        return self.enhance_columns(
+            df=df,
+            new_columns=new_columns,
+            dataframe_name=dataframe_name,
+            dataframe_description=dataframe_description,
+            url_column=url_column,
+            use_proxy=use_proxy,
         )
-
-        # For new columns, add a null value to the dataframe with proper types
-        missing_new_columns = [col_name for col_name in new_columns_dict.keys() if col_name not in existing_schema_dict]
-        if missing_new_columns:
-            df = df.with_columns(
-                [pl.lit(None, dtype=new_columns_dict[col_name][0]).alias(col_name) for col_name in missing_new_columns]
-            )
-
-        # Get the node ID when the function is called, not when the batch is processed
-        node_id = get_node_id()
-
-        # Create the expected output schema with single job_id column
-        expected_schema = properties_to_schema(all_properties)
-        expected_schema[STRUCTIFY_JOB_ID_COLUMN] = pl.String
-
-        # Apply Structify scrape on the dataframe
-        def scrape_batch(batch_df: pl.DataFrame) -> pl.DataFrame:
-            if batch_df.is_empty():
-                return pl.DataFrame(schema=expected_schema)
-
-            # 1. Add all the entities to the structify dataset
-            batch_df = batch_df.drop_nulls(subset=[url_column]).unique()
-            column_schema = {col["name"]: col["name"] for col in all_properties}
-            entities = dataframe_to_entities(batch_df, dataframe_name, column_schema, zero_ids=True)
-
-            # Request cost confirmation before adding entities
-            if not request_cost_confirmation_if_needed(self._client, len(entities), "web"):
-                raise Exception(f"User cancelled scraping of {dataframe_name}")
-
-            # We add individually instead of batched to maintain the mapping between entity and ID
-            # This can be changed later if we make an endpoint for scrape single properties that
-            # just takes in entity id and property names
-            entity_id_to_entity: Dict[str, EntityParam] = {}
-
-            with ThreadPoolExecutor(max_workers=MAX_PARALLEL_REQUESTS) as executor:
-                add_futures = [executor.submit(self._add_single_entity, dataset_name, entity) for entity in entities]
-                for future in tqdm(
-                    as_completed(add_futures), total=len(add_futures), desc=f"Adding {dataframe_name} entities"
-                ):
-                    entity_id, entity = future.result()
-                    entity_id_to_entity[entity_id] = entity
-
-            # 2. Run scrape jobs for each entity
-            def scrape_entity_property(entity_id: str) -> None:
-                entity = entity_id_to_entity[entity_id]
-                url = entity["properties"].get(url_column)
-                if url is None:
-                    return
-                if not isinstance(url, str):
-                    raise TypeError(
-                        f"URL column {url_column} must be of string type, got {type(entity['properties'][url_column])}"
-                    )
-
-                self._client.scrape.scrape(
-                    dataset_name=dataset_name,
-                    extraction_criteria=[
-                        RequiredProperty(
-                            table_name=dataframe_name,
-                            property_names=[p["name"] for p in new_column_properties],
-                        ),
-                        RequiredEntity(
-                            seeded_entity_id=0,
-                            entity_id=entity_id,
-                        ),
-                    ],
-                    seeded_kg=KnowledgeGraphParam(entities=[entity], relationships=[]),
-                    node_id=node_id,
-                    use_proxy=use_proxy,
-                    url=url,
-                )
-
-            property_list = list(new_columns_dict.keys())
-            if len(property_list) == 1:
-                property_names = property_list[0]
-            elif len(property_list) == 2:
-                property_names = f"{property_list[0]} and {property_list[1]}"
-            else:
-                property_names = f"{', '.join(property_list[:-1])}, and {property_list[-1]}"
-
-            with ThreadPoolExecutor(max_workers=MAX_PARALLEL_REQUESTS) as executor:
-                scrape_futures = [
-                    executor.submit(scrape_entity_property, entity_id) for entity_id in entity_id_to_entity.keys()
-                ]
-                for future in tqdm(
-                    as_completed(scrape_futures),
-                    total=len(scrape_futures),
-                    desc=f"Preparing scrapes for {property_names}",
-                ):
-                    future.result()  # Wait for completion
-
-            # 3. Wait for all jobs to complete
-            title = f"Scraping {property_names} for {dataframe_name}"
-            self._client.jobs.wait_for_jobs(dataset_name=dataset_name, title=title, node_id=node_id)
-
-            # 4. Collect the results with job_id
-            results = _collect_entities_with_job_ids(self._client, dataset_name, dataframe_name)
-
-            # 5. Return the results
-            return pl.DataFrame(results, schema=expected_schema)
-
-        return df.map_batches(scrape_batch, schema=expected_schema, no_optimizations=True)
 
     def scrape_relationships(
         self,
@@ -639,7 +512,6 @@ class PolarsResource(SyncAPIResource):
         table_name: str,
         scrape_schema: Dict[str, Dict[str, Any]],
         scrape_schema_override: TableParam | None = None,
-        original_column_map: Dict[str, str] = {},
         source_table_name: str = "source_table",
         relationship_name: str = "scraped",
         relationship_description: str = "",
@@ -653,159 +525,35 @@ class PolarsResource(SyncAPIResource):
           url_column: Name of the column containing URLs (Must exist in the input LazyFrame)
           table_name: Name of the table to scrape. This will be the target table for the relationship.
           scrape_schema: Schema definition with descriptions, format: {"column_name": {"description": "...", "type": polars_dtype}}. If the column name is the same as the table name, it will be suffixed by the table name, e.g. "name_Person"
-          original_column_map: Mapping of original column names to new names
         """
-        relationship = CreateRelationshipParam(
-            name=relationship_name,
-            description=relationship_description,
-            source_table=source_table_name,
-            target_table=table_name,
-            properties=[],
+        enhanced_df = self.enhance_relationships(
+            lazy_df=lazy_df,
+            relationship_name=relationship_name,
+            relationship_description=relationship_description,
+            target_table_name=table_name,
+            target_schema=scrape_schema,
+            target_schema_override=scrape_schema_override,
+            source_table_name=source_table_name,
+            url_column=url_column,
+            use_proxy=use_proxy,
         )
-
         input_schema = lazy_df.collect_schema()
-
-        if url_column not in input_schema:
-            raise ValueError(f"Column '{url_column}' not found in LazyFrame")
-
-        if scrape_schema_override:
-            scraped_columns: dict[str, pl.DataType] = {}
-            for prop in scrape_schema_override["properties"]:
-                prop_name = original_column_map.get(prop["name"], prop["name"])
-                scraped_columns[prop_name] = structify_type_to_polars_dtype(prop.get("prop_type"))
-        else:
-            scraped_columns = {
-                col_name: col_info.get("type", pl.String()) for col_name, col_info in scrape_schema.items()
-            }
-
-        output_schema = _merge_schema_with_suffix(input_schema, scraped_columns, suffix=relationship["target_table"])
-        output_schema[STRUCTIFY_JOB_ID_COLUMN] = pl.String
-
-        properties: list[Property] = []
-        for col_name, col_info in scrape_schema.items():
-            polars_type = col_info.get("type", pl.String())
-            structify_type = dtype_to_structify_type(polars_type)
-            properties.append(
-                Property(name=col_name, description=col_info.get("description", ""), prop_type=structify_type)
-            )
-
-        dataset_descriptor = DatasetDescriptorParam(
-            name=f"scrape_{relationship['target_table']}_{uuid.uuid4().hex}",
-            description="",
-            tables=[
-                TableParam(
-                    name=relationship["target_table"],
-                    description="",
-                    properties=properties,
-                ),
-                TableParam(
-                    name=relationship["source_table"],
-                    description="Source entities for relationship enhancement",
-                    properties=[
-                        Property(
-                            name=col_name,
-                            description="",
-                            prop_type=dtype_to_structify_type(input_schema[col_name]),
-                        )
-                        for col_name in input_schema.names()
-                    ],
-                ),
+        enhanced_schema = enhanced_df.collect_schema()
+        scraped_columns = [
+            url_column,
+            *[
+                col_name
+                for col_name in enhanced_schema.names()
+                if col_name not in input_schema and col_name != STRUCTIFY_JOB_ID_COLUMN
             ],
-            relationships=[relationship],
+            STRUCTIFY_JOB_ID_COLUMN,
+        ]
+        return lazy_df.join(
+            enhanced_df.select(scraped_columns),
+            on=url_column,
+            how="left",
+            suffix=f"_{table_name}",
         )
-
-        node_id = get_node_id()
-
-        def scrape_batch(batch_df: pl.DataFrame) -> pl.DataFrame:
-            # 1. Get the unique URLs in the batch
-            entities = batch_df.drop_nulls(subset=[url_column]).unique().to_dicts()
-
-            # Request cost confirmation before dispatching costly scrape jobs
-            if not request_cost_confirmation_if_needed(self._client, len(entities), "web"):
-                raise Exception(f"User cancelled scraping for {relationship['target_table']}")
-
-            # 2. Scrape the URLs
-            def scrape_entity(entity: Dict[str, Any]) -> None:
-                entity_clean = {k: v for k, v in entity.items() if v is not None}
-                self._client.scrape.list(
-                    table_name=relationship["target_table"],
-                    dataset_name=dataset_descriptor["name"],
-                    input={
-                        "related": {
-                            "relationship_name": relationship["name"],
-                            "source_entity": {
-                                "id": 1,
-                                "properties": entity_clean,
-                                "type": relationship["source_table"],
-                            },
-                            "source_url_column": url_column,
-                        }
-                    },
-                    dataset_descriptor=dataset_descriptor,
-                    node_id=node_id,
-                    use_proxy=use_proxy,
-                )
-
-            with ThreadPoolExecutor(max_workers=MAX_PARALLEL_REQUESTS) as executor:
-                futures = [executor.submit(scrape_entity, entity) for entity in entities]
-                for future in tqdm(
-                    as_completed(futures),
-                    total=len(futures),
-                    desc=f"Preparing to scrape websites for {relationship['target_table']}",
-                ):
-                    future.result()  # Wait for completion
-
-            # Wait for all scraping jobs to complete
-            title = f"Scraping websites for {relationship['target_table']}"
-            self._client.jobs.wait_for_jobs(dataset_name=dataset_descriptor["name"], title=title, node_id=node_id)
-
-            offset = 0
-            LIMIT = 999
-            result_rows: list[dict[str, Any]] = []
-            while True:
-                try:
-                    response = self._client.datasets.view_tables_with_relationships(
-                        dataset=dataset_descriptor["name"],
-                        name=relationship["target_table"],
-                        limit=LIMIT,
-                        offset=offset,
-                    )
-                    for scraped_entity in response.entities:
-                        rel = next((rel for rel in response.relationships if rel.to_id == scraped_entity.id), None)
-                        if rel:
-                            related_entity = next(
-                                (e for e in response.connected_entities if e.id == rel.from_id),
-                                None,
-                            )
-                            if related_entity:
-                                result_row: dict[str, Any] = {
-                                    **scraped_entity.properties,
-                                    url_column: related_entity.properties[url_column],
-                                    STRUCTIFY_JOB_ID_COLUMN: scraped_entity.job_id,
-                                }
-                                result_rows.append(result_row)
-                    offset += LIMIT
-                    if len(response.entities) < LIMIT:
-                        break
-                except Exception:
-                    break
-            # Build scraped schema (pre-join, original names) incl. join column and job_id
-            scraped_schema: Dict[str, pl.DataType] = scraped_columns | {
-                url_column: input_schema[url_column],
-                STRUCTIFY_JOB_ID_COLUMN: pl.String(),
-            }
-
-            # Fill missing columns in scraped results
-            for result_row in result_rows:
-                for col_name in scraped_schema.keys():
-                    if col_name not in result_row:
-                        result_row[col_name] = None
-            scraped_df = pl.DataFrame(result_rows, schema=scraped_schema)
-
-            joined_df = batch_df.join(scraped_df, on=url_column, how="left", suffix=f"_{relationship['target_table']}")
-            return joined_df
-
-        return lazy_df.map_batches(scrape_batch, schema=output_schema, no_optimizations=True)
 
     def scrape_urls(
         self,
@@ -815,7 +563,6 @@ class PolarsResource(SyncAPIResource):
         table_name: str,
         scrape_schema: Dict[str, Dict[str, Any]],
         scrape_schema_override: TableParam | None = None,
-        original_column_map: Dict[str, str] = {},
         use_proxy: bool = False,
     ) -> LazyFrame:
         """
@@ -827,7 +574,6 @@ class PolarsResource(SyncAPIResource):
             table_name=table_name,
             scrape_schema=scrape_schema,
             scrape_schema_override=scrape_schema_override,
-            original_column_map=original_column_map,
             use_proxy=use_proxy,
         )
 
