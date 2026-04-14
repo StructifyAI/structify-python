@@ -59,10 +59,7 @@ class StructureResource(SyncAPIResource):
         entity_id: str,
         property_name: str,
         allow_extra_entities: bool | Omit = omit,
-        banned_domains: SequenceNotStr[str] | Omit = omit,
         node_id: Optional[str] | Omit = omit,
-        starting_searches: SequenceNotStr[str] | Omit = omit,
-        starting_urls: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -90,10 +87,7 @@ class StructureResource(SyncAPIResource):
                     "entity_id": entity_id,
                     "property_name": property_name,
                     "allow_extra_entities": allow_extra_entities,
-                    "banned_domains": banned_domains,
                     "node_id": node_id,
-                    "starting_searches": starting_searches,
-                    "starting_urls": starting_urls,
                 },
                 structure_enhance_property_params.StructureEnhancePropertyParams,
             ),
@@ -109,10 +103,7 @@ class StructureResource(SyncAPIResource):
         entity_id: str,
         relationship_name: str,
         allow_extra_entities: bool | Omit = omit,
-        banned_domains: SequenceNotStr[str] | Omit = omit,
         node_id: Optional[str] | Omit = omit,
-        starting_searches: SequenceNotStr[str] | Omit = omit,
-        starting_urls: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -140,10 +131,7 @@ class StructureResource(SyncAPIResource):
                     "entity_id": entity_id,
                     "relationship_name": relationship_name,
                     "allow_extra_entities": allow_extra_entities,
-                    "banned_domains": banned_domains,
                     "node_id": node_id,
-                    "starting_searches": starting_searches,
-                    "starting_urls": starting_urls,
                 },
                 structure_enhance_relationship_params.StructureEnhanceRelationshipParams,
             ),
@@ -160,9 +148,6 @@ class StructureResource(SyncAPIResource):
         relationship_name: str,
         to_id: str,
         allow_extra_entities: bool | Omit = omit,
-        banned_domains: SequenceNotStr[str] | Omit = omit,
-        starting_searches: SequenceNotStr[str] | Omit = omit,
-        starting_urls: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -191,9 +176,6 @@ class StructureResource(SyncAPIResource):
                     "relationship_name": relationship_name,
                     "to_id": to_id,
                     "allow_extra_entities": allow_extra_entities,
-                    "banned_domains": banned_domains,
-                    "starting_searches": starting_searches,
-                    "starting_urls": starting_urls,
                 },
                 structure_find_relationship_params.StructureFindRelationshipParams,
             ),
@@ -322,12 +304,13 @@ class StructureResource(SyncAPIResource):
         self,
         *,
         dataset: str,
-        source: structure_run_async_params.Source,
         instructions: Optional[str] | Omit = omit,
         model: Optional[str] | Omit = omit,
         node_id: Optional[str] | Omit = omit,
         save_requirement: Iterable[SaveRequirementParam] | Omit = omit,
         seeded_entity: KnowledgeGraphParam | Omit = omit,
+        source: Optional[structure_run_async_params.Source] | Omit = omit,
+        use_proxy: Optional[bool] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -339,8 +322,6 @@ class StructureResource(SyncAPIResource):
         Returns a token that can be waited on until the request is finished.
 
         Args:
-          source: Only use the input text to derive new fields. Useful for large text inputs.
-
           seeded_entity: Knowledge graph info structured to deserialize and display in the same format
               that the LLM outputs. Also the first representation of an LLM output in the
               pipeline from raw tool output to being merged into a DB
@@ -359,12 +340,13 @@ class StructureResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "dataset": dataset,
-                    "source": source,
                     "instructions": instructions,
                     "model": model,
                     "node_id": node_id,
                     "save_requirement": save_requirement,
                     "seeded_entity": seeded_entity,
+                    "source": source,
+                    "use_proxy": use_proxy,
                 },
                 structure_run_async_params.StructureRunAsyncParams,
             ),
@@ -401,10 +383,7 @@ class AsyncStructureResource(AsyncAPIResource):
         entity_id: str,
         property_name: str,
         allow_extra_entities: bool | Omit = omit,
-        banned_domains: SequenceNotStr[str] | Omit = omit,
         node_id: Optional[str] | Omit = omit,
-        starting_searches: SequenceNotStr[str] | Omit = omit,
-        starting_urls: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -432,10 +411,7 @@ class AsyncStructureResource(AsyncAPIResource):
                     "entity_id": entity_id,
                     "property_name": property_name,
                     "allow_extra_entities": allow_extra_entities,
-                    "banned_domains": banned_domains,
                     "node_id": node_id,
-                    "starting_searches": starting_searches,
-                    "starting_urls": starting_urls,
                 },
                 structure_enhance_property_params.StructureEnhancePropertyParams,
             ),
@@ -451,10 +427,7 @@ class AsyncStructureResource(AsyncAPIResource):
         entity_id: str,
         relationship_name: str,
         allow_extra_entities: bool | Omit = omit,
-        banned_domains: SequenceNotStr[str] | Omit = omit,
         node_id: Optional[str] | Omit = omit,
-        starting_searches: SequenceNotStr[str] | Omit = omit,
-        starting_urls: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -482,10 +455,7 @@ class AsyncStructureResource(AsyncAPIResource):
                     "entity_id": entity_id,
                     "relationship_name": relationship_name,
                     "allow_extra_entities": allow_extra_entities,
-                    "banned_domains": banned_domains,
                     "node_id": node_id,
-                    "starting_searches": starting_searches,
-                    "starting_urls": starting_urls,
                 },
                 structure_enhance_relationship_params.StructureEnhanceRelationshipParams,
             ),
@@ -502,9 +472,6 @@ class AsyncStructureResource(AsyncAPIResource):
         relationship_name: str,
         to_id: str,
         allow_extra_entities: bool | Omit = omit,
-        banned_domains: SequenceNotStr[str] | Omit = omit,
-        starting_searches: SequenceNotStr[str] | Omit = omit,
-        starting_urls: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -533,9 +500,6 @@ class AsyncStructureResource(AsyncAPIResource):
                     "relationship_name": relationship_name,
                     "to_id": to_id,
                     "allow_extra_entities": allow_extra_entities,
-                    "banned_domains": banned_domains,
-                    "starting_searches": starting_searches,
-                    "starting_urls": starting_urls,
                 },
                 structure_find_relationship_params.StructureFindRelationshipParams,
             ),
@@ -664,12 +628,13 @@ class AsyncStructureResource(AsyncAPIResource):
         self,
         *,
         dataset: str,
-        source: structure_run_async_params.Source,
         instructions: Optional[str] | Omit = omit,
         model: Optional[str] | Omit = omit,
         node_id: Optional[str] | Omit = omit,
         save_requirement: Iterable[SaveRequirementParam] | Omit = omit,
         seeded_entity: KnowledgeGraphParam | Omit = omit,
+        source: Optional[structure_run_async_params.Source] | Omit = omit,
+        use_proxy: Optional[bool] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -681,8 +646,6 @@ class AsyncStructureResource(AsyncAPIResource):
         Returns a token that can be waited on until the request is finished.
 
         Args:
-          source: Only use the input text to derive new fields. Useful for large text inputs.
-
           seeded_entity: Knowledge graph info structured to deserialize and display in the same format
               that the LLM outputs. Also the first representation of an LLM output in the
               pipeline from raw tool output to being merged into a DB
@@ -701,12 +664,13 @@ class AsyncStructureResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "dataset": dataset,
-                    "source": source,
                     "instructions": instructions,
                     "model": model,
                     "node_id": node_id,
                     "save_requirement": save_requirement,
                     "seeded_entity": seeded_entity,
+                    "source": source,
+                    "use_proxy": use_proxy,
                 },
                 structure_run_async_params.StructureRunAsyncParams,
             ),
