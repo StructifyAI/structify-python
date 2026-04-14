@@ -30,7 +30,6 @@ from .._response import (
 from ..types.table_param import Property
 from ..lib.cost_confirmation import request_cost_confirmation_if_needed
 from ..types.save_requirement_param import RequiredEntity, RequiredProperty, RequiredRelationship
-from ..types.dataset_descriptor_param import DatasetDescriptorParam
 from ..types.structure_run_async_params import Source, SourceScrape, SourceScrapeScrape
 
 __all__ = ["PolarsResource"]
