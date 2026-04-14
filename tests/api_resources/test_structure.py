@@ -34,10 +34,7 @@ class TestStructure:
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             property_name="property_name",
             allow_extra_entities=True,
-            banned_domains=["string"],
             node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            starting_searches=["string"],
-            starting_urls=["string"],
         )
         assert_matches_type(str, structure, path=["response"])
 
@@ -81,10 +78,7 @@ class TestStructure:
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             relationship_name="relationship_name",
             allow_extra_entities=True,
-            banned_domains=["string"],
             node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            starting_searches=["string"],
-            starting_urls=["string"],
         )
         assert_matches_type(str, structure, path=["response"])
 
@@ -130,9 +124,6 @@ class TestStructure:
             relationship_name="relationship_name",
             to_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             allow_extra_entities=True,
-            banned_domains=["string"],
-            starting_searches=["string"],
-            starting_urls=["string"],
         )
         assert_matches_type(str, structure, path=["response"])
 
@@ -286,7 +277,6 @@ class TestStructure:
     def test_method_run_async(self, client: Structify) -> None:
         structure = client.structure.run_async(
             dataset="dataset",
-            source={"pdf": {"path": "path"}},
         )
         assert_matches_type(str, structure, path=["response"])
 
@@ -295,15 +285,24 @@ class TestStructure:
         structure = client.structure.run_async(
             dataset="dataset",
             source={
-                "pdf": {
-                    "path": "path",
-                    "page": 0,
+                "scrape": {
+                    "url_column": "website",
                 }
             },
             instructions="instructions",
             model="model",
+            use_proxy=True,
             node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            save_requirement=[{"relationship_name": "relationship_name"}],
+            save_requirement=[
+                {
+                    "seeded_entity_id": 0,
+                    "entity_id": "entity_id",
+                },
+                {
+                    "table_name": "Company",
+                    "property_names": ["description"],
+                },
+            ],
             seeded_entity={
                 "entities": [
                     {
@@ -328,7 +327,7 @@ class TestStructure:
     def test_raw_response_run_async(self, client: Structify) -> None:
         response = client.structure.with_raw_response.run_async(
             dataset="dataset",
-            source={"pdf": {"path": "path"}},
+            source="Web",
         )
 
         assert response.is_closed is True
@@ -340,7 +339,7 @@ class TestStructure:
     def test_streaming_response_run_async(self, client: Structify) -> None:
         with client.structure.with_streaming_response.run_async(
             dataset="dataset",
-            source={"pdf": {"path": "path"}},
+            source="Web",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -370,10 +369,7 @@ class TestAsyncStructure:
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             property_name="property_name",
             allow_extra_entities=True,
-            banned_domains=["string"],
             node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            starting_searches=["string"],
-            starting_urls=["string"],
         )
         assert_matches_type(str, structure, path=["response"])
 
@@ -417,10 +413,7 @@ class TestAsyncStructure:
             entity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             relationship_name="relationship_name",
             allow_extra_entities=True,
-            banned_domains=["string"],
             node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            starting_searches=["string"],
-            starting_urls=["string"],
         )
         assert_matches_type(str, structure, path=["response"])
 
@@ -466,9 +459,6 @@ class TestAsyncStructure:
             relationship_name="relationship_name",
             to_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             allow_extra_entities=True,
-            banned_domains=["string"],
-            starting_searches=["string"],
-            starting_urls=["string"],
         )
         assert_matches_type(str, structure, path=["response"])
 
@@ -622,7 +612,6 @@ class TestAsyncStructure:
     async def test_method_run_async(self, async_client: AsyncStructify) -> None:
         structure = await async_client.structure.run_async(
             dataset="dataset",
-            source={"pdf": {"path": "path"}},
         )
         assert_matches_type(str, structure, path=["response"])
 
@@ -631,15 +620,24 @@ class TestAsyncStructure:
         structure = await async_client.structure.run_async(
             dataset="dataset",
             source={
-                "pdf": {
-                    "path": "path",
-                    "page": 0,
+                "scrape": {
+                    "url_column": "website",
                 }
             },
             instructions="instructions",
             model="model",
+            use_proxy=True,
             node_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            save_requirement=[{"relationship_name": "relationship_name"}],
+            save_requirement=[
+                {
+                    "seeded_entity_id": 0,
+                    "entity_id": "entity_id",
+                },
+                {
+                    "table_name": "Company",
+                    "property_names": ["description"],
+                },
+            ],
             seeded_entity={
                 "entities": [
                     {
@@ -664,7 +662,7 @@ class TestAsyncStructure:
     async def test_raw_response_run_async(self, async_client: AsyncStructify) -> None:
         response = await async_client.structure.with_raw_response.run_async(
             dataset="dataset",
-            source={"pdf": {"path": "path"}},
+            source="Web",
         )
 
         assert response.is_closed is True
@@ -676,7 +674,7 @@ class TestAsyncStructure:
     async def test_streaming_response_run_async(self, async_client: AsyncStructify) -> None:
         async with async_client.structure.with_streaming_response.run_async(
             dataset="dataset",
-            source={"pdf": {"path": "path"}},
+            source="Web",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

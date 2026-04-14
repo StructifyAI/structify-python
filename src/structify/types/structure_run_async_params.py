@@ -5,23 +5,29 @@ from __future__ import annotations
 from typing import Union, Iterable, Optional
 from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
-from .._types import SequenceNotStr
 from .._utils import PropertyInfo
 from .knowledge_graph_param import KnowledgeGraphParam
 from .save_requirement_param import SaveRequirementParam
 
-__all__ = ["StructureRunAsyncParams", "Source", "SourcePdf", "SourcePdfPdf", "SourceWeb", "SourceWebWeb"]
+__all__ = [
+    "StructureRunAsyncParams",
+    "Source",
+    "SourceScrape",
+    "SourceScrapeScrape",
+]
 
 
 class StructureRunAsyncParams(TypedDict, total=False):
     dataset: Required[str]
 
-    source: Required[Source]
-    """Only use the input text to derive new fields. Useful for large text inputs."""
+    source: Source
+    """Optional source to use for the run. Omit for no-resources mode."""
 
     instructions: Optional[str]
 
     model: Optional[str]
+
+    use_proxy: Optional[bool]
 
     node_id: Optional[str]
 
@@ -35,29 +41,12 @@ class StructureRunAsyncParams(TypedDict, total=False):
     """
 
 
-class SourcePdfPdf(TypedDict, total=False):
-    """Ingest all pages of a PDF and process them independently."""
-
-    path: Required[str]
-
-    page: Optional[int]
+class SourceScrapeScrape(TypedDict, total=False):
+    url_column: Required[str]
 
 
-class SourcePdf(TypedDict, total=False):
-    pdf: Required[Annotated[SourcePdfPdf, PropertyInfo(alias="PDF")]]
-    """Ingest all pages of a PDF and process them independently."""
+class SourceScrape(TypedDict, total=False):
+    scrape: Required[Annotated[SourceScrapeScrape, PropertyInfo(alias="Scrape")]]
 
 
-class SourceWebWeb(TypedDict, total=False):
-    banned_domains: SequenceNotStr[str]
-
-    starting_searches: SequenceNotStr[str]
-
-    starting_urls: SequenceNotStr[str]
-
-
-class SourceWeb(TypedDict, total=False):
-    web: Required[Annotated[SourceWebWeb, PropertyInfo(alias="Web")]]
-
-
-Source: TypeAlias = Union[SourcePdf, SourceWeb, Literal["NoResources"]]
+Source: TypeAlias = Union[Literal["Web"], SourceScrape]
