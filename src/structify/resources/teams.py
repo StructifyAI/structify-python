@@ -112,7 +112,6 @@ class TeamsResource(SyncAPIResource):
         self,
         team_id: str,
         *,
-        daytona_credentials: Optional[team_update_params.DaytonaCredentials] | Omit = omit,
         description: Optional[str] | Omit = omit,
         name: Optional[str] | Omit = omit,
         sandbox_provider: Optional[Literal["modal", "daytona"]] | Omit = omit,
@@ -147,7 +146,6 @@ class TeamsResource(SyncAPIResource):
             path_template("/team/{team_id}", team_id=team_id),
             body=maybe_transform(
                 {
-                    "daytona_credentials": daytona_credentials,
                     "description": description,
                     "name": name,
                     "sandbox_provider": sandbox_provider,
@@ -675,7 +673,6 @@ class AsyncTeamsResource(AsyncAPIResource):
         self,
         team_id: str,
         *,
-        daytona_credentials: Optional[team_update_params.DaytonaCredentials] | Omit = omit,
         description: Optional[str] | Omit = omit,
         name: Optional[str] | Omit = omit,
         sandbox_provider: Optional[Literal["modal", "daytona"]] | Omit = omit,
@@ -710,7 +707,6 @@ class AsyncTeamsResource(AsyncAPIResource):
             path_template("/team/{team_id}", team_id=team_id),
             body=await async_maybe_transform(
                 {
-                    "daytona_credentials": daytona_credentials,
                     "description": description,
                     "name": name,
                     "sandbox_provider": sandbox_provider,

@@ -5,13 +5,7 @@ from datetime import datetime
 
 from .._models import BaseModel
 
-__all__ = ["Team", "DaytonaCredentials", "WorkflowBucket"]
-
-
-class DaytonaCredentials(BaseModel):
-    api_key: Optional[str] = None
-
-    api_url: Optional[str] = None
+__all__ = ["Team", "WorkflowBucket"]
 
 
 class WorkflowBucket(BaseModel):
@@ -27,13 +21,11 @@ class Team(BaseModel):
 
     name: str
 
+    sandbox_provider: str
+
     updated_at: datetime
 
-    daytona_credentials: Optional[DaytonaCredentials] = None
-
     description: Optional[str] = None
-
-    sandbox_provider: Optional[str] = None
 
     seats_override: Optional[int] = None
 
