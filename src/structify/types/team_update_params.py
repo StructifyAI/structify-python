@@ -5,12 +5,10 @@ from __future__ import annotations
 from typing import Optional
 from typing_extensions import Literal, Required, TypedDict
 
-__all__ = ["TeamUpdateParams", "DaytonaCredentials", "WorkflowBucket"]
+__all__ = ["TeamUpdateParams", "WorkflowBucket"]
 
 
 class TeamUpdateParams(TypedDict, total=False):
-    daytona_credentials: Optional[DaytonaCredentials]
-
     description: Optional[str]
 
     name: Optional[str]
@@ -32,12 +30,6 @@ class TeamUpdateParams(TypedDict, total=False):
     teams_tenant_id: Optional[str]
 
     workflow_bucket: Optional[WorkflowBucket]
-
-
-class DaytonaCredentials(TypedDict, total=False):
-    api_key: Optional[str]
-
-    api_url: Optional[str]
 
 
 class WorkflowBucket(TypedDict, total=False):
