@@ -39,9 +39,17 @@ class TimelineMessage(BaseModel):
 
     type: Literal["Message"]
 
+    cache_creation_tokens: Optional[int] = None
+
+    cache_read_tokens: Optional[int] = None
+
     content_proto: Optional[object] = None
 
     git_hash: Optional[str] = None
+
+    input_tokens: Optional[int] = None
+
+    output_tokens: Optional[int] = None
 
     previous_message_id: Optional[str] = None
 
