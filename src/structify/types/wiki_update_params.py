@@ -18,3 +18,5 @@ class WikiUpdateParams(TypedDict, total=False):
     chat_session_id: Optional[str]
 
     title: Optional[str]
+
+    usage_guidance: Optional[str]

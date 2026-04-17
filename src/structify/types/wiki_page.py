@@ -31,3 +31,5 @@ class WikiPage(BaseModel):
     approved_by: Optional[str] = None
 
     chat_session_id: Optional[str] = None
+
+    usage_guidance: Optional[str] = None

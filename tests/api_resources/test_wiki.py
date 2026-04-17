@@ -35,6 +35,7 @@ class TestWiki:
             slug="slug",
             title="title",
             chat_session_id="chat_session_id",
+            usage_guidance="usage_guidance",
         )
         assert_matches_type(WikiPage, wiki, path=["response"])
 
@@ -96,6 +97,7 @@ class TestWiki:
             base_version=0,
             chat_session_id="chat_session_id",
             title="title",
+            usage_guidance="usage_guidance",
         )
         assert_matches_type(WikiPage, wiki, path=["response"])
 
@@ -301,6 +303,7 @@ class TestAsyncWiki:
             slug="slug",
             title="title",
             chat_session_id="chat_session_id",
+            usage_guidance="usage_guidance",
         )
         assert_matches_type(WikiPage, wiki, path=["response"])
 
@@ -362,6 +365,7 @@ class TestAsyncWiki:
             base_version=0,
             chat_session_id="chat_session_id",
             title="title",
+            usage_guidance="usage_guidance",
         )
         assert_matches_type(WikiPage, wiki, path=["response"])
 
