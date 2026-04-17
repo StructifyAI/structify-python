@@ -33,6 +33,8 @@ __all__ = [
     "DecodingParamsParameterThinking",
     "DecodingParamsParameterVerbosity",
     "DecodingParamsParameterReasoningEffort",
+    "DecodingParamsParameterNativeTools",
+    "DecodingParamsParameterNativeToolsNativeTool",
     "Metadata",
     "MetadataFormatterSpecific",
     "MetadataFormatterSpecificImageMeta",
@@ -118,6 +120,21 @@ class DecodingParamsParameterReasoningEffort(TypedDict, total=False):
     ]
 
 
+class DecodingParamsParameterNativeToolsNativeTool(TypedDict, total=False):
+    description: Required[str]
+
+    name: Required[str]
+
+    parameters_schema: Required[Dict[str, object]]
+
+
+class DecodingParamsParameterNativeTools(TypedDict, total=False):
+    native_tools: Required[
+        Annotated[Iterable[DecodingParamsParameterNativeToolsNativeTool], PropertyInfo(alias="NativeTools")]
+    ]
+    """Native OpenAI-style tool definitions sent directly to the LLM."""
+
+
 DecodingParamsParameter: TypeAlias = Union[
     DecodingParamsParameterMaxTokens,
     DecodingParamsParameterMaxCompletionTokens,
@@ -136,6 +153,7 @@ DecodingParamsParameter: TypeAlias = Union[
     DecodingParamsParameterThinking,
     DecodingParamsParameterVerbosity,
     DecodingParamsParameterReasoningEffort,
+    DecodingParamsParameterNativeTools,
 ]
 
 
