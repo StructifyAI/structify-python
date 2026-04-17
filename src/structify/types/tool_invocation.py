@@ -91,7 +91,7 @@ class WebSearch(BaseModel):
 class WebNavigateInput(BaseModel):
     url: str
 
-    output_format: Optional[Literal["Text", "Visual"]] = None
+    output_format: Optional[Literal["text", "visual"]] = None
 
 
 class WebNavigate(BaseModel):
