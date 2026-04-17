@@ -16,3 +16,5 @@ class WikiCreateParams(TypedDict, total=False):
     title: Required[str]
 
     chat_session_id: Optional[str]
+
+    usage_guidance: Optional[str]
