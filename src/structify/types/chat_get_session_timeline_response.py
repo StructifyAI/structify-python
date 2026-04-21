@@ -23,6 +23,8 @@ class TimelineMessageStreamChunk(BaseModel):
 
     content: str
 
+    model: Optional[str] = None
+
 
 class TimelineMessage(BaseModel):
     id: str

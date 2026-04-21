@@ -27,6 +27,8 @@ class MessageStreamChunk(BaseModel):
 
     content: str
 
+    model: Optional[str] = None
+
 
 class Message(BaseModel):
     id: str
