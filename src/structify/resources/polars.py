@@ -14,10 +14,14 @@ from tqdm import tqdm  # type: ignore
 from polars import LazyFrame
 
 from structify import Structify
-from structify.types.entity_param import EntityParam
 from structify.types.property_type_param import PropertyTypeParam
 from structify.types.dataset_create_params import Relationship as CreateRelationshipParam
-from structify.types.knowledge_graph_param import KnowledgeGraphParam
+from structify.types.structure_bulk_enhance_params import (
+    TargetProperties,
+    TargetRelationship,
+    TargetPropertiesProperties,
+    TargetRelationshipRelationship,
+)
 
 from ..types import TableParam
 from .._types import Omit, omit
@@ -29,7 +33,6 @@ from .._response import (
 )
 from ..types.table_param import Property
 from ..lib.cost_confirmation import request_cost_confirmation_if_needed
-from ..types.save_requirement_param import RequiredEntity, RequiredProperty, RequiredRelationship
 from ..types.structure_run_async_params import Source, SourceScrape, SourceScrapeScrape
 
 __all__ = ["PolarsResource"]
@@ -68,21 +71,6 @@ class PolarsResource(SyncAPIResource):
         For more information, see https://www.github.com/StructifyAI/structify-python#with_streaming_response
         """
         return PolarsResourceWithStreamingResponse(self)
-
-    def _add_single_entity(self, dataset_name: str, entity: EntityParam) -> tuple[str, EntityParam]:
-        """Add a single entity to the given dataset and return (entity_id, entity).
-
-        Always seeds with id=0 in the KnowledgeGraph to ensure consistent server-side ID assignment.
-        """
-        kg_param = KnowledgeGraphParam(
-            entities=[EntityParam(type=entity["type"], id=0, properties=entity["properties"])],
-            relationships=[],
-        )
-        entity_ids = self._client.entities.add_batch(
-            dataset=dataset_name,
-            entity_graphs=[kg_param],
-        )
-        return entity_ids[0], entity
 
     def enhance_columns(
         self,
@@ -186,87 +174,34 @@ class PolarsResource(SyncAPIResource):
         expected_schema = properties_to_schema(all_properties)
         expected_schema[STRUCTIFY_JOB_ID_COLUMN] = pl.String
 
-        # Apply Structify enrich on the dataframe
+        property_list = list(new_columns_dict.keys())
+        property_names = _join_and(property_list)
+
         def enhance_batch(batch_df: pl.DataFrame) -> pl.DataFrame:
             if batch_df.is_empty():
                 return pl.DataFrame(schema=expected_schema)
-            # 1. Add all the entities to the structify dataset
-            column_schema = {col["name"]: col["name"] for col in all_properties}
-            if url_column is None:
-                entities = dataframe_to_entities(batch_df, dataframe_name, column_schema)
-            else:
-                batch_df = batch_df.drop_nulls(subset=[url_column]).unique()
-                entities = dataframe_to_entities(batch_df, dataframe_name, column_schema, zero_ids=True)
 
-            # Request cost confirmation before adding entities
-            if not request_cost_confirmation_if_needed(self._client, len(entities), "web"):
+            if url_column is not None:
+                batch_df = batch_df.drop_nulls(subset=[url_column]).unique()
+
+            if not request_cost_confirmation_if_needed(self._client, len(batch_df), "web"):
                 raise Exception(f"User cancelled enhancement of {dataframe_name}")
 
-            # We add individually instead of batched to maintain the mapping between entity and ID (Same as in enhance_relationships)
-            entity_id_to_entity: Dict[str, EntityParam] = {}
+            self._upload_df(batch_df, dataset_name, dataframe_name)
 
-            with ThreadPoolExecutor(max_workers=MAX_PARALLEL_REQUESTS) as executor:
-                add_futures = [executor.submit(self._add_single_entity, dataset_name, entity) for entity in entities]
-                for future in tqdm(
-                    as_completed(add_futures), total=len(add_futures), desc=f"Adding {dataframe_name} entities"
-                ):
-                    entity_id, entity = future.result()
-                    entity_id_to_entity[entity_id] = entity
+            self._client.structure.bulk_enhance(
+                dataset=dataset_name,
+                table_name=dataframe_name,
+                target=TargetProperties(properties=TargetPropertiesProperties(property_names=property_list)),
+                source=run_async_source,
+                instructions=instructions,
+                use_proxy=run_async_use_proxy,
+                node_id=node_id,
+            )
 
-            # 2. Enhance the entities
-            def enhance_entity_property(
-                structify_entity_id: str, entity_param: EntityParam, col_names: List[str]
-            ) -> None:
-                self._client.structure.run_async(
-                    dataset=dataset_name,
-                    source=run_async_source,
-                    instructions=instructions,
-                    use_proxy=run_async_use_proxy,
-                    node_id=node_id,
-                    save_requirement=[
-                        RequiredEntity(
-                            seeded_entity_id=int(0),
-                            entity_id=structify_entity_id,
-                        ),
-                        RequiredProperty(
-                            property_names=col_names,
-                            table_name=dataframe_name,
-                        ),
-                    ],
-                    seeded_entity=KnowledgeGraphParam(
-                        entities=[
-                            EntityParam(
-                                id=int(0),
-                                properties=entity_param["properties"],
-                                type=dataframe_name,
-                            ),
-                        ],
-                        relationships=[],
-                    ),
-                )
-
-            property_list = list(new_columns_dict.keys())
-            if len(property_list) == 1:
-                property_names = property_list[0]
-            elif len(property_list) == 2:
-                property_names = f"{property_list[0]} and {property_list[1]}"
-            else:
-                property_names = f"{', '.join(property_list[:-1])}, and {property_list[-1]}"
-            with ThreadPoolExecutor(max_workers=MAX_PARALLEL_REQUESTS) as executor:
-                futures: List[Future[None]] = [
-                    executor.submit(enhance_entity_property, entity_id, entity_param, property_list)
-                    for entity_id, entity_param in entity_id_to_entity.items()
-                ]
-                for future in tqdm(
-                    as_completed(futures), total=len(futures), desc=f"Preparing enrichments for {property_names}"
-                ):
-                    future.result()  # Wait for completion
-            # 3. Wait for all jobs to complete
             title = f"Enriching {property_names} for {dataframe_name}"
             self._client.jobs.wait_for_jobs(dataset_name=dataset_name, title=title, node_id=node_id)
-            # 4. Collect the results with job_ids
             results = _collect_entities_with_job_ids(self._client, dataset_name, dataframe_name)
-            # 5. Return the results
             return pl.DataFrame(results, schema=expected_schema)
 
         return df.map_batches(enhance_batch, schema=expected_schema, no_optimizations=True)
@@ -372,69 +307,26 @@ class PolarsResource(SyncAPIResource):
                 ephemeral=True,
             )
 
-            # Add source entities to dataset
-            column_schema = {col_name: col_name for col_name in input_schema.names()}
-            if url_column is None:
-                entities = dataframe_to_entities(batch_df, source_table_name, column_schema)
-            else:
-                unique_batch_df = batch_df.drop_nulls(subset=[url_column]).unique()
-                entities = dataframe_to_entities(unique_batch_df, source_table_name, column_schema, zero_ids=True)
+            if url_column is not None:
+                batch_df = batch_df.drop_nulls(subset=[url_column]).unique()
 
-            # Request cost confirmation before adding entities
-            if not request_cost_confirmation_if_needed(self._client, len(entities), "web"):
+            if not request_cost_confirmation_if_needed(self._client, len(batch_df), "web"):
                 raise Exception(f"User cancelled enhancement of {source_table_name}")
 
-            # Add individually to maintain entity-id-to-entity mapping
-            entity_id_to_entity: Dict[str, EntityParam] = {}
+            self._upload_df(batch_df, dataset_name, source_table_name)
 
-            with ThreadPoolExecutor(max_workers=MAX_PARALLEL_REQUESTS) as executor:
-                add_futures = [executor.submit(self._add_single_entity, dataset_name, entity) for entity in entities]
-                for future in tqdm(
-                    as_completed(add_futures), total=len(add_futures), desc=f"Adding {source_table_name} entities"
-                ):
-                    entity_id, entity = future.result()
-                    entity_id_to_entity[entity_id] = entity
+            self._client.structure.bulk_enhance(
+                dataset=dataset_name,
+                table_name=source_table_name,
+                target=TargetRelationship(
+                    relationship=TargetRelationshipRelationship(relationship_name=relationship_name)
+                ),
+                source=run_async_source,
+                instructions=instructions,
+                use_proxy=run_async_use_proxy,
+                node_id=node_id,
+            )
 
-            # Enhance relationships for each entity using run_async
-            def enhance_relationship_for_entity(entity_id: str, entity_param: EntityParam) -> None:
-                self._client.structure.run_async(
-                    dataset=dataset_name,
-                    source=run_async_source,
-                    instructions=instructions,
-                    use_proxy=run_async_use_proxy,
-                    node_id=node_id,
-                    save_requirement=[
-                        RequiredEntity(
-                            seeded_entity_id=int(0),
-                            entity_id=entity_id,
-                        ),
-                        RequiredRelationship(
-                            relationship_name=relationship_name,
-                        ),
-                    ],
-                    seeded_entity=KnowledgeGraphParam(
-                        entities=[
-                            EntityParam(
-                                id=int(0),
-                                properties=entity_param["properties"],
-                                type=source_table_name,
-                            ),
-                        ],
-                        relationships=[],
-                    ),
-                )
-
-            with ThreadPoolExecutor(max_workers=MAX_PARALLEL_REQUESTS) as executor:
-                futures = [
-                    executor.submit(enhance_relationship_for_entity, entity_id, entity_param)
-                    for entity_id, entity_param in entity_id_to_entity.items()
-                ]
-                for future in tqdm(
-                    as_completed(futures), total=len(futures), desc=f"Preparing {relationship_name} enrichments"
-                ):
-                    future.result()
-
-            # Wait for all relationship enhancement jobs to complete
             title = f"Finding {relationship_name} for {source_table_name}"
             self._client.jobs.wait_for_jobs(dataset_name=dataset_name, title=title, node_id=node_id)
 
@@ -1074,55 +966,12 @@ def merge_column_properties(
     return all_properties
 
 
-def chunk_entities_for_parallel_add(
-    entities: list[EntityParam], batch_size: int = 100
-) -> list[list[KnowledgeGraphParam]]:
-    """
-    Chunk entities into batches to avoid JSON payload size issues.
-    Each entity gets its own KnowledgeGraph, but we group them into batches for API calls.
-
-    Args:
-        entities: List of entities to chunk
-        batch_size: Maximum number of KnowledgeGraphs per batch (default: 100)
-
-    Returns:
-        List of batches, where each batch is a list of KnowledgeGraphParam objects
-    """
-    # Handle empty input
-    if not entities:
-        return []
-
-    # Convert each entity to its own KnowledgeGraph
-    knowledge_graphs: list[KnowledgeGraphParam] = [
-        {"entities": [EntityParam(type=entity["type"], id=0, properties=entity["properties"])], "relationships": []}
-        for entity in entities
-    ]
-
-    # Chunk the KnowledgeGraphs into batches
-    batches: list[list[KnowledgeGraphParam]] = []
-    for i in range(0, len(knowledge_graphs), batch_size):
-        batch = knowledge_graphs[i : i + batch_size]
-        batches.append(batch)
-
-    return batches
-
-
-def dataframe_to_entities(
-    batch_df: pl.DataFrame, entity_type: str, column_schema: Dict[str, str], zero_ids: bool = False
-) -> list[EntityParam]:
-    """Convert DataFrame rows to EntityParam objects, filtering out null values."""
-    return [
-        EntityParam(
-            type=entity_type,
-            id=i if not zero_ids else 0,
-            properties={
-                prop_name: str(row[col_name])
-                for col_name, prop_name in column_schema.items()
-                if row[col_name] is not None
-            },
-        )
-        for i, row in enumerate(batch_df.to_dicts())
-    ]
+def _join_and(names: List[str]) -> str:
+    if len(names) == 1:
+        return names[0]
+    if len(names) == 2:
+        return f"{names[0]} and {names[1]}"
+    return f"{', '.join(names[:-1])}, and {names[-1]}"
 
 
 def dtype_to_structify_type(dtype: pl.DataType) -> PropertyTypeParam:
