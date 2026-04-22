@@ -16,6 +16,7 @@ from polars import LazyFrame
 from structify import Structify
 from structify.types.property_type_param import PropertyTypeParam
 from structify.types.dataset_create_params import Relationship as CreateRelationshipParam
+from structify.types.structure_bulk_enhance_params import TargetProperties, TargetRelationship
 
 from ..types import TableParam
 from .._types import Omit, omit
@@ -186,7 +187,7 @@ class PolarsResource(SyncAPIResource):
             self._client.structure.bulk_enhance(
                 dataset=dataset_name,
                 table_name=dataframe_name,
-                target={"Properties": {"property_names": property_list}},
+                target=TargetProperties(properties=property_list),
                 source=run_async_source,
                 instructions=instructions,
                 use_proxy=run_async_use_proxy,
@@ -312,7 +313,7 @@ class PolarsResource(SyncAPIResource):
             self._client.structure.bulk_enhance(
                 dataset=dataset_name,
                 table_name=source_table_name,
-                target={"Relationship": {"relationship_name": relationship_name}},
+                target=TargetRelationship(relationship_name=relationship_name),
                 source=run_async_source,
                 instructions=instructions,
                 use_proxy=run_async_use_proxy,
