@@ -184,7 +184,7 @@ class PolarsResource(SyncAPIResource):
             self._upload_df(batch_df, dataset_name, dataframe_name)
 
             self._client.structure.bulk_enhance(
-                dataset_name=dataset_name,
+                dataset=dataset_name,
                 table_name=dataframe_name,
                 target={"Properties": {"property_names": property_list}},
                 source=run_async_source,
@@ -310,7 +310,7 @@ class PolarsResource(SyncAPIResource):
             self._upload_df(batch_df, dataset_name, source_table_name)
 
             self._client.structure.bulk_enhance(
-                dataset_name=dataset_name,
+                dataset=dataset_name,
                 table_name=source_table_name,
                 target={"Relationship": {"relationship_name": relationship_name}},
                 source=run_async_source,
@@ -956,16 +956,6 @@ def merge_column_properties(
             all_properties.append(new_prop)
 
     return all_properties
-
-
-def _source_to_json(source: Source | Omit) -> Any | None:
-    """Serialize a run_async Source to the Rust RunAsyncSource wire format."""
-    if isinstance(source, Omit):
-        return None
-    if source == "Web":
-        return "Web"
-    # SourceScrape TypedDict — has field `scrape` aliased to `Scrape` on the wire.
-    return {"Scrape": {"url_column": source["scrape"]["url_column"]}}
 
 
 def _join_and(names: List[str]) -> str:
