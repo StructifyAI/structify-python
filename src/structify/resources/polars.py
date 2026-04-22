@@ -18,8 +18,8 @@ from structify.types.property_type_param import PropertyTypeParam
 from structify.types.dataset_create_params import Relationship as CreateRelationshipParam
 from structify.types.structure_bulk_enhance_params import (
     TargetProperties,
-    TargetPropertiesProperties,
     TargetRelationship,
+    TargetPropertiesProperties,
     TargetRelationshipRelationship,
 )
 
