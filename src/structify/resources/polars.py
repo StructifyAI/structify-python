@@ -66,42 +66,6 @@ class PolarsResource(SyncAPIResource):
         """
         return PolarsResourceWithStreamingResponse(self)
 
-    def _bulk_enhance(
-        self,
-        *,
-        dataset_name: str,
-        table_name: str,
-        target: Dict[str, Any],
-        source: Source | Omit,
-        instructions: Optional[str],
-        use_proxy: bool | Omit,
-        node_id: Optional[str],
-        model: Optional[str] = None,
-    ) -> None:
-        body: Dict[str, Any] = {
-            "dataset": dataset_name,
-            "table_name": table_name,
-            "target": target,
-        }
-        source_json = _source_to_json(source)
-        if source_json is not None:
-            body["source"] = source_json
-        if instructions is not None:
-            body["instructions"] = instructions
-        if model is not None:
-            body["model"] = model
-        if not isinstance(use_proxy, Omit):
-            body["use_proxy"] = use_proxy
-        if node_id is not None:
-            body["node_id"] = node_id
-
-        response = self._client._client.post(
-            "/structure/bulk_enhance",
-            json=body,
-            headers=self._client.auth_headers,
-        )
-        response.raise_for_status()
-
     def enhance_columns(
         self,
         *,
@@ -219,7 +183,7 @@ class PolarsResource(SyncAPIResource):
 
             self._upload_df(batch_df, dataset_name, dataframe_name)
 
-            self._bulk_enhance(
+            self._client.structure.bulk_enhance(
                 dataset_name=dataset_name,
                 table_name=dataframe_name,
                 target={"Properties": {"property_names": property_list}},
@@ -345,7 +309,7 @@ class PolarsResource(SyncAPIResource):
 
             self._upload_df(batch_df, dataset_name, source_table_name)
 
-            self._bulk_enhance(
+            self._client.structure.bulk_enhance(
                 dataset_name=dataset_name,
                 table_name=source_table_name,
                 target={"Relationship": {"relationship_name": relationship_name}},
