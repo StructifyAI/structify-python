@@ -130,11 +130,11 @@ class Save(BaseModel):
 
 
 class SaveEntitiesInput(BaseModel):
-    entities: List[Dict[str, Dict[str, object]]]
-
     reason: str
 
     sources: List[str]
+
+    entities: Optional[List[Dict[str, Dict[str, object]]]] = None
 
 
 class SaveEntities(BaseModel):
