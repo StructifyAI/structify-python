@@ -1024,6 +1024,7 @@ Types:
 from structify.types import (
     ChatPrompt,
     SaveRequirement,
+    StructureBulkEnhanceResponse,
     StructureEnhancePropertyResponse,
     StructureEnhanceRelationshipResponse,
     StructureFindRelationshipResponse,
@@ -1036,6 +1037,7 @@ from structify.types import (
 
 Methods:
 
+- <code title="post /structure/bulk_enhance">client.structure.<a href="./src/structify/resources/structure.py">bulk_enhance</a>(\*\*<a href="src/structify/types/structure_bulk_enhance_params.py">params</a>) -> <a href="./src/structify/types/structure_bulk_enhance_response.py">StructureBulkEnhanceResponse</a></code>
 - <code title="post /structure/enhance_property">client.structure.<a href="./src/structify/resources/structure.py">enhance_property</a>(\*\*<a href="src/structify/types/structure_enhance_property_params.py">params</a>) -> str</code>
 - <code title="post /structure/enhance_relationship">client.structure.<a href="./src/structify/resources/structure.py">enhance_relationship</a>(\*\*<a href="src/structify/types/structure_enhance_relationship_params.py">params</a>) -> str</code>
 - <code title="post /structure/find_relationship">client.structure.<a href="./src/structify/resources/structure.py">find_relationship</a>(\*\*<a href="src/structify/types/structure_find_relationship_params.py">params</a>) -> str</code>

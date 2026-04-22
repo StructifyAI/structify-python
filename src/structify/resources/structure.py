@@ -10,6 +10,7 @@ from ..types import (
     structure_pdf_params,
     structure_run_async_params,
     structure_job_status_params,
+    structure_bulk_enhance_params,
     structure_enhance_property_params,
     structure_find_relationship_params,
     structure_enhance_relationship_params,
@@ -29,6 +30,7 @@ from ..types.knowledge_graph_param import KnowledgeGraphParam
 from ..types.save_requirement_param import SaveRequirementParam
 from ..types.structure_pdf_response import StructurePdfResponse
 from ..types.structure_job_status_response import StructureJobStatusResponse
+from ..types.structure_bulk_enhance_response import StructureBulkEnhanceResponse
 
 __all__ = ["StructureResource", "AsyncStructureResource"]
 
@@ -52,6 +54,60 @@ class StructureResource(SyncAPIResource):
         For more information, see https://www.github.com/StructifyAI/structify-python#with_streaming_response
         """
         return StructureResourceWithStreamingResponse(self)
+
+    def bulk_enhance(
+        self,
+        *,
+        dataset: str,
+        table_name: str,
+        target: structure_bulk_enhance_params.Target,
+        instructions: Optional[str] | Omit = omit,
+        model: Optional[str] | Omit = omit,
+        node_id: Optional[str] | Omit = omit,
+        source: Optional[structure_bulk_enhance_params.Source] | Omit = omit,
+        use_proxy: Optional[bool] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> StructureBulkEnhanceResponse:
+        """
+        For each entity in `table_name`, queues a job that structures the given source
+        into either new property values (when `target` is `Properties`) or a new
+        relationship (when `target` is `Relationship`), seeded with that entity. Returns
+        the list of queued job ids, which the caller can wait on.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/structure/bulk_enhance",
+            body=maybe_transform(
+                {
+                    "dataset": dataset,
+                    "table_name": table_name,
+                    "target": target,
+                    "instructions": instructions,
+                    "model": model,
+                    "node_id": node_id,
+                    "source": source,
+                    "use_proxy": use_proxy,
+                },
+                structure_bulk_enhance_params.StructureBulkEnhanceParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=StructureBulkEnhanceResponse,
+        )
 
     def enhance_property(
         self,
@@ -377,6 +433,60 @@ class AsyncStructureResource(AsyncAPIResource):
         """
         return AsyncStructureResourceWithStreamingResponse(self)
 
+    async def bulk_enhance(
+        self,
+        *,
+        dataset: str,
+        table_name: str,
+        target: structure_bulk_enhance_params.Target,
+        instructions: Optional[str] | Omit = omit,
+        model: Optional[str] | Omit = omit,
+        node_id: Optional[str] | Omit = omit,
+        source: Optional[structure_bulk_enhance_params.Source] | Omit = omit,
+        use_proxy: Optional[bool] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> StructureBulkEnhanceResponse:
+        """
+        For each entity in `table_name`, queues a job that structures the given source
+        into either new property values (when `target` is `Properties`) or a new
+        relationship (when `target` is `Relationship`), seeded with that entity. Returns
+        the list of queued job ids, which the caller can wait on.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/structure/bulk_enhance",
+            body=await async_maybe_transform(
+                {
+                    "dataset": dataset,
+                    "table_name": table_name,
+                    "target": target,
+                    "instructions": instructions,
+                    "model": model,
+                    "node_id": node_id,
+                    "source": source,
+                    "use_proxy": use_proxy,
+                },
+                structure_bulk_enhance_params.StructureBulkEnhanceParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=StructureBulkEnhanceResponse,
+        )
+
     async def enhance_property(
         self,
         *,
@@ -685,6 +795,9 @@ class StructureResourceWithRawResponse:
     def __init__(self, structure: StructureResource) -> None:
         self._structure = structure
 
+        self.bulk_enhance = to_raw_response_wrapper(
+            structure.bulk_enhance,
+        )
         self.enhance_property = to_raw_response_wrapper(
             structure.enhance_property,
         )
@@ -712,6 +825,9 @@ class AsyncStructureResourceWithRawResponse:
     def __init__(self, structure: AsyncStructureResource) -> None:
         self._structure = structure
 
+        self.bulk_enhance = async_to_raw_response_wrapper(
+            structure.bulk_enhance,
+        )
         self.enhance_property = async_to_raw_response_wrapper(
             structure.enhance_property,
         )
@@ -739,6 +855,9 @@ class StructureResourceWithStreamingResponse:
     def __init__(self, structure: StructureResource) -> None:
         self._structure = structure
 
+        self.bulk_enhance = to_streamed_response_wrapper(
+            structure.bulk_enhance,
+        )
         self.enhance_property = to_streamed_response_wrapper(
             structure.enhance_property,
         )
@@ -766,6 +885,9 @@ class AsyncStructureResourceWithStreamingResponse:
     def __init__(self, structure: AsyncStructureResource) -> None:
         self._structure = structure
 
+        self.bulk_enhance = async_to_streamed_response_wrapper(
+            structure.bulk_enhance,
+        )
         self.enhance_property = async_to_streamed_response_wrapper(
             structure.enhance_property,
         )
