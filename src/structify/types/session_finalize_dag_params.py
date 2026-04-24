@@ -22,3 +22,16 @@ class SessionFinalizeDagParams(TypedDict, total=False):
     A page is the top-level container with title/description Can contain multiple
     dashboards with different datasets
     """
+
+    rerun_from: Optional[str]
+    """Function name of a node to force-rerun.
+
+    That node and any node with it as an ancestor are excluded from cache resolution
+    so they re-execute fresh.
+    """
+
+    use_node_cache: bool
+    """
+    When true, resolve node cache hits against prior workflow sessions and return
+    them in `unchanged_nodes`. When false, every node executes fresh.
+    """

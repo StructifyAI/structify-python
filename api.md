@@ -130,7 +130,6 @@ from structify.types import (
     UpdateVisibilityRequest,
     UpdateVisibilityResponse,
     ChatAddGitCommitResponse,
-    ChatCopyNodeOutputByCodeHashResponse,
     ChatDeleteInputFileResponse,
     ChatGetGitCommitResponse,
     ChatGetPartialChatsResponse,
@@ -151,7 +150,6 @@ Methods:
 - <code title="post /chat/sessions/{chat_id}/admin/issue_found">client.chat.<a href="./src/structify/resources/chat.py">admin_issue_found</a>(chat_id, \*\*<a href="src/structify/types/chat_admin_issue_found_params.py">params</a>) -> <a href="./src/structify/types/admin_issue_found_response.py">AdminIssueFoundResponse</a></code>
 - <code title="post /chat/sessions/{session_id}/compress">client.chat.<a href="./src/structify/resources/chat.py">compress</a>(session_id) -> <a href="./src/structify/types/compress_chat_response.py">CompressChatResponse</a></code>
 - <code title="post /chat/copy">client.chat.<a href="./src/structify/resources/chat.py">copy</a>(\*\*<a href="src/structify/types/chat_copy_params.py">params</a>) -> <a href="./src/structify/types/chat_session_with_messages.py">ChatSessionWithMessages</a></code>
-- <code title="post /chat/sessions/{session_id}/nodes/by_code_hash">client.chat.<a href="./src/structify/resources/chat.py">copy_node_output_by_code_hash</a>(session_id, \*\*<a href="src/structify/types/chat_copy_node_output_by_code_hash_params.py">params</a>) -> <a href="./src/structify/types/chat_copy_node_output_by_code_hash_response.py">ChatCopyNodeOutputByCodeHashResponse</a></code>
 - <code title="post /chat/create_from_files">client.chat.<a href="./src/structify/resources/chat.py">create_chat_from_files</a>(\*\*<a href="src/structify/types/chat_create_chat_from_files_params.py">params</a>) -> <a href="./src/structify/types/chat_session_with_messages.py">ChatSessionWithMessages</a></code>
 - <code title="post /chat/sessions">client.chat.<a href="./src/structify/resources/chat.py">create_session</a>(\*\*<a href="src/structify/types/chat_create_session_params.py">params</a>) -> <a href="./src/structify/types/create_chat_session_response.py">CreateChatSessionResponse</a></code>
 - <code title="post /chat/input-files/delete/{chat_id}">client.chat.<a href="./src/structify/resources/chat.py">delete_input_file</a>(chat_id, \*\*<a href="src/structify/types/chat_delete_input_file_params.py">params</a>) -> <a href="./src/structify/types/chat_delete_input_file_response.py">ChatDeleteInputFileResponse</a></code>

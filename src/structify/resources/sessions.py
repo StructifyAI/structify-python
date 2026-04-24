@@ -195,6 +195,8 @@ class SessionsResource(SyncAPIResource):
         edges: Iterable[EdgeSpecParam],
         nodes: Iterable[NodeSpecParam],
         dashboard_layout: Optional[DashboardParam] | Omit = omit,
+        rerun_from: Optional[str] | Omit = omit,
+        use_node_cache: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -209,6 +211,12 @@ class SessionsResource(SyncAPIResource):
         Args:
           dashboard_layout: A page is the top-level container with title/description Can contain multiple
               dashboards with different datasets
+
+          rerun_from: Function name of a node to force-rerun. That node and any node with it as an
+              ancestor are excluded from cache resolution so they re-execute fresh.
+
+          use_node_cache: When true, resolve node cache hits against prior workflow sessions and return
+              them in `unchanged_nodes`. When false, every node executes fresh.
 
           extra_headers: Send extra headers
 
@@ -227,6 +235,8 @@ class SessionsResource(SyncAPIResource):
                     "edges": edges,
                     "nodes": nodes,
                     "dashboard_layout": dashboard_layout,
+                    "rerun_from": rerun_from,
+                    "use_node_cache": use_node_cache,
                 },
                 session_finalize_dag_params.SessionFinalizeDagParams,
             ),
@@ -936,6 +946,8 @@ class AsyncSessionsResource(AsyncAPIResource):
         edges: Iterable[EdgeSpecParam],
         nodes: Iterable[NodeSpecParam],
         dashboard_layout: Optional[DashboardParam] | Omit = omit,
+        rerun_from: Optional[str] | Omit = omit,
+        use_node_cache: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -950,6 +962,12 @@ class AsyncSessionsResource(AsyncAPIResource):
         Args:
           dashboard_layout: A page is the top-level container with title/description Can contain multiple
               dashboards with different datasets
+
+          rerun_from: Function name of a node to force-rerun. That node and any node with it as an
+              ancestor are excluded from cache resolution so they re-execute fresh.
+
+          use_node_cache: When true, resolve node cache hits against prior workflow sessions and return
+              them in `unchanged_nodes`. When false, every node executes fresh.
 
           extra_headers: Send extra headers
 
@@ -968,6 +986,8 @@ class AsyncSessionsResource(AsyncAPIResource):
                     "edges": edges,
                     "nodes": nodes,
                     "dashboard_layout": dashboard_layout,
+                    "rerun_from": rerun_from,
+                    "use_node_cache": use_node_cache,
                 },
                 session_finalize_dag_params.SessionFinalizeDagParams,
             ),
