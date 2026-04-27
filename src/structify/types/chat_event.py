@@ -31,6 +31,9 @@ __all__ = [
     "ReviewRequest",
     "ReviewRequestReviewRequest",
     "ReviewRequestReviewRequestNodeSummary",
+    "ReviewSummary",
+    "ReviewSummaryReviewSummary",
+    "ReviewSummaryReviewSummaryNodeSummary",
     "AttachedFile",
     "AttachedFileAttachedFile",
     "ConnectorRequest",
@@ -176,6 +179,26 @@ class ReviewRequest(BaseModel):
     review_request: ReviewRequestReviewRequest = FieldInfo(alias="ReviewRequest")
 
 
+class ReviewSummaryReviewSummaryNodeSummary(BaseModel):
+    in_dashboard: bool
+
+    name: str
+
+    data_preview: Optional[str] = None
+
+    image: Optional[object] = None
+
+
+class ReviewSummaryReviewSummary(BaseModel):
+    node_summaries: List[ReviewSummaryReviewSummaryNodeSummary]
+
+    summary: str
+
+
+class ReviewSummary(BaseModel):
+    review_summary: ReviewSummaryReviewSummary = FieldInfo(alias="ReviewSummary")
+
+
 class AttachedFileAttachedFile(BaseModel):
     path: str
 
@@ -220,6 +243,7 @@ ChatEvent: TypeAlias = Union[
     Question,
     InternalError,
     ReviewRequest,
+    ReviewSummary,
     AttachedFile,
     ConnectorRequest,
     UserInterrupted,
