@@ -72,6 +72,40 @@ class PolarsResource(SyncAPIResource):
         """
         return PolarsResourceWithStreamingResponse(self)
 
+    def enrich(
+        self,
+        *,
+        df: LazyFrame,
+        new_columns: Dict[str, Dict[str, Any]],
+        dataframe_name: str,
+        instructions: str,
+        one_to_many: bool = False,
+        use_web: bool = True,
+        url_column: Optional[str] = None,
+    ) -> LazyFrame:
+        """ """
+        if one_to_many:
+            return self.enhance_relationships(
+                lazy_df=df,
+                relationship_name="related",
+                relationship_description="",
+                target_table_name=dataframe_name,
+                target_schema=new_columns,
+                instructions=instructions,
+                use_no_resources=(not use_web),
+                url_column=url_column,
+            )
+        else:
+            return self.enhance_columns(
+                df=df,
+                new_columns=new_columns,
+                dataframe_name=dataframe_name,
+                dataframe_description="",
+                instructions=instructions,
+                use_no_resources=(not use_web),
+                url_column=url_column,
+            )
+
     def enhance_columns(
         self,
         *,
@@ -238,6 +272,12 @@ class PolarsResource(SyncAPIResource):
         """
         input_schema = lazy_df.collect_schema()
 
+        for key in target_schema:
+            if key in input_schema:
+                raise ValueError(
+                    f"New column names cannot match existing ones for one-to-many relationships. Found duplicate {key}"
+                )
+
         if url_column is not None and url_column not in input_schema:
             raise ValueError(f"Column '{url_column}' not found in LazyFrame")
 
@@ -267,110 +307,76 @@ class PolarsResource(SyncAPIResource):
             run_async_source = SourceScrape(scrape=SourceScrapeScrape(url_column=url_column))
         run_async_use_proxy: bool | Omit = use_proxy if url_column is not None else omit
 
-        def enhance_relationship_batch(batch_df: pl.DataFrame) -> pl.DataFrame:
-            if batch_df.is_empty():
-                return pl.DataFrame(schema=output_schema)
+        source_df = lazy_df.collect()
+        if source_df.is_empty():
+            return pl.DataFrame(schema=output_schema)
 
-            # Create dataset for this batch
-            dataset_name = f"enhance_relationships_{relationship_name}_{uuid.uuid4().hex}"
+        # Create dataset for this batch
+        dataset_name = f"enhance_relationships_{relationship_name}_{uuid.uuid4().hex}"
 
-            # Create source table properties from existing schema
-            source_properties = [
-                Property(name=col_name, description="", prop_type=dtype_to_structify_type(dtype))
-                for col_name, dtype in input_schema.items()
-            ]
+        # Create source table properties from existing schema
+        source_properties = [
+            Property(name=col_name, description="", prop_type=dtype_to_structify_type(dtype))
+            for col_name, dtype in input_schema.items()
+        ]
 
-            self._client.datasets.create(
-                name=dataset_name,
-                description="",
-                tables=[
-                    TableParam(
-                        name=source_table_name,
-                        description="Source entities for relationship enhancement",
-                        properties=source_properties,
-                    ),
-                    TableParam(
-                        name=target_table_name,
-                        description=f"Target entities for {relationship_name} relationship",
-                        properties=target_properties,
-                    ),
-                ],
-                relationships=[
-                    CreateRelationshipParam(
-                        name=relationship_name,
-                        description=relationship_description,
-                        source_table=source_table_name,
-                        target_table=target_table_name,
-                        properties=[],
-                    )
-                ],
-                ephemeral=True,
-            )
-
-            if url_column is not None:
-                batch_df = batch_df.drop_nulls(subset=[url_column]).unique()
-
-            if not request_cost_confirmation_if_needed(self._client, len(batch_df), "web"):
-                raise Exception(f"User cancelled enhancement of {source_table_name}")
-
-            self._upload_df(batch_df, dataset_name, source_table_name)
-
-            self._client.structure.bulk_enhance(
-                dataset=dataset_name,
-                table_name=source_table_name,
-                target=TargetRelationship(
-                    relationship=TargetRelationshipRelationship(relationship_name=relationship_name)
+        self._client.datasets.create(
+            name=dataset_name,
+            description="",
+            tables=[
+                TableParam(
+                    name=source_table_name,
+                    description="Source entities for relationship enhancement",
+                    properties=source_properties,
                 ),
-                source=run_async_source,
-                instructions=instructions,
-                use_proxy=run_async_use_proxy,
-                node_id=node_id,
-            )
-
-            title = f"Finding {relationship_name} for {source_table_name}"
-            self._client.jobs.wait_for_jobs(dataset_name=dataset_name, title=title, node_id=node_id)
-
-            response = self._client.datasets.view_tables_with_relationships(
-                dataset=dataset_name, name=source_table_name
-            )
-
-            result_rows: list[dict[str, Any]] = []
-
-            # A little caching to avoid looking up the same entity multiple times
-            source_entity_id_to_entity = {entity.id: entity for entity in response.entities}
-            for relationship in response.relationships:
-                target_entity = next(
-                    (entity for entity in response.connected_entities if entity.id == relationship.to_id), None
+                TableParam(
+                    name=target_table_name,
+                    description=f"Target entities for {relationship_name} relationship",
+                    properties=target_properties,
+                ),
+            ],
+            relationships=[
+                CreateRelationshipParam(
+                    name=relationship_name,
+                    description=relationship_description,
+                    source_table=source_table_name,
+                    target_table=target_table_name,
+                    properties=[],
                 )
-                source_entity = source_entity_id_to_entity.get(relationship.from_id)
+            ],
+            ephemeral=True,
+        )
 
-                if target_entity and source_entity:
-                    result_row: dict[str, Any] = cast(dict[str, Any], source_entity.properties.copy())
-                    for prop_name in target_schema.keys():
-                        eff = (
-                            prop_name if prop_name not in input_schema else f"{prop_name}_{target_table_name}"
-                        )  # If the column already exists in the input schema, we need to suffix it with the target table name
-                        result_row[eff] = target_entity.properties.get(prop_name)
-                    result_row[STRUCTIFY_JOB_ID_COLUMN] = target_entity.job_id
-                    result_rows.append(result_row)
+        if url_column is not None:
+            source_df = source_df.drop_nulls(subset=[url_column]).unique()
 
-            # Handle source rows without relationships
-            source_ids_with_relationships = {rel.from_id for rel in response.relationships}
-            for source_id, source_entity in source_entity_id_to_entity.items():
-                if source_id not in source_ids_with_relationships:
-                    orphan_row: dict[str, Any] = cast(dict[str, Any], source_entity.properties.copy())
-                    for prop_name in target_schema.keys():
-                        eff = prop_name if prop_name not in input_schema else f"{prop_name}_{target_table_name}"
-                        orphan_row[eff] = None
-                    orphan_row[STRUCTIFY_JOB_ID_COLUMN] = None
-                    result_rows.append(orphan_row)
+        if not request_cost_confirmation_if_needed(self._client, len(source_df), "web"):
+            raise Exception(f"User cancelled enhancement of {source_table_name}")
 
-            if not result_rows:
-                return pl.DataFrame(schema=output_schema)
+        self._upload_df(source_df, dataset_name, source_table_name)
 
-            return pl.DataFrame(result_rows, schema=output_schema)
+        job_ids = self._client.structure.bulk_enhance(
+            dataset=dataset_name,
+            table_name=source_table_name,
+            target=TargetRelationship(relationship=TargetRelationshipRelationship(relationship_name=relationship_name)),
+            source=run_async_source,
+            instructions=instructions,
+            use_proxy=run_async_use_proxy,
+            node_id=node_id,
+        )
 
-        return lazy_df.map_batches(enhance_relationship_batch, schema=output_schema, no_optimizations=True)
+        source_df = source_df.with_columns(pl.Series(STRUCTIFY_JOB_ID_COLUMN, job_ids))
+
+        title = f"Finding {relationship_name} for {source_table_name}"
+        self._client.jobs.wait_for_jobs(dataset_name=dataset_name, title=title, node_id=node_id)
+
+        results = _collect_entities_with_job_ids(self._client, dataset_name, target_table_name)
+        target_schema = properties_to_schema(target_properties)
+        target_schema[STRUCTIFY_JOB_ID_COLUMN] = pl.String
+
+        target_df = pl.DataFrame(results, schema=target_schema)
+
+        return source_df.join(target_df, on=STRUCTIFY_JOB_ID_COLUMN, how="left").lazy()
 
     def scrape_columns(
         self,
