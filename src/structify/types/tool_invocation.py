@@ -19,6 +19,9 @@ __all__ = [
     "SaveInput",
     "SaveEntities",
     "SaveEntitiesInput",
+    "SaveEntitiesInputSource",
+    "SaveEntitiesInputSourceURL",
+    "SaveEntitiesInputSourcePdfPage",
     "Exit",
     "ExitInput",
     "APIExecute",
@@ -129,12 +132,34 @@ class Save(BaseModel):
     name: Literal["Save"]
 
 
+class SaveEntitiesInputSourceURL(BaseModel):
+    type: Literal["url"]
+
+    url: str
+
+
+class SaveEntitiesInputSourcePdfPage(BaseModel):
+    page: int
+
+    type: Literal["pdf_page"]
+
+
+SaveEntitiesInputSource: TypeAlias = Annotated[
+    Union[SaveEntitiesInputSourceURL, SaveEntitiesInputSourcePdfPage], PropertyInfo(discriminator="type")
+]
+
+
 class SaveEntitiesInput(BaseModel):
     entities: List[Dict[str, Dict[str, object]]]
 
     reason: str
 
-    sources: List[str]
+    sources: Optional[List[SaveEntitiesInputSource]] = None
+    """
+    Defaulted because text-only agents don't expose a `sources` field on the
+    SaveEntities tool schema at all. Web/PDF agents inject a single-variant array
+    via the scraper's params patch.
+    """
 
 
 class SaveEntities(BaseModel):
