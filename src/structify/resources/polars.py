@@ -78,7 +78,7 @@ class PolarsResource(SyncAPIResource):
         df: LazyFrame,
         new_columns: Dict[str, Dict[str, Any]],
         dataframe_name: str,
-        instructions: str,
+        instructions: Optional[str] = None,
         one_to_many: bool = False,
         use_web: bool = True,
         url_column: Optional[str] = None,
@@ -309,7 +309,7 @@ class PolarsResource(SyncAPIResource):
 
         source_df = lazy_df.collect()
         if source_df.is_empty():
-            return pl.DataFrame(schema=output_schema)
+            return pl.DataFrame(schema=output_schema).lazy()
 
         # Create dataset for this batch
         dataset_name = f"enhance_relationships_{relationship_name}_{uuid.uuid4().hex}"
@@ -371,10 +371,10 @@ class PolarsResource(SyncAPIResource):
         self._client.jobs.wait_for_jobs(dataset_name=dataset_name, title=title, node_id=node_id)
 
         results = _collect_entities_with_job_ids(self._client, dataset_name, target_table_name)
-        target_schema = properties_to_schema(target_properties)
-        target_schema[STRUCTIFY_JOB_ID_COLUMN] = pl.String
+        target_polars_schema = properties_to_schema(target_properties)
+        target_polars_schema[STRUCTIFY_JOB_ID_COLUMN] = pl.String
 
-        target_df = pl.DataFrame(results, schema=target_schema)
+        target_df = pl.DataFrame(results, schema=target_polars_schema)
 
         return source_df.join(target_df, on=STRUCTIFY_JOB_ID_COLUMN, how="left").lazy()
 
