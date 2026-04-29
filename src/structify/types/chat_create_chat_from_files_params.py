@@ -14,6 +14,4 @@ class ChatCreateChatFromFilesParams(TypedDict, total=False):
 
     name: Required[str]
 
-    team_id: Required[str]
-
     project_id: Optional[str]
