@@ -304,7 +304,6 @@ class ChatResource(SyncAPIResource):
         *,
         files: Dict[str, str],
         name: str,
-        team_id: str,
         project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -316,7 +315,7 @@ class ChatResource(SyncAPIResource):
         """committed to its git repo.
 
         Used for copying pipelines across Structify
-        instances.
+        instances. Target team is implied by the caller's session membership.
 
         Args:
           files: Map of relative file path to base64-encoded file bytes.
@@ -335,7 +334,6 @@ class ChatResource(SyncAPIResource):
                 {
                     "files": files,
                     "name": name,
-                    "team_id": team_id,
                     "project_id": project_id,
                 },
                 chat_create_chat_from_files_params.ChatCreateChatFromFilesParams,
@@ -1524,7 +1522,6 @@ class AsyncChatResource(AsyncAPIResource):
         *,
         files: Dict[str, str],
         name: str,
-        team_id: str,
         project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1536,7 +1533,7 @@ class AsyncChatResource(AsyncAPIResource):
         """committed to its git repo.
 
         Used for copying pipelines across Structify
-        instances.
+        instances. Target team is implied by the caller's session membership.
 
         Args:
           files: Map of relative file path to base64-encoded file bytes.
@@ -1555,7 +1552,6 @@ class AsyncChatResource(AsyncAPIResource):
                 {
                     "files": files,
                     "name": name,
-                    "team_id": team_id,
                     "project_id": project_id,
                 },
                 chat_create_chat_from_files_params.ChatCreateChatFromFilesParams,

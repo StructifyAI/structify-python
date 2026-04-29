@@ -279,7 +279,6 @@ class TestChat:
         chat = client.chat.create_chat_from_files(
             files={"foo": "string"},
             name="name",
-            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(ChatSessionWithMessages, chat, path=["response"])
 
@@ -288,7 +287,6 @@ class TestChat:
         chat = client.chat.create_chat_from_files(
             files={"foo": "string"},
             name="name",
-            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(ChatSessionWithMessages, chat, path=["response"])
@@ -298,7 +296,6 @@ class TestChat:
         response = client.chat.with_raw_response.create_chat_from_files(
             files={"foo": "string"},
             name="name",
-            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
         assert response.is_closed is True
@@ -311,7 +308,6 @@ class TestChat:
         with client.chat.with_streaming_response.create_chat_from_files(
             files={"foo": "string"},
             name="name",
-            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -1834,7 +1830,6 @@ class TestAsyncChat:
         chat = await async_client.chat.create_chat_from_files(
             files={"foo": "string"},
             name="name",
-            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(ChatSessionWithMessages, chat, path=["response"])
 
@@ -1843,7 +1838,6 @@ class TestAsyncChat:
         chat = await async_client.chat.create_chat_from_files(
             files={"foo": "string"},
             name="name",
-            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(ChatSessionWithMessages, chat, path=["response"])
@@ -1853,7 +1847,6 @@ class TestAsyncChat:
         response = await async_client.chat.with_raw_response.create_chat_from_files(
             files={"foo": "string"},
             name="name",
-            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
         assert response.is_closed is True
@@ -1866,7 +1859,6 @@ class TestAsyncChat:
         async with async_client.chat.with_streaming_response.create_chat_from_files(
             files={"foo": "string"},
             name="name",
-            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
