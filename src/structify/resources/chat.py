@@ -53,7 +53,6 @@ from ..types.chat_template import ChatTemplate
 from ..types.chat_visibility import ChatVisibility
 from ..types.chat_prompt_param import ChatPromptParam
 from ..types.chat_session_role import ChatSessionRole
-from ..types.compress_chat_response import CompressChatResponse
 from ..types.chat_load_files_response import ChatLoadFilesResponse
 from ..types.list_dashboards_response import ListDashboardsResponse
 from ..types.simulate_prompt_response import SimulatePromptResponse
@@ -219,37 +218,6 @@ class ChatResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=AdminIssueFoundResponse,
-        )
-
-    def compress(
-        self,
-        session_id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> CompressChatResponse:
-        """
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not session_id:
-            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
-        return self._post(
-            path_template("/chat/sessions/{session_id}/compress", session_id=session_id),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=CompressChatResponse,
         )
 
     def copy(
@@ -1439,37 +1407,6 @@ class AsyncChatResource(AsyncAPIResource):
             cast_to=AdminIssueFoundResponse,
         )
 
-    async def compress(
-        self,
-        session_id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> CompressChatResponse:
-        """
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not session_id:
-            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
-        return await self._post(
-            path_template("/chat/sessions/{session_id}/compress", session_id=session_id),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=CompressChatResponse,
-        )
-
     async def copy(
         self,
         *,
@@ -2538,9 +2475,6 @@ class ChatResourceWithRawResponse:
         self.admin_issue_found = to_raw_response_wrapper(
             chat.admin_issue_found,
         )
-        self.compress = to_raw_response_wrapper(
-            chat.compress,
-        )
         self.copy = to_raw_response_wrapper(
             chat.copy,
         )
@@ -2640,9 +2574,6 @@ class AsyncChatResourceWithRawResponse:
         )
         self.admin_issue_found = async_to_raw_response_wrapper(
             chat.admin_issue_found,
-        )
-        self.compress = async_to_raw_response_wrapper(
-            chat.compress,
         )
         self.copy = async_to_raw_response_wrapper(
             chat.copy,
@@ -2744,9 +2675,6 @@ class ChatResourceWithStreamingResponse:
         self.admin_issue_found = to_streamed_response_wrapper(
             chat.admin_issue_found,
         )
-        self.compress = to_streamed_response_wrapper(
-            chat.compress,
-        )
         self.copy = to_streamed_response_wrapper(
             chat.copy,
         )
@@ -2846,9 +2774,6 @@ class AsyncChatResourceWithStreamingResponse:
         )
         self.admin_issue_found = async_to_streamed_response_wrapper(
             chat.admin_issue_found,
-        )
-        self.compress = async_to_streamed_response_wrapper(
-            chat.compress,
         )
         self.copy = async_to_streamed_response_wrapper(
             chat.copy,

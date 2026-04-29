@@ -41,6 +41,8 @@ __all__ = [
     "UserInterrupted",
     "IssueFound",
     "IssueFoundIssueFound",
+    "Compaction",
+    "CompactionCompaction",
 ]
 
 
@@ -233,6 +235,18 @@ class IssueFound(BaseModel):
     issue_found: IssueFoundIssueFound = FieldInfo(alias="IssueFound")
 
 
+class CompactionCompaction(BaseModel):
+    block_id: int
+
+    complete: bool
+
+    summary: Optional[str] = None
+
+
+class Compaction(BaseModel):
+    compaction: CompactionCompaction = FieldInfo(alias="Compaction")
+
+
 ChatEvent: TypeAlias = Union[
     TextMessage,
     Thinking,
@@ -248,4 +262,5 @@ ChatEvent: TypeAlias = Union[
     ConnectorRequest,
     UserInterrupted,
     IssueFound,
+    Compaction,
 ]
