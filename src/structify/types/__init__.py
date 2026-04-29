@@ -158,7 +158,6 @@ from .viz_figure_definition import VizFigureDefinition as VizFigureDefinition
 from .workflow_session_edge import WorkflowSessionEdge as WorkflowSessionEdge
 from .workflow_session_node import WorkflowSessionNode as WorkflowSessionNode
 from .chat_load_files_params import ChatLoadFilesParams as ChatLoadFilesParams
-from .compress_chat_response import CompressChatResponse as CompressChatResponse
 from .connector_get_response import ConnectorGetResponse as ConnectorGetResponse
 from .connector_with_secrets import ConnectorWithSecrets as ConnectorWithSecrets
 from .credits_usage_response import CreditsUsageResponse as CreditsUsageResponse
