@@ -785,6 +785,8 @@ class ChatResource(SyncAPIResource):
         offset: Optional[int] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         search: Optional[str] | Omit = omit,
+        sort: Optional[Literal["updated_at", "created_at", "name"]] | Omit = omit,
+        sort_desc: Optional[bool] | Omit = omit,
         tab: Optional[Literal["my_chats", "favorites", "shared", "team", "recents", "from_messaging"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -809,6 +811,11 @@ class ChatResource(SyncAPIResource):
           project_id: Project ID to filter chat sessions
 
           search: Search query to filter sessions by name (case-insensitive)
+
+          sort: Column to sort by (default: favorites first, then `updated_at` descending)
+
+          sort_desc: When `false`, sort ascending; when `true`, sort descending (default: `true` for
+              timestamps, `false` for name)
 
           tab: Tab filter for chat sessions
 
@@ -835,6 +842,8 @@ class ChatResource(SyncAPIResource):
                         "offset": offset,
                         "project_id": project_id,
                         "search": search,
+                        "sort": sort,
+                        "sort_desc": sort_desc,
                         "tab": tab,
                     },
                     chat_list_sessions_params.ChatListSessionsParams,
@@ -1974,6 +1983,8 @@ class AsyncChatResource(AsyncAPIResource):
         offset: Optional[int] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         search: Optional[str] | Omit = omit,
+        sort: Optional[Literal["updated_at", "created_at", "name"]] | Omit = omit,
+        sort_desc: Optional[bool] | Omit = omit,
         tab: Optional[Literal["my_chats", "favorites", "shared", "team", "recents", "from_messaging"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1998,6 +2009,11 @@ class AsyncChatResource(AsyncAPIResource):
           project_id: Project ID to filter chat sessions
 
           search: Search query to filter sessions by name (case-insensitive)
+
+          sort: Column to sort by (default: favorites first, then `updated_at` descending)
+
+          sort_desc: When `false`, sort ascending; when `true`, sort descending (default: `true` for
+              timestamps, `false` for name)
 
           tab: Tab filter for chat sessions
 
@@ -2024,6 +2040,8 @@ class AsyncChatResource(AsyncAPIResource):
                         "offset": offset,
                         "project_id": project_id,
                         "search": search,
+                        "sort": sort,
+                        "sort_desc": sort_desc,
                         "tab": tab,
                     },
                     chat_list_sessions_params.ChatListSessionsParams,
