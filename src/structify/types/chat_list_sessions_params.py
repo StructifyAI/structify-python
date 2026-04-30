@@ -27,5 +27,14 @@ class ChatListSessionsParams(TypedDict, total=False):
     search: Optional[str]
     """Search query to filter sessions by name (case-insensitive)"""
 
+    sort: Optional[Literal["updated_at", "created_at", "name"]]
+    """Column to sort by (default: favorites first, then `updated_at` descending)"""
+
+    sort_desc: Optional[bool]
+    """
+    When `false`, sort ascending; when `true`, sort descending (default: `true` for
+    timestamps, `false` for name)
+    """
+
     tab: Optional[Literal["my_chats", "favorites", "shared", "team", "recents", "from_messaging"]]
     """Tab filter for chat sessions"""

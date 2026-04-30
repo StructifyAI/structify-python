@@ -826,6 +826,8 @@ class TestChat:
             offset=0,
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             search="search",
+            sort="updated_at",
+            sort_desc=True,
             tab="my_chats",
         )
         assert_matches_type(ListChatSessionsResponse, chat, path=["response"])
@@ -2339,6 +2341,8 @@ class TestAsyncChat:
             offset=0,
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             search="search",
+            sort="updated_at",
+            sort_desc=True,
             tab="my_chats",
         )
         assert_matches_type(ListChatSessionsResponse, chat, path=["response"])
