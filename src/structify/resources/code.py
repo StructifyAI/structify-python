@@ -6,9 +6,9 @@ from typing import Optional
 
 import httpx
 
-from ..types import code_generate_code_params, code_interrupt_generation_params
+from ..types import code_generate_code_params, code_apply_manual_edit_params, code_interrupt_generation_params
 from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, SequenceNotStr, omit, not_given
-from .._utils import maybe_transform, async_maybe_transform
+from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -23,6 +23,8 @@ __all__ = ["CodeResource", "AsyncCodeResource"]
 
 
 class CodeResource(SyncAPIResource):
+    """Code generation endpoints"""
+
     @cached_property
     def with_raw_response(self) -> CodeResourceWithRawResponse:
         """
@@ -41,6 +43,47 @@ class CodeResource(SyncAPIResource):
         For more information, see https://www.github.com/StructifyAI/structify-python#with_streaming_response
         """
         return CodeResourceWithStreamingResponse(self)
+
+    def apply_manual_edit(
+        self,
+        chat_id: str,
+        *,
+        code: str,
+        filename: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> None:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not chat_id:
+            raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return self._post(
+            path_template("/code/apply-manual-edit/{chat_id}", chat_id=chat_id),
+            body=maybe_transform(
+                {
+                    "code": code,
+                    "filename": filename,
+                },
+                code_apply_manual_edit_params.CodeApplyManualEditParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NoneType,
+        )
 
     def generate_code(
         self,
@@ -138,6 +181,8 @@ class CodeResource(SyncAPIResource):
 
 
 class AsyncCodeResource(AsyncAPIResource):
+    """Code generation endpoints"""
+
     @cached_property
     def with_raw_response(self) -> AsyncCodeResourceWithRawResponse:
         """
@@ -156,6 +201,47 @@ class AsyncCodeResource(AsyncAPIResource):
         For more information, see https://www.github.com/StructifyAI/structify-python#with_streaming_response
         """
         return AsyncCodeResourceWithStreamingResponse(self)
+
+    async def apply_manual_edit(
+        self,
+        chat_id: str,
+        *,
+        code: str,
+        filename: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> None:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not chat_id:
+            raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return await self._post(
+            path_template("/code/apply-manual-edit/{chat_id}", chat_id=chat_id),
+            body=await async_maybe_transform(
+                {
+                    "code": code,
+                    "filename": filename,
+                },
+                code_apply_manual_edit_params.CodeApplyManualEditParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NoneType,
+        )
 
     async def generate_code(
         self,
@@ -256,6 +342,9 @@ class CodeResourceWithRawResponse:
     def __init__(self, code: CodeResource) -> None:
         self._code = code
 
+        self.apply_manual_edit = to_raw_response_wrapper(
+            code.apply_manual_edit,
+        )
         self.generate_code = to_raw_response_wrapper(
             code.generate_code,
         )
@@ -268,6 +357,9 @@ class AsyncCodeResourceWithRawResponse:
     def __init__(self, code: AsyncCodeResource) -> None:
         self._code = code
 
+        self.apply_manual_edit = async_to_raw_response_wrapper(
+            code.apply_manual_edit,
+        )
         self.generate_code = async_to_raw_response_wrapper(
             code.generate_code,
         )
@@ -280,6 +372,9 @@ class CodeResourceWithStreamingResponse:
     def __init__(self, code: CodeResource) -> None:
         self._code = code
 
+        self.apply_manual_edit = to_streamed_response_wrapper(
+            code.apply_manual_edit,
+        )
         self.generate_code = to_streamed_response_wrapper(
             code.generate_code,
         )
@@ -292,6 +387,9 @@ class AsyncCodeResourceWithStreamingResponse:
     def __init__(self, code: AsyncCodeResource) -> None:
         self._code = code
 
+        self.apply_manual_edit = async_to_streamed_response_wrapper(
+            code.apply_manual_edit,
+        )
         self.generate_code = async_to_streamed_response_wrapper(
             code.generate_code,
         )

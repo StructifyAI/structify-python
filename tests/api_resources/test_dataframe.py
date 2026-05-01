@@ -99,13 +99,13 @@ class TestPolars:
         with patch.object(client.datasets, "create") as mock_create, patch.object(
             client.entities, "add_batch"
         ) as mock_add_batch, patch.object(
-            client.structure, "enhance_relationship"
-        ) as mock_enhance_relationship, patch.object(client.jobs, "wait_for_jobs") as mock_wait_for_jobs, patch.object(
+            client.structure, "run_async"
+        ) as mock_run_async, patch.object(client.jobs, "wait_for_jobs") as mock_wait_for_jobs, patch.object(
             client.datasets, "view_tables_with_relationships"
         ) as mock_view_tables_with_relationships:
             # Configure mock return values
-            mock_add_batch.return_value = ["entity-1", "entity-2", "entity-3"]
-            mock_enhance_relationship.return_value = "test-job-id"
+            mock_add_batch.side_effect = [["entity-1"], ["entity-2"], ["entity-3"]]
+            mock_run_async.return_value = "test-job-id"
             mock_wait_for_jobs.return_value = None
 
             # Build mock response mimicking DatasetViewTablesWithRelationshipsResponse
@@ -115,9 +115,9 @@ class TestPolars:
             mock_source_3 = Mock(id="entity-3", properties={"company_name": "Microsoft"})
 
             # Target/connected entities
-            mock_target_1 = Mock(id="target-1", properties={"employee_name": "Alex", "position": "CEO"}, job_ids=["job-1"])
-            mock_target_2 = Mock(id="target-2", properties={"employee_name": "Alex", "position": "SWE"}, job_ids=["job-2"])
-            mock_target_3 = Mock(id="target-3", properties={"employee_name": "Alex", "position": "PM"}, job_ids=["job-3"])
+            mock_target_1 = Mock(id="target-1", properties={"employee_name": "Alex", "position": "CEO"}, job_id="job-1")
+            mock_target_2 = Mock(id="target-2", properties={"employee_name": "Alex", "position": "SWE"}, job_id="job-2")
+            mock_target_3 = Mock(id="target-3", properties={"employee_name": "Alex", "position": "PM"}, job_id="job-3")
 
             # Relationships connecting sources to targets
             rel1 = Mock(from_id="entity-1", to_id="target-1")
@@ -147,8 +147,8 @@ class TestPolars:
 
             # Verify the API calls were made with correct parameters (after collect)
             mock_create.assert_called_once()
-            mock_add_batch.assert_called_once()
-            assert mock_enhance_relationship.call_count == 3  # One for each entity
+            assert mock_add_batch.call_count == 3  # One add_batch call per source entity
+            assert mock_run_async.call_count == 3  # One for each entity
             mock_wait_for_jobs.assert_called_once()
 
             assert len(result_df) == 3

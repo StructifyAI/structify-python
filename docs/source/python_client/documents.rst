@@ -55,15 +55,13 @@ Here are examples of how you would use those endpoints:
 
 Extracting Data from Documents
 -------------------------------
-Creating datasets from documents is quite simple. You just use ``client.structure.run_async`` method and specify the document file path or paths you want to include in the dataset through the relevant Python object.
+Creating datasets from documents is quite simple. You just use ``client.structure.pdf`` and specify the uploaded document path you want to include in the dataset.
 
 .. code-block:: python
 
-    from structify.types.structure_run_async_params import SourcePdf, SourcePdfPdf
-
-    client.structure.run_async(
-        dataset="startups", 
-        source=SourcePdf(pdf=SourcePdfPdf(path="/path/to/your/document.pdf")),
+    client.structure.pdf(
+        dataset="startups",
+        path="/path/to/your/document.pdf",
     )
 
-And just like that you've created a dataset from your documents. 
+And just like that you've created a dataset from your documents.

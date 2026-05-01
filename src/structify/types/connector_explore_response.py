@@ -1,0 +1,59 @@
+# File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+from typing import Optional
+from datetime import datetime
+from typing_extensions import Literal
+
+from .._models import BaseModel
+
+__all__ = ["ConnectorExploreResponse"]
+
+
+class ConnectorExploreResponse(BaseModel):
+    id: str
+
+    created_at: datetime
+
+    job_type: Literal["Web", "Pdf", "Derive", "Scrape", "Match", "ConnectorExplore", "DatahubIngestion"]
+
+    max_steps_without_save: int
+
+    membership_id: str
+
+    status: Literal["Queued", "Running", "Completed", "Failed"]
+
+    updated_at: datetime
+
+    use_proxy: bool
+
+    user_id: str
+
+    cached_from_job_id: Optional[str] = None
+
+    dataset_id: Optional[str] = None
+
+    exploration_run_id: Optional[str] = None
+
+    max_errors: Optional[int] = None
+
+    max_execution_time_secs: Optional[int] = None
+
+    max_total_steps: Optional[int] = None
+
+    message: Optional[str] = None
+    """A message about the status of the job at completion"""
+
+    node_id: Optional[str] = None
+
+    parameters: Optional[object] = None
+    """Proto for JobInput"""
+
+    reason: Optional[str] = None
+    """A reason for the job's existence"""
+
+    run_started_time: Optional[datetime] = None
+    """What time did the job start running?"""
+
+    run_time_milliseconds: Optional[int] = None
+
+    seeded_kg_search_term: Optional[str] = None

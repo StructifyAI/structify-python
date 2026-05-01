@@ -19,13 +19,13 @@ __all__ = [
     "ParametersStructuringInputAgentAgent",
     "ParametersStructuringInputAgentAgentPdf",
     "ParametersStructuringInputAgentAgentPdfPdf",
-    "ParametersStructuringInputAgentAgentWeb",
-    "ParametersStructuringInputAgentAgentWebWeb",
     "ParametersStructuringInputTransformationPrompt",
     "ParametersStructuringInputScrapeFromURLProperty",
     "ParametersStructuringInputScrapeFromURLPropertyScrapeFromURLProperty",
     "ParametersStructuringInputScrapeURL",
     "ParametersStructuringInputScrapeURLScrapeURL",
+    "ParametersStructuringInputDatahubIngestion",
+    "ParametersStructuringInputDatahubIngestionDatahubIngestion",
     "ParametersStructuringInputConnectorExploration",
     "ParametersStructuringInputConnectorExplorationConnectorExploration",
 ]
@@ -44,20 +44,8 @@ class ParametersStructuringInputAgentAgentPdf(BaseModel):
     """Ingest all pages of a PDF and process them independently."""
 
 
-class ParametersStructuringInputAgentAgentWebWeb(BaseModel):
-    banned_domains: Optional[List[str]] = None
-
-    starting_searches: Optional[List[str]] = None
-
-    starting_urls: Optional[List[str]] = None
-
-
-class ParametersStructuringInputAgentAgentWeb(BaseModel):
-    web: ParametersStructuringInputAgentAgentWebWeb = FieldInfo(alias="Web")
-
-
 ParametersStructuringInputAgentAgent: TypeAlias = Union[
-    ParametersStructuringInputAgentAgentPdf, ParametersStructuringInputAgentAgentWeb
+    Literal["Web", "NoResources"], ParametersStructuringInputAgentAgentPdf
 ]
 
 
@@ -95,6 +83,18 @@ class ParametersStructuringInputScrapeURL(BaseModel):
     scrape_url: ParametersStructuringInputScrapeURLScrapeURL = FieldInfo(alias="ScrapeUrl")
 
 
+class ParametersStructuringInputDatahubIngestionDatahubIngestion(BaseModel):
+    connector_id: str
+
+    exploration_run_id: str
+
+    only_do_datahub: bool
+
+
+class ParametersStructuringInputDatahubIngestion(BaseModel):
+    datahub_ingestion: ParametersStructuringInputDatahubIngestionDatahubIngestion = FieldInfo(alias="DatahubIngestion")
+
+
 class ParametersStructuringInputConnectorExplorationConnectorExploration(BaseModel):
     connector_id: str
 
@@ -107,8 +107,7 @@ class ParametersStructuringInputConnectorExplorationConnectorExploration(BaseMod
 
     exploration_run_id: str
 
-    stage: Literal["both", "ingestion", "annotation"]
-    """Which exploration stage to run"""
+    strategy: Literal["full", "diff"]
 
 
 class ParametersStructuringInputConnectorExploration(BaseModel):
@@ -122,6 +121,7 @@ ParametersStructuringInput: TypeAlias = Union[
     ParametersStructuringInputTransformationPrompt,
     ParametersStructuringInputScrapeFromURLProperty,
     ParametersStructuringInputScrapeURL,
+    ParametersStructuringInputDatahubIngestion,
     ParametersStructuringInputConnectorExploration,
 ]
 
@@ -131,18 +131,18 @@ class Parameters(BaseModel):
 
     extraction_criteria: List[SaveRequirement]
 
-    seeded_kg: KnowledgeGraph
-    """
-    Knowledge graph info structured to deserialize and display in the same format
-    that the LLM outputs. Also the first representation of an LLM output in the
-    pipeline from raw tool output to being merged into a DB
-    """
-
     structuring_input: ParametersStructuringInput
 
     instructions: Optional[str] = None
 
     model: Optional[str] = None
+
+    seeded_kg: Optional[KnowledgeGraph] = None
+    """
+    Knowledge graph info structured to deserialize and display in the same format
+    that the LLM outputs. Also the first representation of an LLM output in the
+    pipeline from raw tool output to being merged into a DB
+    """
 
 
 class JobListResponse(BaseModel):
@@ -150,13 +150,13 @@ class JobListResponse(BaseModel):
 
     created_at: datetime
 
-    dataset_id: str
-
-    job_type: Literal["Web", "Pdf", "Derive", "Scrape", "Match", "ConnectorExplore"]
+    job_type: Literal["Web", "Pdf", "Derive", "Scrape", "Match", "ConnectorExplore", "DatahubIngestion"]
 
     status: Literal["Queued", "Running", "Completed", "Failed"]
 
     user_id: str
+
+    dataset_id: Optional[str] = None
 
     message: Optional[str] = None
 
@@ -167,5 +167,3 @@ class JobListResponse(BaseModel):
     run_started_time: Optional[datetime] = None
 
     run_time_milliseconds: Optional[int] = None
-
-    special_job_type: Optional[Literal["HumanLLM"]] = None

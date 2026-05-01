@@ -14,3 +14,5 @@ class WorkflowRunParams(TypedDict, total=False):
     use_node_cache: Required[bool]
 
     edited_node_name: Optional[str]
+
+    rerun_from: Optional[str]

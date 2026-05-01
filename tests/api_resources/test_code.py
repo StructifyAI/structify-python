@@ -16,6 +16,52 @@ class TestCode:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @parametrize
+    def test_method_apply_manual_edit(self, client: Structify) -> None:
+        code = client.code.apply_manual_edit(
+            chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            code="code",
+            filename="filename",
+        )
+        assert code is None
+
+    @parametrize
+    def test_raw_response_apply_manual_edit(self, client: Structify) -> None:
+        response = client.code.with_raw_response.apply_manual_edit(
+            chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            code="code",
+            filename="filename",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        code = response.parse()
+        assert code is None
+
+    @parametrize
+    def test_streaming_response_apply_manual_edit(self, client: Structify) -> None:
+        with client.code.with_streaming_response.apply_manual_edit(
+            chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            code="code",
+            filename="filename",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            code = response.parse()
+            assert code is None
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_path_params_apply_manual_edit(self, client: Structify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `chat_id` but received ''"):
+            client.code.with_raw_response.apply_manual_edit(
+                chat_id="",
+                code="code",
+                filename="filename",
+            )
+
+    @parametrize
     def test_method_generate_code(self, client: Structify) -> None:
         code = client.code.generate_code(
             chat_session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -30,8 +76,7 @@ class TestCode:
             prompt="prompt",
             assistant_message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             config={
-                "is_onboarding_session": True,
-                "llm_key": "vllm.gpt-5-mini-2025-08-07",
+                "llm_key": "claude-sonnet-4-5",
                 "max_steps": 0,
                 "reminder_message": "reminder_message",
                 "system_prompt": "system_prompt",
@@ -108,6 +153,52 @@ class TestAsyncCode:
     )
 
     @parametrize
+    async def test_method_apply_manual_edit(self, async_client: AsyncStructify) -> None:
+        code = await async_client.code.apply_manual_edit(
+            chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            code="code",
+            filename="filename",
+        )
+        assert code is None
+
+    @parametrize
+    async def test_raw_response_apply_manual_edit(self, async_client: AsyncStructify) -> None:
+        response = await async_client.code.with_raw_response.apply_manual_edit(
+            chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            code="code",
+            filename="filename",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        code = await response.parse()
+        assert code is None
+
+    @parametrize
+    async def test_streaming_response_apply_manual_edit(self, async_client: AsyncStructify) -> None:
+        async with async_client.code.with_streaming_response.apply_manual_edit(
+            chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            code="code",
+            filename="filename",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            code = await response.parse()
+            assert code is None
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_apply_manual_edit(self, async_client: AsyncStructify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `chat_id` but received ''"):
+            await async_client.code.with_raw_response.apply_manual_edit(
+                chat_id="",
+                code="code",
+                filename="filename",
+            )
+
+    @parametrize
     async def test_method_generate_code(self, async_client: AsyncStructify) -> None:
         code = await async_client.code.generate_code(
             chat_session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -122,8 +213,7 @@ class TestAsyncCode:
             prompt="prompt",
             assistant_message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             config={
-                "is_onboarding_session": True,
-                "llm_key": "vllm.gpt-5-mini-2025-08-07",
+                "llm_key": "claude-sonnet-4-5",
                 "max_steps": 0,
                 "reminder_message": "reminder_message",
                 "system_prompt": "system_prompt",

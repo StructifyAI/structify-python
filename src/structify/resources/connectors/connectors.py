@@ -2,12 +2,13 @@
 
 from __future__ import annotations
 
-from typing import Any, Dict, Optional, cast
+from typing import Any, Dict, Mapping, Optional, cast
 from typing_extensions import Literal, overload
 
 import httpx
 
 from ...types import (
+    ConnectorCategory,
     connector_list_params,
     connector_create_params,
     connector_update_params,
@@ -19,18 +20,39 @@ from ...types import (
     connector_update_column_params,
     connector_add_schema_object_params,
     connector_get_explorer_chat_params,
-    connector_list_with_snippets_params,
     connector_delete_schema_object_params,
+    connector_upload_datahub_artifact_params,
+    connector_download_datahub_artifact_params,
 )
-from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, SequenceNotStr, omit, not_given
-from ..._utils import required_args, maybe_transform, async_maybe_transform
+from ..._files import deepcopy_with_paths
+from ..._types import (
+    Body,
+    Omit,
+    Query,
+    Headers,
+    NoneType,
+    NotGiven,
+    FileTypes,
+    SequenceNotStr,
+    omit,
+    not_given,
+)
+from ..._utils import extract_files, path_template, required_args, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
+    BinaryAPIResponse,
+    AsyncBinaryAPIResponse,
+    StreamedBinaryAPIResponse,
+    AsyncStreamedBinaryAPIResponse,
     to_raw_response_wrapper,
     to_streamed_response_wrapper,
     async_to_raw_response_wrapper,
+    to_custom_raw_response_wrapper,
     async_to_streamed_response_wrapper,
+    to_custom_streamed_response_wrapper,
+    async_to_custom_raw_response_wrapper,
+    async_to_custom_streamed_response_wrapper,
 )
 from ...pagination import SyncJobsList, AsyncJobsList
 from .type_snippets import (
@@ -43,16 +65,23 @@ from .type_snippets import (
 )
 from ..._base_client import AsyncPaginator, make_request_options
 from ...types.connector import Connector
+from ...types.exploration_run import ExplorationRun
+from ...types.chat_session_role import ChatSessionRole
+from ...types.connector_category import ConnectorCategory
+from ...types.exploration_progress import ExplorationProgress
 from ...types.list_tables_response import ListTablesResponse
 from ...types.update_table_response import UpdateTableResponse
 from ...types.connector_get_response import ConnectorGetResponse
 from ...types.connector_with_secrets import ConnectorWithSecrets
 from ...types.explorer_chat_response import ExplorerChatResponse
-from ...types.explore_status_response import ExploreStatusResponse
 from ...types.connector_store_response import ConnectorStoreResponse
+from ...types.datahub_secret_map_param import DatahubSecretMapParam
 from ...types.exploration_runs_response import ExplorationRunsResponse
+from ...types.connector_explore_response import ConnectorExploreResponse
 from ...types.connector_summaries_response import ConnectorSummariesResponse
+from ...types.connector_table_path_response import ConnectorTablePathResponse
 from ...types.delete_schema_object_response import DeleteSchemaObjectResponse
+from ...types.connector_list_stores_response import ConnectorListStoresResponse
 from ...types.connector_search_tables_response import ConnectorSearchTablesResponse
 from ...types.connector_add_schema_object_response import ConnectorAddSchemaObjectResponse
 from ...types.connector_list_with_snippets_response import ConnectorListWithSnippetsResponse
@@ -90,14 +119,8 @@ class ConnectorsResource(SyncAPIResource):
         *,
         known_connector_type: str,
         name: str,
-        team_id: str,
         description: Optional[str] | Omit = omit,
         nango_connection_id: Optional[str] | Omit = omit,
-        nango_integration_id: Optional[str] | Omit = omit,
-        pipedream_account_id: Optional[str] | Omit = omit,
-        pipedream_external_id: Optional[str] | Omit = omit,
-        pipedream_project_id: Optional[str] | Omit = omit,
-        refresh_script: Optional[str] | Omit = omit,
         secrets: Dict[str, str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -109,10 +132,6 @@ class ConnectorsResource(SyncAPIResource):
         """
         Args:
           nango_connection_id: Nango connection ID for OAuth token management
-
-          nango_integration_id: Nango integration ID (e.g., "linear", "slack")
-
-          pipedream_external_id: Unique external ID for Pipedream routing (required for Pipedream connectors)
 
           secrets: Optional secrets/environment variables for the connector
 
@@ -130,14 +149,8 @@ class ConnectorsResource(SyncAPIResource):
                 {
                     "known_connector_type": known_connector_type,
                     "name": name,
-                    "team_id": team_id,
                     "description": description,
                     "nango_connection_id": nango_connection_id,
-                    "nango_integration_id": nango_integration_id,
-                    "pipedream_account_id": pipedream_account_id,
-                    "pipedream_external_id": pipedream_external_id,
-                    "pipedream_project_id": pipedream_project_id,
-                    "refresh_script": refresh_script,
                     "secrets": secrets,
                 },
                 connector_create_params.ConnectorCreateParams,
@@ -152,10 +165,19 @@ class ConnectorsResource(SyncAPIResource):
         self,
         connector_id: str,
         *,
+        connector_category: Optional[ConnectorCategory] | Omit = omit,
+        datahub_ingestion_type: Optional[str] | Omit = omit,
+        datahub_secret_map: Optional[DatahubSecretMapParam] | Omit = omit,
+        datahub_urn: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
         known_connector_type: Optional[str] | Omit = omit,
         name: Optional[str] | Omit = omit,
-        refresh_script: Optional[str] | Omit = omit,
+        nango_connection_id: Optional[str] | Omit = omit,
+        oauth_scopes: Optional[SequenceNotStr[Optional[str]]] | Omit = omit,
+        owner_user_id: Optional[str] | Omit = omit,
+        refresh_cron_schedule: Optional[str] | Omit = omit,
+        shared_user_roles: Optional[Dict[str, ChatSessionRole]] | Omit = omit,
+        team_visibility: Optional[Literal["Team", "Private"]] | Omit = omit,
         usage_snippet_override: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -166,6 +188,9 @@ class ConnectorsResource(SyncAPIResource):
     ) -> None:
         """
         Args:
+          datahub_secret_map: Maps DatahubIngestionKey to the name of the connector secret that holds the
+              value.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -178,13 +203,22 @@ class ConnectorsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._patch(
-            f"/connectors/{connector_id}",
+            path_template("/connectors/{connector_id}", connector_id=connector_id),
             body=maybe_transform(
                 {
+                    "connector_category": connector_category,
+                    "datahub_ingestion_type": datahub_ingestion_type,
+                    "datahub_secret_map": datahub_secret_map,
+                    "datahub_urn": datahub_urn,
                     "description": description,
                     "known_connector_type": known_connector_type,
                     "name": name,
-                    "refresh_script": refresh_script,
+                    "nango_connection_id": nango_connection_id,
+                    "oauth_scopes": oauth_scopes,
+                    "owner_user_id": owner_user_id,
+                    "refresh_cron_schedule": refresh_cron_schedule,
+                    "shared_user_roles": shared_user_roles,
+                    "team_visibility": team_visibility,
                     "usage_snippet_override": usage_snippet_override,
                 },
                 connector_update_params.ConnectorUpdateParams,
@@ -198,7 +232,6 @@ class ConnectorsResource(SyncAPIResource):
     def list(
         self,
         *,
-        team_id: str,
         limit: int | Omit = omit,
         offset: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -210,8 +243,6 @@ class ConnectorsResource(SyncAPIResource):
     ) -> SyncJobsList[ConnectorWithSecrets]:
         """
         Args:
-          team_id: Team ID to list connectors for
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -230,7 +261,6 @@ class ConnectorsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "team_id": team_id,
                         "limit": limit,
                         "offset": offset,
                     },
@@ -265,7 +295,7 @@ class ConnectorsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._delete(
-            f"/connectors/{connector_id}",
+            path_template("/connectors/{connector_id}", connector_id=connector_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -419,7 +449,7 @@ class ConnectorsResource(SyncAPIResource):
         return cast(
             ConnectorAddSchemaObjectResponse,
             self._post(
-                f"/connectors/{connector_id}/schema_object",
+                path_template("/connectors/{connector_id}/schema_object", connector_id=connector_id),
                 body=maybe_transform(
                     {
                         "name": name,
@@ -470,7 +500,7 @@ class ConnectorsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
-            f"/connectors/{connector_id}/secrets",
+            path_template("/connectors/{connector_id}/secrets", connector_id=connector_id),
             body=maybe_transform(
                 {
                     "secret_name": secret_name,
@@ -605,7 +635,7 @@ class ConnectorsResource(SyncAPIResource):
         if not connector_id:
             raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
         return self._delete(
-            f"/connectors/{connector_id}/schema_object",
+            path_template("/connectors/{connector_id}/schema_object", connector_id=connector_id),
             body=maybe_transform(
                 {
                     "id": id,
@@ -647,11 +677,58 @@ class ConnectorsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `secret_name` but received {secret_name!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._delete(
-            f"/connectors/{connector_id}/secrets/{secret_name}",
+            path_template(
+                "/connectors/{connector_id}/secrets/{secret_name}", connector_id=connector_id, secret_name=secret_name
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=NoneType,
+        )
+
+    def download_datahub_artifact(
+        self,
+        kind: str,
+        *,
+        connector_id: str,
+        exploration_run_id: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> BinaryAPIResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not connector_id:
+            raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
+        if not kind:
+            raise ValueError(f"Expected a non-empty value for `kind` but received {kind!r}")
+        extra_headers = {"Accept": "application/octet-stream", **(extra_headers or {})}
+        return self._get(
+            path_template(
+                "/internal/connectors/{connector_id}/datahub-artifacts/{kind}", connector_id=connector_id, kind=kind
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {"exploration_run_id": exploration_run_id},
+                    connector_download_datahub_artifact_params.ConnectorDownloadDatahubArtifactParams,
+                ),
+            ),
+            cast_to=BinaryAPIResponse,
         )
 
     def explore(
@@ -659,8 +736,8 @@ class ConnectorsResource(SyncAPIResource):
         connector_id: str,
         *,
         database_id: Optional[str] | Omit = omit,
+        only_do_datahub: Optional[bool] | Omit = omit,
         schema_id: Optional[str] | Omit = omit,
-        stage: Optional[Literal["both", "ingestion", "annotation"]] | Omit = omit,
         table_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -668,10 +745,10 @@ class ConnectorsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> None:
+    ) -> ConnectorExploreResponse:
         """
         Args:
-          stage: Which exploration stage to run
+          only_do_datahub: If true, run only DataHub ingestion without queuing Diego annotation jobs.
 
           extra_headers: Send extra headers
 
@@ -683,14 +760,13 @@ class ConnectorsResource(SyncAPIResource):
         """
         if not connector_id:
             raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
-            f"/connectors/{connector_id}/explore",
+            path_template("/connectors/{connector_id}/explore", connector_id=connector_id),
             body=maybe_transform(
                 {
                     "database_id": database_id,
+                    "only_do_datahub": only_do_datahub,
                     "schema_id": schema_id,
-                    "stage": stage,
                     "table_id": table_id,
                 },
                 connector_explore_params.ConnectorExploreParams,
@@ -698,7 +774,7 @@ class ConnectorsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=NoneType,
+            cast_to=ConnectorExploreResponse,
         )
 
     def get(
@@ -725,11 +801,42 @@ class ConnectorsResource(SyncAPIResource):
         if not connector_id:
             raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
         return self._get(
-            f"/connectors/{connector_id}",
+            path_template("/connectors/{connector_id}", connector_id=connector_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=ConnectorGetResponse,
+        )
+
+    def get_active_exploration_run(
+        self,
+        connector_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Optional[ExplorationRun]:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not connector_id:
+            raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
+        return self._get(
+            path_template("/connectors/{connector_id}/explore/active-run", connector_id=connector_id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ExplorationRun,
         )
 
     def get_clarification_requests(
@@ -758,11 +865,47 @@ class ConnectorsResource(SyncAPIResource):
         if not connector_id:
             raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
         return self._get(
-            f"/connectors/{connector_id}/clarification-requests",
+            path_template("/connectors/{connector_id}/clarification-requests", connector_id=connector_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=ConnectorGetClarificationRequestsResponse,
+        )
+
+    def get_exploration_run_progress(
+        self,
+        run_id: str,
+        *,
+        connector_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ExplorationProgress:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not connector_id:
+            raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
+        if not run_id:
+            raise ValueError(f"Expected a non-empty value for `run_id` but received {run_id!r}")
+        return self._get(
+            path_template(
+                "/connectors/{connector_id}/explore/runs/{run_id}/progress", connector_id=connector_id, run_id=run_id
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ExplorationProgress,
         )
 
     def get_exploration_runs(
@@ -777,7 +920,7 @@ class ConnectorsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ExplorationRunsResponse:
         """
-        Get all exploration runs for a connector (requires debug permission)
+        Get all exploration runs for a connector
 
         Args:
           extra_headers: Send extra headers
@@ -791,49 +934,21 @@ class ConnectorsResource(SyncAPIResource):
         if not connector_id:
             raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
         return self._get(
-            f"/connectors/{connector_id}/explore/runs",
+            path_template("/connectors/{connector_id}/explore/runs", connector_id=connector_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=ExplorationRunsResponse,
         )
 
-    def get_exploration_status(
-        self,
-        connector_id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ExploreStatusResponse:
-        """
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not connector_id:
-            raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
-        return self._get(
-            f"/connectors/{connector_id}/explore/status",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=ExploreStatusResponse,
-        )
-
     def get_explorer_chat(
         self,
         connector_id: str,
         *,
-        run_id: str,
+        database_id: Optional[str] | Omit = omit,
+        run_id: Optional[str] | Omit = omit,
+        schema_id: Optional[str] | Omit = omit,
+        table_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -842,12 +957,9 @@ class ConnectorsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ExplorerChatResponse:
         """
-        Returns chats for all phases (table discovery, column discovery for each table,
-        etc.)
+        Optionally filter by run, database, schema, or table
 
         Args:
-          run_id: Exploration run ID (required)
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -859,14 +971,20 @@ class ConnectorsResource(SyncAPIResource):
         if not connector_id:
             raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
         return self._get(
-            f"/connectors/{connector_id}/explore/chat",
+            path_template("/connectors/{connector_id}/explore/chat", connector_id=connector_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
                 query=maybe_transform(
-                    {"run_id": run_id}, connector_get_explorer_chat_params.ConnectorGetExplorerChatParams
+                    {
+                        "database_id": database_id,
+                        "run_id": run_id,
+                        "schema_id": schema_id,
+                        "table_id": table_id,
+                    },
+                    connector_get_explorer_chat_params.ConnectorGetExplorerChatParams,
                 ),
             ),
             cast_to=ExplorerChatResponse,
@@ -896,11 +1014,60 @@ class ConnectorsResource(SyncAPIResource):
         if not connector_id:
             raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
         return self._get(
-            f"/connectors/{connector_id}/store",
+            path_template("/connectors/{connector_id}/store", connector_id=connector_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=ConnectorStoreResponse,
+        )
+
+    def get_table_path(
+        self,
+        table_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ConnectorTablePathResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not table_id:
+            raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
+        return self._get(
+            path_template("/connectors/tables/{table_id}/path", table_id=table_id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ConnectorTablePathResponse,
+        )
+
+    def list_stores(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ConnectorListStoresResponse:
+        return self._get(
+            "/connectors/stores",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ConnectorListStoresResponse,
         )
 
     def list_tables(
@@ -931,7 +1098,7 @@ class ConnectorsResource(SyncAPIResource):
         if not connector_id:
             raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
         return self._get(
-            f"/connectors/{connector_id}/tables",
+            path_template("/connectors/{connector_id}/tables", connector_id=connector_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -941,7 +1108,6 @@ class ConnectorsResource(SyncAPIResource):
     def list_with_snippets(
         self,
         *,
-        team_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -949,28 +1115,10 @@ class ConnectorsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ConnectorListWithSnippetsResponse:
-        """
-        Args:
-          team_id: Team ID to list connectors for
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
         return self._get(
             "/connectors/with-snippets",
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {"team_id": team_id}, connector_list_with_snippets_params.ConnectorListWithSnippetsParams
-                ),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=ConnectorListWithSnippetsResponse,
         )
@@ -1002,7 +1150,9 @@ class ConnectorsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `clarification_id` but received {clarification_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._patch(
-            f"/connectors/clarification-requests/{clarification_id}/resolve",
+            path_template(
+                "/connectors/clarification-requests/{clarification_id}/resolve", clarification_id=clarification_id
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1025,7 +1175,7 @@ class ConnectorsResource(SyncAPIResource):
         Args:
           query: Search query string
 
-          team_id: Team ID to search tables for
+          team_id: Team ID to scope table search
 
           extra_headers: Send extra headers
 
@@ -1057,7 +1207,6 @@ class ConnectorsResource(SyncAPIResource):
         self,
         *,
         connector_ids: SequenceNotStr[str],
-        team_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1077,13 +1226,7 @@ class ConnectorsResource(SyncAPIResource):
         """
         return self._post(
             "/connectors/summaries",
-            body=maybe_transform(
-                {
-                    "connector_ids": connector_ids,
-                    "team_id": team_id,
-                },
-                connector_summaries_params.ConnectorSummariesParams,
-            ),
+            body=maybe_transform({"connector_ids": connector_ids}, connector_summaries_params.ConnectorSummariesParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1118,7 +1261,7 @@ class ConnectorsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `column_id` but received {column_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._patch(
-            f"/connectors/columns/{column_id}",
+            path_template("/connectors/columns/{column_id}", column_id=column_id),
             body=maybe_transform({"notes": notes}, connector_update_column_params.ConnectorUpdateColumnParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -1154,7 +1297,7 @@ class ConnectorsResource(SyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return self._patch(
-            f"/connectors/tables/{table_id}",
+            path_template("/connectors/tables/{table_id}", table_id=table_id),
             body=maybe_transform(
                 {
                     "description": description,
@@ -1166,6 +1309,60 @@ class ConnectorsResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=UpdateTableResponse,
+        )
+
+    def upload_datahub_artifact(
+        self,
+        kind: str,
+        *,
+        connector_id: str,
+        exploration_run_id: str,
+        file: FileTypes,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> None:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not connector_id:
+            raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
+        if not kind:
+            raise ValueError(f"Expected a non-empty value for `kind` but received {kind!r}")
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        body = deepcopy_with_paths({"file": file}, [["file"]])
+        files = extract_files(cast(Mapping[str, object], body), paths=[["file"]])
+        # It should be noted that the actual Content-Type header that will be
+        # sent to the server will contain a `boundary` parameter, e.g.
+        # multipart/form-data; boundary=---abc--
+        extra_headers["Content-Type"] = "multipart/form-data"
+        return self._put(
+            path_template(
+                "/internal/connectors/{connector_id}/datahub-artifacts/{kind}", connector_id=connector_id, kind=kind
+            ),
+            body=maybe_transform(body, connector_upload_datahub_artifact_params.ConnectorUploadDatahubArtifactParams),
+            files=files,
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {"exploration_run_id": exploration_run_id},
+                    connector_upload_datahub_artifact_params.ConnectorUploadDatahubArtifactParams,
+                ),
+            ),
+            cast_to=NoneType,
         )
 
 
@@ -1198,14 +1395,8 @@ class AsyncConnectorsResource(AsyncAPIResource):
         *,
         known_connector_type: str,
         name: str,
-        team_id: str,
         description: Optional[str] | Omit = omit,
         nango_connection_id: Optional[str] | Omit = omit,
-        nango_integration_id: Optional[str] | Omit = omit,
-        pipedream_account_id: Optional[str] | Omit = omit,
-        pipedream_external_id: Optional[str] | Omit = omit,
-        pipedream_project_id: Optional[str] | Omit = omit,
-        refresh_script: Optional[str] | Omit = omit,
         secrets: Dict[str, str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1217,10 +1408,6 @@ class AsyncConnectorsResource(AsyncAPIResource):
         """
         Args:
           nango_connection_id: Nango connection ID for OAuth token management
-
-          nango_integration_id: Nango integration ID (e.g., "linear", "slack")
-
-          pipedream_external_id: Unique external ID for Pipedream routing (required for Pipedream connectors)
 
           secrets: Optional secrets/environment variables for the connector
 
@@ -1238,14 +1425,8 @@ class AsyncConnectorsResource(AsyncAPIResource):
                 {
                     "known_connector_type": known_connector_type,
                     "name": name,
-                    "team_id": team_id,
                     "description": description,
                     "nango_connection_id": nango_connection_id,
-                    "nango_integration_id": nango_integration_id,
-                    "pipedream_account_id": pipedream_account_id,
-                    "pipedream_external_id": pipedream_external_id,
-                    "pipedream_project_id": pipedream_project_id,
-                    "refresh_script": refresh_script,
                     "secrets": secrets,
                 },
                 connector_create_params.ConnectorCreateParams,
@@ -1260,10 +1441,19 @@ class AsyncConnectorsResource(AsyncAPIResource):
         self,
         connector_id: str,
         *,
+        connector_category: Optional[ConnectorCategory] | Omit = omit,
+        datahub_ingestion_type: Optional[str] | Omit = omit,
+        datahub_secret_map: Optional[DatahubSecretMapParam] | Omit = omit,
+        datahub_urn: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
         known_connector_type: Optional[str] | Omit = omit,
         name: Optional[str] | Omit = omit,
-        refresh_script: Optional[str] | Omit = omit,
+        nango_connection_id: Optional[str] | Omit = omit,
+        oauth_scopes: Optional[SequenceNotStr[Optional[str]]] | Omit = omit,
+        owner_user_id: Optional[str] | Omit = omit,
+        refresh_cron_schedule: Optional[str] | Omit = omit,
+        shared_user_roles: Optional[Dict[str, ChatSessionRole]] | Omit = omit,
+        team_visibility: Optional[Literal["Team", "Private"]] | Omit = omit,
         usage_snippet_override: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1274,6 +1464,9 @@ class AsyncConnectorsResource(AsyncAPIResource):
     ) -> None:
         """
         Args:
+          datahub_secret_map: Maps DatahubIngestionKey to the name of the connector secret that holds the
+              value.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -1286,13 +1479,22 @@ class AsyncConnectorsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._patch(
-            f"/connectors/{connector_id}",
+            path_template("/connectors/{connector_id}", connector_id=connector_id),
             body=await async_maybe_transform(
                 {
+                    "connector_category": connector_category,
+                    "datahub_ingestion_type": datahub_ingestion_type,
+                    "datahub_secret_map": datahub_secret_map,
+                    "datahub_urn": datahub_urn,
                     "description": description,
                     "known_connector_type": known_connector_type,
                     "name": name,
-                    "refresh_script": refresh_script,
+                    "nango_connection_id": nango_connection_id,
+                    "oauth_scopes": oauth_scopes,
+                    "owner_user_id": owner_user_id,
+                    "refresh_cron_schedule": refresh_cron_schedule,
+                    "shared_user_roles": shared_user_roles,
+                    "team_visibility": team_visibility,
                     "usage_snippet_override": usage_snippet_override,
                 },
                 connector_update_params.ConnectorUpdateParams,
@@ -1306,7 +1508,6 @@ class AsyncConnectorsResource(AsyncAPIResource):
     def list(
         self,
         *,
-        team_id: str,
         limit: int | Omit = omit,
         offset: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -1318,8 +1519,6 @@ class AsyncConnectorsResource(AsyncAPIResource):
     ) -> AsyncPaginator[ConnectorWithSecrets, AsyncJobsList[ConnectorWithSecrets]]:
         """
         Args:
-          team_id: Team ID to list connectors for
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -1338,7 +1537,6 @@ class AsyncConnectorsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "team_id": team_id,
                         "limit": limit,
                         "offset": offset,
                     },
@@ -1373,7 +1571,7 @@ class AsyncConnectorsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._delete(
-            f"/connectors/{connector_id}",
+            path_template("/connectors/{connector_id}", connector_id=connector_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1527,7 +1725,7 @@ class AsyncConnectorsResource(AsyncAPIResource):
         return cast(
             ConnectorAddSchemaObjectResponse,
             await self._post(
-                f"/connectors/{connector_id}/schema_object",
+                path_template("/connectors/{connector_id}/schema_object", connector_id=connector_id),
                 body=await async_maybe_transform(
                     {
                         "name": name,
@@ -1578,7 +1776,7 @@ class AsyncConnectorsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
-            f"/connectors/{connector_id}/secrets",
+            path_template("/connectors/{connector_id}/secrets", connector_id=connector_id),
             body=await async_maybe_transform(
                 {
                     "secret_name": secret_name,
@@ -1713,7 +1911,7 @@ class AsyncConnectorsResource(AsyncAPIResource):
         if not connector_id:
             raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
         return await self._delete(
-            f"/connectors/{connector_id}/schema_object",
+            path_template("/connectors/{connector_id}/schema_object", connector_id=connector_id),
             body=await async_maybe_transform(
                 {
                     "id": id,
@@ -1755,11 +1953,58 @@ class AsyncConnectorsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `secret_name` but received {secret_name!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._delete(
-            f"/connectors/{connector_id}/secrets/{secret_name}",
+            path_template(
+                "/connectors/{connector_id}/secrets/{secret_name}", connector_id=connector_id, secret_name=secret_name
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=NoneType,
+        )
+
+    async def download_datahub_artifact(
+        self,
+        kind: str,
+        *,
+        connector_id: str,
+        exploration_run_id: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AsyncBinaryAPIResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not connector_id:
+            raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
+        if not kind:
+            raise ValueError(f"Expected a non-empty value for `kind` but received {kind!r}")
+        extra_headers = {"Accept": "application/octet-stream", **(extra_headers or {})}
+        return await self._get(
+            path_template(
+                "/internal/connectors/{connector_id}/datahub-artifacts/{kind}", connector_id=connector_id, kind=kind
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"exploration_run_id": exploration_run_id},
+                    connector_download_datahub_artifact_params.ConnectorDownloadDatahubArtifactParams,
+                ),
+            ),
+            cast_to=AsyncBinaryAPIResponse,
         )
 
     async def explore(
@@ -1767,8 +2012,8 @@ class AsyncConnectorsResource(AsyncAPIResource):
         connector_id: str,
         *,
         database_id: Optional[str] | Omit = omit,
+        only_do_datahub: Optional[bool] | Omit = omit,
         schema_id: Optional[str] | Omit = omit,
-        stage: Optional[Literal["both", "ingestion", "annotation"]] | Omit = omit,
         table_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1776,10 +2021,10 @@ class AsyncConnectorsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> None:
+    ) -> ConnectorExploreResponse:
         """
         Args:
-          stage: Which exploration stage to run
+          only_do_datahub: If true, run only DataHub ingestion without queuing Diego annotation jobs.
 
           extra_headers: Send extra headers
 
@@ -1791,14 +2036,13 @@ class AsyncConnectorsResource(AsyncAPIResource):
         """
         if not connector_id:
             raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
-            f"/connectors/{connector_id}/explore",
+            path_template("/connectors/{connector_id}/explore", connector_id=connector_id),
             body=await async_maybe_transform(
                 {
                     "database_id": database_id,
+                    "only_do_datahub": only_do_datahub,
                     "schema_id": schema_id,
-                    "stage": stage,
                     "table_id": table_id,
                 },
                 connector_explore_params.ConnectorExploreParams,
@@ -1806,7 +2050,7 @@ class AsyncConnectorsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=NoneType,
+            cast_to=ConnectorExploreResponse,
         )
 
     async def get(
@@ -1833,11 +2077,42 @@ class AsyncConnectorsResource(AsyncAPIResource):
         if not connector_id:
             raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
         return await self._get(
-            f"/connectors/{connector_id}",
+            path_template("/connectors/{connector_id}", connector_id=connector_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=ConnectorGetResponse,
+        )
+
+    async def get_active_exploration_run(
+        self,
+        connector_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Optional[ExplorationRun]:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not connector_id:
+            raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
+        return await self._get(
+            path_template("/connectors/{connector_id}/explore/active-run", connector_id=connector_id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ExplorationRun,
         )
 
     async def get_clarification_requests(
@@ -1866,11 +2141,47 @@ class AsyncConnectorsResource(AsyncAPIResource):
         if not connector_id:
             raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
         return await self._get(
-            f"/connectors/{connector_id}/clarification-requests",
+            path_template("/connectors/{connector_id}/clarification-requests", connector_id=connector_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=ConnectorGetClarificationRequestsResponse,
+        )
+
+    async def get_exploration_run_progress(
+        self,
+        run_id: str,
+        *,
+        connector_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ExplorationProgress:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not connector_id:
+            raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
+        if not run_id:
+            raise ValueError(f"Expected a non-empty value for `run_id` but received {run_id!r}")
+        return await self._get(
+            path_template(
+                "/connectors/{connector_id}/explore/runs/{run_id}/progress", connector_id=connector_id, run_id=run_id
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ExplorationProgress,
         )
 
     async def get_exploration_runs(
@@ -1885,7 +2196,7 @@ class AsyncConnectorsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ExplorationRunsResponse:
         """
-        Get all exploration runs for a connector (requires debug permission)
+        Get all exploration runs for a connector
 
         Args:
           extra_headers: Send extra headers
@@ -1899,49 +2210,21 @@ class AsyncConnectorsResource(AsyncAPIResource):
         if not connector_id:
             raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
         return await self._get(
-            f"/connectors/{connector_id}/explore/runs",
+            path_template("/connectors/{connector_id}/explore/runs", connector_id=connector_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=ExplorationRunsResponse,
         )
 
-    async def get_exploration_status(
-        self,
-        connector_id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ExploreStatusResponse:
-        """
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not connector_id:
-            raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
-        return await self._get(
-            f"/connectors/{connector_id}/explore/status",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=ExploreStatusResponse,
-        )
-
     async def get_explorer_chat(
         self,
         connector_id: str,
         *,
-        run_id: str,
+        database_id: Optional[str] | Omit = omit,
+        run_id: Optional[str] | Omit = omit,
+        schema_id: Optional[str] | Omit = omit,
+        table_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1950,12 +2233,9 @@ class AsyncConnectorsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ExplorerChatResponse:
         """
-        Returns chats for all phases (table discovery, column discovery for each table,
-        etc.)
+        Optionally filter by run, database, schema, or table
 
         Args:
-          run_id: Exploration run ID (required)
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -1967,14 +2247,20 @@ class AsyncConnectorsResource(AsyncAPIResource):
         if not connector_id:
             raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
         return await self._get(
-            f"/connectors/{connector_id}/explore/chat",
+            path_template("/connectors/{connector_id}/explore/chat", connector_id=connector_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
                 query=await async_maybe_transform(
-                    {"run_id": run_id}, connector_get_explorer_chat_params.ConnectorGetExplorerChatParams
+                    {
+                        "database_id": database_id,
+                        "run_id": run_id,
+                        "schema_id": schema_id,
+                        "table_id": table_id,
+                    },
+                    connector_get_explorer_chat_params.ConnectorGetExplorerChatParams,
                 ),
             ),
             cast_to=ExplorerChatResponse,
@@ -2004,11 +2290,60 @@ class AsyncConnectorsResource(AsyncAPIResource):
         if not connector_id:
             raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
         return await self._get(
-            f"/connectors/{connector_id}/store",
+            path_template("/connectors/{connector_id}/store", connector_id=connector_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=ConnectorStoreResponse,
+        )
+
+    async def get_table_path(
+        self,
+        table_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ConnectorTablePathResponse:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not table_id:
+            raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
+        return await self._get(
+            path_template("/connectors/tables/{table_id}/path", table_id=table_id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ConnectorTablePathResponse,
+        )
+
+    async def list_stores(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ConnectorListStoresResponse:
+        return await self._get(
+            "/connectors/stores",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ConnectorListStoresResponse,
         )
 
     async def list_tables(
@@ -2039,7 +2374,7 @@ class AsyncConnectorsResource(AsyncAPIResource):
         if not connector_id:
             raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
         return await self._get(
-            f"/connectors/{connector_id}/tables",
+            path_template("/connectors/{connector_id}/tables", connector_id=connector_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -2049,7 +2384,6 @@ class AsyncConnectorsResource(AsyncAPIResource):
     async def list_with_snippets(
         self,
         *,
-        team_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -2057,28 +2391,10 @@ class AsyncConnectorsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ConnectorListWithSnippetsResponse:
-        """
-        Args:
-          team_id: Team ID to list connectors for
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
         return await self._get(
             "/connectors/with-snippets",
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform(
-                    {"team_id": team_id}, connector_list_with_snippets_params.ConnectorListWithSnippetsParams
-                ),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=ConnectorListWithSnippetsResponse,
         )
@@ -2110,7 +2426,9 @@ class AsyncConnectorsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `clarification_id` but received {clarification_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._patch(
-            f"/connectors/clarification-requests/{clarification_id}/resolve",
+            path_template(
+                "/connectors/clarification-requests/{clarification_id}/resolve", clarification_id=clarification_id
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -2133,7 +2451,7 @@ class AsyncConnectorsResource(AsyncAPIResource):
         Args:
           query: Search query string
 
-          team_id: Team ID to search tables for
+          team_id: Team ID to scope table search
 
           extra_headers: Send extra headers
 
@@ -2165,7 +2483,6 @@ class AsyncConnectorsResource(AsyncAPIResource):
         self,
         *,
         connector_ids: SequenceNotStr[str],
-        team_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -2186,11 +2503,7 @@ class AsyncConnectorsResource(AsyncAPIResource):
         return await self._post(
             "/connectors/summaries",
             body=await async_maybe_transform(
-                {
-                    "connector_ids": connector_ids,
-                    "team_id": team_id,
-                },
-                connector_summaries_params.ConnectorSummariesParams,
+                {"connector_ids": connector_ids}, connector_summaries_params.ConnectorSummariesParams
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -2226,7 +2539,7 @@ class AsyncConnectorsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `column_id` but received {column_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._patch(
-            f"/connectors/columns/{column_id}",
+            path_template("/connectors/columns/{column_id}", column_id=column_id),
             body=await async_maybe_transform(
                 {"notes": notes}, connector_update_column_params.ConnectorUpdateColumnParams
             ),
@@ -2264,7 +2577,7 @@ class AsyncConnectorsResource(AsyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return await self._patch(
-            f"/connectors/tables/{table_id}",
+            path_template("/connectors/tables/{table_id}", table_id=table_id),
             body=await async_maybe_transform(
                 {
                     "description": description,
@@ -2276,6 +2589,62 @@ class AsyncConnectorsResource(AsyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=UpdateTableResponse,
+        )
+
+    async def upload_datahub_artifact(
+        self,
+        kind: str,
+        *,
+        connector_id: str,
+        exploration_run_id: str,
+        file: FileTypes,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> None:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not connector_id:
+            raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
+        if not kind:
+            raise ValueError(f"Expected a non-empty value for `kind` but received {kind!r}")
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        body = deepcopy_with_paths({"file": file}, [["file"]])
+        files = extract_files(cast(Mapping[str, object], body), paths=[["file"]])
+        # It should be noted that the actual Content-Type header that will be
+        # sent to the server will contain a `boundary` parameter, e.g.
+        # multipart/form-data; boundary=---abc--
+        extra_headers["Content-Type"] = "multipart/form-data"
+        return await self._put(
+            path_template(
+                "/internal/connectors/{connector_id}/datahub-artifacts/{kind}", connector_id=connector_id, kind=kind
+            ),
+            body=await async_maybe_transform(
+                body, connector_upload_datahub_artifact_params.ConnectorUploadDatahubArtifactParams
+            ),
+            files=files,
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"exploration_run_id": exploration_run_id},
+                    connector_upload_datahub_artifact_params.ConnectorUploadDatahubArtifactParams,
+                ),
+            ),
+            cast_to=NoneType,
         )
 
 
@@ -2307,26 +2676,39 @@ class ConnectorsResourceWithRawResponse:
         self.delete_secret = to_raw_response_wrapper(
             connectors.delete_secret,
         )
+        self.download_datahub_artifact = to_custom_raw_response_wrapper(
+            connectors.download_datahub_artifact,
+            BinaryAPIResponse,
+        )
         self.explore = to_raw_response_wrapper(
             connectors.explore,
         )
         self.get = to_raw_response_wrapper(
             connectors.get,
         )
+        self.get_active_exploration_run = to_raw_response_wrapper(
+            connectors.get_active_exploration_run,
+        )
         self.get_clarification_requests = to_raw_response_wrapper(
             connectors.get_clarification_requests,
         )
+        self.get_exploration_run_progress = to_raw_response_wrapper(
+            connectors.get_exploration_run_progress,
+        )
         self.get_exploration_runs = to_raw_response_wrapper(
             connectors.get_exploration_runs,
-        )
-        self.get_exploration_status = to_raw_response_wrapper(
-            connectors.get_exploration_status,
         )
         self.get_explorer_chat = to_raw_response_wrapper(
             connectors.get_explorer_chat,
         )
         self.get_store = to_raw_response_wrapper(
             connectors.get_store,
+        )
+        self.get_table_path = to_raw_response_wrapper(
+            connectors.get_table_path,
+        )
+        self.list_stores = to_raw_response_wrapper(
+            connectors.list_stores,
         )
         self.list_tables = to_raw_response_wrapper(
             connectors.list_tables,
@@ -2348,6 +2730,9 @@ class ConnectorsResourceWithRawResponse:
         )
         self.update_table = to_raw_response_wrapper(
             connectors.update_table,
+        )
+        self.upload_datahub_artifact = to_raw_response_wrapper(
+            connectors.upload_datahub_artifact,
         )
 
     @cached_property
@@ -2383,26 +2768,39 @@ class AsyncConnectorsResourceWithRawResponse:
         self.delete_secret = async_to_raw_response_wrapper(
             connectors.delete_secret,
         )
+        self.download_datahub_artifact = async_to_custom_raw_response_wrapper(
+            connectors.download_datahub_artifact,
+            AsyncBinaryAPIResponse,
+        )
         self.explore = async_to_raw_response_wrapper(
             connectors.explore,
         )
         self.get = async_to_raw_response_wrapper(
             connectors.get,
         )
+        self.get_active_exploration_run = async_to_raw_response_wrapper(
+            connectors.get_active_exploration_run,
+        )
         self.get_clarification_requests = async_to_raw_response_wrapper(
             connectors.get_clarification_requests,
         )
+        self.get_exploration_run_progress = async_to_raw_response_wrapper(
+            connectors.get_exploration_run_progress,
+        )
         self.get_exploration_runs = async_to_raw_response_wrapper(
             connectors.get_exploration_runs,
-        )
-        self.get_exploration_status = async_to_raw_response_wrapper(
-            connectors.get_exploration_status,
         )
         self.get_explorer_chat = async_to_raw_response_wrapper(
             connectors.get_explorer_chat,
         )
         self.get_store = async_to_raw_response_wrapper(
             connectors.get_store,
+        )
+        self.get_table_path = async_to_raw_response_wrapper(
+            connectors.get_table_path,
+        )
+        self.list_stores = async_to_raw_response_wrapper(
+            connectors.list_stores,
         )
         self.list_tables = async_to_raw_response_wrapper(
             connectors.list_tables,
@@ -2424,6 +2822,9 @@ class AsyncConnectorsResourceWithRawResponse:
         )
         self.update_table = async_to_raw_response_wrapper(
             connectors.update_table,
+        )
+        self.upload_datahub_artifact = async_to_raw_response_wrapper(
+            connectors.upload_datahub_artifact,
         )
 
     @cached_property
@@ -2459,26 +2860,39 @@ class ConnectorsResourceWithStreamingResponse:
         self.delete_secret = to_streamed_response_wrapper(
             connectors.delete_secret,
         )
+        self.download_datahub_artifact = to_custom_streamed_response_wrapper(
+            connectors.download_datahub_artifact,
+            StreamedBinaryAPIResponse,
+        )
         self.explore = to_streamed_response_wrapper(
             connectors.explore,
         )
         self.get = to_streamed_response_wrapper(
             connectors.get,
         )
+        self.get_active_exploration_run = to_streamed_response_wrapper(
+            connectors.get_active_exploration_run,
+        )
         self.get_clarification_requests = to_streamed_response_wrapper(
             connectors.get_clarification_requests,
         )
+        self.get_exploration_run_progress = to_streamed_response_wrapper(
+            connectors.get_exploration_run_progress,
+        )
         self.get_exploration_runs = to_streamed_response_wrapper(
             connectors.get_exploration_runs,
-        )
-        self.get_exploration_status = to_streamed_response_wrapper(
-            connectors.get_exploration_status,
         )
         self.get_explorer_chat = to_streamed_response_wrapper(
             connectors.get_explorer_chat,
         )
         self.get_store = to_streamed_response_wrapper(
             connectors.get_store,
+        )
+        self.get_table_path = to_streamed_response_wrapper(
+            connectors.get_table_path,
+        )
+        self.list_stores = to_streamed_response_wrapper(
+            connectors.list_stores,
         )
         self.list_tables = to_streamed_response_wrapper(
             connectors.list_tables,
@@ -2500,6 +2914,9 @@ class ConnectorsResourceWithStreamingResponse:
         )
         self.update_table = to_streamed_response_wrapper(
             connectors.update_table,
+        )
+        self.upload_datahub_artifact = to_streamed_response_wrapper(
+            connectors.upload_datahub_artifact,
         )
 
     @cached_property
@@ -2535,26 +2952,39 @@ class AsyncConnectorsResourceWithStreamingResponse:
         self.delete_secret = async_to_streamed_response_wrapper(
             connectors.delete_secret,
         )
+        self.download_datahub_artifact = async_to_custom_streamed_response_wrapper(
+            connectors.download_datahub_artifact,
+            AsyncStreamedBinaryAPIResponse,
+        )
         self.explore = async_to_streamed_response_wrapper(
             connectors.explore,
         )
         self.get = async_to_streamed_response_wrapper(
             connectors.get,
         )
+        self.get_active_exploration_run = async_to_streamed_response_wrapper(
+            connectors.get_active_exploration_run,
+        )
         self.get_clarification_requests = async_to_streamed_response_wrapper(
             connectors.get_clarification_requests,
         )
+        self.get_exploration_run_progress = async_to_streamed_response_wrapper(
+            connectors.get_exploration_run_progress,
+        )
         self.get_exploration_runs = async_to_streamed_response_wrapper(
             connectors.get_exploration_runs,
-        )
-        self.get_exploration_status = async_to_streamed_response_wrapper(
-            connectors.get_exploration_status,
         )
         self.get_explorer_chat = async_to_streamed_response_wrapper(
             connectors.get_explorer_chat,
         )
         self.get_store = async_to_streamed_response_wrapper(
             connectors.get_store,
+        )
+        self.get_table_path = async_to_streamed_response_wrapper(
+            connectors.get_table_path,
+        )
+        self.list_stores = async_to_streamed_response_wrapper(
+            connectors.list_stores,
         )
         self.list_tables = async_to_streamed_response_wrapper(
             connectors.list_tables,
@@ -2576,6 +3006,9 @@ class AsyncConnectorsResourceWithStreamingResponse:
         )
         self.update_table = async_to_streamed_response_wrapper(
             connectors.update_table,
+        )
+        self.upload_datahub_artifact = async_to_streamed_response_wrapper(
+            connectors.upload_datahub_artifact,
         )
 
     @cached_property

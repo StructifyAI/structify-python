@@ -19,6 +19,9 @@ __all__ = [
     "SaveInput",
     "SaveEntities",
     "SaveEntitiesInput",
+    "SaveEntitiesInputSource",
+    "SaveEntitiesInputSourceURL",
+    "SaveEntitiesInputSourcePdfPage",
     "Exit",
     "ExitInput",
     "APIExecute",
@@ -36,6 +39,9 @@ __all__ = [
     "DeleteFileInput",
     "MoveFile",
     "MoveFileInput",
+    "ApplyPatch",
+    "ApplyPatchInput",
+    "ApplyPatchInputEdit",
     "RunBash",
     "RunBashInput",
     "RunPython",
@@ -66,6 +72,12 @@ __all__ = [
     "CreateConnectorInput",
     "SearchConnectorTypes",
     "SearchConnectorTypesInput",
+    "PinPreviousTool",
+    "PinPreviousToolInput",
+    "RunPipeline",
+    "RunPipelineInput",
+    "SaveProperty",
+    "SavePropertyInput",
 ]
 
 
@@ -82,7 +94,7 @@ class WebSearch(BaseModel):
 class WebNavigateInput(BaseModel):
     url: str
 
-    output_format: Optional[Literal["Text", "Visual"]] = None
+    output_format: Optional[Literal["text", "visual"]] = None
 
 
 class WebNavigate(BaseModel):
@@ -120,12 +132,34 @@ class Save(BaseModel):
     name: Literal["Save"]
 
 
+class SaveEntitiesInputSourceURL(BaseModel):
+    type: Literal["url"]
+
+    url: str
+
+
+class SaveEntitiesInputSourcePdfPage(BaseModel):
+    page: int
+
+    type: Literal["pdf_page"]
+
+
+SaveEntitiesInputSource: TypeAlias = Annotated[
+    Union[SaveEntitiesInputSourceURL, SaveEntitiesInputSourcePdfPage], PropertyInfo(discriminator="type")
+]
+
+
 class SaveEntitiesInput(BaseModel):
     entities: List[Dict[str, Dict[str, object]]]
 
     reason: str
 
-    sources: List[str]
+    sources: Optional[List[SaveEntitiesInputSource]] = None
+    """
+    Defaulted because text-only agents don't expose a `sources` field on the
+    SaveEntities tool schema at all. Web/PDF agents inject a single-variant array
+    via the scraper's params patch.
+    """
 
 
 class SaveEntities(BaseModel):
@@ -191,11 +225,7 @@ class InspectStep(BaseModel):
 
 
 class ReadNodeLogsInput(BaseModel):
-    end_line: int
-
     node_function_name: str
-
-    start_line: int
 
     log_type: Optional[str] = None
 
@@ -226,6 +256,26 @@ class MoveFile(BaseModel):
     input: MoveFileInput
 
     name: Literal["MoveFile"]
+
+
+class ApplyPatchInputEdit(BaseModel):
+    new_string: str
+
+    old_string: str
+
+
+class ApplyPatchInput(BaseModel):
+    apply_all: bool
+
+    edits: List[ApplyPatchInputEdit]
+
+    file: str
+
+
+class ApplyPatch(BaseModel):
+    input: ApplyPatchInput
+
+    name: Literal["ApplyPatch"]
 
 
 class RunBashInput(BaseModel):
@@ -307,8 +357,6 @@ class SaveTableInput(BaseModel):
 
     notes: Optional[str] = None
 
-    tag: Optional[str] = None
-
 
 class SaveTable(BaseModel):
     input: SaveTableInput
@@ -360,8 +408,6 @@ class SaveMemory(BaseModel):
 
 class SearchConnectorTablesInput(BaseModel):
     query: str
-
-    wiki_tag: Optional[str] = None
 
 
 class SearchConnectorTables(BaseModel):
@@ -432,6 +478,36 @@ class SearchConnectorTypes(BaseModel):
     name: Literal["SearchConnectorTypes"]
 
 
+class PinPreviousToolInput(BaseModel):
+    path: str
+
+
+class PinPreviousTool(BaseModel):
+    input: PinPreviousToolInput
+
+    name: Literal["PinPreviousTool"]
+
+
+class RunPipelineInput(BaseModel):
+    rerun_all_steps: Optional[bool] = None
+
+
+class RunPipeline(BaseModel):
+    input: RunPipelineInput
+
+    name: Literal["RunPipeline"]
+
+
+class SavePropertyInput(BaseModel):
+    value: str
+
+
+class SaveProperty(BaseModel):
+    input: SavePropertyInput
+
+    name: Literal["SaveProperty"]
+
+
 ToolInvocation: TypeAlias = Annotated[
     Union[
         WebSearch,
@@ -448,6 +524,7 @@ ToolInvocation: TypeAlias = Annotated[
         ReadNodeLogs,
         DeleteFile,
         MoveFile,
+        ApplyPatch,
         RunBash,
         RunPython,
         IssueFound,
@@ -463,6 +540,9 @@ ToolInvocation: TypeAlias = Annotated[
         SelectData,
         CreateConnector,
         SearchConnectorTypes,
+        PinPreviousTool,
+        RunPipeline,
+        SaveProperty,
     ],
     PropertyInfo(discriminator="name"),
 ]

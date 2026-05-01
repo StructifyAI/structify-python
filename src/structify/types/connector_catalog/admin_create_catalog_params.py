@@ -19,4 +19,8 @@ class AdminCreateCatalogParams(TypedDict, total=False):
 
     description: Optional[str]
 
+    enterprise_only: bool
+
+    onboarding_priority: Optional[int]
+
     priority: Optional[int]

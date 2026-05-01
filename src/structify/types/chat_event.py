@@ -1,7 +1,7 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import List, Union, Optional
-from typing_extensions import TypeAlias
+from typing_extensions import Literal, TypeAlias
 
 from pydantic import Field as FieldInfo
 
@@ -31,10 +31,18 @@ __all__ = [
     "ReviewRequest",
     "ReviewRequestReviewRequest",
     "ReviewRequestReviewRequestNodeSummary",
+    "ReviewSummary",
+    "ReviewSummaryReviewSummary",
+    "ReviewSummaryReviewSummaryNodeSummary",
     "AttachedFile",
     "AttachedFileAttachedFile",
     "ConnectorRequest",
     "ConnectorRequestConnectorRequest",
+    "UserInterrupted",
+    "IssueFound",
+    "IssueFoundIssueFound",
+    "Compaction",
+    "CompactionCompaction",
 ]
 
 
@@ -144,6 +152,12 @@ class Question(BaseModel):
 class InternalErrorInternalError(BaseModel):
     message: str
 
+    error_kind: Optional[Literal["unknown", "context_limit", "rate_limited", "timeout", "connection_error"]] = None
+    """
+    Categorizes the kind of internal error that occurred during LLM generation. This
+    allows the frontend to render appropriate error messages without regex matching.
+    """
+
 
 class InternalError(BaseModel):
     internal_error: InternalErrorInternalError = FieldInfo(alias="InternalError")
@@ -167,6 +181,26 @@ class ReviewRequest(BaseModel):
     review_request: ReviewRequestReviewRequest = FieldInfo(alias="ReviewRequest")
 
 
+class ReviewSummaryReviewSummaryNodeSummary(BaseModel):
+    in_dashboard: bool
+
+    name: str
+
+    data_preview: Optional[str] = None
+
+    image: Optional[object] = None
+
+
+class ReviewSummaryReviewSummary(BaseModel):
+    node_summaries: List[ReviewSummaryReviewSummaryNodeSummary]
+
+    summary: str
+
+
+class ReviewSummary(BaseModel):
+    review_summary: ReviewSummaryReviewSummary = FieldInfo(alias="ReviewSummary")
+
+
 class AttachedFileAttachedFile(BaseModel):
     path: str
 
@@ -185,6 +219,34 @@ class ConnectorRequest(BaseModel):
     connector_request: ConnectorRequestConnectorRequest = FieldInfo(alias="ConnectorRequest")
 
 
+class UserInterrupted(BaseModel):
+    user_interrupted: object = FieldInfo(alias="UserInterrupted")
+
+
+class IssueFoundIssueFound(BaseModel):
+    admin_override: bool
+
+    description: str
+
+    title: str
+
+
+class IssueFound(BaseModel):
+    issue_found: IssueFoundIssueFound = FieldInfo(alias="IssueFound")
+
+
+class CompactionCompaction(BaseModel):
+    block_id: int
+
+    complete: bool
+
+    summary: Optional[str] = None
+
+
+class Compaction(BaseModel):
+    compaction: CompactionCompaction = FieldInfo(alias="Compaction")
+
+
 ChatEvent: TypeAlias = Union[
     TextMessage,
     Thinking,
@@ -195,6 +257,10 @@ ChatEvent: TypeAlias = Union[
     Question,
     InternalError,
     ReviewRequest,
+    ReviewSummary,
     AttachedFile,
     ConnectorRequest,
+    UserInterrupted,
+    IssueFound,
+    Compaction,
 ]

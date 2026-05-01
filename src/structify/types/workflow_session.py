@@ -17,6 +17,8 @@ class WorkflowSession(BaseModel):
 
     dag_ready: bool
 
+    is_stable: bool
+
     updated_at: datetime
 
     created_at: Optional[datetime] = None
@@ -29,6 +31,6 @@ class WorkflowSession(BaseModel):
 
     error_traceback: Optional[str] = None
 
-    git_commit: Optional[str] = None
+    parent_chat_message_id: Optional[str] = None
 
     workflow_schedule_id: Optional[str] = None

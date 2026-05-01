@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 from typing import Iterable, Optional
-from typing_extensions import Literal
 
 import httpx
 
@@ -11,6 +10,7 @@ from ..types import (
     structure_pdf_params,
     structure_run_async_params,
     structure_job_status_params,
+    structure_bulk_enhance_params,
     structure_enhance_property_params,
     structure_find_relationship_params,
     structure_enhance_relationship_params,
@@ -30,6 +30,7 @@ from ..types.knowledge_graph_param import KnowledgeGraphParam
 from ..types.save_requirement_param import SaveRequirementParam
 from ..types.structure_pdf_response import StructurePdfResponse
 from ..types.structure_job_status_response import StructureJobStatusResponse
+from ..types.structure_bulk_enhance_response import StructureBulkEnhanceResponse
 
 __all__ = ["StructureResource", "AsyncStructureResource"]
 
@@ -54,16 +55,67 @@ class StructureResource(SyncAPIResource):
         """
         return StructureResourceWithStreamingResponse(self)
 
+    def bulk_enhance(
+        self,
+        *,
+        dataset: str,
+        table_name: str,
+        target: structure_bulk_enhance_params.Target,
+        instructions: Optional[str] | Omit = omit,
+        model: Optional[str] | Omit = omit,
+        node_id: Optional[str] | Omit = omit,
+        source: Optional[structure_bulk_enhance_params.Source] | Omit = omit,
+        use_proxy: Optional[bool] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> StructureBulkEnhanceResponse:
+        """
+        For each entity in `table_name`, queues a job that structures the given source
+        into either new property values (when `target` is `Properties`) or a new
+        relationship (when `target` is `Relationship`), seeded with that entity. Returns
+        the list of queued job ids, which the caller can wait on.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/structure/bulk_enhance",
+            body=maybe_transform(
+                {
+                    "dataset": dataset,
+                    "table_name": table_name,
+                    "target": target,
+                    "instructions": instructions,
+                    "model": model,
+                    "node_id": node_id,
+                    "source": source,
+                    "use_proxy": use_proxy,
+                },
+                structure_bulk_enhance_params.StructureBulkEnhanceParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=StructureBulkEnhanceResponse,
+        )
+
     def enhance_property(
         self,
         *,
         entity_id: str,
         property_name: str,
         allow_extra_entities: bool | Omit = omit,
-        banned_domains: SequenceNotStr[str] | Omit = omit,
         node_id: Optional[str] | Omit = omit,
-        starting_searches: SequenceNotStr[str] | Omit = omit,
-        starting_urls: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -91,10 +143,7 @@ class StructureResource(SyncAPIResource):
                     "entity_id": entity_id,
                     "property_name": property_name,
                     "allow_extra_entities": allow_extra_entities,
-                    "banned_domains": banned_domains,
                     "node_id": node_id,
-                    "starting_searches": starting_searches,
-                    "starting_urls": starting_urls,
                 },
                 structure_enhance_property_params.StructureEnhancePropertyParams,
             ),
@@ -110,10 +159,7 @@ class StructureResource(SyncAPIResource):
         entity_id: str,
         relationship_name: str,
         allow_extra_entities: bool | Omit = omit,
-        banned_domains: SequenceNotStr[str] | Omit = omit,
         node_id: Optional[str] | Omit = omit,
-        starting_searches: SequenceNotStr[str] | Omit = omit,
-        starting_urls: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -141,10 +187,7 @@ class StructureResource(SyncAPIResource):
                     "entity_id": entity_id,
                     "relationship_name": relationship_name,
                     "allow_extra_entities": allow_extra_entities,
-                    "banned_domains": banned_domains,
                     "node_id": node_id,
-                    "starting_searches": starting_searches,
-                    "starting_urls": starting_urls,
                 },
                 structure_enhance_relationship_params.StructureEnhanceRelationshipParams,
             ),
@@ -161,9 +204,6 @@ class StructureResource(SyncAPIResource):
         relationship_name: str,
         to_id: str,
         allow_extra_entities: bool | Omit = omit,
-        banned_domains: SequenceNotStr[str] | Omit = omit,
-        starting_searches: SequenceNotStr[str] | Omit = omit,
-        starting_urls: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -192,9 +232,6 @@ class StructureResource(SyncAPIResource):
                     "relationship_name": relationship_name,
                     "to_id": to_id,
                     "allow_extra_entities": allow_extra_entities,
-                    "banned_domains": banned_domains,
-                    "starting_searches": starting_searches,
-                    "starting_urls": starting_urls,
                 },
                 structure_find_relationship_params.StructureFindRelationshipParams,
             ),
@@ -276,9 +313,9 @@ class StructureResource(SyncAPIResource):
         dataset: str,
         path: str,
         instructions: Optional[str] | Omit = omit,
-        mode: Literal["Single", "Batch"] | Omit = omit,
         model: Optional[str] | Omit = omit,
         node_id: Optional[str] | Omit = omit,
+        pages: Optional[Iterable[int]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -307,9 +344,9 @@ class StructureResource(SyncAPIResource):
                     "dataset": dataset,
                     "path": path,
                     "instructions": instructions,
-                    "mode": mode,
                     "model": model,
                     "node_id": node_id,
+                    "pages": pages,
                 },
                 structure_pdf_params.StructurePdfParams,
             ),
@@ -323,12 +360,13 @@ class StructureResource(SyncAPIResource):
         self,
         *,
         dataset: str,
-        source: structure_run_async_params.Source,
         instructions: Optional[str] | Omit = omit,
         model: Optional[str] | Omit = omit,
         node_id: Optional[str] | Omit = omit,
         save_requirement: Iterable[SaveRequirementParam] | Omit = omit,
         seeded_entity: KnowledgeGraphParam | Omit = omit,
+        source: Optional[structure_run_async_params.Source] | Omit = omit,
+        use_proxy: Optional[bool] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -358,12 +396,13 @@ class StructureResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "dataset": dataset,
-                    "source": source,
                     "instructions": instructions,
                     "model": model,
                     "node_id": node_id,
                     "save_requirement": save_requirement,
                     "seeded_entity": seeded_entity,
+                    "source": source,
+                    "use_proxy": use_proxy,
                 },
                 structure_run_async_params.StructureRunAsyncParams,
             ),
@@ -394,16 +433,67 @@ class AsyncStructureResource(AsyncAPIResource):
         """
         return AsyncStructureResourceWithStreamingResponse(self)
 
+    async def bulk_enhance(
+        self,
+        *,
+        dataset: str,
+        table_name: str,
+        target: structure_bulk_enhance_params.Target,
+        instructions: Optional[str] | Omit = omit,
+        model: Optional[str] | Omit = omit,
+        node_id: Optional[str] | Omit = omit,
+        source: Optional[structure_bulk_enhance_params.Source] | Omit = omit,
+        use_proxy: Optional[bool] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> StructureBulkEnhanceResponse:
+        """
+        For each entity in `table_name`, queues a job that structures the given source
+        into either new property values (when `target` is `Properties`) or a new
+        relationship (when `target` is `Relationship`), seeded with that entity. Returns
+        the list of queued job ids, which the caller can wait on.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/structure/bulk_enhance",
+            body=await async_maybe_transform(
+                {
+                    "dataset": dataset,
+                    "table_name": table_name,
+                    "target": target,
+                    "instructions": instructions,
+                    "model": model,
+                    "node_id": node_id,
+                    "source": source,
+                    "use_proxy": use_proxy,
+                },
+                structure_bulk_enhance_params.StructureBulkEnhanceParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=StructureBulkEnhanceResponse,
+        )
+
     async def enhance_property(
         self,
         *,
         entity_id: str,
         property_name: str,
         allow_extra_entities: bool | Omit = omit,
-        banned_domains: SequenceNotStr[str] | Omit = omit,
         node_id: Optional[str] | Omit = omit,
-        starting_searches: SequenceNotStr[str] | Omit = omit,
-        starting_urls: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -431,10 +521,7 @@ class AsyncStructureResource(AsyncAPIResource):
                     "entity_id": entity_id,
                     "property_name": property_name,
                     "allow_extra_entities": allow_extra_entities,
-                    "banned_domains": banned_domains,
                     "node_id": node_id,
-                    "starting_searches": starting_searches,
-                    "starting_urls": starting_urls,
                 },
                 structure_enhance_property_params.StructureEnhancePropertyParams,
             ),
@@ -450,10 +537,7 @@ class AsyncStructureResource(AsyncAPIResource):
         entity_id: str,
         relationship_name: str,
         allow_extra_entities: bool | Omit = omit,
-        banned_domains: SequenceNotStr[str] | Omit = omit,
         node_id: Optional[str] | Omit = omit,
-        starting_searches: SequenceNotStr[str] | Omit = omit,
-        starting_urls: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -481,10 +565,7 @@ class AsyncStructureResource(AsyncAPIResource):
                     "entity_id": entity_id,
                     "relationship_name": relationship_name,
                     "allow_extra_entities": allow_extra_entities,
-                    "banned_domains": banned_domains,
                     "node_id": node_id,
-                    "starting_searches": starting_searches,
-                    "starting_urls": starting_urls,
                 },
                 structure_enhance_relationship_params.StructureEnhanceRelationshipParams,
             ),
@@ -501,9 +582,6 @@ class AsyncStructureResource(AsyncAPIResource):
         relationship_name: str,
         to_id: str,
         allow_extra_entities: bool | Omit = omit,
-        banned_domains: SequenceNotStr[str] | Omit = omit,
-        starting_searches: SequenceNotStr[str] | Omit = omit,
-        starting_urls: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -532,9 +610,6 @@ class AsyncStructureResource(AsyncAPIResource):
                     "relationship_name": relationship_name,
                     "to_id": to_id,
                     "allow_extra_entities": allow_extra_entities,
-                    "banned_domains": banned_domains,
-                    "starting_searches": starting_searches,
-                    "starting_urls": starting_urls,
                 },
                 structure_find_relationship_params.StructureFindRelationshipParams,
             ),
@@ -616,9 +691,9 @@ class AsyncStructureResource(AsyncAPIResource):
         dataset: str,
         path: str,
         instructions: Optional[str] | Omit = omit,
-        mode: Literal["Single", "Batch"] | Omit = omit,
         model: Optional[str] | Omit = omit,
         node_id: Optional[str] | Omit = omit,
+        pages: Optional[Iterable[int]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -647,9 +722,9 @@ class AsyncStructureResource(AsyncAPIResource):
                     "dataset": dataset,
                     "path": path,
                     "instructions": instructions,
-                    "mode": mode,
                     "model": model,
                     "node_id": node_id,
+                    "pages": pages,
                 },
                 structure_pdf_params.StructurePdfParams,
             ),
@@ -663,12 +738,13 @@ class AsyncStructureResource(AsyncAPIResource):
         self,
         *,
         dataset: str,
-        source: structure_run_async_params.Source,
         instructions: Optional[str] | Omit = omit,
         model: Optional[str] | Omit = omit,
         node_id: Optional[str] | Omit = omit,
         save_requirement: Iterable[SaveRequirementParam] | Omit = omit,
         seeded_entity: KnowledgeGraphParam | Omit = omit,
+        source: Optional[structure_run_async_params.Source] | Omit = omit,
+        use_proxy: Optional[bool] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -698,12 +774,13 @@ class AsyncStructureResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "dataset": dataset,
-                    "source": source,
                     "instructions": instructions,
                     "model": model,
                     "node_id": node_id,
                     "save_requirement": save_requirement,
                     "seeded_entity": seeded_entity,
+                    "source": source,
+                    "use_proxy": use_proxy,
                 },
                 structure_run_async_params.StructureRunAsyncParams,
             ),
@@ -718,6 +795,9 @@ class StructureResourceWithRawResponse:
     def __init__(self, structure: StructureResource) -> None:
         self._structure = structure
 
+        self.bulk_enhance = to_raw_response_wrapper(
+            structure.bulk_enhance,
+        )
         self.enhance_property = to_raw_response_wrapper(
             structure.enhance_property,
         )
@@ -745,6 +825,9 @@ class AsyncStructureResourceWithRawResponse:
     def __init__(self, structure: AsyncStructureResource) -> None:
         self._structure = structure
 
+        self.bulk_enhance = async_to_raw_response_wrapper(
+            structure.bulk_enhance,
+        )
         self.enhance_property = async_to_raw_response_wrapper(
             structure.enhance_property,
         )
@@ -772,6 +855,9 @@ class StructureResourceWithStreamingResponse:
     def __init__(self, structure: StructureResource) -> None:
         self._structure = structure
 
+        self.bulk_enhance = to_streamed_response_wrapper(
+            structure.bulk_enhance,
+        )
         self.enhance_property = to_streamed_response_wrapper(
             structure.enhance_property,
         )
@@ -799,6 +885,9 @@ class AsyncStructureResourceWithStreamingResponse:
     def __init__(self, structure: AsyncStructureResource) -> None:
         self._structure = structure
 
+        self.bulk_enhance = async_to_streamed_response_wrapper(
+            structure.bulk_enhance,
+        )
         self.enhance_property = async_to_streamed_response_wrapper(
             structure.enhance_property,
         )

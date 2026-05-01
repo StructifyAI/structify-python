@@ -29,6 +29,7 @@ class TestWorkflow:
             chat_session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             use_node_cache=True,
             edited_node_name="edited_node_name",
+            rerun_from="rerun_from",
         )
         assert workflow is None
 
@@ -109,6 +110,7 @@ class TestAsyncWorkflow:
             chat_session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             use_node_cache=True,
             edited_node_name="edited_node_name",
+            rerun_from="rerun_from",
         )
         assert workflow is None
 

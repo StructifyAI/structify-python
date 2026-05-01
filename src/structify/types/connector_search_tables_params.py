@@ -12,4 +12,4 @@ class ConnectorSearchTablesParams(TypedDict, total=False):
     """Search query string"""
 
     team_id: Required[str]
-    """Team ID to search tables for"""
+    """Team ID to scope table search"""

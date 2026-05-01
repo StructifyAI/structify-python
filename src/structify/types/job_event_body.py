@@ -12,6 +12,10 @@ __all__ = [
     "AgentNavigated",
     "AgentSearched",
     "AgentSaved",
+    "AgentSavedSaveSource",
+    "AgentSavedSaveSourceWeb",
+    "AgentSavedSaveSourcePdf",
+    "AgentSavedSaveSourcePdfPdf",
     "AgentExited",
     "APINetworkCaptured",
     "APIJsExecuted",
@@ -24,6 +28,8 @@ __all__ = [
     "DatahubDatabasesCreated",
     "DatahubSchemasCreated",
     "DatahubTablesProcessed",
+    "DatahubAnnotationsQueued",
+    "DatahubIngestionProgress",
     "DatahubEmbeddingBatch",
     "ViewedPdfPage",
 ]
@@ -45,6 +51,23 @@ class AgentSearched(BaseModel):
     results: List[List[str]]
 
 
+class AgentSavedSaveSourceWeb(BaseModel):
+    web: str
+
+
+class AgentSavedSaveSourcePdfPdf(BaseModel):
+    name: str
+
+    page: int
+
+
+class AgentSavedSaveSourcePdf(BaseModel):
+    pdf: AgentSavedSaveSourcePdfPdf
+
+
+AgentSavedSaveSource: TypeAlias = Union[AgentSavedSaveSourceWeb, AgentSavedSaveSourcePdf]
+
+
 class AgentSaved(BaseModel):
     event_type: Literal["agent_saved"]
 
@@ -55,11 +78,22 @@ class AgentSaved(BaseModel):
     pipeline from raw tool output to being merged into a DB
     """
 
-    sources: List[str]
-
     page: Optional[int] = None
 
     reason: Optional[str] = None
+
+    save_sources: Optional[List[AgentSavedSaveSource]] = None
+    """Typed citations.
+
+    Empty on older persisted events, in which case fall back to `sources` + `page`.
+    """
+
+    sources: Optional[List[str]] = None
+    """
+    Deprecated: free-form source strings retained for backwards compatibility with
+    historical events. New writers should populate `save_sources` instead and leave
+    this empty.
+    """
 
 
 class AgentExited(BaseModel):
@@ -167,7 +201,23 @@ class DatahubTablesProcessed(BaseModel):
 
     tables_failed: int
 
+    tables_removed: int
+
     tables_updated: int
+
+
+class DatahubAnnotationsQueued(BaseModel):
+    diff_annotations_queued: int
+
+    event_type: Literal["datahub_annotations_queued"]
+
+    full_annotations_queued: int
+
+
+class DatahubIngestionProgress(BaseModel):
+    event_type: Literal["datahub_ingestion_progress"]
+
+    records_written: int
 
 
 class DatahubEmbeddingBatch(BaseModel):
@@ -203,6 +253,8 @@ JobEventBody: TypeAlias = Annotated[
         DatahubDatabasesCreated,
         DatahubSchemasCreated,
         DatahubTablesProcessed,
+        DatahubAnnotationsQueued,
+        DatahubIngestionProgress,
         DatahubEmbeddingBatch,
         ViewedPdfPage,
     ],

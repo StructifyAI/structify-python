@@ -29,8 +29,9 @@ from ..types import (
     entity_delete_relationship_params,
     entity_get_source_entities_params,
 )
+from .._files import deepcopy_with_paths
 from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, FileTypes, SequenceNotStr, omit, not_given
-from .._utils import extract_files, maybe_transform, deepcopy_minimal, async_maybe_transform
+from .._utils import extract_files, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -302,6 +303,7 @@ class EntitiesResource(SyncAPIResource):
         derived_property: str,
         entity_id: str,
         instructions: str,
+        model: Optional[str] | Omit = omit,
         node_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -331,6 +333,7 @@ class EntitiesResource(SyncAPIResource):
                     "derived_property": derived_property,
                     "entity_id": entity_id,
                     "instructions": instructions,
+                    "model": model,
                     "node_id": node_id,
                 },
                 entity_derive_params.EntityDeriveParams,
@@ -348,6 +351,7 @@ class EntitiesResource(SyncAPIResource):
         derived_property: str,
         instructions: str,
         table_name: str,
+        model: Optional[str] | Omit = omit,
         node_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -377,6 +381,7 @@ class EntitiesResource(SyncAPIResource):
                     "derived_property": derived_property,
                     "instructions": instructions,
                     "table_name": table_name,
+                    "model": model,
                     "node_id": node_id,
                 },
                 entity_derive_all_params.EntityDeriveAllParams,
@@ -804,7 +809,7 @@ class EntitiesResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
-        body = deepcopy_minimal({"content": content})
+        body = deepcopy_with_paths({"content": content}, [["content"]])
         files = extract_files(cast(Mapping[str, object], body), paths=[["content"]])
         # It should be noted that the actual Content-Type header that will be
         # sent to the server will contain a `boundary` parameter, e.g.
@@ -1159,6 +1164,7 @@ class AsyncEntitiesResource(AsyncAPIResource):
         derived_property: str,
         entity_id: str,
         instructions: str,
+        model: Optional[str] | Omit = omit,
         node_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1188,6 +1194,7 @@ class AsyncEntitiesResource(AsyncAPIResource):
                     "derived_property": derived_property,
                     "entity_id": entity_id,
                     "instructions": instructions,
+                    "model": model,
                     "node_id": node_id,
                 },
                 entity_derive_params.EntityDeriveParams,
@@ -1205,6 +1212,7 @@ class AsyncEntitiesResource(AsyncAPIResource):
         derived_property: str,
         instructions: str,
         table_name: str,
+        model: Optional[str] | Omit = omit,
         node_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1234,6 +1242,7 @@ class AsyncEntitiesResource(AsyncAPIResource):
                     "derived_property": derived_property,
                     "instructions": instructions,
                     "table_name": table_name,
+                    "model": model,
                     "node_id": node_id,
                 },
                 entity_derive_all_params.EntityDeriveAllParams,
@@ -1667,7 +1676,7 @@ class AsyncEntitiesResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
-        body = deepcopy_minimal({"content": content})
+        body = deepcopy_with_paths({"content": content}, [["content"]])
         files = extract_files(cast(Mapping[str, object], body), paths=[["content"]])
         # It should be noted that the actual Content-Type header that will be
         # sent to the server will contain a `boundary` parameter, e.g.

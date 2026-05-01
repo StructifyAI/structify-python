@@ -17,5 +17,6 @@ UsageGroupKey: TypeAlias = Literal[
     "cufinder",
     "match",
     "connectorexplore",
+    "chat",
     "other",
 ]

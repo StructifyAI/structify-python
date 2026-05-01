@@ -85,7 +85,7 @@ class TestTeams:
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             description="description",
             name="name",
-            pipedream_project_id="pipedream_project_id",
+            sandbox_provider="modal",
             slack_bot_token="slack_bot_token",
             slack_team_icon="slack_team_icon",
             slack_team_id="slack_team_id",
@@ -93,6 +93,10 @@ class TestTeams:
             teams_app_id="teams_app_id",
             teams_app_password="teams_app_password",
             teams_tenant_id="teams_tenant_id",
+            workflow_bucket={
+                "bucket_url": "bucket_url",
+                "gcp_credentials_json": "gcp_credentials_json",
+            },
         )
         assert_matches_type(UpdateTeamResponse, team, path=["response"])
 
@@ -732,7 +736,7 @@ class TestAsyncTeams:
             team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             description="description",
             name="name",
-            pipedream_project_id="pipedream_project_id",
+            sandbox_provider="modal",
             slack_bot_token="slack_bot_token",
             slack_team_icon="slack_team_icon",
             slack_team_id="slack_team_id",
@@ -740,6 +744,10 @@ class TestAsyncTeams:
             teams_app_id="teams_app_id",
             teams_app_password="teams_app_password",
             teams_tenant_id="teams_tenant_id",
+            workflow_bucket={
+                "bucket_url": "bucket_url",
+                "gcp_credentials_json": "gcp_credentials_json",
+            },
         )
         assert_matches_type(UpdateTeamResponse, team, path=["response"])
 

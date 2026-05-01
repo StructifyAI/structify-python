@@ -30,6 +30,18 @@ class WorkflowSessionNode(BaseModel):
 
     updated_at: datetime
 
+    cache_final_rows: Optional[int] = None
+
+    cache_final_size_bytes: Optional[int] = None
+
+    cache_max_bytes: Optional[int] = None
+
+    cache_original_rows: Optional[int] = None
+
+    cache_original_size_bytes: Optional[int] = None
+
+    cache_truncated: Optional[bool] = None
+
     code: Optional[str] = None
 
     confirmation_status: Optional[str] = None

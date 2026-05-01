@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from typing import Union, Optional
 from datetime import datetime
+from typing_extensions import Literal
 
 import httpx
 
@@ -20,7 +21,7 @@ from ..types import (
     team_update_member_role_params,
 )
 from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
-from .._utils import maybe_transform, async_maybe_transform
+from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -113,7 +114,7 @@ class TeamsResource(SyncAPIResource):
         *,
         description: Optional[str] | Omit = omit,
         name: Optional[str] | Omit = omit,
-        pipedream_project_id: Optional[str] | Omit = omit,
+        sandbox_provider: Optional[Literal["modal", "daytona"]] | Omit = omit,
         slack_bot_token: Optional[str] | Omit = omit,
         slack_team_icon: Optional[str] | Omit = omit,
         slack_team_id: Optional[str] | Omit = omit,
@@ -121,6 +122,7 @@ class TeamsResource(SyncAPIResource):
         teams_app_id: Optional[str] | Omit = omit,
         teams_app_password: Optional[str] | Omit = omit,
         teams_tenant_id: Optional[str] | Omit = omit,
+        workflow_bucket: Optional[team_update_params.WorkflowBucket] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -141,12 +143,12 @@ class TeamsResource(SyncAPIResource):
         if not team_id:
             raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
         return self._put(
-            f"/team/{team_id}",
+            path_template("/team/{team_id}", team_id=team_id),
             body=maybe_transform(
                 {
                     "description": description,
                     "name": name,
-                    "pipedream_project_id": pipedream_project_id,
+                    "sandbox_provider": sandbox_provider,
                     "slack_bot_token": slack_bot_token,
                     "slack_team_icon": slack_team_icon,
                     "slack_team_id": slack_team_id,
@@ -154,6 +156,7 @@ class TeamsResource(SyncAPIResource):
                     "teams_app_id": teams_app_id,
                     "teams_app_password": teams_app_password,
                     "teams_tenant_id": teams_tenant_id,
+                    "workflow_bucket": workflow_bucket,
                 },
                 team_update_params.TeamUpdateParams,
             ),
@@ -237,7 +240,7 @@ class TeamsResource(SyncAPIResource):
         if not team_id:
             raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
         return self._post(
-            f"/team/{team_id}/members",
+            path_template("/team/{team_id}/members", team_id=team_id),
             body=maybe_transform(
                 {
                     "email": email,
@@ -277,7 +280,7 @@ class TeamsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._delete(
-            f"/team/{team_id}/invitations",
+            path_template("/team/{team_id}/invitations", team_id=team_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -314,7 +317,7 @@ class TeamsResource(SyncAPIResource):
         if not team_id:
             raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
         return self._post(
-            f"/team/{team_id}/projects",
+            path_template("/team/{team_id}/projects", team_id=team_id),
             body=maybe_transform(
                 {
                     "name": name,
@@ -364,7 +367,7 @@ class TeamsResource(SyncAPIResource):
         if not team_id:
             raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
         return self._get(
-            f"/team/{team_id}/credits/usage",
+            path_template("/team/{team_id}/credits/usage", team_id=team_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -407,7 +410,7 @@ class TeamsResource(SyncAPIResource):
         if not team_id:
             raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
         return self._get(
-            f"/team/{team_id}",
+            path_template("/team/{team_id}", team_id=team_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -438,7 +441,7 @@ class TeamsResource(SyncAPIResource):
         if not token:
             raise ValueError(f"Expected a non-empty value for `token` but received {token!r}")
         return self._get(
-            f"/team/invitations/details/{token}",
+            path_template("/team/invitations/details/{token}", token=token),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -469,7 +472,7 @@ class TeamsResource(SyncAPIResource):
         if not team_id:
             raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
         return self._get(
-            f"/team/{team_id}/members",
+            path_template("/team/{team_id}/members", team_id=team_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -500,7 +503,7 @@ class TeamsResource(SyncAPIResource):
         if not team_id:
             raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
         return self._get(
-            f"/team/{team_id}/projects",
+            path_template("/team/{team_id}/projects", team_id=team_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -534,7 +537,7 @@ class TeamsResource(SyncAPIResource):
         if not user_id:
             raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
         return self._delete(
-            f"/team/{team_id}/members/{user_id}",
+            path_template("/team/{team_id}/members/{user_id}", team_id=team_id, user_id=user_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -565,7 +568,7 @@ class TeamsResource(SyncAPIResource):
         if not team_id:
             raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
         return self._post(
-            f"/team/{team_id}/select",
+            path_template("/team/{team_id}/select", team_id=team_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -600,7 +603,7 @@ class TeamsResource(SyncAPIResource):
         if not user_id:
             raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
         return self._patch(
-            f"/team/{team_id}/members/{user_id}/role",
+            path_template("/team/{team_id}/members/{user_id}/role", team_id=team_id, user_id=user_id),
             body=maybe_transform({"role": role}, team_update_member_role_params.TeamUpdateMemberRoleParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -672,7 +675,7 @@ class AsyncTeamsResource(AsyncAPIResource):
         *,
         description: Optional[str] | Omit = omit,
         name: Optional[str] | Omit = omit,
-        pipedream_project_id: Optional[str] | Omit = omit,
+        sandbox_provider: Optional[Literal["modal", "daytona"]] | Omit = omit,
         slack_bot_token: Optional[str] | Omit = omit,
         slack_team_icon: Optional[str] | Omit = omit,
         slack_team_id: Optional[str] | Omit = omit,
@@ -680,6 +683,7 @@ class AsyncTeamsResource(AsyncAPIResource):
         teams_app_id: Optional[str] | Omit = omit,
         teams_app_password: Optional[str] | Omit = omit,
         teams_tenant_id: Optional[str] | Omit = omit,
+        workflow_bucket: Optional[team_update_params.WorkflowBucket] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -700,12 +704,12 @@ class AsyncTeamsResource(AsyncAPIResource):
         if not team_id:
             raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
         return await self._put(
-            f"/team/{team_id}",
+            path_template("/team/{team_id}", team_id=team_id),
             body=await async_maybe_transform(
                 {
                     "description": description,
                     "name": name,
-                    "pipedream_project_id": pipedream_project_id,
+                    "sandbox_provider": sandbox_provider,
                     "slack_bot_token": slack_bot_token,
                     "slack_team_icon": slack_team_icon,
                     "slack_team_id": slack_team_id,
@@ -713,6 +717,7 @@ class AsyncTeamsResource(AsyncAPIResource):
                     "teams_app_id": teams_app_id,
                     "teams_app_password": teams_app_password,
                     "teams_tenant_id": teams_tenant_id,
+                    "workflow_bucket": workflow_bucket,
                 },
                 team_update_params.TeamUpdateParams,
             ),
@@ -798,7 +803,7 @@ class AsyncTeamsResource(AsyncAPIResource):
         if not team_id:
             raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
         return await self._post(
-            f"/team/{team_id}/members",
+            path_template("/team/{team_id}/members", team_id=team_id),
             body=await async_maybe_transform(
                 {
                     "email": email,
@@ -838,7 +843,7 @@ class AsyncTeamsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._delete(
-            f"/team/{team_id}/invitations",
+            path_template("/team/{team_id}/invitations", team_id=team_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -877,7 +882,7 @@ class AsyncTeamsResource(AsyncAPIResource):
         if not team_id:
             raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
         return await self._post(
-            f"/team/{team_id}/projects",
+            path_template("/team/{team_id}/projects", team_id=team_id),
             body=await async_maybe_transform(
                 {
                     "name": name,
@@ -927,7 +932,7 @@ class AsyncTeamsResource(AsyncAPIResource):
         if not team_id:
             raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
         return await self._get(
-            f"/team/{team_id}/credits/usage",
+            path_template("/team/{team_id}/credits/usage", team_id=team_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -970,7 +975,7 @@ class AsyncTeamsResource(AsyncAPIResource):
         if not team_id:
             raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
         return await self._get(
-            f"/team/{team_id}",
+            path_template("/team/{team_id}", team_id=team_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1001,7 +1006,7 @@ class AsyncTeamsResource(AsyncAPIResource):
         if not token:
             raise ValueError(f"Expected a non-empty value for `token` but received {token!r}")
         return await self._get(
-            f"/team/invitations/details/{token}",
+            path_template("/team/invitations/details/{token}", token=token),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1032,7 +1037,7 @@ class AsyncTeamsResource(AsyncAPIResource):
         if not team_id:
             raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
         return await self._get(
-            f"/team/{team_id}/members",
+            path_template("/team/{team_id}/members", team_id=team_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1063,7 +1068,7 @@ class AsyncTeamsResource(AsyncAPIResource):
         if not team_id:
             raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
         return await self._get(
-            f"/team/{team_id}/projects",
+            path_template("/team/{team_id}/projects", team_id=team_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1097,7 +1102,7 @@ class AsyncTeamsResource(AsyncAPIResource):
         if not user_id:
             raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
         return await self._delete(
-            f"/team/{team_id}/members/{user_id}",
+            path_template("/team/{team_id}/members/{user_id}", team_id=team_id, user_id=user_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1128,7 +1133,7 @@ class AsyncTeamsResource(AsyncAPIResource):
         if not team_id:
             raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
         return await self._post(
-            f"/team/{team_id}/select",
+            path_template("/team/{team_id}/select", team_id=team_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1163,7 +1168,7 @@ class AsyncTeamsResource(AsyncAPIResource):
         if not user_id:
             raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
         return await self._patch(
-            f"/team/{team_id}/members/{user_id}/role",
+            path_template("/team/{team_id}/members/{user_id}/role", team_id=team_id, user_id=user_id),
             body=await async_maybe_transform({"role": role}, team_update_member_role_params.TeamUpdateMemberRoleParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout

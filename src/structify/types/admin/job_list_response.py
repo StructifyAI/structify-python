@@ -1,0 +1,169 @@
+# File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+from typing import List, Union, Optional
+from datetime import datetime
+from typing_extensions import Literal, TypeAlias
+
+from pydantic import Field as FieldInfo
+
+from ..._models import BaseModel
+from ..knowledge_graph import KnowledgeGraph
+from ..save_requirement import SaveRequirement
+from ..exploration_phase_id import ExplorationPhaseID
+
+__all__ = [
+    "JobListResponse",
+    "Parameters",
+    "ParametersStructuringInput",
+    "ParametersStructuringInputAgent",
+    "ParametersStructuringInputAgentAgent",
+    "ParametersStructuringInputAgentAgentPdf",
+    "ParametersStructuringInputAgentAgentPdfPdf",
+    "ParametersStructuringInputTransformationPrompt",
+    "ParametersStructuringInputScrapeFromURLProperty",
+    "ParametersStructuringInputScrapeFromURLPropertyScrapeFromURLProperty",
+    "ParametersStructuringInputScrapeURL",
+    "ParametersStructuringInputScrapeURLScrapeURL",
+    "ParametersStructuringInputDatahubIngestion",
+    "ParametersStructuringInputDatahubIngestionDatahubIngestion",
+    "ParametersStructuringInputConnectorExploration",
+    "ParametersStructuringInputConnectorExplorationConnectorExploration",
+]
+
+
+class ParametersStructuringInputAgentAgentPdfPdf(BaseModel):
+    """Ingest all pages of a PDF and process them independently."""
+
+    path: str
+
+    page: Optional[int] = None
+
+
+class ParametersStructuringInputAgentAgentPdf(BaseModel):
+    pdf: ParametersStructuringInputAgentAgentPdfPdf = FieldInfo(alias="PDF")
+    """Ingest all pages of a PDF and process them independently."""
+
+
+ParametersStructuringInputAgentAgent: TypeAlias = Union[
+    Literal["Web", "NoResources"], ParametersStructuringInputAgentAgentPdf
+]
+
+
+class ParametersStructuringInputAgent(BaseModel):
+    agent: ParametersStructuringInputAgentAgent = FieldInfo(alias="Agent")
+
+
+class ParametersStructuringInputTransformationPrompt(BaseModel):
+    transformation_prompt: str = FieldInfo(alias="TransformationPrompt")
+
+
+class ParametersStructuringInputScrapeFromURLPropertyScrapeFromURLProperty(BaseModel):
+    batch_scrape: bool
+
+    url_property_name: str
+
+    use_markdown: bool
+
+
+class ParametersStructuringInputScrapeFromURLProperty(BaseModel):
+    scrape_from_url_property: ParametersStructuringInputScrapeFromURLPropertyScrapeFromURLProperty = FieldInfo(
+        alias="ScrapeFromUrlProperty"
+    )
+
+
+class ParametersStructuringInputScrapeURLScrapeURL(BaseModel):
+    batch_scrape: bool
+
+    url: str
+
+    use_markdown: bool
+
+
+class ParametersStructuringInputScrapeURL(BaseModel):
+    scrape_url: ParametersStructuringInputScrapeURLScrapeURL = FieldInfo(alias="ScrapeUrl")
+
+
+class ParametersStructuringInputDatahubIngestionDatahubIngestion(BaseModel):
+    connector_id: str
+
+    exploration_run_id: str
+
+    only_do_datahub: bool
+
+
+class ParametersStructuringInputDatahubIngestion(BaseModel):
+    datahub_ingestion: ParametersStructuringInputDatahubIngestionDatahubIngestion = FieldInfo(alias="DatahubIngestion")
+
+
+class ParametersStructuringInputConnectorExplorationConnectorExploration(BaseModel):
+    connector_id: str
+
+    exploration_phase_id: ExplorationPhaseID
+    """Identifies the phase of connector exploration
+
+    This enum is used to track which phase of exploration a chat session belongs to.
+    It's stored as JSONB in the database to allow for flexible phase identification.
+    """
+
+    exploration_run_id: str
+
+    strategy: Literal["full", "diff"]
+
+
+class ParametersStructuringInputConnectorExploration(BaseModel):
+    connector_exploration: ParametersStructuringInputConnectorExplorationConnectorExploration = FieldInfo(
+        alias="ConnectorExploration"
+    )
+
+
+ParametersStructuringInput: TypeAlias = Union[
+    ParametersStructuringInputAgent,
+    ParametersStructuringInputTransformationPrompt,
+    ParametersStructuringInputScrapeFromURLProperty,
+    ParametersStructuringInputScrapeURL,
+    ParametersStructuringInputDatahubIngestion,
+    ParametersStructuringInputConnectorExploration,
+]
+
+
+class Parameters(BaseModel):
+    allow_extra_entities: bool
+
+    extraction_criteria: List[SaveRequirement]
+
+    structuring_input: ParametersStructuringInput
+
+    instructions: Optional[str] = None
+
+    model: Optional[str] = None
+
+    seeded_kg: Optional[KnowledgeGraph] = None
+    """
+    Knowledge graph info structured to deserialize and display in the same format
+    that the LLM outputs. Also the first representation of an LLM output in the
+    pipeline from raw tool output to being merged into a DB
+    """
+
+
+class JobListResponse(BaseModel):
+    id: str
+
+    created_at: datetime
+
+    job_type: Literal["Web", "Pdf", "Derive", "Scrape", "Match", "ConnectorExplore", "DatahubIngestion"]
+
+    status: Literal["Queued", "Running", "Completed", "Failed"]
+
+    user_id: str
+
+    dataset_id: Optional[str] = None
+
+    message: Optional[str] = None
+
+    parameters: Optional[Parameters] = None
+
+    reason: Optional[str] = None
+
+    run_started_time: Optional[datetime] = None
+
+    run_time_milliseconds: Optional[int] = None
