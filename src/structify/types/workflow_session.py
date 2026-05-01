@@ -17,6 +17,8 @@ class WorkflowSession(BaseModel):
 
     dag_ready: bool
 
+    is_stable: bool
+
     updated_at: datetime
 
     created_at: Optional[datetime] = None
