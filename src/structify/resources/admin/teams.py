@@ -20,8 +20,10 @@ from ..._response import (
     async_to_streamed_response_wrapper,
 )
 from ...types.admin import (
+    SetAccessAction,
     team_list_params,
     team_add_member_params,
+    team_set_access_params,
     team_extend_trial_params,
     team_expire_grants_params,
     team_grant_credits_params,
@@ -32,7 +34,9 @@ from ...types.admin import (
 )
 from ..._base_client import make_request_options
 from ...types.team_role import TeamRole
+from ...types.admin.set_access_action import SetAccessAction
 from ...types.admin.team_list_response import TeamListResponse
+from ...types.admin.set_access_response import SetAccessResponse
 from ...types.admin.extend_trial_response import ExtendTrialResponse
 from ...types.admin.expire_grants_response import ExpireGrantsResponse
 from ...types.admin.grant_credits_response import GrantCreditsResponse
@@ -417,6 +421,52 @@ class TeamsResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=AdminRemoveMemberResponse,
+        )
+
+    def set_access(
+        self,
+        *,
+        action: SetAccessAction,
+        team_id: str,
+        expires_at: Union[str, datetime, None] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> SetAccessResponse:
+        """Idempotent: re-granting resets `expires_at`.
+
+        400 if the caller already has a
+        regular live membership on the team.
+
+        Args:
+          expires_at: Cutoff for the SuperAdmin membership. `None` means no expiry — useful for
+              permanent admin staffing. Ignored when `action = Revoke`.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/admin/team/set_access",
+            body=maybe_transform(
+                {
+                    "action": action,
+                    "team_id": team_id,
+                    "expires_at": expires_at,
+                },
+                team_set_access_params.TeamSetAccessParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=SetAccessResponse,
         )
 
     def update_seats_override(
@@ -832,6 +882,52 @@ class AsyncTeamsResource(AsyncAPIResource):
             cast_to=AdminRemoveMemberResponse,
         )
 
+    async def set_access(
+        self,
+        *,
+        action: SetAccessAction,
+        team_id: str,
+        expires_at: Union[str, datetime, None] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> SetAccessResponse:
+        """Idempotent: re-granting resets `expires_at`.
+
+        400 if the caller already has a
+        regular live membership on the team.
+
+        Args:
+          expires_at: Cutoff for the SuperAdmin membership. `None` means no expiry — useful for
+              permanent admin staffing. Ignored when `action = Revoke`.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/admin/team/set_access",
+            body=await async_maybe_transform(
+                {
+                    "action": action,
+                    "team_id": team_id,
+                    "expires_at": expires_at,
+                },
+                team_set_access_params.TeamSetAccessParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=SetAccessResponse,
+        )
+
     async def update_seats_override(
         self,
         *,
@@ -901,6 +997,9 @@ class TeamsResourceWithRawResponse:
         self.remove_member = to_raw_response_wrapper(
             teams.remove_member,
         )
+        self.set_access = to_raw_response_wrapper(
+            teams.set_access,
+        )
         self.update_seats_override = to_raw_response_wrapper(
             teams.update_seats_override,
         )
@@ -936,6 +1035,9 @@ class AsyncTeamsResourceWithRawResponse:
         )
         self.remove_member = async_to_raw_response_wrapper(
             teams.remove_member,
+        )
+        self.set_access = async_to_raw_response_wrapper(
+            teams.set_access,
         )
         self.update_seats_override = async_to_raw_response_wrapper(
             teams.update_seats_override,
@@ -973,6 +1075,9 @@ class TeamsResourceWithStreamingResponse:
         self.remove_member = to_streamed_response_wrapper(
             teams.remove_member,
         )
+        self.set_access = to_streamed_response_wrapper(
+            teams.set_access,
+        )
         self.update_seats_override = to_streamed_response_wrapper(
             teams.update_seats_override,
         )
@@ -1008,6 +1113,9 @@ class AsyncTeamsResourceWithStreamingResponse:
         )
         self.remove_member = async_to_streamed_response_wrapper(
             teams.remove_member,
+        )
+        self.set_access = async_to_streamed_response_wrapper(
+            teams.set_access,
         )
         self.update_seats_override = async_to_streamed_response_wrapper(
             teams.update_seats_override,
