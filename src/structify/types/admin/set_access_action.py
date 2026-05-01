@@ -2,6 +2,6 @@
 
 from typing_extensions import Literal, TypeAlias
 
-__all__ = ["TeamRole"]
+__all__ = ["SetAccessAction"]
 
-TeamRole: TypeAlias = Literal["read_only", "member", "admin", "owner", "super_admin"]
+SetAccessAction: TypeAlias = Literal["grant", "revoke"]

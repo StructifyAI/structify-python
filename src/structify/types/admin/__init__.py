@@ -8,10 +8,12 @@ from .job_list_params import JobListParams as JobListParams
 from .team_list_params import TeamListParams as TeamListParams
 from .job_delete_params import JobDeleteParams as JobDeleteParams
 from .job_list_response import JobListResponse as JobListResponse
+from .set_access_action import SetAccessAction as SetAccessAction
 from .team_list_response import TeamListResponse as TeamListResponse
 from .user_create_params import UserCreateParams as UserCreateParams
 from .user_list_response import UserListResponse as UserListResponse
 from .sandbox_list_params import SandboxListParams as SandboxListParams
+from .set_access_response import SetAccessResponse as SetAccessResponse
 from .admin_dataset_return import AdminDatasetReturn as AdminDatasetReturn
 from .impersonate_response import ImpersonateResponse as ImpersonateResponse
 from .datahub_ingestion_key import DatahubIngestionKey as DatahubIngestionKey
@@ -22,6 +24,7 @@ from .datahub_ingestion_type import DatahubIngestionType as DatahubIngestionType
 from .expire_grants_response import ExpireGrantsResponse as ExpireGrantsResponse
 from .grant_credits_response import GrantCreditsResponse as GrantCreditsResponse
 from .team_add_member_params import TeamAddMemberParams as TeamAddMemberParams
+from .team_set_access_params import TeamSetAccessParams as TeamSetAccessParams
 from .job_kill_by_user_params import JobKillByUserParams as JobKillByUserParams
 from .user_get_stats_response import UserGetStatsResponse as UserGetStatsResponse
 from .user_impersonate_params import UserImpersonateParams as UserImpersonateParams

@@ -302,6 +302,9 @@ from structify.types.admin import (
     ExtendTrialResponse,
     GrantCreditsRequest,
     GrantCreditsResponse,
+    SetAccessAction,
+    SetAccessRequest,
+    SetAccessResponse,
     UpdateSeatsOverrideRequest,
     UpdateSeatsOverrideResponse,
     TeamListResponse,
@@ -319,6 +322,7 @@ Methods:
 - <code title="post /admin/team/grant_credits">client.admin.teams.<a href="./src/structify/resources/admin/teams.py">grant_credits</a>(\*\*<a href="src/structify/types/admin/team_grant_credits_params.py">params</a>) -> <a href="./src/structify/types/admin/grant_credits_response.py">GrantCreditsResponse</a></code>
 - <code title="get /admin/team/{team_id}/members">client.admin.teams.<a href="./src/structify/resources/admin/teams.py">list_members</a>(team_id) -> <a href="./src/structify/types/admin/admin_list_members_response.py">AdminListMembersResponse</a></code>
 - <code title="post /admin/team/remove_member">client.admin.teams.<a href="./src/structify/resources/admin/teams.py">remove_member</a>(\*\*<a href="src/structify/types/admin/team_remove_member_params.py">params</a>) -> <a href="./src/structify/types/admin/admin_remove_member_response.py">AdminRemoveMemberResponse</a></code>
+- <code title="post /admin/team/set_access">client.admin.teams.<a href="./src/structify/resources/admin/teams.py">set_access</a>(\*\*<a href="src/structify/types/admin/team_set_access_params.py">params</a>) -> <a href="./src/structify/types/admin/set_access_response.py">SetAccessResponse</a></code>
 - <code title="post /admin/team/update_seats_override">client.admin.teams.<a href="./src/structify/resources/admin/teams.py">update_seats_override</a>(\*\*<a href="src/structify/types/admin/team_update_seats_override_params.py">params</a>) -> <a href="./src/structify/types/admin/update_seats_override_response.py">UpdateSeatsOverrideResponse</a></code>
 
 ## Dataset
