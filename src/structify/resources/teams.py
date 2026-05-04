@@ -44,6 +44,7 @@ from ..types.list_members_response import ListMembersResponse
 from ..types.credits_usage_response import CreditsUsageResponse
 from ..types.list_projects_response import ListProjectsResponse
 from ..types.remove_member_response import RemoveMemberResponse
+from ..types.team_subscription_status import TeamSubscriptionStatus
 from ..types.accept_invitation_response import AcceptInvitationResponse
 from ..types.invitation_details_response import InvitationDetailsResponse
 from ..types.update_member_role_response import UpdateMemberRoleResponse
@@ -415,6 +416,37 @@ class TeamsResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=GetTeamResponse,
+        )
+
+    def get_subscription(
+        self,
+        team_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> TeamSubscriptionStatus:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not team_id:
+            raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
+        return self._get(
+            path_template("/team/{team_id}/subscription", team_id=team_id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=TeamSubscriptionStatus,
         )
 
     def invitation_details(
@@ -982,6 +1014,37 @@ class AsyncTeamsResource(AsyncAPIResource):
             cast_to=GetTeamResponse,
         )
 
+    async def get_subscription(
+        self,
+        team_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> TeamSubscriptionStatus:
+        """
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not team_id:
+            raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
+        return await self._get(
+            path_template("/team/{team_id}/subscription", team_id=team_id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=TeamSubscriptionStatus,
+        )
+
     async def invitation_details(
         self,
         token: str,
@@ -1208,6 +1271,9 @@ class TeamsResourceWithRawResponse:
         self.get = to_raw_response_wrapper(
             teams.get,
         )
+        self.get_subscription = to_raw_response_wrapper(
+            teams.get_subscription,
+        )
         self.invitation_details = to_raw_response_wrapper(
             teams.invitation_details,
         )
@@ -1258,6 +1324,9 @@ class AsyncTeamsResourceWithRawResponse:
         )
         self.get = async_to_raw_response_wrapper(
             teams.get,
+        )
+        self.get_subscription = async_to_raw_response_wrapper(
+            teams.get_subscription,
         )
         self.invitation_details = async_to_raw_response_wrapper(
             teams.invitation_details,
@@ -1310,6 +1379,9 @@ class TeamsResourceWithStreamingResponse:
         self.get = to_streamed_response_wrapper(
             teams.get,
         )
+        self.get_subscription = to_streamed_response_wrapper(
+            teams.get_subscription,
+        )
         self.invitation_details = to_streamed_response_wrapper(
             teams.invitation_details,
         )
@@ -1360,6 +1432,9 @@ class AsyncTeamsResourceWithStreamingResponse:
         )
         self.get = async_to_streamed_response_wrapper(
             teams.get,
+        )
+        self.get_subscription = async_to_streamed_response_wrapper(
+            teams.get_subscription,
         )
         self.invitation_details = async_to_streamed_response_wrapper(
             teams.invitation_details,
