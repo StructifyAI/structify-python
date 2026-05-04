@@ -82,6 +82,7 @@ class PolarsResource(SyncAPIResource):
         one_to_many: bool = False,
         use_web: bool = True,
         url_column: Optional[str] = None,
+        model: Optional[str] = None,
     ) -> LazyFrame:
         """ """
         if one_to_many:
@@ -94,6 +95,7 @@ class PolarsResource(SyncAPIResource):
                 instructions=instructions,
                 use_no_resources=(not use_web),
                 url_column=url_column,
+                model=model,
             )
         else:
             return self.enhance_columns(
@@ -104,6 +106,7 @@ class PolarsResource(SyncAPIResource):
                 instructions=instructions,
                 use_no_resources=(not use_web),
                 url_column=url_column,
+                model=model,
             )
 
     def enhance_columns(
@@ -117,6 +120,7 @@ class PolarsResource(SyncAPIResource):
         use_no_resources: bool = False,
         url_column: Optional[str] = None,
         use_proxy: bool = False,
+        model: Optional[str] = None,
     ) -> LazyFrame:
         """
         Enhance one or more columns of a `LazyFrame` by letting Structify populate the
@@ -231,6 +235,7 @@ class PolarsResource(SyncAPIResource):
                 instructions=instructions,
                 use_proxy=run_async_use_proxy,
                 node_id=node_id,
+                model=model,
             )
 
             title = f"Enriching {property_names} for {dataframe_name}"
@@ -254,6 +259,7 @@ class PolarsResource(SyncAPIResource):
         use_no_resources: bool = False,
         url_column: Optional[str] = None,
         use_proxy: bool = False,
+        model: Optional[str] = None,
     ) -> LazyFrame:
         """
         Enhance a LazyFrame by finding related entities and creating a one-to-many relationship.
@@ -363,6 +369,7 @@ class PolarsResource(SyncAPIResource):
             instructions=instructions,
             use_proxy=run_async_use_proxy,
             node_id=node_id,
+            model=model,
         )
 
         source_df = source_df.with_columns(pl.Series(STRUCTIFY_JOB_ID_COLUMN, job_ids))
