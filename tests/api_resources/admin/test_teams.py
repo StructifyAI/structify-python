@@ -10,13 +10,14 @@ import pytest
 from structify import Structify, AsyncStructify
 from tests.utils import assert_matches_type
 from structify._utils import parse_datetime
+from structify.pagination import SyncAdminTeamList, AsyncAdminTeamList
 from structify.types.admin import (
-    TeamListResponse,
     SetAccessResponse,
     ExtendTrialResponse,
     ExpireGrantsResponse,
     GrantCreditsResponse,
     AdminAddMemberResponse,
+    AdminTeamsListResponse,
     AdminListMembersResponse,
     AdminRemoveMemberResponse,
     CancelSubscriptionResponse,
@@ -33,7 +34,7 @@ class TestTeams:
     @parametrize
     def test_method_list(self, client: Structify) -> None:
         team = client.admin.teams.list()
-        assert_matches_type(TeamListResponse, team, path=["response"])
+        assert_matches_type(SyncAdminTeamList[AdminTeamsListResponse], team, path=["response"])
 
     @parametrize
     def test_method_list_with_all_params(self, client: Structify) -> None:
@@ -42,7 +43,7 @@ class TestTeams:
             offset=0,
             search="search",
         )
-        assert_matches_type(TeamListResponse, team, path=["response"])
+        assert_matches_type(SyncAdminTeamList[AdminTeamsListResponse], team, path=["response"])
 
     @parametrize
     def test_raw_response_list(self, client: Structify) -> None:
@@ -51,7 +52,7 @@ class TestTeams:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         team = response.parse()
-        assert_matches_type(TeamListResponse, team, path=["response"])
+        assert_matches_type(SyncAdminTeamList[AdminTeamsListResponse], team, path=["response"])
 
     @parametrize
     def test_streaming_response_list(self, client: Structify) -> None:
@@ -60,7 +61,7 @@ class TestTeams:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             team = response.parse()
-            assert_matches_type(TeamListResponse, team, path=["response"])
+            assert_matches_type(SyncAdminTeamList[AdminTeamsListResponse], team, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -465,7 +466,7 @@ class TestAsyncTeams:
     @parametrize
     async def test_method_list(self, async_client: AsyncStructify) -> None:
         team = await async_client.admin.teams.list()
-        assert_matches_type(TeamListResponse, team, path=["response"])
+        assert_matches_type(AsyncAdminTeamList[AdminTeamsListResponse], team, path=["response"])
 
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncStructify) -> None:
@@ -474,7 +475,7 @@ class TestAsyncTeams:
             offset=0,
             search="search",
         )
-        assert_matches_type(TeamListResponse, team, path=["response"])
+        assert_matches_type(AsyncAdminTeamList[AdminTeamsListResponse], team, path=["response"])
 
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncStructify) -> None:
@@ -483,7 +484,7 @@ class TestAsyncTeams:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         team = await response.parse()
-        assert_matches_type(TeamListResponse, team, path=["response"])
+        assert_matches_type(AsyncAdminTeamList[AdminTeamsListResponse], team, path=["response"])
 
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncStructify) -> None:
@@ -492,7 +493,7 @@ class TestAsyncTeams:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             team = await response.parse()
-            assert_matches_type(TeamListResponse, team, path=["response"])
+            assert_matches_type(AsyncAdminTeamList[AdminTeamsListResponse], team, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
