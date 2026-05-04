@@ -16,7 +16,7 @@ from .admin import (
 )
 from ...types import connector_catalog_list_params
 from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
-from ..._utils import path_template, maybe_transform
+from ..._utils import path_template, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -33,9 +33,9 @@ from ..._response import (
     async_to_custom_raw_response_wrapper,
     async_to_custom_streamed_response_wrapper,
 )
-from ...pagination import SyncAdminTeamList, AsyncAdminTeamList
-from ..._base_client import AsyncPaginator, make_request_options
+from ..._base_client import make_request_options
 from ...types.connector_catalog_with_methods import ConnectorCatalogWithMethods
+from ...types.connector_catalog_list_response import ConnectorCatalogListResponse
 
 __all__ = ["ConnectorCatalogResource", "AsyncConnectorCatalogResource"]
 
@@ -79,7 +79,7 @@ class ConnectorCatalogResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncAdminTeamList[ConnectorCatalogWithMethods]:
+    ) -> ConnectorCatalogListResponse:
         """
         List all connector catalog entries with their auth methods and logos
 
@@ -100,9 +100,8 @@ class ConnectorCatalogResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._get_api_list(
+        return self._get(
             "/connector-catalog",
-            page=SyncAdminTeamList[ConnectorCatalogWithMethods],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -119,7 +118,7 @@ class ConnectorCatalogResource(SyncAPIResource):
                     connector_catalog_list_params.ConnectorCatalogListParams,
                 ),
             ),
-            model=ConnectorCatalogWithMethods,
+            cast_to=ConnectorCatalogListResponse,
         )
 
     def get(
@@ -213,7 +212,7 @@ class AsyncConnectorCatalogResource(AsyncAPIResource):
         """
         return AsyncConnectorCatalogResourceWithStreamingResponse(self)
 
-    def list(
+    async def list(
         self,
         *,
         categories: SequenceNotStr[str] | Omit = omit,
@@ -227,7 +226,7 @@ class AsyncConnectorCatalogResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[ConnectorCatalogWithMethods, AsyncAdminTeamList[ConnectorCatalogWithMethods]]:
+    ) -> ConnectorCatalogListResponse:
         """
         List all connector catalog entries with their auth methods and logos
 
@@ -248,15 +247,14 @@ class AsyncConnectorCatalogResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._get_api_list(
+        return await self._get(
             "/connector-catalog",
-            page=AsyncAdminTeamList[ConnectorCatalogWithMethods],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform(
+                query=await async_maybe_transform(
                     {
                         "categories": categories,
                         "include_inactive": include_inactive,
@@ -267,7 +265,7 @@ class AsyncConnectorCatalogResource(AsyncAPIResource):
                     connector_catalog_list_params.ConnectorCatalogListParams,
                 ),
             ),
-            model=ConnectorCatalogWithMethods,
+            cast_to=ConnectorCatalogListResponse,
         )
 
     async def get(

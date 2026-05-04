@@ -19,7 +19,6 @@ from ..._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ...pagination import SyncAdminTeamList, AsyncAdminTeamList
 from ...types.admin import (
     SetAccessAction,
     team_list_params,
@@ -33,15 +32,15 @@ from ...types.admin import (
     team_create_subscription_params,
     team_update_seats_override_params,
 )
-from ..._base_client import AsyncPaginator, make_request_options
+from ..._base_client import make_request_options
 from ...types.team_role import TeamRole
 from ...types.admin.set_access_action import SetAccessAction
+from ...types.admin.team_list_response import TeamListResponse
 from ...types.admin.set_access_response import SetAccessResponse
 from ...types.admin.extend_trial_response import ExtendTrialResponse
 from ...types.admin.expire_grants_response import ExpireGrantsResponse
 from ...types.admin.grant_credits_response import GrantCreditsResponse
 from ...types.admin.admin_add_member_response import AdminAddMemberResponse
-from ...types.admin.admin_teams_list_response import AdminTeamsListResponse
 from ...types.admin.admin_list_members_response import AdminListMembersResponse
 from ...types.admin.admin_remove_member_response import AdminRemoveMemberResponse
 from ...types.admin.cancel_subscription_response import CancelSubscriptionResponse
@@ -85,7 +84,7 @@ class TeamsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncAdminTeamList[AdminTeamsListResponse]:
+    ) -> TeamListResponse:
         """
         Lists teams in the system along with their subscription information, credit
         grants, and member counts. Supports optional pagination via limit, offset, and
@@ -100,9 +99,8 @@ class TeamsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._get_api_list(
+        return self._get(
             "/admin/team/list",
-            page=SyncAdminTeamList[AdminTeamsListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -117,7 +115,7 @@ class TeamsResource(SyncAPIResource):
                     team_list_params.TeamListParams,
                 ),
             ),
-            model=AdminTeamsListResponse,
+            cast_to=TeamListResponse,
         )
 
     def add_member(
@@ -531,7 +529,7 @@ class AsyncTeamsResource(AsyncAPIResource):
         """
         return AsyncTeamsResourceWithStreamingResponse(self)
 
-    def list(
+    async def list(
         self,
         *,
         limit: Optional[int] | Omit = omit,
@@ -543,7 +541,7 @@ class AsyncTeamsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[AdminTeamsListResponse, AsyncAdminTeamList[AdminTeamsListResponse]]:
+    ) -> TeamListResponse:
         """
         Lists teams in the system along with their subscription information, credit
         grants, and member counts. Supports optional pagination via limit, offset, and
@@ -558,15 +556,14 @@ class AsyncTeamsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._get_api_list(
+        return await self._get(
             "/admin/team/list",
-            page=AsyncAdminTeamList[AdminTeamsListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform(
+                query=await async_maybe_transform(
                     {
                         "limit": limit,
                         "offset": offset,
@@ -575,7 +572,7 @@ class AsyncTeamsResource(AsyncAPIResource):
                     team_list_params.TeamListParams,
                 ),
             ),
-            model=AdminTeamsListResponse,
+            cast_to=TeamListResponse,
         )
 
     async def add_member(
