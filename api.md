@@ -308,12 +308,13 @@ from structify.types.admin import (
     SetAccessResponse,
     UpdateSeatsOverrideRequest,
     UpdateSeatsOverrideResponse,
+    TeamListResponse,
 )
 ```
 
 Methods:
 
-- <code title="get /admin/team/list">client.admin.teams.<a href="./src/structify/resources/admin/teams.py">list</a>(\*\*<a href="src/structify/types/admin/team_list_params.py">params</a>) -> <a href="./src/structify/types/admin/admin_teams_list_response.py">SyncAdminTeamList[AdminTeamsListResponse]</a></code>
+- <code title="get /admin/team/list">client.admin.teams.<a href="./src/structify/resources/admin/teams.py">list</a>(\*\*<a href="src/structify/types/admin/team_list_params.py">params</a>) -> <a href="./src/structify/types/admin/team_list_response.py">TeamListResponse</a></code>
 - <code title="post /admin/team/add_member">client.admin.teams.<a href="./src/structify/resources/admin/teams.py">add_member</a>(\*\*<a href="src/structify/types/admin/team_add_member_params.py">params</a>) -> <a href="./src/structify/types/admin/admin_add_member_response.py">AdminAddMemberResponse</a></code>
 - <code title="post /admin/team/cancel_subscription">client.admin.teams.<a href="./src/structify/resources/admin/teams.py">cancel_subscription</a>(\*\*<a href="src/structify/types/admin/team_cancel_subscription_params.py">params</a>) -> <a href="./src/structify/types/admin/cancel_subscription_response.py">CancelSubscriptionResponse</a></code>
 - <code title="post /admin/team/create_subscription">client.admin.teams.<a href="./src/structify/resources/admin/teams.py">create_subscription</a>(\*\*<a href="src/structify/types/admin/team_create_subscription_params.py">params</a>) -> <a href="./src/structify/types/admin/create_subscription_response.py">CreateSubscriptionResponse</a></code>
@@ -713,6 +714,29 @@ Methods:
 
 - <code title="post /webhook/trigger">client.webhook.<a href="./src/structify/resources/webhook.py">trigger</a>(\*\*<a href="src/structify/types/webhook_trigger_params.py">params</a>) -> <a href="./src/structify/types/webhook_trigger_response.py">WebhookTriggerResponse</a></code>
 
+# Analytics
+
+Types:
+
+```python
+from structify.types import (
+    CreateTrackerRequest,
+    CreateTrackerResponse,
+    Event,
+    ListEventsResponse,
+    ListTrackersQuery,
+    ListTrackersResponse,
+    Tracker,
+)
+```
+
+Methods:
+
+- <code title="post /analytics/tracker">client.analytics.<a href="./src/structify/resources/analytics.py">create_tracker</a>(\*\*<a href="src/structify/types/analytics_create_tracker_params.py">params</a>) -> <a href="./src/structify/types/create_tracker_response.py">CreateTrackerResponse</a></code>
+- <code title="get /analytics/{tracker_id}/events">client.analytics.<a href="./src/structify/resources/analytics.py">list_events</a>(tracker_id, \*\*<a href="src/structify/types/analytics_list_events_params.py">params</a>) -> <a href="./src/structify/types/list_events_response.py">ListEventsResponse</a></code>
+- <code title="get /analytics/tracker">client.analytics.<a href="./src/structify/resources/analytics.py">list_trackers</a>(\*\*<a href="src/structify/types/analytics_list_trackers_params.py">params</a>) -> <a href="./src/structify/types/list_trackers_response.py">ListTrackersResponse</a></code>
+- <code title="delete /analytics/tracker/{tracker_id}">client.analytics.<a href="./src/structify/resources/analytics.py">revoke_tracker</a>(tracker_id) -> None</code>
+
 # Workflow
 
 Types:
@@ -827,12 +851,13 @@ from structify.types import (
     ConnectorCatalog,
     ConnectorCatalogWithMethods,
     ConnectorCredentialField,
+    ConnectorCatalogListResponse,
 )
 ```
 
 Methods:
 
-- <code title="get /connector-catalog">client.connector_catalog.<a href="./src/structify/resources/connector_catalog/connector_catalog.py">list</a>(\*\*<a href="src/structify/types/connector_catalog_list_params.py">params</a>) -> <a href="./src/structify/types/connector_catalog_with_methods.py">SyncAdminTeamList[ConnectorCatalogWithMethods]</a></code>
+- <code title="get /connector-catalog">client.connector_catalog.<a href="./src/structify/resources/connector_catalog/connector_catalog.py">list</a>(\*\*<a href="src/structify/types/connector_catalog_list_params.py">params</a>) -> <a href="./src/structify/types/connector_catalog_list_response.py">ConnectorCatalogListResponse</a></code>
 - <code title="get /connector-catalog/{slug}">client.connector_catalog.<a href="./src/structify/resources/connector_catalog/connector_catalog.py">get</a>(slug) -> <a href="./src/structify/types/connector_catalog_with_methods.py">ConnectorCatalogWithMethods</a></code>
 - <code title="get /connector-catalog/{slug}/logo">client.connector_catalog.<a href="./src/structify/resources/connector_catalog/connector_catalog.py">get_logo</a>(slug) -> BinaryAPIResponse</code>
 

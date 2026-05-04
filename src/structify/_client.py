@@ -59,6 +59,7 @@ if TYPE_CHECKING:
         projects,
         sessions,
         workflow,
+        analytics,
         documents,
         structure,
         connectors,
@@ -87,6 +88,7 @@ if TYPE_CHECKING:
     from .resources.projects import ProjectsResource, AsyncProjectsResource
     from .resources.sessions import SessionsResource, AsyncSessionsResource
     from .resources.workflow import WorkflowResource, AsyncWorkflowResource
+    from .resources.analytics import AnalyticsResource, AsyncAnalyticsResource
     from .resources.documents import DocumentsResource, AsyncDocumentsResource
     from .resources.structure import StructureResource, AsyncStructureResource
     from .resources.user.user import UserResource, AsyncUserResource
@@ -307,6 +309,12 @@ class Structify(SyncAPIClient):
         from .resources.webhook import WebhookResource
 
         return WebhookResource(self)
+
+    @cached_property
+    def analytics(self) -> AnalyticsResource:
+        from .resources.analytics import AnalyticsResource
+
+        return AnalyticsResource(self)
 
     @cached_property
     def workflow(self) -> WorkflowResource:
@@ -718,6 +726,12 @@ class AsyncStructify(AsyncAPIClient):
         return AsyncWebhookResource(self)
 
     @cached_property
+    def analytics(self) -> AsyncAnalyticsResource:
+        from .resources.analytics import AsyncAnalyticsResource
+
+        return AsyncAnalyticsResource(self)
+
+    @cached_property
     def workflow(self) -> AsyncWorkflowResource:
         from .resources.workflow import AsyncWorkflowResource
 
@@ -1047,6 +1061,12 @@ class StructifyWithRawResponse:
         return WebhookResourceWithRawResponse(self._client.webhook)
 
     @cached_property
+    def analytics(self) -> analytics.AnalyticsResourceWithRawResponse:
+        from .resources.analytics import AnalyticsResourceWithRawResponse
+
+        return AnalyticsResourceWithRawResponse(self._client.analytics)
+
+    @cached_property
     def workflow(self) -> workflow.WorkflowResourceWithRawResponse:
         from .resources.workflow import WorkflowResourceWithRawResponse
 
@@ -1227,6 +1247,12 @@ class AsyncStructifyWithRawResponse:
         from .resources.webhook import AsyncWebhookResourceWithRawResponse
 
         return AsyncWebhookResourceWithRawResponse(self._client.webhook)
+
+    @cached_property
+    def analytics(self) -> analytics.AsyncAnalyticsResourceWithRawResponse:
+        from .resources.analytics import AsyncAnalyticsResourceWithRawResponse
+
+        return AsyncAnalyticsResourceWithRawResponse(self._client.analytics)
 
     @cached_property
     def workflow(self) -> workflow.AsyncWorkflowResourceWithRawResponse:
@@ -1417,6 +1443,12 @@ class StructifyWithStreamedResponse:
         return WebhookResourceWithStreamingResponse(self._client.webhook)
 
     @cached_property
+    def analytics(self) -> analytics.AnalyticsResourceWithStreamingResponse:
+        from .resources.analytics import AnalyticsResourceWithStreamingResponse
+
+        return AnalyticsResourceWithStreamingResponse(self._client.analytics)
+
+    @cached_property
     def workflow(self) -> workflow.WorkflowResourceWithStreamingResponse:
         from .resources.workflow import WorkflowResourceWithStreamingResponse
 
@@ -1597,6 +1629,12 @@ class AsyncStructifyWithStreamedResponse:
         from .resources.webhook import AsyncWebhookResourceWithStreamingResponse
 
         return AsyncWebhookResourceWithStreamingResponse(self._client.webhook)
+
+    @cached_property
+    def analytics(self) -> analytics.AsyncAnalyticsResourceWithStreamingResponse:
+        from .resources.analytics import AsyncAnalyticsResourceWithStreamingResponse
+
+        return AsyncAnalyticsResourceWithStreamingResponse(self._client.analytics)
 
     @cached_property
     def workflow(self) -> workflow.AsyncWorkflowResourceWithStreamingResponse:

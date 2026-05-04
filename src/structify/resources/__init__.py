@@ -173,6 +173,14 @@ from .workflow import (
     WorkflowResourceWithStreamingResponse,
     AsyncWorkflowResourceWithStreamingResponse,
 )
+from .analytics import (
+    AnalyticsResource,
+    AsyncAnalyticsResource,
+    AnalyticsResourceWithRawResponse,
+    AsyncAnalyticsResourceWithRawResponse,
+    AnalyticsResourceWithStreamingResponse,
+    AsyncAnalyticsResourceWithStreamingResponse,
+)
 from .documents import (
     DocumentsResource,
     AsyncDocumentsResource,
@@ -321,6 +329,12 @@ __all__ = [
     "AsyncWebhookResourceWithRawResponse",
     "WebhookResourceWithStreamingResponse",
     "AsyncWebhookResourceWithStreamingResponse",
+    "AnalyticsResource",
+    "AsyncAnalyticsResource",
+    "AnalyticsResourceWithRawResponse",
+    "AsyncAnalyticsResourceWithRawResponse",
+    "AnalyticsResourceWithStreamingResponse",
+    "AsyncAnalyticsResourceWithStreamingResponse",
     "WorkflowResource",
     "AsyncWorkflowResource",
     "WorkflowResourceWithRawResponse",
