@@ -14,7 +14,6 @@ from ..types import (
     chat_copy_params,
     chat_load_files_params,
     chat_list_sessions_params,
-    chat_add_git_commit_params,
     chat_create_session_params,
     chat_update_session_params,
     chat_list_dashboards_params,
@@ -64,8 +63,6 @@ from ..types.update_visibility_response import UpdateVisibilityResponse
 from ..types.admin_grant_access_response import AdminGrantAccessResponse
 from ..types.list_chat_sessions_response import ListChatSessionsResponse
 from ..types.list_collaborators_response import ListCollaboratorsResponse
-from ..types.chat_add_git_commit_response import ChatAddGitCommitResponse
-from ..types.chat_get_git_commit_response import ChatGetGitCommitResponse
 from ..types.chat_list_templates_response import ChatListTemplatesResponse
 from ..types.create_chat_session_response import CreateChatSessionResponse
 from ..types.delete_chat_session_response import DeleteChatSessionResponse
@@ -139,43 +136,6 @@ class ChatResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=NoneType,
-        )
-
-    def add_git_commit(
-        self,
-        session_id: str,
-        *,
-        commit_hash: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ChatAddGitCommitResponse:
-        """
-        Add a git commit to a chat session
-
-        Args:
-          commit_hash: The git commit hash (must be 40 characters)
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not session_id:
-            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
-        return self._post(
-            path_template("/chat/sessions/{session_id}/commits", session_id=session_id),
-            body=maybe_transform({"commit_hash": commit_hash}, chat_add_git_commit_params.ChatAddGitCommitParams),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=ChatAddGitCommitResponse,
         )
 
     def admin_issue_found(
@@ -456,42 +416,6 @@ class ChatResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=GetDependenciesResponse,
-        )
-
-    def get_git_commit(
-        self,
-        commit_hash: str,
-        *,
-        chat_id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ChatGetGitCommitResponse:
-        """
-        Get a specific git commit by its hash for a chat session
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not chat_id:
-            raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
-        if not commit_hash:
-            raise ValueError(f"Expected a non-empty value for `commit_hash` but received {commit_hash!r}")
-        return self._get(
-            path_template("/chat/sessions/{chat_id}/commits/{commit_hash}", chat_id=chat_id, commit_hash=commit_hash),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=ChatGetGitCommitResponse,
         )
 
     def get_partial_chats(
@@ -1335,45 +1259,6 @@ class AsyncChatResource(AsyncAPIResource):
             cast_to=NoneType,
         )
 
-    async def add_git_commit(
-        self,
-        session_id: str,
-        *,
-        commit_hash: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ChatAddGitCommitResponse:
-        """
-        Add a git commit to a chat session
-
-        Args:
-          commit_hash: The git commit hash (must be 40 characters)
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not session_id:
-            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
-        return await self._post(
-            path_template("/chat/sessions/{session_id}/commits", session_id=session_id),
-            body=await async_maybe_transform(
-                {"commit_hash": commit_hash}, chat_add_git_commit_params.ChatAddGitCommitParams
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=ChatAddGitCommitResponse,
-        )
-
     async def admin_issue_found(
         self,
         chat_id: str,
@@ -1654,42 +1539,6 @@ class AsyncChatResource(AsyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=GetDependenciesResponse,
-        )
-
-    async def get_git_commit(
-        self,
-        commit_hash: str,
-        *,
-        chat_id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ChatGetGitCommitResponse:
-        """
-        Get a specific git commit by its hash for a chat session
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not chat_id:
-            raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
-        if not commit_hash:
-            raise ValueError(f"Expected a non-empty value for `commit_hash` but received {commit_hash!r}")
-        return await self._get(
-            path_template("/chat/sessions/{chat_id}/commits/{commit_hash}", chat_id=chat_id, commit_hash=commit_hash),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=ChatGetGitCommitResponse,
         )
 
     async def get_partial_chats(
@@ -2487,9 +2336,6 @@ class ChatResourceWithRawResponse:
         self.add_collaborator = to_raw_response_wrapper(
             chat.add_collaborator,
         )
-        self.add_git_commit = to_raw_response_wrapper(
-            chat.add_git_commit,
-        )
         self.admin_issue_found = to_raw_response_wrapper(
             chat.admin_issue_found,
         )
@@ -2510,9 +2356,6 @@ class ChatResourceWithRawResponse:
         )
         self.get_dependencies = to_raw_response_wrapper(
             chat.get_dependencies,
-        )
-        self.get_git_commit = to_raw_response_wrapper(
-            chat.get_git_commit,
         )
         self.get_partial_chats = to_raw_response_wrapper(
             chat.get_partial_chats,
@@ -2587,9 +2430,6 @@ class AsyncChatResourceWithRawResponse:
         self.add_collaborator = async_to_raw_response_wrapper(
             chat.add_collaborator,
         )
-        self.add_git_commit = async_to_raw_response_wrapper(
-            chat.add_git_commit,
-        )
         self.admin_issue_found = async_to_raw_response_wrapper(
             chat.admin_issue_found,
         )
@@ -2610,9 +2450,6 @@ class AsyncChatResourceWithRawResponse:
         )
         self.get_dependencies = async_to_raw_response_wrapper(
             chat.get_dependencies,
-        )
-        self.get_git_commit = async_to_raw_response_wrapper(
-            chat.get_git_commit,
         )
         self.get_partial_chats = async_to_raw_response_wrapper(
             chat.get_partial_chats,
@@ -2687,9 +2524,6 @@ class ChatResourceWithStreamingResponse:
         self.add_collaborator = to_streamed_response_wrapper(
             chat.add_collaborator,
         )
-        self.add_git_commit = to_streamed_response_wrapper(
-            chat.add_git_commit,
-        )
         self.admin_issue_found = to_streamed_response_wrapper(
             chat.admin_issue_found,
         )
@@ -2710,9 +2544,6 @@ class ChatResourceWithStreamingResponse:
         )
         self.get_dependencies = to_streamed_response_wrapper(
             chat.get_dependencies,
-        )
-        self.get_git_commit = to_streamed_response_wrapper(
-            chat.get_git_commit,
         )
         self.get_partial_chats = to_streamed_response_wrapper(
             chat.get_partial_chats,
@@ -2787,9 +2618,6 @@ class AsyncChatResourceWithStreamingResponse:
         self.add_collaborator = async_to_streamed_response_wrapper(
             chat.add_collaborator,
         )
-        self.add_git_commit = async_to_streamed_response_wrapper(
-            chat.add_git_commit,
-        )
         self.admin_issue_found = async_to_streamed_response_wrapper(
             chat.admin_issue_found,
         )
@@ -2810,9 +2638,6 @@ class AsyncChatResourceWithStreamingResponse:
         )
         self.get_dependencies = async_to_streamed_response_wrapper(
             chat.get_dependencies,
-        )
-        self.get_git_commit = async_to_streamed_response_wrapper(
-            chat.get_git_commit,
         )
         self.get_partial_chats = async_to_streamed_response_wrapper(
             chat.get_partial_chats,

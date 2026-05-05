@@ -25,6 +25,16 @@ class TestCode:
         assert code is None
 
     @parametrize
+    def test_method_apply_manual_edit_with_all_params(self, client: Structify) -> None:
+        code = client.code.apply_manual_edit(
+            chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            code="code",
+            filename="filename",
+            run_pipeline=True,
+        )
+        assert code is None
+
+    @parametrize
     def test_raw_response_apply_manual_edit(self, client: Structify) -> None:
         response = client.code.with_raw_response.apply_manual_edit(
             chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -158,6 +168,16 @@ class TestAsyncCode:
             chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             code="code",
             filename="filename",
+        )
+        assert code is None
+
+    @parametrize
+    async def test_method_apply_manual_edit_with_all_params(self, async_client: AsyncStructify) -> None:
+        code = await async_client.code.apply_manual_edit(
+            chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            code="code",
+            filename="filename",
+            run_pipeline=True,
         )
         assert code is None
 

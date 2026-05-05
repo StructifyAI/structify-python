@@ -7,17 +7,7 @@ from .._models import BaseModel
 from .chat_visibility import ChatVisibility
 from .chat_session_role import ChatSessionRole
 
-__all__ = ["ChatSessionWithMessages", "Commit", "Message", "MessageStreamChunk"]
-
-
-class Commit(BaseModel):
-    id: str
-
-    chat_session_id: str
-
-    commit_hash: str
-
-    created_at: datetime
+__all__ = ["ChatSessionWithMessages", "Message", "MessageStreamChunk"]
 
 
 class MessageStreamChunk(BaseModel):
@@ -74,8 +64,6 @@ class Message(BaseModel):
 
 class ChatSessionWithMessages(BaseModel):
     id: str
-
-    commits: List[Commit]
 
     created_at: datetime
 

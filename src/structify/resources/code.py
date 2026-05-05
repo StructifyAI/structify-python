@@ -50,6 +50,7 @@ class CodeResource(SyncAPIResource):
         *,
         code: str,
         filename: str,
+        run_pipeline: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -76,6 +77,7 @@ class CodeResource(SyncAPIResource):
                 {
                     "code": code,
                     "filename": filename,
+                    "run_pipeline": run_pipeline,
                 },
                 code_apply_manual_edit_params.CodeApplyManualEditParams,
             ),
@@ -208,6 +210,7 @@ class AsyncCodeResource(AsyncAPIResource):
         *,
         code: str,
         filename: str,
+        run_pipeline: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -234,6 +237,7 @@ class AsyncCodeResource(AsyncAPIResource):
                 {
                     "code": code,
                     "filename": filename,
+                    "run_pipeline": run_pipeline,
                 },
                 code_apply_manual_edit_params.CodeApplyManualEditParams,
             ),
