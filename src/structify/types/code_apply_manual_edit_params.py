@@ -11,3 +11,5 @@ class CodeApplyManualEditParams(TypedDict, total=False):
     code: Required[str]
 
     filename: Required[str]
+
+    run_pipeline: bool

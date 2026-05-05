@@ -10,17 +10,7 @@ from .chat_visibility import ChatVisibility
 from .workflow_session import WorkflowSession
 from .chat_session_role import ChatSessionRole
 
-__all__ = ["GetChatSessionResponse", "Session", "SessionCommit", "SessionMessage"]
-
-
-class SessionCommit(BaseModel):
-    id: str
-
-    chat_session_id: str
-
-    commit_hash: str
-
-    created_at: datetime
+__all__ = ["GetChatSessionResponse", "Session", "SessionMessage"]
 
 
 class SessionMessage(BaseModel):
@@ -45,8 +35,6 @@ class SessionMessage(BaseModel):
 
 class Session(BaseModel):
     id: str
-
-    commits: List[SessionCommit]
 
     created_at: datetime
 

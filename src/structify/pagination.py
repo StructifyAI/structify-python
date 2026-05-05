@@ -7,57 +7,13 @@ from httpx import Response
 
 from ._utils import is_mapping
 from ._models import BaseModel
-from .types.event import Event
 from ._base_client import BasePage, PageInfo, BaseSyncPage, BaseAsyncPage
 
-__all__ = [
-    "SyncAnalyticsEvents",
-    "AsyncAnalyticsEvents",
-    "SyncJobsList",
-    "AsyncJobsList",
-    "SyncListConnectorCatalog",
-    "AsyncListConnectorCatalog",
-]
+__all__ = ["SyncJobsList", "AsyncJobsList", "SyncListConnectorCatalog", "AsyncListConnectorCatalog"]
 
 _BaseModelT = TypeVar("_BaseModelT", bound=BaseModel)
 
 _T = TypeVar("_T")
-
-
-class SyncAnalyticsEvents(BaseSyncPage[_T], BasePage[_T], Generic[_T]):
-    items: Optional[Event] = None
-    next_cursor: Optional[str] = None
-
-    @override
-    def _get_page_items(self) -> List[_T]:
-        data = self.data
-        return data
-
-    @override
-    def next_page_info(self) -> Optional[PageInfo]:
-        next_cursor = self.next_cursor
-        if not next_cursor:
-            return None
-
-        return PageInfo(params={"cursor": next_cursor})
-
-
-class AsyncAnalyticsEvents(BaseAsyncPage[_T], BasePage[_T], Generic[_T]):
-    items: Optional[Event] = None
-    next_cursor: Optional[str] = None
-
-    @override
-    def _get_page_items(self) -> List[_T]:
-        data = self.data
-        return data
-
-    @override
-    def next_page_info(self) -> Optional[PageInfo]:
-        next_cursor = self.next_cursor
-        if not next_cursor:
-            return None
-
-        return PageInfo(params={"cursor": next_cursor})
 
 
 class SyncJobsList(BaseSyncPage[_T], BasePage[_T], Generic[_T]):
