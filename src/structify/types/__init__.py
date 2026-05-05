@@ -110,7 +110,6 @@ from .add_member_response import AddMemberResponse as AddMemberResponse
 from .dashboard_component import DashboardComponent as DashboardComponent
 from .entity_add_response import EntityAddResponse as EntityAddResponse
 from .entity_get_response import EntityGetResponse as EntityGetResponse
-from .job_cancel_response import JobCancelResponse as JobCancelResponse
 from .job_status_response import JobStatusResponse as JobStatusResponse
 from .list_teams_response import ListTeamsResponse as ListTeamsResponse
 from .property_type_param import PropertyTypeParam as PropertyTypeParam
