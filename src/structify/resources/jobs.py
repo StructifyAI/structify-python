@@ -11,7 +11,7 @@ from typing_extensions import Literal
 import httpx
 
 from ..types import job_list_params, job_status_params
-from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, SequenceNotStr, omit, not_given
+from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -25,7 +25,6 @@ from ..pagination import SyncJobsList, AsyncJobsList
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.job_get_response import JobGetResponse
 from ..types.job_list_response import JobListResponse
-from ..types.job_cancel_response import JobCancelResponse
 from ..types.job_status_response import JobStatusResponse
 from ..types.get_job_events_response import GetJobEventsResponse
 
@@ -120,39 +119,6 @@ class JobsResource(SyncAPIResource):
             model=JobListResponse,
         )
 
-    def cancel(
-        self,
-        uuid: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> JobCancelResponse:
-        """
-        You successfully cancelled a job.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not uuid:
-            raise ValueError(f"Expected a non-empty value for `uuid` but received {uuid!r}")
-        return self._post(
-            path_template("/jobs/cancel/{uuid}", uuid=uuid),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=JobCancelResponse,
-        )
-
     def get(
         self,
         job_id: str,
@@ -213,29 +179,6 @@ class JobsResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=GetJobEventsResponse,
-        )
-
-    def schedule(
-        self,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> None:
-        """
-        One example use case is every single day check the news websites and pull them
-        into my dataset.
-        """
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
-        return self._post(
-            "/jobs/schedule",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=NoneType,
         )
 
     def status(
@@ -439,39 +382,6 @@ class AsyncJobsResource(AsyncAPIResource):
             model=JobListResponse,
         )
 
-    async def cancel(
-        self,
-        uuid: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> JobCancelResponse:
-        """
-        You successfully cancelled a job.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not uuid:
-            raise ValueError(f"Expected a non-empty value for `uuid` but received {uuid!r}")
-        return await self._post(
-            path_template("/jobs/cancel/{uuid}", uuid=uuid),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=JobCancelResponse,
-        )
-
     async def get(
         self,
         job_id: str,
@@ -534,29 +444,6 @@ class AsyncJobsResource(AsyncAPIResource):
             cast_to=GetJobEventsResponse,
         )
 
-    async def schedule(
-        self,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> None:
-        """
-        One example use case is every single day check the news websites and pull them
-        into my dataset.
-        """
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
-        return await self._post(
-            "/jobs/schedule",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=NoneType,
-        )
-
     async def status(
         self,
         *,
@@ -610,17 +497,11 @@ class JobsResourceWithRawResponse:
         self.list = to_raw_response_wrapper(
             jobs.list,
         )
-        self.cancel = to_raw_response_wrapper(
-            jobs.cancel,
-        )
         self.get = to_raw_response_wrapper(
             jobs.get,
         )
         self.get_events = to_raw_response_wrapper(
             jobs.get_events,
-        )
-        self.schedule = to_raw_response_wrapper(
-            jobs.schedule,
         )
         self.status = to_raw_response_wrapper(
             jobs.status,
@@ -637,17 +518,11 @@ class AsyncJobsResourceWithRawResponse:
         self.list = async_to_raw_response_wrapper(
             jobs.list,
         )
-        self.cancel = async_to_raw_response_wrapper(
-            jobs.cancel,
-        )
         self.get = async_to_raw_response_wrapper(
             jobs.get,
         )
         self.get_events = async_to_raw_response_wrapper(
             jobs.get_events,
-        )
-        self.schedule = async_to_raw_response_wrapper(
-            jobs.schedule,
         )
         self.status = async_to_raw_response_wrapper(
             jobs.status,
@@ -661,17 +536,11 @@ class JobsResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             jobs.list,
         )
-        self.cancel = to_streamed_response_wrapper(
-            jobs.cancel,
-        )
         self.get = to_streamed_response_wrapper(
             jobs.get,
         )
         self.get_events = to_streamed_response_wrapper(
             jobs.get_events,
-        )
-        self.schedule = to_streamed_response_wrapper(
-            jobs.schedule,
         )
         self.status = to_streamed_response_wrapper(
             jobs.status,
@@ -688,17 +557,11 @@ class AsyncJobsResourceWithStreamingResponse:
         self.list = async_to_streamed_response_wrapper(
             jobs.list,
         )
-        self.cancel = async_to_streamed_response_wrapper(
-            jobs.cancel,
-        )
         self.get = async_to_streamed_response_wrapper(
             jobs.get,
         )
         self.get_events = async_to_streamed_response_wrapper(
             jobs.get_events,
-        )
-        self.schedule = async_to_streamed_response_wrapper(
-            jobs.schedule,
         )
         self.status = async_to_streamed_response_wrapper(
             jobs.status,
