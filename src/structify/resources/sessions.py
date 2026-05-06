@@ -17,6 +17,7 @@ from ..types import (
     session_finalize_dag_params,
     session_mark_errored_params,
     session_create_session_params,
+    session_trigger_review_params,
     session_edit_node_output_params,
     session_request_confirmation_params,
     session_update_node_progress_params,
@@ -53,6 +54,7 @@ from ..types.parquet_edit_param import ParquetEditParam
 from ..types.finalize_dag_response import FinalizeDagResponse
 from ..types.workflow_session_node import WorkflowSessionNode
 from ..types.get_node_logs_response import GetNodeLogsResponse
+from ..types.dead_code_finding_param import DeadCodeFindingParam
 from ..types.trigger_review_response import TriggerReviewResponse
 from ..types.session_kill_jobs_response import SessionKillJobsResponse
 from ..types.session_get_events_response import SessionGetEventsResponse
@@ -574,6 +576,7 @@ class SessionsResource(SyncAPIResource):
         self,
         session_id: str,
         *,
+        dead_code_findings: Iterable[DeadCodeFindingParam] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -583,6 +586,9 @@ class SessionsResource(SyncAPIResource):
     ) -> TriggerReviewResponse:
         """
         Args:
+          dead_code_findings: Symbols vulture flagged as unreached from `workflow()`. Empty when the workflow
+              is clean.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -595,6 +601,9 @@ class SessionsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return self._post(
             path_template("/sessions/{session_id}/trigger_review", session_id=session_id),
+            body=maybe_transform(
+                {"dead_code_findings": dead_code_findings}, session_trigger_review_params.SessionTriggerReviewParams
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1325,6 +1334,7 @@ class AsyncSessionsResource(AsyncAPIResource):
         self,
         session_id: str,
         *,
+        dead_code_findings: Iterable[DeadCodeFindingParam] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1334,6 +1344,9 @@ class AsyncSessionsResource(AsyncAPIResource):
     ) -> TriggerReviewResponse:
         """
         Args:
+          dead_code_findings: Symbols vulture flagged as unreached from `workflow()`. Empty when the workflow
+              is clean.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -1346,6 +1359,9 @@ class AsyncSessionsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return await self._post(
             path_template("/sessions/{session_id}/trigger_review", session_id=session_id),
+            body=await async_maybe_transform(
+                {"dead_code_findings": dead_code_findings}, session_trigger_review_params.SessionTriggerReviewParams
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),

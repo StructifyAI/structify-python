@@ -8,6 +8,7 @@ from pydantic import Field as FieldInfo
 from .._models import BaseModel
 from .tool_result import ToolResult
 from .tool_invocation import ToolInvocation
+from .dead_code_finding import DeadCodeFinding
 
 __all__ = [
     "ChatEvent",
@@ -175,6 +176,8 @@ class ReviewRequestReviewRequestNodeSummary(BaseModel):
 
 class ReviewRequestReviewRequest(BaseModel):
     node_summaries: List[ReviewRequestReviewRequestNodeSummary]
+
+    dead_code_findings: Optional[List[DeadCodeFinding]] = None
 
 
 class ReviewRequest(BaseModel):

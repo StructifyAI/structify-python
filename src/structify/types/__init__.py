@@ -71,6 +71,7 @@ from .chat_prompt_param import ChatPromptParam as ChatPromptParam
 from .chat_session_role import ChatSessionRole as ChatSessionRole
 from .connector_catalog import ConnectorCatalog as ConnectorCatalog
 from .connector_summary import ConnectorSummary as ConnectorSummary
+from .dead_code_finding import DeadCodeFinding as DeadCodeFinding
 from .entity_add_params import EntityAddParams as EntityAddParams
 from .entity_get_params import EntityGetParams as EntityGetParams
 from .get_node_response import GetNodeResponse as GetNodeResponse
@@ -193,6 +194,7 @@ from .connector_update_params import ConnectorUpdateParams as ConnectorUpdatePar
 from .connector_with_snippets import ConnectorWithSnippets as ConnectorWithSnippets
 from .create_tracker_response import CreateTrackerResponse as CreateTrackerResponse
 from .dataset_create_response import DatasetCreateResponse as DatasetCreateResponse
+from .dead_code_finding_param import DeadCodeFindingParam as DeadCodeFindingParam
 from .delete_project_response import DeleteProjectResponse as DeleteProjectResponse
 from .entity_add_batch_params import EntityAddBatchParams as EntityAddBatchParams
 from .entity_list_jobs_params import EntityListJobsParams as EntityListJobsParams
@@ -305,6 +307,7 @@ from .entity_trigger_merge_response import EntityTriggerMergeResponse as EntityT
 from .entity_update_property_params import EntityUpdatePropertyParams as EntityUpdatePropertyParams
 from .nango_create_session_response import NangoCreateSessionResponse as NangoCreateSessionResponse
 from .session_create_session_params import SessionCreateSessionParams as SessionCreateSessionParams
+from .session_trigger_review_params import SessionTriggerReviewParams as SessionTriggerReviewParams
 from .structure_bulk_enhance_params import StructureBulkEnhanceParams as StructureBulkEnhanceParams
 from .structure_job_status_response import StructureJobStatusResponse as StructureJobStatusResponse
 from .team_accept_invitation_params import TeamAcceptInvitationParams as TeamAcceptInvitationParams

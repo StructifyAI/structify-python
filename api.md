@@ -580,6 +580,7 @@ from structify.types import (
     DashboardComponent,
     DashboardPage,
     DashboardSpec,
+    DeadCodeFinding,
     EdgeSpec,
     EditNodeOutputRequest,
     FinalizeDagRequest,
@@ -591,6 +592,7 @@ from structify.types import (
     NodeSpec,
     ParquetEdit,
     RequestConfirmationRequest,
+    TriggerReviewRequest,
     TriggerReviewResponse,
     UpdateWorkflowNodeProgressRequest,
     UpdateWorkflowNodeRequest,
@@ -639,7 +641,7 @@ Methods:
 - <code title="post /sessions/{session_id}/kill_jobs">client.sessions.<a href="./src/structify/resources/sessions.py">kill_jobs</a>(session_id, \*\*<a href="src/structify/types/session_kill_jobs_params.py">params</a>) -> <a href="./src/structify/types/session_kill_jobs_response.py">SessionKillJobsResponse</a></code>
 - <code title="patch /sessions/{session_id}/error">client.sessions.<a href="./src/structify/resources/sessions.py">mark_errored</a>(session_id, \*\*<a href="src/structify/types/session_mark_errored_params.py">params</a>) -> <a href="./src/structify/types/workflow_session.py">WorkflowSession</a></code>
 - <code title="post /sessions/nodes/{node_id}/request_confirmation">client.sessions.<a href="./src/structify/resources/sessions.py">request_confirmation</a>(node_id, \*\*<a href="src/structify/types/session_request_confirmation_params.py">params</a>) -> <a href="./src/structify/types/workflow_session_node.py">WorkflowSessionNode</a></code>
-- <code title="post /sessions/{session_id}/trigger_review">client.sessions.<a href="./src/structify/resources/sessions.py">trigger_review</a>(session_id) -> <a href="./src/structify/types/trigger_review_response.py">TriggerReviewResponse</a></code>
+- <code title="post /sessions/{session_id}/trigger_review">client.sessions.<a href="./src/structify/resources/sessions.py">trigger_review</a>(session_id, \*\*<a href="src/structify/types/session_trigger_review_params.py">params</a>) -> <a href="./src/structify/types/trigger_review_response.py">TriggerReviewResponse</a></code>
 - <code title="patch /sessions/nodes/{node_id}">client.sessions.<a href="./src/structify/resources/sessions.py">update_node</a>(node_id, \*\*<a href="src/structify/types/session_update_node_params.py">params</a>) -> <a href="./src/structify/types/workflow_session_node.py">WorkflowSessionNode</a></code>
 - <code title="patch /sessions/nodes/{node_id}/progress">client.sessions.<a href="./src/structify/resources/sessions.py">update_node_progress</a>(node_id, \*\*<a href="src/structify/types/session_update_node_progress_params.py">params</a>) -> <a href="./src/structify/types/workflow_session_node.py">WorkflowSessionNode</a></code>
 - <code title="post /sessions/{session_id}/dashboard_layout">client.sessions.<a href="./src/structify/resources/sessions.py">upload_dashboard_layout</a>(session_id, \*\*<a href="src/structify/types/session_upload_dashboard_layout_params.py">params</a>) -> <a href="./src/structify/types/workflow_session.py">WorkflowSession</a></code>
