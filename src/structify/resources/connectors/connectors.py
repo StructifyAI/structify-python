@@ -174,9 +174,9 @@ class ConnectorsResource(SyncAPIResource):
         name: Optional[str] | Omit = omit,
         nango_connection_id: Optional[str] | Omit = omit,
         oauth_scopes: Optional[SequenceNotStr[Optional[str]]] | Omit = omit,
-        owner_user_id: Optional[str] | Omit = omit,
+        owner_membership_id: Optional[str] | Omit = omit,
         refresh_cron_schedule: Optional[str] | Omit = omit,
-        shared_user_roles: Optional[Dict[str, ChatSessionRole]] | Omit = omit,
+        shared_membership_roles: Optional[Dict[str, ChatSessionRole]] | Omit = omit,
         team_visibility: Optional[Literal["Team", "Private"]] | Omit = omit,
         usage_snippet_override: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -215,9 +215,9 @@ class ConnectorsResource(SyncAPIResource):
                     "name": name,
                     "nango_connection_id": nango_connection_id,
                     "oauth_scopes": oauth_scopes,
-                    "owner_user_id": owner_user_id,
+                    "owner_membership_id": owner_membership_id,
                     "refresh_cron_schedule": refresh_cron_schedule,
-                    "shared_user_roles": shared_user_roles,
+                    "shared_membership_roles": shared_membership_roles,
                     "team_visibility": team_visibility,
                     "usage_snippet_override": usage_snippet_override,
                 },
@@ -1163,7 +1163,6 @@ class ConnectorsResource(SyncAPIResource):
         self,
         *,
         query: str,
-        team_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1174,8 +1173,6 @@ class ConnectorsResource(SyncAPIResource):
         """
         Args:
           query: Search query string
-
-          team_id: Team ID to scope table search
 
           extra_headers: Send extra headers
 
@@ -1192,13 +1189,7 @@ class ConnectorsResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "query": query,
-                        "team_id": team_id,
-                    },
-                    connector_search_tables_params.ConnectorSearchTablesParams,
-                ),
+                query=maybe_transform({"query": query}, connector_search_tables_params.ConnectorSearchTablesParams),
             ),
             cast_to=ConnectorSearchTablesResponse,
         )
@@ -1450,9 +1441,9 @@ class AsyncConnectorsResource(AsyncAPIResource):
         name: Optional[str] | Omit = omit,
         nango_connection_id: Optional[str] | Omit = omit,
         oauth_scopes: Optional[SequenceNotStr[Optional[str]]] | Omit = omit,
-        owner_user_id: Optional[str] | Omit = omit,
+        owner_membership_id: Optional[str] | Omit = omit,
         refresh_cron_schedule: Optional[str] | Omit = omit,
-        shared_user_roles: Optional[Dict[str, ChatSessionRole]] | Omit = omit,
+        shared_membership_roles: Optional[Dict[str, ChatSessionRole]] | Omit = omit,
         team_visibility: Optional[Literal["Team", "Private"]] | Omit = omit,
         usage_snippet_override: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -1491,9 +1482,9 @@ class AsyncConnectorsResource(AsyncAPIResource):
                     "name": name,
                     "nango_connection_id": nango_connection_id,
                     "oauth_scopes": oauth_scopes,
-                    "owner_user_id": owner_user_id,
+                    "owner_membership_id": owner_membership_id,
                     "refresh_cron_schedule": refresh_cron_schedule,
-                    "shared_user_roles": shared_user_roles,
+                    "shared_membership_roles": shared_membership_roles,
                     "team_visibility": team_visibility,
                     "usage_snippet_override": usage_snippet_override,
                 },
@@ -2439,7 +2430,6 @@ class AsyncConnectorsResource(AsyncAPIResource):
         self,
         *,
         query: str,
-        team_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -2450,8 +2440,6 @@ class AsyncConnectorsResource(AsyncAPIResource):
         """
         Args:
           query: Search query string
-
-          team_id: Team ID to scope table search
 
           extra_headers: Send extra headers
 
@@ -2469,11 +2457,7 @@ class AsyncConnectorsResource(AsyncAPIResource):
                 extra_body=extra_body,
                 timeout=timeout,
                 query=await async_maybe_transform(
-                    {
-                        "query": query,
-                        "team_id": team_id,
-                    },
-                    connector_search_tables_params.ConnectorSearchTablesParams,
+                    {"query": query}, connector_search_tables_params.ConnectorSearchTablesParams
                 ),
             ),
             cast_to=ConnectorSearchTablesResponse,

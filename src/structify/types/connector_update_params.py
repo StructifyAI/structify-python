@@ -36,11 +36,11 @@ class ConnectorUpdateParams(TypedDict, total=False):
 
     oauth_scopes: Optional[SequenceNotStr[Optional[str]]]
 
-    owner_user_id: Optional[str]
+    owner_membership_id: Optional[str]
 
     refresh_cron_schedule: Optional[str]
 
-    shared_user_roles: Optional[Dict[str, ChatSessionRole]]
+    shared_membership_roles: Optional[Dict[str, ChatSessionRole]]
 
     team_visibility: Optional[Literal["Team", "Private"]]
 

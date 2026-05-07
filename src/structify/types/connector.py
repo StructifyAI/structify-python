@@ -20,7 +20,7 @@ class Connector(BaseModel):
 
     name: str
 
-    owner_user_id: str
+    owner_membership_id: str
 
     team_id: str
 

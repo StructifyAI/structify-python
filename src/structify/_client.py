@@ -230,6 +230,7 @@ class Structify(SyncAPIClient):
 
     @cached_property
     def teams(self) -> TeamsResource:
+        """Team management endpoints"""
         from .resources.teams import TeamsResource
 
         return TeamsResource(self)
@@ -651,6 +652,7 @@ class AsyncStructify(AsyncAPIClient):
 
     @cached_property
     def teams(self) -> AsyncTeamsResource:
+        """Team management endpoints"""
         from .resources.teams import AsyncTeamsResource
 
         return AsyncTeamsResource(self)
@@ -980,6 +982,7 @@ class StructifyWithRawResponse:
 
     @cached_property
     def teams(self) -> teams.TeamsResourceWithRawResponse:
+        """Team management endpoints"""
         from .resources.teams import TeamsResourceWithRawResponse
 
         return TeamsResourceWithRawResponse(self._client.teams)
@@ -1174,6 +1177,7 @@ class AsyncStructifyWithRawResponse:
 
     @cached_property
     def teams(self) -> teams.AsyncTeamsResourceWithRawResponse:
+        """Team management endpoints"""
         from .resources.teams import AsyncTeamsResourceWithRawResponse
 
         return AsyncTeamsResourceWithRawResponse(self._client.teams)
@@ -1362,6 +1366,7 @@ class StructifyWithStreamedResponse:
 
     @cached_property
     def teams(self) -> teams.TeamsResourceWithStreamingResponse:
+        """Team management endpoints"""
         from .resources.teams import TeamsResourceWithStreamingResponse
 
         return TeamsResourceWithStreamingResponse(self._client.teams)
@@ -1556,6 +1561,7 @@ class AsyncStructifyWithStreamedResponse:
 
     @cached_property
     def teams(self) -> teams.AsyncTeamsResourceWithStreamingResponse:
+        """Team management endpoints"""
         from .resources.teams import AsyncTeamsResourceWithStreamingResponse
 
         return AsyncTeamsResourceWithStreamingResponse(self._client.teams)

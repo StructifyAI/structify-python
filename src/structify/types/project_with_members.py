@@ -5,8 +5,8 @@ from typing import List
 from .project import Project
 from .project_member import ProjectMember
 
-__all__ = ["ProjectGetResponse"]
+__all__ = ["ProjectWithMembers"]
 
 
-class ProjectGetResponse(Project):
+class ProjectWithMembers(Project):
     members: List[ProjectMember]

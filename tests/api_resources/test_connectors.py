@@ -111,9 +111,9 @@ class TestConnectors:
             name="name",
             nango_connection_id="nango_connection_id",
             oauth_scopes=["string"],
-            owner_user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            owner_membership_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             refresh_cron_schedule="refresh_cron_schedule",
-            shared_user_roles={"foo": "viewer"},
+            shared_membership_roles={"foo": "viewer"},
             team_visibility="Team",
             usage_snippet_override="usage_snippet_override",
         )
@@ -1333,7 +1333,6 @@ class TestConnectors:
     def test_method_search_tables(self, client: Structify) -> None:
         connector = client.connectors.search_tables(
             query="query",
-            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(ConnectorSearchTablesResponse, connector, path=["response"])
 
@@ -1341,7 +1340,6 @@ class TestConnectors:
     def test_raw_response_search_tables(self, client: Structify) -> None:
         response = client.connectors.with_raw_response.search_tables(
             query="query",
-            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
         assert response.is_closed is True
@@ -1353,7 +1351,6 @@ class TestConnectors:
     def test_streaming_response_search_tables(self, client: Structify) -> None:
         with client.connectors.with_streaming_response.search_tables(
             query="query",
-            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -1616,9 +1613,9 @@ class TestAsyncConnectors:
             name="name",
             nango_connection_id="nango_connection_id",
             oauth_scopes=["string"],
-            owner_user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            owner_membership_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             refresh_cron_schedule="refresh_cron_schedule",
-            shared_user_roles={"foo": "viewer"},
+            shared_membership_roles={"foo": "viewer"},
             team_visibility="Team",
             usage_snippet_override="usage_snippet_override",
         )
@@ -2844,7 +2841,6 @@ class TestAsyncConnectors:
     async def test_method_search_tables(self, async_client: AsyncStructify) -> None:
         connector = await async_client.connectors.search_tables(
             query="query",
-            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(ConnectorSearchTablesResponse, connector, path=["response"])
 
@@ -2852,7 +2848,6 @@ class TestAsyncConnectors:
     async def test_raw_response_search_tables(self, async_client: AsyncStructify) -> None:
         response = await async_client.connectors.with_raw_response.search_tables(
             query="query",
-            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
         assert response.is_closed is True
@@ -2864,7 +2859,6 @@ class TestAsyncConnectors:
     async def test_streaming_response_search_tables(self, async_client: AsyncStructify) -> None:
         async with async_client.connectors.with_streaming_response.search_tables(
             query="query",
-            team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
