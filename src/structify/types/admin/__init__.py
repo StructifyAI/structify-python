@@ -18,7 +18,6 @@ from .admin_dataset_return import AdminDatasetReturn as AdminDatasetReturn
 from .impersonate_response import ImpersonateResponse as ImpersonateResponse
 from .datahub_ingestion_key import DatahubIngestionKey as DatahubIngestionKey
 from .extend_trial_response import ExtendTrialResponse as ExtendTrialResponse
-from .user_get_stats_params import UserGetStatsParams as UserGetStatsParams
 from .connector_clone_params import ConnectorCloneParams as ConnectorCloneParams
 from .datahub_ingestion_type import DatahubIngestionType as DatahubIngestionType
 from .expire_grants_response import ExpireGrantsResponse as ExpireGrantsResponse
@@ -26,7 +25,6 @@ from .grant_credits_response import GrantCreditsResponse as GrantCreditsResponse
 from .team_add_member_params import TeamAddMemberParams as TeamAddMemberParams
 from .team_set_access_params import TeamSetAccessParams as TeamSetAccessParams
 from .job_kill_by_user_params import JobKillByUserParams as JobKillByUserParams
-from .user_get_stats_response import UserGetStatsResponse as UserGetStatsResponse
 from .user_impersonate_params import UserImpersonateParams as UserImpersonateParams
 from .connector_clone_response import ConnectorCloneResponse as ConnectorCloneResponse
 from .dataset_get_by_id_params import DatasetGetByIDParams as DatasetGetByIDParams
