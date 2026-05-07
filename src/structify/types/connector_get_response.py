@@ -25,4 +25,4 @@ class ConnectorGetResponseSecret(BaseModel):
 class ConnectorGetResponse(Connector):
     secrets: List[ConnectorGetResponseSecret]
 
-    shared_user_roles: Dict[str, ChatSessionRole]
+    shared_membership_roles: Dict[str, ChatSessionRole]

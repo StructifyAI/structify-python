@@ -135,7 +135,7 @@ from .exploration_phase_id import ExplorationPhaseID as ExplorationPhaseID
 from .exploration_progress import ExplorationProgress as ExplorationProgress
 from .list_events_response import ListEventsResponse as ListEventsResponse
 from .list_tables_response import ListTablesResponse as ListTablesResponse
-from .project_get_response import ProjectGetResponse as ProjectGetResponse
+from .project_with_members import ProjectWithMembers as ProjectWithMembers
 from .scrape_list_response import ScrapeListResponse as ScrapeListResponse
 from .scrape_scrape_params import ScrapeScrapeParams as ScrapeScrapeParams
 from .select_team_response import SelectTeamResponse as SelectTeamResponse
@@ -153,6 +153,7 @@ from .finalize_dag_response import FinalizeDagResponse as FinalizeDagResponse
 from .knowledge_graph_param import KnowledgeGraphParam as KnowledgeGraphParam
 from .list_members_response import ListMembersResponse as ListMembersResponse
 from .llm_information_store import LlmInformationStore as LlmInformationStore
+from .project_create_params import ProjectCreateParams as ProjectCreateParams
 from .project_update_params import ProjectUpdateParams as ProjectUpdateParams
 from .sandbox_list_response import SandboxListResponse as SandboxListResponse
 from .update_table_response import UpdateTableResponse as UpdateTableResponse
@@ -251,7 +252,6 @@ from .session_kill_jobs_response import SessionKillJobsResponse as SessionKillJo
 from .session_update_node_params import SessionUpdateNodeParams as SessionUpdateNodeParams
 from .structure_run_async_params import StructureRunAsyncParams as StructureRunAsyncParams
 from .survey_submission_response import SurveySubmissionResponse as SurveySubmissionResponse
-from .team_create_project_params import TeamCreateProjectParams as TeamCreateProjectParams
 from .update_visibility_response import UpdateVisibilityResponse as UpdateVisibilityResponse
 from .user_transactions_response import UserTransactionsResponse as UserTransactionsResponse
 from .admin_grant_access_response import AdminGrantAccessResponse as AdminGrantAccessResponse
