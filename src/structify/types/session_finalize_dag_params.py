@@ -5,6 +5,7 @@ from __future__ import annotations
 from typing import Iterable, Optional
 from typing_extensions import Required, TypedDict
 
+from .._types import SequenceNotStr
 from .dashboard_param import DashboardParam
 from .edge_spec_param import EdgeSpecParam
 from .node_spec_param import NodeSpecParam
@@ -23,11 +24,16 @@ class SessionFinalizeDagParams(TypedDict, total=False):
     dashboards with different datasets
     """
 
-    rerun_from: Optional[str]
-    """Function name of a node to force-rerun.
+    rerun_from: SequenceNotStr[str]
+    """Function names of nodes to force-rerun.
 
-    That node and any node with it as an ancestor are excluded from cache resolution
-    so they re-execute fresh.
+    Those nodes are excluded from cache resolution so they re-execute fresh.
+    """
+
+    skip_children: bool
+    """
+    When true, descendants of the `rerun_from` nodes are marked Skipped instead of
+    executing.
     """
 
     use_node_cache: bool

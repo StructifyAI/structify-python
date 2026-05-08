@@ -24,7 +24,7 @@ from ..types import (
     session_upload_dashboard_layout_params,
     session_upload_node_visualization_output_params,
 )
-from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import path_template, required_args, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -197,7 +197,8 @@ class SessionsResource(SyncAPIResource):
         edges: Iterable[EdgeSpecParam],
         nodes: Iterable[NodeSpecParam],
         dashboard_layout: Optional[DashboardParam] | Omit = omit,
-        rerun_from: Optional[str] | Omit = omit,
+        rerun_from: SequenceNotStr[str] | Omit = omit,
+        skip_children: bool | Omit = omit,
         use_node_cache: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -214,8 +215,11 @@ class SessionsResource(SyncAPIResource):
           dashboard_layout: A page is the top-level container with title/description Can contain multiple
               dashboards with different datasets
 
-          rerun_from: Function name of a node to force-rerun. That node and any node with it as an
-              ancestor are excluded from cache resolution so they re-execute fresh.
+          rerun_from: Function names of nodes to force-rerun. Those nodes are excluded from cache
+              resolution so they re-execute fresh.
+
+          skip_children: When true, descendants of the `rerun_from` nodes are marked Skipped instead of
+              executing.
 
           use_node_cache: When true, resolve node cache hits against prior workflow sessions and return
               them in `unchanged_nodes`. When false, every node executes fresh.
@@ -238,6 +242,7 @@ class SessionsResource(SyncAPIResource):
                     "nodes": nodes,
                     "dashboard_layout": dashboard_layout,
                     "rerun_from": rerun_from,
+                    "skip_children": skip_children,
                     "use_node_cache": use_node_cache,
                 },
                 session_finalize_dag_params.SessionFinalizeDagParams,
@@ -955,7 +960,8 @@ class AsyncSessionsResource(AsyncAPIResource):
         edges: Iterable[EdgeSpecParam],
         nodes: Iterable[NodeSpecParam],
         dashboard_layout: Optional[DashboardParam] | Omit = omit,
-        rerun_from: Optional[str] | Omit = omit,
+        rerun_from: SequenceNotStr[str] | Omit = omit,
+        skip_children: bool | Omit = omit,
         use_node_cache: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -972,8 +978,11 @@ class AsyncSessionsResource(AsyncAPIResource):
           dashboard_layout: A page is the top-level container with title/description Can contain multiple
               dashboards with different datasets
 
-          rerun_from: Function name of a node to force-rerun. That node and any node with it as an
-              ancestor are excluded from cache resolution so they re-execute fresh.
+          rerun_from: Function names of nodes to force-rerun. Those nodes are excluded from cache
+              resolution so they re-execute fresh.
+
+          skip_children: When true, descendants of the `rerun_from` nodes are marked Skipped instead of
+              executing.
 
           use_node_cache: When true, resolve node cache hits against prior workflow sessions and return
               them in `unchanged_nodes`. When false, every node executes fresh.
@@ -996,6 +1005,7 @@ class AsyncSessionsResource(AsyncAPIResource):
                     "nodes": nodes,
                     "dashboard_layout": dashboard_layout,
                     "rerun_from": rerun_from,
+                    "skip_children": skip_children,
                     "use_node_cache": use_node_cache,
                 },
                 session_finalize_dag_params.SessionFinalizeDagParams,

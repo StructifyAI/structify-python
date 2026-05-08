@@ -16,6 +16,12 @@ class UnchangedNode(BaseModel):
 class FinalizeDagResponse(BaseModel):
     node_ids: List[str]
 
+    skipped_nodes: List[str]
+    """
+    Nodes marked Skipped during finalize because they are descendants of a
+    `rerun_from` node and the caller set `skip_children = true`.
+    """
+
     unchanged_nodes: List[UnchangedNode]
     """
     Nodes that were cache-resolved during finalize and are already marked Success.

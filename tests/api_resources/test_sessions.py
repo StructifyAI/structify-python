@@ -263,7 +263,8 @@ class TestSessions:
                 "title": "title",
                 "description": "description",
             },
-            rerun_from="rerun_from",
+            rerun_from=["string"],
+            skip_children=True,
             use_node_cache=True,
         )
         assert_matches_type(FinalizeDagResponse, session, path=["response"])
@@ -1481,7 +1482,8 @@ class TestAsyncSessions:
                 "title": "title",
                 "description": "description",
             },
-            rerun_from="rerun_from",
+            rerun_from=["string"],
+            skip_children=True,
             use_node_cache=True,
         )
         assert_matches_type(FinalizeDagResponse, session, path=["response"])

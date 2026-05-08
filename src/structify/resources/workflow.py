@@ -7,7 +7,7 @@ from typing import Optional
 import httpx
 
 from ..types import workflow_run_params, workflow_stop_params
-from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
+from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -48,7 +48,8 @@ class WorkflowResource(SyncAPIResource):
         chat_session_id: str,
         use_node_cache: bool,
         edited_node_name: Optional[str] | Omit = omit,
-        rerun_from: Optional[str] | Omit = omit,
+        rerun_from: SequenceNotStr[str] | Omit = omit,
+        skip_children: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -56,8 +57,15 @@ class WorkflowResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
-        """
-        Args:
+        """Args:
+          rerun_from: Function names of nodes to force-rerun.
+
+        Those nodes are excluded from cache
+              resolution so they re-execute fresh; their ancestors cache-resolve.
+
+          skip_children: When true, descendants of the `rerun_from` nodes are marked Skipped instead of
+              executing. Use this to run a subset of the DAG.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -75,6 +83,7 @@ class WorkflowResource(SyncAPIResource):
                     "use_node_cache": use_node_cache,
                     "edited_node_name": edited_node_name,
                     "rerun_from": rerun_from,
+                    "skip_children": skip_children,
                 },
                 workflow_run_params.WorkflowRunParams,
             ),
@@ -142,7 +151,8 @@ class AsyncWorkflowResource(AsyncAPIResource):
         chat_session_id: str,
         use_node_cache: bool,
         edited_node_name: Optional[str] | Omit = omit,
-        rerun_from: Optional[str] | Omit = omit,
+        rerun_from: SequenceNotStr[str] | Omit = omit,
+        skip_children: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -150,8 +160,15 @@ class AsyncWorkflowResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
-        """
-        Args:
+        """Args:
+          rerun_from: Function names of nodes to force-rerun.
+
+        Those nodes are excluded from cache
+              resolution so they re-execute fresh; their ancestors cache-resolve.
+
+          skip_children: When true, descendants of the `rerun_from` nodes are marked Skipped instead of
+              executing. Use this to run a subset of the DAG.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -169,6 +186,7 @@ class AsyncWorkflowResource(AsyncAPIResource):
                     "use_node_cache": use_node_cache,
                     "edited_node_name": edited_node_name,
                     "rerun_from": rerun_from,
+                    "skip_children": skip_children,
                 },
                 workflow_run_params.WorkflowRunParams,
             ),
