@@ -31,6 +31,8 @@ from ...types.admin import (
     team_cancel_subscription_params,
     team_create_subscription_params,
     team_update_seats_override_params,
+    team_list_management_relationships_params,
+    team_upsert_management_relationship_params,
 )
 from ..._base_client import make_request_options
 from ...types.team_role import TeamRole
@@ -46,6 +48,9 @@ from ...types.admin.admin_remove_member_response import AdminRemoveMemberRespons
 from ...types.admin.cancel_subscription_response import CancelSubscriptionResponse
 from ...types.admin.create_subscription_response import CreateSubscriptionResponse
 from ...types.admin.update_seats_override_response import UpdateSeatsOverrideResponse
+from ...types.admin.management_relationship_response import ManagementRelationshipResponse
+from ...types.admin.list_management_relationships_response import ListManagementRelationshipsResponse
+from ...types.admin.delete_management_relationship_response import DeleteManagementRelationshipResponse
 
 __all__ = ["TeamsResource", "AsyncTeamsResource"]
 
@@ -236,6 +241,39 @@ class TeamsResource(SyncAPIResource):
             cast_to=CreateSubscriptionResponse,
         )
 
+    def delete_management_relationship(
+        self,
+        managed_team_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> DeleteManagementRelationshipResponse:
+        """
+        Drop the manager pointer for a managed team.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not managed_team_id:
+            raise ValueError(f"Expected a non-empty value for `managed_team_id` but received {managed_team_id!r}")
+        return self._delete(
+            path_template("/admin/team/{managed_team_id}/management_relationship", managed_team_id=managed_team_id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=DeleteManagementRelationshipResponse,
+        )
+
     def expire_grants(
         self,
         *,
@@ -310,6 +348,40 @@ class TeamsResource(SyncAPIResource):
             cast_to=ExtendTrialResponse,
         )
 
+    def get_management_relationship(
+        self,
+        managed_team_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ManagementRelationshipResponse:
+        """Look up the manager pointer for a managed team.
+
+        404 if no manager is set.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not managed_team_id:
+            raise ValueError(f"Expected a non-empty value for `managed_team_id` but received {managed_team_id!r}")
+        return self._get(
+            path_template("/admin/team/{managed_team_id}/management_relationship", managed_team_id=managed_team_id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ManagementRelationshipResponse,
+        )
+
     def grant_credits(
         self,
         *,
@@ -353,6 +425,46 @@ class TeamsResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=GrantCreditsResponse,
+        )
+
+    def list_management_relationships(
+        self,
+        *,
+        manager_team_id: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ListManagementRelationshipsResponse:
+        """
+        List management relationships, optionally filtered by manager team.
+
+        Args:
+          manager_team_id: Optional filter: only return relationships whose manager is this team.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._get(
+            "/admin/team/management_relationships",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {"manager_team_id": manager_team_id},
+                    team_list_management_relationships_params.TeamListManagementRelationshipsParams,
+                ),
+            ),
+            cast_to=ListManagementRelationshipsResponse,
         )
 
     def list_members(
@@ -436,10 +548,11 @@ class TeamsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SetAccessResponse:
-        """Idempotent: re-granting resets `expires_at`.
-
-        400 if the caller already has a
-        regular live membership on the team.
+        """
+        Structify employees (`is_admin`) for any team, and members of a managing team
+        for any team that managing team manages. Idempotent: re-granting resets
+        `expires_at`. 400 if the caller already has a regular live membership on the
+        team.
 
         Args:
           expires_at: Cutoff for the SuperAdmin membership. `None` means no expiry — useful for
@@ -504,6 +617,45 @@ class TeamsResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=UpdateSeatsOverrideResponse,
+        )
+
+    def upsert_management_relationship(
+        self,
+        *,
+        managed_team_id: str,
+        manager_team_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ManagementRelationshipResponse:
+        """
+        re-posting with a different manager pointer overwrites the prior row.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/admin/team/management_relationship",
+            body=maybe_transform(
+                {
+                    "managed_team_id": managed_team_id,
+                    "manager_team_id": manager_team_id,
+                },
+                team_upsert_management_relationship_params.TeamUpsertManagementRelationshipParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ManagementRelationshipResponse,
         )
 
 
@@ -695,6 +847,39 @@ class AsyncTeamsResource(AsyncAPIResource):
             cast_to=CreateSubscriptionResponse,
         )
 
+    async def delete_management_relationship(
+        self,
+        managed_team_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> DeleteManagementRelationshipResponse:
+        """
+        Drop the manager pointer for a managed team.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not managed_team_id:
+            raise ValueError(f"Expected a non-empty value for `managed_team_id` but received {managed_team_id!r}")
+        return await self._delete(
+            path_template("/admin/team/{managed_team_id}/management_relationship", managed_team_id=managed_team_id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=DeleteManagementRelationshipResponse,
+        )
+
     async def expire_grants(
         self,
         *,
@@ -769,6 +954,40 @@ class AsyncTeamsResource(AsyncAPIResource):
             cast_to=ExtendTrialResponse,
         )
 
+    async def get_management_relationship(
+        self,
+        managed_team_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ManagementRelationshipResponse:
+        """Look up the manager pointer for a managed team.
+
+        404 if no manager is set.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not managed_team_id:
+            raise ValueError(f"Expected a non-empty value for `managed_team_id` but received {managed_team_id!r}")
+        return await self._get(
+            path_template("/admin/team/{managed_team_id}/management_relationship", managed_team_id=managed_team_id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ManagementRelationshipResponse,
+        )
+
     async def grant_credits(
         self,
         *,
@@ -812,6 +1031,46 @@ class AsyncTeamsResource(AsyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=GrantCreditsResponse,
+        )
+
+    async def list_management_relationships(
+        self,
+        *,
+        manager_team_id: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ListManagementRelationshipsResponse:
+        """
+        List management relationships, optionally filtered by manager team.
+
+        Args:
+          manager_team_id: Optional filter: only return relationships whose manager is this team.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._get(
+            "/admin/team/management_relationships",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"manager_team_id": manager_team_id},
+                    team_list_management_relationships_params.TeamListManagementRelationshipsParams,
+                ),
+            ),
+            cast_to=ListManagementRelationshipsResponse,
         )
 
     async def list_members(
@@ -895,10 +1154,11 @@ class AsyncTeamsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SetAccessResponse:
-        """Idempotent: re-granting resets `expires_at`.
-
-        400 if the caller already has a
-        regular live membership on the team.
+        """
+        Structify employees (`is_admin`) for any team, and members of a managing team
+        for any team that managing team manages. Idempotent: re-granting resets
+        `expires_at`. 400 if the caller already has a regular live membership on the
+        team.
 
         Args:
           expires_at: Cutoff for the SuperAdmin membership. `None` means no expiry — useful for
@@ -965,6 +1225,45 @@ class AsyncTeamsResource(AsyncAPIResource):
             cast_to=UpdateSeatsOverrideResponse,
         )
 
+    async def upsert_management_relationship(
+        self,
+        *,
+        managed_team_id: str,
+        manager_team_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ManagementRelationshipResponse:
+        """
+        re-posting with a different manager pointer overwrites the prior row.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/admin/team/management_relationship",
+            body=await async_maybe_transform(
+                {
+                    "managed_team_id": managed_team_id,
+                    "manager_team_id": manager_team_id,
+                },
+                team_upsert_management_relationship_params.TeamUpsertManagementRelationshipParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ManagementRelationshipResponse,
+        )
+
 
 class TeamsResourceWithRawResponse:
     def __init__(self, teams: TeamsResource) -> None:
@@ -982,14 +1281,23 @@ class TeamsResourceWithRawResponse:
         self.create_subscription = to_raw_response_wrapper(
             teams.create_subscription,
         )
+        self.delete_management_relationship = to_raw_response_wrapper(
+            teams.delete_management_relationship,
+        )
         self.expire_grants = to_raw_response_wrapper(
             teams.expire_grants,
         )
         self.extend_trial = to_raw_response_wrapper(
             teams.extend_trial,
         )
+        self.get_management_relationship = to_raw_response_wrapper(
+            teams.get_management_relationship,
+        )
         self.grant_credits = to_raw_response_wrapper(
             teams.grant_credits,
+        )
+        self.list_management_relationships = to_raw_response_wrapper(
+            teams.list_management_relationships,
         )
         self.list_members = to_raw_response_wrapper(
             teams.list_members,
@@ -1002,6 +1310,9 @@ class TeamsResourceWithRawResponse:
         )
         self.update_seats_override = to_raw_response_wrapper(
             teams.update_seats_override,
+        )
+        self.upsert_management_relationship = to_raw_response_wrapper(
+            teams.upsert_management_relationship,
         )
 
 
@@ -1021,14 +1332,23 @@ class AsyncTeamsResourceWithRawResponse:
         self.create_subscription = async_to_raw_response_wrapper(
             teams.create_subscription,
         )
+        self.delete_management_relationship = async_to_raw_response_wrapper(
+            teams.delete_management_relationship,
+        )
         self.expire_grants = async_to_raw_response_wrapper(
             teams.expire_grants,
         )
         self.extend_trial = async_to_raw_response_wrapper(
             teams.extend_trial,
         )
+        self.get_management_relationship = async_to_raw_response_wrapper(
+            teams.get_management_relationship,
+        )
         self.grant_credits = async_to_raw_response_wrapper(
             teams.grant_credits,
+        )
+        self.list_management_relationships = async_to_raw_response_wrapper(
+            teams.list_management_relationships,
         )
         self.list_members = async_to_raw_response_wrapper(
             teams.list_members,
@@ -1041,6 +1361,9 @@ class AsyncTeamsResourceWithRawResponse:
         )
         self.update_seats_override = async_to_raw_response_wrapper(
             teams.update_seats_override,
+        )
+        self.upsert_management_relationship = async_to_raw_response_wrapper(
+            teams.upsert_management_relationship,
         )
 
 
@@ -1060,14 +1383,23 @@ class TeamsResourceWithStreamingResponse:
         self.create_subscription = to_streamed_response_wrapper(
             teams.create_subscription,
         )
+        self.delete_management_relationship = to_streamed_response_wrapper(
+            teams.delete_management_relationship,
+        )
         self.expire_grants = to_streamed_response_wrapper(
             teams.expire_grants,
         )
         self.extend_trial = to_streamed_response_wrapper(
             teams.extend_trial,
         )
+        self.get_management_relationship = to_streamed_response_wrapper(
+            teams.get_management_relationship,
+        )
         self.grant_credits = to_streamed_response_wrapper(
             teams.grant_credits,
+        )
+        self.list_management_relationships = to_streamed_response_wrapper(
+            teams.list_management_relationships,
         )
         self.list_members = to_streamed_response_wrapper(
             teams.list_members,
@@ -1080,6 +1412,9 @@ class TeamsResourceWithStreamingResponse:
         )
         self.update_seats_override = to_streamed_response_wrapper(
             teams.update_seats_override,
+        )
+        self.upsert_management_relationship = to_streamed_response_wrapper(
+            teams.upsert_management_relationship,
         )
 
 
@@ -1099,14 +1434,23 @@ class AsyncTeamsResourceWithStreamingResponse:
         self.create_subscription = async_to_streamed_response_wrapper(
             teams.create_subscription,
         )
+        self.delete_management_relationship = async_to_streamed_response_wrapper(
+            teams.delete_management_relationship,
+        )
         self.expire_grants = async_to_streamed_response_wrapper(
             teams.expire_grants,
         )
         self.extend_trial = async_to_streamed_response_wrapper(
             teams.extend_trial,
         )
+        self.get_management_relationship = async_to_streamed_response_wrapper(
+            teams.get_management_relationship,
+        )
         self.grant_credits = async_to_streamed_response_wrapper(
             teams.grant_credits,
+        )
+        self.list_management_relationships = async_to_streamed_response_wrapper(
+            teams.list_management_relationships,
         )
         self.list_members = async_to_streamed_response_wrapper(
             teams.list_members,
@@ -1119,4 +1463,7 @@ class AsyncTeamsResourceWithStreamingResponse:
         )
         self.update_seats_override = async_to_streamed_response_wrapper(
             teams.update_seats_override,
+        )
+        self.upsert_management_relationship = async_to_streamed_response_wrapper(
+            teams.upsert_management_relationship,
         )

@@ -22,6 +22,9 @@ from structify.types.admin import (
     CancelSubscriptionResponse,
     CreateSubscriptionResponse,
     UpdateSeatsOverrideResponse,
+    ManagementRelationshipResponse,
+    ListManagementRelationshipsResponse,
+    DeleteManagementRelationshipResponse,
 )
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
@@ -186,6 +189,44 @@ class TestTeams:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
+    def test_method_delete_management_relationship(self, client: Structify) -> None:
+        team = client.admin.teams.delete_management_relationship(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(DeleteManagementRelationshipResponse, team, path=["response"])
+
+    @parametrize
+    def test_raw_response_delete_management_relationship(self, client: Structify) -> None:
+        response = client.admin.teams.with_raw_response.delete_management_relationship(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        team = response.parse()
+        assert_matches_type(DeleteManagementRelationshipResponse, team, path=["response"])
+
+    @parametrize
+    def test_streaming_response_delete_management_relationship(self, client: Structify) -> None:
+        with client.admin.teams.with_streaming_response.delete_management_relationship(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            team = response.parse()
+            assert_matches_type(DeleteManagementRelationshipResponse, team, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_path_params_delete_management_relationship(self, client: Structify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `managed_team_id` but received ''"):
+            client.admin.teams.with_raw_response.delete_management_relationship(
+                "",
+            )
+
+    @parametrize
     def test_method_expire_grants(self, client: Structify) -> None:
         team = client.admin.teams.expire_grants(
             source_type="source_type",
@@ -254,6 +295,44 @@ class TestTeams:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
+    def test_method_get_management_relationship(self, client: Structify) -> None:
+        team = client.admin.teams.get_management_relationship(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(ManagementRelationshipResponse, team, path=["response"])
+
+    @parametrize
+    def test_raw_response_get_management_relationship(self, client: Structify) -> None:
+        response = client.admin.teams.with_raw_response.get_management_relationship(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        team = response.parse()
+        assert_matches_type(ManagementRelationshipResponse, team, path=["response"])
+
+    @parametrize
+    def test_streaming_response_get_management_relationship(self, client: Structify) -> None:
+        with client.admin.teams.with_streaming_response.get_management_relationship(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            team = response.parse()
+            assert_matches_type(ManagementRelationshipResponse, team, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_path_params_get_management_relationship(self, client: Structify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `managed_team_id` but received ''"):
+            client.admin.teams.with_raw_response.get_management_relationship(
+                "",
+            )
+
+    @parametrize
     def test_method_grant_credits(self, client: Structify) -> None:
         team = client.admin.teams.grant_credits(
             amount=0,
@@ -299,6 +378,38 @@ class TestTeams:
 
             team = response.parse()
             assert_matches_type(GrantCreditsResponse, team, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_method_list_management_relationships(self, client: Structify) -> None:
+        team = client.admin.teams.list_management_relationships()
+        assert_matches_type(ListManagementRelationshipsResponse, team, path=["response"])
+
+    @parametrize
+    def test_method_list_management_relationships_with_all_params(self, client: Structify) -> None:
+        team = client.admin.teams.list_management_relationships(
+            manager_team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(ListManagementRelationshipsResponse, team, path=["response"])
+
+    @parametrize
+    def test_raw_response_list_management_relationships(self, client: Structify) -> None:
+        response = client.admin.teams.with_raw_response.list_management_relationships()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        team = response.parse()
+        assert_matches_type(ListManagementRelationshipsResponse, team, path=["response"])
+
+    @parametrize
+    def test_streaming_response_list_management_relationships(self, client: Structify) -> None:
+        with client.admin.teams.with_streaming_response.list_management_relationships() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            team = response.parse()
+            assert_matches_type(ListManagementRelationshipsResponse, team, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -453,6 +564,40 @@ class TestTeams:
 
             team = response.parse()
             assert_matches_type(UpdateSeatsOverrideResponse, team, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_method_upsert_management_relationship(self, client: Structify) -> None:
+        team = client.admin.teams.upsert_management_relationship(
+            managed_team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            manager_team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(ManagementRelationshipResponse, team, path=["response"])
+
+    @parametrize
+    def test_raw_response_upsert_management_relationship(self, client: Structify) -> None:
+        response = client.admin.teams.with_raw_response.upsert_management_relationship(
+            managed_team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            manager_team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        team = response.parse()
+        assert_matches_type(ManagementRelationshipResponse, team, path=["response"])
+
+    @parametrize
+    def test_streaming_response_upsert_management_relationship(self, client: Structify) -> None:
+        with client.admin.teams.with_streaming_response.upsert_management_relationship(
+            managed_team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            manager_team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            team = response.parse()
+            assert_matches_type(ManagementRelationshipResponse, team, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -618,6 +763,44 @@ class TestAsyncTeams:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
+    async def test_method_delete_management_relationship(self, async_client: AsyncStructify) -> None:
+        team = await async_client.admin.teams.delete_management_relationship(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(DeleteManagementRelationshipResponse, team, path=["response"])
+
+    @parametrize
+    async def test_raw_response_delete_management_relationship(self, async_client: AsyncStructify) -> None:
+        response = await async_client.admin.teams.with_raw_response.delete_management_relationship(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        team = await response.parse()
+        assert_matches_type(DeleteManagementRelationshipResponse, team, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_delete_management_relationship(self, async_client: AsyncStructify) -> None:
+        async with async_client.admin.teams.with_streaming_response.delete_management_relationship(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            team = await response.parse()
+            assert_matches_type(DeleteManagementRelationshipResponse, team, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_delete_management_relationship(self, async_client: AsyncStructify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `managed_team_id` but received ''"):
+            await async_client.admin.teams.with_raw_response.delete_management_relationship(
+                "",
+            )
+
+    @parametrize
     async def test_method_expire_grants(self, async_client: AsyncStructify) -> None:
         team = await async_client.admin.teams.expire_grants(
             source_type="source_type",
@@ -686,6 +869,44 @@ class TestAsyncTeams:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
+    async def test_method_get_management_relationship(self, async_client: AsyncStructify) -> None:
+        team = await async_client.admin.teams.get_management_relationship(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(ManagementRelationshipResponse, team, path=["response"])
+
+    @parametrize
+    async def test_raw_response_get_management_relationship(self, async_client: AsyncStructify) -> None:
+        response = await async_client.admin.teams.with_raw_response.get_management_relationship(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        team = await response.parse()
+        assert_matches_type(ManagementRelationshipResponse, team, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_get_management_relationship(self, async_client: AsyncStructify) -> None:
+        async with async_client.admin.teams.with_streaming_response.get_management_relationship(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            team = await response.parse()
+            assert_matches_type(ManagementRelationshipResponse, team, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_get_management_relationship(self, async_client: AsyncStructify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `managed_team_id` but received ''"):
+            await async_client.admin.teams.with_raw_response.get_management_relationship(
+                "",
+            )
+
+    @parametrize
     async def test_method_grant_credits(self, async_client: AsyncStructify) -> None:
         team = await async_client.admin.teams.grant_credits(
             amount=0,
@@ -731,6 +952,38 @@ class TestAsyncTeams:
 
             team = await response.parse()
             assert_matches_type(GrantCreditsResponse, team, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_method_list_management_relationships(self, async_client: AsyncStructify) -> None:
+        team = await async_client.admin.teams.list_management_relationships()
+        assert_matches_type(ListManagementRelationshipsResponse, team, path=["response"])
+
+    @parametrize
+    async def test_method_list_management_relationships_with_all_params(self, async_client: AsyncStructify) -> None:
+        team = await async_client.admin.teams.list_management_relationships(
+            manager_team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(ListManagementRelationshipsResponse, team, path=["response"])
+
+    @parametrize
+    async def test_raw_response_list_management_relationships(self, async_client: AsyncStructify) -> None:
+        response = await async_client.admin.teams.with_raw_response.list_management_relationships()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        team = await response.parse()
+        assert_matches_type(ListManagementRelationshipsResponse, team, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_list_management_relationships(self, async_client: AsyncStructify) -> None:
+        async with async_client.admin.teams.with_streaming_response.list_management_relationships() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            team = await response.parse()
+            assert_matches_type(ListManagementRelationshipsResponse, team, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -885,5 +1138,39 @@ class TestAsyncTeams:
 
             team = await response.parse()
             assert_matches_type(UpdateSeatsOverrideResponse, team, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_method_upsert_management_relationship(self, async_client: AsyncStructify) -> None:
+        team = await async_client.admin.teams.upsert_management_relationship(
+            managed_team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            manager_team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(ManagementRelationshipResponse, team, path=["response"])
+
+    @parametrize
+    async def test_raw_response_upsert_management_relationship(self, async_client: AsyncStructify) -> None:
+        response = await async_client.admin.teams.with_raw_response.upsert_management_relationship(
+            managed_team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            manager_team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        team = await response.parse()
+        assert_matches_type(ManagementRelationshipResponse, team, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_upsert_management_relationship(self, async_client: AsyncStructify) -> None:
+        async with async_client.admin.teams.with_streaming_response.upsert_management_relationship(
+            managed_team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            manager_team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            team = await response.parse()
+            assert_matches_type(ManagementRelationshipResponse, team, path=["response"])
 
         assert cast(Any, response.is_closed) is True
