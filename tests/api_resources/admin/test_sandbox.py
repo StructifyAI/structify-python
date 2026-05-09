@@ -51,6 +51,44 @@ class TestSandbox:
 
         assert cast(Any, response.is_closed) is True
 
+    @parametrize
+    def test_method_terminate(self, client: Structify) -> None:
+        sandbox = client.admin.sandbox.terminate(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(Sandbox, sandbox, path=["response"])
+
+    @parametrize
+    def test_raw_response_terminate(self, client: Structify) -> None:
+        response = client.admin.sandbox.with_raw_response.terminate(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        sandbox = response.parse()
+        assert_matches_type(Sandbox, sandbox, path=["response"])
+
+    @parametrize
+    def test_streaming_response_terminate(self, client: Structify) -> None:
+        with client.admin.sandbox.with_streaming_response.terminate(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            sandbox = response.parse()
+            assert_matches_type(Sandbox, sandbox, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_path_params_terminate(self, client: Structify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `sandbox_id` but received ''"):
+            client.admin.sandbox.with_raw_response.terminate(
+                "",
+            )
+
 
 class TestAsyncSandbox:
     parametrize = pytest.mark.parametrize(
@@ -89,3 +127,41 @@ class TestAsyncSandbox:
             assert_matches_type(AsyncJobsList[Sandbox], sandbox, path=["response"])
 
         assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_method_terminate(self, async_client: AsyncStructify) -> None:
+        sandbox = await async_client.admin.sandbox.terminate(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(Sandbox, sandbox, path=["response"])
+
+    @parametrize
+    async def test_raw_response_terminate(self, async_client: AsyncStructify) -> None:
+        response = await async_client.admin.sandbox.with_raw_response.terminate(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        sandbox = await response.parse()
+        assert_matches_type(Sandbox, sandbox, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_terminate(self, async_client: AsyncStructify) -> None:
+        async with async_client.admin.sandbox.with_streaming_response.terminate(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            sandbox = await response.parse()
+            assert_matches_type(Sandbox, sandbox, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_terminate(self, async_client: AsyncStructify) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `sandbox_id` but received ''"):
+            await async_client.admin.sandbox.with_raw_response.terminate(
+                "",
+            )

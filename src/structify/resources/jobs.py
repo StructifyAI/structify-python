@@ -11,8 +11,8 @@ from typing_extensions import Literal
 import httpx
 
 from ..types import job_list_params, job_status_params
-from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, SequenceNotStr, omit, not_given
-from .._utils import maybe_transform, async_maybe_transform
+from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
+from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -23,12 +23,10 @@ from .._response import (
 )
 from ..pagination import SyncJobsList, AsyncJobsList
 from .._base_client import AsyncPaginator, make_request_options
+from ..types.job_get_response import JobGetResponse
 from ..types.job_list_response import JobListResponse
-from ..types.job_cancel_response import JobCancelResponse
 from ..types.job_status_response import JobStatusResponse
 from ..types.get_job_events_response import GetJobEventsResponse
-from ..types.job_get_scrapers_response import JobGetScrapersResponse
-from ..types.job_get_source_entities_response import JobGetSourceEntitiesResponse
 
 __all__ = ["JobsResource", "AsyncJobsResource"]
 
@@ -57,7 +55,8 @@ class JobsResource(SyncAPIResource):
         self,
         *,
         dataset: Optional[str] | Omit = omit,
-        job_type: Optional[Literal["Web", "Pdf", "Derive", "Scrape", "Match", "ConnectorExplore"]] | Omit = omit,
+        job_type: Optional[Literal["Web", "Pdf", "Derive", "Scrape", "Match", "ConnectorExplore", "DatahubIngestion"]]
+        | Omit = omit,
         limit: int | Omit = omit,
         node_id: Optional[str] | Omit = omit,
         offset: int | Omit = omit,
@@ -120,9 +119,9 @@ class JobsResource(SyncAPIResource):
             model=JobListResponse,
         )
 
-    def cancel(
+    def get(
         self,
-        uuid: str,
+        job_id: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -130,10 +129,8 @@ class JobsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> JobCancelResponse:
+    ) -> JobGetResponse:
         """
-        You successfully cancelled a job.
-
         Args:
           extra_headers: Send extra headers
 
@@ -143,14 +140,14 @@ class JobsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not uuid:
-            raise ValueError(f"Expected a non-empty value for `uuid` but received {uuid!r}")
-        return self._post(
-            f"/jobs/cancel/{uuid}",
+        if not job_id:
+            raise ValueError(f"Expected a non-empty value for `job_id` but received {job_id!r}")
+        return self._get(
+            path_template("/jobs/get/{job_id}", job_id=job_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=JobCancelResponse,
+            cast_to=JobGetResponse,
         )
 
     def get_events(
@@ -177,100 +174,11 @@ class JobsResource(SyncAPIResource):
         if not job_id:
             raise ValueError(f"Expected a non-empty value for `job_id` but received {job_id!r}")
         return self._get(
-            f"/jobs/{job_id}/events",
+            path_template("/jobs/{job_id}/events", job_id=job_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=GetJobEventsResponse,
-        )
-
-    def get_scrapers(
-        self,
-        job_id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> JobGetScrapersResponse:
-        """
-        Retrieve scrapers associated with a job from structify.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not job_id:
-            raise ValueError(f"Expected a non-empty value for `job_id` but received {job_id!r}")
-        return self._get(
-            f"/jobs/get_scrapers/{job_id}",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=JobGetScrapersResponse,
-        )
-
-    def get_source_entities(
-        self,
-        job_id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> JobGetSourceEntitiesResponse:
-        """
-        Get all source entities and their associated sources for a specific job
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not job_id:
-            raise ValueError(f"Expected a non-empty value for `job_id` but received {job_id!r}")
-        return self._get(
-            f"/jobs/get_source_entities/{job_id}",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=JobGetSourceEntitiesResponse,
-        )
-
-    def schedule(
-        self,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> None:
-        """
-        One example use case is every single day check the news websites and pull them
-        into my dataset.
-        """
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
-        return self._post(
-            "/jobs/schedule",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=NoneType,
         )
 
     def status(
@@ -410,7 +318,8 @@ class AsyncJobsResource(AsyncAPIResource):
         self,
         *,
         dataset: Optional[str] | Omit = omit,
-        job_type: Optional[Literal["Web", "Pdf", "Derive", "Scrape", "Match", "ConnectorExplore"]] | Omit = omit,
+        job_type: Optional[Literal["Web", "Pdf", "Derive", "Scrape", "Match", "ConnectorExplore", "DatahubIngestion"]]
+        | Omit = omit,
         limit: int | Omit = omit,
         node_id: Optional[str] | Omit = omit,
         offset: int | Omit = omit,
@@ -473,9 +382,9 @@ class AsyncJobsResource(AsyncAPIResource):
             model=JobListResponse,
         )
 
-    async def cancel(
+    async def get(
         self,
-        uuid: str,
+        job_id: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -483,10 +392,8 @@ class AsyncJobsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> JobCancelResponse:
+    ) -> JobGetResponse:
         """
-        You successfully cancelled a job.
-
         Args:
           extra_headers: Send extra headers
 
@@ -496,14 +403,14 @@ class AsyncJobsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not uuid:
-            raise ValueError(f"Expected a non-empty value for `uuid` but received {uuid!r}")
-        return await self._post(
-            f"/jobs/cancel/{uuid}",
+        if not job_id:
+            raise ValueError(f"Expected a non-empty value for `job_id` but received {job_id!r}")
+        return await self._get(
+            path_template("/jobs/get/{job_id}", job_id=job_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=JobCancelResponse,
+            cast_to=JobGetResponse,
         )
 
     async def get_events(
@@ -530,100 +437,11 @@ class AsyncJobsResource(AsyncAPIResource):
         if not job_id:
             raise ValueError(f"Expected a non-empty value for `job_id` but received {job_id!r}")
         return await self._get(
-            f"/jobs/{job_id}/events",
+            path_template("/jobs/{job_id}/events", job_id=job_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=GetJobEventsResponse,
-        )
-
-    async def get_scrapers(
-        self,
-        job_id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> JobGetScrapersResponse:
-        """
-        Retrieve scrapers associated with a job from structify.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not job_id:
-            raise ValueError(f"Expected a non-empty value for `job_id` but received {job_id!r}")
-        return await self._get(
-            f"/jobs/get_scrapers/{job_id}",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=JobGetScrapersResponse,
-        )
-
-    async def get_source_entities(
-        self,
-        job_id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> JobGetSourceEntitiesResponse:
-        """
-        Get all source entities and their associated sources for a specific job
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not job_id:
-            raise ValueError(f"Expected a non-empty value for `job_id` but received {job_id!r}")
-        return await self._get(
-            f"/jobs/get_source_entities/{job_id}",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=JobGetSourceEntitiesResponse,
-        )
-
-    async def schedule(
-        self,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> None:
-        """
-        One example use case is every single day check the news websites and pull them
-        into my dataset.
-        """
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
-        return await self._post(
-            "/jobs/schedule",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=NoneType,
         )
 
     async def status(
@@ -679,20 +497,11 @@ class JobsResourceWithRawResponse:
         self.list = to_raw_response_wrapper(
             jobs.list,
         )
-        self.cancel = to_raw_response_wrapper(
-            jobs.cancel,
+        self.get = to_raw_response_wrapper(
+            jobs.get,
         )
         self.get_events = to_raw_response_wrapper(
             jobs.get_events,
-        )
-        self.get_scrapers = to_raw_response_wrapper(
-            jobs.get_scrapers,
-        )
-        self.get_source_entities = to_raw_response_wrapper(
-            jobs.get_source_entities,
-        )
-        self.schedule = to_raw_response_wrapper(
-            jobs.schedule,
         )
         self.status = to_raw_response_wrapper(
             jobs.status,
@@ -709,20 +518,11 @@ class AsyncJobsResourceWithRawResponse:
         self.list = async_to_raw_response_wrapper(
             jobs.list,
         )
-        self.cancel = async_to_raw_response_wrapper(
-            jobs.cancel,
+        self.get = async_to_raw_response_wrapper(
+            jobs.get,
         )
         self.get_events = async_to_raw_response_wrapper(
             jobs.get_events,
-        )
-        self.get_scrapers = async_to_raw_response_wrapper(
-            jobs.get_scrapers,
-        )
-        self.get_source_entities = async_to_raw_response_wrapper(
-            jobs.get_source_entities,
-        )
-        self.schedule = async_to_raw_response_wrapper(
-            jobs.schedule,
         )
         self.status = async_to_raw_response_wrapper(
             jobs.status,
@@ -736,20 +536,11 @@ class JobsResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             jobs.list,
         )
-        self.cancel = to_streamed_response_wrapper(
-            jobs.cancel,
+        self.get = to_streamed_response_wrapper(
+            jobs.get,
         )
         self.get_events = to_streamed_response_wrapper(
             jobs.get_events,
-        )
-        self.get_scrapers = to_streamed_response_wrapper(
-            jobs.get_scrapers,
-        )
-        self.get_source_entities = to_streamed_response_wrapper(
-            jobs.get_source_entities,
-        )
-        self.schedule = to_streamed_response_wrapper(
-            jobs.schedule,
         )
         self.status = to_streamed_response_wrapper(
             jobs.status,
@@ -766,20 +557,11 @@ class AsyncJobsResourceWithStreamingResponse:
         self.list = async_to_streamed_response_wrapper(
             jobs.list,
         )
-        self.cancel = async_to_streamed_response_wrapper(
-            jobs.cancel,
+        self.get = async_to_streamed_response_wrapper(
+            jobs.get,
         )
         self.get_events = async_to_streamed_response_wrapper(
             jobs.get_events,
-        )
-        self.get_scrapers = async_to_streamed_response_wrapper(
-            jobs.get_scrapers,
-        )
-        self.get_source_entities = async_to_streamed_response_wrapper(
-            jobs.get_source_entities,
-        )
-        self.schedule = async_to_streamed_response_wrapper(
-            jobs.schedule,
         )
         self.status = async_to_streamed_response_wrapper(
             jobs.status,

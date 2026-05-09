@@ -8,8 +8,9 @@ from typing_extensions import Literal
 import httpx
 
 from ..types import document_list_params, document_delete_params, document_upload_params, document_download_params
+from .._files import deepcopy_with_paths
 from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, FileTypes, omit, not_given
-from .._utils import extract_files, maybe_transform, deepcopy_minimal, async_maybe_transform
+from .._utils import extract_files, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -184,12 +185,13 @@ class DocumentsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
-        body = deepcopy_minimal(
+        body = deepcopy_with_paths(
             {
                 "content": content,
                 "file_type": file_type,
                 "path": path,
-            }
+            },
+            [["content"], ["path"]],
         )
         files = extract_files(cast(Mapping[str, object], body), paths=[["content"], ["path"]])
         # It should be noted that the actual Content-Type header that will be
@@ -376,12 +378,13 @@ class AsyncDocumentsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
-        body = deepcopy_minimal(
+        body = deepcopy_with_paths(
             {
                 "content": content,
                 "file_type": file_type,
                 "path": path,
-            }
+            },
+            [["content"], ["path"]],
         )
         files = extract_files(cast(Mapping[str, object], body), paths=[["content"], ["path"]])
         # It should be noted that the actual Content-Type header that will be

@@ -14,9 +14,7 @@ class EntityListJobsResponseItem(BaseModel):
 
     created_at: datetime
 
-    dataset_id: str
-
-    job_type: Literal["Web", "Pdf", "Derive", "Scrape", "Match", "ConnectorExplore"]
+    job_type: Literal["Web", "Pdf", "Derive", "Scrape", "Match", "ConnectorExplore", "DatahubIngestion"]
 
     max_steps_without_save: int
 
@@ -29,6 +27,12 @@ class EntityListJobsResponseItem(BaseModel):
     use_proxy: bool
 
     user_id: str
+
+    cached_from_job_id: Optional[str] = None
+
+    dataset_id: Optional[str] = None
+
+    exploration_run_id: Optional[str] = None
 
     max_errors: Optional[int] = None
 

@@ -22,6 +22,8 @@ __all__ = ["DatasetResource", "AsyncDatasetResource"]
 
 
 class DatasetResource(SyncAPIResource):
+    """Admin endpoints"""
+
     @cached_property
     def with_raw_response(self) -> DatasetResourceWithRawResponse:
         """
@@ -78,6 +80,8 @@ class DatasetResource(SyncAPIResource):
 
 
 class AsyncDatasetResource(AsyncAPIResource):
+    """Admin endpoints"""
+
     @cached_property
     def with_raw_response(self) -> AsyncDatasetResourceWithRawResponse:
         """

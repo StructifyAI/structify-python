@@ -9,6 +9,8 @@ __all__ = ["ChatUpdateSessionParams"]
 
 
 class ChatUpdateSessionParams(TypedDict, total=False):
+    message_head: Optional[str]
+
     name: Optional[str]
 
     project_id: Optional[str]

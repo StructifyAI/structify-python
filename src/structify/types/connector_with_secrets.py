@@ -12,8 +12,6 @@ __all__ = ["ConnectorWithSecrets", "ConnectorWithSecretsSecret"]
 class ConnectorWithSecretsSecret(BaseModel):
     """Response model for listing secrets (without sensitive data)"""
 
-    id: str
-
     created_at: datetime
 
     secret_name: str

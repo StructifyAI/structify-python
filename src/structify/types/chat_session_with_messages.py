@@ -7,17 +7,7 @@ from .._models import BaseModel
 from .chat_visibility import ChatVisibility
 from .chat_session_role import ChatSessionRole
 
-__all__ = ["ChatSessionWithMessages", "Commit", "Message", "MessageStreamChunk"]
-
-
-class Commit(BaseModel):
-    id: str
-
-    chat_session_id: str
-
-    commit_hash: str
-
-    created_at: datetime
+__all__ = ["ChatSessionWithMessages", "Message", "MessageStreamChunk"]
 
 
 class MessageStreamChunk(BaseModel):
@@ -26,6 +16,8 @@ class MessageStreamChunk(BaseModel):
     chunk_type: str
 
     content: str
+
+    model: Optional[str] = None
 
 
 class Message(BaseModel):
@@ -41,9 +33,17 @@ class Message(BaseModel):
 
     timestamp: datetime
 
+    cache_creation_tokens: Optional[int] = None
+
+    cache_read_tokens: Optional[int] = None
+
     content_proto: Optional[object] = None
 
-    git_commit_id: Optional[str] = None
+    git_hash: Optional[str] = None
+
+    input_tokens: Optional[int] = None
+
+    output_tokens: Optional[int] = None
 
     previous_message_id: Optional[str] = None
 
@@ -65,9 +65,9 @@ class Message(BaseModel):
 class ChatSessionWithMessages(BaseModel):
     id: str
 
-    commits: List[Commit]
-
     created_at: datetime
+
+    ephemeral: bool
 
     git_application_token: str
 
@@ -87,7 +87,11 @@ class ChatSessionWithMessages(BaseModel):
 
     visibility: ChatVisibility
 
+    instantiated_from_template_id: Optional[str] = None
+
     latest_workflow_session_id: Optional[str] = None
+
+    message_head: Optional[str] = None
 
     name: Optional[str] = None
 

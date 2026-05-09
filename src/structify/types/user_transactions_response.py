@@ -20,6 +20,10 @@ class UserTransactionsResponseItem(BaseModel):
 
     timestamp: datetime
 
+    chat_message_id: Optional[str] = None
+
+    connector_explorer_chat_id: Optional[str] = None
+
     credit_grant_id: Optional[str] = None
 
     job_id: Optional[str] = None

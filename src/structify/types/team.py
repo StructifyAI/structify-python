@@ -5,7 +5,13 @@ from datetime import datetime
 
 from .._models import BaseModel
 
-__all__ = ["Team"]
+__all__ = ["Team", "WorkflowBucket"]
+
+
+class WorkflowBucket(BaseModel):
+    bucket_url: str
+
+    gcp_credentials_json: Optional[str] = None
 
 
 class Team(BaseModel):
@@ -15,13 +21,11 @@ class Team(BaseModel):
 
     name: str
 
+    sandbox_provider: str
+
     updated_at: datetime
 
     description: Optional[str] = None
-
-    pipedream_project_id: Optional[str] = None
-
-    sandbox_provider: Optional[str] = None
 
     seats_override: Optional[int] = None
 
@@ -36,3 +40,5 @@ class Team(BaseModel):
     teams_service_url: Optional[str] = None
 
     teams_tenant_id: Optional[str] = None
+
+    workflow_bucket: Optional[WorkflowBucket] = None

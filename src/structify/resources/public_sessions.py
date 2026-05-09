@@ -5,6 +5,7 @@ from __future__ import annotations
 import httpx
 
 from .._types import Body, Query, Headers, NotGiven, not_given
+from .._utils import path_template
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -71,7 +72,7 @@ class PublicSessionsResource(SyncAPIResource):
         if not chat_session_id:
             raise ValueError(f"Expected a non-empty value for `chat_session_id` but received {chat_session_id!r}")
         return self._get(
-            f"/public/chat/{chat_session_id}/latest-workflow",
+            path_template("/public/chat/{chat_session_id}/latest-workflow", chat_session_id=chat_session_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -103,7 +104,7 @@ class PublicSessionsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `node_id` but received {node_id!r}")
         extra_headers = {"Accept": "application/octet-stream", **(extra_headers or {})}
         return self._get(
-            f"/public/nodes/{node_id}/output_data",
+            path_template("/public/nodes/{node_id}/output_data", node_id=node_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -155,7 +156,7 @@ class AsyncPublicSessionsResource(AsyncAPIResource):
         if not chat_session_id:
             raise ValueError(f"Expected a non-empty value for `chat_session_id` but received {chat_session_id!r}")
         return await self._get(
-            f"/public/chat/{chat_session_id}/latest-workflow",
+            path_template("/public/chat/{chat_session_id}/latest-workflow", chat_session_id=chat_session_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -187,7 +188,7 @@ class AsyncPublicSessionsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `node_id` but received {node_id!r}")
         extra_headers = {"Accept": "application/octet-stream", **(extra_headers or {})}
         return await self._get(
-            f"/public/nodes/{node_id}/output_data",
+            path_template("/public/nodes/{node_id}/output_data", node_id=node_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),

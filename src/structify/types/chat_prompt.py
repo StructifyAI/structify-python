@@ -7,7 +7,6 @@ from pydantic import Field as FieldInfo
 
 from .message import Message
 from .._models import BaseModel
-from .tool_metadata import ToolMetadata
 from .knowledge_graph import KnowledgeGraph
 from .save_requirement import SaveRequirement
 from .dataset_descriptor import DatasetDescriptor
@@ -33,6 +32,8 @@ __all__ = [
     "DecodingParamsParameterThinking",
     "DecodingParamsParameterVerbosity",
     "DecodingParamsParameterReasoningEffort",
+    "DecodingParamsParameterNativeTools",
+    "DecodingParamsParameterNativeToolsNativeTool",
     "Metadata",
     "MetadataFormatterSpecific",
     "MetadataFormatterSpecificImageMeta",
@@ -116,6 +117,19 @@ class DecodingParamsParameterReasoningEffort(BaseModel):
     reasoning_effort: Literal["low", "medium", "high", "minimal"] = FieldInfo(alias="ReasoningEffort")
 
 
+class DecodingParamsParameterNativeToolsNativeTool(BaseModel):
+    description: str
+
+    name: str
+
+    parameters_schema: Dict[str, object]
+
+
+class DecodingParamsParameterNativeTools(BaseModel):
+    native_tools: List[DecodingParamsParameterNativeToolsNativeTool] = FieldInfo(alias="NativeTools")
+    """Native OpenAI-style tool definitions sent directly to the LLM."""
+
+
 DecodingParamsParameter: TypeAlias = Union[
     DecodingParamsParameterMaxTokens,
     DecodingParamsParameterMaxCompletionTokens,
@@ -134,6 +148,7 @@ DecodingParamsParameter: TypeAlias = Union[
     DecodingParamsParameterThinking,
     DecodingParamsParameterVerbosity,
     DecodingParamsParameterReasoningEffort,
+    DecodingParamsParameterNativeTools,
 ]
 
 
@@ -237,8 +252,6 @@ class Metadata(BaseModel):
     extraction_criteria: List[SaveRequirement]
 
     formatter_specific: MetadataFormatterSpecific
-
-    tool_metadata: List[ToolMetadata]
 
     qa_potentially_sus_response: Optional[str] = None
 

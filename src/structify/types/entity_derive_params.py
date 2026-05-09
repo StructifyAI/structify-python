@@ -17,4 +17,6 @@ class EntityDeriveParams(TypedDict, total=False):
 
     instructions: Required[str]
 
+    model: Optional[str]
+
     node_id: Optional[str]

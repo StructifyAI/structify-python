@@ -20,7 +20,11 @@ from ._types import (
     RequestOptions,
     not_given,
 )
-from ._utils import is_given, get_async_library
+from ._utils import (
+    is_given,
+    is_mapping_t,
+    get_async_library,
+)
 from ._compat import cached_property
 from ._version import __version__
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
@@ -48,11 +52,14 @@ if TYPE_CHECKING:
         server,
         sandbox,
         sources,
+        uploads,
+        webhook,
         datasets,
         entities,
         projects,
         sessions,
         workflow,
+        analytics,
         documents,
         structure,
         connectors,
@@ -74,11 +81,14 @@ if TYPE_CHECKING:
     from .resources.server import ServerResource, AsyncServerResource
     from .resources.sandbox import SandboxResource, AsyncSandboxResource
     from .resources.sources import SourcesResource, AsyncSourcesResource
+    from .resources.uploads import UploadsResource, AsyncUploadsResource
+    from .resources.webhook import WebhookResource, AsyncWebhookResource
     from .resources.datasets import DatasetsResource, AsyncDatasetsResource
     from .resources.entities import EntitiesResource, AsyncEntitiesResource
     from .resources.projects import ProjectsResource, AsyncProjectsResource
     from .resources.sessions import SessionsResource, AsyncSessionsResource
     from .resources.workflow import WorkflowResource, AsyncWorkflowResource
+    from .resources.analytics import AnalyticsResource, AsyncAnalyticsResource
     from .resources.documents import DocumentsResource, AsyncDocumentsResource
     from .resources.structure import StructureResource, AsyncStructureResource
     from .resources.user.user import UserResource, AsyncUserResource
@@ -179,6 +189,15 @@ class Structify(SyncAPIClient):
             except KeyError as exc:
                 raise ValueError(f"Unknown environment: {environment}") from exc
 
+        custom_headers_env = os.environ.get("STRUCTIFY_CUSTOM_HEADERS")
+        if custom_headers_env is not None:
+            parsed: dict[str, str] = {}
+            for line in custom_headers_env.split("\n"):
+                colon = line.find(":")
+                if colon >= 0:
+                    parsed[line[:colon].strip()] = line[colon + 1 :].strip()
+            default_headers = {**parsed, **(default_headers if is_mapping_t(default_headers) else {})}
+
         super().__init__(
             version=__version__,
             base_url=base_url,
@@ -192,6 +211,7 @@ class Structify(SyncAPIClient):
 
     @cached_property
     def whitelabel(self) -> WhitelabelResource:
+        """Whitelabeled service proxy endpoints"""
         from .resources.whitelabel import WhitelabelResource
 
         return WhitelabelResource(self)
@@ -210,12 +230,14 @@ class Structify(SyncAPIClient):
 
     @cached_property
     def teams(self) -> TeamsResource:
+        """Team management endpoints"""
         from .resources.teams import TeamsResource
 
         return TeamsResource(self)
 
     @cached_property
     def wiki(self) -> WikiResource:
+        """Team wiki page management endpoints"""
         from .resources.wiki import WikiResource
 
         return WikiResource(self)
@@ -228,18 +250,21 @@ class Structify(SyncAPIClient):
 
     @cached_property
     def projects(self) -> ProjectsResource:
+        """Project management endpoints"""
         from .resources.projects import ProjectsResource
 
         return ProjectsResource(self)
 
     @cached_property
     def admin(self) -> AdminResource:
+        """Admin endpoints"""
         from .resources.admin import AdminResource
 
         return AdminResource(self)
 
     @cached_property
     def datasets(self) -> DatasetsResource:
+        """Dataset management endpoints"""
         from .resources.datasets import DatasetsResource
 
         return DatasetsResource(self)
@@ -269,10 +294,28 @@ class Structify(SyncAPIClient):
         return SessionsResource(self)
 
     @cached_property
+    def uploads(self) -> UploadsResource:
+        from .resources.uploads import UploadsResource
+
+        return UploadsResource(self)
+
+    @cached_property
     def workflow_schedule(self) -> WorkflowScheduleResource:
         from .resources.workflow_schedule import WorkflowScheduleResource
 
         return WorkflowScheduleResource(self)
+
+    @cached_property
+    def webhook(self) -> WebhookResource:
+        from .resources.webhook import WebhookResource
+
+        return WebhookResource(self)
+
+    @cached_property
+    def analytics(self) -> AnalyticsResource:
+        from .resources.analytics import AnalyticsResource
+
+        return AnalyticsResource(self)
 
     @cached_property
     def workflow(self) -> WorkflowResource:
@@ -312,6 +355,7 @@ class Structify(SyncAPIClient):
 
     @cached_property
     def sandbox(self) -> SandboxResource:
+        """Sandbox management endpoints"""
         from .resources.sandbox import SandboxResource
 
         return SandboxResource(self)
@@ -324,6 +368,7 @@ class Structify(SyncAPIClient):
 
     @cached_property
     def code(self) -> CodeResource:
+        """Code generation endpoints"""
         from .resources.code import CodeResource
 
         return CodeResource(self)
@@ -566,6 +611,15 @@ class AsyncStructify(AsyncAPIClient):
             except KeyError as exc:
                 raise ValueError(f"Unknown environment: {environment}") from exc
 
+        custom_headers_env = os.environ.get("STRUCTIFY_CUSTOM_HEADERS")
+        if custom_headers_env is not None:
+            parsed: dict[str, str] = {}
+            for line in custom_headers_env.split("\n"):
+                colon = line.find(":")
+                if colon >= 0:
+                    parsed[line[:colon].strip()] = line[colon + 1 :].strip()
+            default_headers = {**parsed, **(default_headers if is_mapping_t(default_headers) else {})}
+
         super().__init__(
             version=__version__,
             base_url=base_url,
@@ -579,6 +633,7 @@ class AsyncStructify(AsyncAPIClient):
 
     @cached_property
     def whitelabel(self) -> AsyncWhitelabelResource:
+        """Whitelabeled service proxy endpoints"""
         from .resources.whitelabel import AsyncWhitelabelResource
 
         return AsyncWhitelabelResource(self)
@@ -597,30 +652,35 @@ class AsyncStructify(AsyncAPIClient):
 
     @cached_property
     def teams(self) -> AsyncTeamsResource:
+        """Team management endpoints"""
         from .resources.teams import AsyncTeamsResource
 
         return AsyncTeamsResource(self)
 
     @cached_property
     def wiki(self) -> AsyncWikiResource:
+        """Team wiki page management endpoints"""
         from .resources.wiki import AsyncWikiResource
 
         return AsyncWikiResource(self)
 
     @cached_property
     def projects(self) -> AsyncProjectsResource:
+        """Project management endpoints"""
         from .resources.projects import AsyncProjectsResource
 
         return AsyncProjectsResource(self)
 
     @cached_property
     def admin(self) -> AsyncAdminResource:
+        """Admin endpoints"""
         from .resources.admin import AsyncAdminResource
 
         return AsyncAdminResource(self)
 
     @cached_property
     def datasets(self) -> AsyncDatasetsResource:
+        """Dataset management endpoints"""
         from .resources.datasets import AsyncDatasetsResource
 
         return AsyncDatasetsResource(self)
@@ -650,10 +710,28 @@ class AsyncStructify(AsyncAPIClient):
         return AsyncSessionsResource(self)
 
     @cached_property
+    def uploads(self) -> AsyncUploadsResource:
+        from .resources.uploads import AsyncUploadsResource
+
+        return AsyncUploadsResource(self)
+
+    @cached_property
     def workflow_schedule(self) -> AsyncWorkflowScheduleResource:
         from .resources.workflow_schedule import AsyncWorkflowScheduleResource
 
         return AsyncWorkflowScheduleResource(self)
+
+    @cached_property
+    def webhook(self) -> AsyncWebhookResource:
+        from .resources.webhook import AsyncWebhookResource
+
+        return AsyncWebhookResource(self)
+
+    @cached_property
+    def analytics(self) -> AsyncAnalyticsResource:
+        from .resources.analytics import AsyncAnalyticsResource
+
+        return AsyncAnalyticsResource(self)
 
     @cached_property
     def workflow(self) -> AsyncWorkflowResource:
@@ -693,6 +771,7 @@ class AsyncStructify(AsyncAPIClient):
 
     @cached_property
     def sandbox(self) -> AsyncSandboxResource:
+        """Sandbox management endpoints"""
         from .resources.sandbox import AsyncSandboxResource
 
         return AsyncSandboxResource(self)
@@ -705,6 +784,7 @@ class AsyncStructify(AsyncAPIClient):
 
     @cached_property
     def code(self) -> AsyncCodeResource:
+        """Code generation endpoints"""
         from .resources.code import AsyncCodeResource
 
         return AsyncCodeResource(self)
@@ -883,6 +963,7 @@ class StructifyWithRawResponse:
 
     @cached_property
     def whitelabel(self) -> whitelabel.WhitelabelResourceWithRawResponse:
+        """Whitelabeled service proxy endpoints"""
         from .resources.whitelabel import WhitelabelResourceWithRawResponse
 
         return WhitelabelResourceWithRawResponse(self._client.whitelabel)
@@ -901,18 +982,21 @@ class StructifyWithRawResponse:
 
     @cached_property
     def teams(self) -> teams.TeamsResourceWithRawResponse:
+        """Team management endpoints"""
         from .resources.teams import TeamsResourceWithRawResponse
 
         return TeamsResourceWithRawResponse(self._client.teams)
 
     @cached_property
     def wiki(self) -> wiki.WikiResourceWithRawResponse:
+        """Team wiki page management endpoints"""
         from .resources.wiki import WikiResourceWithRawResponse
 
         return WikiResourceWithRawResponse(self._client.wiki)
 
     @cached_property
     def projects(self) -> projects.ProjectsResourceWithRawResponse:
+        """Project management endpoints"""
         from .resources.projects import ProjectsResourceWithRawResponse
 
         return ProjectsResourceWithRawResponse(self._client.projects)
@@ -925,12 +1009,14 @@ class StructifyWithRawResponse:
 
     @cached_property
     def admin(self) -> admin.AdminResourceWithRawResponse:
+        """Admin endpoints"""
         from .resources.admin import AdminResourceWithRawResponse
 
         return AdminResourceWithRawResponse(self._client.admin)
 
     @cached_property
     def datasets(self) -> datasets.DatasetsResourceWithRawResponse:
+        """Dataset management endpoints"""
         from .resources.datasets import DatasetsResourceWithRawResponse
 
         return DatasetsResourceWithRawResponse(self._client.datasets)
@@ -960,10 +1046,28 @@ class StructifyWithRawResponse:
         return SessionsResourceWithRawResponse(self._client.sessions)
 
     @cached_property
+    def uploads(self) -> uploads.UploadsResourceWithRawResponse:
+        from .resources.uploads import UploadsResourceWithRawResponse
+
+        return UploadsResourceWithRawResponse(self._client.uploads)
+
+    @cached_property
     def workflow_schedule(self) -> workflow_schedule.WorkflowScheduleResourceWithRawResponse:
         from .resources.workflow_schedule import WorkflowScheduleResourceWithRawResponse
 
         return WorkflowScheduleResourceWithRawResponse(self._client.workflow_schedule)
+
+    @cached_property
+    def webhook(self) -> webhook.WebhookResourceWithRawResponse:
+        from .resources.webhook import WebhookResourceWithRawResponse
+
+        return WebhookResourceWithRawResponse(self._client.webhook)
+
+    @cached_property
+    def analytics(self) -> analytics.AnalyticsResourceWithRawResponse:
+        from .resources.analytics import AnalyticsResourceWithRawResponse
+
+        return AnalyticsResourceWithRawResponse(self._client.analytics)
 
     @cached_property
     def workflow(self) -> workflow.WorkflowResourceWithRawResponse:
@@ -1003,6 +1107,7 @@ class StructifyWithRawResponse:
 
     @cached_property
     def sandbox(self) -> sandbox.SandboxResourceWithRawResponse:
+        """Sandbox management endpoints"""
         from .resources.sandbox import SandboxResourceWithRawResponse
 
         return SandboxResourceWithRawResponse(self._client.sandbox)
@@ -1015,6 +1120,7 @@ class StructifyWithRawResponse:
 
     @cached_property
     def code(self) -> code.CodeResourceWithRawResponse:
+        """Code generation endpoints"""
         from .resources.code import CodeResourceWithRawResponse
 
         return CodeResourceWithRawResponse(self._client.code)
@@ -1052,6 +1158,7 @@ class AsyncStructifyWithRawResponse:
 
     @cached_property
     def whitelabel(self) -> whitelabel.AsyncWhitelabelResourceWithRawResponse:
+        """Whitelabeled service proxy endpoints"""
         from .resources.whitelabel import AsyncWhitelabelResourceWithRawResponse
 
         return AsyncWhitelabelResourceWithRawResponse(self._client.whitelabel)
@@ -1070,30 +1177,35 @@ class AsyncStructifyWithRawResponse:
 
     @cached_property
     def teams(self) -> teams.AsyncTeamsResourceWithRawResponse:
+        """Team management endpoints"""
         from .resources.teams import AsyncTeamsResourceWithRawResponse
 
         return AsyncTeamsResourceWithRawResponse(self._client.teams)
 
     @cached_property
     def wiki(self) -> wiki.AsyncWikiResourceWithRawResponse:
+        """Team wiki page management endpoints"""
         from .resources.wiki import AsyncWikiResourceWithRawResponse
 
         return AsyncWikiResourceWithRawResponse(self._client.wiki)
 
     @cached_property
     def projects(self) -> projects.AsyncProjectsResourceWithRawResponse:
+        """Project management endpoints"""
         from .resources.projects import AsyncProjectsResourceWithRawResponse
 
         return AsyncProjectsResourceWithRawResponse(self._client.projects)
 
     @cached_property
     def admin(self) -> admin.AsyncAdminResourceWithRawResponse:
+        """Admin endpoints"""
         from .resources.admin import AsyncAdminResourceWithRawResponse
 
         return AsyncAdminResourceWithRawResponse(self._client.admin)
 
     @cached_property
     def datasets(self) -> datasets.AsyncDatasetsResourceWithRawResponse:
+        """Dataset management endpoints"""
         from .resources.datasets import AsyncDatasetsResourceWithRawResponse
 
         return AsyncDatasetsResourceWithRawResponse(self._client.datasets)
@@ -1123,10 +1235,28 @@ class AsyncStructifyWithRawResponse:
         return AsyncSessionsResourceWithRawResponse(self._client.sessions)
 
     @cached_property
+    def uploads(self) -> uploads.AsyncUploadsResourceWithRawResponse:
+        from .resources.uploads import AsyncUploadsResourceWithRawResponse
+
+        return AsyncUploadsResourceWithRawResponse(self._client.uploads)
+
+    @cached_property
     def workflow_schedule(self) -> workflow_schedule.AsyncWorkflowScheduleResourceWithRawResponse:
         from .resources.workflow_schedule import AsyncWorkflowScheduleResourceWithRawResponse
 
         return AsyncWorkflowScheduleResourceWithRawResponse(self._client.workflow_schedule)
+
+    @cached_property
+    def webhook(self) -> webhook.AsyncWebhookResourceWithRawResponse:
+        from .resources.webhook import AsyncWebhookResourceWithRawResponse
+
+        return AsyncWebhookResourceWithRawResponse(self._client.webhook)
+
+    @cached_property
+    def analytics(self) -> analytics.AsyncAnalyticsResourceWithRawResponse:
+        from .resources.analytics import AsyncAnalyticsResourceWithRawResponse
+
+        return AsyncAnalyticsResourceWithRawResponse(self._client.analytics)
 
     @cached_property
     def workflow(self) -> workflow.AsyncWorkflowResourceWithRawResponse:
@@ -1166,6 +1296,7 @@ class AsyncStructifyWithRawResponse:
 
     @cached_property
     def sandbox(self) -> sandbox.AsyncSandboxResourceWithRawResponse:
+        """Sandbox management endpoints"""
         from .resources.sandbox import AsyncSandboxResourceWithRawResponse
 
         return AsyncSandboxResourceWithRawResponse(self._client.sandbox)
@@ -1178,6 +1309,7 @@ class AsyncStructifyWithRawResponse:
 
     @cached_property
     def code(self) -> code.AsyncCodeResourceWithRawResponse:
+        """Code generation endpoints"""
         from .resources.code import AsyncCodeResourceWithRawResponse
 
         return AsyncCodeResourceWithRawResponse(self._client.code)
@@ -1215,6 +1347,7 @@ class StructifyWithStreamedResponse:
 
     @cached_property
     def whitelabel(self) -> whitelabel.WhitelabelResourceWithStreamingResponse:
+        """Whitelabeled service proxy endpoints"""
         from .resources.whitelabel import WhitelabelResourceWithStreamingResponse
 
         return WhitelabelResourceWithStreamingResponse(self._client.whitelabel)
@@ -1233,18 +1366,21 @@ class StructifyWithStreamedResponse:
 
     @cached_property
     def teams(self) -> teams.TeamsResourceWithStreamingResponse:
+        """Team management endpoints"""
         from .resources.teams import TeamsResourceWithStreamingResponse
 
         return TeamsResourceWithStreamingResponse(self._client.teams)
 
     @cached_property
     def wiki(self) -> wiki.WikiResourceWithStreamingResponse:
+        """Team wiki page management endpoints"""
         from .resources.wiki import WikiResourceWithStreamingResponse
 
         return WikiResourceWithStreamingResponse(self._client.wiki)
 
     @cached_property
     def projects(self) -> projects.ProjectsResourceWithStreamingResponse:
+        """Project management endpoints"""
         from .resources.projects import ProjectsResourceWithStreamingResponse
 
         return ProjectsResourceWithStreamingResponse(self._client.projects)
@@ -1257,12 +1393,14 @@ class StructifyWithStreamedResponse:
 
     @cached_property
     def admin(self) -> admin.AdminResourceWithStreamingResponse:
+        """Admin endpoints"""
         from .resources.admin import AdminResourceWithStreamingResponse
 
         return AdminResourceWithStreamingResponse(self._client.admin)
 
     @cached_property
     def datasets(self) -> datasets.DatasetsResourceWithStreamingResponse:
+        """Dataset management endpoints"""
         from .resources.datasets import DatasetsResourceWithStreamingResponse
 
         return DatasetsResourceWithStreamingResponse(self._client.datasets)
@@ -1292,10 +1430,28 @@ class StructifyWithStreamedResponse:
         return SessionsResourceWithStreamingResponse(self._client.sessions)
 
     @cached_property
+    def uploads(self) -> uploads.UploadsResourceWithStreamingResponse:
+        from .resources.uploads import UploadsResourceWithStreamingResponse
+
+        return UploadsResourceWithStreamingResponse(self._client.uploads)
+
+    @cached_property
     def workflow_schedule(self) -> workflow_schedule.WorkflowScheduleResourceWithStreamingResponse:
         from .resources.workflow_schedule import WorkflowScheduleResourceWithStreamingResponse
 
         return WorkflowScheduleResourceWithStreamingResponse(self._client.workflow_schedule)
+
+    @cached_property
+    def webhook(self) -> webhook.WebhookResourceWithStreamingResponse:
+        from .resources.webhook import WebhookResourceWithStreamingResponse
+
+        return WebhookResourceWithStreamingResponse(self._client.webhook)
+
+    @cached_property
+    def analytics(self) -> analytics.AnalyticsResourceWithStreamingResponse:
+        from .resources.analytics import AnalyticsResourceWithStreamingResponse
+
+        return AnalyticsResourceWithStreamingResponse(self._client.analytics)
 
     @cached_property
     def workflow(self) -> workflow.WorkflowResourceWithStreamingResponse:
@@ -1335,6 +1491,7 @@ class StructifyWithStreamedResponse:
 
     @cached_property
     def sandbox(self) -> sandbox.SandboxResourceWithStreamingResponse:
+        """Sandbox management endpoints"""
         from .resources.sandbox import SandboxResourceWithStreamingResponse
 
         return SandboxResourceWithStreamingResponse(self._client.sandbox)
@@ -1347,6 +1504,7 @@ class StructifyWithStreamedResponse:
 
     @cached_property
     def code(self) -> code.CodeResourceWithStreamingResponse:
+        """Code generation endpoints"""
         from .resources.code import CodeResourceWithStreamingResponse
 
         return CodeResourceWithStreamingResponse(self._client.code)
@@ -1384,6 +1542,7 @@ class AsyncStructifyWithStreamedResponse:
 
     @cached_property
     def whitelabel(self) -> whitelabel.AsyncWhitelabelResourceWithStreamingResponse:
+        """Whitelabeled service proxy endpoints"""
         from .resources.whitelabel import AsyncWhitelabelResourceWithStreamingResponse
 
         return AsyncWhitelabelResourceWithStreamingResponse(self._client.whitelabel)
@@ -1402,30 +1561,35 @@ class AsyncStructifyWithStreamedResponse:
 
     @cached_property
     def teams(self) -> teams.AsyncTeamsResourceWithStreamingResponse:
+        """Team management endpoints"""
         from .resources.teams import AsyncTeamsResourceWithStreamingResponse
 
         return AsyncTeamsResourceWithStreamingResponse(self._client.teams)
 
     @cached_property
     def wiki(self) -> wiki.AsyncWikiResourceWithStreamingResponse:
+        """Team wiki page management endpoints"""
         from .resources.wiki import AsyncWikiResourceWithStreamingResponse
 
         return AsyncWikiResourceWithStreamingResponse(self._client.wiki)
 
     @cached_property
     def projects(self) -> projects.AsyncProjectsResourceWithStreamingResponse:
+        """Project management endpoints"""
         from .resources.projects import AsyncProjectsResourceWithStreamingResponse
 
         return AsyncProjectsResourceWithStreamingResponse(self._client.projects)
 
     @cached_property
     def admin(self) -> admin.AsyncAdminResourceWithStreamingResponse:
+        """Admin endpoints"""
         from .resources.admin import AsyncAdminResourceWithStreamingResponse
 
         return AsyncAdminResourceWithStreamingResponse(self._client.admin)
 
     @cached_property
     def datasets(self) -> datasets.AsyncDatasetsResourceWithStreamingResponse:
+        """Dataset management endpoints"""
         from .resources.datasets import AsyncDatasetsResourceWithStreamingResponse
 
         return AsyncDatasetsResourceWithStreamingResponse(self._client.datasets)
@@ -1455,10 +1619,28 @@ class AsyncStructifyWithStreamedResponse:
         return AsyncSessionsResourceWithStreamingResponse(self._client.sessions)
 
     @cached_property
+    def uploads(self) -> uploads.AsyncUploadsResourceWithStreamingResponse:
+        from .resources.uploads import AsyncUploadsResourceWithStreamingResponse
+
+        return AsyncUploadsResourceWithStreamingResponse(self._client.uploads)
+
+    @cached_property
     def workflow_schedule(self) -> workflow_schedule.AsyncWorkflowScheduleResourceWithStreamingResponse:
         from .resources.workflow_schedule import AsyncWorkflowScheduleResourceWithStreamingResponse
 
         return AsyncWorkflowScheduleResourceWithStreamingResponse(self._client.workflow_schedule)
+
+    @cached_property
+    def webhook(self) -> webhook.AsyncWebhookResourceWithStreamingResponse:
+        from .resources.webhook import AsyncWebhookResourceWithStreamingResponse
+
+        return AsyncWebhookResourceWithStreamingResponse(self._client.webhook)
+
+    @cached_property
+    def analytics(self) -> analytics.AsyncAnalyticsResourceWithStreamingResponse:
+        from .resources.analytics import AsyncAnalyticsResourceWithStreamingResponse
+
+        return AsyncAnalyticsResourceWithStreamingResponse(self._client.analytics)
 
     @cached_property
     def workflow(self) -> workflow.AsyncWorkflowResourceWithStreamingResponse:
@@ -1498,6 +1680,7 @@ class AsyncStructifyWithStreamedResponse:
 
     @cached_property
     def sandbox(self) -> sandbox.AsyncSandboxResourceWithStreamingResponse:
+        """Sandbox management endpoints"""
         from .resources.sandbox import AsyncSandboxResourceWithStreamingResponse
 
         return AsyncSandboxResourceWithStreamingResponse(self._client.sandbox)
@@ -1510,6 +1693,7 @@ class AsyncStructifyWithStreamedResponse:
 
     @cached_property
     def code(self) -> code.AsyncCodeResourceWithStreamingResponse:
+        """Code generation endpoints"""
         from .resources.code import AsyncCodeResourceWithStreamingResponse
 
         return AsyncCodeResourceWithStreamingResponse(self._client.code)

@@ -2,7 +2,10 @@
 
 from __future__ import annotations
 
+from typing import Iterable
 from typing_extensions import Required, TypedDict
+
+from ..template_question_param import TemplateQuestionParam
 
 __all__ = ["ChatTemplateCreateParams"]
 
@@ -17,5 +20,7 @@ class ChatTemplateCreateParams(TypedDict, total=False):
     image_url: Required[str]
 
     is_active: Required[bool]
+
+    questions: Required[Iterable[TemplateQuestionParam]]
 
     title: Required[str]

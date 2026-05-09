@@ -2,8 +2,7 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Optional
-from datetime import datetime
+from typing import List, Optional
 from typing_extensions import Literal
 
 import httpx
@@ -18,17 +17,18 @@ from ..._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ...types.admin import user_create_params, user_get_stats_params, user_impersonate_params
+from ...types.admin import user_create_params, user_impersonate_params
 from ..._base_client import make_request_options
 from ...types.token_response import TokenResponse
 from ...types.admin.user_list_response import UserListResponse
 from ...types.admin.impersonate_response import ImpersonateResponse
-from ...types.admin.user_get_stats_response import UserGetStatsResponse
 
 __all__ = ["UsersResource", "AsyncUsersResource"]
 
 
 class UsersResource(SyncAPIResource):
+    """Admin endpoints"""
+
     @cached_property
     def with_raw_response(self) -> UsersResourceWithRawResponse:
         """
@@ -131,49 +131,6 @@ class UsersResource(SyncAPIResource):
             cast_to=UserListResponse,
         )
 
-    def get_stats(
-        self,
-        *,
-        bucket: Literal["Second", "Minute", "Hour", "Day", "Week", "Month", "Quarter", "Year", "Decade"] | Omit = omit,
-        end_date: Union[str, datetime] | Omit = omit,
-        start_date: Union[str, datetime] | Omit = omit,
-        user_email: Optional[str] | Omit = omit,
-        user_token: Optional[str] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> UserGetStatsResponse:
-        """
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return self._post(
-            "/admin/users/get_stats",
-            body=maybe_transform(
-                {
-                    "bucket": bucket,
-                    "end_date": end_date,
-                    "start_date": start_date,
-                    "user_email": user_email,
-                    "user_token": user_token,
-                },
-                user_get_stats_params.UserGetStatsParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=UserGetStatsResponse,
-        )
-
     def impersonate(
         self,
         *,
@@ -206,6 +163,8 @@ class UsersResource(SyncAPIResource):
 
 
 class AsyncUsersResource(AsyncAPIResource):
+    """Admin endpoints"""
+
     @cached_property
     def with_raw_response(self) -> AsyncUsersResourceWithRawResponse:
         """
@@ -308,49 +267,6 @@ class AsyncUsersResource(AsyncAPIResource):
             cast_to=UserListResponse,
         )
 
-    async def get_stats(
-        self,
-        *,
-        bucket: Literal["Second", "Minute", "Hour", "Day", "Week", "Month", "Quarter", "Year", "Decade"] | Omit = omit,
-        end_date: Union[str, datetime] | Omit = omit,
-        start_date: Union[str, datetime] | Omit = omit,
-        user_email: Optional[str] | Omit = omit,
-        user_token: Optional[str] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> UserGetStatsResponse:
-        """
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return await self._post(
-            "/admin/users/get_stats",
-            body=await async_maybe_transform(
-                {
-                    "bucket": bucket,
-                    "end_date": end_date,
-                    "start_date": start_date,
-                    "user_email": user_email,
-                    "user_token": user_token,
-                },
-                user_get_stats_params.UserGetStatsParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=UserGetStatsResponse,
-        )
-
     async def impersonate(
         self,
         *,
@@ -394,9 +310,6 @@ class UsersResourceWithRawResponse:
         self.list = to_raw_response_wrapper(
             users.list,
         )
-        self.get_stats = to_raw_response_wrapper(
-            users.get_stats,
-        )
         self.impersonate = to_raw_response_wrapper(
             users.impersonate,
         )
@@ -411,9 +324,6 @@ class AsyncUsersResourceWithRawResponse:
         )
         self.list = async_to_raw_response_wrapper(
             users.list,
-        )
-        self.get_stats = async_to_raw_response_wrapper(
-            users.get_stats,
         )
         self.impersonate = async_to_raw_response_wrapper(
             users.impersonate,
@@ -430,9 +340,6 @@ class UsersResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             users.list,
         )
-        self.get_stats = to_streamed_response_wrapper(
-            users.get_stats,
-        )
         self.impersonate = to_streamed_response_wrapper(
             users.impersonate,
         )
@@ -447,9 +354,6 @@ class AsyncUsersResourceWithStreamingResponse:
         )
         self.list = async_to_streamed_response_wrapper(
             users.list,
-        )
-        self.get_stats = async_to_streamed_response_wrapper(
-            users.get_stats,
         )
         self.impersonate = async_to_streamed_response_wrapper(
             users.impersonate,

@@ -12,3 +12,5 @@ class TeamListParams(TypedDict, total=False):
     limit: Optional[int]
 
     offset: Optional[int]
+
+    search: Optional[str]

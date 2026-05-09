@@ -15,6 +15,10 @@ class AdminUpdateCatalogParams(TypedDict, total=False):
 
     description: Optional[str]
 
+    enterprise_only: Optional[bool]
+
     name: Optional[str]
+
+    onboarding_priority: Optional[int]
 
     priority: Optional[int]

@@ -14,6 +14,8 @@ class Member(BaseModel):
 
     email: str
 
+    membership_id: str
+
     pending: bool
 
     role: TeamRole

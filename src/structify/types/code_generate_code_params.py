@@ -35,36 +35,24 @@ class CodeGenerateCodeParams(TypedDict, total=False):
 class Config(TypedDict, total=False):
     """Configuration for chat session with system prompt and LLM key"""
 
-    is_onboarding_session: Required[bool]
-
     llm_key: Optional[
         Literal[
-            "vllm.gpt-5-mini-2025-08-07",
-            "vllm.gpt-4.1-mini-2025-04-14",
-            "vllm.gpt-5-nano-2025-08-07",
-            "vllm.gpt-5-2025-08-07",
-            "vllm.ft:gpt-4o-2024-08-06:structify::ADrF00Gq",
-            "vllm.ft:gpt-4o-mini-2024-07-18:structify::ABCLHTsN",
-            "vllm.action",
-            "vllm.dora",
-            "vllm.boring_dora",
-            "vllm.claude-3-7-sonnet-20250219",
-            "vllm.claude-sonnet-4-20250514",
-            "vllm.qwen-3-coder-480b",
+            "claude-sonnet-4-5",
+            "claude-opus-4-5",
+            "claude-opus-4-6",
+            "claude-opus-4-7",
+            "claude-haiku-4-5",
+            "gpt-5-mini",
+            "gpt-5-nano",
+            "gpt-5",
+            "gemini-2.5-pro",
+            "gemini-2.5-flash",
+            "gemini-3-flash-preview",
+            "gemini-3.1-flash-lite-preview",
             "test_llm.test",
-            "bedrock.claude-sonnet-4-bedrock",
-            "bedrock.claude-sonnet-4-5-bedrock",
-            "bedrock.claude-opus-4-5-bedrock",
-            "bedrock.claude-opus-4-6-bedrock",
-            "bedrock.claude-haiku-4-5-bedrock",
-            "gemini.gemini-2.5-pro",
-            "gemini.gemini-2.5-flash",
-            "gemini.gemini-3-pro-preview",
-            "gemini.gemini-3-flash-preview",
-            "vertex_anthropic.claude-sonnet-4-5-vertex",
         ]
     ]
-    """LLM model keys available in the system. Format: <provider>.<model-name>"""
+    """LLM model keys available in the system."""
 
     max_steps: Optional[int]
 

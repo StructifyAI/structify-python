@@ -3,9 +3,9 @@
 from __future__ import annotations
 
 from typing import Optional
-from typing_extensions import TypedDict
+from typing_extensions import Literal, Required, TypedDict
 
-__all__ = ["TeamUpdateParams"]
+__all__ = ["TeamUpdateParams", "WorkflowBucket"]
 
 
 class TeamUpdateParams(TypedDict, total=False):
@@ -13,7 +13,7 @@ class TeamUpdateParams(TypedDict, total=False):
 
     name: Optional[str]
 
-    pipedream_project_id: Optional[str]
+    sandbox_provider: Optional[Literal["modal", "daytona"]]
 
     slack_bot_token: Optional[str]
 
@@ -28,3 +28,11 @@ class TeamUpdateParams(TypedDict, total=False):
     teams_app_password: Optional[str]
 
     teams_tenant_id: Optional[str]
+
+    workflow_bucket: Optional[WorkflowBucket]
+
+
+class WorkflowBucket(TypedDict, total=False):
+    bucket_url: Required[str]
+
+    gcp_credentials_json: Optional[str]

@@ -118,18 +118,18 @@ class TestDocuments:
     @parametrize
     def test_method_upload(self, client: Structify) -> None:
         document = client.documents.upload(
-            content=b"raw file contents",
+            content=b"Example data",
             file_type="Text",
-            path=b"raw file contents",
+            path=b"Example data",
         )
         assert document is None
 
     @parametrize
     def test_method_upload_with_all_params(self, client: Structify) -> None:
         document = client.documents.upload(
-            content=b"raw file contents",
+            content=b"Example data",
             file_type="Text",
-            path=b"raw file contents",
+            path=b"Example data",
             dataset="dataset",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
@@ -138,9 +138,9 @@ class TestDocuments:
     @parametrize
     def test_raw_response_upload(self, client: Structify) -> None:
         response = client.documents.with_raw_response.upload(
-            content=b"raw file contents",
+            content=b"Example data",
             file_type="Text",
-            path=b"raw file contents",
+            path=b"Example data",
         )
 
         assert response.is_closed is True
@@ -151,9 +151,9 @@ class TestDocuments:
     @parametrize
     def test_streaming_response_upload(self, client: Structify) -> None:
         with client.documents.with_streaming_response.upload(
-            content=b"raw file contents",
+            content=b"Example data",
             file_type="Text",
-            path=b"raw file contents",
+            path=b"Example data",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -267,18 +267,18 @@ class TestAsyncDocuments:
     @parametrize
     async def test_method_upload(self, async_client: AsyncStructify) -> None:
         document = await async_client.documents.upload(
-            content=b"raw file contents",
+            content=b"Example data",
             file_type="Text",
-            path=b"raw file contents",
+            path=b"Example data",
         )
         assert document is None
 
     @parametrize
     async def test_method_upload_with_all_params(self, async_client: AsyncStructify) -> None:
         document = await async_client.documents.upload(
-            content=b"raw file contents",
+            content=b"Example data",
             file_type="Text",
-            path=b"raw file contents",
+            path=b"Example data",
             dataset="dataset",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
@@ -287,9 +287,9 @@ class TestAsyncDocuments:
     @parametrize
     async def test_raw_response_upload(self, async_client: AsyncStructify) -> None:
         response = await async_client.documents.with_raw_response.upload(
-            content=b"raw file contents",
+            content=b"Example data",
             file_type="Text",
-            path=b"raw file contents",
+            path=b"Example data",
         )
 
         assert response.is_closed is True
@@ -300,9 +300,9 @@ class TestAsyncDocuments:
     @parametrize
     async def test_streaming_response_upload(self, async_client: AsyncStructify) -> None:
         async with async_client.documents.with_streaming_response.upload(
-            content=b"raw file contents",
+            content=b"Example data",
             file_type="Text",
-            path=b"raw file contents",
+            path=b"Example data",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

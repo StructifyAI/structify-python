@@ -24,6 +24,9 @@ class Membership(BaseModel):
 
     value: object
 
+    expires_at: Optional[datetime] = None
+    """Optional auto-revoke timestamp. Null means the membership has no cutoff."""
+
     invitation_expires_at: Optional[datetime] = None
 
     invitation_token: Optional[str] = None

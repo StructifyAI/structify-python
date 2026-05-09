@@ -110,5 +110,7 @@ class EntitySearchResponseItem(BaseModel):
 
     updated_at: datetime
 
+    job_id: Optional[str] = None
+
 
 EntitySearchResponse: TypeAlias = List[EntitySearchResponseItem]

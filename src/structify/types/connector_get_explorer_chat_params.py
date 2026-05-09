@@ -2,11 +2,17 @@
 
 from __future__ import annotations
 
-from typing_extensions import Required, TypedDict
+from typing import Optional
+from typing_extensions import TypedDict
 
 __all__ = ["ConnectorGetExplorerChatParams"]
 
 
 class ConnectorGetExplorerChatParams(TypedDict, total=False):
-    run_id: Required[str]
-    """Exploration run ID (required)"""
+    database_id: Optional[str]
+
+    run_id: Optional[str]
+
+    schema_id: Optional[str]
+
+    table_id: Optional[str]

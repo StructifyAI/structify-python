@@ -4,4 +4,4 @@ from typing_extensions import Literal, TypeAlias
 
 __all__ = ["ChatVisibility"]
 
-ChatVisibility: TypeAlias = Literal["private", "shared_with_team", "public"]
+ChatVisibility: TypeAlias = Literal["private", "shared_with_team", "shared_with_team_view", "public"]

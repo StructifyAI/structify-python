@@ -117,6 +117,22 @@ from .sources import (
     SourcesResourceWithStreamingResponse,
     AsyncSourcesResourceWithStreamingResponse,
 )
+from .uploads import (
+    UploadsResource,
+    AsyncUploadsResource,
+    UploadsResourceWithRawResponse,
+    AsyncUploadsResourceWithRawResponse,
+    UploadsResourceWithStreamingResponse,
+    AsyncUploadsResourceWithStreamingResponse,
+)
+from .webhook import (
+    WebhookResource,
+    AsyncWebhookResource,
+    WebhookResourceWithRawResponse,
+    AsyncWebhookResourceWithRawResponse,
+    WebhookResourceWithStreamingResponse,
+    AsyncWebhookResourceWithStreamingResponse,
+)
 from .datasets import (
     DatasetsResource,
     AsyncDatasetsResource,
@@ -156,6 +172,14 @@ from .workflow import (
     AsyncWorkflowResourceWithRawResponse,
     WorkflowResourceWithStreamingResponse,
     AsyncWorkflowResourceWithStreamingResponse,
+)
+from .analytics import (
+    AnalyticsResource,
+    AsyncAnalyticsResource,
+    AnalyticsResourceWithRawResponse,
+    AsyncAnalyticsResourceWithRawResponse,
+    AnalyticsResourceWithStreamingResponse,
+    AsyncAnalyticsResourceWithStreamingResponse,
 )
 from .documents import (
     DocumentsResource,
@@ -287,12 +311,30 @@ __all__ = [
     "AsyncSessionsResourceWithRawResponse",
     "SessionsResourceWithStreamingResponse",
     "AsyncSessionsResourceWithStreamingResponse",
+    "UploadsResource",
+    "AsyncUploadsResource",
+    "UploadsResourceWithRawResponse",
+    "AsyncUploadsResourceWithRawResponse",
+    "UploadsResourceWithStreamingResponse",
+    "AsyncUploadsResourceWithStreamingResponse",
     "WorkflowScheduleResource",
     "AsyncWorkflowScheduleResource",
     "WorkflowScheduleResourceWithRawResponse",
     "AsyncWorkflowScheduleResourceWithRawResponse",
     "WorkflowScheduleResourceWithStreamingResponse",
     "AsyncWorkflowScheduleResourceWithStreamingResponse",
+    "WebhookResource",
+    "AsyncWebhookResource",
+    "WebhookResourceWithRawResponse",
+    "AsyncWebhookResourceWithRawResponse",
+    "WebhookResourceWithStreamingResponse",
+    "AsyncWebhookResourceWithStreamingResponse",
+    "AnalyticsResource",
+    "AsyncAnalyticsResource",
+    "AnalyticsResourceWithRawResponse",
+    "AsyncAnalyticsResourceWithRawResponse",
+    "AnalyticsResourceWithStreamingResponse",
+    "AsyncAnalyticsResourceWithStreamingResponse",
     "WorkflowResource",
     "AsyncWorkflowResource",
     "WorkflowResourceWithRawResponse",

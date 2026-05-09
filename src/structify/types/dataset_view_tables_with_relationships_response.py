@@ -118,13 +118,13 @@ class ConnectedEntity(BaseModel):
 
     dataset_id: str
 
-    job_ids: List[str]
-
     label: str
 
     properties: Dict[str, ConnectedEntityProperties]
 
     updated_at: datetime
+
+    job_id: Optional[str] = None
 
 
 class EntityPropertiesPartialDateObject(BaseModel):
@@ -212,13 +212,13 @@ class Entity(BaseModel):
 
     dataset_id: str
 
-    job_ids: List[str]
-
     label: str
 
     properties: Dict[str, EntityProperties]
 
     updated_at: datetime
+
+    job_id: Optional[str] = None
 
 
 class RelationshipPropertiesPartialDateObject(BaseModel):

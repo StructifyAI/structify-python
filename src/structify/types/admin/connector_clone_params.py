@@ -13,4 +13,8 @@ __all__ = ["ConnectorCloneParams"]
 class ConnectorCloneParams(TypedDict, total=False):
     connectors: Required[Iterable[CloneConnectorItemParam]]
 
+    source_membership_id: Required[str]
+
+    source_team_id: Required[str]
+
     target_team_id: Required[str]

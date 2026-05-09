@@ -5,8 +5,6 @@ from __future__ import annotations
 from typing import Optional
 from typing_extensions import Required, TypedDict
 
-from .._types import SequenceNotStr
-
 __all__ = ["StructureEnhancePropertyParams"]
 
 
@@ -17,10 +15,4 @@ class StructureEnhancePropertyParams(TypedDict, total=False):
 
     allow_extra_entities: bool
 
-    banned_domains: SequenceNotStr[str]
-
     node_id: Optional[str]
-
-    starting_searches: SequenceNotStr[str]
-
-    starting_urls: SequenceNotStr[str]
