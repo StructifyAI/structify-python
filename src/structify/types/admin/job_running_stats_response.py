@@ -4,7 +4,15 @@ from typing import List
 
 from ..._models import BaseModel
 
-__all__ = ["JobRunningStatsResponse", "ByType", "ByUser"]
+__all__ = ["JobRunningStatsResponse", "ByMembership", "ByType"]
+
+
+class ByMembership(BaseModel):
+    membership_id: str
+
+    queued: int
+
+    running: int
 
 
 class ByType(BaseModel):
@@ -13,20 +21,10 @@ class ByType(BaseModel):
     job_type: str
 
 
-class ByUser(BaseModel):
-    email: str
-
-    queued: int
-
-    running: int
-
-    user_id: str
-
-
 class JobRunningStatsResponse(BaseModel):
-    by_type: List[ByType]
+    by_membership: List[ByMembership]
 
-    by_user: List[ByUser]
+    by_type: List[ByType]
 
     completed_last_hour: int
 

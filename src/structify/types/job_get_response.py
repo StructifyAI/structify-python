@@ -194,9 +194,9 @@ class Info(BaseModel):
 
     job_type: Literal["Web", "Pdf", "Derive", "Scrape", "Match", "ConnectorExplore", "DatahubIngestion"]
 
-    status: Literal["Queued", "Running", "Completed", "Failed"]
+    membership_id: str
 
-    user_id: str
+    status: Literal["Queued", "Running", "Completed", "Failed"]
 
     dataset_id: Optional[str] = None
 

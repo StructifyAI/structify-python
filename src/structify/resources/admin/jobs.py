@@ -18,13 +18,18 @@ from ..._response import (
     async_to_streamed_response_wrapper,
 )
 from ...pagination import SyncJobsList, AsyncJobsList
-from ...types.admin import job_list_params, job_delete_params, job_kill_by_user_params, job_update_concurrency_params
+from ...types.admin import (
+    job_list_params,
+    job_delete_params,
+    job_kill_by_membership_params,
+    job_update_concurrency_params,
+)
 from ..._base_client import AsyncPaginator, make_request_options
 from ...types.admin.job_list_response import JobListResponse
 from ...types.admin.job_concurrency_response import JobConcurrencyResponse
-from ...types.admin.job_kill_by_user_response import JobKillByUserResponse
 from ...types.admin.admin_delete_jobs_response import AdminDeleteJobsResponse
 from ...types.admin.job_running_stats_response import JobRunningStatsResponse
+from ...types.admin.job_kill_by_membership_response import JobKillByMembershipResponse
 from ...types.admin.job_update_concurrency_response import JobUpdateConcurrencyResponse
 
 __all__ = ["JobsResource", "AsyncJobsResource"]
@@ -58,9 +63,9 @@ class JobsResource(SyncAPIResource):
         job_type: Optional[Literal["Web", "Pdf", "Derive", "Scrape", "Match", "ConnectorExplore", "DatahubIngestion"]]
         | Omit = omit,
         limit: int | Omit = omit,
+        membership_id: Optional[str] | Omit = omit,
         offset: int | Omit = omit,
         status: Optional[Literal["Queued", "Running", "Completed", "Failed"]] | Omit = omit,
-        user_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -90,9 +95,9 @@ class JobsResource(SyncAPIResource):
                     {
                         "job_type": job_type,
                         "limit": limit,
+                        "membership_id": membership_id,
                         "offset": offset,
                         "status": status,
-                        "user_id": user_id,
                     },
                     job_list_params.JobListParams,
                 ),
@@ -148,17 +153,17 @@ class JobsResource(SyncAPIResource):
             cast_to=JobConcurrencyResponse,
         )
 
-    def kill_by_user(
+    def kill_by_membership(
         self,
         *,
-        user_id: str,
+        membership_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> JobKillByUserResponse:
+    ) -> JobKillByMembershipResponse:
         """
         Args:
           extra_headers: Send extra headers
@@ -170,12 +175,14 @@ class JobsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/admin/jobs/kill_by_user",
-            body=maybe_transform({"user_id": user_id}, job_kill_by_user_params.JobKillByUserParams),
+            "/admin/jobs/kill_by_membership",
+            body=maybe_transform(
+                {"membership_id": membership_id}, job_kill_by_membership_params.JobKillByMembershipParams
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=JobKillByUserResponse,
+            cast_to=JobKillByMembershipResponse,
         )
 
     def running_stats(
@@ -272,9 +279,9 @@ class AsyncJobsResource(AsyncAPIResource):
         job_type: Optional[Literal["Web", "Pdf", "Derive", "Scrape", "Match", "ConnectorExplore", "DatahubIngestion"]]
         | Omit = omit,
         limit: int | Omit = omit,
+        membership_id: Optional[str] | Omit = omit,
         offset: int | Omit = omit,
         status: Optional[Literal["Queued", "Running", "Completed", "Failed"]] | Omit = omit,
-        user_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -304,9 +311,9 @@ class AsyncJobsResource(AsyncAPIResource):
                     {
                         "job_type": job_type,
                         "limit": limit,
+                        "membership_id": membership_id,
                         "offset": offset,
                         "status": status,
-                        "user_id": user_id,
                     },
                     job_list_params.JobListParams,
                 ),
@@ -362,17 +369,17 @@ class AsyncJobsResource(AsyncAPIResource):
             cast_to=JobConcurrencyResponse,
         )
 
-    async def kill_by_user(
+    async def kill_by_membership(
         self,
         *,
-        user_id: str,
+        membership_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> JobKillByUserResponse:
+    ) -> JobKillByMembershipResponse:
         """
         Args:
           extra_headers: Send extra headers
@@ -384,12 +391,14 @@ class AsyncJobsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/admin/jobs/kill_by_user",
-            body=await async_maybe_transform({"user_id": user_id}, job_kill_by_user_params.JobKillByUserParams),
+            "/admin/jobs/kill_by_membership",
+            body=await async_maybe_transform(
+                {"membership_id": membership_id}, job_kill_by_membership_params.JobKillByMembershipParams
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=JobKillByUserResponse,
+            cast_to=JobKillByMembershipResponse,
         )
 
     async def running_stats(
@@ -471,8 +480,8 @@ class JobsResourceWithRawResponse:
         self.concurrency = to_raw_response_wrapper(
             jobs.concurrency,
         )
-        self.kill_by_user = to_raw_response_wrapper(
-            jobs.kill_by_user,
+        self.kill_by_membership = to_raw_response_wrapper(
+            jobs.kill_by_membership,
         )
         self.running_stats = to_raw_response_wrapper(
             jobs.running_stats,
@@ -495,8 +504,8 @@ class AsyncJobsResourceWithRawResponse:
         self.concurrency = async_to_raw_response_wrapper(
             jobs.concurrency,
         )
-        self.kill_by_user = async_to_raw_response_wrapper(
-            jobs.kill_by_user,
+        self.kill_by_membership = async_to_raw_response_wrapper(
+            jobs.kill_by_membership,
         )
         self.running_stats = async_to_raw_response_wrapper(
             jobs.running_stats,
@@ -519,8 +528,8 @@ class JobsResourceWithStreamingResponse:
         self.concurrency = to_streamed_response_wrapper(
             jobs.concurrency,
         )
-        self.kill_by_user = to_streamed_response_wrapper(
-            jobs.kill_by_user,
+        self.kill_by_membership = to_streamed_response_wrapper(
+            jobs.kill_by_membership,
         )
         self.running_stats = to_streamed_response_wrapper(
             jobs.running_stats,
@@ -543,8 +552,8 @@ class AsyncJobsResourceWithStreamingResponse:
         self.concurrency = async_to_streamed_response_wrapper(
             jobs.concurrency,
         )
-        self.kill_by_user = async_to_streamed_response_wrapper(
-            jobs.kill_by_user,
+        self.kill_by_membership = async_to_streamed_response_wrapper(
+            jobs.kill_by_membership,
         )
         self.running_stats = async_to_streamed_response_wrapper(
             jobs.running_stats,

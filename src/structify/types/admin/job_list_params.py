@@ -13,8 +13,8 @@ class JobListParams(TypedDict, total=False):
 
     limit: int
 
+    membership_id: Optional[str]
+
     offset: int
 
     status: Optional[Literal["Queued", "Running", "Completed", "Failed"]]
-
-    user_id: Optional[str]

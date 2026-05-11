@@ -4,8 +4,8 @@ from __future__ import annotations
 
 from typing_extensions import Required, TypedDict
 
-__all__ = ["JobKillByUserParams"]
+__all__ = ["JobKillByMembershipParams"]
 
 
-class JobKillByUserParams(TypedDict, total=False):
-    user_id: Required[str]
+class JobKillByMembershipParams(TypedDict, total=False):
+    membership_id: Required[str]

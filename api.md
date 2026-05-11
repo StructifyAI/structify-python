@@ -355,7 +355,7 @@ from structify.types.admin import (
     AdminListJobsRequestParams,
     JobListResponse,
     JobConcurrencyResponse,
-    JobKillByUserResponse,
+    JobKillByMembershipResponse,
     JobRunningStatsResponse,
     JobUpdateConcurrencyResponse,
 )
@@ -366,7 +366,7 @@ Methods:
 - <code title="get /admin/jobs/list">client.admin.jobs.<a href="./src/structify/resources/admin/jobs.py">list</a>(\*\*<a href="src/structify/types/admin/job_list_params.py">params</a>) -> <a href="./src/structify/types/admin/job_list_response.py">SyncJobsList[JobListResponse]</a></code>
 - <code title="post /admin/jobs/delete">client.admin.jobs.<a href="./src/structify/resources/admin/jobs.py">delete</a>(\*\*<a href="src/structify/types/admin/job_delete_params.py">params</a>) -> <a href="./src/structify/types/admin/admin_delete_jobs_response.py">AdminDeleteJobsResponse</a></code>
 - <code title="get /admin/jobs/concurrency_limits">client.admin.jobs.<a href="./src/structify/resources/admin/jobs.py">concurrency</a>() -> <a href="./src/structify/types/admin/job_concurrency_response.py">JobConcurrencyResponse</a></code>
-- <code title="post /admin/jobs/kill_by_user">client.admin.jobs.<a href="./src/structify/resources/admin/jobs.py">kill_by_user</a>(\*\*<a href="src/structify/types/admin/job_kill_by_user_params.py">params</a>) -> <a href="./src/structify/types/admin/job_kill_by_user_response.py">JobKillByUserResponse</a></code>
+- <code title="post /admin/jobs/kill_by_membership">client.admin.jobs.<a href="./src/structify/resources/admin/jobs.py">kill_by_membership</a>(\*\*<a href="src/structify/types/admin/job_kill_by_membership_params.py">params</a>) -> <a href="./src/structify/types/admin/job_kill_by_membership_response.py">JobKillByMembershipResponse</a></code>
 - <code title="get /admin/jobs/running_stats">client.admin.jobs.<a href="./src/structify/resources/admin/jobs.py">running_stats</a>() -> <a href="./src/structify/types/admin/job_running_stats_response.py">JobRunningStatsResponse</a></code>
 - <code title="put /admin/jobs/concurrency_limits">client.admin.jobs.<a href="./src/structify/resources/admin/jobs.py">update_concurrency</a>(\*\*<a href="src/structify/types/admin/job_update_concurrency_params.py">params</a>) -> <a href="./src/structify/types/admin/job_update_concurrency_response.py">JobUpdateConcurrencyResponse</a></code>
 
@@ -470,7 +470,6 @@ from structify.types import (
     DatasetCreateResponse,
     DatasetListResponse,
     DatasetCountMissingEmbeddingsResponse,
-    DatasetEnrichmentProgressResponse,
     DatasetGetResponse,
     DatasetMatchResponse,
     DatasetViewRelationshipsResponse,
@@ -486,7 +485,6 @@ Methods:
 - <code title="delete /dataset/delete">client.datasets.<a href="./src/structify/resources/datasets.py">delete</a>(\*\*<a href="src/structify/types/dataset_delete_params.py">params</a>) -> None</code>
 - <code title="post /dataset/add_property">client.datasets.<a href="./src/structify/resources/datasets.py">add_property</a>(\*\*<a href="src/structify/types/dataset_add_property_params.py">params</a>) -> None</code>
 - <code title="get /dataset/count_missing_embeddings">client.datasets.<a href="./src/structify/resources/datasets.py">count_missing_embeddings</a>(\*\*<a href="src/structify/types/dataset_count_missing_embeddings_params.py">params</a>) -> <a href="./src/structify/types/dataset_count_missing_embeddings_response.py">DatasetCountMissingEmbeddingsResponse</a></code>
-- <code title="get /dataset/enrichment_progress">client.datasets.<a href="./src/structify/resources/datasets.py">enrichment_progress</a>(\*\*<a href="src/structify/types/dataset_enrichment_progress_params.py">params</a>) -> <a href="./src/structify/types/dataset_enrichment_progress_response.py">DatasetEnrichmentProgressResponse</a></code>
 - <code title="get /dataset/export_to_csv">client.datasets.<a href="./src/structify/resources/datasets.py">export_to_csv</a>(\*\*<a href="src/structify/types/dataset_export_to_csv_params.py">params</a>) -> None</code>
 - <code title="get /dataset/export_to_excel">client.datasets.<a href="./src/structify/resources/datasets.py">export_to_excel</a>(\*\*<a href="src/structify/types/dataset_export_to_excel_params.py">params</a>) -> None</code>
 - <code title="get /dataset/info">client.datasets.<a href="./src/structify/resources/datasets.py">get</a>(\*\*<a href="src/structify/types/dataset_get_params.py">params</a>) -> <a href="./src/structify/types/dataset_get_response.py">DatasetGetResponse</a></code>

@@ -26,8 +26,6 @@ class EntityListJobsResponseItem(BaseModel):
 
     use_proxy: bool
 
-    user_id: str
-
     cached_from_job_id: Optional[str] = None
 
     dataset_id: Optional[str] = None

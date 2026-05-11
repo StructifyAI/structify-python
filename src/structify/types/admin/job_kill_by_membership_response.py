@@ -2,8 +2,8 @@
 
 from ..._models import BaseModel
 
-__all__ = ["JobKillByUserResponse"]
+__all__ = ["JobKillByMembershipResponse"]
 
 
-class JobKillByUserResponse(BaseModel):
+class JobKillByMembershipResponse(BaseModel):
     killed_jobs: int

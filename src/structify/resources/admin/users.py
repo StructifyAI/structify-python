@@ -64,7 +64,6 @@ class UsersResource(SyncAPIResource):
                 "cerebras_codegen",
                 "gemini25pro",
                 "claude_sonnet4",
-                "allow_job_deletion",
                 "none",
             ]
         ]
@@ -200,7 +199,6 @@ class AsyncUsersResource(AsyncAPIResource):
                 "cerebras_codegen",
                 "gemini25pro",
                 "claude_sonnet4",
-                "allow_job_deletion",
                 "none",
             ]
         ]
