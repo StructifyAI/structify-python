@@ -21,6 +21,7 @@ from ..._response import (
 )
 from ...types.admin import (
     SetAccessAction,
+    team_list_params,
     team_add_member_params,
     team_set_access_params,
     team_extend_trial_params,
@@ -36,6 +37,7 @@ from ...types.admin import (
 from ..._base_client import make_request_options
 from ...types.team_role import TeamRole
 from ...types.admin.set_access_action import SetAccessAction
+from ...types.admin.team_list_response import TeamListResponse
 from ...types.admin.set_access_response import SetAccessResponse
 from ...types.admin.extend_trial_response import ExtendTrialResponse
 from ...types.admin.expire_grants_response import ExpireGrantsResponse
@@ -74,6 +76,52 @@ class TeamsResource(SyncAPIResource):
         For more information, see https://www.github.com/StructifyAI/structify-python#with_streaming_response
         """
         return TeamsResourceWithStreamingResponse(self)
+
+    def list(
+        self,
+        *,
+        limit: Optional[int] | Omit = omit,
+        offset: Optional[int] | Omit = omit,
+        search: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> TeamListResponse:
+        """
+        Lists teams in the system along with their subscription information, credit
+        grants, and member counts. Supports optional pagination via limit, offset, and
+        search query parameters.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._get(
+            "/admin/team/list",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "limit": limit,
+                        "offset": offset,
+                        "search": search,
+                    },
+                    team_list_params.TeamListParams,
+                ),
+            ),
+            cast_to=TeamListResponse,
+        )
 
     def add_member(
         self,
@@ -633,6 +681,52 @@ class AsyncTeamsResource(AsyncAPIResource):
         """
         return AsyncTeamsResourceWithStreamingResponse(self)
 
+    async def list(
+        self,
+        *,
+        limit: Optional[int] | Omit = omit,
+        offset: Optional[int] | Omit = omit,
+        search: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> TeamListResponse:
+        """
+        Lists teams in the system along with their subscription information, credit
+        grants, and member counts. Supports optional pagination via limit, offset, and
+        search query parameters.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._get(
+            "/admin/team/list",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "limit": limit,
+                        "offset": offset,
+                        "search": search,
+                    },
+                    team_list_params.TeamListParams,
+                ),
+            ),
+            cast_to=TeamListResponse,
+        )
+
     async def add_member(
         self,
         *,
@@ -1175,6 +1269,9 @@ class TeamsResourceWithRawResponse:
     def __init__(self, teams: TeamsResource) -> None:
         self._teams = teams
 
+        self.list = to_raw_response_wrapper(
+            teams.list,
+        )
         self.add_member = to_raw_response_wrapper(
             teams.add_member,
         )
@@ -1223,6 +1320,9 @@ class AsyncTeamsResourceWithRawResponse:
     def __init__(self, teams: AsyncTeamsResource) -> None:
         self._teams = teams
 
+        self.list = async_to_raw_response_wrapper(
+            teams.list,
+        )
         self.add_member = async_to_raw_response_wrapper(
             teams.add_member,
         )
@@ -1271,6 +1371,9 @@ class TeamsResourceWithStreamingResponse:
     def __init__(self, teams: TeamsResource) -> None:
         self._teams = teams
 
+        self.list = to_streamed_response_wrapper(
+            teams.list,
+        )
         self.add_member = to_streamed_response_wrapper(
             teams.add_member,
         )
@@ -1319,6 +1422,9 @@ class AsyncTeamsResourceWithStreamingResponse:
     def __init__(self, teams: AsyncTeamsResource) -> None:
         self._teams = teams
 
+        self.list = async_to_streamed_response_wrapper(
+            teams.list,
+        )
         self.add_member = async_to_streamed_response_wrapper(
             teams.add_member,
         )
