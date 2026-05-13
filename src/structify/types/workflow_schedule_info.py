@@ -11,6 +11,8 @@ __all__ = ["WorkflowScheduleInfo"]
 class WorkflowScheduleInfo(BaseModel):
     id: str
 
+    auto_healing: bool
+
     chat_session_id: str
 
     name: str

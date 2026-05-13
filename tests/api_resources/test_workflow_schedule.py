@@ -84,6 +84,7 @@ class TestWorkflowSchedule:
     def test_method_update_with_all_params(self, client: Structify) -> None:
         workflow_schedule = client.workflow_schedule.update(
             schedule_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            auto_healing=True,
             cron_schedule="cron_schedule",
             git_commit_hash="git_commit_hash",
             name="name",
@@ -419,6 +420,7 @@ class TestAsyncWorkflowSchedule:
     async def test_method_update_with_all_params(self, async_client: AsyncStructify) -> None:
         workflow_schedule = await async_client.workflow_schedule.update(
             schedule_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            auto_healing=True,
             cron_schedule="cron_schedule",
             git_commit_hash="git_commit_hash",
             name="name",

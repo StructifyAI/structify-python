@@ -96,6 +96,7 @@ class WorkflowScheduleResource(SyncAPIResource):
         self,
         schedule_id: str,
         *,
+        auto_healing: Optional[bool] | Omit = omit,
         cron_schedule: Optional[str] | Omit = omit,
         git_commit_hash: Optional[str] | Omit = omit,
         name: Optional[str] | Omit = omit,
@@ -123,6 +124,7 @@ class WorkflowScheduleResource(SyncAPIResource):
             path_template("/workflow-schedule/{schedule_id}", schedule_id=schedule_id),
             body=maybe_transform(
                 {
+                    "auto_healing": auto_healing,
                     "cron_schedule": cron_schedule,
                     "git_commit_hash": git_commit_hash,
                     "name": name,
@@ -389,6 +391,7 @@ class AsyncWorkflowScheduleResource(AsyncAPIResource):
         self,
         schedule_id: str,
         *,
+        auto_healing: Optional[bool] | Omit = omit,
         cron_schedule: Optional[str] | Omit = omit,
         git_commit_hash: Optional[str] | Omit = omit,
         name: Optional[str] | Omit = omit,
@@ -416,6 +419,7 @@ class AsyncWorkflowScheduleResource(AsyncAPIResource):
             path_template("/workflow-schedule/{schedule_id}", schedule_id=schedule_id),
             body=await async_maybe_transform(
                 {
+                    "auto_healing": auto_healing,
                     "cron_schedule": cron_schedule,
                     "git_commit_hash": git_commit_hash,
                     "name": name,

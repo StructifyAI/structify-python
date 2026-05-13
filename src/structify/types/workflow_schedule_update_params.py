@@ -9,6 +9,8 @@ __all__ = ["WorkflowScheduleUpdateParams"]
 
 
 class WorkflowScheduleUpdateParams(TypedDict, total=False):
+    auto_healing: Optional[bool]
+
     cron_schedule: Optional[str]
 
     git_commit_hash: Optional[str]
