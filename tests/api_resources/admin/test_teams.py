@@ -11,7 +11,6 @@ from structify import Structify, AsyncStructify
 from tests.utils import assert_matches_type
 from structify._utils import parse_datetime
 from structify.types.admin import (
-    TeamListResponse,
     SetAccessResponse,
     ExtendTrialResponse,
     ExpireGrantsResponse,
@@ -32,40 +31,6 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
 class TestTeams:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
-
-    @parametrize
-    def test_method_list(self, client: Structify) -> None:
-        team = client.admin.teams.list()
-        assert_matches_type(TeamListResponse, team, path=["response"])
-
-    @parametrize
-    def test_method_list_with_all_params(self, client: Structify) -> None:
-        team = client.admin.teams.list(
-            limit=0,
-            offset=0,
-            search="search",
-        )
-        assert_matches_type(TeamListResponse, team, path=["response"])
-
-    @parametrize
-    def test_raw_response_list(self, client: Structify) -> None:
-        response = client.admin.teams.with_raw_response.list()
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        team = response.parse()
-        assert_matches_type(TeamListResponse, team, path=["response"])
-
-    @parametrize
-    def test_streaming_response_list(self, client: Structify) -> None:
-        with client.admin.teams.with_streaming_response.list() as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            team = response.parse()
-            assert_matches_type(TeamListResponse, team, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
 
     @parametrize
     def test_method_add_member(self, client: Structify) -> None:
@@ -606,40 +571,6 @@ class TestAsyncTeams:
     parametrize = pytest.mark.parametrize(
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
-
-    @parametrize
-    async def test_method_list(self, async_client: AsyncStructify) -> None:
-        team = await async_client.admin.teams.list()
-        assert_matches_type(TeamListResponse, team, path=["response"])
-
-    @parametrize
-    async def test_method_list_with_all_params(self, async_client: AsyncStructify) -> None:
-        team = await async_client.admin.teams.list(
-            limit=0,
-            offset=0,
-            search="search",
-        )
-        assert_matches_type(TeamListResponse, team, path=["response"])
-
-    @parametrize
-    async def test_raw_response_list(self, async_client: AsyncStructify) -> None:
-        response = await async_client.admin.teams.with_raw_response.list()
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        team = await response.parse()
-        assert_matches_type(TeamListResponse, team, path=["response"])
-
-    @parametrize
-    async def test_streaming_response_list(self, async_client: AsyncStructify) -> None:
-        async with async_client.admin.teams.with_streaming_response.list() as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            team = await response.parse()
-            assert_matches_type(TeamListResponse, team, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
 
     @parametrize
     async def test_method_add_member(self, async_client: AsyncStructify) -> None:

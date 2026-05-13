@@ -101,7 +101,7 @@ class ChatResource(SyncAPIResource):
         self,
         chat_id: str,
         *,
-        email: str,
+        membership_id: str,
         role: ChatSessionRole,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -127,7 +127,7 @@ class ChatResource(SyncAPIResource):
             path_template("/chat/sessions/{chat_id}/collaborators", chat_id=chat_id),
             body=maybe_transform(
                 {
-                    "email": email,
+                    "membership_id": membership_id,
                     "role": role,
                 },
                 chat_add_collaborator_params.ChatAddCollaboratorParams,
@@ -978,7 +978,7 @@ class ChatResource(SyncAPIResource):
 
     def remove_collaborator(
         self,
-        user_id: str,
+        membership_id: str,
         *,
         chat_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -1000,11 +1000,13 @@ class ChatResource(SyncAPIResource):
         """
         if not chat_id:
             raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
-        if not user_id:
-            raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
+        if not membership_id:
+            raise ValueError(f"Expected a non-empty value for `membership_id` but received {membership_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._delete(
-            path_template("/chat/sessions/{chat_id}/collaborators/{user_id}", chat_id=chat_id, user_id=user_id),
+            path_template(
+                "/chat/sessions/{chat_id}/collaborators/{membership_id}", chat_id=chat_id, membership_id=membership_id
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1222,7 +1224,7 @@ class AsyncChatResource(AsyncAPIResource):
         self,
         chat_id: str,
         *,
-        email: str,
+        membership_id: str,
         role: ChatSessionRole,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1248,7 +1250,7 @@ class AsyncChatResource(AsyncAPIResource):
             path_template("/chat/sessions/{chat_id}/collaborators", chat_id=chat_id),
             body=await async_maybe_transform(
                 {
-                    "email": email,
+                    "membership_id": membership_id,
                     "role": role,
                 },
                 chat_add_collaborator_params.ChatAddCollaboratorParams,
@@ -2103,7 +2105,7 @@ class AsyncChatResource(AsyncAPIResource):
 
     async def remove_collaborator(
         self,
-        user_id: str,
+        membership_id: str,
         *,
         chat_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -2125,11 +2127,13 @@ class AsyncChatResource(AsyncAPIResource):
         """
         if not chat_id:
             raise ValueError(f"Expected a non-empty value for `chat_id` but received {chat_id!r}")
-        if not user_id:
-            raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
+        if not membership_id:
+            raise ValueError(f"Expected a non-empty value for `membership_id` but received {membership_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._delete(
-            path_template("/chat/sessions/{chat_id}/collaborators/{user_id}", chat_id=chat_id, user_id=user_id),
+            path_template(
+                "/chat/sessions/{chat_id}/collaborators/{membership_id}", chat_id=chat_id, membership_id=membership_id
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),

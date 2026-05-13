@@ -6,24 +6,26 @@ from datetime import datetime
 from .._models import BaseModel
 from .chat_session_role import ChatSessionRole
 
-__all__ = ["ListCollaboratorsResponse", "User"]
+__all__ = ["ListCollaboratorsResponse", "Collaborator"]
 
 
-class User(BaseModel):
-    """DTO for chat collaborator with user email information"""
+class Collaborator(BaseModel):
+    """DTO for chat collaborator.
+
+    Identity is keyed on membership_id — clients
+    resolve email/name via their team-members lookup.
+    """
 
     created_at: datetime
 
-    email: str
+    membership_id: str
 
     role: ChatSessionRole
 
     updated_at: datetime
 
-    user_id: str
-
 
 class ListCollaboratorsResponse(BaseModel):
     """Response for listing collaborators"""
 
-    users: List[User]
+    collaborators: List[Collaborator]

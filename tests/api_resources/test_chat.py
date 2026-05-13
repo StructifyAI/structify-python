@@ -54,7 +54,7 @@ class TestChat:
     def test_method_add_collaborator(self, client: Structify) -> None:
         chat = client.chat.add_collaborator(
             chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            email="email",
+            membership_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             role="viewer",
         )
         assert chat is None
@@ -63,7 +63,7 @@ class TestChat:
     def test_raw_response_add_collaborator(self, client: Structify) -> None:
         response = client.chat.with_raw_response.add_collaborator(
             chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            email="email",
+            membership_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             role="viewer",
         )
 
@@ -76,7 +76,7 @@ class TestChat:
     def test_streaming_response_add_collaborator(self, client: Structify) -> None:
         with client.chat.with_streaming_response.add_collaborator(
             chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            email="email",
+            membership_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             role="viewer",
         ) as response:
             assert not response.is_closed
@@ -92,7 +92,7 @@ class TestChat:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `chat_id` but received ''"):
             client.chat.with_raw_response.add_collaborator(
                 chat_id="",
-                email="email",
+                membership_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 role="viewer",
             )
 
@@ -1019,7 +1019,7 @@ class TestChat:
     @parametrize
     def test_method_remove_collaborator(self, client: Structify) -> None:
         chat = client.chat.remove_collaborator(
-            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            membership_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert chat is None
@@ -1027,7 +1027,7 @@ class TestChat:
     @parametrize
     def test_raw_response_remove_collaborator(self, client: Structify) -> None:
         response = client.chat.with_raw_response.remove_collaborator(
-            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            membership_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
@@ -1039,7 +1039,7 @@ class TestChat:
     @parametrize
     def test_streaming_response_remove_collaborator(self, client: Structify) -> None:
         with client.chat.with_streaming_response.remove_collaborator(
-            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            membership_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
@@ -1054,13 +1054,13 @@ class TestChat:
     def test_path_params_remove_collaborator(self, client: Structify) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `chat_id` but received ''"):
             client.chat.with_raw_response.remove_collaborator(
-                user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                membership_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 chat_id="",
             )
 
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `user_id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `membership_id` but received ''"):
             client.chat.with_raw_response.remove_collaborator(
-                user_id="",
+                membership_id="",
                 chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
@@ -1479,7 +1479,7 @@ class TestAsyncChat:
     async def test_method_add_collaborator(self, async_client: AsyncStructify) -> None:
         chat = await async_client.chat.add_collaborator(
             chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            email="email",
+            membership_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             role="viewer",
         )
         assert chat is None
@@ -1488,7 +1488,7 @@ class TestAsyncChat:
     async def test_raw_response_add_collaborator(self, async_client: AsyncStructify) -> None:
         response = await async_client.chat.with_raw_response.add_collaborator(
             chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            email="email",
+            membership_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             role="viewer",
         )
 
@@ -1501,7 +1501,7 @@ class TestAsyncChat:
     async def test_streaming_response_add_collaborator(self, async_client: AsyncStructify) -> None:
         async with async_client.chat.with_streaming_response.add_collaborator(
             chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            email="email",
+            membership_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             role="viewer",
         ) as response:
             assert not response.is_closed
@@ -1517,7 +1517,7 @@ class TestAsyncChat:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `chat_id` but received ''"):
             await async_client.chat.with_raw_response.add_collaborator(
                 chat_id="",
-                email="email",
+                membership_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 role="viewer",
             )
 
@@ -2446,7 +2446,7 @@ class TestAsyncChat:
     @parametrize
     async def test_method_remove_collaborator(self, async_client: AsyncStructify) -> None:
         chat = await async_client.chat.remove_collaborator(
-            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            membership_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert chat is None
@@ -2454,7 +2454,7 @@ class TestAsyncChat:
     @parametrize
     async def test_raw_response_remove_collaborator(self, async_client: AsyncStructify) -> None:
         response = await async_client.chat.with_raw_response.remove_collaborator(
-            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            membership_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
@@ -2466,7 +2466,7 @@ class TestAsyncChat:
     @parametrize
     async def test_streaming_response_remove_collaborator(self, async_client: AsyncStructify) -> None:
         async with async_client.chat.with_streaming_response.remove_collaborator(
-            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            membership_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
@@ -2481,13 +2481,13 @@ class TestAsyncChat:
     async def test_path_params_remove_collaborator(self, async_client: AsyncStructify) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `chat_id` but received ''"):
             await async_client.chat.with_raw_response.remove_collaborator(
-                user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                membership_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 chat_id="",
             )
 
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `user_id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `membership_id` but received ''"):
             await async_client.chat.with_raw_response.remove_collaborator(
-                user_id="",
+                membership_id="",
                 chat_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 

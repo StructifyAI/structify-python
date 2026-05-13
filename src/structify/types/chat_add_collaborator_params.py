@@ -10,6 +10,6 @@ __all__ = ["ChatAddCollaboratorParams"]
 
 
 class ChatAddCollaboratorParams(TypedDict, total=False):
-    email: Required[str]
+    membership_id: Required[str]
 
     role: Required[ChatSessionRole]

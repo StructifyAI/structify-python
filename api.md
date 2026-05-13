@@ -165,7 +165,7 @@ Methods:
 - <code title="get /chat/input-files/download-all/{chat_id}">client.chat.<a href="./src/structify/resources/chat.py">load_input_files</a>(chat_id, \*\*<a href="src/structify/types/chat_load_input_files_params.py">params</a>) -> <a href="./src/structify/types/chat_load_input_files_response.py">ChatLoadInputFilesResponse</a></code>
 - <code title="patch /chat/sessions/{session_id}/make-permanent">client.chat.<a href="./src/structify/resources/chat.py">make_permanent</a>(session_id) -> None</code>
 - <code title="get /chat/sessions/{chat_id}/pending_wiki_edits">client.chat.<a href="./src/structify/resources/chat.py">pending_wiki_edits</a>(chat_id) -> <a href="./src/structify/types/chat_pending_wiki_edits_response.py">ChatPendingWikiEditsResponse</a></code>
-- <code title="delete /chat/sessions/{chat_id}/collaborators/{user_id}">client.chat.<a href="./src/structify/resources/chat.py">remove_collaborator</a>(user_id, \*, chat_id) -> None</code>
+- <code title="delete /chat/sessions/{chat_id}/collaborators/{membership_id}">client.chat.<a href="./src/structify/resources/chat.py">remove_collaborator</a>(membership_id, \*, chat_id) -> None</code>
 - <code title="post /chat/sessions/{session_id}/revert">client.chat.<a href="./src/structify/resources/chat.py">revert_to_commit</a>(session_id, \*\*<a href="src/structify/types/chat_revert_to_commit_params.py">params</a>) -> <a href="./src/structify/types/chat_revert_to_commit_response.py">ChatRevertToCommitResponse</a></code>
 - <code title="post /chat/{chat_session_id}/simulate-prompt">client.chat.<a href="./src/structify/resources/chat.py">simulate_prompt</a>(chat_session_id, \*\*<a href="src/structify/types/chat_simulate_prompt_params.py">params</a>) -> <a href="./src/structify/types/simulate_prompt_response.py">SimulatePromptResponse</a></code>
 - <code title="patch /chat/sessions/{session_id}">client.chat.<a href="./src/structify/resources/chat.py">update_session</a>(session_id, \*\*<a href="src/structify/types/chat_update_session_params.py">params</a>) -> <a href="./src/structify/types/chat_session.py">ChatSession</a></code>
@@ -288,7 +288,6 @@ from structify.types.admin import (
     AdminListMembersResponse,
     AdminRemoveMemberRequest,
     AdminRemoveMemberResponse,
-    AdminTeamsListResponse,
     CancelSubscriptionRequest,
     CancelSubscriptionResponse,
     CreateSubscriptionResponse,
@@ -310,13 +309,11 @@ from structify.types.admin import (
     UpdateSeatsOverrideRequest,
     UpdateSeatsOverrideResponse,
     UpsertManagementRelationshipRequest,
-    TeamListResponse,
 )
 ```
 
 Methods:
 
-- <code title="get /admin/team/list">client.admin.teams.<a href="./src/structify/resources/admin/teams.py">list</a>(\*\*<a href="src/structify/types/admin/team_list_params.py">params</a>) -> <a href="./src/structify/types/admin/team_list_response.py">TeamListResponse</a></code>
 - <code title="post /admin/team/add_member">client.admin.teams.<a href="./src/structify/resources/admin/teams.py">add_member</a>(\*\*<a href="src/structify/types/admin/team_add_member_params.py">params</a>) -> <a href="./src/structify/types/admin/admin_add_member_response.py">AdminAddMemberResponse</a></code>
 - <code title="post /admin/team/cancel_subscription">client.admin.teams.<a href="./src/structify/resources/admin/teams.py">cancel_subscription</a>(\*\*<a href="src/structify/types/admin/team_cancel_subscription_params.py">params</a>) -> <a href="./src/structify/types/admin/cancel_subscription_response.py">CancelSubscriptionResponse</a></code>
 - <code title="post /admin/team/create_subscription">client.admin.teams.<a href="./src/structify/resources/admin/teams.py">create_subscription</a>(\*\*<a href="src/structify/types/admin/team_create_subscription_params.py">params</a>) -> <a href="./src/structify/types/admin/create_subscription_response.py">CreateSubscriptionResponse</a></code>
