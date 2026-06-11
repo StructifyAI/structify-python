@@ -20,7 +20,6 @@ class UserInfo(BaseModel):
         Literal[
             "functional_test",
             "pdf_parsing",
-            "boredm_construction_model",
             "generic_suspicious_queue",
             "new_use_case_preview",
             "bedrock_codegen",
